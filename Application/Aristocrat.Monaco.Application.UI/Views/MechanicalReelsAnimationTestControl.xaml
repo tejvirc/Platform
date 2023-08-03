@@ -330,7 +330,7 @@
         <StackPanel Orientation="Horizontal"
                     AutomationProperties.AutomationId="StackPanel40_A97F2FA5">
             <Button
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.HomeButton}}"
+                Content="{lex:Loc HomeButton}"
                 Command="{Binding HomeCommand}"
                 Name="HomeButton"
                 IsEnabled="{Binding HomeEnabled}"
@@ -340,7 +340,7 @@
                 Width="150"
                 AutomationProperties.AutomationId="Button41_A97F2FA5" />
             <Button
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.PlayStepperCurveButton}}"
+                Content="{lex:Loc PlayStepperCurveButton}"
                 Command="{Binding PlayStepperCurveCommand}"
                 IsEnabled="{Binding PlayCurveEnabled}"
                 HorizontalAlignment="Left"

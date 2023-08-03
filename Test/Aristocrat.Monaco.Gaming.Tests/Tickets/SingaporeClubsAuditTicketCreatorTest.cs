@@ -150,6 +150,10 @@
         public int MaximumWagerOutsideCredits { get; set; }
 
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
+        public IEnumerable<ISubGameDetails> SupportedSubGames { get; }
+
+        public IEnumerable<ISubGameDetails> ActiveSubGames { get; }
     }
 
     internal class TestDenomination : IDenomination
@@ -190,6 +194,8 @@
         public bool LetItRideAllowed { get; set; }
 
         public bool LetItRideEnabled { get; set; }
+
+        public long DisplayedValue { get; }
     }
 
     /// <summary>

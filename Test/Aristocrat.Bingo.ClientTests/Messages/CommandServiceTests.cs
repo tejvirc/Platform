@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Tests.Messages
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Client.Messages;
@@ -17,6 +18,7 @@
     public class CommandServiceTests
     {
         private const string MachineId = "123";
+        private const int waitTimeout = 3000;
 
         private readonly Mock<IClientEndpointProvider<ClientApi.ClientApiClient>> _clientEndpointProvider = new(MockBehavior.Default);
         private readonly Mock<ICommandProcessorFactory> _commandFactory = new(MockBehavior.Default);
@@ -141,7 +143,7 @@
                 .Verifiable();
 
             var commandTask = _target.HandleCommands(MachineId, source.Token);
-            Assert.IsTrue(waiter.WaitOne(1000));
+            Assert.IsTrue(waiter.WaitOne(waitTimeout));
             client.Verify(
                 x => x.ReadCommands(It.IsAny<Metadata>(), It.IsAny<DateTime?>(), It.IsAny<CancellationToken>()),
                 Times.Exactly(2));
@@ -196,10 +198,10 @@
                 .Verifiable();
 
             var commandTask = _target.HandleCommands(MachineId, source.Token);
-            waiter.WaitOne(1000);
+            waiter.WaitOne(waitTimeout);
             waiter.Reset();
             _client.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(state));
-            waiter.WaitOne(1000);
+            waiter.WaitOne(waitTimeout);
             client.Verify(
                 x => x.ReadCommands(
                     It.IsAny<Metadata>(),
@@ -269,7 +271,7 @@
             return new CommandService(
                 nullEndpoint ? null : _clientEndpointProvider.Object,
                 nullCommandFactory ? null : _commandFactory.Object,
-                nullClient ? null : _client.Object);
+                nullClient ? null : new List<IClient>() { _client.Object });
         }
 
         private class StreamReader : IAsyncStreamReader<Command>

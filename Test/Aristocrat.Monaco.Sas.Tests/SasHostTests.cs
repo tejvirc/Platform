@@ -21,7 +21,7 @@
         private readonly Mock<IAftTransferProvider> _aftTransferProvider = new Mock<IAftTransferProvider>();
         private readonly Mock<ISasVoucherInProvider> _sasVoucherInProvider = new Mock<ISasVoucherInProvider>();
 
-       [TestInitialize]
+        [TestInitialize]
         public void MyTestInitialize()
         {
             _target = new SasHost();

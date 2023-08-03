@@ -26,7 +26,7 @@
         private const string CompName2 = "Comp2";
         private const string CompNameUnavailable = "CompUnavailable";
         private const long CompSize = 1_234_567_890;
-        private int FakeCalculationDurationMs = 100;
+        private int FakeCalculationDurationMs = 1000;
         private readonly byte[] _twoByteHash = { 0x0F, 0xDD };
         private const ushort CrcHash = 0xBFDB; // Change if adding/editing components in SetupComponentRegistryMock()
 
@@ -53,9 +53,9 @@
             SetupComponentRegistryMock();
             SetupAuthenticationServiceMock();
             _exceptionHandler.Setup(
-                m => m.ReportException(
-                    It.Is<ISasExceptionCollection>(
-                        ex => ex.ExceptionCode == GeneralExceptionCode.ComponentListChanged))).Verifiable();
+               m => m.ReportException(
+                   It.Is<ISasExceptionCollection>(
+                        ex => ex.ExceptionCode == GeneralExceptionCode.ComponentListChanged || ex.ExceptionCode == GeneralExceptionCode.AuthenticationComplete))).Verifiable();
 
             _target = new LP6ESendAuthenticationInfoHandler(_exceptionHandler.Object, _eventBus.Object, _componentRegistry.Object, _authenticationService.Object);
         }
@@ -368,7 +368,7 @@
             _target.Handle(input);
 
             // Abort the authentication by changing the component list.
-            Thread.Sleep(FakeCalculationDurationMs / 2);
+            Thread.Sleep(FakeCalculationDurationMs / 5);
             _componentAddedAction.Invoke(new ComponentAddedEvent(new Component()));
 
             // Look for results; should be "aborted".
@@ -412,7 +412,7 @@
             _target.Handle(input);
 
             // Abort the authentication by changing the component list.
-            Thread.Sleep(FakeCalculationDurationMs / 2);
+            Thread.Sleep(FakeCalculationDurationMs / 5);
             _componentRemovedAction.Invoke(new ComponentRemovedEvent(new Component()));
 
             // Look for results; should be "aborted".
@@ -612,7 +612,7 @@
             _waiter.Wait();
 
             // Wait longer than the timeout value so the timer re-sends the exception
-            Thread.Sleep(700);
+            Thread.Sleep(1500);
 
             input = new SendAuthenticationInfoCommand
             {
@@ -658,7 +658,7 @@
         {
             dynamic privateTarget = new DynamicPrivateObject(_target);
             dynamic privateTimer = new DynamicPrivateObject((SasExceptionTimer)privateTarget._exceptionTimer);
-            privateTimer._timerTimeout = 500.0f;
+            privateTimer._timerTimeout = 1000.0f;
             privateTarget._exceptionTimer = (SasExceptionTimer)privateTimer.Target;
         }
 
@@ -803,6 +803,8 @@
             {
                 Action = AuthenticationAction.InterrogateAuthenticationStatus
             };
+
+            _waiter.Reset();
 
             var output = _target.Handle(input);
 

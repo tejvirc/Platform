@@ -1,12 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Accounting.Tests
 {
-    using Accounting.Contracts;
-    using Application.Contracts;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.IO;
+    using Accounting.Contracts;
+    using Application.Contracts;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Persistence;
     using Kernel;

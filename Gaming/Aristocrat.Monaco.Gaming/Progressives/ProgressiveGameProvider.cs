@@ -101,6 +101,7 @@
             var totalLevel = _levelProvider.GetProgressiveLevels(packName, gameId, denomination);
             _activeLevels = totalLevel.Where(
                 l => (l.BetOption.IsNullOrEmpty() || l.BetOption == betOption) &&
+                     (!l.HasAssociatedBetLinePreset || l.BetOption == betOption) &&
                      (l.LevelType == ProgressiveLevelType.Sap ||
                       !l.AssignedProgressiveId.AssignedProgressiveKey.IsNullOrEmpty() &&
                       l.AssignedProgressiveId.AssignedProgressiveType != AssignableProgressiveType.None)).ToList();

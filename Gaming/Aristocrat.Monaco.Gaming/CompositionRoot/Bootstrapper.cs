@@ -19,6 +19,7 @@
     using Contracts.Bonus;
     using Contracts.Central;
     using Contracts.Configuration;
+    using Contracts.GameSpecificOptions;
     using Contracts.Meters;
     using Contracts.Payment;
     using Contracts.Process;
@@ -26,6 +27,7 @@
     using Contracts.Progressives.SharedSap;
     using Contracts.Session;
     using GameRound;
+    using GameSpecificOptions;
     using Hardware.Contracts;
     using Kernel;
     using log4net;
@@ -85,11 +87,13 @@
             container.Register<IGameMeterManager, GameMeterManager>(Lifestyle.Singleton);
             container.Register<IManifest<GameContent>, GameManifest>(Lifestyle.Singleton);
             container.Register<IManifest<IEnumerable<ProgressiveDetail>>, ProgressiveManifest>(Lifestyle.Singleton);
+            container.Register<IManifest<GameSpecificOptionConfig>, GameSpecificOptionManifest>(Lifestyle.Singleton);
             container.Register<IManifest<Image>, ImageManifest>(Lifestyle.Singleton);
             container.Register<IGameProvider, GameProvider>(Lifestyle.Singleton);
             container.Register<IGameCategoryService, GameCategoryService>(Lifestyle.Singleton);
             container.Register<ICabinetState, CabinetState>(Lifestyle.Singleton);
             container.Register<ICabinetService, CabinetService>(Lifestyle.Singleton);
+            container.Register<IHandCountResetService, HandCountResetService>(Lifestyle.Singleton);
             container.Register<IGamePlayState, GamePlayState>(Lifestyle.Singleton);
             container.Register<IGameRecovery, GameRecovery>(Lifestyle.Singleton);
             container.Register<IGameDiagnostics, GameDiagnostics>(Lifestyle.Singleton);
@@ -100,6 +104,7 @@
             container.Register<IPlayerBank, PlayerBank>(Lifestyle.Singleton);
             container.Register<IGameStorage, GameStorageManager>(Lifestyle.Singleton);
             container.Register<IRuntimeFlagHandler, RuntimeFlagHandler>(Lifestyle.Singleton);
+            container.Register<HandCountChangedHandler>(Lifestyle.Singleton);
             container.Register<IButtonLamps, ButtonLamps>(Lifestyle.Singleton);
             container.Register<IGameOrderSettings, GameOrderSettings>(Lifestyle.Singleton);
             container.Register<IOperatorMenuGamePlayMonitor, OperatorMenuGamePlayMonitor>(Lifestyle.Singleton);
@@ -110,6 +115,7 @@
             container.Register<IPlayerSessionHistory, PlayerSessionHistory>(Lifestyle.Singleton);
             container.Register<IMessageDisplayHandler, GameMessageDisplayHandler>(Lifestyle.Singleton);
             container.Register<IAttendantService, AttendantService>(Lifestyle.Singleton);
+            container.Register<IBalanceUpdateService, BalanceUpdateService>(Lifestyle.Singleton);
             container.Register<IReserveService, ReserveService>(Lifestyle.Singleton);
             container.Register<IUserActivityService, UserActivityService>(Lifestyle.Singleton);
             container.Register<IHardwareHelper, HardwareHelper>(Lifestyle.Singleton);
@@ -147,6 +153,8 @@
             progressiveCalculatorFactory.Register<BulkCalculator>(SapFundingType.BulkOnly);
             container.RegisterInstance<IProgressiveCalculatorFactory>(progressiveCalculatorFactory);
             container.Register<IProgressiveMeterManager, ProgressiveMeterManager>(Lifestyle.Singleton);
+
+            container.Register<IGameSpecificOptionProvider, GameSpecificOptionProvider>(Lifestyle.Singleton);
 
             container.Register<IGamingAccessEvaluation, AccessEvaluationService>(Lifestyle.Singleton);
             container.Register<IHandProvider, PokerHandProvider>(Lifestyle.Singleton);
@@ -209,6 +217,8 @@
             container.Register<RngCyclingService>(Lifestyle.Singleton);
             container.Register<BonusEventLogAdapter>(Lifestyle.Singleton);
             //container.Register<DetailedGameMetersViewModel>(Lifestyle.Singleton);
+
+            container.Register<IGamePackConfigurationProvider, GamePackConfigurationProvider>(Lifestyle.Singleton);
 
             //#if !(RETAIL)
             //            PerformanceCounters.RegisterFromAttribute(typeof(ICommandHandler<>).Assembly);

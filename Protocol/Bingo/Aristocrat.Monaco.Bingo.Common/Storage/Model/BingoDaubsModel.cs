@@ -11,5 +11,10 @@
         ///     Gets or sets a value indicating if the bingo card is daubed
         /// </summary>
         public bool CardIsDaubed { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the index of the game associated with this card
+        /// </summary>
+        public int GameIndex { get; set; }
     }
 }

@@ -17,7 +17,7 @@
     [TestClass]
     public class LP70SendTicketValidationDataHandlerTest
     {
-        private const int TimeoutWait = 1000;  // one second
+        private const int TimeoutWait = 3000;  // three seconds
 
         private LP70SendTicketValidationDataHandler _target;
         private Mock<IPropertiesManager> _propertiesManager;

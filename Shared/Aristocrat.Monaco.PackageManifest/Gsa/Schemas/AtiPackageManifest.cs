@@ -347,7 +347,7 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         private long maxWinField;
         
         private bool maxWinFieldSpecified;
-        
+
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("bet")]
         public c_bet[] bet {
@@ -2782,6 +2782,8 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private string denominationsField;
         
+        private c_cdsInfoList cdsInfoListField;
+        
         private string uniqueGameIdField;
         
         private string titleIdField;
@@ -2793,6 +2795,16 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             }
             set {
                 this.denominationsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public c_cdsInfoList CdsInfoList {
+            get {
+                return this.cdsInfoListField;
+            }
+            set {
+                this.cdsInfoListField = value;
             }
         }
         
@@ -5582,3 +5594,4 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
     public partial class uninstallSeqList : c_uninstallSeqList {
     }
 }
+#pragma warning restore 1591

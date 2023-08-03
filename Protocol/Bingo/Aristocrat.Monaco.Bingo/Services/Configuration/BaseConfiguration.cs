@@ -16,16 +16,26 @@
         protected readonly ILog Logger;
         protected readonly IPropertiesManager PropertiesManager;
         protected readonly ISystemDisableManager SystemDisable;
+        protected readonly IEventBus EventBus;
 
         protected Dictionary<string, (string propertyName, Func<string, object> conversionFunction)> ConfigurationConversion { get; set; }
 
         protected HashSet<string> RequiredSettings { get; set; }
 
-        protected BaseConfiguration(IPropertiesManager propertiesManager, ISystemDisableManager systemDisableManager)
+        protected BaseConfiguration(
+            IPropertiesManager propertiesManager,
+            ISystemDisableManager systemDisableManager,
+            IEventBus eventBus)
         {
             PropertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             SystemDisable = systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
+            EventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+
             Logger = LogManager.GetLogger(GetType());
+        }
+
+        protected virtual void ServerConfigurationCompletedEvent()
+        {
         }
 
         public void Configure(
@@ -74,6 +84,8 @@
             }
 
             CheckForMissingSettings();
+
+            ServerConfigurationCompletedEvent();
         }
 
         protected abstract void AdditionalConfiguration(BingoServerSettingsModel model, string name, string value);

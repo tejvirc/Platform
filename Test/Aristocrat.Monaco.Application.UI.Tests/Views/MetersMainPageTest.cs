@@ -126,7 +126,7 @@
             config.Setup(m => m.GetSetting(It.IsAny<string>(), It.IsAny<bool>())).Returns(It.IsAny<bool>());
             config.Setup(m => m.GetSetting(It.IsAny<MetersMainPageViewModel>(), It.IsAny<string>(), It.IsAny<bool>())).Returns(It.IsAny<bool>());
 
-            _target = new MetersMainPageViewModel(null);
+            _target = new MetersMainPageViewModel(string.Empty);
 
             _accessor = new DynamicPrivateObject(_target);
 

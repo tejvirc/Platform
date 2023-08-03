@@ -22,10 +22,19 @@
         [JsonProperty("BetInformation")]
         public IReadOnlyCollection<ServerBetInformationDetail> BetInformationDetails { get; set; }
 
+        [JsonProperty("Progressive")]
+        public int Progressive { get; set; }
+
         [JsonProperty("QuickStopMode")]
         public bool QuickStopMode { get; set; }
-
+        
         [JsonProperty("HelpUrl")]
         public string HelpUrl { get; set; }
+
+        [JsonProperty("CrossGameProgressiveEnabled")]
+        public bool CrossGameProgressiveEnabled { get; set; }
+
+        [JsonProperty("SideBetGames")]
+        public IReadOnlyCollection<SideBetGameConfiguration> SideBetGames { get; set; }
     }
 }

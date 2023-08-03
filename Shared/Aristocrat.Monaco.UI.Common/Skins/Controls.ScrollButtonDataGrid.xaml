@@ -10,6 +10,7 @@
     </ResourceDictionary.MergedDictionaries>
     <converters:DataGridHeightConverter x:Key="DataGridHeightConverter" />
     <converters:NumberToVisibilityConverter x:Key="NumToVisConverter" />
+    <converters:DataGridVerticalScrollBarVisibilityConverter x:Key="DataGridVerticalScrollBarVisibilityConverter" />
     <Style x:Key="MonacoScrollButtonDataGrid"
            TargetType="{x:Type DataGrid}"
            BasedOn="{StaticResource MonacoDataGrid}">
@@ -145,15 +146,24 @@
                                                                 HorizontalAlignment="Right"
                                                                 VerticalAlignment="Top"
                                                                 ScrollGrid="{Binding ElementName=DG_ScrollViewer}"
-                                                                Visibility="{Binding ElementName=DG_ScrollViewer, Path=ScrollableHeight, Converter={StaticResource NumToVisConverter}}"
-                                                                Margin="5 70 0 0" />
+                                                                Margin="5 70 0 0">
+                                    <controls:DataGridScrollButtons.Visibility>
+                                        <MultiBinding Converter="{StaticResource DataGridVerticalScrollBarVisibilityConverter}">
+                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type DataGrid}}" />
+                                            <Binding ElementName="DG_ScrollViewer" Path="ScrollableHeight" />
+                                            <Binding ElementName="DG_ScrollViewer" Path="VerticalOffset" />
+                                            <!--DONOT remove this binding, it is required for triggering recalculation on ActualHeight changed.-->
+                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type DataGrid}}" Path="ActualHeight" />
+                                        </MultiBinding>
+                                    </controls:DataGridScrollButtons.Visibility>
+                                </controls:DataGridScrollButtons>
                             </DockPanel>
                             <DockPanel Grid.Column="0"
                                        Grid.Row="1"
                                        LastChildFill="False"
                                        AutomationProperties.AutomationId="DockPanel17_4E7D086F">
                                 <controls:DataGridHorizontalScrollButtons DockPanel.Dock="Bottom"
-                                                                          x:Name="GridHorizontalScrollButtons"
+                                                                          x:Name="PART_GridHorizontalScrollButtons"
                                                                           HorizontalAlignment="Center"
                                                                           VerticalAlignment="Bottom"
                                                                           ScrollGrid="{Binding ElementName=DG_ScrollViewer}"

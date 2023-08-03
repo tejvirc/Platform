@@ -7,7 +7,6 @@
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Aristocrat.Monaco.Accounting.Contracts.Handpay;
-    using Mgam.Common.Data.Models;
     using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -252,6 +251,34 @@
                 {
                     AccountingConstants.HandpayLimitEnabled,
                     Tuple.Create(InitFromStorage(AccountingConstants.HandpayLimitEnabled), true)
+                },
+                {
+                    AccountingConstants.HandCountPayoutLimitVisible,
+                    Tuple.Create((object)configuration.HandCount?.HandCountPayoutLimit?.Visible ?? false, false)
+                },
+                {
+                    AccountingConstants.HandCountPayoutLimit,
+                    Tuple.Create(InitFromStorage(AccountingConstants.HandCountPayoutLimit), true)
+                },
+                {
+                    AccountingConstants.BillAcceptanceLimitVisible,
+                    Tuple.Create((object)configuration.HandCount?.BillAcceptanceLimit?.Visible ?? false, false)
+                },
+                {
+                    AccountingConstants.HandCountServiceEnabled,
+                    Tuple.Create((object)configuration.HandCount?.HandCountServiceEnabled??false, false)
+                },
+                {
+                    AccountingConstants.HandCountMinimumRequiredCredits,
+                    Tuple.Create((object)configuration.HandCount?.HandCountResetCreditLimit ?? AccountingConstants.HandCountDefaultRequiredCredits, false)
+				},
+                {
+                    AccountingConstants.HandCountResetIdleTimePeriod,
+                    Tuple.Create((object)configuration.HandCount?.HandCountResetIdleTimePeriod ?? AccountingConstants.DefaultHandCountResetIdleTimeoutPeriod, false)
+                },
+				{
+                    AccountingConstants.CashoutAmountPerHandCount,
+                    Tuple.Create((object)configuration.HandCount?.CashoutAmountPerHandCount??0L,false)
                 },
                 {
                     AccountingConstants.LargeWinLimit,
@@ -512,6 +539,7 @@
                     SetProperty(AccountingConstants.HandpayLimitEnabled, configuration.WinLimits?.HandpayLimit < AccountingConstants.DefaultHandpayLimit);
                     SetProperty(AccountingConstants.LargeWinLimit, configuration.WinLimits?.LargeWinLimit?.Default ?? AccountingConstants.DefaultLargeWinLimit);
                     SetProperty(AccountingConstants.LargeWinLimitEnabled, configuration.WinLimits?.LargeWinLimit?.Default < AccountingConstants.DefaultLargeWinLimit);
+                    SetProperty(AccountingConstants.HandCountPayoutLimit, configuration.HandCount?.HandCountPayoutLimit?.LimitDefault ?? long.MaxValue);
                     SetProperty(AccountingConstants.OverwriteLargeWinLimit, configuration.WinLimits?.LargeWinLimit?.Editable ?? true);
                     SetProperty(AccountingConstants.LargeWinRatio, configuration.WinLimits?.LargeWinRatio?.Default ?? AccountingConstants.DefaultLargeWinRatio);
                     SetProperty(AccountingConstants.LargeWinRatioEnabled, configuration.WinLimits?.LargeWinRatio?.Default == AccountingConstants.DefaultLargeWinRatio);
@@ -572,6 +600,7 @@
                     SetProperty(AccountingConstants.LargeWinLimit, propertiesManager.GetValue(AccountingConstants.LargeWinLimit, AccountingConstants.DefaultLargeWinLimit));
                     SetProperty(AccountingConstants.LargeWinLimitEnabled, propertiesManager.GetValue(AccountingConstants.LargeWinLimitEnabled, true));
                     SetProperty(AccountingConstants.OverwriteLargeWinLimit, propertiesManager.GetValue(AccountingConstants.OverwriteLargeWinLimit, false));
+                    SetProperty(AccountingConstants.HandCountPayoutLimit, propertiesManager.GetValue(AccountingConstants.HandCountPayoutLimit, long.MaxValue));
                     SetProperty(AccountingConstants.LargeWinRatio, propertiesManager.GetValue(AccountingConstants.LargeWinRatio, AccountingConstants.DefaultLargeWinRatio));
                     SetProperty(AccountingConstants.LargeWinRatioEnabled, propertiesManager.GetValue(AccountingConstants.LargeWinRatioEnabled, false));
                     SetProperty(AccountingConstants.OverwriteLargeWinRatio, propertiesManager.GetValue(AccountingConstants.OverwriteLargeWinRatio, false));

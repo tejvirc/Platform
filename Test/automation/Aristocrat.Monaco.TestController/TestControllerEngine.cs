@@ -10,46 +10,47 @@
     using System.ServiceModel;
     using System.Text;
     using System.Threading.Tasks;
+    using System.Windows.Markup;
+    using System.Runtime.InteropServices;
     using Accounting.Contracts;
+    using Accounting.Contracts.Handpay;
+    using Accounting.Contracts.Wat;
     using Application.Contracts.OperatorMenu;
-    using Aristocrat.Monaco.Accounting.Contracts.Handpay;
-    using Aristocrat.Monaco.Accounting.Contracts.Wat;
-    using Aristocrat.Monaco.Application.Contracts;
-    using Aristocrat.Monaco.Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Application.Contracts.TiltLogger;
-    using Aristocrat.Monaco.G2S.Handlers;
-    using Aristocrat.Monaco.Hardware.Contracts;
-    using Aristocrat.Monaco.Hardware.Contracts.Display;
-    using Aristocrat.Monaco.Hardware.Contracts.IdReader;
-    using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
-    using Aristocrat.Monaco.Hardware.Contracts.Printer;
-    using Aristocrat.Monaco.Kernel.Contracts;
-    using Aristocrat.Monaco.Sas.Contracts.SASProperties;
-    using Aristocrat.Monaco.Sas.Storage.Models;
+    using Application.Contracts;
+    using Application.Contracts.Extensions;
+    using Application.Contracts.TiltLogger;
+    using Aristocrat.Linq;
+    using ControlzEx.Standard;
     using DataModel;
     using Gaming.Contracts;
     using Gaming.Contracts.Lobby;
+    using Gaming.UI.ViewModels;
+    using Gaming.UI.ViewModels.OperatorMenu;
+    using G2S.Handlers;
+    using Hardware.Contracts;
     using Hardware.Contracts.Button;
+    using Hardware.Contracts.Display;
     using Hardware.Contracts.Gds;
     using Hardware.Contracts.Gds.NoteAcceptor;
+    using Hardware.Contracts.IdReader;
     using Hardware.Contracts.IO;
-    using Kernel;
-    using log4net;
-    using Newtonsoft.Json;
-    using RobotController.Contracts;
-    using Test.Automation;
-    using Wait;
+    using Hardware.Contracts.NoteAcceptor;
+    using Hardware.Contracts.Printer;
     using HardwareFaultClearEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultClearEvent;
     using HardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
-    using Aristocrat.Monaco.Gaming.UI.ViewModels;
+    using Kernel;
+    using Kernel.Contracts;
+    using log4net;
     using Microsoft.AspNetCore.Mvc;
-    using Aristocrat.Monaco.TestController.Models.Request;
-    using Aristocrat.Linq;
+    using Newtonsoft.Json;
+    using RobotController.Contracts;
+    using Sas.Contracts.SASProperties;
+    using Sas.Storage.Models;
+    using TestController.Models.Request;
+    using Test.Automation;
+    using Wait;
 
-    [ApiController]
-    [Route("PlatformTestController")]
-    [Route("VLTTestController")]
-    public partial class TestControllerEngine : ControllerBase
+    public partial class TestControllerEngine
     {
         private const string ResponseTo = "response-to";
 
@@ -60,7 +61,7 @@
         /// <summary>
         ///     Amazing comment
         /// </summary>
-        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Handles mouse inputs
@@ -147,30 +148,23 @@
 
             _tiltLogger = ServiceManager.GetInstance().GetService<ITiltLogger>();
 
-
 			//
 			// Call the InitializeV2 in the new Partial Class object
 			//
 			InitializeV2();
-
         }
 
-        [HttpPost]
-        [Route("Platform/Close")]
-        public ActionResult<CommandResult> ClosePlatform()
+        public Dictionary<string, object> ClosePlatform()
         {
             _eventBus.Publish(new ExitRequestedEvent(ExitAction.ShutDown));
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { { "response-to", "/Platform/Close" } },
-                Result = true,
-                Info = "Closing platform"
+                { "response-to", "/Platform/Close" },
+                { "Info", "Closing platform" }
             };
         }
 
-        [HttpGet]
-        [Route("Platform/Logs/{eventType}")]
-        public ActionResult<CommandResult> GetEventLogs([FromRoute]string eventType = null)
+        public Dictionary<string, object> GetEventLogs(string eventType = null)
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"/Platform/Logs/{eventType}" };
             var events = new List<EventDescription>(_tiltLogger.GetEvents(eventType));
@@ -179,21 +173,14 @@
             foreach (var e in events)
             {
                 var entryNumber = "LogDetail" + (++logCount).ToString();
-
                 responseInfo.Add(entryNumber, JsonConvert.SerializeObject(e, new Newtonsoft.Json.Converters.StringEnumConverter()));
             }
 
-            return new CommandResult()
-            {
-                data = responseInfo,
-                Result = true,
-                Info = $"Log details for event type {eventType}"
-            };
+            responseInfo.Add("Info", $"Log details for event type {eventType}");
+            return responseInfo;
         }
 
-        [HttpPost]
-        [Route("Platform/OperatorMenu")]
-        public ActionResult<CommandResult> AuditMenu([FromBody]AuditMenuRequest request)
+        public Dictionary<string, object> AuditMenu(AuditMenuRequest request)
         {
             if (request.Open)
             {
@@ -204,60 +191,45 @@
                 _automata.ExitAuditMenu();
             }
 
-            return new CommandResult()
+            var action = request.Open ? "Entering" : "Exiting";
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { { "response-to", "/Platform/AuditMenu" } },
-                Result = true,
-                Info = (request.Open ? "Entering" : "Exiting") + " audit menu."
+                { "response-to", "/Platform/OperatorMenu" },
+                { "Info", $"{action} audit menu." }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/OperatorMenu/Tab")]
-        public ActionResult<CommandResult> SelectMenuTab([FromBody]SelectMenuTabRequest request)
+        public Dictionary<string, object> SelectMenuTab(SelectMenuTabRequest request)
         {
-            WindowHelper.GetAuditPage("Views", Test.Automation.Constants.OperatorWindowName, request.Name);
+            WindowHelper.GetAuditPage("Views", Constants.OperatorWindowName, request.Name);
 
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { { "response-to", "/Platform/AuditMenu" } },
-                Result = true,
-                Info = "Selecting audit menu tab: {name}."
+                { "response-to", "/Platform/OperatorMenu/Tab" },
+                { "Info", $"Selecting audit menu tab: {request.Name}." }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/ToggleRobotMode")]
-        public ActionResult<CommandResult> ToggleRobotMode()
+        public Dictionary<string, object> ToggleRobotMode()
         {
-            _eventBus.Publish(new RobotControllerEnableEvent());
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { { "response-to", "/Platform/ToggleRobotMode" } },
-                Result = true,
-                Info = "Toggle robot mode"
+                { "response-to", "/Platform/ToggleRobotMode" },
+                { "Info", "Toggle robot mode" }
             };
         }
 
-        [HttpGet]
-        [Route("Platform/Platform/State")]
-        public ActionResult<CommandResult> GetPlatformStatus()
+        public Dictionary<string, object> GetPlatformStatus()
         {
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    { "response-to", "/Platform/State" },
-                    { "machine_state", _platformState.ToString() }
-                },
-                Result = true,
-                Info = _platformState.ToString()
+                { "response-to", "/Platform/State" },
+                { "machine_state", _platformState.ToString() },
+                { "Info", _platformState.ToString()}
             };
         }
 
-        [HttpPost]
-        [Route("Platform/LoadGame")]
-        public ActionResult<CommandResult> RequestGame([FromBody] RequestGameRequest request)
+        public Dictionary<string, object> RequestGame(RequestGameRequest request)
         {
             var gameFound = false;
 
@@ -273,32 +245,26 @@
                 gameFound = true;
             }
 
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Platform/GameLoad" },
-                Result = gameFound,
-                Info = gameFound
+                { "response-to", "/Platform/LoadGame" },
+                { "Info", gameFound
                     ? $"Test Controller requesting game {request.GameName} {request.Denomination}"
-                    : $"Test Controller could not find {request.GameName}"
+                    : $"Test Controller could not find {request.GameName}" }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/ExitGame")]
-        public ActionResult<CommandResult> RequestGameExit()
+        public Dictionary<string, object> RequestGameExit()
         {
             _eventBus.Publish(new GameRequestedLobbyEvent(false));
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Platform/ExitGame" },
-                Result = true,
-                Info = "Test Controller requesting game exit"
+                { "response-to", "/Platform/ExitGame" },
+                { "Info", "Test Controller requesting game exit" }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/ForceGameExit")]
-        public ActionResult<CommandResult> ForceGameExit()
+        public Dictionary<string, object> ForceGameExit()
         {
             var killProcess = false;
 
@@ -311,125 +277,98 @@
                 killProcess = true;
             }
 
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Platform/ForceGameExit", ["success"] = killProcess.ToString() },
-                Result = killProcess,
-                Info = $"Test Controller killing process: {killProcess.ToString()}"
+                { "response-to", "/Platform/ForceGameExit" },
+                { "success", killProcess.ToString() },
+                { "Info", $"Test Controller killing process: {killProcess}" }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/EnableCashout")]
-        public ActionResult<CommandResult> EnableCashOut([FromBody] EnableCashOutRequest request)
+        public Dictionary<string, object> EnableCashOut(EnableCashOutRequest request)
         {
             _pm.SetProperty("Automation.HandleCashOut", request.Enable);
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Platform/EnableCashout" },
-                Result = true,
-                Info = $"Test Controller allowing cash out: {request.Enable}"
+                { "response-to", "/Platform/EnableCashout" },
+                { "Info", $"Test Controller allowing cash out: {request.Enable}" }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/Cashout/Request")]
 
-        public ActionResult<CommandResult> RequestCashOut()
+        public Dictionary<string, object> RequestCashOut()
         {
             EnableCashOut(new EnableCashOutRequest { Enable = true });
             _eventBus.Publish(new CashOutButtonPressedEvent());
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Platform/Cashout/Request" },
-                Result = true,
-                Info = "Test Controller requesting cash out."
+                { "response-to", "/Platform/Cashout/Request" },
+                { "Info", "Test Controller requesting cash out." }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/HandleRg")]
-        public ActionResult<CommandResult> HandleRG([FromBody]HandleRGRequest request)
+        public Dictionary<string, object> HandleRG(HandleRGRequest request)
         {
             _handleRg = request.Enable;
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Platform/HandleRg" },
-                Result = true,
-                Info = $"Test Controller will handle Responsible Gaming dialog: {request.Enable}"
+                { "response-to", "/Platform/HandleRg" },
+                { "Info", $"Test Controller will handle Responsible Gaming dialog: {request.Enable}" }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/ResponsibleGaming/Dialog/Options/Set")]
-        public ActionResult<CommandResult> SetRgDialogOptions([FromBody]SetRgDialogOptionsRequest request)
+        public Dictionary<string, object> SetRgDialogOptions(SetRgDialogOptionsRequest request)
         {
             _mouse.TimeLimitButtons = request.ButtonNames.ToList();
-            return new CommandResult();
+            return new Dictionary<string, object>();
         }
 
-        [HttpPost]
-        [Route("Runtime/RequestSpin")]
-        public ActionResult<CommandResult> RequestSpin()
+        public Dictionary<string, object> RequestSpin()
         {
             _eventBus.Publish(new InputEvent(22, true));
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Runtime/RequestSpin" },
-                Result = true,
-                Info = "Request spin."
+                { "response-to", "/Runtime/RequestSpin" },
+                { "Info", "Request spin." }
             };
         }
 
-        [HttpPost]
-        [Route("Runtime/BetLevel/Set")]
-        public ActionResult<CommandResult> SetBetLevel([FromBody] SetBetLevelRequest request)
+        public Dictionary<string, object> SetBetLevel(SetBetLevelRequest request)
         {
             _eventBus.Publish(new InputEvent(22 + request.Index, true));
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Runtime/BetLevel/Set" },
-                Result = true,
-                Info = $"Request line index {request.Index}."
+                { "response-to", "/Runtime/BetLevel/Set" },
+                { "Info", $"Request line index {request.Index}." }
             };
         }
 
-        [HttpPost]
-        [Route("Runtime/LineLevel/Set")]
-        public ActionResult<CommandResult> SetLineLevel([FromBody] SetLineLevelRequest request)
+        public Dictionary<string, object> SetLineLevel(SetLineLevelRequest request)
         {
             _eventBus.Publish(new InputEvent(29 + request.Index, true));
-
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Runtime/LineLevel/Set" },
-                Result = true,
-                Info = $"Request line index {request.Index}."
+                { "response-to", "/Runtime/LineLevel/Set" },
+                { "Info", $"Request line index {request.Index}." }
             };
         }
 
-        [HttpPost]
-        [Route("Runtime/BetMax/Set")]
-        public ActionResult<CommandResult> SetBetMax()
+        public Dictionary<string, object> SetBetMax()
         {
             _eventBus.Publish(new UpEvent((int)ButtonLogicalId.MaxBet));
-
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Runtime/BetMax/Set" },
-                Result = true,
-                Info = "Request bet max."
+                { "response-to", "/Runtime/BetMax/Set" },
+                { "Info", "Request bet max." }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/Meters/{category}/{name}/{type}/Get/{game}/{denom}")]
-        public ActionResult<CommandResult> GetMeter(
-            [FromRoute] string name,
-            [FromRoute] string category,
-            [FromRoute] string type,
-            [FromRoute] string game = "0",
-            [FromRoute] string denom = "0")
+        public Dictionary<string, object> GetMeter(
+            string name,
+            string category,
+            string type,
+            string game = "0",
+            string denom = "0")
         {
             var response = new Dictionary<string, object>();
 
@@ -442,17 +381,15 @@
                 response["error"] = "Meter not found.";
             }
 
-            return new CommandResult
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/Platform/Meters/{category}/{name}/{type}/Get", ["metervalue"] = response["metervalue"] },
-                Result = true,
-                Info = JsonConvert.SerializeObject(response)
+                { "response-to", $"/Platform/Meters/{category}/{name}/{type}/Get" },
+                { "metervalue", response["metervalue"] },
+                { "Info", JsonConvert.SerializeObject(response) }
             };
         }
 
-        [HttpGet]
-        [Route("Platform/Meters/Upi/Get")]
-        public ActionResult<CommandResult> GetUpiMeters()
+        public Dictionary<string, object> GetUpiMeters()
         {
             var response = new Dictionary<string, object>
             {
@@ -463,119 +400,82 @@
 
             values.ToList().ForEach(x => response.Add(x.Key, x.Value));
 
-            return new CommandResult
-            {
-                data = response,
-                Result = true,
-                Info = JsonConvert.SerializeObject(response)
-            };
+            response.Add("Info", JsonConvert.SerializeObject(response));
+            return response;
         }
 
-        [HttpGet]
-        [Route("Runtime/State")]
-        public ActionResult<CommandResult> GetRuntimeState()
+        public Dictionary<string, object> GetRuntimeState()
         {
             var response = new Dictionary<string, object> { { "response-to", "/Runtime/State" } };
-
             var state = _automata.GetRuntimeState() ?? "Unknown";
-
             response["game_state"] = state;
 
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Runtime/State", ["state"] = state },
-                Result = true,
-                Info = JsonConvert.SerializeObject(response)
+                { "response-to", "/Runtime/State" },
+                { "state", state },
+                { "Info", JsonConvert.SerializeObject(response) }
             };
         }
 
-        [HttpPost]
-        [Route("Runtime/Running")]
-        public ActionResult<CommandResult> RuntimeLoaded()
+        public Dictionary<string, object> RuntimeLoaded()
         {
             var response = new Dictionary<string, object> { { "response-to", "/Runtime/Running" } };
-
             var running = _automata.GetRuntimeState();
-
             response["running"] = running;
-
-            return new CommandResult
-            {
-                data = new Dictionary<string, object> { ["response-to"] = "/Runtime/Running", ["running"] = running },
-                Result = true,
-                Info = JsonConvert.SerializeObject(response)
-            };
+            response.Add("Info", JsonConvert.SerializeObject(response));
+            return response;
         }
 
-        [HttpGet]
-        [Route("Runtime/Mode")]
-        public ActionResult<CommandResult> GetRuntimeMode()
+        public Dictionary<string, object> GetRuntimeMode()
         {
             var response = new Dictionary<string, object> { { "response-to", "/Runtime/Mode" } };
-
             response["mode"] = Enum.GetName(typeof(RuntimeMode), _runtimeMode);
-
-            return new CommandResult()
-            {
-                data = response,
-                Result = true,
-                Info = JsonConvert.SerializeObject(response)
-            };
+            response.Add("Info", JsonConvert.SerializeObject(response));
+            return response;
         }
 
         [HttpPost]
         [Route("Platform/SendInput")]
-        public ActionResult<CommandResult> SendInput([FromBody]SendInputRequest request)
+        public Dictionary<string, object> SendInput(SendInputRequest request)
         {
             _eventBus.Publish(new InputEvent(request.Input, false));
-
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/Platform/SendInput/{request.Input}" },
-                Result = true,
-                Info = $"Sending input {request.Input}"
+                { "response-to", $"/Platform/SendInput/{request.Input}" },
+                { "Info", $"Sending input {request.Input}" }
             };
         }
 
-        [HttpPost]
-        [Route("TouchScreen/0/Touch")]
-        public ActionResult<CommandResult> SendTouchGame([FromBody]SendTouchGameRequest request)
+        public Dictionary<string, object> SendTouchGame(SendTouchGameRequest request)
         {
             _mouse.ClickGame(request.X, request.Y);
-
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/TouchScreen/0/Touch" },
-                Result = true,
-                Info = $"Clicking main window at x: {request.X} y: {request.Y} "
+                { "response-to", "/TouchScreen/0/Touch" },
+                { "Info", $"Clicking main window at x: {request.X} y: {request.Y} " }
             };
         }
 
-        [HttpPost]
-        [Route("TouchScreen/2/Touch")]
-        public ActionResult<CommandResult> SendTouchVBD([FromBody]SendTouchVBDRequest request)
+        public Dictionary<string, object> SendTouchVBD(SendTouchVBDRequest request)
         {
             _mouse.ClickVirtualButtonDeck(request.X, request.Y);
-
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/TouchScreen/2/Touch" },
-                Result = true,
-                Info = $"Clicking VBD at x: {request.X} y: {request.Y} "
+                { "response-to", "/TouchScreen/2/Touch" },
+                { "Info", $"Clicking VBD at x: {request.X} y: {request.Y} " }
             };
         }
 
-        [HttpPost]
-        [Route("BNA/{id}/Bill/Insert")]
-        public ActionResult<CommandResult> InsertCredits([FromRoute] string id, [FromBody] InsertCreditsRequest request)
+        public Dictionary<string, object> InsertCredits([FromRoute] string id, [FromBody] InsertCreditsRequest request)
         {
-            if (!int.TryParse(id, out int deviceId))
+            if (!int.TryParse(id, out int _))
             {
-                return new CommandResult()
+                return new Dictionary<string, object>
                 {
-                    data = new Dictionary<string, object>() { ["response-to"] = $"/BNA/{id}/Bill/Insert", ["Error"] = $"Could not cast {id} to a valid id." },
-                    Result = false,
-                    Info = $"Failed to insert {request.BillValue} for device {id}"
+                    { "response-to", $"/BNA/{id}/Bill/Insert" },
+                    { "Error", $"Could not cast {id} to a valid id." },
+                    { "Info", $"Failed to insert {request.BillValue} for device {id}" }
                 };
             }
             CreateTable();
@@ -589,7 +489,6 @@
                 _bnaNoteTransactionId = 0;
             }
 
-
             _eventBus.Publish(new FakeDeviceMessageEvent
             {
                 Message = new NoteValidated
@@ -600,21 +499,14 @@
                 }
             });
 
-            var result = new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/BNA/{id}/Bill/Insert" },
-                Result = true,
-                Info = $"Inserting {request.BillValue} dollars"
+                { "response-to", $"/BNA/{id}/Bill/Insert" },
+                { "Info", $"Inserting {request.BillValue} dollars" }
             };
-
-            return result;
         }
 
-        [HttpPost]
-        [Route("BNA/{id}/Ticket/Insert")]
-        public ActionResult<CommandResult> InsertTicket(
-            [FromRoute] string id,
-            [FromBody] InsertTicketRequest request)	 	 
+        public Dictionary<string, object> InsertTicket(string id, InsertTicketRequest request)	 	 
 		{	 	 
             try	 	 
 		    {	 	 
@@ -635,55 +527,40 @@
                 }	 	 
 		    });	 	 
 		 
-		    var result = new CommandResult()	 	 
-		    {	 	 
-		        data = new Dictionary<string, object> { ["response-to"] = $"/BNA/{id}/Ticket/Insert" },	 	 
-		        Result = true,	 	 
-		        Info = "Inserting ticket"	 	 
-		    };	 	 
-		 
-		    return result;	 	 
-		}
-
-        [HttpPost]
-        [Route("CardReaders/0/Event")]
-        public ActionResult<CommandResult> PlayerCardEvent([FromBody]PlayerCardEventRequest request)
-        {
-            _automata.CardEvent(request.Inserted, request.Data);
-
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/CardReaders/0/Event" },
-                Result = true,
-                Info = $"Card was requested {(request.Inserted ? "inserted" : "removed")} with data: {request.Data}"
+                { "response-to", $"/BNA/{id}/Ticket/Insert" },
+                { "Info", "Inserting ticket" }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/Service/Request")]
-        public ActionResult<CommandResult> ServiceButton([FromBody]ServiceButtonRequest request)
+        public Dictionary<string, object> PlayerCardEvent(PlayerCardEventRequest request)
+        {
+            _automata.CardEvent(request.Inserted, request.Data);
+            return new Dictionary<string, object>
+            {
+                { "response-to", "/CardReaders/0/Event" },
+                { "Info", $"Card was requested {(request.Inserted ? "inserted" : "removed")} with data: {request.Data}" }
+            };
+        }
+
+        public Dictionary<string, object> ServiceButton(ServiceButtonRequest request)
         {
             var attendantService = ServiceManager.GetInstance().GetService<IAttendantService>();
             attendantService.IsServiceRequested = request.Pressed;
-            //attendantService.OnServiceButtonPressed();
 
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Platform/Service/Request" },
-                Result = true,
-                Info = $"Service button {(request.Pressed ? "pressed" : "cleared")}"
+                { "response-to", "/Platform/Service/Request" },
+                { "Info", $"Service button {(request.Pressed ? "pressed" : "cleared")}" }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/Lockup")]
-        public ActionResult<CommandResult> Lockup([FromBody]LockupRequest request)
+        public Dictionary<string, object> Lockup(LockupRequest request)
         {
-            BaseEvent evt = null;
-
             try
             {
-                evt = MapLockup(request.Type, request.Clear);
+                BaseEvent evt = MapLockup(request.Type, request.Clear);
 
                 if (evt != null)
                 {
@@ -714,115 +591,93 @@
             }
             catch (Exception ex)
             {
-                return new CommandResult() { Result = false, Info = $"Error: {ex.ToString()}" };
+                return new Dictionary<string, object>
+                {
+                    { "Info", $"Error: {ex}" }
+                };
             }
 
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Platform/Lockup" },
-                Result = evt != null,
-                Info = $"Lockup of type {request.Type} was requested {(request.Clear ? "entered" : "cleared")}"
+                { "response-to", "/Platform/Lockup" },
+                { "Info", $"Lockup of type {request.Type} was requested {(request.Clear ? "entered" : "cleared")}" }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/MaxWinLimitOverride")]
-        public ActionResult<CommandResult> SetMaxWinLimitOverride([FromBody] SetMaxWinLimitOverrideRequest request)
+        public Dictionary<string, object> SetMaxWinLimitOverride(SetMaxWinLimitOverrideRequest request)
         {
             _automata.SetMaxWinLimit(request.MaxWinLimitOverrideMillicents);
-
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Platform/MaxWinLimitOverride" },
-                Result = true,
-                Info = $"Max Win Limit overridden to {request.MaxWinLimitOverrideMillicents}"
+                { "response-to", "/Platform/MaxWinLimitOverride" },
+                { "Info", $"Max Win Limit overridden to {request.MaxWinLimitOverrideMillicents}" }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/HandpayRequest")]
-        public ActionResult<CommandResult> RequestHandPay([FromBody] RequestHandPayRequest request)
+        public Dictionary<string, object> RequestHandPay(RequestHandPayRequest request)
         {
-            //var playerBank = ServiceManager.GetInstance().TryGetService<IPlayerBank>();
-            //playerBank.ForceHandpay(Guid.NewGuid(), amount, Accounting.Contracts.TransferOut.TransferOutReason.LargeWin, -1);
-
             var transferOutHandler = ServiceManager.GetInstance().GetService<ITransferOutHandler>();
 
             _eventBus.Publish(new CashOutStartedEvent(false, true));
 
             transferOutHandler.TransferOut<IHandpayProvider>(request.AccountType.ToType(), request.Amount, request.Type.ToReason());
 
-            Log($"Transfer out requested.  Amount: {request.Amount}, Type: {request.Type}, AccountType: {request.AccountType}");
+            var info = $"Transfer out requested. Amount: {request.Amount}, Type: {request.Type}, AccountType: {request.AccountType}";
+            Log(info);
 
-            return new CommandResult
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Platform/HandpayRequest" },
-                Result = true,
-                Info = $"Transfer out requested.  Amount: {request.Amount}, Type: {request.Type}, AccountType: {request.AccountType}"
+                { "response-to", "/Platform/HandpayRequest" },
+                { "Info", info }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/KeyOff")]
-        public ActionResult<CommandResult> RequestKeyOff()
+        public Dictionary<string, object> RequestKeyOff()
         {
             _automata.JackpotKeyoff();
-
-            return new CommandResult
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Platform/KeyOff" },
-                Result = true,
-                Info = "Jackpot key off requested."
+                { "response-to", "/Platform/KeyOff" },
+                { "Info", "Jackpot key off requested." }
             };
         }
 
-        [HttpGet]
-        [Route("Lockups/Get")]
-        public ActionResult<CommandResult> GetCurrentLockups()
+        public Dictionary<string, object> GetCurrentLockups()
         {
-            return new CommandResult
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Lockups/Get", ["Lockups"] = string.Join("\n", _currentLockups.Values) },
-                Result = true,
+                { "response-to", "/Lockups/Get" },
+                { "Lockups", string.Join("\n", _currentLockups.Values) }
             };
         }
 
-        [HttpGet]
-        [Route("Game/Messages/Lockup/GetGameScreenMessages")]
-        public ActionResult<CommandResult> GetGameMessages()
+        public Dictionary<string, object> GetGameMessages()
         {
-            return new CommandResult
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Game/Messages/Lockup/GetGameScreenMessages", ["Value"] = string.Join("\n", _currentLockups.Values) },
-                Result = true,
+                { "response-to", "/Game/Messages/Lockup/GetGameScreenMessages" },
+                { "Value", string.Join("\n", _currentLockups.Values) }
             };
         }
 
-        [HttpGet]
-        [Route("Game/History/NumberOfEntries")]
-        public ActionResult<CommandResult> GetNumberOfGameHistoryEntires()
+        public Dictionary<string, object> GetNumberOfGameHistoryEntires()
         {
             var gameHistory = ServiceManager.GetInstance().TryGetService<IGameHistory>();
 
             var gameHistoryCount = 0;
             if (gameHistory != null)
             {
-
                 gameHistoryCount = gameHistory.GetGameHistory().Count();
-
             }
-
-            return new CommandResult
+            
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Game/History/NumberOfEntries", ["Value"] = gameHistoryCount.ToString() },
-                Result = true,
+                { "response-to", "/Game/History/NumberOfEntries" },
+                { "Value", gameHistoryCount.ToString() }
             };
         }
 
-        [HttpGet]
-        [Route("Game/History/{count}")]
-
-        public ActionResult<CommandResult> GetGameHistory([FromRoute]string count = "1")
+        public Dictionary<string, object> GetGameHistory(string count = "1")
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"/Game/History/{count}" };
 
@@ -861,18 +716,11 @@
                 responseInfo.Add(entryNumber, JsonConvert.SerializeObject(history));
             }
 
-            return new CommandResult()
-            {
-                data = responseInfo,
-                Result = true,
-                Info = $"Test Controller returning {collectedCount} entries in game history log"
-            };
-
+            responseInfo.Add("Info", $"Test Controller returning {collectedCount} entries in game history log");
+            return responseInfo;
         }
 
-        [HttpGet]
-        [Route("Platform/Logs/HandPay/{count}")]
-        public ActionResult<CommandResult> GetHandPayLog([FromRoute]string count = "1")
+        public Dictionary<string, object> GetHandPayLog(string count = "1")
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"Platform/Logs/HandPay/{count}" };
 
@@ -891,21 +739,13 @@
                 responseInfo.Add(entryNumber, JsonConvert.SerializeObject(transaction, new Newtonsoft.Json.Converters.StringEnumConverter()));
             }
 
-            return new CommandResult()
-            {
-                data = responseInfo,
-                Result = true,
-                Info = $"Test Controller returning {collectedCount} entries in HandPay log"
-            };
-
+            responseInfo.Add("Info", $"Test Controller returning {collectedCount} entries in HandPay log");
+            return responseInfo;
         }
 
-        [HttpGet]
-        [Route("Platform/Logs/TransferOut/{count}")]
-        public ActionResult<CommandResult> GetTransferOutLog([FromRoute] string count = "1")
+        public Dictionary<string, object> GetTransferOutLog(string count = "1")
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"Platform/Logs/TransferOut/{count}" };
-
 
             if (!Int32.TryParse(count, out int requestCount))
                 requestCount = 1;
@@ -922,18 +762,11 @@
                 responseInfo.Add(entryNumber, JsonConvert.SerializeObject(transaction, new Newtonsoft.Json.Converters.StringEnumConverter()));
             }
 
-            return new CommandResult()
-            {
-                data = responseInfo,
-                Result = true,
-                Info = $"Test Controller returning {collectedCount} entries in TransferOut log"
-            };
-
+            responseInfo.Add("Info", $"Test Controller returning {collectedCount} entries in TransferOut log");
+            return responseInfo;
         }
 
-        [HttpGet]
-        [Route("Platform/Logs/TransferIn/{count}")]
-        public ActionResult<CommandResult> GetTransferInLog([FromRoute] string count = "1")
+        public Dictionary<string, object> GetTransferInLog(string count = "1")
         {
             var responseInfo = new Dictionary<string, object> { ["response-to"] = $"Platform/Logs/TransferIn/{count}" };
 
@@ -952,33 +785,26 @@
                 responseInfo.Add(entryNumber, JsonConvert.SerializeObject(transaction, new Newtonsoft.Json.Converters.StringEnumConverter()));
             }
 
-            return new CommandResult()
-            {
-                data = responseInfo,
-                Result = true,
-                Info = $"Test Controller returning {collectedCount} entries in TransferIn log"
-            };
+            responseInfo.Add("Info", $"Test Controller returning {collectedCount} entries in TransferIn log");
+            return responseInfo;
         }
 
-        [HttpGet]
-        [Route("Game/Messages/Get")]
-        public ActionResult<CommandResult> GetGameLineMessages()
+        public Dictionary<string, object> GetGameLineMessages()
         {
             string messages = string.Empty;            
             foreach (DisplayableMessage message in _gameLineMessages)
             {
                 messages = messages + message.Message + "\n";
             }
-            return new CommandResult
+
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Game/Messages/Get", ["Messages"] = messages},
-                Result = true,
+                { "response-to", "/Game/Messages/Get" },
+                { "Messages", messages }
             };
         }
 
-        [HttpGet]
-        [Route("Game/OverlayMessage/Get")]
-        public ActionResult<CommandResult> GetGameOverlayMessage()
+        public Dictionary<string, object> GetGameOverlayMessage()
         {
             string message = string.Empty;
 
@@ -989,20 +815,14 @@
                     $"{(_messageOverlayData.IsSubText2Visible ? _messageOverlayData.SubText2 : string.Empty)}";
             }
 
-            return new CommandResult
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object>
-                {
-                    [ResponseTo] = OverlayMessageUrl,
-                    [OverlayMessage] = message
-                },
-                Result = true,
+                { ResponseTo, OverlayMessageUrl },
+                { OverlayMessage, message }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/Info")]
-        public ActionResult<CommandResult> GetInfo([FromBody] GetInfoRequest request)
+        public Dictionary<string, object> GetInfo(GetInfoRequest request)
         {
             var desiredInfo = string.Empty;
             var desiredInfoCollective = string.Empty;
@@ -1197,364 +1017,304 @@
                 _logger.Error(desiredInfo);
             }
 
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Platform/Info" },
-                Result = desiredInfoFound,
-                Info = desiredInfoCollective
+                { "response-to", "/Platform/Info" },
+                { "Info", desiredInfoCollective }
             };
         }
 
-        [HttpPost]
-        [Route("Platform/Progressives/Get")]
-        public ActionResult<CommandResult> GetProgressives([FromBody] GetProgressivesRequest request)
+        public Dictionary<string, object> GetProgressives(GetProgressivesRequest request)
         {
             var info = _automata.GetPools(request.GameName);
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Platform/Progressives/Get", ["progressives"] = info },
-                Result = info != string.Empty,
-                Info = info
+                { "response-to", "/Platform/Progressives/Get" },
+                { "progressives", info },
+                { "Info", info }
             };
         }
 
-        [HttpPost]
-        [Route("Config/Read")]
-        public ActionResult<CommandResult> GetConfigOption([FromBody] GetConfigOptionRequest request)
+        public Dictionary<string, object> GetConfigOption(GetConfigOptionRequest request)
         {
             var desiredInfo = "";
-            var desiredInfoFound = false;
 
             try
             {
-                //foreach (string type in option)
-                    ConfigOptionInfo optName = (ConfigOptionInfo)Enum.Parse(typeof(ConfigOptionInfo), request.Option);
+                ConfigOptionInfo optName = (ConfigOptionInfo)Enum.Parse(typeof(ConfigOptionInfo), request.Option);
 
-                    switch (optName)
+                switch (optName)
+                {
+                    case ConfigOptionInfo.CreditLimit:
                     {
-                        case ConfigOptionInfo.CreditLimit:
-                            {
-                                var maxCreditLimit = _pm.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue) / 1000;
+                        var maxCreditLimit = _pm.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue) / 1000;
 
-                                desiredInfo = maxCreditLimit.ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.EftAftTransferLimit:
-                            {
-                                //get AftTransferLimit
-                                var features = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasFeatureSettings, new SasFeatures());
-
-                                desiredInfo = features.TransferLimit.ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.EftAftTransferInMode:
-                            {
-                                //get AftInEnabled
-                                desiredInfo = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasFeatureSettings, new SasFeatures()).TransferInAllowed.ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.EftAftTransferOutMode:
-                            {
-                                //get AftOutEnabled
-                                desiredInfo = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasFeatureSettings, new SasFeatures()).TransferOutAllowed.ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.BillAcceptorDriver:
-                            {
-                                //get BillAcceptorDriver
-                                desiredInfo = "Bill Acceptor Drover Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.PrinterDriver:
-                            {
-                                //get PrinterDriver
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.VoucherInLimit:
-                            {
-                                //get VoucherInLimit
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.VoucherOutLimit:
-                            {
-                                //get VoucherOutLimit
-                                var voucherOutLimit = ((long)_pm.GetProperty(AccountingConstants.VoucherOutLimit, long.MaxValue)) / 1000;
-                                desiredInfo = voucherOutLimit.ToString();                                    
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.PrintPromoTickets:
-                            {
-                                //get PrintPromoTickets
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.ValidationType:
-                            {
-                                //var validationType = Sas.Contracts.SASProperties.SasValidationType;
-                                //desiredInfo = validationType.ToString();
-                                //desiredInfoFound = true;
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.SerialNumber:
-                            {
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.MachineId:
-                            {
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.Protocol:
-                            {
-                                desiredInfo = _pm.GetProperty(ApplicationConstants.Protocol, "").ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.SasHost1Address:
-                            {
-                                var hosts = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasHosts, Enumerable.Empty<Host>());
-                                desiredInfo = string.Join(" : ", hosts.Select(x => x.ComPort.ToString()));
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.SasHost2Address:
-                            {
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.GameDenomValidation:
-                            {
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.G2SHostUri:
-                            {
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.ZoneId:
-                            {
-                                desiredInfo = "Not Implemented";
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.LargeWinLimit:
-                            {
-                                var largeWinLimit = ((long)_pm.GetProperty(AccountingConstants.LargeWinLimit, AccountingConstants.DefaultLargeWinLimit)) / 1000;
-                                desiredInfo = largeWinLimit.ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
-                        case ConfigOptionInfo.HandpayLimit:
-                            {
-                                var handpayLimit = ((long)_pm.GetProperty(AccountingConstants.HandpayLimit, AccountingConstants.DefaultHandpayLimit)) / 1000;
-                                desiredInfo = handpayLimit.ToString();
-                                desiredInfoFound = true;
-                                break;
-                            }
-                    case ConfigOptionInfo.PrintHandpayReceipt:
-                        {
-                            var printHandpayReceipt = _pm.GetValue(AccountingConstants.EnableReceipts, false);
-                            desiredInfo = printHandpayReceipt.ToString();
-                            desiredInfoFound = true;
-                            break;
-                        }
-                    default:
-                            {
-                                desiredInfoFound = false;
-                                break;
-                            }
+                        desiredInfo = maxCreditLimit.ToString();
+                        break;
                     }
+                    case ConfigOptionInfo.EftAftTransferLimit:
+                    {
+                        //get AftTransferLimit
+                        var features = _pm.GetValue(SasProperties.SasFeatureSettings, new SasFeatures());
+                        desiredInfo = features.TransferLimit.ToString();
+                        break;
+                    }
+                    case ConfigOptionInfo.EftAftTransferInMode:
+                    {
+                        //get AftInEnabled
+                        desiredInfo = _pm.GetValue(SasProperties.SasFeatureSettings, new SasFeatures()).TransferInAllowed.ToString();
+                        break;
+                    }
+                    case ConfigOptionInfo.EftAftTransferOutMode:
+                    {
+                        //get AftOutEnabled
+                        desiredInfo = _pm.GetValue(SasProperties.SasFeatureSettings, new SasFeatures()).TransferOutAllowed.ToString();
+                        break;
+                    }
+                    case ConfigOptionInfo.BillAcceptorDriver:
+                    {
+                        //get BillAcceptorDriver
+                        desiredInfo = "Bill Acceptor Drover Not Implemented";
+                        break;
+                    }
+                    case ConfigOptionInfo.PrinterDriver:
+                    {
+                        //get PrinterDriver
+                        desiredInfo = "Not Implemented";
+                        break;
+                    }
+                    case ConfigOptionInfo.VoucherInLimit:
+                    {
+                        //get VoucherInLimit
+                        desiredInfo = "Not Implemented";
+                        break;
+                    }
+                    case ConfigOptionInfo.VoucherOutLimit:
+                    {
+                        //get VoucherOutLimit
+                        var voucherOutLimit = ((long)_pm.GetProperty(AccountingConstants.VoucherOutLimit, long.MaxValue)) / 1000;
+                        desiredInfo = voucherOutLimit.ToString();
+                        break;
+                    }
+                    case ConfigOptionInfo.PrintPromoTickets:
+                    {
+                        //get PrintPromoTickets
+                        desiredInfo = "Not Implemented";
+                        break;
+                    }
+                    case ConfigOptionInfo.ValidationType:
+                    {
+                        desiredInfo = "Not Implemented";
+                        break;
+                    }
+                    case ConfigOptionInfo.SerialNumber:
+                    {
+                        desiredInfo = "Not Implemented";
+                        break;
+                    }
+                    case ConfigOptionInfo.MachineId:
+                    {
+                        desiredInfo = "Not Implemented";
+                        break;
+                    }
+                    case ConfigOptionInfo.Protocol:
+                    {
+                        desiredInfo = _pm.GetProperty(ApplicationConstants.Protocol, "").ToString();
+                        break;
+                    }
+                    case ConfigOptionInfo.SasHost1Address:
+                    {
+                        var hosts = _pm.GetValue(SasProperties.SasHosts, Enumerable.Empty<Host>());
+                        desiredInfo = string.Join(" : ", hosts.Select(x => x.ComPort.ToString()));
+                        break;
+                    }
+                    case ConfigOptionInfo.SasHost2Address:
+                    {
+                        desiredInfo = "Not Implemented";
+                        break;
+                    }
+                    case ConfigOptionInfo.GameDenomValidation:
+                    {
+                        desiredInfo = "Not Implemented";
+                        break;
+                    }
+                    case ConfigOptionInfo.G2SHostUri:
+                    {
+                        desiredInfo = "Not Implemented";
+                        break;
+                    }
+                    case ConfigOptionInfo.ZoneId:
+                    {
+                        desiredInfo = "Not Implemented";
+                        break;
+                    }
+                    case ConfigOptionInfo.LargeWinLimit:
+                    {
+                        var largeWinLimit = ((long)_pm.GetProperty(AccountingConstants.LargeWinLimit, AccountingConstants.DefaultLargeWinLimit)) / 1000;
+                        desiredInfo = largeWinLimit.ToString();
+                        break;
+                    }
+                    case ConfigOptionInfo.HandpayLimit:
+                    {
+                        var handpayLimit = ((long)_pm.GetProperty(AccountingConstants.HandpayLimit, AccountingConstants.DefaultHandpayLimit)) / 1000;
+                        desiredInfo = handpayLimit.ToString();
+                        break;
+                    }
+                    case ConfigOptionInfo.PrintHandpayReceipt:
+                    {
+                        var printHandpayReceipt = _pm.GetValue(AccountingConstants.EnableReceipts, false);
+                        desiredInfo = printHandpayReceipt.ToString();
+                        break;
+                    }
+                    default:
+                    {
+                        break;
+                    }
+                }
             }
-
 
             catch (Exception ex)
             {
                 desiredInfo = ex.ToString();
-                desiredInfoFound = false;
                 _logger.Error(desiredInfo);
             }
 
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Config/Read", ["Value"] = string.Join("\n", desiredInfo) },
-                Result = desiredInfoFound
+                { "response-to", "/Config/Read" },
+                { "Value", string.Join("\n", desiredInfo) }
             };
-
         }
 
-        [HttpPost]
-        [Route("Config/Write")]
-        public ActionResult<CommandResult> SetConfigOption([FromBody] SetConfigOptionRequest request)
+        public Dictionary<string, object> SetConfigOption(SetConfigOptionRequest request)
         {
             try
             {
-                //foreach (string type in option)
+                ConfigOptionInfo optName = (ConfigOptionInfo)Enum.Parse(typeof(ConfigOptionInfo), request.Option);
+
+                switch (optName)
                 {
-                    ConfigOptionInfo optName = (ConfigOptionInfo)Enum.Parse(typeof(ConfigOptionInfo), request.Option);
-
-                    switch (optName)
+                    case ConfigOptionInfo.CreditLimit:
                     {
-                        case ConfigOptionInfo.CreditLimit:
-                            {
-                                _pm.SetProperty(AccountingConstants.MaxCreditMeter, Convert.ToDecimal(request.Value).DollarsToMillicents());
-                                break;
-                            }
-                        case ConfigOptionInfo.EftAftTransferLimit:
-                            {
-                                var features = _pm.GetValue(Sas.Contracts.SASProperties.SasProperties.SasFeatureSettings, new SasFeatures());
-                                features.TransferLimit = Convert.ToDecimal(request.Value).DollarsToCents();
-                                _pm.SetProperty(Sas.Contracts.SASProperties.SasProperties.SasFeatureSettings, features);
-                                break;
-                            }
-                        case ConfigOptionInfo.EftAftTransferInMode:
-                            {
-                                
-                                break;
-                            }
-                        case ConfigOptionInfo.EftAftTransferOutMode:
-                            {
-                                
-                                break;
-                            }
-                        case ConfigOptionInfo.BillAcceptorDriver:
-                            {
-                                
-                                break;
-                            }
-                        case ConfigOptionInfo.PrinterDriver:
-                            {
-                                
-                                break;
-                            }
-                        case ConfigOptionInfo.VoucherInLimit:
-                            {
-                                
-                                break;
-                            }
-                        case ConfigOptionInfo.VoucherOutLimit:
-                            {
-                                //get VoucherOutLimit
-                                _pm.SetProperty(AccountingConstants.VoucherOutLimit, Convert.ToDecimal(request.Value).DollarsToMillicents());                                
-                                break;                               
-                            }
-                        case ConfigOptionInfo.PrintPromoTickets:
-                            {
-                                bool allowVoucherOutNonCash = Equals(request.Value, "true");
-                                _pm.SetProperty(AccountingConstants.VoucherOutNonCash, allowVoucherOutNonCash);
-                                break;
-                            }
-                        case ConfigOptionInfo.ValidationType:
-                            {
-                                
-                                break;
-                            }
-                        case ConfigOptionInfo.SerialNumber:
-                            {
-                                
-                                break;
-                            }
-                        case ConfigOptionInfo.MachineId:
-                            {
-                                
-                                break;
-                            }
-                        case ConfigOptionInfo.Protocol:
-                            {
-                                
-                                break;
-                            }
-                        case ConfigOptionInfo.SasHost1Address:
-                            {
-                                
-                                break;
-                            }
-                        case ConfigOptionInfo.SasHost2Address:
-                            {
-                                
-                                break;
-                            }
-                        case ConfigOptionInfo.GameDenomValidation:
-                            {
-                                
-                                break;
-                            }
-                        case ConfigOptionInfo.G2SHostUri:
-                            {
-                                
-                                break;
-                            }
-                        case ConfigOptionInfo.HostCashoutAction:
-                            {
-                                _ = Enum.TryParse(request.Value.ToString(), out CashableLockupStrategy strategy);
-                                _pm.SetProperty(GamingConstants.LockupBehavior, strategy);
-                                break;
-                            }
-                        case ConfigOptionInfo.ZoneId:
-                            {
-                                break;
-                            }
-                        case ConfigOptionInfo.LargeWinLimit:
-                            {
-                               _pm.SetProperty(AccountingConstants.LargeWinLimit, Convert.ToDecimal(request.Value).DollarsToMillicents());                                
-                                break;
-                            }
-                        case ConfigOptionInfo.HandpayLimit:
-                            {
-                                _pm.SetProperty(AccountingConstants.HandpayLimit, Convert.ToDecimal(request.Value).DollarsToMillicents());                                
-                                break;
-                            }
-                        case ConfigOptionInfo.PrintHandpayReceipt:
-                            {
-                                bool allowPrintHandpay = Equals(request.Value, "true");
-                                _pm.SetProperty(AccountingConstants.EnableReceipts, allowPrintHandpay);
-                                break;
-                            }
-                        default:
-                            {
-                                
-                                break;
-                            }
+                        _pm.SetProperty(AccountingConstants.MaxCreditMeter, Convert.ToDecimal(request.Value).DollarsToMillicents());
+                        break;
                     }
-
+                    case ConfigOptionInfo.EftAftTransferLimit:
+                    {
+                        var features = _pm.GetValue(SasProperties.SasFeatureSettings, new SasFeatures());
+                        features.TransferLimit = Convert.ToDecimal(request.Value).DollarsToCents();
+                        _pm.SetProperty(SasProperties.SasFeatureSettings, features);
+                        break;
+                    }
+                    case ConfigOptionInfo.EftAftTransferInMode:
+                    {   
+                        break;
+                    }
+                    case ConfigOptionInfo.EftAftTransferOutMode:
+                    {  
+                        break;
+                    }
+                    case ConfigOptionInfo.BillAcceptorDriver:
+                    { 
+                        break;
+                    }
+                    case ConfigOptionInfo.PrinterDriver:
+                    {   
+                        break;
+                    }
+                    case ConfigOptionInfo.VoucherInLimit:
+                    {    
+                        break;
+                    }
+                    case ConfigOptionInfo.VoucherOutLimit:
+                    {
+                        //get VoucherOutLimit
+                        _pm.SetProperty(AccountingConstants.VoucherOutLimit, Convert.ToDecimal(request.Value).DollarsToMillicents());                                
+                        break;                               
+                    }
+                    case ConfigOptionInfo.PrintPromoTickets:
+                    {
+                        bool allowVoucherOutNonCash = Equals(request.Value, "true");
+                        _pm.SetProperty(AccountingConstants.VoucherOutNonCash, allowVoucherOutNonCash);
+                        break;
+                    }
+                    case ConfigOptionInfo.ValidationType:
+                    {  
+                        break;
+                    }
+                    case ConfigOptionInfo.SerialNumber:
+                    {
+                        break;
+                    }
+                    case ConfigOptionInfo.MachineId:
+                    {
+                        break;
+                    }
+                    case ConfigOptionInfo.Protocol:
+                    {
+                        break;
+                    }
+                    case ConfigOptionInfo.SasHost1Address:
+                    {   
+                        break;
+                    }
+                    case ConfigOptionInfo.SasHost2Address:
+                    {  
+                        break;
+                    }
+                    case ConfigOptionInfo.GameDenomValidation:
+                    {    
+                        break;
+                    }
+                    case ConfigOptionInfo.G2SHostUri:
+                    {     
+                        break;
+                    }
+                    case ConfigOptionInfo.HostCashoutAction:
+                    {
+                        _ = Enum.TryParse(request.Value.ToString(), out CashableLockupStrategy strategy);
+                        _pm.SetProperty(GamingConstants.LockupBehavior, strategy);
+                        break;
+                    }
+                    case ConfigOptionInfo.ZoneId:
+                    {
+                        break;
+                    }
+                    case ConfigOptionInfo.LargeWinLimit:
+                    {
+                        _pm.SetProperty(AccountingConstants.LargeWinLimit, Convert.ToDecimal(request.Value).DollarsToMillicents());                                
+                        break;
+                    }
+                    case ConfigOptionInfo.HandpayLimit:
+                    {
+                        _pm.SetProperty(AccountingConstants.HandpayLimit, Convert.ToDecimal(request.Value).DollarsToMillicents());                                
+                        break;
+                    }
+                    case ConfigOptionInfo.PrintHandpayReceipt:
+                    {
+                        bool allowPrintHandpay = Equals(request.Value, "true");
+                        _pm.SetProperty(AccountingConstants.EnableReceipts, allowPrintHandpay);
+                        break;
+                    }
+                    default:
+                    {   
+                        break;
+                    }
                 }
-
             }
             catch (Exception ex)
             {                
                 _logger.Error(ex.ToString());
             }
 
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Config/Write" },
-                Result = true,
-                Info = $"Set Property {request.Option}"
+                { "response-to", "/Config/Write" },
+                { "Info", $"Set Property {request.Option}" }
             };
         }
 
-        [HttpPost]
-        [Route("Event/Wait")]
-        public ActionResult<CommandResult> Wait([FromBody]WaitRequest request)
+        public Dictionary<string, object> Wait(WaitRequest request)
         {
             ClearWaits();
 
@@ -1564,87 +1324,70 @@
                 _waitStrategy.Start();
             }
 
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Event/Wait" },
-                Result = true,
-                Info = $"Waiting for {request.EventType}"
+                { "response-to", "/Event/Wait" },
+                { "Info", $"Waiting for {request.EventType}" }
             };
         }
 
-        [HttpPost]
-        [Route("Event/Wait/All")]
-        public ActionResult<CommandResult> WaitAll([FromBody] WaitAllRequest request)
+        public Dictionary<string, object> WaitAll(WaitAllRequest request)
         {
             var waits = request.EventType.Select(a => (WaitEventEnum)Enum.Parse(typeof(WaitEventEnum), a)).ToList();
 
             _waitStrategy = new WaitAll(waits, request.Timeout);
             _waitStrategy.Start();
 
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Event/Wait/All" },
-                Result = true,
-                Info = $"Waiting for all of {string.Join(" ", request.EventType)}"
+                { "response-to", "/Event/Wait/All" },
+                { "Info", $"Waiting for all of {string.Join(" ", request.EventType)}" }
             };
         }
 
-        [HttpPost]
-        [Route("Event/Wait/Any")]
-        public ActionResult<CommandResult> WaitAny([FromBody] WaitAnyRequest request)
+        public Dictionary<string, object> WaitAny(WaitAnyRequest request)
         {
             var waits = request.EventType.Select(a => (WaitEventEnum)Enum.Parse(typeof(WaitEventEnum), a)).ToList();
 
             _waitStrategy = new WaitAny(waits, request.Timeout);
             _waitStrategy.Start();
 
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Event/Wait/Any" },
-                Result = true,
-                Info = $"Waiting for any of {string.Join(" ", request.EventType)}"
+                { "response-to", "/Event/Wait/Any" },
+                { "Info", $"Waiting for any of {string.Join(" ", request.EventType)}" }
             };
         }
 
-        [HttpPost]
-        [Route("Event/Wait/Cancel")]
-        public ActionResult<CommandResult> CancelWait([FromBody] CancelWaitRequest request)
+        public Dictionary<string, object> CancelWait(CancelWaitRequest request)
         {
             _ = Enum.TryParse(request.EventType, out WaitEventEnum wait);
-
             _waitStrategy?.CancelWait(wait);
-
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Event/Wait/Cancel" },
-                Result = true,
-                Info = $"Canceling wait for {request.EventType}"
+                { "response-to", "/Event/Wait/Cancel" },
+                { "Info", $"Canceling wait for {request.EventType}" }
             };
         }
 
-        [HttpPost]
-        [Route("Event/Wait/Clear")]
-        public ActionResult<CommandResult> ClearWaits()
+        public Dictionary<string, object> ClearWaits()
         {
             _waitStrategy?.ClearWaits();
 
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Event/Wait/Clear" },
-                Result = true,
-                Info = "All waits are cleared."
+                { "response-to", "/Event/Wait/Clear" },
+                { "Info", "All waits are cleared." }
             };
         }
 
-        [HttpGet]
-        [Route("Event/Wait/Status")]
-        public ActionResult<CommandResult> CheckWaitStatus()
+        public Dictionary<string, object> CheckWaitStatus()
         {
             var response = new Dictionary<string, object> { ["response-to"] = "/Event/Wait/Status" };
 
             var status = new Dictionary<WaitEventEnum, WaitStatus>();
 
-            var debugOutput = "";
+            var debugOutput = string.Empty;
 
             var result = _waitStrategy?.CheckStatus(status, out debugOutput);
 
@@ -1658,12 +1401,8 @@
                 response["result"] = result;
             }
 
-            return new CommandResult()
-            {
-                data = response,
-                Result = true,
-                Info = debugOutput
-            };
+            response.Add("Info", debugOutput);
+            return response;
         }
 
         private void CheckForWait(Type eventType)
@@ -1673,44 +1412,38 @@
             _waitStrategy?.EventPublished(foundEnum);
         }
 
-        [HttpPost]
-        [Route("Platform/Property")]
-        public ActionResult<object> GetProperty([FromBody] GetPropertyRequest request)
+        public Dictionary<string, object> GetProperty(GetPropertyRequest request)
         {
-            return _pm.GetProperty(request.Property, null);
-        }
-
-        [HttpPost]
-        [Route("Platform/Property/Set")]
-        public ActionResult SetProperty([FromBody] SetPropertyRequest request)
-        {
-            _pm.SetProperty(request.Property, request.Value, request.IsConfig);
-            return new EmptyResult();
-        }
-
-        [HttpPost]
-        [Route("IO/Set")]
-        public ActionResult<CommandResult> SetIo([FromBody] SetIoRequest request)
-        {
-            _io.SetInput(request.Index, request.Status);
-
-            return new CommandResult
+            var theResult = _pm.GetProperty(request.Property, null);
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Io/Set" },
-                Result = true,
+                { request.Property, JsonConvert.SerializeObject(theResult, new Newtonsoft.Json.Converters.StringEnumConverter()) }
             };
         }
 
-        [HttpPost]
-        [Route("IO/Get")]
-        public ActionResult<CommandResult> GetIo()
+        public Dictionary<string, object> SetProperty(SetPropertyRequest request)
+        {
+            _pm.SetProperty(request.Property, request.Value, request.IsConfig);
+            return new Dictionary<string, object>();
+        }
+
+        public Dictionary<string, object> SetIo(SetIoRequest request)
+        {
+            _io.SetInput(request.Index, request.Status);
+
+            return new Dictionary<string, object>
+            {
+                { "response-to", "/Io/Set" }
+            };
+        }
+
+        public Dictionary<string, object> GetIo()
         {
             var inputs = _io.GetInputs();
-
-            return new CommandResult
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = "/Io/Get", ["Map"] = JsonConvert.SerializeObject(inputs) },
-                Result = true,
+                { "response-to", "/Io/Get" },
+                { "Map", JsonConvert.SerializeObject(inputs) }
             };
         }
 
@@ -1819,27 +1552,21 @@
 
         #region Hardware
 
-        [HttpPost]
-        [Route("TouchScreen/{id}/Connect")]
-        public ActionResult<CommandResult> TouchScreenConnect([FromRoute] string id)
+        public Dictionary<string, object> TouchScreenConnect(string id)
         {
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/TouchScreen/{id}/Connect" },
-                Command = "TouchScreenConnect",
-                Result = true
+                { "response-to", $"/TouchScreen/{id}/Connect" },
+                { "Command", "TouchScreenConnect" }
             };
         }
 
-        [HttpPost]
-        [Route("TouchScreen/{id}/Disconnect")]
-        public ActionResult<CommandResult> TouchScreenDisconnect([FromRoute] string id)
+        public Dictionary<string, object> TouchScreenDisconnect(string id)
         {
-            return new CommandResult()
+            return new Dictionary<string, object>
             {
-                data = new Dictionary<string, object> { ["response-to"] = $"/TouchScreen/{id}/Disconnect" },
-                Command = "TouchScreenDisconnect",
-                Result = true
+                { "response-to", $"/TouchScreen/{id}/Disconnect" },
+                { "Command", "TouchScreenDisconnect" }
             };
         }
         #endregion
@@ -1883,7 +1610,7 @@
 
         public int GetHashCode(DisplayableMessage obj)
         {
-            return obj.Message.GetHashCode();
+            return obj.Message.GetHashCode(StringComparison.InvariantCulture);
         }
     }
 }

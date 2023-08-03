@@ -40,7 +40,7 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="1"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.LastPoll}}"
+               Content="{lex:Loc LastPoll}"
                AutomationProperties.AutomationId="Label13_E13CD8A6" />
         <Label Grid.Row="1"
                Grid.Column="1"
@@ -48,7 +48,7 @@
                AutomationProperties.AutomationId="Label14_E13CD8A6" />
         <Label Grid.Row="2"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.TotalResponseTime20ms}}"
+               Content="{lex:Loc TotalResponseTime20ms}"
                AutomationProperties.AutomationId="Label15_E13CD8A6" />
         <Label Grid.Row="2"
                Grid.Column="1"
@@ -56,7 +56,7 @@
                AutomationProperties.AutomationId="Label16_E13CD8A6" />
         <Label Grid.Row="3"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGPResponseTime20ms}}"
+               Content="{lex:Loc TotalGPResponseTime20ms}"
                AutomationProperties.AutomationId="Label17_E13CD8A6" />
         <Label Grid.Row="3"
                Grid.Column="1"
@@ -64,7 +64,7 @@
                AutomationProperties.AutomationId="Label18_E13CD8A6" />
         <Label Grid.Row="4"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.TotalLPResponseTime20ms}}"
+               Content="{lex:Loc TotalLPResponseTime20ms}"
                AutomationProperties.AutomationId="Label19_E13CD8A6" />
         <Label Grid.Row="4"
                Grid.Column="1"
@@ -72,7 +72,7 @@
                AutomationProperties.AutomationId="Label20_E13CD8A6" />
         <Label Grid.Row="5"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MaximumTimeTakenByLP}}"
+               Content="{lex:Loc MaximumTimeTakenByLP}"
                AutomationProperties.AutomationId="Label21_E13CD8A6" />
         <Label Grid.Row="5"
                Grid.Column="1"
@@ -80,7 +80,7 @@
                AutomationProperties.AutomationId="Label22_E13CD8A6" />
         <Label Grid.Row="6"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MaximumTimeTakenByGP}}"
+               Content="{lex:Loc MaximumTimeTakenByGP}"
                AutomationProperties.AutomationId="Label23_E13CD8A6" />
         <Label Grid.Row="6"
                Grid.Column="1"
@@ -88,7 +88,7 @@
                AutomationProperties.AutomationId="Label24_E13CD8A6" />
         <Label Grid.Row="7"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.TotalTimeTakenToPopulateDiagnostics}}"
+               Content="{lex:Loc TotalTimeTakenToPopulateDiagnostics}"
                AutomationProperties.AutomationId="Label25_E13CD8A6" />
         <Label Grid.Row="7"
                Grid.Column="1"

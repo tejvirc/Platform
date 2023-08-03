@@ -9,9 +9,11 @@
     using Aristocrat.Monaco.Gaming.Contracts.Configuration;
     using Aristocrat.Monaco.Gaming.Contracts.Meters;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives;
+    using Aristocrat.Monaco.Gaming.Contracts.GameSpecificOptions;
     using Aristocrat.Monaco.Hardware.Contracts.Cabinet;
     using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.PackageManifest;
+    using Aristocrat.Monaco.PackageManifest.Ati;
     using Aristocrat.Monaco.PackageManifest.Models;
     using Aristocrat.Monaco.Test.Common;
     using Contracts;
@@ -46,6 +48,8 @@
         private Mock<IConfigurationProvider> _configurationProvider;
         private Mock<ICabinetDetectionService> _cabinetDetectionService;
         private Mock<IServiceManager> _serviceManager;
+        private Mock<IManifest<GameSpecificOptionConfig>> _gameSpecificOptionManifest;
+        private Mock<IGameSpecificOptionProvider> _gameSpecificOptionProvider;
 
         [TestInitialize]
         public void Initialize()
@@ -130,6 +134,8 @@
             bool nullRuntime = false,
             bool nullProgressiveManifest = false,
             bool nullProgressiveProvider = false,
+            bool nullGameSpecificOptionManifest = false,
+            bool nullGameSpecificOptionProvider = false,
             bool nullId = false,
             bool nullDigitalRights = false,
             bool nullConfiguration = false,
@@ -147,6 +153,8 @@
                 nullRuntime ? null : _runtimeProvider.Object,
                 nullProgressiveManifest ? null : _progressiveManifest.Object,
                 nullProgressiveProvider ? null : _progressiveProvider.Object,
+                nullGameSpecificOptionManifest ? null : _gameSpecificOptionManifest.Object,
+                nullGameSpecificOptionProvider ? null : _gameSpecificOptionProvider.Object,
                 nullId ? null : _idProvider.Object,
                 nullDigitalRights ? null : _digitalRights.Object,
                 nullConfiguration ? null : _configurationProvider.Object,
@@ -172,6 +180,8 @@
             _digitalRights = new Mock<IDigitalRights>(MockBehavior.Default);
             _configurationProvider = new Mock<IConfigurationProvider>(MockBehavior.Default);
             _cabinetDetectionService = new Mock<ICabinetDetectionService>(MockBehavior.Default);
+            _gameSpecificOptionManifest = new Mock<IManifest<GameSpecificOptionConfig>>(MockBehavior.Default);
+            _gameSpecificOptionProvider = new Mock<IGameSpecificOptionProvider>(MockBehavior.Default);
         }
 
         private void SetupProperties()
@@ -185,6 +195,7 @@
             _properties.Setup(p => p.GetProperty(GamingConstants.SlotMaximumReturnToPlayer, It.IsAny<int>())).Returns(int.MaxValue);
             _properties.Setup(p => p.GetProperty(AccountingConstants.MaxBetLimit, It.IsAny<long>())).Returns(AccountingConstants.DefaultMaxBetLimit);
             _properties.Setup(p => p.GetProperty(GamingConstants.ServerControlledPaytables, It.IsAny<bool>())).Returns(false);
+            _properties.Setup(p => p.GetProperty(GamingConstants.AutoEnableSimpleGames, It.IsAny<bool>())).Returns(true);
         }
 
         private void SetupStorage()
@@ -192,7 +203,6 @@
             var block = new Mock<IPersistentStorageAccessor>(MockBehavior.Default);
             var storageTransaction = new Mock<IPersistentStorageTransaction>(MockBehavior.Default);
             var scopedTransaction = new Mock<IScopedTransaction>(MockBehavior.Default);
-
             var results = new Dictionary<int, Dictionary<string, object>>
             {
                 [0] = new Dictionary<string, object>
@@ -214,7 +224,8 @@
                     ["Game.Features"] = "",
                     ["Game.CdsGameInfos"] = "",
                     ["Game.MinimumPaybackPercent"] = "90.222",
-                    ["Game.MaximumPaybackPercent"] = "91.2222"
+                    ["Game.MaximumPaybackPercent"] = "91.2222",
+                    ["Game.SubGameDetails"] = ""
                 }
             };
 
@@ -240,6 +251,18 @@
                 WagerCategories = new List<PackageManifest.Models.WagerCategory>() { new PackageManifest.Models.WagerCategory { MinWagerCredits = 1 } },
                 Denominations = new List<long>() { 1 },
                 PaytableId = "TestPaytableId",
+                SubGames = new List<SubGame>()
+                {
+                    new SubGame
+                    {
+                        TitleId = 1,
+                        UniqueGameId = 2,
+                        Denominations = new List<long> ()
+                        {
+                            1,2,5
+                        }
+                    }
+                }
             };
 
             _gameContent.GameAttributes = new List<GameAttributes> { attributes };

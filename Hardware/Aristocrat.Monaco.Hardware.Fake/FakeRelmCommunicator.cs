@@ -17,6 +17,9 @@
     using Kernel;
     using log4net;
     using MVVM;
+    using MonacoReelStatus = Contracts.Reel.ReelStatus;
+    using MonacoLightStatus = Contracts.Reel.LightStatus;
+
 
     public class FakeRelmCommunicator : IRelmCommunicator
     {
@@ -40,97 +43,98 @@
                 ServiceManager.GetInstance().GetService<IPathMapper>(),
                 ServiceManager.GetInstance().GetService<IEventBus>())
         {
-            
         }
 
         public FakeRelmCommunicator(IPathMapper pathMapper, IEventBus eventBus)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
-
-            Logger.Debug("Constructed");
         }
-        
+
         /// <inheritdoc/>
         public event EventHandler<EventArgs> DeviceAttached;
-        
+
         /// <inheritdoc/>
         public event EventHandler<EventArgs> DeviceDetached;
-        
+
         /// <inheritdoc/>
         public event EventHandler<ProgressEventArgs> DownloadProgressed;
 
         /// <inheritdoc/>
-        public event EventHandler<ReelStatusReceivedEventArgs> StatusesReceived;
+        public event EventHandler<ReelStatusReceivedEventArgs> ReelStatusReceived;
+
 #pragma warning disable 67
+        /// <inheritdoc/>
+        public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultOccurred;
+
+        /// <inheritdoc/>
+        public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultCleared;
+
+        public event EventHandler<LightEventArgs> LightStatusReceived;
+
         /// <inheritdoc/>
         public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
 #pragma warning restore 67
 
         /// <summary>
-        ///     Gets or sets the reel sim window
-        /// </summary>
-        //public ReelSetWindowGS ReelSimWindow { get; private set; }
-
-        /// <summary>
         ///     Get the reel count for the connected device
         /// </summary>
-        public int ReelCount => /*ReelSimWindow?.ReelCount ??*/ 0;
+        public int ReelCount => 0;//ReelSimWindow?.ReelCount ?? 0;
         
         /// <inheritdoc/>
         public int DefaultReelBrightness { get; set; }
-        
+
         /// <inheritdoc/>
         public string Manufacturer => _baseName + DeviceType;
-        
+
         /// <inheritdoc/>
         public string Model => _baseName + DeviceType;
-        
+
         /// <inheritdoc/>
         public string Firmware => _baseName;
-        
+
         /// <inheritdoc/>
         public string SerialNumber => _baseName;
-        
+
         /// <inheritdoc/>
         public bool IsOpen { get; set; }
-        
+
         /// <inheritdoc/>
         public int VendorId { get; set; }
-        
+
         /// <inheritdoc/>
         public int ProductId { get; set; }
-        
+
         /// <inheritdoc/>
         public int ProductIdDfu { get; set; }
-        
+
         /// <inheritdoc/>
         public string Protocol => "FakeRelm";
-        
+
         /// <inheritdoc/>
         public DeviceType DeviceType { get; set; }
-        
+
         /// <inheritdoc/>
         public IDevice Device { get; set; }
-        
+
         /// <inheritdoc/>
         public string FirmwareVersion => $"{_baseName}1.0";
-        
+
         /// <inheritdoc/>
         public int FirmwareCrc => -1;
 
         /// <inheritdoc/>
         public bool IsDfuCapable => true;
-        
+
         /// <inheritdoc/>
         public bool InDfuMode { get; private set; }
 
         /// <inheritdoc/>
         public bool CanDownload { get; } = false;
-        
+
         /// <inheritdoc/>
         public bool IsDownloadInProgress { get; } = false;
-        
+
         /// <inheritdoc/>
         public IReadOnlyCollection<AnimationFile> AnimationFiles => new List<AnimationFile>();
 
@@ -163,13 +167,13 @@
                 statuses.Add(new ReelStatus{ ReelId = i, Connected = true });
             }
 
-            StatusesReceived?.Invoke(this, new ReelStatusReceivedEventArgs(statuses));
+            ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(statuses));
             return Task.CompletedTask;
         }
 
         public Task<bool> RemoveAllControllerAnimations(CancellationToken token = default)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
@@ -185,7 +189,6 @@
             Logger.Debug($"Closing Simulator.");
             MvvmHelper.ExecuteOnUI(() =>
             {
-                //ReelSimWindow?.Close();
             });
 
             IsOpen = false;
@@ -216,9 +219,6 @@
             MvvmHelper.ExecuteOnUI(
             () =>
             {
-                //ReelSimWindow = new ReelSetWindowGS(_id, GamesPath, $"{knownReels} Reel Layout", PackagesPath, new UtilitiesLib.ExtLogger());
-                //ReelSimWindow.Show();
-
                 Logger.Debug($"Game says: {ReelCount} reels");
             });
 
@@ -250,95 +250,67 @@
         /// <inheritdoc/>
         public Task<bool> HomeReels()
         {
-            //if (ReelSimWindow == null)
-            //{
-            //    return Task.FromResult(false);
-            //}
-            //
-            //Logger.Debug($"Homing reels");
-            //
-            //for (int i = 1; i <= ReelCount; i++)
-            //{
-            //    ReelSimWindow.HomeReel(i, 0);
-            //}
-            //
             return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> HomeReel(int reelId, int stop, bool resetStatus = true)
         {
-            //if (ReelSimWindow == null)
-            //{
-            //    return Task.FromResult(false);
-            //}
-
-            Logger.Debug($"Homing reel {reelId} to step {stop}");
-            //ReelSimWindow.SetReelBrightness(reelId, stop);
-
             return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
-        
+
         /// <inheritdoc/>
         public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> PrepareAnimation(LightShowData file, CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> PrepareAnimations(IEnumerable<LightShowData> files, CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> PrepareAnimation(ReelCurveData file, CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> files, CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> PlayAnimations(CancellationToken token)
         {
-            //if (ReelSimWindow == null)
-            //{
-            //    return Task.FromResult(false);
-            //}
-            //
-            //Logger.Debug($"Playing animations");
-            //ReelSimWindow.StartAnimations();
-
             return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> data, CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> StopAllLightShows(CancellationToken token)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
@@ -355,50 +327,18 @@
         /// <inheritdoc/>
         public Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token)
         {
-            //if (ReelSimWindow == null)
-            //{
-            //    return Task.FromResult(false);
-            //}
-
-            //foreach (var nudge in nudgeData)
-            //{
-            //    ReelSimWindow.NudgeReel(nudge.ReelId, nudge.Direction == SpinDirection.Backwards, nudge.Step);
-            //}
-
             return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> SetBrightness(IReadOnlyDictionary<int, int> brightness)
         {
-            //if (ReelSimWindow == null)
-            //{
-            //    return Task.FromResult(false);
-            //}
-            //
-            //foreach (var brightnessSetting in brightness)
-            //{
-            //    Logger.Debug($"Set reel brightness {brightnessSetting.Key}/{brightnessSetting.Value}");
-            //    ReelSimWindow.SetReelBrightness(brightnessSetting.Key, brightnessSetting.Value);
-            //}
-
             return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
         public Task<bool> SetBrightness(int brightness)
         {
-            //if (ReelSimWindow == null)
-            //{
-            //    return Task.FromResult(false);
-            //}
-            //
-            //Logger.Debug($"Setting all reels brightness to brightness");
-            //for (int i = 0; i < ReelCount; i++)
-            //{
-            //    ReelSimWindow.SetReelBrightness(i, brightness);
-            //}
-
             return Task.FromResult(true);
         }
 
@@ -413,6 +353,9 @@
         {
             //prevent a double subscription for the FakeDeviceConnectedEvent in the case of Open->Close->Open
             _eventBus?.UnsubscribeAll(this);
+
+            // allow the injection of Relm reel errors from the Test Tool
+            _eventBus?.Subscribe<TestToolRelmReelErrorEvent>(this, InjectTestToolInterrupt);
 
             if (!Open() && !IsOpen)
             {
@@ -443,16 +386,6 @@
         /// <inheritdoc/>
         public Task<bool> TiltReels()
         {
-            //if (ReelSimWindow == null)
-            //{
-            //    return Task.FromResult(false);
-            //}
-            //
-            //for (int i = 1; i <= ReelCount; i++)
-            //{
-            //    ReelSimWindow.TiltReel(i);
-            //}
-
             return Task.FromResult(true);
         }
 
@@ -516,6 +449,38 @@
             }
 
             _disposed = true;
+        }
+
+        private void InjectTestToolInterrupt(TestToolRelmReelErrorEvent evt)
+        {
+            if (evt.ReelStatus is not null)
+            {
+                ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(evt.ReelStatus));
+            }
+
+            if (evt.LightStatus is not null)
+            {
+                LightStatusReceived?.Invoke(this, new LightEventArgs(evt.LightStatus));
+            }
+
+            if (evt.PingTimeout)
+            {
+                ControllerFaultOccurred?.Invoke(
+                    this,
+                    new ReelControllerFaultedEventArgs(ReelControllerFaults.CommunicationError));
+            }
+
+            if (evt.ClearPingTimeout)
+            {
+                ControllerFaultCleared?.Invoke(
+                    this,
+                    new ReelControllerFaultedEventArgs(ReelControllerFaults.CommunicationError));
+            }
+
+            if (evt.IsEventQueueFull)
+            {
+                Logger.Debug("The event queue is almost full");
+            }
         }
     }
 }

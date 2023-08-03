@@ -114,6 +114,11 @@
                         // This is per GLI and what appears to be most VLT regulations.  This feels wrong, but it's normal for some jurisdictions.
                         //  ALC Regulatory Text: "The trigger game and each free game are considered separate games."
 
+                        if (freeGame.FinalWin == 0 && gameRoundEvent.Win > 0)
+                        {
+                            _gameHistory.FreeGameResults((long)gameRoundEvent.Win);
+                        }
+
                         var result = freeGame.FinalWin;
 
                         _bank.AddWin(result);

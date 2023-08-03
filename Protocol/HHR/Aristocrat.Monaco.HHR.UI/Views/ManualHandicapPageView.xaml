@@ -69,7 +69,7 @@
             <TextBlock Style="{StaticResource HeaderStyle}"
                        HorizontalAlignment="Left"
                        AutomationProperties.AutomationId="TextBlock9_20C7B95F">
-                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrRemainingRacesToHandicapTitle}}"
+                <Run Text="{lex:Loc HhrRemainingRacesToHandicapTitle}"
                      AutomationProperties.AutomationId="Run10_20C7B95F" />
                 <Run Foreground="White"
                      FontSize="40"
@@ -92,7 +92,7 @@
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     AutomationProperties.AutomationId="StackPanel13_20C7B95F">
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrYourPicksTitle}}"
+            <TextBlock Text="{lex:Loc HhrYourPicksTitle}"
                        Style="{StaticResource HeaderStyle}"
                        Margin="0 20 0 0"
                        AutomationProperties.AutomationId="TextBlock14_20C7B95F" />
@@ -210,7 +210,7 @@
                     Orientation="Vertical"
                     HorizontalAlignment="Center"
                     AutomationProperties.AutomationId="StackPanel26_20C7B95F">
-            <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrHorseTitle}}"
+            <TextBlock Text="{lex:Loc HhrHorseTitle}"
                        Style="{StaticResource HeaderStyle}"
                        Margin="0 10 0 0"
                        AutomationProperties.AutomationId="TextBlock27_20C7B95F" />
@@ -325,7 +325,7 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 20 0 0"
-                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrManualHandicapDisclaimerMessage}}"
+                   Text="{lex:Loc HhrManualHandicapDisclaimerMessage}"
                    FontSize="12"
                    HorizontalAlignment="Center"
                    TextAlignment="Center"
@@ -336,7 +336,7 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 20 0 0"
-                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrManualHandicapDisclaimerMessageAuto}}"
+                   Text="{lex:Loc HhrManualHandicapDisclaimerMessageAuto}"
                    FontSize="12"
                    HorizontalAlignment="Center"
                    TextAlignment="Center"

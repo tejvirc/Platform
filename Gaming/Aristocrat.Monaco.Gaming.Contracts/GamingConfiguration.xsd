@@ -9,7 +9,7 @@
           <xs:complexType>
             <xs:attribute name="KeepGameRoundEvents" type="xs:boolean" use="optional" default="true" />
             <xs:attribute name="KeepGameRoundMeterSnapshots" type="xs:boolean" use="optional" default="true" />
-          </xs:complexType>
+           </xs:complexType>
         </xs:element>
         <xs:element maxOccurs="1" name="GameEnd">
           <xs:complexType>
@@ -323,6 +323,15 @@
               <xs:element minOccurs="0" maxOccurs="1" name="BetButtons">
                 <xs:complexType>
                   <xs:attribute name="DisplayOnBottom" type="xs:boolean" use="optional" default="false" />
+                  <xs:attribute name="BetDown" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="BetUp" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="MaxBet" type="xs:string" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="LeftPlayButton">
+                <xs:complexType>
+                  <xs:attribute name="Required" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="Optional" type="xs:boolean" use="optional" default="false" />
                 </xs:complexType>
               </xs:element>
               <xs:element minOccurs="0" maxOccurs="1" name="CollectButton">
@@ -457,6 +466,11 @@
             <xs:attribute name="Format" type="xs:string" use="optional" />
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="Instructions">
+          <xs:complexType>
+            <xs:attribute name="GameRulesInstructions" type="xs:string" use="optional" default="" />
+          </xs:complexType>
+        </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="WagerLimits">
           <xs:complexType>
             <xs:attribute name="Use" type="xs:boolean" use="optional" default="false" />
@@ -515,7 +529,39 @@
             <xs:attribute name="GoodLuck" type="xs:boolean" use="optional" default="true" />
           </xs:complexType>
         </xs:element>
-      </xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="WinIncrement">
+          <xs:complexType>
+            <xs:attribute name="WinTuneCapping" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="WinIncrementSpeed" type="WinIncrementSpeed" use="optional" default="WinAmountOnly" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AutoCompleteGameRound">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ProgressiveView">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="InitialSetupView">
+                <xs:complexType>
+                  <xs:attribute name="Readonly" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="MaxWin">
+          <xs:complexType>
+            <xs:attribute name="OnMaxWinReached" type="xs:string" use="optional" default="endgame" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AutoEnableSimpleGames">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>     
     </xs:complexType>
   </xs:element>
   <xs:simpleType name="ProgressivePoolCreation">
@@ -632,6 +678,12 @@
       <xs:enumeration value="Required" />
       <xs:enumeration value="Allowed" />
       <xs:enumeration value="Disallowed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="WinIncrementSpeed">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="WinAmountOnly" />
+      <xs:enumeration value="WinAmountAndDenom" />
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

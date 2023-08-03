@@ -73,7 +73,7 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DirectoryPort}}"
+               Content="{lex:Loc DirectoryPort}"
                AutomationProperties.AutomationId="Label14_25953563" />
         <TextBox Grid.Row="0"
                  Grid.Column="2"
@@ -83,7 +83,7 @@
                  AutomationProperties.AutomationId="TextBox15_25953563" />
         <Label Grid.Row="1"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.ServiceName}}"
+               Content="{lex:Loc ServiceName}"
                AutomationProperties.AutomationId="Label16_25953563" />
         <TextBox Grid.Row="1"
                  Grid.Column="2"
@@ -93,7 +93,7 @@
                  AutomationProperties.AutomationId="TextBox17_25953563" />
         <Label Grid.Row="3"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.UseUdpBroadcasting}}"
+               Content="{lex:Loc UseUdpBroadcasting}"
                AutomationProperties.AutomationId="Label18_25953563" />
         <StackPanel Orientation="Horizontal"
                     Grid.Row="3"
@@ -105,13 +105,13 @@
                       Margin="10,0,0,0"
                       IsEnabled="{Binding InputEnabled}"
                       AutomationProperties.AutomationId="CheckBox20_25953563" />
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.UdpBroadcastingNote}}"
+            <Label Content="{lex:Loc UdpBroadcastingNote}"
                    Margin="15,0,0,0"
                    AutomationProperties.AutomationId="Label21_25953563" />
         </StackPanel>
         <Label Grid.Row="4"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DirectoryIpAddress}}"
+               Content="{lex:Loc DirectoryIpAddress}"
                AutomationProperties.AutomationId="Label22_25953563" />
         <TextBox Grid.Row="4"
                  Grid.Column="2"
@@ -128,7 +128,7 @@
         </TextBox>
         <Label Grid.Row="6"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MacAddressLabel}}"
+               Content="{lex:Loc MacAddressLabel}"
                AutomationProperties.AutomationId="Label24_25953563" />
         <TextBox Grid.Row="6"
                  Grid.Column="2"
@@ -137,7 +137,7 @@
                  AutomationProperties.AutomationId="TextBox25_25953563" />
         <Label Grid.Row="7"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceName}}"
+               Content="{lex:Loc DeviceName}"
                AutomationProperties.AutomationId="Label26_25953563" />
         <TextBox Grid.Row="7"
                  Grid.Column="2"
@@ -149,7 +149,7 @@
                  AutomationProperties.AutomationId="TextBox27_25953563" />
         <Label Grid.Row="8"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceGuid}}"
+               Content="{lex:Loc DeviceGuid}"
                AutomationProperties.AutomationId="Label28_25953563" />
         <TextBox Grid.Row="8"
                  Grid.Column="2"

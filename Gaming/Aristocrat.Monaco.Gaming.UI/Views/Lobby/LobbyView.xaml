@@ -49,6 +49,8 @@
                 <ResourceDictionary Source="LobbyViewLandscapeTemplate.xaml" />
                 <ResourceDictionary Source="LobbyViewPortraitTemplate.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+                <ResourceDictionary
+                    Source="LobbyViewMidKnightTemplate.xaml"/>
                 <!-- Jurisdiction xaml dictionary is loaded dynamically; see SkinLoader -->
             </ResourceDictionary.MergedDictionaries>
             <lobby:LobbyViewTemplateSelector
@@ -76,11 +78,11 @@
                         TargetType="Grid">
                         <Setter
                             Property="VerticalAlignment"
-                            Value="Stretch" />
+                                Value="Stretch" />
                         <Style.Triggers>
                             <DataTrigger
                                 Value="True"
-                                AutomationProperties.AutomationId="DataTrigger2_C7C81470">
+                                         AutomationProperties.AutomationId="DataTrigger2_C7C81470">
                                 <DataTrigger.Binding>
                                     <MultiBinding
                                         Converter="{StaticResource BoolOrConverter}">
@@ -93,7 +95,7 @@
                                 <DataTrigger.Setters>
                                     <Setter
                                         Property="VerticalAlignment"
-                                        Value="Top" />
+                                            Value="Top" />
                                 </DataTrigger.Setters>
                             </DataTrigger>
                         </Style.Triggers>
@@ -101,13 +103,13 @@
                 </Grid.Style>
                 <controls:ExtendedWindowsFormsHost
                     Loaded="WinHostCtrl_OnLoaded"
-                    Background="Black"
-                    Visibility="{Binding IsLobbyVisible, Converter={StaticResource TrueHiddenFalseVisible}}"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch">
+                                                   Background="Black"
+                                                   Visibility="{Binding IsLobbyVisible, Converter={StaticResource TrueHiddenFalseVisible}}"
+                                                   HorizontalAlignment="Stretch"
+                                                   VerticalAlignment="Stretch">
                     <controls:NativeFormsControl
                         x:Name="GameBottomWindowCtrl"
-                        Dock="Fill" />
+                                                 Dock="Fill" />
                 </controls:ExtendedWindowsFormsHost>
             </Grid>
             <!--
@@ -116,35 +118,35 @@
             -->
             <Viewbox
                 x:Name="ViewBoxLobby"
-                Stretch="Uniform"
-                AutomationProperties.AutomationId="Viewbox3_C7C81470">
+                     Stretch="Uniform"
+                     AutomationProperties.AutomationId="Viewbox3_C7C81470">
                 <Grid
                     x:Name="LobbyAndInfoBarContainer"
-                    Height="{Binding ElementName=LayoutTemplate, Path=ActualHeight}"
-                    Width="{Binding ElementName=LayoutTemplate, Path=ActualWidth}"
-                    AutomationProperties.AutomationId="Grid4_C7C81470">
+                      Height="{Binding ElementName=LayoutTemplate, Path=ActualHeight}"
+                      Width="{Binding ElementName=LayoutTemplate, Path=ActualWidth}"
+                      AutomationProperties.AutomationId="Grid4_C7C81470">
                     <Grid.RowDefinitions>
                         <RowDefinition
                             Height="*"
-                            AutomationProperties.AutomationId="RowDefinition5_C7C81470" />
+                                       AutomationProperties.AutomationId="RowDefinition5_C7C81470" />
                         <RowDefinition
                             Height="Auto"
-                            AutomationProperties.AutomationId="RowDefinition6_C7C81470" />
+                                       AutomationProperties.AutomationId="RowDefinition6_C7C81470" />
                         <RowDefinition
                             Height="Auto"
-                            AutomationProperties.AutomationId="RowDefinition7_C7C81470" />
+                                       AutomationProperties.AutomationId="RowDefinition7_C7C81470" />
                     </Grid.RowDefinitions>
                     <Grid
                         x:Name="LobbyRoot"
-                        Visibility="{Binding IsLobbyVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                        MouseDown="LobbyRoot_OnMouseDown"
-                        GotFocus="LobbyRoot_OnGotFocus"
-                        AutomationProperties.AutomationId="Grid8_C7C81470">
+                          Visibility="{Binding IsLobbyVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                          MouseDown="LobbyRoot_OnMouseDown"
+                          GotFocus="LobbyRoot_OnGotFocus"
+                          AutomationProperties.AutomationId="Grid8_C7C81470">
                         <ContentControl
                             x:Name="LobbyControl"
-                            Content="{Binding}"
-                            ContentTemplateSelector="{StaticResource LobbyViewTemplateSelector}"
-                            AutomationProperties.AutomationId="ContentControl9_C7C81470" />
+                                        Content="{Binding}"
+                                        ContentTemplateSelector="{StaticResource LobbyViewTemplateSelector}"
+                                        AutomationProperties.AutomationId="ContentControl9_C7C81470" />
                         <!-- No Games Enabled for this language warning -->
                         <TextBlock
                             HorizontalAlignment="Center"
@@ -161,37 +163,37 @@
                         <!-- BOTTOM ATTRACT: Do not collapse BinkGpuControl.  You will get null BackBuffer. -->
                         <bink:BinkGpuControl
                             x:Name="GameAttract"
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Filename="{Binding BottomAttractVideoPath}"
-                            LoopVideo="False"
-                            ShowFirstFrameOnLoad="True"
-                            Visibility="{Binding IsBottomAttractVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
-                            VideoCompleted="GameAttract_OnVideoCompleted"
-                            Height="{Binding ElementName=Root, Path=ActualHeight}"
-                            Width="{Binding ElementName=Root, Path=ActualWidth}">
+                                             Grid.Row="0"
+                                             Grid.Column="0"
+                                             Filename="{Binding BottomAttractVideoPath}"
+                                             LoopVideo="False"
+                                             ShowFirstFrameOnLoad="True"
+                                             Visibility="{Binding IsBottomAttractVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                                             VideoCompleted="GameAttract_OnVideoCompleted"
+                                             Height="{Binding ElementName=Root, Path=ActualHeight}"
+                                             Width="{Binding ElementName=Root, Path=ActualWidth}">
                             <bink:BinkGpuControl.Style>
                                 <Style
                                     TargetType="bink:BinkGpuControl">
                                     <Setter
                                         Property="VideoState"
-                                        Value="Stopped" />
+                                            Value="Stopped" />
                                     <Style.Triggers>
                                         <DataTrigger
                                             Binding="{Binding IsBottomAttractFeaturePlaying}"
-                                            Value="True"
-                                            AutomationProperties.AutomationId="DataTrigger10_C7C81470">
+                                                     Value="True"
+                                                     AutomationProperties.AutomationId="DataTrigger10_C7C81470">
                                             <Setter
                                                 Property="VideoState"
-                                                Value="Playing" />
+                                                    Value="Playing" />
                                         </DataTrigger>
                                         <DataTrigger
                                             Binding="{Binding IsBottomAttractFeaturePlaying}"
-                                            Value="False"
-                                            AutomationProperties.AutomationId="DataTrigger11_C7C81470">
+                                                     Value="False"
+                                                     AutomationProperties.AutomationId="DataTrigger11_C7C81470">
                                             <Setter
                                                 Property="VideoState"
-                                                Value="Stopped" />
+                                                    Value="Stopped" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -200,54 +202,54 @@
                         <!-- RG INFO -->
                         <Image
                             IsHitTestVisible="False"
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Stretch="None"
-                            Source="{DynamicResource RGInfoBackground}"
-                            Visibility="{Binding IsResponsibleGamingInfoDlgVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                            AutomationProperties.AutomationId="Image12_C7C81470" />
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               Stretch="None"
+                               Source="{DynamicResource RGInfoBackground}"
+                               Visibility="{Binding IsResponsibleGamingInfoDlgVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                               AutomationProperties.AutomationId="Image12_C7C81470" />
                         <overlay:RGInfo
                             Grid.Row="0"
-                            Grid.RowSpan="{Binding RGInfoRowSpan}"
-                            Grid.Column="0"
-                            Visibility="{Binding IsResponsibleGamingInfoDlgVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                                        Grid.RowSpan="{Binding RGInfoRowSpan}"
+                                        Grid.Column="0"
+                                        Visibility="{Binding IsResponsibleGamingInfoDlgVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                         <!-- Rectangle to block input when lobby is disabled during media player resize -->
                         <Rectangle
                             Grid.Row="0"
-                            Grid.Column="0"
-                            Fill="White"
-                            Opacity="0"
-                            Visibility="{Binding MediaPlayersResizing, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                            AutomationProperties.AutomationId="Rectangle13_C7C81470" />
+                                   Grid.Column="0"
+                                   Fill="White"
+                                   Opacity="0"
+                                   Visibility="{Binding MediaPlayersResizing, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                   AutomationProperties.AutomationId="Rectangle13_C7C81470" />
                         <!-- Rectangle to give screen a disabled look if message overlay is visible -->
                         <Rectangle
                             Grid.Row="0"
-                            Grid.Column="0"
-                            Fill="Black"
-                            Opacity="0.5"
-                            Visibility="{Binding MessageOverlayDisplay.IsLockupMessageVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                            AutomationProperties.AutomationId="Rectangle14_C7C81470" />
+                                   Grid.Column="0"
+                                   Fill="Black"
+                                   Opacity="0.5"
+                                   Visibility="{Binding MessageOverlayDisplay.IsLockupMessageVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                   AutomationProperties.AutomationId="Rectangle14_C7C81470" />
                         <Image
                             Grid.Row="0"
-                            Stretch="Fill"
-                            Grid.Column="0"
-                            Source="{Binding GameLoadingScreenPath}"
-                            Visibility="{Binding IsBottomLoadingScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                            AutomationProperties.AutomationId="Image15_C7C81470" />
+                               Stretch="Fill"
+                               Grid.Column="0"
+                               Source="{Binding GameLoadingScreenPath}"
+                               Visibility="{Binding IsBottomLoadingScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                               AutomationProperties.AutomationId="Image15_C7C81470" />
                     </Grid>
                     <!-- INFO BAR -->
                     <infoBar:InfoBarView
                         x:Name="InfoBar"
-                        Grid.Row="1"
-                        Location="Main"
-                        Visibility="{Binding ElementName=Root, Path=DataContext.IsMainInfoBarVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                                         Grid.Row="1"
+                                         Location="Main"
+                                         Visibility="{Binding ElementName=Root, Path=DataContext.IsMainInfoBarVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                     <!-- spacer accommodates the non-superimposed parts of the overlay window (e.g. replay navigation bar) -->
                     <Grid
                         Grid.Row="2"
-                        Background="Transparent"
-                        Visibility="{Binding ElementName=Root, Path=DataContext.MessageOverlayDisplay.IsReplayRecoveryDlgVisible, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                        Height="{Binding ReplayNavigationBarHeight, Mode=OneWay}"
-                        AutomationProperties.AutomationId="Grid16_C7C81470" />
+                          Background="Transparent"
+                          Visibility="{Binding ElementName=Root, Path=DataContext.MessageOverlayDisplay.IsReplayRecoveryDlgVisible, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                          Height="{Binding ReplayNavigationBarHeight, Mode=OneWay}"
+                          AutomationProperties.AutomationId="Grid16_C7C81470" />
                 </Grid>
             </Viewbox>
         </Grid>

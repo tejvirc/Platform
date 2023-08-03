@@ -43,7 +43,7 @@
                     <Button Click="ClearSelectionButton_OnClick"
                             HorizontalAlignment="Stretch"
                             Margin="5"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearSelection}}"
+                            Content="{lex:Loc ClearSelection}"
                             AutomationProperties.AutomationId="Button8_CB1377F0" />
                 </StackPanel>
             </Border>

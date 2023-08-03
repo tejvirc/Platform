@@ -137,7 +137,7 @@
                                     Binding="{Binding ComponentId}"
                                     AutomationProperties.AutomationId="DataGridTextColumn19_9BB4B1CA"
                                     loc:Localizer.For="Operator" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HashResult}}"
+                <DataGridTextColumn Header="{lex:Loc HashResult}"
                                     FontFamily="Consolas"
                                     MinWidth="600"
                                     MaxWidth="800"

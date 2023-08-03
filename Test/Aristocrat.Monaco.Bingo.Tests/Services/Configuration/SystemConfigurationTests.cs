@@ -26,6 +26,7 @@
         private Mock<IPropertiesManager> _propertiesManager;
         private readonly Mock<ISystemDisableManager> _disableManager = new();
         private readonly Mock<IMultiProtocolConfigurationProvider> _protocolConfigurationProvider = new();
+        private readonly Mock<IEventBus> _eventBus = new();
 
         private static IEnumerable<object[]> SettingChangedData => new List<object[]>
         {
@@ -60,23 +61,26 @@
         {
             MoqServiceManager.CreateInstance(MockBehavior.Default);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Default);
-            _target = new SystemConfiguration(_propertiesManager.Object, _protocolConfigurationProvider.Object, _disableManager.Object);
+            _target = new SystemConfiguration(_propertiesManager.Object, _protocolConfigurationProvider.Object, _disableManager.Object, _eventBus.Object);
         }
 
-        [DataRow(true, false, false, DisplayName = "PropertiesManager null")]
-        [DataRow(false, true, false, DisplayName = "ProtocolConfigurationProvider null")]
-        [DataRow(false, false, true, DisplayName = "DisableManager null")]
+        [DataRow(true, false, false, false, DisplayName = "PropertiesManager null")]
+        [DataRow(false, true, false, false, DisplayName = "ProtocolConfigurationProvider null")]
+        [DataRow(false, false, true, false, DisplayName = "DisableManager null")]
+        [DataRow(false, false, false, true, DisplayName = "EventBus null")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorTest(
             bool propertiesManagerNull,
             bool protocolConfigurationProviderNull,
-            bool disableManagerNull)
+            bool disableManagerNull,
+            bool eventBusNull)
         {
             _target = new SystemConfiguration(
                 propertiesManagerNull ? null : _propertiesManager.Object,
                 protocolConfigurationProviderNull ? null : _protocolConfigurationProvider.Object,
-                disableManagerNull ? null : _disableManager.Object);
+                disableManagerNull ? null : _disableManager.Object,
+                eventBusNull ? null : _eventBus.Object);
         }
 
         [TestMethod]

@@ -7,8 +7,9 @@
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
-             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
-             mc:Ignorable="d">
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+             mc:Ignorable="d"
+             AutomationProperties.AutomationId="UserControl0_3AB56F25">
     <UserControl.Resources>
         <src:CommsStatusToStringConverter x:Key="CommsStatusToStringConverter" />
     </UserControl.Resources>
@@ -33,7 +34,7 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolVersionLabel}}"
+               Content="{lex:Loc ProtocolVersionLabel}"
                AutomationProperties.AutomationId="Label9_3AB56F25" />
         <Label Grid.Row="0"
                Grid.Column="1"
@@ -41,7 +42,7 @@
                AutomationProperties.AutomationId="Label10_3AB56F25" />
         <Label Grid.Row="1"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SasHostCommsStatusLabel}}"
+               Content="{lex:Loc SasHostCommsStatusLabel}"
                AutomationProperties.AutomationId="Label11_3AB56F25" />
         <Label Grid.Row="1"
                Grid.Column="1"
@@ -49,7 +50,7 @@
                AutomationProperties.AutomationId="Label12_3AB56F25" />
         <Label Grid.Row="2"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.LastLinkUpLabel}}"
+               Content="{lex:Loc LastLinkUpLabel}"
                AutomationProperties.AutomationId="Label13_3AB56F25" />
         <Label Grid.Row="2"
                Grid.Column="1"
@@ -57,7 +58,7 @@
                AutomationProperties.AutomationId="Label14_3AB56F25" />
         <Label Grid.Row="3"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.LastLinkDownLabel}}"
+               Content="{lex:Loc LastLinkDownLabel}"
                AutomationProperties.AutomationId="Label15_3AB56F25" />
         <Label Grid.Row="3"
                Grid.Column="1"

@@ -133,7 +133,7 @@
                     </StackPanel>
                     <Label Grid.Row="2"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolLabel}}"
+                           Content="{lex:Loc ProtocolLabel}"
                            AutomationProperties.AutomationId="Label25_B32EFF41" />
                     <StackPanel Grid.Row="2"
                                 Grid.Column="1"

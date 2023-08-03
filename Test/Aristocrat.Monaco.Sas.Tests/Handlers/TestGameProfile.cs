@@ -81,7 +81,7 @@
 
         public IEnumerable<string> GameTags { get; set; }
 
-        public BetOptionList BetOptionList { get; set; } = new BetOptionList(new List<c_betOption>());
+        public BetOptionList BetOptionList { get; set; } = new BetOptionList(new List<c_betOption>(), new c_betLinePreset[0]);
 
         public BetOption ActiveBetOption { get; }
 
@@ -136,5 +136,9 @@
         public int MaximumWagerOutsideCredits { get; set; }
 
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
+        public IEnumerable<ISubGameDetails> SupportedSubGames { get; }
+
+        public IEnumerable<ISubGameDetails> ActiveSubGames { get; }
     }
 }

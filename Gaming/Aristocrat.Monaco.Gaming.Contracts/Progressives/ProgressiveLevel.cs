@@ -94,6 +94,11 @@
         public long IncrementRate { get; set; }
 
         /// <summary>
+        ///     Gets or sets whether a Bet Line Preset (if any) is associated with this progressive level
+        /// </summary>
+        public bool HasAssociatedBetLinePreset { get; set; }
+
+        /// <summary>
         ///     Gets or sets the hidden increment rate for this progressive level. It is for incrementing the hidden pool
         ///     which will be added to the start-up value after JP hit and reset
         /// </summary>

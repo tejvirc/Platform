@@ -170,7 +170,7 @@
                        AutomationProperties.AutomationId="TextBlock43_5D6B2051" />
             <Label Grid.Row="1"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.WindowsVersionLabel}}"
+                   Content="{lex:Loc WindowsVersionLabel}"
                    AutomationProperties.AutomationId="Label44_5D6B2051" />
             <TextBlock Grid.Row="1"
                        Grid.Column="1"
@@ -178,7 +178,7 @@
                        AutomationProperties.AutomationId="TextBlock45_5D6B2051" />
             <Label Grid.Row="2"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.OSImageVersionLabel}}"
+                   Content="{lex:Loc OSImageVersionLabel}"
                    AutomationProperties.AutomationId="Label46_5D6B2051" />
             <TextBlock Grid.Row="2"
                        Grid.Column="1"
@@ -186,7 +186,7 @@
                        AutomationProperties.AutomationId="TextBlock47_5D6B2051" />
             <Label Grid.Row="3"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PlatformVersionLabel}}"
+                   Content="{lex:Loc PlatformVersionLabel}"
                    AutomationProperties.AutomationId="Label48_5D6B2051" />
             <TextBlock Grid.Row="3"
                        Grid.Column="1"
@@ -194,7 +194,7 @@
                        AutomationProperties.AutomationId="TextBlock49_5D6B2051" />
             <Label Grid.Row="5"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneLabel}}"
+                   Content="{lex:Loc TimeZoneLabel}"
                    AutomationProperties.AutomationId="Label50_5D6B2051" />
             <TextBlock Grid.Row="5"
                        Grid.Column="1"
@@ -202,7 +202,7 @@
                        AutomationProperties.AutomationId="TextBlock51_5D6B2051" />
             <Label Grid.Row="6"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneOffsetLabel}}"
+                   Content="{lex:Loc TimeZoneOffsetLabel}"
                    AutomationProperties.AutomationId="Label52_5D6B2051" />
             <TextBlock Grid.Row="6"
                        Grid.Column="1"
@@ -210,7 +210,7 @@
                        AutomationProperties.AutomationId="TextBlock53_5D6B2051" />
             <Label Grid.Row="8"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.IPAddressesLabel}}"
+                   Content="{lex:Loc IPAddressesLabel}"
                    AutomationProperties.AutomationId="Label54_5D6B2051" />
             <TextBlock Grid.Row="8"
                        Grid.Column="1"
@@ -218,7 +218,7 @@
                        AutomationProperties.AutomationId="TextBlock55_5D6B2051" />
             <Label Grid.Row="9"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MacAddressLabel}}"
+                   Content="{lex:Loc MacAddressLabel}"
                    AutomationProperties.AutomationId="Label56_5D6B2051" />
             <TextBlock Grid.Row="9"
                        Grid.Column="1"

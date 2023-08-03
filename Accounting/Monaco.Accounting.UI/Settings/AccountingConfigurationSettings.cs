@@ -235,6 +235,8 @@
                         _properties.GetValue(AccountingConstants.LargeWinHandpayResetMethod, LargeWinHandpayResetMethod.PayByHand),
                     HandpayLimitIsChecked =
                         _properties.GetValue(AccountingConstants.HandpayLimitEnabled, true),
+                    HandCountPayoutLimit =
+                        _properties.GetValue(AccountingConstants.HandCountPayoutLimit, long.MaxValue),
                     LargeWinLimitIsChecked =
                         _properties.GetValue(AccountingConstants.LargeWinLimitEnabled, true),
                     CreditLimitIsChecked =
@@ -315,6 +317,7 @@
             _properties.SetProperty(AccountingConstants.VoucherOutNonCashExpirationDays, settings.VoucherOutNonCashExpirationDays);
             _properties.SetProperty(AccountingConstants.VoucherOutLimitEnabled, settings.VoucherOutCheckBoxChecked);
             _properties.SetProperty(AccountingConstants.VoucherInLimitEnabled, settings.VoucherInCheckBoxChecked);
+            _properties.SetProperty(AccountingConstants.HandCountPayoutLimit, settings.HandCountPayoutLimit);
             _properties.SetProperty(AccountingConstants.HandpayLimit, settings.HandpayLimit);
             _properties.SetProperty(AccountingConstants.RemoteHandpayResetAllowed, settings.AllowRemoteHandpayReset);
             _properties.SetProperty(AccountingConstants.LargeWinHandpayResetMethod, settings.LargeWinHandpayResetMethod);

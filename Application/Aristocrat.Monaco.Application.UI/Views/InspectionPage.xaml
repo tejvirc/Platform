@@ -190,7 +190,7 @@
                 <Button Grid.Column="5"
                         Name="BackButton"
                         Command="{Binding BackButtonClicked}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackText}}"
+                        Content="{lex:Loc BackText}"
                         Visibility="{Binding IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0"
                         controls:ControlsHelper.CornerRadius="3"

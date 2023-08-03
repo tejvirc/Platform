@@ -11,7 +11,9 @@
     /// </summary>
     public class ToolsMainPageLoader : OperatorMenuPageLoader
     {
-        public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ToolsMainPageLabel);
+        private readonly string _pageNameResourceKey = ResourceKeys.ToolsMainPageLabel;
+
+        public override string PageName => Localizer.For(CultureFor.Operator).GetString(_pageNameResourceKey);
 
         /// <inheritdoc />
         protected override IOperatorMenuPage CreatePage()
@@ -22,7 +24,7 @@
         /// <inheritdoc />
         protected override IOperatorMenuPageViewModel CreateViewModel()
         {
-            return new ToolsMainPageViewModel(this);
+            return new ToolsMainPageViewModel(_pageNameResourceKey);
         }
     }
 }

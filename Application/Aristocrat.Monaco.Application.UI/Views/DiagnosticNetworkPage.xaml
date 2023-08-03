@@ -151,7 +151,7 @@
                             Margin="0 15 0 0"
                             HorizontalAlignment="Left"
                             Width="100"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Ping}}"
+                            Content="{lex:Loc Ping}"
                             Command="{Binding PingCommand}"
                             AutomationProperties.AutomationId="Button33_E1958C7" />
                     <Label Grid.Column="1"
@@ -193,7 +193,7 @@
         <GroupBox Grid.Column="1"
                   VerticalAlignment="Stretch"
                   Margin="10,0,0,0"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.ActiveConnections}}"
+                  Header="{lex:Loc ActiveConnections}"
                   AutomationProperties.AutomationId="GroupBox39_E1958C7">
             <DataGrid ItemsSource="{Binding NetstatResultSet}"
                       MinHeight="400"

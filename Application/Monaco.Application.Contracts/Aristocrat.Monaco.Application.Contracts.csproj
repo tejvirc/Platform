@@ -4,8 +4,8 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyName>Monaco.Application.Contracts</AssemblyName>
     <AssemblyTitle>Monaco.Application.Contracts</AssemblyTitle>
-    <Configurations>Debug;Release;Retail</Configurations>
     <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <Configurations>Debug;Release;Retail</Configurations>
     <Platform>x64</Platform>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>

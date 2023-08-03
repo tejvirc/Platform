@@ -340,6 +340,8 @@
         /// </summary>
         public void ResetCloseDelay()
         {
+            _eventBus.Publish(new UserInteractionEvent());
+
             CancelCloseDelay();
             SetCloseDelay();
         }

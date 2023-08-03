@@ -1,12 +1,12 @@
 ﻿namespace Aristocrat.Monaco.TestController.Models.Request
 {
-    using Aristocrat.Monaco.TestController.DataModel;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Text.Json.Serialization;
     using System.Threading.Tasks;
+    using TestController.DataModel;
 
     public class GetAvailableGamesV2Request
     {

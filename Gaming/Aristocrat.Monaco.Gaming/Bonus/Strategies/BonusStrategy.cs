@@ -42,6 +42,7 @@
         private readonly ITransferOutHandler _transferHandler;
         private readonly IPersistentStorageManager _storage;
         private readonly IPaymentDeterminationProvider _bonusPayDetermination;
+        private readonly IBalanceUpdateService _balanceUpdateService;
 
         protected BonusStrategy(
             IPropertiesManager properties,
@@ -55,7 +56,8 @@
             IMessageDisplay messages,
             IPlayerService players,
             IPersistentStorageManager storage,
-            IPaymentDeterminationProvider bonusPayDetermination)
+            IPaymentDeterminationProvider bonusPayDetermination,
+            IBalanceUpdateService balanceUpdateService)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
@@ -72,6 +74,7 @@
 
             _bonusPayDetermination.BonusHandler ??= new BonusPaymentDeterminationHandler(_properties, _bank);
 
+            _balanceUpdateService = balanceUpdateService ?? throw new ArgumentNullException(nameof(balanceUpdateService));
         }
 
         protected BonusTransaction ToTransaction(int deviceId, IBonusRequest request)
@@ -543,7 +546,7 @@
             _bank.Deposit(AccountType.NonCash, nonCashAmount, transactionId);
             _bank.Deposit(AccountType.Promo, promoAmount, transactionId);
 
-            _runtime.UpdateBalance(_bank.QueryBalance().MillicentsToCents());
+            _balanceUpdateService.UpdateBalance();
         }
 
         private TaskCompletionSource<bool> PayTo<T>(

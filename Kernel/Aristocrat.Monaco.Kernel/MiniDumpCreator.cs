@@ -112,7 +112,7 @@
     {
         private const string Logs = @"/Logs";
         private const string DmpExt = ".dmp";
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Signature of native method that will generate the mini dump

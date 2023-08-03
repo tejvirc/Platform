@@ -11,7 +11,7 @@
 
     public class Startup
     {
-        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -53,7 +53,7 @@
                 }
                 catch (Exception e)
                 {
-                    _logger.Error($"WebApiServer:Error occured while loading API DLLs : '{e.Message}'");
+                    _logger.Error($"WebApiServer:Error occurred while loading API DLLs : '{e.Message}'");
                 }
             }
         }

@@ -5,15 +5,15 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:dialog="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
-                               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
-                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                               xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Models;assembly=Aristocrat.Monaco.Gaming.Contracts"
                                x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.GameHistoryView"
                                dialog:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
@@ -130,6 +130,7 @@
                   ItemsSource="{Binding FilteredGameHistory}"
                   ScrollViewer.CanContentScroll="True"
                   Height="Auto"
+                  IsReadOnly="True"
                   Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
                   AutomationProperties.AutomationId="DataGrid13_22F59A65">
             <b:Interaction.Triggers>
@@ -155,7 +156,7 @@
                                     AutomationProperties.AutomationId="DataGridTextColumn16_22F59A65">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <common:FilterButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.GameName}}"
+                            <common:FilterButton HeaderText="{lex:Loc GameName}"
                                                  FilterObjectList="{Binding Path=DataContext.FilterGameNames, ElementName=MainGrid, Mode=TwoWay}"
                                                  IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}"
                                                  SelectAllIsChecked="{Binding Path=DataContext.SelectAllGameNamesIsChecked, ElementName=MainGrid, Mode=TwoWay}" />
@@ -179,8 +180,6 @@
                                     AutomationProperties.AutomationId="DataGridTextColumn1_D2C42AD1" />
                 <DataGridTextColumn Binding="{Binding StartTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}"
                                     HeaderStyle="{StaticResource HeaderStyle}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn17_22F59A65" />
-                <DataGridTextColumn Header="{lex:Loc EndTimeText}"
                                     AutomationProperties.AutomationId="DataGridTextColumn17_22F59A65">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
@@ -192,7 +191,7 @@
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EndTimeText}}"
+                <DataGridTextColumn Header="{lex:Loc EndTimeText}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding EndTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}"
                                     HeaderStyle="{StaticResource HeaderStyle}"
@@ -244,7 +243,7 @@
                                     AutomationProperties.AutomationId="DataGridTextColumn25_22F59A65">
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
-                            <common:FilterButton HeaderText="{lex:Loc Key={x:Static loc:ResourceKeys.StatusHeader}}"
+                            <common:FilterButton HeaderText="{lex:Loc StatusHeader}"
                                                  FilterObjectList="{Binding Path=DataContext.FilterStatuses, ElementName=MainGrid, Mode=TwoWay}"
                                                  IsEnabled="{Binding Path=DataContext.DataEmpty, ElementName=MainGrid, Converter={StaticResource InverseBoolConverter}}"
                                                  SelectAllIsChecked="{Binding Path=DataContext.SelectAllStatusesIsChecked, ElementName=MainGrid, Mode=TwoWay}" />
@@ -356,7 +355,7 @@
                     Command="{Binding ShowGameDetailsCommand}"
                     Visibility="{Binding ShowGameDetailsButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="Button48_22F59A65" />
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveDetails}}"
+            <Button Content="{lex:Loc ProgressiveDetails}"
                     IsEnabled="{Binding SelectedGameHasProgressiveDetails}"
                     Command="{Binding ShowProgressiveDetailsCommand}"
                     Visibility="{Binding ShowProgressiveDetails, Converter={StaticResource TrueVisibleFalseCollapsed}}"

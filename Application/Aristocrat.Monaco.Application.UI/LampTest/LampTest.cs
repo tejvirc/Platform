@@ -53,7 +53,7 @@
 
             _lampMap = new Dictionary<SelectedLamps, uint>
             {
-                { SelectedLamps.All, 0xFFFF }, { SelectedLamps.Bash, 0x0040 }, { SelectedLamps.None, 0x0000 }
+                { SelectedLamps.All, 0xFFFF }, { SelectedLamps.Bash, 0x00C0 }, { SelectedLamps.None, 0x0000 }
             };
         }
 

@@ -15,7 +15,7 @@
         AutomationProperties.AutomationId="StackPanel1_4F68A399">
         <Label
             VerticalAlignment="Center"
-            Content="{lex:Loc Key={x:Static loc:ResourceKeys.MasterSoundVolumeLabel}}"
+            Content="{lex:Loc MasterSoundVolumeLabel}"
             AutomationProperties.AutomationId="Label2_4F68A399" />
         <ComboBox
             MinWidth="250"

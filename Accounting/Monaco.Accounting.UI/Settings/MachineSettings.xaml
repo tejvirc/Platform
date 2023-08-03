@@ -138,6 +138,8 @@
                                    AutomationProperties.AutomationId="RowDefinition63_D57C8E38" />
                     <RowDefinition Height="Auto"
                                    AutomationProperties.AutomationId="RowDefinition64_D57C8E38" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition65_D57C8E38" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"
@@ -775,6 +777,16 @@
                            Grid.Row="62"
                            Text="{Binding ValidateHandpays, Converter={StaticResource BoolToStringConverter}}"
                            AutomationProperties.AutomationId="TextBlock192_D57C8E38" />
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="63"
+                           Text="{lex:Loc PayoutLimit}"
+                           AutomationProperties.AutomationId="TextBlock193_D57C8E38" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="63"
+                           Text="{Binding HandCountPayoutDisplay}"
+                           AutomationProperties.AutomationId="TextBlock194_D57C8E38" />
             </Grid>
         </ScrollViewer>
     </DataTemplate>

@@ -52,6 +52,11 @@
         public static decimal CurrencyMinorUnitsPerMajorUnit { get; private set; } = 100M;
 
         /// <summary>
+        ///     Gets currency minor symbol.
+        /// </summary>
+        public static string MinorUnitSymbol { get; private set; } = string.Empty;
+
+        /// <summary>
         ///     Gets the currency culture info.
         /// </summary>
         public static CultureInfo CurrencyCultureInfo { get; private set; } = CultureInfo.CurrentCulture;
@@ -407,6 +412,7 @@
                 Math.Pow(
                     cultureInfo.NumberFormat.NativeDigits.Length,
                     cultureInfo.NumberFormat.CurrencyDecimalDigits));
+            MinorUnitSymbol = minorUnitSymbol ?? string.Empty;
 
             RegionInfo region = null;
 

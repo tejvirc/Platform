@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming
+namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -17,6 +17,7 @@
     using Common;
     using Contracts;
     using Contracts.Configuration;
+    using Contracts.GameSpecificOptions;
     using Contracts.Meters;
     using Contracts.Models;
     using Contracts.Progressives;
@@ -27,6 +28,7 @@
     using log4net;
     using Newtonsoft.Json;
     using PackageManifest;
+    using PackageManifest.Ati;
     using PackageManifest.Models;
     using Runtime;
     using Rectangle = System.Drawing.Rectangle;
@@ -59,8 +61,10 @@
         private const string GameFeaturesField = @"Game.Features";
         private const string GameMinimumPaybackPercentField = @"Game.MinimumPaybackPercent";
         private const string GameMaximumPaybackPercentField = @"Game.MaximumPaybackPercent";
+        private const string GameSubGameDetailsField = @"Game.SubGameDetails";
 
         private const string ProgressivesConfigFilename = @"progressives.xml";
+        private const string GameSpecificOptionsConfigFilename = @"gamespecificoptions.xml";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
@@ -81,7 +85,9 @@
         private readonly IDigitalRights _digitalRights;
         private readonly IConfigurationProvider _configurationProvider;
         private readonly ICabinetDetectionService _cabinetDetectionService;
-
+        private readonly IManifest<GameSpecificOptionConfig> _gameSpecificOptionManifest;
+        private readonly IGameSpecificOptionProvider _gameSpecificOptionProvider;
+       
         private readonly double _multiplier;
         private readonly object _sync = new();
 
@@ -99,6 +105,8 @@
             IRuntimeProvider runtimeProvider,
             IManifest<IEnumerable<ProgressiveDetail>> progressiveManifest,
             IProgressiveLevelProvider progressiveProvider,
+            IManifest<GameSpecificOptionConfig> gameSpecificOptionManifest,
+            IGameSpecificOptionProvider gameSpecificOptionProvider,
             IIdProvider idProvider,
             IDigitalRights digitalRights,
             IConfigurationProvider configurationProvider,
@@ -120,6 +128,8 @@
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
 
+            _gameSpecificOptionManifest = gameSpecificOptionManifest ?? throw new ArgumentNullException(nameof(gameSpecificOptionManifest));
+            _gameSpecificOptionProvider = gameSpecificOptionProvider ?? throw new ArgumentNullException(nameof(gameSpecificOptionProvider));
             _multiplier = properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
 
             _initialized = HasGame();
@@ -167,7 +177,7 @@
                 return _games.Where(g => g.EgmEnabled && g.Enabled).ToList();
             }
         }
-
+        
         /// <inheritdoc />
         public IReadOnlyCollection<IGameDetail> GetAllGames()
         {
@@ -191,6 +201,14 @@
                         game.PaytableId,
                         denom.Value,
                         denom.BetOption)).ToList();
+            }
+        }
+
+        public IReadOnlyCollection<ISubGameDetails> GetEnabledSubGames(IGameDetail currentGame)
+        {
+            lock (_sync)
+            {
+                return currentGame.SupportedSubGames.ToList();
             }
         }
 
@@ -516,9 +534,9 @@
         /// <inheritdoc />
         public ICollection<KeyValuePair<string, object>> GetCollection => new List<KeyValuePair<string, object>>
         {
-            new KeyValuePair<string, object>(GamingConstants.Games, GetGames()),
-            new KeyValuePair<string, object>(GamingConstants.AllGames, GetAllGames()),
-            new KeyValuePair<string, object>(GamingConstants.GameCombos, GetGameCombos())
+            new(GamingConstants.Games, GetGames()),
+            new(GamingConstants.AllGames, GetAllGames()),
+            new(GamingConstants.GameCombos, GetGameCombos())
         };
 
         /// <inheritdoc />
@@ -607,6 +625,31 @@
             return result;
         }
 
+        void IServerPaytableInstaller.InstallSubGames(int gameId, IReadOnlyCollection<SubGameConfiguration> subGameConfiguration)
+        {
+            var game = _games.Single(g => g.Id == gameId);
+            var manifestSubGames = game.SupportedSubGames.ToList();
+
+            foreach (var subGame in subGameConfiguration)
+            {
+                var foundSubGame =
+                    manifestSubGames.FirstOrDefault(x => long.Parse(x.CdsTitleId) == subGame.GameTitleId) as
+                        SubGameDetails;
+
+                if (foundSubGame?.Denominations.FirstOrDefault(x => x.Value == subGame.Denomination) is not null)
+                {
+                    foundSubGame.SupportedDenoms = new List<long> { subGame.Denomination };
+                }
+            }
+
+            game.SupportedSubGames = manifestSubGames.Where(subGame => !subGame.SupportedDenoms.IsNullOrEmpty()).ToList();
+
+            lock (_sync)
+            {
+                UpdatePersistence(game);
+            }
+        }
+
         IReadOnlyCollection<IGameDetail> IServerPaytableInstaller.GetAvailableGames()
         {
             lock (_sync)
@@ -651,6 +694,8 @@
             {
                 var graphicInfoList = graphic.Value.ToList();
                 var icons = graphicInfoList.FindAll(g => g.GraphicType == GraphicType.Icon);
+                var denomButtonIcons = graphicInfoList.FindAll(g => g.GraphicType == GraphicType.DenomButton);
+                var denomButtonPanels = graphicInfoList.FindAll(g => g.GraphicType == GraphicType.DenomPanel);
                 var attractVideos = graphicInfoList.FindAll(g => g.GraphicType == GraphicType.AttractVideo);
                 var loadingScreens = graphicInfoList.FindAll(g => g.GraphicType == GraphicType.LoadingScreen);
                 var backgroundPreviews = graphicInfoList.FindAll(g => g.GraphicType == GraphicType.BackgroundPreview);
@@ -665,6 +710,9 @@
 
                 var largeTopPickIcon = topPickIcons?.Count > 0 ? topPickIcons[0] : null;
                 var smallTopPickIcon = topPickIcons?.Count > 1 ? topPickIcons[1] : null;
+
+                var denomButtonIcon = denomButtonIcons.FirstOrDefault();
+                var denomButtonPanel = denomButtonPanels.FirstOrDefault();
 
                 var mainDisplay = _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Main);
                 if (mainDisplay == null)
@@ -724,6 +772,8 @@
                     SmallIcon = GetGraphicPath(smallIcon, gameFolder, true),
                     LargeTopPickIcon = largeTopPickIcon != null ? GetGraphicPath(largeTopPickIcon, gameFolder, true) : null,
                     SmallTopPickIcon = smallTopPickIcon != null ? GetGraphicPath(smallTopPickIcon, gameFolder, true) : null,
+                    DenomButtonIcon = GetGraphicPath(denomButtonIcon, gameFolder),
+                    DenomPanel = GetGraphicPath(denomButtonPanel, gameFolder),
                     TopperAttractVideo = GetGraphicPath(topperAttractVideo, gameFolder),
                     TopAttractVideo = GetGraphicPath(topAttractVideo, gameFolder),
                     BottomAttractVideo = GetGraphicPath(bottomAttractVideo, gameFolder),
@@ -896,6 +946,13 @@
 
             var definedGames = gameContent.GameAttributes.ToList();
 
+            if (!_gameSpecificOptionProvider.HasThemeId(definedGames[0].ThemeId))
+            {
+                var config = LoadGameSpecificOptions(Path.Combine(gameFolder, binFolder));
+
+                _gameSpecificOptionProvider.InitGameSpecificOptionsCache(definedGames[0].ThemeId, GetGameSpecificOptionsFromConfig(config).ToList());
+            }
+
             var progressives = LoadProgressiveDetails(Path.Combine(gameFolder, binFolder)).ToList();
 
             var isComplex = definedGames.Count > 1;
@@ -979,7 +1036,7 @@
                 return (null, null);
             }
 
-            var features = game.Features?.Select(
+            var features = game?.Features?.Select(
                 x => new Feature
                 {
                     Name = x.Name,
@@ -991,6 +1048,8 @@
                 }).ToList();
 
             isComplex = isComplex || game.Denominations.Count() > 1;
+            var shouldAutoEnableGame = !isComplex && _properties.GetValue(GamingConstants.AutoEnableSimpleGames, true);
+
             var gameDetail = FindGame(game.ThemeId, game.PaytableId, gameContent.ReleaseNumber);
             if (gameDetail is null)
             {
@@ -1008,7 +1067,10 @@
                     Version = gameContent.ReleaseNumber,
                     Status = GameStatus.DisabledByBackend,
                     Denominations =
-                        FromValueBasedDenominations(game, validDenoms, isComplex ? 0 : game.Denominations.Single()),
+                        FromValueBasedDenominations(
+                            game,
+                            validDenoms,
+                            shouldAutoEnableGame ? game.Denominations.Single() : 0),
                     WagerCategories = wagerCategories,
                     New = true,
                     InstallDate = installDate,
@@ -1083,6 +1145,7 @@
             gameDetail.MaximumWagerOutsideCredits = game.MaxWagerOutsideCredits;
             gameDetail.NextToMaxBetTopAwardMultiplier = game.NextToMaxBetTopAwardMultiplier;
 
+            gameDetail.SupportedSubGames ??= GetSubGames(game.SubGames, gameDetail.Denominations.ToList());
             return (gameDetail, progressiveDetails);
         }
 
@@ -1323,7 +1386,10 @@
                         MaximumPaybackPercent = decimal.Parse(
                             (string)gameInfo[GameMaximumPaybackPercentField],
                             NumberStyles.Any,
-                            CultureInfo.InvariantCulture)
+                            CultureInfo.InvariantCulture),
+                        SupportedSubGames =
+                            JsonConvert.DeserializeObject<List<SubGameDetails>>(
+                                (string)gameInfo[GameSubGameDetailsField])
                     };
 
                     _games.Add(gameDetail);
@@ -1361,6 +1427,8 @@
                 game.MinimumPaybackPercent.ToString(CultureInfo.InvariantCulture);
             transaction[blockIndex, GameMaximumPaybackPercentField] =
                 game.MaximumPaybackPercent.ToString(CultureInfo.InvariantCulture);
+            transaction[blockIndex, GameSubGameDetailsField] =
+                JsonConvert.SerializeObject(game.SupportedSubGames, Formatting.None);
 
             transaction.Commit();
         }
@@ -1438,6 +1506,56 @@
                 Logger.Error($"Failed to parse the game's progressive.xml file. {exception.Message}");
                 return Enumerable.Empty<ProgressiveDetail>();
             }
+        }
+
+        private GameSpecificOptionConfig LoadGameSpecificOptions(string path)
+        {
+            try
+            {
+                return _gameSpecificOptionManifest.Read(Path.Combine(path, GameSpecificOptionsConfigFilename));
+            }
+            catch (Exception exception)
+            {
+                Logger.Error($"Failed to parse the game's gamespecificoptions.xml file. {exception.Message}");
+                return null;
+            }
+        }
+
+        private IEnumerable<GameSpecificOption> GetGameSpecificOptionsFromConfig(GameSpecificOptionConfig config)
+        {
+            if (config == null)
+                return Enumerable.Empty<GameSpecificOption>();
+
+            var gameSpecificOptions = config.GameToggleOptions.GameToggleOption.
+                Select(x => new GameSpecificOption()
+            {
+                Name = x.name,
+                Value = x.value,
+                OptionType = OptionType.Toggle,
+                ValueSet = new List<string> { ToggleOptions.On.ToString(), ToggleOptions.Off.ToString() }
+            });
+
+            gameSpecificOptions = gameSpecificOptions.Concat(config.GameListOptions.GameListOption.
+                Select(x => new GameSpecificOption()
+                    {
+                        Name = x.name,
+                        Value = x.value,
+                        OptionType = OptionType.List,
+                        ValueSet = new List<string>(x.List.Select(z => z.name))
+                    }));
+
+            gameSpecificOptions = gameSpecificOptions.Concat(config.GameNumberOptions.GameNumberOption.
+                Select(x => new GameSpecificOption()
+                    {
+                        Name = x.name,
+                        Value = x.value.ToString(),
+                        OptionType = OptionType.Number,
+                        ValueSet = new List<string>(),
+                        MinValue = x.minValue,
+                        MaxValue = x.maxValue
+                    }));
+
+            return gameSpecificOptions.DistinctBy(x => x.Name);
         }
 
         private DateTime GetInstallDate()
@@ -1781,6 +1899,50 @@
         private bool IsValidMaximumRtp(string key, decimal rtp)
         {
             return rtp <= ConvertToRtp(_properties.GetValue(key, int.MaxValue));
+        }
+
+        private IEnumerable<ISubGameDetails> GetSubGames(IEnumerable<SubGame> subGames, IList<IDenomination> gameDenominations)
+        {
+            var subGameList = new List<SubGameDetails>();
+            foreach (var subGame in subGames)
+            {
+                var denomList = new List<Denomination>();
+                foreach (var denom in subGame.Denominations)
+                {
+                    var existingDenom = gameDenominations.FirstOrDefault(x => x.Value == denom);
+                    if (existingDenom is not null)
+                    {
+                        denomList.Add(existingDenom as Denomination);
+                    }
+                    else
+                    {
+                        var newDenom = new Denomination(_idProvider.GetNextDeviceId<IDenomination>(), denom, false);
+                        denomList.Add(newDenom);
+                    }
+                }
+
+                var cdsGameInfos = subGame.CentralInfo?.GroupBy(
+                    c => c.Id,
+                    c => c.Bet,
+                    (id, bet) =>
+                    {
+                        var betList = bet.ToList();
+                        return new CdsGameInfo(
+                            id.ToString(),
+                            betList.Min(),
+                            betList.Max());
+                    }).ToList() ?? new List<CdsGameInfo>();
+
+                var newSubGame = new SubGameDetails(
+                    (int)subGame.UniqueGameId,
+                    subGame.TitleId.ToString(),
+                    denomList,
+                    cdsGameInfos);
+
+                subGameList.Add(newSubGame);
+            }
+
+            return subGameList;
         }
     }
 }

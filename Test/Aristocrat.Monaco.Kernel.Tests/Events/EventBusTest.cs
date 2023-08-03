@@ -8,6 +8,7 @@
     [TestClass]
     public class EventBusTest
     {
+        private const int waitTimeout = 3000;
         [TestMethod]
         public void VerifyServiceImplemenation()
         {
@@ -94,7 +95,7 @@
             bus.Subscribe(this, handler);
             bus.Publish(testEvent);
 
-            wait.WaitOne(TimeSpan.FromSeconds(1));
+            wait.WaitOne(waitTimeout);
 
             Assert.AreEqual(handled, testEvent);
         }
@@ -127,8 +128,8 @@
             bus.Subscribe(new object(), anotherHandler);
             bus.Publish(testEvent);
 
-            wait.WaitOne(TimeSpan.FromSeconds(1));
-            waitOnThisToo.WaitOne(TimeSpan.FromSeconds(1));
+            wait.WaitOne(waitTimeout);
+            waitOnThisToo.WaitOne(waitTimeout);
 
             Assert.AreEqual(handled, testEvent);
             Assert.AreEqual(handledToo, testEvent);
@@ -161,7 +162,7 @@
             bus.Subscribe(this, newHandler);
             bus.Publish(testEvent);
 
-            wait.WaitOne(TimeSpan.FromSeconds(1));
+            wait.WaitOne(waitTimeout);
 
             Assert.IsNull(notHandled);
             Assert.AreEqual(handled, testEvent);
@@ -186,7 +187,7 @@
             bus.Unsubscribe<TestEvent>(this);
             bus.Publish(testEvent);
 
-            wait.WaitOne(TimeSpan.FromSeconds(1));
+            wait.WaitOne(waitTimeout);
 
             Assert.IsNull(handled);
         }

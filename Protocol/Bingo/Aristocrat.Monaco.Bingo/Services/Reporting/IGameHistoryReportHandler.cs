@@ -11,6 +11,6 @@
         ///     Adds the game history report to the queue
         /// </summary>
         /// <param name="message">The message to add to the queue</param>
-        void AddReportToQueue(ReportGameOutcomeMessage message);
+        void AddReportToQueue(ReportMultiGameOutcomeMessage message);
     }
 }

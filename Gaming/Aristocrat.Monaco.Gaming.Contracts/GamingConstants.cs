@@ -295,9 +295,14 @@
         public const string SelectedWagerCategory = @"GamePlay.SelectedWagerCategory";
 
         /// <summary>
-        ///     The currently selected bet details
+        ///     The currently selected bet details for main/single game
         /// </summary>
         public const string SelectedBetDetails = @"GamePlay.SelectedBetDetails";
+
+        /// <summary>
+        ///     The currently selected bet details for multiple games
+        /// </summary>
+        public const string SelectedMultiGameBetDetails = @"GamePlay.SelectedMultiGameBetDetails";
 
         /// <summary>
         ///     The currently Game Configuration
@@ -1000,7 +1005,7 @@
         ///     Determines whether EGM will send the cashout button press event to host in case credit is zero
         /// </summary>
         public const string ReportCashoutButtonPressWithZeroCredit = @"CashoutButton.ReportToHostWithZeroCredit";
-
+        
         /// <summary>
         ///     Determines whether or not the Voucher Issued message is displayed in game
         /// </summary>
@@ -1097,6 +1102,31 @@
         ///     Property Key for Button layout : Bet buttons on bottom
         /// </summary>
         public const string ButtonLayoutBetButtonsOnBottom = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsOnBottom";
+
+        /// <summary>
+        ///     Property Key for Button layout : Bet Down button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsBetDown = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsBetDown";
+
+        /// <summary>
+        ///     Property Key for Button layout : Bet Up button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsBetUp = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsBetUp";
+
+        /// <summary>
+        ///     Property Key for Button layout : Max Bet button
+        /// </summary>
+        public const string ButtonLayoutBetButtonsMaxBet = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsMaxBet";
+
+        /// <summary>
+        ///     Property Key for Physical button layout for Left Play button
+        /// </summary>
+        public const string ButtonLayoutPhysicalButtonLeftPlay = @"ButtonLayoutOptions.PhysicalButtons.LeftPlay";
+
+        /// <summary>
+        ///     Property Key for Physical button layout for Left Play button optional
+        /// </summary>
+        public const string ButtonLayoutPhysicalButtonLeftPlayOptional = @"ButtonLayoutOptions.PhysicalButtons.LeftPlayOptional";
 
         /// <summary>
         ///     Property Key for Physical button layout for Collect button
@@ -1364,6 +1394,11 @@
         public const string ShowPlayerMenuPopup = @"GamePlay.ShowPlayerMenuPopup";
 
         /// <summary>
+        ///     The Game Rules instructions message to display
+        /// </summary>
+        public const string GameRulesInstructions = @"Instructions.GameRulesInstructions";
+
+        /// <summary>
         ///     Flag will control the background cycling of the RNG by the platform
         /// </summary>
         public const string UseRngCycling = @"RngCycling.Enabled";
@@ -1402,6 +1437,41 @@
         ///     Command Line argument for enabling slow recovery
         /// </summary>
         public const string UseSlowRecovery = "UseSlowRecovery";
+
+        /// <summary>
+        ///     Flag Win tune is played based on win amount when true
+        /// </summary>
+        public const string WinTuneCapping = "WinTuneCapping";
+
+        /// <summary>
+        ///     Whether Win increment duration is based on win amount or with denom
+        /// </summary>
+        public const string WinIncrementSpeed = "WinIncrementSpeed";
+
+        /// <summary>
+        ///     Whether Autocomplete game round is enabled
+        /// </summary>
+        public const string AutocompleteGameRoundEnabled = @"AutocompleteGameRoundEnabled";
+
+        /// <summary>
+        ///     Determines if progressive settings is editable during setup
+        /// </summary>
+        public const string ProgressiveSetupReadonly = @"ProgressiveSetupReadonly";
+
+        /// <summary>
+        ///     Determines action on MaxWin reached
+        /// </summary>
+        public const string ActionOnMaxWinReached = @"ActionOnMaxWinReached";
+
+        /// <summary>
+        ///     If true, platform will try to auto enable games that have a single variation and denomination
+        /// </summary>
+        public const string AutoEnableSimpleGames = @"AutoEnableSimpleGames";
+
+        /// <summary>
+        ///     Set GameSpecificOption when launching a game
+        /// </summary>
+        public const string GameSpecificOptions = "GameSpecificOptions";
 
         /// <summary>
         ///     encapsulate Player Information Display options

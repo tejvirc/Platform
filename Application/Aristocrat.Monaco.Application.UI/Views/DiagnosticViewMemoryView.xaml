@@ -95,7 +95,7 @@
                    AutomationProperties.AutomationId="TextBlock23_9F96CDD5" />
         <Label Grid.Row="5"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.HeaderWorkingSet}}"
+               Content="{lex:Loc HeaderWorkingSet}"
                AutomationProperties.AutomationId="Label24_9F96CDD5" />
         <TextBlock Grid.Row="5"
                    Grid.Column="1"

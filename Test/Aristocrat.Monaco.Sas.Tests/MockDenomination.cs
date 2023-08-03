@@ -46,5 +46,7 @@
         public bool LetItRideAllowed { get; set; }
 
         public bool LetItRideEnabled { get; set; }
+
+        public long DisplayedValue { get; }
     }
 }

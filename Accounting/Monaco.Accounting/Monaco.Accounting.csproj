@@ -4,6 +4,7 @@
     <RootNamespace>Aristocrat.Monaco.Accounting</RootNamespace>
     <AssemblyTitle>Monaco.Accounting</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Platform>x64</Platform>
   </PropertyGroup>
@@ -26,9 +27,6 @@
     <None Remove="Aristocrat.Monaco.Accounting.Contracts.KeyedOnCreditsTransaction.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.configuration" />
-  </ItemGroup>
-  <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
@@ -36,6 +34,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Aristocrat.Monaco.Accounting.Contracts.KeyedOnCreditsTransaction.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Accounting.Contracts.HandCount.HardMeterOutTransaction.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Accounting.HandCount.HandCountMetersProvider.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Aristocrat.Monaco.Accounting.CurrencyInProvider.xml">
@@ -119,7 +124,6 @@
     <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
-    <ProjectReference Include="..\..\Protocol\MGAM\Aristocrat.Monaco.Mgam.Common\Aristocrat.Monaco.Mgam.Common.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
     <ProjectReference Include="..\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
@@ -132,6 +136,9 @@
     <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Aristocrat.Monaco.Accounting.Contracts.HandCount.ResidualCreditsTransaction.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Aristocrat.Monaco.Accounting.DocumentRejectedCountMeterProvider.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

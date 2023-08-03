@@ -6,6 +6,7 @@
       <xs:element minOccurs="1" maxOccurs="1" name="MultiLanguageEnabled" type="xs:boolean" default="false" />
       <xs:element minOccurs="1" maxOccurs="1" name="ResponsibleGamingTimeLimitEnabled" type="xs:boolean" default="false" />
       <xs:element minOccurs="1" maxOccurs="1" name="LargeGameIconsEnabled" type="xs:boolean" default="false" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MidKnightLobbyEnabled" type="xs:boolean" default="false" />
       <xs:element minOccurs="1" maxOccurs="1" name="HasIdleAttractVideo" type="xs:boolean" default="false" />
       <xs:element minOccurs="0" maxOccurs="1" name="HasAttractIntroVideo" type="xs:boolean" default="false" />
       <xs:element minOccurs="1" maxOccurs="1" name="BottomAttractVideoEnabled" type="xs:boolean" default="false" />

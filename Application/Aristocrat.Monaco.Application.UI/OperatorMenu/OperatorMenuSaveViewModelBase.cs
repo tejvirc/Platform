@@ -73,6 +73,12 @@
             }
         }
 
+        // To refresh Save button status as CanSave is overrode in ExtraSettingsSetupViewModel
+        public bool UpdateCanSave
+        {
+            set => RaisePropertyChanged(nameof(CanSave));
+        }
+
         public bool ShowSaveButton { get; set; }
 
         public bool ShowCancelButton { get; set; }
@@ -159,7 +165,9 @@
 
         protected virtual void HandleEvent(SystemDownEvent theEvent)
         {
-            if (theEvent.LogicalId == (int)ButtonLogicalId.Play && theEvent.Enabled == false)
+            if ((theEvent.LogicalId == (int)ButtonLogicalId.Play ||
+                 theEvent.LogicalId == (int)ButtonLogicalId.DualPlay) &&
+                theEvent.Enabled == false)
             {
                 MvvmHelper.ExecuteOnUI(Cancel);
             }

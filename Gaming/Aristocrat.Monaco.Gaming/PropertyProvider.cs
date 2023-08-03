@@ -148,7 +148,7 @@
                 { GamingConstants.ServiceUseKey, (InitFromStorage(GamingConstants.ServiceUseKey), true) },
                 { GamingConstants.ClockUseHInDisplayKey, (InitFromStorage(GamingConstants.ClockUseHInDisplayKey), true) },
                 { GamingConstants.KenoFreeGamesSelectionChangeKey, (InitFromStorage(GamingConstants.KenoFreeGamesSelectionChangeKey), true) },
-                { GamingConstants.KenoFreeGamesAutoPlayKey, (InitFromStorage(GamingConstants.KenoFreeGamesSelectionChangeKey), true) },
+                { GamingConstants.KenoFreeGamesAutoPlayKey, (InitFromStorage(GamingConstants.KenoFreeGamesAutoPlayKey), true) },
                 { GamingConstants.InitialZeroWagerUseKey, (InitFromStorage(GamingConstants.InitialZeroWagerUseKey), true) },
                 { GamingConstants.ChangeLineSelectionAtZeroCreditUseKey, (InitFromStorage(GamingConstants.ChangeLineSelectionAtZeroCreditUseKey), true) },
                 { GamingConstants.GameDurationUseMarketGameTimeKey, (InitFromStorage(GamingConstants.GameDurationUseMarketGameTimeKey), true) },
@@ -265,6 +265,11 @@
                 { GamingConstants.AttendantServiceTimeoutInMilliseconds, (configuration.AttendantServiceTimeoutSupport?.TimeoutInMilliseconds ?? 180000, false) },
                 { GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, (InitFromStorage(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete), true) },
                 { GamingConstants.ButtonLayoutBetButtonsOnBottom, (configuration?.PhysicalButtons?.BetButtons?.DisplayOnBottom ?? true, false) },
+                { GamingConstants.ButtonLayoutBetButtonsBetDown, (configuration?.PhysicalButtons?.BetButtons?.BetDown ?? "false", false) },
+                { GamingConstants.ButtonLayoutBetButtonsBetUp, (configuration?.PhysicalButtons?.BetButtons?.BetUp ?? "false", false) },
+                { GamingConstants.ButtonLayoutBetButtonsMaxBet, (configuration?.PhysicalButtons?.BetButtons?.MaxBet ?? "false", false) },
+                { GamingConstants.ButtonLayoutPhysicalButtonLeftPlay, (configuration?.PhysicalButtons?.LeftPlayButton?.Required ?? "false", false) },
+                { GamingConstants.ButtonLayoutPhysicalButtonLeftPlayOptional, (configuration?.PhysicalButtons?.LeftPlayButton?.Optional ?? false, false) },
                 { GamingConstants.ButtonLayoutPhysicalButtonCollect, (configuration?.PhysicalButtons?.CollectButton?.Required ?? "true", false) },
                 { GamingConstants.ButtonLayoutPhysicalButtonCollectOptional, (configuration?.PhysicalButtons?.CollectButton?.Optional ?? false, false) },
                 { GamingConstants.ButtonLayoutPhysicalButtonGamble, (configuration?.PhysicalButtons?.GambleButton?.Required ?? "false", false) },
@@ -308,17 +313,30 @@
                 { GamingConstants.PlayerInformationDisplay.RestrictedModeUse, (playerInformationDisplayOptions?.RestrictedModeUse ?? false, false) },
                 { GamingConstants.PlayerInformationDisplay.GameRulesScreenEnabled, (playerInformationDisplayOptions?.GameRulesScreen?.Enabled ?? false, false) },
                 { GamingConstants.PlayerInformationDisplay.PlayerInformationScreenEnabled, (playerInformationDisplayOptions?.PlayerInformationScreen?.Enabled ?? false, false) },
+                { GamingConstants.GameRulesInstructions, (configuration.Instructions?.GameRulesInstructions ?? string.Empty, false) },
                 { GamingConstants.UseRngCycling, (configuration.RngCycling?.Enabled ?? false, false) },
                 { GamingConstants.ShowPlayerSpeedButtonEnabled, (configuration.ShowPlayerSpeedButton?.Enabled ?? true, false) },
                 { GamingConstants.BonusTransferPlaySound, ((object)configuration.BonusTransfer?.PlaySound ?? true, false) },
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
                 { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
                 { GamingConstants.DisplayGamePayMessageUseKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageUseKey), true)},
-                { GamingConstants.DisplayGamePayMessageFormatKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageFormatKey), true)}
+                { GamingConstants.DisplayGamePayMessageFormatKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageFormatKey), true)},
+                { GamingConstants.WinTuneCapping, (configuration.WinIncrement?.WinTuneCapping ?? false, false) },
+                { GamingConstants.WinIncrementSpeed, (configuration.WinIncrement?.WinIncrementSpeed ?? WinIncrementSpeed.WinAmountOnly, false) },
+                { GamingConstants.AutocompleteGameRoundEnabled, (configuration.AutoCompleteGameRound?.Enabled ?? true, false) },
+                { GamingConstants.ProgressiveSetupReadonly, (configuration.ProgressiveView?.InitialSetupView?.Readonly ?? false, false) },
+                { GamingConstants.ActionOnMaxWinReached, (configuration.MaxWin?.OnMaxWinReached ?? "endgame", false) },
+                { GamingConstants.AutoEnableSimpleGames, (configuration.AutoEnableSimpleGames?.Enabled?? true, false) }
             };
 
             if (!blockExists)
             {
+                SetPropertyBlockNotExist(configuration);
+            }
+        }
+
+        private void SetPropertyBlockNotExist(GamingConfiguration configuration)
+        {
                 // This is just weird, but because the storage block accessor is typed it will return the default value vs. a null
                 // It renders the default passed in to GetProperty useless, since it returns the default type.
                 SetProperty(GamingConstants.ShowServiceButton, true);
@@ -383,7 +401,6 @@
                     propertiesManager.SetProperty(ApplicationConstants.MachineSettingsImported, machineSettingsImported);
                 }
             }
-        }
 
         /// <inheritdoc />
         public ICollection<KeyValuePair<string, object>> GetCollection

@@ -18,7 +18,8 @@
              AutomationProperties.AutomationId="UserControl0_1A4CA68B">
 
     <b:Interaction.Triggers>
-        <b:EventTrigger EventName="MouseDown" >
+        <b:EventTrigger EventName="MouseDown"
+                        AutomationProperties.AutomationId="EventTrigger1_1A4CA68B">
             <b:InvokeCommandAction Command="{Binding PlayerMenuPopupViewModel.MouseDownOnMenuCommand}" />
         </b:EventTrigger>
     </b:Interaction.Triggers>

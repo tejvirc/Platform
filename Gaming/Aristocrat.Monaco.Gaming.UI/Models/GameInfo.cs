@@ -6,13 +6,17 @@
     using System.Collections.ObjectModel;
     using System.Drawing;
     using System.Linq;
+    using System.Reflection;
+    using System.Windows;
     using Contracts;
     using Contracts.Models;
     using Kernel;
+    using log4net;
     using ManagedBink;
     using Monaco.UI.Common.Extensions;
     using MVVM.Model;
     using ViewModels;
+    using BitmapImage = System.Windows.Media.Imaging.BitmapImage;
     using Size = System.Windows.Size;
 
     /// <summary>
@@ -21,6 +25,11 @@
     [CLSCompliant(false)]
     public class GameInfo : BaseNotify, IGameInfo, IAttractDetails
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        // Default resource key for denomination button panel
+        private const string DenomPanelDefaultKey = "DenominationPanel";
+
         private string _attractHighlightVideoPath = string.Empty;
         private string _bottomAttractVideoPath = string.Empty;
         private long _denom = 1;
@@ -34,8 +43,10 @@
         private GameCategory _category;
         private GameSubCategory _subCategory;
         private bool _isSelected;
-        private bool _hasProgressiveOrBonusValue;
         private string _imagePath;
+        private string _denomButtonPath;
+        private string _denomButtonResourceKey;
+        private string _denomPanelPath;
 
         // Used to determine if "new" game.  For example, a requirement is that
         // we want to overlay a "new" icon over a game if it has been added in
@@ -222,11 +233,80 @@
         /// <summary>
         ///     Gets or sets a value indicating whether the game has a progressive bonus
         /// </summary>
-        public bool HasProgressiveOrBonusValue
+        public bool HasProgressiveOrBonusValue => !string.IsNullOrWhiteSpace(ProgressiveOrBonusValue);
+
+        public string DenomButtonPath
         {
-            get => _hasProgressiveOrBonusValue;
-            set => SetProperty(ref _hasProgressiveOrBonusValue, value, nameof(HasProgressiveOrBonusValue), nameof(ProgressiveOrBonusValue));
+            get => _denomButtonPath;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value) || _denomButtonPath == value)
+                {
+                    return;
+                }
+
+                var key = $"{ThemeId}_Button";
+                _denomButtonResourceKey = key;
+                _denomButtonPath = value;
+
+                try
+                {
+                    // Add the bitmap to the resource dictionary so it can be accessed by key with ImageHelper
+                    if (!Application.Current.Resources.Contains(key))
+                    {
+                        var uri = new Uri(_denomButtonPath, UriKind.Absolute);
+                        Application.Current.Resources.Add(key, new BitmapImage(uri));
+                        Logger.Debug($"{_denomButtonResourceKey} added to resources for custom denom button at path {_denomButtonPath}");
+                    }
+
+                    foreach (var denom in Denominations)
+                    {
+                        denom.DenomButtonSingleOffOverride = _denomButtonResourceKey;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _denomButtonResourceKey = null;
+                    Logger.Warn($"Failed to set bitmap image at path {_denomButtonPath}", ex);
+                }
+            }
         }
+
+        public bool HasCustomDenomPanel => !string.IsNullOrWhiteSpace(DenomPanelKey);
+
+        public string DenomPanelPath
+        {
+            get => _denomPanelPath;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value) || _denomPanelPath == value)
+                {
+                    return;
+                }
+
+                var key = $"{ThemeId}_Panel";
+                DenomPanelKey = key;
+                _denomPanelPath = value;
+
+                try
+                {
+                    // Add the bitmap to the resource dictionary so it can be accessed by key with ImageHelper
+                    if (!Application.Current.Resources.Contains(key))
+                    {
+                        var uri = new Uri(_denomPanelPath, UriKind.Absolute);
+                        Application.Current.Resources.Add(key, new BitmapImage(uri));
+                        Logger.Debug($"{DenomPanelKey} added to resources for custom denom panel at path {_denomPanelPath}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DenomPanelKey = null;
+                    Logger.Warn($"Failed to set bitmap image at path {_denomPanelPath}", ex);
+                }
+            }
+        }
+
+        public string DenomPanelKey { get; private set; }
 
         /// <summary>
         ///     Gets or sets the denomination
@@ -271,7 +351,12 @@
         public void SetDenominations(IEnumerable<long> denominations)
         {
             Denominations.Clear();
-            Denominations.AddRange(denominations.OrderBy(x => x).Select(x => new DenominationInfoViewModel(x)));
+            Denominations.AddRange(
+                denominations.OrderBy(x => x).Select(
+                    x => new DenominationInfoViewModel(x)
+                    {
+                        DenomButtonSingleOffOverride = _denomButtonResourceKey
+                    }));
 
             // Start with all denoms unselected so it doesn't look weird on machines without the VBD denom switching
             SelectedDenomination = null;
@@ -452,6 +537,8 @@
                 TopperAttractVideoPath = localeGraphics[activeLocaleCode].TopperAttractVideo;
                 BottomAttractVideoPath = localeGraphics[activeLocaleCode].BottomAttractVideo;
                 LoadingScreenPath = localeGraphics[activeLocaleCode].LoadingScreen;
+                DenomButtonPath = localeGraphics[activeLocaleCode].DenomButtonIcon;
+                DenomPanelPath = localeGraphics[activeLocaleCode].DenomPanel;
             }
             else
             {

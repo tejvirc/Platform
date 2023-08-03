@@ -50,5 +50,7 @@
             [Description("KeyedOnCredits")] KeyedOnCredits = 20,
             /// <summary>KeyedOffCredits</summary>
             [Description("KeyedOffCredits")] KeyedOffCredits = 21,
+            /// <summary>HardMeterOut</summary>
+            [Description("HardMeterOut")] HardMeterOut = 22,
     }
 }

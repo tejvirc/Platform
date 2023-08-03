@@ -53,9 +53,9 @@
                 _noteAcceptor.Object);
         }
 
-        [DataRow(1000,  typeof(VoucherEscrowedEvent), DisplayName = "Successful Transaction in 1000s")]
-        [DataRow(500,  typeof(CurrencyEscrowedEvent), DisplayName = "Successful Transaction in 500s")]
-        [DataRow(800,  typeof(CurrencyEscrowedEvent), DisplayName = "Successful Transaction in 800s")]
+        [DataRow(1000, typeof(VoucherEscrowedEvent), DisplayName = "Successful Transaction in 1000s")]
+        [DataRow(500, typeof(CurrencyEscrowedEvent), DisplayName = "Successful Transaction in 500s")]
+        [DataRow(800, typeof(CurrencyEscrowedEvent), DisplayName = "Successful Transaction in 800s")]
         [DataTestMethod]
         public async Task SuccessfulTransaction(int timeOut, Type @event)
         {
@@ -138,9 +138,9 @@
             await Task.Run(
                 async () =>
                 {
-                    await Task.Delay(timeOut - 100);
+                    await Task.Delay(timeOut / 10);
                     _noteAcceptor.Verify(x => x.Return(), Times.Never);
-                    await Task.Delay(200);
+                    await Task.Delay(timeOut * 2);
                     _noteAcceptor.Verify(x => x.Return(), Times.Once);
                 });
         }

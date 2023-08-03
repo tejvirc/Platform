@@ -174,7 +174,36 @@
                                     Binding="{Binding OutcomeException}"
                                     AutomationProperties.AutomationId="DataGridTextColumn26_2B312E18" />
             </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <DataGrid Name="GameInformationViewer"                            
+                              ItemsSource="{Binding Path=GameInfo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              IsReadOnly="True"
+                              AutomationProperties.AutomationId="DataGrid19_2B312E18">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="FontSize" Value="{StaticResource NormalFontSize}"/>
+                                <Setter Property="Foreground" Value="{StaticResource LightBrush1}"/>
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Padding" Value="0 0 15 0" />
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameIdHeader}}"
+                                                Binding="{Binding GameId}" ElementStyle="{StaticResource Centered}"
+                                                AutomationProperties.AutomationId="DataGridTextColumn27_2B312E18" />
+                            <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DenominationShortHeader}}"
+                                                Binding="{Binding Denomination}" ElementStyle="{StaticResource Centered}"
+                                                AutomationProperties.AutomationId="DataGridTextColumn28_2B312E18" />
+                            <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Wager}}"
+                                                Binding="{Binding WagerAmount}" ElementStyle="{StaticResource Centered}"
+                                                AutomationProperties.AutomationId="DataGridTextColumn29_2B312E18" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
         </DataGrid>
+
         <StackPanel Grid.Row="1"
                     Orientation="Vertical"
                     AutomationProperties.AutomationId="StackPanel27_2B312E18">
