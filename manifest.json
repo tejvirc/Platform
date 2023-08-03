@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "eraOduAq4xIdDfJPWkIQJus+TDtMpumPOtJnbJHKD0w="
+          "hash": "ID/GOOiqGtikBbYQMpM4vKXMyRp8Vh98WoAwEW+YolE="
         }
       },
       "is_incremental": false,
@@ -3204,7 +3204,7 @@
       "output": {
         ".html": {
           "relative_path": "api/accounting/Aristocrat.Monaco.Accounting.UI.Models.BarcodeTypeData.html",
-          "hash": "SlEABVpirkrIfFwcYsCbeBdl95HrVdAlLGOcDRbxxvQ="
+          "hash": "Deed+1DCo1i+JDxHtf/V1427qCQOZEM3DXqI2+59bDw="
         }
       },
       "is_incremental": false,
@@ -3780,7 +3780,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider.html",
-          "hash": "dHDJNaMctEYCUAJeAAkU9AU+9rJTJNkdYjLUqJEnh2E="
+          "hash": "BDfJsvAMO0h8KwbeIjHBm4AMRhI+KPk62VS7C12xC8g="
         }
       },
       "is_incremental": false,
@@ -3980,1031 +3980,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfiguration.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfiguration.html",
-          "hash": "hs7Vu8asUdQ26trV841pHM3vfrXUZbzmHP4hsc/UYBA="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationAuditTicket.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationAuditTicket.html",
-          "hash": "sFoOe1W109bNGxdlsBNan3/R9cUhePWFrxk5S6P3m4Q="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationAutoClearPeriodMetersBehavior.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationAutoClearPeriodMetersBehavior.html",
-          "hash": "4uZepYCGUgVDmHjNdOE/4NO7vLQwwnOYtk7RmcTjPI0="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationBellConfiguration.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationBellConfiguration.html",
-          "hash": "Hj/ePT2VOWxzatbRYgfPOCWfu2np12EYdqHshqFIkxg="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationBillsAccepted.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationBillsAccepted.html",
-          "hash": "Vf/gzCsTSZin0aUE10LMHb2T7UYMIRJM9VyqHSYnPPc="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCabinetCapabilities.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCabinetCapabilities.html",
-          "hash": "YsNl/H0kJoyjIV5FfBe9cJuUusFelNzCQ9TnzQmmCnM="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCabinetCapabilitiesAllowsBrightnessChange.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCabinetCapabilitiesAllowsBrightnessChange.html",
-          "hash": "TB7Azt1OKQ5GLlXInM66HYvDuUpbhkDJPwXFezfy/yg="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCabinetCapabilitiesAllowsEdgeLightingConfiguration.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCabinetCapabilitiesAllowsEdgeLightingConfiguration.html",
-          "hash": "uKM4AfkDGpEql9AIKiv8zF/0qJPhKlZVnGAUI2NMxQw="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCashout.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCashout.html",
-          "hash": "62mHp9MiR3sjrPGOGriFCSRLQmdwPfRUWGMF/FuHvuM="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationClock.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationClock.html",
-          "hash": "OKIYbH4wCl73bgnrFHAUP1s0H9zEqTUIO60wPwvM7p8="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCoinInSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCoinInSound.html",
-          "hash": "Xy3C9mvkwRg7sJe2tGiMGQlOZXvDSZfideyK5WnAhWQ="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCoinOutSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCoinOutSound.html",
-          "hash": "FbB3Vr+r/nEdSMA/bAXLZd0cBiJq/509Q1G5It8elHs="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCollectSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCollectSound.html",
-          "hash": "y2NnbWRWcTPbgajKynJ696hOYEEoR7FSaA89ueZtp24="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCriticalMemoryIntegrityCheck.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCriticalMemoryIntegrityCheck.html",
-          "hash": "J8R7Fabvs9zuchN+aekZAJXS2IOAQQT2dZ5F0W2IFTA="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCurrency.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationCurrency.html",
-          "hash": "iUotx1MqgX6jNkV84DwFCKGX58IC0RQp7sjM992zqqM="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDemonstration.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDemonstration.html",
-          "hash": "o0BtyBRUFZ+Dql8SX0SWEy++f9pQQDmjniP9YIaGwJ0="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDetailedAuditTickets.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDetailedAuditTickets.html",
-          "hash": "TRYNY+bNPVse1yi+dRyX9Sg1LXOjdAo/19gRIxSgVE8="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDingSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDingSound.html",
-          "hash": "Tv/QN8jaawk8reTE0DJTXFLjnVR8za1N2E5/NnqOIRM="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDiskSpaceMonitorErrorSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDiskSpaceMonitorErrorSound.html",
-          "hash": "AfbhdSd9J7kGwFaQGrKqlEN6OKWJSgKLwlsIB++6idg="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDisplayDisconnectNoReconfigure.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationDisplayDisconnectNoReconfigure.html",
-          "hash": "0CJMx/fMF6MiiHAslFrHMudGQXQuRp3/JBdsgxDGVZA="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationEdgeLightConfiguration.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationEdgeLightConfiguration.html",
-          "hash": "qJNgjPc0b5tMkvZ7u6sFECNMAqzrajffB1PYYNbfoHI="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationExcessiveDocumentReject.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationExcessiveDocumentReject.html",
-          "hash": "pJAGsn8VvxFH3+QAhHRA5Auo7xPXhSwEnCnakQva0ew="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationFeatureBellSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationFeatureBellSound.html",
-          "hash": "8KLLvAP8LHFMVbgLbGXUiNSooDPE/5geEO506yD9QPI="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationFirmwareCrcErrorSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationFirmwareCrcErrorSound.html",
-          "hash": "riCq48Y5v0ML2jW7/GDphvluuwZiio6C7snUqhMRATg="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationFirmwareCrcMonitor.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationFirmwareCrcMonitor.html",
-          "hash": "LF2FCrSEfqTWwIjSmLTifSyuM7vPRga6lbur+E8p1XU="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationGatSerial.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationGatSerial.html",
-          "hash": "9p6RP1xUxq+2J9pqfkzSwLiROkpMpx6dslqOJsU3nao="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationGeneralMessages.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationGeneralMessages.html",
-          "hash": "M7ylri4G0Vp6qfaXqFtdG6dLvEkUkxwCGZVjfAu+ASY="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationGeneralMessagesDisabledByOperator.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationGeneralMessagesDisabledByOperator.html",
-          "hash": "5Qb3k3lscoldGdHWgPr0E/xA84iJSJ8AqOM/7o00/J8="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationGeneralMessagesLockup.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationGeneralMessagesLockup.html",
-          "hash": "uGvKaVH98KOW6Z8di4M0joczT2pvl8LktFNct7sRQwA="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationHandpayReceiptPrinting.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationHandpayReceiptPrinting.html",
-          "hash": "hZx13URb7rM7F2qvURgXDlFQ4b9ZMYeQCwM1KMpKd+A="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationHardMeterMonitor.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationHardMeterMonitor.html",
-          "hash": "OoJUNM17aK4B/RJ5mYuKw9dWsAOhTLf54kg+641vwjs="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationHostOfflineSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationHostOfflineSound.html",
-          "hash": "A2ptgCCtM79/sjkcLtneJ0Hs8odJbvQxZyUw/AH/ON4="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationLargeWinInfo.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationLargeWinInfo.html",
-          "hash": "IDOrVnD8KlwXPPZyrWtLFB8r04x4ZtJ/CB4aon6gNHU="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationLiveAuthenticationFailedSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationLiveAuthenticationFailedSound.html",
-          "hash": "+OndZnO3/ebY69XL2NJHeBY4/NpRspgAl+g7fmwIJjI="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationLiveAuthenticationManager.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationLiveAuthenticationManager.html",
-          "hash": "hXmNHltv+FHt7QhxwqpE0FZL5q5mMg0YOHYOH5jhZ64="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationMediaDisplay.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationMediaDisplay.html",
-          "hash": "HwcmzZ8Mo+sNqxBhiDUgZQehVu4yzbIcdL33azYLLO8="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationMemoryMonitor.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationMemoryMonitor.html",
-          "hash": "B2Rewprpebi2eARsRsuOQ5t5QtDwf4y/mNskINMlZ2w="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationMeterRollover.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationMeterRollover.html",
-          "hash": "A6/O93BWnykoKxHSPnh3Fcrim05JdV8p2nhVILaV9nU="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationMultiGame.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationMultiGame.html",
-          "hash": "LT3Kv8q4hilzxIzYkkoA97zJQQrZcRo93w5c3kZMZWk="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessages.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessages.html",
-          "hash": "mfEtH1O/gO3538f/k5tCbaTtZ9HCeR41eQTE7XOB5hk="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillJam.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillJam.html",
-          "hash": "u2kFvzeOx4cgL2/O+5C/uTEtwyaCZAtk9u5hQelLz4Y="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillStackerError.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillStackerError.html",
-          "hash": "y6Y35UgDXg4rF/Qy3xfk7T0CiTf1Smm+loH36KIyLns="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillStackerFull.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillStackerFull.html",
-          "hash": "m760BwRzDYzJ0h/yJtIeYuFIpXNeYhIOqNX2oLzPt8s="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillStackerJam.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillStackerJam.html",
-          "hash": "U5SXHCEnt+oVbCEIIGnSoyrkmn/Y7JD9PuU+EgFioI4="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillUnexpectedError.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillUnexpectedError.html",
-          "hash": "tao5RsvNerAYL6m4WooR4/yK4ymxP/nNRl1JyaUNcTU="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillValidatorFault.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesBillValidatorFault.html",
-          "hash": "MxJoPf5EEdAIojkG9Iw6D6wCxvoVhM1wjTnw1xfXOHE="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesCashBoxRemoved.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesCashBoxRemoved.html",
-          "hash": "6q26fiNdaf5V1TXyvrVtn5HNP3bQTt0MJxi98KTaEJs="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesGeneralFailure.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesGeneralFailure.html",
-          "hash": "Z9edu+uFbm8WcEJ8kaE6sjhY8Hv45eKMxNAKA9DJRJw="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesInvalidBill.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorMessagesInvalidBill.html",
-          "hash": "GUI6mZYgrulo/0/GFW5Y1X/MK8gAHtyEi5vTYI90neM="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorErrorSound.html",
-          "hash": "1dMFlpuGtiaIzaUeO3jYxp99ak+m+kMpghyRyPahR50="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorMonitor.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationNoteAcceptorMonitor.html",
-          "hash": "bKkJw0lif0sS9bgxdTwvz5uAxxzl1hHFxU4jU+trnAA="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationOperatorLockupReset.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationOperatorLockupReset.html",
-          "hash": "+j9QfRdNIGsQe6h95GbIQufOzKOiH14YynGLG+Lkv14="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPaperInChuteSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPaperInChuteSound.html",
-          "hash": "nEWpPdPe+GKBIgb+mYdEGyEJ3yiumgAU9q49RBfTqcM="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPlatformEnhancedDisplay.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPlatformEnhancedDisplay.html",
-          "hash": "/8o/J5JGKjGCqnKJYvgPZtfqlFTBZRs7oDbTgVRHOho="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessages.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessages.html",
-          "hash": "dbftp58bWzPdbWW/oc95Siw+OjGaw4NdS9y9KN8dTio="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesDrawerOpen.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesDrawerOpen.html",
-          "hash": "ReiNi//+ctHFndm6j5PrNnR3kuTHphE+hRIFLNJtrZM="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesErrorWhilePrinting.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesErrorWhilePrinting.html",
-          "hash": "L3kRQa4BU2vlHtRlIY03EEnVWzq+7E3ScoFPwX37wHs="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesFailedMinimumRequirements.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesFailedMinimumRequirements.html",
-          "hash": "S2SpuI3SZJCC44d0sgO4xp4JyGWux3svWnwIdh1bQPQ="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesMalfunctionError.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesMalfunctionError.html",
-          "hash": "JHK48n07DB6Zs4IcRDr061+Y7iTWXrQ3+B9cgaEhsQs="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesMissingSupplyIndex.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesMissingSupplyIndex.html",
-          "hash": "8++FTOZIi2aOGSH0bl+ft99WI3ZaakfFfZ19RSxvKlw="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPaperInChute.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPaperInChute.html",
-          "hash": "lTog8g+cP7Go7uS67HqsFiUtXQcDJh18xFlXEuwcuMU="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPaperJam.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPaperJam.html",
-          "hash": "ochiXxR5bJpOni8aYmmW1KuywO7X2QZ1wlWQEXuXPxg="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPaperLow.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPaperLow.html",
-          "hash": "5F//n1P2/8XCYTYx7WdroIFp8zxvLs3E7hP4UmXKv3M="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPaperOut.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPaperOut.html",
-          "hash": "/xVM+ycgiDB+mOREk8t9yQeYGZgb/IXj80pgGNdOt7A="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPrinterDfuDownloadInProgress.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPrinterDfuDownloadInProgress.html",
-          "hash": "OMGEL1fr6W66Qk0bQOvro1teW0K/uyGqHhtpS45nspU="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPrinterFirmwareDownloadInterrupted.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPrinterFirmwareDownloadInterrupted.html",
-          "hash": "siNTeARcC8dDmJ0Jkxv+JHCL264FEMoRSRVS2Z494eo="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPrinterOffline.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPrinterOffline.html",
-          "hash": "waaEuVKtdo8YNmeIAHbBBXA04H24pFa9KQzDwG6F5xw="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPrinterOpen.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesPrinterOpen.html",
-          "hash": "zzxmY2YUNOw3NQx4c5d6GZG7sN6AkVeffcI+zmgO+z8="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesStoppedResponding.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesStoppedResponding.html",
-          "hash": "jTfB1HSN3GDgalEJOymTf1/hg0N7jcSR2ywBEcXejCo="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesTransferStatusError.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorMessagesTransferStatusError.html",
-          "hash": "/FeVNW+kOZWvocl3QIzFD6E2G5DGusqEs+lSTp9MHfc="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterErrorSound.html",
-          "hash": "n5xU/JDQwzitUmDETw2FOeHeEI3BRFaH58ajrzGXlBk="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterMonitor.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterMonitor.html",
-          "hash": "5ikd+EmJcaJNNmF1M77Ci84hAQiA+iuDLGsoHnAjjuU="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterWarningSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationPrinterWarningSound.html",
-          "hash": "r+FkYxPFKJtQAUFXlorGb2Y94dG3pUuioIeTK8NxI0U="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationReadOnlyMedia.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationReadOnlyMedia.html",
-          "hash": "EKYgK9cYSKSdt18jo/H5yweSbdFrNoJoXYrObI0bKiI="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationReserveService.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationReserveService.html",
-          "hash": "nhUDfRhAklpFP4g4wj8gxR3t0HCydQk0LgIB41XgxNY="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSecondaryStorageMedia.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSecondaryStorageMedia.html",
-          "hash": "SVocb2YuxidFD95e7Bh+OdRI8eBTqydwm+IpwuCmArU="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoftwareInstall.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoftwareInstall.html",
-          "hash": "s9a1MlBeyyf5MKqDLPYqdMcYXMptZO3XImNsvIKvupo="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoftwareVerification.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoftwareVerification.html",
-          "hash": "Izv7iLENdSaI9hJwx0S4PGprhFgWu4IPcy1vS62fmUo="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoundConfiguration.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoundConfiguration.html",
-          "hash": "v/mIq436Zw3fd2RSXm4nKaxkCG0UcOnakIM7gCIw/YA="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoundConfigurationAlertVolume.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoundConfigurationAlertVolume.html",
-          "hash": "8cxe0jI9I6gXRLywRO9i3qfMadYwi6cf9dq6T0814EI="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoundConfigurationVolumeControl.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationSoundConfigurationVolumeControl.html",
-          "hash": "n93v4CITvMFtX6ExtfSdcmmGwCgArtkgqEl/58WWluo="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationStackerRemoveBehavior.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationStackerRemoveBehavior.html",
-          "hash": "UtkBjnd9XQP9NK8Dd+jedxx+bc/cUo/KZx6ubyETykE="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationTicketMode.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationTicketMode.html",
-          "hash": "Y/8kkbRy56KuiyN8Pdqon/9DBdcXjaPGzNVhvPSC7uA="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationTouchSound.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationTouchSound.html",
-          "hash": "z7Ibj3JziYusMNmoGLPwtwlt8Ji9y9/fAM86DOSTyK4="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationWaitForProgressiveInitialization.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConfigurationWaitForProgressiveInitialization.html",
-          "hash": "QY0OuvWhyVVYJmriUKx9dvgas1hVw2z1u3jQjtcWn5I="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ApplicationConstants.yml",
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ApplicationConstants.html",
-          "hash": "I4Omx/9Jshw1PZ5cN0+jrcSU8A/T0uJp9pfvAjPzbXI="
+          "hash": "2sULT1NP0kMQ0Nro6wFNr0KzIXOxrAZqLAvJvIRF920="
         }
       },
       "is_incremental": false,
@@ -5209,18 +4189,6 @@
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.Authentication.html",
           "hash": "mex2tTrVGYn4s1jVQoiCkPznOq2J+FxB0+Y5WueEdEI="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.BarcodeTypeOptions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.BarcodeTypeOptions.html",
-          "hash": "7Saa/HUA+wGiqdV0KwtVefIkcNbfayrNkdfpPQO/mbY="
         }
       },
       "is_incremental": false,
@@ -5893,18 +4861,6 @@
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.EdgeLight.html",
           "hash": "8adcbc0s0t82PprUAjhvfYCBDTD1BaUg+9B4KyUPkj8="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ExcessiveDocumentRejectLockupType.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ExcessiveDocumentRejectLockupType.html",
-          "hash": "eggPH5Mw6ZgSyPybB3ztSa0BCt3jSNDpftj8388PDKY="
         }
       },
       "is_incremental": false,
@@ -6757,18 +5713,6 @@
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.LampTest.html",
           "hash": "cVW//9nZxKjt0pOTejDyqf7b4gTRgjhttnuJMJF/yPA="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.LayoutTypeOptions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.LayoutTypeOptions.html",
-          "hash": "jqwPaHgUSJCj+ZWvc5nI0ImdD5qIJ0P8OqwoeYczWNc="
         }
       },
       "is_incremental": false,
@@ -7868,18 +6812,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.NoteAcceptorMonitorDisableBehavior.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.NoteAcceptorMonitorDisableBehavior.html",
-          "hash": "Bzf96YtTulCo+Y6v/uRv3Yk6hPN5/8OcZNO0BHRP4YA="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.OccurrenceMeterClassification.yml",
       "output": {
         ".html": {
@@ -8528,18 +7460,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ResetMethodKeyType.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ResetMethodKeyType.html",
-          "hash": "Eeyb6RzhQH6M+jObKeJPhx4k2HBCuN5EeBq/lgvbbuA="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.SerialGat.ISerialGat.yml",
       "output": {
         ".html": {
@@ -8701,18 +7621,6 @@
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.SystemEnabledByOperatorEvent.html",
           "hash": "i25KTBdn4VUuV3D/rkmA8816Z/O6eowU+rNwvZeEWA4="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.TicketModeAuditBehavior.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.TicketModeAuditBehavior.html",
-          "hash": "Zd3HLAvomoV1I1lPqdhfW6sfrkgpqutKlhDgg09t4No="
         }
       },
       "is_incremental": false,
@@ -9176,35 +8084,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.ValidationLengthOptions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.ValidationLengthOptions.html",
-          "hash": "kZ5mpV3OV90Mw6RAJEsZkMFGRGGAK/XogxPy0CAhkag="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.VolumeControlLocation.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.VolumeControlLocation.html",
-          "hash": "rbogSi2b+enbzfN+wjFBkHveEfT9HmWJuZGAKFb3GXQ="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.Contracts.yml",
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.html",
-          "hash": "90rsjwyiKFC7H3p74sZCrXxuSmNstmZ2Qp9iSvyOZaI="
+          "hash": "l+l6eHEyGQXNl0OW1jNsjSpYI/sXKc68oufWXrwmqO0="
         }
       },
       "is_incremental": false,
@@ -10068,7 +8952,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Monitors.DisplayMonitor.html",
-          "hash": "SXQQOW5k4wKhVMNWfMd/ASdKPX+KeNpkXyM9RurIdPs="
+          "hash": "AP49tdaSqIKiKfHpU3AkV6nEhllGc/dJuzlGXFicSRA="
         }
       },
       "is_incremental": false,
@@ -10812,7 +9696,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.SerialGat.SerialGatApplicationLayer.html",
-          "hash": "lYG7nqc71T8Iel4CABDOgsVd8WlxrlMJ9ctCKhsHOKY="
+          "hash": "KtXYKdL/9HUBx/UAAComLgJSUKW3Rhw4+9IBpmf/N/E="
         }
       },
       "is_incremental": false,
@@ -10848,7 +9732,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.SerialGat.SerialGatDataLayer.html",
-          "hash": "eaeQCq3T0orXmC1XN2fbB44I30sfHX+GlVgeWU+MROc="
+          "hash": "JvgByLVkH2zDWEzImA+cSqFWi5loxGa1RQ2krJb5IyM="
         }
       },
       "is_incremental": false,
@@ -10860,7 +9744,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.SerialGat.SerialGatService.html",
-          "hash": "Ty7NUsyMz2xHd7IVbXV9JBtAqjXlBf/EpskiWkZMEdk="
+          "hash": "BCTB9chrBtYfX91mXzUoA+GJ1817pdwUoxuCDAikBUQ="
         }
       },
       "is_incremental": false,
@@ -15646,9 +14530,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -24714,7 +23595,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.DataTypeAttribute.html",
-          "hash": "AF3VIBatv8CasAef9nyH7kjzfgLB6xYVvfAAWmgkwUc="
+          "hash": "QNsHvl2rvPESUEiI2mMttDzDIo461zlM4nuJDTVHcYM="
         }
       },
       "is_incremental": false,
@@ -24726,7 +23607,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.LocalizedCategoryAttribute.html",
-          "hash": "VBmcnd1W2EqUM182da/SaEUArFXoHkAls6wMDyBwLdk="
+          "hash": "K8tC89iET7RKZlkvcemI+vqBh0/RiSn7p5I2DWmMDuk="
         }
       },
       "is_incremental": false,
@@ -24738,7 +23619,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.LocalizedDescriptionAttribute.html",
-          "hash": "Ol2at12pLQsGnmZkFDSvEQoOS458JNZEkNc2UV5hy+Q="
+          "hash": "iuNrswzMbNSGa8UVO7+bWnA7phIS7VqrH8S2FeVVvKQ="
         }
       },
       "is_incremental": false,
@@ -24750,7 +23631,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.LocalizedDisplayNameAttribute.html",
-          "hash": "mglZzVv83P3tcLhtOtjNUGdd9mLjGvEgAP+oTt4/A6g="
+          "hash": "elOqjCiKr5lIybOJgrKkK9uoTIFaC8nfa0pARFkvYWA="
         }
       },
       "is_incremental": false,
@@ -24762,7 +23643,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.RangeAttribute.html",
-          "hash": "Rvaa16W/cxnNa+1fS6ihxOueTtPyi4g6RDji5RgmpGQ="
+          "hash": "1bIALzwROndc+VRk7cMuMpRPfKCBeaAPrszXBLE8rDw="
         }
       },
       "is_incremental": false,
@@ -24774,7 +23655,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.RegularExpressionAttribute.html",
-          "hash": "z9aHJjfsCO/65grt0AZY68Q8rlfPae1Q1ijI3FTFtiE="
+          "hash": "kFv2JnII3puk4OWcHVtASSlWOQnSq0pEVnlXAxElu3M="
         }
       },
       "is_incremental": false,
@@ -24786,7 +23667,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.RequiredAttribute.html",
-          "hash": "x/UKnmZt/wg53Or8SMTNFJYAOvD5/EjCWY8If4ki5c4="
+          "hash": "od7Whiu79Em3IXnz9XbeZdQnmFaz9jWpfOPKPlml9VQ="
         }
       },
       "is_incremental": false,
@@ -24798,7 +23679,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.ResourceKeys.html",
-          "hash": "ZA8dLIhjGj39C2F5ApuBCGWpwkyJ760XuAcfFwg26zE="
+          "hash": "/dcQB6A4KfjFaomY+y0AAGMvEjpnfGjKn21BCptTIa0="
         }
       },
       "is_incremental": false,
@@ -24810,7 +23691,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.Resources.html",
-          "hash": "IdRto7kMcvjAm0SIo+kJqULjwUrbGl9r4GROuN9iJF0="
+          "hash": "fndsiMYwJtv33dXz7MeTalByuquAI8NSOi2Yte3f584="
         }
       },
       "is_incremental": false,
@@ -24822,7 +23703,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.StringLengthAttribute.html",
-          "hash": "xX6TbYg7H20h8SzIuU59zZxVql8JZLkgUurkJ4jnXlA="
+          "hash": "pOBXW2kvUjgEDAyJo9jRijpjlAdSo38XA/Hz5KJ2y7E="
         }
       },
       "is_incremental": false,
@@ -24834,7 +23715,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.StringResourceKey.html",
-          "hash": "42jqpPN0fQ9AoPWuuATp5oYaJbLyURcdcSsKFzxVZcw="
+          "hash": "UUdOuY8XPdzcRTtBrpPekSp5myThg6vesbqTb/5IZ7o="
         }
       },
       "is_incremental": false,
@@ -25765,6 +24646,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -43830,7 +42714,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.CashoutController.html",
-          "hash": "uGw+n7wISYfsfgMqIeVgjzz9wC3ltsVXFzZsQJb2ULg="
+          "hash": "4U3uVOuHu3aAg7PCQL4s0S5ogcgioUSUQqTNpsZk2NY="
         }
       },
       "is_incremental": false,
@@ -58554,7 +57438,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.ViewModels.LobbyViewModel.html",
-          "hash": "DzLREHqIrafbN9O5Be6Ej3v59RGBavd4AiHTEKJwaQQ="
+          "hash": "MjM9kAlyqq5hE5lekKmHAlKatMnDw03HNv2WxvLaiL0="
         }
       },
       "is_incremental": false,
@@ -86157,7 +85041,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 7146,
+          "total_file_count": 7053,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
