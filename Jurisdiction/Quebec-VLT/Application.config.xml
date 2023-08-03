@@ -74,7 +74,7 @@ as follows:
     <string>Protocol</string>
   </LogTypesAllowedForDisplay>
   <Clock Enabled="true" Format="24" />
-  <Cashout ClearWins="false" />
+  <Cashout ClearWins="false" PaperInChuteBlocksCashout="false" />
   <MultiGame RestoreRebootStateAfterSwitch="false" StateStorageLocation="game" />
   <PlatformEnhancedDisplay Enabled="false" />
   <HandpayReceiptPrinting Enabled="true"/>
