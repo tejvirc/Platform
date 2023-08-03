@@ -218,7 +218,6 @@
             if (resource == null)
             {
                 var exception = new LocalizationException($"Resource not found for key: {key}");
-
                 if (exceptionHandler == null)
                 {
                     throw exception;
