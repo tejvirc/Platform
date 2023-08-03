@@ -135,6 +135,10 @@
                 {
                     EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Sound));
                     EventBus.Publish(new OperatorMenuWarningMessageEvent(""));
+                    if (TestViewModel?.SoundFiles?.Count > 0)
+                    {
+                        TestViewModel.Sound = TestViewModel.SoundFiles.First();
+                    }
                 }
 
                 SetProperty(ref _inTestMode, value);
