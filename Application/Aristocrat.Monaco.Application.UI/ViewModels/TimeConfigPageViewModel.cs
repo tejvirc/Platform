@@ -128,8 +128,8 @@
                     _hour = value;
                     RaisePropertyChanged(nameof(Hour));
                     ApplyCommand.RaiseCanExecuteChanged();
-                    SetItemPickFlag(ItemPick.Hours);
                 }
+                SetItemPickFlag(ItemPick.Hours);
             }
         }
 
@@ -144,8 +144,8 @@
                     _minute = value;
                     RaisePropertyChanged(nameof(Minute));
                     ApplyCommand.RaiseCanExecuteChanged();
-                    SetItemPickFlag(ItemPick.Minutes);
                 }
+                SetItemPickFlag(ItemPick.Minutes);
             }
         }
 
@@ -160,8 +160,8 @@
                     _second = value;
                     RaisePropertyChanged(nameof(Second));
                     ApplyCommand.RaiseCanExecuteChanged();
-                    SetItemPickFlag(ItemPick.Seconds);
                 }
+                SetItemPickFlag(ItemPick.Seconds);
             }
         }
 
@@ -215,7 +215,8 @@
                 SetProperty(ref _orderNumber, value, nameof(OrderNumber));
                 var errorMessage = string.IsNullOrWhiteSpace(_orderNumber) ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OrderNumberErrorMessage) : string.Empty;
                 SetError(nameof(OrderNumber), errorMessage);
-                if (errorMessage != string.Empty)
+
+                if (!string.IsNullOrEmpty(errorMessage))
                 {
                     SetItemUnpicked(ItemPick.Order);
                 }
@@ -237,7 +238,7 @@
                 var errorMessage = string.IsNullOrWhiteSpace(_inspectorInitials) ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InspectorInitialsErrorMessage) : string.Empty;
                 SetError(nameof(InspectorInitials), errorMessage);
 
-                if(errorMessage != string.Empty)
+                if(!string.IsNullOrEmpty(errorMessage))
                 {
                     SetItemUnpicked(ItemPick.Initials);
                 }
