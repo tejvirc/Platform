@@ -11926,6 +11926,14 @@ Do you really want to do full reset?</value>
     <value>No device detected</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="ZeroCreditCashoutOption" xml:space="preserve">
+    <value>Zero Credit Cashout Option</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="EnableZeroCreditCashoutText" xml:space="preserve">
+    <value>Enable Zero Credit Cashout</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
   <data name="InspectorLabel" xml:space="preserve">
     <value>Inspector</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
@@ -12331,6 +12339,13 @@ Do you really want to do full reset?</value>
   <data name="VertexIdLabel" xml:space="preserve">
     <value>VERTEX ID</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="ReelController_LoadingAnimationFile" xml:space="preserve">
+    <value>Loading Animation File {0}</value>
+    <comment>Aristocrat.Monaco.Gaming</comment>
+  </data>
+  <data name="DisplayConnected" xml:space="preserve">
+    <value>Display Connected - Restart Required</value>
   </data>
   <data name="CoinToCashBox" xml:space="preserve">
     <value>Coin In To CashBox</value>

@@ -55,7 +55,8 @@
                 Configurations = product.configurationList?.configuration?.Select(Map).ToList(),
                 DefaultConfiguration = Map(product.configurationList?.configuration?.FirstOrDefault(c => c.name.Equals(product.configurationList?.@default))),
                 MechanicalReels = product.mechanicalReels,
-                MechanicalReelHomeSteps = GetMechanicalReelHomeSteps(product)
+                MechanicalReelHomeSteps = GetMechanicalReelHomeSteps(product),
+                PreloadedAnimationFiles = product.stepperAnimationFileList
             };
 
             foreach (var l in product.localization)

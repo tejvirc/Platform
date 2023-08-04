@@ -428,6 +428,7 @@
           <xs:complexType>
             <xs:attribute default="true" name="ClearWins" type="xs:boolean" />
             <xs:attribute default="false" name="CommitStorageAfterCashout" type="xs:boolean" />
+            <xs:attribute default="true" name="PaperInChuteBlocksCashout" type="xs:boolean" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="MultiGame">

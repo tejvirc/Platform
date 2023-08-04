@@ -72,6 +72,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationAutoHold autoHoldField;
         
+        private GamingConfigurationAllowZeroCreditCashout allowZeroCreditCashoutField;
+        
         private GamingConfigurationGameLoad gameLoadField;
         
         private GamingConfigurationImmediateReelSpin immediateReelSpinField;
@@ -407,6 +409,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.autoHoldField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationAllowZeroCreditCashout AllowZeroCreditCashout {
+            get {
+                return this.allowZeroCreditCashoutField;
+            }
+            set {
+                this.allowZeroCreditCashoutField = value;
             }
         }
         
@@ -2004,6 +2016,48 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool Configurable {
+            get {
+                return this.configurableField;
+            }
+            set {
+                this.configurableField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationAllowZeroCreditCashout {
+        
+        private bool enableField;
+        
+        private bool configurableField;
+        
+        public GamingConfigurationAllowZeroCreditCashout() {
+            this.enableField = false;
+            this.configurableField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Enable {
+            get {
+                return this.enableField;
+            }
+            set {
+                this.enableField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
         public bool Configurable {
             get {
                 return this.configurableField;

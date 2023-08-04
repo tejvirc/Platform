@@ -39,11 +39,18 @@
             _handCountService = handCountService ?? throw new ArgumentNullException(nameof(handCountService));
         }
 
+        private bool AllowZeroCreditCashout => _properties.GetValue(GamingConstants.AllowZeroCreditCashout, false);
+
         /// <inheritdoc />
         public void Handle(RequestCashout command)
         {
             if (_playerBank.Balance == 0)
             {
+                if (AllowZeroCreditCashout)
+                {
+                    // No need to set RuntimeCondition.CashingOut flag, just publish the event
+                    _cashoutController.GameRequestedCashout();
+                }
                 return;
             }
 

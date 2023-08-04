@@ -39,8 +39,7 @@
     <AlternateAttractModeLanguage>false</AlternateAttractModeLanguage>
     <DisplaySoftErrors>true</DisplaySoftErrors>
     <DisplayInformationMessages>true</DisplayInformationMessages>
-    <VbdDisplayServiceButton>true</VbdDisplayServiceButton>
-    <DisplayVoucherNotification>true</DisplayVoucherNotification>
+    <VbdDisplayServiceButton>true</VbdDisplayServiceButton>    
     <ResponsibleGamingMode>Continuous</ResponsibleGamingMode>
     <ClockMode>Locale</ClockMode>
     <DefaultGameDisplayOrderByThemeId>

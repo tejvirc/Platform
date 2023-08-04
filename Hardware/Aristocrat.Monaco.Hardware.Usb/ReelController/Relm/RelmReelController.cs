@@ -141,6 +141,7 @@
             }
         }
 
+        // TODO: Wire this up
         /// <inheritdoc />
         public bool IsEnabled { get; }
 
@@ -159,6 +160,9 @@
 
         /// <inheritdoc />
         public IReadOnlyDictionary<int, ReelStatus> ReelStatuses => _reelStatuses;
+
+        /// <inheritdoc />
+        public int DefaultHomeStep => _communicator?.DefaultHomeStep ?? 0;
 
         /// <inheritdoc />
         public void Dispose()
@@ -187,6 +191,7 @@
                     _supportedCapabilities.Add(typeof(IAnimationImplementation), new RelmAnimation(_communicator));
                     _supportedCapabilities.Add(typeof(IReelBrightnessImplementation), new RelmBrightness(_communicator));
                     _supportedCapabilities.Add(typeof(ISynchronizationImplementation), new RelmSynchronization(_communicator));
+                    _supportedCapabilities.Add(typeof(IStepperRuleImplementation), new RelmStepperRule(_communicator));
                     await LoadPlatformSampleShowsAndCurves();
 
                     IsInitialized = true;
@@ -275,12 +280,6 @@
         /// <inheritdoc />
         public void UpdateConfiguration(IDeviceConfiguration internalConfiguration)
         {
-        }
-
-        /// <inheritdoc />
-        public Task<bool> HomeReels()
-        {
-            return _communicator.HomeReels();
         }
 
         /// <inheritdoc />
@@ -414,6 +413,7 @@
                 _supportedCapabilities[typeof(IAnimationImplementation)] = null;
                 _supportedCapabilities[typeof(IReelBrightnessImplementation)] = null;
                 _supportedCapabilities[typeof(ISynchronizationImplementation)] = null;
+                _supportedCapabilities[typeof(IStepperRuleImplementation)] = null;
                 _supportedCapabilities.Clear();
 
                 UnregisterEventListeners();
@@ -473,7 +473,7 @@
             if (animationFiles.Count > 0)
             {
                 Logger.Debug($"Loading {animationFiles.Select(x => x.FriendlyName)} platform sample animations");
-                await _communicator.LoadAnimationFiles(animationFiles);
+                await _communicator.LoadAnimationFiles(animationFiles, new Progress<LoadingAnimationFileModel>());
             }
         }
 

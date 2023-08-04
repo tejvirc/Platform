@@ -145,6 +145,8 @@
 
         public int[] MechanicalReelHomeSteps { get; set; }
 
+        public IEnumerable<AnimationFile> PreloadedAnimationFiles { get; set; }
+
         public int MaximumWagerInsideCredits { get; set; }
 
         public int MaximumWagerOutsideCredits { get; set; }

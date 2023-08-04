@@ -19,6 +19,7 @@
         SuperMode,
         UberMode,
         LobbyOperation_GameExit,
-        OperatingHoursOperation
+        OperatingHoursOperation,
+        CashoutBannerSupport
     }
 }

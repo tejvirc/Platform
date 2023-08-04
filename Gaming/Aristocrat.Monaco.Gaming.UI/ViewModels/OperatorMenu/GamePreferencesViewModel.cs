@@ -69,6 +69,7 @@
         private bool _showProgramEnableResetCredits;
         private bool _attractOptionsEnabled;
         private bool _attractEnabled;
+        private bool _allowZeroCreditCashout;
         private bool _logicDoorEnabled;
         private OperatorMenuAccessRestriction _logicDoorAccessRestriction;
 
@@ -131,11 +132,13 @@
 
             IsButtonContinuousPlayConfigurable = true;
 
+            ShowZeroCreditCashoutCheckbox = PropertiesManager.GetValue(GamingConstants.ZeroCreditCashoutConfigurable, false);
             EditableCensorship = PropertiesManager.GetValue(GamingConstants.CensorshipEditable, false);
             CensorshipEnforced = PropertiesManager.GetValue(GamingConstants.CensorshipEnforced, false);
             DemoModeEnabled = PropertiesManager.GetValue(ApplicationConstants.ShowMode, false);
             AttractOptionsEnabled = gameProvider.GetEnabledGames().Any();
             AttractEnabled = PropertiesManager.GetValue(GamingConstants.AttractModeEnabled, true);
+            AllowZeroCreditCashout = PropertiesManager.GetValue(GamingConstants.AllowZeroCreditCashout, false);
 
             AutoHoldConfigurable = PokerOptionsEnabled &&
                                    PropertiesManager.GetValue(GamingConstants.AutoHoldConfigurable, true);
@@ -313,6 +316,29 @@
                 RaisePropertyChanged(nameof(AttractEnabled));
                 Save(GamingConstants.AttractModeEnabled, _attractEnabled);
                 EventBus.Publish(new AttractConfigurationChangedEvent());
+            }
+        }
+
+        public bool ShowZeroCreditCashoutCheckbox
+        {
+            get;
+            set;
+        }
+
+        public bool AllowZeroCreditCashout
+        {
+            get => _allowZeroCreditCashout;
+            set
+            {
+                if (_allowZeroCreditCashout == value)
+                {
+                    return;
+                }
+
+                _allowZeroCreditCashout = value;
+                RaisePropertyChanged(nameof(AllowZeroCreditCashout));
+                Save(GamingConstants.AllowZeroCreditCashout, _allowZeroCreditCashout);
+                EventBus.Publish(new AllowZeroCreditCashoutChangedEvent());
             }
         }
 
@@ -1054,6 +1080,7 @@
                 RouletteVolumeScalar = _gameCategory[GameType.Roulette].VolumeScalar;
             }
 
+            AllowZeroCreditCashout = PropertiesManager.GetValue(GamingConstants.AllowZeroCreditCashout, false);
             AttractEnabled = PropertiesManager.GetValue(GamingConstants.AttractModeEnabled, true);
             ProgressiveIndicator = PropertiesManager.GetValue(
                 GamingConstants.ProgressiveLobbyIndicatorType,

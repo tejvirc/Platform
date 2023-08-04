@@ -2,6 +2,7 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Test.Common;
     using Contracts;
     using Contracts.Reel;
@@ -53,6 +54,12 @@
             _usbCommunicator = new RelmUsbCommunicator(_driver.Object, _eventBus.Object, _propertiesManager.Object);
         }
 
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            MoqServiceManager.RemoveInstance();
+        }
+
         [TestMethod]
         public async Task PrepareLightShowInterruptPublishesCorrectEvent()
         {
@@ -102,6 +109,7 @@
                 TagId = _tagId
             };
 
+            SetupMocks();
             _driver.Setup(x => x.SendCommandAsync(It.IsAny<StartAnimations>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true))
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
@@ -264,6 +272,17 @@
         private async void InitializeAndLoadAnimation(AnimationFile animationFile) {
             await _controller.Initialize(_usbCommunicator);
             await _usbCommunicator.LoadAnimationFile(animationFile);
+        }
+
+        private void SetupMocks()
+        {
+            MoqServiceManager.CreateInstance(MockBehavior.Default);
+            var disableManager = MoqServiceManager.CreateAndAddService<ISystemDisableManager>(MockBehavior.Default);
+            var localizerFactory = MoqServiceManager.CreateAndAddService<ILocalizerFactory>(MockBehavior.Default);
+            localizerFactory.Setup(x => x.For(It.IsAny<string>())).Returns(new Mock<ILocalizer>().Object);
+            var localizer = new Mock<ILocalizer>();
+            localizer.Setup(x => x.GetString(It.IsAny<string>())).Returns("empty");
+            localizerFactory.Setup(x => x.For(It.IsAny<string>())).Returns(localizer.Object);
         }
     }
 }

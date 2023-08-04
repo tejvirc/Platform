@@ -226,10 +226,7 @@
 
         private void HandleEvent(CashoutNotificationEvent evt)
         {
-            if (Config?.DisplayVoucherNotification ?? false)
-            {
-                MessageOverlayDisplay.ShowVoucherNotification = evt.PaperIsInChute;
-            }
+            MessageOverlayDisplay.ShowVoucherNotification = evt.PaperIsInChute;
 
             if (evt.PaperIsInChute && !_systemDisableManager.IsDisabled)
             {
@@ -303,7 +300,7 @@
 
                     if (platformEvent.Enabled)
                     {
-                        var reportCashoutButtonPress = (bool)_properties.GetProperty(GamingConstants.ReportCashoutButtonPressWithZeroCredit, false);
+                        var allowZeroCreditCashout = (bool)_properties.GetProperty(GamingConstants.AllowZeroCreditCashout, false);
                         if (IsLobbyVisible)
                         {
                             if (!IsResponsibleGamingInfoFullScreen)
@@ -315,21 +312,13 @@
                             {
                                 if (Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId))
                                 {
-                                    if ((LcdButtonDeckLobby)platformEvent.LogicalId != LcdButtonDeckLobby.CashOut || _bank.QueryBalance() != 0 || reportCashoutButtonPress)
+                                    if ((LcdButtonDeckLobby)platformEvent.LogicalId != LcdButtonDeckLobby.CashOut || _bank.QueryBalance() != 0 || allowZeroCreditCashout)
                                     {
                                         HandleLcdButtonDeckButtonPress((LcdButtonDeckLobby)platformEvent.LogicalId);
                                     }
                                 }
                             }
                             OnUserInteraction();
-                        }
-                        else if (reportCashoutButtonPress
-                        && Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId)
-                        && (LcdButtonDeckLobby)platformEvent.LogicalId == LcdButtonDeckLobby.CashOut
-                        && _bank.QueryBalance() == 0
-                        && _gameState.Idle)
-                        {
-                            HandleLcdButtonDeckButtonPress(LcdButtonDeckLobby.CashOut);
                         }
                     }
 
@@ -565,16 +554,12 @@
         private void HandleEvent(CurrencyInCompletedEvent platformEvent)
         {
             Logger.Debug($"Detected CurrencyInCompletedEvent.  Amount: {platformEvent.Amount}");
-            _disableDebugCurrency = false;
-            _debugCurrencyTimer?.Stop();
             HandleCompletedMoneyIn(platformEvent.Amount, platformEvent.Amount > 0);
         }
 
         private void HandleEvent(CoinInCompletedEvent platformEvent)
         {
             Logger.Debug($"Detected CoinInCompletedEvent.  Amount: {platformEvent.Coin.Value}");
-            _disableDebugCurrency = false;
-            _debugCurrencyTimer?.Stop();
             HandleCompletedMoneyIn(platformEvent.Coin.Value, platformEvent.Coin.Value > 0);
         }
 
@@ -590,8 +575,6 @@
         private void HandleEvent(WatOnCompleteEvent watOnEvent)
         {
             Logger.Debug($"Detected WatOnCompleteEvent.  Amount: {watOnEvent.Transaction.TransactionAmount}");
-            _disableDebugCurrency = false;
-            _debugCurrencyTimer?.Stop();
             HandleCompletedMoneyIn(watOnEvent.Transaction.TransactionAmount);
         }
 

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Accounting.UI.ViewModels
+namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
@@ -396,6 +396,7 @@
 
         protected override void OnLoaded()
         {
+            UpdateUI();
             ClearValidationOnUnload = true;
 
             MaxCreditMeterMaxAllowed = (long)PropertiesManager.GetProperty(AccountingConstants.MaxCreditMeterMaxAllowed, long.MaxValue);
@@ -537,20 +538,7 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
-            {
-                LoadLocalizedLists();
-                RaisePropertyChanged(nameof(SelectedBarcodeType), nameof(SelectedValidationLength), nameof(SelectedLayoutType), nameof(PrinterDisabledWarningText));
-            });
-
-            if (UseOperatorCultureForCurrencyFormatting)
-            {
-                RaisePropertyChanged(nameof(CurrencyDisplayCulture));
-            }
-
-            RaisePropertyChanged(nameof(VoucherInLimit));
-            RaisePropertyChanged(nameof(VoucherOutLimit));
-
+            UpdateUI();
             base.OnOperatorCultureChanged(evt);
         }
 
@@ -621,6 +609,23 @@
                     VoucherExpirationEditable = PropertiesManager.GetValue(AccountingConstants.EditableExpiration, true);
                     break;
             }
+        }
+
+        private void UpdateUI()
+        {
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                LoadLocalizedLists();
+                RaisePropertyChanged(nameof(SelectedBarcodeType), nameof(SelectedValidationLength), nameof(SelectedLayoutType), nameof(PrinterDisabledWarningText));
+            });
+
+            if (UseOperatorCultureForCurrencyFormatting)
+            {
+                RaisePropertyChanged(nameof(CurrencyDisplayCulture));
+            }
+
+            RaisePropertyChanged(nameof(VoucherInLimit));
+            RaisePropertyChanged(nameof(VoucherOutLimit));
         }
 
         private bool HasChanges()
