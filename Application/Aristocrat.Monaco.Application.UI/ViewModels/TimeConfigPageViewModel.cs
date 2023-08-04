@@ -202,7 +202,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         public bool IsInspection
         {
             get => _isInspection;
-            set => SetProperty(ref _isInspection, value, nameof(IsInputEnabled));
+            set => SetProperty(ref _isInspection, value, nameof(IsInspection), nameof(IsInputEnabled));
         }
 
         public string OrderNumber
