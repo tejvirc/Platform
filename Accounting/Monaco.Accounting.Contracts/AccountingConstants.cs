@@ -152,6 +152,11 @@
         public const string DisableBankNoteAcceptorWhenCreditLimitReached = "Cabinet.MaxCreditMeter.DisableBankNoteAcceptorWhenCreditLimitReached";
 
         /// <summary>
+        ///     Indicates whether the Coin Acceptor should be disabled on reaching Max Credit Limit or not
+        /// </summary>
+        public const string DisableCoinAcceptorWhenCreditLimitReached = "Cabinet.MaxCreditMeter.DisableCoinAcceptorWhenCreditLimitReached";
+
+        /// <summary>
         ///     The maximum bet amount permitted
         /// </summary>
         public const string MaxBetLimit = "Cabinet.MaxBetLimit";
@@ -813,5 +818,10 @@
         ///     The amount that can be cashed out per hand count
         /// </summary>
         public const string CashoutAmountPerHandCount = "CashoutAmountPerHandCount";
+
+        /// <summary>
+        ///     Default Coin Value in millicents.
+        /// </summary>
+        public const long DefaultTokenValue = 100000L;
     }
 }

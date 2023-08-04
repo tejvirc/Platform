@@ -394,4 +394,45 @@
       <Field DataType="String" FieldName="Protocol.HostAddresses" />
     </Fields>
   </BlockFormat>
+  <BlockFormat version="16" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="String" Size="40" FieldName="SerialNumber2" />
+      <Field DataType="UInt32" FieldName="MachineId2" />
+      <Field DataType="String" Size="16" FieldName="Area" />
+      <Field DataType="String" Size="16" FieldName="Zone" />
+      <Field DataType="String" Size="16" FieldName="Bank" />
+      <Field DataType="String" Size="16" FieldName="Position" />
+      <Field DataType="String" Size="28" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="128" FieldName="CurrencyDescription" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="String" Size="32" FieldName="System.Protocol" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+      <Field DataType="Bool" FieldName="ConfigWizard.MachineSetupConfig.EnterOutOfServiceWithCredits.Enabled" />
+      <Field DataType="String" Size="32" FieldName="System.CurrencyInMeterIso" />
+      <Field DataType="String" Size="32" FieldName="SecondaryProtocols" />
+      <Field DataType="String" Size="128" FieldName="HardMeterMapSelectionValue" />
+      <Field DataType="Bool" FieldName="IdReaderEnabled" />
+      <Field DataType="String" Size="32" FieldName="NoteAcceptorManufacturer" />
+      <Field DataType="String" Size="32" FieldName="PrinterManufacturer" />
+      <Field DataType="String" Size="32" FieldName="IdReaderManufacturer" />
+      <Field DataType="Bool" FieldName="ReelControllerEnabled" />
+      <Field DataType="String" Size="32" FieldName="ReelControllerManufacturer" />
+      <Field DataType="Int32" FieldName="MachineSettings.Imported" />
+      <Field DataType="Bool" FieldName="MachineSettings.Reimport" />
+      <Field DataType="Bool" FieldName="LegalCopyright.Accepted" />
+      <Field DataType="String" Size="128" FieldName="CalculatedDeviceName" />
+      <Field DataType="Int64" FieldName="Application.PreviousGameEndTotalBanknotesIn" />
+      <Field DataType="Int64" FieldName="Application.PreviousGameEndTotalCoinIn" />
+      <Field DataType="Bool" FieldName="Application.ExcessiveMeterIncrementLockedKey" />
+      <Field DataType="Bool" FieldName="System.GameRules" />
+      <Field DataType="String" FieldName="Protocol.HostAddresses" />
+      <Field DataType="Bool" FieldName="CoinAcceptorEnabled" />
+      <Field DataType="String" Size="32" FieldName="CoinAcceptorManufacturer" />
+    </Fields>
+  </BlockFormat>
 </ArrayOfBlockFormat>

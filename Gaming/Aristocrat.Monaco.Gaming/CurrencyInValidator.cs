@@ -11,6 +11,7 @@
     using Contracts.Lobby;
     using Hardware.Contracts;
     using Hardware.Contracts.NoteAcceptor;
+    using Hardware.Contracts.CoinAcceptor;
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
@@ -265,6 +266,8 @@
             }
 
             DisableBankNoteAcceptorOnMaxCreditLimit(isMaxCreditLimitReached);
+
+            DisableCoinAcceptorOnMaxCreditLimit(isMaxCreditLimitReached);
         }
 
         private string GetCreditLimitExceededRejectionMessage()
@@ -274,6 +277,47 @@
                         _propertiesManager.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue);
             // For CreditLimit exceeded message we need Limit in some markets
             return string.Format(displayMessage, limit.MillicentsToDollars());
+        }
+
+        private void DisableCoinAcceptorOnMaxCreditLimit(bool isMaxCreditLimitReached)
+        {
+            if (_propertiesManager.GetValue(AccountingConstants.DisableCoinAcceptorWhenCreditLimitReached, false))
+            {
+                var coinAcceptor = ServiceManager.GetInstance().TryGetService<ICoinAcceptor>();
+
+                if (coinAcceptor == null)
+                {
+                    return;
+                }
+
+                if (!isMaxCreditLimitReached)
+                {
+                    EnableCoinAcceptorBasedOnConfig(coinAcceptor);
+                }
+                else
+                {
+                    DisableCoinAcceptorBasedOnConfig(coinAcceptor);
+                }
+            }
+        }
+
+        private void EnableCoinAcceptorBasedOnConfig(ICoinAcceptor coinAcceptor)
+        {
+            if (!coinAcceptor.Enabled && (coinAcceptor.ReasonDisabled & DisabledReasons.Configuration) > 0)
+            {
+                Logger.Info("Enabling the coin acceptor per configuration override");
+                coinAcceptor.Enable(EnabledReasons.Configuration);
+            }
+        }
+
+        private void DisableCoinAcceptorBasedOnConfig(ICoinAcceptor coinAcceptor)
+        {
+            if (coinAcceptor.Enabled || !coinAcceptor.Enabled &&
+                !((coinAcceptor.ReasonDisabled & DisabledReasons.Configuration) > 0))
+            {
+                Logger.Info("Disabling the coin acceptor per configuration override");
+                coinAcceptor.Disable(DisabledReasons.Configuration);
+            }
         }
 
         private void DisableBankNoteAcceptorOnMaxCreditLimit(bool isMaxCreditLimitReached)

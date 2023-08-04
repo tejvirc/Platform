@@ -14,6 +14,7 @@
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.Button;
+    using Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor;
     using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
     using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;

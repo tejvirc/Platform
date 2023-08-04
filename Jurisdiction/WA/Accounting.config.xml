@@ -27,7 +27,8 @@ as follows:
   <TenderIn CheckCreditsIn="None" AllowCreditUnderLimit="false">
   </TenderIn>
   <CreditLimits>
-	<MaxCreditMeter Default="500000000" MaxAllowed="9999999000"  DisableBankNoteAcceptorWhenCreditLimitReached="true" ShowMessageWhenCreditLimitReached="true"/>
+	<MaxCreditMeter Default="500000000" MaxAllowed="9999999000"  DisableBankNoteAcceptorWhenCreditLimitReached="true" ShowMessageWhenCreditLimitReached="true" 
+                  DisableCoinAcceptorWhenCreditLimitReached="true"/>
   </CreditLimits>
   <WinLimits>
     <LargeWinLimit Editable="false" OverrideTransactionName="true"/>

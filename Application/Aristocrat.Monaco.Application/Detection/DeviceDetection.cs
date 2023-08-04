@@ -29,6 +29,7 @@
         private readonly Dictionary<string, object> _comPortLocks = new ();
         private readonly Dictionary<DeviceType, List<SupportedDevicesDevice>> _usbSupportedDevices = new();
         private readonly Dictionary<DeviceType, List<SupportedDevicesDevice>> _serialSupportedDevices = new();
+        private readonly Dictionary<DeviceType, List<SupportedDevicesDevice>> _pwmSupportedDevices = new();
         private readonly List<(int vid, int pid)> _usbInstances = new ();
 
         private CancellationTokenSource _tokenSource;
@@ -70,10 +71,12 @@
 
             _usbSupportedDevices.Clear();
             _serialSupportedDevices.Clear();
+            _pwmSupportedDevices.Clear();
             foreach (DeviceType type in Enum.GetValues(typeof(DeviceType)))
             {
                 _usbSupportedDevices[type] = new ();
                 _serialSupportedDevices[type] = new ();
+                _pwmSupportedDevices[type] = new();
             }
 
             foreach (var supportedDevice in hardwareConfiguration.SupportedDevices.Devices)
@@ -89,10 +92,15 @@
                 {
                     _usbSupportedDevices[deviceType].Add(supportedDevice);
                 }
+                else if(supportedDevice.Port =="NA")
+                {
+                    _pwmSupportedDevices[deviceType].Add(supportedDevice);
+                }
                 else
                 {
                     _serialSupportedDevices[deviceType].Add(supportedDevice);
                 }
+
             }
         }
 
@@ -159,6 +167,11 @@
                     return;
                 }
 
+                if (_pwmSupportedDevices[deviceType].Any() && SearchPwmDeviceType(deviceType))
+                {
+                    return;
+                }
+
                 _eventBus.Publish(new DeviceNotDetectedEvent(deviceType));
             }
             catch (Exception ex)
@@ -184,6 +197,14 @@
             }
 
             return false;
+        }
+
+        private bool SearchPwmDeviceType(DeviceType deviceType)
+        {
+            //TBD : Need to check if we can have some logic here
+            var pwmDevice = _pwmSupportedDevices[deviceType].FirstOrDefault();
+            _eventBus.Publish(new DeviceDetectedEvent(pwmDevice));
+            return true;
         }
 
         private bool SearchSerialDeviceType(DeviceType deviceType, CancellationTokenSource tokenSource)

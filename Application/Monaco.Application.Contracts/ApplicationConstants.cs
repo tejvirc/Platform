@@ -76,6 +76,9 @@
         /// <summary> The properties manager key for Firmware CRC error sound file path. </summary>
         public const string FirmwareCrcErrorSoundKey = "Cabinet.FirmwareCrcErrorSound";
 
+        /// <summary> The properties manager key for default sound file path. </summary>
+        public const string DefaultAlarmSoundKey = "Cabinet.DefaultAlarmSound";
+
         /// <summary> The properties manager key for Memory Monitor error sound file path. </summary>
         public const string MemoryMonitorErrorSoundKey = "Cabinet.MemoryMonitorErrorSound";
 
@@ -1499,5 +1502,15 @@
         ///     True if re-directing topper overlay to top screen
         /// </summary>
         public const string IsTopperOverlayRedirecting = @"Application.IsTopperOverlayRedirecting";
+
+        // <summary>
+        ///     Key used to get a value indicating whether or not Coin Acceptor is enabled
+        /// </summary>
+        public const string CoinAcceptorEnabled = "Application.CoinAcceptorEnabled";
+
+        // <summary>
+        ///     Key used to get a value indicating whether or not Coin Acceptor is enabled
+        /// </summary>
+        public const string CoinAcceptorManufacturer = "Application.CoinAcceptorManufacturer";
     }
 }

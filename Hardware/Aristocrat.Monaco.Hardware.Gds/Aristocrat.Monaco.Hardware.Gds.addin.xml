@@ -26,4 +26,8 @@
     <DeviceImplementation ProtocolName="Fake" type="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds"/>
   </Extension>
 
+  <Extension path="/Hardware/CoinAcceptor/CoinAcceptorImplementations">
+    <DeviceImplementation ProtocolName="Any" type="Aristocrat.Monaco.Hardware.Gds.CoinAcceptor.CoinAcceptorGds"/>
+  </Extension>
+
 </Addin>
