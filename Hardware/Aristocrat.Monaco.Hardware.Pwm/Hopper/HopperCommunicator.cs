@@ -53,6 +53,49 @@
             }
         }
 
+        /// <summary>Process a GDS message into protocol calls.</summary>
+        /// <param name="message">GDS message</param>
+        protected void ProcessMessage(GdsSerializableMessage message)
+        {
+            switch (message)
+            {
+                case HopperMotorControl control:
+                    {
+                        if (control.OnOff)
+                        {
+                            StartHopperMotor();
+                        }
+                        else
+                        {
+                            StopHopperMotor();
+                        }
+                        break;
+                    }
+                case HopperMaxOutControl control:
+                    {
+                        SetMaxCoinoutAllowed(control.Count);
+                        break;
+                    }
+                case DeviceReset:
+                    {
+                        Reset();
+                        break;
+                    }
+                case HopperBowlStatus:
+                    {
+                        var data = GetStatusReport();
+                        OnMessageReceived(new HopperBowlStatus { IsFull = (data & HopperMasks.HopperHighMask) != 0 });
+                        break;
+                    }
+                default:
+                    if (message.ReportId == GdsConstants.ReportId.DeviceReset)
+                    {
+                        DeviceInitialize();
+                    }
+                    break;
+            }
+        }
+
         private void DataProcessor(ChangeRecord record, bool connected)
         {
             _coinOutState.Timer -= (record.ElapsedSinceLastChange.QuadPart / 10000);
@@ -125,6 +168,7 @@
                 }
             }
         }
+
         private void ProcessWaitingForTrailingEdge(ChangeRecord record, bool connected)
         {
             if (CheckForDisconnect(connected))
@@ -204,6 +248,7 @@
             }
 
         }
+
         private void ProcessWaitingForReset(ChangeRecord record, bool connected)
         {
             if (_hopperState.IsConnected)
@@ -294,42 +339,42 @@
             return (result != 0);
         }
 
-        public bool MotorOn()
+        private bool MotorOn()
         {
-            byte value = (byte)HopperMasks.HopperMotorDriveMask;
+            var value = (byte)HopperMasks.HopperMotorDriveMask;
             return Ioctl(HopperCommands.HopperSetOutputs, value);
         }
 
-        public bool MotorOff()
+        private bool MotorOff()
         {
-            byte value = (byte)HopperMasks.HopperMotorDriveMask;
+            var value = (byte)HopperMasks.HopperMotorDriveMask;
             return Ioctl(HopperCommands.HopperClrOutputs, value);
         }
 
-        public bool Enable()
+        private bool Enable()
         {
             return Ioctl(HopperCommands.HopperEnable, 1);
         }
 
-        public bool Disable()
+        private bool Disable()
         {
             return Ioctl(HopperCommands.HopperEnable, 0);
         }
 
-        public bool SetType(HopperType type)
+        private bool SetType(HopperType type)
         {
             return Ioctl(HopperCommands.HopperSetType, (int)type);
         }
 
-        public bool IsConnected()
+        private bool IsConnected()
         {
             return !_disconnected;
         }
 
-        public byte GetCurrentHopperRegisterValue()
+        private byte GetCurrentHopperRegisterValue()
         {
             byte value = 0;
-            Ioctl(HopperCommands.HopperGetRegisterValue, (byte)value);
+            Ioctl(HopperCommands.HopperGetRegisterValue, value);
             return value;
         }
 
@@ -338,43 +383,6 @@
             System.Console.WriteLine(msg);
         }
 
-        /// <summary>Process a GDS message into protocol calls.</summary>
-        /// <param name="message">GDS message</param>
-        protected void ProcessMessage(GdsSerializableMessage message)
-        {
-            switch (message)
-            {
-                case HopperMotorControl control:
-                    {
-                        if(control.OnOff)
-                        {
-                            StartHopperMotor();
-                        }
-                        else
-                        {
-                            StopHopperMotor();
-                        }
-                        break;
-                    }
-                case HopperMaxOutControl control:
-                    {
-                        SetMaxCoinoutAllowed(control.Count);
-                        break;
-                    }
-                case DeviceReset:
-                    {
-                        Reset();
-                        break;
-                    }
-
-                default:
-                    if (message.ReportId == GdsConstants.ReportId.DeviceReset)
-                    {
-                        DeviceInitialize();
-                    }
-                    break;
-            }
-        }
 
         private void DeviceInitialize()
         {
@@ -386,7 +394,7 @@
             }
         }
 
-        public bool Reset()
+        private void Reset()
         {
             lock (Lock)
             {
@@ -405,22 +413,19 @@
                     _currentCoinout = 0;
                 }
                 Enable();
-                return true;
             }
         }
 
-        public bool SetMaxCoinoutAllowed(int amount)
+        private void SetMaxCoinoutAllowed(int amount)
         {
             _currentCoinout = _maxCoinoutAllowed = 0;
             lock (Lock)
             {
-
                 _maxCoinoutAllowed = amount;
-                return true;
             }
         }
 
-        public byte GetStatusReport()
+        private byte GetStatusReport()
         {
             lock (Lock)
             {

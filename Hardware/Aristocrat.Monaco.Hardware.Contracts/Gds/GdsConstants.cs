@@ -301,6 +301,8 @@
             /// <summary> The hopper faults status event</summary>
             HopperFaultStatus = 0x109,
 
+            /// <summary> The hopper bowl status event</summary>
+            HopperBowlStatus = 0x10A,
 
         }
 
