@@ -96,6 +96,8 @@
                 .Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(AccountingConstants.HopperTicketSplit, It.IsAny<bool>()))
                 .Returns(true);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.HopperEnabled, It.IsAny<bool>()))
+                .Returns(true);
 
             _target = new HopperPageViewModel(false);
             Assert.IsNotNull(_target);
@@ -142,6 +144,8 @@
             _propertiesManager.Setup(m => m.GetProperty(AccountingConstants.HopperTicketSplitSupported, It.IsAny<bool>()))
                 .Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(AccountingConstants.HopperTicketSplitConfigurable, It.IsAny<bool>()))
+                .Returns(true);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.HopperEnabled, It.IsAny<bool>()))
                 .Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(AccountingConstants.HopperTicketSplit, It.IsAny<bool>()))
                 .Returns(true);
@@ -191,6 +195,8 @@
             _propertiesManager.Setup(m => m.GetProperty(AccountingConstants.HopperTicketSplitSupported, It.IsAny<bool>()))
                 .Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(AccountingConstants.HopperTicketSplitConfigurable, It.IsAny<bool>()))
+                .Returns(true);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.HopperEnabled, It.IsAny<bool>()))
                 .Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(AccountingConstants.HopperTicketSplit, It.IsAny<bool>()))
                 .Returns(true);

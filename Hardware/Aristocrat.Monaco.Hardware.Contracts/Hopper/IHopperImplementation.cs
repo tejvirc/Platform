@@ -18,9 +18,6 @@
         /// <summary>Max amount which can hopper payout.</summary>
         void SetMaxCoinoutAllowed(int amount);
 
-        /// <summary>Get the status report of hopper.</summary>
-        byte GetStatusReport();
-
         /// <summary>Event fired to report coin out status.</summary>
         event EventHandler<CoinOutEventType> CoinOutStatusReported;
 
@@ -30,5 +27,9 @@
         /// <summary>Gets the current faults.</summary>
         /// <value>The current faults.</value>
         HopperFaultTypes Faults { get; set; }
+
+        /// <summary>Gets the current hopper full status.</summary>
+        /// <value>Hopper full status.</value>
+        bool IsHopperFull { get; }
     }
 }

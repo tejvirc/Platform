@@ -5,7 +5,6 @@
     using Contracts.Communicator;
     using Contracts.Hopper;
 
-
     /// <summary>
     ///     Class to manage communication with Volatile coin acceptor device.
     ///     Which us based in pulse width modulated signal <see cref="CoinAcceptorCommunicator".

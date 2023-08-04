@@ -17,6 +17,7 @@
     public class HopperGds : GdsDeviceBase, IHopperImplementation
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private bool isHopperFull;
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.Gds.Hopper.HopperGds class.
@@ -26,24 +27,28 @@
             DeviceType = DeviceType.Hopper;
             RegisterCallback<CoinOutStatus>(StatusReported);
             RegisterCallback<HopperFaultStatus>(HopperFaultReported);
+            RegisterCallback<HopperBowlStatus>(StatusReport);
 
         }
 
         /// <inheritdoc/>
-        public HopperFaultTypes Faults { get; set; }
+        public bool IsHopperFull
+        {
+            get
+            {
+                SendCommand(new HopperBowlStatus());
+                return isHopperFull;
+            }
+        }
 
+        /// <inheritdoc/>
+        public HopperFaultTypes Faults { get; set; }
 
         /// <inheritdoc />
         public event EventHandler<CoinOutEventType> CoinOutStatusReported;
 
         /// <inheritdoc />
         public event EventHandler<HopperFaultTypes> FaultOccurred;
-
-        /// <inheritdoc/>
-        public byte GetStatusReport()
-        {
-            throw new NotImplementedException();
-        }
 
         /// <inheritdoc />
         public override Task<bool> SelfTest(bool nvm)
@@ -83,7 +88,7 @@
             return Task.FromResult(true);
         }
 
-        /// <summary>Called when a coin in report is received.</summary>
+        /// <summary>Called when a coin out report is received.</summary>
         /// <param name="report">The report.</param>
         protected virtual void StatusReported(CoinOutStatus report)
         {
@@ -102,6 +107,15 @@
             Logger.Debug($"FailureStatus: {report}");
             PublishReport(report);
             FaultOccurred(this, report.FaultType);
+        }
+
+        /// <summary>Called when a hopper bowl state is requested.</summary>
+        /// <param name="report">The report.</param>
+        protected virtual void StatusReport(HopperBowlStatus report)
+        {
+            Logger.Debug($"FailureStatus: {report}");
+            PublishReport(report);
+            isHopperFull = report.IsFull;
         }
     }
 }

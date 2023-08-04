@@ -38,6 +38,9 @@
         public override DeviceType DeviceType => DeviceType.Hopper;
 
         /// <inheritdoc />
+        public bool IsHopperFull => Implementation?.IsHopperFull ?? false;
+
+        /// <inheritdoc />
         public override string Name => !string.IsNullOrEmpty(ServiceProtocol)
             ? $"{ServiceProtocol} Hopper Service"
             : "Unknown Hopper Service";
@@ -65,6 +68,31 @@
                     Implementation.Faults = value;
                 }
             }
+        }
+
+        /// <inheritdoc/>
+        public void StartHopperMotor()
+        {
+            Implementation.StartHopperMotor();
+        }
+
+        /// <inheritdoc/>
+
+        public void StopHopperMotor()
+        {
+            Implementation.StopHopperMotor();
+        }
+
+        /// <inheritdoc/>
+        public void Reset()
+        {
+            Implementation.DeviceReset();
+        }
+
+        /// <inheritdoc/>
+        public void SetMaxCoinoutAllowed(int amount)
+        {
+            Implementation.SetMaxCoinoutAllowed(amount);
         }
 
         /// <inheritdoc />
@@ -122,37 +150,6 @@
         /// <inheritdoc/>
         protected override void SubscribeToEvents(IEventBus eventBus)
         {
-        }
-
-        /// <inheritdoc/>
-        public void StartHopperMotor()
-        {
-            Implementation.StartHopperMotor();
-        }
-
-        /// <inheritdoc/>
-
-        public void StopHopperMotor()
-        {
-            Implementation.StopHopperMotor();
-        }
-
-        /// <inheritdoc/>
-        public void Reset()
-        {
-            Implementation.DeviceReset();
-        }
-
-        /// <inheritdoc/>
-        public void SetMaxCoinoutAllowed(int amount)
-        {
-            Implementation.SetMaxCoinoutAllowed(amount);
-        }
-
-        /// <inheritdoc/>
-        public byte GetStatusReport()
-        {
-            return Implementation.GetStatusReport();
         }
 
         private void ImplementationStatusReported(object sender, CoinOutEventType type)
