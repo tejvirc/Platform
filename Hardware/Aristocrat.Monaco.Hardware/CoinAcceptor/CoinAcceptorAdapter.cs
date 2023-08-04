@@ -115,9 +115,6 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
         /// <inheritdoc />
         public void DivertMechanismOnOff()
         {
-
-            //TODO: implement hopper's properties with realtime values once hopper feature is available..
-
             if (_hopper != null && !_hopper.IsHopperFull)
             {
                 DivertToHopper();
@@ -126,7 +123,6 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
             {
                 DivertToCashbox();
             }
-
         }
 
         /// <inheritdoc />

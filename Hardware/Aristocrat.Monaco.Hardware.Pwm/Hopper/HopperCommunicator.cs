@@ -297,36 +297,40 @@
             (var ret, var record) = base.Read();
             _testDisconnectTimer.QuadPart += record.ElapsedSinceLastChange.QuadPart;
 
-            if (record.NewValue != record.OldValue)
+            if(ret)
             {
-                _testDisconnectTimer = default;
-                _disconnected = false;
-                _disconnectCount = 0;
-            }
-            if (_testDisconnectTimer.QuadPart > HopperConsts.HopperDisconnetTime * 10000)
-            {
-                var disconnect = SetHopperTestDisconnection();
-                if (disconnect)
+                if (record.NewValue != record.OldValue)
                 {
-                    if (!_disconnected && record.NewValue == 0) //If actual disconnect, data from it should be 0
-                    {
-                        if (_disconnectCount <= HopperConsts.HopperDisconnectThreshold)
-                        {
-                            _disconnectCount++;
-                        }
-                        else
-                        {
-                            _disconnected = disconnect;
-                            connect = false;
-                            System.Console.WriteLine("Hopper is disconnecetd");
-                        }
-                    }
-                }
-                else
-                {
-                    _disconnectCount = 0;
                     _testDisconnectTimer = default;
                     _disconnected = false;
+                    _disconnectCount = 0;
+                }
+
+                if (_testDisconnectTimer.QuadPart > HopperConsts.HopperDisconnetTime * 10000)
+                {
+                    var disconnect = SetHopperTestDisconnection();
+                    if (disconnect)
+                    {
+                        if (!_disconnected && record.NewValue == 0) //If actual disconnect, data from it should be 0
+                        {
+                            if (_disconnectCount <= HopperConsts.HopperDisconnectThreshold)
+                            {
+                                _disconnectCount++;
+                            }
+                            else
+                            {
+                                _disconnected = disconnect;
+                                connect = false;
+                                System.Console.WriteLine("Hopper is disconnecetd");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        _disconnectCount = 0;
+                        _testDisconnectTimer = default;
+                        _disconnected = false;
+                    }
                 }
             }
             return (ret, connect, record);
