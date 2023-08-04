@@ -28,7 +28,7 @@ namespace Aristocrat.Monaco.Application
                     ApplicationConstants.DisabledByOperatorText, string.Empty);
                 if (disabledMessage == string.Empty)
                 {
-                    disabledMessage = Localizer.For(CultureFor.Player).GetString(ResourceKeys.OutOfService);
+                    disabledMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfService);
                 }
                 return disabledMessage;
             }
