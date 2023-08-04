@@ -502,7 +502,7 @@
                 PropertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None) == ImportMachineSettings.None)
             {
                 // Default values
-                Committed = false;
+                IsCommitted = false;
 
                 SelectedValidationItem = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecureEnhancedLabel);
                 SelectedHandpayModeItem = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecureHandpayReporting);
@@ -570,7 +570,7 @@
         /// </summary>
         protected override void OnCommitted()
         {
-            if (Committed)
+            if (IsCommitted)
             {
                 return;
             }
@@ -612,7 +612,7 @@
                 GamingConstants.LockupBehavior,
                 reverseActionStrings[_selectedHostDisableCashoutActionItem]);
 
-            Committed = true;
+            IsCommitted = true;
             base.OnCommitted();
             if (restartProtocol)
             {

@@ -11,17 +11,16 @@
     ///     Base class for view models that maintain "dirty" state (commit) and/or require validation
     /// </summary>
     /// <remarks>
-    ///     This provides an inverted "is dirty" model using the <see cref="Committed" /> flag. The entity
+    ///     This provides an inverted "is dirty" model using the <see cref="IsCommitted" /> flag. The entity
     ///     starts out as "non-committed" and exposes a commit command. The command is allowed if the
     ///     entity has non-committed changes and those changes pass validations, so you can bind your
-    ///     submit buttons to the command directly. It will call <see cref="ValidateAll" /> prior to
-    ///     making any commitments so you can hook into final validation, and only if everything passes
+    ///     submit buttons to the command directly,.and only if everything passes
     ///     will the command invoke <see cref="OnCommitted" /> for you to apply your changes.
     /// </remarks>
     [CLSCompliant(false)]
     public abstract class TrackableObservableValidator : ObservableValidator
     {
-        private readonly IReadOnlyCollection<string> _propertiesToIgnoreForCommitted;
+        private readonly IReadOnlyCollection<string> _untrackedPropertyNames;
 
         /// <summary>
         ///     True when changes have been committed
@@ -32,14 +31,14 @@
         ///     This value will raise property changed when committed without errors
         /// </summary>
         [IgnoreTracking]
-        public bool Committed
+        public bool IsCommitted
         {
             get => _committed;
             protected set
             {
                 _committed = value;
                 CommitCommand.NotifyCanExecuteChanged();
-                OnPropertyChanged(nameof(Committed));
+                OnPropertyChanged(nameof(IsCommitted));
             }
         }
 
@@ -51,7 +50,7 @@
         /// <inheritdoc />
         protected TrackableObservableValidator()
         {
-            _propertiesToIgnoreForCommitted = GetType().GetProperties()
+            _untrackedPropertyNames = GetType().GetProperties()
                 .Where(property => property.IsDefined(typeof(IgnoreTrackingAttribute), false))
                 .Select(property => property.Name)
                 .ToHashSet();
@@ -60,33 +59,20 @@
             CommitCommand = new RelayCommand<object>(
                 obj =>
                 {
-                    ValidateAll();
+                    ValidateAllProperties();
                     if (HasErrors)
                     {
                         return;
                     }
                     OnCommitted();
-                    Committed = true;
+                    IsCommitted = true;
                 },
-                obj => !HasErrors && !Committed);
+                obj => !IsCommitted
+            );
 
-            // any time a property changes that is not the committed flag, reset committed
-            PropertyChanged += (o, e) =>
-            {
-                if (Committed && !_propertiesToIgnoreForCommitted.Contains(e.PropertyName))
-                {
-                    Committed = false;
-                    CommitCommand.NotifyCanExecuteChanged();
-                }
-            };
-        }
-
-        /// <summary>
-        ///     Use this to validate any late-bound fields before committing
-        /// </summary>
-        protected virtual void ValidateAll()
-        {
-            ValidateAllProperties();
+            // any time a property changes, reset committed
+            PropertyChanged += (sender, args) => OnChange(args.PropertyName);
+            ErrorsChanged += (sender, args) => OnChange(args.PropertyName);
         }
 
         /// <summary>
@@ -94,15 +80,6 @@
         /// </summary>
         protected virtual void OnCommitted()
         {
-        }
-
-        /// <summary>
-        ///     Raises this object's ErrorsChangedChanged event.
-        /// </summary>
-        /// <param name="propertyName">The property that has new errors.</param>
-        protected virtual void RaiseErrorsChanged(string propertyName)
-        {
-            CommitCommand.NotifyCanExecuteChanged();
         }
 
         /// <summary>
@@ -144,30 +121,39 @@
         ///     - OnPropertyChanging<br />
         ///     - OnPropertyChanged<br />
         ///     <br />
-        ///     The primary property is then validated.
+        ///     Validation is then attempted for the primary property if a validator is found.
         /// </summary>
         /// <typeparam name="T">The type of the field being changed</typeparam>
         /// <param name="property">The backing field for the property</param>
         /// <param name="value">The new value to set</param>
         /// <param name="primaryPropertyName">The primary property to set and attempt validation for.</param>
-        /// <param name="otherPropertyNames">Optional array of property names to emit property changed events for.</param>
+        /// <param name="dependentPropertyNames">Optional array of dependent property names to emit property changed events for.</param>
         /// <returns>false if the new and existing values are equal, true if they are not</returns>
-        protected bool SetProperty<T>(ref T property, T value, string primaryPropertyName, params string[] otherPropertyNames)
+        protected bool SetProperty<T>(ref T property, T value, string primaryPropertyName, params string[] dependentPropertyNames)
         {
-            var propertyNames = (otherPropertyNames == null ? new[] { primaryPropertyName } : otherPropertyNames.Append(primaryPropertyName)).ToArray();
+            var propertyNames = (dependentPropertyNames == null ? new[] { primaryPropertyName } : dependentPropertyNames.Append(primaryPropertyName)).ToArray();
 
             if (EqualityComparer<T>.Default.Equals(property, value))
             {
                 return false;
             }
 
+            ValidateProperty(value, primaryPropertyName);
+
             OnPropertyChanging(propertyNames);
             property = value;
             OnPropertyChanged(propertyNames);
 
-            ValidateProperty(value, primaryPropertyName);
-
             return true;
+        }
+
+        private void OnChange(string propertyName)
+        {
+            if (!_untrackedPropertyNames.Contains(propertyName))
+            {
+                IsCommitted = false;
+                CommitCommand.NotifyCanExecuteChanged();
+            }
         }
     }
 }

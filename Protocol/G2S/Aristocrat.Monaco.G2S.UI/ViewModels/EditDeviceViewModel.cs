@@ -144,13 +144,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             DialogResult = true;
         }
 
-        /// <inheritdoc />
-        protected override void ValidateAll()
-        {
-            base.ValidateAll();
-            ValidateProperty(OwnerId, nameof(OwnerId));
-        }
-
         public static ValidationResult OwnerIdValidate(int ownerId, ValidationContext context)
         {
             EditDeviceViewModel instance = (EditDeviceViewModel)context.ObjectInstance;

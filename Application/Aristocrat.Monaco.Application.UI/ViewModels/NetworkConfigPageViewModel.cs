@@ -119,7 +119,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
                 else
                 {
-                    ValidateAll();
+                    ValidateAllProperties();
 
                     OnPropertyChanged(nameof(IpAddress));
                     OnPropertyChanged(nameof(SubnetMask));
@@ -168,23 +168,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                         {
                             RefreshScreen();
                             ShowStatus = false;
-                            Committed = true;
+                            IsCommitted = true;
                         });
                 });
-        }
-
-        protected override void ValidateAll()
-        {
-            base.ValidateAll();
-
-            if (!DhcpEnabled)
-            {
-                ValidateProperty(IpAddress, nameof(IpAddress));
-                ValidateProperty(SubnetMask, nameof(SubnetMask));
-                ValidateProperty(Gateway, nameof(Gateway));
-                ValidateProperty(DnsServer1, nameof(DnsServer1));
-                ValidateProperty(DnsServer2, nameof(DnsServer2));
-            }
         }
 
         private bool HasChanges()
@@ -206,7 +192,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         protected override void Loaded()
         {
             RefreshScreen();
-            Committed = true;
+            IsCommitted = true;
         }
 
         protected override void OnInputEnabledChanged()

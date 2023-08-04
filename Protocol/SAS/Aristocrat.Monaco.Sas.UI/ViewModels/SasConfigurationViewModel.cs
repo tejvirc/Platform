@@ -532,7 +532,7 @@
         /// </summary>
         protected override void InitializeData()
         {
-            Committed = false;
+            IsCommitted = false;
         }
 
         /// <summary>
@@ -540,7 +540,7 @@
         /// </summary>
         protected override void OnCommitted()
         {
-            if (Committed || HasErrors || !CanNavigate())
+            if (IsCommitted || HasErrors || !CanNavigate())
             {
                 return;
             }
@@ -746,7 +746,7 @@
                 OnPropertyChanged(nameof(AddressHost2Editable));
             }
 
-            Committed = true;
+            IsCommitted = true;
 
             base.OnCommitted();
 

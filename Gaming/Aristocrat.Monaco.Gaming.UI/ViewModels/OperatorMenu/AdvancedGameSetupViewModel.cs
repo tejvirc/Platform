@@ -202,7 +202,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         public bool InitialConfigComplete => PropertiesManager.GetValue(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, false);
 
-        public override bool CanSave => HasNoErrors && InputEnabled && !Committed &&
+        public override bool CanSave => HasNoErrors && InputEnabled && !IsCommitted &&
                                         (HasChanges() || !InitialConfigComplete || ProgressiveLevelChanged) && !IsEnabledGamesLimitExceeded;
 
         public bool HasNoErrors => !HasErrors && !_editableGames.Any(g => g.Value.HasErrors);

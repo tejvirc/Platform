@@ -195,7 +195,7 @@
                 OnPropertyChanged(nameof(EnrollmentEditEnabled));
                 if (_enrollmentEnabled)
                 {
-                    ValidateAll();
+                    ValidateAllProperties();
                 }
                 else
                 {
@@ -653,14 +653,14 @@
         /// </summary>
         protected override void OnCommitted()
         {
-            if (Committed)
+            if (IsCommitted)
             {
                 return;
             }
 
             UpdateConfiguration();
 
-            Committed = true;
+            IsCommitted = true;
 
             base.OnCommitted();
         }
@@ -670,7 +670,7 @@
         {
             base.OnPropertyChanged(propertyName);
 
-            if (propertyName != nameof(Committed))
+            if (propertyName != nameof(IsCommitted))
             {
                 UpdateNavigation();
             }
@@ -1032,7 +1032,7 @@
                 }
             }
 
-            ValidateAll();
+            ValidateAllProperties();
         }
 
         private void UpdateConfiguration()

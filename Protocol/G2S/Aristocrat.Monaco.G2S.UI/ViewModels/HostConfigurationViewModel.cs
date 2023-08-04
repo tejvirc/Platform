@@ -225,7 +225,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// </summary>
         protected override void OnCommitted()
         {
-            if (Committed)
+            if (IsCommitted)
             {
                 return;
             }
@@ -236,7 +236,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             var addresses = new { addresses = hosts.Select(x => x.Address).ToList() };
             PropertiesManager.SetProperty(ApplicationConstants.HostAddresses, JsonConvert.SerializeObject(addresses));
 
-            Committed = true;
+            IsCommitted = true;
 
             base.OnCommitted();
         }

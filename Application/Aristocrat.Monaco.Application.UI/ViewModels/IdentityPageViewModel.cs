@@ -145,14 +145,14 @@
             LoadVariableData();
             SetupNavigation();
 
-            ValidateAll();
+            ValidateAllProperties();
         }
 
         protected override void OnUnloaded()
         {
             Unsubscribe();
             SaveChanges();
-            ValidateAll();
+            ValidateAllProperties();
         }
 
         /// <summary>
@@ -238,7 +238,7 @@
         /// </summary>
         protected override void SaveChanges()
         {
-            if (Committed || HasErrors)
+            if (IsCommitted || HasErrors)
             {
                 return;
             }
@@ -252,7 +252,7 @@
 
             PropertiesManager.SetProperty(ApplicationConstants.CabinetPrintIdentity, _printIdentityTicket);
 
-            Committed = true;
+            IsCommitted = true;
 
             base.SaveChanges();
         }

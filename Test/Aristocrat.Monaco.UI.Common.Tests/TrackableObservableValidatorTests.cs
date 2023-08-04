@@ -85,7 +85,7 @@
             }
             public void SetIgnorePrivate() => IgnorePrivate = true;
 
-            public void SetCommitted() => Committed = true;
+            public void SetCommitted() => IsCommitted = true;
 
         }
 
@@ -93,7 +93,7 @@
         public void NewObjectShouldBeCommitedByDefault()
         {
             var mock = new MockCustomObservableValidator();
-            mock.Committed.Should().BeTrue();
+            mock.IsCommitted.Should().BeTrue();
         }
 
         [TestMethod]
@@ -101,7 +101,7 @@
         {
             var mock = new MockCustomObservableValidator();
             mock.SetCommitted();
-            mock.Committed.Should().BeTrue();
+            mock.IsCommitted.Should().BeTrue();
         }
 
         [TestMethod]
@@ -109,7 +109,7 @@
         {
             var mock = new MockCustomObservableValidator();
             mock.CommitPublic = true;
-            mock.Committed.Should().BeFalse();
+            mock.IsCommitted.Should().BeFalse();
         }
 
         [TestMethod]
@@ -117,7 +117,7 @@
         {
             var mock = new MockCustomObservableValidator();
             mock.SetCommitProtected();
-            mock.Committed.Should().BeFalse();
+            mock.IsCommitted.Should().BeFalse();
         }
 
         [TestMethod]
@@ -125,7 +125,7 @@
         {
             var mock = new MockCustomObservableValidator();
             mock.SetCommitPrivate();
-            mock.Committed.Should().BeFalse();
+            mock.IsCommitted.Should().BeFalse();
         }
 
         [TestMethod]
@@ -133,7 +133,7 @@
         {
             var mock = new MockCustomObservableValidator();
             mock.IgnorePublic = true;
-            mock.Committed.Should().BeTrue();
+            mock.IsCommitted.Should().BeTrue();
         }
 
         [TestMethod]
@@ -141,7 +141,7 @@
         {
             var mock = new MockCustomObservableValidator();
             mock.SetIgnoreProtected();
-            mock.Committed.Should().BeTrue();
+            mock.IsCommitted.Should().BeTrue();
         }
 
         [TestMethod]
@@ -149,7 +149,7 @@
         {
             var mock = new MockCustomObservableValidator();
             mock.SetIgnorePrivate();
-            mock.Committed.Should().BeTrue();
+            mock.IsCommitted.Should().BeTrue();
         }
     }
 }

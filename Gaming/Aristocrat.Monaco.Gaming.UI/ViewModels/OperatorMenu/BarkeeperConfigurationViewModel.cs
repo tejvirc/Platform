@@ -174,7 +174,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 RewardLevels.CoinInStrategy.CoinInRate.Amount = RewardLevelCoinInAmount;
             }
 
-            if (Committed || _barkeeperHandler.RewardLevels.Equals(RewardLevels))
+            if (IsCommitted || _barkeeperHandler.RewardLevels.Equals(RewardLevels))
             {
                 return;
             }
