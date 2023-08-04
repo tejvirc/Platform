@@ -717,6 +717,16 @@
         public const string AutoHoldConfigurable = @"AutoHold.Configurable";
 
         /// <summary>
+        ///     Determines if ZeroCreditCashout is configurable
+        /// </summary>
+        public const string ZeroCreditCashoutConfigurable = @"ZeroCreditCashoutConfigurable";
+
+        /// <summary>
+        ///     Determines if AllowZeroCreditCashout is enabled
+        /// </summary>
+        public const string AllowZeroCreditCashout = @"AllowZeroCreditCashout";
+        
+        /// <summary>
         ///     Property manager key for DefaultCreditDisplay
         /// </summary>
         public const string DefaultCreditDisplayFormat = @"DefaultCreditDisplay.Format";
@@ -1010,11 +1020,6 @@
         ///     flag to indicate if auto play is currently active
         /// </summary>
         public const string AutoPlayActive = "AutoPlayActive";
-
-        /// <summary>
-        ///     Determines whether EGM will send the cashout button press event to host in case credit is zero
-        /// </summary>
-        public const string ReportCashoutButtonPressWithZeroCredit = @"CashoutButton.ReportToHostWithZeroCredit";
         
         /// <summary>
         ///     Determines whether or not the Voucher Issued message is displayed in game

@@ -1365,11 +1365,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public string ActiveLocaleCode => IsPrimaryLanguageSelected ? Config.LocaleCodes[0] : Config.LocaleCodes[1];
 
         /// <summary>
+        ///     Gets a value indicating whether ZeroCreditCashout is enabled.
+        /// </summary>
+        private bool AllowZeroCreditCashout => _properties.GetValue(GamingConstants.AllowZeroCreditCashout, false);
+
+        /// <summary>
         ///     Gets a value indicating whether the cash out button is enabled.
         /// </summary>
         public bool CashOutEnabled =>
             !IsDisabledByHandCount() &&
-            RedeemableCredits > 0.0 && !IsBottomLoadingScreenVisible &&
+            (RedeemableCredits > 0.0 || AllowZeroCreditCashout) && !IsBottomLoadingScreenVisible &&
             !ContainsAnyState(LobbyState.CashOut, LobbyState.CashOutFailure, LobbyState.AgeWarningDialog) &&
             !MessageOverlayDisplay.ShowVoucherNotification;
 
@@ -2754,7 +2759,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void CheckHideCashoutDialog()
         {
-            if (MessageOverlayDisplay.IsCashingOutDlgVisible && _systemDisableManager.DisableImmediately)
+            if (AllowZeroCreditCashout || (MessageOverlayDisplay.IsCashingOutDlgVisible && _systemDisableManager.DisableImmediately))
             {
                 _cashoutDialogHidden = true;
                 _cashoutDialogOpacity = MessageOverlayDisplay.MessageOverlayData.Opacity;
@@ -3108,6 +3113,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             RaisePropertyChanged(nameof(CashOutEnabled));
             RaisePropertyChanged(nameof(CashOutEnabledInPlayerMenu));
+            RaisePropertyChanged(nameof(IsCashOutButtonLit));
             RaisePropertyChanged(nameof(ResponsibleGamingInfoEnabled));
             RaisePropertyChanged(nameof(IsIdleTextBlinking));
             RaisePropertyChanged(nameof(StartIdleTextBlinking));

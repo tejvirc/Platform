@@ -18,13 +18,14 @@ as follows:
 	</Messages>
 	<StateChangeOverride DisableStrategy="None" />
 	<OperatorMenu DisableDuringGame="true" />
-    <RetainLastRoundResult Enabled="true" />
+	<RetainLastRoundResult Enabled="true" />
 	<WinMeterResetOnBetLineDenomChanged Enabled="false" />
 	<WinMeterResetOnBetLineChanged Enabled="false" />
 	<WinMeterResetOnDenomChanged Enabled="true" />
-    <LockupBehavior CashableLockupStrategy="Allowed" Configurable="true" />
+	<LockupBehavior CashableLockupStrategy="Allowed" Configurable="true" />
 	<GameCategory ApplyGameCategorySettings="true" />
-    <Gamble SkipByJackpotHit="true" />
+	<AllowZeroCreditCashout Configurable="true" />
+	<Gamble SkipByJackpotHit="true" />
 	<ContinuousPlaySupport Mode="Toggle" Configurable="true" />
 <!--
 	GameRestrictions Settings:

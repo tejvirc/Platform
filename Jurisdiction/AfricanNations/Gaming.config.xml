@@ -20,7 +20,8 @@ as follows:
 	<OperatorMenu DisableDuringGame="true" />
 	<LockupBehavior CashableLockupStrategy="Allowed" />
 	<GameCategory ApplyGameCategorySettings="true" />
-    <Gamble SkipByJackpotHit="true" />
+	<AllowZeroCreditCashout Configurable="true" />
+	<Gamble SkipByJackpotHit="true" />
 	<ContinuousPlaySupport Mode="Continuous" Configurable="true" />
     
 <!--

@@ -145,6 +145,7 @@
       <Field FieldName="GamePlay.ShowPlayerMenuPopup" DataType="Bool"/>
       <Field FieldName="GamePlay.Gamble.WinLimit" DataType="Int64" />
       <Field FieldName="GamePlay.LaunchGameAfterReboot" DataType="Bool"/>
+      <Field FieldName="AllowZeroCreditCashout" DataType="Bool"/>
     </Fields>
   </BlockFormat>
   <BlockFormat version="11" Name="Aristocrat.Monaco.Gaming.PropertyProvider">
@@ -210,6 +211,7 @@
       <Field FieldName="GamePlay.ShowPlayerMenuPopup" DataType="Bool"/>
       <Field FieldName="GamePlay.Gamble.WinLimit" DataType="Int64" />
       <Field FieldName="GamePlay.LaunchGameAfterReboot" DataType="Bool"/>
+      <Field FieldName="AllowZeroCreditCashout" DataType="Bool"/>
       <Field FieldName="Progressive.ConfiguredLinkedLevelIds" DataType="String" Size="256"/>
     </Fields>
   </BlockFormat></ArrayOfBlockFormat>
