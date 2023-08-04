@@ -1,15 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Hopper
 {
-    using Aristocrat.Monaco.Common;
-    using Aristocrat.Monaco.Hardware.Contracts;
-    using Aristocrat.Monaco.Hardware.Contracts.Communicator;
-    using Aristocrat.Monaco.Hardware.Contracts.Hopper;
-    using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;
-    using Aristocrat.Monaco.Kernel;
-    using log4net;
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using Common;
+    using Hardware.Contracts;
+    using Hardware.Contracts.Communicator;
+    using Hardware.Contracts.Hopper;
+    using Hardware.Contracts.SharedDevice;
+    using Kernel;
+    using log4net;
 
     /// <summary>A hopper adapter.</summary>
     /// <seealso
@@ -51,14 +51,6 @@
         /// <inheritdoc />
         public int HopperId { get; set; } = 1; // Default to deviceId 1 since 0 isn't valid in G2S
 
-        protected override IHopperImplementation Implementation => _hopper;
-
-        /// <inheritdoc />
-        protected override string Description => "Hopper";
-
-        /// <inheritdoc />
-        protected override string Path => Kernel.Contracts.Components.Constants.HopperPath;
-
         /// <inheritdoc />
         public HopperFaultTypes Faults
         {
@@ -74,21 +66,35 @@
                 }
             }
         }
+
+        /// <inheritdoc />
+        protected override IHopperImplementation Implementation => _hopper;
+
+        /// <inheritdoc />
+        protected override string Description => "Hopper";
+
+        /// <inheritdoc />
+        protected override string Path => Kernel.Contracts.Components.Constants.HopperPath;
+
+        /// <inheritdoc />
         protected override void DisabledDetected()
         {
             PostEvent(new DisabledEvent(HopperId, ReasonDisabled));
         }
 
+        /// <inheritdoc />
         protected override void Disabling(DisabledReasons reason)
         {
             //There is nothing to disable the hopper
         }
 
+        /// <inheritdoc />
         protected override void Enabling(EnabledReasons reason, DisabledReasons remedied)
         {
             //There is nothing to enable the hopper
         }
 
+        /// <inheritdoc />
         protected override void Initializing()
         {
             // Load an instance of the given protocol implementation.
@@ -108,51 +114,6 @@
             Implementation.CoinOutStatusReported += ImplementationStatusReported;
         }
 
-
-        private void ImplementationInitialized(object sender, EventArgs e)
-        {
-            if ((ReasonDisabled & DisabledReasons.Device) != 0)
-            {
-                Enable(EnabledReasons.Device);
-            }
-
-            // If we are also disabled for error, clear it so that we enable for reset below.
-            if ((ReasonDisabled & DisabledReasons.Error) != 0)
-            {
-                ClearError(DisabledReasons.Error);
-            }
-
-            SetInternalConfiguration();
-            Implementation?.UpdateConfiguration(InternalConfiguration);
-            RegisterComponent();
-            Initialized = true;
-
-            PostEvent(new InspectedEvent(HopperId));
-            if (Enabled)
-            {
-                Implementation?.Enable()?.WaitForCompletion();
-            }
-            else
-            {
-                DisabledDetected();
-                Implementation?.Disable()?.WaitForCompletion();
-            }
-        }
-
-        private void ImplementationInitializationFailed(object sender, EventArgs e)
-        {
-            if (Implementation != null)
-            {
-                SetInternalConfiguration();
-
-                Implementation.UpdateConfiguration(InternalConfiguration);
-            }
-
-            Logger.Warn("Coin Acceptor InitializationFailed - Inspection Failed");
-            Disable(DisabledReasons.Device);
-
-            PostEvent(new InspectionFailedEvent(HopperId));
-        }
         /// <inheritdoc/>
         protected override void Inspecting(IComConfiguration comConfiguration, int timeout)
         {
@@ -219,6 +180,49 @@
         {
             Logger.Info("ImplementationStatusFaultOccurred: device fault occured");
             _bus?.Publish(new HardwareFaultEvent(type));
+        }
+
+        private void ImplementationInitialized(object sender, EventArgs e)
+        {
+            if ((ReasonDisabled & DisabledReasons.Device) != 0)
+            {
+                Enable(EnabledReasons.Device);
+            }
+
+            // If we are also disabled for error, clear it so that we enable for reset below.
+            if ((ReasonDisabled & DisabledReasons.Error) != 0)
+            {
+                ClearError(DisabledReasons.Error);
+            }
+
+            SetInternalConfiguration();
+            Implementation?.UpdateConfiguration(InternalConfiguration);
+            RegisterComponent();
+            Initialized = true;
+
+            PostEvent(new InspectedEvent(HopperId));
+            if (Enabled)
+            {
+                Implementation?.Enable()?.WaitForCompletion();
+            }
+            else
+            {
+                DisabledDetected();
+                Implementation?.Disable()?.WaitForCompletion();
+            }
+        }
+
+        private void ImplementationInitializationFailed(object sender, EventArgs e)
+        {
+            if (Implementation != null)
+            {
+                SetInternalConfiguration();
+                Implementation.UpdateConfiguration(InternalConfiguration);
+            }
+
+            Logger.Warn("Coin Acceptor InitializationFailed - Inspection Failed");
+            Disable(DisabledReasons.Device);
+            PostEvent(new InspectionFailedEvent(HopperId));
         }
     }
 }
