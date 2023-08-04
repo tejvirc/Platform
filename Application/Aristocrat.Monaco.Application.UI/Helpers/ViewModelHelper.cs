@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Globalization;
     using System.Text;
     using Contracts.Extensions;
     using Contracts.Localization;
@@ -110,12 +111,12 @@
         /// <param name="denominationsText">Text to convert</param>
         /// <param name="notes">A collection of notes</param>
         /// <returns>The dollar value, e.g. $1</returns>
-        public static string GetDigitalFormatOfDenominations(this string denominationsText, Collection<int> notes)
+        public static string GetDigitalFormatOfDenominations(this string denominationsText, Collection<int> notes, CultureInfo culture)
         {
             var st = new StringBuilder();
             foreach (var note in notes)
             {
-                st.Append(note.FormattedCurrencyString("C0") + " ");
+                st.Append(note.FormattedCurrencyString("C0", culture) + " ");
             }
 
             return st.ToString();

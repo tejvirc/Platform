@@ -797,7 +797,7 @@
         private string CreateNoteAcceptorReportInfo()
         {
             var tempString = new StringBuilder();
-
+            var culture = UseOperatorCultureForCurrencyFormatting ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
             tempString.Append(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ManufacturerLabel) + ": ");
             tempString.Append(ManufacturerText);
             tempString.Append("\n" + Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ModelLabel) + ": ");
@@ -838,13 +838,13 @@
             tempString.Append("\n" + Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillAcceptanceLimit) + ": ");
             tempString.Append(
                 BillAcceptanceLimit > 0
-                    ? BillAcceptanceLimit.FormattedCurrencyString()
+                    ? BillAcceptanceLimit.FormattedCurrencyString(false, culture)
                     : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit));
             tempString.Append("\n" + Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EnabledDenominationsLabel) + ": ");
             if (!string.IsNullOrEmpty(EnabledDenominationsText))
             {
                 var enabledDenominations =
-                    EnabledDenominationsText.GetDigitalFormatOfDenominations(NoteAcceptor.GetSupportedNotes());
+                    EnabledDenominationsText.GetDigitalFormatOfDenominations(NoteAcceptor.GetSupportedNotes(), culture);
                 const int maxEnabledDenominationsLineLen = 15;
                 if (enabledDenominations.Length < maxEnabledDenominationsLineLen)
                 {
