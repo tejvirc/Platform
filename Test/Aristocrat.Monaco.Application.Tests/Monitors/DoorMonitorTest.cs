@@ -21,6 +21,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
+    using Vgt.Client12.Application.OperatorMenu;
 
     /// <summary>
     ///     This is a test class for DoorMonitor and is intended
@@ -98,6 +99,7 @@
         private Mock<IDoorService> _doorService;
         private Mock<IEventBus> _eventBus;
         private Mock<INoteAcceptor> _noteAcceptor;
+        private Mock<IOperatorMenuLauncher> _operatorMenuLauncher;
 
         /// <summary>
         ///     Tracks how many door events are handled.
@@ -195,6 +197,9 @@
             _edgeLightingStateManager =
                 MoqServiceManager.CreateAndAddService<IEdgeLightingStateManager>(MockBehavior.Strict);
             _noteAcceptor = MoqServiceManager.CreateAndAddService<INoteAcceptor>(MockBehavior.Strict);
+            _operatorMenuLauncher = MoqServiceManager.CreateAndAddService<IOperatorMenuLauncher>(MockBehavior.Strict);
+
+            _operatorMenuLauncher.Setup(m => m.IsShowing).Returns(true);
 
             _iio = MoqServiceManager.CreateAndAddService<IIO>(MockBehavior.Strict);
             _iio.Setup(m => m.SetMechanicalMeterLight(true)).Verifiable();
