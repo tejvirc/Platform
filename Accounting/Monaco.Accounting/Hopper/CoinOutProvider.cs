@@ -54,7 +54,7 @@
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().GetService<IIdProvider>(),
-                ServiceManager.GetInstance().GetService<IHopper>(),
+                ServiceManager.GetInstance().TryGetService<IHopper>(),
                 ServiceManager.GetInstance().GetService<IMessageDisplay>())
         {
         }
@@ -77,8 +77,8 @@
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _idProvider = idProvider ?? throw new ArgumentNullException(nameof(idProvider));
-            _hopperService = hopperService ?? throw new ArgumentNullException(nameof(hopperService));
             _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
+            _hopperService = hopperService;
         }
 
         public string Name => typeof(CoinOutProvider).ToString();
@@ -191,6 +191,12 @@
 
         private async Task<bool> Transfer(long amount)
         {
+            if(_hopperService == null)
+            {
+                Logger.Info($"Hopper is not connected");
+                return false;
+            }
+
             _hopperService.SetMaxCoinoutAllowed((int)amount / (int)_tokenValue);
             _hopperService.StartHopperMotor();
             var success = _transferOutEvent.WaitOne();
