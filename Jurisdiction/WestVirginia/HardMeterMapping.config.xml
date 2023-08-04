@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <HardMeterMappingConfiguration>
-	<HardMeterMapping Name="(1)Total Bet,(2)Total Won,(5)Total Cash In,(6)Handpay,(7)Total In,(8)Total Out" Default="true">
-		<HardMeter LogicalId="0" Name="Total Bet">
-			<SoftMeter Name="WageredAmount" />
-		</HardMeter>
-		<HardMeter LogicalId="1" Name="Total Won" >
-			<SoftMeter Name="TotalPaidAmt" />
-		</HardMeter>
-		<HardMeter LogicalId="4" Name="Total Cash In">
-			<SoftMeter Name="TotalCashIn" />
-		</HardMeter>
-		<HardMeter LogicalId="5" Name="Handpay">
-			<SoftMeter Name="TotalHandpaidGameWonAmount" />
-			<SoftMeter Name="TotalHandpaidBonusPayAmount" />
-			<SoftMeter Name="HandpaidCancelAmount" />
-		</HardMeter>
-		<HardMeter LogicalId="6" Name="Total In">
-			<SoftMeter Name="TotalIn" />
-		</HardMeter>
-		<HardMeter LogicalId="7" Name="Total Out">
-			<SoftMeter Name="TotalOutHard" />
-		</HardMeter>
-	</HardMeterMapping>
+  <HardMeterMapping Name="(1)Total Bet,(2)Total Won,(5)Total Cash In,(6)Total Out" Default="true">
+    <HardMeter LogicalId="0" Name="Total Bet">
+      <SoftMeter Name="WageredAmount" />
+    </HardMeter>
+    <HardMeter LogicalId="1" Name="Total Won" >
+      <SoftMeter Name="TotalPaidAmt" />
+    </HardMeter>
+    <HardMeter LogicalId="4" Name="Total Cash In">
+      <SoftMeter Name="TotalCashIn" />
+    </HardMeter>
+    <HardMeter LogicalId="5" Name="Total Out">
+      <SoftMeter Name="TotalOutHard" />
+    </HardMeter>
+  </HardMeterMapping>
 </HardMeterMappingConfiguration>
