@@ -4936,4 +4936,7 @@ Do you really want to do partial reset????</value>
   <data name="ReadyToInsert" xml:space="preserve">
     <value>??Ready to insert bill or voucher.??</value>
   </data>
+  <data name="DisplayConnected" xml:space="preserve">
+    <value>???Display Connected - Restart Required???</value>
+  </data>
 </root>

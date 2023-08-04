@@ -77,6 +77,7 @@
                     GameLoad = new GamingConfigurationGameLoad(),
                     ProgressivePoolCreation = new GamingConfigurationProgressivePoolCreation(),
                     PlayerInformationDisplay = new GamingConfigurationPlayerInformationDisplay(),
+                    AllowZeroCreditCashout = new GamingConfigurationAllowZeroCreditCashout(),
                     FreeSpin = new GamingConfigurationFreeSpin(),
                     Win = new GamingConfigurationWin(),
                     DisplayGamePayMessage = new GamingConfigurationDisplayGamePayMessage(),
@@ -250,7 +251,6 @@
                 { GamingConstants.GameConfigurableStartMethods, (configuration.PhysicalButtons?.GameStartButtons?.GameConfigurableButtons ?? new[] { GameStartConfigurableMethod.MaxBet }, false) },
                 { GamingConstants.GameStartMethodConfigurable, (configuration.PhysicalButtons?.GameStartButtons?.Configurable ?? false, false) },
                 { GamingConstants.GameStartMethodSettingVisible, (configuration.PhysicalButtons?.GameStartButtons?.SettingsVisible ?? true, false) },
-                { GamingConstants.ReportCashoutButtonPressWithZeroCredit, (configuration.PhysicalButtons?.CashOutButton?.ReportToHostWithZeroCredit ?? false, false) },
                 { GamingConstants.OperatorMenuPerformancePageDeselectedGameThemes, (InitFromStorage(GamingConstants.OperatorMenuPerformancePageDeselectedGameThemes), true) },
                 { GamingConstants.OperatorMenuPerformancePageHideNeverActive, (InitFromStorage(GamingConstants.OperatorMenuPerformancePageHideNeverActive), true) },
                 { GamingConstants.OperatorMenuPerformancePageHidePreviouslyActive, (InitFromStorage(GamingConstants.OperatorMenuPerformancePageHidePreviouslyActive), true) },
@@ -321,6 +321,8 @@
                 { GamingConstants.BonusTransferPlaySound, ((object)configuration.BonusTransfer?.PlaySound ?? true, false) },
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
                 { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
+                { GamingConstants.AllowZeroCreditCashout, (InitFromStorage(GamingConstants.AllowZeroCreditCashout), true) },
+                { GamingConstants.ZeroCreditCashoutConfigurable, ((object)configuration.AllowZeroCreditCashout?.Configurable ?? false, false)},
                 { GamingConstants.DisplayGamePayMessageUseKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageUseKey), true)},
                 { GamingConstants.DisplayGamePayMessageFormatKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageFormatKey), true)},
                 { GamingConstants.WinTuneCapping, (configuration.WinIncrement?.WinTuneCapping ?? false, false) },
@@ -376,6 +378,7 @@
                 SetProperty(GamingConstants.ShowProgramPin, GamingConstants.DefaultShowProgramPin);
                 SetProperty(GamingConstants.ShowProgramEnableResetCredits, true);
                 SetProperty(GamingConstants.AttractModeEnabled, (configuration.AttractModeOptions?.AttractEnabled ?? true));
+                SetProperty(GamingConstants.AllowZeroCreditCashout, configuration.AllowZeroCreditCashout?.Enable ?? false);
                 SetProperty(GamingConstants.ProgressiveLobbyIndicatorType,
                     configuration.ProgressiveLobbyIndicator?.Indicator ?? ProgressiveLobbyIndicator.ProgressiveValue);
                 SetProperty(GamingConstants.ShowTopPickBanners,true);

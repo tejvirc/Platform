@@ -8972,6 +8972,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Display Connected - Restart Required.
+		/// </summary>
+		public static string DisplayConnected {
+			get {
+				return ResourceManager.GetString("DisplayConnected", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Display Disconnected.
 		/// </summary>
         /// <remarks>
@@ -10195,6 +10204,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string EnableVideo {
 			get {
 				return ResourceManager.GetString("EnableVideo", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Enable Zero Credit Cashout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string EnableZeroCreditCashoutText {
+			get {
+				return ResourceManager.GetString("EnableZeroCreditCashoutText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -36521,6 +36542,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Zero Credit Cashout Option.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ZeroCreditCashoutOption {
+			get {
+				return ResourceManager.GetString("ZeroCreditCashoutOption", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to 0.00%.
 		/// </summary>
         /// <remarks>
@@ -45490,6 +45523,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Display Connected - Restart Required.
+		/// </summary>
+		public static string DisplayConnected {
+			get {
+				return "DisplayConnected";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Display Disconnected.
 		/// </summary>
         /// <remarks>
@@ -46713,6 +46755,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string EnableVideo {
 			get {
 				return "EnableVideo";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Enable Zero Credit Cashout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string EnableZeroCreditCashoutText {
+			get {
+				return "EnableZeroCreditCashoutText";
 			}
 		}
 
@@ -73039,6 +73093,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Zero Credit Cashout Option.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ZeroCreditCashoutOption {
+			get {
+				return "ZeroCreditCashoutOption";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to 0.00%.
 		/// </summary>
         /// <remarks>
@@ -78175,6 +78241,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		DisplayBingoCardLabel,
 		/// <summary>
+		///   Looks up a localized string similar to Display Connected - Restart Required.
+		/// </summary>
+		DisplayConnected,
+		/// <summary>
 		///   Looks up a localized string similar to Display Disconnected.
 		/// </summary>
         /// <remarks>
@@ -78861,6 +78931,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		EnableVideo,
+		/// <summary>
+		///   Looks up a localized string similar to Enable Zero Credit Cashout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		EnableZeroCreditCashoutText,
 		/// <summary>
 		///   Looks up a localized string similar to Stop Cash.
 		/// </summary>
@@ -93858,6 +93935,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		ZeroCredit,
+		/// <summary>
+		///   Looks up a localized string similar to Zero Credit Cashout Option.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		ZeroCreditCashoutOption,
 		/// <summary>
 		///   Looks up a localized string similar to 0.00%.
 		/// </summary>

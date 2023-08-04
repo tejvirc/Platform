@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Timers;
+    using Application.Contracts;
     using Contracts;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.Printer;
@@ -17,6 +18,7 @@
         private readonly IGamePlayState _gamePlayState;
         private readonly IGameHistory _gameHistory;
         private readonly IRuntime _runtime;
+        private readonly IPropertiesManager _properties;
         private const int ChimeRepeatFrequency = 2000;
         private bool _disposed;
 
@@ -27,11 +29,13 @@
             IEventBus eventBus,
             IGamePlayState gamePlayState,
             IGameHistory gameHistory,
-            IRuntime runtime)
+            IRuntime runtime,
+            IPropertiesManager properties)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
+            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
             _responsibleGaming = respGaming ?? throw new ArgumentNullException(nameof(respGaming));
         }
@@ -61,8 +65,11 @@
         public void GameRequestedCashout()
         {
             _runtime.UpdateFlag(RuntimeCondition.PendingHandpay, false);
+            var paperInChuteBlocksCashout = (bool)_properties.GetProperty(
+                ApplicationConstants.PaperInChuteBlocksCashout,
+                true);
 
-            if (!PaperIsInChute)
+            if (!paperInChuteBlocksCashout || !PaperIsInChute)
             {
                 ExecuteCashOut();
             }
