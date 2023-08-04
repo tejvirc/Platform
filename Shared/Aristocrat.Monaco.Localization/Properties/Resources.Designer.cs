@@ -11216,6 +11216,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Load more paper before paper is empty.
+		/// </summary>
+		public static string ErrorInfoPrinterPaperLow {
+			get {
+				return ResourceManager.GetString("ErrorInfoPrinterPaperLow", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Open Main Door, change firmware CRC seed from Hard....
 		/// </summary>
         /// <remarks>
@@ -25444,6 +25453,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Printed {
 			get {
 				return ResourceManager.GetString("Printed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not Po....
+		/// </summary>
+		public static string Printer_DfuInProgress {
+			get {
+				return ResourceManager.GetString("Printer_DfuInProgress", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -47533,6 +47551,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Load more paper before paper is empty.
+		/// </summary>
+		public static string ErrorInfoPrinterPaperLow {
+			get {
+				return "ErrorInfoPrinterPaperLow";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Open Main Door, change firmware CRC seed from Hard....
 		/// </summary>
         /// <remarks>
@@ -61761,6 +61788,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Printed {
 			get {
 				return "Printed";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not Po....
+		/// </summary>
+		public static string Printer_DfuInProgress {
+			get {
+				return "Printer_DfuInProgress";
 			}
 		}
 
@@ -79042,6 +79078,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ErrorInfoPrinterPaperEmpty,
 		/// <summary>
+		///   Looks up a localized string similar to Load more paper before paper is empty.
+		/// </summary>
+		ErrorInfoPrinterPaperLow,
+		/// <summary>
 		///   Looks up a localized string similar to Open Main Door, change firmware CRC seed from Hard....
 		/// </summary>
         /// <remarks>
@@ -87158,6 +87198,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting.UI
         /// </remarks>
 		Printed,
+		/// <summary>
+		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not Po....
+		/// </summary>
+		Printer_DfuInProgress,
 		/// <summary>
 		///   Looks up a localized string similar to Printer Disabled.
 		/// </summary>

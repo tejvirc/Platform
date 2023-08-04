@@ -4964,4 +4964,10 @@ Consulter le manuel pour plus de détails</value>
   <data name="ReplayGameWinBonusAwarded" xml:space="preserve">
     <value>??Game Win Bonus Awarded: {0}??</value>
   </data>
+  <data name="ErrorInfoPrinterPaperLow" xml:space="preserve">
+    <value>??Open Main Door and Load More Paper Before Paper is Empty??</value>
+  </data>
+  <data name="PrinterWarningTypes_PaperLow" xml:space="preserve">
+    <value>??Printer Paper Low??</value>
+  </data>
 </root>

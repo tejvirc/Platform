@@ -110,6 +110,7 @@
             { PrinterFaultTypes.OtherFault.GetAttribute<ErrorGuidAttribute>().Id, ResourceKeys.ClearLockupPrinterHardwareFaultMessage },
             { PrinterFaultTypes.PaperNotTopOfForm.GetAttribute<ErrorGuidAttribute>().Id, ResourceKeys.ClearLockupPrinterPaperNotTopOfFormFaultMessage },
             { PrinterFaultTypes.ChassisOpen.GetAttribute<ErrorGuidAttribute>().Id, ResourceKeys.ClearLockupPrinterChassisOpenFaultMessage },
+            { PrinterWarningTypes.PaperLow.GetAttribute<ErrorGuidAttribute>().Id, ResourceKeys.ErrorInfoPrinterPaperLow },
             { ReelControllerFaults.CommunicationError.GetAttribute<ErrorGuidAttribute>().Id, ResourceKeys.ErrorInfoReelError },
             { ReelControllerFaults.FirmwareFault.GetAttribute<ErrorGuidAttribute>().Id, ResourceKeys.ErrorInfoReelError },
             { ReelControllerFaults.HardwareError.GetAttribute<ErrorGuidAttribute>().Id, ResourceKeys.ErrorInfoReelError },
