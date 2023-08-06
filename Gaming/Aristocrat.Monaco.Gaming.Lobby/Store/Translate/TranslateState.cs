@@ -5,9 +5,9 @@ using Fluxor;
 
 public record TranslateState
 {
-    public ImmutableList<string> LocalCodes { get; init; }
+    public ImmutableList<string> LocaleCodes { get; init; }
 
-    public bool IsMultiLangaugeEnabled { get; init; }
+    public bool IsMultiLangauge { get; init; }
 
-    public bool IsPrimaryLanguageSelected { get; init; }
+    public bool IsPrimaryLanguageActive { get; init; }
 }

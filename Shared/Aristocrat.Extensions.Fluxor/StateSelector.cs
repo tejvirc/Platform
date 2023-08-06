@@ -23,7 +23,7 @@ public sealed class StateSelector<TState> : IStateSelector<TState>, IDisposable
     public TState State => _state.Value;
 
     public IObservable<TResult> Select<TResult>(ISelector<TState, TResult> selector) =>
-        _subject.Select(_ => selector.Apply(_state.Value)).AsQbservable();
+        selector.Apply(_subject);
 
     public void Dispose()
     {

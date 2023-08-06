@@ -1,12 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby;
 
 using System;
-using Aristocrat.Monaco.Application;
-using Aristocrat.Monaco.Application.Contracts;
-using Aristocrat.PackageManifest.Extension.v100;
+using Application.Contracts;
 using Commands;
 using Contracts.Lobby;
 using Fluxor;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Services;
 using Store;
@@ -15,6 +14,7 @@ using Vgt.Client12.Application.OperatorMenu;
 internal class LobbyEngine : ILobby
 {
     private readonly ILogger<LobbyEngine> _logger;
+    private readonly IHost _host;
     private readonly IStore _store;
     private readonly IDispatcher _dispatcher;
     private readonly LobbyConfiguration _configuration;
@@ -24,6 +24,7 @@ internal class LobbyEngine : ILobby
 
     public LobbyEngine(
         ILogger<LobbyEngine> logger,
+        IHost host,
         IStore store,
         IDispatcher dispatcher,
         LobbyConfiguration configuration,
@@ -32,6 +33,7 @@ internal class LobbyEngine : ILobby
         IApplicationCommands commands)
     {
         _logger = logger;
+        _host = host;
         _store = store;
         _dispatcher = dispatcher;
         _configuration = configuration;
@@ -57,6 +59,8 @@ internal class LobbyEngine : ILobby
 
     public void Close()
     {
+        _host.StopAsync().Wait();
+
         _dispatcher.Dispatch(new ShutdownAction());
 
         _commands.ShutdownCommand.Execute(null);

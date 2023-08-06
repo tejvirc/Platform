@@ -10,14 +10,14 @@ public static class TranslateReducers
     public static TranslateState Reduce(TranslateState state, StartupAction action) =>
         state with
         {
-            LocalCodes = ImmutableList.CreateRange(action.Configuration.LocaleCodes),
-            IsMultiLangaugeEnabled = action.Configuration.MultiLanguageEnabled
+            LocaleCodes = ImmutableList.CreateRange(action.Configuration.LocaleCodes),
+            IsMultiLangauge = action.Configuration.MultiLanguageEnabled
         };
 
     [ReducerMethod]
-    public static TranslateState Reduce(TranslateState state, UpdatePrimaryLanguageSelectedAction action) =>
+    public static TranslateState Reduce(TranslateState state, UpdateActiveLanguageAction action) =>
         state with
         {
-            IsPrimaryLanguageSelected = action.IsSelected
+            IsPrimaryLanguageActive = action.IsPrimaryLanguageActive
         };
 }

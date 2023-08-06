@@ -34,9 +34,11 @@ public class ChooserViewModel : ObservableObject
     private bool _isTabView;
     private bool _isResponsibleGamingInfoVisible;
 
-    public ChooserViewModel(ILogger<ChooserViewModel> logger, ISelector selector, IApplicationCommands commands)
+    public ChooserViewModel(ILogger<ChooserViewModel> logger, IStoreSelector selector, IApplicationCommands commands)
     {
         _logger = logger;
+
+        ProgressiveLabelDisplay = new ProgressiveLobbyIndicatorViewModel(GameList);
 
         LoadedCommand = new RelayCommand(OnLoaded);
         UnloadedCommand = new RelayCommand(OnUnloaded);
@@ -45,8 +47,6 @@ public class ChooserViewModel : ObservableObject
         DenomSelectedCommand = new RelayCommand<DenominationInfoViewModel>(OnDenomSelected);
         ResponsibleGamingDialogOpenCommand = new RelayCommand(OnResponsibleGamingDialogOpen);
         DenominationForSpecificGamePressedCommand = new RelayCommand<object[]?>(OnDenominationForSpecificGamePressed);
-
-        ProgressiveLabelDisplay = new ProgressiveLobbyIndicatorViewModel(GameList);
 
         commands.ShutdownCommand.RegisterCommand(ShutdownCommand);
 

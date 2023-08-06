@@ -3,8 +3,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Common;
+using Extensions.Fluxor;
 using Hardware.Contracts.Cabinet;
 using Kernel;
 using ManagedBink;
@@ -12,10 +15,10 @@ using Microsoft.Extensions.Logging;
 using Monaco.UI.Common;
 using Regions;
 using Toolkit.Mvvm.Extensions;
-using UI.Views.MediaDisplay;
 using Views;
+using static Store.Translate.TranslateSelectors;
 
-public class LayoutManager : ILayoutManager
+public sealed class LayoutManager : ILayoutManager, IDisposable
 {
     private const string StatusWindowName = "StatusWindow";
     private const string ShellWindowName = "PlatformWindow";
@@ -30,10 +33,14 @@ public class LayoutManager : ILayoutManager
     private readonly List<Window> _windows = new();
     private readonly List<ResourceDictionary> _skins = new();
 
+    private readonly SubscriptionList _subscriptions = new();
+
     private Window? _shellWindow;
+    private int _activeSkinIndex;
 
     public LayoutManager(
         ILogger<LayoutManager> logger,
+        IStoreSelector selector,
         IPropertiesManager properties,
         LobbyConfiguration configuration,
         IWpfWindowLauncher windowLauncher,
@@ -46,6 +53,27 @@ public class LayoutManager : ILayoutManager
         _windowLauncher = windowLauncher;
         _cabinetDetection = cabinetDetection;
         _regionManager = regionManager;
+
+        _subscriptions += selector
+            .Select(SelectPrimaryLanguageActive)
+            .Select(isPrimary => isPrimary ? 0 : 1)
+            .Subscribe(index =>
+        {
+            if (_activeSkinIndex != index)
+            {
+                _activeSkinIndex = index;
+
+                if (_shellWindow != null)
+                {
+                    ChangeLanguageSkin(_shellWindow);
+                }
+
+                foreach (var window in _windows)
+                {
+                    ChangeLanguageSkin(window);
+                }
+            }
+        });
     }
 
     public Task InitializeAsync()
@@ -69,11 +97,14 @@ public class LayoutManager : ILayoutManager
         return tcs.Task;
     }
 
+    public void Dispose()
+    {
+        _subscriptions.Dispose();
+    }
+
     private void InternalInitialize()
     {
         D3D.Init();
-
-        CefHelper.Initialize();
 
         foreach (var skinFilename in _configuration.SkinFilenames)
         {
@@ -172,7 +203,7 @@ public class LayoutManager : ILayoutManager
     private void ChangeLanguageSkin(Window window)
     {
         var tmpResource = new ResourceDictionary();
-        tmpResource.MergedDictionaries.Add(_skins.First());
+        tmpResource.MergedDictionaries.Add(_skins.ElementAt(_activeSkinIndex));
 
         window.Resources = tmpResource;
     }

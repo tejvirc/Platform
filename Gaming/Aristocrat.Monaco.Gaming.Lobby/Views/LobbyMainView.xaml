@@ -21,19 +21,37 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <views:ChooserView Grid.Row="0" />
-        <views:BannerView Grid.Row="1" />
-        <views:StandardUpiView Grid.Row="2" />
-        <views:InfoBarView Grid.Row="3" />
-        <views:ReplayNavView Grid.Row="4" />
-        <!--<mah:MetroContentControl Grid.Row="0" regions:RegionManager.Region="{x:Static views:RegionNames.Chooser}" />
-                <mah:MetroContentControl Grid.Row="0" regions:RegionManager.Region="{x:Static views:RegionNames.IdleText}" />
-                <mah:MetroContentControl Grid.Row="1" regions:RegionManager.Region="{x:Static views:RegionNames.Banner}" />
-                <mah:MetroContentControl Grid.Row="1" regions:RegionManager.Region="{x:Static views:RegionNames.PaidMeter}" />
-                <mah:MetroContentControl Grid.Row="1" regions:RegionManager.Region="{x:Static views:RegionNames.Notification}" />
-                <mah:MetroContentControl Grid.Row="2" regions:RegionManager.Region="{x:Static views:RegionNames.Upi}" />
-                <mah:MetroContentControl Grid.Row="3" regions:RegionManager.Region="{x:Static views:RegionNames.InfoBar}" />
-                <mah:MetroContentControl Grid.Row="4" regions:RegionManager.Region="{x:Static views:RegionNames.ReplayNav}" />-->
+        <Border Grid.Row="0">
+            <Viewbox>
+                <views:ChooserView />
+                <!--<mah:MetroContentControl Grid.Row="0" regions:RegionManager.Region="{x:Static views:RegionNames.Chooser}" /> -->
+            </Viewbox>
+        </Border>
+        <Border Grid.Row="1">
+            <Viewbox>
+                <views:BannerView />
+                <!--<mah:MetroContentControl Grid.Row="2" regions:RegionManager.Region="{x:Static views:RegionNames.Banner}" />-->
+            </Viewbox>
+        </Border>
+        <!--<views:BannerView Grid.Row="1" />-->
+        <Border Grid.Row="2">
+            <Viewbox>
+                <views:MultiLanguageUpiView />
+                <!--<mah:MetroContentControl Grid.Row="2" regions:RegionManager.Region="{x:Static views:RegionNames.Upi}" />-->
+            </Viewbox>
+        </Border>
+        <Border Grid.Row="3">
+            <Viewbox>
+                <views:InfoBarView />
+                <!--<mah:MetroContentControl Grid.Row="2" regions:RegionManager.Region="{x:Static views:RegionNames.InfoBar}" />-->
+            </Viewbox>
+        </Border>
+        <Border Grid.Row="4">
+            <Viewbox>
+                <views:ReplayNavView />
+                <!--<mah:MetroContentControl Grid.Row="2" regions:RegionManager.Region="{x:Static views:RegionNames.ReplayNav}" />-->
+            </Viewbox>
+        </Border>
     </Grid>
 
 </UserControl>

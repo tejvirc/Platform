@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Application.Contracts.Extensions;
+using Common;
 using Contracts;
 using Contracts.Models;
 using Extensions.Fluxor;
@@ -16,19 +17,23 @@ using UI.Models;
 using static Store.Chooser.ChooserSelectors;
 using static Store.Translate.TranslateSelectors;
 
-public class GameLoader : IGameLoader
+public sealed class GameLoader : IGameLoader, IDisposable
 {
     private readonly ILogger<GameLoader> _logger;
-    private readonly ISelector _selector;
+    private readonly IStoreSelector _selector;
     private readonly IPropertiesManager _properties;
     private readonly IGameStorage _gameStorage;
     private readonly LobbyConfiguration _configuration;
     private readonly IGameOrderSettings _gameOrderSettings;
     private readonly IProgressiveConfigurationProvider _progressiveProvider;
 
+    private readonly SubscriptionList _subscriptions = new();
+
+    private string? _activeLocaleCode;
+
     public GameLoader(
         ILogger<GameLoader> logger,
-        ISelector selector,
+        IStoreSelector selector,
         LobbyConfiguration configuration,
         IPropertiesManager properties,
         IGameStorage gameStorage,
@@ -42,11 +47,16 @@ public class GameLoader : IGameLoader
         _configuration = configuration;
         _gameOrderSettings = gameOrderSettings;
         _progressiveProvider = progressiveProvider;
+
+        _subscriptions += selector.Select(SelectActiveLocale).Subscribe(code => _activeLocaleCode = code);
     }
 
     public async Task<IEnumerable<GameInfo>> LoadGames()
     {
-        var activeLocalCode = await _selector.Select(SelectActiveLocale).FirstAsync();
+        if (string.IsNullOrWhiteSpace(_activeLocaleCode))
+        {
+            return Enumerable.Empty<GameInfo>();
+        }
 
         var games = _properties.GetValues<IGameDetail>(GamingConstants.Games).ToList();
 
@@ -54,15 +64,20 @@ public class GameLoader : IGameLoader
         // This will just render bad data.
         foreach (var game in games)
         {
-            if (!game.LocaleGraphics.ContainsKey(activeLocalCode))
+            if (!game.LocaleGraphics.ContainsKey(_activeLocaleCode))
             {
-                game.LocaleGraphics.Add(activeLocalCode, new LocaleGameGraphics());
+                game.LocaleGraphics.Add(_activeLocaleCode, new LocaleGameGraphics());
             }
         }
 
         SetGameOrderFromConfig(games);
 
-        return await GetOrderedGames(games, activeLocalCode);
+        return await GetOrderedGames(games, _activeLocaleCode);
+    }
+
+    public void Dispose()
+    {
+        _subscriptions.Dispose();
     }
 
     private void SetGameOrderFromConfig(IEnumerable<IGameDetail> games)

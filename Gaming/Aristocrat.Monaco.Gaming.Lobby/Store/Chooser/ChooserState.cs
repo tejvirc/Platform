@@ -2,14 +2,12 @@
 
 using System;
 using System.Collections.Immutable;
-using UI.Models;
 using Contracts.Models;
-using Fluxor;
+using UI.Models;
 
-[FeatureState]
 public record ChooserState
 {
-    public IImmutableList<GameInfo> Games { get; set; } = ImmutableList<GameInfo>.Empty;
+    public IImmutableList<GameInfo> Games { get; set; }
 
     public bool AllowGameInCharge { get; set; }
 
@@ -20,6 +18,4 @@ public record ChooserState
     public GameType GameFilter { get; set; }
 
     public DateTime DenomCheckTime { get; set; }
-
-    public double ChooseGameOffsetY { get; set; }
 }

@@ -29,7 +29,7 @@ public static class FluxorOptionsExtensions
     public static FluxorOptions UseSelectors(this FluxorOptions options)
     {
         options.Services
-            .AddSingleton<ISelector, StoreSelector>()
+            .AddSingleton<IStoreSelector, StoreSelector>()
             .AddSingleton(typeof(IStateSelector<>), typeof(StateSelector<>));
 
         return options;

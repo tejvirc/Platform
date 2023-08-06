@@ -20,6 +20,9 @@ public static class ChooserSelectors
     public static readonly ISelector<ChooserState, bool> SelectAllowGameInCharge = CreateSelector(
        (ChooserState state) => state.AllowGameInCharge);
 
+    public static readonly ISelector<ChooserState, int> SelectDenomFilter = CreateSelector(
+        (ChooserState state) => state.DenomFilter);
+
     public static readonly ISelector<ChooserState, bool> SelectIsSingleGameMode = CreateSelector(
         SelectUniqueThemesCount, SelectAllowGameInCharge, (themes, allow) => themes <= 1 && allow);
 

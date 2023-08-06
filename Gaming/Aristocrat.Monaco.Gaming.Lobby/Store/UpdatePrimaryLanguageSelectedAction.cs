@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store;
 
-public record UpdatePrimaryLanguageSelectedAction
+public record UpdateActiveLanguageAction
 {
-    public UpdatePrimaryLanguageSelectedAction(bool isSelected)
+    public UpdateActiveLanguageAction(bool isPrimaryLanguageActive)
     {
-        IsSelected = isSelected;
+        IsPrimaryLanguageActive = isPrimaryLanguageActive;
     }
 
-    public bool IsSelected { get; }
+    public bool IsPrimaryLanguageActive { get; }
 }

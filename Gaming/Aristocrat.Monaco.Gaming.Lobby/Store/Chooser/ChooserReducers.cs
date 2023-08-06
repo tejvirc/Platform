@@ -21,4 +21,11 @@ public static class ChooserReducers
         {
             IsTabView = action.IsTabView
         };
+
+    [ReducerMethod]
+    public static ChooserState Reduce(ChooserState state, UpdateDenomFilterAction action) =>
+        state with
+        {
+            DenomFilter = action.DenomFilter
+        };
 }

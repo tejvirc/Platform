@@ -12,7 +12,7 @@ public class IdleTextViewModel : ObservableObject
 
     private string? _idleText;
 
-    public IdleTextViewModel(ISelector selector)
+    public IdleTextViewModel(IStoreSelector selector)
     {
         _subscriptions += selector.Select(IdleTextSelector).Subscribe(
             text =>

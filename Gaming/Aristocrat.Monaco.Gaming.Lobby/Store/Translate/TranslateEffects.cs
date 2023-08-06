@@ -1,39 +1,53 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store.Translate;
 
+using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Services.Translate;
 using Fluxor;
-using Aristocrat.Monaco.Gaming.Contracts;
+using Services.Translate;
 
 public class TranslateEffects
 {
+    private readonly IState<TranslateState> _translateState;
     private readonly ITranslateService _translateService;
 
-    public TranslateEffects(ITranslateService translateService)
+    public TranslateEffects(IState<TranslateState> translateState, ITranslateService translateService)
     {
+        _translateState = translateState;
         _translateService = translateService;
     }
 
-    [EffectMethod]
-    public async Task Effect(StartupAction action, IDispatcher dispatcher)
+    [EffectMethod()]
+    public async Task Effect(StartupAction _, IDispatcher dispatcher)
     {
-        if (action.Configuration.MultiLanguageEnabled)
+        if (_translateState.Value.IsMultiLangauge)
         {
             var localeCode = _translateService.GetSelectedLocaleCode();
 
-            if (string.IsNullOrEmpty(localeCode) || action.Configuration.LocaleCodes.Length == 1 ||
-                localeCode == action.Configuration.LocaleCodes[0].ToUpperInvariant())
+            if (string.IsNullOrEmpty(localeCode) || _translateState.Value.LocaleCodes.Count == 1 ||
+                localeCode == _translateState.Value.LocaleCodes.First().ToUpperInvariant())
             {
-                await _translateService.SetSelectedLocaleCodeAsync();
+                _translateService.SetSelectedLocaleCode();
             }
             else
             {
-                await dispatcher.DispatchAsync(new UpdatePrimaryLanguageSelectedAction(false));
+                await dispatcher.DispatchAsync(new UpdateActiveLanguageAction(false));
             }
         }
         else
         {
-            _translateService.SetDefaultSelectedLocaleCode();
+            _translateService.SetSelectedLocaleCode();
         }
+    }
+
+    [EffectMethod()]
+    public Task Effect(UpdateActiveLanguageAction action, IDispatcher dispatcher)
+    {
+        if (_translateState.Value.IsMultiLangauge)
+        {
+            _translateService.SetSelectedLocaleCode();
+        }
+
+        return Task.CompletedTask;
     }
 }

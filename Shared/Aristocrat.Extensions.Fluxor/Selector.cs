@@ -17,9 +17,9 @@ public class Selector<TState, TResult> : ISelector<TState, TResult>
         return _projector.Invoke(state);
     }
 
-    public IObservable<TResult> Apply(IObservable<TState> stateObserver)
+    public IObservable<TResult> Apply(IObservable<TState> stateObservable)
     {
-        return stateObserver
+        return stateObservable
             .Select(Apply)
             .DistinctUntilChanged();
     }

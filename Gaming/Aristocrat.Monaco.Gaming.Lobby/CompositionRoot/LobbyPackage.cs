@@ -5,15 +5,18 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using Accounting.Contracts;
 using Application.Contracts.EdgeLight;
 using Application.Contracts.Localization;
 using CommandHandlers;
 using Commands;
 using Common.Container;
+using Consumers;
 using Contracts;
 using Contracts.Lobby;
 using Extensions.Fluxor;
 using Fluxor;
+using Hardware.Contracts.Audio;
 using Hardware.Contracts.Cabinet;
 using Kernel;
 using Log4Net.AspNetCore;
@@ -22,13 +25,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Monaco.UI.Common;
-using Consumers;
 using Progressives;
 using Regions;
 using Services;
+using Services.Attendant;
 using Services.Attract;
+using Services.Audio;
+using Services.Bank;
 using Services.EdgeLighting;
 using Services.Translate;
+using Services.Upi;
 using SimpleInjector;
 using SimpleInjector.Packaging;
 using Store.Middleware;
@@ -227,9 +233,13 @@ public class LobbyPackage : IPackage
             //    });
         );
 
+        services.AddSingleton<IAudioService, AudioService>();
         services.AddSingleton<IAttractService, AttractService>();
         services.AddSingleton<IEdgeLightingService, EdgeLightingService>();
         services.AddSingleton<ITranslateService, TranslateService>();
+        services.AddSingleton<IUpiService, UpiService>();
+        services.AddSingleton<Services.Attendant.IAttendantService, AttendantService>();
+        services.AddSingleton<IBankService, BankService>();
 
         services.AddSingleton(_ => ServiceManager.GetInstance().GetService<IWpfWindowLauncher>());
 
@@ -237,6 +247,7 @@ public class LobbyPackage : IPackage
         services.AddSingleton(provider => provider.GetRequiredService<Container>().GetInstance<IEventBus>());
         services.AddSingleton(
             provider => provider.GetRequiredService<Container>().GetInstance<IOperatorMenuLauncher>());
+        services.AddSingleton(provider => provider.GetRequiredService<Container>().GetInstance<IAudio>());
         services.AddSingleton(provider => provider.GetRequiredService<Container>().GetInstance<IGameOrderSettings>());
         services.AddSingleton(provider => provider.GetRequiredService<Container>().GetInstance<IGameStorage>());
         services.AddSingleton(provider => provider.GetRequiredService<Container>().GetInstance<IProgressiveConfigurationProvider>());
@@ -247,6 +258,10 @@ public class LobbyPackage : IPackage
             provider => provider.GetRequiredService<Container>().GetInstance<IAttractConfigurationProvider>());
         services.AddSingleton(
             provider => provider.GetRequiredService<Container>().GetInstance<ICabinetDetectionService>());
+        services.AddSingleton(
+            provider => provider.GetRequiredService<Container>().GetInstance<Contracts.IAttendantService>());
+        services.AddSingleton(
+            provider => provider.GetRequiredService<Container>().GetInstance<IBank>());
     }
 
     private static IRegionAdapter CreatRegionAdapterFactory(IServiceProvider provider, Type elementType)

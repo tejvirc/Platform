@@ -65,6 +65,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Store\Audio\" />
   </ItemGroup>
 </Project>

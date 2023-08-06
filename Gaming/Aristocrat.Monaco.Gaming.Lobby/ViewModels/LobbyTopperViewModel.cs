@@ -13,13 +13,13 @@ public class LobbyTopperViewModel : ObservableObject
     private const string TopperImageAlternateResourceKey = "TopperBackgroundAlternate";
 
     private readonly ILogger<LobbyTopperViewModel> _logger;
-    private readonly ISelector _selector;
+    private readonly IStoreSelector _selector;
 
     private readonly SubscriptionList _subscriptions = new();
 
     private string? _topperImageResourceKey;
 
-    public LobbyTopperViewModel(ILogger<LobbyTopperViewModel> logger, ISelector selector, LobbyConfiguration configuration)
+    public LobbyTopperViewModel(ILogger<LobbyTopperViewModel> logger, IStoreSelector selector, LobbyConfiguration configuration)
     {
         _logger = logger;
         _selector = selector;

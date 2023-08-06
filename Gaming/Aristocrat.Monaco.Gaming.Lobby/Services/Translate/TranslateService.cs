@@ -1,36 +1,36 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Services.Translate;
 
-using System.Reactive.Linq;
-using System.Threading.Tasks;
+using System;
+using Common;
 using Contracts;
 using Extensions.Fluxor;
 using Kernel;
 using static Store.Translate.TranslateSelectors;
 
-public class TranslateService : ITranslateService
+public sealed class TranslateService : ITranslateService, IDisposable
 {
-    private readonly ISelector _selector;
     private readonly IPropertiesManager _properties;
 
-    public TranslateService(ISelector selector, IPropertiesManager properties)
+    private readonly SubscriptionList _subscriptions = new();
+
+    private string? _activeLocaleCode;
+
+    public TranslateService(IStoreSelector selector, IPropertiesManager properties)
     {
-        _selector = selector;
         _properties = properties;
+
+        _subscriptions += selector.Select(SelectActiveLocale).Subscribe(code => _activeLocaleCode = code);
     }
 
     public string GetSelectedLocaleCode() =>
         _properties.GetValue(GamingConstants.SelectedLocaleCode, GamingConstants.EnglishCultureCode)
             .ToUpperInvariant();
 
-    public async Task SetSelectedLocaleCodeAsync()
-    {
-        var activeLocaleCode = await _selector.Select(SelectActiveLocale).FirstAsync();
+    public void SetSelectedLocaleCode() =>
+        _properties.SetProperty(GamingConstants.SelectedLocaleCode, _activeLocaleCode);
 
-        _properties.SetProperty(GamingConstants.SelectedLocaleCode, activeLocaleCode);
-    }
-
-    public void SetDefaultSelectedLocaleCode()
+    public void Dispose()
     {
-        _properties.SetProperty(GamingConstants.SelectedLocaleCode, GamingConstants.EnglishCultureCode);
+        _subscriptions.Dispose();
     }
 }

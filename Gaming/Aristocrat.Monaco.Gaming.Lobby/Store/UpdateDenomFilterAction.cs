@@ -1,6 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Store;
 
-public class UpdateDenomFilterAction
+public record UpdateDenomFilterAction
 {
-    
+    public UpdateDenomFilterAction(int denomFilter)
+    {
+        DenomFilter = denomFilter;
+    }
+
+    public int DenomFilter { get; }
 }

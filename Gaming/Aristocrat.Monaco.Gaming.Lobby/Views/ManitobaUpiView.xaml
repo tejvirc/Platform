@@ -1,0 +1,213 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Gaming.Lobby.Views.ManitobaUpiView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Views"
+             xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls;assembly=Aristocrat.Monaco.Gaming.UI"
+             xmlns:uicommon="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Grid x:Name="UpiGrid"
+              Width="1881"
+              AutomationProperties.AutomationId="Grid24_74910100">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".102*"
+                                  AutomationProperties.AutomationId="ColumnDefinition25_74910100" />
+            <ColumnDefinition Width=".142*"
+                                  AutomationProperties.AutomationId="ColumnDefinition26_74910100" />
+            <ColumnDefinition Width=".168*"
+                                  AutomationProperties.AutomationId="ColumnDefinition27_74910100" />
+            <ColumnDefinition Width=".419*"
+                                  AutomationProperties.AutomationId="ColumnDefinition28_74910100" />
+            <ColumnDefinition Width=".168*"
+                                  AutomationProperties.AutomationId="ColumnDefinition29_74910100" />
+        </Grid.ColumnDefinitions>
+        <Image Grid.ColumnSpan="5"
+                   Grid.Column="0"
+                   Source="{DynamicResource UpiBackground}"
+                   AutomationProperties.AutomationId="Image30_74910100" />
+        <Grid Grid.Column="0"
+                  Margin="0 30 0 0"
+                  AutomationProperties.AutomationId="Grid31_74910100">
+            <Label Grid.Column="0"
+                       Content="{Binding ClockTimer.CurrentTime}"
+                       FontSize="28"
+                       Foreground="Gold"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Visibility="{Binding ClockTimer.IsSessionOverLabelVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                       AutomationProperties.AutomationId="Label32_74910100" />
+            <Image Grid.Column="0"
+                       Source="{DynamicResource SessionOverLabel}"
+                       Stretch="None"
+                       Margin="0 10 0 0"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Visibility="{Binding ClockTimer.IsSessionOverLabelVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                       AutomationProperties.AutomationId="Image33_74910100" />
+        </Grid>
+        <Image Grid.Column="0"
+                   uicommon:ImageHelper.SourceResourceKey="{Binding ClockTimer.TimeLabelResourceKey}"
+                   Stretch="None"
+                   Margin="0 53 0 0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   AutomationProperties.AutomationId="Image34_74910100" />
+        <Rectangle Grid.Column="0"
+                       Fill="Transparent"
+                       Width="148"
+                       Height="70"
+                       Margin="1 35 0 0"
+                       RadiusX="20"
+                       RadiusY="20"
+                       controls:MouseEvents.MouseDown="{Binding ClockSwitchCommand}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       AutomationProperties.AutomationId="Rectangle35_74910100" />
+        <Label Grid.Column="1"
+                   Content="{Binding FormattedCredits}"
+                   Margin="0 10 0 0"
+                   FontSize="44"
+                   FontFamily="Impact"
+                   Foreground="White"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   AutomationProperties.AutomationId="Label36_74910100" />
+        <ContentControl x:Name="CashOutWrapper"
+                            Grid.Column="2"
+                            controls:MouseEvents.MouseDown="{Binding CashOutWrapperMouseDownCommand}"
+                            AutomationProperties.AutomationId="ContentControl37_74910100">
+            <Button x:Name="btnCashOut"
+                        Margin="38 0 24 0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        IsEnabled="{Binding Path=CashOutEnabled}"
+                        Command="{Binding Path=CashOutCommand}"
+                        Style="{StaticResource stlFlatButton}"
+                        AutomationProperties.AutomationId="Button38_74910100">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Name="cashOutImage"
+                                   Source="{DynamicResource CashOutNormal}"
+                                   AutomationProperties.AutomationId="Image39_74910100" />
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=btnCashOut, Path=IsEnabled}"
+                                             Value="False"
+                                             AutomationProperties.AutomationId="DataTrigger40_74910100">
+                                <Setter TargetName="cashOutImage"
+                                            Property="Source"
+                                            Value="{DynamicResource CashOutDisabled}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </ContentControl>
+        <StackPanel x:Name="DenomPanel"
+                        Grid.Column="3"
+                        Orientation="Horizontal"
+                        Margin="15"
+                        HorizontalAlignment="Center"
+                        controls:MouseEvents.PreviewMouseDown="{Binding UpiPreviewMouseDownCommand}"
+                        AutomationProperties.AutomationId="StackPanel41_74910100">
+            <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                             Margin="0 0 10 0"
+                             Command="{Binding Path=DenomFilterPressedCommand}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource AllDenom}}"
+                             AutomationProperties.AutomationId="RadioButton42_74910100">
+                <RadioButton.Template>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Image Name="AllDenomImage"
+                                   Source="{DynamicResource AllDenomOff}"
+                                   AutomationProperties.AutomationId="Image43_74910100" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger44_74910100">
+                                <Setter TargetName="AllDenomImage"
+                                            Property="Source"
+                                            Value="{DynamicResource AllDenomOn}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </RadioButton.Template>
+            </RadioButton>
+            <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                             Command="{Binding Path=DenomFilterPressedCommand}"
+                             Margin="0 0 10 0"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomB}}"
+                             AutomationProperties.AutomationId="RadioButton45_74910100">
+                <RadioButton.Template>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Image Name="DenomBImage"
+                                   Source="{DynamicResource Denom5CentOff}"
+                                   AutomationProperties.AutomationId="Image46_74910100" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger47_74910100">
+                                <Setter TargetName="DenomBImage"
+                                            Property="Source"
+                                            Value="{DynamicResource Denom5CentOn}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </RadioButton.Template>
+            </RadioButton>
+            <RadioButton Style="{StaticResource stlFlatToggleButton}"
+                             Command="{Binding Path=DenomFilterPressedCommand}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomC}}"
+                             AutomationProperties.AutomationId="RadioButton48_74910100">
+                <RadioButton.Template>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Image Name="DenomCImage"
+                                   Source="{DynamicResource Denom25CentOff}"
+                                   AutomationProperties.AutomationId="Image49_74910100" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger50_74910100">
+                                <Setter TargetName="DenomCImage"
+                                            Property="Source"
+                                            Value="{DynamicResource Denom25CentOn}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </RadioButton.Template>
+            </RadioButton>
+        </StackPanel>
+        <ContentControl x:Name="LearnAboutVltWrapper"
+                            Grid.Column="4"
+                            controls:MouseEvents.MouseDown="{Binding CashOutWrapperMouseDownCommand}"
+                            AutomationProperties.AutomationId="ContentControl51_74910100">
+            <Button x:Name="btnLearnAboutVlt"
+                        Margin="20 0 37 0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        IsEnabled="True"
+                        Command="{Binding Path=ResponsibleGamingDialogOpenCommand}"
+                        Style="{StaticResource stlFlatButton}"
+                        AutomationProperties.AutomationId="Button52_74910100">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Name="learnAboutVltImage"
+                                   Source="{DynamicResource LearnAboutVltNormal}"
+                                   AutomationProperties.AutomationId="Image53_74910100" />
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=btnLearnAboutVlt, Path=IsEnabled}"
+                                             Value="False"
+                                             AutomationProperties.AutomationId="DataTrigger54_74910100">
+                                <Setter TargetName="learnAboutVltImage"
+                                            Property="Source"
+                                            Value="{DynamicResource LearnAboutVltDisabled}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </ContentControl>
+    </Grid>
+    
+</UserControl>

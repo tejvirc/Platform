@@ -4,7 +4,7 @@ using System;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleInjector;
 
-public class StoreSelector : ISelector
+public class StoreSelector : IStoreSelector
 {
     private readonly IServiceProvider _services;
 

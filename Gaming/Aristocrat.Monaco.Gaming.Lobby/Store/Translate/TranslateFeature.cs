@@ -11,8 +11,8 @@ public class TranslateFeature : Feature<TranslateState>
     {
         return new TranslateState
         {
-            LocalCodes = ImmutableList<string>.Empty,
-            IsPrimaryLanguageSelected = true
+            LocaleCodes = ImmutableList<string>.Empty,
+            IsPrimaryLanguageActive = true
         };
     }
 }
