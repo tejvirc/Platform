@@ -6,6 +6,7 @@
     using System.Reflection;
     using Aristocrat.GdkRuntime.V1;
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities;
     using Kernel;
     using log4net;
 
@@ -16,7 +17,7 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IReelController _reelController;
-
+        
         /// <summary>
         ///     Initializes a new instance of the <see cref="GetReelStateCommandHandler" /> class.
         /// </summary>
@@ -24,6 +25,8 @@
         {
             _reelController = ServiceManager.GetInstance().TryGetService<IReelController>();
         }
+
+        private bool HasReelSpinCapability => _reelController?.HasCapability<IReelSpinCapabilities>() ?? false;
 
         /// <inheritdoc />
         public void Handle(GetReelState command)
@@ -43,17 +46,30 @@
                         break;
                     case ReelLogicalState.Homing:
                     case ReelLogicalState.Spinning:
+                        command.States.Add(reelState.Key,
+                            HasReelSpinCapability ?
+                                ReelState.SpinningForward : ReelState.SpinningConstant);
+                        break;
                     case ReelLogicalState.SpinningForward:
                         command.States.Add(reelState.Key, ReelState.SpinningForward);
                         break;
                     case ReelLogicalState.SpinningBackwards:
                         command.States.Add(reelState.Key, ReelState.SpinningBackwards);
                         break;
+                    case ReelLogicalState.SpinningConstant:
+                        command.States.Add(reelState.Key, ReelState.SpinningConstant);
+                        break;
                     case ReelLogicalState.Stopping:
                         command.States.Add(reelState.Key, ReelState.Stopping);
                         break;
                     case ReelLogicalState.Tilted:
                         command.States.Add(reelState.Key, ReelState.Faulted);
+                        break;
+                    case ReelLogicalState.Accelerating:
+                        command.States.Add(reelState.Key, ReelState.Accelerating);
+                        break;
+                    case ReelLogicalState.Decelerating:
+                        command.States.Add(reelState.Key, ReelState.Decelerating);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

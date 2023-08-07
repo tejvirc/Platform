@@ -73,7 +73,7 @@ namespace Aristocrat.Monaco.Hardware.Fake
         public event EventHandler<LightEventArgs> LightStatusReceived;
 
         /// <inheritdoc/>
-        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinningStatusReceived;
 #pragma warning restore 67
 
         /// <summary>

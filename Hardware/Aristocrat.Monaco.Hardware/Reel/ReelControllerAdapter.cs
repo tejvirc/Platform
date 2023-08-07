@@ -369,10 +369,24 @@
             _stateManager?.HandleReelDisconnected(e);
         }
 
-        private void ReelControllerSpinning(object sender, ReelEventArgs e)
+        private void ReelControllerSpinning(object sender, ReelSpinningEventArgs e)
         {
             Logger.Debug($"ReelControllerSpinning reel {e.ReelId}");
-            _stateManager?.Fire(ReelControllerTrigger.SpinReel, e.ReelId);
+
+            switch (e.SpinVelocity)
+            {
+                case SpinVelocity.Accelerating:
+                    _stateManager?.Fire(ReelControllerTrigger.Accelerate, e.ReelId);
+                    return;
+                case SpinVelocity.Decelerating:
+                    _stateManager?.Fire(ReelControllerTrigger.Decelerate, e.ReelId);
+                    return;
+                default:
+                    _stateManager?.Fire(ReelControllerTrigger.SpinConstant, e.ReelId);
+                    break;
+            }
+
+            PostEvent(new ReelSpinningStatusUpdatedEvent(e.ReelId, e.SpinVelocity));
         }
 
         private void ReelControllerReelStopped(object sender, ReelEventArgs e)
