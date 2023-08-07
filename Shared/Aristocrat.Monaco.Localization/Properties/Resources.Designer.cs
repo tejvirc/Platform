@@ -11216,7 +11216,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Load more paper before paper is empty.
+		///   Looks up a localized string similar to Open Main Door and Load More Paper Before Paper is....
 		/// </summary>
 		public static string ErrorInfoPrinterPaperLow {
 			get {
@@ -47551,7 +47551,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Load more paper before paper is empty.
+		///		Looks up a localized string similar to Open Main Door and Load More Paper Before Paper is....
 		/// </summary>
 		public static string ErrorInfoPrinterPaperLow {
 			get {
@@ -79078,7 +79078,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ErrorInfoPrinterPaperEmpty,
 		/// <summary>
-		///   Looks up a localized string similar to Load more paper before paper is empty.
+		///   Looks up a localized string similar to Open Main Door and Load More Paper Before Paper is....
 		/// </summary>
 		ErrorInfoPrinterPaperLow,
 		/// <summary>

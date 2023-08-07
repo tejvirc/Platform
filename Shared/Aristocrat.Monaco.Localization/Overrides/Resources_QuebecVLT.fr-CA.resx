@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DisableEGM" xml:space="preserve">
-    <value>??Local Offline Mode??</value>
+    <value>Mode hors ligne local</value>
     <comment>Jurisdiction override for Out of Service Mode button</comment>
   </data>
   <data name="EnableEGM" xml:space="preserve">
-    <value>??Exit Offline Mode??</value>
+    <value>Quitter mode hors ligne</value>
     <comment>Jurisdiction override for Put EGM Into Service (Out of Service Mode button)</comment>
   </data>
   <data name="EndGameRoundBeforeOutOfServiceText" xml:space="preserve">
-    <value>??Offline mode not available during game round??</value>
+    <value>Le mode hors ligne n’est pas disponible pendant une ronde de jeu</value>
     <comment>Jurisdiction override for Out of Service game idle text</comment>
   </data>
   <data name="EnteringOutOfServiceModeRequiresZeroCreditsText" xml:space="preserve">
@@ -134,22 +134,22 @@
     <comment>Jurisdiction override for Out of Service requires Zero Credits text</comment>
   </data>
   <data name="EventLogTitle" xml:space="preserve">
-    <value>???History???</value>
+    <value>Historique</value>
   </data>
   <data name="OutOfService" xml:space="preserve">
     <value>Hors ligne</value>
     <comment>Jurisdiction override for Out of Service</comment>
   </data>
   <data name="OutOfServiceAdditionalInfo" xml:space="preserve">
-    <value>??Exit Offline Mode from operator menu??</value>
+    <value>Quitter le mode hors ligne à partir du menu de l’opérateur</value>
     <comment>Jurisdiction override for Out of Service additional info text</comment>
   </data>
   <data name="PeriodicResetTicketTitle" xml:space="preserve">
-    <value>??PERIODIC RESET COUPON??</value>
+    <value>COUPON DE RÉINITIALISATION PÉRIODIQUE</value>
     <comment>Jurisdiction override for Periodic Reset</comment>
   </data>
   <data name="Protocol" xml:space="preserve">
-    <value>???G2S???</value>
+    <value>G2S</value>
   </data>
   <data name="AssetNumber" xml:space="preserve">
     <value>Numéro d’actif</value>

@@ -283,7 +283,7 @@
     <value>{0}. Nom du paramètre : {1}.</value>
   </data>
   <data name="PrintHandPayText" xml:space="preserve">
-    <value>???Printing Receipt...???</value>
+    <value>Impression du reçu…</value>
   </data>
   <data name="RecoveringText" xml:space="preserve">
     <value>Récupération</value>
@@ -895,18 +895,18 @@
     <value>Terminé ‒ appuyer sur Quitter pour quitter la reprise</value>
   </data>
   <data name="PlayableOnly" xml:space="preserve">
-    <value>???PLAYABLE ONLY???</value>
+    <value>JOUABLE SEULEMENT</value>
     <comment>Monaco.Accounting</comment>
   </data>
   <data name="EnabledDenominationsLabel" xml:space="preserve">
     <value>Dénominations activées:</value>
   </data>
   <data name="Handpay" xml:space="preserve">
-    <value>???Handpay???</value>
+    <value>Paiement manuel</value>
     <comment>Monaco.Accounting.UI</comment>
   </data>
   <data name="AssetNumber" xml:space="preserve">
-    <value>??Asset Number??</value>
+    <value>Numéro d’actif</value>
   </data>
   <data name="CashoutTicket" xml:space="preserve">
     <value>COUPON DE REMBOURSEMENT</value>
@@ -1362,7 +1362,7 @@ Consulter le manuel pour plus de détails</value>
     <value>Détecté</value>
   </data>
   <data name="Disconnected" xml:space="preserve">
-    <value>??Disconnected??</value>
+    <value>Déconnecté</value>
   </data>
   <data name="EdgeLightingDisconnectionText" xml:space="preserve">
     <value>L’éclairage de contour n’est pas connecté</value>
@@ -1375,7 +1375,7 @@ Consulter le manuel pour plus de détails</value>
     <value>Entrer dans le test de son</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>???Error???</value>
+    <value>Erreur</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="Escrowed" xml:space="preserve">
@@ -1555,7 +1555,7 @@ Consulter le manuel pour plus de détails</value>
     <value>Non initialisé</value>
   </data>
   <data name="Validated" xml:space="preserve">
-    <value>??Validated??</value>
+    <value>Validé</value>
   </data>
   <data name="ValidatingText" xml:space="preserve">
     <value>Validation en cours</value>
@@ -1697,7 +1697,7 @@ Consulter le manuel pour plus de détails</value>
     <value>Remplacer la batterie no 1 et redémarrer l’appareil.</value>
   </data>
   <data name="ErrorInfoBattery2" xml:space="preserve">
-    <value>??Replace battery #2 and reboot the machine.??</value>
+    <value>Remplacer la batterie no 2 et redémarrer l’appareil.</value>
   </data>
   <data name="ErrorInfoCloseDoor" xml:space="preserve">
     <value>Fermer la porte pour résoudre ce verrouillage.</value>
@@ -1826,7 +1826,7 @@ Consulter le manuel pour plus de détails</value>
     <value>Pour résoudre ce verrouillage, insérez un stockage secondaire et redémarrez l’appareil.</value>
   </data>
   <data name="Set" xml:space="preserve">
-    <value>??Set??</value>
+    <value>Définir</value>
   </data>
   <data name="SmartCardExpiredFaultMessage" xml:space="preserve">
     <value>Remplacez la carte à puce et redémarrez l’appareil.</value>
@@ -2396,7 +2396,7 @@ Consulter le manuel pour plus de détails</value>
     <value>Taux de retour théorique moyen pondéré</value>
   </data>
   <data name="Wagered" xml:space="preserve">
-    <value>??Wagered??</value>
+    <value>Misé</value>
   </data>
   <data name="WageredAmountLabel" xml:space="preserve">
     <value>Argent mis en jeu</value>
@@ -4005,7 +4005,7 @@ Consulter le manuel pour plus de détails</value>
     <value>Choisissez un jeu et utilisez les flèches vers le haut/vers le bas pour modifier l’ordre</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>??Cancel??</value>
+    <value>Annuler</value>
   </data>
   <data name="SelectAll" xml:space="preserve">
     <value>Tout sélectionner</value>
@@ -4029,7 +4029,7 @@ Consulter le manuel pour plus de détails</value>
     <value>Identité</value>
   </data>
   <data name="AcceptanceRate" xml:space="preserve">
-    <value>??Acceptance Rate??</value>
+    <value>Taux d’acceptation</value>
   </data>
   <data name="TestTouchScreen" xml:space="preserve">
     <value>Tester écran tactile</value>
@@ -4858,61 +4858,61 @@ Consulter le manuel pour plus de détails</value>
     <value>Vérifier les signatures</value>
   </data>
   <data name="SoftwareLicense" xml:space="preserve">
-    <value>??Software Licence??</value>
+    <value>Licence du logiciel</value>
   </data>
   <data name="RebootWarningMessage" xml:space="preserve">
-    <value>??Any new changes will restart the machine??</value>
+    <value>Tout nouveau changement entraînera le redémarrage de l’appareil</value>
   </data>
   <data name="GamesPlayedSinceDoorClosed" xml:space="preserve">
-    <value>???Games Played since Door Closed???</value>
+    <value>Parties jouées depuis la fermeture de la porte</value>
   </data>
   <data name="GamesPlayedSinceReboot" xml:space="preserve">
-    <value>???Games Played since Reboot???</value>
+    <value>Parties jouées depuis le redémarrage</value>
   </data>
   <data name="OneCent" xml:space="preserve">
     <value>1 ¢</value>
   </data>
   <data name="AudioDisconnect" xml:space="preserve">
-    <value>???Audio Device Disconnected???</value>
+    <value>Dispositif audio déconnecté</value>
     <comment>Aristocrat.Monaco.Hardware</comment>
   </data>
   <data name="ButtonDeckDisconnected" xml:space="preserve">
-    <value>???Button Deck Disconnected???</value>
+    <value>Panneau de boutons déconnecté</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="Disconnect" xml:space="preserve">
     <value>???Disconnect???</value>
   </data>
   <data name="DisplayDisconnected" xml:space="preserve">
-    <value>???Display Disconnected???</value>
+    <value>Écran déconnecté</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="GatDisconnected" xml:space="preserve">
-    <value>???GAT is Disconnected???</value>
+    <value>GAT déconnecté</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="ProgressiveDisconnectText" xml:space="preserve">
-    <value>???Progressive Disconnected???</value>
+    <value>Progressif déconnecté</value>
     <comment>Aristocrat.Monaco.G2S</comment>
   </data>
   <data name="TouchDisplayDisconnected" xml:space="preserve">
-    <value>???Touch Display Disconnected - Reconnect the display and Powercycle???</value>
+    <value>Écran tactile déconnecté – rebranchez l’écran, puis éteignez l’appareil et rallumez-le</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="TouchDisplayReconnected" xml:space="preserve">
-    <value>???Touch Display Connected - Restart Required???</value>
+    <value>Écran tactile déconnecté – redémarrage nécessaire</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="VbdDisconnectedOnStartupText1" xml:space="preserve">
-    <value>???Button Deck cable not detected on start-up???</value>
+    <value>Le câble du panneau de boutons n’a pas été détecté au démarrage</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="VbdDisconnectedOnStartupText2" xml:space="preserve">
-    <value>???Check cable and re-start platform???</value>
+    <value>Vérifiez le câble et redémarrez la plateforme</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="GameConfigurationSavePrompt" xml:space="preserve">
-    <value>???Are you done with all game configuration? ???</value>
+    <value>Avez-vous terminé toutes les configurations du jeu?</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="No" xml:space="preserve">
@@ -4924,39 +4924,39 @@ Consulter le manuel pour plus de détails</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="DateText" xml:space="preserve">
-    <value>??DATE??</value>
+    <value>DATE</value>
   </data>
   <data name="TimeText" xml:space="preserve">
-    <value>??TIME??</value>
+    <value>HEURE</value>
   </data>
   <data name="DisplayConnected" xml:space="preserve">
-    <value>???Display Connected - Restart Required???</value>
+    <value>Écran déconnecté – redémarrage nécessaire</value>
   </data>
   <data name="BetOption" xml:space="preserve">
-    <value>???Bet Option???</value>
+    <value>Option de mise</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="ForcedMinBet" xml:space="preserve">
-    <value>???Min Bet???</value>
+    <value>Mise min.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="Gamble" xml:space="preserve">
-    <value>???Double Up???</value>
+    <value>Quitte ou double</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="LineOption" xml:space="preserve">
-    <value>???Line Option???</value>
+    <value>Option de ligne</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="ProgressiveColumnHeader" xml:space="preserve">
-    <value>???Progressive???</value>
+    <value>Progressif</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="ReadyToInsert" xml:space="preserve">
-    <value>??Ready to insert bill or voucher.??</value>
+    <value>Prêt pour insertion d’un billet ou d’un coupon.</value>
   </data>
   <data name="Printer_DfuInProgress" xml:space="preserve">
-    <value>??Printer DFU Download In Progress: Please Do Not Power Off The Gaming Machine??</value>
+    <value>Téléchargement du programme utilitaire de fichier de données de l’imprimante en cours : veuillez ne pas éteindre l’appareil de jeu</value>
   </data>
   <data name="ReplayTicketPrinted" xml:space="preserve">
     <value>??Printed Ticket for??</value>
