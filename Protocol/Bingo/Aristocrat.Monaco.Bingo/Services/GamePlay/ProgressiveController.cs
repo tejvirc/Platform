@@ -47,12 +47,9 @@
         /// <param name="protocolLinkedProgressiveAdapter">.</param>
         /// <param name="gameHistory"><see cref="IGameHistory" />.</param>
         /// <param name="multiProtocolEventBusRegistry"><see cref="IProtocolProgressiveEventsRegistry" />.</param>
-<<<<<<< Updated upstream
-=======
-        /// <param name="unitOfWorkFactory"><see cref="IUnitOfWorkFactory" />.</param>
         /// <param name="progressiveContributionService"><see cref="IProgressiveContributionService" />.</param>
->>>>>>> Stashed changes
         /// <param name="progressiveClaimService"><see cref="IProgressiveClaimService" />.</param>
+        /// <param name="progressiveAwardService"><see cref="IProgressiveAwardService" />.</param>
         /// <param name="propertiesManager"><see cref="IPropertiesManager" />.</param>
         public ProgressiveController(
             IEventBus eventBus,
@@ -60,11 +57,7 @@
             IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter,
             IGameHistory gameHistory,
             IProtocolProgressiveEventsRegistry multiProtocolEventBusRegistry,
-<<<<<<< Updated upstream
-=======
-            IUnitOfWorkFactory unitOfWorkFactory,
             IProgressiveContributionService progressiveContributionService,
->>>>>>> Stashed changes
             IProgressiveClaimService progressiveClaimService,
             IProgressiveAwardService progressiveAwardService,
             IPropertiesManager propertiesManager
@@ -75,11 +68,7 @@
             _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _multiProtocolEventBusRegistry = multiProtocolEventBusRegistry ?? throw new ArgumentNullException(nameof(multiProtocolEventBusRegistry));
-<<<<<<< Updated upstream
-=======
-            _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
             _progressiveContributionService = progressiveContributionService ?? throw new ArgumentNullException(nameof(progressiveContributionService));
->>>>>>> Stashed changes
             _progressiveClaimService = progressiveClaimService ?? throw new ArgumentNullException(nameof(progressiveClaimService));
             _progressiveAwardService = progressiveAwardService ?? throw new ArgumentNullException(nameof(progressiveAwardService));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
