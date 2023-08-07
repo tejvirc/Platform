@@ -15,7 +15,7 @@
     public class PrimaryGameEndedConsumer : Consumes<PrimaryGameEndedEvent>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IReporter _reporter;
 

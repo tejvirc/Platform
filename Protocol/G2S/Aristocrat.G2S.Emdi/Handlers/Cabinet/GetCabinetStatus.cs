@@ -18,7 +18,7 @@
     public class GetCabinetStatus : CommandHandler<getCabinetStatus>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IG2SEgm _egm;
         private readonly IGameProvider _game;

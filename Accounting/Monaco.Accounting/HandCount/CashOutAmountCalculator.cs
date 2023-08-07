@@ -21,7 +21,7 @@
     /// </summary>
     public class CashOutAmountCalculator : ICashOutAmountCalculator, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IHandCountService _handCountService;
         private readonly ISystemDisableManager _disableManager;

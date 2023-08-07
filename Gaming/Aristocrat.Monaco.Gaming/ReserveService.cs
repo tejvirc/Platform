@@ -19,7 +19,7 @@
     public sealed class ReserveService : IReserveService, IDisposable
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _propertiesManager;

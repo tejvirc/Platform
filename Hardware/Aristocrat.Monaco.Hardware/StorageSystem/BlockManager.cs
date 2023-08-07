@@ -31,7 +31,7 @@
     /// </remarks>
     public static class BlockManager
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly List<string> DefaultPath = new List<string>();
         private static readonly IList<string> SchemaPaths = new List<string>();

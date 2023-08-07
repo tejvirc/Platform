@@ -11,7 +11,7 @@
     /// </summary>
     public class GameShutdownStartedConsumer : Consumes<GameShutdownStartedEvent>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IGameService _gameService;
         private readonly IRuntime _runtime;

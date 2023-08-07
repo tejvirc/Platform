@@ -21,7 +21,7 @@
         private const string ArgumentFormatString = "{{0,{0}}}{{1,{1}}}{{2}}";
         private const string DescriptionOnlyFormatString = "{{0,{0}}}{{1}}";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private CommandLineHelp()
         {

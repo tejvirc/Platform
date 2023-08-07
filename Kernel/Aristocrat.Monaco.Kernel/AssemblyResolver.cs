@@ -14,7 +14,7 @@
     {
         private const string AssemblyResolverPathExtensionPoint = "/Kernel/AssemblyResolver/FileSystemPath";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Dictionary<string, string> _files = new Dictionary<string, string>();
 

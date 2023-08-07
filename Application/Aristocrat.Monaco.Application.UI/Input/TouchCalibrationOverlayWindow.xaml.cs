@@ -9,7 +9,7 @@
 
     public partial class TouchCalibrationOverlayWindow
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public TouchCalibrationOverlayWindow()
             : this(ServiceManager.GetInstance().GetService<ICabinetDetectionService>())

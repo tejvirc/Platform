@@ -13,7 +13,7 @@
     public class GetEgmId : CommandHandler<getEgmId>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IG2SEgm _egm;
 

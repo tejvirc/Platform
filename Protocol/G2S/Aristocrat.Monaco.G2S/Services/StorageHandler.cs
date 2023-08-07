@@ -15,7 +15,7 @@
     public sealed class StorageHandler : IService, IDisposable
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <inheritdoc />
         public void Dispose()

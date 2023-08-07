@@ -22,7 +22,7 @@ namespace Aristocrat.Monaco.Gaming.UI
     public class LobbyStateManager : ILobbyStateManager
     {
         private const int AttractModeIdleTimeoutInSeconds = 30;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IBank _bank;
         private readonly IBell _bell;
         private readonly IGameHistory _gameHistory;

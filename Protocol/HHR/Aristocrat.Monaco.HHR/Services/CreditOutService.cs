@@ -22,7 +22,7 @@
     /// </summary>
     public class CreditOutService : IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IBank _bank;
         private readonly ICentralManager _centralManager;
         private readonly IEventBus _eventBus;

@@ -16,7 +16,7 @@
     public class ReleaseContentMediaPlayerConsumer : Consumes<ReleaseContentMediaPlayerEvent>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IMediaProvider _media;
         private readonly IHostQueue _server;

@@ -11,7 +11,7 @@
     /// </summary>
     public class GameStartConditionProvider : IGameStartConditionProvider
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly List<IGameStartCondition> _conditions = new();
 

@@ -26,7 +26,7 @@ namespace Aristocrat.Monaco.Accounting
         private const string RunnablesExtensionPath = "/Accounting/Runnables";
         private const string ExtenderExtensionPath = "/Accounting/BootExtender";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly RunnablesManager _runnablesManager = new RunnablesManager();
         private readonly List<IService> _services = new List<IService>();

@@ -6,7 +6,7 @@
     /// <inheritdoc />
     public class SasPriorityMessageQueue : ISasMessageQueue
     {
-        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly ConcurrentQueue<ISasMessage> _messages = new ConcurrentQueue<ISasMessage>();
         private readonly ISasMessage _emptyMessage = new SasEmptyMessage();
 

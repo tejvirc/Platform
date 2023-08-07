@@ -15,7 +15,7 @@
     public class ButtonLamps : IButtonLamps, IService, IDisposable
     {
         private const int BlinkInterval = 500;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IIO _io;
         private readonly IButtonService _buttonService;

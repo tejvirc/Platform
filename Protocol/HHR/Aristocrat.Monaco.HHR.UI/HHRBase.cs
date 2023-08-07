@@ -17,7 +17,7 @@
         isCentralDeterminationSystemSupported:true)]
     public class HHRBase : BaseRunnable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
 
         private Container _container = new Container();

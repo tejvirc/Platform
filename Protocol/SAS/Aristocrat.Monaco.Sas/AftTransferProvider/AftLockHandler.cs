@@ -18,7 +18,7 @@
     /// <summary>Definition of the AftLockHandler class.</summary>
     public sealed class AftLockHandler : IAftLockHandler, IService, IDisposable, ITransactionRequestor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private bool _disposed;
         private Timer _aftLockTimer;

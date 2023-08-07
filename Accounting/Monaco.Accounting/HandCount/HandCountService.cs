@@ -18,7 +18,7 @@ namespace Aristocrat.Monaco.Accounting.HandCount
     /// </summary>
     public class HandCountService : IHandCountService
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly Guid RequestorId = new Guid("{755B6E71-B5A1-4E51-9394-B1B9CC298F65}");
 
         private readonly IPropertiesManager _properties;

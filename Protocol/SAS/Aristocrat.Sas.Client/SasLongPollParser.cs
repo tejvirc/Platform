@@ -11,7 +11,7 @@
     {
         // create a logger for use in derived classes
         // ReSharper disable once StaticMemberInGenericType
-        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         protected readonly TData Data = new TData();
 

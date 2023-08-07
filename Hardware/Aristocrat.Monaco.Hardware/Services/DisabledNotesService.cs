@@ -13,7 +13,7 @@
     {
         private readonly IPersistenceProvider _persistenceProvider;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         
         public string Name => nameof(IDisabledNotesService);
 

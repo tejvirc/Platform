@@ -16,7 +16,7 @@
     /// </summary>
     public class SelectDenominationCommandHandler : ICommandHandler<SelectDenomination>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPropertiesManager _properties;
         private readonly IGameService _gameService;

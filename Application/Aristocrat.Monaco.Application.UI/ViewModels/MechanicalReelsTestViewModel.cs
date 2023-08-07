@@ -25,7 +25,7 @@
     [CLSCompliant(false)]
     public class MechanicalReelsTestViewModel : INotifyPropertyChanged
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!?.DeclaringType);
 
         private const int DefaultNudgeDelay = 0;
 

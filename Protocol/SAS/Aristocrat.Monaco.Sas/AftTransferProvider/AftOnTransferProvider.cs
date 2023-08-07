@@ -25,7 +25,7 @@
         IWatTransferOnProvider,
         ITransactionRequestor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly Guid TransactionOwnerId = new Guid("{0F6C27CE-C5D4-40e0-9896-467526AB2217}");
 
         private bool _transferAccepted;

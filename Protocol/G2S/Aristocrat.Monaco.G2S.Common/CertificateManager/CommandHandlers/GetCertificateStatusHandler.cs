@@ -17,7 +17,7 @@
     public class GetCertificateStatusHandler : IFuncHandler<GetCertificateStatusResult>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPkiConfigurationRepository _certificateConfigurationRepository;
         private readonly ICertificateRepository _certificateRepository;

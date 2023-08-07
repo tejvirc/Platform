@@ -15,7 +15,7 @@
     /// </summary>
     public class AftInterrogate : IAftRequestProcessorTransferCode
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IAftTransferProvider _aftProvider;
         private readonly IAftHistoryBuffer _historyBuffer;
         private readonly IPropertiesManager _propertiesManager;

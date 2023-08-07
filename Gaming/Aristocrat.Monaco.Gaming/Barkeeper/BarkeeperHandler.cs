@@ -21,7 +21,7 @@
 
     public class BarkeeperHandler : IBarkeeperHandler, IService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEdgeLightingController _edgeLighting;
         private readonly IGamePlayState _gamePlay;

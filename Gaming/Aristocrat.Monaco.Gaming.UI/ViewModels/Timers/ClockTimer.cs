@@ -21,7 +21,7 @@
         private const string TimeResourceKey = "TimeLabel";
         private const string TimeLeftResourceKey = "TimeLeftLabel";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly object _clockStateLock = new object();
 
         private readonly LobbyConfiguration _config;

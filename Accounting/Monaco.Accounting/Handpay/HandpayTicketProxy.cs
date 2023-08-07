@@ -14,7 +14,7 @@
     /// </summary>
     public class HandpayTicketProxy : ITicketProxy
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <inheritdoc />
         public ICollection<Type> TransactionTypes => new[] { typeof(HandpayTransaction) };

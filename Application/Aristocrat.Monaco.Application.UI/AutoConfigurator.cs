@@ -23,7 +23,7 @@
         private const string AutoConfigurationFilePropertyName = "AutoConfigFile";
         private const string AutoConfigurationDefaultFileName = "..\\AutoConfig.xml";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly List<string> _falseStrings = new List<string>
         {

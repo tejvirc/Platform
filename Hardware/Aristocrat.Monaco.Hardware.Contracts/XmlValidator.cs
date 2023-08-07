@@ -13,7 +13,7 @@
         /// <summary>
         ///     Create a logger for use in this class.
         /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>Indicates whether the file is valid or not.</summary>
         private static bool _valid;

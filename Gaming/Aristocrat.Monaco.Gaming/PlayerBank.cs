@@ -25,7 +25,7 @@
 
         private const string CurrentTransactionId = "CurrentTransactionId";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly Guid RequestorId = new Guid("{6C508FA1-226D-49B2-B359-592C01139EAB}");
 

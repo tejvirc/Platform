@@ -17,7 +17,7 @@
 
     public class DisplayableMessageRemover : IMessageDisplayHandler, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly IEnumerable<Type> RemovingMessages = new List<Type>
         {

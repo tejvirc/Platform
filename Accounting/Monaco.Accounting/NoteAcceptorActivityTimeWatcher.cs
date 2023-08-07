@@ -14,7 +14,7 @@
     {
         private const int DefaultTimeForTransaction = 5000;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
         private readonly object _lock = new object();

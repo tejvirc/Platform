@@ -35,7 +35,7 @@
             GameReplayCompleted,
         }
 
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         //Disable keys that represent a fatal error state
         private static readonly List<Guid> FatalErrorKeys = new List<Guid>

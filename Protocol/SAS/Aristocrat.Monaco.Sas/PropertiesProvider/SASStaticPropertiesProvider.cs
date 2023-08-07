@@ -17,7 +17,7 @@
     /// <summary>Definition of the SasStaticPropertiesProvider class.</summary>
     public class SasStaticPropertiesProvider : IPropertyProvider
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string SasDefaultConfigurationExtensionPath = "/SAS/DefaultConfiguration";
         private Dictionary<string, object> _properties;
 

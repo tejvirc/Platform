@@ -19,7 +19,7 @@
     /// </summary>
     public class CurrentProgressivesLauncher : IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
         private readonly IMenuAccessService _menu;
         private readonly ISystemDisableManager _disableManager;

@@ -25,7 +25,7 @@ namespace Aristocrat.Monaco.Gaming
         private const string CashedOutDuringSessionField = @"CashedOutDuringSession";
         private const PersistenceLevel Level = PersistenceLevel.Critical;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly object _lock = new object();
 

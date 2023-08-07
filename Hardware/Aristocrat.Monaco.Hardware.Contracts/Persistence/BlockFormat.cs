@@ -21,7 +21,7 @@
     [XmlRoot("BlockFormat")]
     public sealed class BlockFormat
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly UTF8Encoding Encoder = new UTF8Encoding();
 
@@ -240,7 +240,7 @@
 
             if (array == null)
             {
-                Logger.Warn($"{MethodBase.GetCurrentMethod().Name} {fieldName} attempting to convert null bytes.");
+                Logger.Warn($"{MethodBase.GetCurrentMethod()!.Name} {fieldName} attempting to convert null bytes.");
             }
 
             object returnObject = null;
@@ -291,7 +291,7 @@
             var fd = GetFieldDescription(fieldName);
             if (fd == null)
             {
-                Logger.Warn($"{MethodBase.GetCurrentMethod().Name} FieldDescription for {fieldName} not found.");
+                Logger.Warn($"{MethodBase.GetCurrentMethod()!.Name} FieldDescription for {fieldName} not found.");
                 return returnValue;
             }
 

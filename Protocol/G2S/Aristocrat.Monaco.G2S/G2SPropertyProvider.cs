@@ -18,7 +18,7 @@
     /// </summary>
     public class G2SPropertyProvider : IPropertyProvider
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IG2SDataFactory _dataFactory;
         private readonly IPersistentStorageAccessor _persistentStorageAccessor;

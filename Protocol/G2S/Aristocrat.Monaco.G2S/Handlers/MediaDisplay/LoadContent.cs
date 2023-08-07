@@ -20,7 +20,7 @@
     [ProhibitWhenDisabled]
     public class LoadContent : ICommandHandler<mediaDisplay, loadContent>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICommandBuilder<IMediaDisplay, contentStatus> _commandBuilder;
         private readonly IG2SEgm _egm;

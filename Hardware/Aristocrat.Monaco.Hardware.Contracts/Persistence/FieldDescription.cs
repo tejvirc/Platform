@@ -102,7 +102,7 @@
         /// <summary>
         ///     Create a logger for use in this class.
         /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>Encoder to be used when storing and retrieving the string type into the byte storage.</summary>
         private readonly UTF8Encoding _encoder = new UTF8Encoding();

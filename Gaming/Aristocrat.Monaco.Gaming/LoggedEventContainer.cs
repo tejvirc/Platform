@@ -33,7 +33,7 @@
         private const string EndEvent = "GameEndedEvent";
         private const int MaxLoggedGameEvents = 100;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly ManualResetEvent EventsCompleteReady = new ManualResetEvent(false);
         private static readonly ManualResetEvent GameEndLogged = new ManualResetEvent(false);
 

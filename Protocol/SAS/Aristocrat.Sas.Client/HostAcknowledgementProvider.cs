@@ -24,7 +24,7 @@
         private const int FinalNackCount = 2; // We have a final NACK count of 2 as SAS will repeat the same message 3 times (2 NACKs)
         private const int ImpliedAckTimeout = 30_000; // 30 second timeout per the SAS Specification
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly object _lockObject = new object();
         private Timer _impliedAckTimer;

@@ -76,7 +76,7 @@
         public Action<string> PrinterStatusMessageUpdated;
         public Action<PrintButtonStatus> PrintButtonStatusUpdated;
 
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public OperatorMenuPrintHandler()
             : this(

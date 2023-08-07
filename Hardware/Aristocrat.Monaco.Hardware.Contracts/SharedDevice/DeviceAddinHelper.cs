@@ -16,7 +16,7 @@
         /// <summary>
         ///     Create a logger for use in this class.
         /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Object used to synchronize access to methods in this class.

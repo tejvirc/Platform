@@ -13,7 +13,7 @@
     /// <summary>Definition of the MeterChangeExceptionHandler class.</summary>
     public sealed class MeterChangeExceptionHandler : ISasMeterChangeHandler, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod()!.DeclaringType);
         private const double DefaultCancellationInterval = 30000.0; // 30 seconds
         private const double ExceptionInterval = 5000.0; // 5 seconds
         private const uint MaxCancellationResets = 5;

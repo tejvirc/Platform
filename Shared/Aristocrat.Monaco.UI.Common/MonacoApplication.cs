@@ -14,7 +14,7 @@
         /// <summary>
         ///     Logger
         /// </summary>
-        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="MonacoApplication" /> class.

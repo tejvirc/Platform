@@ -23,7 +23,7 @@
         private const string Volume3Key = "Volume3Normal";
         private const string Volume4Key = "Volume4Normal";
         private const string Volume5Key = "Volume5Normal";
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IPropertiesManager _propertiesManager;
         private readonly IAudio _audio;
         private readonly Action _onUserInteraction;

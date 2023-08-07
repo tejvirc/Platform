@@ -31,7 +31,7 @@
     /// </summary>
     public class HandpayService : IHandpayService, IHandpayValidator, IHandpayProperties, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const int RetryTimeout = 300;
 

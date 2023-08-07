@@ -20,7 +20,7 @@
     /// </summary>
     internal abstract class EKeyProgram
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private SmartCardConnection _connection;
         private readonly IPropertiesManager _properties;
         protected abstract string[] GetAuthTokens();

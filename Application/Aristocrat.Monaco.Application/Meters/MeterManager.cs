@@ -22,8 +22,8 @@
         private const PersistenceLevel Level = PersistenceLevel.Critical;
         private const string MeterProvidersExtensionPoint = "/Application/Metering/Providers";
 
-        private static readonly string PersistedBlockName = MethodBase.GetCurrentMethod().DeclaringType?.ToString();
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly string PersistedBlockName = MethodBase.GetCurrentMethod()!.DeclaringType?.ToString();
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ConcurrentDictionary<string, IMeterProvider> _meterMap =
             new ConcurrentDictionary<string, IMeterProvider>();

@@ -30,7 +30,7 @@
         private const string DenominationMeterNamePostfix = "s";
 
         private static readonly Guid RequestorId = new Guid("{D45304D5-ADEF-4770-89A7-07D0F6203985}");
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private ServiceWaiter _serviceWaiter = new ServiceWaiter(ServiceManager.GetInstance().GetService<IEventBus>());
         private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);

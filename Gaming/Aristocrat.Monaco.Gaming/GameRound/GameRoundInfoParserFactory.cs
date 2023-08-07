@@ -12,7 +12,7 @@
         private const int GameTypeOffset = 0;
         private const int VersionOffset = 1;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IReadOnlyDictionary<(string, string), IGameRoundInfoParser> _gameRoundParsers;
         private readonly ActionBlock<IList<string>> _gameRoundProcessor;

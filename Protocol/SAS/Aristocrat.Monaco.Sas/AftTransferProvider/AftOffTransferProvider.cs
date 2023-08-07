@@ -24,7 +24,7 @@
         IWatTransferOffProvider,
         ITransactionRequestor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly Guid TransactionOwnerId = new Guid("{1646C5E2-DAF3-4a0c-8F5D-E80896255A55}");
 
         private static readonly IReadOnlyList<PlayState> AvailableLockableStates = new List<PlayState>
@@ -770,7 +770,7 @@
             if (ImmediateSystemDisable)
             {
                 Logger.Debug(
-                    $"{MethodBase.GetCurrentMethod().Name}: Attempting to cancel transfer request while disabled...");
+                    $"{MethodBase.GetCurrentMethod()!.Name}: Attempting to cancel transfer request while disabled...");
                 _watOffProvider.CancelTransfer(
                     CurrentTransfer.TransactionId,
                     (int)AftTransferStatusCode.GamingMachineUnableToPerformTransfer);

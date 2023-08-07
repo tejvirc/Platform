@@ -17,7 +17,7 @@
     {
         private const double IdleTimerInterval = 1000;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IBank _bank;
         private readonly IEventBus _eventBus;

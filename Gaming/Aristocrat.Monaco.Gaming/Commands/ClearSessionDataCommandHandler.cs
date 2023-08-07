@@ -11,7 +11,7 @@
 
     public class ClearSessionDataCommandHandler : ICommandHandler<ClearSessionData>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly object Sync = new object();
 

@@ -25,7 +25,7 @@
         private const long DefaultBellValueInMillicents = 1000000;
         private const long DefaultMaxBellValueInMillicents = 10000000000;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Dictionary<string, Tuple<object, string, bool>> _properties;
         private readonly IPersistentStorageManager _storageManager;

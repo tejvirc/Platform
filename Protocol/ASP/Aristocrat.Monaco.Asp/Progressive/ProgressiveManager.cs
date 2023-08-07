@@ -17,7 +17,7 @@
     /// <inheritdoc cref="IProgressiveManager" />
     public class ProgressiveManager : IProgressiveManager
     {
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IProtocolProgressiveEventsRegistry _multiProtocolEventBusRegistry;

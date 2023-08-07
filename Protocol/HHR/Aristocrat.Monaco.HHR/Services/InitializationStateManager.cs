@@ -23,7 +23,7 @@
     /// </summary>
     public class InitializationStateManager : IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICentralManager _centralManager;
         private readonly ICommunicationService _communicationService;

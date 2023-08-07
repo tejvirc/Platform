@@ -16,7 +16,7 @@
         private bool _disposed;
         private ulong _memoryLeftThreshold;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly Guid LockupId = ApplicationConstants.MemoryBelowThresholdDisableKey;
         private static readonly TimeSpan Interval = TimeSpan.FromSeconds(15);

@@ -14,7 +14,7 @@
         /// <summary>
         ///     Create a logger for use in this class
         /// </summary>
-        private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog m_log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     The number of Initialize, Run and Stop method calls on this object.

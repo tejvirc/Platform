@@ -15,7 +15,7 @@
     /// </summary>
     public class HostValidationProvider : IHostValidationProvider, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ISasExceptionHandler _exceptionHandler;
         private readonly ISasHost _sasHost;

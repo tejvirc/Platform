@@ -10,7 +10,7 @@
     /// <inheritdoc />
     public class PerLevelMeterProvider : IPerLevelMeterProvider
     {
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private IPersistentStorageAccessor _persistentStorageAccessor;
 

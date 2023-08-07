@@ -15,7 +15,7 @@
     /// </summary>
     public class SasClient : ISasClient, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly IHostAcknowledgementHandler NullHandlers = new HostAcknowledgementHandler();
         private const int LpWithCrcLength = 4;
         private const int MaximumContinuousWakeups = 10;

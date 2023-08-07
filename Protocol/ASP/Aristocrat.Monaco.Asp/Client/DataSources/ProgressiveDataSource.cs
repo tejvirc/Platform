@@ -29,7 +29,7 @@
         private const string ProgressiveJackpotAmountUpdateForDisplay = "ProgressiveJackpot_AmountUpdate_ForDisplay";
         private const string NumberOfLpLevels = "Number_Of_LP_Levels";
 
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IProgressiveManager _progressiveManager;
 

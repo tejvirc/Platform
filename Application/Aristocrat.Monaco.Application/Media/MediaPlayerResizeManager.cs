@@ -10,7 +10,7 @@
 
     public class MediaPlayerResizeManager : IMediaPlayerResizeManager, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private IEventBus _eventBus;
         private List<int> _mediaDisplayIds;

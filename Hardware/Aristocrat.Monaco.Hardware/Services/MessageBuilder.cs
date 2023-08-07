@@ -28,7 +28,7 @@
         /// <summary>
         ///     Create a logger for use in this class.
         /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     The sync pattern. It is included at the start of the message header

@@ -14,7 +14,7 @@
     public static class TransactionSavedExtensions
     {
         private static readonly object TransactionLock = new object();
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Handles the transactions that are part of various out transaction events.

@@ -34,7 +34,7 @@
     public class CertificatesViewModel : OperatorMenuPageViewModelBase
     {
         private static readonly ILog Log =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICertificateService _certificateService;
 

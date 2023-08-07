@@ -23,7 +23,7 @@
         private const string HashAlgorithm = @"SHA1";
 
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IAuthenticationService _componentHash;
 

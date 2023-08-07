@@ -28,7 +28,7 @@
         private const byte AbortCommand = 6;
         private const byte UsbResetCommand = 7;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private UsbK _device;
         private int _interfaceNumber = -1;
 

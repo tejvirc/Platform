@@ -17,7 +17,7 @@
 
     public class LandingStripController
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static IEdgeLightingController _edgeLightingController;
 

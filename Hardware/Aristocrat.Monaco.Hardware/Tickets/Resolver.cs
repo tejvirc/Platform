@@ -32,7 +32,7 @@
         /// <summary>
         ///     Create a logger for use in this class.
         /// </summary>
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>List of all regions available via configuration file.</summary>
         private readonly Dictionary<int, PrintableRegion> _printableRegions = new Dictionary<int, PrintableRegion>();

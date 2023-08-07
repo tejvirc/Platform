@@ -17,7 +17,7 @@
         private const string BlockIndexField = @"BlockIndex";
         private const string TransactionIdField = @"TransactionId";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IIdProvider _idProvider;
         private readonly IPersistentStorageAccessor _indexAccessor;

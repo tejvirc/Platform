@@ -29,7 +29,7 @@
         // The constant is used to determine whether to update the time. Two seconds are used, based on SAS protocol.
         private const double ThresholdForUpdate = 2.0;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPersistentStorageManager _storage;
         private readonly IPropertiesManager _properties;

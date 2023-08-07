@@ -33,7 +33,7 @@
     public class AftTransferProvider : IAftTransferProvider, IDisposable
     {
         private const double AftCompleteResetTime = 15000.0;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IBank _bank;
         private readonly IAftLockHandler _aftLockHandler;

@@ -18,7 +18,7 @@
         private readonly IIdReaderProvider _idReaderProvider;
         private readonly ISystemDisableManager _systemDisableManager;
         private readonly IMessageDisplay _messageDisplay;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly DisplayableMessage _disconnectedMessage;
         private bool _disposed;

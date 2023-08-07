@@ -20,7 +20,7 @@
     internal sealed class EdgeLightManager : IEdgeLightManager
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly EdgeLightBrightnessData _brightnessData;
 

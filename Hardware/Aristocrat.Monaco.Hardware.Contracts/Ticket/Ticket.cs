@@ -11,7 +11,7 @@
     [ProtoContract]
     public class Ticket
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Gets or sets the ticket data. For use by serialization.

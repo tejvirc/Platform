@@ -15,7 +15,7 @@ namespace Aristocrat.Monaco.Application.Meters
     {
         private const string CompositeMetersExtensionPoint = "/Application/Metering/CompositeMeters";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Dictionary<string, CompositeMeter> _meters = new Dictionary<string, CompositeMeter>();
 

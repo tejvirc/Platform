@@ -12,7 +12,7 @@
     /// <summary>A serial note acceptor.</summary>
     public abstract class SerialNoteAcceptor : SerialDeviceProtocol
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private StackerStatus _stackerStatus = new StackerStatus();
         private NoteOrTicketStatus _noteOrTicketStatus = new NoteOrTicketStatus();

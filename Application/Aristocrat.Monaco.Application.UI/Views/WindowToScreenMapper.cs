@@ -15,7 +15,7 @@
 
     public class WindowToScreenMapper
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IDisplayDevice _device;
         private readonly DisplayRole _role;

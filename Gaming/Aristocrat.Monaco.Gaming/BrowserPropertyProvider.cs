@@ -10,7 +10,7 @@
     {
         private const string ConfigurationExtensionPath = "/Browser/Configuration";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Dictionary<string, object> _properties;
 

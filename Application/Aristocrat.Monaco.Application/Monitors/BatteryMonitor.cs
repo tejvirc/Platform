@@ -16,7 +16,7 @@
 
     public class BatteryMonitor : IService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IMessageDisplay _messageDisplay;
         private readonly IBattery _batteryTest;

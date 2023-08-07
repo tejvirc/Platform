@@ -63,7 +63,7 @@
         private const int MaxEventsReceived = 300;
         private const string EventStringDelimiter = " -- ";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly DateTime TiltTimestamp = new DateTime(2012, 7, 22, 19, 45, 0, 0);
 
         private readonly IList<string> _backingData = new List<string>();

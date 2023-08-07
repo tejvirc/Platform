@@ -16,7 +16,7 @@ namespace Aristocrat.Monaco.Accounting
     /// </summary>
     public class TransactionHistoryProvider
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly List<ITransaction> _transactions = new List<ITransaction>();
         private readonly object _lockObject = new object();

@@ -58,7 +58,7 @@
         private static readonly string TopBoxOpticDoorGuid = ApplicationConstants.TopBoxOpticDoorGuid.ToString();
         private static readonly string UniversalInterfaceBoxDoorGuid = ApplicationConstants.UniversalInterfaceBoxDoorGuid.ToString();
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ConcurrentQueue<IEvent> _queuedStartUpEvents = new();
         private readonly string _blockNameStates = "Aristocrat.Monaco.Application.Monitors.DoorMonitor.States";

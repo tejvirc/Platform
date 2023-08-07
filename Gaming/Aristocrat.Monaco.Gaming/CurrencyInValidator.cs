@@ -24,7 +24,7 @@
         private const string CreditsInKey = @"CreditsIn";
 
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private IPropertiesManager _propertiesManager;
         private IMessageDisplay _messageDisplay;

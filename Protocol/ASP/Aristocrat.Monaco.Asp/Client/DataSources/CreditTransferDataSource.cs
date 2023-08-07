@@ -18,7 +18,7 @@
 
     public class CreditTransferDataSource : IDisposableDataSource, ITransaction
     {
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public const string BonusCreditsWin = "BCredits_Win";
 

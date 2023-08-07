@@ -19,7 +19,7 @@ namespace Aristocrat.Monaco.Accounting
         private const string CarrierBoardWasRemovedKey = @"CarrierBoardWasRemoved";
         private const string LastRecordedMacAddressKey = @"LastRecordedMacAddress";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly Guid DisabledDueToCarrierBoardRemoval =
             AccountingConstants.DisabledDueToCarrierBoardRemovalKey;

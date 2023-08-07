@@ -10,7 +10,7 @@
 
     public class GameRoundFailedCommandHandler : ICommandHandler<GameRoundFailed>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _bus;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
         private readonly IPlayerBank _bank;

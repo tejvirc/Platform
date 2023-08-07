@@ -14,7 +14,7 @@
     /// </summary>
     public abstract class BaseMeterProvider : IMeterProvider
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ConcurrentDictionary<string, IMeter> _meters = new ConcurrentDictionary<string, IMeter>();
         private readonly IPropertiesManager _propertiesManager;

@@ -19,7 +19,7 @@
     /// <summary>A class to handle the startup events</summary>
     public class StartupEventListener : StartupEventListenerBase
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private bool _bnaInspected;
         private bool _bnaInspectionFailureHandle;

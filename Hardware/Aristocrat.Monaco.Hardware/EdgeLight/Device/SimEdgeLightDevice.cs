@@ -16,7 +16,7 @@
         private const string LogicalStripsCreationRuleXml = @".\EdgeLightStripsCreationRule.xml";
 
         public static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly List<IStrip> _physicalStrips = new List<IStrip>();
         private bool _connected;

@@ -19,7 +19,7 @@
         /// </summary>
         public Log4NetTraceListener()
         {
-            _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         }
 
         /// <summary>

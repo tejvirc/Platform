@@ -10,7 +10,7 @@
     /// <inheritdoc cref="IPlayerInfoDisplayManagerFactory" />
     public sealed class PlayerInfoDisplayManagerFactory : IPlayerInfoDisplayManagerFactory
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string DefaultManager = "Default";
         private const string NotSupportedManager = "NotSupported";

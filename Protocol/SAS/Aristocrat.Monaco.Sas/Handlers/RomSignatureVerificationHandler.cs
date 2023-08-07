@@ -22,7 +22,7 @@
     {
         private const string ManifestExtension = "manifest";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly ISet<ComponentType> ManifestComponents = new HashSet<ComponentType>
         {
             ComponentType.Module,

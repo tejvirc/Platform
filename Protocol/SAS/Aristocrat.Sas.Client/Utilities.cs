@@ -12,7 +12,7 @@
     public static class Utilities
     {
         /// <summary>Create a logger for use in this class</summary>
-        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly Dictionary<long, BillDenominationCodes> DenominationCodes = new Dictionary<long, BillDenominationCodes>
         {
             { 1_00, BillDenominationCodes.One },

@@ -13,7 +13,7 @@
     /// </summary>
     public class SingaporeClubsAuditTicketCreator : ISingaporeClubsAuditTicketCreator, IService
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public string Name => "Singapore Clubs Audit Ticket";
 

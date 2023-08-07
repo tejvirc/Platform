@@ -22,7 +22,7 @@
     public class EgmStateObserver : IEgmStateObserver, IDisposable
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPlayerBank _bank;
         private readonly IEventBus _bus;

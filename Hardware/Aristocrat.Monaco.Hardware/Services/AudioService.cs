@@ -25,7 +25,7 @@
     {
         private const int UpdateLoopPollingInterval = 100;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly Guid AudioDisconnectedLock = HardwareConstants.AudioDisconnectedLockKey;
         private static readonly Guid AudioReconnectedLock = HardwareConstants.AudioReconnectedLockKey;
 

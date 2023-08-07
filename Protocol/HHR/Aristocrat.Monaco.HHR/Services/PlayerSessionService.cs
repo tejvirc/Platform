@@ -18,7 +18,7 @@
     /// </summary>
     public class PlayerSessionService : IPlayerSessionService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         // A timer to keep track of the timeout when the credit is played down to zero before we ask for a new player ID.
         private readonly Timer _creditZeroTimer;

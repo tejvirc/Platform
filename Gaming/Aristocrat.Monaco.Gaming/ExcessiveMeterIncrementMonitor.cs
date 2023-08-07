@@ -19,7 +19,7 @@
     /// </summary>
     public class ExcessiveMeterIncrementMonitor : IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IMeterManager _meterManager;
         private readonly IPropertiesManager _propertiesManager;
         private readonly IEventBus _eventBus;

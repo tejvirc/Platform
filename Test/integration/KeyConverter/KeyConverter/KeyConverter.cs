@@ -54,7 +54,7 @@
         private const int HandledInput = 1;
         private const string EventFile = "keyboardActions.json";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private bool _shiftModifier;
 

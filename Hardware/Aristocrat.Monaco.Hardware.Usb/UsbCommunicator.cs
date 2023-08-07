@@ -24,7 +24,7 @@
         private const int LoopTimeout = 1000;
         private const int UicCardReaderSendInterval = 500; // UIC seems to need a break between messages
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private DfuDriver _dfuDriver;
         private HidDriver _hidDriver;

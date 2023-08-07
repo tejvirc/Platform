@@ -23,7 +23,7 @@
     public sealed class LocalizationService : ILocalization, ILocalizationClient, IService, IDisposable
     {
         // ReSharper disable once PossibleNullReferenceException
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string CultureProvidersExtensionPath = "/Application/Localization/Providers";
         private const string OverridesResourcesDictionaryFormat = "Resources_{0}";

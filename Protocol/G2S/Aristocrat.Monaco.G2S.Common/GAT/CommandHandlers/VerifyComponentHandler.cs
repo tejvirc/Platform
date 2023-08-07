@@ -15,7 +15,7 @@
     /// </summary>
     public class VerifyComponentHandler
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IAuthenticationService _componentHashService;
         private readonly IComponentRegistry _components;

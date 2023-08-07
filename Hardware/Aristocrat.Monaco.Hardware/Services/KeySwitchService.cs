@@ -27,7 +27,7 @@
         // The minimum amount of time a key must be held ON to consider it a 'held' key
         private const double MinimumHeldKeyTime = 5000.0;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _bus;
         private readonly IIO _io;

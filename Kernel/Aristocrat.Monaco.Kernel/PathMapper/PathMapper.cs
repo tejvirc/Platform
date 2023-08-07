@@ -16,7 +16,7 @@
     {
         private const string PathMappingExtensionPath = "/Kernel/PathMapping";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly PathNode _rootNode = new PathNode(string.Empty);
 

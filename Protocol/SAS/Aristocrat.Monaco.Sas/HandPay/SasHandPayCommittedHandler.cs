@@ -23,7 +23,7 @@
     /// </summary>
     public class SasHandPayCommittedHandler : ISasHandPayCommittedHandler, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const double HandpayPendingTimer = 15000.0;
         private readonly ITransactionHistory _transactionHistory;

@@ -18,7 +18,7 @@
         /// <summary>
         ///     Create a m_log for use in this class
         /// </summary>
-        private static readonly ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Indicates whether or not the instance has been disposed

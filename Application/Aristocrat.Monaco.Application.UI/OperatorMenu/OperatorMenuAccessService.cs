@@ -40,7 +40,7 @@
         private const string ReadOnly = "ReadOnly";
         private const string ProgInit = "ProgInit";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IDoorService _door;
         private readonly object _evaluatorLockObject = new object();

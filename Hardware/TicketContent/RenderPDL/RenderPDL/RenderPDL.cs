@@ -16,7 +16,7 @@ namespace Vgt.Client12.Hardware.TicketContent
         private const int LineWidth = 45;
 
         /// <summary>Create a logger for use in this class.</summary>
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>Initializes a new instance of the <see cref="RenderPdl" /> class. </summary>
         public RenderPdl()

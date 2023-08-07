@@ -22,7 +22,7 @@
     [CLSCompliant(false)]
     public class DeviceConfigViewModel : BaseViewModel
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly ISerialPortsService SerialPortsService = ServiceManager.GetInstance().TryGetService<ISerialPortsService>();
 
         private readonly DeviceAddinHelper _addinHelper = new DeviceAddinHelper();

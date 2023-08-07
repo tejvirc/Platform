@@ -19,7 +19,7 @@
     public class EgmStateChangedConsumer : Consumes<EgmStateChangedEvent>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IG2SEgm _egm;
         private readonly ILocalization _localization;

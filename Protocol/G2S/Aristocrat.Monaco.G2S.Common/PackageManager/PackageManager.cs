@@ -27,7 +27,7 @@
     /// </summary>
     public class PackageManager : IPackageManager
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IAuthenticationService _componentHash;
         private readonly IMonacoContextFactory _contextFactory;
         private readonly IModuleRepository _moduleRepository;

@@ -16,7 +16,7 @@
     /// </summary>
     public class GameCategoryService : IGameCategoryService, IService
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string AutoPlayField = @"AutoPlay";
         private const string AutoHoldField = @"AutoHold";

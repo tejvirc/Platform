@@ -16,7 +16,7 @@
     /// </summary>
     public class SerialGatDataLayer : IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ISerialPortController _physicalLayer;
         private readonly Dictionary<GatQuery, (int min, int max)> _lengthRangePerQuery = new Dictionary<GatQuery, (int min, int max)>();

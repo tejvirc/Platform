@@ -27,7 +27,7 @@
         private const string RecoverDataKey = @"RecoverData";
         private const int RequestTimeoutLength = 1000; // It's in milliseconds
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly Guid RequestorId = new Guid("{8C475AA8-687F-47CE-9056-39157FA9D6A8}");
 
         private readonly IPersistentStorageAccessor _accessor;

@@ -25,7 +25,7 @@
     /// </summary>
     public class HandpayService : IPaymentDeterminationHandler
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const uint HandpayTypeProgressive = (uint)Client.Messages.HandpayType.HandpayTypeProgressive;
         private const uint HandpayTypeNonProgressive = (uint)Client.Messages.HandpayType.HandpayTypeNonProgressive;
 

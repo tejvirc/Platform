@@ -16,7 +16,7 @@
     public class EdgeLightAuditMenuHandler : IDisposable, IEdgeLightHandler
     {
         // ReSharper disable once PossibleNullReferenceException
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEdgeLightingStateManager _edgeLightingStateManager;
 

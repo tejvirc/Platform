@@ -18,7 +18,7 @@
     /// </summary>
     public class AftTransferInHouseFromHostToGameMachine : IAftRequestProcessor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Dictionary<Func<bool>, (AftTransferStatusCode code, string message)> _errorConditions;
         private readonly IPropertiesManager _propertiesManager;

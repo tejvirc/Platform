@@ -9,7 +9,7 @@
 
     public abstract class TransferInProviderBase
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IBank _bank;
         private readonly IMeterManager _meters;

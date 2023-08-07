@@ -25,7 +25,7 @@
         private const string StatusField = @"PlayerTracking.Status";
         private const string InitialMetersField = @"Session.InitialMeters";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPersistentStorageAccessor _accessor;
         private readonly IEventBus _bus;

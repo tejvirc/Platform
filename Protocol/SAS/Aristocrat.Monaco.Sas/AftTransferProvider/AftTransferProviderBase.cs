@@ -21,7 +21,7 @@
     /// <summary>Definition of the AftTransferProviderBase class.</summary>
     public abstract class AftTransferProviderBase : IService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IAutoPlayStatusProvider _autoPlayStatusProvider;
 
         private bool _disposed;

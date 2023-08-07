@@ -24,7 +24,7 @@
     /// </summary>
     public class MasterResetService : IMasterResetService, IService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IG2SEgm _egm;
         private readonly IEventLift _eventLift;

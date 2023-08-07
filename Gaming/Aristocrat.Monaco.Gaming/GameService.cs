@@ -23,7 +23,7 @@
     /// </summary>
     public class GameService : IGameService, IService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IAudio _audio;
         private readonly IEventBus _eventBus;

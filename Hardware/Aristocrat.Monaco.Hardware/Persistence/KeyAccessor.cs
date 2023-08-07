@@ -12,7 +12,7 @@
     /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.Persistence.IKeyLevelAccessor" />
     public class KeyAccessor : IKeyAccessor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ConcurrentDictionary<string, PersistenceLevel> _cache =
             new ConcurrentDictionary<string, PersistenceLevel>();

@@ -23,7 +23,7 @@
         private const int Tpci940NumOutputs = 16;
         private const int LogicDoorPhysicalId = 45;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static ulong _outputs;
         private static SafeFileHandle _deviceHandle;

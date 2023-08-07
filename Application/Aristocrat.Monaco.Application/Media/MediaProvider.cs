@@ -21,7 +21,7 @@
     public partial class MediaProvider : IMediaProvider, IPropertyProvider, IDisposable
     {
         private const PersistenceLevel PersistenceLevel = Hardware.Contracts.Persistence.PersistenceLevel.Critical;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string DataBlock = @"Data";
         private const string IdBlock = @"Id";
@@ -58,13 +58,13 @@
         private readonly IPersistentStorageAccessor _logBlock;
         private const int PlaceHolderIdStart = 1000;
 
-        private readonly List<MediaPlayer> _mediaPlayers = new List<MediaPlayer>();
+        private readonly List<MediaPlayer> _mediaPlayers = new ();
 
-        private readonly List<MediaPlayer> _placeholders = new List<MediaPlayer>();
+        private readonly List<MediaPlayer> _placeholders = new ();
 
         private readonly IPersistentStorageManager _storageManager;
 
-        private readonly List<Media> _medias = new List<Media>();
+        private readonly List<Media> _medias = new ();
 
         private bool _disposed;
 

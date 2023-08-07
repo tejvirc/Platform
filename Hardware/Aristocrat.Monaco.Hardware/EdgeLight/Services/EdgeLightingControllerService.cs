@@ -19,7 +19,7 @@
         private const int TickInterval = 33;
 
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Func<IEnumerable<IHidDevice>> _deviceEnumerator;
         private readonly IEventBus _eventBus;

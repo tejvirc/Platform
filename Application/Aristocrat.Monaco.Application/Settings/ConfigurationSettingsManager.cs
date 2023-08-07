@@ -17,7 +17,7 @@
     public sealed class ConfigurationSettingsManager : IConfigurationSettingsManager, IService, IDisposable
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string SettingsProvidersExtensionPath = "/Application/Configuration/Settings";
 

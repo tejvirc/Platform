@@ -15,7 +15,7 @@
     public sealed class EmdiService : IEmdi, IDisposable
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IHostQueue _queue;
 

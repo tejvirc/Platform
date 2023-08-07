@@ -21,7 +21,7 @@
     /// </summary>
     public class GameDataService : IGameDataService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICentralManager _centralManager;
         private readonly List<GameInfoResponse> _gameData = new List<GameInfoResponse>();

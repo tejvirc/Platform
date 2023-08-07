@@ -26,7 +26,7 @@
     {
         private const string RaceFinishedName = "RaceFinished";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IPrizeInformationEntityHelper _prizeEntityHelper;

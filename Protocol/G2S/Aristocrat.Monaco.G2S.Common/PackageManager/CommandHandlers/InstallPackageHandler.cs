@@ -14,7 +14,7 @@
     /// </summary>
     public class InstallPackageHandler : BasePackageCommandHandler, IParametersActionHandler<InstallPackageArgs>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IPackageRepository _packageRepository;
         private readonly IInstallerService _installerService;
 

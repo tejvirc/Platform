@@ -27,7 +27,7 @@
         private const string VersionInfoPath = @"/Tools";
         private const string VersionInfoFile = @"OS_Image_Version.txt";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private bool _disposed;
 

@@ -22,7 +22,7 @@
     {
         private const string DownloadsDirectoryPath = "/Downloads";
         private const string HashAlgorithm = @"SHA1";
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IAuthenticationService _hashCalculator;
         private readonly ITransferRepository _transferRepository;

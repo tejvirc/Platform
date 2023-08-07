@@ -16,7 +16,7 @@
 
         private const string JobSerializedDataKey = "JobSerializedDataKey";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Container _container;
 

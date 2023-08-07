@@ -26,7 +26,7 @@
         private const string LicenseFile = @"license.info";
         private const string LicenseFilePath = "/Manifests";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly TimeSpan StatusInterval = TimeSpan.FromMinutes(5);
 
         private readonly IEventBus _bus;

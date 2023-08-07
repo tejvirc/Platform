@@ -25,7 +25,7 @@
         private readonly IEventLift _eventLift;
         private readonly IIdReaderProvider _idReaderProvider;
         private readonly IPlayerService _playerService;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         
         public SetIdValidation(
             IG2SEgm egm,

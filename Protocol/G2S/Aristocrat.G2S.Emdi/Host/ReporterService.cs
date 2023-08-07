@@ -16,7 +16,7 @@
     public class ReporterService : IReporter
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventSubscriptions _eventSubscriptions;
         private readonly IMeterSubscriptions _meterSubscriptions;

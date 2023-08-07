@@ -33,7 +33,7 @@
         private const string Ticket2Field = "Ticket2";
         private const int PrintRetryInterval = 1000;
         private const string ConfigurationExtensionPath = "/AuditTicketMonitor/Configuration";
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly Dictionary<int, bool> _doors = new Dictionary<int, bool>();
         private readonly IEventBus _eventBus;
         private readonly IDoorMonitor _doorMonitor;

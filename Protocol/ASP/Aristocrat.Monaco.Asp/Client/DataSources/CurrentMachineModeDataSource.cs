@@ -14,7 +14,7 @@
     /// </summary>
     public class CurrentMachineModeDataSource : IDisposableDataSource
     {
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string DataMemberName = "Current_Machine_Mode";
 

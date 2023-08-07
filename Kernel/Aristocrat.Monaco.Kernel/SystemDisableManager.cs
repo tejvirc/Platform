@@ -13,7 +13,7 @@ namespace Aristocrat.Monaco.Kernel
     /// </summary>
     public sealed class SystemDisableManager : IService, ISystemDisableManager, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Dictionary<Guid, (SystemDisablePriority priority, Func<string> reason, bool affectsIdle, CancellationTokenSource cts)> _systemDisables
                 = new Dictionary<Guid, (SystemDisablePriority priority, Func<string> reason, bool affectsIdle, CancellationTokenSource cts)>();

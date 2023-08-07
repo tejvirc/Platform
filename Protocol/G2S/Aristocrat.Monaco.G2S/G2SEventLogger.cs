@@ -33,7 +33,7 @@
 
         private int _maxStoredLogMessages = 100;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private List<G2SEventLogMessage> _g2sEventLogs;
 

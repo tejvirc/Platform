@@ -21,7 +21,7 @@
         private const string JackpotControllerIdByteTwo = "Jackpot_Controller_Id_ByteTwo";
         private const string JackpotControllerIdByteThree = "Jackpot_Controller_Id_ByteThree";
 
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private bool _disposed;

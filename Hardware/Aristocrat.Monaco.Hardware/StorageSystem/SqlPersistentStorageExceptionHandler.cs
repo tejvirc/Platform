@@ -14,7 +14,7 @@
     /// </summary>
     public static class SqlPersistentStorageExceptionHandler
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static bool _faulted;
 

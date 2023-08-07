@@ -29,7 +29,7 @@
         private readonly IMeterManager _meterManager;
 
         private readonly IPersistentStorageAccessor _persistentStorageAccessor;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private bool? _previousMainDoorStatus;
 

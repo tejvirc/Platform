@@ -13,7 +13,7 @@
     /// </summary>
     public class AutoPlayStatusProvider : IAutoPlayStatusProvider, IService
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private bool _autoPlayActive;
         private readonly IEventBus _eventBus;
 

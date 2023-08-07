@@ -13,7 +13,7 @@ namespace Aristocrat.Monaco.Sas.Handlers
     /// </summary>
     public class LP7FReceiveDateAndTimeHandler : ISasLongPollHandler<LongPollReadSingleValueResponse<bool>, LongPollDateTimeData>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly ITime _time;
 
         /// <summary>

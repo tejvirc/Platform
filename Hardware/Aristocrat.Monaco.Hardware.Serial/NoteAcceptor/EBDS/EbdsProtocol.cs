@@ -18,7 +18,7 @@
     [SearchableSerialProtocol(DeviceType.NoteAcceptor)]
     public class EbdsProtocol : SerialNoteAcceptor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly IList<EbdsDeviceState> PendingTransactionStates = new List<EbdsDeviceState>
         {

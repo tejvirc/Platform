@@ -46,14 +46,14 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
         {
             if (expression == null)
             {
-                throw new ArgumentNullException("expression");
+                throw new ArgumentNullException(nameof(expression));
             }
 
             expression = expression.Trim();
 
             if (expression.Length == 0)
             {
-                throw new ArgumentNullException("expression");
+                throw new ArgumentNullException(nameof(expression));
             }
 
             if (container == null)
@@ -138,11 +138,11 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
         {
             if (container == null)
             {
-                throw new ArgumentNullException("container");
+                throw new ArgumentNullException(nameof(container));
             }
             if (String.IsNullOrEmpty(propName))
             {
-                throw new ArgumentNullException("propName");
+                throw new ArgumentNullException(nameof(propName));
             }
 
             object prop = null;
@@ -192,11 +192,11 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
         {
             if (container == null)
             {
-                throw new ArgumentNullException("container");
+                throw new ArgumentNullException(nameof(container));
             }
             if (String.IsNullOrEmpty(expr))
             {
-                throw new ArgumentNullException("expr");
+                throw new ArgumentNullException(nameof(expr));
             }
 
             object prop = null;
@@ -271,7 +271,7 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
                 {
                     prop = arrayProp.GetValue((int)(int?)indexValue);
                 }
-                else if ((collectionProp is IList) && intIndex)
+                else if (collectionProp is IList && intIndex)
                 {
                     prop = ((IList)collectionProp)[(int)(int?)indexValue];
                 }

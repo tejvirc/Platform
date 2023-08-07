@@ -13,7 +13,7 @@ namespace Aristocrat.Monaco.Kernel
     /// </summary>
     public class RunnablesManager
     {
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Stack<RunnableData> _runnables = new Stack<RunnableData>();
 

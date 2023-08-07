@@ -38,7 +38,7 @@
 
         private const PersistenceLevel Level = PersistenceLevel.Transient;
 
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly Guid RequestorId = new Guid("{10795E25-1B46-45d3-94EC-993D47B14694}");
         private readonly long _showModeMaxBankReset = 1000M.DollarsToMillicents();

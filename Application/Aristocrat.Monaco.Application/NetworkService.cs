@@ -18,7 +18,7 @@
     public class NetworkService : INetworkService, IService, IDisposable
     {
         private const PersistenceLevel Level = PersistenceLevel.Static;
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private IPersistentStorageAccessor _accessor;
         private CancellationTokenSource _commitCancellationToken;

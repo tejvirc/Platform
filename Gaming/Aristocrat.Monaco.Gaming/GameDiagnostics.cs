@@ -17,7 +17,7 @@
     /// </summary>
     public class GameDiagnostics : IGameDiagnostics, IDisposable, IService
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IOperatorMenuLauncher _operatorMenu;

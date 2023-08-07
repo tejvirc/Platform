@@ -33,7 +33,7 @@
     public class ScriptManager : IScriptManager, IDisposable
     {
         private const int TimeOutOffsetDays = 100;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IDisableConditionSaga _disableSaga;
         private readonly IG2SEgm _egm;
         private readonly IEgmStateManager _egmStateManager;
@@ -851,7 +851,7 @@
             }
         }
 
-        private bool CommandCompleted(object command)
+        private static bool CommandCompleted(object command)
         {
             switch (command)
             {
@@ -885,7 +885,7 @@
             UpdateScript(script);
         }
 
-        private t_operCmdStates GetCommandItemStatus(Script script, bool complete)
+        private static t_operCmdStates GetCommandItemStatus(Script script, bool complete)
         {
             if (script.State == ScriptState.Error)
             {

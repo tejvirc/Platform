@@ -29,7 +29,7 @@
         private const string Logs = @"/Logs";
         private const int MinimumDaysToKeepLogs = 30;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPathMapper _pathMapper;
         private readonly object _lock = new object();

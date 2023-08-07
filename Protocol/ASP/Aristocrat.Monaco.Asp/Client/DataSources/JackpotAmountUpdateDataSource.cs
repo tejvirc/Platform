@@ -20,7 +20,7 @@
         private const string LinkMysteryUpdateFlag = "Link_Mystery_Update_Flag";
         private const string LinkMysteryDisplayAmount = "Link_Mystery_Display_Amount";
 
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IProgressiveManager _progressiveManager;
 

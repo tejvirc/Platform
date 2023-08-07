@@ -23,7 +23,7 @@
         /// <summary>
         ///     Create a logger for use in this class.
         /// </summary>
-        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     constructor

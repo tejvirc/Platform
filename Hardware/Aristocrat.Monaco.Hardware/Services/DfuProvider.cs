@@ -22,7 +22,7 @@
         private const int DfuSuffixSize = 16;
         private const ushort DefaultVendorId = 0xffff;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ConcurrentDictionary<int, ConcurrentDictionary<int, IDfuAdapter>> _adapters
             = new ConcurrentDictionary<int, ConcurrentDictionary<int, IDfuAdapter>>();

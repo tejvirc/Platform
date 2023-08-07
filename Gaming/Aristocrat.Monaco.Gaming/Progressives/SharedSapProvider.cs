@@ -17,7 +17,7 @@
     /// <inheritdoc cref="ISharedSapProvider" />
     public sealed class SharedSapProvider : ISharedSapProvider, IService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly ConcurrentDictionary<Guid, SharedSapLevel> _sharedSapIndex;
         private readonly IEventBus _eventBus;
         private readonly IPersistentBlock _saveBlock;

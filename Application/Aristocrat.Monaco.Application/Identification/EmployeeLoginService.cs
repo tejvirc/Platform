@@ -12,7 +12,7 @@
     /// </summary>
     public class EmployeeLoginService : IEmployeeLogin, IService
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _bus;
         private string _loginId;

@@ -48,7 +48,7 @@
         private const double DayTimerIntervalSeconds = 1.0;
         private const string DemoModeProperty = "System.DemoMode";
 
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _propertiesManager;
         private readonly IOperatorMenuLauncher _operatorMenuLauncher;

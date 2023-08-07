@@ -13,7 +13,7 @@
     public class GetSupportedMeterList : CommandHandler<getSupportedMeterList>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <inheritdoc />
         public override Task<CommandResult> ExecuteAsync(getSupportedMeterList command)

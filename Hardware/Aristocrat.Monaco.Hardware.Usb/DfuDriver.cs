@@ -23,7 +23,7 @@
         private const int ManifestWaitTime = 180000;
         private const int FirmwareSizeScalar = 35000000;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private int _blockNumber;
         private DfuCapabilities _capabilities;

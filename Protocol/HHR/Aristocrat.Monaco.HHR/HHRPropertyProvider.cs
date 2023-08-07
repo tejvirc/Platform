@@ -15,7 +15,7 @@
     {
         private const PersistenceLevel Level = PersistenceLevel.Critical;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly bool _blockExists;
         private readonly Dictionary<string, (object Value, bool IsPersistent)> _properties;
         private readonly IPersistentStorageManager _storageManager;

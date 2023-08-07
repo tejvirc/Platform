@@ -19,7 +19,7 @@
     {
         private const int ReadBufferSize = 65536;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly byte[] _readBuffer = new byte[ReadBufferSize];
         private readonly Subject<Packet> _observedBuffer = new();

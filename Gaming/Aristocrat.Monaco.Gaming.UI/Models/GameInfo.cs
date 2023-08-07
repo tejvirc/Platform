@@ -25,7 +25,7 @@
     [CLSCompliant(false)]
     public class GameInfo : BaseNotify, IGameInfo, IAttractDetails
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         // Default resource key for denomination button panel
         private const string DenomPanelDefaultKey = "DenominationPanel";

@@ -11,7 +11,7 @@
 
     public class ClaimWinCommandHandler : ICommandHandler<ClaimWinCommand>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IGameOutcomeService _gameOutcomeService;
         private readonly IBingoGameOutcomeHandler _gameOutcomeHandler;
 

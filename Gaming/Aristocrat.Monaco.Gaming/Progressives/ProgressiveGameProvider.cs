@@ -21,7 +21,7 @@
 
     public class ProgressiveGameProvider : IProgressiveGameProvider, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IProgressiveLevelProvider _levelProvider;
         private readonly IGameStorage _gameStorage;

@@ -18,7 +18,7 @@
         private const int MaxSelections = 5;
         private const PersistenceLevel Level = PersistenceLevel.Static;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly int _blockSize = MaxSelections * 2 * sizeof(int);
         private readonly Dictionary<string, string> _selectedConfigurationPropertyReimport = new Dictionary<string, string>();

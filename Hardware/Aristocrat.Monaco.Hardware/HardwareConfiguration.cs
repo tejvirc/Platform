@@ -34,7 +34,7 @@
 
         private readonly Dictionary<string, string> _deviceProtocolUpdateMap = new Dictionary<string, string> { { "Epic950", "EpicTTL" } };
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly TimeSpan InspectionTimeout = TimeSpan.FromSeconds(1);
 
         private readonly IPersistentStorageAccessor _accessor;

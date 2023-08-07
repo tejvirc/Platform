@@ -16,7 +16,7 @@
     public class BankBalanceChangedConsumer : Consumes<BankBalanceChangedEvent>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IBank _bank;
         private readonly IReporter _reporter;

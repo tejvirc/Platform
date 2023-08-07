@@ -29,7 +29,7 @@
 
         private const string Group = "Aristocrat Monaco Firewall Rules";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Enables the specified port by adding a new rule to the Windows firewall

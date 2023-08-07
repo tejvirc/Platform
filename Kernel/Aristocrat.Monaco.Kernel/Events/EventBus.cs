@@ -13,7 +13,7 @@
     /// <inheritdoc cref="IEventBus" />
     public sealed class EventBus : IEventBus, IService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ConcurrentDictionary<object, Subscriber> _subscribers =
             new ConcurrentDictionary<object, Subscriber>();

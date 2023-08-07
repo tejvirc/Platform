@@ -21,7 +21,7 @@
     /// </summary>
     public class CentralManager : ICentralManager, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly ILog ProtoLog = LogManager.GetLogger("Protocol");
 
         private readonly IMessageFlow _messageFlow;

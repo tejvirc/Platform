@@ -15,7 +15,7 @@
     public class SetCardRemoved : CommandHandler<setCardRemoved>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IIdReaderProvider _idReader;
 

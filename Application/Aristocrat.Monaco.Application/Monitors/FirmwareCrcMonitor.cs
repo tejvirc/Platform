@@ -35,7 +35,7 @@
         private const int NoteAcceptorPosition = 0;
         private const int PrinterPosition = 1;
         private const int LCDButtonDeckPosition = 2;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly int[] DeviceBlockPosition =
         {

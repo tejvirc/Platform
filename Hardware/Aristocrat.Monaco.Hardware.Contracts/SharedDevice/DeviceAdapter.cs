@@ -23,7 +23,7 @@
     {
         private const string CommunicatorsExtensionPath = "/Hardware/CommunicatorDrivers";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly List<string> _errorList = new List<string>();
         private readonly List<string> _warningList = new List<string>();

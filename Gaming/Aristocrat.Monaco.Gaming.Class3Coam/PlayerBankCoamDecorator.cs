@@ -15,7 +15,7 @@
     public class PlayerBankCoamDecorator : IPlayerBank, IService
     {
         /// <summary>Create a logger for use in this class.</summary>
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPlayerBank _decorated;
         private readonly IHandCountService _handCountService;

@@ -18,7 +18,7 @@
     /// </summary>
     public abstract class AspHostBase : BaseRunnable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private bool _disposed;
         private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
         private IAspClient _aspClient;

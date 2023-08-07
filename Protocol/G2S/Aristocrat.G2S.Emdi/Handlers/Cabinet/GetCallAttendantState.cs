@@ -13,7 +13,7 @@
     public class GetCallAttendantState : CommandHandler<getCallAttendantState>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IAttendantService _attendant;
 

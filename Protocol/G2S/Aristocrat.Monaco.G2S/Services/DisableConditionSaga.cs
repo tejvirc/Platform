@@ -29,7 +29,7 @@
         private const string DeviceIdKey = @"DeviceId";
         private const string MessageKey = @"Message";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IPersistentStorageAccessor _accessor;
         private readonly IBank _bank;
 

@@ -20,7 +20,7 @@ namespace Aristocrat.Monaco.Gaming
         private const string WasOperatorChangedField = @"WasOperatorChanged";
         private const PersistenceLevel BlockGameOrderDataLevel = PersistenceLevel.Critical;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
         private readonly IPersistentStorageAccessor _gameOrderAccessor;
 

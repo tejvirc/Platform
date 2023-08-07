@@ -23,7 +23,7 @@
     public class CertificateService : ICertificateService
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IValidator<PkiConfiguration> _certificateConfigurationEntityValidator;
         private readonly IValidator<Certificate> _certificateEntityValidator;

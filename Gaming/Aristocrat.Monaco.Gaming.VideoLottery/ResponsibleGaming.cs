@@ -33,7 +33,7 @@
         private const string Expired45ResourceKey = "TimeLimitExpiredPrompt45";
         private const string Expired60ResourceKey = "TimeLimitExpiredPrompt60";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly object _eventLock = new object();
         private readonly IGameRecovery _gameRecovery;
         private readonly IGamePlayState _gameState;
@@ -1198,7 +1198,7 @@
         //Responsible Gaming was written assuming the Time Limit values would be at least whole seconds.
         //If the values are fractional seconds, we run into issues.  This will normalize the values to
         //the nearest whole second.
-        private double[] NormalizeTimeLimits(double[] timeLimits)
+        private static double[] NormalizeTimeLimits(double[] timeLimits)
         {
             if (timeLimits == null)
             {

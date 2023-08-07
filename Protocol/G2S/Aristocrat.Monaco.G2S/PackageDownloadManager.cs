@@ -29,7 +29,7 @@
     public class PackageDownloadManager : IPackageDownloadManager, IDisposable
     {
         private const int DownloadDelayMilliseconds = 420000;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly ICommandBuilder<IDownloadDevice, packageStatus> _commandBuilder;
         private readonly IG2SEgm _egm;
         private readonly IEventBus _eventBus;

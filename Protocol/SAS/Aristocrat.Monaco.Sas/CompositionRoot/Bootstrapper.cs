@@ -20,7 +20,7 @@
     internal static class Bootstrapper
     {
         private static readonly List<IService> AllServices = new List<IService>();
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         internal static Container ConfigureContainer()
         {

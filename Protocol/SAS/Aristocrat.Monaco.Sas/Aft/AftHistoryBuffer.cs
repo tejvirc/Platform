@@ -17,7 +17,7 @@
     /// </summary>
     public class AftHistoryBuffer : IAftHistoryBuffer
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const int AftHistoryLogSize = 128; // 0x80
         private const byte LogSizeMask = AftHistoryLogSize - 1; // 0x7F

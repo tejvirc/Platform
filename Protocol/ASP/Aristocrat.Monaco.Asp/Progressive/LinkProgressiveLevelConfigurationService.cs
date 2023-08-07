@@ -16,7 +16,7 @@
     /// </summary>
     public class LinkProgressiveLevelConfigurationService
     {
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IGameProvider _gameProvider;

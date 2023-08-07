@@ -16,7 +16,7 @@
         /// <summary>Name of persistent storage block containing LegitimacyLockUpMonitor.</summary>
         private const string BlockName = "Aristocrat.Monaco.Application.Monitors.LegitimacyLockUpMonitor";
         private const string LegitimacylockUpText = "Non Retail Bank Fault: collect data and log files";
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private bool _disposed;
 

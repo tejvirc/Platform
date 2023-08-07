@@ -11,7 +11,7 @@
     /// </summary>
     public sealed class StatusDisplay : IMessageDisplayHandler, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly object _lock = new object();
         private bool _disposed;

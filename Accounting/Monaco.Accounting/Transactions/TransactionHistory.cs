@@ -16,7 +16,7 @@ namespace Aristocrat.Monaco.Accounting
     {
         private const string TransactionsExtensionPath = "/Accounting/TransactionHistories";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Dictionary<Type, TransactionHistoryProvider> _transactionProviders =
             new Dictionary<Type, TransactionHistoryProvider>();

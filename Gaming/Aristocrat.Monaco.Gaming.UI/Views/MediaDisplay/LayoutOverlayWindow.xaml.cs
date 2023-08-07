@@ -18,7 +18,7 @@
     /// </summary>
     public partial class LayoutOverlayWindow
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IBrowserProcessManager _browserManager;
 

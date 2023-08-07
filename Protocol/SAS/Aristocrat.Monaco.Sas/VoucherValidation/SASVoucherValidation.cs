@@ -18,7 +18,7 @@
     /// <summary>Definition of the SasVoucherValidation class.</summary>
     public sealed class SasVoucherValidation : ITicketDataProvider, IVoucherValidator
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ISasHost _sasHost;
         private readonly IPropertiesManager _propertiesManager;

@@ -14,7 +14,7 @@
     /// </summary>
     public class TestVoucherValidator : IVoucherValidator
     {
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public bool PerformValidations { get; set; }
 

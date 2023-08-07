@@ -16,7 +16,7 @@ namespace Aristocrat.Monaco.Application
     /// </summary>
     public class DisableByOperatorManager : IService, IDisableByOperatorManager
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly Guid DisableGuid = ApplicationConstants.SystemDisableGuid;
 

@@ -37,7 +37,7 @@
         private const string Failed = " - Failed.";
         private const string Info = "info";
         private const double EventUpdateTimerInterval = 1000;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly string _blockIndexName = $"{nameof(TiltLogger)}Current";
         private readonly string _blockName = $"{nameof(TiltLogger)}Format";
 

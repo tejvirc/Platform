@@ -27,7 +27,7 @@ namespace Aristocrat.Monaco.Sas.Base
         private static readonly Guid PowerUpDisabledGuidHost0 = new Guid("{F72C5936-9133-41C6-B8D1-F8F94E84D990}");
         private static readonly Guid PowerUpDisabledGuidHost1 = new Guid("{67D8BC13-F777-49F4-A59B-5F20C4084D6B}");
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly Dictionary<DisableState, DisableData> DisableDataDictionary =
             new Dictionary<DisableState, DisableData>

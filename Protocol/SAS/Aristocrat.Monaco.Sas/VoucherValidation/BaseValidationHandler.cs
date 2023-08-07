@@ -26,7 +26,7 @@
         /// <summary>
         ///     Gets the logger for the validation handler
         /// </summary>
-        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Gets the validation provider

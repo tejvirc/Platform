@@ -24,7 +24,7 @@
         // ReSharper disable once StringLiteralTypo
         private static readonly string ClientInfo = $@"{GsaPrefix}{G2SPrefix}EGMATI";
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private string _options;
 

@@ -22,7 +22,7 @@
     {
         private const double AuthenticationResultExceptionReportingIntervalMs = 15_000.0f;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ISasExceptionHandler _exceptionHandler;
         private readonly IEventBus _eventBus;

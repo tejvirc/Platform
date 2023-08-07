@@ -25,7 +25,7 @@ namespace Aristocrat.Monaco.Application
         private const string OperatingHoursTime = @"OperatingHours.Time";
         private const string OperatingHoursEnabled = @"OperatingHours.Enabled";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly bool _blockExists;
 
         private readonly Dictionary<string, Tuple<object, string>> _properties;

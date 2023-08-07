@@ -14,7 +14,7 @@
     public class GetMeterSub : CommandHandler<getMeterSub>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IMeterSubscriptions _subscriptions;
 

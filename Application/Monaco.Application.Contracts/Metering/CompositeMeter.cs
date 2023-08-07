@@ -24,7 +24,7 @@
     /// </remarks>
     public class CompositeMeter : IMeter, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly object _lockObject = new object();
 
@@ -160,7 +160,7 @@
             lock (_lockObject)
             {
                 Logger.Fatal(
-                    $"This method {MethodBase.GetCurrentMethod().Name} can never be called because all values are calculated from an express provided at runtime");
+                    $"This method {MethodBase.GetCurrentMethod()!.Name} can never be called because all values are calculated from an express provided at runtime");
             }
 
             throw new NotImplementedException();

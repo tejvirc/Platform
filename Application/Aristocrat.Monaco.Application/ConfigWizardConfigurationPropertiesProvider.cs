@@ -20,7 +20,7 @@ namespace Aristocrat.Monaco.Application
         private const string ConfigWizardConfigurationExtensionPath = "/ConfigWizard/Configuration";
         private const long DefaultHardMeterTickValue = 100;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly bool _blockExists;
         private readonly IPersistentStorageAccessor _persistentStorageAccessor;

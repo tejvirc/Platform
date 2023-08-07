@@ -34,7 +34,7 @@
         private const string FtpUrlAnonRegEx =
             @"^(ftp[s]?\:\/+\/+)((?<username>[^:\/\s]+)\:+)?\@?(?<host>[^:\/\s]+)\:*(?<port>[\d]+)+(?<path>[^\s]*)$";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private bool _disposed;
 

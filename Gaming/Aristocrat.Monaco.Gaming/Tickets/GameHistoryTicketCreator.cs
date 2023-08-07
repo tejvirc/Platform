@@ -19,7 +19,7 @@
         private const int Page1MaxLines = 5;
         private const int Page2MaxLines = 28;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public int EventsPerPage
         {

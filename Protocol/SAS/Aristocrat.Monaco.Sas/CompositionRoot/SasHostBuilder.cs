@@ -28,7 +28,7 @@
     {
         private const string HostExtensionPath = "/Protocol/Sas/Services/Host";
         private const string ServicesConfigurationGroupNameBase = "SasServicesConfigurationGroup";
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public static Container RegisterSasHost(this Container container)
         {

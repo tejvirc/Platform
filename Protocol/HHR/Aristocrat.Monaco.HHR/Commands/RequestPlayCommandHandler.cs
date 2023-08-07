@@ -17,7 +17,7 @@
     public class RequestPlayCommandHandler : ICommandHandler<RequestPlay>
     {
         // RequestPlay can only be retried once
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICentralProvider _centralProvider;
         private readonly IGamePlayEntityHelper _gamePlayEntityHelper;

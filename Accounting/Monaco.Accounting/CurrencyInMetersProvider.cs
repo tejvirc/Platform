@@ -28,7 +28,7 @@
         private const string AtomicAmountMeterNamePrefix = "BillAmount";
         private const string AtomicAmountMeterNamePostfix = "s";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly List<Tuple<string, MeterClassification>> _rejectedCountMeters = new List<Tuple<string, MeterClassification>>
         {

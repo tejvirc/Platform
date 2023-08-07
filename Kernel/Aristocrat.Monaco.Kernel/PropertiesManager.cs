@@ -10,7 +10,7 @@
     /// </summary>
     public sealed class PropertiesManager : IPropertiesManager, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly DefaultPropertyProvider _defaultProvider = new DefaultPropertyProvider();
 

@@ -19,7 +19,7 @@ namespace Aristocrat.Monaco.Accounting
     {
         private const PersistenceLevel Level = PersistenceLevel.Critical;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Dictionary<AccountType, long> _accounts = new Dictionary<AccountType, long>();
         private readonly IEventBus _bus;

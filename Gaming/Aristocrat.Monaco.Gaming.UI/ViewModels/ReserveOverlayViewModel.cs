@@ -48,7 +48,7 @@
     /// </summary>
     public class ReserveOverlayViewModel : BaseEntityViewModel, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPropertiesManager _propertiesManager;
         private readonly IReserveService _reserveService;

@@ -11,7 +11,7 @@
     public class AgeWarningTimer
     {
         private static readonly TimeSpan AgeWarningDialogTimeOutInSeconds = new TimeSpan(0, 0, 5);
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly ILobbyStateManager _lobbyStateManager;

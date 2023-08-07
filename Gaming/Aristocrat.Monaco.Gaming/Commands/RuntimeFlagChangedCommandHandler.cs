@@ -10,7 +10,7 @@
 
     public class RuntimeFlagChangedCommandHandler : ICommandHandler<RuntimeFlagChanged>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _bus;
         private readonly IGameDiagnostics _gameDiagnostics;

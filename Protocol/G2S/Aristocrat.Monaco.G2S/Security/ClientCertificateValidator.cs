@@ -15,7 +15,7 @@
     public class ClientCertificateValidator : X509CertificateValidator
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ConcurrentDictionary<string, GetCertificateStatusResult> _certificates =
             new ConcurrentDictionary<string, GetCertificateStatusResult>();

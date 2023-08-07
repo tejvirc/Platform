@@ -11,7 +11,7 @@
 
     public class SasDiagnostics : INotifyPropertyChanged
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public readonly Dictionary<SasPollData.PacketType, SasPollData> LastPollSequence =
             new Dictionary<SasPollData.PacketType, SasPollData>();

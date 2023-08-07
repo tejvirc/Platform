@@ -25,7 +25,7 @@
     {
         private const int DefaultNoProgInfo = 30000;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _commandBuilder;
         private readonly IG2SEgm _egm;

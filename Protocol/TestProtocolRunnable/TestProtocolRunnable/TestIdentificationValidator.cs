@@ -15,7 +15,7 @@
 
     public class TestIdentificationValidator : IIdentificationValidator, IService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly Guid InfoBarOwnershipKey = new Guid("{AC4B8731-66A0-460C-B303-8357FD9E7516}");
 
         private IEventBus _bus;

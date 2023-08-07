@@ -24,7 +24,7 @@ namespace Aristocrat.Monaco.Accounting
         private const string TransferServicesExtensionPath = "/Accounting/TransferOutProviders";
 
         private static readonly Guid RequestorId = new Guid("{A4303A75-B3E4-4C96-8F7D-F02A9A983BE0}");
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IBank _bank;
         private readonly IEventBus _bus;

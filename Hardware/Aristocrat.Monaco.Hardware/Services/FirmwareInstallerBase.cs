@@ -20,7 +20,7 @@
     {
         private const string DownloadsTempPath = "/Downloads/temp";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IComponentRegistry _componentRegistry;
         private readonly IEventBus _eventBus;
         private readonly IPathMapper _pathMapper;

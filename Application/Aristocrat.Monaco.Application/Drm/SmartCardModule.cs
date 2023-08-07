@@ -20,7 +20,7 @@
     {
         private const string DeveloperId = "DEVELOPER";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly string[] OnBoardCardReaderNames = { "MK7 Smart Card", "ATA Mk7iICC 0" };
 
         private readonly string _smartCardKeyFile;

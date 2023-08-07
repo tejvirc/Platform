@@ -16,7 +16,7 @@
 
     public class BellService : IBell
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly IReadOnlyDictionary<EnabledReasons, DisabledReasons> DisabledReasonsMap =
             new Dictionary<EnabledReasons, DisabledReasons>

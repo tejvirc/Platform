@@ -172,7 +172,7 @@ namespace Aristocrat.Monaco.Accounting.Contracts
     [Serializable]
     public abstract class BaseTransaction : ITransaction
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="BaseTransaction" /> class.

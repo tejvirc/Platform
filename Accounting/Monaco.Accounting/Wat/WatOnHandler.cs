@@ -24,7 +24,7 @@ namespace Aristocrat.Monaco.Accounting
         private const int WatOnDeviceId = 1;
         private const int TransactionRequestTimeout = 0;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly Guid WatOnRequestorGuid = new Guid("{0F7495DC-CC8E-4d8f-97C9-211B426FE83B}");
 
         private readonly IEventBus _eventBus;

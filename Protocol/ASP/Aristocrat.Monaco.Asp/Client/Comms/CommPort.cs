@@ -37,7 +37,7 @@
         private const int WriteTotalTimeoutMultiplier = 10;
 
         /// Create a logger for use in this class >
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private bool _disposed;
 

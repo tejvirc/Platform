@@ -15,7 +15,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
     /// </summary>
     public sealed class Launcher : IOperatorMenu, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string WindowName = "OperatorMenu";
 

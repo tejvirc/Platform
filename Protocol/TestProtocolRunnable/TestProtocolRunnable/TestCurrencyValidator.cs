@@ -13,7 +13,7 @@
     /// </summary>
     public class TestCurrencyValidator : ICurrencyValidator, IService
     {
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <inheritdoc />
         public bool HostOnline => true;

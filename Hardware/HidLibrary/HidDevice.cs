@@ -200,7 +200,7 @@
         {
             if (Capabilities.FeatureReportByteLength <= 0)
             {
-                data = new byte[0];
+                data = Array.Empty<byte>();
                 return false;
             }
 
@@ -715,7 +715,7 @@
 
         protected HidDeviceData ReadData(int timeout)
         {
-            var buffer = new byte[] { };
+            var buffer = Array.Empty<byte>();
             var status = HidDeviceData.ReadStatus.NoDataRead;
 
             if (Capabilities.InputReportByteLength > 0)
@@ -767,15 +767,15 @@
                                     break;
                                 case NativeMethods.WAIT_TIMEOUT:
                                     status = HidDeviceData.ReadStatus.WaitTimedOut;
-                                    buffer = new byte[] { };
+                                    buffer = Array.Empty<byte>();
                                     break;
                                 case NativeMethods.WAIT_FAILED:
                                     status = HidDeviceData.ReadStatus.WaitFail;
-                                    buffer = new byte[] { };
+                                    buffer = Array.Empty<byte>();
                                     break;
                                 default:
                                     status = HidDeviceData.ReadStatus.NoDataRead;
-                                    buffer = new byte[] { };
+                                    buffer = Array.Empty<byte>();
                                     break;
                             }
                         }

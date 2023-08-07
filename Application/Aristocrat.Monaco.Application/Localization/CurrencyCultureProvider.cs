@@ -25,7 +25,7 @@
     public class CurrencyCultureProvider : CultureProvider
     {
         // ReSharper disable once PossibleNullReferenceException
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string ConfigurationExtensionPath = "/Currency/Configuration";
 

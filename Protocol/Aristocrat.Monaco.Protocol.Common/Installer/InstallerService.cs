@@ -29,7 +29,7 @@
         // Yes, it's correct. It's a carry over from GEN8
         private static readonly byte[] Secret = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string DownloadsDirectoryPath = "/Downloads";
         private const string TemporaryDirectoryPath = @"temp";

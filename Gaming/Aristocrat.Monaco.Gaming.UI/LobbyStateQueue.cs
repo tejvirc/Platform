@@ -15,7 +15,7 @@
     /// </summary>
     public class LobbyStateQueue : IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         //private readonly object _lockObject = new object();
         private readonly List<LobbyState> _stateList = new List<LobbyState>();

@@ -16,7 +16,7 @@
     public class PointBalanceChangedConsumer : Consumes<PointBalanceChangedEvent>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IReporter _reporter;
         private readonly IPlayerService _player;

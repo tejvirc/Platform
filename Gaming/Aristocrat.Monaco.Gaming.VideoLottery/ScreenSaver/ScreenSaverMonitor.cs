@@ -16,7 +16,7 @@
         private const int DelayToDisplayScreensaver = 5 * 60; //delay 5 minutes
         private const int RebootDelayToDisplayScreensaver = 45; //45 seconds
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IPlayerBank _bank;
         private readonly IEventBus _eventBus;
         private readonly IGamePlayState _gamePlayState;

@@ -33,7 +33,7 @@
         private const string DeviceImplementationsExtensionPath = "/Hardware/IO/IOImplementations";
         private const ulong IntrusionMasks = 0X3F;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly Timer PollTimer = new Timer();
         private static readonly AutoResetEvent Poll = new AutoResetEvent(true);

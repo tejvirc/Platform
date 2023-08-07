@@ -17,7 +17,7 @@
     [CLSCompliant(false)]
     public class SerialGatService : ISerialGat, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IAuthenticationService _authenticationService;
         private readonly IComponentRegistry _componentRegistry;
         private readonly Guid _disableGuid = Guid.NewGuid();

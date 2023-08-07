@@ -26,7 +26,7 @@
         //private const string MsInfo32Path = "System32\\msinfo32.exe";
         private const string Win32UsbHub = "Win32_USBHub";
         private const string Win32UsbControllerDevice = "Win32_USBControllerDevice";
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private bool _disposed;
 

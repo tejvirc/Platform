@@ -23,7 +23,7 @@
 
     public class MaxWinOverlayService : IMaxWinOverlayService, IService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const double MaxWinDialogDisplaySeconds = 5.0;
         private const double ResetTimerIntervalSeconds = 1.0;
         private readonly Timer _maxWinShowTimer;

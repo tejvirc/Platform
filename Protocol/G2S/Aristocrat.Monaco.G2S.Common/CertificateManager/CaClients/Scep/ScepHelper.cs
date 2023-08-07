@@ -30,7 +30,7 @@
     {
         private const string ContainerName = "SCEPKeyContainer";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Generate PKCS10 certificate request message encode.

@@ -13,7 +13,7 @@
     /// </summary>
     public class InitialSetupPropertiesProvider : IPropertyProvider
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPersistentStorageAccessor _persistentStorageAccessor;
         private readonly Dictionary<string, object> _properties;

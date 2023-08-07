@@ -16,7 +16,7 @@
     /// </summary>
     public class ValidationRequestedConsumer : Consumes<ValidationRequestedEvent>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IReporter _reporter;
         private readonly IIdReaderProvider _idReader;

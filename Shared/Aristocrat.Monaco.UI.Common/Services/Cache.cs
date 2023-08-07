@@ -19,7 +19,7 @@ namespace Aristocrat.Monaco.UI.Common.Services
         private bool _disposed;
         private const string CacheName = "MonacoCache";
         private readonly Dictionary<string, List<Type>> _cacheMap = new Dictionary<string, List<Type>>();
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly object _lock = new object();
         private readonly TimeSpan _maxCacheTimeout = TimeSpan.FromMinutes(120);
         private readonly TimeSpan _defaultCacheTimeout = TimeSpan.FromMinutes(30);

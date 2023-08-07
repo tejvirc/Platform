@@ -46,7 +46,7 @@
         private const byte SpecialFunctionAuthLevel = 0xBA; // after all, the GAT3+ protocol DID start at BALLY :)
         private const byte NoAuthResultsLevel = 0;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IComponentRegistry _componentRegistry;
         private readonly List<SpecialFunctionsFunction> _specialFunctions = new List<SpecialFunctionsFunction>();

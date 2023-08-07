@@ -18,7 +18,7 @@
     [SearchableSerialProtocol(DeviceType.NoteAcceptor)]
     public class Id003Protocol : SerialNoteAcceptor
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Format for all ID-003 messages:

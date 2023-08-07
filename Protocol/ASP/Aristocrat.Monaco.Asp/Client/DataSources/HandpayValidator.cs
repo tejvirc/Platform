@@ -11,7 +11,7 @@
 
     public class HandpayValidator : IHandpayValidator
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public bool AllowLocalHandpay => true;
 

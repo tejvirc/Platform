@@ -23,7 +23,7 @@
         private readonly IEventBus _eventBus;
         private readonly ISystemDisableManager _disableManager;
         private readonly IBank _bank;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private bool _disposed;
         private long _excessiveMeterValue;
         private string _soundFilePath;

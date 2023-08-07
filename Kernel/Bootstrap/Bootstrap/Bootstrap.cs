@@ -44,7 +44,7 @@
         // The int representing a verbose logging level for MonoLogger
         private const int VerboseMonoLogLevel = 2;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly bool CrashDumpRegistered =
             Environment.GetCommandLineArgs().Any(x => x.Equals(GenerateCrashDumpArg)) ||

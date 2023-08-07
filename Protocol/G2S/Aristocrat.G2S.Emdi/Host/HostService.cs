@@ -27,7 +27,7 @@
         private const int IdleTimeout = 30;
 
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IMediaProvider _media;
         private readonly IMessageSerializer _serializer;

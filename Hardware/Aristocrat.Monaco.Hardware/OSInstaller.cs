@@ -21,7 +21,7 @@
         private const string WinUpdateExtension = @"winUpdate";
         private const string IsoExtension = @"iso";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPathMapper _pathMapper;
         private readonly IVirtualDisk _virtualDisk;

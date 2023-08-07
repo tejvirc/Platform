@@ -12,7 +12,7 @@
     /// <inheritdoc cref="IGameResourcesModelProvider" />
     public sealed class GameResourcesModelProvider : IGameResourcesModelProvider
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IGameProvider _gameProvider;
         private readonly IPlayerInfoDisplayFeatureProvider _playerInfoDisplayFeatureProvider;

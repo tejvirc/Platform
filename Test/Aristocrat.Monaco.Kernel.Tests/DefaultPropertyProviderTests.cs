@@ -24,7 +24,7 @@
             {
                 // Beacuse the log gets put in the same test results directory as the PropertiesManagerTests log
                 // I gave them unique names based on their types
-                var logFileName = MethodBase.GetCurrentMethod().DeclaringType + ".log";
+                var logFileName = MethodBase.GetCurrentMethod()!.DeclaringType + ".log";
                 return logFileName;
             }
         }
@@ -64,7 +64,7 @@
             Stream s = new MemoryStream(Encoding.Default.GetBytes(builder.ToString()));
             XmlConfigurator.Configure(loggerRepository, s);
 
-            var logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            var logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
             logger.Info("Assembly Initialized");
         }

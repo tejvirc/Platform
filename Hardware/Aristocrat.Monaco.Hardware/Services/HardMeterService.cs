@@ -29,7 +29,7 @@
         private const int AllMeters = 0x3F; // 0011 1111 (meters 0-5)
         private const string HardMeterLightSwitch = "Hard Meter Light";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly string BlockDataMeterValue = "MeterValue";
         private static readonly TimeSpan MonitorInterval = TimeSpan.FromSeconds(5);
         private readonly IEventBus _bus;

@@ -18,7 +18,7 @@
     /// <inheritdoc />
     public class GameRecoveryService : IGameRecoveryService
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly ICentralManager _centralManager;
         private readonly IEventBus _eventBus;
         private readonly IGameDataService _gameDataService;

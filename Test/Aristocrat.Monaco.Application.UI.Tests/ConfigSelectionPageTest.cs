@@ -42,7 +42,7 @@
         private const string NextText = "Next";
         private const string FinishedText = "Finished";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private dynamic _accessor;
         private Mock<IEventBus> _eventBus;
         private Mock<IPropertiesManager> _propertiesManager;

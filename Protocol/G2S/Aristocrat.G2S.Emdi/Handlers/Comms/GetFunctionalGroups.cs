@@ -14,7 +14,7 @@
     public class GetFunctionalGroups : CommandHandler<getFunctionalGroups>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <inheritdoc />
         public override Task<CommandResult> ExecuteAsync(getFunctionalGroups command)

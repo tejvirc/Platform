@@ -91,7 +91,7 @@ namespace Aristocrat.Monaco.Hardware
         private const string ExtenderPath = "/Hardware/BootExtender";
         private const string PropertyProvidersPath = "/Hardware/PropertyProviders";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly RunnablesManager _runnablesManager = new RunnablesManager();
         private readonly List<IService> _services = new List<IService>();

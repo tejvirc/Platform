@@ -11,7 +11,7 @@
     /// </summary>
     public static class DialogHelper
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         /// ShowDialog creates a modal dialog out of the passed in window and viewmodel.

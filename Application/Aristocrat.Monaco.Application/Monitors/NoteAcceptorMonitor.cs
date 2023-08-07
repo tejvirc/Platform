@@ -37,7 +37,7 @@
         private readonly ISystemDisableManager _disableManager;
         private readonly IPropertiesManager _propertiesManager;
         private readonly IMessageDisplay _messageDisplay;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly DisplayableMessage _disconnectedMessage;
         private long _currentCredits;

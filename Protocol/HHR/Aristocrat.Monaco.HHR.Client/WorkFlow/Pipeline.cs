@@ -17,7 +17,7 @@
     internal class Pipeline<TInput, TOutput>
     {
         private readonly List<IDataflowBlock> _dataflowBlocks = new List<IDataflowBlock>();
-        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public Pipeline<TInput, TOutput> AddBlock<TLocalInput, TLocalOutput>(
             Func<TLocalInput, TLocalOutput> stepFunc,

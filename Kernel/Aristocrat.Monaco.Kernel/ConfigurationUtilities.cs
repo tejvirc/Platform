@@ -14,7 +14,7 @@
     /// </summary>
     public static class ConfigurationUtilities
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Provides safe deserialization of the specified file into the specified type

@@ -30,7 +30,7 @@
     /// </summary>
     public class ProgressiveUpdateService : IProgressiveUpdateService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
 
         //This message contains which all progressives are hit and the number of times they are hit.

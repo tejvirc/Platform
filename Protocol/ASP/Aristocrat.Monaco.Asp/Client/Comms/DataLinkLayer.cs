@@ -24,7 +24,7 @@
         // Time spend during link-down before going to poll wait
         private const int LinkDownTimeoutThreshold = 4 * ResponseTimeout + WcttThreshold;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly DataLinkPacket _ackResp = new DataLinkPacket();
         private readonly Stopwatch _linkTimeout = new Stopwatch();

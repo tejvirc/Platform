@@ -19,7 +19,7 @@
     {
         private const string AddinMessageDisplayRemoveExtensionPoint = "/Kernel/MessageDisplayRemove";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private List<MessageDisplayReasonNode> _configuredDisplayNodes = new List<MessageDisplayReasonNode>();
         private ConcurrentStack<IMessageDisplayHandler> _handlers = new ConcurrentStack<IMessageDisplayHandler>();

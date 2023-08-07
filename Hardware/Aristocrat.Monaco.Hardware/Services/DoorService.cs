@@ -20,7 +20,7 @@
     {
         private const PersistenceLevel Level = PersistenceLevel.Critical;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IIO _io;
         private readonly IPersistentStorageManager _storageManager;

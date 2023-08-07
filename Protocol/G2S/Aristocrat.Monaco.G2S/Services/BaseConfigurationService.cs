@@ -25,7 +25,7 @@
         /// <summary>
         ///     The logger
         /// </summary>
-        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        protected static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IDisableConditionSaga _configurationMode;
         private readonly IMonacoContextFactory _contextFactory;

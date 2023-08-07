@@ -9,7 +9,7 @@
     // This is for the height of the game icons AND any decorators (new star, jackpot banner, denom buttons, etc.)
     public class GameIconHeightConverter : IValueConverter
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         // Who came up with these magic numbers? Why were they chosen?
         private const double SmallIconHeight = 259;

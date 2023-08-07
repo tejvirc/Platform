@@ -13,7 +13,7 @@
     {
         private const PersistenceLevel Level = PersistenceLevel.Static;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly bool _blockExists;
 
         private readonly Dictionary<string, Tuple<object, bool>> _properties;

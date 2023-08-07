@@ -37,7 +37,7 @@
         /// <summary>Estimated milliseconds to complete a set of operations </summary>
         private const int UninterruptableOperationMillisecondsRequired = 20000;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Format for VersionResponse message (not free-form bytes with constant length like most)

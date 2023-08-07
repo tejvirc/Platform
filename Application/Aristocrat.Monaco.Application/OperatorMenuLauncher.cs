@@ -27,7 +27,7 @@
         private const string JackpotKeyOpensOperatorMenu = "JackpotKeyOpensOperatorMenu";
         private const int Timeout = 5;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public static int OperatorKeySwitch1LogicalId = 33;
         public static int OperatorKeySwitch2LogicalId = 4;

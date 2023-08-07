@@ -33,7 +33,7 @@
 
         private const int SharedMemBufferLength = BetButtonImageLength + BashButtonImageLength;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!?.DeclaringType);
 
         private readonly uint[] _frameId = { 0, 0 };
 

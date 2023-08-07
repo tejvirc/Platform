@@ -18,7 +18,7 @@
         private const string WindowsFileSystemComPortPrefix = "\\\\.\\";
 
         /// <summary>Create a logger for use in this class</summary>
-        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary> The 19.2K baud rate to use per the SAS spec section "1.2 Logical Interface" </summary>
         private const int SasBaudRate = 19_200;

@@ -13,7 +13,7 @@
     /// </summary>
     internal sealed class Subscriber : IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly TimeSpan MaxWait = TimeSpan.FromSeconds(5);
 

@@ -24,7 +24,7 @@
         private const string CurrentTransactionRequestorIdKey = "CurrentTransactionRequestorId";
         private const string CurrentRequestorIdKey = "CurrentRequestorId";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPersistentStorageAccessor _block;
         private readonly object _lockObject = new object();

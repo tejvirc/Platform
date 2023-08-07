@@ -16,7 +16,7 @@
         private const string SubjectAlternativeNameOid2 = @"2.5.29.17";
 
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICertificateService _certificateService;
 

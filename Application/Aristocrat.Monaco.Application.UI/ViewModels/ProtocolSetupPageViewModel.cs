@@ -179,7 +179,7 @@
 
         public string RequiredFunctionalityProtocolSelectionMessage => GetMandatoryProtocolSelectionMessage();
 
-        private ProtocolCapabilityAttribute GetProtocolCapabilityAttribute(string protocolName)
+        private static ProtocolCapabilityAttribute GetProtocolCapabilityAttribute(string protocolName)
         {
             var protocolNode = AddinManager.GetExtensionNodes<ProtocolTypeExtensionNode>(ProtocolExtensionPath)
                 .SingleOrDefault(x => x.ProtocolId == protocolName);
@@ -256,7 +256,7 @@
                 .Where(x => x.Selected)
                 .Select(s => EnumParser.Parse<CommsProtocol>(s.ProtocolName))
                 .Where(w => w.IsValid && w.Result.HasValue)
-                .Select(x => new ProtocolConfiguration(x.Result.Value))
+                .Select(x => new ProtocolConfiguration(x.Result!.Value))
                 .ToList();
 
             if (multiProtocolConfiguration.Count == 1)
@@ -270,7 +270,7 @@
                         protocolNode.Type,
                         typeof(ProtocolCapabilityAttribute)));
 
-                    multiProtocolConfiguration[0].IsValidationHandled = protocolCapabilityAttribute.IsValidationSupported;
+                    multiProtocolConfiguration[0].IsValidationHandled = protocolCapabilityAttribute!.IsValidationSupported;
                     multiProtocolConfiguration[0].IsFundTransferHandled = protocolCapabilityAttribute.IsFundTransferSupported;
                     multiProtocolConfiguration[0].IsProgressiveHandled = protocolCapabilityAttribute.IsProgressivesSupported;
                     multiProtocolConfiguration[0].IsCentralDeterminationHandled = protocolCapabilityAttribute.IsCentralDeterminationSystemSupported;

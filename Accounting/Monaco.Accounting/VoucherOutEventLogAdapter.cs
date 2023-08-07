@@ -26,7 +26,7 @@
     /// </summary>
     public class VoucherOutEventLogAdapter : BaseEventLogAdapter, IEventLogAdapter, ILogTicketPrintable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly double _multiplier;
 
         public string LogType => EventLogType.VoucherOut.GetDescription(typeof(EventLogType));

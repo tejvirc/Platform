@@ -18,7 +18,7 @@
     internal sealed class BeagleBoneControllerService : BaseRunnable, IBeagleBoneController, IEdgeLightDevice
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly IDictionary<string, LightShows> LightShowsMap = Enum.GetValues(typeof(LightShows))
             .Cast<LightShows>().Select(x => (Attribute: x.GetAttribute<ShowNameAttribute>(), LightShow: x))

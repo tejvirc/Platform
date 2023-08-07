@@ -10,7 +10,7 @@
 
     public class StandardCalculator : ICalculatorStrategy
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private IMysteryProgressiveProvider _mysteryProgressiveProvider;
 
         public StandardCalculator(IMysteryProgressiveProvider mysteryProgressiveProvider)

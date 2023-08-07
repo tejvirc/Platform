@@ -17,7 +17,7 @@
     public class CertificateMonitor : ICertificateMonitor, IDisposable
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly TimeSpan UpdateInterval = TimeSpan.FromMinutes(1);
         private static readonly TimeSpan RetryInterval = TimeSpan.FromMinutes(5);

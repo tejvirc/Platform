@@ -17,7 +17,7 @@
 
     public class HandCountOverlayService : IHandCountOverlayService, IService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private bool _disposed;
         private readonly IEventBus _eventBus;
         private readonly IHandCountService _handCountService;

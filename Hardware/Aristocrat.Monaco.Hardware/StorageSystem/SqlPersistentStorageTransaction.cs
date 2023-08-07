@@ -15,7 +15,7 @@
     public class SqlPersistentStorageTransaction : IPersistentStorageTransaction
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly List<SqlPersistentStorageAccessor> _blocks = new List<SqlPersistentStorageAccessor>();
 

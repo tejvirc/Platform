@@ -14,7 +14,7 @@
         private const string LogicalStripsCreationRuleXml = @".\EdgeLightStripsCreationRule.xml";
 
         public static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private EdgeLightMappings _mappings;
 

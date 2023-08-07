@@ -54,7 +54,7 @@
 
         private static readonly Regex ReplaceAsciiRegex = new Regex(@"[^\u0000-\u007F]+");
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly DateTimeFormatInfo DateTimeFormatInfo = CultureInfo.CurrentCulture.DateTimeFormat;
 
         /// <summary>

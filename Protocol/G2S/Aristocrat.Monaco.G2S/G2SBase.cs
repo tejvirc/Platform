@@ -43,7 +43,7 @@
         isCentralDeterminationSystemSupported: true)]
     public class G2SBase : BaseRunnable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static bool _isFirstLoad = true;
 

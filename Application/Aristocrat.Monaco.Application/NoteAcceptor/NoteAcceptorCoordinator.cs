@@ -18,7 +18,7 @@
     {
         private const string AddinNoteAcceptorDisableExtensionPoint = "/Application/NoteAcceptorDisable";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly List<NoteAcceptorDisableNode> _configuredDisableNodes = new List<NoteAcceptorDisableNode>();
         private readonly List<NoteAcceptorDisableNode> _pendingEnableRequests = new List<NoteAcceptorDisableNode>();

@@ -13,7 +13,7 @@
     /// </summary>
     public class ImportMachineSettingsPropertyProvider : IPropertyProvider
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ImportMachineSettingsPropertyProvider" /> class.

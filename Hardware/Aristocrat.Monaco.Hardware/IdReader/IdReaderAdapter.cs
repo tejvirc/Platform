@@ -41,7 +41,7 @@
         public const int DefaultRemovalDelay = 5000;
         public const int DefaultWaitTimeout = 300000;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly StateMachine<IdReaderLogicalState, IdReaderLogicalStateTrigger> _state;
 

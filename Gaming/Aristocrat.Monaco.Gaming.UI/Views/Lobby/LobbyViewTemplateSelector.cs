@@ -12,7 +12,7 @@
     /// </summary>
     public class LobbyViewTemplateSelector : DataTemplateSelector
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string DefaultLobbyPortraitTemplate = "LobbyViewPortraitTemplate";
         private const string DefaultLobbyLandscapeTemplate = "LobbyViewLandscapeTemplate";
         private const string DefaultLobbyMidKnightTemplate = "LobbyViewMidKnightTemplate";

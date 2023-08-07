@@ -15,7 +15,7 @@
     [CounterDescription("Game Start", PerformanceCounterType.AverageTimer32)]
     public class BeginGameRoundCommandHandler : ICommandHandler<BeginGameRound>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IGamePlayState _gamePlayState;
         private readonly IEventBus _eventBus;

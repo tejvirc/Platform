@@ -15,7 +15,7 @@
 
     public class PrizeInfoValidator : IOutcomeValidator
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IPrizeInformationEntityHelper _prizeInformationEntityHelper;
         private readonly ITransactionHistory _transactionHistory;
         private readonly IGamePlayEntityHelper _gamePlayEntityHelper;

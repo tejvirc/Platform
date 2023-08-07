@@ -23,7 +23,7 @@
         private const long AvailableDiskSpaceThreshold = 104857600; // 100MB
         private const string DataPath = @"/Data";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly Guid LockupId = ApplicationConstants.DiskSpaceBelowThresholdDisableKey;
         private static readonly TimeSpan LogIntervalHours = TimeSpan.FromHours(1);

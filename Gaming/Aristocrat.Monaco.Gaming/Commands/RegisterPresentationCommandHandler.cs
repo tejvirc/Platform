@@ -7,7 +7,7 @@
 
     public class RegisterPresentationCommandHandler : ICommandHandler<RegisterPresentation>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IOverlayMessageStrategyController _overlayMessageStrategyController;
 
         /// <summary>

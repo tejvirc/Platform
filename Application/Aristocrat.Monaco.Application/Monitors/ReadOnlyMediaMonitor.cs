@@ -14,7 +14,7 @@
     {
         private const string TempFile = "test.tmp";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _bus;
         private readonly ISystemDisableManager _disableManager;

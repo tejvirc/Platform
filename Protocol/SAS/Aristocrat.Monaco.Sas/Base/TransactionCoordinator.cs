@@ -10,7 +10,7 @@ namespace Aristocrat.Monaco.Sas.Base
     /// </summary>
     public class TransactionCoordinator : Contracts.Client.ISasTransactionCoordinator
     {
-        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly Guid _sasTransactionCoordinatorGuid = new Guid("{77BB97AD-4A86-40f4-87D7-8E59917697BA}");
 
         /// <inheritdoc />

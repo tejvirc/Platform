@@ -14,7 +14,7 @@
     public class LockupRequestTimeoutBehavior : IRequestTimeoutBehavior<LockupRequestTimeout>
     {
         private readonly ISystemDisableManager _systemDisableManager;
-        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private IEventBus _eventBus;
 
         public LockupRequestTimeoutBehavior()

@@ -23,7 +23,7 @@
         private const int DeviceId = 1;
 
         private static readonly Guid RequestorId = new Guid("{0E764637-41DE-4DF1-A0A7-3E018CDE0FBC}");
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(5);
 

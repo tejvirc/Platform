@@ -15,7 +15,7 @@
     public class SetEventSub : CommandHandler<setEventSub>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventSubscriptions _subscriptions;
         private readonly IAttendantService _attendant;

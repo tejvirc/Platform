@@ -6,7 +6,7 @@
     internal class RobotLogger
     {
         private readonly StateChecker _stateChecker;
-        private static readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public RobotLogger(StateChecker stateChecker)
         {

@@ -33,7 +33,7 @@
         private const int DefaultRetryInterval = 30000;
         private const int VoucherExpirationOverlapInSeconds = 2;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IMeterAggregator<ICabinetDevice> _cabinetMeters;
 
         private readonly IMonacoContextFactory _contextFactory;

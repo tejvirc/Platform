@@ -14,7 +14,7 @@
     public class SetDeviceVisibleState : CommandHandler<setDeviceVisibleState>
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IMediaAdapter _media;
 

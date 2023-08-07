@@ -24,7 +24,7 @@
         private const string PageName = "PageName";
         private const string ViewAllLogs = "ViewAllLogs";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPropertiesManager _properties;
 

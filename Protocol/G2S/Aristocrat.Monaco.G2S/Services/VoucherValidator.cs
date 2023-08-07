@@ -23,7 +23,7 @@
     /// </summary>
     public class VoucherValidator : IVoucherValidator, IService
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IG2SEgm _egm;
         private readonly IVoucherDataService _voucherDataService;

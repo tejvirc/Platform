@@ -26,7 +26,7 @@
         private readonly IIdReaderProvider _idProvider;
         private readonly IProfileService _profileService;
         private readonly object _sync = new object();
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private (int idReaderId, string idNumber) _lastVerification = (0, null);
         private bool _firstDisableEvent = true;

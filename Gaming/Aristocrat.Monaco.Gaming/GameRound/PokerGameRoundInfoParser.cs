@@ -15,7 +15,7 @@
         private const int DrawOffset = 3;
         private const int HoldOffset = 2;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IHandProvider _provider;
         private readonly IGamePlayState _gamePlayState;
 

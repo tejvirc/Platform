@@ -32,7 +32,7 @@
         private const string FullIntegrityCheckCommand = @"PRAGMA integrity_check(1)";
         private const string QuickIntegrityCheckCommand = @"PRAGMA quick_check(1)";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly string _connection;
         private readonly string _path;

@@ -14,7 +14,7 @@
     /// </summary>
     public class UdpConnection : IUdpConnection, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Subject<Packet> _incomingPayload = new Subject<Packet>();
         private readonly object _sync = new object();

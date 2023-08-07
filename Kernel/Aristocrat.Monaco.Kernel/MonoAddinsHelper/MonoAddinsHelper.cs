@@ -58,7 +58,7 @@ namespace Aristocrat.Monaco.Kernel
         internal static readonly string SelectableAddinConfigurationExtensionPoint =
             "/Kernel/SelectableAddinConfiguration";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly object ExtensionLock = new object();
 
         /// <summary>

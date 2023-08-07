@@ -68,7 +68,7 @@ namespace Aristocrat.Monaco.Application
         private readonly string[] _trueValues = { Visible, Yes };
         private readonly string[] _falseValues = { Hidden, Collapsed, No };
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Dictionary<string, object> _properties = new Dictionary<string, object>();
 

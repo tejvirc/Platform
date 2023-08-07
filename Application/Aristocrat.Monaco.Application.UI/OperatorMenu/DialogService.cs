@@ -22,7 +22,7 @@
     [CLSCompliant(false)]
     public class DialogService : IDialogService
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static IEventBus _eventBus;
         private readonly object _lock = new object();
         private bool _isDialogOpen;

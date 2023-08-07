@@ -22,7 +22,7 @@
 
         private static readonly string RuntimeFullPrefix = $"{GamingConstants.RuntimePackagePrefix}_";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Dictionary<string, (VirtualDiskHandle mount, string version)> _mounts =
             new Dictionary<string, (VirtualDiskHandle mount, string version)>();

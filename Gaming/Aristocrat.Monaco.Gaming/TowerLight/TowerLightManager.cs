@@ -26,7 +26,7 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
     {
         private const string TowerLightConfigPath = "/TowerLight/Configuration";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly ISystemDisableManager _systemDisableManager;

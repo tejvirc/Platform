@@ -43,7 +43,7 @@
         private const int MaxSelfTestRetries = 5;
         private const int SelfTestTimeout = 20;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPersistentStorageAccessor _accessor;
         private readonly StateMachine<NoteAcceptorLogicalState, NoteAcceptorLogicalStateTrigger> _state;

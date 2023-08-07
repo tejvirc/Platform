@@ -15,7 +15,7 @@
     /// </summary>
     public class LP72AftTransferFundsHandler : ISasLongPollHandler<AftResponseData, AftTransferData>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private AftResponseData _aftResponseData = new AftResponseData();
         private readonly IAftRequestProcessorTransferCode _aftTransferFullPartial;
         private readonly IAftRequestProcessorTransferCode _aftInterrogate;

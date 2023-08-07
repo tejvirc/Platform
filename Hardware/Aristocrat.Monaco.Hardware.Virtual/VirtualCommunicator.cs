@@ -27,7 +27,7 @@
         /// <summary>Version 1</summary>
         protected const int VersionOne = 1;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private bool _disposed;
         private byte _transactionId;

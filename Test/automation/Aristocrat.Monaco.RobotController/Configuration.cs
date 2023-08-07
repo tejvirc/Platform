@@ -355,7 +355,7 @@
     public class Configuration
     {
         [XmlIgnore] private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         [XmlIgnore] private static readonly Random Rng = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
 

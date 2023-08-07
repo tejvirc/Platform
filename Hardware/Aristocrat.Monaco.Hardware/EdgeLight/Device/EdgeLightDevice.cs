@@ -17,7 +17,7 @@
         private const int StartBrightnessChannel = 0;
         private const int MaxBrightnessChannel = 4;
         public static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly List<IStrip> _physicalStrips = new List<IStrip>();
         private bool _connected;

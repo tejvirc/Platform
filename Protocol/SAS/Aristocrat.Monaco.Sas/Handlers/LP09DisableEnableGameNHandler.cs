@@ -19,7 +19,7 @@
     /// </summary>
     public class LP09DisableEnableGameNHandler : ISasLongPollHandler<EnableDisableResponse, EnableDisableData>, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IGameProvider _gameProvider;
         private readonly IBank _bank;

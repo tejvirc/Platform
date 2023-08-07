@@ -26,7 +26,7 @@
         private const string BetLevelNameSuffix = "AtBetLevel";
         private const string WagerCategoryNameSuffix = "AtWagerCategory";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly string _blockDeviceCountName;
         private readonly string _blockGameDataName;

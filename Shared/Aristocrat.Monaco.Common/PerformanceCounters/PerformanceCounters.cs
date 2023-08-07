@@ -12,7 +12,7 @@
     /// </summary>
     public static class PerformanceCounters
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Registers all discovered performance counters from classes that use <see cref="CounterDescriptionAttribute" />

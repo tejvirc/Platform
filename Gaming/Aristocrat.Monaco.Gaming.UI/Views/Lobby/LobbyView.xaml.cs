@@ -42,7 +42,7 @@
     /// </summary>
     public partial class LobbyView
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly WindowToScreenMapper _windowToScreenMapper = new WindowToScreenMapper(DisplayRole.Main);
 
         private readonly ICabinetDetectionService _cabinetDetectionService =

@@ -18,7 +18,7 @@
     /// </summary>
     public class SerialPortController : SerialPort, ISerialPortController
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private Timer _keepAliveTimer;
 

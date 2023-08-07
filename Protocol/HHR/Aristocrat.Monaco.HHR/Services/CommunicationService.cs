@@ -27,7 +27,7 @@
         private const string FirewallIgmpRuleName = "Platform.HHR.Igmp";
         private const int NetFwIgmpProtocolId = 2;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static bool _firewallRuleCreated;
 

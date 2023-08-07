@@ -18,7 +18,7 @@
     /// </summary>
     public class SetEventSub : ICommandHandler<eventHandler, setEventSub>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IG2SEgm _egm;
         private readonly IEventLift _eventLift;

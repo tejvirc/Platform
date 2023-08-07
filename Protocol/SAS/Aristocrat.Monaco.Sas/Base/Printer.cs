@@ -14,7 +14,7 @@
     /// </remarks>>
     public class Printer : Contracts.Client.IPrinter
     {
-        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <inheritdoc />
         public bool PrinterEnabled

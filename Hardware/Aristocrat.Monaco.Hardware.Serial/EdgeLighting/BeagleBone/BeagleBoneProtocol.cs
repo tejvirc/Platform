@@ -18,7 +18,7 @@
     public class BeagleBoneProtocol : IDisposable
     {
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly IDictionary<LightShows, string> LightShowMapping = Enum.GetValues(typeof(LightShows))
             .Cast<LightShows>().Select(x => (Show: x, Name: x.GetAttribute<ShowNameAttribute>()?.ShowName))

@@ -8,7 +8,7 @@
 
     public class GameProcessExitedConsumer : Consumes<GameProcessExitedEvent>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPlayerBank _bank;
         private readonly IGameService _gameService;

@@ -18,7 +18,7 @@
         IDisposable
         where TAdapter : IDeviceAdapter
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ConcurrentDictionary<int, TAdapter> _adapters = new ConcurrentDictionary<int, TAdapter>();
 

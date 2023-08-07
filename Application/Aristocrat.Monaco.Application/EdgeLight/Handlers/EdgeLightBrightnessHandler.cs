@@ -18,7 +18,7 @@
         private const int MaxChannelBrightness = 100;
 
         private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+            LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEdgeLightingController _edgeLightingController;
         private readonly IEventBus _eventBus;

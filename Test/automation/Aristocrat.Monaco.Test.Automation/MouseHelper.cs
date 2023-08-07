@@ -36,7 +36,7 @@
             }
             catch
             {
-                Logger?.Invoke($"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod().Name} Coordinate: {x},{y}");
+                Logger?.Invoke($"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod()!.Name} Coordinate: {x},{y}");
             }
         }
 
@@ -54,7 +54,7 @@
             }
             catch
             {
-                Logger?.Invoke($"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod().Name} Coordinate: {x},{y}");
+                Logger?.Invoke($"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod()!.Name} Coordinate: {x},{y}");
             }
         }
 
@@ -72,7 +72,7 @@
             }
             catch
             {
-                Logger?.Invoke($"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod().Name} Coordinate: {x},{y}");
+                Logger?.Invoke($"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod()!.Name} Coordinate: {x},{y}");
             }
         }
 
@@ -97,7 +97,7 @@
             }
             catch
             {
-                Logger?.Invoke($"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod().Name} Coordinate: {x},{y}");
+                Logger?.Invoke($"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod()!.Name} Coordinate: {x},{y}");
             }
         }
 
@@ -146,7 +146,7 @@
                                         catch
                                         {
                                             Logger?.Invoke(
-                                                $"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod().Name}");
+                                                $"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod()!.Name}");
                                         }
                                     });
 
@@ -161,7 +161,7 @@
                     catch
                     {
                         Logger?.Invoke(
-                            $"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod().Name}");
+                            $"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod()!.Name}");
                     }
                 });
         }
@@ -206,7 +206,7 @@
                                     catch
                                     {
                                         Logger?.Invoke(
-                                            $"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod().Name}");
+                                            $"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod()!.Name}");
                                     }
                                 });
                         }
@@ -218,7 +218,7 @@
                     catch
                     {
                         Logger?.Invoke(
-                            $"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod().Name}");
+                            $"Unknown error while executing {System.Reflection.MethodBase.GetCurrentMethod()!.Name}");
                     }
                 });
         }

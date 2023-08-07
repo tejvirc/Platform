@@ -16,7 +16,7 @@
     /// </summary>
     public class AftTransferFullPartial : IAftRequestProcessorTransferCode
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly Dictionary<AftTransferType, Func<AftResponseData, AftResponseData>> _handlers;
         private readonly Dictionary<Func<bool>, (AftTransferStatusCode code, string message)> _errorConditions;

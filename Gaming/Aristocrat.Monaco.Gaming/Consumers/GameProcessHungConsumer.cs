@@ -18,7 +18,7 @@
         private const string DoNotKillRuntimeKey = "doNotKillRuntime";
         private const string GameProcessHungMiniDumpKey = "gameProcessHungMiniDump";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IGameProcess _gameProcess;
         private readonly IGameService _gameService;
