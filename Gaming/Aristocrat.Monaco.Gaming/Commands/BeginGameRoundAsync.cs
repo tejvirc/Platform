@@ -8,7 +8,7 @@
     public class BeginGameRoundAsync
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="BeginGameRound" /> class.
+        ///     Initializes a new instance of the <see cref="BeginGameRoundAsync" /> class.
         /// </summary>
         /// <param name="denom">The denom of the game round.</param>
         /// <param name="wager">The initial wager amount for the game round</param>
