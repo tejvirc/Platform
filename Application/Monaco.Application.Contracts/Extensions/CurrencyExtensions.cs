@@ -278,7 +278,7 @@
         /// <summary>
         ///     Formats currency string.
         /// </summary>
-        /// <param name="amount">Amount.</param>
+        /// <param name="amount">Amount in dollars.</param>
         /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>
         /// <param name="culture">The optional culture used for formatting.  If none is provided, defaults to the current Currency culture.</param>
         /// <returns>Formatted currency string.</returns>
