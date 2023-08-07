@@ -14,7 +14,7 @@
 
     public class SnappReelService : IReelServiceCallback
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!?.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly ICommandHandlerFactory _handlerFactory;
 
         public SnappReelService(ICommandHandlerFactory handlerFactory)

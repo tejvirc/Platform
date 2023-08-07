@@ -20,7 +20,7 @@
 
     public class SnappClient : IRuntime, IDisposable, IReelService, IPresentationService
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!?.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IProcessManager _processManager;

@@ -40,7 +40,7 @@
     /// </summary>
     public abstract class GamingRunnable : BaseRunnable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!?.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly TimeSpan ShutdownTimeout = TimeSpan.FromSeconds(30);
 

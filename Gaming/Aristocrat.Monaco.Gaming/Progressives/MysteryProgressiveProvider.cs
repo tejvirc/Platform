@@ -13,7 +13,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
 
     public class MysteryProgressiveProvider : IMysteryProgressiveProvider
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!?.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly Dictionary<string, long> _magicNumberSapIndex;
         private readonly IPersistentBlock _saveBlock;
         private readonly IRandom _prng;

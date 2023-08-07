@@ -64,7 +64,7 @@ namespace Aristocrat.Monaco.Application
         // The int representing a verbose logging level for MonoLogger
         private const int VerboseMonoLogLevel = 2;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!?.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private IPathMapper _pathMapper;
         private IVirtualDisk _virtualDisk;

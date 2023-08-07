@@ -84,7 +84,7 @@
             Inspection?.SetTestName($"Battery{batteryIndex + 1}");
 
             Brush background = Brushes.Transparent;
-            if (_batteryStatus[batteryIndex].HasValue && !_batteryStatus[batteryIndex]!.Value)
+            if (_batteryStatus[batteryIndex].HasValue && !_batteryStatus[batteryIndex].Value)
             {
                 background = Brushes.Red;
 
