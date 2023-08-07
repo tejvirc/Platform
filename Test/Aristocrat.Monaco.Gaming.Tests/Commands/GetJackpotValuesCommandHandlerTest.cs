@@ -1,21 +1,26 @@
-﻿using Aristocrat.Monaco.Gaming.Commands;
+﻿using Aristocrat.Monaco.Application.Contracts.Extensions;
+using Aristocrat.Monaco.Gaming.Commands;
 using Aristocrat.Monaco.Gaming.Contracts;
 using Aristocrat.Monaco.Gaming.Contracts.Progressives;
+using Aristocrat.Monaco.Gaming.Progressives;
 using Aristocrat.Monaco.PackageManifest.Models;
 using Aristocrat.PackageManifest.Extension.v100;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Aristocrat.Monaco.Gaming.Tests.Commands
 {
 
     [TestClass]
-    public class GetJackpotValuesPerDenomCommandHandlerTest
+    public class GetJackpotValuesCommandHandlerTest
     {
         private Mock<IProgressiveLevelProvider> _progressiveLevelProvider;
         private Mock<IGameProvider> _progressiveGameProvider;
-        private GetJackpotValuesPerDenomCommandHandler _target;
+        private Mock<IProgressiveGameProvider> _progressiveGame;
+        private Mock<IGameDiagnostics> _gameDiagnostics;
+        private GetJackpotValuesCommandHandler _target;
 
         // Line option is not important, we only need 1
         private static readonly LineOptionList _standardLineOptionList = new LineOptionList(
@@ -139,6 +144,7 @@ namespace Aristocrat.Monaco.Gaming.Tests.Commands
             new ProgressiveLevel()
             {
                 GameId = 1,
+                LevelId = 1,
                 Denomination = new List<long>() { 1000L },
                 HasAssociatedBetLinePreset = true,
                 BetOption = "1 to 5",
@@ -148,7 +154,7 @@ namespace Aristocrat.Monaco.Gaming.Tests.Commands
             new ProgressiveLevel()
             {
                 GameId = 1,
-                LevelId = 1,
+                LevelId = 2,
                 Denomination = new List<long>() { 1000L },
                 HasAssociatedBetLinePreset = true,
                 BetOption = "1 to 10",
@@ -158,6 +164,7 @@ namespace Aristocrat.Monaco.Gaming.Tests.Commands
             new ProgressiveLevel()
             {
                 GameId = 1,
+                LevelId = 3,
                 Denomination = new List<long>() { 2000L },
                 HasAssociatedBetLinePreset = true,
                 BetOption = "1 to 5",
@@ -167,6 +174,7 @@ namespace Aristocrat.Monaco.Gaming.Tests.Commands
             new ProgressiveLevel()
             {
                 GameId = 2,
+                LevelId = 4,
                 Denomination = new List<long>() { 1000L },
                 HasAssociatedBetLinePreset = true,
                 BetOption = "1 to 5",
@@ -176,6 +184,7 @@ namespace Aristocrat.Monaco.Gaming.Tests.Commands
             new ProgressiveLevel()
             {
                 GameId = 3,
+                LevelId = 5,
                 Denomination = new List<long>() { 1000L },
                 HasAssociatedBetLinePreset = true,
                 BetOption = "1 to 5",
@@ -184,30 +193,55 @@ namespace Aristocrat.Monaco.Gaming.Tests.Commands
             }
         };
 
+        /// <summary>
+
         [TestInitialize]
         public void Initialize()
         {
             _progressiveLevelProvider = new Mock<IProgressiveLevelProvider>();
             _progressiveGameProvider = new Mock<IGameProvider>();
+            _progressiveGame = new Mock<IProgressiveGameProvider>();
+            _gameDiagnostics = new Mock<IGameDiagnostics>();
 
             SetupGames();
             SetupProgressiveLevels();
+            _gameDiagnostics.Setup(x => x.IsActive).Returns(false);
 
-            _target = new GetJackpotValuesPerDenomCommandHandler(_progressiveLevelProvider.Object, _progressiveGameProvider.Object);
+            _target = new GetJackpotValuesCommandHandler(_gameDiagnostics.Object, _progressiveGame.Object, _progressiveGameProvider.Object, _progressiveLevelProvider.Object);
         }
 
-        [DataRow("Big Fortune", "BF_SAP", 1UL)]
-        [DataRow("Big Fortune", "BF_SAP", 2UL)]
-        [DataRow("Big Fortune_2", "BF_SAP_2", 1UL)]
-        [DataRow("Big Fortune_3", "BF_SAP_3", 1UL)]
+        [DataRow("Big Fortune", 1, "BF_SAP", 1UL)]
+        [DataRow("Big Fortune", 1, "BF_SAP", 2UL)]
+        [DataRow("Big Fortune_2", 2, "BF_SAP_2", 1UL)]
+        [DataRow("Big Fortune_3", 3, "BF_SAP_3", 1UL)]
         [DataTestMethod]
-        public void TestHandleMethod(string gameName, string packName, ulong denom)
+        public void GetJackpotCommandHandlerAllParameters(string gameName, int gameId, string packName, ulong denom)
         {
-            var info = new GetJackpotValuesPerDenom(gameName, packName, denom);
+            var info = new GetJackpotValues(packName, false, gameName, denom);
             _target.Handle(info);
 
-            Assert.IsTrue(info.JackpotValues.Count >= 1) ;
+            // Should return All Jackpot Values with PackName, GameName and Denom
+            Assert.IsTrue(info.JackpotValues.Count == _progressiveLevels.Where(x => x.ProgressivePackName == packName &&
+                                                                                    x.GameId == gameId &&
+                                                                                    x.Denomination.Contains(((long)denom).CentsToMillicents())).Count()) ;
             
+        }
+
+        [DataRow("BF_SAP")]
+        [DataRow("BF_SAP")]
+        [DataRow( "BF_SAP_2")]
+        [DataRow("BF_SAP_3")]
+        [DataTestMethod]
+        public void GetJackPotCommandHandlerJustPackName(string packName)
+        {
+            // Setup for GetAllJackpotValues for PackName
+            _progressiveGame.Setup(x => x.GetProgressiveLevel(It.IsAny<string>(), It.IsAny<bool>())).Returns(_progressiveLevels.Where(x => x.ProgressivePackName == packName).ToDictionary(x => x.LevelId, x => x.CurrentValue));
+
+            var info = new GetJackpotValues(packName, true);
+            _target.Handle(info);
+
+            // Should return all Jackpot Values with the PackName Only.
+            Assert.IsTrue(info.JackpotValues.Count == _progressiveLevels.Where(x => x.ProgressivePackName == packName).Count());
         }
 
         private void SetupGames()
@@ -222,7 +256,6 @@ namespace Aristocrat.Monaco.Gaming.Tests.Commands
 
         private static BetOptionList GenerateBetOptionList(string betOption)
         {
-
             return new BetOptionList (new List<c_betOption>
             {
                 new c_betOption()
