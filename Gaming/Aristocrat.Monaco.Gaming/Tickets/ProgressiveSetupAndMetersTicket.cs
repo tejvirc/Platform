@@ -119,10 +119,10 @@
                 AddLabeledLine(ResourceKeys.TotalOverflow, overflowTotal);
                 AddLabeledLine(ResourceKeys.CurrentValue, currentValue);
                 AddLabeledLine(ResourceKeys.WagerCategoryWageredCaption,
-                    FormattedMeterLifetimeValue(meterManager.GetMeter(progressive.DeviceId, progressive.LevelId,
-                        ProgressiveMeters.ProgressiveLevelWageredAmount)));
+                    FormattedMeterLifetimeValue(meterManager.GetMeter(progressive.DeviceId,
+                        ProgressiveMeters.WageredAmount)));
                 AddLabeledLine(ResourceKeys.Hit,
-                    FormattedMeterLifetimeValue(meterManager.GetMeter(progressive.DeviceId, progressive.LevelId,
+                    FormattedMeterLifetimeValue(meterManager.GetMeter(progressive.DeviceId,
                         ProgressiveMeters.ProgressiveLevelWinOccurrence)));
                 AddLabeledLine(ResourceKeys.CreditsWonText,
                     FormattedMeterLifetimeValue(meterManager.GetMeter(progressive.DeviceId, progressive.LevelId,

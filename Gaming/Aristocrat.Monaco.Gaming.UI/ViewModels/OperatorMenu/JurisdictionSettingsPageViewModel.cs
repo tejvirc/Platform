@@ -126,6 +126,7 @@
         protected override void OnLoaded()
         {
             SetupRtpValuesAndVisibility();
+            RaisePropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)

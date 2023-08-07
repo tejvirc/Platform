@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Handlers.Progressive
 {
+    using System;
+    using System.Linq;
     using System.Threading.Tasks;
     using Accounting.Contracts;
     using Accounting.Contracts.Transactions;
@@ -17,16 +19,19 @@
     {
         private readonly IGameProvider _gameProvider;
         private readonly ITransactionHistory _transactionHistory;
+        private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.G2S.Handlers.Progressive.ProgressiveHitCommandBuilder class.
         /// </summary>
         public ProgressiveHitCommandBuilder(
             IGameProvider gameProvider,
-            ITransactionHistory transactionHistory)
+            ITransactionHistory transactionHistory,
+            IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter)
         {
-            _gameProvider = gameProvider;
-            _transactionHistory = transactionHistory;
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
+            _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
+            _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
         }
 
         /// <inheritdoc />
@@ -34,21 +39,29 @@
         {
             var transaction =
                 _transactionHistory.RecallTransaction<JackpotTransaction>(command.transactionId);
-            if (transaction == null)
+            if (transaction == null || string.IsNullOrEmpty(transaction.AssignedProgressiveKey))
             {
                 return Task.CompletedTask;
+            }
+
+            _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevel(transaction.AssignedProgressiveKey, out var linkedLevel);
+            
+            if (transaction.ValueSequence == 1L) // If unset, set this to be used for the corresponding progressiveCommit and Vertex recovery
+            {
+                transaction.ValueSequence = linkedLevel.ProgressiveValueSequence;
+                _transactionHistory.UpdateTransaction(transaction);
             }
 
             command.denomId = transaction.DenomId;
             command.gamePlayId = transaction.GameId;
             command.hitDateTime = transaction.TransactionDateTime;
             command.paytableId = _gameProvider.GetGame(transaction.GameId)?.PaytableId;
-            command.progId = transaction.ProgressiveId;
             command.progValueAmt = transaction.ValueAmount;
+            command.progValueText = transaction.ValueText;
             command.progValueSeq = transaction.ValueSequence;
             command.themeId = _gameProvider.GetGame(transaction.GameId)?.ThemeId;
-            command.levelId = transaction.LevelId;
-            command.progValueText = transaction.ValueText;
+            command.progId = linkedLevel.ProgressiveGroupId;
+            command.levelId = linkedLevel.LevelId;
             command.winLevelCombo = string.Empty; //ToDo depends on WinLevel
             command.winLevelIndex = transaction.WinLevelIndex;
 

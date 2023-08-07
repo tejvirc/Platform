@@ -18,26 +18,30 @@
         private readonly BingoServerSettingsModel _model = new();
         private readonly Mock<IPropertiesManager> _propertiesManager = new();
         private readonly Mock<ISystemDisableManager> _disableManager = new();
+        private readonly Mock<IEventBus> _eventBus = new();
 
         private ComplianceConfiguration _target;
 
         [TestInitialize]
         public void Initialize()
         {
-            _target = new ComplianceConfiguration(_propertiesManager.Object, _disableManager.Object);
+            _target = new ComplianceConfiguration(_propertiesManager.Object, _disableManager.Object, _eventBus.Object);
         }
 
-        [DataRow(true, false, DisplayName = "PropertiesManager null")]
-        [DataRow(false, true, DisplayName = "DisableManager null")]
+        [DataRow(true, false, false, DisplayName = "PropertiesManager null")]
+        [DataRow(false, true, false, DisplayName = "DisableManager null")]
+        [DataRow(false, false, true, DisplayName = "EventBus null")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorTest(
             bool propertiesManagerNull,
-            bool disableManagerNull)
+            bool disableManagerNull,
+            bool eventBusNull)
         {
             _target = new ComplianceConfiguration(
                 propertiesManagerNull ? null : _propertiesManager.Object,
-                disableManagerNull ? null : _disableManager.Object);
+                disableManagerNull ? null : _disableManager.Object,
+                eventBusNull ? null : _eventBus.Object);
         }
 
         [TestMethod]

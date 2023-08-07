@@ -20,6 +20,7 @@
     public class GameProcessTests
     {
         private const string InvalidRootDir = @"c:\Temp";
+        private const string InvalidRuntimeName = "Garbage.exe";
         private const int GameId = 1;
         private const int Denom = 5000;
         private const string Variation = @"99";
@@ -36,6 +37,7 @@
         private Mock<IProcessManager> _process;
         private Mock<IPropertiesManager> _properties;
         private Mock<IDisplayService> _display;
+        private Mock<IRuntimeProvider> _runtimeProvider;
 
         [TestInitialize]
         public void Initialize()
@@ -44,27 +46,32 @@
             _process = new Mock<IProcessManager>();
             _properties = new Mock<IPropertiesManager>();
             _display = new Mock<IDisplayService>();
+            _runtimeProvider = new Mock<IRuntimeProvider>();
 
             _display.Setup(x => x.MaximumFrameRate).Returns(-1);
             _pathMapper.Setup(m => m.GetDirectory(It.Is<string>(s => s == GamingConstants.GamesPath)))
                 .Returns(new DirectoryInfo(InvalidRootDir));
             _pathMapper.Setup(m => m.GetDirectory(It.Is<string>(s => s == GamingConstants.RuntimePath)))
                 .Returns(new DirectoryInfo(InvalidRootDir));
+            _runtimeProvider.Setup(m => m.GetRuntimeHostFilename(It.IsAny<string>()))
+                .Returns(InvalidRuntimeName);
         }
 
         [DataTestMethod]
-        [DataRow(true, false, false, false)]
-        [DataRow(false, true, false, false)]
-        [DataRow(false, false, true, false)]
-        [DataRow(false, false, false, true)]
+        [DataRow(true, false, false, false, false)]
+        [DataRow(false, true, false, false, false)]
+        [DataRow(false, false, true, false, false)]
+        [DataRow(false, false, false, true, false)]
+        [DataRow(false, false, false, false, true)]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullContructorArgumentsTest(
             bool nullProperties,
             bool nullProcess,
             bool nullPathMapper,
-            bool nullDisplay)
+            bool nullDisplay,
+            bool nullRuntimeProvider)
         {
-            CreateTarget(nullProperties, nullProcess, nullPathMapper, nullDisplay);
+            CreateTarget(nullProperties, nullProcess, nullPathMapper, nullDisplay, nullRuntimeProvider);
         }        
 
         [TestMethod]
@@ -141,13 +148,15 @@
             bool nullProperties = false,
             bool nullProcess = false,
             bool nullPathMapper = false,
-            bool nullDisplay = false)
+            bool nullDisplay = false,
+            bool nullRuntimeProvider = false)
         {
             return new GameProcess(
                 nullProperties ? null : _properties.Object,
                 nullProcess ? null : _process.Object,
                 nullPathMapper ? null : _pathMapper.Object,
-                nullDisplay ? null : _display.Object);
+                nullDisplay ? null : _display.Object,
+                nullRuntimeProvider ? null : _runtimeProvider.Object);
         }
     }
 }

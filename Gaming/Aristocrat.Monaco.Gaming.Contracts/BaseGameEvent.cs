@@ -14,12 +14,14 @@
         /// <param name="denomination">The selected denomination</param>
         /// <param name="wagerCategory">The selected wager category</param>
         /// <param name="log">The transaction log associated with this event</param>
-        protected BaseGameEvent(int gameId, long denomination, string wagerCategory, IGameHistoryLog log)
+        /// <param name="gameIndex">The index of the game being played</param>
+        protected BaseGameEvent(int gameId, long denomination, string wagerCategory, IGameHistoryLog log, int gameIndex = 0)
         {
             GameId = gameId;
             Denomination = denomination;
             WagerCategory = wagerCategory;
             Log = log?.ShallowCopy();
+            GameIndex = gameIndex;
         }
 
         /// <summary>
@@ -41,5 +43,10 @@
         ///     Gets the transaction identifier associated with the event
         /// </summary>
         public IGameHistoryLog Log { get; }
+
+        /// <summary>
+        ///     Gets the index of the game being played
+        /// </summary>
+        public int GameIndex { get; }
     }
 }

@@ -129,16 +129,17 @@
 
             try
             {
+                var gameInfo = transaction.AdditionalInfo.Single();
                 var currentGame = _gameProvider.GetGame(transaction.GameId);
 
                 await _commandFactory.Execute(
                     new RequestPlay(
                         (int)_bank.QueryBalance(AccountType.Cashable).MillicentsToCents(),
                         (int)_bank.QueryBalance(AccountType.Promo).MillicentsToCents(),
-                        Convert.ToInt32(transaction.TemplateId),
-                        (int)(transaction.WagerAmount / transaction.Denomination),
-                        (int)transaction.Denomination.MillicentsToCents(),
-                        (int)(currentGame.ProductCode ?? transaction.GameId),
+                        Convert.ToInt32(gameInfo!.TemplateId),
+                        (int)(gameInfo.WagerAmount / gameInfo.Denomination),
+                        (int)gameInfo.Denomination.MillicentsToCents(),
+                        (int)(currentGame.ProductCode ?? gameInfo.GameId),
                         transaction.TransactionId,
                         _cancellationTokenSource.Token));
 

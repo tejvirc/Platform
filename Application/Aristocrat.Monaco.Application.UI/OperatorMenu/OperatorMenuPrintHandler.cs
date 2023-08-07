@@ -347,10 +347,11 @@
                     break;
             }
 
+            UpdatePrinterStatusMessage();
+
             if (_printerStatus != lastStatus)
             {
                 Log.Debug($"Operator Menu Printer Status changed to {_printerStatus} from {lastStatus}");
-                UpdatePrinterStatusMessage();
 
                 if (!_initialized && !IsPrintingState(lastStatus) && IsPrintingState(_printerStatus))
                 {

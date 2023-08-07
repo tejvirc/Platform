@@ -116,7 +116,7 @@
             }
         }
 
-        public IReadOnlyDictionary<int, int> ReelHomeSteps { get; set; } = new Dictionary<int, int> { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
+        public IReadOnlyDictionary<int, int> ReelHomeSteps { get; set; } = new Dictionary<int, int>();
 
         protected override IReelControllerImplementation Implementation => _reelControllerImplementation;
 
@@ -279,6 +279,7 @@
                 throw new InvalidOperationException("reel controller addin not available");
             }
 
+            SetDefaultHomeSteps();
             ReadOrCreateOptions();
 
             Implementation.FaultCleared += ReelControllerFaultCleared;
@@ -609,6 +610,17 @@
             {
                 _reelSpinningLock.Release();
             }
+        }
+
+        private void SetDefaultHomeSteps()
+        {
+            var homeSteps = new Dictionary<int, int>();
+            for (var i = 0; i<ReelConstants.MaxSupportedReels; i++)
+            {
+                homeSteps.Add(i, _reelControllerImplementation.DefaultHomeStep);
+            }
+
+            ReelHomeSteps = homeSteps;
         }
     }
 }

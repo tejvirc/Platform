@@ -7,7 +7,7 @@
     {
         private const string PagesExtensionPath = "/Application/OperatorMenu/GamesMenu";
 
-        public GamesMainPageViewModel(IOperatorMenuPageLoader mainPage) : base(mainPage, PagesExtensionPath)
+        public GamesMainPageViewModel(string pageNameResourceKey) : base(pageNameResourceKey, PagesExtensionPath)
         {
         }
     }

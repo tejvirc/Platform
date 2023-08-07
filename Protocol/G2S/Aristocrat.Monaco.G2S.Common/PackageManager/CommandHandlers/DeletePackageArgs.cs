@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.PackageManager.CommandHandlers
 {
     using System;
-    using Data.Model;
+    using G2S.Data.Model;
 
     /// <summary>
     ///     Delete package arguments

@@ -2,15 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Application.Contracts;
     using Bingo.Services;
     using Bingo.Services.Configuration;
     using Common;
     using Common.Exceptions;
     using Common.Storage.Model;
-    using Gaming.Contracts;
-    using Gaming.Contracts.Configuration;
     using Google.Protobuf.Collections;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -69,6 +66,7 @@
         private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
         private readonly Mock<ISystemDisableManager> _disableManager = new(MockBehavior.Default);
         private readonly Mock<IBingoPaytableInstaller> _bingoGameConfiguration = new(MockBehavior.Default);
+        private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
 
         [TestInitialize]
         public void Initialize()
@@ -76,17 +74,19 @@
             _target = CreateTarget();
         }
 
-        [DataRow(true, false, false)]
-        [DataRow(false, true, false)]
-        [DataRow(false, false, true)]
+        [DataRow(true, false, false, false)]
+        [DataRow(false, true, false, false)]
+        [DataRow(false, false, true, false)]
+        [DataRow(false, false, false, true)]
         [DataTestMethod]
         public void NullConstructorArgumentsTest(
             bool nullProperties,
             bool nullDisable,
-            bool nullBingoGameConfiguration)
+            bool nullBingoGameConfiguration,
+            bool nullEventBus)
         {
             Assert.ThrowsException<ArgumentNullException>(
-                () => _ = CreateTarget(nullProperties, nullDisable, nullBingoGameConfiguration));
+                () => _ = CreateTarget(nullProperties, nullDisable, nullBingoGameConfiguration, nullEventBus));
         }
 
         [TestMethod]
@@ -232,12 +232,14 @@
         private MachineAndGameConfiguration CreateTarget(
             bool nullProperties = false,
             bool nullDisable = false,
-            bool nullBingoGameConfiguration = false)
+            bool nullBingoGameConfiguration = false,
+            bool nullEventBus = false)
         {
             return new MachineAndGameConfiguration(
                 nullProperties ? null : _propertiesManager.Object,
                 nullDisable ? null : _disableManager.Object,
-                nullBingoGameConfiguration ? null : _bingoGameConfiguration.Object);
+                nullBingoGameConfiguration ? null : _bingoGameConfiguration.Object,
+                nullEventBus ? null : _eventBus.Object);
         }
     }
 }

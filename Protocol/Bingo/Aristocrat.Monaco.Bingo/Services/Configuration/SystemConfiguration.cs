@@ -91,8 +91,9 @@
         public SystemConfiguration(
             IPropertiesManager propertiesManager,
             IMultiProtocolConfigurationProvider protocolConfiguration,
-            ISystemDisableManager systemDisableManager)
-            : base(propertiesManager, systemDisableManager)
+            ISystemDisableManager systemDisableManager,
+            IEventBus eventBus)
+            : base(propertiesManager, systemDisableManager, eventBus)
         {
             if (protocolConfiguration == null)
             {

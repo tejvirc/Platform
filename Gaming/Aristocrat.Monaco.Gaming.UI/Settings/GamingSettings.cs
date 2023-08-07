@@ -39,6 +39,7 @@
         private bool _gameLogOutcomeDetails;
         private bool _buttonAnimationGoodLuck;
         private GameStartMethodOption _gameStartMethod;
+        private bool _allowZeroCreditCashout;
 
         private CensorshipSettings _censorship;
         private SlotSettings _slot;
@@ -361,6 +362,16 @@
             get => _attractSettings;
 
             set => SetProperty(ref _attractSettings, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets a value that indicates whether zero credit cashout is allowed.
+        /// </summary>
+        public bool AllowZeroCreditCashout
+        {
+            get => _allowZeroCreditCashout;
+
+            set => SetProperty(ref _allowZeroCreditCashout, value);
         }
     }
 }

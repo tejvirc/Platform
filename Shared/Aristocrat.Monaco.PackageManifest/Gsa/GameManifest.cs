@@ -55,7 +55,8 @@
                 Configurations = product.configurationList?.configuration?.Select(Map).ToList(),
                 DefaultConfiguration = Map(product.configurationList?.configuration?.FirstOrDefault(c => c.name.Equals(product.configurationList?.@default))),
                 MechanicalReels = product.mechanicalReels,
-                MechanicalReelHomeSteps = GetMechanicalReelHomeSteps(product)
+                MechanicalReelHomeSteps = GetMechanicalReelHomeSteps(product),
+                PreloadedAnimationFiles = product.stepperAnimationFileList
             };
 
             foreach (var l in product.localization)
@@ -154,6 +155,8 @@
                 ReferenceId = gameInfo.referenceId ?? string.Empty,
                 Category = gameInfo.categorySpecified ? gameInfo.category : (t_category?)null,
                 SubCategory = gameInfo.subCategorySpecified ? gameInfo.subCategory : (t_subCategory?)null,
+                //BonusGames = gameInfo.bonusGameList,
+                SubGames = GetSubGames(gameInfo.subGameList),
                 Features = gameInfo.FeatureList?.Where(feature => feature.StatInfo != null)
                     .Select(feature => new Feature
                     {
@@ -187,6 +190,12 @@
                 case "PKG_BACKGROUNDPREVIEW":
                     gfxType = GraphicType.BackgroundPreview;
                     break;
+                case "PKG_DENOMBUTTON":
+                    gfxType = GraphicType.DenomButton;
+                    break;
+                case "PKG_DENOMPANEL":
+                    gfxType = GraphicType.DenomPanel;
+                    break;
                 default:
                     gfxType = GraphicType.Icon;
                     break;
@@ -210,10 +219,10 @@
         private static ImageEncodingType MapEncodingType(string value)
         {
             return (from ImageEncodingType type in Enum.GetValues(typeof(ImageEncodingType))
-                let converted = type.ToString()
-                where
-                    converted.Equals(value.Replace(@"PKG_", string.Empty), StringComparison.InvariantCultureIgnoreCase)
-                select type).FirstOrDefault();
+                    let converted = type.ToString()
+                    where
+                        converted.Equals(value.Replace(@"PKG_", string.Empty), StringComparison.InvariantCultureIgnoreCase)
+                    select type).FirstOrDefault();
         }
 
         private static WagerCategory Map(c_wagerCategoryItem wagerCategory)
@@ -337,7 +346,7 @@
                 MaxPaybackPercent = gameConfiguration.maxPaybackPct,
                 MinPaybackPercent = gameConfiguration.minPaybackPct,
                 MinDenomsEnabled = gameConfiguration.minDenomsEnabled,
-                MaxDenomsEnabled = gameConfiguration.maxDenomsEnabledSpecified ? gameConfiguration.maxDenomsEnabled : (int?) null,
+                MaxDenomsEnabled = gameConfiguration.maxDenomsEnabledSpecified ? gameConfiguration.maxDenomsEnabled : (int?)null,
                 Editable = gameConfiguration.editable,
                 ConfigurationMapping = gameConfiguration.configurationMapList?.Select(Map).ToList() ?? new List<GameConfigurationMap>()
             };
@@ -354,6 +363,24 @@
                 BetLinePresets = configurationMap.betLinePresetIdList.betLinePresetId,
                 DefaultBetLinePreset = configurationMap.betLinePresetIdList.@default
             };
+        }
+
+        private static IEnumerable<SubGame> GetSubGames(c_subGameList subGameList)
+        {
+            if (subGameList is not null)
+            {
+                return (from subGame in subGameList.SubGame
+                    let denominations = subGame.Denominations.Split(',').Select(long.Parse).ToList()
+                    select new SubGame
+                    {
+                        TitleId = long.Parse(subGame.TitleId),
+                        UniqueGameId = long.Parse(subGame.UniqueGameId),
+                        Denominations = denominations,
+                        CentralInfo = subGame.CdsInfoList?.cdsInfo.Select(Map).ToList() ?? Enumerable.Empty<CentralInfo>()
+                    }).ToList();
+            }
+
+            return new List<SubGame>();
         }
 
         private static string GetVariationFromPaytableId(string paytableId)

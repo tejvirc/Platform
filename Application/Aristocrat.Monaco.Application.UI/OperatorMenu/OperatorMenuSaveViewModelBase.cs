@@ -73,6 +73,12 @@
             }
         }
 
+        // To refresh Save button status as CanSave is overrode in ExtraSettingsSetupViewModel
+        public bool UpdateCanSave
+        {
+            set => RaisePropertyChanged(nameof(CanSave));
+        }
+
         public bool ShowSaveButton { get; set; }
 
         public bool ShowCancelButton { get; set; }
@@ -144,7 +150,7 @@
             AllowOperatorMenuExit();
         }
 
-        protected virtual void Cancel()
+        public virtual void Cancel()
         {
             DialogResult = false;
         }

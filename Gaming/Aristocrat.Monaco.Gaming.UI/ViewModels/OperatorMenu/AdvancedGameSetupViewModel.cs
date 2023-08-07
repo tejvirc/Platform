@@ -22,6 +22,7 @@
     using Contracts;
     using Contracts.Configuration;
     using Contracts.Events.OperatorMenu;
+    using Contracts.GameSpecificOptions;
     using Contracts.Meters;
     using Contracts.Models;
     using Contracts.Progressives;
@@ -88,6 +89,11 @@
 
         private string _saveWarningText = string.Empty;
 
+        private bool _extraSettingsVisibility;
+        private readonly IGameSpecificOptionProvider _gameSpecificOptionProvider;
+        private bool _isConfigurableLinkedLevelIds = false;
+        private bool _progressiveLevelChanged;
+
         public AdvancedGameSetupViewModel()
         {
             if (!InDesigner)
@@ -103,6 +109,7 @@
 
             ProgressiveSetupCommand = new ActionCommand<object>(ProgressiveSetup);
             ProgressiveViewCommand = new ActionCommand<object>(ProgressiveView);
+            ExtraSettingsSetupCommand = new ActionCommand(GameSpecificOptionSetup);
             ShowRtpSummaryCommand = new ActionCommand(ShowRtpSummary);
             ShowProgressiveSummaryCommand = new ActionCommand(ShowProgressiveSummary);
 
@@ -124,6 +131,7 @@
             _linkedProgressiveProvider = ServiceManager.GetInstance().GetService<ILinkedProgressiveProvider>();
             _gameConfiguration = ServiceManager.GetInstance().GetService<IGameConfigurationProvider>();
             _restrictionProvider = ServiceManager.GetInstance().GetService<IConfigurationProvider>();
+            _gameSpecificOptionProvider = ServiceManager.GetInstance().GetService<IGameSpecificOptionProvider>();
 
             _digitalRights = ServiceManager.GetInstance().GetService<IDigitalRights>();
 
@@ -134,10 +142,12 @@
 
             GameTypes = new List<GameType>(
                 games.Select(g => g.GameType).OrderBy(g => g.GetDescription(typeof(GameType))).Distinct());
-            _selectedGameType = GameTypes.FirstOrDefault();
             _settingsManager = ServiceManager.GetInstance().GetService<IConfigurationSettingsManager>();
 
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
+
+            _isConfigurableLinkedLevelIds = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>()
+                .GetProperty(GamingConstants.ProgressiveConfigurableLinkedLeveId, false);
         }
 
         public ICommand ShowRtpSummaryCommand { get; }
@@ -153,6 +163,10 @@
         public ICommand ProgressiveSetupCommand { get; }
 
         public ICommand ProgressiveViewCommand { get; }
+
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
+        // ReSharper disable once MemberCanBePrivate.Global - used by xaml
+        public ICommand ExtraSettingsSetupCommand { get; }
 
         public string ReadOnlyStatus
         {
@@ -188,7 +202,7 @@
         public bool InitialConfigComplete => PropertiesManager.GetValue(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, false);
 
         public override bool CanSave => HasNoErrors && InputEnabled && !Committed &&
-                                        (HasChanges() || !InitialConfigComplete) && !IsEnabledGamesLimitExceeded;
+                                        (HasChanges() || !InitialConfigComplete || ProgressiveLevelChanged) && !IsEnabledGamesLimitExceeded;
 
         public bool HasNoErrors => !HasErrors && !_editableGames.Any(g => g.Value.HasErrors);
 
@@ -280,6 +294,43 @@
             set => SetProperty(ref _selectedConfig, value);
         }
 
+        /// <summary> 
+        ///     This property is used to determine whether or not progressive ID configuration is complete 
+        /// </summary> 
+        public bool ConfigurationComplete
+        {
+            get
+            {
+                if (_isConfigurableLinkedLevelIds)
+                {
+                    return GameConfigurations.Any(g => g.Enabled) && GameConfigurations.Where(g => g.Enabled).All(g => g.ProgressiveSetupConfigured);
+                }
+
+                return true;
+            }
+        }
+
+        /// <summary> 
+        ///     This property is used to determine whether or not the progressive level Ids have been changed 
+        ///     Defaults to false if the isConfigurableId field is false in order to not always register that changes have been made 
+        /// </summary> 
+        public bool ProgressiveLevelChanged
+        {
+            get
+            {
+                if (_isConfigurableLinkedLevelIds)
+                {
+                    return _progressiveLevelChanged;
+                }
+
+                return false;
+            }
+            private set
+            {
+                _progressiveLevelChanged = value;
+            }
+        }
+
         public EditableGameProfile SelectedGame
         {
             get => _selectedGame;
@@ -300,6 +351,7 @@
 
                 UpdateRestrictions();
                 ApplyGameOptionsEnabled();
+                SetExtraSettingsConfigured();
                 ResetScrollIntoView = true;
                 ResetScrollIntoView = false;
             }
@@ -414,6 +466,32 @@
             }
         }
 
+        public bool ExtraSettingsVisibility
+        {
+            get => _extraSettingsVisibility;
+            set => SetProperty(ref _extraSettingsVisibility, value);
+        }
+
+        public bool ExtraSettingsEnabled => ExtraSettingsVisibility && InputEnabled;
+        
+        private bool IsExtraSettingsAvailable()
+        {
+            return _gameSpecificOptionProvider.GetGameSpecificOptions(SelectedGame.ThemeId).Any();
+        }
+
+        private void SetExtraSettingsConfigured()
+        {
+            ExtraSettingsVisibility = IsExtraSettingsAvailable();
+
+            if (!ExtraSettingsVisibility)
+            {
+                return;
+            }
+
+            RaisePropertyChanged(nameof(ExtraSettingsVisibility));
+            RaisePropertyChanged(nameof(ExtraSettingsEnabled));
+        }
+
         public override void Save()
         {
             if (GameOptionsEnabled)
@@ -465,6 +543,7 @@
         protected override void OnInputEnabledChanged()
         {
             RaisePropertyChanged(nameof(GameOptionsEnabled));
+            RaisePropertyChanged(nameof(ExtraSettingsEnabled));
             base.OnInputEnabledChanged();
         }
 
@@ -551,7 +630,7 @@
             }
         }
 
-        protected override void Cancel()
+        public override void Cancel()
         {
             if (!IsInEditMode)
             {
@@ -731,6 +810,7 @@
             ApplyGameOptionsEnabled();
             RaisePropertyChanged(
                 nameof(GameOptionsEnabled),
+                nameof(ExtraSettingsEnabled),
                 nameof(ShowSaveButtonOverride),
                 nameof(ShowCancelButtonOverride),
                 nameof(ShowSummaryButtons),
@@ -1163,7 +1243,7 @@
             {
                 SaveImportSettings();
             }
-            else if (hasChanges || forceSave)
+            else if (hasChanges || forceSave || ProgressiveLevelChanged)
             {
                 var currentGame = _gameProvider.GetGame(PropertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
 
@@ -1268,6 +1348,8 @@
             {
                 game.OnSave();
             }
+
+            _progressiveLevelChanged = false;
 
             RaisePropertyChanged(nameof(CanSave));
         }
@@ -1498,6 +1580,8 @@
             {
                 gameConfiguration.GameOptionsEnabled = GameOptionsEnabled;
             }
+
+            RaisePropertyChanged(nameof(CanSave));
         }
 
         private void CalculateTopAward()
@@ -1874,6 +1958,13 @@
                 viewModel,
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ProgressiveSetupDialogCaption));
 
+            if (viewModel.SetupCompleted && _isConfigurableLinkedLevelIds)
+            {
+                _progressiveLevelChanged |= viewModel.ConfigurableProgressiveLevelsChanged;
+
+                gameConfig.ProgressiveSetupConfigured = true;
+            }
+
             ApplyGameOptionsEnabled();
         }
 
@@ -1929,6 +2020,15 @@
                 linkedLevelNames);
         }
 
+        private void GameSpecificOptionSetup(object configObject)
+        {
+            var viewModel = new ExtraSettingsSetupViewModel(SelectedGame.ThemeId, _gameSpecificOptionProvider);
+            _dialogService.ShowDialog<ExtraSettingsSetupView>(
+                this,
+                viewModel,
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameSpecificOptionLabel));
+        }
+
         private void ShowRtpSummary()
         {
             var viewModel = new GameRtpSummaryViewModel(_gameProvider.GetGames(), _denomMultiplier);
@@ -1957,7 +2057,7 @@
                 }
 
                 var configs = GameConfigurations?.ToList();
-                if (HasNoErrors && _editableGameConfigByGameTypeMapping.Keys.Count == 1 && configs != null && configs.Count == 1)
+                if (!InitialConfigComplete && HasNoErrors && _editableGameConfigByGameTypeMapping.Keys.Count == 1 && configs != null && configs.Count == 1)
                 {
                     var game = configs.Single();
                     if (game.Enabled && game.AvailablePaytables?.Count == 1)

@@ -115,7 +115,7 @@
                     UpdateBalance();
                 }
             }
-            else
+            else if (_gameHistory.CurrentLog.CashOutInfo.Any(c => !c.Complete))
             {
                 // This is the one chance we get to prevent the game from snapping the credit meter
                 var winInMillicents = _gameHistory.CurrentLog.UncommittedWin * GamingConstants.Millicents;

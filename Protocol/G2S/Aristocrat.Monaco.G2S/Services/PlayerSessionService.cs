@@ -48,7 +48,7 @@
             _bus.Subscribe<CommunicationsStateChangedEvent>(this, evt =>
             {
                 var playerDevice = _egm.GetDevice<IPlayerDevice>();
-                if (playerDevice.IsOwner(evt.HostId))
+                if (playerDevice?.IsOwner(evt.HostId) == true)
                     _canSend = evt.Online;
             });
 

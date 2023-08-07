@@ -223,10 +223,7 @@
 
         private void HandleEvent(CashoutNotificationEvent evt)
         {
-            if (Config?.DisplayVoucherNotification ?? false)
-            {
-                MessageOverlayDisplay.ShowVoucherNotification = evt.PaperIsInChute;
-            }
+            MessageOverlayDisplay.ShowVoucherNotification = evt.PaperIsInChute;
 
             if (evt.PaperIsInChute && !_systemDisableManager.IsDisabled)
             {
@@ -300,7 +297,7 @@
 
                     if (platformEvent.Enabled)
                     {
-                        var reportCashoutButtonPress = (bool)_properties.GetProperty(GamingConstants.ReportCashoutButtonPressWithZeroCredit, false);
+                        var allowZeroCreditCashout = (bool)_properties.GetProperty(GamingConstants.AllowZeroCreditCashout, false);
                         if (IsLobbyVisible)
                         {
                             if (!IsResponsibleGamingInfoFullScreen)
@@ -312,21 +309,13 @@
                             {
                                 if (Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId))
                                 {
-                                    if ((LcdButtonDeckLobby)platformEvent.LogicalId != LcdButtonDeckLobby.CashOut || _bank.QueryBalance() != 0 || reportCashoutButtonPress)
+                                    if ((LcdButtonDeckLobby)platformEvent.LogicalId != LcdButtonDeckLobby.CashOut || _bank.QueryBalance() != 0 || allowZeroCreditCashout)
                                     {
                                         HandleLcdButtonDeckButtonPress((LcdButtonDeckLobby)platformEvent.LogicalId);
                                     }
                                 }
                             }
                             OnUserInteraction();
-                        }
-                        else if (reportCashoutButtonPress
-                        && Enum.IsDefined(typeof(LcdButtonDeckLobby), platformEvent.LogicalId)
-                        && (LcdButtonDeckLobby)platformEvent.LogicalId == LcdButtonDeckLobby.CashOut
-                        && _bank.QueryBalance() == 0
-                        && _gameState.Idle)
-                        {
-                            HandleLcdButtonDeckButtonPress(LcdButtonDeckLobby.CashOut);
                         }
                     }
 
@@ -505,11 +494,13 @@
                     {
                         _lobbyStateManager.RemoveFlagState(LobbyState.CashOutFailure);
                     }
-
-                    if (_bank.QueryBalance() == 0 && _gameState.Idle && !_gameState.InGameRound)
+                    if (_bank.QueryBalance() == 0 && _gameState.Idle &&
+                        !_gameState.InGameRound &&
+                        platformEvent.OldBalance >= _properties.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue))
                     {
                         _overlimitCashoutProcessed = true;
                     }
+
                     HandleMessageOverlayText();
                 });
         }
@@ -551,8 +542,6 @@
         private void HandleEvent(CurrencyInCompletedEvent platformEvent)
         {
             Logger.Debug($"Detected CurrencyInCompletedEvent.  Amount: {platformEvent.Amount}");
-            _disableDebugCurrency = false;
-            _debugCurrencyTimer?.Stop();
             HandleCompletedMoneyIn(platformEvent.Amount, platformEvent.Amount > 0);
         }
 
@@ -568,8 +557,6 @@
         private void HandleEvent(WatOnCompleteEvent watOnEvent)
         {
             Logger.Debug($"Detected WatOnCompleteEvent.  Amount: {watOnEvent.Transaction.TransactionAmount}");
-            _disableDebugCurrency = false;
-            _debugCurrencyTimer?.Stop();
             HandleCompletedMoneyIn(watOnEvent.Transaction.TransactionAmount);
         }
 
@@ -640,6 +627,11 @@
                     {
                         _responsibleGamingCashOutInProgress = false;
                         _responsibleGaming?.EndResponsibleGamingSession();
+                    }
+
+                    if (platformEvent.Total == 0)
+                    {
+                        CheckMaxBalance("Checking for TransferOutCompletedEvent failed with total 0");
                     }
 
                     switch (CashOutDialogState)
@@ -1016,8 +1008,10 @@
 
         private void HandleEvent(DebugCurrencyAcceptedEvent evt)
         {
-            // need to set this so that debug currency can start Responsible Gaming
-            if (HasZeroCredits)
+            // Debug currency works differently than real currency, so it's possible for the bank to be updated before reaching this point.
+            // Use the event balance that was set before the fake currency was published.
+            Logger.Debug($"Handle DebugCurrencyAcceptedEvent: Event balance = {evt.PreviousBalance}, Bank balance = {_bank.QueryBalance()}");
+            if (evt.PreviousBalance == 0)
             {
                 _responsibleGaming?.OnInitialCurrencyIn();
             }

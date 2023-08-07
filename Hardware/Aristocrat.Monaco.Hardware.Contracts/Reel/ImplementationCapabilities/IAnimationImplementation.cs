@@ -50,8 +50,9 @@
         ///     Loads animation files onto the controller.
         /// </summary>
         /// <param name="files">The animation files.</param>
+        /// <param name="progress">The progress report.</param>
         /// <param name="token">The cancellation token.</param>
-        Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token = default);
+        Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, IProgress<LoadingAnimationFileModel> progress, CancellationToken token = default);
         
         /// <summary>
         ///     Instructs the controller to prepare a light show animation.

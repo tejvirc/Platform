@@ -162,10 +162,11 @@
         private async Task SetSelectedViewModel(IHhrMenuPageViewModel viewModel, Command command)
         {
             if (viewModel == SelectedViewModel)
+            {
                 return;
+            }
 
             var oldViewModel = SelectedViewModel;
-
 
             if (viewModel != null)
             {
@@ -375,7 +376,7 @@
             _overlayExpiryTimer.Stop();
 
             _eventBus.Publish(new OverlayMenuExitedEvent());
-            
+
             //Notify the runtime that HHR Menu is not active any  more
             _runtimeFlagHandler.SetAwaitingPlayerSelection(false);
             _properties.SetProperty(GamingConstants.AwaitingPlayerSelection, false);

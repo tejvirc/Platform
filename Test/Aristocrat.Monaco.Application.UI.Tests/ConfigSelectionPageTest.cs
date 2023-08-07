@@ -98,6 +98,7 @@
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<PropertyChangedEvent>>(), It.IsAny<Predicate<PropertyChangedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<ConfigurationSettingsImportedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<SystemDownEvent>>()));
+            _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<OperatorMenuPopupEvent>>()));
             _protocolProvider = MoqServiceManager.CreateAndAddService<IMultiProtocolConfigurationProvider>(MockBehavior.Default);
 
             var touchscreens = MoqServiceManager.CreateAndAddService<ICabinetDetectionService>(MockBehavior.Default);

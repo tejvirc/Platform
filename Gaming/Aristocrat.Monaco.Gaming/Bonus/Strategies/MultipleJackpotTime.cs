@@ -412,6 +412,8 @@
             }
 
             public bool Context { get; }
+
+            public bool ShouldPersistPostCommit => false;
         }
     }
 }

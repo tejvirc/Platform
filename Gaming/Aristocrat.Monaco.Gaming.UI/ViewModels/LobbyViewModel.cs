@@ -1,29 +1,5 @@
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
-    using Accounting.Contracts;
-    using Application.Contracts.Extensions;
-    using Application.Contracts;
-    using Application.Contracts.EdgeLight;
-    using Application.Contracts.Localization;
-    using Commands;
-    using Contracts;
-    using Contracts.Lobby;
-    using Contracts.Models;
-    using Contracts.Tickets;
-    using Converters;
-    using Hardware.Contracts.ButtonDeck;
-    using Hardware.Contracts.EdgeLighting;
-    using Hardware.Contracts.Printer;
-    using Hardware.Contracts.Touch;
-    using Kernel;
-    using Localization.Properties;
-    using log4net;
-    using Models;
-    using Monaco.UI.Common;
-    using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
@@ -40,16 +16,40 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System.Windows.Input;
     using System.Windows.Media;
     using System.Windows.Threading;
+    using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
+    using Application.Contracts.Extensions;
+    using Application.Contracts;
     using Application.Contracts.Drm;
+    using Application.Contracts.EdgeLight;
+    using Application.Contracts.Localization;
     using Cabinet.Contracts;
+    using Commands;
     using Common;
+    using Contracts;
     using Contracts.Events;
     using Contracts.InfoBar;
+    using Contracts.Lobby;
+    using Contracts.Models;
     using Contracts.PlayerInfoDisplay;
+    using Contracts.Tickets;
+    using Converters;
     using Hardware.Contracts.Audio;
-    using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Button;
+    using Hardware.Contracts.ButtonDeck;
+    using Hardware.Contracts.Cabinet;
+    using Hardware.Contracts.EdgeLighting;
+    using Hardware.Contracts.Printer;
+    using Hardware.Contracts.Touch;
+    using Kernel;
+    using Localization.Properties;
+    using log4net;
+    using Models;
+    using Monaco.UI.Common;
+    using Monaco.UI.Common.Extensions;
+    using MVVM;
+    using MVVM.Command;
+    using MVVM.ViewModel;
     using Progressives;
     using Timers;
     using Utils;
@@ -57,7 +57,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Views.Lobby;
     using Size = System.Windows.Size;
 #if !(RETAIL)
-    using Vgt.Client12.Testing.Tools;
     using Events;
 #endif
 
@@ -73,9 +72,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private const double RotateSoftErrorTextIntervalInSeconds = 3.0;
         private const double PrintHelplineWaitTimeInSeconds = 15.0;
         private const double VbdConfirmationTimeOutInSeconds = 30.0;
-        private const double DebugCurrencyIntervalInSeconds = 2.0;
         private const double CashOutMinimumIntervalInSeconds = 3.0;
-        private const double MaxDebugCurrencyAllowed = 100.0;
         private const double MaximumBlinkingIdleTextWidth = 1000;
         private const double NewGameTimerIntervalInHours = 1;
         private const byte DefaultAlertVolume = 100;
@@ -84,7 +81,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private const string ResponsibleGamingPropNameDialogPending = "ShowTimeLimitDlgPending";
         private const string ResponsibleGamingPropNameDialogState = "TimeLimitDialogState";
         private const string ResponsibleGamingPropNameDialogResourceKey = "ResponsibleGamingDialogResourceKey";
-        private const int DebugCashAmount = 20;
         private const int DemonstrationCashInAmount = 10;
         private const string TopImageDefaultResourceKey = "TopBackground";
         private const string TopImageAlternateResourceKey = "TopBackgroundAlternate";
@@ -150,7 +146,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private ITimer _rotateSoftErrorTextTimer;
         private ITimer _responsibleGamingInfoTimeOutTimer;
         private ITimer _vbdConfirmationTimeOutTimer;
-        private ITimer _debugCurrencyTimer;
         private ITimer _cashOutTimer;
         private ITimer _newGameTimer;
 
@@ -195,8 +190,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private bool _responsibleGamingDialogResetWhenOperatorMenuEntered;
         private bool _recoveryOnStartup;
         private bool _gameLaunchOnStartup;
-        private bool _isDebugCurrencyButtonVisible;
-        private bool _disableDebugCurrency;
         private bool _nextAttractModeLanguageIsPrimary = true; // Whether the next played attract video is in the primary language
         private bool _lastInitialAttractModeLanguageIsPrimary = true; // This keeps track of alternating the starting language for the attract video list
         private bool _initialLanguageEventSent;
@@ -224,6 +217,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private int _displayedPageNumber = 1;
         private GameType _gameFilter = GameType.Undefined;
         private ObservableCollection<GameInfo> _gameList = new ObservableCollection<GameInfo>();
+        private List<GameInfo> _enabledGameList = new List<GameInfo>();
         private string _gameLoadingScreenPath;
         private int _gamesPerPage;
         private string _idleText;
@@ -241,7 +235,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private string _topAttractVideoPath;
         private LobbyVbdVideoState _vbdVideoState = LobbyVbdVideoState.Disabled;
         private DateTime _denomCheck = DateTime.UtcNow;
-        private int _gameCount;
         private bool _disableLobbyInput;
         private double _aspectRatio;
         private double _mainInfoBarHeight;
@@ -448,7 +441,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             AddCreditsCommand = new ActionCommand<object>(BankPressed);
             CashOutCommand = new ActionCommand<object>(CashOutPressed);
             ServiceCommand = new ActionCommand<object>(ServicePressed);
-            AddDebugCashCommand = new ActionCommand<object>(AddDebugCashPressed);
             VbdCashoutDlgYesNoCommand = new ActionCommand<object>(VbdCashoutDlgYesNoPressed);
             VbdServiceDlgYesNoCommand = new ActionCommand<object>(VbdServiceDlgYesNoPressed);
             DenomFilterPressedCommand = new ActionCommand<object>(DenomFilterPressed);
@@ -522,9 +514,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _printHelplineTicketTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(PrintHelplineWaitTimeInSeconds) };
             _printHelplineTicketTimer.Tick += PrintHelplineTicketTimerTick;
 
-            _debugCurrencyTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(DebugCurrencyIntervalInSeconds) };
-            _debugCurrencyTimer.Tick += DebugCurrencyTimerTick;
-
             _cashOutTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(CashOutMinimumIntervalInSeconds) };
             _cashOutTimer.Tick += CashOutTimerTick;
 
@@ -591,6 +580,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsExtraLargeGameIconTabActive => IsTabView && GameTabInfo.SelectedCategory == GameCategory.LightningLink;
 
         /// <summary>
+        ///     Is the combined jackpot banner visible
+        /// </summary>
+        public bool IsJackpotBannerVisible => IsExtraLargeGameIconTabActive &&
+                                              ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelOneEnabled &&
+                                              ProgressiveLabelDisplay.MultipleGameAssociatedSapLevelTwoEnabled;
+
+        /// <summary>
         ///     Gets the game selected command
         /// </summary>
         public ICommand GameSelectCommand { get; }
@@ -649,11 +645,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         ///     Gets the service command
         /// </summary>
         public ICommand ServiceCommand { get; }
-
-        /// <summary>
-        ///     Gets the AddDebugCashCommand
-        /// </summary>
-        public ICommand AddDebugCashCommand { get; }
 
         /// <summary>
         ///     Gets the VbdCashoutDlgYesNoCommand
@@ -804,7 +795,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set => SetProperty(ref _multiLanguageEnabled, value);
         }
 
-        public bool NoGamesForThisLanguageErrorIsVisible => MultiLanguageEnabled && DisplayedGameList.Any() && DisplayedGameList.All(g => g.ImagePath == null);
+        public bool NoGamesForThisLanguageErrorIsVisible => MultiLanguageEnabled && !DisplayedGameList.Any() && !_systemDisableManager.IsDisabled;
 
         /// <summary>
         ///     Gets or sets a value indicating whether VBD rendering is disabled (as it is in system lockup).
@@ -923,7 +914,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 RaisePropertyChanged(nameof(CashOutEnabledInPlayerMenu));
                 RaisePropertyChanged(nameof(FormattedCredits));
                 RaisePropertyChanged(nameof(ShowAttractMode));
-                RaisePropertyChanged(nameof(IsDebugMoneyEnabled));
                 RaisePropertyChanged(nameof(IsBlinkingIdleTextVisible));
                 RaisePropertyChanged(nameof(StartIdleTextBlinking));
                 RaisePropertyChanged(nameof(IsScrollingIdleTextEnabled));
@@ -1118,7 +1108,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         /// <summary>
         ///     Gets a value indicating whether icon of only one game is displayed in lobby
         /// </summary>
-        public bool IsSingleGameDisplayed => DisplayedGameList?.Count == 1;
+        public bool IsSingleGameDisplayed => GameCount == 1;
 
         /// <summary>
         ///     Gets or sets a value indicating whether the bottom attract feature is visible or not
@@ -1375,11 +1365,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public string ActiveLocaleCode => IsPrimaryLanguageSelected ? Config.LocaleCodes[0] : Config.LocaleCodes[1];
 
         /// <summary>
+        ///     Gets a value indicating whether ZeroCreditCashout is enabled.
+        /// </summary>
+        private bool AllowZeroCreditCashout => _properties.GetValue(GamingConstants.AllowZeroCreditCashout, false);
+
+        /// <summary>
         ///     Gets a value indicating whether the cash out button is enabled.
         /// </summary>
         public bool CashOutEnabled =>
             !IsDisabledByHandCount() &&
-            RedeemableCredits > 0.0 && !IsBottomLoadingScreenVisible &&
+            (RedeemableCredits > 0.0 || AllowZeroCreditCashout) && !IsBottomLoadingScreenVisible &&
             !ContainsAnyState(LobbyState.CashOut, LobbyState.CashOutFailure, LobbyState.AgeWarningDialog) &&
             !MessageOverlayDisplay.ShowVoucherNotification;
 
@@ -1405,9 +1400,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         /// </summary>
         public bool IsServiceRequested => _attendant.IsServiceRequested;
 
-        public bool IsDebugMoneyEnabled => Credits < MaxDebugCurrencyAllowed &&
-            (_vbdVideoState == LobbyVbdVideoState.InsertMoney || _vbdVideoState == LobbyVbdVideoState.ChooseGame) && !_disableDebugCurrency;
-
         /// <summary>
         ///     True if the return to lobby button is enabled, false otherwise
         /// </summary>
@@ -1429,17 +1421,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set => SetProperty(ref _vbdVideoState, value, nameof(VbdVideoState), nameof(IsLobbyVbdBackgroundBlank));
         }
 
-        public int GameCount
-        {
-            get => _gameCount;
-            set
-            {
-                _gameCount = value;
-                _lobbyStateManager.IsSingleGame = UniqueThemeIds <= 1;
-                RaisePropertyChanged(nameof(GameCount));
-                RaisePropertyChanged(nameof(MarginInputs));
-            }
-        }
+        public int GameCount => DisplayedGameList.Count;
 
         private bool UseSmallIcons => !IsTabView && GameCount > 8;
 
@@ -1500,13 +1482,12 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             get
             {
-                var gameCount = DisplayedGameList?.Count ?? 0;
                 var gameControlHeight = GameControlHeight;
                 var gameIconSize = DisplayedGameList?.FirstOrDefault()?.GameIconSize ?? Size.Empty;
                 var anyVisibleGameHasProgressiveLabel = DisplayedGameList?.Any(x => x.HasProgressiveLabelDisplay) ?? false;
                 Logger.Debug($"MarginInputs: GameWindowHeight={gameControlHeight}, GameIconSize={gameIconSize}");
                 return new GameGridMarginInputs(
-                    gameCount,
+                    GameCount,
                     IsTabView,
                     GameTabInfo.SelectedSubTab?.IsVisible ?? false,
                     anyVisibleGameHasProgressiveLabel,
@@ -1545,12 +1526,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public ResponsibleGamingMode ResponsibleGamingMode => _responsibleGaming?.ResponsibleGamingMode ?? ResponsibleGamingMode.Continuous;
 
         public bool IsResponsibleGamingInfoFullScreen => Config.ResponsibleGamingInfo.FullScreen;
-
-        public bool IsDebugCurrencyButtonVisible
-        {
-            get => _isDebugCurrencyButtonVisible;
-            private set => SetProperty(ref _isDebugCurrencyButtonVisible, value);
-        }
 
         private bool ShowAttractMode => IsAttractEnabled()
                                         && _lobbyStateManager.CanAttractModeStart
@@ -2010,9 +1985,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             if (showMode)
             {
                 SetShowModeLobbyLabel();
-#if !(RETAIL)
-                IsDebugCurrencyButtonVisible = true;
-#endif
             }
 
             var drm = ServiceManager.GetInstance().TryGetService<IDigitalRights>();
@@ -2128,6 +2100,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                                   IsNew = GameIsNew(game.GameTags),
                                   Category = game.Category,
                                   SubCategory = game.SubCategory,
+                                  DenomButtonPath = game.LocaleGraphics[ActiveLocaleCode].DenomButtonIcon,
+                                  DenomPanelPath = game.LocaleGraphics[ActiveLocaleCode].DenomPanel,
                                   RequiresMechanicalReels = game.MechanicalReels > 0
                               }).ToList();
 
@@ -2768,20 +2742,24 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 _disabledOnStartup = false;
                 _lobbyStateManager.UnexpectedGameExitWhileDisabled = false; //clear value since we are leaving disabled state.
 
-                // VLT-4742: Check for a max-cash-out when we come out of disabled state
-                if (_gameState.Idle && !_transferOutHandler.InProgress && !_gameHistory.IsRecoveryNeeded && !_gameHistory.HasPendingCashOut)
-                {
-                    Logger.Debug("Checking for Max Balance coming out of lock-up");
-                    _commandFactory.Create<CheckBalance>().Handle(new CheckBalance());
-                }
+                CheckMaxBalance("Checking for Max Balance coming out of lock-up");
 
                 ClockTimer.RestartClockTimer();
             }
         }
 
+        private void CheckMaxBalance(string message)
+        {
+            if (_gameState.Idle && !_transferOutHandler.InProgress && !_gameHistory.IsRecoveryNeeded && !_gameHistory.HasPendingCashOut)
+            {
+                Logger.Debug(message);
+                _commandFactory.Create<CheckBalance>().Handle(new CheckBalance());
+            }
+        }
+
         private void CheckHideCashoutDialog()
         {
-            if (MessageOverlayDisplay.IsCashingOutDlgVisible && _systemDisableManager.DisableImmediately)
+            if (AllowZeroCreditCashout || (MessageOverlayDisplay.IsCashingOutDlgVisible && _systemDisableManager.DisableImmediately))
             {
                 _cashoutDialogHidden = true;
                 _cashoutDialogOpacity = MessageOverlayDisplay.MessageOverlayData.Opacity;
@@ -2957,6 +2935,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 ShowVbdServiceConfirmationDialog(false);
             }
 
+            if (CurrentState == LobbyState.Chooser && !_gameHistory.IsRecoveryNeeded)
+            {
+                _recoveryOnStartup = false;
+            }
+
             SetLobbyFlags();
 
             if (IsSingleGameMode)
@@ -2966,7 +2949,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
             else
             {
-                IsTopScreenRenderingDisabled = IsInState(LobbyState.Disabled) && (IsInLobby || IsInOperatorMenu) &&
+                IsTopScreenRenderingDisabled = IsInState(LobbyState.Disabled) &&
                                                               !ContainsAnyState(LobbyState.GameDiagnostics, LobbyState.GameLoadingForDiagnostics);
             }
 
@@ -3130,10 +3113,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             RaisePropertyChanged(nameof(CashOutEnabled));
             RaisePropertyChanged(nameof(CashOutEnabledInPlayerMenu));
+            RaisePropertyChanged(nameof(IsCashOutButtonLit));
             RaisePropertyChanged(nameof(ResponsibleGamingInfoEnabled));
             RaisePropertyChanged(nameof(IsIdleTextBlinking));
             RaisePropertyChanged(nameof(StartIdleTextBlinking));
-            RaisePropertyChanged(nameof(IsDebugMoneyEnabled));
             RaisePropertyChanged(nameof(IsNotificationTextVisible));
             RaisePropertyChanged(nameof(IsVirtualButtonDeckDisabled));
             RaisePropertyChanged(nameof(CanCashoutInLockup));
@@ -3141,6 +3124,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             RaisePropertyChanged(nameof(IsServiceRequested));
             RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
             RaisePropertyChanged(nameof(ReserveMachineAllowed));
+            RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
 
 #if !(RETAIL)
             _eventBus?.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));
@@ -3399,7 +3383,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 _rotateTopperImageTimer?.Stop();
                 _rotateSoftErrorTextTimer?.Stop();
                 _printHelplineTicketTimer?.Stop();
-                _debugCurrencyTimer?.Stop();
                 _cashOutTimer?.Stop();
                 _newGameTimer?.Stop();
 
@@ -3450,7 +3433,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _rotateTopperImageTimer = null;
             _rotateSoftErrorTextTimer = null;
             _printHelplineTicketTimer = null;
-            _debugCurrencyTimer = null;
             _cashOutTimer = null;
             _newGameTimer = null;
 
@@ -3688,15 +3670,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             PlayAudioFile(Sound.Touch);
         }
 
-        private void AddDebugCashPressed(object obj)
-        {
-#if !(RETAIL)
-            _eventBus.Publish(new DebugNoteEvent(DebugCashAmount));
-            _disableDebugCurrency = true;
-            _debugCurrencyTimer?.Start();
-#endif
-        }
-
         private void VbdCashoutDlgYesNoPressed(object obj)
         {
             if (obj.ToString().Equals("YES", StringComparison.InvariantCultureIgnoreCase))
@@ -3824,7 +3797,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                         .Skip((DisplayedPageNumber - 1) * GamesPerPage)
                         .Take(GamesPerPage);
 
-                DisplayedGameList.Clear();
+                _enabledGameList = new List<GameInfo>();
 
                 // When the tab is hosting extra large icons (i.e., for Lightning Link), a list of denoms PER game will appear
                 // below the icon for the user to pick.
@@ -3841,7 +3814,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                         var game = _gameList.First(g => g.Name == gameName);
                         var denominations = _gameList.Where(g => g.Name == gameName).Select(d => d.Denomination);
                         game.SetDenominations(denominations);
-                        DisplayedGameList.Add(game);
+                        _enabledGameList.Add(game);
                     }
                 }
                 else
@@ -3849,11 +3822,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     // Add subset of GameInfo items to display.
                     foreach (var gi in subset)
                     {
-                        DisplayedGameList.Add(gi);
+                        _enabledGameList.Add(gi);
                     }
                 }
 
-                GameCount = DisplayedGameList.Count;
+                UpdateDisplayedGames();
             }
 
             if (_lobbyStateManager?.IsTabView ?? false)
@@ -3874,6 +3847,22 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             RaisePropertyChanged(nameof(IsSingleTabView));
             RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
             RaisePropertyChanged(nameof(IsSingleGameDisplayed));
+            RaisePropertyChanged(nameof(IsJackpotBannerVisible));
+        }
+
+        private void UpdateDisplayedGames()
+        {
+            if (_enabledGameList == null)
+            {
+                return;
+            }
+
+            DisplayedGameList.Clear();
+            DisplayedGameList.AddRange(_enabledGameList?.Where(g => g.ImagePath != null));
+
+            _lobbyStateManager.IsSingleGame = UniqueThemeIds <= 1;
+            RaisePropertyChanged(nameof(GameCount));
+            RaisePropertyChanged(nameof(MarginInputs));
         }
 
         private void SelectFirstDisplayedGame()
@@ -3958,7 +3947,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             {
                 case SelectionNavigation.NextGame:
                 case SelectionNavigation.PreviousGame:
-                    if (_selectedGame == null || DisplayedGameList.Count == 0)
+                    if (_selectedGame == null || GameCount == 0)
                     {
                         return;
                     }
@@ -3971,13 +3960,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     }
 
                     selectedGameIndex = (navigationOption == SelectionNavigation.NextGame)
-                        ? (selectedGameIndex + 1) % DisplayedGameList.Count
+                        ? (selectedGameIndex + 1) % GameCount
                         : selectedGameIndex - 1;
 
                     // Wrap selection back around to last game if navigating left while first game is selected
                     if (selectedGameIndex < 0)
                     {
-                        selectedGameIndex = DisplayedGameList.Count - 1;
+                        selectedGameIndex = GameCount - 1;
                     }
 
                     var gameToSelect = DisplayedGameList[selectedGameIndex];
@@ -4013,6 +4002,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
                 game.SelectLocaleGraphics(ActiveLocaleCode);
             }
+
+            UpdateDisplayedGames();
 
             if (IsExtraLargeGameIconTabActive)
             {
@@ -4449,12 +4440,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                         CurrentNotificationText = NotificationMessages[_currentNotificationIndex].Message;
                     }
                 });
-        }
-
-        private void DebugCurrencyTimerTick(object sender, EventArgs e)
-        {
-            _disableDebugCurrency = false;
-            RaisePropertyChanged(nameof(IsDebugMoneyEnabled));
         }
 
         private void CashOutTimerTick(object sender, EventArgs e)
@@ -5056,7 +5041,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 Logger.Debug($"Consecutive Attract Video count: {_consecutiveAttractCount}");
 
                 if (_consecutiveAttractCount >= Config.ConsecutiveAttractVideos ||
-                    _consecutiveAttractCount >= _gameCount)
+                    _consecutiveAttractCount >= GameCount)
                 {
                     Logger.Debug("Stopping attract video sequence");
                     return false;
@@ -5400,6 +5385,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 LocaleGraphics = game.LocaleGraphics,
                 ThemeId = game.ThemeId,
                 IsNew = GameIsNew(game.GameTags),
+                DenomButtonPath = game.LocaleGraphics[ActiveLocaleCode].DenomButtonIcon,
+                DenomPanelPath = game.LocaleGraphics[ActiveLocaleCode].DenomPanel,
                 RequiresMechanicalReels = game.MechanicalReels > 0
             };
         }

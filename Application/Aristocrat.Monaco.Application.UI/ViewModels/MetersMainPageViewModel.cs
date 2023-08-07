@@ -37,8 +37,7 @@
         private readonly ConcurrentDictionary<string, DateTime> _pageNameToPersonalizedPeriodClearDateTimeMap =
             new ConcurrentDictionary<string, DateTime>();
 
-        public MetersMainPageViewModel(IOperatorMenuPageLoader mainPage)
-            : base(mainPage, PagesExtensionPath)
+        public MetersMainPageViewModel(string pageNameResourceKey): base(pageNameResourceKey, PagesExtensionPath)
         {
             IsVisibleChangedCommand = new ActionCommand<Page>(OnIsVisibleChanged);
             PeriodMasterButtonClickedCommand = new ActionCommand<object>(PeriodOrMasterButtonClicked);

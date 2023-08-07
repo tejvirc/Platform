@@ -1,10 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Runtime.Server
 {
     using System;
+    using System.Collections.Generic;
     using System.Reflection;
     using Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData;
     using Commands;
     using GdkRuntime.V1;
+    using Hardware.Contracts.Reel;
     using log4net;
     using NudgeReelData = Hardware.Contracts.Reel.ControlData.NudgeReelData;
     using ReelSpeedData = Hardware.Contracts.Reel.ControlData.ReelSpeedData;
@@ -122,7 +124,39 @@
 
         public override MessageResponse PrepareLightShowAnimations(PrepareLightShowAnimationsRequest request)
         {
-            throw new NotImplementedException();
+            Logger.Debug("PrepareLightShows");
+
+            var lightShowDataCollection = new LightShowData[request.LightShowData.Count];
+
+            for (var i = 0; i < request.LightShowData.Count; ++i)
+            {
+                var lightShowData = request.LightShowData[i];
+                var lightShowIdentifier = lightShowData.LightShowIdentifier;
+                var loopCount = EvaluateLoopBehavior(lightShowData.LoopBehavior, (sbyte)lightShowData.RepeatCount);
+                lightShowDataCollection[i] = new LightShowData(
+                    (sbyte)lightShowData.ReelIndex,
+                    lightShowIdentifier.AnimationName,
+                    lightShowIdentifier.Tag,
+                    loopCount,
+                    (short)lightShowData.Step);
+            }
+
+            var command = new PrepareLightShows(lightShowDataCollection);
+            _handlerFactory.Create<PrepareLightShows>()
+                .Handle(command);
+
+            return new MessageResponse { Result = command.Success };
+
+            sbyte EvaluateLoopBehavior(LoopBehavior behavior, sbyte loopCount)
+            {
+                return behavior switch
+                {
+                    LoopBehavior.Once => ReelConstants.RepeatOnce,
+                    LoopBehavior.Forever => ReelConstants.RepeatForever,
+                    LoopBehavior.RepeatFor => loopCount,
+                    _ => throw (new ArgumentOutOfRangeException(nameof(behavior)))
+                };
+            }
         }
 
         public override MessageResponse PrepareStepperCurves(PrepareStepperCurvesRequest request)
@@ -147,17 +181,41 @@
 
         public override MessageResponse StartAnimations(Empty request)
         {
-            throw new NotImplementedException();
+            Logger.Debug("StartAnimations");
+
+            var command = new StartAnimations();
+            _handlerFactory.Create<StartAnimations>().Handle(command);
+
+            return new MessageResponse { Result = command.Success };
         }
 
         public override MessageResponse StopLightshowAnimation(StopLightshowAnimationRequest request)
         {
-            throw new NotImplementedException();
+            Logger.Debug("StopLightShowAnimations");
+
+            var lightShowData = new LightShowData[request.LightShowData.Count];
+
+            for (var i = 0; i < request.LightShowData.Count; ++i)
+            {
+                lightShowData[i] = new LightShowData(
+                    request.LightShowData[i].AnimationName,
+                    request.LightShowData[i].Tag);
+            }
+
+            var command = new StopLightShowAnimations(lightShowData);
+            _handlerFactory.Create<StopLightShowAnimations>().Handle(command);
+
+            return new MessageResponse { Result = command.Success };
         }
 
         public override MessageResponse StopAllLightshowAnimations(Empty request)
         {
-            throw new NotImplementedException();
+            Logger.Debug("StopAllLightShowAnimations");
+
+            var command = new StopAllLightShowAnimations();
+            _handlerFactory.Create<StopAllLightShowAnimations>().Handle(command);
+
+            return new MessageResponse { Result = command.Success };
         }
 
         public override MessageResponse StopAllAnimationTags(StopAllAnimationTagsRequest request)
@@ -194,17 +252,95 @@
 
         public override MessageResponse PrepareStepperRule(PrepareStepperRuleRequest request)
         {
-            throw new NotImplementedException();
+            Logger.Debug("PrepareStepperRule");
+
+            var ruleData = new StepperRuleData
+            {
+                ReelIndex = (byte)request.RuleData.ReelIndex,
+                Cycle = (short)request.RuleData.Cycle,
+                EventId = (int)request.RuleData.EventIdentifier,
+                ReferenceStep = (byte)request.RuleData.ReferenceStep,
+                StepToFollow = (byte)request.RuleData.StepToFollow
+            };
+
+            if (request.RuleTypeSpecificData.Is(PrepareStepperAnticipationRuleData.Descriptor))
+            {
+                var anticipationRuleData = request.RuleTypeSpecificData.Unpack<PrepareStepperAnticipationRuleData>();
+                ruleData.Delta = (byte)anticipationRuleData.Delta;
+                ruleData.RuleType = StepperRuleType.AnticipationRule;
+            }
+            else
+            {
+                ruleData.RuleType = StepperRuleType.FollowRule;
+            }
+
+            var command = new PrepareStepperRule(ruleData);
+            _handlerFactory.Create<PrepareStepperRule>()
+                .Handle(command);
+
+            return new MessageResponse { Result = command.Success };
         }
 
         public override MessageResponse SynchronizeReels(SynchronizeReelsRequest request)
         {
-            throw new NotImplementedException();
+            Logger.Debug("SynchronizeReels");
+
+            var reelSyncStepData = new List<ReelSyncStepData>();
+            var syncData = new ReelSynchronizationData();
+
+            if (request.SynchronizationData.Is(SynchronizeReelsData.Descriptor))
+            {
+                var snappSyncData = request.SynchronizationData.Unpack<SynchronizeReelsData>();
+
+                foreach (var data in request.Data)
+                {
+                    reelSyncStepData.Add(new(
+                            (byte)data.ReelIndex,
+                            (short)data.SynchronizationStep));
+                }
+
+                syncData.Duration = (short)snappSyncData.Duration;
+                syncData.ReelSyncStepData = reelSyncStepData;
+                syncData.SyncType = SynchronizeType.Regular;
+            }
+            else if (request.SynchronizationData.Is(EnhancedSynchronizeReelsData.Descriptor))
+            {
+                var snappEnhancedSyncData = request.SynchronizationData.Unpack<EnhancedSynchronizeReelsData>();
+
+                foreach (var data in request.Data)
+                {
+                    reelSyncStepData.Add(new(
+                        (byte)data.ReelIndex,
+                        (short)data.SynchronizationStep));
+                }
+
+                for(var i = 0; i < snappEnhancedSyncData.Duration.Count; i++)
+                {
+                    reelSyncStepData[i].Duration = (short)snappEnhancedSyncData.Duration[i];
+                }
+
+                syncData.MasterReelIndex = (byte)snappEnhancedSyncData.MasterReelIndex;
+                syncData.MasterReelStep = (short)snappEnhancedSyncData.MasterReelSynchronizationStep;
+                syncData.ReelSyncStepData = reelSyncStepData;
+                syncData.SyncType = SynchronizeType.Enhanced;
+            }
+
+            var command = new PrepareSynchronizeReels(syncData);
+            _handlerFactory.Create<PrepareSynchronizeReels>()
+                .Handle(command);
+
+            return new MessageResponse { Result = command.Success };
         }
 
         public override MessageResponse SetBrightness(SetBrightnessRequest request)
         {
-            throw new NotImplementedException();
+            Logger.Debug("SetBrightness");
+
+            var brightnessData = request.Brightness;
+            var command = new SetBrightness(brightnessData);
+            _handlerFactory.Create<SetBrightness>().Handle(command);
+
+            return new MessageResponse { Result = command.Success };
         }
     }
 }

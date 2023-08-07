@@ -3,6 +3,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
@@ -18,6 +19,8 @@ namespace Aristocrat.Monaco.Gaming.Monitor
     using Hardware.Contracts.Door;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Reel;
+    using Hardware.Contracts.Reel.Capabilities;
+    using Hardware.Contracts.Reel.ControlData;
     using Hardware.Contracts.Reel.Events;
     using Kernel;
     using Localization.Properties;
@@ -40,8 +43,10 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private const string ReelsNeedHomingKey = "ReelsNeedHoming";
         private const string ReelsTiltedKey = "ReelsTilted";
         private const string MismatchedKey = "ReelMismatched";
+        private const string LoadingAnimationFileKey = "LoadingAnimationFile";
         private const string ReelDeviceName = "ReelController";
         private const string FailedHoming = "FailedHoming";
+        private const string LightShowExtension = ".lightshow";
 
         private static readonly PatternParameters SolidBlackPattern = new SolidColorPatternParameters
         {
@@ -76,12 +81,15 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private readonly IGameHistory _gameHistory;
         private readonly IEdgeLightingController _edgeLightingController;
         private readonly IOperatorMenuLauncher _operatorMenuLauncher;
+        private readonly IReelBrightnessCapabilities _brightnessCapability;
         private readonly SemaphoreSlim _tiltLock = new(1, 1);
         private readonly CancellationTokenSource _cancellationTokenSource = new();
+        private readonly Progress<LoadingAnimationFileModel> _loadingAnimationFileProgress = new();
 
         private IEdgeLightToken _edgeLightToken;
         private bool _disposed;
         private bool _homeStepsSet;
+        private bool _animationFilesAlreadyLoaded;
 
         public ReelControllerMonitor(
             IEventBus eventBus,
@@ -107,6 +115,12 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _reelController = new Lazy<IReelController>(() => ServiceManager.GetInstance().TryGetService<IReelController>());
             Task.Run(async () => await Initialize(_cancellationTokenSource.Token), _cancellationTokenSource.Token)
                 .FireAndForget();
+
+            if (ReelController is not null &&
+                ReelController.HasCapability<IReelBrightnessCapabilities>())
+            {
+                    _brightnessCapability = ReelController.GetCapability<IReelBrightnessCapabilities>();
+            }
         }
 
         public override string DeviceName => ReelDeviceName;
@@ -215,6 +229,12 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 ApplicationConstants.ReelCountMismatchDisableKey,
                 true);
             ManageBinaryCondition(
+                LoadingAnimationFileKey,
+                DisplayableMessageClassification.HardError,
+                DisplayableMessagePriority.Immediate,
+                ApplicationConstants.ReelLoadingAnimationFilesDisableKey,
+                true);
+            ManageBinaryCondition(
                 FailedHoming,
                 DisplayableMessageClassification.HardError,
                 DisplayableMessagePriority.Immediate,
@@ -227,6 +247,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             ValidateReelMismatch();
             GetReelHomeSteps();
             await HandleGameInitializationCompleted();
+            await CheckLoadingAnimationFiles();
         }
 
         private void HandleGameAddedEvent()
@@ -305,10 +326,11 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _eventBus.Subscribe<ClosedEvent>(this, HandleDoorClose, e => e.LogicalId is (int)DoorLogicalId.Main);
             _eventBus.Subscribe<ReelStoppedEvent>(this, HandleReelStoppedEvent);
             _eventBus.Subscribe<GameAddedEvent>(this, _ => HandleGameAddedEvent());
-            _eventBus.Subscribe<GameProcessExitedEvent>(this, GameProcessExited, evt => evt.Unexpected);
+            _eventBus.Subscribe<GameProcessExitedEvent>(this, GameProcessExitedUnexpected, evt => evt.Unexpected);
+            _eventBus.Subscribe<GameProcessExitedEvent>(this, GameProcessExited);
         }
 
-        private async Task GameProcessExited(GameProcessExitedEvent evt, CancellationToken token)
+        private async Task GameProcessExitedUnexpected(GameProcessExitedEvent evt, CancellationToken token)
         {
             var homeReels = !ReelsShouldTilt;
             Logger.Debug($"Titling reels because the game process exited.  Will home immediately after: {homeReels}");
@@ -317,6 +339,15 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             if (homeReels)
             {
                 await HomeReels().ConfigureAwait(false);
+            }
+        }
+
+        private async Task GameProcessExited(GameProcessExitedEvent evt, CancellationToken token)
+        {
+            Logger.Debug($"Game exited, resetting brightness to default");
+            if (_brightnessCapability is not null)
+            {
+                await _brightnessCapability.SetBrightness(_brightnessCapability.DefaultReelBrightness);
             }
         }
 
@@ -455,6 +486,75 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             finally
             {
                 _tiltLock.Release();
+            }
+        }
+
+        private async Task CheckLoadingAnimationFiles()
+        {
+            if (_animationFilesAlreadyLoaded || ReelController == null || !ReelController.HasCapability<IReelAnimationCapabilities>())
+            {
+                return;
+            }
+
+            var animationCapabilities = ReelController?.GetCapability<IReelAnimationCapabilities>();
+            var details = _gameProvider.GetGames().FirstOrDefault();
+            var gameAnimationFiles = details?.PreloadedAnimationFiles.ToList();
+
+            if (animationCapabilities is null || gameAnimationFiles is null || !gameAnimationFiles.Any())
+            {
+                return;
+            }
+
+            try
+            {
+                _tiltLock.Wait();
+                var animationFilesToLoad = new List<AnimationFile>();
+                foreach (var f in gameAnimationFiles)
+                {
+                    var animationType = Path.GetExtension(f.FilePath).Equals(LightShowExtension, StringComparison.InvariantCulture)
+                        ? AnimationType.GameLightShow
+                        : AnimationType.GameStepperCurve;
+                    animationFilesToLoad.Add(new AnimationFile(f.FilePath, animationType, f.FileIdentifier));
+                }
+
+                _loadingAnimationFileProgress.ProgressChanged += HandleLoadingAnimationFileProgress;
+                if (await animationCapabilities.LoadAnimationFiles(animationFilesToLoad, _loadingAnimationFileProgress, _cancellationTokenSource.Token))
+                {
+                    _animationFilesAlreadyLoaded = true;
+                }
+            }
+            finally
+            {
+                _tiltLock.Release();
+            }
+        }
+
+        private void HandleLoadingAnimationFileProgress(object sender, LoadingAnimationFileModel loadingAnimationFileModel)
+        {
+            var loadingAnimationFilesText = string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReelController_LoadingAnimationFile),
+                loadingAnimationFileModel.Count + "/" + loadingAnimationFileModel.Total);
+
+            switch (loadingAnimationFileModel.State)
+            {
+                case LoadingAnimationState.Loading:
+                    _disableManager.Disable(
+                        ApplicationConstants.ReelLoadingAnimationFilesDisableKey,
+                        SystemDisablePriority.Immediate,
+                        () => loadingAnimationFilesText,
+                        true);
+                    break;
+                case LoadingAnimationState.Error:
+                    var disableText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReelControllerFaults_HardwareError) + " " + loadingAnimationFilesText;
+                    _disableManager.Disable(
+                        ApplicationConstants.ReelLoadingAnimationFilesDisableKey,
+                        SystemDisablePriority.Immediate,
+                        () => disableText,
+                        true);
+                    break;
+                case LoadingAnimationState.Completed:
+                    _disableManager.Enable(ApplicationConstants.ReelLoadingAnimationFilesDisableKey);
+                    _loadingAnimationFileProgress.ProgressChanged -= HandleLoadingAnimationFileProgress;
+                    break;
             }
         }
 

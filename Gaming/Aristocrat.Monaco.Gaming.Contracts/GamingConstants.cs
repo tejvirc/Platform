@@ -240,9 +240,9 @@
         public const string PackagesPath = "/Packages";
 
         /// <summary>
-        ///     Gets the runtime executable name
+        ///     Gets the meaningful portion of the runtime executable name
         /// </summary>
-        public const string RuntimeHostName = @"GDKRuntimeHost";
+        public const string RuntimeHostName = @"RuntimeHost";
 
         /// <summary>
         ///     Gets the runtime file name
@@ -295,9 +295,14 @@
         public const string SelectedWagerCategory = @"GamePlay.SelectedWagerCategory";
 
         /// <summary>
-        ///     The currently selected bet details
+        ///     The currently selected bet details for main/single game
         /// </summary>
         public const string SelectedBetDetails = @"GamePlay.SelectedBetDetails";
+
+        /// <summary>
+        ///     The currently selected bet details for multiple games
+        /// </summary>
+        public const string SelectedMultiGameBetDetails = @"GamePlay.SelectedMultiGameBetDetails";
 
         /// <summary>
         ///     The currently Game Configuration
@@ -681,6 +686,16 @@
         /// </summary>
         public const string ProgressiveLobbyIndicatorType = @"Progressive.LobbyIndicator";
 
+        /// <summary> 
+        ///     Property manager for the configurable progressive id boolean 
+        /// </summary> 
+        public const string ProgressiveConfigurableLinkedLeveId = @"Progressive.ConfigurableId";
+
+        /// <summary> 
+        ///     Property Manager for the collection of configured level ids 
+        /// </summary> 
+        public const string ProgressiveConfiguredLinkedLevelIds = @"Progressive.ConfiguredLinkedLevelIds";
+
         /// <summary>
         ///     Property manager key for CensorshipEnforced.
         /// </summary>
@@ -701,6 +716,16 @@
         /// </summary>
         public const string AutoHoldConfigurable = @"AutoHold.Configurable";
 
+        /// <summary>
+        ///     Determines if ZeroCreditCashout is configurable
+        /// </summary>
+        public const string ZeroCreditCashoutConfigurable = @"ZeroCreditCashoutConfigurable";
+
+        /// <summary>
+        ///     Determines if AllowZeroCreditCashout is enabled
+        /// </summary>
+        public const string AllowZeroCreditCashout = @"AllowZeroCreditCashout";
+        
         /// <summary>
         ///     Property manager key for DefaultCreditDisplay
         /// </summary>
@@ -995,11 +1020,6 @@
         ///     flag to indicate if auto play is currently active
         /// </summary>
         public const string AutoPlayActive = "AutoPlayActive";
-
-        /// <summary>
-        ///     Determines whether EGM will send the cashout button press event to host in case credit is zero
-        /// </summary>
-        public const string ReportCashoutButtonPressWithZeroCredit = @"CashoutButton.ReportToHostWithZeroCredit";
         
         /// <summary>
         ///     Determines whether or not the Voucher Issued message is displayed in game
@@ -1389,6 +1409,11 @@
         public const string ShowPlayerMenuPopup = @"GamePlay.ShowPlayerMenuPopup";
 
         /// <summary>
+        ///     The Game Rules instructions message to display
+        /// </summary>
+        public const string GameRulesInstructions = @"Instructions.GameRulesInstructions";
+
+        /// <summary>
         ///     Flag will control the background cycling of the RNG by the platform
         /// </summary>
         public const string UseRngCycling = @"RngCycling.Enabled";
@@ -1457,6 +1482,11 @@
         ///     If true, platform will try to auto enable games that have a single variation and denomination
         /// </summary>
         public const string AutoEnableSimpleGames = @"AutoEnableSimpleGames";
+
+        /// <summary>
+        ///     Set GameSpecificOption when launching a game
+        /// </summary>
+        public const string GameSpecificOptions = "GameSpecificOptions";
 
         /// <summary>
         ///     encapsulate Player Information Display options

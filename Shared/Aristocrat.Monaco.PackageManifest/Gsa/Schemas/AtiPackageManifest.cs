@@ -105,6 +105,64 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+    public partial class c_stepperAnimationFileList {
+        
+        private c_stepperAnimationFile[] stepperAnimationFileField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("stepperAnimationFile")]
+        public c_stepperAnimationFile[] stepperAnimationFile {
+            get {
+                return this.stepperAnimationFileField;
+            }
+            set {
+                this.stepperAnimationFileField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+    [System.Xml.Serialization.XmlRootAttribute("stepperAnimationFile", Namespace="http://www.aristocrat.com/pkg/schemas/v1.0", IsNullable=false)]
+    public partial class c_stepperAnimationFile {
+        
+        private string filePathField;
+        
+        private string identifierField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string filePath {
+            get {
+                return this.filePathField;
+            }
+            set {
+                this.filePathField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string identifier {
+            get {
+                return this.identifierField;
+            }
+            set {
+                this.identifierField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
     public partial class c_upgradeActionList {
         
         private c_upgradeAction[] upgradeActionField;
@@ -1134,6 +1192,16 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0", IsNullable=false)]
+    public partial class stepperAnimationFileList : c_stepperAnimationFileList {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
     [System.Xml.Serialization.XmlRootAttribute("configuration", Namespace="http://www.aristocrat.com/pkg/schemas/v1.0", IsNullable=false)]
     public partial class c_configuration {
@@ -1728,7 +1796,7 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private c_configurationList configurationListField;
         
-        private System.Xml.XmlElement[] anyField;
+        private stepperAnimationFileList stepperAnimationFileListField;
         
         private string productTypeField;
         
@@ -1815,13 +1883,13 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAnyElementAttribute()]
-        public System.Xml.XmlElement[] Any {
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+        public stepperAnimationFileList stepperAnimationFileList {
             get {
-                return this.anyField;
+                return this.stepperAnimationFileListField;
             }
             set {
-                this.anyField = value;
+                this.stepperAnimationFileListField = value;
             }
         }
         
@@ -2782,6 +2850,8 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private string denominationsField;
         
+        private c_cdsInfoList cdsInfoListField;
+        
         private string uniqueGameIdField;
         
         private string titleIdField;
@@ -2793,6 +2863,16 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             }
             set {
                 this.denominationsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public c_cdsInfoList CdsInfoList {
+            get {
+                return this.cdsInfoListField;
+            }
+            set {
+                this.cdsInfoListField = value;
             }
         }
         

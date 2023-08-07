@@ -396,6 +396,7 @@
 
         protected override void OnLoaded()
         {
+            UpdateEventFilters();
             UpdateEventCount();
 
             Offset = PropertiesManager.GetValue(ApplicationConstants.TimeZoneOffsetKey, TimeSpan.Zero);
@@ -416,14 +417,7 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            foreach (var eventFilter in EventFilterCollection)
-            {
-                string newDisplayText = Localizer.For(CultureFor.Operator).GetString(eventFilter.EventType);
-                if (!string.IsNullOrEmpty(newDisplayText))
-                {
-                    eventFilter.DisplayText = newDisplayText;
-                }
-            }
+            UpdateEventFilters();
 
             SetupTiltLogAppendedTilt(false);
             ReloadEventHistory();
@@ -464,6 +458,18 @@
                     {
                         ((ISubscribableEventLogAdapter)logAdapter).Appended -= EventLogAppended;
                     }
+                }
+            }
+        }
+
+        private void UpdateEventFilters()
+        {
+            foreach (var eventFilter in EventFilterCollection)
+            {
+                string newDisplayText = Localizer.For(CultureFor.Operator).GetString(eventFilter.EventType);
+                if (!string.IsNullOrEmpty(newDisplayText))
+                {
+                    eventFilter.DisplayText = newDisplayText;
                 }
             }
         }
@@ -552,6 +558,11 @@
 
         private void ShowAdditionalInfo(object obj)
         {
+            if (SelectedItem == null)
+            {
+                return;
+            }
+
             // Show a popup window with additional info
             var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
 

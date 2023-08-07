@@ -7,7 +7,7 @@
     using ServerApiGateway;
 
     /// <inheritdoc cref="Aristocrat.Bingo.Client.Messages.IReportTransactionService" />
-    public class ReportTransactionService : BaseClientCommunicationService, IReportTransactionService
+    public class ReportTransactionService : BaseClientCommunicationService<ClientApi.ClientApiClient>, IReportTransactionService
     {
         /// <summary>
         ///     Creates an instance of <see cref="ReportTransactionService"/>

@@ -17,6 +17,7 @@
     using Kernel;
     using log4net;
     using Timer = System.Timers.Timer;
+    using Aristocrat.Monaco.Protocol.Common.Communication;
 
     /// <summary>
     ///     Implementation of ICommunicationService

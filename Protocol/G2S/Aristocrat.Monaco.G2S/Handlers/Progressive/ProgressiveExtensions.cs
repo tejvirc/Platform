@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Handlers.Progressive
 {
+    using System;
     using System.Linq;
     using Aristocrat.G2S.Protocol.v21;
     using Gaming.Contracts;
@@ -44,7 +45,7 @@
                 payMethod = (t_progPayMethods)@this.PayMethod,
                 progPaidAmt = @this.PaidAmount,
                 progException = @this.Exception,
-                paidDateTime = @this.PaidDateTime
+                paidDateTime = @this.PaidDateTime != DateTime.MinValue ? @this.PaidDateTime : DateTime.UtcNow // The default DateTime value is invalid when serialized to XML
             };
         }
 
@@ -69,7 +70,7 @@
                 }
             }
 
-            return "ATI_STANDARD";
+            return "ATI_standard";
         }
 
         /// <summary>

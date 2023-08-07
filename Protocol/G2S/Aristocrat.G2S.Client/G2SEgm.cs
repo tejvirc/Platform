@@ -8,6 +8,7 @@
     using Communications;
     using Configuration;
     using Devices;
+    using Devices.v21;
 
     /// <summary>
     ///     Implementation of a G2S Egm
@@ -26,6 +27,7 @@
         private bool _disposed;
 
         private IReceiveEndpoint _receiveEndpoint;
+        private IMessageConsumer _messageConsumer;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="G2SEgm" /> class.
@@ -35,12 +37,15 @@
         /// <param name="deviceConnector">An instance of a IDeviceConnector</param>
         /// <param name="handlerConnector">An instance of a IHandlerConnector</param>
         /// <param name="receiveEndpoint">An instance of a IReceiveEndpoint.</param>
+        /// <param name="messageConsumer">An instance of a IMessageConsumer.</param>
         public G2SEgm(
             string egmId,
             IHostConnector hostConnector,
             IDeviceConnector deviceConnector,
             IHandlerConnector handlerConnector,
-            IReceiveEndpoint receiveEndpoint)
+            IReceiveEndpoint receiveEndpoint,
+            IMessageConsumer messageConsumer
+            )
         {
             if (string.IsNullOrEmpty(egmId))
             {
@@ -52,6 +57,7 @@
             _deviceConnector = deviceConnector ?? throw new ArgumentNullException(nameof(deviceConnector));
             _handlerConnector = handlerConnector ?? throw new ArgumentNullException(nameof(handlerConnector));
             _receiveEndpoint = receiveEndpoint ?? throw new ArgumentNullException(nameof(receiveEndpoint));
+            _messageConsumer = messageConsumer ?? throw new ArgumentNullException(nameof(messageConsumer));
 
             // Host identifier 0 (zero) MUST identify the EGM itself and MUST always be contained in the list of all host indexes.
             RegisterHost(Constants.EgmHostId, null, false, Constants.EgmHostIndex);
@@ -95,9 +101,9 @@
         }
 
         /// <inheritdoc />
-        public IHostControl RegisterHost(int hostId, Uri hostUri, bool requiredForPlay, int index)
+        public IHostControl RegisterHost(int hostId, Uri hostUri, bool requiredForPlay, int index, bool isProgressiveHost = false, TimeSpan offlineTimerInterval = new TimeSpan())
         {
-            return _hostConnector.RegisterHost(hostId, hostUri, requiredForPlay, index);
+            return _hostConnector.RegisterHost(hostId, hostUri, requiredForPlay, index, isProgressiveHost, offlineTimerInterval);
         }
 
         /// <inheritdoc />
@@ -153,6 +159,7 @@
                 }
 
                 _receiveEndpoint.Open();
+                StartMtp();
 
                 var startupContexts = contexts as IList<IStartupContext> ?? contexts.ToList();
 
@@ -225,6 +232,17 @@
                 }
 
                 Task.WaitAll(tasks.ToArray());
+            }
+        }
+
+        /// <inheritdoc />
+        public void StartMtp()
+        {
+            var commDevices = _deviceConnector.GetDevices<ICommunicationsDevice>();
+            foreach (var commDevice in commDevices)
+            {
+                commDevice.ConnectConsumer(_messageConsumer);
+                commDevice.OpenMtp();
             }
         }
 

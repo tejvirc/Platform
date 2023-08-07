@@ -1,8 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
-                    xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters">
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!-- Used to customize lobby for different jurisdictions -->
     <!-- **IMAGES TOP SCREEN** -->
     <BitmapImage x:Key="TopBackground"
@@ -141,12 +139,6 @@
     <BitmapImage x:Key="VBD_ServiceDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Alberta-VLT/ui/Images/VBD_EN_Service_Dark.png"
                  AutomationProperties.AutomationId="BitmapImage43_8D135CAC" />
-    <BitmapImage x:Key="VBD_MoneyNormal"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Alberta-VLT/ui/Images/VBD_EN_Money_Normal.png"
-                 AutomationProperties.AutomationId="BitmapImage44_8D135CAC" />
-    <BitmapImage x:Key="VBD_MoneyDisabled"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Alberta-VLT/ui/Images/VBD_EN_Money_Dark.png"
-                 AutomationProperties.AutomationId="BitmapImage45_8D135CAC" />
     <BitmapImage x:Key="VBD_Disabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Alberta-VLT/ui/Images/VBD_Disabled.png"
                  AutomationProperties.AutomationId="BitmapImage46_8D135CAC" />

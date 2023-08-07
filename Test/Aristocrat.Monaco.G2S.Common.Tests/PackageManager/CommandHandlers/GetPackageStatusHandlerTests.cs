@@ -5,7 +5,7 @@
     using System.Data.Entity;
     using Common.PackageManager.CommandHandlers;
     using Common.PackageManager.Storage;
-    using Data.Model;
+    using G2S.Data.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Monaco.Common.Exceptions;
     using Monaco.Common.Storage;

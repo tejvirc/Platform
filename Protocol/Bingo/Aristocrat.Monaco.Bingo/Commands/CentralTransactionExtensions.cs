@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Commands
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Application.Contracts.Extensions;
     using Aristocrat.Bingo.Client.Messages.GamePlay;
@@ -20,7 +22,7 @@
         /// <param name="machineSerial">The machine serial number</param>
         /// <param name="log">The game history log for this transaction is for</param>
         /// <returns>The report game outcome message that gets sent to the server</returns>
-        public static ReportGameOutcomeMessage ToReportGameOutcomeMessage(
+        public static ReportMultiGameOutcomeMessage ToReportGameOutcomeMessage(
             this CentralTransaction transaction,
             string machineSerial,
             IGameHistoryLog log)
@@ -31,7 +33,7 @@
                 return null;
             }
 
-            return new ReportGameOutcomeMessage
+            return new ReportMultiGameOutcomeMessage
             {
                 TransactionId = transaction.TransactionId,
                 MachineSerial = machineSerial,
@@ -60,9 +62,60 @@
             bool KeepPattern(BingoPattern x) => log.GameWinBonus > 0 || !x.IsGameEndWin;
         }
 
+        /// <summary>
+        ///     Converts the transaction into a RequestMultiPlayCommand
+        /// </summary>
+        /// <param name="transaction">The Central Transaction</param>
+        /// <param name="machineSerial">The machine serial number</param>
+        /// <param name="details">The bet details</param>
+        /// <param name="titleId">The main game title id</param>
+        /// <param name="subGameTitleId">The sub game title id</param>
+        /// <returns></returns>
+        public static RequestMultiPlayCommand GenerateMultiPlayRequest(
+            this CentralTransaction transaction,
+            string machineSerial,
+            IEnumerable<IBetDetails> details,
+            int titleId,
+            int? subGameTitleId)
+        {
+            var requests = new List<RequestSingleGameOutcomeMessage>();
+
+            if (!transaction.AdditionalInfo.Any(x => x.GameIndex == 0))
+            {
+                throw new ArgumentNullException(nameof(transaction.AdditionalInfo));
+            }
+
+            var betDetails = details.ToList();
+            foreach (var gameInfo in transaction.AdditionalInfo)
+            {
+                var betDetail = betDetails.Single(x => x.GameId == gameInfo.GameId);
+                AddSingleGameOutcomeRequest(gameInfo, betDetail, titleId, subGameTitleId, requests);
+            }
+
+            return new RequestMultiPlayCommand(machineSerial, requests);
+        }
+
+        private static void AddSingleGameOutcomeRequest(IAdditionalGamePlayInfo gameInfo, IBetDetails betDetail, int mainTitleId, int? subGameTitleId, ICollection<RequestSingleGameOutcomeMessage> requests)
+        {
+            if (gameInfo.GameIndex != 0 && !subGameTitleId.HasValue)
+            {
+                return;
+            }
+            requests.Add(new RequestSingleGameOutcomeMessage(
+                gameInfo.GameIndex,
+                gameInfo.WagerAmount,
+                gameInfo.Denomination,
+                betDetail.BetLinePresetId,
+                betDetail.BetPerLine,
+                betDetail.NumberLines,
+                betDetail.Ante,
+                gameInfo.GameIndex == 0 ? mainTitleId : subGameTitleId.Value,
+                gameInfo.GameId));
+        }
+
         private static CardPlayed ToCardPlayed(BingoCard card)
         {
-            return new CardPlayed(card.SerialNumber, card.DaubedBits, card.IsGameEndWin);
+            return new CardPlayed(card.SerialNumber, card.DaubedBits, card.IsGameEndWin, card.IsGolden);
         }
 
         private static WinResult ToWinResult(BingoPattern pattern)
@@ -76,7 +129,8 @@
                 pattern.Name,
                 pattern.CardSerial,
                 pattern.IsGameEndWin,
-                pattern.WinIndex);
+                pattern.WinIndex,
+                Enumerable.Empty<string>());
         }
     }
 }

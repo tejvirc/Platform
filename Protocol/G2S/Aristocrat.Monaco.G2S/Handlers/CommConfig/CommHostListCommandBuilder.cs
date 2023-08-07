@@ -35,7 +35,7 @@
             commHostList command,
             CommHostListCommandBuilderParameters parameters)
         {
-            command.multicastSupported = t_g2sBoolean.G2S_false;
+            command.multicastSupported = t_g2sBoolean.G2S_true;
 
             var commHostList = new List<commHostItem>();
 

@@ -22,8 +22,8 @@
     {
         private const int DeviceId = 1;
 
-        private static readonly Guid RequestorId = new Guid("{0E764637-41DE-4DF1-A0A7-3E018CDE0FBC}");
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly Guid RequestorId = new("{0E764637-41DE-4DF1-A0A7-3E018CDE0FBC}");
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(5);
 
@@ -66,6 +66,7 @@
             _bus.Subscribe<SetValidationEvent>(this, _ => CancelAll(CancellationReason.IdInvalidated), e => e.Identity == null);
             _bus.Subscribe<DisabledEvent>(this, _ => CancelAll(CancellationReason.IdInvalidated));
             _bus.Subscribe<OperatorMenuEnteredEvent>(this, _ => InAuditMode = true);
+            _bus.Subscribe<TransactionCompletedEvent>(this, Handle);
             _bus.Subscribe<OperatorMenuExitedEvent>(this, _ =>
             {
                 InAuditMode = false;
@@ -100,7 +101,7 @@
 
         private BonusTransactionRequest CurrentTransaction
         {
-            get { return _current = _current ?? _storage.GetEntity<BonusTransactionRequest>(); }
+            get { return _current ??= _storage.GetEntity<BonusTransactionRequest>(); }
             set
             {
                 if (value != null)
@@ -189,78 +190,16 @@
             Acknowledge(Transactions.FirstOrDefault(t => t.BonusId == bonusId));
         }
 
+        /// <inheritdoc/>
         public bool Commit()
         {
-            return Commit(Guid.Empty);
+            return Commit(null);
         }
 
+        /// <inheritdoc/>
         public bool Commit(Guid transactionId)
         {
-            lock (_sync)
-            {
-                var pending = GetPendingBonusTransactions().ToList();
-                if (pending.Count == 0 || _transactionCoordinator.IsTransactionActive ||
-                    CurrentTransaction != null && CurrentTransaction.TransactionId != Guid.Empty)
-                {
-                    return false;
-                }
-
-                var ownedTransaction = false;
-                if (transactionId == Guid.Empty)
-                {
-                    transactionId = _transactionCoordinator.RequestTransaction(RequestorId, (int)DefaultTimeout.TotalMilliseconds, TransactionType.Write);
-                    if (transactionId == Guid.Empty)
-                    {
-                        return false;
-                    }
-
-                    ownedTransaction = true;
-                }
-
-                CurrentTransaction = new BonusTransactionRequest
-                {
-                    TransactionId = transactionId,
-                    OwnedTransaction = ownedTransaction
-                };
-
-                Task.Run(async () =>
-                {
-                    await CommitAsync(CurrentTransaction, pending);
-                    if (ownedTransaction && GetPendingBonusTransactions().Any())
-                    {
-                        Commit();
-                    }
-                });
-
-                return true;
-            }
-        }
-
-        private IEnumerable<BonusTransaction> GetPendingBonusTransactions()
-        {
-            return Transactions
-                .Where(t => t.State == BonusState.Pending && _strategies.Create(t.Mode).CanPay(t))
-                .OrderBy(t => t.Mode)
-                .ThenBy(t => t.TransactionId);
-        }
-
-        private async Task CommitAsync(BonusTransactionRequest transactionRequest, IEnumerable<BonusTransaction> transactions)
-        {
-            IContinuationContext context = null;
-
-            try
-            {
-                foreach (var transaction in transactions)
-                {
-                    context = await PayBonus(transaction, transactionRequest.TransactionId, context);
-                }
-            }
-            finally
-            {
-                ClearTransaction();
-
-                _bus.Publish(new BonusCommitCompletedEvent());
-            }
+            return Commit(transactionId, null);
         }
 
         public bool Cancel(long transactionId)
@@ -323,6 +262,83 @@
             _disposed = true;
         }
 
+        private IEnumerable<BonusTransaction> GetPendingBonusTransactions()
+        {
+            return Transactions
+                .Where(t => t.State == BonusState.Pending && _strategies.Create(t.Mode).CanPay(t))
+                .OrderBy(t => t.Mode)
+                .ThenBy(t => t.TransactionId);
+        }
+
+        private bool Commit(IContinuationContext context)
+        {
+            return Commit(Guid.Empty, context);
+        }
+
+        private bool Commit(Guid transactionId, IContinuationContext context)
+        {
+            lock (_sync)
+            {
+                var pending = GetPendingBonusTransactions().ToList();
+                if (pending.Count == 0 || _transactionCoordinator.IsTransactionActive ||
+                    CurrentTransaction != null && CurrentTransaction.TransactionId != Guid.Empty)
+                {
+                    return false;
+                }
+
+                var ownedTransaction = false;
+                if (transactionId == Guid.Empty)
+                {
+                    transactionId = _transactionCoordinator.RequestTransaction(RequestorId, (int)DefaultTimeout.TotalMilliseconds, TransactionType.Write);
+                    if (transactionId == Guid.Empty)
+                    {
+                        return false;
+                    }
+
+                    ownedTransaction = true;
+                }
+
+                CurrentTransaction = new BonusTransactionRequest
+                {
+                    TransactionId = transactionId,
+                    OwnedTransaction = ownedTransaction
+                };
+
+                Task.Run(async () =>
+                {
+                    context = await CommitAsync(CurrentTransaction, pending, context);
+                    if (ownedTransaction && GetPendingBonusTransactions().Any())
+                    {
+                        Commit(context);
+                    }
+                });
+
+                return true;
+            }
+        }
+
+        private async Task<IContinuationContext> CommitAsync(
+            BonusTransactionRequest transactionRequest,
+            IEnumerable<BonusTransaction> transactions,
+            IContinuationContext context = null)
+        {
+            try
+            {
+                foreach (var transaction in transactions)
+                {
+                    context = await PayBonus(transaction, transactionRequest.TransactionId, context);
+                }
+            }
+            finally
+            {
+                ClearTransaction();
+
+                _bus.Publish(new BonusCommitCompletedEvent());
+            }
+
+            return (context?.ShouldPersistPostCommit ?? false) ? context : null;
+        }
+
         private async Task<IContinuationContext> PayBonus(BonusTransaction bonus, Guid transactionId, IContinuationContext context)
         {
             var strategy = _strategies.Create(bonus.Mode);
@@ -374,6 +390,11 @@
         }
 
         private void Handle(TransferOutCompletedEvent evt)
+        {
+            Commit();
+        }
+
+        private void Handle(TransactionCompletedEvent evt)
         {
             Commit();
         }

@@ -22,8 +22,8 @@
             {
                 WizardPages.Add(new NetworkConfigPageLoader(true));
             }
-            WizardPages.Add(new SecurityConfigurationViewLoader(true));
             WizardPages.Add(new HostConfigurationViewLoader(true));
+            WizardPages.Add(new SecurityConfigurationViewLoader(true));
         }
         
         /// <inheritdoc />

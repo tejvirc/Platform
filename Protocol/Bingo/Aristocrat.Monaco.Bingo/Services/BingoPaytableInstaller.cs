@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using Application.Contracts.Extensions;
+    using Application.Contracts.Protocol;
     using Common;
     using Common.Exceptions;
     using Common.Extensions;
@@ -12,24 +13,32 @@
     using Configuration;
     using Gaming.Contracts;
     using Gaming.Contracts.Configuration;
+    using Kernel;
     using log4net;
 
     public class BingoPaytableInstaller : IBingoPaytableInstaller
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
+        private readonly IEventBus _eventBus;
         private readonly IServerPaytableInstaller _serverPaytableInstaller;
         private readonly IGameProvider _gameProvider;
         private readonly IConfigurationProvider _restrictionProvider;
+        private readonly IMultiProtocolConfigurationProvider _protocolConfiguration;
 
         public BingoPaytableInstaller(
+            IEventBus eventBus,
             IServerPaytableInstaller serverPaytableInstaller,
             IGameProvider gameProvider,
-            IConfigurationProvider restrictionProvider)
+            IConfigurationProvider restrictionProvider,
+            IMultiProtocolConfigurationProvider protocolConfiguration)
         {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _serverPaytableInstaller = serverPaytableInstaller ?? throw new ArgumentNullException(nameof(serverPaytableInstaller));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _restrictionProvider = restrictionProvider ?? throw new ArgumentNullException(nameof(restrictionProvider));
+            _protocolConfiguration =
+                protocolConfiguration ?? throw new ArgumentNullException(nameof(protocolConfiguration));
         }
 
         public IEnumerable<BingoGameConfiguration> ConfigureGames(IEnumerable<ServerGameConfiguration> gameConfigurations)
@@ -37,13 +46,29 @@
             var configurations = gameConfigurations.ToList();
             foreach (var gameConfiguration in GetGameConfigurations(configurations))
             {
-                var installedGameDetails = InstallGame(gameConfiguration);
-                _gameProvider.SetActiveDenominations(installedGameDetails.Id, configurations.Select(x => x.Denomination.CentsToMillicents()).ToList());
-                foreach (var (gameDetails, settings) in gameConfiguration)
+                var gameDetails = InstallGame(gameConfiguration);
+                _gameProvider.SetActiveDenominations(gameDetails.Id, configurations.Select(x => x.Denomination.CentsToMillicents()).ToList());
+                var sideBetGames = configurations.Select(x => x.SideBetGames).FirstOrDefault();
+                if (sideBetGames is not null)
                 {
-                    yield return settings.ToGameConfiguration(installedGameDetails);
+                    var subGames =
+                        sideBetGames.Select(
+                            subGame => new SubGameConfiguration()
+                            {
+                                GameTitleId = subGame.GameTitleId,
+                                Denomination = subGame.Denomination
+                            }).ToList();
+
+                    _serverPaytableInstaller.InstallSubGames(gameDetails.Id, subGames);
+                }
+                
+                foreach (var (gameDetail, setting) in gameConfiguration)
+                {
+                    yield return setting.ToGameConfiguration(gameDetail);
                 }
             }
+
+            _eventBus.Publish(new PaytablesInstalledEvent());
         }
 
         public IEnumerable<BingoGameConfiguration> UpdateConfiguration(IEnumerable<ServerGameConfiguration> gameConfigurations)
@@ -117,15 +142,25 @@
                 };
             }
 
-            var installedGameDetails = _serverPaytableInstaller.InstallGame(gameConfiguration.Key.Id, gameOptionConfigValues);
-            if (installedGameDetails is null)
+            var bingoProtocol =
+                _protocolConfiguration.MultiProtocolConfiguration.Single(x => x.Protocol == CommsProtocol.Bingo);
+            if (settings.CrossGameProgressiveEnabled && !bingoProtocol.IsProgressiveHandled)
+            {
+                throw new ConfigurationException(
+                    "Progressive Protocol not enabled for progressive game",
+                    ConfigurationFailureReason.InvalidGameConfiguration);
+            }
+
+            var gameDetail = _serverPaytableInstaller.InstallGame(gameConfiguration.Key.Id, gameOptionConfigValues);
+
+            if (gameDetail is null)
             {
                 throw new ConfigurationException(
                     "Game was unable to be installed",
                     ConfigurationFailureReason.InvalidGameConfiguration);
             }
 
-            return installedGameDetails;
+            return gameDetails;
         }
 
         private bool IsConfigurationValid(IReadOnlyCollection<(IGameDetail GameDetails, ServerGameConfiguration Settings)> configurations)

@@ -98,7 +98,7 @@
             _gameRecovery = containerService.Container.GetInstance<IGameRecovery>();
             _eventBus.Subscribe<PayoutAmountUpdatedEvent>(this, Handle);
         }
-       
+
         private void Handle(PayoutAmountUpdatedEvent evt)
         {
             _overlayMessageStrategyController.SetCashableAmount(evt.CashableAmount);
@@ -422,7 +422,7 @@
                                      IsAgeWarningDlgVisible ||
                                      IsSelectPayModeVisible ||
                                      IsResponsibleGamingInfoOverlayDlgVisible ||
-                                     MessageOverlayData.IsDialogVisible||
+                                     MessageOverlayData.IsDialogVisible ||
                                      ReserveOverlayViewModel.IsDialogVisible ||
                                      _playerMenuPopup.IsMenuVisible ||
                                      _playerInfoDisplayManager.IsActive() ||
@@ -697,8 +697,7 @@
 
         private void ClearPresentationIfComplete(bool messageSentToOverlay)
         {
-            var shouldClearPresentation = !messageSentToOverlay && _overlayMessageStrategyController.GameRegistered ||
-                                          !MessageOverlayData.GameHandlesHandPayPresentation;
+            var shouldClearPresentation = _overlayMessageStrategyController.GameRegistered && (!messageSentToOverlay || !MessageOverlayData.GameHandlesHandPayPresentation);
 
             if (!shouldClearPresentation)
             {

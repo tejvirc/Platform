@@ -40,17 +40,4 @@ namespace Aristocrat.Monaco.Sas.Contracts.Client
         /// <summary> Machine is disabled on PowerUp by Host 1. LP02 is required to clear this. </summary>
         PowerUpDisabledByHost1 = 1 << 11
     }
-
-    /// <summary>An extension class for the DisableStates enumeration to aid in checking for set states.</summary>
-    public static class DisableStateHelper
-    {
-        /// <summary>Checks to see if any of the checkStates are part of the currentFlags </summary>
-        /// <param name="currentStates">The current states of the enumeration.</param>
-        /// <param name="checkStates">The states to check for in the current states.</param>
-        /// <returns>True if any of the checkStates are part of the currentStates, false otherwise.</returns>
-        public static bool IsAnyStateActive(this DisableState currentStates, params DisableState[] checkStates)
-        {
-            return checkStates.Any(x => (currentStates & x) != DisableState.None);
-        }
-    }
 }

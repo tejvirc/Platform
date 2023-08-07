@@ -1,10 +1,13 @@
 ﻿namespace Aristocrat.G2S.Client.Devices.v21
 {
+    using Aristocrat.G2S.Client.Communications;
     using Diagnostics;
     using Newtonsoft.Json;
     using Protocol.v21;
     using Stateless;
     using System;
+    using System.Linq;
+    using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -26,7 +29,7 @@
     ///     means for configuration control, transactions, information exchanges, and event reporting. The multicast service is
     ///     used by a host to send messages to a plurality of EGMs.
     /// </remarks>
-    public class CommunicationsDevice : HostOrientedDevice<communications>, ICommunicationsDevice
+    public partial class CommunicationsDevice : HostOrientedDevice<communications>, ICommunicationsDevice
     {
         private const bool NegotiateNamespaces = false;
         private const int ReconnectDelay = 1000;
@@ -38,23 +41,18 @@
 
         private readonly Uri _address;
         private readonly ICommunicationsStateObserver _communicationsStateObserver;
-
         private readonly StateMachine<t_commsStates, CommunicationTrigger> _state;
-
         private readonly object _timerLock = new object();
         private readonly ITransportStateObserver _transportStateObserver;
-        private int _commsDisabledInterval = DefaultCommunicationsInterval;
-
         private readonly IEventLift _eventLift;
 
         private Timer _commsOnlineTimer;
         private Timer _commsTimer;
-
         private ICommunicationContext _context;
-
-        private bool _disposed;
         private IHostQueue _hostQueue;
         private int _keepAliveInterval = DefaultKeepAliveInterval;
+        private int _commsDisabledInterval = DefaultCommunicationsInterval;
+        private bool _disposed;
         private bool _open;
         private bool _configurationChanged;
 
@@ -83,6 +81,8 @@
             _address = address;
             _eventLift = eventLift;
             RequiredForPlay = requiredForPlay;
+            AllowMulticast = true;
+            ConfigureMtpClient();
 
             SetDefaults();
 
@@ -155,6 +155,8 @@
             }
 
             EndCommsTimer();
+
+            CloseMtpConnections();
 
             _open = false;
 
@@ -357,6 +359,11 @@
                         _commsOnlineTimer = null;
                     }
                 }
+
+                foreach (var connection in _mtpConnections)
+                    connection.Value.Dispose();
+
+                _messageBuilder.Dispose();
 
                 SourceTrace.TraceInformation(
                     G2STrace.Source,

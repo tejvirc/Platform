@@ -25,13 +25,15 @@
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
         }
 
+        private bool AllowZeroCreditCashout => _propertiesManager.GetValue(GamingConstants.AllowZeroCreditCashout, false);
+
         /// <inheritdoc />
         public override void Consume(CashOutButtonPressedEvent theEvent)
         {
             var aftTransfersToHostEnabled = _propertiesManager
                 .GetValue(SasProperties.SasFeatureSettings, new SasFeatures()).TransferOutAllowed;
 
-            if (aftTransfersToHostEnabled)
+            if (aftTransfersToHostEnabled || AllowZeroCreditCashout)
             {
                 // Per section 8.8 Cash Out Button Pressed, exception 66 will be sent only if AFT transfers to host are enabled
                 _exceptionHandler.ReportException(new GenericExceptionBuilder(GeneralExceptionCode.CashOutButtonPressed));

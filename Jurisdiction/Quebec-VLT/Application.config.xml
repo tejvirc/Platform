@@ -12,7 +12,7 @@ as follows:
 <ApplicationConfiguration>
   <Currency Id="CAD"/>
   <HardMeterMonitor DisableOnError="true"/>
-  <NoteAcceptorMonitor DisableOnError="Immediate" LockupOnStackerFull="true" SoftErrorOnStackerFull="true" />
+  <NoteAcceptorMonitor DisableOnError="Queue" LockupOnStackerFull="true" />
   <PrinterMonitor FormFeedAfterKeyOff="true"/>
   <GeneralMessages>
     <DisabledByOperator Message=""/>
@@ -62,7 +62,6 @@ as follows:
   <LogTypesAllowedForDisplay>
     <string>General</string>
     <string>Error</string>
-    <string>Gameplay</string>
     <string>Power</string>
     <string>GameConfigurationChange</string>
     <string>Comms</string>
@@ -74,7 +73,8 @@ as follows:
     <string>Door</string>
     <string>Protocol</string>
   </LogTypesAllowedForDisplay>
-  <Cashout ClearWins="false" />
+  <Clock Enabled="true" Format="24" />
+  <Cashout ClearWins="false" PaperInChuteBlocksCashout="false" />
   <MultiGame RestoreRebootStateAfterSwitch="false" StateStorageLocation="game" />
   <PlatformEnhancedDisplay Enabled="false" />
   <HandpayReceiptPrinting Enabled="true"/>

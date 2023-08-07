@@ -6,6 +6,7 @@
     using System.Runtime.CompilerServices;
     using System.Runtime.Serialization;
     using Newtonsoft.Json;
+    using v21;
 
     /// <summary>
     ///     Defines a G2S client device.

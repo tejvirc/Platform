@@ -17,6 +17,7 @@
         private int _deviceId;
         private int _ownerId;
         private bool _enabled;
+        private bool _hostEnabled;
         private bool _active;
         private List<IHostControl> _hosts;
 
@@ -85,6 +86,20 @@
                 {
                     _enabled = value;
                     RaisePropertyChanged(nameof(Enabled));
+                }
+            }
+        }
+
+        public bool HostEnabled
+        {
+            get => _hostEnabled;
+
+            set
+            {
+                if (_hostEnabled != value)
+                {
+                    _hostEnabled = value;
+                    RaisePropertyChanged(nameof(HostEnabled));
                 }
             }
         }

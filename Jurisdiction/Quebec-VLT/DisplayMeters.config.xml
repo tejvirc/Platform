@@ -10,6 +10,8 @@
     <MeterNode Page="MainPage" Name="EgmPaidGameWonAmt" DisplayName="Cash Won" DisplayNameKey="CashWonText" />
     <MeterNode Page="MainPage" Name="PlayedCount" DisplayName="Games Played" DisplayNameKey="GamesPlayed" />
     <MeterNode Page="MainPage" Name="WonCount" DisplayName="Games Won" DisplayNameKey="GamesWon" />
+    <MeterNode Page="MainPage" Name="GamesPlayedSinceDoorClosed" DisplayName="Games Played since Door Closed"  Period="false" DisplayNameKey="GamesPlayedSinceDoorClosed" />
+    <MeterNode Page="MainPage" Name="GamesPlayedSinceReboot" DisplayName="Games Played since Reboot" Period="false" DisplayNameKey="GamesPlayedSinceReboot" />
   
     <MeterNode Page="Hardware" Name="MainDoorOpen" DisplayName="Main Door Open" DisplayNameKey="MainDoorOpenLabel" />
     <MeterNode Page="Hardware" Name="MainDoorOpenPowerOff" DisplayName="Main Door Open Power Off" DisplayNameKey="MainDoorOpenPowerOff" />
@@ -43,8 +45,9 @@
 
     <MeterNode Page="Progressives" Name="ProgressivePackName" DisplayName="Pack Name" Order="1" DisplayNameKey="PackName" />
     <MeterNode Page="Progressives" Name="LevelName" DisplayName="Level" Order="2" DisplayNameKey="Level" />
-    <MeterNode Page="Progressives" Name="ProgressiveLevel.WageredAmount" DisplayName="Wagered" Order="3" DisplayNameKey="WagerCategoryWageredCaption" />
-    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinOccurrence" DisplayName="Hit" Order="4" DisplayNameKey="Hit" />
-    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinAccumulation" DisplayName="Won" Order="5" DisplayNameKey="CreditsWonText" />
+    <MeterNode Page="Progressives" Name="WageredAmount" DisplayName="Wagered" Order="3" DisplayNameKey="WagerCategoryWageredCaption" />
+    <MeterNode Page="Progressives" Name="PlayedCount" DisplayName="Games Played" Order="4" DisplayNameKey="GamesPlayed" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinOccurrence" DisplayName="Hit" Order="5" DisplayNameKey="Hit" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinAccumulation" DisplayName="Won" Order="6" DisplayNameKey="CreditsWonText" />
   </MeterNodes>
 </DisplayMetersConfiguration>

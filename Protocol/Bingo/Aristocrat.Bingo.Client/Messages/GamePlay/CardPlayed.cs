@@ -2,13 +2,17 @@
 {
     public class CardPlayed
     {
-        public CardPlayed(uint serialNumber, int bitPattern, bool isGameEndWin)
+        public CardPlayed(uint serialNumber, int bitPattern, bool isGameEndWin, bool isGolden = false)
         {
             SerialNumber = serialNumber;
             BitPattern = bitPattern;
             IsGameEndWin = isGameEndWin;
+            IsGolden = isGolden;
         }
 
+        /// <summary>
+        ///     The serial number for the card
+        /// </summary>
         public uint SerialNumber { get; }
 
         /// <summary>
@@ -17,6 +21,14 @@
         /// </summary>
         public int BitPattern { get; }
 
+        /// <summary>
+        ///     Whether this card has obtained the game end win pattern
+        /// </summary>
         public bool IsGameEndWin { get; }
+
+        /// <summary>
+        ///     Whether this card is a golden card
+        /// </summary>
+        public bool IsGolden { get; }
     }
 }
