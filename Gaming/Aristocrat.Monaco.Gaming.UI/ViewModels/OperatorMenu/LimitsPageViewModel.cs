@@ -203,7 +203,7 @@
         public decimal CreditLimit
         {
             get => CreditLimitIsChecked ? _creditLimit : _maxCreditMeter.MillicentsToDollars();
-            set => SetProperty(ref _creditLimit, value, nameof(CreditLimit));
+            set => SetProperty(ref _creditLimit, value, true);
         }
 
         public bool CreditLimitIsChecked
@@ -225,7 +225,7 @@
         public decimal HandpayLimit
         {
             get => HandpayLimitIsChecked ? _handpayLimit : AccountingConstants.DefaultHandpayLimit.MillicentsToDollars();
-            set => SetProperty(ref _handpayLimit, value, nameof(HandpayLimit));
+            set => SetProperty(ref _handpayLimit, value, true);
         }
 
         public bool HandpayLimitIsChecked
@@ -248,7 +248,7 @@
         public long IncrementThreshold
         {
             get => IncrementThresholdIsChecked ? _incrementThreshold : (long)AccountingConstants.DefaultIncrementThreshold.MillicentsToDollars();
-            set => SetProperty(ref _incrementThreshold, value, nameof(IncrementThreshold));
+            set => SetProperty(ref _incrementThreshold, value, true);
         }
 
         public bool IncrementThresholdIsChecked
@@ -274,7 +274,7 @@
         public decimal LargeWinLimit
         {
             get => LargeWinLimitIsChecked ? _largeWinLimit : AccountingConstants.DefaultLargeWinLimit.MillicentsToDollars();
-            set => SetProperty(ref _largeWinLimit, value, nameof(LargeWinLimit));
+            set => SetProperty(ref _largeWinLimit, value, true);
         }
 
         public bool OverwriteLargeWinLimit
@@ -339,7 +339,7 @@
         public decimal LargeWinRatio
         {
             get => _largeWinRatio;
-            set => SetProperty(ref _largeWinRatio, value, nameof(LargeWinRatio));
+            set => SetProperty(ref _largeWinRatio, value, true);
         }
 
         public bool OverwriteLargeWinRatio
@@ -371,7 +371,7 @@
         public decimal LargeWinRatioThreshold
         {
             get => _largeWinRatioThreshold;
-            set => SetProperty(ref _largeWinRatioThreshold, value, nameof(LargeWinRatioThreshold));
+            set => SetProperty(ref _largeWinRatioThreshold, value, true);
         }
 
         public bool OverwriteLargeWinRatioThreshold
@@ -401,21 +401,21 @@
         public decimal MaxBetLimit
         {
             get => MaxBetLimitIsChecked ? _maxBetLimit : AccountingConstants.DefaultMaxBetLimit.MillicentsToDollars();
-            set => SetProperty(ref _maxBetLimit, value, nameof(MaxBetLimit));
+            set => SetProperty(ref _maxBetLimit, value, true);
         }
 
         [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateBillAcceptanceLimit))]
         public decimal BillAcceptanceLimit
         {
             get => _billAcceptanceLimit;
-            set => SetProperty(ref _billAcceptanceLimit, value, nameof(BillAcceptanceLimit));
+            set => SetProperty(ref _billAcceptanceLimit, value, true);
         }
 
         [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateHandCountPayoutLimit))]
         public decimal HandCountPayoutLimit
         {
             get => HandCountPayoutLimitIsChecked ? _handCountPayoutLimit : 0m;
-            set => SetProperty(ref _handCountPayoutLimit, value, nameof(HandCountPayoutLimit));
+            set => SetProperty(ref _handCountPayoutLimit, value, true);
         }
 
         public bool OverwriteMaxBetLimit
@@ -469,7 +469,7 @@
         public decimal CelebrationLockupLimit
         {
             get => CelebrationLockupLimitIsChecked ? _celebrationLockupLimit : 0;
-            set => SetProperty(ref _celebrationLockupLimit, value, nameof(CelebrationLockupLimit));
+            set => SetProperty(ref _celebrationLockupLimit, value, true);
         }
 
         public bool CelebrationLockupLimitCheckboxIsEnabled => LargeWinLimitCheckboxIsEnabled;
@@ -546,14 +546,14 @@
         public decimal GambleWagerLimit
         {
             get => _gambleWagerLimit;
-            set => SetProperty(ref _gambleWagerLimit, value, nameof(GambleWagerLimit));
+            set => SetProperty(ref _gambleWagerLimit, value, true);
         }
 
         [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateGambleWinLimit))]
         public decimal GambleWinLimit
         {
             get => _gambleWinLimit;
-            set => SetProperty(ref _gambleWinLimit, value, nameof(GambleWinLimit));
+            set => SetProperty(ref _gambleWinLimit, value, true);
         }
 
         public bool GambleAllowed { get; }

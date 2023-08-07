@@ -88,21 +88,21 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
         public string IpAddress
         {
             get => _ipAddress;
-            set => SetProperty(ref _ipAddress, value, nameof(IpAddress));
+            set => SetProperty(ref _ipAddress, value, true);
         }
 
         [CustomValidation(typeof(ServerConfigurationPageViewModel), nameof(ValidatePortNumber))]
         public string TcpPortNumber
         {
             get => _tcpPortNumber;
-            set => SetProperty(ref _tcpPortNumber, value, nameof(TcpPortNumber));
+            set => SetProperty(ref _tcpPortNumber, value, true);
         }
 
         [CustomValidation(typeof(ServerConfigurationPageViewModel), nameof(ValidatePortNumber))]
         public string UdpPortNumber
         {
             get => _udpPortNumber;
-            set => SetProperty(ref _udpPortNumber, value, true, nameof(UdpPortNumber));
+            set => SetProperty(ref _udpPortNumber, value, true);
         }
 
         public string EncryptionKey

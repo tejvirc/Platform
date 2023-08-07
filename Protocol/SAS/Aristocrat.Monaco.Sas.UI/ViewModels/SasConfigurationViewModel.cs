@@ -368,7 +368,7 @@
             get => _communicationAddress1ErrorText;
             set
             {
-                SetProperty(ref _communicationAddress1ErrorText, value, nameof(CommunicationAddress1ErrorText));
+                SetProperty(ref _communicationAddress1ErrorText, value, true);
                 CheckNavigation();
             }
         }
@@ -400,7 +400,7 @@
             get => _communicationAddress2ErrorText;
             set
             {
-                SetProperty(ref _communicationAddress2ErrorText, value, true, nameof(CommunicationAddress2ErrorText));
+                SetProperty(ref _communicationAddress2ErrorText, value, true);
                 CheckNavigation();
             }
         }
@@ -500,7 +500,7 @@
             get => _progressiveGroupIdErrorText;
             set
             {
-                SetProperty(ref _progressiveGroupIdErrorText, value, nameof(ProgressiveGroupIdErrorText));
+                SetProperty(ref _progressiveGroupIdErrorText, value, true);
                 CheckNavigation();
             }
         }

@@ -53,7 +53,7 @@
             get => _directoryPort;
             set
             {
-                if (SetProperty(ref _directoryPort, value, nameof(DirectoryPort)))
+                if (SetProperty(ref _directoryPort, value, true))
                 {
                     SetupNavigation();
                 }
@@ -94,7 +94,7 @@
 
             set
             {
-                SetProperty(ref _directoryIpAddress, value.Trim(), nameof(DirectoryIpAddress));
+                SetProperty(ref _directoryIpAddress, value.Trim(), true);
                 SetupNavigation();
             }
         }
@@ -108,7 +108,7 @@
             get => _serviceName;
             set
             {
-                SetProperty(ref _serviceName, value, nameof(ServiceName));
+                SetProperty(ref _serviceName, value, true);
                 SetupNavigation();
             }
         }

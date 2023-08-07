@@ -255,7 +255,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         public decimal InitialValue
         {
             get => _initialValue;
-            set => SetProperty(ref _initialValue, value, nameof(InitialValue));
+            set => SetProperty(ref _initialValue, value, true);
         }
 
         public decimal ResetValue

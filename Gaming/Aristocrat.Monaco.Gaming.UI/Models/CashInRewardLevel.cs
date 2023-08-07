@@ -18,7 +18,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         public override long ThresholdInCents
         {
             get => _thresholdInCents;
-            set => SetProperty(ref _thresholdInCents, value, true, nameof(ThresholdInCents));
+            set => SetProperty(ref _thresholdInCents, value, true);
         }
 
         public static ValidationResult ValidateCashInRewardLevel(long threshhold, ValidationContext context)

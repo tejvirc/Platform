@@ -103,7 +103,13 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         public int? HostId
         {
             get => _hostId;
-            set => SetProperty(ref _hostId, value, nameof(HostId), nameof(CanSave));
+            set
+            {
+                if (SetProperty(ref _hostId, value, true))
+                {
+                    OnPropertyChanged(nameof(CanSave));
+                }
+            }
         }
 
         /// <summary>
@@ -115,7 +121,10 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             get => _offlineTimerInterval.TotalSeconds;
             set
             {
-                SetProperty(ref _offlineTimerInterval, TimeSpan.FromSeconds(value), nameof(OfflineTimerInterval), nameof(CanSave));
+                if (SetProperty(ref _offlineTimerInterval, TimeSpan.FromSeconds(value), true))
+                {
+                    OnPropertyChanged(nameof(CanSave));
+                }
                 OnPropertyChanged(nameof(IsOfflineTimerIntervalUnderRecommended));
             }
         }
@@ -132,7 +141,13 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         public string Address
         {
             get => _address;
-            set => SetProperty(ref _address, value, nameof(Address), nameof(CanSave));
+            set
+            {
+                if (SetProperty(ref _address, value, true))
+                {
+                    OnPropertyChanged(nameof(CanSave));
+                }
+            }
         }
 
         /// <summary>

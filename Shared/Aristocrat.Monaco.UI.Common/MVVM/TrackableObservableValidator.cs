@@ -67,12 +67,18 @@
                     OnCommitted();
                     IsCommitted = true;
                 },
-                obj => !IsCommitted
+                obj => !HasErrors && !IsCommitted
             );
 
-            // any time a property changes, reset committed
-            PropertyChanged += (sender, args) => OnChange(args.PropertyName);
-            ErrorsChanged += (sender, args) => OnChange(args.PropertyName);
+            // any time a property changes that is not the committed flag, reset committed
+            PropertyChanged += (o, e) =>
+            {
+                if (IsCommitted && !_untrackedPropertyNames.Contains(e.PropertyName))
+                {
+                    IsCommitted = false;
+                    CommitCommand.NotifyCanExecuteChanged();
+                }
+            };
         }
 
         /// <summary>
@@ -120,40 +126,24 @@
         ///     Sets the backing field value and raises the following events for each property listed:<br />
         ///     - OnPropertyChanging<br />
         ///     - OnPropertyChanged<br />
-        ///     <br />
-        ///     Validation is then attempted for the primary property if a validator is found.
         /// </summary>
         /// <typeparam name="T">The type of the field being changed</typeparam>
         /// <param name="property">The backing field for the property</param>
         /// <param name="value">The new value to set</param>
-        /// <param name="primaryPropertyName">The primary property to set and attempt validation for.</param>
-        /// <param name="dependentPropertyNames">Optional array of dependent property names to emit property changed events for.</param>
+        /// <param name="propertyNames">Optional array of dependent property names to emit property changed events for.</param>
         /// <returns>false if the new and existing values are equal, true if they are not</returns>
-        protected bool SetProperty<T>(ref T property, T value, string primaryPropertyName, params string[] dependentPropertyNames)
+        protected bool SetProperty<T>(ref T property, T value, params string[] propertyNames)
         {
-            var propertyNames = (dependentPropertyNames == null ? new[] { primaryPropertyName } : dependentPropertyNames.Append(primaryPropertyName)).ToArray();
-
             if (EqualityComparer<T>.Default.Equals(property, value))
             {
                 return false;
             }
-
-            ValidateProperty(value, primaryPropertyName);
 
             OnPropertyChanging(propertyNames);
             property = value;
             OnPropertyChanged(propertyNames);
 
             return true;
-        }
-
-        private void OnChange(string propertyName)
-        {
-            if (!_untrackedPropertyNames.Contains(propertyName))
-            {
-                IsCommitted = false;
-                CommitCommand.NotifyCanExecuteChanged();
-            }
         }
     }
 }

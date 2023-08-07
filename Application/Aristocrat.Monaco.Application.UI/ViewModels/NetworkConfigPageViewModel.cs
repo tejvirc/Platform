@@ -58,35 +58,65 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         public string DnsServer1
         {
             get => _dnsServer1;
-            set => SetProperty(ref _dnsServer1, value, nameof(DnsServer1), nameof(CanApplyChanges));
+            set
+            {
+                if (SetProperty(ref _dnsServer1, value, true))
+                {
+                    OnPropertyChanged(nameof(CanApplyChanges));
+                }
+            }
         }
 
         [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateIpAddressAllowEmpty))]
         public string DnsServer2
         {
             get => _dnsServer2;
-            set => SetProperty(ref _dnsServer2, value, nameof(DnsServer2), nameof(CanApplyChanges));
+            set
+            {
+                if (SetProperty(ref _dnsServer2, value, true))
+                {
+                    OnPropertyChanged(nameof(CanApplyChanges));
+                }
+            }
         }
 
         [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateIpAddress))]
         public string IpAddress
         {
             get => _ipAddress;
-            set => SetProperty(ref _ipAddress, value, nameof(IpAddress), nameof(CanApplyChanges));
+            set
+            {
+                if (SetProperty(ref _ipAddress, value, true))
+                {
+                    OnPropertyChanged(nameof(CanApplyChanges));
+                }
+            }
         }
 
         [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateSubnetMask))]
         public string SubnetMask
         {
             get => _subnetMask;
-            set => SetProperty(ref _subnetMask, value, nameof(SubnetMask), nameof(CanApplyChanges));
+            set
+            {
+                if (SetProperty(ref _subnetMask, value, true))
+                {
+                    OnPropertyChanged(nameof(CanApplyChanges));
+                }
+            }
         }
 
         [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateIpAddressAllowEmptyIfStatic))]
         public string Gateway
         {
             get => _gateway;
-            set => SetProperty(ref _gateway, value, nameof(Gateway), nameof(CanApplyChanges));
+            set
+            {
+                if (SetProperty(ref _gateway, value, true))
+                {
+                    OnPropertyChanged(nameof(CanApplyChanges));
+                }
+            }
         }
 
         public bool StaticIp

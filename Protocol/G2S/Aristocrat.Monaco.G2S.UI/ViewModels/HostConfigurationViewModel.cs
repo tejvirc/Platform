@@ -30,6 +30,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Monaco.Common;
     using Views;
     using Constants = Constants;
+    using Org.BouncyCastle.Utilities.Net;
 
     /// <summary>
     ///     A HostConfigurationViewModel contains the logic for configuring the host list for the G2S client.
@@ -152,7 +153,10 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         public int Port
         {
             get => _port;
-            set => SetProperty(ref _port, value, nameof(Port));
+            set
+            {
+                SetProperty(ref _port, value, true);
+            }
         }
 
         public bool ConfigurableProgressiveHost

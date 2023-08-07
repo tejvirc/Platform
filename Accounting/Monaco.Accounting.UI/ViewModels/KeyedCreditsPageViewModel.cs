@@ -89,7 +89,13 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
         public decimal KeyedOnCreditAmount
         {
             get => _keyedOnCreditAmount;
-            set => SetProperty(ref _keyedOnCreditAmount, value, nameof(KeyedOnCreditAmount), nameof(KeyedOnCreditsAllowed));
+            set
+            {
+                if (SetProperty(ref _keyedOnCreditAmount, value, true))
+                {
+                    OnPropertyChanged(nameof(KeyedOnCreditsAllowed));
+                }
+            }
         }
 
         public List<Credit> Credits

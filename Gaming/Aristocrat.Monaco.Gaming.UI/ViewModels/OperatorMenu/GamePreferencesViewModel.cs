@@ -364,7 +364,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         public string ShowProgramPin
         {
             get => _showProgramPin;
-            set => SetProperty(ref _showProgramPin, value, nameof(ShowProgramPin));
+            set => SetProperty(ref _showProgramPin, value, true);
         }
 
         public bool ShowProgramEnableResetCredits

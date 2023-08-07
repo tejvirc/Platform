@@ -76,28 +76,34 @@
         public string LevelName
         {
             get => _levelName;
-            set => SetProperty(ref _levelName, value, nameof(LevelName), nameof(CanSave));
+            set
+            {
+                if (SetProperty(ref _levelName, value, true))
+                {
+                    OnPropertyChanged(nameof(CanSave));
+                }
+            }
         }
 
         [CustomValidation(typeof(AddSAPLevelViewModel), nameof(ValidateResetValue))]
         public decimal ResetValue
         {
             get => _resetValue;
-            set => SetProperty(ref _resetValue, value, nameof(ResetValue));
+            set => SetProperty(ref _resetValue, value, true);
         }
 
         [CustomValidation(typeof(AddSAPLevelViewModel), nameof(ValidateInitialValue))]
         public decimal InitialValue
         {
             get => _initialValue;
-            set => SetProperty(ref _initialValue, value, nameof(InitialValue));
+            set => SetProperty(ref _initialValue, value, true);
         }
 
         [CustomValidation(typeof(AddSAPLevelViewModel), nameof(ValidateMaxValue))]
         public decimal MaxValue
         {
             get => _maxValue;
-            set => SetProperty(ref _maxValue, value, nameof(MaxValue));
+            set => SetProperty(ref _maxValue, value, true);
         }
 
         public decimal MaximumIncrementRate =>

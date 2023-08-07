@@ -74,7 +74,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
                     PreviousVoucherInLimit = _voucherInLimit;
                 }
 
-                SetProperty(ref _voucherInLimit, value, nameof(VoucherInLimit));
+                SetProperty(ref _voucherInLimit, value, true);
             }
         }
 
@@ -196,7 +196,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
                     PreviousVoucherOutLimit = _voucherOutLimit;
                 }
 
-                SetProperty(ref _voucherOutLimit, value, nameof(VoucherOutLimit));
+                SetProperty(ref _voucherOutLimit, value, true);
             }
         }
 

@@ -238,7 +238,7 @@
 
             set
             {
-                SetProperty(ref _certificateManagerLocation, value, nameof(CertificateManagerLocation));
+                SetProperty(ref _certificateManagerLocation, value, true);
                 GetThumbprintCommand.NotifyCanExecuteChanged();
                 EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
@@ -254,7 +254,7 @@
 
             set
             {
-                SetProperty(ref _preSharedSecret, value, nameof(PreSharedSecret));
+                SetProperty(ref _preSharedSecret, value, true);
                 EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
@@ -269,7 +269,7 @@
 
             set
             {
-                SetProperty(ref _identity, value, nameof(Identity));
+                SetProperty(ref _identity, value, true);
                 EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
@@ -284,7 +284,7 @@
 
             set
             {
-                SetProperty(ref _userName, value, nameof(UserName));
+                SetProperty(ref _userName, value, true);
                 EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
@@ -314,7 +314,7 @@
 
             set
             {
-                SetProperty(ref _manualPollingInterval, value, nameof(ManualPollingInterval));
+                SetProperty(ref _manualPollingInterval, value, true);
                 // if we do not have a valid cert enable Enroll command
                 if (!_certificateService.HasValidCertificate())
                 {
@@ -349,7 +349,7 @@
 
             set
             {
-                SetProperty(ref _certificateStatusLocation, value, nameof(CertificateStatusLocation));
+                SetProperty(ref _certificateStatusLocation, value, true);
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
@@ -364,7 +364,7 @@
 
             set
             {
-                SetProperty(ref _offlinePeriod, value, nameof(OfflinePeriod));
+                SetProperty(ref _offlinePeriod, value, true);
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
@@ -379,7 +379,7 @@
 
             set
             {
-                SetProperty(ref _reAuthenticatedPeriod, value, nameof(ReAuthenticatedPeriod));
+                SetProperty(ref _reAuthenticatedPeriod, value, true);
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
@@ -394,7 +394,7 @@
 
             set
             {
-                SetProperty(ref _acceptPreviouslyGoodCertificatePeriod, value, nameof(AcceptPreviouslyGoodCertificatePeriod));
+                SetProperty(ref _acceptPreviouslyGoodCertificatePeriod, value, true);
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }

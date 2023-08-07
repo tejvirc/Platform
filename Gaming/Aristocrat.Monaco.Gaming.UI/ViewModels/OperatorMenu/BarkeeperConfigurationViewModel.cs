@@ -68,7 +68,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         public long RewardLevelCoinInAmount
         {
             get => _rewardLevelCoinInAmount;
-            set => SetProperty(ref _rewardLevelCoinInAmount, value, true, nameof(RewardLevelCoinInAmount));
+            set => SetProperty(ref _rewardLevelCoinInAmount, value, true);
         }
 
         public bool CoinInRateEnabled
@@ -77,7 +77,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 SetProperty(ref _coinInRateEnabled, value, nameof(CoinInRateEnabled), nameof(RewardLevelCoinInAmount));
-                ValidateProperty(nameof(RewardLevelCoinInAmount));
+                ValidateProperty(RewardLevelCoinInAmount, nameof(RewardLevelCoinInAmount));
             }
         }
 
