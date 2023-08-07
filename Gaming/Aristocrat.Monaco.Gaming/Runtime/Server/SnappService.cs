@@ -8,6 +8,8 @@
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Application.Contracts.Protocol;
+    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using Client;
     using Commands;
     using Contracts;
@@ -708,6 +710,16 @@
             {
                 _handlerFactory.Create<ProgressiveLevelWagers>()
                     .Handle(new ProgressiveLevelWagers(request.Wagers.Select(x => (long)x)));
+
+                var isBingoProgressiveEnabled = ServiceManager.GetInstance().GetService<IMultiProtocolConfigurationProvider>().MultiProtocolConfiguration
+                    .Any(x => x.IsProgressiveHandled && x.Protocol == CommsProtocol.Bingo);
+                if (isBingoProgressiveEnabled)
+                {
+                    foreach (var wager in request.Wagers)
+                    {
+                        _bus.Publish(new ProgressiveContributionEvent { Wagers = request.Wagers.Select(x => (long)x) });
+                    }
+                }
             }
 
             return EmptyResult;
