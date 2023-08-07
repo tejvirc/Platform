@@ -147,6 +147,20 @@
             return ProcessClaimWinInternal(gewPattern, _currentGameTransactionId, token);
         }
 
+        public Task<bool> ProcessProgressiveClaimWin(long amount)
+        {
+            Logger.Debug("Received a progressive claim win");
+
+            var outcome = CurrentTransaction.Outcomes.FirstOrDefault(x => x.Type == OutcomeType.Progressive);
+            if (outcome is not null)
+            {
+                outcome.AddProgressiveWin(amount);
+                return Task.FromResult(true);
+            }
+
+            return Task.FromResult(false);
+        }
+
         /// <inheritdoc />
         public Task RequestOutcomes(CentralTransaction transaction, bool isRecovering = false)
         {
@@ -711,7 +725,7 @@
                         outcome.GameDetails.GameTitleId,
                         winResult.PaytableId,
                         OutcomeReference.Direct,
-                        OutcomeType.Standard,
+                        winResult.ProgressiveWins.Any() ? OutcomeType.Progressive : OutcomeType.Standard,
                         winAmount.CentsToMillicents(),
                         winResult.WinIndex,
                         JsonConvert.SerializeObject(new LookupData { Flags = progressiveWins }),

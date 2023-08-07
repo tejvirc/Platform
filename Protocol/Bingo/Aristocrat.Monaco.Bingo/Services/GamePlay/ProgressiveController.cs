@@ -13,6 +13,7 @@
     using Common.Data.Models;
     using Common.Events;
     using Gaming.Contracts;
+    using Gaming.Contracts.Central;
     using Gaming.Contracts.Progressives;
     using Gaming.Contracts.Progressives.Linked;
     using Kernel;
@@ -35,6 +36,7 @@
         private readonly IProgressiveAwardService _progressiveAwardService;
         private readonly IPropertiesManager _propertiesManager;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+        private readonly IBingoGameOutcomeHandler _bingoGameOutcomeHandler;
 
         private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new();
         private readonly IList<ProgressiveInfo> _activeProgressiveInfos = new List<ProgressiveInfo>();
@@ -54,6 +56,7 @@
         /// <param name="progressiveClaimService"><see cref="IProgressiveClaimService" />.</param>
         /// <param name="progressiveAwardService"><see cref="IProgressiveAwardService" />.</param>
         /// <param name="propertiesManager"><see cref="IPropertiesManager" />.</param>
+        /// <param name="bingoGameOutcomeHandler"><see cref="IBingoGameOutcomeHandler" />.</param>
         public ProgressiveController(
             IEventBus eventBus,
             IGameProvider gameProvider,
@@ -63,7 +66,8 @@
             IUnitOfWorkFactory unitOfWorkFactory,
             IProgressiveClaimService progressiveClaimService,
             IProgressiveAwardService progressiveAwardService,
-            IPropertiesManager propertiesManager
+            IPropertiesManager propertiesManager,
+            IBingoGameOutcomeHandler bingoGameOutcomeHandler
             )
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
@@ -75,6 +79,7 @@
             _progressiveClaimService = progressiveClaimService ?? throw new ArgumentNullException(nameof(progressiveClaimService));
             _progressiveAwardService = progressiveAwardService ?? throw new ArgumentNullException(nameof(progressiveAwardService));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _bingoGameOutcomeHandler = bingoGameOutcomeHandler ?? throw new ArgumentNullException(nameof(bingoGameOutcomeHandler));
 
             SubscribeToEvents();
         }
@@ -283,6 +288,8 @@
                     Logger.Debug($"Calling ProgressiveClaimService.ClaimProgressive, MachineSerial={machineSerial}, ProgLevelId={level.LevelId}, Amount={level.Amount}");
                     var response = _progressiveClaimService.ClaimProgressive(new ProgressiveClaimRequestMessage(machineSerial, level.LevelId, level.Amount));
                     Logger.Debug($"ProgressiveClaimResponse received, ResponseCode={response.Result.ResponseCode} ProgressiveLevelId={response.Result.ProgressiveLevelId}, ProgressiveWinAmount={response.Result.ProgressiveWinAmount}, ProgressiveAwardId={response.Result.ProgressiveAwardId}");
+
+                    _bingoGameOutcomeHandler.ProcessProgressiveClaimWin(response.Result.ProgressiveWinAmount.CentsToMillicents());
 
                     // TODO copied code does not allow for multiple pending awards with the same pool name. For Bingo we allow hitting the same progressive multiple times. How to handle?
                     var poolName = GetPoolName(level.LevelName);
