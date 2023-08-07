@@ -715,10 +715,7 @@
                     .Any(x => x.IsProgressiveHandled && x.Protocol == CommsProtocol.Bingo);
                 if (isBingoProgressiveEnabled)
                 {
-                    foreach (var wager in request.Wagers)
-                    {
-                        _bus.Publish(new ProgressiveContributionEvent { Wagers = request.Wagers.Select(x => (long)x) });
-                    }
+                    _bus.Publish(new ProgressiveContributionEvent { Wagers = request.Wagers.Select(x => (long)x) });
                 }
             }
 
