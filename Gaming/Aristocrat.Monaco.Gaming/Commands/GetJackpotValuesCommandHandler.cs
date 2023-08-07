@@ -31,7 +31,7 @@
         /// <inheritdoc />
         public void Handle(GetJackpotValues command)
         {
-            if (!string.IsNullOrEmpty(command.GameName))
+            if (!string.IsNullOrEmpty(command.GameName) && command.Denomination is not null)
             {
                 GetJackpotValuesForParticularDenomAndGame(command);
                 return;
