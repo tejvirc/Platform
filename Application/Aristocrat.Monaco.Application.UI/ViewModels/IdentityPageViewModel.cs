@@ -145,14 +145,13 @@
             LoadVariableData();
             SetupNavigation();
 
-            ValidateAllProperties();
+            RunCustomValidation();
         }
 
         protected override void OnUnloaded()
         {
             Unsubscribe();
             SaveChanges();
-            ValidateAllProperties();
         }
 
         /// <summary>
@@ -255,6 +254,17 @@
             IsCommitted = true;
 
             base.SaveChanges();
+        }
+
+        protected override void RunCustomValidation()
+        {
+            base.RunCustomValidation();
+            ValidateProperty(Area, nameof(Area));
+            ValidateProperty(Zone, nameof(Zone));
+            ValidateProperty(Bank, nameof(Bank));
+            ValidateProperty(Position, nameof(Position));
+            ValidateProperty(Location, nameof(Location));
+            ValidateProperty(DeviceName, nameof(DeviceName));
         }
 
         protected override void SetupNavigation()

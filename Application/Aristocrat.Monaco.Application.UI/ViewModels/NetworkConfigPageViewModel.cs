@@ -44,7 +44,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         {
             if (!isWizardPage)
             {
-                ValidateAllProperties();
+                RunCustomValidation();
             }
 
             _network = ServiceManager.GetInstance().GetService<INetworkService>();
@@ -149,7 +149,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
                 else
                 {
-                    ValidateAllProperties();
+                    RunCustomValidation();
 
                     OnPropertyChanged(nameof(IpAddress));
                     OnPropertyChanged(nameof(SubnetMask));
@@ -244,6 +244,18 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             // keep this property assignment at last so the validation logic inside the property setter
             // can check and clear the errors on other properties accordingly
             _originalDhcpEnabled = DhcpEnabled = info.DhcpEnabled;
+        }
+
+        protected override void RunCustomValidation()
+        {
+            if (!DhcpEnabled)
+            {
+                ValidateProperty(IpAddress, nameof(IpAddress));
+                ValidateProperty(SubnetMask, nameof(SubnetMask));
+                ValidateProperty(Gateway, nameof(Gateway));
+                ValidateProperty(DnsServer1, nameof(DnsServer1));
+                ValidateProperty(DnsServer2, nameof(DnsServer2));
+            }
         }
 
         public static ValidationResult ValidateIpAddress(string address, ValidationContext context)

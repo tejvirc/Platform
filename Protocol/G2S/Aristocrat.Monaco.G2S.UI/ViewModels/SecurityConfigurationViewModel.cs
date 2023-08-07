@@ -195,7 +195,7 @@
                 OnPropertyChanged(nameof(EnrollmentEditEnabled));
                 if (_enrollmentEnabled)
                 {
-                    ValidateAllProperties();
+                    RunCustomValidation();
                 }
                 else
                 {
@@ -676,6 +676,20 @@
             }
         }
 
+        protected override void RunCustomValidation()
+        {
+            base.RunCustomValidation();
+
+            ValidateProperty(CertificateManagerLocation, nameof(CertificateManagerLocation));
+            ValidateProperty(CertificateStatusLocation, nameof(CertificateStatusLocation));
+            ValidateProperty(ManualPollingInterval, nameof(ManualPollingInterval));
+            ValidateProperty(OfflinePeriod, nameof(OfflinePeriod));
+            ValidateProperty(ReAuthenticatedPeriod, nameof(ReAuthenticatedPeriod));
+            ValidateProperty(AcceptPreviouslyGoodCertificatePeriod, nameof(AcceptPreviouslyGoodCertificatePeriod));
+
+
+        }
+
         protected override void DisposeInternal()
         {
             if (_enrollCertificateCancellationToken != null)
@@ -1032,7 +1046,7 @@
                 }
             }
 
-            ValidateAllProperties();
+            RunCustomValidation();
         }
 
         private void UpdateConfiguration()

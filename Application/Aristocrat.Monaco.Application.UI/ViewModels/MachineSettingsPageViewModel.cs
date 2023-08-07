@@ -242,7 +242,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             Unsubscribe();
             SaveData();
             ClearVariableErrors();
-            ValidateAllProperties();
+            base.RunCustomValidation();
 
             base.OnUnloaded();
         }

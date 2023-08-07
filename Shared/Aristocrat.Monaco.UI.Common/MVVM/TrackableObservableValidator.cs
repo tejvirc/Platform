@@ -59,7 +59,7 @@
             CommitCommand = new RelayCommand<object>(
                 obj =>
                 {
-                    ValidateAllProperties();
+                    RunCustomValidation();
                     if (HasErrors)
                     {
                         return;
@@ -86,6 +86,14 @@
         /// </summary>
         protected virtual void OnCommitted()
         {
+        }
+
+        /// <summary>
+        /// Use this to perform custom validation logic on specific properties
+        /// </summary>
+        protected virtual void RunCustomValidation()
+        {
+
         }
 
         /// <summary>
