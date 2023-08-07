@@ -307,8 +307,8 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             AutomationProperties.AutomationId="Button6_9B22F99A"
-                            Command="{Binding TimeLimitDlgCommand}"
-                            CommandParameter="4"
+                            Command="{Binding CashOutCommand}"
+                            CommandParameter="main"
                             Style="{StaticResource stlFlatButton}">
                             <Button.Template>
                                 <ControlTemplate TargetType="Button">
