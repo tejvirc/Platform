@@ -113,7 +113,7 @@
             lock (_pendingAwardsLock)
             {
                 // add to pending if another level is hit
-                if (!_pendingAwards.Any())
+                if (_pendingAwards.All(x => x.progressiveLevelId != levelId))
                 {
                     Logger.Info($"Adding pending linked level for {poolName} amount={amountInPennies} LevelId={levelId} awardId={progressiveId}");
                     _pendingAwards!.Add((poolName, levelId, amountInPennies, progressiveId));
