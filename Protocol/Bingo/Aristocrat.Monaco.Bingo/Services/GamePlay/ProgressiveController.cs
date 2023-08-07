@@ -8,17 +8,16 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Aristocrat.Bingo.Client.Messages;
-    using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
     using Common;
     using Common.Data.Models;
     using Common.Events;
     using Gaming.Contracts;
-    using Gaming.Contracts.Central;
     using Gaming.Contracts.Progressives;
     using Gaming.Contracts.Progressives.Linked;
     using Kernel;
     using log4net;
     using Newtonsoft.Json;
+    using Protocol.Common.Storage.Entity;
 
     /// <summary>
     ///     Implements <see cref="IProgressiveController" />.
@@ -104,17 +103,20 @@
             }
 
             var level = _protocolLinkedProgressiveAdapter.ViewConfiguredProgressiveLevels().FirstOrDefault(n => n.LevelName == poolName);
+            if (level is null)
+            {
+                throw new InvalidOperationException($"No progressive levels found matching '{poolName}'");
+            }
+
+            var levelId = level.LevelId;
+            var progressiveId = level.ProgressiveId;
             lock (_pendingAwardsLock)
             {
                 // add to pending if another level is hit
                 if (!_pendingAwards.Any())
                 {
-                    // TODO: get values from ???
-                    long progressiveLevelId = level?.LevelId ?? 0; 
-                    var awardId = 0;
-
-                    Logger.Info($"Adding pending linked level for {poolName} amount={amountInPennies} LevelId={progressiveLevelId} awardId={awardId}");
-                    _pendingAwards!.Add((poolName, progressiveLevelId, amountInPennies, awardId));
+                    Logger.Info($"Adding pending linked level for {poolName} amount={amountInPennies} LevelId={levelId} awardId={progressiveId}");
+                    _pendingAwards!.Add((poolName, levelId, amountInPennies, progressiveId));
 
                     UpdatePendingAwards();
 
@@ -125,8 +127,8 @@
 
                 var request = new ProgressiveAwardRequestMessage(
                     machineSerial,
-                    level?.ProgressiveId ?? 0,
-                    level?.LevelId ?? 0,
+                    progressiveId,
+                    levelId,
                     amountInPennies,
                     true);
                 _progressiveAwardService.AwardProgressive(request);
@@ -154,7 +156,6 @@
                 }
             }
 
-
             var pools =
                 (from level in _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
                         .Where(
@@ -174,14 +175,14 @@
             foreach (var pool in pools)
             {
                 var game = _gameProvider.GetGame(pool.Key.GameId);
-                if (game == null)
+                if (game is null)
                 {
                     continue;
                 }
 
                 var resetValue = pool.First().ResetValue;
 
-                // These are the naming conventions for NYL but it should be ok to re-use
+                // These are the naming conventions for NYL but it should be ok to re-use for bingo
                 var poolName = $"{pool.Key.PackName}_{resetValue.MillicentsToDollars()}_{pool.Key.LevelName}";
                 var valueAttributeName = $"ins{poolName}_Value";
                 var messageAttributeName = $"ins{poolName}_Message";
@@ -321,7 +322,10 @@
                 $"amountInPennies = {linkedLevel.ClaimStatus.WinAmount} " +
                 $"CurrentValue = {evt.Level.CurrentValue}");
 
-            _protocolLinkedProgressiveAdapter.ClaimAndAwardLinkedProgressiveLevel(ProtocolNames.Bingo, linkedLevel.LevelName);
+            _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(ProtocolNames.Bingo, linkedLevel.LevelName);
+            var poolName = GetPoolName(linkedLevel.LevelName);
+            AwardJackpot(poolName, linkedLevel.ClaimStatus.WinAmount);
+            _protocolLinkedProgressiveAdapter.AwardLinkedProgressiveLevel(linkedLevel.LevelName, linkedLevel.ClaimStatus.WinAmount, ProtocolNames.Bingo);
         }
 
         private LinkedProgressiveLevel UpdateLinkedProgressiveLevels(
