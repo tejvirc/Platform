@@ -333,6 +333,20 @@
                 OnButtonDeckStatusChanged(connected);
             }
 
+            if (sender.Device is IDisplayDevice)
+            {
+                var allConnected = _deviceStatusHandlers.Where(x => x.Device.DeviceType == DeviceType.Display)
+                    .All(x => x.Status != DeviceStatus.Disconnected);
+
+                if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.DisplayDisconnectedLockupKey) && allConnected)
+                {
+                    _disableManager.Disable(
+                        ApplicationConstants.DisplayConnectedLockupKey,
+                        SystemDisablePriority.Immediate,
+                        () => Localizer.ForLockup().GetString(ResourceKeys.DisplayConnected));
+                }
+            }
+
             // Handle Touch Devices status changed
             if (sender.Device is ITouchDevice)
             {
@@ -442,12 +456,6 @@
             {
                 Logger.Debug($"Enabling {disableKey} reason key {resource}.");
                 _disableManager.Enable(disableKey);
-
-                // Lockup for restart after reconnect message
-                _disableManager.Disable(
-                    ApplicationConstants.DisplayConnectedLockupKey,
-                    SystemDisablePriority.Immediate,
-                    () => Localizer.ForLockup().GetString(ResourceKeys.DisplayConnected));
             }
             else
             {
