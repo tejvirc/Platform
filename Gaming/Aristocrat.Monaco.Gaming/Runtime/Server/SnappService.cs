@@ -784,23 +784,5 @@
 
             return response;
         }
-
-        //public override LevelInfoResponse GetJackpotValuesPerDenom(GetJackpotValuesPerDenomRequest request)
-        //{
-        //    var command = new GetJackpotValuesPerDenom(request.GameName, request.PackName, request.Denomination);
-        //    // Add Jackpot Values and Extract into LevelInfoResponse
-        //    _handlerFactory.Create<GetJackpotValuesPerDenom>().Handle(command);
-
-        //    var response = new LevelInfoResponse();
-
-        //    response.LevelInfo.Add(
-        //        command.JackpotValues.Select(
-        //            r => new LevelInfo { LevelId = (uint)r.Key, Value = (ulong)r.Value.MillicentsToCents() }));
-
-        //    Logger.Debug(
-        //        $"GetJackpotValuesPerDenom Response poolName:{request.PackName} ");
-
-        //    return response;
-        //}
     }
 }
