@@ -66,8 +66,7 @@
                 .Where(level => enabledGames.Select(games => games.Id).Contains(level.GameId))
                 .Where(level => level.Denomination.Contains(denom))
                 .Where(level => !level.HasAssociatedBetLinePreset || enabledGames.Select(games => games.ActiveBetOption.Name).Contains(level.BetOption))
-                .Where(level => level.ProgressivePackName.Equals(poolName))
-
+                .Where(level => level.ProgressivePackName.Equals(poolName, StringComparison.Ordinal))
                 .ToDictionary(levels => levels.LevelId, levels => levels.CurrentValue);
         }
     }
