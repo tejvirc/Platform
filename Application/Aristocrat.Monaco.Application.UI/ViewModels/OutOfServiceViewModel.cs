@@ -2,6 +2,7 @@
 {
     using System;
     using System.Windows.Input;
+    using Aristocrat.Monaco.Application.UI.Events;
     using Contracts;
     using Contracts.Localization;
     using Kernel;
@@ -59,6 +60,7 @@
         private void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             RaisePropertyChanged(nameof(OutOfServiceButtonText));
+            UpdateWarningMessage();
         }
 
         private void OutOfServiceModeButtonCommandHandler(object obj)
@@ -73,6 +75,14 @@
             }
 
             RaisePropertyChanged(nameof(OutOfServiceButtonText));
+        }
+
+        private void UpdateWarningMessage()
+        {
+            if (_disableByOperatorManager.DisabledByOperator)
+            {
+                _eventBus.Publish(new OperatorMenuWarningMessageEvent(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfService)));
+            }
         }
     }
 }

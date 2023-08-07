@@ -120,7 +120,7 @@ namespace Aristocrat.Monaco.Application
         private void DoDisable(Func<string> disableReason)
         {
             if (DisabledByOperatorMessage != string.Empty && disableReason.Invoke().Equals(
-                    Localizer.For(CultureFor.Player).GetString(ResourceKeys.OutOfService)))
+                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfService)))
             {
                 disableReason = () => DisabledByOperatorMessage;
             }
