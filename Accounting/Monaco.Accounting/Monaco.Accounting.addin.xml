@@ -46,10 +46,6 @@
                    type="Aristocrat.Monaco.Accounting.TransactionHistoryProviderExtensionNode" />
   </ExtensionPoint>
 
-  <ExtensionPoint path = "/Accounting/Configuration">
-    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
-  </ExtensionPoint>
-
   <Extension path="/Accounting/Bank">
     <Bank type="Aristocrat.Monaco.Accounting.Bank" />
   </Extension>

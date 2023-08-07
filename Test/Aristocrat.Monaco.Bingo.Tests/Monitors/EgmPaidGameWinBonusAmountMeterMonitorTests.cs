@@ -13,6 +13,7 @@
     using Gaming.Contracts;
     using Gaming.Contracts.Bonus;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using TransactionType = Common.TransactionType;

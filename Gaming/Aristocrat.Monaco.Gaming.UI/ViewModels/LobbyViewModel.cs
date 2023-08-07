@@ -49,6 +49,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Button;
+    using Kernel.MarketConfig.Models.Accounting;
     using Progressives;
     using Timers;
     using Utils;

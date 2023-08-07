@@ -21,6 +21,7 @@
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.Ticket;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
     using Localization.Properties;
 
     public class HandpayProvider : TransferOutProviderBase, IHandpayProvider, IDisposable
@@ -524,7 +525,7 @@
                     transaction.HostSequence = _idProvider.GetNextLogSequence<IAcknowledgeableTransaction>();
                 }
 
-                // Set whether or not the host is offline (may have gone offline while waiting for key-off). 
+                // Set whether or not the host is offline (may have gone offline while waiting for key-off).
                 transaction.HostOnline = validator.HostOnline;
 
                 await Task.Run(() => _bus.UnsubscribeAll(this), cancellationToken);

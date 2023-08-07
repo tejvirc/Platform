@@ -13,8 +13,8 @@
     <Addin id="Sas.Client" version="1.0" />
   </Dependencies>
   <Runtime>
-    <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />
-    <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3.dll" />
+<!--    <Import assembly="..\..\bin\Aristocrat.Monaco.Kernel.dll" />-->
+<!--    <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class3.dll" />-->
   </Runtime>
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
     <SelectableJurisdiction name="Nevada" description="Top level Nevada jurisdiction group" id="JUR000090,JUR000998,JUR000999,JUR000033">

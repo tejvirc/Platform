@@ -52,9 +52,4 @@
     <ExtensionNode name="Runnable" />
   </ExtensionPoint>
 
-  <!--Must implement Vgt.Client12.Kernel.IRunnable-->
-  <ExtensionPoint path="/Accounting/BootExtender">
-    <ExtensionNode name="BootExtender" />
-  </ExtensionPoint>
-
 </Addin>

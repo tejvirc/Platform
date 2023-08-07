@@ -8,6 +8,7 @@
     using Application.Contracts.Localization;
     using Common;
     using Hardware.Contracts.Persistence;
+    using Kernel.MarketConfig.Models.Accounting;
     using Localization.Properties;
     using Newtonsoft.Json;
     using Transactions;

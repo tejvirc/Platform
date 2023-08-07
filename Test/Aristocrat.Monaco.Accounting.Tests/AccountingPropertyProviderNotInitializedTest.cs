@@ -11,6 +11,7 @@
     using System;
     using System.Globalization;
     using System.IO;
+    using Kernel.MarketConfig.Models.Accounting;
     using Test.Common;
 
     /// <summary>

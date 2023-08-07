@@ -6,6 +6,7 @@
     using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
 
     public class HandpayKeyedOffConsumer : Consumes<HandpayKeyedOffEvent>
     {

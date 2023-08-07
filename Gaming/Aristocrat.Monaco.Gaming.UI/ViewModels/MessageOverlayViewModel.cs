@@ -21,6 +21,7 @@
     using Events;
     using Hardware.Contracts.Printer;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
     using Localization.Properties;
     using log4net;
     using MVVM;
@@ -98,7 +99,7 @@
             _gameRecovery = containerService.Container.GetInstance<IGameRecovery>();
             _eventBus.Subscribe<PayoutAmountUpdatedEvent>(this, Handle);
         }
-       
+
         private void Handle(PayoutAmountUpdatedEvent evt)
         {
             _overlayMessageStrategyController.SetCashableAmount(evt.CashableAmount);

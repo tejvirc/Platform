@@ -6,10 +6,6 @@
     <AssemblyTitle>Aristocrat.Monaco.Accounting.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <Platform>x64</Platform>
-    <!-- 
-    Add the constant USE_MARKET_CONFIG below to switch the compilation to use the Market Config tool configurations
-    This same change needs to be made in the code csproj file Accounting/Monaco.Accounting/Monaco.Accounting.csproj 
-    -->
     <DefineConstants/>
   </PropertyGroup>
   <ItemGroup>

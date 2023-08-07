@@ -69,5 +69,19 @@
         ///     This exception will be thrown if there is any issue with parsing the configuration.
         /// </exception>
         public T GetMarketConfiguration<T>(string jurisdictionInstallationId);
+
+        /// <summary>
+        ///     Retrieve the configuration data for the currently selected jurisdiction and a segment. The segment is identified by the
+        ///     templated class type. The template class must have the <see cref="MarketConfigSegmentAttribute"/> class attribute
+        ///     applied to it and the segment name must match the segment name in the manifest.json file.
+        /// </summary>
+        /// <exception cref="MarketConfigException">
+        ///     This exception will be thrown if there is any issue with parsing the configuration.
+        /// </exception>
+        /// <typeparam name="T">
+        ///     The model object class to return for the segment data to be retrieved.
+        /// </typeparam>
+        /// <returns></returns>
+        public T GetMarketConfigForSelectedJurisdiction<T>();
     }
 }

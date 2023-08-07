@@ -3,6 +3,7 @@
     using System;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
+    using Kernel.MarketConfig.Models.Accounting;
     using ProtoBuf;
 
     /// <summary>

@@ -10,6 +10,7 @@
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
     using Services;
 
     /// <summary>

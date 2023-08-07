@@ -4,7 +4,7 @@
     "Url": "https://monacoconfigurationmanager.alpha.cyberitas.com",
     "Namespace": "Aristocrat.Monaco.Kernel.MarketConfig.Models",
     "SchemaFile": "Kernel/Aristocrat.Monaco.Kernel/MarketConfig/schema.json",
-    "ModelOutputDirectory": "Kernel/Aristocrat.Monaco.Kernel/MarketConfig/Models",
+    "ModelOutputDirectory": "Kernel/Aristocrat.Monaco.Kernel.Contracts/MarketConfig/Models",
     "ConfigOutputDirectory": "MarketConfig/DeveloperConfigs",
     "DeleteExistingModels": true,
     "DeleteExistingConfigurations": true,

@@ -2,6 +2,7 @@
 {
     using System;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
     using ProtoBuf;
 
     /// <summary>

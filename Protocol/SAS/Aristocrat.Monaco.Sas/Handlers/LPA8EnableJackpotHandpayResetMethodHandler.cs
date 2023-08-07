@@ -8,6 +8,7 @@
     using Aristocrat.Sas.Client;
     using Aristocrat.Sas.Client.LongPollDataClasses;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
 
     /// <summary>
     ///     Handler for sending enabled features from games or the EGM broadly.

@@ -14,6 +14,10 @@ using Newtonsoft.Json.Serialization;
 /// <inheritdoc />
 public sealed class MarketConfigManager: IMarketConfigManager
 {
+    /// <summary> Property Manager key for the selected Jurisdiction </summary>
+    // Duplicate of ApplicationConstants.JurisdictionKey to prevent circular dependency
+    private const string JurisdictionKey = "System.Jurisdiction";
+
     private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
     private bool _serviceInitialized;
@@ -75,7 +79,8 @@ public sealed class MarketConfigManager: IMarketConfigManager
 
         // Scan the assembly for classes decorated with MarketConfigSegmentAttribute and build a map of segment ID to
         // class name
-        ModelObjectAssembly.GetExportedTypes()
+        Assembly.LoadFrom("Aristocrat.Monaco.Kernel.Contracts.dll")
+            .GetExportedTypes()
             .Where(t => t.GetCustomAttribute(typeof(MarketConfigSegmentAttribute), false) != null)
             .ToList()
             .ForEach(t =>
@@ -111,6 +116,17 @@ public sealed class MarketConfigManager: IMarketConfigManager
         }
         throw new MarketConfigException(
             $"Type {className} not found in segment map, it must be decorated with MarketConfigSegmentAttribute");
+    }
+
+    /// <inheritdoc />
+    public T GetMarketConfigForSelectedJurisdiction<T>()
+    {
+        var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+
+        // Get the current jurisdiction installation id that was selected
+        var jurisdictionInstallationId = propertiesManager.GetValue(JurisdictionKey, string.Empty);
+
+        return GetMarketConfiguration<T>(jurisdictionInstallationId);
     }
 
     /// <inheritdoc />
