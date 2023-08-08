@@ -3,7 +3,7 @@
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.Loaders;
-    using Aristocrat.Monaco.Application.Contracts;
+    using Application.Contracts;
     using Kernel;
     using Monaco.Localization.Properties;
     using ViewModels;
@@ -12,8 +12,7 @@
     /// <summary>
     ///     HopperPageLoader contains the logic for Loading Hopper Page.
     /// </summary>
-    public class HopperPageLoader
-        : OperatorMenuPageLoader
+    public class HopperPageLoader : OperatorMenuPageLoader
     {
         public override string PageName => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HopperLabel);
 

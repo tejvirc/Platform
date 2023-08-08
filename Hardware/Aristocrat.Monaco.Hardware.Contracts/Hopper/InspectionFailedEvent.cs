@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Hopper
 {
-    using Properties;
     using System;
-
+    using Properties;
+    
     /// <summary>Definition of the InspectionFailedEvent class.</summary>
     /// <remarks>
     ///     The Inspection Failed Event is posted by the Hopper Service when:

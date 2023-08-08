@@ -8,7 +8,7 @@
     public static class HopperEventsDescriptor
     {
         /// <summary>
-        /// Descriptor struct
+        ///     Descriptor struct
         /// </summary>
         public struct FaultDescriptor
         {
@@ -22,7 +22,7 @@
             public string LockUpHelpMessage => $"{EventText.ToUpper()}{System.Environment.NewLine}{Properties.Resources.ResetFault}";
 
             /// <summary>
-            ///  Constructor for <see cref="FaultDescriptor"/>
+            ///     Constructor for <see cref="FaultDescriptor"/>
             /// </summary>
             /// <param name="eventText"></param>
             /// <param name="lockUpMessage"></param>
@@ -43,26 +43,22 @@
             {
                 {
                     HopperFaultTypes.HopperDisconnected,
-                    //TBC new(Properties.Resources.HopperFaultTypes_Disconnected)
-                     new("Hopper Disconnected")
+                    new(Properties.Resources.HopperFaultTypes_Disconnected)
                 },
 
                 {
                     HopperFaultTypes.HopperEmpty,
-                    //TBC new(Properties.Resources.HopperFaultTypes_Empty)
-                    new("Hopper Empty")
+                    new(Properties.Resources.HopperFaultTypes_Empty)
                 },
 
                 {
                     HopperFaultTypes.HopperJam,
-                    //TBC new(Properties.Resources.HopperFaultTypes_Jam)
-                    new("Hopper Jam")
+                    new(Properties.Resources.HopperFaultTypes_Jam)
                 },
 
                 {
                     HopperFaultTypes.IllegalCoinOut,
-                    //TBC new(Properties.Resources.HopperFaultTypes_IllegalCoin, Properties.Resources.HopperFaultTypes_IllegalCoin)
-                    new("Coin Out Error - Excess Payout")
+                    new(Properties.Resources.HopperFaultTypes_IllegalCoin, Properties.Resources.HopperFaultTypes_IllegalCoin)
                 },
             };
     }

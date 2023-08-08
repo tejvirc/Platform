@@ -15,7 +15,7 @@
     /// <summary>
     ///     Handle Lockup events from Hopper.
     /// </summary>
-    public class HopperMonitor : IService, IDisposable
+    public sealed class HopperMonitor : IService, IDisposable
     {
         private readonly ISystemDisableManager _disableManager;
         private readonly IEventBus _bus;

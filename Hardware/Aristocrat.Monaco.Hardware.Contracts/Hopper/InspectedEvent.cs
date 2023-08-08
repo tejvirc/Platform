@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Hopper
 {
-    using Properties;
     using System;
-
+    using Properties;
+   
     /// <summary>Definition of the Hopper InspectedEvent class.</summary>
     /// <remarks>
     ///     This event is posted by the Hopper Service when the Hopper is

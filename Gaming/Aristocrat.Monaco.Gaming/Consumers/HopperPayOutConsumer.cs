@@ -26,8 +26,7 @@
         {
             _messageDisplay.DisplayMessage(
                 new DisplayableMessage(
-                    () => Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.HopperPayOut) + " " +
-                          theEvent.Amount.MillicentsToDollars().FormattedCurrencyString(),
+                    () => Localizer.For(CultureFor.PlayerTicket).FormatString(ResourceKeys.HopperPayOut, theEvent.Amount.MillicentsToDollars().FormattedCurrencyString()),
                     DisplayableMessageClassification.Informative,
                     DisplayableMessagePriority.Normal,
                     typeof(HopperPayOutCompletedEvent)));

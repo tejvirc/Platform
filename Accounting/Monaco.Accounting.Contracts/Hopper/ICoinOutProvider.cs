@@ -9,7 +9,7 @@
     public interface ICoinOutProvider : ITransferOutProvider, IService
     {
         /// <summary>
-        /// Check weather coin out amount is successfully transferred.
+        ///     Check weather coin out amount is successfully transferred.
         /// </summary>
         /// <returns></returns>
         bool CheckCoinOutException(long transferredAmount, long remainingAmount);

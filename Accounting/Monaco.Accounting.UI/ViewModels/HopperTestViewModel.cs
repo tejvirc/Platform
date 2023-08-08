@@ -7,7 +7,7 @@
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
-    using Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor;
+    using Hardware.Contracts.CoinAcceptor;
     using Common;
     using Contracts;
     using Hardware.Contracts;
@@ -16,8 +16,8 @@
     using Kernel;
     using Monaco.Localization.Properties;
     using MVVM.Command;
-    using CoinFaultEvent = Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor.HardwareFaultEvent;
-    using HardwareFaultEvent = Aristocrat.Monaco.Hardware.Contracts.Hopper.HardwareFaultEvent;
+    using CoinFaultEvent = Hardware.Contracts.CoinAcceptor.HardwareFaultEvent;
+    using HardwareFaultEvent = Hardware.Contracts.Hopper.HardwareFaultEvent;
 
     [CLSCompliant(false)]
     public class HopperTestViewModel : OperatorMenuSaveViewModelBase

@@ -10,7 +10,7 @@
     public class CoinOutEvent : BaseEvent
     {
         /// <summary>
-        /// Coin Out Event.
+        ///     Coin Out Event.
         /// </summary>
         /// <param name="coin"></param>
         public CoinOutEvent(ICoin coin)

@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Reflection;
     using Common;
-    using Hardware.Contracts;
-    using Hardware.Contracts.Communicator;
+    using Contracts;
+    using Contracts.Communicator;
     using Hardware.Contracts.Hopper;
-    using Hardware.Contracts.SharedDevice;
+    using Contracts.SharedDevice;
     using Kernel;
     using log4net;
 
