@@ -129,7 +129,75 @@
         </NoteAcceptorDisable>
     </Extension>
 
-    <Extension path="/Gaming/Metering/GameMeterProvider">
+  <Extension path="/Application/CoinAcceptorDisable">
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Application.Contracts.OperatorMenu.OperatorMenuEnteredEvent, Monaco.Application.Contracts" reason="Disabled during operator menu">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameInitializationCompletedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Application.Contracts.OperatorMenu.OperatorMenuExitedEvent, Monaco.Application.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Accounting.Contracts.TransferOutStartedEvent, Monaco.Accounting.Contracts" reason="Disabled during cash out" disabledReason="GamePlay" enabledReason="GamePlay">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.TransferOutCompletedEvent, Monaco.Accounting.Contracts"/>
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.TransferOutFailedEvent, Monaco.Accounting.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayStartedEvent, Monaco.Accounting.Contracts" reason="Disabled during handpay" disabledReason="GamePlay" enabledReason="GamePlay">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayCompletedEvent, Monaco.Accounting.Contracts"/>
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.Handpay.HandpayCanceledEvent, Monaco.Accounting.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Accounting.Contracts.WatOnStartedEvent, Monaco.Accounting.Contracts" reason="Disabled during WAT on" disabledReason="GamePlay" enabledReason="GamePlay">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.WatOnCompleteEvent, Monaco.Accounting.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransferInitiatedEvent, Monaco.Accounting.Contracts" reason="Disabled during WAT off" disabledReason="GamePlay" enabledReason="GamePlay">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransferCompletedEvent, Monaco.Accounting.Contracts"/>
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.Wat.WatTransferCancelRequestedEvent, Monaco.Accounting.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Kernel.SystemDisabledEvent, Aristocrat.Monaco.Kernel.Contracts" reason="Disabled while system disabled">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Kernel.SystemEnabledEvent, Aristocrat.Monaco.Kernel.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Kernel.PlatformBootedEvent, Aristocrat.Monaco.Kernel.Contracts" reason="Disabled until game initialized">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameInitializationCompletedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.Lobby.LobbyInitializedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.GamePlayInitiatedEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during game play" disabledReason="GamePlay" enabledReason="GamePlay">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.PrimaryGameFailedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameRequestFailedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.Events.AllowMoneyInEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameIdleEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.RecoveryStartedEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during recovery" disabledReason="GamePlay" enabledReason="GamePlay">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.PrimaryGameFailedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.Events.AllowMoneyInEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameIdleEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.Events.ProhibitMoneyInEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during game play" disabledReason="GamePlay" enabledReason="GamePlay">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.Events.AllowMoneyInEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameIdleEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.GameOperatorMenuEnteredEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during game operator menu">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameInitializationCompletedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameOperatorMenuExitedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.GameSelectedEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during game loading" disabledReason="GamePlay" enabledReason="GamePlay">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameInitializationCompletedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.GameProcessExitedEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Accounting.Contracts.MoneyInDisabledEvent, Monaco.Accounting.Contracts" reason="Disabled while deposits are disabled" disabledReason="Backend" enabledReason="Backend">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Accounting.Contracts.MoneyInEnabledEvent, Monaco.Accounting.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.Lobby.TimeLimitDialogVisibleEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during Time Expired and Cashout required" disabledReason="GamePlay" enabledReason="GamePlay">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.Lobby.TimeLimitDialogHiddenEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Gaming.Contracts.Lobby.AgeWarningDialogVisibleEvent, Aristocrat.Monaco.Gaming.Contracts" reason="Disabled during Age Warning" disabledReason="GamePlay" enabledReason="GamePlay">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Gaming.Contracts.Lobby.AgeWarningDialogHiddenEvent, Aristocrat.Monaco.Gaming.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Hardware.Contracts.Door.DoorOpenMeteredEvent, Aristocrat.Monaco.Hardware.Contracts" reason="Disabled during cash door open" disabledReason="Error" enabledReason="Reset">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Hardware.Contracts.Door.DoorClosedMeteredEvent, Aristocrat.Monaco.Hardware.Contracts"/>
+    </CoinAcceptorDisable>
+    <CoinAcceptorDisable eventType="Aristocrat.Monaco.Application.Contracts.OverlayMenuEnteredEvent, Monaco.Application.Contracts" reason="Disabled during overlay menu">
+      <CoinAcceptorEnable eventType="Aristocrat.Monaco.Application.Contracts.OverlayMenuExitedEvent, Monaco.Application.Contracts"/>
+    </CoinAcceptorDisable>
+  </Extension>
+
+
+  <Extension path="/Gaming/Metering/GameMeterProvider">
         <!--NOTE:  Before adding a meter here make sure it will be referenced by gameId, denom, and or wager category.  If not, it doesn't belong here... -->
         <GameAtomicMeter name="WageredAmount" classification="Currency" group="denomination" />
         <GameAtomicMeter name="PlayedCount" classification="Occurrence" group="denomination" />

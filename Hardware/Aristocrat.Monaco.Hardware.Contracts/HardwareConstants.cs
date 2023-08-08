@@ -170,5 +170,35 @@
         ///     Array of Display Properties
         /// </summary>
         public static readonly string[] Displays = { Display1, Display2, Display3, Display4, Display5 };
+        
+        /// <summary>
+        ///     Key used to get a coin token value.
+        /// </summary>
+        public const string CoinValue = "CoinValue";
+
+        /// <summary>
+        ///     Key used to get a value indicating current coin acceptor faults
+        /// </summary>
+        public const string CoinAcceptorFaults = "Hardware.CoinAcceptorFaults";
+
+        /// <summary>
+        ///     Key used to get a value indicating current hopper faults
+        /// </summary>
+        public const string HopperFaults = "Hardware.HopperFaults";
+
+        /// <summary>
+        ///     True if Coin Acceptor Diagnostic screen is opened in Operator Menu
+        /// </summary>
+        public const string CoinAcceptorDiagnosticMode = "Hardware.CoinAcceptorDiagnosticMode";
+
+        /// <summary>
+        ///     True if Hopper Test screen is opened and Activated in Operator Menu
+        /// </summary>
+        public const string HopperDiagnosticMode = "Hardware.HopperDiagnosticMode";
+
+        /// <summary>
+        ///     The key used to disable the system when Hopper Test is in progress.
+        /// </summary>
+        public static readonly Guid HopperTestLockKey = new Guid("{67AC3473-F588-4CE1-A064-0EDD72DED996}");
     }
 }

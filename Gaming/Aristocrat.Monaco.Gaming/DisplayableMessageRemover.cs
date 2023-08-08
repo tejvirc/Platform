@@ -7,7 +7,9 @@
     using System.Reflection;
     using Accounting.Contracts;
     using Accounting.Contracts.HandCount;
+    using Accounting.Contracts.CoinAcceptor;
     using Accounting.Contracts.Handpay;
+    using Accounting.Contracts.Hopper;
     using Accounting.Contracts.Wat;
     using Contracts;
     using Hardware.Contracts.Door;
@@ -26,13 +28,15 @@
             typeof(PlatformBootedEvent),
             typeof(VoucherRejectedEvent),
             typeof(CurrencyInCompletedEvent),
+            typeof(CoinInCompletedEvent),
             typeof(DocumentRejectedEvent),
             typeof(VoucherRedeemedEvent),
             typeof(VoucherIssuedEvent),
             typeof(HardMeterOutCompletedEvent),
             typeof(WatTransferCommittedEvent),
             typeof(WatOnCompleteEvent),
-            typeof(HandpayKeyedOffEvent)
+            typeof(HandpayKeyedOffEvent),
+            typeof(HopperPayOutCompletedEvent)
         };
 
         private readonly IEventBus _eventBus;

@@ -2,10 +2,10 @@
 {
     using System;
     using System.Linq;
-    using Aristocrat.Monaco.Application.Localization;
     using Contracts;
     using Hardware.Contracts.SharedDevice;
-
+    using Localization;
+    
     [CLSCompliant(false)]
     public class HardwareConfigPageViewModel : HardwareConfigBaseViewModel
     {

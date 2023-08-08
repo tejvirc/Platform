@@ -10,12 +10,14 @@
     using System.Xml;
     using System.Xml.Serialization;
     using Aristocrat.Monaco.Kernel.Contracts;
+    using CoinAcceptor;
     using Contracts;
     using Contracts.Communicator;
     using Contracts.IdReader;
     using Contracts.NoteAcceptor;
     using Contracts.Persistence;
     using Contracts.Printer;
+    using Contracts.CoinAcceptor;
     using Contracts.Reel;
     using Contracts.SharedDevice;
     using Kernel;
@@ -23,6 +25,8 @@
     using NoteAcceptor;
     using Printer;
     using Reel;
+    using Aristocrat.Monaco.Hardware.Contracts.Hopper;
+    using Aristocrat.Monaco.Hardware.Hopper;
 
     public class HardwareConfiguration : IHardwareConfiguration, IDisposable
     {
@@ -279,6 +283,12 @@
                             config,
                             data,
                             inspectedDevice);
+                        break;
+                    case DeviceType.CoinAcceptor:
+                        adapter = HandleServiceRegistration<ICoinAcceptor>(new CoinAcceptorAdapter(), config, data, inspectedDevice);
+                        break;
+                    case DeviceType.Hopper:
+                        adapter = HandleServiceRegistration<IHopper>(new HopperAdapter(), config, data, inspectedDevice);
                         break;
                 }
 

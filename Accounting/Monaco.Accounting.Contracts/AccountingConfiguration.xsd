@@ -40,6 +40,8 @@
                                 default="false" />
                   <xs:attribute name="DisableBankNoteAcceptorWhenCreditLimitReached" type="xs:boolean" use="optional"
                                 default="false" />
+                  <xs:attribute name="DisableCoinAcceptorWhenCreditLimitReached" type="xs:boolean" use="optional" 
+                                default="false" />
                 </xs:complexType>
               </xs:element>
               <xs:element minOccurs="0" maxOccurs="1" name="MaxBetLimit">
@@ -51,6 +53,35 @@
               </xs:element>
             </xs:sequence>
             <xs:attribute name="AllowCreditsInAboveMaxCredit" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="HopperLimits">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="HopperRefill">
+                <xs:complexType>
+                  <xs:attribute name="Default" type="xs:long" use="optional" default="5000000" />
+                  <xs:attribute name="Min" type="xs:long" use="optional" default="0" />
+                  <xs:attribute name="Max" type="xs:long" use="optional" default="1000000000" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="HopperCollect">
+                <xs:complexType>
+                  <xs:attribute name="Default" type="xs:long" use="optional" default="10000000"/>
+                  <xs:attribute name="Min" type="xs:long" use="optional" default="2500000"/>
+                  <xs:attribute name="Max" type="xs:long" use="optional" default="1000000000"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="HopperPaySplit">
+                <xs:complexType>
+                  <xs:attribute name="Default" type="xs:long" use="optional" default="10000000"/>
+                  <xs:attribute name="Min" type="xs:long" use="optional" default="1000000"/>
+                  <xs:attribute name="Supported" type="xs:boolean" use="optional" default="true" />
+                  <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="true" />
+                  <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="WinLimits">

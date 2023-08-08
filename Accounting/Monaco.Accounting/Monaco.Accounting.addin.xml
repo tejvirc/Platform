@@ -36,6 +36,7 @@
     <Service type="Aristocrat.Monaco.Accounting.TransferOutHandler" />
     <Service type="Aristocrat.Monaco.Accounting.WatOnHandler" />
     <Service type="Aristocrat.Monaco.Accounting.CurrencyInProvider" />
+    <Service type="Aristocrat.Monaco.Accounting.CoinAcceptor.CoinInProvider" />
     <Service type="Aristocrat.Monaco.Accounting.NoteAcceptorActivityTimeWatcher" />
     <Service type="Aristocrat.Monaco.Accounting.VoucherInProvider" />
     <Service type="Aristocrat.Monaco.Accounting.CabinetSwapDetectionService" />
@@ -58,6 +59,8 @@
     <MeterProvider type="Aristocrat.Monaco.Accounting.Handpay.HandpayMetersProvider" />
     <MeterProvider type="Aristocrat.Monaco.Accounting.HandCount.HandCountMetersProvider" />
     <MeterProvider type="Aristocrat.Monaco.Accounting.CurrencyInMetersProvider" />
+    <MeterProvider type="Aristocrat.Monaco.Accounting.CoinMetersProvider" />
+    <MeterProvider type="Aristocrat.Monaco.Accounting.Hopper.CoinOutTestMetersProvider" />
     <MeterProvider type="Aristocrat.Monaco.Accounting.VoucherInMetersProvider" />
     <MeterProvider type="Aristocrat.Monaco.Accounting.VoucherOutMetersProvider" />
     <MeterProvider type="Aristocrat.Monaco.Accounting.WatOffMetersProvider" />
@@ -81,6 +84,7 @@
 
   <Extension path="/Accounting/TransferOutProviders">
     <TransactionService type="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" />
+    <TransactionService type="Aristocrat.Monaco.Accounting.Hopper.CoinOutProvider" />
     <TransactionService type="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" />
     <TransactionService type="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider" />
     <TransactionService type="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" />

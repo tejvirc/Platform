@@ -27,8 +27,13 @@ as follows:
   <TenderIn CheckCreditsIn="None" AllowCreditUnderLimit="false">
   </TenderIn>
   <CreditLimits>
-	<MaxCreditMeter Default="500000000" MaxAllowed="9999999000"  DisableBankNoteAcceptorWhenCreditLimitReached="true" ShowMessageWhenCreditLimitReached="true"/>
+	<MaxCreditMeter Default="500000000" MaxAllowed="9999999000"  DisableBankNoteAcceptorWhenCreditLimitReached="true" ShowMessageWhenCreditLimitReached="true" DisableCoinAcceptorWhenCreditLimitReached="true"/>
   </CreditLimits>
+  <HopperLimits>
+    <HopperRefill Default="5000000" Min="0" Max="999999000"/>
+    <HopperCollect Default="10000000" Min="0" Max="1000000000"/>
+    <HopperPaySplit Supported="true" Configurable ="true" Enabled="false" Default="2000000" Min="1000000"/>
+  </HopperLimits>
   <WinLimits>
     <LargeWinLimit Editable="false" OverrideTransactionName="true"/>
 	<HandpayResetOptions Visible="false"/>

@@ -1,0 +1,168 @@
+﻿<operatorMenu:OperatorMenuPage
+                        x:Class="Aristocrat.Monaco.Application.UI.Views.CoinAcceptorPage"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:common="http://monaco.aristocrat.com/common"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                        xmlns:loc="http://monaco.aristocrat.com/localization"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                        xmlns:pwm="clr-namespace:Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor;assembly=Aristocrat.Monaco.Hardware.Contracts"
+                        xmlns:viewmodels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                        d:DataContext="{d:DesignInstance {x:Type viewmodels:CoinAcceptorPageViewModel}}"
+                        d:DesignHeight="450"
+                        d:DesignWidth="800"
+                        mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style BasedOn="{StaticResource MonacoLabel}" TargetType="Label">
+                <Setter Property="Margin" Value="0,0,10,10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style BasedOn="{StaticResource MonacoTextBlock}" TargetType="TextBlock">
+                <Setter Property="Margin" Value="0,0,0,10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style BasedOn="{StaticResource MonacoCheckBox}" TargetType="CheckBox">
+                <Setter Property="Margin" Value="10,10,10,0" />
+            </Style>
+            <Style BasedOn="{StaticResource MonacoButton}" TargetType="Button">
+                <Setter Property="Margin" Value="0,15,15,0" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Width" Value="200" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_E8DD9B69">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition1_E8DD9B69" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition2_E8DD9B69" />
+            <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition3_E8DD9B69" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="Auto"
+                MaxWidth="170"
+                AutomationProperties.AutomationId="ColumnDefinition4_E8DD9B69" />
+            <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition5_E8DD9B69" />
+        </Grid.ColumnDefinitions>
+        <Label
+            Grid.Row="0"
+            Grid.Column="0"
+            AutomationProperties.AutomationId="Label6_E8DD9B69"
+            Content="{lex:Loc Key={x:Static loc:ResourceKeys.CoinEntryLabel}}" />
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="1"
+            AutomationProperties.AutomationId="TextBlock7_E8DD9B69"
+            Foreground="White"
+            Text="{Binding CoinEntry, Mode=OneWay}" />
+        <GroupBox
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            MaxWidth="850"
+            Margin="0,10,0,0"
+            AutomationProperties.AutomationId="GroupBox8_E8DD9B69"
+            Header="{lex:Loc Key={x:Static loc:ResourceKeys.CoinAcceptorTestLabel}}"
+            IsEnabled="{Binding InputEnabled}">
+            <StackPanel AutomationProperties.AutomationId="StackPanel9_E8DD9B69">
+                <Grid AutomationProperties.AutomationId="Grid10_E8DD9B69">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" AutomationProperties.AutomationId="RowDefinition11_E8DD9B69" />
+                        <RowDefinition Height="50" AutomationProperties.AutomationId="RowDefinition12_E8DD9B69" />
+                        <RowDefinition Height="50" AutomationProperties.AutomationId="RowDefinition13_E8DD9B69" />
+                        <RowDefinition Height="50" AutomationProperties.AutomationId="RowDefinition14_E8DD9B69" />
+                        <RowDefinition Height="50" AutomationProperties.AutomationId="RowDefinition15_E8DD9B69" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition
+                            Width="*"
+                            MaxWidth="400"
+                            AutomationProperties.AutomationId="ColumnDefinition16_E8DD9B69" />
+                        <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition17_E8DD9B69" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        AutomationProperties.AutomationId="Label18_E8DD9B69"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.CoinInStatus}}" />
+                    <ComboBox
+                        Name="CoinEntryStatesComboBox"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        MinWidth="140"
+                        MaxHeight="43"
+                        Margin="250,0,0,0"
+                        AutomationProperties.AutomationId="ComboBox19_E8DD9B69"
+                        DisplayMemberPath="Value"
+                        ItemsSource="{common:Enumeration {x:Type pwm:AcceptorState}}"
+                        SelectedIndex="0"
+                        SelectedValue="{Binding SelectedCoinEntryStates, Mode=TwoWay}"
+                        SelectedValuePath="Value" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        AutomationProperties.AutomationId="Label20_E8DD9B69"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.DiverterDirectionLabel}}" />
+                    <ComboBox
+                        Name="DiverterDirectionComboBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        MinWidth="140"
+                        MaxHeight="43"
+                        Margin="250,0,0,0"
+                        AutomationProperties.AutomationId="ComboBox21_E8DD9B69"
+                        DisplayMemberPath="Value"
+                        ItemsSource="{Binding DiverterDirections}"
+                        SelectedValue="{Binding SelectedDiverterDirection, Mode=TwoWay}"
+                        SelectedValuePath="Key" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        AutomationProperties.AutomationId="Label22_E8DD9B69"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.TotalCoinToHopper}}" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="20,0,0,0"
+                        AutomationProperties.AutomationId="TextBlock23_E8DD9B69"
+                        Foreground="White"
+                        Text="{Binding CoinToHopper, Mode=OneWay}" />
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Margin="0,10,0,0"
+                        AutomationProperties.AutomationId="Label24_E8DD9B69"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.TotalCoinToCashbox}}" />
+                    <TextBlock
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="20,10,0,0"
+                        AutomationProperties.AutomationId="TextBlock25_E8DD9B69"
+                        Foreground="White"
+                        Text="{Binding CoinToCashbox, Mode=OneWay}" />
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Margin="0,10,0,0"
+                        AutomationProperties.AutomationId="Label26_E8DD9B69"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.TotalCoinInText}}" />
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Margin="20,10,0,0"
+                        AutomationProperties.AutomationId="TextBlock27_E8DD9B69"
+                        Foreground="White"
+                        Text="{Binding TotalCoinIn, Mode=OneWay}" />
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

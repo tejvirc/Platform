@@ -84,5 +84,15 @@
         /// Hardware device being tested relates to Doors
         /// </summary>
         Doors,
+
+        /// <summary>
+        ///     Hardware device being tested relates to Coin-Acceptor
+        /// </summary>
+        CoinAcceptor,
+
+        /// <summary>
+        /// Hardware device being tested relates to Hopper
+        /// </summary>
+        Hopper,
     }
 }

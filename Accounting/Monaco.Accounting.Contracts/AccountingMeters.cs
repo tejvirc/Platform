@@ -702,14 +702,71 @@
         /// <summary> true coin in amount. Always 0 unless we accept tokens/coins </summary>
         public const string TrueCoinIn = "TrueCoinIn";
 
+        /// <summary> total coin in count. Always 0 unless we accept tokens/coins </summary>
+        public const string TrueCoinInCount = "TrueCoinInCount";
+
         /// <summary> true coin out amount. Always 0 unless we accept tokens/coins </summary>
         public const string TrueCoinOut = "TrueCoinOut";
+
+        /// <summary> total coin out count. </summary>
+        public const string TrueCoinOutCount = "TrueCoinOutCount";
 
         /// <summary> The coin drop amount </summary>
         public const string CoinDrop = "CoinDrop";
 
+        /// <summary> Coins To CashBox amount. Always 0 unless we accept coins </summary>
+        public const string CoinsToCashBox = "CoinsToCashBox";
+
+        /// <summary> total coin to cashBox count. </summary>
+        public const string CoinToCashBoxCount = "CoinToCashBoxCount";
+
+        /// <summary> coins to cashBox amount instead hopper. </summary>
+        public const string CoinsToCashBoxInsteadHopper = "CoinsToCashBoxInsteadHopper";
+
+        /// <summary> total coin to cashBox instead hopper count. </summary>
+        public const string CoinToCashBoxInsteadHopperCount = "CoinToCashBoxInsteadHopperCount";
+
+        /// <summary> Coins To Hopper amount. Always 0 unless we accept coins </summary>
+        public const string CoinsToHopper = "CoinsToHopper";
+
+        /// <summary> total coin to hopper count. </summary>
+        public const string CoinToHopperCount = "CoinToHopperCount";
+
+        /// <summary> coins to hopper amount instead cashBox . </summary>
+        public const string CoinsToHopperInsteadCashBox = "CoinsToHopperInsteadCashBox";
+
+        /// <summary> total coin to hopper instead cashBox count. </summary>
+        public const string CoinToHopperInsteadCashBoxCount = "CoinToHopperInsteadCashBoxCount";
+
         /// <summary> hopper level. Always 0 unless we have a coin hopper. </summary>
         public const string CurrentHopperLevel = "CurrentHopperLevel";
+
+        /// <summary> hopper level count. Always 0 unless we have a coin hopper. </summary>
+        public const string CurrentHopperLevelCount = "CurrentHopperLevelCount";
+
+        /// <summary> total hopper refill coin in count. Always 0 unless we accept tokens/coins </summary>
+        public const string HopperRefillCount = "HopperRefillCount";
+
+        /// <summary> total hopper refill coin in value. Always 0 unless we accept tokens/coins </summary>
+        public const string HopperRefillAmount = "HopperRefillAmount";
+
+        /// <summary> Test coin out count from hopper. </summary>
+        public const string HopperTestCoinsOut = "Test.Hopper.CoinsOut";
+
+        /// <summary> Test coin in from coin acceptor. </summary>
+        public const string HopperTestCoinsIn = "Test.Hopper.CoinsIn";
+
+        /// <summary> extra test coin in count. </summary>
+        public const string ExtraCoinInWhenHopperTest = "Test.Hopper.ExtraCoinIn";
+
+        /// <summary> extra coin out count from hopper. </summary>
+        public const string ExtraCoinOutWhenHopperTest = "Test.Hopper.ExtraCoinOut";
+
+        /// <summary> excess coin out count from hopper. </summary>
+        public const string ExcessCoinOutCount = "ExcessCoinOutCount";
+
+        /// <summary> excess coin out amount from hopper. </summary>
+        public const string ExcessCoinOutAmount = "ExcessCoinOutAmount";
 
         /// <summary>
         ///     Count of unknown documents rejected by the note acceptor

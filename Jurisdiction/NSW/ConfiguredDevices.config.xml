@@ -14,6 +14,8 @@ as follows:
     <Device Name="MEI Serial EBDS" />
     <Device Name="FutureLogic Gen2 Serial TCL" />
     <Device Name="UNIFORM USB GDS" Enabled="false" />
+    <Device Name="CC-62" />
+    <Device Name="Aristocrat" />
   </Defaults>
 
   <Included>
@@ -26,6 +28,10 @@ as follows:
     <Device Name="TransAct Epic950 Serial EpicTTL"/> <!--Ithaca 950-->
     <Device Name="JCM Gen5 Serial TCL"/>
     <Device Name="Nanoptix Inc. PayCheck 4 Serial TCL"/>
+    <!--Coin Acceptors-->
+    <Device Name="CC-62" />
+    <!--Hoppers-->
+    <Device Name="Aristocrat" />
   </Included>
 
   <Excluded>

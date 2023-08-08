@@ -70,6 +70,12 @@
                             AccountingConstants.DisableBankNoteAcceptorWhenCreditLimitReached,
                             It.IsAny<bool>()))
                 .Returns(true);
+            _properties.Setup(
+                    x =>
+                        x.GetProperty(
+                            AccountingConstants.DisableCoinAcceptorWhenCreditLimitReached,
+                            It.IsAny<bool>()))
+                .Returns(true);
             _target.Initialize();
             Assert.IsNotNull(_onBankBalanceChangedEvent);
             const long currentBankBalance = 1000;
@@ -99,6 +105,12 @@
                             AccountingConstants.DisableBankNoteAcceptorWhenCreditLimitReached,
                             It.IsAny<bool>()))
                 .Returns(false);
+            _properties.Setup(
+                    x =>
+                        x.GetProperty(
+                            AccountingConstants.DisableCoinAcceptorWhenCreditLimitReached,
+                            It.IsAny<bool>()))
+                .Returns(false);
             _target.Initialize();
             Assert.IsNotNull(_onBankBalanceChangedEvent);
             const long currentBankBalance = 1000;
@@ -124,6 +136,12 @@
                             AccountingConstants.DisableBankNoteAcceptorWhenCreditLimitReached,
                             It.IsAny<bool>()))
                 .Returns(true);
+            _properties.Setup(
+                    x =>
+                        x.GetProperty(
+                            AccountingConstants.DisableCoinAcceptorWhenCreditLimitReached,
+                            It.IsAny<bool>()))
+                .Returns(true);
             _target.Initialize();
             Assert.IsNotNull(_onBankBalanceChangedEvent);
             const long currentBankBalance = 1020;
@@ -143,6 +161,12 @@
                     x =>
                         x.GetProperty(
                             AccountingConstants.DisableBankNoteAcceptorWhenCreditLimitReached,
+                            It.IsAny<bool>()))
+                .Returns(true);
+            _properties.Setup(
+                    x =>
+                        x.GetProperty(
+                            AccountingConstants.DisableCoinAcceptorWhenCreditLimitReached,
                             It.IsAny<bool>()))
                 .Returns(true);
             _target.Initialize();
@@ -166,6 +190,12 @@
                     x =>
                         x.GetProperty(
                             AccountingConstants.DisableBankNoteAcceptorWhenCreditLimitReached,
+                            It.IsAny<bool>()))
+                .Returns(true);
+            _properties.Setup(
+                    x =>
+                        x.GetProperty(
+                            AccountingConstants.DisableCoinAcceptorWhenCreditLimitReached,
                             It.IsAny<bool>()))
                 .Returns(true);
             _target.Initialize();
@@ -196,6 +226,12 @@
                             AccountingConstants.DisableBankNoteAcceptorWhenCreditLimitReached,
                             It.IsAny<bool>()))
                 .Returns(true);
+            _properties.Setup(
+                    x =>
+                        x.GetProperty(
+                            AccountingConstants.DisableCoinAcceptorWhenCreditLimitReached,
+                            It.IsAny<bool>()))
+                .Returns(true);
             _target.Initialize();
             Assert.IsNotNull(_onBankBalanceChangedEvent);
             const long currentBankBalance = 1000;
@@ -215,6 +251,12 @@
                     x =>
                         x.GetProperty(
                             AccountingConstants.DisableBankNoteAcceptorWhenCreditLimitReached,
+                            It.IsAny<bool>()))
+                .Returns(true);
+            _properties.Setup(
+                    x =>
+                        x.GetProperty(
+                            AccountingConstants.DisableCoinAcceptorWhenCreditLimitReached,
                             It.IsAny<bool>()))
                 .Returns(true);
             _target.Initialize();

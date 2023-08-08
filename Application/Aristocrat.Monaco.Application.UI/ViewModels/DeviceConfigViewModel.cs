@@ -37,7 +37,9 @@
             { DeviceType.NoteAcceptor, "/Hardware/NoteAcceptor/NoteAcceptorImplementations"},
             { DeviceType.Printer, "/Hardware/Printer/PrinterImplementations"},
             { DeviceType.ReelController , "/Hardware/ReelController/ReelControllerImplementations" },
-            { DeviceType.IdReader, "/Hardware/IdReader/IdReaderImplementations"}
+            { DeviceType.IdReader, "/Hardware/IdReader/IdReaderImplementations"},
+            { DeviceType.CoinAcceptor, "/Hardware/CoinAcceptor/CoinAcceptorImplementations"},
+            { DeviceType.Hopper, "/Hardware/Hopper/HopperImplementations"}
         };
 
         private string _port;
@@ -84,6 +86,8 @@
                     case DeviceType.NoteAcceptor: return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoteAcceptorLabel);
                     case DeviceType.Printer: return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterLabel);
                     case DeviceType.ReelController: return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReelControllerLabel);
+                    case DeviceType.CoinAcceptor: return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CoinAcceptorLabel);
+                    case DeviceType.Hopper: return "Hopper";//TBC
                     default: return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Unknown);
                 }
             }

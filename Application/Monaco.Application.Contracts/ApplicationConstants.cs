@@ -76,6 +76,9 @@
         /// <summary> The properties manager key for Firmware CRC error sound file path. </summary>
         public const string FirmwareCrcErrorSoundKey = "Cabinet.FirmwareCrcErrorSound";
 
+        /// <summary> The properties manager key for default sound file path. </summary>
+        public const string DefaultAlarmSoundKey = "Cabinet.DefaultAlarmSound";
+
         /// <summary> The properties manager key for Memory Monitor error sound file path. </summary>
         public const string MemoryMonitorErrorSoundKey = "Cabinet.MemoryMonitorErrorSound";
 
@@ -744,6 +747,11 @@
         ///     Default datetime format.
         /// </summary>
         public const string DefaultDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+
+        /// <summary>
+        ///     Long date time format e.g Jan 1 2023 10:00:00.
+        /// </summary>
+        public const string LongDateTimeFormat = "ddd, dd MMM yyyy HH:mm:ss";
 
         /// <summary>
         ///     Property manager key for LocalizationCurrentCulture
@@ -1499,5 +1507,25 @@
         ///     True if re-directing topper overlay to top screen
         /// </summary>
         public const string IsTopperOverlayRedirecting = @"Application.IsTopperOverlayRedirecting";
+
+        // <summary>
+        ///     Key used to get a value indicating whether or not Coin Acceptor is enabled
+        /// </summary>
+        public const string CoinAcceptorEnabled = "Application.CoinAcceptorEnabled";
+
+        // <summary>
+        ///     Key used to get a value indicating whether or not Coin Acceptor is enabled
+        /// </summary>
+        public const string CoinAcceptorManufacturer = "Application.CoinAcceptorManufacturer";
+
+        // <summary>
+        ///     Key used to get a value indicating whether or not Hopper is enabled
+        /// </summary>
+        public const string HopperEnabled = "Application.HopperEnabled";
+
+        // <summary>
+        ///     Property Manager key for HopperManufacturer.
+        /// </summary>
+        public const string HopperManufacturer = "Application.HopperManufacturer";
     }
 }

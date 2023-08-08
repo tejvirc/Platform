@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Helpers
 {
     using System;
+    using Aristocrat.Monaco.Hardware.Contracts;
     using Contracts;
     using Hardware.Contracts.SharedDevice;
     using Localization;
@@ -40,6 +41,10 @@
                     return ApplicationConstants.IdReaderEnabled;
                 case DeviceType.ReelController:
                     return ApplicationConstants.ReelControllerEnabled;
+                case DeviceType.CoinAcceptor:
+                    return ApplicationConstants.CoinAcceptorEnabled;
+                case DeviceType.Hopper:
+                    return ApplicationConstants.HopperEnabled;
                 default:
                     return string.Empty;
             }

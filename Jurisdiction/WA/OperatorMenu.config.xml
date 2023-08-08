@@ -74,6 +74,9 @@ as follows:
 			<Setting Name="HideBillAcceptorLimitField" Value="true" />
 			<AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
 		</Page>
+    <Page Type="CoinAcceptorPageViewModel" Access="MainZeroCreditsGameIdle" />
+    <Page Type="HopperPageViewModel" Access="MainZeroCreditsGameIdle" FieldAccess="MainLogicZeroCreditsGameIdle"/>
+    <Page Type="HopperTestViewModel" Access="MainZeroCreditsGameIdle"/>
 		<Page Type="LampPageViewModel" PrintButtonEnabled="false" >
 			<AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
 		</Page>
