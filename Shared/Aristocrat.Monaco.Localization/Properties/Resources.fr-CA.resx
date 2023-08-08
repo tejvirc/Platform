@@ -4939,4 +4939,10 @@ Do you really want to do partial reset????</value>
   <data name="DisplayConnected" xml:space="preserve">
     <value>???Display Connected - Restart Required???</value>
   </data>
+  <data name="ReplayTicketPrinted" xml:space="preserve">
+    <value>??Printed Ticket for??</value>
+  </data>
+  <data name="ReplayGameWinBonusAwarded" xml:space="preserve">
+    <value>??Game Win Bonus Awarded: {0}??</value>
+  </data>
 </root>
