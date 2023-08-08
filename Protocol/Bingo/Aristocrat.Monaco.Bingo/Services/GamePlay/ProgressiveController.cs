@@ -9,8 +9,8 @@
     using Application.Contracts.Extensions;
     using Aristocrat.Bingo.Client.Messages;
     using Common;
-    using Common.Data.Models;
     using Common.Events;
+    using Common.Storage.Model;
     using Gaming.Contracts;
     using Gaming.Contracts.Progressives;
     using Gaming.Contracts.Progressives.Linked;
@@ -106,7 +106,17 @@
                 return;
             }
 
-            var level = _protocolLinkedProgressiveAdapter.ViewConfiguredProgressiveLevels().FirstOrDefault(n => n.LevelName == poolName);
+            IViewableProgressiveLevel level = null;
+            foreach (var l in _protocolLinkedProgressiveAdapter.ViewConfiguredProgressiveLevels())
+            {
+                var levelPoolName = CreatePoolName(l.ProgressivePackName, l.LevelName, l.ResetValue);
+                if (levelPoolName == poolName)
+                {
+                    level = l;
+                    break;
+                }
+            }
+
             if (level is null)
             {
                 throw new InvalidOperationException($"No progressive levels found matching '{poolName}'");
@@ -186,32 +196,27 @@
 
                 var resetValue = pool.First().ResetValue;
 
-                // These are the naming conventions for NYL but it should be ok to re-use for bingo
-                var poolName = $"{pool.Key.PackName}_{resetValue.MillicentsToDollars()}_{pool.Key.LevelName}";
-                var valueAttributeName = $"ins{poolName}_Value";
-                var messageAttributeName = $"ins{poolName}_Message";
+                var poolName = CreatePoolName(pool.Key.PackName, pool.Key.LevelName, resetValue);
 
                 var progressive = new ProgressiveInfo(
                     pool.Key.PackName,
                     pool.Key.ProgId,
                     pool.Key.LevelId,
                     pool.Key.LevelName,
-                    poolName,
-                    valueAttributeName,
-                    messageAttributeName);
+                    poolName);
 
-                if (!_progressives.ContainsKey(valueAttributeName))
+                if (!_progressives.ContainsKey(poolName))
                 {
-                    _progressives.TryAdd(valueAttributeName, new List<ProgressiveInfo>());
+                    _progressives.TryAdd(poolName, new List<ProgressiveInfo>());
                 }
 
                 if (game.EgmEnabled &&
-                    !_activeProgressiveInfos.Any(p => p.ValueAttributeName.Equals(progressive.ValueAttributeName, StringComparison.OrdinalIgnoreCase)))
+                    !_activeProgressiveInfos.Any(p => p.PoolName.Equals(progressive.PoolName, StringComparison.OrdinalIgnoreCase)))
                 {
                     _activeProgressiveInfos.Add(progressive);
                 }
 
-                _progressives[valueAttributeName].Add(progressive);
+                _progressives[poolName].Add(progressive);
 
                 var linkedLevel = UpdateLinkedProgressiveLevels(
                     pool.Key.ProgId,
@@ -222,12 +227,12 @@
                 _protocolLinkedProgressiveAdapter.AssignLevelsToGame(
                     pool.Select(
                         level => new ProgressiveLevelAssignment(
-                            game,
-                            level.Denomination.First(),
-                            level,
-                            new AssignableProgressiveId(AssignableProgressiveType.Linked, linkedLevel.LevelName),
-                            level.ResetValue)).ToList(),
-                    ProtocolNames.Bingo);
+                        game,
+                        level.Denomination.First(),
+                        level,
+                        new AssignableProgressiveId(AssignableProgressiveType.Linked, linkedLevel.LevelName),
+                        level.ResetValue)).ToList(),
+                        ProtocolNames.Bingo);
             }
         }
 
@@ -361,7 +366,7 @@
                 $"amountInPennies = {linkedLevel.ClaimStatus.WinAmount} " +
                 $"CurrentValue = {evt.Level.CurrentValue}");
 
-            _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(ProtocolNames.Bingo, linkedLevel.LevelName);
+            _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(linkedLevel.LevelName, ProtocolNames.Bingo);
             var poolName = GetPoolName(linkedLevel.LevelName);
             AwardJackpot(poolName, linkedLevel.ClaimStatus.WinAmount);
             _protocolLinkedProgressiveAdapter.AwardLinkedProgressiveLevel(linkedLevel.LevelName, linkedLevel.ClaimStatus.WinAmount, ProtocolNames.Bingo);
@@ -392,6 +397,12 @@
                 $"Updated linked progressive level: ProtocolName={linkedLevel.ProtocolName} ProgressiveGroupId={linkedLevel.ProgressiveGroupId} LevelName={linkedLevel.LevelName} LevelId={linkedLevel.LevelId} Amount={linkedLevel.Amount} ClaimStatus={linkedLevel.ClaimStatus} CurrentErrorStatus={linkedLevel.CurrentErrorStatus} Expiration={linkedLevel.Expiration}");
 
             return linkedLevel;
+        }
+
+        private string CreatePoolName(string packName, string levelName, long resetValueMillicents)
+        {
+            // These are the naming conventions for NYL but it should be ok to re-use for bingo
+            return $"{packName}_{resetValueMillicents.MillicentsToDollars()}_{levelName}";
         }
 
         private string GetPoolName(string levelName)

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Bingo.Common.Data.Models
+﻿namespace Aristocrat.Monaco.Bingo.Common.Storage.Model
 {
     using Monaco.Common.Storage;
 
