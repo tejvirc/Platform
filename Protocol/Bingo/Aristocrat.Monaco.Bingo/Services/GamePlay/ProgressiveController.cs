@@ -28,6 +28,7 @@
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
         private readonly IProtocolProgressiveEventsRegistry _multiProtocolEventBusRegistry;
         private readonly IGameHistory _gameHistory;
+        private readonly IProgressiveContributionService _progressiveContributionService;
         private readonly IProgressiveClaimService _progressiveClaimService;
         private readonly IProgressiveAwardService _progressiveAwardService;
         private readonly IPropertiesManager _propertiesManager;
@@ -46,7 +47,9 @@
         /// <param name="protocolLinkedProgressiveAdapter">.</param>
         /// <param name="gameHistory"><see cref="IGameHistory" />.</param>
         /// <param name="multiProtocolEventBusRegistry"><see cref="IProtocolProgressiveEventsRegistry" />.</param>
+        /// <param name="progressiveContributionService"><see cref="IProgressiveContributionService" />.</param>
         /// <param name="progressiveClaimService"><see cref="IProgressiveClaimService" />.</param>
+        /// <param name="progressiveAwardService"><see cref="IProgressiveAwardService" />.</param>
         /// <param name="propertiesManager"><see cref="IPropertiesManager" />.</param>
         public ProgressiveController(
             IEventBus eventBus,
@@ -54,6 +57,7 @@
             IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter,
             IGameHistory gameHistory,
             IProtocolProgressiveEventsRegistry multiProtocolEventBusRegistry,
+            IProgressiveContributionService progressiveContributionService,
             IProgressiveClaimService progressiveClaimService,
             IProgressiveAwardService progressiveAwardService,
             IPropertiesManager propertiesManager
@@ -64,6 +68,7 @@
             _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _multiProtocolEventBusRegistry = multiProtocolEventBusRegistry ?? throw new ArgumentNullException(nameof(multiProtocolEventBusRegistry));
+            _progressiveContributionService = progressiveContributionService ?? throw new ArgumentNullException(nameof(progressiveContributionService));
             _progressiveClaimService = progressiveClaimService ?? throw new ArgumentNullException(nameof(progressiveClaimService));
             _progressiveAwardService = progressiveAwardService ?? throw new ArgumentNullException(nameof(progressiveAwardService));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
@@ -185,6 +190,41 @@
             _eventBus.Subscribe<PendingLinkedProgressivesHitEvent>(this, Handle);
             _eventBus.Subscribe<PaytablesInstalledEvent>(this, Handle);
             _eventBus.Subscribe<ProtocolInitialized>(this, Handle);
+            _eventBus.Subscribe<ProgressiveContributionEvent>(this, Handle);
+        }
+
+        private void Handle(ProgressiveContributionEvent evt)
+        {
+            var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
+
+            if (string.IsNullOrEmpty(machineSerial))
+            {
+                Logger.Error($"Unable to get {ApplicationConstants.SerialNumber} from properties manager");
+                return;
+            }
+
+            int levelId = 0;
+            foreach (var wager in evt.Wagers)
+            {
+                var gamesUsingProgressive = _progressiveContributionService.GetGamesUsingProgressive(levelId);
+                foreach (var game in gamesUsingProgressive.Result)
+                {
+                    var gameTitleId = game.Item1;
+                    var denomination = game.Item2;
+                    var message = new ProgressiveContributionRequestMessage(
+                        wager,
+                        machineSerial,
+                        gameTitleId,
+                        false, // Not used with server 11
+                        false, // Not used with server 11
+                        (int)denomination);
+                    _progressiveContributionService.Contribute(message);
+
+                    Logger.Debug($"Game [GameTitleId={gameTitleId}, Denom={denomination}] is contributing to progressive {levelId} a wager amount of {wager}");
+
+                    ++levelId;
+                }
+            }
         }
 
         private void Handle(PaytablesInstalledEvent evt)
