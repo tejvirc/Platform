@@ -327,7 +327,7 @@
                 $"amountInPennies = {linkedLevel.ClaimStatus.WinAmount} " +
                 $"CurrentValue = {evt.Level.CurrentValue}");
 
-            _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(ProtocolNames.Bingo, linkedLevel.LevelName);
+            _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(linkedLevel.LevelName, ProtocolNames.Bingo);
             var poolName = GetPoolName(linkedLevel.LevelName);
             AwardJackpot(poolName, linkedLevel.ClaimStatus.WinAmount);
             _protocolLinkedProgressiveAdapter.AwardLinkedProgressiveLevel(linkedLevel.LevelName, linkedLevel.ClaimStatus.WinAmount, ProtocolNames.Bingo);
