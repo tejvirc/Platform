@@ -21,7 +21,6 @@
         private const long TransactionId = 98784;
         private const long Amount = 45000;
         private const long LogSequence = 41;
-        private const string RequestId = "123456789123456789";
         private static readonly DateTime DateTime = DateTime.Now;
         private Mock<IPersistentStorageAccessor> _block;
 
@@ -206,12 +205,12 @@
             var same = _target.Clone() as CoinOutTransaction;
 
             Assert.IsTrue(_target.Equals(_target));
-            Assert.IsTrue(same.Equals(_target));
+            Assert.IsTrue(same?.Equals(_target));
             Assert.IsTrue(_target == same);
             Assert.IsTrue(same == _target);
             Assert.IsFalse(same != _target);
             Assert.IsFalse(_target != same);
-            Assert.AreEqual(_target.GetHashCode(), same.GetHashCode());
+            Assert.AreEqual(_target.GetHashCode(), same?.GetHashCode());
         }
 
         /// <summary>
@@ -225,7 +224,7 @@
             Assert.IsFalse(_target.Equals(new object()));
             Assert.IsFalse(_target == null);
             Assert.IsTrue(_target != null);
-            Assert.IsFalse(_target.Equals(null));
+            Assert.IsFalse(_target?.Equals(null));
 
             _target = null;
             Assert.IsTrue(_target == null);
@@ -245,8 +244,8 @@
             Assert.IsTrue(_target != Null);
             Assert.IsFalse(_target == null);
             Assert.IsFalse(_target == Null);
-            Assert.IsFalse(_target.Equals(Null));
-            Assert.IsFalse(_target.Equals(null));
+            Assert.IsFalse(_target?.Equals(Null));
+            Assert.IsFalse(_target?.Equals(null));
 
             Assert.IsTrue(Null == null);
             Assert.IsFalse(Null != null);

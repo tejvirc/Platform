@@ -12,7 +12,7 @@
     ///     HopperRefillTransaction defines the data necessary to store a Hopper Refill.
     /// </summary>
     [Serializable]
-    public class HopperRefillTransaction : BaseTransaction, IEquatable<HopperRefillTransaction>
+    public sealed class HopperRefillTransaction : BaseTransaction, IEquatable<HopperRefillTransaction>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="HopperRefillTransaction" /> class.

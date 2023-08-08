@@ -23,6 +23,7 @@
         private readonly IHopper _hopperService;
         private Alarm _alarm;
         private long _tokenValue;
+        private const long DefaultTokenValue = 100000L;
 
         public string Name => nameof(HopperMonitor);
 
@@ -55,7 +56,7 @@
             SubscribeEvents();
             _alarm = new Alarm();
             _alarm.LoadAlarm();
-            _tokenValue = _properties.GetValue(HardwareConstants.CoinValue, 100000L);
+            _tokenValue = _properties.GetValue(HardwareConstants.CoinValue, DefaultTokenValue);
             CheckLockUp();
         }
 

@@ -42,7 +42,7 @@
             while (Running)
             {
                 Poll.WaitOne();
-                var(status, connected,  record) = ReadwithDisconnetTest();
+                var(status, connected,  record) = ReadWithDisconnectTest();
 
                 if (status)
                 {
@@ -133,7 +133,7 @@
                 return;
             }
 
-            if (((int)record.NewValue & (int)HopperMasks.HopperCoinOutMask) != 0)
+            if (((int)record.NewValue & HopperMasks.HopperCoinOutMask) != 0)
             {
                 _coinOutState.State = HopperTaskState.WaitingForTrailingEdge;
                 _coinOutState.Timer = HopperConsts.HopperMaxBlockedTime;
@@ -177,7 +177,7 @@
                 return;
             }
 
-            if (((int)record.NewValue & (int)HopperMasks.HopperCoinOutMask) == 0)
+            if (((int)record.NewValue & HopperMasks.HopperCoinOutMask) == 0)
             {
 
                 _coinOutState.State = HopperTaskState.WaitingForLeadingEdge;
@@ -229,7 +229,7 @@
             }
 
             /* If leading edge */
-            if (((int)record.NewValue & (int)HopperMasks.HopperCoinOutMask) != 0)
+            if (((int)record.NewValue & HopperMasks.HopperCoinOutMask) != 0)
             {
                 _coinOutState.State = HopperTaskState.WaitingForTrailingEdge;
                 _coinOutState.Timer = HopperConsts.HopperMaxBlockedTime;
@@ -292,10 +292,10 @@
             }
         }
 
-        private (bool, bool, ChangeRecord) ReadwithDisconnetTest()
+        private (bool, bool, ChangeRecord) ReadWithDisconnectTest()
         {
             var connect = true;
-            (var ret, var record) = base.Read();
+            var ( ret, record) = base.Read();
             _testDisconnectTimer.QuadPart += record.ElapsedSinceLastChange.QuadPart;
 
             if(ret)

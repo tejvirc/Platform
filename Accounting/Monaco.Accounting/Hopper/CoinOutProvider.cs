@@ -25,7 +25,7 @@
     ///     An <see cref="ITransferOutProvider" /> for coins
     /// </summary>
     [CLSCompliant(false)]
-    public class CoinOutProvider : ICoinOutProvider, IDisposable
+    public class CoinOutProvider : ITransferOutProvider, IService, IDisposable
     {
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
@@ -85,7 +85,7 @@
 
         public string Name => typeof(CoinOutProvider).ToString();
 
-        public ICollection<Type> ServiceTypes => new[] { typeof(ICoinOutProvider) };
+        public ICollection<Type> ServiceTypes => new[] { typeof(CoinOutProvider) };
 
         public bool Active { get; private set; }
 
@@ -173,8 +173,17 @@
 
                 await Transfer(transaction.AuthorizedCashableAmount);
                 transaction = _transactions.RecallTransactions<CoinOutTransaction>().FirstOrDefault(t => t.BankTransactionId == _transactionGuid);
-                _bus.Publish(new HopperPayOutCompletedEvent(transaction.TransferredCashableAmount));
-                return new TransferResult(transaction.TransferredCashableAmount, 0L, 0L, transaction.Exception);
+                if (transaction.Exception && transaction.TransferredCashableAmount == 0)
+                {
+                    throw new TransferOutException();
+                }
+                else
+                {
+                    _bus.Publish(new HopperPayOutCompletedEvent(transaction.TransferredCashableAmount));
+                    return new TransferResult(transaction.TransferredCashableAmount, 0L, 0L, false,
+                        CheckCoinOutSuccess(transaction.TransferredCashableAmount, cashableAmount - transaction.TransferredCashableAmount));
+                }
+               
             }
             finally
             {
@@ -215,7 +224,7 @@
         /// <param name="transferredAmount"></param>
         /// <param name="remainingAmount"></param>
         /// <returns></returns>
-        public bool CheckCoinOutException(long transferredAmount, long remainingAmount)
+        private bool CheckCoinOutSuccess(long transferredAmount, long remainingAmount)
         {
 
             return !((_properties.GetValue(AccountingConstants.HopperTicketSplit, false) &&
@@ -413,8 +422,6 @@
                 using (var scope = _storage.ScopedTransaction())
                 {
                     _meters.GetMeter(AccountingMeters.ExcessCoinOutCount).Increment(1);
-                    transaction.Exception = true;
-                    _transactions.UpdateTransaction(transaction);
                     scope.Complete();
                 }
             }

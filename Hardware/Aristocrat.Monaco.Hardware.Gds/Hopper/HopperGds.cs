@@ -53,7 +53,7 @@
         /// <inheritdoc />
         public override Task<bool> SelfTest(bool nvm)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         /// <inheritdoc/>

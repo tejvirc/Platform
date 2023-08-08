@@ -31,14 +31,27 @@
         /// <param name="transferredNonCash">The amount transferred out in millicents of non-cashable credits.</param>
         /// <param name="zeroTotalOk">Used to indicate that a <see cref="Total" /> of zero can be a successful transfer.</param>
         public TransferResult(long transferredCashable, long transferredPromo, long transferredNonCash, bool zeroTotalOk)
+            : this(transferredCashable, transferredPromo, transferredNonCash, zeroTotalOk, false)
+        {
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="TransferResult" /> class.
+        /// </summary>
+        /// <param name="transferredCashable">The amount transferred out in millicents of cashable credits.</param>
+        /// <param name="transferredPromo">The amount transferred out in millicents of promotional credits.</param>
+        /// <param name="transferredNonCash">The amount transferred out in millicents of non-cashable credits.</param>
+        /// <param name="zeroTotalOk">Used to indicate that a <see cref="Total" /> of zero can be a successful transfer.</param>
+        /// <param name="isPartialTransferOut"> Used to check weather the transfer is partial.</param>
+        public TransferResult(long transferredCashable, long transferredPromo, long transferredNonCash, bool zeroTotalOk, bool isPartialTransferOut)
         {
             TransferredCashable = transferredCashable;
             TransferredPromo = transferredPromo;
             TransferredNonCash = transferredNonCash;
 
             _zeroTotalOk = zeroTotalOk;
+            IsPartialTransferOut = isPartialTransferOut;
         }
-
         /// <summary>
         ///     Gets a value indicating whether or not the transfer was successful
         /// </summary>
@@ -63,5 +76,9 @@
         ///     Gets the total amount transferred out
         /// </summary>
         public long Total => TransferredCashable + TransferredPromo + TransferredNonCash;
+        /// <summary>
+        ///     check weather the transfer is partial.
+        /// </summary>
+        public bool IsPartialTransferOut { get; }
     }
 }

@@ -680,10 +680,7 @@ namespace Aristocrat.Monaco.Accounting
                         break;
                     }
 
-                    //check weather we need to continue to other provider or not.
-                    var coinOutException = provider is ICoinOutProvider coinOutProvider &&
-                                           coinOutProvider.CheckCoinOutException(result.TransferredCashable, cashableRemaining);
-                    if (coinOutException)
+                    if (result.IsPartialTransferOut)
                     {
                         handled = false;
                         break;
