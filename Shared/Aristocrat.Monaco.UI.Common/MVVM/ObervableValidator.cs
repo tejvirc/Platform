@@ -14,9 +14,10 @@
     using JetBrains.Annotations;
 
     /// <summary>
-    /// A base class forked from Microsoft MVVM Community Toolkit differing by implementing the <see cref="IDataErrorInfo"/> interface for lazy error presentation rather than the
-    /// <see cref="INotifyDataErrorInfo"/> interface which eagerly presents errors by raising events. This was done to preserve the UI error reporting functionality expected throughout the project.
-    /// This class also inherits from <see cref="ObservableObject"/>, so it can be used for observable items too.
+    /// A base class similar to Microsoft MVVM Community Toolkit's ObservableValidator implementation. Differs by implementing the <see cref="IDataErrorInfo"/> interface
+    /// for lazy error presentation rather than the<see cref="INotifyDataErrorInfo"/> interface which eagerly presents errors by raising events. This was done to
+    /// preserve the UI error reporting functionality expected throughout the project.This class also inherits from <see cref="ObservableObject"/> so it can be used
+    /// for observable items too.
     /// </summary>
     [CLSCompliant(false)]
     public abstract class ObservableValidator : ObservableObject, IDataErrorInfo
@@ -30,11 +31,11 @@
         public string Error => string.Empty;
 
         /// <summary>
-        /// some
+        /// Returns the errors, if any, for the specified property
         /// </summary>
         public string this[string columnName] => !errors.TryGetValue(columnName ?? string.Empty, out var error)
            ? null
-           : error.FirstOrDefault().ErrorMessage;
+           : error.Any() ? error.FirstOrDefault().ErrorMessage : null;
 
         /// <summary>
         /// The <see cref="ConditionalWeakTable{TKey, TValue}"/> instance used to track display names for properties to validate.
@@ -114,8 +115,10 @@
             this.validationContext = validationContext;
         }
 
-        /// <inheritdoc/>
-        public bool HasErrors => errors.Any();
+        /// <summary>
+        /// Checks whether ObservableValidator has any errors for the contained properties it is tracking
+        /// </summary>
+        public bool HasErrors => errors.Values.Sum(error => error.Count) > 0;
 
         /// <summary>
         /// Compares the current and new values for a given property. If the value has changed,
