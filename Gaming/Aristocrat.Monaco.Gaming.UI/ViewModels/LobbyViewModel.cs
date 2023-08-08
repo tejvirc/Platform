@@ -2582,12 +2582,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 GameLoadingScreenPath = "file:///" + game.LoadingScreenPath;
             }
 
-            // Disable operator menu during game loading.
-            if (!_systemDisableManager.IsDisabled)
-            {
-                _operatorMenu.DisableKey(GamingConstants.OperatorMenuDisableKey);
-            }
-
             UpdateLcdButtonDeckRenderSetting(false);
 
             _normalGameExitReceived = false;
