@@ -44,11 +44,11 @@
                         <controls:TextPath HorizontalAlignment="Center" VerticalAlignment="Center"
                                FontSize="12" FontFamily="Arial" FontWeight="ExtraBold" 
                                Fill="Gold" Stroke="Black" StrokeThickness="0.3"
-                               Text="{Binding MaxWinAmount, StringFormat= 'CONGRATULATIONS YOU HAVE WON $\{0\}'}"/>
+                               Text="{Binding MaxWinAmount, StringFormat= 'CONGRATULATIONS! YOU HAVE WON $\{0\}.'}"/>
                         <controls:TextPath Margin="0,8,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"
                                FontSize="12" FontFamily="Arial" FontWeight="ExtraBold" 
                                Fill="Gold" Stroke="Black" StrokeThickness="0.3"
-                               Text=" MAX WIN HAS BEEN REACHED." />
+                               Text="MAX WIN HAS BEEN REACHED." />
                     </StackPanel>
                 </Grid>
             </Viewbox>
