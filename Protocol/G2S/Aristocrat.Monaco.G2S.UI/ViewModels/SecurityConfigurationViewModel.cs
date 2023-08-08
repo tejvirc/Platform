@@ -333,7 +333,7 @@
 
             set
             {
-                _renewalEnabled = value;
+                SetProperty(ref _renewalEnabled, value);
                 ValidateProperty(CertificateStatusLocation, nameof(CertificateStatusLocation));
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
