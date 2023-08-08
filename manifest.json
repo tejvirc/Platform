@@ -4896,7 +4896,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.Contracts.Extensions.CurrencyExtensions.html",
-          "hash": "oNWGOkhXVrc5QBI3+vwMG8QTLO8if3sncChmt9xQ2gA="
+          "hash": "5GAF/pSpNAgqhgrYpmEEqWM1cV4knrUH7kqUchOBJps="
         }
       },
       "is_incremental": false,
@@ -14530,9 +14530,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -24649,6 +24646,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -47682,7 +47682,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.FreeGame.html",
-          "hash": "xcXhvgJClxgX6DJ27rNFf3qXd+s1jXfU2R9w3SQ+7Dk="
+          "hash": "megLbOXApd+oeVQjKY+T9QYvWXx1R6kkOkXR3t19u4A="
         }
       },
       "is_incremental": false,
@@ -50118,7 +50118,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.IFreeGameInfo.html",
-          "hash": "PILGAuNq5VwCP4JQeQx4zKxiAVxNe20QUp5YaGxf6rM="
+          "hash": "5sJFO8T116vEwK/4GHF1NnJlq7my3pGDKZcPGkX3jaI="
         }
       },
       "is_incremental": false,
@@ -50262,7 +50262,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.IGameHistoryLog.html",
-          "hash": "qqtOicqvsV1RiO5PZZGhxA7WUJCCXSeR9V78bxyCj0o="
+          "hash": "uKrOHi03lRu4604EERPX2UgPTAf//ngha47lhu9HKl0="
         }
       },
       "is_incremental": false,
@@ -53730,7 +53730,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.TransactionInfo.html",
-          "hash": "9zAExpaXYz1spCSQtagNxNLBunQlAFJ3rKGVUOzgWGY="
+          "hash": "GlMzh/wJMnVqMpxS7lK6fkKA3HgilftZnG5ODTmceCM="
         }
       },
       "is_incremental": false,
