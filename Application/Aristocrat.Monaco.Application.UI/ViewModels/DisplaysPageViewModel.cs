@@ -84,7 +84,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set
             {
                 SetProperty(ref _testEnabled, value, nameof(TestsEnabled));
-                RaisePropertyChanged(nameof(TouchScreenButtonsEnabled));
+                OnPropertyChanged(nameof(TouchScreenButtonsEnabled));
             }
         }
 
