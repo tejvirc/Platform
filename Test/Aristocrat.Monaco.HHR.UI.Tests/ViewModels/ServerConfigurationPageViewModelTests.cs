@@ -165,7 +165,7 @@
         {
             _target.EncryptionKey = encryptionKey;
             Assert.IsFalse(_accessor.HasErrors);
-            Assert.IsTrue(_accessor.GetErrors(nameof(_target.EncryptionKey)).Count == 0);
+            Assert.IsTrue(_accessor.GetErrors(nameof(_target.EncryptionKey)).Length == 0);
 
             _accessor.ApplyServerConfigurationCommand.Execute(null);
             _propertiesManager.Verify(m => m.SetProperty(HHRPropertyNames.EncryptionKey, It.IsAny<string>()), Times.Once);
