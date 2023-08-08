@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Reflection;
     using Contracts;
     using Contracts.Localization;
     using Contracts.Protocol;
@@ -9,6 +10,7 @@
     using Kernel;
     using Localization;
     using Newtonsoft.Json;
+    using log4net;
 
     /// <summary>
     ///     Application machine settings.
@@ -52,6 +54,8 @@
         private LayoutTypeOptions _layoutType;
         private VolumeControlLocation _volumeControlLocation;
         private bool _bellEnabled;
+
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         public MachineSettings()
         {
@@ -209,7 +213,7 @@
         /// </summary>
         public string HardMeterMapSelectionValue
         {
-            get => OperatorLocalizer.GetString(_hardMeterMapSelectionValue) ?? _hardMeterMapSelectionValue;
+            get => OperatorLocalizer.GetString(_hardMeterMapSelectionValue, x => Logger.Warn($"Resource not found for key: {_hardMeterMapSelectionValue}")) ?? _hardMeterMapSelectionValue;
 
             set => SetProperty(ref _hardMeterMapSelectionValue, value);
         }

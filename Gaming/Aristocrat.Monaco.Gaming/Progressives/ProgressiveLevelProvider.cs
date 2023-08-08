@@ -269,13 +269,31 @@ namespace Aristocrat.Monaco.Gaming.Progressives
             LevelDetail levelDetail,
             IReadOnlyCollection<ProgressiveLevel> persistedLevels)
         {
-            var currentLevel = persistedLevels.FirstOrDefault(
-                l => l.LevelId == levelDetail.LevelId);
-
             var betOption = betOptions?.FirstOrDefault(
                 b => !string.IsNullOrEmpty(b.BetLinePreset) && b.BetLinePreset == progressive?.BetLinePreset);
 
-            yield return ToProgressiveLevel(gameId, denominations, betOption, progressive, levelDetail, currentLevel, 0);
+            IViewableProgressiveLevel currentLevel;
+
+            if (betOption is not null)
+            {
+                currentLevel = persistedLevels.FirstOrDefault(
+                    l => l.LevelId == levelDetail.LevelId &&
+                         l.BetOption.Equals(betOption.Name, StringComparison.InvariantCulture));
+            }
+            else
+            {
+                currentLevel = persistedLevels.FirstOrDefault(
+                    l => l.LevelId == levelDetail.LevelId);
+            }
+
+            yield return ToProgressiveLevel(
+                gameId,
+                denominations,
+                betOption,
+                progressive,
+                levelDetail,
+                currentLevel,
+                0);
         }
 
         private IEnumerable<ProgressiveLevel> GenerateProgressiveLevelsPerGamePerDenomPerBetOption(
