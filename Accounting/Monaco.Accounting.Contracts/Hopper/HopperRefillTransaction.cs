@@ -12,7 +12,7 @@
     ///     HopperRefillTransaction defines the data necessary to store a Hopper Refill.
     /// </summary>
     [Serializable]
-    public class HopperRefillTransaction : BaseTransaction
+    public class HopperRefillTransaction : BaseTransaction, IEquatable<HopperRefillTransaction>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="HopperRefillTransaction" /> class.
@@ -37,8 +37,7 @@
         }
 
         /// <inheritdoc />
-        public override string Name => "Hopper Refill Transaction";
-            //TBC Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HopperRefillTransactionName);
+        public override string Name => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HopperRefillTransactionName);
 
         /// <summary>
         ///     Gets the type of account.
@@ -122,13 +121,7 @@
 
             return builder.ToString();
         }
-
-        /// <inheritdoc />
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as HopperRefillTransaction);
-        }
-
+        
         /// <inheritdoc />
         public override int GetHashCode()
         {
@@ -146,14 +139,20 @@
             };
         }
 
+        /// <inheritdoc />
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as HopperRefillTransaction);
+        }
+
         /// <summary>
         ///     Checks that two HopperRefillTransaction are the same by value.
         /// </summary>
-        /// <param name="hopperRefillTransaction">The transaction to check against.</param>
+        /// <param name="other">The transaction to check against.</param>
         /// <returns>True if they are the same, false otherwise.</returns>
-        public bool Equals(HopperRefillTransaction hopperRefillTransaction)
+        public bool Equals(HopperRefillTransaction other)
         {
-            return base.Equals(hopperRefillTransaction);
+            return base.Equals(other);
         }
     }
 }

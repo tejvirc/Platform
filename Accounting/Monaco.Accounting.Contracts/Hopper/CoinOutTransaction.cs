@@ -5,16 +5,18 @@
     using System.Globalization;
     using System.Linq;
     using System.Text;
+    using Application.Contracts.Localization;
     using Hardware.Contracts.Persistence;
+    using Localization.Properties;
+    using Newtonsoft.Json;
     using Transactions;
     using TransferOut;
-    using Newtonsoft.Json;
 
     /// <summary>
     ///     Definition of the CoinOutTransaction class
     /// </summary>
     [Serializable]
-    public class CoinOutTransaction : BaseTransaction, ITransactionConnector, ITransactionContext
+    public sealed class CoinOutTransaction : BaseTransaction, ITransactionConnector, ITransactionContext, IEquatable<CoinOutTransaction>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="CoinOutTransaction" /> class.  This constructor is only used.
@@ -54,7 +56,7 @@
         public TransferOutReason Reason { get; private set; }
 
         /// <inheritdoc />
-        public override string Name => "Cash Out";//TBCLocalizer.For(CultureFor.Player).GetString(ResourceKeys.CoinOutTransactionName);
+        public override string Name => Localizer.For(CultureFor.Player).GetString(ResourceKeys.CoinOutTransactionName);
 
         /// <summary>
         ///     Gets the authorized cashable amount
@@ -209,11 +211,11 @@
         /// <summary>
         ///     Checks that two CoinOutTransaction are the same by value.
         /// </summary>
-        /// <param name="coinOutTransaction">The transaction to check against.</param>
+        /// <param name="other">The transaction to check against.</param>
         /// <returns>True if they are the same, false otherwise.</returns>
-        public bool Equals(CoinOutTransaction coinOutTransaction)
+        public bool Equals(CoinOutTransaction other)
         {
-            return base.Equals(coinOutTransaction);
+            return base.Equals(other);
         }
 
         /// <inheritdoc />

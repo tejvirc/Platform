@@ -475,12 +475,9 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 
             if (VoucherOutLimit.Validate(false, MaxVoucherOutAllowed) is null &&
                 PropertiesManager.GetValue(AccountingConstants.VoucherOutLimit, 0L).MillicentsToDollars() !=
-                VoucherOutLimit)
+                VoucherOutLimit && ValidateHopperLimit())
             {
-                if (ValidateHopperLimit())
-                {
-                    PropertiesManager.SetProperty(AccountingConstants.VoucherOutLimit, VoucherOutLimit.DollarsToMillicents());
-                }
+                PropertiesManager.SetProperty(AccountingConstants.VoucherOutLimit, VoucherOutLimit.DollarsToMillicents());
             }
 
             if ((int)PropertiesManager.GetProperty(AccountingConstants.VoucherOutExpirationDays, AccountingConstants.DefaultVoucherExpirationDays) != VoucherExpirationDays)

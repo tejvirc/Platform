@@ -249,7 +249,7 @@
         {
             var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
 
-            var result = dialogService.ShowYesNoDialog(this, "Please press Yes to \nPerform Hopper Refill" /*TBC Resources.PerformHopperRefillDialog*/, string.Empty);
+            var result = dialogService.ShowYesNoDialog(this, Resources.PerformHopperRefillDialog, string.Empty);
             if (result != null && (bool)result)
             {
                 EventBus.Publish(new HopperRefillStartedEvent());
@@ -375,18 +375,15 @@
             var errorInfo = string.Empty;
             if (HopperCollectLimit < _minHopperCollectLimit)
             {
-                //TBC errorInfo = $"{Resources.HopperCollectLimit} {Resources.CannotLessThanText} {_minHopperCollectLimit}";
-                errorInfo = $"Hopper Collect Limit can not be less than {_minHopperCollectLimit}";
+                errorInfo = $"{Resources.HopperCollectLimit} {Resources.CannotLessThanText} {_minHopperCollectLimit}";
             }
             else if (HopperCollectLimit > _maxHopperCollectLimit)
             {
-                //TBC errorInfo = $"{Resources.HopperCollectLimit} {Resources.MustLessThanText} {_maxHopperCollectLimit}";
-                errorInfo = $"Hopper Collect Limit must be less than {_maxHopperCollectLimit}";
+                errorInfo = $"{Resources.HopperCollectLimit} {Resources.MustLessThanText} {_maxHopperCollectLimit}";
             }
             else if (HopperCollectLimit > _voucherOutLimit)
             {
-                //TBC errorInfo = $"{Resources.HopperCollectLimit} {Resources.MustLessThanText} {Resources.VoucherOutLimit}";
-                errorInfo = $"Hopper Collect Limit must be less than {Resources.VoucherOutLimit}";
+                errorInfo = $"{Resources.HopperCollectLimit} {Resources.MustLessThanText} {Resources.VoucherOutLimit}";
             }
             else
             {
@@ -401,18 +398,15 @@
             var errorInfo = string.Empty;
             if (HopperTicketThreshold < _minHopperTicketThreshold)
             {
-                //TBC errorInfo = $"{Resources.HopperTicketThreshold} {Resources.CannotLessThanText} {_minHopperTicketThreshold}";
-                errorInfo = $"Hopper/Ticket Threshold can not be less than {_minHopperTicketThreshold}";
+                errorInfo = $"{Resources.HopperTicketThreshold} {Resources.CannotLessThanText} {_minHopperTicketThreshold}";
             }
             else if (HopperTicketThreshold > _maxHopperTicketThreshold)
             {
-               //TBC errorInfo = $"{Resources.HopperTicketThreshold} {Resources.MustLessThanText} {_maxHopperTicketThreshold}";
-                errorInfo = $"Hopper/Ticket Threshold must be less than {_maxHopperTicketThreshold}";
+               errorInfo = $"{Resources.HopperTicketThreshold} {Resources.MustLessThanText} {_maxHopperTicketThreshold}";
             }
             else if (HopperTicketThreshold % ThresholdMultiple != 0)
             {
-               //TBC errorInfo = $"{Resources.EnteredValueMultipleOf} {ThresholdMultiple}";
-                errorInfo = $"Please enter in multiples ofs {ThresholdMultiple}";
+               errorInfo = $"{Resources.EnteredValueMultipleOf} {ThresholdMultiple}";
             }
             else
             {
@@ -428,14 +422,12 @@
             string errorInfo = string.Empty;
             if (HopperRefillValue < _minHopperRefillValue)
             {
-                //TBC errorInfo = Resources.HopperRefillInvalidValueText;
-                errorInfo = "Invalid Value!\nPlease note that this input box can accept:\n1.Digits.\n2.Coin delimiter, if applicable.\n3.Upto 2 decimal digits, if applicable.\n4.Max of 7 or 10 characters without or with coin delimiter respectively.";
+                errorInfo = Resources.HopperRefillInvalidValueText;
 
             }
             else if (HopperRefillValue > ((long)_maxHopperRefillValue))
             {
-                //TBC errorInfo = $"{Resources.MaxHopperRefillValueText} {((long)_maxHopperRefillValue).FormattedCurrencyString()}";
-                errorInfo = $"Maximum Hopper Refill Value is {((long)_maxHopperRefillValue).FormattedCurrencyString()}";
+                errorInfo = $"{Resources.MaxHopperRefillValueText} {((long)_maxHopperRefillValue).FormattedCurrencyString()}";
             }
             else
             {
@@ -508,7 +500,7 @@
         }
 
         /// <summary>
-        /// Hopper Test View
+        ///     Hopper Test View
         /// </summary>
         private void HandleHopperTestCommand()
         {
@@ -521,8 +513,7 @@
             dialogService.ShowDialog<HopperTestView>(
                 this,
                 viewModel,
-                "Hopper Test",
-                //TBC Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HopperTest),
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HopperTest),
                 DialogButton.None);
 
             EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Hopper));

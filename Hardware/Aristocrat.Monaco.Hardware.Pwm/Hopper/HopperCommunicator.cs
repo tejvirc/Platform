@@ -24,6 +24,7 @@
         protected readonly object Lock = new();
         private readonly CoinOutState _coinOutState = new CoinOutState();
         private readonly HopperState _hopperState = new HopperState();
+        private const int DeviceTimeToMilliseconds = 10000;
 
 
         /// <summary>Defines the hopper type</summary>
@@ -98,7 +99,7 @@
 
         private void DataProcessor(ChangeRecord record, bool connected)
         {
-            _coinOutState.Timer -= (record.ElapsedSinceLastChange.QuadPart / 10000);
+            _coinOutState.Timer -= (record.ElapsedSinceLastChange.QuadPart / DeviceTimeToMilliseconds);
 
             if (_coinOutState.Timer < 0)
             {
@@ -306,7 +307,7 @@
                     _disconnectCount = 0;
                 }
 
-                if (_testDisconnectTimer.QuadPart > HopperConsts.HopperDisconnetTime * 10000)
+                if (_testDisconnectTimer.QuadPart > HopperConsts.HopperDisconnetTime * DeviceTimeToMilliseconds)
                 {
                     var disconnect = SetHopperTestDisconnection();
                     if (disconnect)

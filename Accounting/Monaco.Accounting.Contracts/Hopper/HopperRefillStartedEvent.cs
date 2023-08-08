@@ -7,12 +7,5 @@
     [Serializable]
     public class HopperRefillStartedEvent : BaseEvent
     {
-        /// <summary>
-        /// Hopper Refill Event.
-        /// </summary>
-        public HopperRefillStartedEvent()
-        {
-        }
-        
     }
 }

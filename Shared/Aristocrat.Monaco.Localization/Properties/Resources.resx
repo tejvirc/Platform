@@ -12520,7 +12520,7 @@ Do you really want to do full reset?</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="HopperPayOut" xml:space="preserve">
-    <value>Hopper Pay Out</value>
+    <value>Hopper Pay Out - {0}</value>
     <comment>Monaco.Accounting</comment>
   </data>
   <data name="HopperPrinterConfigured" xml:space="preserve">

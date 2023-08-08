@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
     using Application.Contracts;
     using Application.Contracts.Extensions;
+    using Application.Contracts.Localization;
     using Contracts;
     using Contracts.Hopper;
     using Contracts.Transactions;
@@ -16,6 +17,7 @@
     using Hardware.Contracts.Hopper;
     using Hardware.Contracts.Persistence;
     using Kernel;
+    using Localization.Properties;
     using log4net;
     using HardwareFaultEvent = Hardware.Contracts.Hopper.HardwareFaultEvent;
 
@@ -429,9 +431,7 @@
         private void DisplayMessage(long acceptedAmount)
         {
             var displayableMessage = new DisplayableMessage(
-                //TBC () => Localizer.For(CultureFor.Player).FormatString(ResourceKeys.HopperPayOut) +
-                () => "Hopper Pay Out {0}" +
-                      " " + acceptedAmount.MillicentsToDollars().FormattedCurrencyString(),
+                () => Localizer.For(CultureFor.Player).FormatString(ResourceKeys.HopperPayOut, acceptedAmount.MillicentsToDollars().FormattedCurrencyString()),
                 DisplayableMessageClassification.Informative,
                 DisplayableMessagePriority.Immediate,
                 typeof(CoinOutEvent), RequestorId);

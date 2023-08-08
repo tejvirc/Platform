@@ -1,12 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Accounting.Hopper
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Application;
-    using Application.Contracts;
     using Application.Contracts.Extensions;
-    using Application.Contracts.Localization;
     using Application.Contracts.TiltLogger;
     using Aristocrat.Monaco.Accounting.Contracts.Hopper;
     using Common;
@@ -32,13 +29,8 @@
         {
             var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
-            var dateFormat = PropertiesManagerExtensions.GetValue(propertiesManager, ApplicationConstants.LocalizationOperatorDateFormat, ApplicationConstants.DefaultDateTimeFormat);
-            var dateTimeFormat = $"{dateFormat} {ApplicationConstants.DefaultTimeFormat}";
-
             //will be set at configuration and fetched from there.
-            long tokenValue = propertiesManager.GetValue(HardwareConstants.CoinValue, 100000);
-
-            var timeService = ServiceManager.GetInstance().GetService<ITime>();
+            var tokenValue = propertiesManager.GetValue(HardwareConstants.CoinValue, AccountingConstants.DefaultTokenValue);
 
             var transactionHistory = ServiceManager.GetInstance().GetService<ITransactionHistory>();
 
@@ -50,8 +42,7 @@
                     (ResourceKeys.AmountCreditedHeader,transaction.LastRefillValue.MillicentsToDollars().FormattedCurrencyString())}
                           let name = string.Join(
                               EventLogUtilities.EventDescriptionNameDelimiter,
-                              //TBC Resources.HopperRefill,
-                              "Hopper Refill",
+                              Resources.HopperRefill,
                               transaction.LastRefillValue.MillicentsToDollars().FormattedCurrencyString())
                           select new EventDescription(
                               name,
