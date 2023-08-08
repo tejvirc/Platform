@@ -51,11 +51,11 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             set
             {
-                SetProperty(
-                    ref _isEdgeLightingAvailable,
-                    value,
-                    nameof(IsEdgeLightingAvailable),
-                    nameof(TestButtonEnabled));
+                if (SetProperty(ref _isEdgeLightingAvailable, value, nameof(IsEdgeLightingAvailable)))
+                {
+                    OnPropertyChanged(nameof(TestButtonEnabled));
+                }
+
                 OnPropertyChanged(nameof(EdgeLightingEnabled));
                 if (!value)
                 {

@@ -216,11 +216,13 @@
         public bool CanEditBillAcceptanceLimit
         {
             get => _canEditBillAcceptanceLimit;
-            set => SetProperty(
-                ref _canEditBillAcceptanceLimit,
-                value,
-                nameof(CanEditBillAcceptanceLimit),
-                nameof(BillAcceptanceLimitCheckboxIsEnabled));
+            set
+            {
+                if (SetProperty(ref _canEditBillAcceptanceLimit, value, nameof(CanEditBillAcceptanceLimit)))
+                {
+                    OnPropertyChanged(nameof(BillAcceptanceLimitCheckboxIsEnabled));
+                }
+            }
         }
 
         public bool BillAcceptanceLimitIsChecked
@@ -418,7 +420,7 @@
 
         private bool HasDocumentCheckFault => NoteAcceptor?.WasStackingOnLastPowerUp ?? false;
 
-        public override bool TestModeEnabledSupplementary =>  (NoteAcceptor?.Connected ?? false) &&
+        public override bool TestModeEnabledSupplementary => (NoteAcceptor?.Connected ?? false) &&
             NoteAcceptor?.StackerState != NoteAcceptorStackerState.Removed;
 
 

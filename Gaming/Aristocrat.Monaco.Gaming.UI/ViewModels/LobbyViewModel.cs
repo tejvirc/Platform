@@ -825,7 +825,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsTopScreenRenderingDisabled
         {
             get => _isTopScreenRenderingDisabled;
-            set => SetProperty(ref _isTopScreenRenderingDisabled, value, nameof(IsTopScreenRenderingDisabled), nameof(IsLobbyTopScreenVisible), nameof(IsGameTopScreenVisible));
+            set
+            {
+                if (SetProperty(ref _isTopScreenRenderingDisabled, value, nameof(IsTopScreenRenderingDisabled)))
+                {
+                    OnPropertyChanged(nameof(IsLobbyTopScreenVisible), nameof(IsGameTopScreenVisible));
+                }
+            }
         }
 
         /// <summary>
@@ -1178,7 +1184,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public string PaidMeterValue
         {
             get => _paidMeterValue;
-            set => SetProperty(ref _paidMeterValue, value, nameof(PaidMeterValue), nameof(IsPaidMeterVisible));
+            set
+            {
+                if (SetProperty(ref _paidMeterValue, value, nameof(PaidMeterValue)))
+                {
+                    OnPropertyChanged(nameof(IsPaidMeterVisible));
+                }
+            }
         }
 
         public bool IsTimeLimitDlgVisible => _responsibleGaming?.IsTimeLimitDialogVisible ?? false;
@@ -1417,7 +1429,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public LobbyVbdVideoState VbdVideoState
         {
             get => _vbdVideoState;
-            set => SetProperty(ref _vbdVideoState, value, nameof(VbdVideoState), nameof(IsLobbyVbdBackgroundBlank));
+            set
+            {
+                if (SetProperty(ref _vbdVideoState, value, nameof(VbdVideoState)))
+                {
+                    OnPropertyChanged(nameof(IsLobbyVbdBackgroundBlank));
+                }
+            }
         }
 
         public int GameCount => DisplayedGameList.Count;
@@ -1566,7 +1584,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public string CurrentNotificationText
         {
             get => _currentNotificationText;
-            set => SetProperty(ref _currentNotificationText, value, nameof(CurrentNotificationText), nameof(IsNotificationTextVisible));
+            set
+            {
+                if (SetProperty(ref _currentNotificationText, value, nameof(CurrentNotificationText)))
+                {
+                    OnPropertyChanged(nameof(IsNotificationTextVisible));
+                }
+            }
         }
 
         /// <summary>
@@ -1685,7 +1709,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             get => _replayNavigationBarHeight;
             set
             {
-                SetProperty(ref _replayNavigationBarHeight, value, nameof(ReplayNavigationBarHeight), nameof(GameControlHeight));
+                if (SetProperty(ref _replayNavigationBarHeight, value, nameof(ReplayNavigationBarHeight)))
+                {
+                    OnPropertyChanged(nameof(GameControlHeight));
+                }
+
                 _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
             }
         }

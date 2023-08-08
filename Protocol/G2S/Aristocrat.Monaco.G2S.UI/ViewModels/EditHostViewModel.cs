@@ -79,7 +79,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
             IMultiProtocolConfigurationProvider MPCProvider = ServiceManager.GetInstance().TryGetService<IMultiProtocolConfigurationProvider>();
             var G2SConfig = MPCProvider.MultiProtocolConfiguration.FirstOrDefault(c => c.Protocol == CommsProtocol.G2S);
-            if(G2SConfig != null && G2SConfig.IsProgressiveHandled)
+            if (G2SConfig != null && G2SConfig.IsProgressiveHandled)
             {
                 _addressComboBoxVisibility = Visibility.Visible;
                 _specificProgressiveHostCheckboxVisibility = Visibility.Visible;
@@ -213,7 +213,13 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         public bool Registered
         {
             get => _registered;
-            set => SetProperty(ref _registered, value, nameof(Registered), nameof(CanSave));
+            set
+            {
+                if (SetProperty(ref _registered, value, nameof(Registered)))
+                {
+                    OnPropertyChanged(nameof(CanSave));
+                }
+            }
         }
 
         /// <summary>
@@ -223,7 +229,13 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         public bool RequiredForPlay
         {
             get => _requiredForPlay;
-            set => SetProperty(ref _requiredForPlay, value, nameof(RequiredForPlay), nameof(CanSave));
+            set
+            {
+                if (SetProperty(ref _requiredForPlay, value, nameof(RequiredForPlay)))
+                {
+                    OnPropertyChanged(nameof(CanSave));
+                }
+            }
         }
 
         /// <summary>
@@ -234,7 +246,10 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             get => _isProgressiveHost;
             set
             {
-                SetProperty(ref _isProgressiveHost, value, nameof(IsProgressiveHost), nameof(CanSave));
+                if (SetProperty(ref _isProgressiveHost, value, nameof(IsProgressiveHost)))
+                {
+                    OnPropertyChanged(nameof(CanSave));
+                }
             }
         }
 

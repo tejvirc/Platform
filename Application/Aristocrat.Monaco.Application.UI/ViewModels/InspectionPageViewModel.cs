@@ -7,6 +7,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Threading;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.ConfigWizard;
@@ -17,17 +19,15 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Kernel.Contracts;
-    using OperatorMenu;
     using Monaco.Localization.Properties;
-    using CommunityToolkit.Mvvm.Input;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using OperatorMenu;
 
     [CLSCompliant(false)]
     public class InspectionPageViewModel : InspectionWizardViewModelBase, IConfigWizardNavigator, IInspectionWizard, IService
     {
         private readonly string _inspectionWizardsGroupName = "InspectionWizardPages";
         private readonly string _wizardsExtensionPath = "/Application/Inspection/Wizards";
-        private readonly Collection<IOperatorMenuPageLoader> _wizardPages = new ();
+        private readonly Collection<IOperatorMenuPageLoader> _wizardPages = new();
         private readonly OperatorMenuPrintHandler _operatorMenuPrintHandler;
 
         private string _reportText;
@@ -116,7 +116,10 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                     vm.Save();
                 }
 
-                SetProperty(ref _currentPageLoader, value, nameof(CurrentPageLoader), nameof(CurrentPage));
+                if (SetProperty(ref _currentPageLoader, value, nameof(CurrentPageLoader)))
+                {
+                    OnPropertyChanged(nameof(CurrentPage));
+                }
 
                 if (_currentPageLoader != null)
                 {
@@ -372,7 +375,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             var group = AddinConfigurationGroupNode.Get(_inspectionWizardsGroupName);
             var nodes = MonoAddinsHelper.GetConfiguredExtensionNodes<WizardConfigTypeExtensionNode>(
-                new List<AddinConfigurationGroupNode>{group}, extensionPath, false);
+                new List<AddinConfigurationGroupNode> { group }, extensionPath, false);
 
             // no need to continue if we don't have any wizards to configure
             if (nodes.Count == 0)

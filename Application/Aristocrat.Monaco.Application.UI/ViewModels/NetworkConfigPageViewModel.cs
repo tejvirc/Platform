@@ -122,7 +122,13 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         public bool StaticIp
         {
             get => _staticIp;
-            set => SetProperty(ref _staticIp, value, nameof(StaticIp), nameof(CanApplyChanges));
+            set
+            {
+                if (SetProperty(ref _staticIp, value, nameof(StaticIp)))
+                {
+                    OnPropertyChanged(nameof(CanApplyChanges));
+                }
+            }
         }
 
         public bool DhcpEnabled
@@ -136,7 +142,10 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                     return;
                 }
 
-                SetProperty(ref _dhcpEnabled, value, nameof(DhcpEnabled), nameof(CanApplyChanges));
+                if (SetProperty(ref _dhcpEnabled, value, nameof(DhcpEnabled)))
+                {
+                    OnPropertyChanged(nameof(CanApplyChanges));
+                }
 
                 if (_dhcpEnabled)
                 {

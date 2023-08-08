@@ -96,14 +96,14 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         public decimal InitialBellValue
         {
             get => _initialBellValue;
-            set => SetProperty(ref _initialBellValue, value, true, nameof(InitialBellValue));
+            set => SetProperty(ref _initialBellValue, value, true);
         }
 
         [CustomValidation(typeof(BellPageViewModel), nameof(ValidateBellValue))]
         public decimal IntervalBellValue
         {
             get => _intervalBellValue;
-            set => SetProperty(ref _intervalBellValue, value, true, nameof(IntervalBellValue));
+            set => SetProperty(ref _intervalBellValue, value, true);
         }
 
         public ICommand RingBellClicked { get; }

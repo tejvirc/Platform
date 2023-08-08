@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Windows;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
@@ -16,7 +17,6 @@
     using Kernel;
     using Localization.Properties;
     using Mono.Addins;
-    using System.ComponentModel.DataAnnotations;
 
     [CLSCompliant(false)]
     public class LimitsPageViewModel : ConfigWizardViewModelBase
@@ -183,7 +183,7 @@
                 {
                     return;
                 }
-                
+
                 _pageEnabled = value;
                 OnPropertyChanged(nameof(PageEnabled));
             }
@@ -280,12 +280,13 @@
         public bool OverwriteLargeWinLimit
         {
             get => _overwriteLargeWinLimit;
-            set => SetProperty(
-                ref _overwriteLargeWinLimit,
-                value,
-                nameof(OverwriteLargeWinLimit),
-                nameof(LargeWinLimitEditable),
-                nameof(LargeWinLimitCheckboxIsEnabled));
+            set
+            {
+                if (SetProperty(ref _overwriteLargeWinLimit, value, nameof(OverwriteLargeWinLimit)))
+                {
+                    OnPropertyChanged(nameof(LargeWinLimitEditable), nameof(LargeWinLimitCheckboxIsEnabled));
+                }
+            }
         }
 
         public bool LargeWinLimitEditable => OverwriteLargeWinLimit && PageEnabled;

@@ -2,6 +2,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Windows.Input;
     using Application.Contracts.Extensions;
@@ -11,7 +12,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Kernel;
     using Aristocrat.Monaco.Gaming.Contracts;
     using CommunityToolkit.Mvvm.Input;
-    using System.ComponentModel.DataAnnotations;
 
     public class BarkeeperConfigurationViewModel : OperatorMenuPageViewModelBase
     {
@@ -76,7 +76,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             get => _coinInRateEnabled;
             set
             {
-                SetProperty(ref _coinInRateEnabled, value, nameof(CoinInRateEnabled), nameof(RewardLevelCoinInAmount));
+                if (SetProperty(ref _coinInRateEnabled, value, nameof(CoinInRateEnabled)))
+                {
+                    OnPropertyChanged(nameof(RewardLevelCoinInAmount));
+                }
+
                 ValidateProperty(RewardLevelCoinInAmount, nameof(RewardLevelCoinInAmount));
             }
         }
@@ -86,7 +90,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             get => _rewardLevels;
             set
             {
-                SetProperty(ref _rewardLevels, value, nameof(RewardLevels), nameof(RewardLevelsEnabled));
+                if (SetProperty(ref _rewardLevels, value, nameof(RewardLevels)))
+                {
+                    OnPropertyChanged(nameof(RewardLevelsEnabled));
+                }
 
                 CoinInRewardLevels = (from rewardLevel in _rewardLevels.RewardLevels
                     where
@@ -128,15 +135,25 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         public List<CoinInRewardLevel> CoinInRewardLevels
         {
             get => _coinInRewardLevels;
-            set => SetProperty(ref _coinInRewardLevels, value,
-                nameof(CoinInRewardLevels), nameof(CoinInRewardLevelsExist));
+            set
+            {
+                if (SetProperty(ref _coinInRewardLevels, value, nameof(CoinInRewardLevels)))
+                {
+                    OnPropertyChanged(nameof(CoinInRewardLevelsExist));
+                }
+            }
         }
 
         public List<CashInRewardLevel> CashInRewardLevels
         {
             get => _cashInRewardLevels;
-            set => SetProperty(ref _cashInRewardLevels, value,
-                nameof(CashInRewardLevels), nameof(CashInRewardLevelsExist));
+            set
+            {
+                if (SetProperty(ref _cashInRewardLevels, value, nameof(CashInRewardLevels)))
+                {
+                    OnPropertyChanged(nameof(CashInRewardLevelsExist));
+                }
+            }
         }
 
         public bool CoinInRewardLevelsExist => _rewardLevels.Enabled && _coinInRewardLevels.Count > 0;

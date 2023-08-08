@@ -2,7 +2,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.ConfigWizard;
     using Contracts.Localization;
@@ -53,7 +52,14 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         public bool Closed
         {
             get => _closed;
-            private set => SetProperty(ref _closed, value, nameof(Closed), nameof(Action), nameof(Message), nameof(IsTestPassed));
+            private set
+            {
+                if (SetProperty(ref _closed, value, nameof(Closed)))
+                {
+                    OnPropertyChanged(nameof(Action), nameof(Message), nameof(IsTestPassed));
+                }
+
+            }
         }
 
         public string Action => Closed ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClosedText) : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OpenText);
@@ -61,7 +67,13 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         public DateTime? LastOpened
         {
             get => _lastOpened;
-            private set => SetProperty(ref _lastOpened, value, nameof(LastOpened), nameof(Message), nameof(IsTestPassed));
+            private set
+            {
+                if (SetProperty(ref _lastOpened, value, nameof(LastOpened)))
+                {
+                    OnPropertyChanged(nameof(Message), nameof(IsTestPassed));
+                }
+            }
         }
 
         public void OnLoaded()

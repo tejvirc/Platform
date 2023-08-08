@@ -172,7 +172,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         public string ReadOnlyStatus
         {
             get => _readOnlyStatus;
-            set => SetProperty(ref _readOnlyStatus, value, nameof(ReadOnlyStatus), nameof(ThemePlusOptions));
+            set
+            {
+                if (SetProperty(ref _readOnlyStatus, value, nameof(ReadOnlyStatus)))
+                {
+                    OnPropertyChanged(nameof(ThemePlusOptions));
+                }
+            }
         }
 
         public bool IsInProgress
@@ -255,11 +261,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         {
             get => _gameTypes;
 
-            set => SetProperty(
-                ref _gameTypes,
-                value,
-                nameof(GameTypes),
-                nameof(HasMultipleGames));
+            set
+            {
+                if (SetProperty(ref _gameTypes, value, nameof(GameTypes)))
+                {
+                    OnPropertyChanged(nameof(HasMultipleGames));
+                }
+            }
         }
 
         public GameType SelectedGameType
@@ -286,7 +294,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         public ObservableCollection<EditableGameProfile> Games
         {
             get => _games;
-            set => SetProperty(ref _games, value, nameof(Games), nameof(HasMultipleGames));
+            set
+            {
+                if (SetProperty(ref _games, value, nameof(Games)))
+                {
+                    OnPropertyChanged(nameof(HasMultipleGames));
+                }
+            }
         }
 
         public EditableGameConfiguration SelectedConfig
@@ -370,17 +384,25 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         public long TopAwardValue
         {
             get => _topAwardValue;
-            set => SetProperty(ref _topAwardValue, value, nameof(TopAwardValue), nameof(HasTopAward));
+            set
+            {
+                if (SetProperty(ref _topAwardValue, value, nameof(TopAwardValue)))
+                {
+                    OnPropertyChanged(nameof(HasTopAward));
+                }
+            }
         }
 
         public bool GameOptionsGridEnabled
         {
             get => _gameOptionsGridEnabled;
-            set => SetProperty(
-                ref _gameOptionsGridEnabled,
-                value,
-                nameof(GameOptionsGridEnabled),
-                nameof(GameOptionsEnabled));
+            set
+            {
+                if (SetProperty(ref _gameOptionsGridEnabled, value, nameof(GameOptionsGridEnabled)))
+                {
+                    OnPropertyChanged(nameof(GameOptionsEnabled));
+                }
+            }
         }
 
         public bool GameOptionsEnabled => GameOptionsGridEnabled && InputEnabled;
@@ -483,7 +505,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         }
 
         public bool ExtraSettingsEnabled => ExtraSettingsVisibility && InputEnabled;
-        
+
         private bool IsExtraSettingsAvailable()
         {
             return _gameSpecificOptionProvider.GetGameSpecificOptions(SelectedGame.ThemeId).Any();

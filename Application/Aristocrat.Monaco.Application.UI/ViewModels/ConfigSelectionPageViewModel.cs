@@ -189,7 +189,10 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                     vm.Save();
                 }
 
-                SetProperty(ref _currentPageLoader, value, nameof(CurrentPageLoader), nameof(CurrentPage));
+                if (SetProperty(ref _currentPageLoader, value, nameof(CurrentPageLoader)))
+                {
+                    OnPropertyChanged(nameof(CurrentPage));
+                }
 
                 if (_currentPageLoader != null)
                 {

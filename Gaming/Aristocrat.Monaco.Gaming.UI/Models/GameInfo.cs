@@ -8,14 +8,13 @@
     using System.Linq;
     using System.Reflection;
     using System.Windows;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Contracts;
     using Contracts.Models;
     using Kernel;
     using log4net;
     using ManagedBink;
     using Monaco.UI.Common.Extensions;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
     using ViewModels;
     using BitmapImage = System.Windows.Media.Imaging.BitmapImage;
     using Size = System.Windows.Size;
@@ -142,7 +141,13 @@
                 return _imagePath;
             }
 
-            set => SetProperty(ref _imagePath, value, nameof(ImagePath), nameof(ImageIsBink));
+            set
+            {
+                if (SetProperty(ref _imagePath, value, nameof(ImagePath)))
+                {
+                    OnPropertyChanged(nameof(ImageIsBink));
+                }
+            }
         }
 
         /// <summary>
@@ -408,8 +413,9 @@
 
             set
             {
-                if (SetProperty(ref _isSelected, value, nameof(IsSelected), nameof(IsSelectedWithProgressiveLabel)))
+                if (SetProperty(ref _isSelected, value, nameof(IsSelected)))
                 {
+                    OnPropertyChanged(nameof(IsSelectedWithProgressiveLabel));
                     SelectedDenomination = null;
                 }
             }

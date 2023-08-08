@@ -2,7 +2,6 @@ namespace Aristocrat.Monaco.Application.UI.MeterPage
 {
     using System;
     using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.Localization;
@@ -121,7 +120,10 @@ namespace Aristocrat.Monaco.Application.UI.MeterPage
             get => _showLifetime;
             set
             {
-                SetProperty(ref _showLifetime, value, nameof(Value), nameof(Count));
+                if (SetProperty(ref _showLifetime, value, nameof(Value)))
+                {
+                    OnPropertyChanged(nameof(Count));
+                }
                 OnPropertyChanged(nameof(HideRowForPeriod));
             }
         }

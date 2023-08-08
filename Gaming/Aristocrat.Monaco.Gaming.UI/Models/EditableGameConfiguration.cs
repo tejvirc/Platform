@@ -195,7 +195,13 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         public bool BetOptionAvailable
         {
             get => _betOptionAvailable;
-            set => SetProperty(ref _betOptionAvailable, value, nameof(BonusBetAvailable), nameof(BetOptionEnabled));
+            set
+            {
+                if (SetProperty(ref _betOptionAvailable, value, nameof(BonusBetAvailable)))
+                {
+                    OnPropertyChanged(nameof(BetOptionEnabled));
+                }
+            }
         }
 
         public ObservableCollection<LineOption> LineOptions
@@ -226,7 +232,13 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         public bool LineOptionAvailable
         {
             get => _lineOptionAvailable;
-            set => SetProperty(ref _lineOptionAvailable, value, nameof(LineOptionAvailable), nameof(LineOptionEnabled));
+            set
+            {
+                if (SetProperty(ref _lineOptionAvailable, value, nameof(LineOptionAvailable)))
+                {
+                    OnPropertyChanged(nameof(LineOptionEnabled));
+                }
+            }
         }
 
         public ObservableCollection<int> BonusBets
@@ -246,7 +258,13 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         public bool BonusBetAvailable
         {
             get => _bonusBetAvailable;
-            set => SetProperty(ref _bonusBetAvailable, value, nameof(BonusBetAvailable), nameof(BonusBetAvailable));
+            set
+            {
+                if (SetProperty(ref _bonusBetAvailable, value, nameof(BonusBetAvailable)))
+                {
+                    OnPropertyChanged(nameof(BonusBetAvailable));
+                }
+            }
         }
 
         public bool Active
@@ -494,7 +512,13 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         public decimal BetMaximum
         {
             get => _betMaximum;
-            set => SetProperty(ref _betMaximum, value, nameof(BetMaximum), nameof(MaxBet));
+            set
+            {
+                if (SetProperty(ref _betMaximum, value, nameof(BetMaximum)))
+                {
+                    OnPropertyChanged(nameof(MaxBet));
+                }
+            }
         }
 
         public decimal ForcedMaxBet

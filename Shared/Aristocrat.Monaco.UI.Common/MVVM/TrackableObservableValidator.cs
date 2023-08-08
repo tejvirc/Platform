@@ -128,29 +128,5 @@
                 base.OnPropertyChanged(name);
             }
         }
-
-        /// <summary>
-        ///     Sets the backing field value and raises the following events for each property listed:<br />
-        ///     - OnPropertyChanging<br />
-        ///     - OnPropertyChanged<br />
-        /// </summary>
-        /// <typeparam name="T">The type of the field being changed</typeparam>
-        /// <param name="property">The backing field for the property</param>
-        /// <param name="value">The new value to set</param>
-        /// <param name="propertyNames">Optional array of dependent property names to emit property changed events for.</param>
-        /// <returns>false if the new and existing values are equal, true if they are not</returns>
-        protected bool SetProperty<T>(ref T property, T value, params string[] propertyNames)
-        {
-            if (EqualityComparer<T>.Default.Equals(property, value))
-            {
-                return false;
-            }
-
-            OnPropertyChanging(propertyNames);
-            property = value;
-            OnPropertyChanged(propertyNames);
-
-            return true;
-        }
     }
 }

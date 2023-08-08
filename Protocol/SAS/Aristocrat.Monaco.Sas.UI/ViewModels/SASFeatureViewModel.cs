@@ -131,11 +131,13 @@
         public bool BonusTransferStatusEditable
         {
             get => _bonusTransferStatusEditable;
-            private set => SetProperty(
-                ref _bonusTransferStatusEditable,
-                value,
-                nameof(BonusTransferStatusEditable),
-                nameof(AftBonusTransferStatus));
+            private set
+            {
+                if (SetProperty(ref _bonusTransferStatusEditable, value, nameof(BonusTransferStatusEditable)))
+                {
+                    OnPropertyChanged(nameof(AftBonusTransferStatus));
+                }
+            }
         }
 
         /// <summary>
@@ -178,12 +180,10 @@
             {
                 _aftInOutInitialEnabled = GetAftInOutInitiallyEnabled(_isAftInEnabled, IsAftOutEnabled, value);
 
-                SetProperty(
-                    ref _isAftInEnabled,
-                    IsAftSettingsConfigurable && value,
-                    nameof(IsAftInEnabled),
-                    nameof(AftBonusTransferStatus),
-                    nameof(AftPartialTransfersCheckboxEnabled));
+                if (SetProperty(ref _isAftInEnabled, IsAftSettingsConfigurable && value, nameof(IsAftInEnabled)))
+                {
+                    OnPropertyChanged(nameof(AftBonusTransferStatus), nameof(AftPartialTransfersCheckboxEnabled));
+                }
 
                 SetAftTransferLimitState();
 
@@ -201,11 +201,10 @@
             {
                 _aftInOutInitialEnabled = GetAftInOutInitiallyEnabled(IsAftInEnabled, _isAftOutEnabled, value);
 
-                SetProperty(
-                    ref _isAftOutEnabled,
-                    IsAftSettingsConfigurable && value,
-                    nameof(IsAftOutEnabled),
-                    nameof(AftPartialTransfersCheckboxEnabled));
+                if (SetProperty(ref _isAftOutEnabled, IsAftSettingsConfigurable && value, nameof(IsAftOutEnabled)))
+                {
+                    OnPropertyChanged(nameof(AftPartialTransfersCheckboxEnabled));
+                }
 
                 SetAftTransferLimitState();
 

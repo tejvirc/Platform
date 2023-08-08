@@ -41,7 +41,7 @@
             get => _hostName;
             set
             {
-                SetProperty(ref _hostName, value, true, nameof(HostName));
+                SetProperty(ref _hostName, value, true);
                 CheckNavigation();
             }
         }
