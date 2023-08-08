@@ -96,5 +96,14 @@ namespace Aristocrat.Monaco.Gaming.Contracts.Central
         ///     Gets the GameIndex for the outcome.
         /// </summary>
         public int GameIndex { get; private set; }
+
+        /// <summary>
+        ///     Add a progressive win to the total value.
+        /// </summary>
+        /// <param name="amount">The amount of the progressive win</param>
+        public void AddProgressiveWin(long amount)
+        {
+            Value += amount;
+        }
     }
 }

@@ -19,6 +19,7 @@
     using Kernel;
     using Mono.Addins;
     using Moq;
+    using Newtonsoft.Json;
     using Storage.Helpers;
     using Test.Common;
     using AutoMapper.Internal;
@@ -278,6 +279,17 @@
             Assert.AreEqual(progressiveOutcomes, _outcomes.Count(x => x.Type == OutcomeType.Progressive));
 
             var progressiveInfo = progressiveString.ParseProgressiveHitInfo();
+
+            // convert _outcomes.LookupData back to the LookupData class and extract the
+            // Progressive information as the new lookupData value
+            var newOutcomes = new List<Outcome>();
+            foreach (var outcome in _outcomes)
+            {
+                var data = (LookupData)JsonConvert.DeserializeObject(outcome.LookupData, typeof(LookupData));
+                newOutcomes.Add(new Outcome(outcome.Id, outcome.GameSetId, outcome.SubsetId, outcome.Reference, outcome.Type, outcome.Value, outcome.WinLevelIndex, data?.Progressives ?? string.Empty, outcome.GameId, outcome.GameIndex)); 
+            }
+
+            _outcomes = newOutcomes;
             progressiveInfo.ForAll(
                 x =>
                     Assert.AreEqual(x.count, _outcomes.Count(y => y.LookupData == x.levels.ToString())));
