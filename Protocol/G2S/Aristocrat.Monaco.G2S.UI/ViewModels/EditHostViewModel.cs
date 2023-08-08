@@ -28,15 +28,15 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         private readonly string[] _commonVertexHosts = new string[] { };
         private readonly string _originalAddress;
         private readonly int _originalHostId;
-        private readonly TimeSpan _originalOfflineTimerInterval;
-        private readonly TimeSpan _recommendedOfflineTimerInterval;
+        private readonly int _originalOfflineTimerIntervalSeconds;
+        private readonly int _recommendedOfflineTimerIntervalSeconds;
         private readonly bool _originalRegistered;
         private readonly bool _originalRequiredForPlay;
         private readonly bool _originalIsProgressiveHost;
 
         private string _address;
         private int? _hostId;
-        private TimeSpan _offlineTimerInterval;
+        private int _offlineTimerIntervalSeconds;
         private bool _registered;
         private bool _requiredForPlay;
         private bool _isProgressiveHost;
@@ -62,7 +62,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             bool registered = false,
             bool requiredForPlay = false,
             bool isProgressiveHost = false,
-            double offlineTimerInterval = 30)
+            int offlineTimerIntervalSeconds = 30)
         {
             IsInWizard = isInWizard;
 
@@ -72,9 +72,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             _originalRegistered = _registered = registered;
             _originalRequiredForPlay = _requiredForPlay = requiredForPlay;
             _originalIsProgressiveHost = _isProgressiveHost = isProgressiveHost;
-            _originalOfflineTimerInterval = TimeSpan.FromSeconds(offlineTimerInterval);
-            _offlineTimerInterval = TimeSpan.FromSeconds(offlineTimerInterval);
-            _recommendedOfflineTimerInterval = TimeSpan.FromSeconds(30);
+            _originalOfflineTimerIntervalSeconds = offlineTimerIntervalSeconds;
+            _offlineTimerIntervalSeconds = offlineTimerIntervalSeconds;
+            _recommendedOfflineTimerIntervalSeconds = 30;
 
 
             IMultiProtocolConfigurationProvider MPCProvider = ServiceManager.GetInstance().TryGetService<IMultiProtocolConfigurationProvider>();
@@ -116,12 +116,12 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         ///     Gets or Sets the Progressive Host Offline Check Frequency
         /// </summary>
         [CustomValidation(typeof(EditHostViewModel), nameof(ValidateOfflineTimerInterval))]
-        public double OfflineTimerInterval
+        public int OfflineTimerIntervalSeconds
         {
-            get => _offlineTimerInterval.TotalSeconds;
+            get => _offlineTimerIntervalSeconds;
             set
             {
-                if (SetProperty(ref _offlineTimerInterval, TimeSpan.FromSeconds(value), true))
+                if (SetProperty(ref _offlineTimerIntervalSeconds, value, true))
                 {
                     OnPropertyChanged(nameof(CanSave));
                 }
@@ -132,7 +132,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// <summary>
         ///     Gets whether the current offline timer interval is under the default recommended 
         /// </summary>
-        public bool IsOfflineTimerIntervalUnderRecommended => _offlineTimerInterval.TotalSeconds < _recommendedOfflineTimerInterval.TotalSeconds;
+        public bool IsOfflineTimerIntervalUnderRecommended => _offlineTimerIntervalSeconds < _recommendedOfflineTimerIntervalSeconds;
 
         /// <summary>
         ///     Gets or sets the host address
@@ -248,7 +248,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                        || _originalRegistered != Registered
                        || _originalRequiredForPlay != RequiredForPlay
                        || _originalIsProgressiveHost != IsProgressiveHost
-                       || _originalOfflineTimerInterval.TotalSeconds != OfflineTimerInterval);
+                       || _originalOfflineTimerIntervalSeconds != OfflineTimerIntervalSeconds);
         }
 
         /// <summary>
@@ -326,7 +326,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         public static ValidationResult ValidateOfflineTimerInterval(double seconds, ValidationContext context)
         {
             var instance = (EditHostViewModel)context.ObjectInstance;
-            instance.ClearErrors(nameof(OfflineTimerInterval));
+            instance.ClearErrors(nameof(OfflineTimerIntervalSeconds));
 
             if (seconds <= 0)
             {

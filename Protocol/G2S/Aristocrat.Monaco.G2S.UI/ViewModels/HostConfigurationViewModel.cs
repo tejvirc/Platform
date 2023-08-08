@@ -404,7 +404,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     Registered = viewModel.Registered,
                     RequiredForPlay = viewModel.RequiredForPlay,
                     IsProgressiveHost = viewModel.IsProgressiveHost,
-                    ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerInterval)
+                    ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerIntervalSeconds)
                 };
 
                 Hosts.Add(host);
@@ -425,7 +425,10 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 host.Registered,
                 host.RequiredForPlay,
                 host.IsProgressiveHost,
-                host.ProgressiveHostOfflineTimerInterval.TotalSeconds);
+                host.ProgressiveHostOfflineTimerInterval.TotalSeconds > int.MaxValue
+                    ? throw new ArgumentException($"Progressive Host Offline Timer Interval must not exceed {int.MaxValue} seconds.", nameof(host.ProgressiveHostOfflineTimerInterval.TotalSeconds))
+                    : (int)host.ProgressiveHostOfflineTimerInterval.TotalSeconds
+            );
 
             var result = _dialogService.ShowDialog<EditHostView>(
                 this,
@@ -473,7 +476,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 host.Registered = viewModel.Registered;
                 host.RequiredForPlay = viewModel.RequiredForPlay;
                 host.IsProgressiveHost = viewModel.IsProgressiveHost;
-                host.ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerInterval);
+                host.ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerIntervalSeconds);
 
                 RefreshHosts();
 
