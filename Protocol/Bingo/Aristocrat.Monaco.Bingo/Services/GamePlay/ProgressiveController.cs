@@ -9,8 +9,8 @@
     using Application.Contracts.Extensions;
     using Aristocrat.Bingo.Client.Messages;
     using Common;
-    using Common.Data.Models;
     using Common.Events;
+    using Common.Storage.Model;
     using Gaming.Contracts;
     using Gaming.Contracts.Progressives;
     using Gaming.Contracts.Progressives.Linked;
