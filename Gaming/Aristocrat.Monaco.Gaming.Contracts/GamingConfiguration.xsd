@@ -15,6 +15,7 @@
           <xs:complexType>
             <xs:attribute name="CashOutStrategy" type="CashOutStrategy" use="optional" default="None" />
             <xs:attribute name="KeepFailedGameOutcomes" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="RequestGameExitOnCashOut" type="xs:boolean" use="optional" default="false" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="GameWin">

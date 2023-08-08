@@ -376,6 +376,11 @@
         public const string KeepFailedGameOutcomes = @"GanePlay.KeepFailedGameOutcomes";
 
         /// <summary>
+        ///     Determine if Request Game exit on Cashout
+        /// </summary>
+        public const string RequestGameExitOnCashout = @"GamePlay.RequestGameExitOnCashOut";
+
+        /// <summary>
         ///     The game win max credit cash out strategy to use
         /// </summary>
         public const string GameWinMaxCreditCashOutStrategy = @"GamePlay.GameWinMaxCreditCashOutStrategy";

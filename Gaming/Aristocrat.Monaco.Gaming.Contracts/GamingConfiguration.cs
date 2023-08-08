@@ -13,7 +13,7 @@
 // 
 namespace Aristocrat.Monaco.Gaming.Contracts {
     using System.Xml.Serialization;
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member    
+#pragma warning disable CS1591
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
@@ -955,9 +955,12 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private bool keepFailedGameOutcomesField;
         
+        private bool requestGameExitOnCashOutField;
+        
         public GamingConfigurationGameEnd() {
             this.cashOutStrategyField = CashOutStrategy.None;
             this.keepFailedGameOutcomesField = true;
+            this.requestGameExitOnCashOutField = false;
         }
         
         /// <remarks/>
@@ -981,6 +984,18 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.keepFailedGameOutcomesField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool RequestGameExitOnCashOut {
+            get {
+                return this.requestGameExitOnCashOutField;
+            }
+            set {
+                this.requestGameExitOnCashOutField = value;
             }
         }
     }
@@ -4668,3 +4683,4 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         }
     }
 }
+#pragma warning restore CS1591

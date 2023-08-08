@@ -1540,7 +1540,7 @@
                 MvvmHelper.ExecuteOnUI(() =>
                 {
                     IsPrimaryLanguageSelected = true;
-                    _runtime.SetRequestExitGame(true);
+                    _runtime.SetRequestExitGame(_properties.GetValue(GamingConstants.RequestGameExitOnCashout, false));
                 });
                 _overlimitCashoutProcessed = false;
             }
@@ -1551,7 +1551,7 @@
                 MvvmHelper.ExecuteOnUI(() =>
                 {
                     IsPrimaryLanguageSelected = true;
-                    _runtime.SetRequestExitGame(true);
+                    _runtime.SetRequestExitGame(_properties.GetValue(GamingConstants.RequestGameExitOnCashout, false));
                 });
                 _playerCashoutProcessed = false;
             }

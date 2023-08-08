@@ -123,6 +123,7 @@
                 { GamingConstants.KeepGameRoundMeterSnapshots, ((object)configuration.GameHistory?.KeepGameRoundMeterSnapshots ?? true, false) },
                 { GamingConstants.GameEndCashOutStrategy, ((object)configuration.GameEnd?.CashOutStrategy ?? CashOutStrategy.None, false) },
                 { GamingConstants.KeepFailedGameOutcomes, ((object)configuration.GameEnd?.KeepFailedGameOutcomes ?? true, false) },
+                { GamingConstants.RequestGameExitOnCashout, ((object)configuration.GameEnd?.RequestGameExitOnCashOut ?? false, false) },
                 { GamingConstants.GameWinMaxCreditCashOutStrategy, ((object)configuration.GameWin?.MaxCreditCashOutStrategy ?? MaxCreditCashOutStrategy.Win, false) },
                 { GamingConstants.GameWinLargeWinCashOutStrategy, ((object)configuration.GameWin?.LargeWinCashOutStrategy ?? LargeWinCashOutStrategy.Handpay, false) },
                 { GamingConstants.MeterFreeGamesIndependently, ((object)configuration.FreeGames?.MeterIndependently ?? false, false) },
