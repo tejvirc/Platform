@@ -345,6 +345,10 @@
                         SystemDisablePriority.Immediate,
                         () => Localizer.ForLockup().GetString(ResourceKeys.DisplayConnected));
                 }
+                else if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.DisplayConnectedLockupKey) && !allConnected)
+                {
+                    _disableManager.Enable(ApplicationConstants.DisplayConnectedLockupKey);
+                }
             }
 
             // Handle Touch Devices status changed
