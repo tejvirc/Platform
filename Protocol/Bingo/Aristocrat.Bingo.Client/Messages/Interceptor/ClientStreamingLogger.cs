@@ -6,13 +6,13 @@
     using Grpc.Core;
     using log4net;
 
-    public class ClientClientStreamingLogger<TRequest> : IClientStreamWriter<TRequest>
+    public class ClientStreamingLogger<TRequest> : IClientStreamWriter<TRequest>
     {
         // ReSharper disable once StaticMemberInGenericType
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IClientStreamWriter<TRequest> _caller;
 
-        public ClientClientStreamingLogger(IClientStreamWriter<TRequest> caller)
+        public ClientStreamingLogger(IClientStreamWriter<TRequest> caller)
         {
             _caller = caller ?? throw new ArgumentNullException(nameof(caller));
         }
