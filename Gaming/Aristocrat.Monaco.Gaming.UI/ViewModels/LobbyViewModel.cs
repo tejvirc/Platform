@@ -2372,8 +2372,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             GameInfo GetSelectedGame()
             {
-                return GameList.FirstOrDefault(g => g.GameId == _properties.GetValue(GamingConstants.SelectedGameId, 0)) ??
-                       GameList.FirstOrDefault(g => g.Denomination == _properties.GetValue(GamingConstants.SelectedDenom, 0L)) ??
+                return GameList.FirstOrDefault(g => g.GameId == _properties.GetValue(GamingConstants.SelectedGameId, 0) && g.Denomination == _properties.GetValue(GamingConstants.SelectedDenom, 0L)) ??
+                       GameList.FirstOrDefault(g => g.GameId == _properties.GetValue(GamingConstants.SelectedGameId, 0)) ??
                        GameList.FirstOrDefault(g => g.Enabled);
             }
         }
