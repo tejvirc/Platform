@@ -1132,11 +1132,6 @@
         {
             var logs = GameHistory.ToList();
 
-            if (dataType == OperatorMenuPrintData.Last15)
-            {
-                logs = logs.Where(x => !x.IsTransactionItem).ToList();
-            }
-
             logs = GetItemsToPrint(logs, dataType).ToList();
 
             if (logs.Count > 0 && logs[0].EndTime.Equals(DateTime.MinValue))
