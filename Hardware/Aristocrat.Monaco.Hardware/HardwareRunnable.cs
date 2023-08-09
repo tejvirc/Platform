@@ -23,6 +23,7 @@ namespace Aristocrat.Monaco.Hardware
     using Contracts.KeySwitch;
     using Contracts.NoteAcceptor;
     using Contracts.Persistence;
+    using Contracts.Printer;
     using Contracts.SerialPorts;
     using Contracts.SharedDevice;
     using Contracts.Touch;
@@ -346,6 +347,8 @@ namespace Aristocrat.Monaco.Hardware
             serviceManager.AddServiceAndInitialize(_container.GetInstance<ISerialTouchService>() as IService);
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IEdgeLightDeviceFactory>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IEdgeLightingController>() as IService);
+            serviceManager.AddService(_container.GetInstance<IDeviceFactory<INoteAcceptor>>() as IService);
+            serviceManager.AddService(_container.GetInstance<IDeviceFactory<IPrinter>>() as IService);
 
             // get services not yet portable to container
             foreach (var eventListenerNode in AddinManager
@@ -451,6 +454,9 @@ namespace Aristocrat.Monaco.Hardware
             serviceManager.RemoveService(_container.GetInstance<IHardwareConfiguration>());
             serviceManager.RemoveService(_container.GetInstance<IDeviceRegistryService>());
             serviceManager.RemoveService(_container.GetInstance<DeviceWatcher>());
+
+            serviceManager.RemoveService(_container.GetInstance<IDeviceFactory<INoteAcceptor>>() as IService);
+            serviceManager.RemoveService(_container.GetInstance<IDeviceFactory<IPrinter>>() as IService);
 
             serviceManager.RemoveService(_container.GetInstance<IPersistenceProvider>() as IService);
             serviceManager.RemoveService(_container.GetInstance<IPersistentStorageManager>() as IService);

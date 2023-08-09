@@ -29,11 +29,6 @@
         INoteAcceptor,
         IStorageAccessor<NoteAcceptorOptions>
     {
-        /// <summary>
-        ///     Extension path at which this object will search for note acceptor protocol implementations
-        /// </summary>
-        private const string DeviceImplementationsExtensionPath = "/Hardware/NoteAcceptor/NoteAcceptorImplementations";
-
         private const string OptionsBlock = "Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorAdapter.Options";
         private const string LastConfigurationBlock = "Aristocrat.Monaco.Hardware.LastDeviceConfiguration";
         private const string SupportedNotesKey = "SupportedNotes";
@@ -830,8 +825,6 @@
             Logger.Info("ImplementationInitialized: device initialized");
 
             SaveSupportedNotes();
-
-            SetInternalConfiguration();
 
             Implementation?.UpdateConfiguration(InternalConfiguration);
 

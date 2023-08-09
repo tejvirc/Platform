@@ -40,6 +40,31 @@
         string Protocol { get; }
 
         /// <summary>
+        ///     Gets the manufacturer.
+        /// </summary>
+        string Manufacturer { get; }
+
+        /// <summary>
+        ///     Gets the model.
+        /// </summary>
+        string Model { get; }
+
+        /// <summary>
+        ///     Gets the firmware ID.
+        /// </summary>
+        string FirmwareId { get; }
+
+        /// <summary>
+        ///     Gets the firmware revision.
+        /// </summary>
+        string FirmwareRevision { get; }
+
+        /// <summary>
+        ///     Gets the serial number.
+        /// </summary>
+        string SerialNumber { get; }
+
+        /// <summary>
         ///     Event fired when device is initialized.
         /// </summary>
         event EventHandler<EventArgs> Initialized;

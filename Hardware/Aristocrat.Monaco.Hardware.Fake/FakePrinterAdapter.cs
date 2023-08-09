@@ -4,6 +4,7 @@
     using System.IO;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Contracts;
     using Contracts.Communicator;
     using Contracts.IO;
     using Contracts.Printer;
@@ -11,6 +12,7 @@
     using Kernel;
     using log4net;
 
+    [HardwareDevice("Fake", DeviceType.Printer)]
     public class FakePrinterAdapter : IPrinterImplementation
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
@@ -19,14 +21,6 @@
 
         private readonly IEventBus _eventBus;
         private bool _disposed;
-
-        /// <summary>
-        ///     Construct a <see cref="FakePrinterAdapter" />
-        /// </summary>
-        public FakePrinterAdapter()
-            : this(ServiceManager.GetInstance().GetService<IEventBus>())
-        {
-        }
 
         /// <summary>
         ///     Construct a <see cref="FakePrinterAdapter" />
@@ -171,6 +165,11 @@
         public event EventHandler<ProgressEventArgs> DownloadProgressed;
 
         /// <inheritdoc />
+        public Task<bool> Initialize()
+        {
+            return Initialize(null);
+        }
+
         public Task<bool> Initialize(ICommunicator communicator)
         {
             Open();
@@ -217,7 +216,7 @@
 
         public Task<bool> Initialize(IGdsCommunicator communicator)
         {
-            return Task.FromResult(true);
+            return Initialize(communicator as ICommunicator);
         }
 
         /// <inheritdoc />
@@ -228,6 +227,21 @@
 
         /// <inheritdoc />
         public PrinterWarningTypes Warnings { get; set; }
+
+        /// <inheritdoc />
+        public string Manufacturer => "Fake Printer";
+
+        /// <inheritdoc />
+        public string Model => "FakeModel";
+
+        /// <inheritdoc />
+        public string FirmwareId => "1";
+
+        /// <inheritdoc />
+        public string FirmwareRevision => "2";
+
+        /// <inheritdoc />
+        public string SerialNumber => "3";
 
         /// <inheritdoc />
         public event EventHandler<FaultEventArgs> FaultCleared;

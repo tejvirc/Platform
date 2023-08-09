@@ -3,11 +3,13 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Reflection;
+    using Contracts;
     using Contracts.SharedDevice;
     using log4net;
     using Protocols;
 
     [SearchableSerialProtocol(DeviceType.Printer)]
+    [HardwareDevice("JCM TCL", DeviceType.Printer)]
     public class Jcm : TclProtocol
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);

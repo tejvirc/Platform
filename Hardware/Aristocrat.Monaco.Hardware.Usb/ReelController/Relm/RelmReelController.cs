@@ -161,10 +161,31 @@
         public IReadOnlyDictionary<int, ReelStatus> ReelStatuses => _reelStatuses;
 
         /// <inheritdoc />
+        public string Manufacturer => _communicator?.Manufacturer ?? string.Empty;
+
+        /// <inheritdoc />
+        public string Model => _communicator?.Model ?? string.Empty;
+
+        /// <inheritdoc />
+        public string FirmwareId => _communicator?.FirmwareVersion ?? string.Empty;
+
+        /// <inheritdoc />
+        public string FirmwareRevision => _communicator?.Firmware ?? string.Empty;
+
+        /// <inheritdoc />
+        public string SerialNumber => _communicator?.SerialNumber ?? string.Empty;
+
+        /// <inheritdoc />
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        /// <inheritdoc />
+        public async Task<bool> Initialize()
+        {
+            return await Initialize(null);
         }
 
         /// <inheritdoc />

@@ -34,9 +34,7 @@
         private const string PrintableRegionsExtensionPath = "/Hardware/PrintableRegions";
         private const string PrintableTemplatesExtensionPath = "/Hardware/PrintableTemplates";
         private const string PrinterOverridesExtensionPath = "/Hardware/PrinterOverrides";
-        private const string DeviceImplementationsExtensionPath = "/Hardware/Printer/PrinterImplementations";
         private const string RendererImplementationsExtensionPath = "/Hardware/Printer/Renderers";
-
         private const string OptionsBlock = "Aristocrat.Monaco.Hardware.Printer.PrinterAdapter.Options";
         private const string RenderTargetOption = "RenderTarget";
         private const string Nanoptix = "Nanoptix";
@@ -63,11 +61,13 @@
             IComponentRegistry componentRegistry,
             IDfuProvider dfuProvider,
             IPersistentStorageManager storageManager,
-            ISerialPortsService serialPortsService)
+            ISerialPortsService serialPortsService,
+            IPrinterImplementation implementation)
             : base(eventBus, componentRegistry, dfuProvider, serialPortsService)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
+            _printer = implementation ?? throw new ArgumentNullException(nameof(implementation));
         }
 
 #if !(RETAIL)
@@ -441,17 +441,6 @@
             PrintableTemplatePath = AddinFactory.FindFirstFilePath(PrintableTemplatesExtensionPath);
             _resolver.LoadRegions(PrintableRegionPath);
             _resolver.LoadTemplates(PrintableTemplatePath);
-
-            // Load an instance of the given protocol implementation.
-            _printer = AddinFactory.CreateAddin<IPrinterImplementation>(
-                DeviceImplementationsExtensionPath,
-                ServiceProtocol);
-            if (Implementation == null)
-            {
-                var errorMessage = $"Cannot load {Name}";
-                Logger.Fatal(errorMessage);
-                throw new ServiceException(errorMessage);
-            }
 
             ReadOrCreateOptions();
 

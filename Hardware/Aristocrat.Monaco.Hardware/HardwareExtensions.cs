@@ -7,9 +7,11 @@
     using Contracts;
     using Contracts.Communicator;
     using Contracts.NoteAcceptor;
+    using Contracts.Printer;
     using Contracts.SharedDevice;
     using Gds.NoteAcceptor;
     using NoteAcceptor;
+    using Printer;
     using Serial.NoteAcceptor;
     using Services;
     using SimpleInjector;
@@ -34,6 +36,8 @@
         {
             var deviceFactoryNoteAcceptor =
                 new DeviceFactory<INoteAcceptor, INoteAcceptorImplementation, NoteAcceptorAdapter>(container);
+            var deviceFactoryPrinter =
+                new DeviceFactory<IPrinter, IPrinterImplementation, PrinterAdapter>(container);
 
             var data = assemblies.SelectMany(
                 x => x.GetTypes()
@@ -60,7 +64,15 @@
 
                         break;
                     case DeviceType.Printer:
-                        // not yet implemented
+                        if (typeof(ICommunicator).IsAssignableFrom(type))
+                        {
+                            deviceFactoryPrinter.RegisterCommunicator(type, deviceAttributes.Protocol);
+                        }
+                        else if (typeof(IPrinterImplementation).IsAssignableFrom(type))
+                        {
+                            deviceFactoryPrinter.RegisterImplementation(type, deviceAttributes.Protocol);
+                        }
+
                         break;
                     case DeviceType.ReelController:
                         // not yet implemented
@@ -71,6 +83,7 @@
             }
 
             container.RegisterInstance<IDeviceFactory<INoteAcceptor>>(deviceFactoryNoteAcceptor);
+            container.RegisterInstance<IDeviceFactory<IPrinter>>(deviceFactoryPrinter);
             return container;
         }
 

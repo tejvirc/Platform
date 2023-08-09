@@ -59,7 +59,7 @@
 
 #if !(RETAIL)
         /// <summary>
-        /// Get Communicator for automation.
+        ///     Get Communicator for automation.
         /// </summary>
         public IGdsCommunicator Communicator => _communicator;
 #endif
@@ -138,19 +138,19 @@
         /// <value>True if the device requires reset, false if not.</value>
         public bool RequiresReset { get; protected set; }
 
-        /// <summary>
-        ///     Gets the manufacturer.
-        /// </summary>
+        /// <inheritdoc />
         public string Manufacturer => _communicator?.Manufacturer ?? string.Empty;
 
-        /// <summary>
-        ///     Gets the model.
-        /// </summary>
+        /// <inheritdoc />
         public string Model => _communicator?.Model ?? string.Empty;
 
-        /// <summary>
-        ///     Gets the serial number.
-        /// </summary>
+        /// <inheritdoc />
+        public string FirmwareId => _communicator?.FirmwareVersion ?? string.Empty;
+
+        /// <inheritdoc />
+        public string FirmwareRevision => _communicator?.Firmware ?? string.Empty;
+
+        /// <inheritdoc />
         public string SerialNumber => _communicator?.SerialNumber ?? string.Empty;
 
         /// <summary>Gets or sets the reset delay interval.</summary>
@@ -214,12 +214,32 @@
         /// <inheritdoc/>
         public override async Task<bool> Initialize(ICommunicator communicator)
         {
-            if (communicator is not IGdsCommunicator gdsCommunicator)
+            if (_communicator is not null)
+            {
+                return await Initialize();
+            }
+
+            if (communicator is not IGdsCommunicator)
+            {
+                if (communicator is null)
+                {
+                    return false;
+                }
+                throw new ArgumentException("GDS devices must be initialized with IGdsCommunicator");
+            }
+
+            return await Initialize(communicator as IGdsCommunicator);
+        }
+
+        /// <inheritdoc/>
+        public override async Task<bool> Initialize()
+        {
+            if (_communicator is null)
             {
                 throw new ArgumentException("GDS devices must be initialized with IGdsCommunicator");
             }
 
-            return await Initialize(gdsCommunicator);
+            return await Initialize(_communicator);
         }
 
         /// <inheritdoc/>
@@ -230,7 +250,12 @@
             {
                 ResetDevice();
 
-                _communicator = communicator;
+                if (communicator is not null)
+                {
+                    // TODO remove me once we inject for all
+                    _communicator = communicator;
+                }
+
                 if (_communicator == null)
                 {
                     throw new InvalidDataException(nameof(communicator));
@@ -363,10 +388,12 @@
 
                 Close();
 
+                _communicator?.Dispose();
                 ResetDevice();
 
                 _router.Clear();
                 _reports.Clear();
+                _communicator = null;
             }
 
             base.Dispose(disposing);
@@ -694,7 +721,6 @@
                 _communicator.DeviceAttached -= DeviceAttached;
                 _communicator.DeviceDetached -= DeviceDetached;
                 _communicator.MessageReceived -= ReportReceived;
-                _communicator = null;
             }
 
             IsConnected = false;

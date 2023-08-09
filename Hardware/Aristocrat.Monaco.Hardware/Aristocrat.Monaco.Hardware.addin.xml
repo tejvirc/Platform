@@ -71,10 +71,6 @@
     </CommandLineArgument>
   </Extension>
 
-  <Extension path="/Hardware/Printer">
-    <PrinterService type="Aristocrat.Monaco.Hardware.Printer.PrinterAdapter" />
-  </Extension>
-
   <Extension path="/Hardware/IdReader">
     <IdReaderProvider type="Aristocrat.Monaco.Hardware.Services.IdReaderProvider" />
   </Extension>

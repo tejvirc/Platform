@@ -7,6 +7,8 @@
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using Contracts;
+    using Contracts.Communicator;
     using Contracts.Gds;
     using Contracts.Gds.Printer;
     using Contracts.Printer;
@@ -16,6 +18,10 @@
     /// <summary>A printer gds.</summary>
     /// <seealso cref="T:Aristocrat.Monaco.Hardware.GdsDeviceBase" />
     /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.Printer.IPrinterImplementation" />
+    [HardwareDevice("JCM TCL", DeviceType.Printer)]
+    [HardwareDevice("GDS", DeviceType.Printer)]
+    [HardwareDevice("Nanoptix TCL", DeviceType.Printer)]
+    [HardwareDevice("EpicTTL", DeviceType.Printer)]
     [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "False positive.  IDisposable is inherited via IFunctionality.  See http://stackoverflow.com/questions/8925925/code-analysis-ca1063-fires-when-deriving-from-idisposable-and-providing-implemen for details.")]
     public class PrinterGds : GdsDeviceBase,
         IPrinterImplementation
@@ -37,8 +43,9 @@
         private CancellationTokenSource _printerCancellationTokenSource;
 
         /// <summary>Initializes a new instance of the Aristocrat.Monaco.Hardware.Printer.PrinterGds class.</summary>
-        public PrinterGds()
+        public PrinterGds(IGdsCommunicator communicator)
         {
+            _communicator = communicator ?? throw new ArgumentNullException(nameof(communicator));
             DeviceType = DeviceType.Printer;
             RegisterCallback<FailureStatus>(FailureReported);
             RegisterCallback<TicketPrintStatus>(TicketPrintStatusReported);

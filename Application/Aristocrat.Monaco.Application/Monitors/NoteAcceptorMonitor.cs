@@ -60,7 +60,7 @@
             IMessageDisplay messageDisplay)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _noteAcceptor = noteAcceptor ?? throw new ArgumentNullException(nameof(noteAcceptor));
+            _noteAcceptor = noteAcceptor;
             _audioService = audioService ?? throw new ArgumentNullException(nameof(audioService));
             _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
@@ -78,7 +78,7 @@
         public NoteAcceptorMonitor()
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<INoteAcceptor>(),
+                ServiceManager.GetInstance().TryGetService<INoteAcceptor>(),
                 ServiceManager.GetInstance().GetService<Audio.IAudio>(),
                 ServiceManager.GetInstance().GetService<IMeterManager>(),
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),

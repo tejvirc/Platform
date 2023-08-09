@@ -10,11 +10,6 @@
   </Dependencies>
 
   <Extension path="/Hardware/CommunicatorDrivers">
-    <DeviceImplementation ProtocolName="RS232-ID003" type="Aristocrat.Monaco.Hardware.Serial.NoteAcceptor.ID003.Id003Protocol"/>
-    <DeviceImplementation ProtocolName="RS232-EpicTTL" type="Aristocrat.Monaco.Hardware.Serial.Printer.EpicTTL.EpicTTLProtocol"/>
-    <DeviceImplementation ProtocolName="RS232-EBDS" type="Aristocrat.Monaco.Hardware.Serial.NoteAcceptor.EBDS.EbdsProtocol"/>
-    <DeviceImplementation ProtocolName="RS232-Nanoptix TCL" type="Aristocrat.Monaco.Hardware.Serial.Printer.TCL.Nanoptix"/>
-    <DeviceImplementation ProtocolName="RS232-JCM TCL" type="Aristocrat.Monaco.Hardware.Serial.Printer.TCL.Jcm"/>
     <DeviceImplementation ProtocolName="RS232-Harkey" type="Aristocrat.Monaco.Hardware.Serial.Reel.Harkey.HarkeyProtocol"/>
   </Extension>
 </Addin>

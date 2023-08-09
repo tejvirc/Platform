@@ -317,32 +317,34 @@
                 return;
             }
 
-            _communicator?.Dispose();
-
             var protocolName = comConfiguration.Mode == ComConfiguration.RS232CommunicationMode ||
                                comConfiguration.Protocol == ComConfiguration.RelmProtocol
                 ? comConfiguration.Protocol
                 : comConfiguration.Mode;
-            _communicator = AddinFactory.CreateAddin<ICommunicator>(CommunicatorsExtensionPath, protocolName);
 
-            if (_communicator == null)
+            if (DeviceType is DeviceType.ReelController or DeviceType.IdReader)
             {
-                var errorMessage = $"Cannot load {comConfiguration.Mode} communicator";
-                Logger.Fatal(errorMessage);
-                throw new ServiceException(errorMessage);
-            }
+                _communicator ??= AddinFactory.CreateAddin<ICommunicator>(CommunicatorsExtensionPath, protocolName);
 
-            _communicator.Device = DeviceConfiguration;
-            _communicator.DeviceType = DeviceType;
+                if (_communicator == null)
+                {
+                    var errorMessage = $"Cannot load {comConfiguration.Mode} communicator";
+                    Logger.Fatal(errorMessage);
+                    throw new ServiceException(errorMessage);
+                }
+
+                _communicator.Device = DeviceConfiguration;
+                _communicator.DeviceType = DeviceType;
+
+                if (!_communicator.Configure(comConfiguration))
+                {
+                    var errorMessage = $"Error in configuring {comConfiguration.Mode} communicator";
+                    Logger.Fatal(errorMessage);
+                    throw new ServiceException(errorMessage);
+                }
+            }
 
             LastComConfiguration = comConfiguration;
-            if (!_communicator.Configure(comConfiguration))
-            {
-                var errorMessage = $"Error in configuring {comConfiguration.Mode} communicator";
-                Logger.Fatal(errorMessage);
-                throw new ServiceException(errorMessage);
-            }
-
             SetInternalConfiguration();
             Inspecting(comConfiguration, timeout);
 
@@ -704,11 +706,12 @@
         protected void SetInternalConfiguration()
         {
             InternalConfiguration.Protocol = Implementation?.Protocol ?? string.Empty;
-            InternalConfiguration.Manufacturer = _communicator?.Manufacturer ?? string.Empty;
-            InternalConfiguration.Model = _communicator?.Model ?? string.Empty;
-            InternalConfiguration.FirmwareId = _communicator?.FirmwareVersion ?? string.Empty;
-            InternalConfiguration.FirmwareRevision = _communicator?.Firmware ?? string.Empty;
-            InternalConfiguration.SerialNumber = _communicator?.SerialNumber ?? string.Empty;
+            InternalConfiguration.Manufacturer = Implementation?.Manufacturer ?? string.Empty;
+            InternalConfiguration.Model = Implementation?.Model ?? string.Empty;
+            InternalConfiguration.FirmwareId = Implementation?.FirmwareId ?? string.Empty;
+            InternalConfiguration.FirmwareRevision = Implementation?.FirmwareRevision ?? string.Empty;
+            InternalConfiguration.SerialNumber = Implementation?.SerialNumber ?? string.Empty;
+            
             //InternalConfiguration.PollingFrequency = config.BaudRate;
         }
 

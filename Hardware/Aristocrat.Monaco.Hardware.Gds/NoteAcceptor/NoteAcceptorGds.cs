@@ -39,8 +39,9 @@
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.NoteAcceptor.NoteAcceptorGds class.
         /// </summary>
-        public NoteAcceptorGds()
+        public NoteAcceptorGds(IGdsCommunicator communicator)
         {
+            _communicator = communicator ?? throw new ArgumentNullException(nameof(communicator));
             DeviceType = DeviceType.NoteAcceptor;
             RegisterCallback<FailureStatus>(FailureReported);
             RegisterCallback<NumberOfNoteDataEntries>(NumberOfNoteDataEntriesReported);

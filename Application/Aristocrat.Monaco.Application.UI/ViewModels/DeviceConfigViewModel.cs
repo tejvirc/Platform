@@ -8,8 +8,11 @@
     using System.Reflection;
     using Contracts;
     using Contracts.Localization;
+    using Hardware.Contracts.NoteAcceptor;
+    using Hardware.Contracts.Printer;
     using Hardware.Contracts.SerialPorts;
     using Hardware.Contracts.SharedDevice;
+    using Hardware.Services;
     using Helpers;
     using Kernel;
     using Localization;
@@ -24,6 +27,8 @@
     {
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly ISerialPortsService SerialPortsService = ServiceManager.GetInstance().TryGetService<ISerialPortsService>();
+        private readonly IDeviceFactory<INoteAcceptor> _deviceFactoryNoteAcceptor = ServiceManager.GetInstance().TryGetService<IDeviceFactory<INoteAcceptor>>();
+        private readonly IDeviceFactory<IPrinter> _deviceFactoryPrinter = ServiceManager.GetInstance().TryGetService<IDeviceFactory<IPrinter>>();
 
         private readonly DeviceAddinHelper _addinHelper = new DeviceAddinHelper();
         private readonly List<string> _allPorts;
@@ -387,10 +392,21 @@
 
             bool CheckIfProtocolExists(string protocol)
             {
-                return _deviceAddInPaths.ContainsKey(DeviceType) &&
-                       _addinHelper.DoesDeviceImplementationExist(
-                           _deviceAddInPaths[DeviceType],
-                           protocol);
+                if (DeviceType is DeviceType.NoteAcceptor)
+                {
+                    return _deviceFactoryNoteAcceptor.DoesImplementationExist(protocol);
+                }
+                else if (DeviceType is DeviceType.Printer)
+                {
+                    return _deviceFactoryPrinter.DoesImplementationExist(protocol);
+                }
+                else
+                {
+                    return _deviceAddInPaths.ContainsKey(DeviceType) &&
+                           _addinHelper.DoesDeviceImplementationExist(
+                               _deviceAddInPaths[DeviceType],
+                               protocol);
+                }
             }
         }
 

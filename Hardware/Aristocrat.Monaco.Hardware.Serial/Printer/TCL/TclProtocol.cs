@@ -9,7 +9,7 @@ namespace Aristocrat.Monaco.Hardware.Serial.Printer.TCL
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using Aristocrat.Monaco.Hardware.Contracts.Gds.Printer;
+    using Contracts.Gds.Printer;
     using Contracts.Gds;
     using log4net;
 

@@ -201,6 +201,12 @@
         public event EventHandler<ProgressEventArgs> DownloadProgressed;
 
         /// <inheritdoc />
+        public Task<bool> Initialize()
+        {
+            return Initialize(null);
+        }
+
+        /// <inheritdoc />
         public Task<bool> Initialize(ICommunicator communicator)
         {
             Open();
@@ -259,6 +265,21 @@
         public IEnumerable<INote> SupportedNotes => _noteTable.Values.ToArray();
 
         public IComConfiguration LastComConfiguration { get; set; }
+
+        /// <inheritdoc />
+        public string Manufacturer => "Fake Note Acceptor";
+
+        /// <inheritdoc />
+        public string Model => "FakeModel";
+
+        /// <inheritdoc />
+        public string FirmwareId => "1";
+
+        /// <inheritdoc />
+        public string FirmwareRevision => "2";
+
+        /// <inheritdoc />
+        public string SerialNumber => "3";
 
         /// <inheritdoc />
         public event EventHandler<FaultEventArgs> FaultCleared;

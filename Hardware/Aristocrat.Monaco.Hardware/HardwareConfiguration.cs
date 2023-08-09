@@ -49,7 +49,8 @@
         private readonly IEventBus _bus;
         private readonly ISystemDisableManager _disableManager;
         private readonly IPropertiesManager _propertiesManager;
-        private readonly IDeviceFactory<INoteAcceptor> _deviceFactory;
+        private readonly IDeviceFactory<INoteAcceptor> _deviceFactoryNoteAcceptor;
+        private readonly IDeviceFactory<IPrinter> _deviceFactoryPrinter;
         private readonly object _serviceRegistrationLock = new();
 
         private bool _disposed;
@@ -61,7 +62,8 @@
             IEventBus bus,
             ISystemDisableManager disableManager,
             IPropertiesManager propertiesManager,
-            IDeviceFactory<INoteAcceptor> deviceFactory)
+            IDeviceFactory<INoteAcceptor> deviceFactoryNoteAcceptor,
+            IDeviceFactory<IPrinter> deviceFactoryPrinter)
         {
             if (storage == null)
             {
@@ -72,7 +74,8 @@
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
-            _deviceFactory = deviceFactory ?? throw new ArgumentNullException(nameof(deviceFactory));
+            _deviceFactoryNoteAcceptor = deviceFactoryNoteAcceptor ?? throw new ArgumentNullException(nameof(deviceFactoryNoteAcceptor));
+            _deviceFactoryPrinter = deviceFactoryPrinter ?? throw new ArgumentNullException(nameof(deviceFactoryPrinter));
 
             _accessor = storage.GetAccessor(Level, Name, Enum.GetValues(typeof(DeviceType)).Length);
 
@@ -395,27 +398,28 @@
 
                             break;
                         case DeviceType.NoteAcceptor:
-                            adapter = HandleServiceRegistration<INoteAcceptor>(
-                                _deviceFactory.CreateDevice(config),
-                                config,
-                                data,
-                                inspectedDevice);
+                            lock (_serviceRegistrationLock)
+                            {
+                                adapter = HandleServiceRegistration<INoteAcceptor>(
+                                    () => _deviceFactoryNoteAcceptor.CreateDevice(config, data),
+                                    config,
+                                    data,
+                                    inspectedDevice);
+                            }
                             break;
                         case DeviceType.Printer:
-                            adapter = HandleServiceRegistration<IPrinter>(
-                                new PrinterAdapter(
-                                    _bus,
-                                    serviceManager.GetService<IComponentRegistry>(),
-                                    serviceManager.GetService<IDfuProvider>(),
-                                    serviceManager.GetService<IPersistentStorageManager>(),
-                                    serviceManager.GetService<ISerialPortsService>()),
-                                config,
-                                data,
-                                inspectedDevice);
+                            lock (_serviceRegistrationLock)
+                            {
+                                adapter = HandleServiceRegistration<IPrinter>(
+                                    () => _deviceFactoryPrinter.CreateDevice(config, data),
+                                    config,
+                                    data,
+                                    inspectedDevice);
+                            }
                             break;
                         case DeviceType.ReelController:
                             adapter = HandleServiceRegistration<IReelController>(
-                                new ReelControllerAdapter(),
+                                () => new ReelControllerAdapter(),
                                 config,
                                 data,
                                 inspectedDevice);
@@ -436,7 +440,7 @@
         }
 
         private IDeviceAdapter HandleServiceRegistration<T>(
-            T service,
+            Func<T> serviceProvider,
             IComConfiguration configuration,
             ConfigurationData data,
             bool inspectedDevice)
@@ -466,6 +470,12 @@
 
                 if (configuration != null && current == null)
                 {
+                    var service = serviceProvider();
+                    if (service != null)
+                    {
+                        service.ServiceProtocol = configuration.Protocol;
+                    }
+
                     _deviceRegistry.AddDevice(service);
 
                     return service;

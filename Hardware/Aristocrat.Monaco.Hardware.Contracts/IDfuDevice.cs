@@ -40,6 +40,10 @@
         /// <returns>An asynchronous result that yields true if it succeeds, false if it fails.</returns>
         Task<bool> Initialize(ICommunicator communicator);
 
+        /// <summary>Initializes this device.</summary>
+        /// <returns>An asynchronous result that yields true if it succeeds, false if it fails.</returns>
+        Task<bool> Initialize();
+
         /// <summary>Initiates detach sequence and enters DFU mode.</summary>
         /// <returns>True if it succeeds, false if it fails.</returns>
         Task<bool> Detach();

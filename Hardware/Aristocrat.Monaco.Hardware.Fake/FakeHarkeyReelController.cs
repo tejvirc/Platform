@@ -75,6 +75,21 @@
         public string Protocol => _communicator?.Protocol ?? string.Empty;
 
         /// <inheritdoc />
+        public string Manufacturer => "Fake";
+
+        /// <inheritdoc />
+        public string Model => "FakeModel";
+
+        /// <inheritdoc />
+        public string FirmwareId => "1";
+
+        /// <inheritdoc />
+        public string FirmwareRevision => "2";
+
+        /// <inheritdoc />
+        public string SerialNumber => "3";
+
+        /// <inheritdoc />
         public event EventHandler<EventArgs> Initialized;
 
         /// <inheritdoc />
@@ -251,6 +266,12 @@
 
         /// <inheritdoc />
         public event EventHandler<ProgressEventArgs> DownloadProgressed;
+
+        /// <inheritdoc />
+        public async Task<bool> Initialize()
+        {
+            return await Initialize(null);
+        }
 
         /// <inheritdoc />
         public async Task<bool> Initialize(ICommunicator communicator)

@@ -8,6 +8,7 @@
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using Contracts;
     using Contracts.Gds;
     using Contracts.Gds.Printer;
     using Contracts.SharedDevice;
@@ -19,6 +20,7 @@
     ///     commands are pending.  Process responses.
     /// </summary>
     [SearchableSerialProtocol(DeviceType.Printer)]
+    [HardwareDevice("EpicTTL", DeviceType.Printer)]
     public class EpicTTLProtocol : SerialPrinter
     {
         private const int TenSecondsMs = 10000;

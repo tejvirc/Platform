@@ -14,22 +14,6 @@
     <DeviceImplementation ProtocolName="Virtual" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds" />
     <DeviceImplementation ProtocolName="Virtual2" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds" />
   </Extension>
-  <Extension path="/Hardware/Printer/PrinterImplementations">
-    <DeviceImplementation ProtocolName="JCM TCL" type="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds" />
-  </Extension>
-
-  <Extension path="/Hardware/Printer/PrinterImplementations">
-    <DeviceImplementation ProtocolName="GDS" type="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds" />
-  </Extension>
-
-  <Extension path="/Hardware/Printer/PrinterImplementations">
-    <DeviceImplementation ProtocolName="Nanoptix TCL" type="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds" />
-  </Extension>
-
-  <Extension path="/Hardware/Printer/PrinterImplementations">
-    <DeviceImplementation ProtocolName="EpicTTL" type="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds" />
-  </Extension>
-
   <Extension path="/Hardware/ReelController/ReelControllerImplementations">
     <DeviceImplementation ProtocolName="Harkey" type="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds" />
   </Extension>

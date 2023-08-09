@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Contracts;
     using Communicator;
+    using log4net;
 
     /// <summary>Base class for implementing Device Firmware Upgrade (DFU) logic.</summary>
     /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.IDfuDevice" />
@@ -45,6 +46,12 @@
             ProductId = communicator.ProductId;
             Driver.DownloadProgressed += ReportDownloadProgressed;
             return Task.FromResult(true);
+        }
+
+        /// <inheritdoc />
+        public virtual Task<bool> Initialize()
+        {
+            return Task.FromResult(false);
         }
 
         /// <inheritdoc />

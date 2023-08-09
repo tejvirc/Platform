@@ -159,6 +159,12 @@
         }
 
         /// <inheritdoc />
+        public Task<bool> Initialize()
+        {
+            return Initialize(null);
+        }
+
+        /// <inheritdoc />
         public Task<bool> Initialize(IGdsCommunicator communicator)
         {
             return Task.FromResult(true);
@@ -178,6 +184,21 @@
 
         /// <inheritdoc />
         public string Protocol { get; set; }
+
+        /// <inheritdoc />
+        public string Manufacturer => "Fake";
+
+        /// <inheritdoc />
+        public string Model => "FakeModel";
+
+        /// <inheritdoc />
+        public string FirmwareId => "1";
+
+        /// <inheritdoc />
+        public string FirmwareRevision => "2";
+
+        /// <inheritdoc />
+        public string SerialNumber => "3";
 
         /// <inheritdoc />
         public event EventHandler<EventArgs> Initialized;

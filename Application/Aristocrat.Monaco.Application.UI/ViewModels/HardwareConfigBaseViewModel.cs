@@ -1106,8 +1106,7 @@
 #endif
 
             sortedSerialPorts.Sort((a, b) => a.ToPortNumber() - b.ToPortNumber());
-
-            AddRS232CommunicatorAddin(sortedSerialPorts, sortedPorts);
+            sortedPorts.AddRange(sortedSerialPorts);
 
             foreach (var deviceType in _deviceDiscoveryStatus.Keys)
             {
@@ -1388,20 +1387,6 @@
                 !IsWizardPage
                     ? configurableTowerLightConfig && canReconfigureTowerLightConfig
                     : configurableTowerLightConfig;
-        }
-
-        private void AddRS232CommunicatorAddin(IEnumerable<string> sortedSerialPorts, List<string> sortedPorts)
-        {
-            if (_addinHelper.DoesDeviceImplementationExist(CommunicatorDriversAddinPath, RS232))
-            {
-                sortedPorts.AddRange(sortedSerialPorts);
-            }
-            else
-            {
-                // ReSharper disable once InconsistentlySynchronizedField
-                Logger.WarnFormat(
-                    $"No device implementations were found for {RS232} with extension {CommunicatorDriversAddinPath}");
-            }
         }
 
         private void AddUSBCommunicatorIfAddinDeployed(ICollection<string> sortedPorts)
