@@ -8,8 +8,7 @@ using Contracts.Models;
 using Fluxor;
 using UI.Models;
 
-[FeatureState]
-public partial record LobbyState
+public record LobbyState
 {
     public bool IsGamesLoaded { get; set; }
 
@@ -26,4 +25,8 @@ public partial record LobbyState
     public bool IsVoucherNotificationActive { get; set; }
 
     public bool IsProgressiveGameDisabledNotificationActive { get; set; }
+
+    public bool IsStartingUp { get; init; }
+
+    public bool IsInitialized { get; init; }
 }

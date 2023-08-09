@@ -4,16 +4,16 @@ using System;
 using Application.Contracts.Extensions;
 using Commands;
 using Common;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Extensions.Fluxor;
 using Fluxor;
+using Prism.Commands;
+using Prism.Mvvm;
 using Store;
 using static Store.Bank.BankSelectors;
 using static Store.Chooser.ChooserSelectors;
 using static Store.Translate.TranslateSelectors;
 
-public class MultiLanguageUpiViewModel : ObservableObject
+public class MultiLanguageUpiViewModel : BindableBase
 {
     private readonly IDispatcher _dispatcher;
     private readonly LobbyConfiguration _configuration;
@@ -36,13 +36,13 @@ public class MultiLanguageUpiViewModel : ObservableObject
         _dispatcher = dispatcher;
         _configuration = configuration;
 
-        ShutdownCommand = new RelayCommand(OnShutdown);
-        CashOutCommand = new RelayCommand(OnCashOut);
-        CashOutWrapperMouseDownCommand = new RelayCommand(OnCashOutWrapperMouseDown);
-        UpiPreviewMouseDownCommand = new RelayCommand(OnUpiPreviewMouseDown);
-        DenomFilterPressedCommand = new RelayCommand(OnDenomFilterPressed);
-        UserInteractionCommand = new RelayCommand(OnUserInteraction);
-        ToggleActiveLangaugeCommand = new RelayCommand(OnToggleActiveLangauge);
+        ShutdownCommand = new DelegateCommand(OnShutdown);
+        CashOutCommand = new DelegateCommand(OnCashOut);
+        CashOutWrapperMouseDownCommand = new DelegateCommand(OnCashOutWrapperMouseDown);
+        UpiPreviewMouseDownCommand = new DelegateCommand(OnUpiPreviewMouseDown);
+        DenomFilterPressedCommand = new DelegateCommand(OnDenomFilterPressed);
+        UserInteractionCommand = new DelegateCommand(OnUserInteraction);
+        ToggleActiveLangaugeCommand = new DelegateCommand(OnToggleActiveLangauge);
 
         commands.ShutdownCommand.RegisterCommand(ShutdownCommand);
 
@@ -52,19 +52,19 @@ public class MultiLanguageUpiViewModel : ObservableObject
         _subscriptions += selector.Select(SelectCredits).Subscribe(OnCreditsChanged);
     }
 
-    public RelayCommand ShutdownCommand { get; }
+    public DelegateCommand ShutdownCommand { get; }
 
-    public RelayCommand CashOutWrapperMouseDownCommand { get; }
+    public DelegateCommand CashOutWrapperMouseDownCommand { get; }
 
-    public RelayCommand CashOutCommand { get; }
+    public DelegateCommand CashOutCommand { get; }
 
-    public RelayCommand UpiPreviewMouseDownCommand { get; }
+    public DelegateCommand UpiPreviewMouseDownCommand { get; }
 
-    public RelayCommand DenomFilterPressedCommand { get; }
+    public DelegateCommand DenomFilterPressedCommand { get; }
 
-    public RelayCommand UserInteractionCommand { get; }
+    public DelegateCommand UserInteractionCommand { get; }
 
-    public RelayCommand ToggleActiveLangaugeCommand { get; }
+    public DelegateCommand ToggleActiveLangaugeCommand { get; }
 
     public string? ActiveLocaleCode
     {

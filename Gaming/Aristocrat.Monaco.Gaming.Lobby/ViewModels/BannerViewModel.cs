@@ -1,20 +1,20 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.ViewModels;
 
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using Prism.Commands;
+using Prism.Mvvm;
 using Regions;
 
-public class BannerViewModel : ObservableObject, INavigationAware
+public class BannerViewModel : BindableBase, INavigationAware
 {
     public BannerViewModel()
     {
-        LoadedCommand = new RelayCommand(OnLoaded);
-        UnloadedCommand = new RelayCommand(OnUnloaded);
+        LoadedCommand = new DelegateCommand(OnLoaded);
+        UnloadedCommand = new DelegateCommand(OnUnloaded);
     }
 
-    public RelayCommand LoadedCommand { get; }
+    public DelegateCommand LoadedCommand { get; }
 
-    public RelayCommand UnloadedCommand { get; }
+    public DelegateCommand UnloadedCommand { get; }
 
     private void OnLoaded()
     {

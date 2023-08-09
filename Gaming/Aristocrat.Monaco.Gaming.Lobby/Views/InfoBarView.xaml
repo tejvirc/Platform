@@ -6,6 +6,8 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:views="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Views"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.ViewModels"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=viewModels:InfoBarViewModel, IsDesignTimeCreatable=False}"
              d:DesignHeight="450" d:DesignWidth="800">

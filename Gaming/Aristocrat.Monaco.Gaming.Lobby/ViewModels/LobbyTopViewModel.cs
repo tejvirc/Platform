@@ -1,18 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.ViewModels;
 
-using CommunityToolkit.Mvvm.ComponentModel;
+using Prism.Mvvm;
 
-public class LobbyTopViewModel : ObservableObject
+public class LobbyTopViewModel : BindableBase
 {
     private const string TopImageDefaultResourceKey = "TopBackground";
     private const string TopImageAlternateResourceKey = "TopBackgroundAlternate";
 
     private string? _topImageResourceKey;
-
-    public LobbyTopViewModel()
-    {
-        
-    }
 
     public string? TopImageResourceKey
     {

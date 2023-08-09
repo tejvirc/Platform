@@ -2,23 +2,21 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using CommandHandlers;
 using Contracts;
+using Fluxor;
 using Store;
 
 public class GameUninstalledConsumer : Consumes<GameUninstalledEvent>
 {
-    private readonly ICommandHandlerFactory _commandHandlers;
+    private readonly IDispatcher _dispatcher;
 
-    public GameUninstalledConsumer(ICommandHandlerFactory commandHandlers)
+    public GameUninstalledConsumer(IDispatcher dispatcher)
     {
-        _commandHandlers = commandHandlers;
+        _dispatcher = dispatcher;
     }
 
-    public override Task ConsumeAsync(GameUninstalledEvent theEvent, CancellationToken cancellationToken)
+    public override async Task ConsumeAsync(GameUninstalledEvent theEvent, CancellationToken cancellationToken)
     {
-        _commandHandlers.Create<GameUninstalled>().Handle(new GameUninstalled());
-
-        return Task.CompletedTask;
+        await _dispatcher.DispatchAsync(new GameUninstalledAction());
     }
 }

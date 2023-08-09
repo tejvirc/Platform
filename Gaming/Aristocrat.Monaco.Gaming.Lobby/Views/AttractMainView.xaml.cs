@@ -12,7 +12,7 @@
         {
             InitializeComponent();
 
-            DataContext = Application.Current.GetObject<AttractMainViewModel>();
+            // DataContext = Application.Current.GetObject<AttractMainViewModel>();
 
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;

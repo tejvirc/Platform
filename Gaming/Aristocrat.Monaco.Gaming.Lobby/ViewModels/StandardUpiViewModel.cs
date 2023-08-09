@@ -3,13 +3,13 @@
 using System;
 using Commands;
 using Common;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Extensions.Fluxor;
 using Fluxor;
+using Prism.Commands;
+using Prism.Mvvm;
 using static Store.Upi.UpiSelectors;
 
-public class StandardUpiViewModel : ObservableObject
+public class StandardUpiViewModel : BindableBase
 {
     private readonly IDispatcher _dispatcher;
 
@@ -28,8 +28,8 @@ public class StandardUpiViewModel : ObservableObject
 
         CashOutEnabled = true;
 
-        ShutdownCommand = new RelayCommand(OnShutdown);
-        CashOutCommand = new RelayCommand(OnCashOut);
+        ShutdownCommand = new DelegateCommand(OnShutdown);
+        CashOutCommand = new DelegateCommand(OnCashOut);
 
         commands.ShutdownCommand.RegisterCommand(ShutdownCommand);
 
@@ -38,9 +38,9 @@ public class StandardUpiViewModel : ObservableObject
         _subscriptions += selector.Select(SelectVolumeControlEnabled).Subscribe(OnVolumeControlEnabledChanged);
     }
 
-    public RelayCommand ShutdownCommand { get; }
+    public DelegateCommand ShutdownCommand { get; }
 
-    public RelayCommand CashOutCommand { get; }
+    public DelegateCommand CashOutCommand { get; }
 
     public VolumeViewModel Volume { get; }
 

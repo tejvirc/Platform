@@ -12,7 +12,7 @@
         {
             InitializeComponent();
 
-            DataContext = Application.Current.GetObject<LobbyMainViewModel>();
+            // DataContext = Application.Current.GetObject<LobbyMainViewModel>();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Commands;
 
-using Toolkit.Mvvm.Extensions.Commands;
+using Extensions.Prism.Commands;
 
 public static class ApplicationCommandConstants
 {

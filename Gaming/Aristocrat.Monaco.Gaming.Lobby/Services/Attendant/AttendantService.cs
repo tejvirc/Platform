@@ -1,16 +1,16 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Services.Attendant;
 
-public class AttendantService : IAttendantService
+public class AttendantService : IAttendant
 {
-    private readonly Contracts.IAttendantService _attendantService;
+    private readonly IAttendantAgent _attendantAgent;
 
-    public AttendantService(Contracts.IAttendantService attendantService)
+    public AttendantService(IAttendantAgent attendantAgent)
     {
-        _attendantService = attendantService;
+        _attendantAgent = attendantAgent;
     }
 
-    public void RequestService()
+    public void RequestOrCancelService()
     {
-        _attendantService.OnServiceButtonPressed();
+        _attendantAgent.RequestOrCancelService();
     }
 }

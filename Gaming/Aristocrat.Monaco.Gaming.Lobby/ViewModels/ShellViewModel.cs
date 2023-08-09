@@ -1,18 +1,33 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.ViewModels;
 
+using System;
+using System.Reactive.Linq;
 using Cabinet.Contracts;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Contracts;
+using Extensions.Fluxor;
+using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Regions;
+using Views;
+using static Store.Lobby.LobbytSelectors;
 
-public class ShellViewModel : ObservableObject
+public class ShellViewModel : BindableBase
 {
-    public ShellViewModel()
+    private readonly IRegionManager _regionManager;
+
+    public ShellViewModel(IStoreSelector selector, IRegionManager regionManager)
     {
-        LoadedCommand = new RelayCommand(OnLoaded);
+        _regionManager = regionManager;
+
+        LoadedCommand = new DelegateCommand(OnLoaded);
+        RegionLoadedCommand = new DelegateCommand(OnRegionLoaded);
+
+        selector.Select(SelectLobbyInitailized).Where(initialized => initialized).Subscribe(OnLobbyInitialized);
     }
 
-    public RelayCommand LoadedCommand { get; }
+    public DelegateCommand LoadedCommand { get; }
+
+    public DelegateCommand RegionLoadedCommand { get; }
 
     public string Title => GamingConstants.MainWindowTitle;
 
@@ -20,6 +35,18 @@ public class ShellViewModel : ObservableObject
 
     private void OnLoaded()
     {
+    }
 
+    private void OnRegionLoaded()
+    {
+    }
+
+    private void OnLobbyInitialized(bool isInitialize)
+    {
+        _regionManager.RequestNavigate(RegionNames.Shell, new Uri(ViewNames.Main, UriKind.Relative), (NavigationResult nr) =>
+        {
+            var error = nr.Error;
+            var result = nr.Result;
+        });
     }
 }

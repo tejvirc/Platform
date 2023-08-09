@@ -12,7 +12,7 @@
         {
             InitializeComponent();
 
-            DataContext = Application.Current.GetObject<MultiLanguageUpiViewModel>();
+            // DataContext = Application.Current.GetObject<MultiLanguageUpiViewModel>();
         }
     }
 }

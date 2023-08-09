@@ -2,23 +2,21 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using CommandHandlers;
 using Contracts;
+using Fluxor;
 using Store;
 
 public class GameIconOrderChangedConsumer : Consumes<GameIconOrderChangedEvent>
 {
-    private readonly ICommandHandlerFactory _commandHandlers;
+    private readonly IDispatcher _dispatcher;
 
-    public GameIconOrderChangedConsumer(ICommandHandlerFactory commandHandlers)
+    public GameIconOrderChangedConsumer(IDispatcher dispatcher)
     {
-        _commandHandlers = commandHandlers;
+        _dispatcher = dispatcher;
     }
 
-    public override Task ConsumeAsync(GameIconOrderChangedEvent theEvent, CancellationToken cancellationToken)
+    public override async Task ConsumeAsync(GameIconOrderChangedEvent theEvent, CancellationToken cancellationToken)
     {
-        _commandHandlers.Create<GameIconOrderChanged>().Handle(new GameIconOrderChanged());
-
-        return Task.CompletedTask;
+        await _dispatcher.DispatchAsync(new GameIconOrderChangedAction());
     }
 }

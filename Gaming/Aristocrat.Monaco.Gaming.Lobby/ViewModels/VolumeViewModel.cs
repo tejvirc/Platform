@@ -4,15 +4,15 @@ using System;
 using System.Collections.Generic;
 using Commands;
 using Common;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Extensions.Fluxor;
 using Fluxor;
 using Hardware.Contracts.Audio;
+using Prism.Commands;
+using Prism.Mvvm;
 using Store;
 using static Store.Audio.AudioSelectors;
 
-public class VolumeViewModel : ObservableObject
+public class VolumeViewModel : BindableBase
 {
     private const string Volume0Key = "Volume0Normal";
     private const string Volume1Key = "Volume1Normal";
@@ -31,17 +31,17 @@ public class VolumeViewModel : ObservableObject
     {
         _dispatcher = dispatcher;
 
-        ShutdownCommand = new RelayCommand(OnShutdown);
-        VolumeCommand = new RelayCommand(OnVolume);
+        ShutdownCommand = new DelegateCommand(OnShutdown);
+        VolumeCommand = new DelegateCommand(OnVolume);
 
         commands.ShutdownCommand.RegisterCommand(ShutdownCommand);
 
         _subscriptions += selector.Select(SelectPlayerVolumeScalar).Subscribe(OnPlayerVolumeScalarChanged);
     }
 
-    public RelayCommand ShutdownCommand { get; }
+    public DelegateCommand ShutdownCommand { get; }
 
-    public RelayCommand VolumeCommand { get; }
+    public DelegateCommand VolumeCommand { get; }
 
     public List<string> ResourceKeys { get; } = new List<string>
         {

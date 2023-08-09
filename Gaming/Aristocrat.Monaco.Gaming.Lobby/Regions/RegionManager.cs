@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
-using Toolkit.Mvvm.Extensions;
+using Extensions.Prism;
 using XAMLMarkupExtensions.Base;
 
 public class RegionManager : DependencyObject, IRegionManager
@@ -62,7 +62,7 @@ public class RegionManager : DependencyObject, IRegionManager
     /// </summary>
     /// <param name="obj">The target dependency object.</param>
     /// <returns>The value of the property.</returns>
-    public static string? GetRegion(DependencyObject obj)
+    public static string? GetRegionName(DependencyObject obj)
     {
         return obj.GetValueSync<string>(RegionNameProperty);
     }
@@ -72,7 +72,7 @@ public class RegionManager : DependencyObject, IRegionManager
     /// </summary>
     /// <param name="obj">The target dependency object.</param>
     /// <param name="value">The value of the property.</param>
-    public static void SetRegion(DependencyObject obj, string value)
+    public static void SetRegionName(DependencyObject obj, string value)
     {
         obj.SetValueSync(RegionNameProperty, value);
     }

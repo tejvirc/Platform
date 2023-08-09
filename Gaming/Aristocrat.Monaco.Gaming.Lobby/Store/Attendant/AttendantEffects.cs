@@ -6,17 +6,17 @@ using Services.Attendant;
 
 public class AttendantEffects
 {
-    private readonly IAttendantService _attendantService;
+    private readonly IAttendant _attendant;
 
-    public AttendantEffects(IAttendantService attendantService)
+    public AttendantEffects(IAttendant attendant)
     {
-        _attendantService = attendantService;
+        _attendant = attendant;
     }
 
     [EffectMethod]
-    public Task Effect(RequestServiceAction _, IDispatcher dispatcher)
+    public Task Effect(ToggleServiceRequestAction _, IDispatcher dispatcher)
     {
-        _attendantService.RequestService();
+        _attendant.RequestOrCancelService();
 
         return Task.CompletedTask;
     }

@@ -3,6 +3,7 @@
 using System;
 using System.Windows;
 using Microsoft.Xaml.Behaviors;
+using Prism.Ioc;
 using Services;
 using XAMLMarkupExtensions.Base;
 using DisplayRoleEnum = Cabinet.Contracts.DisplayRole;
@@ -117,7 +118,7 @@ public class ScreenMapBehavior : Behavior<Window>
             throw new InvalidOperationException($"{nameof(DisplayRole)} property not set");
         }
 
-        var result = Application.Current.GetService<IScreenMapper>()
+        var result = ContainerLocator.Current.Resolve<IScreenMapper>()
             .Map(DisplayRole, AssociatedObject);
 
         IsFullscreen = result.IsFullscreen;

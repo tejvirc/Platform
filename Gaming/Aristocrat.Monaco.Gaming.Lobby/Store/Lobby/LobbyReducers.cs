@@ -30,4 +30,18 @@ public static class LobbyReducers
     //public static LobbyState Reduce(LobbyState state, GamePlayEnabledAction action) =>
     //    state with { AllowGameAutoLaunch = true };
 
+    [ReducerMethod]
+    public static LobbyState Reduce(LobbyState state, StartupAction action) =>
+        state with
+        {
+            IsStartingUp = true
+        };
+
+    [ReducerMethod]
+    public static LobbyState Reduce(LobbyState state, LobbyInitializedAction action) =>
+        state with
+        {
+            IsStartingUp = false,
+            IsInitialized = true
+        };
 }

@@ -2,11 +2,11 @@
 
 using System;
 using Common;
-using CommunityToolkit.Mvvm.ComponentModel;
 using Extensions.Fluxor;
+using Prism.Mvvm;
 using static Store.IdleText.IdleTextSelectors;
 
-public class IdleTextViewModel : ObservableObject
+public class IdleTextViewModel : BindableBase
 {
     private readonly SubscriptionList _subscriptions = new();
 

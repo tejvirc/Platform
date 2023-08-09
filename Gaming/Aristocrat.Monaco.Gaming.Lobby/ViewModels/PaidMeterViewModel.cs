@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.ViewModels;
 
-using CommunityToolkit.Mvvm.ComponentModel;
+using Prism.Mvvm;
 
-public class PaidMeterViewModel : ObservableObject
+public class PaidMeterViewModel : BindableBase
 {
     
 }

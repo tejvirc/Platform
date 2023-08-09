@@ -2,6 +2,8 @@
 
 public static class RegionNames
 {
+    public const string Shell = "Shell";
+
     public const string Main = "Main";
 
     public const string Top = "Top";

@@ -8,21 +8,18 @@ using System.Threading.Tasks;
 using System.Windows;
 using Common;
 using Extensions.Fluxor;
+using Extensions.Prism;
 using Hardware.Contracts.Cabinet;
 using Kernel;
 using ManagedBink;
 using Microsoft.Extensions.Logging;
 using Monaco.UI.Common;
-using Regions;
-using Toolkit.Mvvm.Extensions;
+using Prism.Regions;
 using Views;
 using static Store.Translate.TranslateSelectors;
 
 public sealed class LayoutManager : ILayoutManager, IDisposable
 {
-    private const string StatusWindowName = "StatusWindow";
-    private const string ShellWindowName = "PlatformWindow";
-
     private readonly ILogger<LayoutManager> _logger;
     private readonly IPropertiesManager _properties;
     private readonly LobbyConfiguration _configuration;
@@ -35,7 +32,6 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
 
     private readonly SubscriptionList _subscriptions = new();
 
-    private Window? _shellWindow;
     private int _activeSkinIndex;
 
     public LayoutManager(
@@ -63,10 +59,8 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
             {
                 _activeSkinIndex = index;
 
-                if (_shellWindow != null)
-                {
-                    ChangeLanguageSkin(_shellWindow);
-                }
+                var shell = _windowLauncher.GetWindow(LobbyConstants.ShellWindowName);
+                ChangeLanguageSkin(shell);
 
                 foreach (var window in _windows)
                 {
@@ -80,7 +74,7 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
     {
         var tcs = new TaskCompletionSource<bool>();
 
-        Execute.OnUIThread(
+        Execute.OnUiThread(
             () =>
             {
                 try
@@ -111,9 +105,9 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
             _skins.Add(SkinLoader.Load(skinFilename));
         }
 
-        _regionManager.RegisterView<LobbyMainView>(RegionNames.Main, ViewNames.Lobby);
-        _regionManager.RegisterView<AttractMainView>(RegionNames.Main, ViewNames.Attract);
-        _regionManager.RegisterView<LoadingMainView>(RegionNames.Main, ViewNames.Loading);
+        //_regionManager.RegisterView<LobbyMainView>(RegionNames.Main, ViewNames.Lobby);
+        //_regionManager.RegisterView<AttractMainView>(RegionNames.Main, ViewNames.Attract);
+        //_regionManager.RegisterView<LoadingMainView>(RegionNames.Main, ViewNames.Loading);
 
         //_regionManager.RegisterView<ChooserView>(RegionNames.Chooser, ViewNames.Chooser);
 
@@ -130,14 +124,16 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
 
         //_regionManager.RegisterView<NotificationView>(RegionNames.Notification, ViewNames.Notification);
 
-        _windowLauncher.Hide(StatusWindowName);
+        //_windowLauncher.CreateWindow<Shell>(ShellWindowName);
 
-        _windowLauncher.CreateWindow<Shell>(ShellWindowName);
+        //_logger.LogDebug("Creating shell windows");
 
-        _logger.LogDebug("Creating shell windows");
-        _shellWindow = _windowLauncher.GetWindow(ShellWindowName);
+        _windowLauncher.Hide(LobbyConstants.StatusWindowName);
 
-        ChangeLanguageSkin(_shellWindow);
+        _windowLauncher.CreateWindow<Shell>(Lobby.LobbyConstants.ShellWindowName);
+        var shell = _windowLauncher.GetWindow(LobbyConstants.ShellWindowName);
+
+        ChangeLanguageSkin(shell);
 
         //var mainGameWindow = new GameMain { Owner = shellWindow }
         //    .ShowWithTouch();
@@ -180,7 +176,10 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
         //_windows.Add(buttonDeckWindow);
         //_windows.Add(buttonDeckGameWindow);
 
-        _regionManager.NavigateToView(RegionNames.Main, ViewNames.Lobby);
+        //_regionManager.RequestNavigate(RegionNames.Shell, ViewNames.Main);
+        //_regionManager.RequestNavigate(RegionNames.Main, ViewNames.Lobby);
+
+        //_regionManager.NavigateToView(RegionNames.Main, ViewNames.Lobby);
         //_regionManager.NavigateToView(RegionNames.Chooser, ViewNames.Chooser);
         //_regionManager.NavigateToView(RegionNames.PaidMeter, ViewNames.PaidMeter);
         //_regionManager.NavigateToView(RegionNames.Banner, ViewNames.Banner);
@@ -210,7 +209,7 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
 
     public void DestroyWindows()
     {
-        Execute.OnUIThread(
+        Execute.OnUiThread(
             () =>
             {
                 foreach (var window in _windows)
@@ -218,9 +217,11 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
                     window.Close();
                 }
 
-                _windowLauncher.Close(ShellWindowName);
+                // _shell?.Close();
 
-                _windowLauncher.Show(StatusWindowName);
+                _windowLauncher.Close(LobbyConstants.ShellWindowName);
+
+                _windowLauncher.Show(LobbyConstants.StatusWindowName);
             });
     }
 }

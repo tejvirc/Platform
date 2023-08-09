@@ -1,28 +1,25 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Consumers;
 
-using System.Collections.Immutable;
 using System.Threading;
 using System.Threading.Tasks;
-using CommandHandlers;
+using Fluxor;
 using Kernel;
 using Store;
 
 public class SystemDisabledConsumer : Consumes<SystemDisabledEvent>
 {
-    private readonly ICommandHandlerFactory _commandHandlers;
+    private readonly IDispatcher _dispatcher;
     private readonly ISystemDisableManager _disableManager;
 
-    public SystemDisabledConsumer(ICommandHandlerFactory commandHandlers, ISystemDisableManager disableManager)
+    public SystemDisabledConsumer(IDispatcher dispatcher, ISystemDisableManager disableManager)
     {
-        _commandHandlers = commandHandlers;
+        _dispatcher = dispatcher;
         _disableManager = disableManager;
     }
 
     public override Task ConsumeAsync(SystemDisabledEvent theEvent, CancellationToken cancellationToken)
     {
-        _commandHandlers.Create<SystemDisabled>().Handle(new SystemDisabled(theEvent.Priority, _disableManager.IsDisabled,
-            _disableManager.DisableImmediately, _disableManager.CurrentDisableKeys,
-            _disableManager.CurrentImmediateDisableKeys));
+        _dispatcher.Dispatch(new SystemDisabledAction(theEvent.Priority, _disableManager.IsDisabled, _disableManager.DisableImmediately));
 
         return Task.CompletedTask;
     }

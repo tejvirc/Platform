@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.17763</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Gaming.Lobby</AssemblyTitle>
     <Nullable>enable</Nullable>
     <Configurations>Debug;Release;Retail</Configurations>
@@ -21,24 +21,38 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="CompositionRoot\Bootstrapper.ReactiveUI.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CompositionRoot\Bootstrapper.ReactiveUI.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Aristocrat.BinkWpf" Version="2.0.0-beta0019" />
-    <PackageReference Include="Aristocrat.Toolkit.Mvvm.Extensions" Version="0.1.6" />
+    <PackageReference Include="Aristocrat.Extensions.Prism" Version="0.1.6" />
+    <!--<PackageReference Include="Aristocrat.Extensions.Fluxor" Version="0.1.6" />-->
+    <!--<PackageReference Include="Aristocrat.Toolkit.Mvvm.Extensions" Version="0.1.6" />-->
     <PackageReference Include="CefSharp.Common.NETCore" Version="110.0.250" />
     <PackageReference Include="CefSharp.OffScreen.NETCore" Version="110.0.250" />
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="110.0.250" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <!--<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />-->
     <PackageReference Include="Fluxor" Version="5.9.0" />
     <PackageReference Include="Fluxor.Blazor.Web.ReduxDevTools" Version="5.7.0" />
-    <!--<PackageReference Include="Fluxor.Selectors" Version="1.0.0-preview.1" />-->
-    <PackageReference Include="Log4Net.AspNetCore" Version="1.2.0-beta0004" />
+    <!--<PackageReference Include="Log4Net.AspNetCore" Version="1.2.0-beta0004" />-->
+    <PackageReference Include="Log4Net.Extensions.Logging" Version="1.2.0-beta0004" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Owin" Version="6.0.14" />
-    <!--<PackageReference Include="Microsoft.Extensions.ObjectPool" Version="6.0.14" />-->
-    <PackageReference Include="SimpleInjector.Integration.AspNetCore" Version="5.4.0" />
+    <!--<PackageReference Include="Microsoft.AspNetCore.Owin" Version="6.0.14" />-->
+    <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="1.2.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="ReactiveUI.WPF" Version="19.4.1" />
+    <!--<PackageReference Include="SimpleInjector.Integration.AspNetCore" Version="5.4.0" />-->
+    <PackageReference Include="SimpleInjector.Integration.ServiceCollection" Version="5.4.0" />
     <PackageReference Include="SimpleInjector.Packaging" Version="5.0.0" />
+    <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.7.1" />
     <PackageReference Include="Stateless" Version="4.0.0" />
-    <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="System.Reactive" Version="6.0.0" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
   </ItemGroup>
@@ -62,8 +76,5 @@
     <Page Update="Styles\Default.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 </Project>

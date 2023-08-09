@@ -2,23 +2,21 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using CommandHandlers;
 using Contracts;
+using Fluxor;
 using Store;
 
 public class GameEnabledConsumer : Consumes<GameEnabledEvent>
 {
-    private readonly ICommandHandlerFactory _commandHandlers;
+    private readonly IDispatcher _dispatcher;
 
-    public GameEnabledConsumer(ICommandHandlerFactory commandHandlers)
+    public GameEnabledConsumer(IDispatcher dispatcher)
     {
-        _commandHandlers = commandHandlers;
+        _dispatcher = dispatcher;
     }
 
-    public override Task ConsumeAsync(GameEnabledEvent theEvent, CancellationToken cancellationToken)
+    public override async Task ConsumeAsync(GameEnabledEvent theEvent, CancellationToken cancellationToken)
     {
-        _commandHandlers.Create<GameEnabled>().Handle(new GameEnabled());
-
-        return Task.CompletedTask;
+        await _dispatcher.DispatchAsync(new GameEnabledAction());
     }
 }

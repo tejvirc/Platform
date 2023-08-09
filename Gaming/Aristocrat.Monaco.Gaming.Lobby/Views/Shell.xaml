@@ -6,10 +6,11 @@
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                  xmlns:views="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Views"
-                 xmlns:mediaDisplay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay;assembly=Aristocrat.Monaco.Gaming.UI"
                  xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.ViewModels"
                  xmlns:regions="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Regions"
                  xmlns:behaviors="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Behaviors"
+                 xmlns:prism="http://prismlibrary.com/"
+                 prism:ViewModelLocator.AutoWireViewModel="True"
                  mc:Ignorable="d" 
                  Title="{Binding Title, Mode=OneWay}"
                  Width="1920"
@@ -22,8 +23,8 @@
                  IgnoreTaskbarOnMaximize="True"
                  Background="Black"
                  BorderThickness="0"
-                 d:DataContext="{d:DesignInstance Type=viewModels:ShellViewModel, IsDesignTimeCreatable=False}"
-                 d:DesignHeight="450" d:DesignWidth="800">
+                 Name="Root"
+                 d:DataContext="{d:DesignInstance Type=viewModels:ShellViewModel, IsDesignTimeCreatable=False}">
 
     <mah:MetroWindow.Resources>
         <ResourceDictionary>
@@ -39,17 +40,19 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <i:Interaction.Behaviors>
-        <behaviors:ScreenMapBehavior x:Name="ScreenMapBehavior" DisplayRole="{Binding DisplayRole, Mode=OneTime}" />
-    </i:Interaction.Behaviors>
-
-    <mediaDisplay:LayoutTemplateDockPanel x:Name="LayoutTemplate" ScreenType="Primary">
-        <Grid x:Name="GameLayout"
-              ClipToBounds="True">
-            <Viewbox x:Name="ViewBoxLobby" Stretch="Uniform">
-                <mah:MetroContentControl regions:RegionManager.Region="{x:Static views:RegionNames.Main}" />
-            </Viewbox>
-        </Grid>
-    </mediaDisplay:LayoutTemplateDockPanel>
-
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <TextBlock DockPanel.Dock="Top" Text="{Binding}" Foreground="White" FontSize="50px" />
+            <Button Click="OnViewRegionClicked" Content="View Region" />
+            <ContentControl x:Name="ShellRegion" prism:RegionManager.RegionName="{x:Static views:RegionNames.Shell}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction Command="{Binding RegionLoadedCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ContentControl>
+        <!--<ContentControl regions:RegionManager.Region="{x:Static views:RegionNames.Shell}" />-->
+        </DockPanel>
+    </Grid>
+    
 </mah:MetroWindow>

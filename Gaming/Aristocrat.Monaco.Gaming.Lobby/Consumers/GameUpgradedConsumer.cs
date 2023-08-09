@@ -2,23 +2,21 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using CommandHandlers;
 using Contracts;
+using Fluxor;
 using Store;
 
 public class GameUpgradedConsumer : Consumes<GameUpgradedEvent>
 {
-    private readonly ICommandHandlerFactory _commandHandlers;
+    private readonly IDispatcher _dispatcher;
 
-    public GameUpgradedConsumer(ICommandHandlerFactory commandHandlers)
+    public GameUpgradedConsumer(IDispatcher dispatcher)
     {
-        _commandHandlers = commandHandlers;
+        _dispatcher = dispatcher;
     }
 
-    public override Task ConsumeAsync(GameUpgradedEvent theEvent, CancellationToken cancellationToken)
+    public override async Task ConsumeAsync(GameUpgradedEvent theEvent, CancellationToken cancellationToken)
     {
-        _commandHandlers.Create<GameUpgraded>().Handle(new GameUpgraded());
-
-        return Task.CompletedTask;
+        await _dispatcher.DispatchAsync(new GameUpgradedAction());
     }
 }

@@ -8,9 +8,17 @@
              xmlns:views="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Views"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.ViewModels"
              xmlns:regions="clr-namespace:Aristocrat.Monaco.Gaming.Lobby.Regions"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=viewModels:LobbyMainViewModel, IsDesignTimeCreatable=False}"
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -23,33 +31,32 @@
 
         <Border Grid.Row="0">
             <Viewbox>
-                <views:ChooserView />
-                <!--<mah:MetroContentControl Grid.Row="0" regions:RegionManager.Region="{x:Static views:RegionNames.Chooser}" /> -->
+                <!--<views:ChooserView />-->
+                <ContentControl prism:RegionManager.RegionName="{x:Static views:RegionNames.Chooser}" /> 
             </Viewbox>
         </Border>
         <Border Grid.Row="1">
             <Viewbox>
-                <views:BannerView />
-                <!--<mah:MetroContentControl Grid.Row="2" regions:RegionManager.Region="{x:Static views:RegionNames.Banner}" />-->
+                <!--<views:BannerView />-->
+                <ContentControl prism:RegionManager.RegionName="{x:Static views:RegionNames.Banner}" />
             </Viewbox>
         </Border>
-        <!--<views:BannerView Grid.Row="1" />-->
         <Border Grid.Row="2">
             <Viewbox>
-                <views:MultiLanguageUpiView />
-                <!--<mah:MetroContentControl Grid.Row="2" regions:RegionManager.Region="{x:Static views:RegionNames.Upi}" />-->
+                <!--<views:MultiLanguageUpiView />-->
+                <ContentControl prism:RegionManager.RegionName="{x:Static views:RegionNames.Upi}" />
             </Viewbox>
         </Border>
         <Border Grid.Row="3">
             <Viewbox>
-                <views:InfoBarView />
-                <!--<mah:MetroContentControl Grid.Row="2" regions:RegionManager.Region="{x:Static views:RegionNames.InfoBar}" />-->
+                <!--<views:InfoBarView />-->
+                <ContentControl prism:RegionManager.RegionName="{x:Static views:RegionNames.InfoBar}" />
             </Viewbox>
         </Border>
         <Border Grid.Row="4">
             <Viewbox>
-                <views:ReplayNavView />
-                <!--<mah:MetroContentControl Grid.Row="2" regions:RegionManager.Region="{x:Static views:RegionNames.ReplayNav}" />-->
+                <!--<views:ReplayNavView />-->
+                <ContentControl prism:RegionManager.RegionName="{x:Static views:RegionNames.ReplayNav}" />
             </Viewbox>
         </Border>
     </Grid>

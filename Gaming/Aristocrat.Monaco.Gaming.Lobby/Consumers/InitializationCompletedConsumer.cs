@@ -2,23 +2,21 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using CommandHandlers;
+using Fluxor;
 using Kernel.Contracts.Events;
 using Store;
 
 public class InitializationCompletedConsumer : Consumes<InitializationCompletedEvent>
 {
-    private readonly ICommandHandlerFactory _commandHandlers;
+    private readonly IDispatcher _dispatcher;
 
-    public InitializationCompletedConsumer(ICommandHandlerFactory commandHandlers)
+    public InitializationCompletedConsumer(IDispatcher dispatcher)
     {
-        _commandHandlers = commandHandlers;
+        _dispatcher = dispatcher;
     }
 
-    public override Task ConsumeAsync(InitializationCompletedEvent theEvent, CancellationToken cancellationToken)
+    public override async Task ConsumeAsync(InitializationCompletedEvent theEvent, CancellationToken cancellationToken)
     {
-        _commandHandlers.Create<InitializationCompleted>().Handle(new InitializationCompleted());
-
-        return Task.CompletedTask;
+        await _dispatcher.DispatchAsync(new SystemInitializedAction());
     }
 }

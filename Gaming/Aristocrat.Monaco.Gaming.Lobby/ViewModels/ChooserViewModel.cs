@@ -7,16 +7,16 @@ using System.Linq;
 using System.Windows;
 using Commands;
 using Common;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Extensions.Fluxor;
 using Microsoft.Extensions.Logging;
+using Prism.Commands;
+using Prism.Mvvm;
 using UI.Converters;
 using UI.Models;
 using UI.ViewModels;
 using static Store.Chooser.ChooserSelectors;
 
-public class ChooserViewModel : ObservableObject
+public class ChooserViewModel : BindableBase
 {
     private readonly ILogger<ChooserViewModel> _logger;
 
@@ -40,13 +40,13 @@ public class ChooserViewModel : ObservableObject
 
         ProgressiveLabelDisplay = new ProgressiveLobbyIndicatorViewModel(GameList);
 
-        LoadedCommand = new RelayCommand(OnLoaded);
-        UnloadedCommand = new RelayCommand(OnUnloaded);
-        ShutdownCommand = new RelayCommand(OnShutdown);
-        GameSelectCommand = new RelayCommand<GameInfo>(OnGameSelected);
-        DenomSelectedCommand = new RelayCommand<DenominationInfoViewModel>(OnDenomSelected);
-        ResponsibleGamingDialogOpenCommand = new RelayCommand(OnResponsibleGamingDialogOpen);
-        DenominationForSpecificGamePressedCommand = new RelayCommand<object[]?>(OnDenominationForSpecificGamePressed);
+        LoadedCommand = new DelegateCommand(OnLoaded);
+        UnloadedCommand = new DelegateCommand(OnUnloaded);
+        ShutdownCommand = new DelegateCommand(OnShutdown);
+        GameSelectCommand = new DelegateCommand<GameInfo>(OnGameSelected);
+        DenomSelectedCommand = new DelegateCommand<DenominationInfoViewModel>(OnDenomSelected);
+        ResponsibleGamingDialogOpenCommand = new DelegateCommand(OnResponsibleGamingDialogOpen);
+        DenominationForSpecificGamePressedCommand = new DelegateCommand<object[]?>(OnDenominationForSpecificGamePressed);
 
         commands.ShutdownCommand.RegisterCommand(ShutdownCommand);
 
@@ -54,19 +54,19 @@ public class ChooserViewModel : ObservableObject
         _subscriptions += selector.Select(SelectChooseGameOffsetY).Subscribe(OnChooseGameOffsetYUpdated);
     }
 
-    public RelayCommand LoadedCommand { get; }
+    public DelegateCommand LoadedCommand { get; }
 
-    public RelayCommand UnloadedCommand { get; }
+    public DelegateCommand UnloadedCommand { get; }
 
-    public RelayCommand ShutdownCommand { get; }
+    public DelegateCommand ShutdownCommand { get; }
 
-    public RelayCommand<GameInfo> GameSelectCommand { get; }
+    public DelegateCommand<GameInfo> GameSelectCommand { get; }
 
-    public RelayCommand<DenominationInfoViewModel> DenomSelectedCommand { get; }
+    public DelegateCommand<DenominationInfoViewModel> DenomSelectedCommand { get; }
 
-    public RelayCommand<object[]?> DenominationForSpecificGamePressedCommand { get; }
+    public DelegateCommand<object[]?> DenominationForSpecificGamePressedCommand { get; }
 
-    public RelayCommand ResponsibleGamingDialogOpenCommand { get; }
+    public DelegateCommand ResponsibleGamingDialogOpenCommand { get; }
 
     public ObservableCollection<GameInfo> GameList { get; } = new();
 

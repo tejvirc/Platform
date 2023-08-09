@@ -2,12 +2,12 @@
 
 using System;
 using Common;
-using CommunityToolkit.Mvvm.ComponentModel;
 using Extensions.Fluxor;
 using Microsoft.Extensions.Logging;
+using Prism.Mvvm;
 using static Store.Attract.AttractSelectors;
 
-public class LobbyTopperViewModel : ObservableObject
+public class LobbyTopperViewModel : BindableBase
 {
     private const string TopperImageDefaultResourceKey = "TopperBackground";
     private const string TopperImageAlternateResourceKey = "TopperBackgroundAlternate";
