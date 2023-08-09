@@ -133,7 +133,6 @@
     <BitmapImage x:Key="VBD_TimeExpired"
                  AutomationProperties.AutomationId="BitmapImage43_6B3D3B77"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_Expired_EN.png" />
-    <!-- **STANDARD UPI** -->
     <!-- **MULTILANGUAGE UPI** -->
     <BitmapImage x:Key="UpiBackground"
                  AutomationProperties.AutomationId="BitmapImage44_6B3D3B77"
@@ -152,19 +151,19 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/CashOut_Dark.png" />
     <BitmapImage x:Key="MenuCashOutNormal"
                  AutomationProperties.AutomationId="BitmapImage49_6B3D3B77"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/Menu_CashOut_RG_Normal_EN.png" />
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/Standard/Menu_CashOut_RG_Normal_EN.png" />
     <BitmapImage x:Key="MenuCashOutPressed"
                  AutomationProperties.AutomationId="BitmapImage50_6B3D3B77"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/Menu_CashOut_RG_Selected_EN.png" />
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/Standard/Menu_CashOut_RG_Selected_EN.png" />
     <BitmapImage x:Key="MenuCashOutDisabled"
                  AutomationProperties.AutomationId="BitmapImage51_6B3D3B77"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/Menu_CashOut_RG_Dark_EN.png" />
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/Standard/Menu_CashOut_RG_Dark_EN.png" />
     <BitmapImage x:Key="AllDenomOff"
                  AutomationProperties.AutomationId="BitmapImage52_6B3D3B77"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/AllDenom_Normal.png" />
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/Standard/AllDenom_Normal.png" />
     <BitmapImage x:Key="AllDenomOn"
                  AutomationProperties.AutomationId="BitmapImage53_6B3D3B77"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/AllDenom_Selected.png" />
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/Upi/Standard/AllDenom_Selected.png" />
     <BitmapImage x:Key="Denom1CentOff"
                  AutomationProperties.AutomationId="BitmapImage54_6B3D3B77"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/1c_Normal.png" />

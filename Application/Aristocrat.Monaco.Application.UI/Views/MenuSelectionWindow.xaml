@@ -162,10 +162,10 @@
                         BorderBrush="{DynamicResource OperatorMenuDark}"
                         Height="100"
                         AutomationProperties.AutomationId="Border32_746B68B4">
-                    <Image Source="../Resources/Aristocrat_Logo_White_Large.png"
+                    <Image Source="../Resources/Aristocrat_Logo_White.png"
                            Stretch="Uniform"
                            VerticalAlignment="Center"
-                           Margin="12"
+                           Margin="0"
                            AutomationProperties.AutomationId="Image33_746B68B4" />
                 </Border>
                 <Border Grid.Row="1"
