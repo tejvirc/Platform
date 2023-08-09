@@ -1,14 +1,11 @@
 ﻿namespace Aristocrat.Bingo.Client
 {
-    using System;
-    using System.Linq;
     using Configuration;
-    using Extensions;
     using Grpc.Core;
     using Messages.Interceptor;
-    using ClientApi = ServerApiGateway.ClientApi.ClientApiClient;
+    using BingoClientApi = ServerApiGateway.ClientApi.ClientApiClient;
 
-    public class BingoClient : BaseClient<ClientApi>, IClientEndpointProvider<ClientApi>
+    public class BingoClient : BaseClient<BingoClientApi>, IClientEndpointProvider<BingoClientApi>
     {
         public BingoClient(
             IClientConfigurationProvider configurationProvider,
@@ -20,17 +17,7 @@
 
         public override string FirewallRuleName => "Platform.Bingo.Server";
 
-        public override Channel CreateChannel()
-        {
-            var configuration = ConfigurationProvider.CreateConfiguration();
-            var credentials = configuration.Certificates.Any()
-                ? new SslCredentials(
-                    string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))
-                : ChannelCredentials.Insecure;
-            return new Channel(configuration.Address.Host, configuration.Address.Port, credentials);
-        }
-
-        public override ClientApi CreateClient(CallInvoker callInvoker)
+        public override BingoClientApi CreateClient(CallInvoker callInvoker)
         {
             return new (callInvoker);
         }

@@ -7,14 +7,14 @@
     using Grpc.Core;
     using log4net;
 
-    public class ClientServerStreamingLogger<TRequest> : IAsyncStreamReader<TRequest>
+    public class ServerStreamingLogger<TRequest> : IAsyncStreamReader<TRequest>
     {
         // ReSharper disable once StaticMemberInGenericType
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IAsyncStreamReader<TRequest> _caller;
         private readonly Action _action;
 
-        public ClientServerStreamingLogger(IAsyncStreamReader<TRequest> caller, Action messageReceived)
+        public ServerStreamingLogger(IAsyncStreamReader<TRequest> caller, Action messageReceived)
         {
             _caller = caller ?? throw new ArgumentNullException(nameof(caller));
             _action = messageReceived;

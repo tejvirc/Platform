@@ -25490,6 +25490,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not&am....
+		/// </summary>
+		public static string Printer_DfuInProgress {
+			get {
+				return ResourceManager.GetString("Printer_DfuInProgress", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Printer Disabled.
 		/// </summary>
         /// <remarks>
@@ -62041,6 +62050,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not&am....
+		/// </summary>
+		public static string Printer_DfuInProgress {
+			get {
+				return "Printer_DfuInProgress";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Printer Disabled.
 		/// </summary>
         /// <remarks>
@@ -87653,6 +87671,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting.UI
         /// </remarks>
 		Printed,
+		/// <summary>
+		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not&am....
+		/// </summary>
+		Printer_DfuInProgress,
 		/// <summary>
 		///   Looks up a localized string similar to Printer Disabled.
 		/// </summary>

@@ -765,8 +765,13 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 
             SetDeviceInformation(NoteAcceptor.DeviceConfiguration);
 
-            VariantNameText = NoteAcceptor.DeviceConfiguration.VariantName;
-            VariantVersionText = NoteAcceptor.DeviceConfiguration.VariantVersion;
+            VariantNameText = string.IsNullOrEmpty(NoteAcceptor.DeviceConfiguration.VariantName) ?
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable) :
+                NoteAcceptor.DeviceConfiguration.VariantName;
+
+            VariantVersionText = string.IsNullOrEmpty(NoteAcceptor.DeviceConfiguration.VariantVersion) ?
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable) :
+                NoteAcceptor.DeviceConfiguration.VariantVersion;
             SetActivationDateTime();
         }
 

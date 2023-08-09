@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Contracts;
     using Newtonsoft.Json;
 
@@ -23,13 +22,14 @@
                 SubGames = new List<SubGameInformation>()
             };
 
-            foreach (var subGameInfo in @this.Select(
-                         subGame => new SubGameInformation
-                         {
-                             GameId = subGame.Id, Denominations = subGame.SupportedDenoms
-                         }))
+            foreach (var subGameInfo in @this)
             {
-                subGameSerialization.SubGames.Add(subGameInfo);
+                subGameSerialization.SubGames.Add(
+                    new SubGameInformation
+                        {
+                            GameId = subGameInfo.Id,
+                            Denominations = subGameInfo.SupportedDenoms
+                        });
             }
 
             return JsonConvert.SerializeObject(subGameSerialization);
