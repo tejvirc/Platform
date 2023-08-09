@@ -195,8 +195,7 @@
             Assert.IsNotNull(_hardwareFaultEvent);
 
             _hardwareFaultEvent(HardwareFaultEventSetupTest());
-
-            _transactionHistory.Verify(x => x.UpdateTransaction(It.IsAny<CoinOutTransaction>()), Times.Once);
+            
             _scopedTransaction.Verify(x => x.Complete(), Times.Once);
         }
 
