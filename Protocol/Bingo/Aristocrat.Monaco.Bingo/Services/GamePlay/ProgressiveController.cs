@@ -8,6 +8,8 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Aristocrat.Bingo.Client.Messages;
+    using Aristocrat.Sas.Client.LongPollDataClasses;
+    using Aristocrat.ServerApiGateway;
     using Common;
     using Common.Events;
     using Common.Storage.Model;
@@ -69,8 +71,7 @@
             IProgressiveClaimService progressiveClaimService,
             IProgressiveAwardService progressiveAwardService,
             IPropertiesManager propertiesManager,
-            IBingoGameOutcomeHandler bingoGameOutcomeHandler
-            )
+            IBingoGameOutcomeHandler bingoGameOutcomeHandler)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
@@ -96,6 +97,8 @@
         /// <inheritdoc />
         public void AwardJackpot(string poolName, long amountInPennies)
         {
+            Logger.Debug($"AwardJackpot, poolName={poolName}, amountInPennies={amountInPennies}");
+
             if (_gameHistory?.CurrentLog.PlayState == PlayState.Idle)
             {
                 return;
@@ -126,16 +129,6 @@
             var progressiveId = level.ProgressiveId;
             lock (_pendingAwardsLock)
             {
-                // add to pending if another level is hit
-                if (_pendingAwards.All(x => x.progressiveLevelId != levelId))
-                {
-                    Logger.Info($"Adding pending linked level for {poolName} amount={amountInPennies} LevelId={levelId} awardId={progressiveId}");
-                    _pendingAwards!.Add((poolName, levelId, amountInPennies, progressiveId));
-
-                    UpdatePendingAwards();
-
-                    return;
-                }
 
                 var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
 
@@ -344,7 +337,7 @@
                         _pendingAwards.Add((poolName, response.Result.ProgressiveLevelId, response.Result.ProgressiveWinAmount, response.Result.ProgressiveAwardId));
                     }
 
-                    // TODO will need to persist the _pending award value in persistent storage
+                    UpdatePendingAwards();
                 }
             }
         }
@@ -360,16 +353,41 @@
                 return;
             }
 
+            // Must get the win amount out of the pending awards. The value in the event will not be correct.
+            var winAmount = 0L;
+            var matchPoolName = GetPoolName(linkedLevel.LevelName);
+            lock (_pendingAwardsLock)
+            {
+                (string, long, long, int) pendingAwardToRemove = new();
+                var matched = false;
+                foreach (var pendingAward in _pendingAwards)
+                {
+                    if (pendingAward.poolName == matchPoolName)
+                    {
+                        winAmount = pendingAward.amountInPennies;
+                        pendingAwardToRemove = pendingAward;
+                        matched = true;
+                        break;
+                    }
+                }
+
+                if (matched)
+                {
+                    _pendingAwards.Remove(pendingAwardToRemove);
+                    UpdatePendingAwards();
+                }
+            }
+
             Logger.Debug(
                 $"AwardJackpot progressiveLevel = {evt.Level.LevelName} " +
                 $"linkedLevel = {linkedLevel.LevelName} " +
-                $"amountInPennies = {linkedLevel.ClaimStatus.WinAmount} " +
+                $"amountInPennies = {winAmount} " +
                 $"CurrentValue = {evt.Level.CurrentValue}");
 
             _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(linkedLevel.LevelName, ProtocolNames.Bingo);
             var poolName = GetPoolName(linkedLevel.LevelName);
-            AwardJackpot(poolName, linkedLevel.ClaimStatus.WinAmount);
-            _protocolLinkedProgressiveAdapter.AwardLinkedProgressiveLevel(linkedLevel.LevelName, linkedLevel.ClaimStatus.WinAmount, ProtocolNames.Bingo);
+            AwardJackpot(poolName, winAmount);
+            _protocolLinkedProgressiveAdapter.AwardLinkedProgressiveLevel(linkedLevel.LevelName, winAmount, ProtocolNames.Bingo);
         }
 
         private LinkedProgressiveLevel UpdateLinkedProgressiveLevels(
