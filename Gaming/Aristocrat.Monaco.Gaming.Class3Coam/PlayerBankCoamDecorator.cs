@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Class3Coam
+namespace Aristocrat.Monaco.Gaming.Class3Coam
 {
     using System;
     using System.Collections.Generic;
@@ -22,6 +22,7 @@
         private readonly IHandCountService _handCountService;
         private readonly ICashOutAmountCalculator _cashOutAmountCalculator;
         private readonly ITransferOutHandler _transferOutHandler;
+        private readonly IEventBus _bus;
 
         private static readonly object _lockObject = new();
 
@@ -29,12 +30,14 @@
             IPlayerBank decorated,
             IHandCountService handCountService,
             ITransferOutHandler transferOutHandler,
-            ICashOutAmountCalculator cashOutAmountCalculator)
+            ICashOutAmountCalculator cashOutAmountCalculator,
+            IEventBus bus)
         {
             _decorated = decorated ?? throw new ArgumentNullException(nameof(decorated));
             _handCountService = handCountService ?? throw new ArgumentNullException(nameof(handCountService));
             _cashOutAmountCalculator = cashOutAmountCalculator ?? throw new ArgumentNullException(nameof(cashOutAmountCalculator));
             _transferOutHandler = transferOutHandler ?? throw new ArgumentNullException(nameof(transferOutHandler));
+            _bus = bus ?? throw new ArgumentNullException(nameof(bus));
         }
 
         public long Balance => _decorated.Balance;
@@ -66,7 +69,7 @@
                     }
 
                     var amountCashable = _cashOutAmountCalculator.GetCashableAmount(_decorated.Balance);
-                    return amountCashable > 0 ? _decorated.CashOut(amountCashable) : true;
+                    return amountCashable <= 0 || CoamCashOut(amountCashable);
                 }
             }
             else
@@ -98,5 +101,23 @@
         public void Wager(long amount) => _decorated.Wager(amount);
 
         public void WaitForLock() => _decorated.WaitForLock();
+
+        private bool CoamCashOut(long amount)
+        {
+            Logger.Debug($"CoamCashOut: amount={amount}");
+
+            _bus.Publish(new CashOutStartedEvent(false, Balance == amount));
+
+            var success = _transferOutHandler.TransferOut(AccountType.Cashable, amount, TransferOutReason.CashOut);
+
+            if (!success)
+            {
+                _bus.Publish(new CashOutAbortedEvent());
+            }
+
+            Logger.Debug($"CoamCashOut: success={success}");
+
+            return success;
+        }
     }
 }
