@@ -1,9 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Models
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class ResponsibleGamingInfoPage : BaseObservableObject
+    public class ResponsibleGamingInfoPage : ObservableObject
     {
         private int _index;
         private string _backgroundKey;

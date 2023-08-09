@@ -1,8 +1,7 @@
 namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
 
@@ -11,7 +10,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
     ///     This is created by the display page viewmodel implementation for use in displays page UIs.
     /// </summary>
     [CLSCompliant(false)]
-    public class DisplayStatus : BaseObservableObject
+    public class DisplayStatus : ObservableObject
     {
         private bool _disconnected;
         private string _status;

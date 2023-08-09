@@ -1,13 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
     using Kernel;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
 
     [CLSCompliant(false)]
-    public class StatusMessage : BaseObservableObject
+    public class StatusMessage : ObservableObject
     {
         private readonly DisplayableMessage _displayableMessage;
         private readonly string _resourceKey;

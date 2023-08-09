@@ -1,17 +1,17 @@
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
+    using Accounting.Contracts;
     using Accounting.Contracts.HandCount;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.HandCount;
     using Kernel;
     using Monaco.UI.Common;
-    using Accounting.Contracts;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
 
     /// <summary>
     ///     Defines the HandCountTimerDialogViewModel class
     /// </summary>
-    public class HandCountTimerDialogViewModel : BaseObservableObject, IDisposable
+    public class HandCountTimerDialogViewModel : ObservableObject, IDisposable
     {
         private const double InitialTimeSeconds = 45.0;
         private const double ResetTimerIntervalSeconds = 1.0;

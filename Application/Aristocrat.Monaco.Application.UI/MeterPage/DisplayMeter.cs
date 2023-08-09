@@ -1,7 +1,7 @@
 namespace Aristocrat.Monaco.Application.UI.MeterPage
 {
     using System;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.Localization;
@@ -12,7 +12,7 @@ namespace Aristocrat.Monaco.Application.UI.MeterPage
     ///     This is created by the meters page viewmodel implementation for use in meters page UIs.
     /// </summary>
     [CLSCompliant(false)]
-    public class DisplayMeter : BaseObservableObject, IDisposable
+    public class DisplayMeter : ObservableObject, IDisposable
     {
         private bool _showLifetime;
         private bool _useOperatorCultureForCurrency;

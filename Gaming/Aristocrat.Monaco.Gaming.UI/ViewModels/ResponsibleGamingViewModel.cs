@@ -3,14 +3,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using Models;
 
     /// <summary>
     ///     Helper class to handle responsible gaming parts of the lobby ViewModel.
     /// </summary>
-    public class ResponsibleGamingViewModel : BaseObservableObject
+    public class ResponsibleGamingViewModel : ObservableObject
     {
         private readonly LobbyViewModel _lobby;
         private readonly int _infoPageCount = 5;

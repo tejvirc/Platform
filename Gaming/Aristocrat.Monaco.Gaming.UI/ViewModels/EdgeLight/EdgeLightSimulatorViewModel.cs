@@ -4,15 +4,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Media;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.EdgeLight.Contracts;
     using Hardware.EdgeLight.Device;
     using Hardware.EdgeLight.Strips;
     using Kernel;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
 
-    public class EdgeLightSimulatorViewModel : BaseObservableObject
+    public class EdgeLightSimulatorViewModel : ObservableObject
     {
         private readonly SimEdgeLightDevice _device;
 
@@ -220,7 +219,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
             public List<Led> Leds { get; }
         }
 
-        public class Led : BaseObservableObject
+        public class Led : ObservableObject
         {
             private Color _color;
             internal Led(Color color)

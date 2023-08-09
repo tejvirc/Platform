@@ -3,19 +3,20 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     using System;
     using System.Collections.Concurrent;
     using System.Threading.Tasks;
+    using System.Windows;
     using Accounting.Contracts;
     using Application.Contracts;
+    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Cabinet.Contracts;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Gaming.Contracts;
     using Kernel;
     using log4net;
     using Menu;
     using Services;
     using Views;
-    using System.Windows;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
 
-    public class HostPageViewModelManager : BaseObservableObject, IMenuAccessService, IDisposable
+    public class HostPageViewModelManager : ObservableObject, IMenuAccessService, IDisposable
     {
         private static readonly Guid RaceInfoTransactionRequestorId = new Guid("5297D108-9F34-4174-BE9F-716538519FBA");
 

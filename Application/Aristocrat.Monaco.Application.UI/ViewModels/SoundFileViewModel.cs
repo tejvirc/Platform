@@ -1,10 +1,10 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
-    public class SoundFileViewModel : BaseObservableObject
+    public class SoundFileViewModel : ObservableObject
     {
         private string _name;
         private string _path;

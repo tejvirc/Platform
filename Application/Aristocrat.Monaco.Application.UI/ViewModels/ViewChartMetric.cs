@@ -37,7 +37,8 @@
                     LineSeries.IsVisible = MetricEnabled;
                 }
 
-                OnPropertyChanged(nameof(MetricEnabled), nameof(LineSeries));
+                OnPropertyChanged(nameof(MetricEnabled));
+                OnPropertyChanged(nameof(LineSeries));
             }
         }
 

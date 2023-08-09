@@ -4,6 +4,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Collections.ObjectModel;
     using System.Linq;
     using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts;
@@ -14,7 +15,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Models;
 
     [CLSCompliant(false)]
-    public class VolumeViewModel : BaseObservableObject
+    public class VolumeViewModel : ObservableObject
     {
         protected readonly ILog Logger;
         private readonly IPropertiesManager _propertiesManager;

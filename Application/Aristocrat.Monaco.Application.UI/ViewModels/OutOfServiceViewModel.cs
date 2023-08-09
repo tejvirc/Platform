@@ -2,7 +2,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Windows.Input;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
@@ -10,7 +10,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Monaco.Localization.Properties;
 
     [CLSCompliant(false)]
-    public class OutOfServiceViewModel : BaseObservableObject
+    public class OutOfServiceViewModel : ObservableObject
     {
         private readonly IEventBus _eventBus;
         private readonly IDisableByOperatorManager _disableByOperatorManager;

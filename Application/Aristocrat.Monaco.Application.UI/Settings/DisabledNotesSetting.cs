@@ -1,15 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Settings
 {
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Extensions;
     using Hardware.Contracts.NoteAcceptor;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
     using Newtonsoft.Json;
 
     /// <summary>
     ///     Contains the settings for disabled notes.
     /// </summary>
-    internal class DisabledNotesSetting : BaseObservableObject
+    internal class DisabledNotesSetting : ObservableObject
     {
         private int _denom;
         private string _isoCode;

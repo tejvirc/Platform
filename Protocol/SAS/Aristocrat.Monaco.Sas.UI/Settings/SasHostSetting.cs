@@ -1,15 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Sas.UI.Settings
 {
     using Application.Contracts.Extensions;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Newtonsoft.Json;
     using Storage.Models;
 
     /// <summary>
     ///     Gets the settings for a particular SAS host
     /// </summary>
-    public class SasHostSetting : BaseObservableObject
+    public class SasHostSetting : ObservableObject
     {
         private long _accountingDenom;
         private byte _sasAddress;

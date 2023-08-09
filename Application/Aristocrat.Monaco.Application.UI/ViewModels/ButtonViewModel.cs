@@ -1,15 +1,14 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Hardware.Contracts.Button;
     using Kernel;
 
     [CLSCompliant(false)]
-    public class ButtonViewModel : BaseObservableObject
+    public class ButtonViewModel : ObservableObject
     {
         private readonly IButtonService _button;
         private readonly object _context = new object();

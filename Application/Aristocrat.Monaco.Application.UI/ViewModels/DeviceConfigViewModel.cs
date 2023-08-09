@@ -6,8 +6,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Collections.Specialized;
     using System.Linq;
     using System.Reflection;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts.SerialPorts;
@@ -21,7 +20,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using DeviceConfiguration = Models.DeviceConfiguration;
 
     [CLSCompliant(false)]
-    public class DeviceConfigViewModel : BaseObservableObject
+    public class DeviceConfigViewModel : ObservableObject
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly ISerialPortsService SerialPortsService = ServiceManager.GetInstance().TryGetService<ISerialPortsService>();

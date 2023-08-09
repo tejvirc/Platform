@@ -1,14 +1,13 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.ConfigWizard;
     using Hardware.Contracts.KeySwitch;
     using Kernel;
 
     [CLSCompliant(false)]
-    public class KeyViewModel : BaseObservableObject
+    public class KeyViewModel : ObservableObject
     {
         private readonly IKeySwitch _button;
         private readonly object _context = new object();

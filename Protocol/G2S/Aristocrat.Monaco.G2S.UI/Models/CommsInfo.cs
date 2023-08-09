@@ -1,16 +1,15 @@
 ﻿namespace Aristocrat.Monaco.G2S.UI.Models
 {
-    using Aristocrat.G2S.Protocol.v21;
     using System;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using Aristocrat.G2S.Protocol.v21;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Monaco.Application.Contracts.Localization;
     using Monaco.Localization.Properties;
 
     /// <summary>
     ///     Comms info model
     /// </summary>
-    public class CommsInfo : BaseObservableObject
+    public class CommsInfo : ObservableObject
     {
         private Uri _address;
         private int _hostId;

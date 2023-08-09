@@ -1,7 +1,7 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.ConfigWizard;
     using Contracts.Localization;
@@ -10,7 +10,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Monaco.Localization.Properties;
 
     [CLSCompliant(false)]
-    public class DoorViewModel : BaseObservableObject
+    public class DoorViewModel : ObservableObject
     {
         private readonly object _context = new object();
         private readonly IInspectionService _reporter;
@@ -56,7 +56,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             {
                 if (SetProperty(ref _closed, value, nameof(Closed)))
                 {
-                    OnPropertyChanged(nameof(Action), nameof(Message), nameof(IsTestPassed));
+                    OnPropertyChanged(nameof(Action));
+                    OnPropertyChanged(nameof(Message));
+                    OnPropertyChanged(nameof(IsTestPassed));
                 }
 
             }
@@ -71,7 +73,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             {
                 if (SetProperty(ref _lastOpened, value, nameof(LastOpened)))
                 {
-                    OnPropertyChanged(nameof(Message), nameof(IsTestPassed));
+                    OnPropertyChanged(nameof(Message));
+                    OnPropertyChanged(nameof(IsTestPassed));
                 }
             }
         }

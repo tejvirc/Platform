@@ -9,7 +9,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Configuration;
     using Contracts.Models;
@@ -20,7 +20,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using PackageManifest.Models;
     using Progressives;
 
-    public class EditableGameConfiguration : BaseObservableObject, IDisposable
+    public class EditableGameConfiguration : ObservableObject, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
@@ -155,11 +155,13 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         public string WarningText
         {
             get => _warningText;
-            set => SetProperty(
-                ref _warningText,
-                value,
-                nameof(WarningText),
-                nameof(CanEdit));
+            set
+            {
+                if (SetProperty(ref _warningText, value))
+                {
+                    OnPropertyChanged(nameof(CanEdit));
+                }
+            }
         }
 
         public long BaseDenom { get; }
@@ -321,12 +323,15 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         public bool ProgressiveSetupConfigured
         {
             get => _progressiveSetupConfigured;
-            set => SetProperty(
-                ref _progressiveSetupConfigured,
-                value,
-                nameof(ProgressiveSetupConfigured),
-                nameof(ProgressiveSetupText),
-                nameof(ProgressiveViewVisibility));
+            set
+            {
+                if (SetProperty(ref _progressiveSetupConfigured, value))
+                {
+                    OnPropertyChanged(nameof(ProgressiveSetupText));
+                    OnPropertyChanged(nameof(ProgressiveViewVisibility));
+                }
+            }
+
         }
 
         public bool ProgressiveSetupVisibility => ProgressivesEnabled && !ProgressiveViewVisibility;
@@ -344,19 +349,18 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                     return;
                 }
 
-                OnPropertyChanged(
-                    nameof(CanEditAndEnabled),
-                    nameof(CanEditAndEnableGamble),
-                    nameof(CanEditAndEnableLetItRide),
-                    nameof(BetOptionEnabled),
-                    nameof(LineOptionEnabled),
-                    nameof(BonusBetEnabled),
-                    nameof(ProgressiveSetupEnabled),
-                    nameof(CanEdit),
-                    nameof(CanToggleEnabled),
-                    nameof(ProgressiveViewVisibility),
-                    nameof(ProgressiveSetupVisibility),
-                    nameof(GameOptionsEnabled));
+                OnPropertyChanged(nameof(CanEditAndEnabled));
+                OnPropertyChanged(nameof(CanEditAndEnableGamble));
+                OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
+                OnPropertyChanged(nameof(BetOptionEnabled));
+                OnPropertyChanged(nameof(LineOptionEnabled));
+                OnPropertyChanged(nameof(BonusBetEnabled));
+                OnPropertyChanged(nameof(ProgressiveSetupEnabled));
+                OnPropertyChanged(nameof(CanEdit));
+                OnPropertyChanged(nameof(CanToggleEnabled));
+                OnPropertyChanged(nameof(ProgressiveViewVisibility));
+                OnPropertyChanged(nameof(ProgressiveSetupVisibility));
+                OnPropertyChanged(nameof(GameOptionsEnabled));
                 SetProgressivesConfigured();
             }
         }
@@ -366,12 +370,14 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         public bool ProgressivesEditable
         {
             get => _progressivesEditable;
-            private set => SetProperty(
-                ref _progressivesEditable,
-                value,
-                nameof(ProgressivesEditable),
-                nameof(ProgressiveSetupVisibility),
-                nameof(ProgressiveViewVisibility));
+            private set
+            {
+                if (SetProperty(ref _progressivesEditable, value))
+                {
+                    OnPropertyChanged(nameof(ProgressiveSetupVisibility));
+                    OnPropertyChanged(nameof(ProgressiveViewVisibility));
+                }
+            }
         }
 
         public bool MaxDenomEntriesReached
@@ -385,12 +391,11 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 }
 
                 _maxDenomEntriesReached = value;
-                OnPropertyChanged(
-                    nameof(CanToggleEnabled),
-                    nameof(CanEditAndEnabled),
-                    nameof(CanEditAndEnableGamble),
-                    nameof(CanEditAndEnableLetItRide),
-                    nameof(CanEdit));
+                OnPropertyChanged(nameof(CanToggleEnabled));
+                OnPropertyChanged(nameof(CanEditAndEnabled));
+                OnPropertyChanged(nameof(CanEditAndEnableGamble));
+                OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
+                OnPropertyChanged(nameof(CanEdit));
                 SetWarningText();
             }
         }
@@ -427,16 +432,18 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         public bool RestrictedToReadOnly
         {
             get => _restrictedToReadOnly;
-            set => SetProperty(
-                ref _restrictedToReadOnly,
-                value,
-                nameof(RestrictedToReadOnly),
-                nameof(CanToggleEnabled),
-                nameof(CanEditAndEnableGamble),
-                nameof(CanEditAndEnableLetItRide),
-                nameof(CanEditAndEnabled),
-                nameof(BetOptionEnabled),
-                nameof(LineOptionEnabled));
+            set
+            {
+                if (SetProperty(ref _restrictedToReadOnly, value))
+                {
+                    OnPropertyChanged(nameof(CanToggleEnabled));
+                    OnPropertyChanged(nameof(CanEditAndEnableGamble));
+                    OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
+                    OnPropertyChanged(nameof(CanEditAndEnabled));
+                    OnPropertyChanged(nameof(BetOptionEnabled));
+                    OnPropertyChanged(nameof(LineOptionEnabled));
+                }
+            }
         }
 
         public decimal Denom => BaseDenom / _denomMultiplier;
@@ -663,7 +670,8 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
         public void UpdateCurrencyCulture()
         {
-            OnPropertyChanged(nameof(DenomString), nameof(MaxBet));
+            OnPropertyChanged(nameof(DenomString));
+            OnPropertyChanged(nameof(MaxBet));
         }
 
         public void SetAllowedRtpRange(decimal? lowestAllowed, decimal? highestAllowed)
@@ -898,7 +906,9 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             // Raise this in case we change variation while editing and we have different bonus bets. Note
             // that if someone actually does want to do this, you need to enforce that the game's various
             // ati:betOption manifest entries have unique names. Otherwise they just get coalesced.
-            OnPropertyChanged(nameof(SelectedBonusBet), nameof(BonusBets), nameof(BonusBetAvailable));
+            OnPropertyChanged(nameof(SelectedBonusBet));
+            OnPropertyChanged(nameof(BonusBets));
+            OnPropertyChanged(nameof(BonusBetAvailable));
         }
 
         private long RecalculateTopAward()

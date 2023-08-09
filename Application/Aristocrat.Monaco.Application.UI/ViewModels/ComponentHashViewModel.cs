@@ -1,11 +1,10 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
-    public class ComponentHashViewModel : BaseObservableObject
+    public class ComponentHashViewModel : ObservableObject
     {
         public string ComponentId { get; set; }
 

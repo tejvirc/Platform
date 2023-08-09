@@ -1,12 +1,11 @@
 namespace Aristocrat.Monaco.Application.UI.StatusDisplay
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
     using System;
     using System.Collections.ObjectModel;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
-    public class DisplayBoxViewModel : BaseObservableObject
+    public class DisplayBoxViewModel : ObservableObject
     {
         private ObservableCollection<string> _messages;
 

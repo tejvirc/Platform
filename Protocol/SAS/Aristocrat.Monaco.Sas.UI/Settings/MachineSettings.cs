@@ -1,15 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Sas.UI.Settings
 {
     using System.Collections.ObjectModel;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.SASProperties;
     using Gaming.Contracts;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     SAS machine settings.
     /// </summary>
-    public class MachineSettings : BaseObservableObject
+    public class MachineSettings : ObservableObject
     {
         private PortAssignmentSetting _portAssignmentSetting;
         private SasFeaturesSettings _sasFeaturesSettings;

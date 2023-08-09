@@ -2,12 +2,11 @@
 {
     using System;
     using Aristocrat.Monaco.Application.Contracts.Localization;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Hardware.Contracts.TowerLight;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
 
     [CLSCompliant(false)]
-    public class LocalizableFlashState : BaseObservableObject
+    public class LocalizableFlashState : ObservableObject
     {
         public LocalizableFlashState(FlashState state)
         {

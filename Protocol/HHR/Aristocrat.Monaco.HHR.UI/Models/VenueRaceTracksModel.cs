@@ -1,11 +1,11 @@
 namespace Aristocrat.Monaco.Hhr.UI.Models
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class VenueRaceTracksModel : BaseObservableObject
+    public class VenueRaceTracksModel : ObservableObject
     {
         private bool _raceStarted;
 

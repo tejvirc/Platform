@@ -1,19 +1,17 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
-    using Aristocrat.Monaco.Application.Contracts.Localization;
-    using CefSharp.DevTools.CSS;
     using System.Collections.Generic;
     using System.Linq;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
     using Aristocrat.Monaco.Application.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using Aristocrat.Monaco.Application.Protocol;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Monaco.Localization.Properties;
     using Mono.Addins;
 
     [CLSCompliant(false)]
-    public class ProtocolSelection : BaseObservableObject
+    public class ProtocolSelection : ObservableObject
     {
         private const string ProtocolExtensionPath = "/Protocol/Runnables";
 
@@ -129,7 +127,7 @@
             _protocolCapabilities = (ProtocolCapabilityAttribute)Attribute.GetCustomAttribute(
                 protocolNode.Type,
                 typeof(ProtocolCapabilityAttribute));
-            
+
             var protocolCapabilityList = new List<string>();
 
             if (_protocolCapabilities != null)

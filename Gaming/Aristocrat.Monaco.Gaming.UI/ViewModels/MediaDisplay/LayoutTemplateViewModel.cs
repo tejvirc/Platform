@@ -1,15 +1,15 @@
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
-    using Application.Contracts.Media;
-    using MediaDisplay;
-    using Kernel;
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Application.Contracts.Media;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using Kernel;
+    using MediaDisplay;
 
-    public class LayoutTemplateViewModel : BaseObservableObject, IDisposable
+    public class LayoutTemplateViewModel : ObservableObject, IDisposable
     {
         private readonly IMediaProvider _provider;
         private readonly DisplayType _displayType;
@@ -18,7 +18,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private IEventBus _eventBus;
         private ScreenType? _screenType;
         private double _windowWidth;
-        private double _windowHeight; 
+        private double _windowHeight;
 
         public event EventHandler<int> BrowserProcessTerminated;
 
@@ -160,7 +160,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             // Highest priority visible players should be scaled proportionately
             var visiblePlayers = MediaPlayers.Where(p => p.IsVisible).OrderBy(p => p.Priority).ToList();
-            
+
             // Scale all but the last in the list
             MediaPlayerViewModelBase lastVisible = null;
             if (visiblePlayers.Count > 1)

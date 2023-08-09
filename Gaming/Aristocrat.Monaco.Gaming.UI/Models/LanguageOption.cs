@@ -1,8 +1,8 @@
 namespace Aristocrat.Monaco.Gaming.UI.Models
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class LanguageOption : BaseObservableObject
+    public class LanguageOption : ObservableObject
     {
         private bool _isDefault;
         private bool _isEnabled;

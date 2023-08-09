@@ -12,6 +12,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Windows.Media;
     using Application.Helpers;
     using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
@@ -543,7 +544,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     }
 
     [CLSCompliant(false)]
-    public class Metric : BaseObservableObject
+    public class Metric : ObservableObject
     {
         private string _metricName;
         private double _currentValue;

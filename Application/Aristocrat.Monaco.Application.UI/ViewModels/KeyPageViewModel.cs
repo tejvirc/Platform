@@ -4,7 +4,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Collections.ObjectModel;
     using System.Linq;
     using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using ConfigWizard;
     using Contracts.Identification;
     using Contracts.Localization;
@@ -36,7 +36,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _identificationValidator = ServiceManager.GetInstance().TryGetService<IIdentificationValidator>();
         }
 
-        public ObservableCollection<BaseObservableObject> Keys { get; } = new ObservableCollection<BaseObservableObject>();
+        public ObservableCollection<ObservableObject> Keys { get; } = new ObservableCollection<ObservableObject>();
 
         public KeyViewModel PlayKey
         {

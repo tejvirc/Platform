@@ -1,8 +1,7 @@
 namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
     using Hardware.Contracts.Reel;
     using Kernel;
@@ -12,7 +11,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
     ///     Definition of the ReelInfoItem class.
     /// </summary>
     [CLSCompliant(false)]
-    public class ReelInfoItem : BaseObservableObject
+    public class ReelInfoItem : ObservableObject
     {
         private const int MaximumReelSteps = 199;
         private const int MaximumReelStops = 22;
@@ -137,7 +136,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
                 OnPropertyChanged(nameof(Step));
             }
         }
-        
+
         /// <summary>
         ///     Gets the number of steps to offset
         /// </summary>
@@ -156,7 +155,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
                 _eventBus?.Publish(new PropertyChangedEvent(nameof(OffsetSteps)));
             }
         }
-        
+
         /// <summary>
         ///     Gets the step to spin to
         /// </summary>

@@ -1,8 +1,8 @@
 namespace Aristocrat.Monaco.Hhr.UI.Models
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class HorseModel : BaseObservableObject
+    public class HorseModel : ObservableObject
     {
         private int _racePosition;
 

@@ -1,11 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
-    public class Lamp : BaseObservableObject
+    public class Lamp : ObservableObject
     {
         private uint _bit;
         private bool _state;

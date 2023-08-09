@@ -2,20 +2,20 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Windows.Input;
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Transactions;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Localization.Properties;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
-    using System.ComponentModel.DataAnnotations;
 
     [CLSCompliant(false)]
     public class KeyedCreditsPageViewModel : OperatorMenuPageViewModelBase
@@ -310,7 +310,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             return new(errors);
         }
 
-        public class Credit : BaseObservableObject
+        public class Credit : ObservableObject
         {
             private long _value;
             private string _formattedValue;

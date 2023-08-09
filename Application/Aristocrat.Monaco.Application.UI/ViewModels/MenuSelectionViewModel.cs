@@ -13,6 +13,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Windows.Input;
     using Accounting.Contracts;
     using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Extensions;
@@ -40,9 +41,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     /// <summary>
     ///     A DiscovererViewModel contains the logic for MenuSelectionWindow.xaml.cs
     /// </summary>
-    /// <seealso cref="BaseObservableObject" />
+    /// <seealso cref="ObservableObject" />
     [CLSCompliant(false)]
-    public sealed class MenuSelectionViewModel : BaseObservableObject, IOperatorMenuConfigObject, IDisposable
+    public sealed class MenuSelectionViewModel : ObservableObject, IOperatorMenuConfigObject, IDisposable
     {
         private const double DayTimerIntervalSeconds = 1.0;
         private const string DemoModeProperty = "System.DemoMode";

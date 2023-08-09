@@ -12,6 +12,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.Toolkit.Mvvm.Extensions;
     using Common.Events;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using Data.Profile;
     using G2S;
@@ -431,7 +432,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         }
     }
 
-    public class EditableDevice : BaseObservableObject
+    public class EditableDevice : ObservableObject
     {
         private string _deviceClass;
         private int _id;

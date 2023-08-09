@@ -1,9 +1,8 @@
 namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
     using Cabinet.Contracts;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
     using Hardware.Contracts.Touch;
     using Kernel;
@@ -14,7 +13,7 @@ namespace Aristocrat.Monaco.Application.UI.Models
     ///     This is created by the display page viewmodel implementation for use in displays page UIs.
     /// </summary>
     [CLSCompliant(false)]
-    public class DisplayDetected : BaseObservableObject
+    public class DisplayDetected : ObservableObject
     {
         private string _displayName;
         private string _touchName;

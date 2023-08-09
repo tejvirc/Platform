@@ -1,9 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Bingo.UI.Models
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class DisclaimerItemModel : BaseObservableObject
+    public class DisclaimerItemModel : ObservableObject
     {
         private string _text;
 

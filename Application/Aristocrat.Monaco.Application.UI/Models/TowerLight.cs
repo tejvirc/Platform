@@ -1,14 +1,13 @@
 namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
     using Hardware.Contracts.TowerLight;
     using Monaco.Common;
 
     [CLSCompliant(false)]
-    public class TowerLight : BaseObservableObject
+    public class TowerLight : ObservableObject
     {
         private FlashState _flashState;
         private bool _state;

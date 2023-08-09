@@ -1,13 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Sas.UI.Settings
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Storage.Models;
 
     /// <summary>
     ///     Gets the port assignment setting
     /// </summary>
-    public class PortAssignmentSetting : BaseObservableObject
+    public class PortAssignmentSetting : ObservableObject
     {
         private HostId _aftPort;
         private HostId _validationPort;
@@ -113,7 +112,7 @@
             GeneralControlPort = setting.GeneralControlPort,
             IsDualHost = setting.IsDualHost,
             LegacyBonusPort = setting.LegacyBonusPort,
-            Host1NonSasProgressiveHitReporting =  setting.Host1NonSasProgressiveHitReporting,
+            Host1NonSasProgressiveHitReporting = setting.Host1NonSasProgressiveHitReporting,
             Host2NonSasProgressiveHitReporting = setting.Host2NonSasProgressiveHitReporting
         };
 

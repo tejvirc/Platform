@@ -2,12 +2,12 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System;
     using System.Globalization;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using Contracts.Extensions;
 
     [CLSCompliant(false)]
-    public class ConfigurableDenomination : BaseObservableObject
+    public class ConfigurableDenomination : ObservableObject
     {
         private bool _enabled;
         private bool _selected;

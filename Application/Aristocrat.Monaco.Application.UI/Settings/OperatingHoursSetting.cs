@@ -1,14 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Settings
 {
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Operations;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Contains the settings for operating hours for a particular day.
     /// </summary>
-    internal class OperatingHoursSetting : BaseObservableObject
+    internal class OperatingHoursSetting : ObservableObject
     {
         private DayOfWeek _day;
         private int _time;

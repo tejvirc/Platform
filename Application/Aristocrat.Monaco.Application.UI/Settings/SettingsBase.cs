@@ -1,16 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Settings
 {
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
     using Kernel;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///    Base class for settings models with displayable properties
     /// </summary>
     [CLSCompliant(false)]
-    public abstract class SettingsBase : BaseObservableObject
+    public abstract class SettingsBase : ObservableObject
     {
         protected SettingsBase()
             : this(ServiceManager.GetInstance().TryGetService<IEventBus>())
