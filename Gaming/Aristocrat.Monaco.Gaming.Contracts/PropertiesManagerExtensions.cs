@@ -57,9 +57,44 @@
                 return (null, null);
             }
 
-            var game = @this.GetGame(@this.GetValue(GamingConstants.SelectedGameId, 0));
+            lock (_sync)
+            {
+                var game = @this.GetGame(@this.GetValue(GamingConstants.SelectedGameId, 0));
+                var denom = game.Denominations.Single(d => d.Value == @this.GetValue(GamingConstants.SelectedDenom, 0L));
+                return (game, denom);
+            }
+        }
 
-            var denom = game.Denominations.Single(d => d.Value == @this.GetValue(GamingConstants.SelectedDenom, 0L));
+        /// <summary>
+        ///     An <see cref="IPropertiesManager" /> extension method to set the active game.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
+        /// <param name="this">The @this to act on.</param>
+        /// <param name="gameId">The game type.</param>
+        /// <param name="denomination">The game type.</param>
+        /// <returns>The active game if found; otherwise null.</returns>
+        //*** SetActiveGame
+        public static void SetActiveGame(this IPropertiesManager @this, int gameId, long denomination)
+        {
+            lock (_sync)
+            {
+                @this.SetProperty(GamingConstants.SelectedGameId, gameId);
+                @this.SetProperty(GamingConstants.SelectedDenom, denomination);
+            }
+        }
+
+        /// <summary>
+        ///     An <see cref="IPropertiesManager" /> extension method that gets the selected game.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
+        /// <param name="this">The @this to act on.</param>
+        /// <returns>The active game if found; otherwise null.</returns>
+        public static (IGameDetail game, IDenomination denomination) GetSelectedGame(this IPropertiesManager @this)
+        {
+            if (@this == null)
+            {
+                throw new ArgumentNullException(nameof(@this));
+            }
 
             return (game, denom);
         }

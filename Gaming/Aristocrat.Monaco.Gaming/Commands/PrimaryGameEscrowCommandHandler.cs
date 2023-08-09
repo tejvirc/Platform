@@ -47,20 +47,19 @@
                     return;
                 }
 
-                switch (command.Request)
-                {
-                    case OutcomeRequest request:
-                        command.Result = _central.RequestOutcomes(
-                            game.Id,
-                            denomination.Value,
-                            request.WagerCategory.ToString(),
-                            command.InitialWager.CentsToMillicents(),
-                            command.Request,
-                            _recovery.IsRecovering);
-                        break;
-                    default:
-                        throw new NotSupportedException();
-                }
+            command.Result = command.Request switch
+            {
+                //*** If current PrimaryGameEscrow is valid
+                OutcomeRequest request => _central.RequestOutcomes(
+                    game.Id,
+                    denomination.Value,
+                    wagerCategory?.Id ?? string.Empty,
+                    request.TemplateId.ToString(),
+                    command.InitialWager.CentsToMillicents(),
+                    command.Request,
+                    _recovery.IsRecovering),
+                _ => throw new NotSupportedException()
+            };
 
                 scope.Complete();
             }

@@ -532,6 +532,7 @@
         }
 
         /// <inheritdoc />
+        //*** Add all Games to PropertiesManager
         public ICollection<KeyValuePair<string, object>> GetCollection => new List<KeyValuePair<string, object>>
         {
             new KeyValuePair<string, object>(GamingConstants.Games, GetGames()),

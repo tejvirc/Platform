@@ -134,6 +134,7 @@
         /// <param name="denom">The denom in dollars for this game configuration</param>
         /// <param name="type">The type of game we want bet options for</param>
         /// <returns>The list of bets for the game</returns>
+        //*** How to calculate bets in a specific game
         public static IEnumerable<decimal> GetBetAmounts(this IGameDetail @this, BetOption betOption, LineOption lineOption, decimal denom, GameType type)
         {
             if (@this == null)

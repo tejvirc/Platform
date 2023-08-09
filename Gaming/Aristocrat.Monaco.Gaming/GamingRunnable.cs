@@ -156,6 +156,7 @@
 
         private void Load()
         {
+            //*** Load All PropertyProviders
             LoadPropertyProviders();
             LoadRuntime();
             LoadGames();
@@ -201,6 +202,7 @@
             runtime.Load();
         }
 
+        //**** Add IGameProvider to ServiceManager, PropertiesManager
         private void LoadGames()
         {
             var manager = ServiceManager.GetInstance().GetService<IPropertiesManager>();

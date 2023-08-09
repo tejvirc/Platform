@@ -96,9 +96,10 @@
                     wagerCategory = game?.WagerCategories?.SingleOrDefault(w =>
                         w.Id.Equals(request.WagerCategory.ToString()));
 
-                    if (wagerCategory is null)
-                    {
-                        Failed();
+                    if (cdsInfo is null)
+                    {   //*** InitializationFailed --> PlayState.Idle --> OnIdle()
+                        _gamePlayState.InitializationFailed();
+                        Failed($"wager category is null: {request.TemplateId}");
                         return;
                     }
                 }
@@ -119,9 +120,12 @@
                     return;
                 }
 
+                //*** EscrowWager
                 if (!_gamePlayState.EscrowWager(command.Wager, command.Data, command.Request, _recovery.IsRecovering))
                 {
-                    Failed();
+                    //*** InitializationFailed --> PlayState.Idle --> OnIdle()
+                    _gamePlayState.InitializationFailed();
+                    Failed("EscrowWager is false");
                     return;
                 }
 

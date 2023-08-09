@@ -1976,6 +1976,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 return;
             }
 
+            //*** LobbyViewModel Get All Games
             var games = _properties.GetValues<IGameDetail>(GamingConstants.Games).ToList();
             // Do not crash if game manifest does not provide the metadata for the expected locales.
             // This will just render bad data.
