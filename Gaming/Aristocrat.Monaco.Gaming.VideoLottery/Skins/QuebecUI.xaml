@@ -249,10 +249,10 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/60_EN_FR_Button_Pressed.png" />
     <BitmapImage x:Key="TimeLimitCashOutNormal"
                  AutomationProperties.AutomationId="BitmapImage0_E23002D5"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/CashOut_Normal.png" />
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/CashOut_RG_Normal.png" />
     <BitmapImage x:Key="TimeLimitCashOutPressed"
                  AutomationProperties.AutomationId="BitmapImage1_E23002D5"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/CashOut_Selected.png" />
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/CashOut_RG_Selected.png" />
     <BitmapImage x:Key="ButtonBorder"
                  AutomationProperties.AutomationId="BitmapImage0_80250980"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Button_Border.png" />
