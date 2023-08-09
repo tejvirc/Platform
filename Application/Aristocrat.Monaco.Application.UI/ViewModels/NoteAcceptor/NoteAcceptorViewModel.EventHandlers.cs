@@ -120,6 +120,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             UpdateCurrencyFields();
+            SetDeviceInformation();
             base.OnOperatorCultureChanged(evt);
         }
 
