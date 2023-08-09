@@ -83,7 +83,8 @@
             Logger.Debug(result ? "Removed message" : "Message not present");
         }
 
-        public void DisplayStatus(string message)
+        /// <inheritdoc />
+        public void DisplayStatus(DisplayableMessage message)
         {
         }
 

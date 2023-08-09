@@ -4964,6 +4964,21 @@ Consulter le manuel pour plus de détails</value>
   <data name="ReplayGameWinBonusAwarded" xml:space="preserve">
     <value>??Game Win Bonus Awarded: {0}??</value>
   </data>
+  <data name="ClosingProtocol" xml:space="preserve">
+    <value>??Closing G2S Protocol??</value>
+  </data>
+  <data name="CreatingKeyboardService" xml:space="preserve">
+    <value>??Creating Keyboard Service??</value>
+  </data>
+  <data name="LoadingProtocol" xml:space="preserve">
+    <value>??Loading G2S Protocol??</value>
+  </data>
+  <data name="StartingProtocol" xml:space="preserve">
+    <value>??Starting G2S Protocol??</value>
+  </data>
+  <data name="UnloadingTransactionHandlers" xml:space="preserve">
+    <value>??Unloading Transaction Handlers??</value>
+	</data>
   <data name="ErrorInfoPrinterPaperLow" xml:space="preserve">
     <value>??Open Main Door and Load More Paper Before Paper is Empty??</value>
   </data>

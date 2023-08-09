@@ -267,16 +267,16 @@
 
             Logger.Debug($"Removed message Id - {messageId}");
         }
-
+        
         /// <inheritdoc />
-        public void DisplayStatus(string statusMessage)
+        public void DisplayStatus(DisplayableMessage statusMessage)
         {
             foreach (var handler in _handlers)
             {
                 handler?.DisplayStatus(statusMessage);
             }
         }
-
+        
         /// <summary>
         /// Use AddErrorMessageMapping to inject the ErrorMessageMapping object into the MessageDisplay Service
         /// </summary>

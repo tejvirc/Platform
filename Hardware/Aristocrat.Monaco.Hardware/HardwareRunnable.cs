@@ -1,10 +1,12 @@
 namespace Aristocrat.Monaco.Hardware
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
+    using Application.Contracts.Localization;
     using Contracts;
     using Contracts.Discovery;
     using Contracts.IO;
@@ -195,19 +197,41 @@ namespace Aristocrat.Monaco.Hardware
             var localizedString = Resources.ResourceManager.GetString(resourceStringName);
 
             var display = ServiceManager.GetInstance().GetService<IMessageDisplay>();
-
+            
             // due to the way resource lookup occurs, if the invariant version is valid the
             // localized version will also be non-null since it can fall back to the invariant version.
             // If the localized version is null it means the invariant version will also be null.
+            // This now uses the localized string from Resources if the localizer hasn't been created yet.
+            // The callback will use the localizer to translate to operator culture for multi-language support. 
             if (!string.IsNullOrEmpty(localizedString))
             {
-                display.DisplayStatus(localizedString);
+                var displayMessage = new DisplayableMessage(
+                () =>
+                {
+                    try
+                    {
+                        var localizer = Localizer.For(CultureFor.Operator);
+                        return localizer?.GetString(resourceStringName);
+                    }
+                    catch (Exception)
+                    {
+                        return localizedString;
+                    }
+                },
+                DisplayableMessageClassification.Informative,
+                DisplayableMessagePriority.Immediate);
+
+                display.DisplayStatus(displayMessage);
                 Logger.Info(invariantString);
             }
             else
             {
                 Logger.Warn($"Localized string name \"{resourceStringName}\" not found");
-                display.DisplayStatus(resourceStringName);
+
+                display.DisplayStatus(new DisplayableMessage(
+                    () => resourceStringName,
+                    DisplayableMessageClassification.Informative,
+                    DisplayableMessagePriority.Immediate));
             }
         }
 

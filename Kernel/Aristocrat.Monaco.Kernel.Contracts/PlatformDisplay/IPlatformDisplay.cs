@@ -6,6 +6,11 @@
     public interface IPlatformDisplay
     {
         /// <summary>
+        ///     Gets the visibility of the window.
+        /// </summary>
+        bool IsVisible { get; }
+
+        /// <summary>
         ///     Creates and shows the IPlatformDisplay to the user.
         /// </summary>
         void CreateAndShow();

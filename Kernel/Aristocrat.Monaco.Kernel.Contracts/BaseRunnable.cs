@@ -46,7 +46,6 @@
                 try
                 {
                     _stateLock.EnterReadLock();
-
                     return _runState;
                 }
                 catch (ObjectDisposedException ex)

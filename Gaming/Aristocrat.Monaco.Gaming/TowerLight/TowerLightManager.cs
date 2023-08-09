@@ -180,7 +180,8 @@ namespace Aristocrat.Monaco.Gaming.TowerLight
             Logger.Debug("Removed messages");
         }
 
-        public void DisplayStatus(string message)
+        /// <inheritdoc />
+        public void DisplayStatus(DisplayableMessage message)
         {
         }
 

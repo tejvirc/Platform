@@ -7,6 +7,7 @@
     using System.Windows;
     using System.Windows.Forms;
     using Hardware.Contracts.Display;
+    using Application.Contracts.Localization;
 
     public sealed partial class StatusDisplayView : IDisposable
     {
@@ -55,21 +56,21 @@
             }
         }
 
-        public void DisplayStatus(string message)
+        public void DisplayStatus(DisplayableMessage message)
         {
             lock (_mutex)
             {
                 StatusBox.AddToDisplay(message);
             }
         }
-
+       
         public void DisplayMessage(DisplayableMessage message)
         {
             lock (_mutex)
             {
                 if (_displayBoxes.TryGetValue(message.Classification, out var displayBox))
                 {
-                    displayBox.AddToDisplay(message.Message);
+                    displayBox.AddToDisplay(message);
                 }
             }
         }
@@ -91,7 +92,20 @@
             {
                 if (_displayBoxes.TryGetValue(message.Classification, out var displayBox))
                 {
-                    displayBox.RemoveFromDisplay(message.Message);
+                    displayBox.RemoveFromDisplay(message);
+                }
+            }
+        }
+
+        public void UpdateMessages()
+        {
+            lock(_mutex)
+            {
+                StatusBox.UpdateDisplayMessages();
+
+                foreach (var displayBox in _displayBoxes.Values)
+                {
+                    displayBox.UpdateDisplayMessages();
                 }
             }
         }
@@ -155,6 +169,7 @@
             _eventBus = ServiceManager.GetInstance()?.TryGetService<IEventBus>();
             _eventBus?.Subscribe<DisplayConnectedEvent>(this, HandleEvent);
             _eventBus?.Subscribe<DisplayDisconnectedEvent>(this, HandleEvent);
+            _eventBus?.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
         }
 
         private void Window_Closing(object sender, EventArgs e)
@@ -177,6 +192,11 @@
         private void HandleEvent(DisplayDisconnectedEvent evt)
         {
             Dispatcher?.Invoke(RestoreWindowPlacement);
+        }
+
+        private void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            _statusDisplay.UpdateMessages();
         }
     }
 }

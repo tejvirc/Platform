@@ -100,6 +100,7 @@
         private Mock<IEventBus> _eventBus;
         private Mock<INoteAcceptor> _noteAcceptor;
         private Mock<IOperatorMenuLauncher> _operatorMenuLauncher;
+        private Mock<IPlatformDisplay> _platformDisplay;
 
         /// <summary>
         ///     Tracks how many door events are handled.
@@ -198,8 +199,10 @@
                 MoqServiceManager.CreateAndAddService<IEdgeLightingStateManager>(MockBehavior.Strict);
             _noteAcceptor = MoqServiceManager.CreateAndAddService<INoteAcceptor>(MockBehavior.Strict);
             _operatorMenuLauncher = MoqServiceManager.CreateAndAddService<IOperatorMenuLauncher>(MockBehavior.Strict);
+            _platformDisplay = MoqServiceManager.CreateAndAddService<IPlatformDisplay>(MockBehavior.Strict);
 
             _operatorMenuLauncher.Setup(m => m.IsShowing).Returns(true);
+            _platformDisplay.Setup(m => m.IsVisible).Returns(false);
 
             _iio = MoqServiceManager.CreateAndAddService<IIO>(MockBehavior.Strict);
             _iio.Setup(m => m.SetMechanicalMeterLight(true)).Verifiable();

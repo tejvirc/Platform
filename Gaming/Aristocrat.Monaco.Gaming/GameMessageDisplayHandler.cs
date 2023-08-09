@@ -123,7 +123,7 @@ namespace Aristocrat.Monaco.Gaming
         }
 
         /// <inheritdoc />
-        public void DisplayStatus(string message)
+        public void DisplayStatus(DisplayableMessage message)
         {
         }
 

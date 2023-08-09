@@ -143,7 +143,7 @@ namespace Aristocrat.Monaco.Kernel
         ///     display handlers, this method does not retain the message for forwarding when one becomes available.
         /// </remarks>
         /// <param name="statusMessage">The status message to be displayed.</param>
-        void DisplayStatus(string statusMessage);
+        void DisplayStatus(DisplayableMessage statusMessage);
 
         /// <summary>
         /// Use AddErrorMessageMapping to inject the ErrorMessageMapping object into the MessageDisplay Service

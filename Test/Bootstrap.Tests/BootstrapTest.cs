@@ -167,32 +167,33 @@
             MoqServiceManager.Instance
                 .Setup(m => m.RemoveService(It.Is<IService>(svc => svc is IDummyService)))
                 .Verifiable();
-
+            
             // Set up the IMessageDisplay service
-            _messageDisplay.Setup(m => m.DisplayStatus("Creating Addin Helper")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Creating System Disable Manager")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Creating Event Bus")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Creating Properties Manager")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Creating Localizer")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Creating Message Display")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Creating Component Registry")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Creating Path Mapper")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Creating Window Launcher")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Creating Platform Display")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Loading Kernel Services")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Loading Kernel Runnables")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Unloading Path Mapper")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Unloading Aristocrat.Monaco.Kernel.SystemDisableManager"))
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>( msg => msg.MessageCallback() == "Creating Addin Helper" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Creating System Disable Manager" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Creating Event Bus" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Creating Properties Manager" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Creating Localizer" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Creating Message Display" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Creating Component Registry" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Creating Path Mapper" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Creating Window Launcher" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Creating Platform Display" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Loading Kernel Services" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Loading Kernel Runnables" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Unloading Path Mapper" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Unloading Aristocrat.Monaco.Kernel.SystemDisableManager" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal)))
                 .Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Unloading PlatformDisplay Test Dummy")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Unloading Service Test Dummy")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Unloading Message Display Service")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Unloading Component Registry")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Unloading Properties Manager")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Unloading Event Bus")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Unloading AddinHelper")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Unloading Kernel Runnables")).Verifiable();
-            _messageDisplay.Setup(m => m.DisplayStatus("Unloading Kernel Services")).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Unloading PlatformDisplay Test Dummy" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Unloading Service Test Dummy" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Unloading Message Display Service" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Unloading Component Registry" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Unloading Properties Manager" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Unloading Event Bus" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Unloading AddinHelper" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Unloading Kernel Runnables" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            _messageDisplay.Setup(m => m.DisplayStatus(It.Is<DisplayableMessage>(msg => msg.MessageCallback() == "Unloading Kernel Services" && msg.Classification == DisplayableMessageClassification.Informative && msg.Priority == DisplayableMessagePriority.Normal))).Verifiable();
+            
 
             // Set up the IEventBus service
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<ExitRequestedEvent>>()))

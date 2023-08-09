@@ -312,9 +312,14 @@ namespace Aristocrat.Monaco.Application
 
             var localizer = Localizer.For(CultureFor.Operator);
 
-            var displayMessage = localizer.GetString(resourceStringName, _ => display.DisplayStatus(resourceStringName));
+            var displayMessage = new DisplayableMessage(
+                () => localizer.GetString(resourceStringName),
+                DisplayableMessageClassification.Informative,
+                DisplayableMessagePriority.Immediate,
+                typeof(PlatformBootedEvent),
+                ApplicationConstants.PlatformBootedKey);
 
-            if (!string.IsNullOrWhiteSpace(displayMessage))
+            if (!string.IsNullOrWhiteSpace(displayMessage.Message))
             {
                 display.DisplayStatus(displayMessage);
             }
