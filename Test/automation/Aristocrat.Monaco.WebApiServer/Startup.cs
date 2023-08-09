@@ -18,43 +18,50 @@
             services.AddControllers();// local controller was loaded here
 
             var controllerPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LoadControllers");
-            if (Directory.Exists(controllerPath))
+            if (!Directory.Exists(controllerPath))
             {
-                var controllerAssemblies = Directory.GetFiles(controllerPath, "*.dll", SearchOption.TopDirectoryOnly)
-                    .Select(Assembly.LoadFrom)
-                    .ToList();
+                return;
+            }
 
-                try
+            var controllerAssemblies = Directory.GetFiles(controllerPath, "*.dll", SearchOption.TopDirectoryOnly)
+                .Select(Assembly.LoadFrom)
+                .ToList();
+
+            try
+            {
+                foreach (var loadedAssembly in controllerAssemblies)
                 {
-                    foreach (var loadedAssembly in controllerAssemblies)
+                    var type = loadedAssembly.GetType($"{loadedAssembly.FullName?.Split(',')[0]}.Setup");
+                    var methodInfo = type?.GetMethod("InitialSetup");
+                    if (methodInfo is null)
                     {
-                        var type = loadedAssembly.GetType($"{loadedAssembly.FullName.Split(',')[0]}.Setup");
-                        if (type != null)
-                        {
-                            var methodInfo = type.GetMethod("InitialSetup");
-                            if (methodInfo != null)
-                            {
-                                _logger.Info($"WebApiServer: InitialSetup function invoked for : '{loadedAssembly.FullName}'");
-                                methodInfo.Invoke(null, null);
-                            }
-                        }
+                        continue;
                     }
 
-                    _logger.Info($"WebApiServer: Number of Dll Controllers loaded : '{controllerAssemblies.Count}'");
+                    _logger.Info($"WebApiServer: InitialSetup function invoked for : '{loadedAssembly.FullName}'");
+                    methodInfo.Invoke(null, null);
+                }
 
-                    // Inject loaded controllers
-                    services.AddControllers().ConfigureApplicationPartManager(apm =>
+                _logger.Info($"WebApiServer: Number of Dll Controllers loaded : '{controllerAssemblies.Count}'");
+
+                // Inject loaded controllers
+                services.AddControllers().ConfigureApplicationPartManager(
+                    apm =>
                     {
                         foreach (var controllerAssembly in controllerAssemblies)
                         {
                             apm.ApplicationParts.Add(new AssemblyPart(controllerAssembly));
                         }
-                    }).AddControllersAsServices();
-                }
-                catch (Exception e)
-                {
-                    _logger.Error($"WebApiServer:Error occurred while loading API DLLs : '{e.Message}'");
-                }
+                    }).AddControllersAsServices().AddJsonOptions(
+                    options =>
+                    {
+                        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                    });
+            }
+            catch (Exception e)
+            {
+                _logger.Error($"WebApiServer:Error occurred while loading API DLLs : '{e.Message}'");
             }
         }
 
