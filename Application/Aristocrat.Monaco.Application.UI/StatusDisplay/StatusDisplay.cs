@@ -69,12 +69,14 @@
         }
 
         /// <inheritdoc />
-        public void DisplayStatus(string message)
+        public void DisplayStatus(DisplayableMessage message)
         {
-            lock (_lock)
-            {
-                MvvmHelper.ExecuteOnUI(() => _statusDisplay.DisplayStatus(message));
-            }
+            MvvmHelper.ExecuteOnUI(() => _statusDisplay.DisplayStatus(message));   
+        }
+
+        public void UpdateMessages()
+        {
+            MvvmHelper.ExecuteOnUI(() => _statusDisplay.UpdateMessages());
         }
 
         private void Dispose(bool disposing)

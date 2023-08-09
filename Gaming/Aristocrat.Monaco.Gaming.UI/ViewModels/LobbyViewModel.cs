@@ -1816,7 +1816,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
         }
 
-        public void DisplayStatus(string message)
+        /// <inheritdoc />
+        public void DisplayStatus(DisplayableMessage message)
         {
         }
 

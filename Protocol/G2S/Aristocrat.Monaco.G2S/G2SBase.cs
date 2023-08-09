@@ -138,7 +138,10 @@
         {
             Logger.Debug("Start of OnRun() for G2SBase");
 
-            LogToMessageDisplay(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LoadingProtocol));
+            LogToMessageDisplay(new DisplayableMessage(
+                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LoadingProtocol),
+                DisplayableMessageClassification.Informative,
+                DisplayableMessagePriority.Immediate));
 
             var engine = _container.GetInstance<IEngine>();
             ResolveHandlers(_container); // We'll want to move this when the registration is cleaned-up
@@ -175,7 +178,10 @@
                 start = !_shutdownEvent.WaitOne(0);
             }
 
-            LogToMessageDisplay(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StartingProtocol));
+            LogToMessageDisplay(new DisplayableMessage(
+                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StartingProtocol),
+                DisplayableMessageClassification.Informative,
+                DisplayableMessagePriority.Immediate));
 
             if (start)
             {
@@ -242,7 +248,11 @@
         /// <inheritdoc />
         protected override void OnStop()
         {
-            LogToMessageDisplay(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClosingProtocol));
+            LogToMessageDisplay(new DisplayableMessage(
+                () => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClosingProtocol),
+                DisplayableMessageClassification.Informative,
+                DisplayableMessagePriority.Immediate));
+
             _container?.GetInstance<IG2SDisableProvider>().OnG2SReconfigured().Wait();
 
             // Allow OnRun to exit
@@ -291,7 +301,7 @@
             base.Dispose(disposing);
         }
 
-        private static void LogToMessageDisplay(string message)
+        private static void LogToMessageDisplay(DisplayableMessage message)
         {
             var display = ServiceManager.GetInstance().GetService<IMessageDisplay>();
 

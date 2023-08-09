@@ -1,9 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.StatusDisplay
 {
     using Kernel;
+    using log4net;
     using Monaco.UI.Common;
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
 
     /// <summary>
     ///     Definition of the Launcher class.
@@ -11,7 +13,11 @@
     public class Launcher : BaseRunnable, IService, IPlatformDisplay
     {
         private const string WindowName = "StatusWindow";
+        private readonly IWpfWindowLauncher _windowLauncher = ServiceManager.GetInstance().GetService<IWpfWindowLauncher>();
 
+        /// <inheritdoc />
+        public bool IsVisible => _windowLauncher?.GetWindowVisibility(WindowName) == System.Windows.Visibility.Visible;
+      
         /// <inheritdoc />
         public void CreateAndShow()
         {

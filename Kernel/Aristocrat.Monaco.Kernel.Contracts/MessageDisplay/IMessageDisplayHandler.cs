@@ -32,7 +32,7 @@ namespace Aristocrat.Monaco.Kernel
         ///     Displays a status message sent from the message display service.
         /// </summary>
         /// <param name="message">The status message to display</param>
-        void DisplayStatus(string message);
+       void DisplayStatus(DisplayableMessage message);
 
         /// <summary>
         ///     Informs the display handler to remove all messages it is displaying.

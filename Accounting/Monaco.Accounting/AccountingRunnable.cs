@@ -6,6 +6,7 @@ namespace Aristocrat.Monaco.Accounting
     using System.Threading;
     using Application.Contracts.Localization;
     using Application.Contracts.TiltLogger;
+    using Application.Contracts;
     using Common;
     using Kernel;
     using log4net;
@@ -83,9 +84,14 @@ namespace Aristocrat.Monaco.Accounting
 
             var localizer = Localizer.For(CultureFor.Operator);
 
-            var displayMessage = localizer.GetString(resourceStringName, _ => display.DisplayStatus(resourceStringName));
+            var displayMessage = new DisplayableMessage(
+                () => localizer.GetString(resourceStringName),
+                DisplayableMessageClassification.Informative,
+                DisplayableMessagePriority.Immediate,
+                typeof(PlatformBootedEvent),
+                ApplicationConstants.PlatformBootedKey);
 
-            if (!string.IsNullOrWhiteSpace(displayMessage))
+            if (!string.IsNullOrWhiteSpace(displayMessage.Message))
             {
                 display.DisplayStatus(displayMessage);
             }

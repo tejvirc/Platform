@@ -2,7 +2,6 @@
 {
     using Kernel;
     using Vgt.Client12.Application.OperatorMenu;
-
     /// <summary>
     ///     Provides convenience methods for localization services.
     /// </summary>
@@ -11,6 +10,7 @@
         private static ILocalizerFactory _factory;
         private static IOperatorMenuLauncher _operatorMenu;
         private static IPropertiesManager _properties;
+        private static IPlatformDisplay _statusWindow;
         private static string _lockupCulture;
 
         /// <summary>
@@ -35,9 +35,10 @@
         {
             _factory ??= ServiceManager.GetInstance().GetService<ILocalizerFactory>();
             _operatorMenu ??= ServiceManager.GetInstance().GetService<IOperatorMenuLauncher>();
-
+            _statusWindow ??= ServiceManager.GetInstance().GetService<IPlatformDisplay>();
+        
             return For(
-                _operatorMenu?.IsShowing ?? false
+                (_operatorMenu?.IsShowing ?? false) || (_statusWindow?.IsVisible ?? false)
                     ? CultureFor.Operator
                     : CultureFor.Player);
         }
