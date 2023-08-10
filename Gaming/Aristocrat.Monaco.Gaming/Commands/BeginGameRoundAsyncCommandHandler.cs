@@ -17,7 +17,7 @@
     using Runtime.Client;
 
     /// <summary>
-    ///     Command handler for the <see cref="BeginGameRound" /> command.
+    ///     Command handler for the <see cref="BeginGameRoundAsync" /> command.
     /// </summary>
     [CounterDescription("Game Start", PerformanceCounterType.AverageTimer32)]
     public class BeginGameRoundAsyncCommandHandler : ICommandHandler<BeginGameRoundAsync>
@@ -72,7 +72,7 @@
         {
             if (!_recovery.IsRecovering && !_gameDiagnostics.IsActive)
             {
-                if (!_gameStartConditions.CheckGameStartConditions() || !_gamePlayState.Prepare())
+                if (!_gameStartConditions.CheckGameStartConditions() || !_gamePlayState.Prepare(command.Wager))
                 {
                     Failed("starting conditions failed");
                     return;
