@@ -40,6 +40,8 @@
                                 default="false" />
                   <xs:attribute name="DisableBankNoteAcceptorWhenCreditLimitReached" type="xs:boolean" use="optional"
                                 default="false" />
+                  <xs:attribute name="DisableCoinAcceptorWhenCreditLimitReached" type="xs:boolean" use="optional" 
+                                default="false" />
                 </xs:complexType>
               </xs:element>
               <xs:element minOccurs="0" maxOccurs="1" name="MaxBetLimit">

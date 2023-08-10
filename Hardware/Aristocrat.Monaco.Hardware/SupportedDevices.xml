@@ -194,5 +194,19 @@ as follows:
       <USBProductId></USBProductId>
       <USBProductIdDfu></USBProductIdDfu>
     </Device>
+    <Device Enabled="true" Type="CoinAcceptor" Name="CC-62"  Protocol="Pwm" Port="NA" Mode="Pwm-CoinAcceptor">
+      <ExtensionPath>/Hardware/CoinAcceptor</ExtensionPath>
+      <BaudRate>9600</BaudRate>
+      <DataBits>8</DataBits>
+      <Handshake>None</Handshake>
+      <Parity>None</Parity>
+      <StopBits>One</StopBits>
+    </Device>
+    <Device Enabled="true" Type="CoinAcceptor" Name="Fake" Protocol="Fake" Port="Fake" Mode="Fake">
+      <ExtensionPath>/Hardware/CoinAcceptor</ExtensionPath>
+      <USBVendorId></USBVendorId>
+      <USBProductId></USBProductId>
+      <USBProductIdDfu></USBProductIdDfu>
+    </Device>
   </Devices>
 </SupportedDevices>

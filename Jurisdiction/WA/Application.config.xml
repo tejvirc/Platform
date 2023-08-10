@@ -87,6 +87,7 @@ as follows:
   <CoinOutSound FilePath="..\jurisdiction\DefaultAssets\coinout.ogg" />
   <FeatureBellSound FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" />
   <CollectSound FilePath="..\jurisdiction\DefaultAssets\collect.ogg" />
+  <DefaultAlarmSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
   <!--
   Checks the integrity of the critical memory:
     Enabled: The critical memory will be checked
@@ -96,6 +97,7 @@ as follows:
   <OperatorLockupReset Enabled="true"/>
   <LogTypesAllowedForDisplay>
     <string>BillIn</string>
+    <string>CoinIn</string>
     <string>Handpay</string>
     <string>VoucherIn</string>
     <string>VoucherOut</string>

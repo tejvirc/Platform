@@ -44,6 +44,7 @@
     <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.BellPageLoader" order="110"/>
     <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.MechanicalReelsPageLoader" order="120"/>
     <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.BeagleBonePageLoader" order="130"/>
+    <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.CoinAcceptorPageLoader" order="140"/>
     <HardwareMenu type="Aristocrat.Monaco.Application.UI.Loaders.HardwareManagerPageLoader" order="999"/>
   </Extension>
 

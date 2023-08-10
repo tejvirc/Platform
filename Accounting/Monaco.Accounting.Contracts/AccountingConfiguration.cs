@@ -507,12 +507,15 @@ namespace Aristocrat.Monaco.Accounting.Contracts {
         private bool showMessageWhenCreditLimitReachedField;
         
         private bool disableBankNoteAcceptorWhenCreditLimitReachedField;
-        
+
+        private bool disableCoinAcceptorWhenCreditLimitReachedField;
+
         public AccountingConfigurationCreditLimitsMaxCreditMeter() {
             this.defaultField = ((long)(9223372036854775807));
             this.maxAllowedField = ((long)(9223372036854775807));
             this.showMessageWhenCreditLimitReachedField = false;
             this.disableBankNoteAcceptorWhenCreditLimitReachedField = false;
+            this.disableCoinAcceptorWhenCreditLimitReachedField = false;
         }
         
         /// <remarks/>
@@ -560,6 +563,21 @@ namespace Aristocrat.Monaco.Accounting.Contracts {
             }
             set {
                 this.disableBankNoteAcceptorWhenCreditLimitReachedField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool DisableCoinAcceptorWhenCreditLimitReached
+        {
+            get
+            {
+                return this.disableCoinAcceptorWhenCreditLimitReachedField;
+            }
+            set
+            {
+                this.disableCoinAcceptorWhenCreditLimitReachedField = value;
             }
         }
     }
