@@ -16,13 +16,13 @@
             {
                 [nameof(ModeType.Regular)] = new HashSet<IRobotOperations>
                 {
-                    container.GetInstance<CashoutOperations>(),
+                    //container.GetInstance<CashoutOperations>(),
                     container.GetInstance<PlayerOperations>(),
-                    container.GetInstance<TouchOperations>(),
-                    container.GetInstance<BalanceOperations>(),
-                    container.GetInstance<ServiceRequestOperations>(),
+                    //container.GetInstance<TouchOperations>(),
+                    //container.GetInstance<BalanceOperations>(),
+                    //container.GetInstance<ServiceRequestOperations>(),
                     container.GetInstance<GameOperations>(),
-                    container.GetInstance<GameHelpOperations>()
+                    //container.GetInstance<GameHelpOperations>()
                 },
 
                 [nameof(ModeType.Super)] = new HashSet<IRobotOperations>

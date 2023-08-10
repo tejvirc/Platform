@@ -107,8 +107,8 @@
             ////_timeLimitDlg.IsVisibleChanged += OnChildWindowIsVisibleChanged;
             ////_msgOverlay.IsVisibleChanged += OnChildWindowIsVisibleChanged;
 
-            GameBottomWindowCtrl.MouseDown += GameBottomWindowCtrl_MouseDown;
-            GameBottomWindowCtrl.MouseUp += GameBottomWindowCtrl_MouseUp;
+            //GameBottomWindowCtrl.MouseDown += GameBottomWindowCtrl_MouseDown;
+            //GameBottomWindowCtrl.MouseUp += GameBottomWindowCtrl_MouseUp;
 
             SizeChanged += LobbyView_SizeChanged;
 
@@ -645,8 +645,8 @@
         {
             // Seems to be some interop issue with WinForms control not being in sync with parent window.
             // So manually sync them.  We can't data bind with WinForm control.
-            GameBottomWindowCtrl.Width = (int)GameLayout.ActualWidth;
-            GameBottomWindowCtrl.Height = (int)GameLayout.ActualHeight;
+            //GameBottomWindowCtrl.Width = (int)GameLayout.ActualWidth;
+            //GameBottomWindowCtrl.Height = (int)GameLayout.ActualHeight;
 
             if (_mediaDisplayWindow != null)
             {

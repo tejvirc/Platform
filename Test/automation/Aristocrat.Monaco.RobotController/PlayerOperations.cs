@@ -4,6 +4,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
+    using System.Threading.Tasks;
+    using Aristocrat.Monaco.Gaming;
+    using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Test.Automation;
 
@@ -17,6 +20,7 @@
         private readonly RobotController _robotController;
         private Timer _actionPlayerTimer;
         private bool _disposed;
+        private IGamePlayState _gamePlayState;
 
         public PlayerOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, RobotController robotController)
         {
@@ -28,6 +32,8 @@
             _robotController = robotController;
 
             InitializeActionPlayer();
+
+            _gamePlayState = ServiceManager.GetInstance().GetService<IGamePlayState>();
         }
 
         ~PlayerOperations() => Dispose(false);
@@ -43,13 +49,38 @@
             _disposed = false;
         }
 
+        public void SubscribeEvents()
+        {
+            _eventBus.Subscribe<GameIdleEvent>(
+                 this,
+                 _ =>
+                 {
+                     Console.WriteLine("GameIdleEvent received!");
+                     _logger.Info($"GameIdleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                     Task.Delay(3000).ContinueWith(t => { RequestPlay(); });
+                     
+                     //BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
+                     //HandleExitToLobbyRequest();
+                 });
+
+            //_eventBus.Subscribe<GameEndedEvent>(this,
+            //_ =>
+            //{
+
+            //    Console.WriteLine($"GameState: {_gamePlayState.CurrentState}");
+            //    RequestPlay();
+            //});
+        }
+
         public void Execute()
         {
+            SubscribeEvents();
+
             _logger.Info("PlayerOperations Has Been Initiated!", GetType().Name);
             _actionPlayerTimer = new Timer(
                                (sender) =>
                                {
-                                   RequestPlay();
+                                   //RequestPlay();
                                },
                                null,
                                _robotController.Config.Active.IntervalAction,
@@ -84,11 +115,12 @@
 
         private void RequestPlay()
         {
-            if (!IsValid())
-            {
-                return;
-            }
+            //if (!IsValid())
+            //{
+            //    return;
+            //}
             _logger.Info("RequestPlay Received!", GetType().Name);
+            Console.WriteLine("RequestPlay Received!", GetType().Name);
             var rng = new Random((int)DateTime.Now.Ticks);
 
 
@@ -111,30 +143,30 @@
                 _automator.SpinRequest();
             });
 
-            _actionPlayerFunctions.Add(Actions.BetLevel,
-            (Rng) =>
-            {
-                _logger.Info("Changing bet level", GetType().Name);
-                var betIndices = _robotController.Config.GetBetIndices();
-                var index = Math.Min(betIndices[Rng.Next(betIndices.Count)], 5);
-                if (index == 1) return; // Input Key 23 is mapped to GameMenu which triggers BeginLobby request
-                _automator.SetBetLevel(index);
-            });
+            //_actionPlayerFunctions.Add(Actions.BetLevel,
+            //(Rng) =>
+            //{
+            //    _logger.Info("Changing bet level", GetType().Name);
+            //    var betIndices = _robotController.Config.GetBetIndices();
+            //    var index = Math.Min(betIndices[Rng.Next(betIndices.Count)], 5);
+            //    if (index == 1) return; // Input Key 23 is mapped to GameMenu which triggers BeginLobby request
+            //    _automator.SetBetLevel(index);
+            //});
 
-            _actionPlayerFunctions.Add(Actions.BetMax,
-            (Rng) =>
-            {
-                _logger.Info("Bet Max", GetType().Name);
-                _automator.SetBetMax();
-            });
+            //_actionPlayerFunctions.Add(Actions.BetMax,
+            //(Rng) =>
+            //{
+            //    _logger.Info("Bet Max", GetType().Name);
+            //    _automator.SetBetMax();
+            //});
 
-            _actionPlayerFunctions.Add(Actions.LineLevel,
-            (Rng) =>
-            {
-                _logger.Info("Change Line Level", GetType().Name);
-                var lineIndices = _robotController.Config.GetLineIndices();
-                _automator.SetLineLevel(lineIndices[Rng.Next(lineIndices.Count)]);
-            });
+            //_actionPlayerFunctions.Add(Actions.LineLevel,
+            //(Rng) =>
+            //{
+            //    _logger.Info("Change Line Level", GetType().Name);
+            //    var lineIndices = _robotController.Config.GetLineIndices();
+            //    _automator.SetLineLevel(lineIndices[Rng.Next(lineIndices.Count)]);
+            //});
         }
     }
 }

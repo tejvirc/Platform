@@ -49,6 +49,7 @@
 
             command.Result = command.Request switch
             {
+                //*** If current PrimaryGameEscrow is valid
                 OutcomeRequest request => _central.RequestOutcomes(
                     game.Id,
                     denomination.Value,

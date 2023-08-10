@@ -75,6 +75,7 @@
         /// <param name="gameId">The game type.</param>
         /// <param name="denomination">The game type.</param>
         /// <returns>The active game if found; otherwise null.</returns>
+        //*** SetActiveGame
         public static void SetActiveGame(this IPropertiesManager @this, int gameId, long denomination)
         {
             lock (_sync)

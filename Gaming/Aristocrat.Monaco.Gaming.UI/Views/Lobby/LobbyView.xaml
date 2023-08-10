@@ -1,5 +1,17 @@
 ﻿<metro:MetroWindow
-    x:Class="Aristocrat.Monaco.Gaming.UI.Views.Lobby.LobbyView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl" xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:behaviors="clr-namespace:Aristocrat.Monaco.Gaming.UI.Behaviors" xmlns:lobby="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Lobby" xmlns:overlay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Overlay" xmlns:mediaDisplay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay" xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls" xmlns:loc="http://monaco.aristocrat.com/localization" xmlns:infoBar="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.InfoBar" xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    x:Class="Aristocrat.Monaco.Gaming.UI.Views.Lobby.LobbyView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl" xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels" 
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+    xmlns:behaviors="clr-namespace:Aristocrat.Monaco.Gaming.UI.Behaviors" 
+    xmlns:lobby="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Lobby" 
+    xmlns:overlay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Overlay" 
+    xmlns:mediaDisplay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay" 
+    xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls" 
+    xmlns:loc="http://monaco.aristocrat.com/localization" 
+    xmlns:infoBar="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.InfoBar" xmlns:lex="http://wpflocalizeextension.codeplex.com"
                    loc:Localizer.For="Player"
                    mc:Ignorable="d"
                    Title="{Binding MainTitle}"
@@ -56,7 +68,7 @@
         <behaviors:ActivateBehavior
             Activated="{Binding LobbyActivated, Mode=TwoWay}" />
     </i:Interaction.Behaviors>
-    <mediaDisplay:LayoutTemplateDockPanel
+    <!--<mediaDisplay:LayoutTemplateDockPanel
         x:Name="LayoutTemplate"
                                           ScreenType="Primary">
         <Grid
@@ -109,10 +121,10 @@
                                                  Dock="Fill" />
                 </controls:ExtendedWindowsFormsHost>
             </Grid>
-            <!--
+            --><!--
                 This Viewbox keeps the main content scaling uniformly during media display resize
                 Height/Width are bound to LayoutTemplate to establish the lobby aspect ratio
-            -->
+            --><!--
             <Viewbox
                 x:Name="ViewBoxLobby"
                      Stretch="Uniform"
@@ -144,7 +156,7 @@
                                         Content="{Binding}"
                                         ContentTemplateSelector="{StaticResource LobbyViewTemplateSelector}"
                                         AutomationProperties.AutomationId="ContentControl9_C7C81470" />
-                        <!-- No Games Enabled for this language warning -->
+                        --><!-- No Games Enabled for this language warning --><!--
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -157,7 +169,7 @@
                             Text="{lex:Loc {x:Static loc:ResourceKeys.NoGamesForThisLanguage}}"
                             Visibility="{Binding NoGamesForThisLanguageErrorIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                             AutomationProperties.AutomationId="TextBlock0_28910376" />
-                        <!-- BOTTOM ATTRACT: Do not collapse BinkGpuControl.  You will get null BackBuffer. -->
+                        --><!-- BOTTOM ATTRACT: Do not collapse BinkGpuControl.  You will get null BackBuffer. --><!--
                         <bink:BinkGpuControl
                             x:Name="GameAttract"
                                              Grid.Row="0"
@@ -196,7 +208,7 @@
                                 </Style>
                             </bink:BinkGpuControl.Style>
                         </bink:BinkGpuControl>
-                        <!-- RG INFO -->
+                        --><!-- RG INFO --><!--
                         <Image
                             IsHitTestVisible="False"
                                Grid.Row="0"
@@ -210,7 +222,7 @@
                                         Grid.RowSpan="{Binding RGInfoRowSpan}"
                                         Grid.Column="0"
                                         Visibility="{Binding IsResponsibleGamingInfoDlgVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-                        <!-- Rectangle to block input when lobby is disabled during media player resize -->
+                        --><!-- Rectangle to block input when lobby is disabled during media player resize --><!--
                         <Rectangle
                             Grid.Row="0"
                                    Grid.Column="0"
@@ -218,7 +230,7 @@
                                    Opacity="0"
                                    Visibility="{Binding MediaPlayersResizing, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                    AutomationProperties.AutomationId="Rectangle13_C7C81470" />
-                        <!-- Rectangle to give screen a disabled look if message overlay is visible -->
+                        --><!-- Rectangle to give screen a disabled look if message overlay is visible --><!--
                         <Rectangle
                             Grid.Row="0"
                                    Grid.Column="0"
@@ -234,13 +246,13 @@
                                Visibility="{Binding IsBottomLoadingScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                AutomationProperties.AutomationId="Image15_C7C81470" />
                     </Grid>
-                    <!-- INFO BAR -->
+                    --><!-- INFO BAR --><!--
                     <infoBar:InfoBarView
                         x:Name="InfoBar"
                                          Grid.Row="1"
                                          Location="Main"
                                          Visibility="{Binding ElementName=Root, Path=DataContext.IsMainInfoBarVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
-                    <!-- spacer accommodates the non-superimposed parts of the overlay window (e.g. replay navigation bar) -->
+                    --><!-- spacer accommodates the non-superimposed parts of the overlay window (e.g. replay navigation bar) --><!--
                     <Grid
                         Grid.Row="2"
                           Background="Transparent"
@@ -250,5 +262,5 @@
                 </Grid>
             </Viewbox>
         </Grid>
-    </mediaDisplay:LayoutTemplateDockPanel>
+    </mediaDisplay:LayoutTemplateDockPanel>-->
 </metro:MetroWindow>

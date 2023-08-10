@@ -49,6 +49,7 @@
 
         public void HandleEvent(GameRoundEvent gameRoundEvent)
         {
+            Console.WriteLine($"state:{gameRoundEvent.State.ToString()}; action:{gameRoundEvent.Action.ToString()}; gameRoundInfo:{string.Join(",", gameRoundEvent.GameRoundInfo)}");
             switch (gameRoundEvent.Action)
             {
                 case GameRoundEventAction.Completed:
@@ -84,6 +85,7 @@
                 _gameHistory.ClearForRecovery();
             }
 
+            Console.WriteLine("PrimaryEventHandler HandleBegin ..."); ;
             _gamePlayState.Start((long)gameRoundEvent.Bet, gameRoundEvent.Data, _recovery.IsRecovering);
             SetAllowSubgameRound(false);
         }

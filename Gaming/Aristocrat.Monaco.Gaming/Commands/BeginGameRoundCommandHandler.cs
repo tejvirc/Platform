@@ -52,6 +52,7 @@
         /// <inheritdoc />
         public void Handle(BeginGameRound command)
         {
+            //*** GameRequestFailedEvent fired from _gameStartConditions.CheckGameStartConditions
             if (!_recovery.IsRecovering && (!_gameStartConditions.CheckGameStartConditions() || !_gamePlayState.Prepare()))
             {
                 Logger.Warn("Failed to start game round.");

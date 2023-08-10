@@ -641,6 +641,9 @@
 
                     Logger.Debug(
                         $"Transitioned From : {transition.Source} To : {transition.Destination} Trigger : {transition.Trigger}");
+
+                    Console.WriteLine(
+                        $"Transitioned From : {transition.Source} To : {transition.Destination} Trigger : {transition.Trigger}");
                 });
         }
 
@@ -662,6 +665,7 @@
         private void OnGameIdleHeld()
         {
             // Handle unlock and handle bonuses
+            Console.WriteLine("OnPresentationIdle");
             _faulted = false;
             _handlerFactory.Create<PresentationIdle>().Handle(new PresentationIdle());
             _eventBus.Publish(new GamePresentationIdleEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog));
@@ -670,13 +674,16 @@
 
         private void OnGameEndedExit(StateMachine<PlayState, Trigger>.Transition transition)
         {
+            _eventBus.Publish(
+                new GameEndedEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog));
+
             if (transition.Destination == PlayState.PresentationIdle)
             {
                 return;
             }
 
-            _eventBus.Publish(
-                new GameEndedEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog));
+            //_eventBus.Publish(
+            //    new GameEndedEvent(_gameId, _denom, _wagerCategory.Id, _gameHistory.CurrentLog));
         }
 
         private void OnPlayInitiated()

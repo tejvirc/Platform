@@ -28,7 +28,7 @@
         private Timer _RgTimer;
         private Timer _forceGameExitTimer;
         private bool _disposed;
-        private bool _isTimeLimitDialogVisible;
+        private bool _isTimeLimitDialogVisible = false;
         private int _sanityCounter;
         private bool _exitWhenIdle;
         private bool _forceGameExitIsInProgress;
@@ -66,31 +66,32 @@
                 return;
             }
 
-            _loadGameTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestGame();
-                               },
-                               null,
-                               _robotController.Config.Active.IntervalLoadGame,
-                               _robotController.Config.Active.IntervalLoadGame);
-            _RgTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestRg();
-                               },
-                               null,
-                               _robotController.Config.Active.IntervalRgSet,
-                               _robotController.Config.Active.IntervalRgSet);
+            //_loadGameTimer = new Timer(
+            //                   (sender) =>
+            //                   {
+            //                       RequestGame();
+            //                   },
+            //                   null,
+            //                   _robotController.Config.Active.IntervalLoadGame,
+            //                   _robotController.Config.Active.IntervalLoadGame);
+            //_RgTimer = new Timer(
+            //                   (sender) =>
+            //                   {
+            //                       RequestRg();
+            //                   },
+            //                   null,
+            //                   _robotController.Config.Active.IntervalRgSet,
+            //                   _robotController.Config.Active.IntervalRgSet);
             _forceGameExitTimer = new Timer(
                                (sender) =>
                                {
-                                   RequestForceExitToLobby();
+                                   //RequestForceExitToLobby();
                                },
                                null,
                                _robotController.Config.Active.IntervalLobby,
                                _robotController.Config.Active.IntervalLobby);
-            LoadGameWithDelay(Constants.loadGameDelayDuration);
+
+            //LoadGameWithDelay(Constants.loadGameDelayDuration);
         }
 
         public void Reset()
@@ -226,135 +227,136 @@
 
         private void SubscribeToEvents()
         {
-            _eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
-                 this,
-                 evt =>
-                 {
-                     _logger.Info($"TimeLimitDialogVisibleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     _isTimeLimitDialogVisible = true;
-                     DismissTimeLimitDialog();
-                     if (evt.IsLastPrompt)
-                     {
-                         _exitWhenIdle = !IsRegularRobots();
-                     }
-                 });
-            _eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
-                this,
-                evt =>
-                {
-                    _logger.Info($"TimeLimitDialogHiddenEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    _isTimeLimitDialogVisible = false;
-                });
-            _eventBus.Subscribe<GameRequestFailedEvent>(
-                this,
-                _ =>
-                {
-                    _logger.Error($"GameRequestFailedEvent Got Triggered!  Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    _requestGameIsInProgress = false;
-                    if (!_stateChecker.IsAllowSingleGameAutoLaunch)
-                    {
-                        RequestGame();
-                    }
-                });
-            _eventBus.Subscribe<GameInitializationCompletedEvent>(
-                this,
-                _ =>
-                {
-                    _logger.Info($"GameInitializationCompletedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    _gameIsRunning = true;
-                    _sanityCounter = 0;
-                    _requestGameIsInProgress = false;
-                    BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
-                });
+            //_eventBus.Subscribe<TimeLimitDialogVisibleEvent>(
+            //     this,
+            //     evt =>
+            //     {
+            //         _logger.Info($"TimeLimitDialogVisibleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //         _isTimeLimitDialogVisible = true;
+            //         DismissTimeLimitDialog();
+            //         if (evt.IsLastPrompt)
+            //         {
+            //             _exitWhenIdle = !IsRegularRobots();
+            //         }
+            //     });
+            //_eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
+            //    this,
+            //    evt =>
+            //    {
+            //        _logger.Info($"TimeLimitDialogHiddenEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //        _isTimeLimitDialogVisible = false;
+            //    });
+            //_eventBus.Subscribe<GameRequestFailedEvent>(
+            //    this,
+            //    _ =>
+            //    {
+            //        _logger.Error($"GameRequestFailedEvent Got Triggered!  Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //        _requestGameIsInProgress = false;
+            //        if (!_stateChecker.IsAllowSingleGameAutoLaunch)
+            //        {
+            //            RequestGame();
+            //        }
+            //    });
+            //_eventBus.Subscribe<GameInitializationCompletedEvent>(
+            //    this,
+            //    _ =>
+            //    {
+            //        _logger.Info($"GameInitializationCompletedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //        _gameIsRunning = true;
+            //        _sanityCounter = 0;
+            //        _requestGameIsInProgress = false;
+            //        BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
+            //    });
 
-            _eventBus.Subscribe<GamePlayRequestFailedEvent>(
-                this,
-                _ =>
-                {
-                    _logger.Info($"Keying off GamePlayRequestFailed! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    ToggleJackpotKey(Constants.ToggleJackpotKeyDuration);
-                });
+            //_eventBus.Subscribe<GamePlayRequestFailedEvent>(
+            //    this,
+            //    _ =>
+            //    {
+            //        _logger.Info($"Keying off GamePlayRequestFailed! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //        ToggleJackpotKey(Constants.ToggleJackpotKeyDuration);
+            //    });
 
-            _eventBus.Subscribe<UnexpectedOrNoResponseEvent>(
-                this,
-                _ =>
-                {
-                    _logger.Info($"Keying off UnexpectedOrNoResponseEvent Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    ToggleJackpotKey(Constants.ToggleJackpotKeyLongerDuration);
-                });
+            //_eventBus.Subscribe<UnexpectedOrNoResponseEvent>(
+            //    this,
+            //    _ =>
+            //    {
+            //        _logger.Info($"Keying off UnexpectedOrNoResponseEvent Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //        ToggleJackpotKey(Constants.ToggleJackpotKeyLongerDuration);
+            //    });
             _eventBus.Subscribe<GameIdleEvent>(
                  this,
                  _ =>
                  {
+                     //Console.WriteLine("GameIdleEvent received!");
                      _logger.Info($"GameIdleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
-                     HandleExitToLobbyRequest();
+                     //BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
+                     //HandleExitToLobbyRequest();
                  });
-            _eventBus.Subscribe<GameProcessExitedEvent>(
-                 this,
-                 evt =>
-                 {
-                     _gameIsRunning = false;
-                     _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
-                     if (evt.Unexpected)
-                     {
-                         if (!_forceGameExitIsInProgress)
-                         {
-                             _logger.Error($"GameProcessExitedEvent-Unexpected Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                             _robotController.Enabled = false;
-                             return;
-                         }
-                         _logger.Info($"GameProcessExitedEvent-Unexpected-ForceGameExit Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                         _forceGameExitIsInProgress = false;
-                         _goToNextGame = false;
-                         _exitWhenIdle = !IsRegularRobots();
-                     }
-                     else
-                     {
-                         _logger.Info($"GameProcessExitedEvent-Normal Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                         _goToNextGame = !IsRegularRobots();
-                     }
-                     LoadGameWithDelay(Constants.loadGameDelayDuration);
-                 });
-            _eventBus.Subscribe<GameFatalErrorEvent>(
-                 this,
-                 _ =>
-                 {
-                     _logger.Error($"GameFatalErrorEvent Got Triggered! There is an issue with [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     _robotController.Enabled = false;
-                 });
-            _eventBus.Subscribe<GamePlayStateChangedEvent>(
-                 this,
-                 _ =>
-                 {
-                     _logger.Info($"GamePlayStateChangedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     _robotController.IdleDuration = 0;
-                     _sanityCounter = 0;
-                 });
-            _eventBus.Subscribe<HandpayStartedEvent>(this, evt =>
-            {
-                if (evt.Handpay == HandpayType.GameWin ||
-                     evt.Handpay == HandpayType.CancelCredit)
-                {
-                    _logger.Info($"Keying off large win Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    ToggleJackpotKey(Constants.ToggleJackpotKeyDuration);
-                }
-                else
-                {
-                    _logger.Info($"Skip toggling jackpot key since evt.Handpay = [{evt.Handpay}] is not valid!", GetType().Name);
-                }
-            });
-            _eventBus.Subscribe<SystemEnabledEvent>(
-                this,
-                _ =>
-                {
-                    _logger.Info($"SystemEnabledEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    LoadGameWithDelay(Constants.loadGameDelayDuration);
-                });
+            //_eventBus.Subscribe<GameProcessExitedEvent>(
+            //     this,
+            //     evt =>
+            //     {
+            //         _gameIsRunning = false;
+            //         _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
+            //         if (evt.Unexpected)
+            //         {
+            //             if (!_forceGameExitIsInProgress)
+            //             {
+            //                 _logger.Error($"GameProcessExitedEvent-Unexpected Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //                 _robotController.Enabled = false;
+            //                 return;
+            //             }
+            //             _logger.Info($"GameProcessExitedEvent-Unexpected-ForceGameExit Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //             _forceGameExitIsInProgress = false;
+            //             _goToNextGame = false;
+            //             _exitWhenIdle = !IsRegularRobots();
+            //         }
+            //         else
+            //         {
+            //             _logger.Info($"GameProcessExitedEvent-Normal Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //             _goToNextGame = !IsRegularRobots();
+            //         }
+            //         LoadGameWithDelay(Constants.loadGameDelayDuration);
+            //     });
+            //_eventBus.Subscribe<GameFatalErrorEvent>(
+            //     this,
+            //     _ =>
+            //     {
+            //         _logger.Error($"GameFatalErrorEvent Got Triggered! There is an issue with [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //         _robotController.Enabled = false;
+            //     });
+            //_eventBus.Subscribe<GamePlayStateChangedEvent>(
+            //     this,
+            //     _ =>
+            //     {
+            //         _logger.Info($"GamePlayStateChangedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //         _robotController.IdleDuration = 0;
+            //         _sanityCounter = 0;
+            //     });
+            //_eventBus.Subscribe<HandpayStartedEvent>(this, evt =>
+            //{
+            //    if (evt.Handpay == HandpayType.GameWin ||
+            //         evt.Handpay == HandpayType.CancelCredit)
+            //    {
+            //        _logger.Info($"Keying off large win Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //        ToggleJackpotKey(Constants.ToggleJackpotKeyDuration);
+            //    }
+            //    else
+            //    {
+            //        _logger.Info($"Skip toggling jackpot key since evt.Handpay = [{evt.Handpay}] is not valid!", GetType().Name);
+            //    }
+            //});
+            //_eventBus.Subscribe<SystemEnabledEvent>(
+            //    this,
+            //    _ =>
+            //    {
+            //        _logger.Info($"SystemEnabledEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //        LoadGameWithDelay(Constants.loadGameDelayDuration);
+            //    });
 
-            HandleCashoutRequest();
+            //HandleCashoutRequest();
 
-            InitGameProcessHungEvent();
+            //InitGameProcessHungEvent();
         }
 
         private void InitGameProcessHungEvent()
@@ -457,6 +459,7 @@
         {
             _requestGameIsInProgress = true;
             SelectNextGame(_goToNextGame);
+
             _goToNextGame = false;
             var games = _propertyManager.GetValues<IGameDetail>(GamingConstants.Games).ToList();
             var gameInfo = games.FirstOrDefault(g => g.ThemeName == _robotController.Config.CurrentGame && g.Enabled);
@@ -472,6 +475,9 @@
                 {
                     _automator.SetSpeed(_robotController.Config.Speed);
                 }
+
+                RobotController.SelectedGameId = gameInfo.Id;
+
                 _automator.RequestGameLoad(gameInfo.Id, denom);
             }
             else

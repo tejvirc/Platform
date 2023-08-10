@@ -88,7 +88,7 @@
                         w.Id.Equals(request.TemplateId.ToString()));
 
                     if (cdsInfo is null)
-                    {
+                    {   //*** InitializationFailed --> PlayState.Idle --> OnIdle()
                         _gamePlayState.InitializationFailed();
                         Failed($"wager category is null: {request.TemplateId}");
                         return;
@@ -109,8 +109,10 @@
                     return;
                 }
 
+                //*** EscrowWager
                 if (!_gamePlayState.EscrowWager(command.Wager, command.Data, command.Request, _recovery.IsRecovering))
                 {
+                    //*** InitializationFailed --> PlayState.Idle --> OnIdle()
                     _gamePlayState.InitializationFailed();
                     Failed("EscrowWager is false");
                     return;

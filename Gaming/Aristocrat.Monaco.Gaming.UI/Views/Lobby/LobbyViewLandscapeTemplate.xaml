@@ -467,6 +467,7 @@
                                             </Grid>
                                             
                                             <!-- Use DataContext of ItemsControl instead of current GameInfo for SelectCommand -->
+                                            <!-- //*** the image button to load game -->
                                             <Button x:Name="GameIconButton"
                                                     Style="{StaticResource stlFlatButton}"
                                                     HorizontalAlignment="Center"
