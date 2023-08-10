@@ -34,7 +34,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using PayMethod = Contracts.Bonus.PayMethod;
     using Aristocrat.Toolkit.Mvvm.Extensions;
 #if !(RETAIL)
-    using RobotController.Contracts;
     using Vgt.Client12.Testing.Tools;
 #endif
 
