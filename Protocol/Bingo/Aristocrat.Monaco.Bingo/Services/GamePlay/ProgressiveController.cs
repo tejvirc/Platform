@@ -337,7 +337,7 @@
                         _pendingAwards.Add((poolName, response.Result.ProgressiveLevelId, response.Result.ProgressiveWinAmount, response.Result.ProgressiveAwardId));
                     }
 
-                    UpdatePendingAwards();
+                    //UpdatePendingAwards();
                 }
             }
         }
@@ -374,7 +374,7 @@
                 if (matched)
                 {
                     _pendingAwards.Remove(pendingAwardToRemove);
-                    UpdatePendingAwards();
+                    //UpdatePendingAwards();
                 }
             }
 
