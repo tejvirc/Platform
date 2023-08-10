@@ -128,9 +128,6 @@
 
             AddOrReplaceMeter(AddTotalCashInCompositeMeter(_meters));
             AddOrReplaceMeter(AddTotalBillCountCompositeMeter(_meters));
-            AddOrReplaceMeter(AddTrueCoinInCompositeMeter(_meters));
-            AddOrReplaceMeter(AddTrueCoinOutCompositeMeter(_meters));
-            AddOrReplaceMeter(AddCoinDropCompositeMeter(_meters));
 
             AddOrReplaceRejectedCountMeters();
 
@@ -352,38 +349,7 @@
                 meters.Select(m => m.Name),
                 new OccurrenceMeterClassification());
         }
-
-        private IMeter AddTrueCoinInCompositeMeter(IReadOnlyList<IMeter> meters)
-        {
-            // TODO: Need to hook-up actual coin in meters
-            return new CompositeMeter(
-                AccountingMeters.TrueCoinIn,
-                (timeFrame) => 0L,
-                meters.Select(m => m.Name),
-                new CurrencyMeterClassification());
-        }
-
-        private IMeter AddTrueCoinOutCompositeMeter(IReadOnlyList<IMeter> meters)
-        {
-            // TODO: Need to hook-up actual coin out meters
-            return new CompositeMeter(
-                AccountingMeters.TrueCoinOut,
-                (timeFrame) => 0L,
-                meters.Select(m => m.Name),
-                new CurrencyMeterClassification());
-        }
-
-        private IMeter AddCoinDropCompositeMeter(IReadOnlyList<IMeter> meters)
-        {
-            // TODO: Need to hook-up actual coin drop meters
-            return new CompositeMeter(
-                AccountingMeters.CoinDrop,
-                (timeFrame) => 0L,
-
-                meters.Select(m => m.Name),
-                new CurrencyMeterClassification());
-        }
-
+        
         private void HandleEvent(PeriodMetersClearedEvent evt)
         {
             // Only look for period clears that were specifically requested for this provider

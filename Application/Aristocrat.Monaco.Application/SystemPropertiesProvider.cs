@@ -246,7 +246,15 @@ namespace Aristocrat.Monaco.Application
                 {
                     ApplicationConstants.HostAddresses,
                     Tuple.Create((object)InitFromStorage<string>(ApplicationConstants.HostAddresses), ApplicationConstants.HostAddresses)
-                }
+                },
+                {
+                    ApplicationConstants.CoinAcceptorEnabled,
+                    Tuple.Create((object)InitFromStorage<bool>("CoinAcceptorEnabled"), "CoinAcceptorEnabled")
+                },
+                {
+                    ApplicationConstants.CoinAcceptorManufacturer,
+                    Tuple.Create((object)InitFromStorage<string>("CoinAcceptorManufacturer"), "CoinAcceptorManufacturer")
+                },
             };
 
             _blockExists = true;

@@ -373,6 +373,10 @@
                     Tuple.Create( (object)configuration.CreditLimits?.MaxCreditMeter?.DisableBankNoteAcceptorWhenCreditLimitReached ?? false, false)
                 },
                 {
+                    AccountingConstants.DisableCoinAcceptorWhenCreditLimitReached,
+                    Tuple.Create( (object)configuration.CreditLimits?.MaxCreditMeter?.DisableCoinAcceptorWhenCreditLimitReached ?? false, false)
+                },
+                {
                     AccountingConstants.MaxBetLimit,
                     Tuple.Create(InitFromStorage(AccountingConstants.MaxBetLimit), true)
                 },

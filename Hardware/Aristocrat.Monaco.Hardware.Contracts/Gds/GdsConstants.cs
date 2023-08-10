@@ -272,7 +272,21 @@
             ReelControllerFailureStatusClear = 0xFF,
 
             /// <summary> The reel controller response to a tilt reels command</summary>
-            ReelControllerTiltReelsResponse = 0x100
+            ReelControllerTiltReelsResponse = 0x100,
+
+            /// <summary> The reel controller response to a tilt reels command</summary>
+            CoinValidatorDivertorState = 0x101,
+
+            /// <summary> The reel controller response to a tilt reels command</summary>
+            CoinValidatorRejectState = 0x102,
+
+            /// <summary> The reel controller response to a tilt reels command</summary>
+            DeviceReset = 0x103,
+
+            /// <summary> The reel controller response to a tilt reels command</summary>
+            CoinInStatus = 0x104,
+            /// <summary> The reel controller response to a tilt reels command</summary>
+            CoinInFaultStatus = 0x105
         }
 
         /// <summary>The default seed value used to calculate the CRC.</summary>

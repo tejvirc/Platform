@@ -40,6 +40,8 @@
                     return ApplicationConstants.IdReaderEnabled;
                 case DeviceType.ReelController:
                     return ApplicationConstants.ReelControllerEnabled;
+                case DeviceType.CoinAcceptor:
+                    return ApplicationConstants.CoinAcceptorEnabled;
                 default:
                     return string.Empty;
             }

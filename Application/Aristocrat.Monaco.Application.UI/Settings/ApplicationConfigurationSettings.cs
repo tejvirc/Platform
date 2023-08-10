@@ -123,6 +123,7 @@
             }
 
             var noteAcceptorEnabled = _propertiesManager.GetValue(ApplicationConstants.NoteAcceptorEnabled, false);
+            var coinAcceptorEnabled = _propertiesManager.GetValue(ApplicationConstants.CoinAcceptorEnabled, false);
             var printerEnabled = _propertiesManager.GetValue(ApplicationConstants.PrinterEnabled, false);
             var idReaderEnabled = _propertiesManager.GetValue(ApplicationConstants.IdReaderEnabled, false);
             var reelControllerEnabled = _propertiesManager.GetValue(ApplicationConstants.ReelControllerEnabled, false);
@@ -134,6 +135,9 @@
                     NoteAcceptorEnabled =noteAcceptorEnabled,
                     NoteAcceptorManufacturer = noteAcceptorEnabled ?
                         _propertiesManager.GetValue(ApplicationConstants.NoteAcceptorManufacturer, string.Empty) : notAvailable,
+                    CoinAcceptorEnabled = coinAcceptorEnabled,
+                    CoinAcceptorManufacturer = coinAcceptorEnabled ?
+                        _propertiesManager.GetValue(ApplicationConstants.CoinAcceptorManufacturer, string.Empty) : notAvailable,
                     PrinterEnabled = printerEnabled,
                     PrinterManufacturer = printerEnabled ?
                         _propertiesManager.GetValue(ApplicationConstants.PrinterManufacturer, string.Empty): notAvailable,
@@ -222,6 +226,8 @@
         {
             _propertiesManager.SetProperty(ApplicationConstants.NoteAcceptorEnabled, settings.NoteAcceptorEnabled);
             _propertiesManager.SetProperty(ApplicationConstants.NoteAcceptorManufacturer, settings.NoteAcceptorManufacturer);
+            _propertiesManager.SetProperty(ApplicationConstants.CoinAcceptorEnabled, settings.CoinAcceptorEnabled);
+            _propertiesManager.SetProperty(ApplicationConstants.CoinAcceptorManufacturer, settings.CoinAcceptorManufacturer);
             _propertiesManager.SetProperty(ApplicationConstants.PrinterEnabled, settings.PrinterEnabled);
             _propertiesManager.SetProperty(ApplicationConstants.PrinterManufacturer, settings.PrinterManufacturer);
             _propertiesManager.SetProperty(ApplicationConstants.CurrencyId, settings.CurrencyId);

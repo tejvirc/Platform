@@ -61,11 +61,56 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Call Attendant -.
+        /// </summary>
+        public static string CallAttendant {
+            get {
+                return ResourceManager.GetString("CallAttendant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cleared.
         /// </summary>
         public static string ClearedText {
             get {
                 return ResourceManager.GetString("ClearedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coin Acceptor.
+        /// </summary>
+        public static string CoinAcceptorText {
+            get {
+                return ResourceManager.GetString("CoinAcceptorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coin-in Error: Diverter Fault.
+        /// </summary>
+        public static string CoinFaultTypes_Divert {
+            get {
+                return ResourceManager.GetString("CoinFaultTypes_Divert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coin-in Error: Optic Fault.
+        /// </summary>
+        public static string CoinFaultTypes_Optic {
+            get {
+                return ResourceManager.GetString("CoinFaultTypes_Optic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coin-in Error: YoYo Fault.
+        /// </summary>
+        public static string CoinFaultTypes_YoYo {
+            get {
+                return ResourceManager.GetString("CoinFaultTypes_YoYo", resourceCulture);
             }
         }
         
@@ -363,6 +408,16 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Properties {
         public static string ReelControllerText {
             get {
                 return ResourceManager.GetString("ReelControllerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To reset this fault
+        ///Turn the Jackpot key ON then OFF..
+        /// </summary>
+        public static string ResetFault {
+            get {
+                return ResourceManager.GetString("ResetFault", resourceCulture);
             }
         }
         

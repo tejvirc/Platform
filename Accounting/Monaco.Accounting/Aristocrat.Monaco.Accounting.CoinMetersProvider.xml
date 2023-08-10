@@ -1,0 +1,30 @@
+﻿<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Accounting.CoinMetersProvider">
+    <Fields>
+      <Field DataType="Int64" FieldName="TrueCoinInCountPeriod" />
+      <Field DataType="Int64" FieldName="TrueCoinInCountLifetime" />
+      <Field DataType="Int64" FieldName="TrueCoinOutCountPeriod" />
+      <Field DataType="Int64" FieldName="TrueCoinOutCountLifetime" />
+      <Field DataType="Int64" FieldName="CoinDropCountPeriod" />
+      <Field DataType="Int64" FieldName="CoinDropCountLifetime" />
+      <Field DataType="Int64" FieldName="CoinToCashBoxCountPeriod" />
+      <Field DataType="Int64" FieldName="CoinToCashBoxCountLifetime" />
+      <Field DataType="Int64" FieldName="CoinToHopperCountPeriod" />
+      <Field DataType="Int64" FieldName="CoinToHopperCountLifetime" />
+      <Field DataType="Int64" FieldName="CoinToCashBoxInsteadHopperCountPeriod" />
+      <Field DataType="Int64" FieldName="CoinToCashBoxInsteadHopperCountLifetime" />
+      <Field DataType="Int64" FieldName="CoinToHopperInsteadCashBoxCountPeriod" />
+      <Field DataType="Int64" FieldName="CoinToHopperInsteadCashBoxCountLifetime" />
+      <Field DataType="Int64" FieldName="CurrentHopperLevelCountPeriod" />
+      <Field DataType="Int64" FieldName="CurrentHopperLevelCountLifetime" />
+      <Field DataType="Int64" FieldName="ExcessCoinOutCountPeriod" />
+      <Field DataType="Int64" FieldName="ExcessCoinOutCountLifetime" />
+      <Field DataType="Int64" FieldName="HopperRefillCountPeriod" />
+      <Field DataType="Int64" FieldName="HopperRefillCountLifetime" />
+      <Field DataType="Int64" FieldName="HopperRefillAmountPeriod" />
+      <Field DataType="Int64" FieldName="HopperRefillAmountLifetime" />
+      <Field DataType="DateTime" FieldName="LastPeriodClearTime" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

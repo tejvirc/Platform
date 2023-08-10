@@ -5681,6 +5681,54 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Coin Accepted -.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string CoinAccepted {
+			get {
+				return ResourceManager.GetString("CoinAccepted", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin Acceptor Failure.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string CoinAcceptorFailure {
+			get {
+				return ResourceManager.GetString("CoinAcceptorFailure", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin Acceptor.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinAcceptorLabel {
+			get {
+				return ResourceManager.GetString("CoinAcceptorLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin Acceptor Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinAcceptorTestLabel {
+			get {
+				return ResourceManager.GetString("CoinAcceptorTestLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Coin Drop (Cash Box).
 		/// </summary>
         /// <remarks>
@@ -5689,6 +5737,42 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CoinDropCashBox {
 			get {
 				return ResourceManager.GetString("CoinDropCashBox", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin Entry Fault - .
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinEntryFault {
+			get {
+				return ResourceManager.GetString("CoinEntryFault", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin Entry.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinEntryLabel {
+			get {
+				return ResourceManager.GetString("CoinEntryLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin In.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.UI
+        /// </remarks>
+		public static string CoinIn {
+			get {
+				return ResourceManager.GetString("CoinIn", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -5750,6 +5834,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Coin In Status.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinInStatus {
+			get {
+				return ResourceManager.GetString("CoinInStatus", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Coin In.
 		/// </summary>
         /// <remarks>
@@ -5767,6 +5863,114 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CoinOutText {
 			get {
 				return ResourceManager.GetString("CoinOutText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin In To CashBox.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string CoinToCashBox {
+			get {
+				return ResourceManager.GetString("CoinToCashBox", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin In To CashBox Instead Hopper.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string CoinToCashBoxInsteadHopper {
+			get {
+				return ResourceManager.GetString("CoinToCashBoxInsteadHopper", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin In To Hopper.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string CoinToHopper {
+			get {
+				return ResourceManager.GetString("CoinToHopper", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin In To Hopper Instead CashBox.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string CoinToHopperInsteadCashBox {
+			get {
+				return ResourceManager.GetString("CoinToHopperInsteadCashBox", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Cash In.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string CoinTransactionName {
+			get {
+				return ResourceManager.GetString("CoinTransactionName", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin-In error: Diverter fault.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinWarningDivert {
+			get {
+				return ResourceManager.GetString("CoinWarningDivert", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin-In error: Invalid coin.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinWarningInvalid {
+			get {
+				return ResourceManager.GetString("CoinWarningInvalid", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin-In error: Optic fault.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinWarningOptic {
+			get {
+				return ResourceManager.GetString("CoinWarningOptic", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin-In error: YoYo fault.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinWarningYoYo {
+			get {
+				return ResourceManager.GetString("CoinWarningYoYo", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -9001,6 +9205,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Displays {
 			get {
 				return ResourceManager.GetString("Displays", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Diverter Direction.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DiverterDirectionLabel {
+			get {
+				return ResourceManager.GetString("DiverterDirectionLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -33080,6 +33296,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Total Coin In to Cashbox.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalCoinToCashbox {
+			get {
+				return ResourceManager.GetString("TotalCoinToCashbox", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Total Coin In to Hopper.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalCoinToHopper {
+			get {
+				return ResourceManager.GetString("TotalCoinToHopper", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Total Current Credits.
 		/// </summary>
         /// <remarks>
@@ -42241,6 +42481,54 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Coin Accepted -.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string CoinAccepted {
+			get {
+				return "CoinAccepted";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin Acceptor Failure.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string CoinAcceptorFailure {
+			get {
+				return "CoinAcceptorFailure";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin Acceptor.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinAcceptorLabel {
+			get {
+				return "CoinAcceptorLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin Acceptor Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinAcceptorTestLabel {
+			get {
+				return "CoinAcceptorTestLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Coin Drop (Cash Box).
 		/// </summary>
         /// <remarks>
@@ -42249,6 +42537,42 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CoinDropCashBox {
 			get {
 				return "CoinDropCashBox";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin Entry Fault - .
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinEntryFault {
+			get {
+				return "CoinEntryFault";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin Entry.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinEntryLabel {
+			get {
+				return "CoinEntryLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin In.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.UI
+        /// </remarks>
+		public static string CoinIn {
+			get {
+				return "CoinIn";
 			}
 		}
 
@@ -42310,6 +42634,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Coin In Status.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinInStatus {
+			get {
+				return "CoinInStatus";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Coin In.
 		/// </summary>
         /// <remarks>
@@ -42327,6 +42663,114 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CoinOutText {
 			get {
 				return "CoinOutText";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin In To CashBox.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string CoinToCashBox {
+			get {
+				return "CoinToCashBox";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin In To CashBox Instead Hopper.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string CoinToCashBoxInsteadHopper {
+			get {
+				return "CoinToCashBoxInsteadHopper";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin In To Hopper.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string CoinToHopper {
+			get {
+				return "CoinToHopper";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin In To Hopper Instead CashBox.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		public static string CoinToHopperInsteadCashBox {
+			get {
+				return "CoinToHopperInsteadCashBox";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Cash In.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		public static string CoinTransactionName {
+			get {
+				return "CoinTransactionName";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin-In error: Diverter fault.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinWarningDivert {
+			get {
+				return "CoinWarningDivert";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin-In error: Invalid coin.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinWarningInvalid {
+			get {
+				return "CoinWarningInvalid";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin-In error: Optic fault.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinWarningOptic {
+			get {
+				return "CoinWarningOptic";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin-In error: YoYo fault.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string CoinWarningYoYo {
+			get {
+				return "CoinWarningYoYo";
 			}
 		}
 
@@ -45561,6 +46005,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Displays {
 			get {
 				return "Displays";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Diverter Direction.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string DiverterDirectionLabel {
+			get {
+				return "DiverterDirectionLabel";
 			}
 		}
 
@@ -69640,6 +70096,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Total Coin In to Cashbox.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalCoinToCashbox {
+			get {
+				return "TotalCoinToCashbox";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Total Coin In to Hopper.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string TotalCoinToHopper {
+			get {
+				return "TotalCoinToHopper";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Total Current Credits.
 		/// </summary>
         /// <remarks>
@@ -76388,12 +76868,61 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ClrMemoryLabel,
 		/// <summary>
+		///   Looks up a localized string similar to Coin Accepted -.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		CoinAccepted,
+		/// <summary>
+		///   Looks up a localized string similar to Coin Acceptor Failure.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		CoinAcceptorFailure,
+		/// <summary>
+		///   Looks up a localized string similar to Coin Acceptor.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CoinAcceptorLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Coin Acceptor Test.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CoinAcceptorTestLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Coin Drop (Cash Box).
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		CoinDropCashBox,
+		/// <summary>
+		///   Looks up a localized string similar to Coin Entry Fault - .
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CoinEntryFault,
+		/// <summary>
+		///   Looks up a localized string similar to Coin Entry.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CoinEntryLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Coin In.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.UI
+        /// </remarks>
+		CoinIn,
 		/// <summary>
 		///   Looks up a localized string similar to Coin-In Amount.
 		/// </summary>
@@ -76427,6 +76956,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		CoinInRewardLevels,
 		/// <summary>
+		///   Looks up a localized string similar to Coin In Status.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CoinInStatus,
+		/// <summary>
 		///   Looks up a localized string similar to Coin In.
 		/// </summary>
         /// <remarks>
@@ -76437,6 +76973,69 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to Coin Out.
 		/// </summary>
 		CoinOutText,
+		/// <summary>
+		///   Looks up a localized string similar to Coin In To CashBox.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		CoinToCashBox,
+		/// <summary>
+		///   Looks up a localized string similar to Coin In To CashBox Instead Hopper.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		CoinToCashBoxInsteadHopper,
+		/// <summary>
+		///   Looks up a localized string similar to Coin In To Hopper.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		CoinToHopper,
+		/// <summary>
+		///   Looks up a localized string similar to Coin In To Hopper Instead CashBox.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting.Contracts
+        /// </remarks>
+		CoinToHopperInsteadCashBox,
+		/// <summary>
+		///   Looks up a localized string similar to Cash In.
+		/// </summary>
+        /// <remarks>
+        /// Monaco.Accounting
+        /// </remarks>
+		CoinTransactionName,
+		/// <summary>
+		///   Looks up a localized string similar to Coin-In error: Diverter fault.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CoinWarningDivert,
+		/// <summary>
+		///   Looks up a localized string similar to Coin-In error: Invalid coin.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CoinWarningInvalid,
+		/// <summary>
+		///   Looks up a localized string similar to Coin-In error: Optic fault.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CoinWarningOptic,
+		/// <summary>
+		///   Looks up a localized string similar to Coin-In error: YoYo fault.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		CoinWarningYoYo,
 		/// <summary>
 		///   Looks up a localized string similar to Color.
 		/// </summary>
@@ -78276,6 +78875,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		Displays,
+		/// <summary>
+		///   Looks up a localized string similar to Diverter Direction.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		DiverterDirectionLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Document Eaten.
 		/// </summary>
@@ -91976,6 +92582,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		TotalCoinsAndBillsText,
+		/// <summary>
+		///   Looks up a localized string similar to Total Coin In to Cashbox.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TotalCoinToCashbox,
+		/// <summary>
+		///   Looks up a localized string similar to Total Coin In to Hopper.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		TotalCoinToHopper,
 		/// <summary>
 		///   Looks up a localized string similar to Total Current Credits.
 		/// </summary>
