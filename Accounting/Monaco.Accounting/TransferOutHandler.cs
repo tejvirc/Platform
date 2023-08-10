@@ -156,11 +156,6 @@ namespace Aristocrat.Monaco.Accounting
                 return false;
             }
 
-            if (!IsValid(account, amount, reason))
-            {
-                return false;
-            }
-
             var transactionId = _transactionCoordinator.RequestTransaction(RequestorId, 0, TransactionType.Write, true);
             if (transactionId == Guid.Empty)
             {
@@ -172,6 +167,12 @@ namespace Aristocrat.Monaco.Accounting
                 TransactionId = transactionId,
                 OwnedTransaction = true
             };
+
+            if (!IsValid(account, amount, reason))
+            {
+                ClearTransaction();
+                return false;
+            }
 
             Task.Run(
                 () => TransferAsync(

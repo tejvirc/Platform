@@ -43,6 +43,7 @@
         private bool _enabled;
         private bool _faulted;
         private bool _pendingEvents;
+        private long _wageredAmount;
 
         private StateMachine<PlayState, Trigger>.TriggerWithParameters<long> _payResultTrigger;
         private StateMachine<PlayState, Trigger>.TriggerWithParameters<long, byte[], IOutcomeRequest> _primaryGameEscrowTrigger;
@@ -229,8 +230,9 @@
         }
 
         /// <inheritdoc />
-        public bool Prepare()
+        public bool Prepare(long initialWager = 0)
         {
+            _wageredAmount = initialWager;
             return CheckGameRoundStartTimer() && Fire(Trigger.PlayInitiated, true) && _state.IsInState(PlayState.Initiated);
         }
 
@@ -692,7 +694,7 @@
 
             Logger.Debug("Prepare for game round started");
 
-            var initiated = new GamePlayInitiated();
+            var initiated = new GamePlayInitiated() { WageredAmount = _wageredAmount };
             _handlerFactory.Create<GamePlayInitiated>().Handle(initiated);
             if (!initiated.Success)
             {
