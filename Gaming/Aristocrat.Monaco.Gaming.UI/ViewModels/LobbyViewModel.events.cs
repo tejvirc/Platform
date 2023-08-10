@@ -5,6 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Accounting.Contracts;
+    using Accounting.Contracts.CoinAcceptor;
     using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
@@ -80,6 +81,8 @@
             _eventBus.Subscribe<VoucherRejectedEvent>(this, HandleEvent);
             _eventBus.Subscribe<CurrencyInStartedEvent>(this, HandleEvent);
             _eventBus.Subscribe<CurrencyInCompletedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<CoinInStartedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<CoinInCompletedEvent>(this, HandleEvent);
             _eventBus.Subscribe<WatOnStartedEvent>(this, HandleEvent);
             _eventBus.Subscribe<WatOnCompleteEvent>(this, HandleEvent);
             _eventBus.Subscribe<BankBalanceChangedEvent>(this, HandleEvent);
@@ -513,6 +516,15 @@
             }
         }
 
+        private void HandleEvent(CoinInStartedEvent platformEvent)
+        {
+            Logger.Debug("Detected CoinInStartedEvent");
+            if (CurrentState != LobbyState.Disabled)
+            {
+                CashInStarted(CashInType.Currency);
+            }
+        }
+
         private void HandleEvent(VoucherRedemptionRequestedEvent platformEvent)
         {
             Logger.Debug("Detected VoucherRedemptionRequestedEvent");
@@ -542,6 +554,12 @@
         {
             Logger.Debug($"Detected CurrencyInCompletedEvent.  Amount: {platformEvent.Amount}");
             HandleCompletedMoneyIn(platformEvent.Amount, platformEvent.Amount > 0);
+        }
+
+        private void HandleEvent(CoinInCompletedEvent platformEvent)
+        {
+            Logger.Debug($"Detected CoinInCompletedEvent.  Amount: {platformEvent.Coin.Value}");
+            HandleCompletedMoneyIn(platformEvent.Coin.Value, platformEvent.Coin.Value > 0);
         }
 
         private void HandleEvent(WatOnStartedEvent watOnEvent)

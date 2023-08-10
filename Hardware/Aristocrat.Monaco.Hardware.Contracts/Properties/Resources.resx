@@ -225,4 +225,23 @@
   <data name="ReelControllerText" xml:space="preserve">
     <value>Reel Controller</value>
   </data>
+  <data name="CallAttendant" xml:space="preserve">
+    <value>Call Attendant -</value>
+  </data>
+  <data name="CoinFaultTypes_Divert" xml:space="preserve">
+    <value>Coin-in Error: Diverter Fault</value>
+  </data>
+  <data name="CoinFaultTypes_Optic" xml:space="preserve">
+    <value>Coin-in Error: Optic Fault</value>
+  </data>
+  <data name="CoinFaultTypes_YoYo" xml:space="preserve">
+    <value>Coin-in Error: YoYo Fault</value>
+  </data>
+  <data name="ResetFault" xml:space="preserve">
+    <value>To reset this fault
+Turn the Jackpot key ON then OFF.</value>
+  </data>
+	<data name="CoinAcceptorText" xml:space="preserve">
+    <value>Coin Acceptor</value>
+  </data>
 </root>

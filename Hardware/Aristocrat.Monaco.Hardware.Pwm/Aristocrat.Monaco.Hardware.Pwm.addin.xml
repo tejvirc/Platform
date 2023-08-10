@@ -1,0 +1,17 @@
+﻿<Addin id="PwmCommunicatorDriver" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Hardware.Pwm.dll" />
+    <Import assembly="Aristocrat.Monaco.Hardware.Contracts.dll"/>
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Hardware" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Hardware/CommunicatorDrivers">
+    <DeviceImplementation ProtocolName="Pwm-CoinAcceptor" type="Aristocrat.Monaco.Hardware.Pwm.CoinAcceptor.CoinAcceptor"/>
+    <DeviceImplementation ProtocolName="Pwm-Hopper" type="Aristocrat.Monaco.Hardware.Pwm.Hopper.Hopper"/>
+  </Extension>
+
+</Addin>

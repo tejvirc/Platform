@@ -13,6 +13,9 @@
         Printer,
 
         /// <summary>Indicates device type reels</summary>
-        ReelController
+        ReelController,
+
+        /// <summary>Indicates device type reels</summary>
+        CoinAcceptor
     }
 }

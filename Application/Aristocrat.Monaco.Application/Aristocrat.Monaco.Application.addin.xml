@@ -73,6 +73,8 @@
     <Service type="Aristocrat.Monaco.Application.PerformanceCounter.PerformanceCounterManager" />
     <Service type="Aristocrat.Monaco.Application.Monitors.FirmwareCrcMonitor" />
     <Service type="Aristocrat.Monaco.Application.Detection.DeviceDetection" />
+    <Service type="Aristocrat.Monaco.Application.CoinAcceptor.CoinAcceptorCoordinator" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.CoinAcceptorMonitor" />
   </Extension>
 
   <Extension path="/Kernel/CommandLineArguments">
@@ -169,6 +171,10 @@
 
   <ExtensionPoint path="/Application/NoteAcceptorDisable">
     <ExtensionNode name="NoteAcceptorDisable" type="Aristocrat.Monaco.Application.NoteAcceptor.NoteAcceptorDisableNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/CoinAcceptorDisable">
+    <ExtensionNode name="CoinAcceptorDisable" type="Aristocrat.Monaco.Application.CoinAcceptor.CoinAcceptorDisableNode" />
   </ExtensionPoint>
 
   <!--Must implement Vgt.Client12.Application.Metering.IMeterProvider-->

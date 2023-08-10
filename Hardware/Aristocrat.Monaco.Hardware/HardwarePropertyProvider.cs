@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using Contracts;
+    using Contracts.CoinAcceptor;
     using Contracts.Persistence;
     using Kernel;
     using log4net;
@@ -111,7 +112,11 @@
                 },
                 {
                     HardwareConstants.DoorAlarmEnabledKey, Tuple.Create((object)true, false)
-                }
+                },
+                {
+                    HardwareConstants.CoinAcceptorFaults,
+                    Tuple.Create((object)InitFromStorage<int>(HardwareConstants.CoinAcceptorFaults, (int)CoinFaultTypes.None), true)
+                },
             };
 
             if (!_blockExists)
