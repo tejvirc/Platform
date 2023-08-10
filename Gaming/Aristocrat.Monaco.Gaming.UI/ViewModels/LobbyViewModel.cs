@@ -4793,27 +4793,32 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void DetermineNavLampStates(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state;
+            bool? gameTabState;
+
             if (BaseState == LobbyState.GameLoading)
             {
-                state = null;
+                state = gameTabState = null;
             }
             else if (ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
             {
-                state = false;
+                state = gameTabState = false;
             }
             else if (BaseState == LobbyState.Game)
             {
-                state = _justCashedOut ? CashOutEnabled : null;
+                state = gameTabState = _justCashedOut ? CashOutEnabled : null;
             }
             else
             {
                 state = true;
+
+                //For GA-COAM jurisdiction there will no game tab and when in Lobby need to unlit the Bet4(MaxBet) button and Playline5 button
+                gameTabState = IsTabView;
             }
 
             buttonsLampState.Add(SetLampState(LampName.Bet3, state)); // prev game
-            buttonsLampState.Add(SetLampState(LampName.Bet4, state)); // prev tab
+            buttonsLampState.Add(SetLampState(LampName.Bet4, gameTabState)); // prev tab
             buttonsLampState.Add(SetLampState(LampName.Bet5, state)); // inc denom
-            buttonsLampState.Add(SetLampState(LampName.Playline5, state)); //next tab
+            buttonsLampState.Add(SetLampState(LampName.Playline5, gameTabState)); //next tab
             buttonsLampState.Add(SetLampState(LampName.Playline4, state)); //next game
         }
 
