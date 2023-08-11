@@ -16,6 +16,9 @@
         ReelController,
 
         /// <summary>Indicates device type reels</summary>
-        CoinAcceptor
+        CoinAcceptor,
+
+        /// <summary>Indicates device type hopper</summary>
+        Hopper
     }
 }

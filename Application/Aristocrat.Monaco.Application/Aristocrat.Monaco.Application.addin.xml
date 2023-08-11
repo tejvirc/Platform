@@ -75,6 +75,7 @@
     <Service type="Aristocrat.Monaco.Application.Detection.DeviceDetection" />
     <Service type="Aristocrat.Monaco.Application.CoinAcceptor.CoinAcceptorCoordinator" />
     <Service type="Aristocrat.Monaco.Application.Monitors.CoinAcceptorMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.HopperMonitor" />
   </Extension>
 
   <Extension path="/Kernel/CommandLineArguments">

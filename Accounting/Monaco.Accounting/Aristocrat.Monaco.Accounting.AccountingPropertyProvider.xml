@@ -592,6 +592,10 @@
       <Field FieldName="IncrementThresholdIsChecked" DataType="Bool" />
       <Field FieldName="ExcessiveDocumentRejectLockupEnabled" DataType="Bool" />
       <Field FieldName="HandCount.PayoutLimit" DataType="Int64" />
+      <Field FieldName="HopperTicket.Split" DataType="Bool" />
+      <Field FieldName="Hopper.CurrentRefill.Value" DataType="Int64" />
+      <Field FieldName="Hopper.Collect.Limit" DataType="Int64" />
+      <Field FieldName="HopperTicket.Threshold" DataType="Int64" />
     </Fields>
   </BlockFormat>
 </ArrayOfBlockFormat>

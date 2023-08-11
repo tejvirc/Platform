@@ -274,19 +274,36 @@
             /// <summary> The reel controller response to a tilt reels command</summary>
             ReelControllerTiltReelsResponse = 0x100,
 
-            /// <summary> The reel controller response to a tilt reels command</summary>
+            /// <summary> The coin acceptor divertor status command.</summary>
             CoinValidatorDivertorState = 0x101,
 
-            /// <summary> The reel controller response to a tilt reels command</summary>
+            /// <summary> The coin acceptor reject status command.</summary>
             CoinValidatorRejectState = 0x102,
 
-            /// <summary> The reel controller response to a tilt reels command</summary>
+            /// <summary> The pwm device reset command.</summary>
             DeviceReset = 0x103,
 
-            /// <summary> The reel controller response to a tilt reels command</summary>
+            /// <summary> The coin in status event.</summary>
             CoinInStatus = 0x104,
-            /// <summary> The reel controller response to a tilt reels command</summary>
-            CoinInFaultStatus = 0x105
+
+            /// <summary> The coin out status event.</summary>
+            CoinOutStatus = 0x105,
+
+            /// <summary> The coin in fault status event.</summary>
+            CoinInFaultStatus = 0x106,
+
+            /// <summary> The hopper max out amount control command.</summary>
+            MaxCoinOutControll = 0x107,
+
+            /// <summary> The hopper motor control command.</summary>
+            HopperMotorControl = 0x108,
+
+            /// <summary> The hopper faults status event</summary>
+            HopperFaultStatus = 0x109,
+
+            /// <summary> The hopper bowl status event</summary>
+            HopperBowlStatus = 0x10A,
+
         }
 
         /// <summary>The default seed value used to calculate the CRC.</summary>

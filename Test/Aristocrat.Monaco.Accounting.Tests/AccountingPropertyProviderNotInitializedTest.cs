@@ -257,6 +257,15 @@
             _block.SetupGet(m => m[AccountingConstants.HandCountPayoutLimit]).Returns(1_199_00_000L);
             _block.SetupSet(m => m[AccountingConstants.HandCountPayoutLimit] = It.IsAny<long>());
 
+            _block.SetupGet(m => m[AccountingConstants.HopperTicketSplit]).Returns(false);
+            _block.SetupSet(m => m[AccountingConstants.HopperTicketSplit] = It.IsAny<bool>());
+            _block.SetupGet(m => m[AccountingConstants.HopperCurrentRefillValue]).Returns(0L);
+            _block.SetupSet(m => m[AccountingConstants.HopperCurrentRefillValue] = It.IsAny<long>());
+            _block.SetupGet(m => m[AccountingConstants.HopperCollectLimit]).Returns(0L);
+            _block.SetupSet(m => m[AccountingConstants.HopperCollectLimit] = It.IsAny<long>());
+            _block.SetupGet(m => m[AccountingConstants.HopperTicketThreshold]).Returns(0L);
+            _block.SetupSet(m => m[AccountingConstants.HopperTicketThreshold] = It.IsAny<long>());
+
             MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Default);
 
             _target = new AccountingPropertyProvider();

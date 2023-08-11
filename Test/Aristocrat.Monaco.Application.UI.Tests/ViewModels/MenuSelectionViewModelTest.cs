@@ -6,6 +6,7 @@
     using System.Globalization;
     using System.IO;
     using System.Windows;
+    using Aristocrat.Monaco.Hardware.Contracts;
     using Contracts;
     using Contracts.Input;
     using Contracts.Localization;
@@ -196,6 +197,15 @@
         public void ConstructorTest()
         {
             Assert.IsNotNull(_target);
+        }
+
+        [TestMethod]
+        public void SelectedMenuItemTest()
+        {
+            CreateHopperTestViews();
+            _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.HopperDiagnosticMode, false)).Returns(true);
+            _target.SetInitialSelectedMenuItem();
+            Assert.AreEqual("Hardware", _target.SelectedItem.PageName);
         }
 
         [Ignore]
@@ -439,6 +449,13 @@
         private void CreateViews()
         {
             var view = new TestLoader { IsEnabled = true };
+            _target.MenuItems.Add(view);
+            _target.SelectedItem = view;
+        }
+
+        private void CreateHopperTestViews()
+        {
+            var view = new TestLoader("Hardware") { IsEnabled = true };
             _target.MenuItems.Add(view);
             _target.SelectedItem = view;
         }

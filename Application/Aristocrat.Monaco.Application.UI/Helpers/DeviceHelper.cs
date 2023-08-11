@@ -42,6 +42,8 @@
                     return ApplicationConstants.ReelControllerEnabled;
                 case DeviceType.CoinAcceptor:
                     return ApplicationConstants.CoinAcceptorEnabled;
+                case DeviceType.Hopper:
+                    return ApplicationConstants.HopperEnabled;
                 default:
                     return string.Empty;
             }

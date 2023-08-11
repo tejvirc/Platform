@@ -5,7 +5,17 @@
 
     public class TestLoader : OperatorMenuPageLoader
     {
-        public override string PageName => "Test";
+        private string _pageName;
+        public override string PageName => _pageName;
+
+        public TestLoader()
+        {
+            _pageName = "Test";
+        }
+        public TestLoader(string pname)
+        {
+            _pageName = pname;
+        }
 
         protected override IOperatorMenuPage CreatePage()
         {

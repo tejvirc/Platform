@@ -60,6 +60,7 @@
     <MeterProvider type="Aristocrat.Monaco.Accounting.HandCount.HandCountMetersProvider" />
     <MeterProvider type="Aristocrat.Monaco.Accounting.CurrencyInMetersProvider" />
     <MeterProvider type="Aristocrat.Monaco.Accounting.CoinMetersProvider" />
+    <MeterProvider type="Aristocrat.Monaco.Accounting.Hopper.CoinOutTestMetersProvider" />
     <MeterProvider type="Aristocrat.Monaco.Accounting.VoucherInMetersProvider" />
     <MeterProvider type="Aristocrat.Monaco.Accounting.VoucherOutMetersProvider" />
     <MeterProvider type="Aristocrat.Monaco.Accounting.WatOffMetersProvider" />
@@ -83,6 +84,7 @@
 
   <Extension path="/Accounting/TransferOutProviders">
     <TransactionService type="Aristocrat.Monaco.Accounting.Wat.WatOffProvider" />
+    <TransactionService type="Aristocrat.Monaco.Accounting.Hopper.CoinOutProvider" />
     <TransactionService type="Aristocrat.Monaco.Accounting.Vouchers.VoucherOutProvider" />
     <TransactionService type="Aristocrat.Monaco.Accounting.HandCount.HardMeterOutProvider" />
     <TransactionService type="Aristocrat.Monaco.Accounting.Handpay.HandpayProvider" />
