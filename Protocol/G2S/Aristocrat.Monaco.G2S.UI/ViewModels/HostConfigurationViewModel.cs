@@ -27,6 +27,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Newtonsoft.Json;
     using Views;
     using Constants = Constants;
+    using G2SConstants = Aristocrat.G2S.Client.Constants;
 
     /// <summary>
     ///     A HostConfigurationViewModel contains the logic for configuring the host list for the G2S client.
@@ -117,7 +118,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         public bool ProgressRingIsActive => !RegisteredHostsEnabled;
 
-        public string EgmId => _egm?.Id ?? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+        public string EgmId => _egm?.Id ?? $"{G2SConstants.ManufacturerPrefix}_{NetworkInterfaceInfo.DefaultPhysicalAddress}";
 
         public string MacAddress
         {
