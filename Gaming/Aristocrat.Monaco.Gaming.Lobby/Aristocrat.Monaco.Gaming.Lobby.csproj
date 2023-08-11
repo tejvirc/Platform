@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net6.0-windows10.0.17763</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Gaming.Lobby</AssemblyTitle>
     <Nullable>enable</Nullable>
     <Configurations>Debug;Release;Retail</Configurations>
@@ -21,12 +21,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="CompositionRoot\Bootstrapper.ReactiveUI.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CompositionRoot\Bootstrapper.ReactiveUI.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Aristocrat.BinkWpf" Version="2.0.0-beta0019" />
     <PackageReference Include="Aristocrat.Extensions.Prism" Version="0.1.6" />
     <!--<PackageReference Include="Aristocrat.Extensions.Fluxor" Version="0.1.6" />-->
@@ -42,6 +36,7 @@
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <!--<PackageReference Include="Microsoft.AspNetCore.Owin" Version="6.0.14" />-->
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.19" />
     <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="1.2.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -51,6 +46,7 @@
     <PackageReference Include="SimpleInjector.Integration.ServiceCollection" Version="5.4.0" />
     <PackageReference Include="SimpleInjector.Packaging" Version="5.0.0" />
     <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.7.1" />
+    <PackageReference Include="Splat.Microsoft.Extensions.Logging" Version="14.7.1" />
     <PackageReference Include="Stateless" Version="4.0.0" />
     <PackageReference Include="System.Reactive" Version="6.0.0" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
@@ -67,7 +63,6 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.UI.Common\Aristocrat.Monaco.UI.Common.csproj" />
     <ProjectReference Include="..\..\Application\Aristocrat.Monaco.Application.UI\Aristocrat.Monaco.Application.UI.csproj" />
-    <ProjectReference Include="..\..\Shared\Aristocrat.Extensions.Fluxor\Aristocrat.Extensions.Fluxor.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming\Aristocrat.Monaco.Gaming.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming.UI\Aristocrat.Monaco.Gaming.UI.csproj" />

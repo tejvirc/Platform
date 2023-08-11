@@ -104,18 +104,9 @@ public sealed class PrismBootstrapper : PrismBootstrapperBase
 
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
-        //containerRegistry.Register<Shell>();
-
-        containerRegistry.RegisterForNavigation<MainView>(ViewNames.Main);
         containerRegistry.RegisterForNavigation<LobbyMainView>(ViewNames.Lobby);
         containerRegistry.RegisterForNavigation<AttractMainView>(ViewNames.Attract);
         containerRegistry.RegisterForNavigation<LoadingMainView>(ViewNames.Loading);
-
-        //containerRegistry.Register<ShellViewModel>();
-        //containerRegistry.Register<MainViewModel>();
-        //containerRegistry.Register<LobbyMainViewModel>();
-        //containerRegistry.Register<AttractMainViewModel>();
-        //containerRegistry.Register<LoadingMainViewModel>();
 
         containerRegistry.RegisterServices(ConfigureServices);
     }

@@ -8,6 +8,7 @@ using Extensions.Fluxor;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using ReactiveUI;
 using Views;
 using static Store.Lobby.LobbytSelectors;
 
@@ -43,10 +44,10 @@ public class ShellViewModel : BindableBase
 
     private void OnLobbyInitialized(bool isInitialize)
     {
-        _regionManager.RequestNavigate(RegionNames.Shell, new Uri(ViewNames.Main, UriKind.Relative), (NavigationResult nr) =>
-        {
-            var error = nr.Error;
-            var result = nr.Result;
-        });
+        //    _regionManager.RequestNavigate(RegionNames.Main, new Uri(ViewNames.Lobby, UriKind.Relative), (NavigationResult nr) =>
+        //    {
+        //        var error = nr.Error;
+        //        var result = nr.Result;
+        //    });
     }
 }
