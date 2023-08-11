@@ -4945,10 +4945,9 @@ Do you really want to do partial reset????</value>
   <data name="ReplayGameWinBonusAwarded" xml:space="preserve">
     <value>??Game Win Bonus Awarded: {0}??</value>
   </data>
-<<<<<<< HEAD
   <data name="Printer_DfuInProgress" xml:space="preserve">
     <value>Téléchargement du programme utilitaire de fichier de données de l’imprimante en cours : veuillez ne pas éteindre l’appareil de jeu</value>
-=======
+  </data>
   <data name="ClosingProtocol" xml:space="preserve">
     <value>??Closing G2S Protocol??</value>
   </data>
@@ -4969,6 +4968,5 @@ Do you really want to do partial reset????</value>
   </data>
   <data name="PrinterWarningTypes_PaperLow" xml:space="preserve">
     <value>??Printer Paper Low??</value>
->>>>>>> 56e01fa20a (TXM-13163 Translating startup status messages to French (#2268))
   </data>
 </root>
