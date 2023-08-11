@@ -13,7 +13,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
     using Application.Contracts.Tickets;
     using Application.UI.MeterPage;
     using Application.UI.OperatorMenu;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Hardware.Contracts.NoteAcceptor;

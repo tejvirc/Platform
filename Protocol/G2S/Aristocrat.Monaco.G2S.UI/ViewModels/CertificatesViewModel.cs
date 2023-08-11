@@ -15,7 +15,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Application.Contracts.OperatorMenu;
     using Application.UI.Events;
     using Application.UI.OperatorMenu;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Common.CertificateManager;
     using Common.CertificateManager.Models;
     using Common.Events;

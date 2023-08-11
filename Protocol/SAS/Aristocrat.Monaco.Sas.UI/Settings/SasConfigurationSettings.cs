@@ -11,7 +11,7 @@ namespace Aristocrat.Monaco.Sas.UI.Settings
     using Kernel;
     using Storage.Models;
     using Gaming.Contracts;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     /// <summary>
     ///     Implements <see cref="IConfigurationSettings"/> for SAS settings.

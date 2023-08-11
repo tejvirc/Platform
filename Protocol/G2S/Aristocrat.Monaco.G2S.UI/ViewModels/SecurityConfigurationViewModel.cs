@@ -13,7 +13,7 @@
     using Application.Contracts.Localization;
     using Application.UI.ConfigWizard;
     using Aristocrat.G2S.Client.Communications;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Common.CertificateManager;
     using Common.CertificateManager.Models;
     using Common.DHCP;

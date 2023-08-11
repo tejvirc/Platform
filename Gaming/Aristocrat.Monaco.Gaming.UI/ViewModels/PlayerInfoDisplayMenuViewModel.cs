@@ -9,13 +9,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Contracts.PlayerInfoDisplay;
     using Monaco.UI.Common;
     using PlayerInfoDisplay;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
     using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Player Information Display Main Page (menu)
     /// </summary>
-    public sealed class PlayerInfoDisplayMenuViewModel : BaseObservableObject, IPlayerInfoDisplayViewModel, IDisposable
+    public sealed class PlayerInfoDisplayMenuViewModel : ObservableObject, IPlayerInfoDisplayViewModel, IDisposable
     {
         private ITimer _closeTimer;
         private readonly IPlayerInfoDisplayFeatureProvider _playerInfoDisplayFeatureProvider;

@@ -3,7 +3,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;

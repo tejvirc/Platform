@@ -4,13 +4,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Windows.Input;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
 
     /// <summary>
     /// Class to store data for the Message Overlay
     /// </summary>
-    public class MessageOverlayData : BaseObservableObject, IMessageOverlayData
+    public class MessageOverlayData : ObservableObject, IMessageOverlayData
     {
         private string _text = string.Empty;
         private string _subText = string.Empty;

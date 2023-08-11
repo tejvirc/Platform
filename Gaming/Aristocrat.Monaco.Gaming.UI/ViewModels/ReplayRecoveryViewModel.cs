@@ -12,8 +12,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Commands;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Diagnostics;
@@ -24,7 +24,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Helper class to handle replay/recovering screen of the lobby ViewModel.
     /// </summary>
-    public class ReplayRecoveryViewModel : BaseObservableObject, IDisposable
+    public class ReplayRecoveryViewModel : ObservableObject, IDisposable
     {
         private const double CashOutMessagesCycleIntervalInSeconds = 3.0;
 

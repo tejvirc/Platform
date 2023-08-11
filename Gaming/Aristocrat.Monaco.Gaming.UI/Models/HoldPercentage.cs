@@ -1,10 +1,10 @@
 namespace Aristocrat.Monaco.Gaming.UI.Models
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Models;
     using System.Collections.Generic;
 
-    public class HoldPercentage : BaseObservableObject
+    public class HoldPercentage : ObservableObject
     {
         private GameHoldPercentageType? _selectedOption;
 

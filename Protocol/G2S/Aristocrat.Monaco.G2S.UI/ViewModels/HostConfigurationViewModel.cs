@@ -11,7 +11,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using System.Windows.Data;
     using System.Windows.Input;
     using Newtonsoft.Json;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;

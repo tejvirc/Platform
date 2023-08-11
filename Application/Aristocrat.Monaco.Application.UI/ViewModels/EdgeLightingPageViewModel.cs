@@ -4,7 +4,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Collections.Generic;
     using System.Windows.Input;
     using Application.Settings;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;

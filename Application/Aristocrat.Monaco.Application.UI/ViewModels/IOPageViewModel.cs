@@ -9,7 +9,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Timers;
     using System.Windows.Media;
     using System.Windows.Threading;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Contracts.Localization;
     using Contracts.Tickets;

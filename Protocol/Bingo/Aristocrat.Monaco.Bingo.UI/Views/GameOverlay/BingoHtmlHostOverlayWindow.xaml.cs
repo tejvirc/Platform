@@ -7,7 +7,7 @@ namespace Aristocrat.Monaco.Bingo.UI.Views.GameOverlay
     using Models;
     using Monaco.UI.Common.CefHandlers;
     using ViewModels.GameOverlay;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
 #if DEBUG
     using System.Windows.Input;
 #endif

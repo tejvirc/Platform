@@ -29,8 +29,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Monaco.UI.Common.Controls;
     using DisabledEvent = Hardware.Contracts.NoteAcceptor.DisabledEvent;
     using EnabledEvent = Hardware.Contracts.NoteAcceptor.EnabledEvent;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 #if !(RETAIL)
     using Vgt.Client12.Testing.Tools;
 #endif
@@ -38,7 +39,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Defines the TestToolViewModel class
     /// </summary>
-    public class TestToolViewModel : BaseObservableObject
+    public class TestToolViewModel : ObservableObject
     {
         // List of supported currencies and their respective enums can be found here: https://svn.ali.global/WinnersWorldStudio/tools/CSU
         private enum LocationCode : uint

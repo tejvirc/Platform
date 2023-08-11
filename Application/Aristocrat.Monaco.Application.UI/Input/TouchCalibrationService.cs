@@ -6,7 +6,7 @@ namespace Aristocrat.Monaco.Application.UI.Input
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Windows.Input;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;

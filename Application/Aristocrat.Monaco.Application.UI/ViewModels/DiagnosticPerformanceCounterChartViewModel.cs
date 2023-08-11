@@ -8,7 +8,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Application.Helpers;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Kernel;

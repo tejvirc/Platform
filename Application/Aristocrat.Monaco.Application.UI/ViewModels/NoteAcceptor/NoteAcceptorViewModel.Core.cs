@@ -9,7 +9,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
     using System.Text;
     using System.Threading.Tasks;
     using Accounting.Contracts;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Common;
     using CommunityToolkit.Mvvm.Input;
     using Contracts;

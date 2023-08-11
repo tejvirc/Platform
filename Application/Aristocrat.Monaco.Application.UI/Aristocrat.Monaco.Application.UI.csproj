@@ -105,8 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.24" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.0.1" />
-    <PackageReference Include="Aristocrat.Toolkit.Mvvm.Extensions" Version="0.1.6" />
+    <PackageReference Include="Aristocrat.Extensions.CommunityToolkit" Version="0.1.8" />
     <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="1.0.11" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />

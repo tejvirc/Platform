@@ -14,7 +14,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Aristocrat.G2S.Client.Communications;
     using Aristocrat.Monaco.Application.Contracts.Protocol;
     using Aristocrat.Monaco.G2S.Services;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Kernel;
     using Localization.Properties;
     using Constants = Constants;

@@ -53,8 +53,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Vgt.Client12.Application.OperatorMenu;
     using Views.Lobby;
     using Size = System.Windows.Size;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 #if !(RETAIL)
     using Events;
 #endif
@@ -62,7 +63,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Defines the LobbyViewModel class
     /// </summary>
-    public partial class LobbyViewModel : BaseObservableObject, IMessageDisplayHandler, IDisposable, IPlayerInfoDisplayScreensContainer
+    public partial class LobbyViewModel : ObservableObject, IMessageDisplayHandler, IDisposable, IPlayerInfoDisplayScreensContainer
     {
         private const double IdleTimerIntervalSeconds = 15.0;
         private const double IdleTextTimerIntervalSeconds = 30.0;
@@ -802,12 +803,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsVbdRenderingDisabled
         {
             get => _isVbdRenderingDisabled;
-            set => SetProperty(ref _isVbdRenderingDisabled,
-                value,
-                nameof(IsVbdRenderingDisabled),
-                nameof(IsLobbyVbdVisible),
-                nameof(IsGameVbdVisible),
-                nameof(IsLobbyVbdBackgroundBlank));
+            set
+            {
+                if (SetProperty(ref _isVbdRenderingDisabled, value))
+                {
+                    OnPropertyChanged(nameof(IsLobbyVbdVisible));
+                    OnPropertyChanged(nameof(IsGameVbdVisible));
+                    OnPropertyChanged(nameof(IsLobbyVbdBackgroundBlank));
+                }
+            }
         }
 
         public IPlayerInfoDisplayManager PlayerInfoDisplayManager => _playerInfoDisplayManager;
@@ -827,9 +831,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             get => _isTopScreenRenderingDisabled;
             set
             {
-                if (SetProperty(ref _isTopScreenRenderingDisabled, value, nameof(IsTopScreenRenderingDisabled)))
+                if (SetProperty(ref _isTopScreenRenderingDisabled, value))
                 {
-                    OnPropertyChanged(nameof(IsLobbyTopScreenVisible), nameof(IsGameTopScreenVisible));
+                    OnPropertyChanged(nameof(IsLobbyTopScreenVisible));
+                    OnPropertyChanged(nameof(IsGameTopScreenVisible));
                 }
             }
         }
@@ -840,13 +845,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsTopperScreenRenderingDisabled
         {
             get => _isTopperScreenRenderingDisabled;
-            set => SetProperty(
-                ref _isTopperScreenRenderingDisabled,
-                value,
-                nameof(IsTopperScreenRenderingDisabled),
-                nameof(IsLobbyTopperScreenVisible),
-                nameof(IsGameTopperScreenVisible),
-                nameof(IsLobbyTopperVideoVisible));
+            set
+            {
+                if (SetProperty(ref _isTopperScreenRenderingDisabled, value))
+                {
+                    OnPropertyChanged(nameof(IsLobbyTopperScreenVisible));
+                    OnPropertyChanged(nameof(IsGameTopperScreenVisible));
+                    OnPropertyChanged(nameof(IsLobbyTopperVideoVisible));
+                }
+            }
         }
 
         /// <summary> Gets a value indicating whether the top screen is visible in the lobby. </summary>
@@ -1061,12 +1068,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsAttractModePlaying
         {
             get => _isAttractModePlaying;
-            set => SetProperty(
-                ref _isAttractModePlaying,
-                value,
-                nameof(IsAttractModePlaying),
-                nameof(IsCashOutButtonLit)
-            );
+            set
+            {
+                if (SetProperty(ref _isAttractModePlaying, value))
+                {
+                    OnPropertyChanged(nameof(IsCashOutButtonLit));
+                }
+            }
         }
 
         /// <summary>
@@ -1084,11 +1092,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsTopperAttractFeaturePlaying
         {
             get => _isTopperAttractFeaturePlaying;
-            set => SetProperty(
-                ref _isTopperAttractFeaturePlaying,
-                value,
-                nameof(IsTopperAttractFeaturePlaying),
-                nameof(IsLobbyTopperVideoVisible));
+            set
+            {
+                if (SetProperty(ref _isTopperAttractFeaturePlaying, value))
+                {
+                    OnPropertyChanged(nameof(IsLobbyTopperVideoVisible));
+                }
+            }
         }
 
         /// <summary>
@@ -1121,10 +1131,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsBottomAttractVisible
         {
             get => _isBottomAttractVisible;
-            set => SetProperty(ref _isBottomAttractVisible,
-                value,
-                nameof(IsBottomAttractVisible),
-                nameof(IsMainInfoBarVisible));
+            set
+            {
+                if (SetProperty(ref _isBottomAttractVisible, value))
+                {
+                    OnPropertyChanged(nameof(IsMainInfoBarVisible));
+                }
+            }
         }
 
 
@@ -1137,12 +1150,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             get => _mainInfoBarOpenRequested;
             set
             {
-                SetProperty(
-                ref _mainInfoBarOpenRequested,
-                value,
-                nameof(MainInfoBarOpenRequested),
-                nameof(GameControlHeight),
-                nameof(IsMainInfoBarVisible));
+                if (SetProperty(ref _mainInfoBarOpenRequested, value))
+                {
+                    OnPropertyChanged(nameof(GameControlHeight));
+                    OnPropertyChanged(nameof(IsMainInfoBarVisible));
+                }
 
                 _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
             }
@@ -1162,12 +1174,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             get => _vbdInfoBarOpenRequested;
             set
             {
-                SetProperty(
-                ref _vbdInfoBarOpenRequested,
-                value,
-                nameof(VbdInfoBarOpenRequested),
-                nameof(GameControlHeight),
-                nameof(IsVbdInfoBarVisible));
+                if (SetProperty(ref _vbdInfoBarOpenRequested, value))
+                {
+                    OnPropertyChanged(nameof(GameControlHeight));
+                    OnPropertyChanged(nameof(IsVbdInfoBarVisible));
+                }
 
                 _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
             }
@@ -1234,11 +1245,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public string TopperLobbyVideoPath
         {
             get => _topperLobbyVideoPath;
-            set => SetProperty(
-                ref _topperLobbyVideoPath,
-                value,
-                nameof(TopperLobbyVideoPath),
-                nameof(IsLobbyTopperVideoVisible));
+            set
+            {
+                if (SetProperty(ref _topperLobbyVideoPath, value))
+                {
+                    OnPropertyChanged(nameof(IsLobbyTopperVideoVisible));
+                }
+            }
         }
 
         /// <summary>
@@ -1274,15 +1287,17 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsBottomLoadingScreenVisible
         {
             get => _isBottomLoadingScreenVisible;
-            set => SetProperty(
-                ref _isBottomLoadingScreenVisible,
-                value,
-                nameof(IsBottomLoadingScreenVisible),
-                nameof(CashOutEnabled),
-                nameof(CashOutEnabledInPlayerMenu),
-                nameof(IsMainInfoBarVisible),
-                nameof(IsVbdInfoBarVisible),
-                nameof(ResponsibleGamingInfoEnabled));
+            set
+            {
+                if (SetProperty(ref _isBottomLoadingScreenVisible, value))
+                {
+                    OnPropertyChanged(nameof(CashOutEnabled));
+                    OnPropertyChanged(nameof(CashOutEnabledInPlayerMenu));
+                    OnPropertyChanged(nameof(IsMainInfoBarVisible));
+                    OnPropertyChanged(nameof(IsVbdInfoBarVisible));
+                    OnPropertyChanged(nameof(ResponsibleGamingInfoEnabled));
+                }
+            }
         }
 
         /// <summary>
@@ -1753,13 +1768,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private BannerDisplayMode LobbyBannerDisplayMode
         {
             get => _bannerDisplayMode;
-            set => SetProperty(ref _bannerDisplayMode,
-                value,
-                nameof(LobbyBannerDisplayMode),
-                nameof(IsIdleTextScrolling),
-                nameof(IsBlinkingIdleTextVisible),
-                nameof(StartIdleTextBlinking),
-                nameof(IsScrollingIdleTextEnabled));
+            set
+            {
+                if (SetProperty(ref _bannerDisplayMode, value))
+                {
+                    OnPropertyChanged(nameof(IsIdleTextScrolling));
+                    OnPropertyChanged(nameof(IsBlinkingIdleTextVisible));
+                    OnPropertyChanged(nameof(StartIdleTextBlinking));
+                    OnPropertyChanged(nameof(IsScrollingIdleTextEnabled));
+                }
+            }
         }
 
         public bool PreserveGameLayoutSideMargins => Config?.PreserveGameLayoutSideMargins ?? false;

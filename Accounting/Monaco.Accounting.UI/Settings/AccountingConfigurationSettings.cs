@@ -4,7 +4,7 @@ namespace Aristocrat.Monaco.Accounting.UI.Settings
     using System.Threading.Tasks;
     using System.Windows;
     using Application.Contracts.Settings;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Contracts.Handpay;
     using Kernel;

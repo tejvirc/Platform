@@ -1,11 +1,11 @@
 namespace Aristocrat.Monaco.Gaming.UI.Models
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Data for filtered Game Themes.
     /// </summary>
-    public class GamePerformanceGameTheme : BaseObservableObject
+    public class GamePerformanceGameTheme : ObservableObject
     {
         private bool _checked;
 

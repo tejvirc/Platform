@@ -6,7 +6,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Linq;
     using System.Windows.Input;
     using Accounting.Contracts;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Authentication;

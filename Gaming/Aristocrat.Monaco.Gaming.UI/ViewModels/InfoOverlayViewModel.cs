@@ -3,7 +3,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System;
     using System.Collections.Generic;
     using Application.Contracts;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Lobby;
     using Contracts.Models;
     using Kernel;
@@ -11,7 +11,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     View Model for InfoWindow
     /// </summary>
-    public class InfoOverlayViewModel : BaseObservableObject, IDisposable
+    public class InfoOverlayViewModel : ObservableObject, IDisposable
     {
         /// <summary>
         ///     guid for the cabinet configuration text that we handle directly

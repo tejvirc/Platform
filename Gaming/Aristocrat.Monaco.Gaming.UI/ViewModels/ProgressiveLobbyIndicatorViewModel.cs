@@ -5,7 +5,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System.Linq;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Models;
     using Contracts.Progressives;
@@ -16,7 +17,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Models;
     using Progressives;
 
-    public class ProgressiveLobbyIndicatorViewModel : BaseObservableObject, IDisposable
+    public class ProgressiveLobbyIndicatorViewModel : ObservableObject, IDisposable
     {
         private readonly LobbyViewModel _lobby;
         private readonly IProgressiveConfigurationProvider _progressiveConfiguration;

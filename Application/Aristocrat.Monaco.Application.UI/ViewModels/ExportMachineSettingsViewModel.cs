@@ -5,7 +5,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;

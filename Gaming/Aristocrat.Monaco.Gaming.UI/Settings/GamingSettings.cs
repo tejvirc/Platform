@@ -1,16 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Settings
 {
     using System.Collections.ObjectModel;
-    using Aristocrat.Monaco.Application.Contracts;
     using Contracts;
     using Hardware.Contracts.Audio;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Gaming settings.
     /// </summary>
-    internal class GamingSettings : BaseObservableObject
+    internal class GamingSettings : ObservableObject
     {
         private string _jurisdiction;
         private bool _autoPlayAllowed;

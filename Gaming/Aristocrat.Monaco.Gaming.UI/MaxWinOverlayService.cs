@@ -8,7 +8,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using CommunityToolkit.Mvvm;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Aristocrat.Monaco.Gaming.UI.Views.Overlay;
     using Aristocrat.Monaco.Gaming.UI.ViewModels;
     using System.Globalization;

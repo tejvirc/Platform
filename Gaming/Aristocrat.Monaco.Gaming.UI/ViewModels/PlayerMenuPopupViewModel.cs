@@ -7,13 +7,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Application.Contracts;
     using Application.Contracts.Input;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Common;
     using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Events;
     using Kernel;
     using log4net;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Configurable states for the player menu popup display
@@ -38,7 +38,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         ButtonsOnly
     }
 
-    public class PlayerMenuPopupViewModel : BaseObservableObject, IDisposable
+    public class PlayerMenuPopupViewModel : ObservableObject, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 

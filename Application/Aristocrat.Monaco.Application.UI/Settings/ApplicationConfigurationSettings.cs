@@ -15,7 +15,7 @@ namespace Aristocrat.Monaco.Application.UI.Settings
     using Kernel;
     using Kernel.Contracts;
     using Application.Contracts.Localization;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     /// <summary>
     ///     Implements the <see cref="IConfigurationSettings"/> interface.

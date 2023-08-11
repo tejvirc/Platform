@@ -13,7 +13,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     using Menu;
     using Models;
     using System.Threading.Tasks;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     public class CurrentProgressivePageViewModel : HhrMenuPageViewModelBase
     {

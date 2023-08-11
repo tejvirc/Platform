@@ -32,7 +32,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Monaco.UI.Common.Models;
     using Utils;
     using PayMethod = Contracts.Bonus.PayMethod;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
 #if !(RETAIL)
     using Vgt.Client12.Testing.Tools;
 #endif

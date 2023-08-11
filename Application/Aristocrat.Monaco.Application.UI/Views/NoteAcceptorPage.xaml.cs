@@ -1,6 +1,6 @@
 namespace Aristocrat.Monaco.Application.UI.Views
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using System;
     using System.ComponentModel;
     using System.Windows;

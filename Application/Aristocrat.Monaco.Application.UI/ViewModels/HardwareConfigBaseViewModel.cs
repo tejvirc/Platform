@@ -12,7 +12,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Xml.Serialization;
     using Application.Helpers;
     using Application.Localization;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;

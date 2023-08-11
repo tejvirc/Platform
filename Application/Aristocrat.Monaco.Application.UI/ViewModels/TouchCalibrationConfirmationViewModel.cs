@@ -1,7 +1,7 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts.Input;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.Cabinet;

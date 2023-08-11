@@ -2,14 +2,13 @@ namespace Aristocrat.Monaco.Gaming.Contracts.Models
 {
     using System;
     using Application.Contracts.Extensions;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Model for game performance.
     /// </summary>
     [CLSCompliant(false)]
-    public class GamePerformanceData : BaseObservableObject
+    public class GamePerformanceData : ObservableObject
     {
         private bool _isActive;
 

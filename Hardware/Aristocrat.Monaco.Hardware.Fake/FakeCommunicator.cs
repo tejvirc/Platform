@@ -7,7 +7,7 @@ namespace Aristocrat.Monaco.Hardware.Fake
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Common.Currency;
     using Contracts.Communicator;
     using Contracts.Gds;

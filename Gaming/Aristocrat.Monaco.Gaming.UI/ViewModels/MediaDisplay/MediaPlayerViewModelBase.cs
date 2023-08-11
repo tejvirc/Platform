@@ -1,7 +1,7 @@
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using Application.Contracts.Media;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Kernel;
     using log4net;
     using Monaco.UI.Common;
@@ -12,7 +12,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     /// View model class to support the <see cref="IMediaPlayer"/>.
     /// </summary>
-    public abstract class MediaPlayerViewModelBase : BaseObservableObject, IDisposable, IMediaPlayerViewModel
+    public abstract class MediaPlayerViewModelBase : ObservableObject, IDisposable, IMediaPlayerViewModel
     {
         public event PropertyChangedEventHandler WidthChanged;
         public event PropertyChangedEventHandler HeightChanged;

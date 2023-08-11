@@ -6,7 +6,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System.IO;
     using System.Linq;
     using System.Windows;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Models;
     using Models;
@@ -15,7 +15,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     The View Model used for binding lobby game tabs
     /// </summary>
-    public class GameTabInfoViewModel : BaseObservableObject
+    public class GameTabInfoViewModel : ObservableObject
     {
         private const double SubTabsTopMargin = 158;
         private readonly double[] _subTabsLeftMargin = { 350, 650, 950, 1250, 855, 1145 };
@@ -367,7 +367,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         }
     }
 
-    public class GameTabInfo : BaseObservableObject
+    public class GameTabInfo : ObservableObject
     {
         private const string TabResourceKeyPrefix = "GameTab";
         private const string LabelResourceKeyPrefix = "Tab";

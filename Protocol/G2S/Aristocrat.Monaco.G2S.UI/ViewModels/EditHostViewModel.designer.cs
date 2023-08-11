@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using System.Diagnostics;
 
     public partial class EditHostViewModel

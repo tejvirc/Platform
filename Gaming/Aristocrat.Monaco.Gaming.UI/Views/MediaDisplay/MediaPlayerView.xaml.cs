@@ -2,7 +2,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay
 {
     using System.Windows.Input;
     using Application.Contracts.Media;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CefSharp;
     using Contracts.Events;
     using Handlers;

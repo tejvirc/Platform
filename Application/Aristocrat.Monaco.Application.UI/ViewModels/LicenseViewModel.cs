@@ -7,7 +7,7 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts.Drm;
     using Contracts.Localization;
     using Kernel;

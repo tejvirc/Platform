@@ -5,7 +5,7 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Contracts.Localization;
     using Contracts.MeterPage;

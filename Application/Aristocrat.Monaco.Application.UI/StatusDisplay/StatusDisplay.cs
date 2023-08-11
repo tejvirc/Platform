@@ -2,7 +2,7 @@ namespace Aristocrat.Monaco.Application.UI.StatusDisplay
 {
     using System;
     using System.Reflection;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Kernel;
     using log4net;
 

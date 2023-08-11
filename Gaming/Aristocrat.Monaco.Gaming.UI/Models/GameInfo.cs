@@ -8,7 +8,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Windows;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Models;
     using Kernel;
@@ -23,7 +23,7 @@
     ///     Defines the GameInfo class
     /// </summary>
     [CLSCompliant(false)]
-    public class GameInfo : BaseObservableObject, IGameInfo, IAttractDetails
+    public class GameInfo : ObservableObject, IGameInfo, IAttractDetails
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -215,13 +215,15 @@
         public ProgressiveLobbyIndicator ProgressiveIndicator
         {
             get => _progressiveIndicator;
-            set => SetProperty(
-                ref _progressiveIndicator,
-                value,
-                nameof(ProgressiveIndicator),
-                nameof(HasProgressiveLabelDisplay),
-                nameof(IsSelectedWithProgressiveLabel),
-                nameof(ProgressiveIndicatorText));
+            set
+            {
+                if (SetProperty(ref _progressiveIndicator, value))
+                {
+                    OnPropertyChanged(nameof(HasProgressiveLabelDisplay));
+                    OnPropertyChanged(nameof(IsSelectedWithProgressiveLabel));
+                    OnPropertyChanged(nameof(ProgressiveIndicatorText));
+                }
+            }
         }
 
         public bool ProgressiveErrorVisible

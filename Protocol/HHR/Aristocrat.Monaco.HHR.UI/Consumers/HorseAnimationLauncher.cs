@@ -18,7 +18,7 @@ namespace Aristocrat.Monaco.Hhr.UI.Consumers
     using Storage.Helpers;
     using ViewModels;
     using Views;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     /// <summary>
     ///     Handler responsible for launching Horse Animation.

@@ -11,9 +11,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Contracts.InfoBar;
     using log4net;
     using Kernel;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class InfoBarViewModel : BaseObservableObject, IDisposable
+    public class InfoBarViewModel : ObservableObject, IDisposable
     {
         private class InfoBarMessageData
         {

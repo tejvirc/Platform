@@ -9,7 +9,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Kernel;
     using Kernel.Contracts;

@@ -12,7 +12,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     using Storage.Helpers;
     using Aristocrat.Monaco.Hhr.Services;
     using Client.Data;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     public class PreviousRaceResultPageViewModel : HhrMenuPageViewModelBase
     {

@@ -17,7 +17,7 @@ namespace Aristocrat.Monaco.Inspection
     using Application.Contracts.ConfigWizard;
     using Application.Contracts.HardwareDiagnostics;
     using Application.Contracts.OperatorMenu;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Cabinet.Contracts;
     using Kernel;
     using Kernel.Contracts;

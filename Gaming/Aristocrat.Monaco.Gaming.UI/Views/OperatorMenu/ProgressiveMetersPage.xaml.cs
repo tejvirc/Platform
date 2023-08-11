@@ -5,7 +5,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu
     using System.Windows.Data;
     using Application.Contracts.Localization;
     using Application.Contracts.MeterPage;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using ViewModels.OperatorMenu;
 
     /// <summary>

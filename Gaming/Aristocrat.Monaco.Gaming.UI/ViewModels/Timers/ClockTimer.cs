@@ -4,8 +4,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.Timers
     using System.Globalization;
     using System.Reflection;
     using Application.Contracts;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
     using Common;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Lobby;
     using Contracts.Models;
@@ -14,7 +14,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.Timers
     using Monaco.UI.Common;
     using Monaco.UI.Common.Models;
 
-    public class ClockTimer : BaseObservableObject
+    public class ClockTimer : ObservableObject
     {
         private const int ClockStateTimeoutInSeconds = 30;
         private const double DayTimerIntervalSeconds = 1.0;

@@ -7,14 +7,13 @@
     using System.Linq;
     using Common;
     using Common.GameOverlay;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Data to display within <see cref="ViewModels.OperatorMenu.BingoGameHistoryDetailsViewModel"/>;
     ///     contains the data for a single card and its winning patterns, if any.
     /// </summary>
-    public class BingoCardModel : BaseObservableObject
+    public class BingoCardModel : ObservableObject
     {
         private const int ExpectedNumberCount = BingoConstants.BingoCardDimension * BingoConstants.BingoCardDimension;
 

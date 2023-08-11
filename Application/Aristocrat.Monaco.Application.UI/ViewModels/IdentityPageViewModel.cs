@@ -5,7 +5,7 @@
     using System.Security.Policy;
     using System.Text.RegularExpressions;
     using System.Web.UI;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Contracts.Localization;
     using Kernel;

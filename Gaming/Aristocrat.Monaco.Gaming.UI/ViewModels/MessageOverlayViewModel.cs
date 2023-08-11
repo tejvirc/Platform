@@ -24,9 +24,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Localization.Properties;
     using log4net;
     using Utils;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class MessageOverlayViewModel : BaseObservableObject
+    public class MessageOverlayViewModel : ObservableObject
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 

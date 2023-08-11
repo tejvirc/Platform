@@ -4,7 +4,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using ConfigWizard;
     using Contracts;
     using Contracts.Localization;

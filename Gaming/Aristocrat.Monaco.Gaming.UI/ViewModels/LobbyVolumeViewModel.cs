@@ -8,13 +8,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using System.Windows.Input;
     using Application.Contracts;
     using Application.UI.ViewModels;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using Hardware.Contracts.Audio;
     using Kernel;
     using log4net;
 
-    public class LobbyVolumeViewModel : BaseObservableObject
+    public class LobbyVolumeViewModel : ObservableObject
     {
         private const string SoundConfigurationExtensionPath = "/OperatorMenu/Sound/Configuration";
         private const string Volume0Key = "Volume0Normal";

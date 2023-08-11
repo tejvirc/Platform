@@ -1,6 +1,6 @@
 namespace Aristocrat.Monaco.Application.UI.Input
 {
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using System;
     using System.Windows;
     using System.Windows.Controls;

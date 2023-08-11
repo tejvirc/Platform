@@ -10,7 +10,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
     using Monaco.Localization.Properties;
     using Kernel;
     using Views;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
 
     public partial class NoteAcceptorViewModel

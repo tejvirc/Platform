@@ -7,7 +7,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Application.Contracts.Localization;
     using Application.UI.MeterPage;
     using Aristocrat.Monaco.Gaming.Contracts.Models;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Contracts.Meters;
     using Kernel;

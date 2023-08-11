@@ -11,7 +11,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Windows.Input;
     using System.Windows.Media;
     using Application.Helpers;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;

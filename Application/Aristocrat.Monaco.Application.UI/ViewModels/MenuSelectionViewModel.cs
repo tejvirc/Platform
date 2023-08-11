@@ -12,7 +12,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using Accounting.Contracts;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using Contracts;

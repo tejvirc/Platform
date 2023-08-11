@@ -17,7 +17,7 @@ namespace Aristocrat.Monaco.Hardware.Fake
     using log4net;
     using MonacoReelStatus = Contracts.Reel.ReelStatus;
     using MonacoLightStatus = Contracts.Reel.LightStatus;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     public class FakeRelmCommunicator : IRelmCommunicator
     {

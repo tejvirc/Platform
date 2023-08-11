@@ -2,7 +2,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck
 {
     using System;
     using System.Windows;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Cabinet.Contracts;
     using Contracts.Events.OperatorMenu;
     using Contracts.InfoBar;

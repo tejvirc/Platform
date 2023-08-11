@@ -13,8 +13,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Kernel;
     using log4net;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
     using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Reserve machine GUI states
@@ -46,7 +46,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Class to store data for the Message Overlay
     /// </summary>
-    public class ReserveOverlayViewModel : BaseObservableObject, IDisposable
+    public class ReserveOverlayViewModel : ObservableObject, IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 

@@ -4,14 +4,13 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using Common.GameOverlay;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
-    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Data to display within <see cref="ViewModels.OperatorMenu.BingoGameHistoryDetailsViewModel"/>;
     ///     contains the data for a ball call.
     /// </summary>
-    public class BingoBallCallModel : BaseObservableObject
+    public class BingoBallCallModel : ObservableObject
     {
         /// <summary>
         ///     Constructor for <see cref="BingoBallCallModel"/>.

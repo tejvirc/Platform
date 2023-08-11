@@ -6,7 +6,7 @@ namespace Aristocrat.Monaco.Hhr.UI.ViewModels
     using System.Windows;
     using Accounting.Contracts;
     using Application.Contracts;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Cabinet.Contracts;
     using CommunityToolkit.Mvvm.ComponentModel;
     using Gaming.Contracts;

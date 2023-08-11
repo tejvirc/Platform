@@ -11,7 +11,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using G2S;
     using Kernel;
     using Localization.Properties;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     public class EditBulkDeviceViewModel : OperatorMenuSaveViewModelBase
     {

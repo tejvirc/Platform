@@ -3,7 +3,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using System;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     public class AdvancedGameConfigurationSavingPopupViewModel : OperatorMenuSaveViewModelBase
     {

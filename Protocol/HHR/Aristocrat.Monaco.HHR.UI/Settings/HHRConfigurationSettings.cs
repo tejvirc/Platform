@@ -7,7 +7,7 @@ namespace Aristocrat.Monaco.Hhr.UI.Settings
     using Application.Contracts;
     using Application.Contracts.Protocol;
     using Application.Contracts.Settings;
-    using Aristocrat.Toolkit.Mvvm.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Client.Messages;
     using Kernel;
 
