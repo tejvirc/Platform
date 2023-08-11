@@ -13,7 +13,7 @@
                                xmlns:converter="http://monaco.aristocrat.com/common"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Application.UI.Models;assembly=Aristocrat.Monaco.Application.UI"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance viewModels:EventLogFilterViewModel,                                                                 IsDesignTimeCreatable=False}"
+                               d:DataContext="{d:DesignInstance viewModels:EventLogFilterViewModel, IsDesignTimeCreatable=False}"
                                common:DialogParticipation.Register="{Binding}">
     <UserControl.Resources>
         <ResourceDictionary>
