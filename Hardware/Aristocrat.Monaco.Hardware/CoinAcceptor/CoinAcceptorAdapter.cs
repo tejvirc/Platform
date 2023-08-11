@@ -11,6 +11,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
     using Contracts.SharedDevice;
     using Kernel;
     using log4net;
+    using IHopper = Hardware.Contracts.Hopper.IHopper;
 
     /// <summary>A coin acceptor adapter.</summary>
     /// <seealso
@@ -24,6 +25,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
         private ICoinAcceptorImplementation _coinAcceptor;
         private readonly IEventBus _bus;
         private readonly long _tokenValue;
+        private readonly IHopper _hopper;
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.CoinAcceptor.CoinAcceptorAdapter class.
@@ -33,6 +35,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
             _bus = ServiceManager.GetInstance().GetService<IEventBus>();
             var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             _tokenValue = properties.GetValue(HardwareConstants.CoinValue, DefaultTokenValue);
+            _hopper = ServiceManager.GetInstance().TryGetService<IHopper>();
         }
 
         /// <inheritdoc />
@@ -72,7 +75,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
         }
 
         /// <inheritdoc />
-        public int CoinAcceptorId { get; set; } = 1; // Default to deviceId 1
+        public int CoinAcceptorId { get; set; } = 1; // Default to deviceId 1 since 0 isn't valid in G2S
 
         /// <inheritdoc />
         public void CoinRejectMechOn()
@@ -112,9 +115,14 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
         /// <inheritdoc />
         public void DivertMechanismOnOff()
         {
-
-            //TODO: implement hopper's properties with realtime values once hopper feature is available..
-            DivertToCashbox();
+            if (_hopper != null && !_hopper.IsHopperFull)
+            {
+                DivertToHopper();
+            }
+            else
+            {
+                DivertToCashbox();
+            }
         }
 
         /// <inheritdoc />

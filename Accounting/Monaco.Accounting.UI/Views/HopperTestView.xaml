@@ -1,0 +1,184 @@
+<operatorMenu:OperatorMenuPage
+    x:Class="Aristocrat.Monaco.Accounting.UI.Views.HopperTestView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    xmlns:loc="http://monaco.aristocrat.com/localization"
+    xmlns:local="clr-namespace:Aristocrat.Monaco.Accounting.UI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Accounting.UI.ViewModels"
+    Width="650"
+    Height="450"
+    d:DataContext="{d:DesignInstance {x:Type viewModels:HopperTestViewModel}}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style BasedOn="{StaticResource MonacoLabel}" TargetType="Label">
+                <Setter Property="Margin" Value="0,0,10,10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style BasedOn="{StaticResource MonacoTextBlock}" TargetType="TextBlock">
+                <Setter Property="Margin" Value="0,0,0,10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style BasedOn="{StaticResource MonacoButton}" TargetType="Button">
+                <Setter Property="Margin" Value="0,15,15,0" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Width" Value="200" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_632DBA3A">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition1_632DBA3A" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition2_632DBA3A" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition3_632DBA3A" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition4_632DBA3A" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition5_632DBA3A" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition6_632DBA3A" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition7_632DBA3A" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition8_632DBA3A" />
+            <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition9_632DBA3A" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition10_632DBA3A" />
+            <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition11_632DBA3A" />
+        </Grid.ColumnDefinitions>
+        <Label
+            Grid.Row="0"
+            HorizontalAlignment="Left"
+            AutomationProperties.AutomationId="Label12_632DBA3A"
+            Content="{lex:Loc Key={x:Static loc:ResourceKeys.HopperTestPayout}}" />
+        <Label
+            Grid.Row="1"
+            HorizontalAlignment="Left"
+            AutomationProperties.AutomationId="Label13_632DBA3A"
+            Content="{lex:Loc Key={x:Static loc:ResourceKeys.CoinsReinserted}}" />
+        <Label
+            Grid.Row="2"
+            HorizontalAlignment="Left"
+            AutomationProperties.AutomationId="Label14_632DBA3A"
+            Content="{lex:Loc Key={x:Static loc:ResourceKeys.LastHopperEvent}}" />
+        <Label
+            Grid.Row="3"
+            HorizontalAlignment="Left"
+            AutomationProperties.AutomationId="Label15_632DBA3A"
+            Content="{lex:Loc Key={x:Static loc:ResourceKeys.LastDivertorEvent}}" />
+        <Label
+            Grid.Row="4"
+            HorizontalAlignment="Left"
+            AutomationProperties.AutomationId="Label16_632DBA3A"
+            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExtraPayoutDuringTest}}" />
+        <Label
+            Grid.Row="5"
+            HorizontalAlignment="Left"
+            AutomationProperties.AutomationId="Label17_632DBA3A"
+            Content="{lex:Loc Key={x:Static loc:ResourceKeys.CoinsReinsertedForExtraPayout}}" />
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            AutomationProperties.AutomationId="TextBlock18_632DBA3A"
+            Text="{Binding HopperTestPayout, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            AutomationProperties.AutomationId="TextBlock19_632DBA3A"
+            Text="{Binding CoinsReinserted, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            AutomationProperties.AutomationId="TextBlock20_632DBA3A">
+            <TextBlock.Style>
+                <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger
+                            AutomationProperties.AutomationId="DataTrigger21_632DBA3A"
+                            Binding="{Binding LastHopperEvent, Mode=OneWay, TargetNullValue=''}"
+                            Value="">
+                            <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.None}}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="Text" Value="{Binding LastHopperEvent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            AutomationProperties.AutomationId="TextBlock22_632DBA3A">
+            <TextBlock.Style>
+                <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger
+                            AutomationProperties.AutomationId="DataTrigger23_632DBA3A"
+                            Binding="{Binding LastDivertorEvent, Mode=OneWay, TargetNullValue=''}"
+                            Value="">
+                            <Setter Property="Text" Value="{lex:BLoc Key={x:Static loc:ResourceKeys.None}}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="Text" Value="{Binding LastDivertorEvent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <TextBlock
+            Grid.Row="4"
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            AutomationProperties.AutomationId="TextBlock24_632DBA3A"
+            Text="{Binding ExtraPayoutDuringTest, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock
+            Grid.Row="5"
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            AutomationProperties.AutomationId="TextBlock25_632DBA3A"
+            Text="{Binding CoinsReinsertedForExtraPayout, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock
+            Grid.Row="6"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            AutomationProperties.AutomationId="TextBlock26_632DBA3A"
+            Background="White"
+            Foreground="Blue"
+            Text="{lex:Loc Key={x:Static loc:ResourceKeys.HopperTestInProgress}}"
+            Visibility="{Binding CanActivatePayout, Converter={StaticResource TrueCollapsedFalseVisible}}" />
+        <Button
+            x:Name="ActivatePayoutButton"
+            Grid.Row="7"
+            Grid.Column="1"
+            Margin="0,50,0,0"
+            HorizontalAlignment="Right"
+            AutomationProperties.AutomationId="Button27_632DBA3A"
+            Command="{Binding ActivatePayoutCommand}"
+            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ActivatePayout}}"
+            IsEnabled="{Binding CanActivatePayout, UpdateSourceTrigger=PropertyChanged}" />
+        <Button
+            x:Name="CloseButton"
+            Grid.Row="8"
+            Grid.ColumnSpan="2"
+            Margin="0,20,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            AutomationProperties.AutomationId="Button28_632DBA3A"
+            Command="{Binding CloseHopperTestCommand}"
+            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Close}}"
+            IsEnabled="{Binding CanHopperTestClose, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock
+            Grid.Row="7"
+            Grid.Column="0"
+            Margin="0,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            AutomationProperties.AutomationId="TextBlock29_632DBA3A"
+            Foreground="White"
+            Text="{Binding Status, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</operatorMenu:OperatorMenuPage>

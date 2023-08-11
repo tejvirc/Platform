@@ -126,6 +126,9 @@
                     : AccountingConstants.DefaultVoucherInLimit;
             }
 
+            var hopperSplitSupported = configuration.HopperLimits?.HopperPaySplit is { Supported: true };
+            var hopperSplitEnabled = configuration.HopperLimits?.HopperPaySplit is { Enabled: true };
+
             _properties = new Dictionary<string, Tuple<object, bool>>
             {
                 {
@@ -504,6 +507,81 @@
                 {
                     AccountingConstants.TestTicketType,
                     Tuple.Create((object)configuration.TestTicket?.Type ?? string.Empty, false)
+                },
+                {
+                    AccountingConstants.HopperRefillDefaultValue,
+                    Tuple.Create((object)configuration.HopperLimits?.HopperRefill?.Default ?? 0L,
+                        false)
+                },
+                {
+                    AccountingConstants.HopperRefillMinValue,
+                    Tuple.Create(
+                        (object)configuration.HopperLimits?.HopperRefill?.Min ?? 0L,
+                        false)
+                },
+                {
+                    AccountingConstants.HopperRefillMaxValue,
+                    Tuple.Create(
+                        (object)configuration.HopperLimits?.HopperRefill?.Max ?? 0L,
+                        false)
+                },
+                {
+                    AccountingConstants.HopperCollectDefaultValue,
+                    Tuple.Create(
+                        (object)configuration.HopperLimits?.HopperCollect?.Default ?? 0L,
+                        false)
+                },
+                {
+                    AccountingConstants.HopperCollectMinValue,
+                    Tuple.Create(
+                        (object)configuration.HopperLimits?.HopperCollect?.Min ?? 0L,
+                        false)
+                },
+                {
+                    AccountingConstants.HopperCollectMaxValue,
+                    Tuple.Create(
+                        (object)configuration.HopperLimits?.HopperCollect?.Max ?? 0L,
+                        false)
+                },
+                {
+                    AccountingConstants.HopperThresholdDefaultValue,
+                    Tuple.Create(
+                        (object)configuration.HopperLimits?.HopperPaySplit?.Default ?? 0L,
+                        false)
+                },
+                {
+                    AccountingConstants.HopperThresholdMinValue,
+                    Tuple.Create(
+                        (object)configuration.HopperLimits?.HopperPaySplit?.Min ?? 0L,
+                        false)
+                },
+                {
+                    AccountingConstants.HopperTicketSplitSupported,
+                    Tuple.Create(
+                        (object)configuration.HopperLimits?.HopperPaySplit?.Supported ?? false,
+                        false)
+                },
+                {
+                    AccountingConstants.HopperTicketSplitConfigurable,
+                    Tuple.Create(
+                        (object)configuration.HopperLimits?.HopperPaySplit?.Configurable ?? false,
+                        false)
+                },
+                {
+                    AccountingConstants.HopperTicketSplit,
+                    Tuple.Create(InitFromStorage(AccountingConstants.HopperTicketSplit), true)
+                },
+                {
+                    AccountingConstants.HopperCurrentRefillValue,
+                    Tuple.Create(InitFromStorage(AccountingConstants.HopperCurrentRefillValue), true)
+                },
+                {
+                    AccountingConstants.HopperCollectLimit,
+                    Tuple.Create(InitFromStorage(AccountingConstants.HopperCollectLimit), true)
+                },
+                {
+                    AccountingConstants.HopperTicketThreshold,
+                    Tuple.Create(InitFromStorage(AccountingConstants.HopperTicketThreshold), true)
                 }
             };
 
@@ -517,6 +595,10 @@
                 SetProperty(AccountingConstants.CashInLaundry, 0L);
                 SetProperty(AccountingConstants.VoucherInLaundry, 0L);
                 SetProperty(AccountingConstants.ExcessiveDocumentRejectLockupEnabled, false);
+                SetProperty(AccountingConstants.HopperCollectLimit, hopperSplitSupported && !hopperSplitEnabled ? configuration.HopperLimits?.HopperCollect?.Default : 0L);
+                SetProperty(AccountingConstants.HopperTicketThreshold, hopperSplitSupported && hopperSplitEnabled ? configuration.HopperLimits?.HopperPaySplit?.Default : 0L);
+                SetProperty(AccountingConstants.HopperCurrentRefillValue, configuration.HopperLimits?.HopperRefill?.Default ?? 0L);
+                SetProperty(AccountingConstants.HopperTicketSplit, configuration.HopperLimits?.HopperPaySplit?.Enabled ?? false);
 
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);

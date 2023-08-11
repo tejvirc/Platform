@@ -166,4 +166,48 @@
 
         internal const uint CoinTransitTime = 1000;
     }
+
+    internal enum HopperCommands
+    {
+        HopperSetType = 1,
+        HopperEnable,
+        HopperPollingCount,
+        HopperChangeCount,
+        HopperSetOutputs,
+        HopperClrOutputs,
+        HopperTestDisconnection,
+        HopperGetRegisterValue
+    }
+
+    internal class HopperMasks
+    {
+        internal const int HopperLowMask = 0x10;   /* Hopper level low mask (not used)*/
+        internal const int HopperHighMask = 0x20;   /* Hopper level high mask */
+        internal const int HopperCoinOutMask = 0x40;    /* Coin out sensor */
+        internal const int HopperOvercurrentMask = 0x80;    /* Overcurrent sensor (not used)*/
+        internal const int HopperMotorDirMask = 0x01;    /* Motor direction mask (not used)*/
+        internal const int HopperMotorDriveMask = 0x02;    /* Motor drive mask */
+        internal const int HopperSensorMask = 0x04;    /* Sensor drive mask */
+        internal const int HopperDisconnectMask = 0x8000; /* Hopper disconnect mask */
+    }
+    internal class HopperConsts
+    {
+        internal const uint HopperDisconnetTime = 1000; //ms
+        internal const uint HopperDisconnectThreshold = 3;
+        internal const uint HopperDisconnectTime = 1000; /* counts between hopper disconnect    checks */
+        internal const uint HopperMaxBlockedTime = 400; /* coin jam if > HCD_MAX_BLOCKED_TIME */
+        internal const uint HopperDebouncedTime = 3; /* discard pulses < HCD_DEBOUNCE_TIME */
+        internal const uint HopperEmptyTime = 6000; /* scan for HCD_HOPPER_EMPTY_TIME to see coin */
+        internal const uint HopperPauseTime = 2000; /* time to pause if didn't see coin */
+        internal const uint HopperMaxTos = 1; /* max no. of pauses */
+        internal const uint HopperMotorOffTimer = 70; /* if idle for longer than 60 ms reset motor vars */
+    }
+
+    internal enum HopperTaskState
+    {
+        WaitingForLeadingEdge,   /* Waiting for front edge of coin */
+        WaitingForTrailingEdge,  /* Waiting for back edge of coin */
+        WaitingForTimeout,        /* Pausing */
+        WaitingForReset           /* Waiting to be reset */
+    }
 }

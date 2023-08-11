@@ -680,6 +680,12 @@ namespace Aristocrat.Monaco.Accounting
                         break;
                     }
 
+                    if (result.IsPartialTransferOut)
+                    {
+                        handled = false;
+                        break;
+                    }
+
                     Logger.Info($"Remaining - Cashable {cashableRemaining}, Promo: {promoRemaining}, NonCash: {nonCash}");
                 }
             }

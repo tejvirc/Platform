@@ -48,6 +48,9 @@
     using ReelInspectionFailedEvent = Hardware.Contracts.Reel.Events.InspectionFailedEvent;
     using CoinAcceptorInspectionFailedEvent = Hardware.Contracts.CoinAcceptor.InspectionFailedEvent;
     using CoinAcceptorInspectionSucceededEvent = Hardware.Contracts.CoinAcceptor.InspectedEvent;
+    using HopperInspectionFailedEvent = Hardware.Contracts.Hopper.InspectionFailedEvent;
+    using HopperInspectionSucceededEvent = Hardware.Contracts.Hopper.InspectedEvent;
+    using Aristocrat.Monaco.Hardware.Contracts.Hopper;
 
     [CLSCompliant(false)]
     public abstract class HardwareConfigBaseViewModel : ConfigWizardViewModelBase
@@ -75,7 +78,8 @@
             { DeviceType.Printer, false },
             { DeviceType.IdReader, false },
             { DeviceType.ReelController, false },
-            { DeviceType.CoinAcceptor, false }
+            { DeviceType.CoinAcceptor, false },
+            { DeviceType.Hopper, false }
         };
 
         private readonly Dictionary<DeviceType, string> _deviceLastValidated = new Dictionary<DeviceType, string>
@@ -84,7 +88,8 @@
             { DeviceType.Printer, string.Empty },
             { DeviceType.IdReader, string.Empty },
             { DeviceType.ReelController , string.Empty },
-            { DeviceType.CoinAcceptor , string.Empty }
+            { DeviceType.CoinAcceptor , string.Empty },
+            { DeviceType.Hopper , string.Empty }
         };
 
         private readonly DeviceAddinHelper _addinHelper = new DeviceAddinHelper();
@@ -107,6 +112,7 @@
         private string _idReaderManufacturer;
         private string _reelControllerManufacturer;
         private string _coinAcceptorManufacturer;
+        private string _hopperManufacturer;
         private string _hardMeterMapSelection;
         private bool _configurableBellyPanelDoor;
         private bool _bellyPanelDoorEnabled;
@@ -516,6 +522,11 @@
                                     ApplicationConstants.CoinAcceptorManufacturer,
                                     device.Manufacturer ?? string.Empty);
                                 break;
+                            case DeviceType.Hopper:
+                                _propertiesManager.SetProperty(
+                                    ApplicationConstants.HopperManufacturer,
+                                    device.Manufacturer ?? string.Empty);
+                                break;
                         }
                     }
                 }
@@ -758,6 +769,9 @@
 
             eventBus.Subscribe<CoinAcceptorInspectionSucceededEvent>(this, HandleEvent);
             eventBus.Subscribe<CoinAcceptorInspectionFailedEvent>(this, HandleEvent);
+
+            eventBus.Subscribe<HopperInspectionSucceededEvent>(this, HandleEvent);
+            eventBus.Subscribe<HopperInspectionFailedEvent>(this, HandleEvent);
         }
 
         private void HandleEvent(IEvent e)
@@ -853,6 +867,16 @@
                         break;
                     }
 
+                    case HopperInspectionSucceededEvent _:
+                        {
+                            if (_serviceManager.IsServiceAvailable<IHopper>())
+                            {
+                                var device = GetDevice<IHopper>();
+                                SetDeviceStatusAndValidate(DeviceType.Hopper, GetUpdateStatus(device), GetUpdateStatusType(device), true);
+                            }
+
+                            break;
+                        }
                     case IdReaderInspectionFailedEvent _:
                         _deviceDiscoveryStatus[DeviceType.IdReader] = false;
                         SetDeviceStatusAndValidate(DeviceType.IdReader, errorText, DeviceState.ErrorText, false);
@@ -873,6 +897,10 @@
                     case CoinAcceptorInspectionFailedEvent _:
                         _deviceDiscoveryStatus[DeviceType.CoinAcceptor] = false;
                         SetDeviceStatusAndValidate(DeviceType.CoinAcceptor, errorText, DeviceState.ErrorText, false);
+                        break;
+                    case HopperInspectionFailedEvent _:
+                        _deviceDiscoveryStatus[DeviceType.Hopper] = false;
+                        SetDeviceStatusAndValidate(DeviceType.Hopper, errorText, DeviceState.ErrorText, false);
                         break;
 
                     default:
@@ -994,6 +1022,8 @@
                             return nameof(ReelInspectionFailedEvent);
                         case DeviceType.CoinAcceptor:
                             return nameof(CoinAcceptorInspectionFailedEvent);
+                        case DeviceType.Hopper:
+                            return nameof(HopperInspectionFailedEvent);
                     }
 
                     return string.Empty;
@@ -1091,6 +1121,11 @@
 
                 case DeviceType.CoinAcceptor:
                     device = GetDevice<ICoinAcceptor>();
+                    ValidateDevice(device);
+                    break;
+
+                case DeviceType.Hopper:
+                    device = GetDevice<IHopper>();
                     ValidateDevice(device);
                     break;
             }
@@ -1261,7 +1296,17 @@
                                             ApplicationConstants.CoinAcceptorManufacturer,
                                             string.Empty);
                                     }
-
+                                    break;
+                                case DeviceType.Hopper:
+                                    isEnabled = _propertiesManager.GetValue(
+                                        ApplicationConstants.HopperEnabled,
+                                        false);
+                                    if (isEnabled)
+                                    {
+                                        _hopperManufacturer = _propertiesManager.GetValue(
+                                            ApplicationConstants.HopperManufacturer,
+                                            string.Empty);
+                                    }
                                     break;
                             }
                         }
@@ -1396,6 +1441,9 @@
                         break;
                     case DeviceType.CoinAcceptor when !string.IsNullOrEmpty(_coinAcceptorManufacturer):
                         LoadDevice(device, _coinAcceptorManufacturer);
+                        break;
+                    case DeviceType.Hopper when !string.IsNullOrEmpty(_hopperManufacturer):
+                        LoadDevice(device, _hopperManufacturer);
                         break;
                 }
             }

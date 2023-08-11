@@ -12430,4 +12430,185 @@ Do you really want to do full reset?</value>
   <data name="Printer_DfuInProgress" xml:space="preserve">
     <value>Printer DFU Download In Progress: Please Do Not Power Off The Gaming Machine</value>
   </data>
+  <data name="ActivatePayout" xml:space="preserve">
+    <value>Activate Payout</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CloseDoorReinsert" xml:space="preserve">
+    <value>Close main door and reinsert {0} coins</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CoinsReinserted" xml:space="preserve">
+    <value>Coins Reinserted :</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CoinsReinsertedForExtraPayout" xml:space="preserve">
+    <value>Coins Reinserted For Extra Payout :</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ExtraPayoutDuringTest" xml:space="preserve">
+    <value>Extra Payout During Test :</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperFault" xml:space="preserve">
+    <value>Hopper Fault -</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperTest" xml:space="preserve">
+    <value>Hopper Test</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperTestNotAvailable" xml:space="preserve">
+    <value>Hopper test is not available as hopper or coin entry are not selected.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperTestPayout" xml:space="preserve">
+    <value>Hopper Test Payout :</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="LastDivertorEvent" xml:space="preserve">
+    <value>Last Divertor Event :</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="LastHopperEvent" xml:space="preserve">
+    <value>Last Hopper Event :</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ReinsertCoins" xml:space="preserve">
+    <value>Reinsert {0} coins.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TurnResetKey" xml:space="preserve">
+    <value>Turn reset key to reactivate</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperTestInProgress" xml:space="preserve">
+    <value>Test Mode in progress</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TimeOfLastRefill" xml:space="preserve">
+    <value>Time Of Last Refill</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CannotLessThanText" xml:space="preserve">
+    <value>can not be less than</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="CoinOut" xml:space="preserve">
+    <value>Coin Out</value>
+    <comment>Monaco.Accounting.UI</comment>
+  </data>
+  <data name="CoinOutTransactionName" xml:space="preserve">
+    <value>Cash Out</value>
+    <comment>Monaco.Accounting</comment>
+  </data>
+  <data name="CurrentRefillValue" xml:space="preserve">
+    <value>Current Refill Value</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="EnteredValueMultipleOf" xml:space="preserve">
+    <value>Please enter in multiples of</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperCollectLimit" xml:space="preserve">
+    <value>Hopper Collect Limit</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperEmptyText" xml:space="preserve">
+    <value>Hopper must be empty to perform refill.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperLevel" xml:space="preserve">
+    <value>Hopper Level</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperPayOut" xml:space="preserve">
+    <value>Hopper Pay Out - {0}</value>
+    <comment>Monaco.Accounting</comment>
+  </data>
+  <data name="HopperPrinterConfigured" xml:space="preserve">
+    <value>This Option Is Only Available If Both Hopper AND Printer Are Configured</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperRefill" xml:space="preserve">
+    <value>Hopper Refill</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperRefillInvalidValueText" xml:space="preserve">
+    <value>Invalid Value!
+Please note that this input box can accept:
+1. Digits.\n2. Coin delimiter, if applicable.
+3. Upto 2 decimal digits, if applicable.
+4. Max of 7 or 10 characters without or with coin delimiter respectively.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperRefillTransactionName" xml:space="preserve">
+    <value>Hopper Refill Transaction</value>
+    <comment>Monaco.Accounting.Contracts</comment>
+  </data>
+  <data name="HopperRefillValue" xml:space="preserve">
+    <value>Hopper Refill Value</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperSplitEnabledWarningText" xml:space="preserve">
+    <value>Hopper/Ticket Split Enabled - not allowed to setup</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperTicketSplit" xml:space="preserve">
+    <value>Hopper/Ticket Split</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperTicketSplitEnableCheck" xml:space="preserve">
+    <value>Can not enable unless Hopper Collect Limit is set above</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperTicketThreshold" xml:space="preserve">
+    <value>Hopper/Ticket Threshold</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MaxHopperRefillValueText" xml:space="preserve">
+    <value>Maximum Hopper Refill Value is</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MustBeGreaterThan" xml:space="preserve">
+    <value>Must be greater than or Equal to</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="MustLessThanText" xml:space="preserve">
+    <value>must be less than</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="NoDevicesConfiguredText" xml:space="preserve">
+    <value>No Devices configured - Not Allowed to setup Hopper Collect Limit.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="NoRecordedRefill" xml:space="preserve">
+    <value>No Recorded Refill</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PerformHopperRefill" xml:space="preserve">
+    <value>Perform Hopper Refill</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PerformHopperRefillDialog" xml:space="preserve">
+    <value>Please press Yes to 
+Perform Hopper Refill</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="PrinterOnlyConfiguredText" xml:space="preserve">
+    <value>Printer Only Configured - Not Allowed to setup Hopper Collect Limit.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="RefillCount" xml:space="preserve">
+    <value>Current Refill Value</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ValueOfLastRefill" xml:space="preserve">
+    <value>Value Of Last Refill</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="HopperLabel" xml:space="preserve">
+    <value>Hopper</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>

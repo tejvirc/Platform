@@ -744,7 +744,15 @@
 
         public void SetInitialSelectedMenuItem()
         {
-            SelectedItem = MenuItems.FirstOrDefault();
+            if (_propertiesManager.GetValue(HardwareConstants.HopperDiagnosticMode, false) &&
+                MenuItems.FirstOrDefault(p => p.PageName == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardwareLabel)) != null)
+            {
+                SelectedItem = MenuItems.FirstOrDefault(p => p.PageName == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardwareLabel));
+            }
+            else
+            {
+                SelectedItem = MenuItems.FirstOrDefault();
+            }
         }
 
         private void ConfigureSubscriptions()

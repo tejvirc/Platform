@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.Accounting
     using Application.Contracts.TiltLogger;
     using CoinAcceptor;
     using Common;
+    using Hopper;
     using Kernel;
     using log4net;
     using Mono.Addins;
@@ -176,6 +177,8 @@ namespace Aristocrat.Monaco.Accounting
             var logAdapterService = ServiceManager.GetInstance().GetService<ILogAdaptersService>();
             logAdapterService.RegisterLogAdapter(new BillEventLogAdapter());
             logAdapterService.RegisterLogAdapter(new CoinInEventLogAdapter());
+            logAdapterService.RegisterLogAdapter(new HopperRefillEventLogAdapter());
+            logAdapterService.RegisterLogAdapter(new HopperPayoutEventLogAdapter());
             logAdapterService.RegisterLogAdapter(new HandpayEventLogAdapter());
             logAdapterService.RegisterLogAdapter(new TransferInEventLogAdapter());
             logAdapterService.RegisterLogAdapter(new TransferOutEventLogAdapter());
@@ -191,6 +194,8 @@ namespace Aristocrat.Monaco.Accounting
             var logAdapterService = ServiceManager.GetInstance().GetService<ILogAdaptersService>();
             logAdapterService.UnRegisterLogAdapter(EventLogType.BillIn.GetDescription(typeof(EventLogType)));
             logAdapterService.UnRegisterLogAdapter(EventLogType.CoinIn.GetDescription(typeof(EventLogType)));
+            logAdapterService.UnRegisterLogAdapter(EventLogType.CoinOut.GetDescription(typeof(EventLogType)));
+            logAdapterService.UnRegisterLogAdapter(EventLogType.HopperRefill.GetDescription(typeof(EventLogType)));
             logAdapterService.UnRegisterLogAdapter(EventLogType.Handpay.GetDescription(typeof(EventLogType)));
             logAdapterService.UnRegisterLogAdapter(EventLogType.TransferIn.GetDescription(typeof(EventLogType)));
             logAdapterService.UnRegisterLogAdapter(EventLogType.TransferOut.GetDescription(typeof(EventLogType)));

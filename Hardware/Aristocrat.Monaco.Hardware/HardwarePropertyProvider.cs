@@ -6,6 +6,7 @@
     using System.Reflection;
     using Contracts;
     using Contracts.CoinAcceptor;
+    using Contracts.Hopper;
     using Contracts.Persistence;
     using Kernel;
     using log4net;
@@ -117,6 +118,14 @@
                     HardwareConstants.CoinAcceptorFaults,
                     Tuple.Create((object)InitFromStorage<int>(HardwareConstants.CoinAcceptorFaults, (int)CoinFaultTypes.None), true)
                 },
+                {
+                    HardwareConstants.HopperFaults,
+                    Tuple.Create((object)InitFromStorage<int>(HardwareConstants.HopperFaults, (int)HopperFaultTypes.None), true)
+                },
+                {
+                    HardwareConstants.HopperDiagnosticMode,
+                    Tuple.Create((object)InitFromStorage<bool>(HardwareConstants.HopperDiagnosticMode, false), true)
+                }
             };
 
             if (!_blockExists)
