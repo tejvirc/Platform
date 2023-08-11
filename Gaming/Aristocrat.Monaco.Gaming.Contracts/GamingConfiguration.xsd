@@ -470,6 +470,7 @@
         <xs:element minOccurs="0" maxOccurs="1" name="Instructions">
           <xs:complexType>
             <xs:attribute name="GameRulesInstructions" type="xs:string" use="optional" default="" />
+            <xs:attribute name="PressStart" type="xs:string" use="optional" default="" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="WagerLimits">
