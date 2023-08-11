@@ -118,6 +118,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             GameList.Move(oldIndex, newIndex);
             IsDirty = true;
             UpCommand.RaiseCanExecuteChanged();
+            DownCommand.RaiseCanExecuteChanged();
         }
 
         private void DownPressed(object obj)
@@ -126,6 +127,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             var newIndex = oldIndex + 1;
             GameList.Move(oldIndex, newIndex);
             IsDirty = true;
+            UpCommand.RaiseCanExecuteChanged();
             DownCommand.RaiseCanExecuteChanged();
         }
 
