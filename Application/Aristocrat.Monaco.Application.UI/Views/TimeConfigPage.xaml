@@ -52,7 +52,7 @@
                  HorizontalAlignment="Left"
                  Text="{Binding OrderNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                  AutomationProperties.AutomationId="TextBox0_282D57AA"
-                 Visibility="{Binding IsInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}"/>
+                 Visibility="{Binding IsInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}" TextChanged="TextBox_TextChanged"/>
 
         <Label Grid.Row="3"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.InspectorLabel}}"

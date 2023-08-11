@@ -1,0 +1,46 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.InspectionPageReportFailureView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization" xmlns:viewmodels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               mc:Ignorable="d"
+                               Height="300"
+                               Width="300"
+                               d:DataContext="{d:DesignInstance {x:Type viewmodels:InspectionPageReportFailureViewModel}}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type TextBox}"
+                   BasedOn="{StaticResource MonacoTextBox}"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid AutomationProperties.AutomationId="Grid0_311D89E6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_311D89E6" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition2_311D89E6" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition3_311D89E6" MinWidth="300" />
+            <ColumnDefinition Width="0*"
+                              AutomationProperties.AutomationId="ColumnDefinition4_311D89E6" />
+        </Grid.ColumnDefinitions>
+        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReportFailure}}"
+               AutomationProperties.AutomationId="Label1_311D89E6" Margin="0,0,0,271" Grid.RowSpan="2" />
+        <TextBox Grid.Column="0"
+                 Grid.Row="1"
+                 Margin="0, 34,0,0"
+                 Text="{Binding ReportFailureText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                 AutomationProperties.AutomationId="TextBox1_311D89E6"/>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

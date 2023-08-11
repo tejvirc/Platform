@@ -149,14 +149,13 @@
             RaiseChangeEvent();
         }
 
-        public void ReportTestFailure()
+        public void ReportTestFailure(string failureMessage = "")
         {
             if (string.IsNullOrEmpty(_currentTestCondition) || CurrentData is null)
             {
                 return;
             }
-
-            CurrentData.FailureMessages.Add(_currentTestCondition);
+            CurrentData.FailureMessages.Add($"{_currentTestCondition}");
             CurrentData.Status = InspectionPageStatus.Bad;
             Logger.Debug($"ReportTestFailure {CurrentData.Category}/{_currentTestCondition}.");
             RaiseChangeEvent();

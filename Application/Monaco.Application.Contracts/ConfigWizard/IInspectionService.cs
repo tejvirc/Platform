@@ -48,6 +48,7 @@
         /// <summary>
         ///     Report a test failure.
         /// </summary>
-        void ReportTestFailure();
+        /// /// <param name="failureMessage">User input failure message.</param>
+        void ReportTestFailure(string failureMessage = "");
     }
 }

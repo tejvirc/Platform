@@ -21,6 +21,8 @@
     using Monaco.Localization.Properties;
     using MVVM;
     using MVVM.Command;
+    using Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor;
+    using Aristocrat.Monaco.Application.UI.Views;
 
     [CLSCompliant(false)]
     public class InspectionPageViewModel : InspectionWizardViewModelBase, IConfigWizardNavigator, IInspectionWizard, IService
@@ -354,6 +356,16 @@
 
         private void ReportButton_Click(object o)
         {
+            // Open the Report Failure Dialogue and prompt for text => store in variable
+            var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
+
+            var viewModel = new InspectionPageReportFailureViewModel();
+
+            dialogService.ShowDialog<InspectionPageReportFailureView>(
+                this,
+                viewModel,
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReportFailure));
+
             Inspection?.ReportTestFailure();
         }
 
