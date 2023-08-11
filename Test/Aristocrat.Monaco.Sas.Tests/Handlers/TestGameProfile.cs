@@ -142,5 +142,6 @@
         public IEnumerable<ISubGameDetails> SupportedSubGames { get; }
 
         public IEnumerable<ISubGameDetails> ActiveSubGames { get; }
+        public int UniqueGameId { get; set; }
     }
 }

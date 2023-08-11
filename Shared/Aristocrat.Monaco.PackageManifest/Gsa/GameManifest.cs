@@ -17,6 +17,8 @@
 
         private const string DefaultVariationId = "99";
 
+        private const int DefaultUniqueGameId = 0;
+
         /// <inheritdoc />
         public GameContent Read(string file)
         {
@@ -166,7 +168,8 @@
                     }).ToList(),
                 MaxWagerInsideCredits = gameInfo.maxWagerInsideCredits,
                 MaxWagerOutsideCredits = gameInfo.maxWagerOutsideCredits,
-                NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier
+                NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier,
+                UniqueGameId = gameInfo.uniqueGameIdSpecified ? gameInfo.uniqueGameId : DefaultUniqueGameId
             };
         }
 
