@@ -215,6 +215,13 @@
             get => throw new NotImplementedException();
             set => throw new NotImplementedException();
         }
+
+        public int UniqueGameId
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
         public static IEnumerable<IGameDetail> GetMockGameDetailInfo()
         {
             var gameDetail = new List<IGameDetail>();

@@ -1140,6 +1140,7 @@ namespace Aristocrat.Monaco.Gaming
             gameDetail.SupportedSubGames ??= GetSubGames(game.SubGames, gameDetail.Denominations.ToList());
 
             gameDetail.PreloadedAnimationFiles = GetPreloadedAnimationFiles(gameContent, gameFolder);
+            gameDetail.UniqueGameId = game.UniqueGameId;
 
             return (gameDetail, progressiveDetails);
         }
@@ -1943,7 +1944,7 @@ namespace Aristocrat.Monaco.Gaming
         private static IEnumerable<AnimationFile> GetPreloadedAnimationFiles(GameContent gameContent, string gameFolder)
         {
             var animationFiles = new List<AnimationFile>();
-            if (gameContent.PreloadedAnimationFiles == null)
+            if (gameContent.PreloadedAnimationFiles?.stepperAnimationFile == null)
             {
                 return animationFiles;
             }
