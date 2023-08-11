@@ -2,9 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Reflection;
+    using System.Windows.Forms;
     using Aristocrat.Monaco.Application.Contracts.Input;
     using Contracts;
+    using Contracts.Localization;
     using Kernel;
     using log4net;
 
@@ -14,6 +17,7 @@
 
         private readonly IEventBus _eventBus;
         private readonly IVirtualKeyboardProvider _keyboardProvider;
+        private readonly CultureInfo _startupCulture;
 
         private bool _disableKeyboard;
         private bool _disposed;
@@ -31,6 +35,7 @@
 
             var configuredKeyboardProvider = propertiesManager.GetValue(ApplicationConstants.KeyboardProvider, KeyboardProviderType.Default);
             _keyboardProvider = GetKeyboardProvider(configuredKeyboardProvider);
+            _startupCulture = InputLanguage.CurrentInputLanguage.Culture;
         }
 
         public string Name => GetType().Name;
@@ -78,7 +83,16 @@
                 return;
             }
 
-            _keyboardProvider?.OpenKeyboard(targetControl);
+            if (_keyboardProvider == null)
+            {
+                Logger.Warn("OnScreenKeyboard provider not available");
+                return;
+            }
+
+            var culture = Localizer.For(CultureFor.Operator).CurrentCulture;
+            SetInputLanguage(culture);
+
+            _keyboardProvider.OpenKeyboard(targetControl);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -96,9 +110,31 @@
             _disposed = true;
         }
 
+        private void SetInputLanguage(CultureInfo culture)
+        {
+            if (culture == null)
+            {
+                return;
+            }
+
+            foreach (var installed in InputLanguage.InstalledInputLanguages)
+            {
+                if (installed is InputLanguage language &&
+                    language.Culture.ThreeLetterISOLanguageName == culture.ThreeLetterISOLanguageName &&
+                    !Equals(InputLanguage.CurrentInputLanguage, language))
+                {
+                    InputLanguage.CurrentInputLanguage = language;
+                    Logger.Debug($"Set Windows Input language to {language.Culture.EnglishName}");
+                }
+            }
+        }
+
         private void CloseOnScreenKeyboard()
         {
             _keyboardProvider?.CloseKeyboard();
+
+            // Return to the startup language after closing the keyboard
+            SetInputLanguage(_startupCulture);
         }
 
         private void HandleOnScreenKeyboardClosed(OnscreenKeyboardClosedEvent e)
