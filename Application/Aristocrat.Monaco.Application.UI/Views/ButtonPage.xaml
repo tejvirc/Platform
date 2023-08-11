@@ -42,10 +42,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"
                            AutomationProperties.AutomationId="RowDefinition3_706ACDBF" />
-            <RowDefinition Height="*"
-                           AutomationProperties.AutomationId="RowDefinition4_706ACDBF" />
             <RowDefinition Height="Auto"
-                           AutomationProperties.AutomationId="RowDefinition5_706ACDBF" />
+                           AutomationProperties.AutomationId="RowDefinition4_706ACDBF" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0"
               Grid.Column="0"
