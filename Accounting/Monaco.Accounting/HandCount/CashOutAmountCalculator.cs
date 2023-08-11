@@ -97,6 +97,7 @@
         }
 
         /// <inheritdoc />
+        //*** CashoutOperations
         public long GetCashableAmount(long amount)
         {
             if (_disableManager.IsDisabled)
@@ -153,6 +154,7 @@
             _eventBus.Publish(new CashoutAuthorizationCancelledEvent());
         }
 
+        //*** CashoutOperations
         private void Handle(CashoutAmountAuthorizationReceivedEvent evt)
         {
             isCashOut = evt.IsCashout;

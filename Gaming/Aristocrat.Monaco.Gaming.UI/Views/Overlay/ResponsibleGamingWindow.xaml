@@ -81,6 +81,7 @@
                       Height="{Binding ElementName=LayoutTemplate, Path=ActualHeight}"
                       Width="{Binding ElementName=LayoutTemplate, Path=ActualWidth}"
                       AutomationProperties.AutomationId="Grid7_899639EE">
+                    <!-- *** WindowDisplay: TimeLimitDialog -->
                     <overlay:TimeLimitDialog x:Name="TimeLimitView"
                                              IsHitTestVisible="{Binding IsTimeLimitDlgVisible}">
                         <overlay:TimeLimitDialog.Style>
