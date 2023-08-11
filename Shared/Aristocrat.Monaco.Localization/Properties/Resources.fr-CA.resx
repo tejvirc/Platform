@@ -4978,11 +4978,14 @@ Consulter le manuel pour plus de détails</value>
   </data>
   <data name="UnloadingTransactionHandlers" xml:space="preserve">
     <value>??Unloading Transaction Handlers??</value>
-    </data>
+  </data>
   <data name="ErrorInfoPrinterPaperLow" xml:space="preserve">
     <value>??Open Main Door and Load More Paper Before Paper is Empty??</value>
   </data>
   <data name="PrinterWarningTypes_PaperLow" xml:space="preserve">
     <value>Papier d'imprimante bas</value>
+  </data>
+  <data name="RemoveAllCreditsBeforeChange" xml:space="preserve">
+    <value>??Please remove all credits from the machine before changing these settings.??</value>
   </data>
 </root>
