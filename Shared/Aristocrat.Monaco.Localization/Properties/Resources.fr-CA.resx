@@ -4988,4 +4988,40 @@ Consulter le manuel pour plus de détails</value>
   <data name="RemoveAllCreditsBeforeChange" xml:space="preserve">
     <value>??Please remove all credits from the machine before changing these settings.??</value>
   </data>
+  <data name="PrintCompletedText" xml:space="preserve">
+    <value>??Print Completed??</value>
+  </data>
+  <data name="PrintStartedText" xml:space="preserve">
+    <value>??Print Started??</value>
+  </data>
+  <data name="BillInserted" xml:space="preserve">
+    <value>??Bill Inserted??</value>
+  </data>
+  <data name="DisabledByText" xml:space="preserve">
+    <value>??Disabled By ??</value>
+  </data>
+  <data name="EnabledByText" xml:space="preserve">
+    <value>??Enabled By ??</value>
+  </data>
+  <data name="FirmwareUpdateText" xml:space="preserve">
+    <value>??Firmware Update??</value>
+  </data>
+  <data name="SelfTestFailed" xml:space="preserve">
+    <value>??Self Test Failed??</value>
+  </data>
+  <data name="SelfTestInProgress" xml:space="preserve">
+    <value>??Self Test In Progress??</value>
+  </data>
+  <data name="SelfTestPassed" xml:space="preserve">
+    <value>??Self Test Passed??</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>??Service??</value>
+  </data>
+  <data name="WarningText" xml:space="preserve">
+    <value>??WARNING??</value>
+  </data>
+  <data name="WorkingText" xml:space="preserve">
+    <value>??Working??</value>
+  </data>
 </root>

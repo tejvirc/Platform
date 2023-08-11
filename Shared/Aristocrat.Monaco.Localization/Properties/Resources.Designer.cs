@@ -12194,6 +12194,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Firmware Update.
+		/// </summary>
+		public static string FirmwareUpdateText {
+			get {
+				return ResourceManager.GetString("FirmwareUpdateText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Firmware Version.
 		/// </summary>
         /// <remarks>
@@ -29918,6 +29927,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Service.
+		/// </summary>
+		public static string Service {
+			get {
+				return ResourceManager.GetString("Service", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Service Name.
 		/// </summary>
 		public static string ServiceName {
@@ -36286,6 +36304,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string WonCountLabel {
 			get {
 				return ResourceManager.GetString("WonCountLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Working.
+		/// </summary>
+		public static string WorkingText {
+			get {
+				return ResourceManager.GetString("WorkingText", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -48525,6 +48552,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string FirmwareRevisionLabel {
 			get {
 				return "FirmwareRevisionLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Firmware Update.
+		/// </summary>
+		public static string FirmwareUpdateText {
+			get {
+				return "FirmwareUpdateText";
 			}
 		}
 
@@ -66253,6 +66289,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Service.
+		/// </summary>
+		public static string Service {
+			get {
+				return "Service";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Service Name.
 		/// </summary>
 		public static string ServiceName {
@@ -72621,6 +72666,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string WonCountLabel {
 			get {
 				return "WonCountLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Working.
+		/// </summary>
+		public static string WorkingText {
+			get {
+				return "WorkingText";
 			}
 		}
 
@@ -79625,6 +79679,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		FirmwareRevisionLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Firmware Update.
+		/// </summary>
+		FirmwareUpdateText,
 		/// <summary>
 		///   Looks up a localized string similar to Firmware Version.
 		/// </summary>
@@ -89745,6 +89803,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ServerLocationInvalidFormatErrorMessageTemplate,
 		/// <summary>
+		///   Looks up a localized string similar to Service.
+		/// </summary>
+		Service,
+		/// <summary>
 		///   Looks up a localized string similar to Service Name.
 		/// </summary>
 		ServiceName,
@@ -93356,6 +93418,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		WonCountLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Working.
+		/// </summary>
+		WorkingText,
 		/// <summary>
 		///   Looks up a localized string similar to Yes.
 		/// </summary>
