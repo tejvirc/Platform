@@ -973,6 +973,9 @@
         /// <summary> Property manager key for ConfigWizardHardwarePageRequirePrinter. </summary>
         public const string ConfigWizardHardwarePageRequirePrinter = "ConfigWizard.HardwarePage.RequirePrinter";
 
+        /// <summary> Property manager key for ConfigWizardLocalizationCurrency </summary>
+        public const string ConfigWizardLocalizationCurrency = "ConfigWizard.Localization.Currency";
+
         /// <summary> Last selected index of initial setup wizard</summary>
         public const string ConfigWizardLastPageViewedIndex = "LastPageViewedIndex";
 
