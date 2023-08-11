@@ -145,6 +145,7 @@
             if (_topView != null)
             {
                 _lobbyWindows.Add(_topView);
+                _lobbyWindows.Add(_topView.OverlayWindow);
             }
 
             if (_topperView != null)

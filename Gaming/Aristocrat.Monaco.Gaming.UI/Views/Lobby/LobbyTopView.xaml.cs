@@ -7,6 +7,7 @@
     using Application.Contracts;
     using Application.Contracts.Media;
     using Application.UI.Views;
+    using Aristocrat.MVVM;
     using Cabinet.Contracts;
     using Kernel;
     using MediaDisplay;
@@ -19,6 +20,10 @@
     {
         private LayoutOverlayWindow _topMediaDisplayWindow;
         private readonly WindowToScreenMapper _windowToScreenMapper = new WindowToScreenMapper(DisplayRole.Top);
+        private readonly LobbyTopViewOverlayWindow _lobbyTopViewOverlayWindow = new();
+        private IEventBus _eventBus;
+
+        public LobbyTopViewOverlayWindow OverlayWindow { get => _lobbyTopViewOverlayWindow; }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="LobbyTopView" /> class.
@@ -27,6 +32,7 @@
         {
             InitializeComponent();
 
+            SetupTopViewOverlayWindow();
             var enabled = ServiceManager.GetInstance().GetService<IPropertiesManager>()
                 .GetValue(ApplicationConstants.MediaDisplayEnabled, false);
             SizeChanged += LobbyTopView_SizeChanged;
@@ -37,6 +43,23 @@
             }
 
             SetupMediaDisplayWindow();
+        }
+
+        /// <summary>
+        /// Initializes the top screen overlay
+        /// </summary>
+        public void SetupTopViewOverlayWindow()
+        {
+            _eventBus = ServiceManager.GetInstance().TryGetService<IEventBus>();
+            _eventBus.Subscribe<SystemDisableAddedEvent>(this, _ => MvvmHelper.ExecuteOnUI(() =>
+            {                
+                _lobbyTopViewOverlayWindow.Show();
+                PositionOverlayWindow();
+            }));
+            _eventBus.Subscribe<SystemDisableRemovedEvent>(this, _ => MvvmHelper.ExecuteOnUI(() => _lobbyTopViewOverlayWindow.Hide()));
+            SourceInitialized += (_, _) => _lobbyTopViewOverlayWindow.Owner = this;
+            SizeChanged += (_, _) => PositionOverlayWindow();
+            LocationChanged += (_, _) => PositionOverlayWindow();
         }
 
         /// <summary>
@@ -140,6 +163,8 @@
 
         private void LobbyTopView_OnClosed(object sender, EventArgs e)
         {
+            _eventBus.Unsubscribe<SystemDisableAddedEvent>(this);
+            _eventBus.Unsubscribe<SystemDisableRemovedEvent>(this);
             SizeChanged -= LobbyTopView_SizeChanged;
             ViewModel.DisplayChanged -= ViewModel_OnDisplayChanged;
 
@@ -147,6 +172,15 @@
             GameAttract.Dispose();
 
             _topMediaDisplayWindow?.Close();
+            _lobbyTopViewOverlayWindow?.Close();
+        }
+
+        private void PositionOverlayWindow()
+        {
+            _lobbyTopViewOverlayWindow.Width = ActualWidth;
+            _lobbyTopViewOverlayWindow.Height = ActualHeight;
+            _lobbyTopViewOverlayWindow.Top = Top;
+            _lobbyTopViewOverlayWindow.Left = Left;
         }
     }
 }
