@@ -65,6 +65,7 @@
                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.SetGameOrder}}"
                 Visibility="{Binding SetGameOrderVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                 Command="{Binding SetGameOrderCommand}"
+                IsEnabled="{Binding InputEnabledByRuleOverride}"
                 Height="50"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
