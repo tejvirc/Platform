@@ -6,7 +6,6 @@ namespace Aristocrat.Monaco.Hardware
     using System.Linq;
     using System.Reflection;
     using System.Threading;
-    using Application.Contracts.Localization;
     using Contracts;
     using Contracts.Discovery;
     using Contracts.IO;
@@ -206,23 +205,12 @@ namespace Aristocrat.Monaco.Hardware
             if (!string.IsNullOrEmpty(localizedString))
             {
                 var displayMessage = new DisplayableMessage(
-                () =>
-                {
-                    try
-                    {
-                        var localizer = Localizer.For(CultureFor.Operator);
-                        return localizer?.GetString(resourceStringName);
-                    }
-                    catch (Exception)
-                    {
-                        return localizedString;
-                    }
-                },
-                DisplayableMessageClassification.Informative,
-                DisplayableMessagePriority.Immediate);
+                    () => resourceStringName,
+                    DisplayableMessageClassification.Informative,
+                    DisplayableMessagePriority.Immediate,
+                    resourceKeyOnly: true);
 
                 display.DisplayStatus(displayMessage);
-                Logger.Info(invariantString);
             }
             else
             {

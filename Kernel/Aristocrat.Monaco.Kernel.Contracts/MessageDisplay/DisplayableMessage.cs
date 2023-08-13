@@ -19,13 +19,15 @@
         /// <param name="priority">The priority of the message</param>
         /// <param name="id">The id for this message</param>
         /// <param name="helpText">The information on how to clear a specific lockup</param>
+        /// <param name="resourceKeyOnly">Whether or not the resource key was passed in as the message</param>
         public DisplayableMessage(
             Func<string> message,
             DisplayableMessageClassification classification,
             DisplayableMessagePriority priority,
             Guid? id = null,
-            Func<string> helpText = null)
-            : this(message, classification, priority, null, id, helpText)
+            Func<string> helpText = null,
+            bool resourceKeyOnly = false)
+            : this(message, classification, priority, null, id, helpText, resourceKeyOnly)
         {
         }
 
@@ -38,13 +40,15 @@
         /// <param name="reason">The event type that was the reason for this message</param>
         /// <param name="id">The id for this message</param>
         /// <param name="helpText">The information on how to clear a specific lockup</param>
+        /// <param name="resourceKeyOnly">Whether or not the resource key was passed in as the message</param>
         public DisplayableMessage(
             Func<string> message,
             DisplayableMessageClassification classification,
             DisplayableMessagePriority priority,
             Type reason,
             Guid? id = null,
-            Func<string> helpText = null)
+            Func<string> helpText = null,
+            bool resourceKeyOnly = false)
         {
             MessageCallback = message;
             HelpTextCallback = helpText;
@@ -53,6 +57,7 @@
             ReasonEvent = reason;
             Id = id ?? Guid.NewGuid();
             MessageHasDynamicGuid = !id.HasValue;
+            ResourceKeyOnly = resourceKeyOnly;
         }
 
         /// <summary>
@@ -124,6 +129,11 @@
         /// a dynamic GUID, we have to use other methods to equate like string matching
         /// </summary>
         public bool MessageHasDynamicGuid { get; }
+
+        /// <summary>
+        ///     Indicates that the message value only contains the resource key and should be relocalized
+        /// </summary>
+        public bool ResourceKeyOnly { get; }
 
         /// <summary>
         ///     Builds and returns a string representation of the object instance.
