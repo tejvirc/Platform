@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.Commands;
 
-using Extensions.Prism.Commands;
+using Aristocrat.MVVM.Command;
+// using Extensions.Prism.Commands;
 
 public interface IApplicationCommands
 {

@@ -38,21 +38,14 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </i:EventTrigger>
+        <i:EventTrigger EventName="RegionReady">
+            <i:InvokeCommandAction Command="{Binding RegionReadyCommand}"
+                                   PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Grid>
-        <DockPanel LastChildFill="True">
-            <TextBlock DockPanel.Dock="Top" Text="{Binding}" Foreground="White" FontSize="50px" />
-            <Button Click="OnViewRegionClicked" Content="View Region" />
-            <ContentControl x:Name="ShellRegion" prism:RegionManager.RegionName="{x:Static views:RegionNames.Main}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Loaded">
-                        <i:InvokeCommandAction Command="{Binding RegionLoadedCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </ContentControl>
-        <!--<ContentControl regions:RegionManager.Region="{x:Static views:RegionNames.Main}" />-->
-        </DockPanel>
-    </Grid>
+    <mediaDisplay:LayoutTemplateDockPanel x:Name="LayoutTemplate" ScreenType="Primary">
+        <ContentControl x:Name="MainRegion" />
+    </mediaDisplay:LayoutTemplateDockPanel>
     
 </mah:MetroWindow>

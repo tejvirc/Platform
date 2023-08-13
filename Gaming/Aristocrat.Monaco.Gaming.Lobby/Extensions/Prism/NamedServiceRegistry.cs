@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Lobby.CompositionRoot;
+﻿namespace Aristocrat.Extensions.Prism;
 
 using System.Collections.Generic;
 using System;

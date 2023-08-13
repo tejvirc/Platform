@@ -1,15 +1,15 @@
-﻿namespace Aristocrat.Monaco.Gaming.Lobby.CompositionRoot;
+﻿namespace Aristocrat.Extensions.Prism;
 
 using System;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using Prism.Ioc;
+using global::Prism.Ioc;
 
 internal static class ContainerExtensions
 {
     public static IServiceCollection ServiceCollection(this IContainerRegistry containerRegistry)
     {
-        if (containerRegistry is LobbyContainerExtension pce)
+        if (containerRegistry is PrismContainerExtension pce)
         {
             return pce.Services;
         }
@@ -24,19 +24,25 @@ internal static class ContainerExtensions
         {
             var ctor = type.GetConstructors().OrderByDescending(x => x.GetParameters().Length).FirstOrDefault();
             if (ctor is null)
+            {
                 throw new NullReferenceException($"Could not locate a public constructor for {type.FullName}");
+            }
 
             var ctorParameters = ctor.GetParameters();
             var args = ctor.GetParameters().Select(x =>
             {
-                object arg = parameters.FirstOrDefault(p => x.ParameterType.IsAssignableFrom(p.Instance.GetType())).Instance;
+                var arg = parameters.FirstOrDefault(p => x.ParameterType.IsAssignableFrom(p.Instance.GetType())).Instance;
                 if (arg != null)
+                {
                     return arg;
+                }
 
                 return provider.GetService(x.ParameterType);
             });
+
             return ctor.Invoke(args.ToArray());
         }
+
         return instance;
     }
 }

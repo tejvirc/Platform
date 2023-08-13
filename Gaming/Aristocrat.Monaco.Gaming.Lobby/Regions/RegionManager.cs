@@ -3,7 +3,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Windows;
+using Aristocrat.MVVM;
 using Extensions.Prism;
 using XAMLMarkupExtensions.Base;
 
@@ -35,7 +38,7 @@ public class RegionManager : DependencyObject, IRegionManager
             return;
         }
 
-        if (!Execute.InDesigner)
+        if (!(bool)DesignerProperties.IsInDesignModeProperty.GetMetadata(typeof(DependencyObject)).DefaultValue)
         {
             CreateRegion(element);
         }

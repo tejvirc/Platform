@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Lobby.CompositionRoot;
+﻿namespace Aristocrat.Extensions.Prism;
 
 using System;
 using System.Collections.Generic;
@@ -29,8 +29,8 @@ internal class ConcreteAwareOverrideProvider : IServiceProvider
             return BuildInstance(serviceType);
         }
 
-        ServiceDescriptor? serviceDescriptor = _services?.LastOrDefault((ServiceDescriptor x) => x.ServiceType == serviceType);
-        if ((object?)serviceDescriptor?.ImplementationType == null)
+        var serviceDescriptor = _services?.LastOrDefault((ServiceDescriptor x) => x.ServiceType == serviceType);
+        if (serviceDescriptor?.ImplementationType is null)
         {
             return _rootProvider.GetService(serviceType);
         }
@@ -47,7 +47,7 @@ internal class ConcreteAwareOverrideProvider : IServiceProvider
             return Activator.CreateInstance(implType);
         }
 
-        ConstructorInfo constructorInfo = constructors.OrderByDescending((ConstructorInfo x) => x.GetParameters().Length).First();
+        var constructorInfo = constructors.OrderByDescending((ConstructorInfo x) => x.GetParameters().Length).First();
         var parameters = constructorInfo.GetParameters().Select(delegate (ParameterInfo x)
         {
             var (type, obj) = _overrides.FirstOrDefault(((Type type, object instance) o) => x.ParameterType == o.type);

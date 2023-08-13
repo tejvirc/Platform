@@ -11,6 +11,7 @@ using Commands;
 using Contracts;
 using Contracts.Lobby;
 using Extensions.Fluxor;
+using Extensions.Prism;
 using Fluxor;
 using Hardware.Contracts.Audio;
 using Hardware.Contracts.Cabinet;
@@ -20,7 +21,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Monaco.UI.Common;
 using Prism;
 using Prism.Ioc;
-using Prism.Modularity;
 using Prism.Mvvm;
 using Progressives;
 using Services;
@@ -32,25 +32,24 @@ using Services.EdgeLighting;
 using Services.Translate;
 using Services.Upi;
 using SimpleInjector;
-using SimpleInjector.Packaging;
 using Store.Middleware;
 using Vgt.Client12.Application.OperatorMenu;
 using Views;
 
-public sealed class PrismBootstrapper : PrismBootstrapperBase
+public sealed class Bootstrapper : PrismBootstrapperBase
 {
-    private readonly LobbyContainerExtension _containerExtension;
+    private readonly PrismContainerExtension _containerExtension;
 
-    private WeakReference<Container>? _container;
+    private Container? _container;
 
-    public PrismBootstrapper()
+    public Bootstrapper()
     {
-        _containerExtension = new LobbyContainerExtension(new ServiceCollection());
+        _containerExtension = new PrismContainerExtension(new ServiceCollection());
     }
 
     public void InitializeContainer(Container container)
     {
-        _container = new WeakReference<Container>(container);
+        _container = container;
 
         _containerExtension.Services.AddSimpleInjector(container, options =>
         {
@@ -62,17 +61,14 @@ public sealed class PrismBootstrapper : PrismBootstrapperBase
         Run();
     }
 
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Container.Resolve<IServiceProvider>().UseSimpleInjector(_container!);
+    }
     protected override DependencyObject? CreateShell()
     {
-        Container? container = null;
-
-        if (!_container?.TryGetTarget(out container) ?? false)
-        {
-            return null;
-        }
-
-        Container.Resolve<IServiceProvider>().UseSimpleInjector(container!);
-
         // Delay Shell window creation
         return null;
     }
@@ -107,13 +103,19 @@ public sealed class PrismBootstrapper : PrismBootstrapperBase
         containerRegistry.RegisterForNavigation<LobbyMainView>(ViewNames.Lobby);
         containerRegistry.RegisterForNavigation<AttractMainView>(ViewNames.Attract);
         containerRegistry.RegisterForNavigation<LoadingMainView>(ViewNames.Loading);
+        containerRegistry.RegisterForNavigation<ChooserView>(ViewNames.Chooser);
+        containerRegistry.RegisterForNavigation<BannerView>(ViewNames.Banner);
+        containerRegistry.RegisterForNavigation<StandardUpiView>(ViewNames.StandardUpi);
+        containerRegistry.RegisterForNavigation<MultiLanguageUpiView>(ViewNames.MultiLingualUpi);
+        containerRegistry.RegisterForNavigation<InfoBarView>(ViewNames.InfoBar);
+        containerRegistry.RegisterForNavigation<ReplayNavView>(ViewNames.ReplayNav);
 
         containerRegistry.RegisterServices(ConfigureServices);
     }
 
     private static void ConfigureServices(IServiceCollection services)
     {
-        services.AddSingleton<ILobby, LobbyEngine>();
+        services.AddSingleton<ILobby, LobbyService>();
 
         services.AddSingleton<IGameLoader, GameLoader>();
 

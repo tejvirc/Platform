@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Aristocrat.MVVM;
 using Common;
 using Extensions.Fluxor;
 using Extensions.Prism;
@@ -74,7 +75,7 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
     {
         var tcs = new TaskCompletionSource<bool>();
 
-        Execute.OnUiThread(
+        MvvmHelper.ExecuteOnUI(
             () =>
             {
                 try
@@ -209,7 +210,7 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
 
     public void DestroyWindows()
     {
-        Execute.OnUiThread(
+        MvvmHelper.ExecuteOnUI(
             () =>
             {
                 foreach (var window in _windows)

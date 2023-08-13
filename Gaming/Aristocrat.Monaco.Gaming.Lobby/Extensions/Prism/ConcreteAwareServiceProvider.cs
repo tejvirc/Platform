@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Lobby.CompositionRoot;
+﻿namespace Aristocrat.Extensions.Prism;
 
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Prism.Microsoft.DependencyInjection;
+using global::Prism.Microsoft.DependencyInjection;
 
 internal class ConcreteAwareServiceProvider : IServiceProvider
 {

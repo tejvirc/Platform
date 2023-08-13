@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Lobby.CompositionRoot;
+﻿namespace Aristocrat.Extensions.Prism;
 
 using System;
 using System.Collections.Generic;
@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Prism.Ioc;
-using Prism.Microsoft.DependencyInjection;
+using global::Prism.Ioc;
+using global::Prism.Microsoft.DependencyInjection;
 
-internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, IServiceProvider, IServiceScopeFactory
+public class PrismContainerExtension : IContainerExtension<IServiceProvider>, IServiceProvider, IServiceScopeFactory
 {
     public static IContainerExtension Current
     {
@@ -38,10 +38,13 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     public static IContainerExtension Init(IServiceCollection services)
     {
         if (TryGetContainer() != null)
+        {
             throw new NotSupportedException("The PrismContainerExtension has already been initialized.");
+        }
 
-        var extension = new LobbyContainerExtension(services);
+        var extension = new PrismContainerExtension(services);
         ContainerLocator.SetContainerExtension(() => extension);
+
         return extension;
     }
 
@@ -91,23 +94,23 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
         }
     }
 
-    public LobbyContainerExtension()
+    public PrismContainerExtension()
         : this(new ServiceCollection())
     {
 
     }
 
-    public LobbyContainerExtension(IServiceCollection services)
+    public PrismContainerExtension(IServiceCollection services)
     {
         Services = services;
         NamedServiceRegistry = new NamedServiceRegistry();
 
         Services.AddSingleton(this);
-        Services.AddSingleton<IContainerRegistry>(sp => sp.GetRequiredService<LobbyContainerExtension>());
-        Services.AddSingleton<IContainerExtension>(sp => sp.GetRequiredService<LobbyContainerExtension>());
-        Services.AddSingleton<IContainerProvider>(sp => sp.GetRequiredService<LobbyContainerExtension>());
-        Services.AddSingleton<IServiceProvider>(sp => sp.GetRequiredService<LobbyContainerExtension>());
-        Services.AddSingleton<IServiceScopeFactory>(sp => sp.GetRequiredService<LobbyContainerExtension>());
+        Services.AddSingleton<IContainerRegistry>(sp => sp.GetRequiredService<PrismContainerExtension>());
+        Services.AddSingleton<IContainerExtension>(sp => sp.GetRequiredService<PrismContainerExtension>());
+        Services.AddSingleton<IContainerProvider>(sp => sp.GetRequiredService<PrismContainerExtension>());
+        Services.AddSingleton<IServiceProvider>(sp => sp.GetRequiredService<PrismContainerExtension>());
+        Services.AddSingleton<IServiceScopeFactory>(sp => sp.GetRequiredService<PrismContainerExtension>());
     }
 
     public void SetServiceCollection(IServiceCollection services)
@@ -203,7 +206,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
         Services.AddTransient(to);
         NamedServiceRegistry!.Add(name, from, to);
 
-        if (from == typeof(object) && to.Namespace!.Contains("Views"))
+        if (from == typeof(object) && to.Namespace!.Contains("Views", StringComparison.CurrentCulture))
         {
 
         }
@@ -221,6 +224,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         requiresRebuild = true;
         registerServices(Services);
+
         return this;
     }
 
@@ -237,6 +241,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
         {
             Services.AddTransient(type, sp => sp.GetService(implementingType)!);
         }
+
         return this;
     }
 
@@ -244,6 +249,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         requiresRebuild = true;
         Services.AddSingleton(implementingType);
+
         if (serviceTypes is null || serviceTypes?.Length == 0)
         {
             serviceTypes = implementingType.GetInterfaces();
@@ -253,6 +259,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
         {
             Services.AddTransient(type, sp => sp.GetService(implementingType)!);
         }
+
         return this;
     }
 
@@ -260,6 +267,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         requiresRebuild = true;
         Services.AddTransient(serviceType, _ => factoryMethod());
+
         return this;
     }
 
@@ -267,6 +275,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         requiresRebuild = true;
         Services.AddTransient(serviceType, sp => factoryMethod(sp.GetService<IContainerProvider>()!));
+
         return this;
     }
 
@@ -274,6 +283,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         requiresRebuild = true;
         Services.AddTransient(serviceType, factoryMethod);
+
         return this;
     }
 
@@ -281,6 +291,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         requiresRebuild = true;
         Services.AddSingleton(serviceType, _ => factoryMethod());
+
         return this;
     }
 
@@ -288,6 +299,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         requiresRebuild = true;
         Services.AddSingleton(serviceType, sp => factoryMethod(sp.GetService<IContainerProvider>()!));
+
         return this;
     }
 
@@ -295,6 +307,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         requiresRebuild = true;
         Services.AddSingleton(serviceType, factoryMethod);
+
         return this;
     }
 
@@ -302,6 +315,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         requiresRebuild = true;
         Services.AddScoped(serviceType);
+
         return this;
     }
 
@@ -309,6 +323,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         requiresRebuild = true;
         Services.AddScoped(serviceType, implementationType);
+
         return this;
     }
 
@@ -316,6 +331,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         requiresRebuild = true;
         Services.AddScoped(serviceType, s => factoryMethod());
+
         return this;
     }
 
@@ -323,6 +339,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         requiresRebuild = true;
         Services.AddScoped(serviceType, s => factoryMethod(s.GetService<IContainerProvider>()!));
+
         return this;
     }
 
@@ -330,6 +347,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         requiresRebuild = true;
         Services.AddScoped(serviceType, factoryMethod);
+
         return this;
     }
 
@@ -340,12 +358,14 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     {
         _parentScope = Instance.CreateScope();
         _serviceScope = new ConcreteAwareServiceScope(_parentScope);
+
         return new ScopedProvider(_serviceScope, NamedServiceRegistry!, Services);
     }
 
     IServiceScope IServiceScopeFactory.CreateScope()
     {
         var scopedProvider = CreateScope() as ScopedProvider;
+
         return scopedProvider!.ServiceScope!;
     }
 
@@ -353,7 +373,9 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
     private IServiceProvider GetChildProvider((Type Type, object Instance)[] parameters)
     {
         if (parameters is null || parameters.Length == 0)
+        {
             return Instance;
+        }
 
         var services = new ServiceCollection();
         foreach (var service in Services)
@@ -390,7 +412,7 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
 
     //Type IContainerInfo.GetRegistrationType(Type serviceType) => Services.FirstOrDefault(x => x.ServiceType == serviceType)?.ImplementationType;
 
-    private class ScopedProvider : IScopedProvider
+    private sealed class ScopedProvider : IScopedProvider
     {
         private NamedServiceRegistry _namedServiceRegistry;
         private IServiceCollection _services;
@@ -462,9 +484,12 @@ internal class LobbyContainerExtension : IContainerExtension<IServiceProvider>, 
         private IServiceProvider? GetChildProvider((Type Type, object Instance)[] parameters)
         {
             if (parameters is null || parameters.Length == 0)
+            {
                 return ServiceScope?.ServiceProvider;
+            }
 
             var services = new ServiceCollection();
+
             foreach (var service in _services)
             {
                 if (parameters.Any(x => x.Type == service.ServiceType))

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Gaming.Lobby</AssemblyTitle>
     <Nullable>enable</Nullable>
     <Configurations>Debug;Release;Retail</Configurations>
@@ -23,8 +23,8 @@
   <ItemGroup>
     <PackageReference Include="Aristocrat.BinkWpf" Version="2.0.0-beta0019" />
     <PackageReference Include="Aristocrat.Extensions.Prism" Version="0.1.6" />
+    <PackageReference Include="Aristocrat.Extensions.CommunityToolkit" Version="0.1.8" />
     <!--<PackageReference Include="Aristocrat.Extensions.Fluxor" Version="0.1.6" />-->
-    <!--<PackageReference Include="Aristocrat.Toolkit.Mvvm.Extensions" Version="0.1.6" />-->
     <PackageReference Include="CefSharp.Common.NETCore" Version="110.0.250" />
     <PackageReference Include="CefSharp.OffScreen.NETCore" Version="110.0.250" />
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="110.0.250" />
@@ -37,16 +37,12 @@
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <!--<PackageReference Include="Microsoft.AspNetCore.Owin" Version="6.0.14" />-->
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.19" />
-    <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="1.2.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="ReactiveUI.WPF" Version="19.4.1" />
     <!--<PackageReference Include="SimpleInjector.Integration.AspNetCore" Version="5.4.0" />-->
     <PackageReference Include="SimpleInjector.Integration.ServiceCollection" Version="5.4.0" />
+    <!--<PackageReference Include="Prism.Microsoft.DependencyInjection.Extensions" Version="8.0.62" />
+    <PackageReference Include="Prism.Core" Version="9.0.179-pre" />
+    <PackageReference Include="Prism.Wpf" Version="9.0.179-pre" />-->
     <PackageReference Include="SimpleInjector.Packaging" Version="5.0.0" />
-    <PackageReference Include="Splat.Microsoft.Extensions.DependencyInjection" Version="14.7.1" />
-    <PackageReference Include="Splat.Microsoft.Extensions.Logging" Version="14.7.1" />
     <PackageReference Include="Stateless" Version="4.0.0" />
     <PackageReference Include="System.Reactive" Version="6.0.0" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
@@ -71,5 +67,8 @@
     <Page Update="Styles\Default.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Platform\Gaming\UI\ViewModels\" />
   </ItemGroup>
 </Project>

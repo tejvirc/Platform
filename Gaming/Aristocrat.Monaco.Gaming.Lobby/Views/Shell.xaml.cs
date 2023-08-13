@@ -4,6 +4,10 @@
     using System.Windows;
     using Application.UI.Views;
     using Cabinet.Contracts;
+    using Events;
+    using Prism.Common;
+    using Prism.Ioc;
+    using Prism.Regions;
 
     /// <summary>
     /// Interaction logic for Shell.xaml
@@ -16,34 +20,44 @@
         {
             InitializeComponent();
 
+            var regionManager = ContainerLocator.Current.Resolve<IRegionManager>();
+            SetRegionManager(regionManager, MainRegion, RegionNames.Main);
+
             // DataContext = Application.Current.GetObject<ShellViewModel>();
 
             Loaded += OnLoaded;
 
-            var region = Prism.Regions.RegionManager.GetObservableRegion(ShellRegion);
-            region.PropertyChanged += OnRegionObservableChanged;
+            var observable = RegionManager.GetObservableRegion(MainRegion);
+            observable.PropertyChanged += OnRegionObservableChanged;
         }
 
-        private void OnRegionObservableChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        public static readonly RoutedEvent RegionReadyEvent
+           = EventManager.RegisterRoutedEvent(nameof(RegionReady),
+                                              RoutingStrategy.Bubble,
+                                              typeof(RegionReadyEventHandler),
+                                              typeof(Shell));
+
+        public event RegionReadyEventHandler RegionReady
         {
-            if (sender is not Prism.Common.ObservableObject<Prism.Regions.IRegion> observable)
+            add => AddHandler(RegionReadyEvent, value);
+
+            remove => RemoveHandler(RegionReadyEvent, value);
+        }
+
+        private void OnRegionObservableChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (sender is ObservableObject<IRegion> observable && e.PropertyName == nameof(ObservableObject<IRegion>.Value))
             {
-                return;
+                observable.Value.PropertyChanged += OnRegionChanged;
             }
-
-            var region = observable.Value;
-
-            region.PropertyChanged -= OnRegionChanged;
         }
 
         private void OnRegionChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (sender is not Prism.Regions.IRegion region)
+            if (sender is IRegion region && e.PropertyName == nameof(Region.RegionManager))
             {
-                return;
+                RaiseEvent(new RegionReadyEventArgs(RegionReadyEvent, this, region));
             }
-
-            var propertyName = e.PropertyName;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -56,9 +70,10 @@
             ShowMaxRestoreButton = !_windowToScreenMapper.IsFullscreen;
         }
 
-        private void OnViewRegionClicked(object sender, RoutedEventArgs e)
+        private static void SetRegionManager(IRegionManager regionManager, DependencyObject regionTarget, string regionName)
         {
-            var region = Prism.Regions.RegionManager.GetObservableRegion(ShellRegion).Value;
+            RegionManager.SetRegionName(regionTarget, regionName);
+            RegionManager.SetRegionManager(regionTarget, regionManager);
         }
     }
 }

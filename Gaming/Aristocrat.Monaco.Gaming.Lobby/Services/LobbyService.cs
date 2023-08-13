@@ -1,6 +1,7 @@
-﻿namespace Aristocrat.Monaco.Gaming.Lobby;
+﻿namespace Aristocrat.Monaco.Gaming.Lobby.Services;
 
 using System;
+using System.Threading.Tasks;
 using Application.Contracts;
 using Commands;
 using Contracts.Lobby;
@@ -12,9 +13,9 @@ using Services;
 using Store;
 using Vgt.Client12.Application.OperatorMenu;
 
-internal class LobbyEngine : ILobby
+public class LobbyService : ILobby
 {
-    private readonly ILogger<LobbyEngine> _logger;
+    private readonly ILogger<LobbyService> _logger;
     private readonly IStore _store;
     private readonly IDispatcher _dispatcher;
     private readonly LobbyConfiguration _configuration;
@@ -23,8 +24,8 @@ internal class LobbyEngine : ILobby
     private readonly ILayoutManager _layoutManager;
     private readonly IApplicationCommands _commands;
 
-    public LobbyEngine(
-        ILogger<LobbyEngine> logger,
+    public LobbyService(
+        ILogger<LobbyService> logger,
         IStore store,
         IDispatcher dispatcher,
         LobbyConfiguration configuration,
@@ -69,5 +70,19 @@ internal class LobbyEngine : ILobby
         _commands.ShutdownCommand.Execute(null);
 
         _layoutManager.DestroyWindows();
+    }
+
+    public async Task StartAsync()
+    {
+        await _store.InitializeAsync();
+
+        await _dispatcher.DispatchAsync(new StartupAction(_configuration));
+    }
+
+    public async Task StopAsync()
+    {
+        await _dispatcher.DispatchAsync(new ShutdownAction());
+
+        _commands.ShutdownCommand.Execute(null);
     }
 }

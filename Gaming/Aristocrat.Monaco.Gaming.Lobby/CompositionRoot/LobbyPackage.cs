@@ -7,7 +7,7 @@ public class LobbyPackage : IPackage
 {
     public void RegisterServices(Container container)
     {
-        var bootstrapper = new ReactiveUIBootstrapper();
+        var bootstrapper = new Bootstrapper();
         bootstrapper.InitializeContainer(container);
     }
 }
