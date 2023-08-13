@@ -1,20 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Lobby.ViewModels;
 
-using System;
-using System.Reactive.Linq;
-using Aristocrat.Extensions.Prism;
 using Aristocrat.Monaco.Gaming.Lobby.Views.Events;
 using Cabinet.Contracts;
 using Contracts;
 using Extensions.Fluxor;
-using FMOD;
 using Microsoft.Extensions.Logging;
 using Prism.Commands;
 using Prism.Common;
 using Prism.Mvvm;
 using Prism.Regions;
 using Views;
-using static Store.Lobby.LobbytSelectors;
 
 public class ShellViewModel : BindableBase
 {
@@ -41,9 +36,7 @@ public class ShellViewModel : BindableBase
         set => SetProperty(ref _mainRegion, value);
     }
 
-    public string Title => GamingConstants.MainWindowTitle;
-
-    public DisplayRole DisplayRole => DisplayRole.Main;
+    public string MainTitle => GamingConstants.MainWindowTitle;
 
     private void OnLoaded()
     {

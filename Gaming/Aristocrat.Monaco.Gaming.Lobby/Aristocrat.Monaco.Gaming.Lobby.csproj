@@ -68,7 +68,4 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Platform\Gaming\UI\ViewModels\" />
-  </ItemGroup>
 </Project>

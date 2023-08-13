@@ -27,8 +27,8 @@
 
             Loaded += OnLoaded;
 
-            var observable = RegionManager.GetObservableRegion(MainRegion);
-            observable.PropertyChanged += OnRegionObservableChanged;
+            RegionManager.GetObservableRegion(MainRegion)
+                .PropertyChanged += OnRegionObservableChanged;
         }
 
         public static readonly RoutedEvent RegionReadyEvent
