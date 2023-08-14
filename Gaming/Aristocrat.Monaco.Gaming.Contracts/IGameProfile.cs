@@ -228,6 +228,11 @@
         int MaximumWagerOutsideCredits { get; set; }
 
         /// <summary>
+        ///     Gets or sets the unique game id used to identify the primary game.
+        /// </summary>
+        int UniqueGameId { get; set; }
+
+        /// <summary>
         ///     Specifies that a game uses the next-to-highest bet-multiplier when calculating its Top Award.
         /// </summary>
         public bool NextToMaxBetTopAwardMultiplier { get; set; }

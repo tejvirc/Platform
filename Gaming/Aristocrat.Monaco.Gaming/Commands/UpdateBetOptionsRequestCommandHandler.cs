@@ -42,8 +42,7 @@
                 return;
             }
 
-            var mainGame = command.BetDetails.Single(x => currentGame.ProductCode.HasValue ? x.GameId == currentGame.ProductCode.Value : x.GameId == 0);
-
+            var mainGame = command.BetDetails.Single(x => x.GameId == currentGame.UniqueGameId);
             _properties.SetProperty(GamingConstants.SelectedBetMultiplier, mainGame.BetMultiplier);
             _properties.SetProperty(GamingConstants.SelectedLineCost, mainGame.BetPerLine);
             _properties.SetProperty(GamingConstants.SelectedBetDetails, mainGame);

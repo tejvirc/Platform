@@ -3,5 +3,7 @@
     public class GamePlayInitiated
     {
         public bool Success { get; set; }
+
+        public long WageredAmount { get; set; }
     }
 }

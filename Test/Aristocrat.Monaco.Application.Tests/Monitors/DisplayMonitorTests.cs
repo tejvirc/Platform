@@ -296,12 +296,15 @@
         [TestMethod]
         public void BootWithMainDisplayDisconnected()
         {
+            IReadOnlyList<Guid> moqData = new List<Guid> { ApplicationConstants.DisplayDisconnectedLockupKey };
+
             SetCabinetDetectionMock();
             SetupPersistence();
             const int display = 0;
             var device = _displayDeviceMocks.Skip(display).First();
             //device.Setup(x => x.Role).Returns(DisplayRole.Main);
             _buttonDeckDisplay.Setup(x => x.DisplayCount).Returns(2);
+            _disableManager.Setup(m => m.CurrentDisableKeys).Returns(moqData);
             TestBootUpDeviceDisconnect(
                 () =>
                 {
@@ -356,10 +359,12 @@
         [TestMethod]
         public void BootWithVbdDisplayDisconnected()
         {
+            IReadOnlyList<Guid> moqData = new List<Guid> { ApplicationConstants.DisplayDisconnectedLockupKey };
             SetCabinetDetectionMock();
             SetupPersistence(true, false);
             const int display = 2;
             var device = _displayDeviceMocks.Skip(display).First();
+            _disableManager.Setup(m => m.CurrentDisableKeys).Returns(moqData);
             TestBootUpDeviceDisconnect(
                 () =>
                 {
@@ -418,9 +423,11 @@
         [TestMethod]
         public void MultipleDisplayDeviceDisconnect()
         {
+            IReadOnlyList<Guid> moqData = new List<Guid> { ApplicationConstants.DisplayDisconnectedLockupKey };
             SetCabinetDetectionMock();
             SetupPersistence();
             _buttonDeckDisplay.Setup(x => x.DisplayCount).Returns(2);
+            _disableManager.Setup(m => m.CurrentDisableKeys).Returns(moqData);
 
             var dm = new DisplayMonitor(
                 _eventBus.Object,
