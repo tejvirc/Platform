@@ -5027,4 +5027,10 @@ Consulter le manuel pour plus de détails</value>
   <data name="InvalidNoteAcceptorFirmware" xml:space="preserve">
     <value>??Invalid Note Acceptor Firmware Detected ISO {0}??</value>
   </data>
+  <data name="AddinProtocolSelection" xml:space="preserve">
+    <value>??Select a Protocol Configuration??</value>
+  </data>
+  <data name="ProtocolScreenTitle" xml:space="preserve">
+    <value>??Protocol Configuration Selection??</value>
+  </data>
 </root>

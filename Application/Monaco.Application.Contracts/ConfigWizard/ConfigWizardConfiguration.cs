@@ -1232,8 +1232,11 @@ public partial class ConfigWizardConfigurationLocalization {
     
     private Culture currencyField;
     
+    private string defaultCultureField;
+    
     public ConfigWizardConfigurationLocalization() {
         this.currencyField = Culture.Default;
+        this.defaultCultureField = "";
     }
     
     /// <remarks/>
@@ -1245,6 +1248,18 @@ public partial class ConfigWizardConfigurationLocalization {
         }
         set {
             this.currencyField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute("")]
+    public string DefaultCulture {
+        get {
+            return this.defaultCultureField;
+        }
+        set {
+            this.defaultCultureField = value;
         }
     }
 }

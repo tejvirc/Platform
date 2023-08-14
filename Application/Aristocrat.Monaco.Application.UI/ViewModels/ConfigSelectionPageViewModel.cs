@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Globalization;
     using System.Linq;
     using System.Windows;
     using System.Windows.Input;
@@ -48,6 +49,8 @@
         private readonly ISerialTouchService _serialTouchService;
         private readonly ISerialTouchCalibration _serialTouchCalibrationService;
         private readonly ITouchCalibration _touchCalibrationService;
+        private readonly IConfigurationUtilitiesProvider _configurationUtilitiesProvider;
+        private readonly IPropertiesManager _properties;
 
         private int _lastWizardSelectedIndex;
         private bool _onFinishedPage;
@@ -71,6 +74,8 @@
             _serialTouchService = _serviceManager.GetService<ISerialTouchService>();
             _serialTouchCalibrationService = _serviceManager.GetService<ISerialTouchCalibration>();
             _touchCalibrationService = _serviceManager.GetService<ITouchCalibration>();
+            _configurationUtilitiesProvider = _serviceManager.GetService<IConfigurationUtilitiesProvider>();
+            _properties = _serviceManager.GetService<IPropertiesManager>();
 
             var existing = _serviceManager.TryGetService<IConfigWizardNavigator>();
             if (existing != null)
@@ -127,6 +132,15 @@
                 Logger.Debug($"Navigating to {_selectableConfigurationPages[_lastWizardSelectedIndex].PageName} selection page...");
 
                 _currentPageLoader = _selectableConfigurationPages[_lastWizardSelectedIndex];
+
+                var jurisdictionPageIndex = _selectableConfigurationPages.IndexOf(
+                    _selectableConfigurationPages.FirstOrDefault(p => p is JurisdictionConfigLoader));
+
+                if (_lastWizardSelectedIndex > jurisdictionPageIndex)
+                {
+                    ForceDefaultConfigWizardCulture();
+                }
+
                 _pageTitle = _currentPageLoader?.PageName;
             }
 
@@ -316,6 +330,11 @@
             if (CurrentPageLoader?.ViewModel is LegalCopyrightPageViewModel copyrightPage)
             {
                 copyrightPage.AcceptCopyrightTerms();
+            }
+
+            if (CurrentPageLoader?.ViewModel is JurisdictionSetupPageViewModel jurisdictionSetupPage)
+            {
+                ForceDefaultConfigWizardCulture();
             }
 
             if (!_selectablePagesDone)
@@ -661,6 +680,39 @@
                         _errorViewModel = null;
                         InvokeCalibration();
                     });
+            }
+        }
+
+        private CultureInfo GetDefaultConfigWizardCultureFromConfig()
+        {
+            var configuration = _configurationUtilitiesProvider.GetConfigWizardConfiguration(() => new ConfigWizardConfiguration());
+            var culture = configuration.Localization?.DefaultCulture ?? string.Empty;
+            if (!string.IsNullOrEmpty(culture))
+            {
+                try
+                {
+                    return new CultureInfo(culture);
+                }
+                catch (CultureNotFoundException)
+                {
+                    return null;
+                }
+            }
+
+            return null;
+        }
+
+        private void ForceDefaultConfigWizardCulture()
+        {
+            var cultureInfo = GetDefaultConfigWizardCultureFromConfig();
+            if (cultureInfo != null)
+            {
+                var operatorCultureProvider = Localizer.For(CultureFor.Operator) as CultureProvider;
+                if (operatorCultureProvider != null)
+                {
+                    operatorCultureProvider.AddCultures(new CultureInfo[] { cultureInfo });
+                    _properties.SetProperty(ApplicationConstants.LocalizationOperatorCurrentCulture, cultureInfo.Name);
+                }
             }
         }
 
