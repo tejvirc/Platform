@@ -6,15 +6,18 @@
     using System.Reflection;
     using System.Text;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Kernel;
     using Contracts;
     using log4net;
 
     public class ReplayContext : IDiagnosticContext<IGameHistoryLog>
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private readonly IPropertiesManager _properties;
 
-        public ReplayContext(IGameHistoryLog log, int gameIndex)
+        public ReplayContext(IGameHistoryLog log, int gameIndex, IPropertiesManager properties)
         {
+            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             Arguments = log ?? throw new ArgumentNullException(nameof(log));
 
             GameIndex = gameIndex;
@@ -40,7 +43,7 @@
                 { "/Runtime/Localization/Currency&groupSeparator", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyGroupSeparator },
                 { "/Runtime/ReplayMode", "true" },
                 { "/Runtime/ReplayMode&realtime", "true" },
-                { "/Runtime/ReplayMode&replaypause", "true" },
+                { "/Runtime/ReplayMode&replaypause", _properties.GetValue(GamingConstants.ReplayPauseActive, true).ToString() },
                 { "/Runtime/Account&balance", Arguments.StartCredits.MillicentsToCents().ToString() }
             };
 

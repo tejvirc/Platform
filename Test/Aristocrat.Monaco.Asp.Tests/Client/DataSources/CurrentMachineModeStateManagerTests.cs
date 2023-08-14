@@ -512,17 +512,17 @@
             Assert.AreEqual(MachineMode.AuditMode, memberValue);
 
 
-            _gameReplayStartedCallback(new GameDiagnosticsStartedEvent(1, 1, "a", new ReplayContext(Mock.Of<IGameHistoryLog>(), 1)));
+            _gameReplayStartedCallback(new GameDiagnosticsStartedEvent(1, 1, "a", new ReplayContext(Mock.Of<IGameHistoryLog>(), 1, Mock.Of<IPropertiesManager>())));
             eventCountExpected++;
             Assert.AreEqual(eventCountExpected, eventCount, "MachineModeChanged expected after GameDiagnosticsStartedEvent replay");
             Assert.AreEqual(MachineMode.GameReplayActive, memberValue);
 
-            _gameReplayCompletedCallback(new GameDiagnosticsCompletedEvent(new ReplayContext(Mock.Of<IGameHistoryLog>(), 1)));
+            _gameReplayCompletedCallback(new GameDiagnosticsCompletedEvent(new ReplayContext(Mock.Of<IGameHistoryLog>(), 1, Mock.Of<IPropertiesManager>())));
             eventCountExpected++;
             Assert.AreEqual(eventCountExpected, eventCount, "MachineModeChanged expected after GameDiagnosticsCompletedEvent replay");
             Assert.AreEqual(MachineMode.AuditMode, memberValue);
 
-            _gameReplayStartedCallback(new GameDiagnosticsStartedEvent(1, 1, "a", new ReplayContext(Mock.Of<IGameHistoryLog>(), 1)));
+            _gameReplayStartedCallback(new GameDiagnosticsStartedEvent(1, 1, "a", new ReplayContext(Mock.Of<IGameHistoryLog>(), 1, Mock.Of<IPropertiesManager>())));
             eventCountExpected++;
             Assert.AreEqual(eventCountExpected, eventCount, "MachineModeChanged expected after GameDiagnosticsStartedEvent replay");
             Assert.AreEqual(MachineMode.GameReplayActive, memberValue);

@@ -55,7 +55,7 @@
                     // don't resume the replay when the pause is disabled
                     // when the replay is completed, one prompt should be there to ask whether to resume the replay.
                     // for now, nothing is displayed so the operator just exits after all is done
-                    if (_replayPauseEnabled)
+                    if (_meterFreeGames || _replayPauseEnabled)
                     {
                         _gameDiagnostics.AllowResume = command.State;
 

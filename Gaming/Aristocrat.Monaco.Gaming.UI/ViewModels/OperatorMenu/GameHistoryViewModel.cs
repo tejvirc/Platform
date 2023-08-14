@@ -542,7 +542,7 @@
                     SelectedGameItem.GameId,
                     SelectedGameItem.DenomId,
                     SelectedGameItem.RefNoText,
-                    new ReplayContext(log, SelectedGameItem.GameIndex),
+                    new ReplayContext(log, SelectedGameItem.GameIndex, _propertiesManager),
                     true);
             }
         }
