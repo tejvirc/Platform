@@ -339,6 +339,7 @@ namespace Aristocrat.Monaco.Hardware
             serviceManager.AddServiceAndInitialize(_container.GetInstance<ISharedMemoryManager>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IVirtualDisk>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IDfuProvider>());
+            serviceManager.AddServiceAndInitialize(_container.GetInstance<INoteAcceptorFirmwareInstaller>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IPrinterFirmwareInstaller>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IOSInstaller>());
             serviceManager.AddServiceAndInitialize(_container.GetInstance<IBattery>() as IService);
@@ -432,6 +433,7 @@ namespace Aristocrat.Monaco.Hardware
             serviceManager.RemoveService(_container.GetInstance<ITowerLight>() as IService);
             serviceManager.RemoveService(_container.GetInstance<IBattery>() as IService);
             serviceManager.RemoveService(_container.GetInstance<IOSInstaller>());
+            serviceManager.RemoveService(_container.GetInstance<INoteAcceptorFirmwareInstaller>());
             serviceManager.RemoveService(_container.GetInstance<IPrinterFirmwareInstaller>());
             serviceManager.RemoveService(_container.GetInstance<IDfuProvider>());
             serviceManager.RemoveService(_container.GetInstance<IVirtualDisk>());
@@ -540,6 +542,7 @@ namespace Aristocrat.Monaco.Hardware
             container.RegisterSingleton<IVirtualDisk, VirtualDisk>();
             container.RegisterSingleton<IDfuFactory, DfuFactory>();
             container.RegisterSingleton<IDfuProvider, DfuProvider>();
+            container.RegisterSingleton<INoteAcceptorFirmwareInstaller, NoteAcceptorFirmwareInstaller>();
             container.RegisterSingleton<IPrinterFirmwareInstaller, PrinterFirmwareInstaller>();
             container.RegisterSingleton<IOSInstaller, OSInstaller>();
             container.RegisterSingleton<IBattery, BatteryService>();
