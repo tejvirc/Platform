@@ -507,19 +507,13 @@
         private void HandleEvent(CurrencyInStartedEvent platformEvent)
         {
             Logger.Debug("Detected CurrencyInStartedEvent");
-            if (CurrentState != LobbyState.Disabled)
-            {
-                CashInStarted(CashInType.Currency);
-            }
+            CashInStarted(CashInType.Currency);
         }
 
         private void HandleEvent(VoucherRedemptionRequestedEvent platformEvent)
         {
             Logger.Debug("Detected VoucherRedemptionRequestedEvent");
-            if (CurrentState != LobbyState.Disabled)
-            {
-                CashInStarted(CashInType.Voucher);
-            }
+            CashInStarted(CashInType.Voucher);
         }
 
         private void HandleEvent(VoucherRedeemedEvent platformEvent)
