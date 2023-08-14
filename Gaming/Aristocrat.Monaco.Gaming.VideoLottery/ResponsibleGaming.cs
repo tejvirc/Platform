@@ -742,7 +742,7 @@
                 }
             }
         }
-
+        //*** ResponsibleGaming FireStateChange ResponsibleGamingSessionState.Started
         public event ResponsibleGamingStateChangeEventHandler OnStateChange
         {
             add
@@ -944,6 +944,7 @@
             {
                 if (_state == ResponsibleGamingSessionState.Stopped || _state == ResponsibleGamingSessionState.Started)
                 {
+                    //*** ResponsibleGaming FireStateChange ResponsibleGamingSessionState.Started
                     StartPlayTimer();
                     FireStateChange(ResponsibleGamingSessionState.Started);
                 }
