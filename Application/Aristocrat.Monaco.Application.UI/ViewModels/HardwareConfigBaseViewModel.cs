@@ -32,7 +32,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Helpers;
     using Kernel;
     using Kernel.Contracts;
-    using Localization;
     using Monaco.Common;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
