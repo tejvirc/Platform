@@ -89,7 +89,7 @@
             long denomValue,
             double denomMultiplier)
         {
-            var formattedDenomValue = (denomValue / denomMultiplier).FormattedCurrencyString();
+            var formattedDenomValue = (denomValue / denomMultiplier).FormattedCurrencyStringForOperator();
             var matchingActiveDenomGames = games.Where(g => g.ActiveDenominations.Contains(denomValue)).ToList();
             var averageRtp = GetAverageRtp(matchingActiveDenomGames);
 
