@@ -5329,7 +5329,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     break;
                 case LcdButtonDeckLobby.PreviousTab:
                     GameTabInfo.NextPreviousTab(false);
-                    PlayAudioFile(Sound.Touch);
+                    if(IsTabView)
+                    {
+                        PlayAudioFile(Sound.Touch);
+                    }
                     break;
                 case LcdButtonDeckLobby.ChangeDenom:
                     if (_selectedGame.Category == GameCategory.LightningLink)
@@ -5344,7 +5347,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     break;
                 case LcdButtonDeckLobby.NextTab:
                     GameTabInfo.NextPreviousTab(true);
-                    PlayAudioFile(Sound.Touch);
+                    if (IsTabView)
+                    {
+                        PlayAudioFile(Sound.Touch);
+                    }
                     break;
                 case LcdButtonDeckLobby.NextGame:
                     NavigateSelectionTo(SelectionNavigation.NextGame);
