@@ -1038,7 +1038,8 @@
                     AmountOut = null,
                     LogSequence = baseRound.LogSequence,
                     GameIndex = transaction.GameIndex,
-                    TransactionId = transaction.TransactionId
+                    TransactionId = transaction.TransactionId,
+                    Denom = null
                 };
 
                 if (transaction.TransactionType == typeof(BillTransaction))
