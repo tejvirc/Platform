@@ -5329,7 +5329,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     break;
                 case LcdButtonDeckLobby.PreviousTab:
                     GameTabInfo.NextPreviousTab(false);
-                    if(IsTabView)
+                    if (IsTabView)
                     {
                         PlayAudioFile(Sound.Touch);
                     }
