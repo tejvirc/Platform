@@ -28,7 +28,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Hardware.Contracts.IdReader;
     using Hardware.Contracts.Printer;
     using Kernel;
-    using Localization.Properties;
     using Monaco.UI.Common.Models;
     using Utils;
     using PayMethod = Contracts.Bonus.PayMethod;
@@ -507,19 +506,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void HandleEvent(CurrencyInStartedEvent platformEvent)
         {
             Logger.Debug("Detected CurrencyInStartedEvent");
-            if (CurrentState != LobbyState.Disabled)
-            {
-                CashInStarted(CashInType.Currency);
-            }
+            CashInStarted(CashInType.Currency);
         }
 
         private void HandleEvent(VoucherRedemptionRequestedEvent platformEvent)
         {
             Logger.Debug("Detected VoucherRedemptionRequestedEvent");
-            if (CurrentState != LobbyState.Disabled)
-            {
-                CashInStarted(CashInType.Voucher);
-            }
+            CashInStarted(CashInType.Voucher);
         }
 
         private void HandleEvent(VoucherRedeemedEvent platformEvent)
@@ -1076,11 +1069,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             if (evt.PropertyName == GamingConstants.IdleText)
             {
-                Execute.OnUIThread(
-                    () =>
-                    {
-                        IdleText = (string)_properties.GetProperty(GamingConstants.IdleText, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.IdleTextDefault));
-                    });
+                Execute.OnUIThread(UpdateIdleText);
             }
         }
 

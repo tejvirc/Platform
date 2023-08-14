@@ -188,7 +188,10 @@
 
         private void DisplayNotification()
         {
-            if (!PaperIsInChute || !_gamePlayState.Idle || _gameHistory.IsRecoveryNeeded)
+            var paperInChuteBlocksCashout = (bool)_properties.GetProperty(
+                ApplicationConstants.PaperInChuteBlocksCashout,
+                true);
+            if (!paperInChuteBlocksCashout || !PaperIsInChute || !_gamePlayState.Idle || _gameHistory.IsRecoveryNeeded)
             {
                 return;
             }
@@ -199,14 +202,12 @@
 
             // Resend the event every configured period for sound.
             SetTimer();
-
         }
 
         private void HandleEvent(SystemDownEvent evt)
         {
             ClearNotification();
         }
-
 
         private void SetTimer()
         {

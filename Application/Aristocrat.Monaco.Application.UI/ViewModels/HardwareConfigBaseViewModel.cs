@@ -32,6 +32,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Helpers;
     using Kernel;
     using Kernel.Contracts;
+    using Localization;
     using Monaco.Common;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
@@ -368,7 +369,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         protected virtual void Device_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("Enabled") &&
+            if ((e?.PropertyName.Equals("Enabled") ?? false) &&
                 sender is DeviceConfigViewModel device && device.Enabled)
             {
                 StartDetection();
