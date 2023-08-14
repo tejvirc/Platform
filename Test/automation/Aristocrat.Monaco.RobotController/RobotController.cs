@@ -33,7 +33,6 @@
         private long _idleDuration;
         private string _configPath;
         private bool _enabled;
-        public static int SelectedGameId;
 
         public ThreadSafeHashSet<RobotStateAndOperations> InProgressRequests
         {
@@ -304,9 +303,6 @@
 
             _logger.Info($"{nameof(SetCurrentlyActiveGameIfAny)} Is Initiated", GetType().Name);
             var currentGame = _gameProvider.GetGame(_propertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
-
-            SelectedGameId = currentGame.Id;
-
             Config.SetCurrentActiveGame(currentGame.ThemeName);
             return true;
         }
