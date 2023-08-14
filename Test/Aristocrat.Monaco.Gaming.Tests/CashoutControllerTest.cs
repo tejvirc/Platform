@@ -163,17 +163,19 @@
         [DataRow(false, true)]
         [DataRow(false, false)]
         [DataTestMethod]
-        public void WhenGameRequestCashoutRaisedWithPaperInChuteShouldNotRaiseCashOutButtonEvent(bool paperInChute, bool blocksCashout)
+        public void WhenGameRequestCashoutRaisedWithPaperInChuteShouldNotRaiseCashOutButtonEvent(bool paperInChute, bool paperInChuteBlocksCashout)
         {
             _gamePlayState.Setup(x => x.Idle).Returns(true);
             _gameHistory.Setup(x => x.IsRecoveryNeeded).Returns(false);
-            _properties.Setup(p => p.GetProperty(ApplicationConstants.PaperInChuteBlocksCashout, true)).Returns(blocksCashout);
+            _properties.Setup(p => p.GetProperty(ApplicationConstants.PaperInChuteBlocksCashout, true)).Returns(paperInChuteBlocksCashout);
 
             _target.PaperIsInChute = paperInChute;
             _target.GameRequestedCashout();
 
-            if (blocksCashout)
+            if (paperInChuteBlocksCashout)
             {
+                // If PaperInChute, publish only CashOutNotificationEvent
+                // If No PaperInChute, publish only CashOutButtonPressedEvent
                 _eventBusMock.Verify(
                     bus => bus.Publish(It.Is<CashOutButtonPressedEvent>(_ => true)),
                     paperInChute ? Times.Never() : Times.Once());
@@ -183,6 +185,7 @@
             }
             else
             {
+                // Publish only CashOutButtonPressedEvent no matter if PaperInChute
                 _eventBusMock.Verify(
                     bus => bus.Publish(It.Is<CashOutButtonPressedEvent>(_ => true)),
                     Times.Once());
@@ -284,6 +287,8 @@
                 .Callback<object, Action<PrimaryGameStartedEvent>>((o, a) => _gameStartedAction = a);
             _eventBusMock.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Action<SystemDownEvent>>()))
                 .Callback<object, Action<SystemDownEvent>>((o, a) => _downAction = a);
+
+            _properties.Setup(p => p.GetProperty(ApplicationConstants.PaperInChuteBlocksCashout, true)).Returns(true);
 
             _target.Initialize();
         }
