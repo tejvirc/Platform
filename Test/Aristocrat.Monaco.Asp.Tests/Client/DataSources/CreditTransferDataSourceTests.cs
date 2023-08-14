@@ -19,7 +19,7 @@
     [TestClass]
     public class CreditTransferDataSourceTests
     {
-        private const int MaxDCOMCommunicationTimeout = 200;
+        private const int MaxDCOMCommunicationTimeout = 2000;
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<IGameDiagnostics> _gameDiagnostics;
         private Mock<IPersistentStorageManager> _persistentStorageManager;

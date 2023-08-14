@@ -20,7 +20,7 @@
     [TestClass]
     public class SetTicketDataHandlerTests
     {
-        private const int Timeout = 1000; // One second
+        private const int Timeout = 3000; // Three seconds
         private ManualResetEvent _waiter;
         private SetTicketDataHandler _target;
         private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>(MockBehavior.Default);

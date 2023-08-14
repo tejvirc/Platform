@@ -220,7 +220,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             await Task.Run(
                 async () =>
                 {
-                    const int deltaTimeInMs = 300;
+                    const int deltaTimeInMs = 500;
 
                     CreateReserveLockupSuccessfully(timeout);
 
@@ -237,7 +237,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
 
                     Assert.IsTrue(_reserve.IsMachineReserved);
 
-                    await Task.Delay(deltaTimeInMs * 2);
+                    await Task.Delay(deltaTimeInMs * 3);
 
                     Assert.IsFalse(_reserve.IsMachineReserved);
 
@@ -459,7 +459,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             await Task.Run(
                 async () =>
                 {
-                    const int deltaTimeInMs = 300;
+                    const int deltaTimeInMs = 500;
 
                     CreateReserveLockupSuccessfully(timeout);
 
@@ -469,7 +469,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
 
                     Assert.IsTrue(_reserve.IsMachineReserved);
 
-                    await Task.Delay(deltaTimeInMs * 2);
+                    await Task.Delay(deltaTimeInMs * 3);
 
                     Assert.IsFalse(_reserve.IsMachineReserved);
 

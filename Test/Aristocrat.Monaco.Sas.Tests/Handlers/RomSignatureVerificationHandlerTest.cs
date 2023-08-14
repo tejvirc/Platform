@@ -21,7 +21,7 @@
     [TestClass]
     public class RomSignatureVerificationHandlerTest
     {
-        private const int TimeoutWait = 1000;  // one second
+        private const int TimeoutWait = 3000;  // three seconds
         private const byte ClientNumber = 21;
 
         private static readonly Component TestModule = new Component

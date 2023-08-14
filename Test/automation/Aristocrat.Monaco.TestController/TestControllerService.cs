@@ -58,12 +58,7 @@
                 services.AddSingleton(controllerEngine);
             });
 
-            var urls = new[]
-            {
-                $"http://{GetLocalIPAddress()}:8087/",
-                $"http://{GetLocalIPAddress()}:9099/"
-            };
-            webApiBuilder.WebHost.UseUrls(urls).ConfigureKestrel((context, option) =>
+            webApiBuilder.WebHost.UseUrls($"http://{GetLocalIPAddress()}:8087/").ConfigureKestrel((context, option) =>
             {
                 option.AllowSynchronousIO = true;
             });

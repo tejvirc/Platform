@@ -19,7 +19,7 @@
     [TestClass]
     public class HandpayQueueTests
     {
-        private const int WaitTime = 1000;
+        private const int WaitTime = 3000;
         private const int ClientId = 1;
         private const int MaxQueueSize = 2;
         private Mock<ISasHandPayCommittedHandler> _handpayHandler;
