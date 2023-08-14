@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using Application.Contracts.Localization;
+    using Monaco.Localization.Properties;
     using Kernel;
     using MVVM.ViewModel;
 
@@ -72,7 +74,27 @@
 
             foreach (var displayableMessage in  _displayableMessages)
             {
-                Messages.Add(displayableMessage.Message);
+                Messages.Add(ResolveDisplayableMessageText(displayableMessage));
+            }
+        }
+
+        public string ResolveDisplayableMessageText(DisplayableMessage displayableMessage)
+        {
+            if (displayableMessage.ResourceKeyOnly)
+            {
+                try
+                {
+                    return Localizer.For(CultureFor.Operator).GetString(displayableMessage.Message);
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    // Localization providers may not be ready yet at this point
+                    return Resources.ResourceManager.GetString(displayableMessage.Message);
+                }
+            }
+            else
+            {
+                return displayableMessage.Message;
             }
         }
     }
