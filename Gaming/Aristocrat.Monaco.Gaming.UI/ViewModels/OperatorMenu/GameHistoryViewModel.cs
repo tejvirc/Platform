@@ -17,7 +17,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
-    using Application.Contracts.Protocol;
     using Application.UI.Events;
     using Application.UI.OperatorMenu;
     using Aristocrat.Extensions.CommunityToolkit;
@@ -608,8 +607,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             GameHistory = new ObservableCollection<GameRoundHistoryItem>(gameHistory);
 
-            UpdateFilter(FilterGameNames, gameHistory.Select(g => g.GameName).Distinct());
-            UpdateFilter(FilterStatuses, gameHistory.Select(g => g.Status).Distinct());
+            UpdateFilter(FilterGameNames, gameHistory.Where(g => !g.IsTransactionItem).Select(g => g.GameName).Distinct());
+            UpdateFilter(FilterStatuses, gameHistory.Where(g => !string.IsNullOrWhiteSpace(g.Status)).Select(g => g.Status).Distinct());
             FilterSelectedDate = null;
             FilterEndDate = gameHistory.FirstOrDefault()?.StartTime;
             FilterStartDate = gameHistory.LastOrDefault()?.StartTime;
@@ -633,7 +632,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             {
                 var filterName = FilterGameNames.FirstOrDefault(filter => filter.Name == item.GameName);
                 var filterStatus = FilterStatuses.FirstOrDefault(filter => filter.Name == item.Status);
-                if (filterName is { IsChecked: true } && filterStatus is { IsChecked: true } &&
+                if ((filterName is { IsChecked: true } || (SelectAllGameNamesIsChecked == true && item.IsTransactionItem)) &&
+                    (filterStatus is { IsChecked: true } || (SelectAllStatusesIsChecked == true && item.IsTransactionItem)) &&
                     (FilterSelectedDate == null || item.StartTime.Date == FilterSelectedDate?.Date))
                 {
                     FilteredGameHistory.Add(item);
