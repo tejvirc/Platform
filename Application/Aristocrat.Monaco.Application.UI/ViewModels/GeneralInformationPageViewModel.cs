@@ -75,7 +75,7 @@
 
         public string PrinterState => Printer.LogicalState.ToString();
 
-        public string PrinterFirmwareVersion => Printer.DeviceConfiguration.FirmwareBootVersion;
+        public string PrinterFirmwareVersion => Printer.DeviceConfiguration.FirmwareId;
 
         public string PrinterFirmwareRevision => Printer.DeviceConfiguration.FirmwareRevision;
 
@@ -89,7 +89,7 @@
 
         public string NoteAcceptorState => NoteAcceptor.LogicalState.ToString();
 
-        public string NoteAcceptorFirmwareVersion => NoteAcceptor.DeviceConfiguration.FirmwareBootVersion;
+        public string NoteAcceptorFirmwareVersion => NoteAcceptor.DeviceConfiguration.FirmwareId;
 
         public string NoteAcceptorFirmwareRevision => NoteAcceptor.DeviceConfiguration.FirmwareRevision;
 
