@@ -21,6 +21,15 @@
             IntPtr pActivationParams,
             [MarshalAs(UnmanagedType.IUnknown)] out object ppInterface);
 
-        // the rest is not implemented
+        [PreserveSig]
+        int OpenPropertyStore(
+            uint stgmAccess,
+            [MarshalAs(UnmanagedType.IUnknown)] out object ppProperties);
+
+        [PreserveSig]
+        int GetId([MarshalAs(UnmanagedType.LPWStr)] out string ppstrId);
+
+        [PreserveSig]
+        int GetState(out DeviceState pdwState);
     }
 }

@@ -288,7 +288,13 @@
             try
             {
                 device = GetDefaultAudioDevice();
-                return device != null;
+                if (device == null)
+                {
+                    return false;
+                }
+
+                device.GetState(out var state);
+                return state == DeviceState.Active;
             }
             finally
             {
