@@ -60,6 +60,7 @@ as follows:
     <UseGameTypeVolume>false</UseGameTypeVolume>
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
+  <Demonstration Enabled="true"/>
   <LogTypesAllowedForDisplay>
     <string>General</string>
     <string>Error</string>
