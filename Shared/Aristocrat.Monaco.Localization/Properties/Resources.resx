@@ -12350,4 +12350,16 @@ Do you really want to do full reset?</value>
   <data name="Printer_DfuInProgress" xml:space="preserve">
     <value>Printer DFU Download In Progress: Please Do Not Power Off The Gaming Machine</value>
   </data>
+  <data name="ErrorInfoPrinterPaperLow" xml:space="preserve">
+    <value>Open Main Door and Load More Paper Before Paper is Empty</value>
+  </data>
+  <data name="FirmwareUpdateText" xml:space="preserve">
+    <value>Firmware Update</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="WorkingText" xml:space="preserve">
+    <value>Working</value>
+  </data>
 </root>
