@@ -4948,30 +4948,6 @@ Do you really want to do partial reset????</value>
   <data name="Printer_DfuInProgress" xml:space="preserve">
     <value>Téléchargement du programme utilitaire de fichier de données de l’imprimante en cours : veuillez ne pas éteindre l’appareil de jeu</value>
   </data>
-<<<<<<< HEAD
-  <data name="ClosingProtocol" xml:space="preserve">
-    <value>??Closing G2S Protocol??</value>
-  </data>
-  <data name="CreatingKeyboardService" xml:space="preserve">
-    <value>??Creating Keyboard Service??</value>
-  </data>
-  <data name="LoadingProtocol" xml:space="preserve">
-    <value>??Loading G2S Protocol??</value>
-  </data>
-  <data name="StartingProtocol" xml:space="preserve">
-    <value>??Starting G2S Protocol??</value>
-  </data>
-  <data name="UnloadingTransactionHandlers" xml:space="preserve">
-    <value>??Unloading Transaction Handlers??</value>
-	</data>
-  <data name="ErrorInfoPrinterPaperLow" xml:space="preserve">
-    <value>??Open Main Door and Load More Paper Before Paper is Empty??</value>
-  </data>
-  <data name="PrinterWarningTypes_PaperLow" xml:space="preserve">
-    <value>??Printer Paper Low??</value>
-  </data>
-</root>
-=======
   <data name="BillInserted" xml:space="preserve">
     <value>??Bill Inserted??</value>
   </data>
@@ -5002,5 +4978,25 @@ Do you really want to do partial reset????</value>
   <data name="WorkingText" xml:space="preserve">
     <value>??Working??</value>
   </data>
+  <data name="ClosingProtocol" xml:space="preserve">
+    <value>??Closing G2S Protocol??</value>
+  </data>
+  <data name="CreatingKeyboardService" xml:space="preserve">
+    <value>??Creating Keyboard Service??</value>
+  </data>
+  <data name="LoadingProtocol" xml:space="preserve">
+    <value>??Loading G2S Protocol??</value>
+  </data>
+  <data name="StartingProtocol" xml:space="preserve">
+    <value>??Starting G2S Protocol??</value>
+  </data>
+  <data name="UnloadingTransactionHandlers" xml:space="preserve">
+    <value>??Unloading Transaction Handlers??</value>
+	</data>
+  <data name="ErrorInfoPrinterPaperLow" xml:space="preserve">
+    <value>??Open Main Door and Load More Paper Before Paper is Empty??</value>
+  </data>
+  <data name="PrinterWarningTypes_PaperLow" xml:space="preserve">
+    <value>??Printer Paper Low??</value>
+  </data>
 </root>
->>>>>>> refs/remotes/origin/main
