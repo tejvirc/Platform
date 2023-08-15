@@ -12,8 +12,8 @@
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.UI.ConfigWizard;
-    using Aristocrat.G2S.Client.Communications;
     using Aristocrat.Extensions.CommunityToolkit;
+    using Aristocrat.G2S.Client.Communications;
     using Common.CertificateManager;
     using Common.CertificateManager.Models;
     using Common.DHCP;
@@ -239,6 +239,7 @@
             set
             {
                 SetProperty(ref _certificateManagerLocation, value, true);
+                OnPropertyChanged(nameof(CertificateManagerLocation));
                 GetThumbprintCommand.NotifyCanExecuteChanged();
                 EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
@@ -255,6 +256,7 @@
             set
             {
                 SetProperty(ref _preSharedSecret, value, true);
+                OnPropertyChanged(nameof(PreSharedSecret));
                 EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
@@ -270,6 +272,7 @@
             set
             {
                 SetProperty(ref _identity, value, true);
+                OnPropertyChanged(nameof(Identity));
                 EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
@@ -285,6 +288,7 @@
             set
             {
                 SetProperty(ref _userName, value, true);
+                OnPropertyChanged(nameof(UserName));
                 EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
@@ -315,6 +319,7 @@
             set
             {
                 SetProperty(ref _manualPollingInterval, value, true);
+                OnPropertyChanged(nameof(ManualPollingInterval));
                 // if we do not have a valid cert enable Enroll command
                 if (!_certificateService.HasValidCertificate())
                 {
@@ -335,6 +340,7 @@
             {
                 SetProperty(ref _renewalEnabled, value);
                 ValidateProperty(CertificateStatusLocation, nameof(CertificateStatusLocation));
+                OnPropertyChanged(nameof(RenewalEnabled));
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
@@ -350,6 +356,7 @@
             set
             {
                 SetProperty(ref _certificateStatusLocation, value, true);
+                OnPropertyChanged(nameof(CertificateStatusLocation));
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
@@ -365,6 +372,7 @@
             set
             {
                 SetProperty(ref _offlinePeriod, value, true);
+                OnPropertyChanged(nameof(OfflinePeriod));
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
@@ -380,6 +388,7 @@
             set
             {
                 SetProperty(ref _reAuthenticatedPeriod, value, true);
+                OnPropertyChanged(nameof(ReAuthenticatedPeriod));
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
@@ -395,6 +404,7 @@
             set
             {
                 SetProperty(ref _acceptPreviouslyGoodCertificatePeriod, value, true);
+                OnPropertyChanged(nameof(AcceptPreviouslyGoodCertificatePeriod));
                 TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
