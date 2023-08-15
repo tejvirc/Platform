@@ -9,6 +9,7 @@
     using Contracts.Extensions;
     using Contracts.Localization;
     using Hardware.Contracts.NoteAcceptor;
+    using Helpers;
     using Kernel;
     using Monaco.Common;
     using Monaco.Localization.Properties;
@@ -73,7 +74,7 @@
 
         public string PrinterModel => Printer.DeviceConfiguration.Model;
 
-        public string PrinterState => Printer.LogicalState.ToString();
+        public string PrinterState => Printer.LogicalState.StateToString();
 
         public string PrinterFirmwareVersion => Printer.DeviceConfiguration.FirmwareId;
 
@@ -87,7 +88,7 @@
 
         public string NoteAcceptorModel => NoteAcceptor.DeviceConfiguration.Model;
 
-        public string NoteAcceptorState => NoteAcceptor.LogicalState.ToString();
+        public string NoteAcceptorState => NoteAcceptor.LogicalState.StateToString(NoteAcceptor.WasStackingOnLastPowerUp);
 
         public string NoteAcceptorFirmwareVersion => NoteAcceptor.DeviceConfiguration.FirmwareId;
 
