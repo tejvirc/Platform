@@ -43,7 +43,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             PlayerLocalesAvailable = playerAvailableLocales.Length > 1;
             PrintLanguages = new ObservableCollection<Tuple<string, string>>();
 
-            var playerTicketSelectionArrayEntry = new []
+            var playerTicketSelectionArrayEntry = new[]
             {
                 new PlayerTicketSelectionArrayEntry
                 {
@@ -519,7 +519,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
         private void SetStateText(PrinterLogicalState state)
         {
-            switch(state)
+            switch (state)
             {
                 case PrinterLogicalState.Uninitialized:
                     StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Uninitialized);
@@ -918,7 +918,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             UpdateStatus();
-            RaisePropertyChanged(nameof(SelfTestText));
+            OnPropertyChanged(nameof(SelfTestText));
         }
 
         private void SetFault(HardwareFaultEvent @event)

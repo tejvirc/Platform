@@ -485,9 +485,10 @@
             // Assign difference values to trigger property update on UI
             // In a scenario where user decided to go back to Machine Setup page to change currency type, and
             // come back to SAS page, since the amount did not change and it wont trigger property update. We manually do it here.
-            AftTransferLimit = -1;
+            OnPropertyChanged(nameof(AftTransferLimit));
             AftTransferLimit = aftTransferLimit;
             PreviousAftTransferLimit = aftTransferLimit;
+
 
             BonusTransferStatusEditable = settings.BonusTransferStatusEditable;
 
