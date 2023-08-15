@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
-    using Aristocrat.GdkRuntime.V1;
+    using Kernel;
+    using GdkRuntime.V1;
     using Hardware.Contracts.Reel;
+    using Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities;
 
     /// <summary>
     ///     A set of hardware reel extensions
@@ -10,6 +12,7 @@
     {
         public static ReelState GetReelState(ReelLogicalState state)
         {
+            var reelController = ServiceManager.GetInstance().GetService<IReelController>();
             var reelState = ReelState.Disconnected;
 
             switch (state)
@@ -22,11 +25,17 @@
                     reelState = ReelState.Stopped;
                     break;
                 case ReelLogicalState.Spinning:
+                    reelState = reelController.HasCapability<IReelSpinCapabilities>() ?
+                        ReelState.SpinningForward : ReelState.SpinningConstant;
+                    break;
                 case ReelLogicalState.SpinningForward:
                     reelState = ReelState.SpinningForward;
                     break;
                 case ReelLogicalState.SpinningBackwards:
                     reelState = ReelState.SpinningBackwards;
+                    break;
+                case ReelLogicalState.SpinningConstant:
+                    reelState = ReelState.SpinningConstant;
                     break;
                 case ReelLogicalState.Stopping:
                     reelState = ReelState.Stopping;

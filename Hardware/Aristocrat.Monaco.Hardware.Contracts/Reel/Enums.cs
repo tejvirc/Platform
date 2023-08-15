@@ -191,6 +191,11 @@
         SpinningForward,
 
         /// <summary>
+        ///     The state used for when the reel is spinning at a constant velocity
+        /// </summary>
+        SpinningConstant,
+
+        /// <summary>
         ///     The state used for when the reel is spinning freely in a backwards direction
         /// </summary>
         SpinningBackwards,
@@ -208,7 +213,17 @@
         /// <summary>
         ///     The state used for when the reels are tilted (slow spinning)
         /// </summary>
-        Tilted
+        Tilted,
+
+        /// <summary>
+        ///      The state used for when the reel is accelerating in a forward direction
+        /// </summary>
+        Accelerating,
+
+        /// <summary>
+        ///      The state used for when the reel is decelerating in a forward direction
+        /// </summary>
+        Decelerating
     }
 
     /// <summary>
@@ -267,6 +282,11 @@
         SpinReelBackwards,
 
         /// <summary>
+        ///     The spin reel constant trigger
+        /// </summary>
+        SpinConstant,
+
+        /// <summary>
         ///     The tilt reels trigger
         /// </summary>
         TiltReels,
@@ -274,7 +294,17 @@
         /// <summary>
         ///     The reel stopped trigger
         /// </summary>
-        ReelStopped
+        ReelStopped,
+
+        /// <summary>
+        ///     The accelerate trigger
+        /// </summary>
+        Accelerate,
+
+        /// <summary>
+        ///     The decelerate trigger
+        /// </summary>
+        Decelerate
     }
 
     /// <summary>
@@ -291,6 +321,32 @@
         ///     This is used to indicate the reels should spin in the reverse direction
         /// </summary>
         Backwards
+    }
+
+    /// <summary>
+    ///     Describes the velocity of the spin of the reels
+    /// </summary>
+    public enum SpinVelocity
+    {
+        /// <summary>
+        ///     Not specified
+        /// </summary>
+        None,
+
+        /// <summary>
+        ///     Constant velocity
+        /// </summary>
+        Constant,
+
+        /// <summary>
+        ///     Accelerating velocity
+        /// </summary>
+        Accelerating,
+
+        /// <summary>
+        ///     Decelerating velocity
+        /// </summary>
+        Decelerating
     }
 
     /// <summary>

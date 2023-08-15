@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -114,7 +113,7 @@
                         OutcomeType.Standard,
                         response.PrizeValue.CentsToMillicents(),
                         response.PrizeIndex,
-                        response.ExtendedInfo.ToString(CultureInfo.InvariantCulture))
+                        JsonConvert.SerializeObject(new LookupData { AwardId = response.ExtendedInfo}))
                 };
 
                 if (response.IsProgressiveWin)
@@ -137,16 +136,14 @@
                 {
                     _logger.LogInfo($"Received voucher response: {voucher.Id}");
 
-                    using (var unitOfWork = _unitOfWorkFactory.Create())
-                    {
-                        var voucherData = _mapper.Map<Voucher>(voucher);
+                    using var unitOfWork = _unitOfWorkFactory.Create();
+                    var voucherData = _mapper.Map<Voucher>(voucher);
 
-                        voucherData.Validate();
+                    voucherData.Validate();
 
-                        unitOfWork.Repository<Voucher>().AddVoucher(voucherData);
+                    unitOfWork.Repository<Voucher>().AddVoucher(voucherData);
 
-                        unitOfWork.SaveChanges();
-                    }
+                    unitOfWork.SaveChanges();
                 }
 
                 if (message != null)

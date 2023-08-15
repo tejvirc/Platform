@@ -15,6 +15,7 @@
     using Gaming.Contracts.Progressives;
     using Gaming.Contracts.Progressives.Linked;
     using Kernel;
+    using Newtonsoft.Json;
     using Services;
 
     /// <summary>
@@ -182,10 +183,16 @@
                                     (long)prizeInformation.ScratchTicketId,
                                     OutcomeReference.Direct,
                                     OutcomeType.Progressive,
-                                    index++ == 0 ? ((long)prizeInformation.ProgressiveWin.ElementAt(levelId))
-                                    .CentsToMillicents() : progressiveLevel.ResetValue, // Progressive won amount
+                                    index++ == 0
+                                        ? ((long)prizeInformation.ProgressiveWin.ElementAt(levelId))
+                                        .CentsToMillicents()
+                                        : progressiveLevel.ResetValue, // Progressive won amount
                                     levelId, // Level Hit
-                                    levelId.ToString(CultureInfo.InvariantCulture))));
+                                    JsonConvert.SerializeObject(
+                                        new LookupData
+                                        {
+                                            Progressives = levelId.ToString(CultureInfo.InvariantCulture)
+                                        }))));
                     });
             }
 
@@ -271,6 +278,6 @@
             }
             return systemDisableManager.CurrentDisableKeys.Intersect(FilteredLockupsForGamePlay).Any();
         }
-        
+
     }
 }

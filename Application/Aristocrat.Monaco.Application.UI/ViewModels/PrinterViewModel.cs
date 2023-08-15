@@ -9,6 +9,7 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Accounting.Contracts;
+    using Aristocrat.Monaco.Common;
     using Common;
     using Contracts;
     using Contracts.Extensions;
@@ -314,6 +315,7 @@
             EventBus.Subscribe<ConnectedEvent>(this, ErrorClearEvent);
             EventBus.Subscribe<ResolverErrorEvent>(this, ErrorEvent);
             EventBus.Subscribe<LoadingRegionsAndTemplatesEvent>(this, ErrorClearEvent);
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
 
             EventBus.Subscribe<HardwareFaultClearEvent>(this, ClearFault);
             EventBus.Subscribe<HardwareFaultEvent>(this, SetFault);
@@ -504,9 +506,14 @@
 
             if (updateStatus)
             {
-                StatusText = StatusCurrentMode != StatusMode.None && StateCurrentMode != StateMode.Normal
-                    ? StatusCurrentMode.ToString()
-                    : string.Empty;
+                if (StateCurrentMode != StateMode.Normal)
+                {
+                    SetStatusModeText(StatusCurrentMode);
+                }
+                else
+                {
+                    StatusText = string.Empty;
+                }
             }
         }
 
@@ -541,6 +548,25 @@
             }
         }
 
+        private void SetStatusModeText(StatusMode mode)
+        {
+            switch (mode)
+            {
+                case StatusMode.None:
+                    StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.None);
+                    break;
+                case StatusMode.Working:
+                    StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.WorkingText);
+                    break;
+                case StatusMode.Warning:
+                    StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.WarningText);
+                    break;
+                case StatusMode.Error:
+                    StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Error);
+                    break;
+            }
+        }
+
         /// <summary>Sets last error status.</summary>
         /// <param name="faults">The faults.</param>
         /// <param name="warnings">The warnings.</param>
@@ -556,7 +582,7 @@
 
                 if (PrinterEventsDescriptor.FaultTexts.ContainsKey(value))
                 {
-                    UpdateStatusError(PrinterEventsDescriptor.FaultTexts[value], false);
+                    UpdateStatusError(PrinterFaultTextHelper(value), false);
                 }
             }
 
@@ -569,7 +595,7 @@
 
                 if (PrinterEventsDescriptor.WarningTexts.ContainsKey(value))
                 {
-                    UpdateStatusError(PrinterEventsDescriptor.WarningTexts[value], false);
+                    UpdateStatusError(PrinterWarningTextHelper(value), false);
                 }
             }
 
@@ -579,6 +605,49 @@
             }
 
             return true;
+        }
+
+        private string PrinterFaultTextHelper(PrinterFaultTypes fault)
+        {
+            switch (fault)
+            {
+                case PrinterFaultTypes.TemperatureFault:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterFaultTypes_TemperatureFault);
+                case PrinterFaultTypes.PrintHeadDamaged:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterFaultTypes_PrintHeadDamaged);
+                case PrinterFaultTypes.NvmFault:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterFaultTypes_NvmFault);
+                case PrinterFaultTypes.FirmwareFault:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterFaultTypes_FirmwareFault);
+                case PrinterFaultTypes.OtherFault:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterFaultTypes_OtherFault);
+                case PrinterFaultTypes.PaperJam:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterFaultTypes_PaperJam);
+                case PrinterFaultTypes.PaperEmpty:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterFaultTypes_PaperEmpty);
+                case PrinterFaultTypes.PaperNotTopOfForm:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterFaultTypes_PaperNotTopOfForm);
+                case PrinterFaultTypes.PrintHeadOpen:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterFaultTypes_PrintHeadOpen);
+                case PrinterFaultTypes.ChassisOpen:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterFaultTypes_ChassisOpen);
+                default:
+                    return string.Empty;
+            }
+        }
+
+        private string PrinterWarningTextHelper(PrinterWarningTypes warning)
+        {
+            switch (warning)
+            {
+                case PrinterWarningTypes.PaperLow:
+                    return Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PrinterWarningTypes_PaperLow);
+                case PrinterWarningTypes.PaperInChute:
+                    /// we do not display an error for paper in chute
+                    return string.Empty;
+                default:
+                    return string.Empty;
+            }
         }
 
         private void SetActivationDateTime()
@@ -641,12 +710,12 @@
                             !printer.Enabled &&
                             (printer.ReasonDisabled & DisabledReasons.Error) == 0)
                         {
-                            StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByText) + printer.ReasonDisabled;
+                            StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByText) + Localizer.For(CultureFor.Operator).GetString(printer.ReasonDisabled.GetAttribute<LabelResourceKeyAttribute>()?.LabelResourceKey);
                             StatusCurrentMode = StatusMode.Warning;
                         }
                         else
                         {
-                            StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByText) + printer.ReasonDisabled;
+                            StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByText) + Localizer.For(CultureFor.Operator).GetString(printer.ReasonDisabled.GetAttribute<LabelResourceKeyAttribute>()?.LabelResourceKey);
                             var useRebootText = !SetLastErrorStatus(printer.Faults, printer.Warnings);
 
                             var storageService = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
@@ -727,7 +796,7 @@
 
             if (typeof(DisabledEvent) == eventType)
             {
-                StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByText) + printer.ReasonDisabled;
+                StatusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.DisabledByText) + Localizer.For(CultureFor.Operator).GetString(printer.ReasonDisabled.GetAttribute<LabelResourceKeyAttribute>()?.LabelResourceKey);
 
                 if ((printer.ReasonDisabled & DisabledReasons.Error) == 0)
                 {
@@ -844,6 +913,12 @@
                     UpdateStatusError(PrinterEventsDescriptor.WarningTexts[value], true);
                 }
             }
+        }
+
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            UpdateStatus();
+            RaisePropertyChanged(nameof(SelfTestText));
         }
 
         private void SetFault(HardwareFaultEvent @event)

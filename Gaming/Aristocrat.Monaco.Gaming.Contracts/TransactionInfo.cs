@@ -16,7 +16,7 @@
         public Type TransactionType;
 
         /// <summary>
-        ///     The amount
+        ///     The amount in millicents
         /// </summary>
         public long Amount;
 

@@ -405,7 +405,7 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         private long maxWinField;
         
         private bool maxWinFieldSpecified;
-
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("bet")]
         public c_bet[] bet {
@@ -720,6 +720,10 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private string lineOptionField;
         
+        private long maxFeatureCostField;
+        
+        private bool maxFeatureCostFieldSpecified;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
         public int id {
@@ -750,6 +754,28 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             }
             set {
                 this.lineOptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public long maxFeatureCost {
+            get {
+                return this.maxFeatureCostField;
+            }
+            set {
+                this.maxFeatureCostField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool maxFeatureCostSpecified {
+            get {
+                return this.maxFeatureCostFieldSpecified;
+            }
+            set {
+                this.maxFeatureCostFieldSpecified = value;
             }
         }
     }
@@ -1798,6 +1824,8 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private stepperAnimationFileList stepperAnimationFileListField;
         
+        private System.Xml.XmlElement[] anyField;
+        
         private string productTypeField;
         
         private string productIdField;
@@ -1890,6 +1918,17 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             }
             set {
                 this.stepperAnimationFileListField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAnyElementAttribute()]
+        public System.Xml.XmlElement[] Any {
+            get {
+                return this.anyField;
+            }
+            set {
+                this.anyField = value;
             }
         }
         
@@ -2223,6 +2262,10 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         private int basicMaximumWinCreditsField;
         
         private bool basicMaximumWinCreditsFieldSpecified;
+        
+        private int uniqueGameIdField;
+        
+        private bool uniqueGameIdFieldSpecified;
         
         public c_gameAttributes() {
             this.maxPaybackPctField = ((long)(0));
@@ -2753,6 +2796,28 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             }
             set {
                 this.basicMaximumWinCreditsFieldSpecified = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified, Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+        public int uniqueGameId {
+            get {
+                return this.uniqueGameIdField;
+            }
+            set {
+                this.uniqueGameIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool uniqueGameIdSpecified {
+            get {
+                return this.uniqueGameIdFieldSpecified;
+            }
+            set {
+                this.uniqueGameIdFieldSpecified = value;
             }
         }
     }
@@ -5662,4 +5727,3 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
     public partial class uninstallSeqList : c_uninstallSeqList {
     }
 }
-#pragma warning restore 1591

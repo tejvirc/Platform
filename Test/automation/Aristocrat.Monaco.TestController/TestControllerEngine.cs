@@ -36,12 +36,13 @@
     using Kernel;
     using log4net;
     using Newtonsoft.Json;
-    using RobotController.Contracts;
     using Test.Automation;
     using Wait;
     using HardwareFaultClearEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultClearEvent;
     using HardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
     using Aristocrat.Monaco.Gaming.UI.ViewModels;
+    using Aristocrat.Monaco.Gaming.Contracts.Events;
+    using Aristocrat.Monaco.Application.Contracts.Robot;
 
     [ServiceBehavior(
         InstanceContextMode = InstanceContextMode.Single,

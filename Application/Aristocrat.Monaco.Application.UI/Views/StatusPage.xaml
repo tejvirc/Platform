@@ -78,7 +78,7 @@
                                     Grid.Column="1"
                                     Margin="10 0 0 0"
                                     Style="{StaticResource MonacoInfoButton}"
-                                    Visibility="{Binding DataContext.AdditionalInfo, Converter={StaticResource NullToVisConverter}, RelativeSource={RelativeSource Self}}"
+                                    Visibility="{Binding DataContext.AdditionalInfo, Converter={StaticResource StringToVisibilityConverter}, RelativeSource={RelativeSource Self}}"
                                     Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                     AutomationProperties.AutomationId="Button11_189ED632">
                                 <Button.CommandParameter>

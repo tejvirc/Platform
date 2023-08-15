@@ -55,8 +55,9 @@
         /// <summary>
         ///     Called to indicate a game round is starting.
         /// </summary>
+        /// <param name="initialWager">The initial wager</param>
         /// <returns>true if the state was advanced, otherwise false</returns>
-        bool Prepare();
+        bool Prepare(long initialWager = 0);
 
         /// <summary>
         ///     Escrows the wager for central determinant games

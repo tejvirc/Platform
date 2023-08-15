@@ -216,6 +216,9 @@
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
 
         /// <inheritdoc />>
+        public int UniqueGameId { get; set; }
+
+        /// <inheritdoc />>
         public IEnumerable<ISubGameDetails> SupportedSubGames { get; set; }
 
         /// <inheritdoc />>

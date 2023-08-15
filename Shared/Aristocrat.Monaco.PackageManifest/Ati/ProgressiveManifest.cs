@@ -96,7 +96,7 @@
                         Probability = Convert.ToDecimal(level.probability, CultureInfo.InvariantCulture),
                         MaximumValue = new ProgressiveValue(level.ceiling),
                         StartupValue = new ProgressiveValue(level.startUp),
-                        AllowTruncation = level.allowTruncation,
+                        AllowTruncation = bool.TryParse(level.allowTruncation, out var result) && result,
                         BonusValues = level.Bonuses?.ToDictionary(
                             b => b.key,
                             b => Convert.ToInt64(b.value)),

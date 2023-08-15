@@ -28,13 +28,11 @@
     using Hardware.Contracts.IdReader;
     using Hardware.Contracts.Printer;
     using Kernel;
-    using Localization.Properties;
     using Monaco.UI.Common.Models;
     using MVVM;
     using Utils;
     using PayMethod = Contracts.Bonus.PayMethod;
 #if !(RETAIL)
-    using RobotController.Contracts;
     using Vgt.Client12.Testing.Tools;
 #endif
 
@@ -508,19 +506,13 @@
         private void HandleEvent(CurrencyInStartedEvent platformEvent)
         {
             Logger.Debug("Detected CurrencyInStartedEvent");
-            if (CurrentState != LobbyState.Disabled)
-            {
-                CashInStarted(CashInType.Currency);
-            }
+            CashInStarted(CashInType.Currency);
         }
 
         private void HandleEvent(VoucherRedemptionRequestedEvent platformEvent)
         {
             Logger.Debug("Detected VoucherRedemptionRequestedEvent");
-            if (CurrentState != LobbyState.Disabled)
-            {
-                CashInStarted(CashInType.Voucher);
-            }
+            CashInStarted(CashInType.Voucher);
         }
 
         private void HandleEvent(VoucherRedeemedEvent platformEvent)
@@ -1077,11 +1069,7 @@
         {
             if (evt.PropertyName == GamingConstants.IdleText)
             {
-                MvvmHelper.ExecuteOnUI(
-                    () =>
-                    {
-                        IdleText = (string)_properties.GetProperty(GamingConstants.IdleText, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.IdleTextDefault));
-                    });
+                MvvmHelper.ExecuteOnUI(UpdateIdleText);
             }
         }
 

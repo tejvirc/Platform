@@ -333,6 +333,24 @@
                 OnButtonDeckStatusChanged(connected);
             }
 
+            if (sender.Device is IDisplayDevice)
+            {
+                var allConnected = _deviceStatusHandlers.Where(x => x.Device.DeviceType == DeviceType.Display)
+                    .All(x => x.Status != DeviceStatus.Disconnected);
+
+                if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.DisplayDisconnectedLockupKey) && allConnected)
+                {
+                    _disableManager.Disable(
+                        ApplicationConstants.DisplayConnectedLockupKey,
+                        SystemDisablePriority.Immediate,
+                        () => Localizer.ForLockup().GetString(ResourceKeys.DisplayConnected));
+                }
+                else if (_disableManager.CurrentDisableKeys.Contains(ApplicationConstants.DisplayConnectedLockupKey) && !allConnected)
+                {
+                    _disableManager.Enable(ApplicationConstants.DisplayConnectedLockupKey);
+                }
+            }
+
             // Handle Touch Devices status changed
             if (sender.Device is ITouchDevice)
             {
@@ -368,12 +386,6 @@
             {
                 OnDeviceStatusChanged<ButtonDeckDisconnectedEvent>(ApplicationMeters.PlayerButtonErrorCount, false);
             }
-
-            HandleStatusChange(
-                !connected,
-                connected,
-                ApplicationConstants.LcdButtonDeckDisconnectedLockupKey,
-                ResourceKeys.ButtonDeckDisconnected);
         }
 
         private bool CheckDevicesCount()
@@ -442,12 +454,6 @@
             {
                 Logger.Debug($"Enabling {disableKey} reason key {resource}.");
                 _disableManager.Enable(disableKey);
-
-                // Lockup for restart after reconnect message
-                _disableManager.Disable(
-                    ApplicationConstants.DisplayConnectedLockupKey,
-                    SystemDisablePriority.Immediate,
-                    () => Localizer.ForLockup().GetString(ResourceKeys.DisplayConnected));
             }
             else
             {
