@@ -844,7 +844,8 @@ namespace Aristocrat.Monaco.Application
                 ApplicationConstants.DemonstrationModeEnabled,
                 false); // From jurisdiction config
 
-            if (isDemonstrationModeEnabled)
+            if (isDemonstrationModeEnabled &&
+                !propertiesManager.GetValue(ApplicationConstants.ShowMode, false))
             {
                 return;
             }
