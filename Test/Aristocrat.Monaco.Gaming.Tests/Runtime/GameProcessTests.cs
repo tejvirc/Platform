@@ -65,7 +65,7 @@
             bool nullDisplay)
         {
             CreateTarget(nullProperties, nullProcess, nullPathMapper, nullDisplay);
-        }        
+        }
 
         [TestMethod]
         public void WhenStartUnknownGameExpectNegativeOne()

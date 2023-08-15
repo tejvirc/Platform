@@ -4,8 +4,8 @@
     using System.Diagnostics;
     using System.IO;
     using System.Reflection;
-    using System.Runtime.InteropServices;
     using log4net;
+    using NativeOS.Services.OS;
 
     /// <summary>
     ///     Defines types of dumps that can be generated
@@ -106,52 +106,13 @@
         public const int MiniDumpWithCodeSegs = 0x00002000;
     }
 
-    /// <summary>
+    /// </summary>
     /// </summary>
     public class MiniDumpCreator
     {
         private const string Logs = @"/Logs";
         private const string DmpExt = ".dmp";
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-        /// <summary>
-        ///     Signature of native method that will generate the mini dump
-        /// </summary>
-        /// <param name="hProcess">A handle to the process for which the information is to be generated</param>
-        /// <param name="processId">The identifier of the process for which the information is to be generated.</param>
-        /// <param name="hFile">A handle to the file in which the information is to be written</param>
-        /// <param name="dumpType">
-        ///     The type of information to be generated. This parameter can be one or more of the values from
-        ///     the MINIDUMP_TYPE enumeration
-        /// </param>
-        /// <param name="exceptionParam">
-        ///     A pointer to a MINIDUMP_EXCEPTION_INFORMATION structure describing the client exception
-        ///     that caused the minidump to be generated. If the value of this parameter is NULL, no exception information is
-        ///     included in the minidump file
-        /// </param>
-        /// <param name="userStreamParam">
-        ///     A pointer to a MINIDUMP_USER_STREAM_INFORMATION structure. If the value of this parameter
-        ///     is NULL, no user-defined information is included in the minidump file
-        /// </param>
-        /// <param name="callackParam">
-        ///     A pointer to a MINIDUMP_CALLBACK_INFORMATION structure that specifies a callback routine
-        ///     which is to receive extended minidump information. If the value of this parameter is NULL, no callbacks are
-        ///     performed
-        /// </param>
-        /// <returns>
-        ///     If the function succeeds, the return value is TRUE; otherwise, the return value is FALSE. To retrieve extended
-        ///     error information, call GetLastError. Note that the last error will be an HRESULT value.
-        ///     If the operation is canceled, the last error code is HRESULT_FROM_WIN32(ERROR_CANCELLED).
-        /// </returns>
-        [DllImport("dbghelp.dll")]
-        public static extern bool MiniDumpWriteDump(
-            IntPtr hProcess,
-            int processId,
-            IntPtr hFile,
-            int dumpType,
-            IntPtr exceptionParam,
-            IntPtr userStreamParam,
-            IntPtr callackParam);
 
         /// <summary>
         ///     Creates the dump file
@@ -167,7 +128,7 @@
             {
                 if (fs.SafeFileHandle != null)
                 {
-                    MiniDumpWriteDump(
+                    SystemMiniDumpCreator.MiniDumpWriteDump(
                         process.Handle,
                         process.Id,
                         fs.SafeFileHandle.DangerousGetHandle(),

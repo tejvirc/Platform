@@ -10,12 +10,14 @@
     using System.Runtime.InteropServices;
     using System.Security.Permissions;
     using System.Threading.Tasks;
+    using CrashHandlerDotNet;
     using Kernel;
     using Kernel.Contracts;
     using Kernel.Debugging;
     using log4net;
     using log4net.Config;
     using Mono.Addins;
+    using NativeOS.Services.OS;
 
     public sealed class Bootstrap : MarshalByRefObject
     {
@@ -87,12 +89,12 @@
 
             SetUnhandledExceptionHandler();
             SetUnobservedTaskExceptionHandler();
-            NativeMethods.SetErrorMode(
-                NativeMethods.ErrorModes.SemFailCriticalErrors | NativeMethods.ErrorModes.SemNoGpFaultErrorBox);
+            BootstrapProvider.SetErrorMode(
+                BootstrapProvider.ErrorModes.SemFailCriticalErrors | BootstrapProvider.ErrorModes.SemNoGpFaultErrorBox);
             if (!CrashDumpRegistered)
             {
-                NativeMethods.SetCrashHandlerLogger(Logger.Fatal);
-                NativeMethods.RegisterCrashHandler("Monaco", @"..\logs");
+                CrashHandler.SetCrashHandlerLogger(Logger.Fatal);
+                CrashHandler.RegisterCrashHandler("Monaco", @"..\logs");
             }
 
             Logger.Debug($"Command line arguments: {string.Join(" ", args)}");
@@ -106,7 +108,7 @@
                 return (int)AppExitCode.Ok;
             }
 
-            NativeMethods.DisableProcessWindowsGhosting();
+            BootstrapProvider.DisableProcessWindowsGhosting();
 
             foreach (var item in _pendingProperties)
             {
@@ -144,7 +146,7 @@
 
             if (!CrashDumpRegistered)
             {
-                NativeMethods.UnRegisterCrashHandler();
+                CrashHandler.UnRegisterCrashHandler();
             }
 
             LogManager.Shutdown();

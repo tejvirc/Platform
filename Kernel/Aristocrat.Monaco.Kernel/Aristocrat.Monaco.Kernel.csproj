@@ -45,6 +45,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Aristocrat.Monaco.NativeOS.Services" Version="1.0.9" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Mono.Addins" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />

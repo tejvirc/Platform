@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Net;
     using System.Runtime.InteropServices;
+    using Monaco.NativeSerial;
 
     /// <summary>
     ///     Certificate binding configuration
@@ -19,7 +20,7 @@
         {
             var result = new List<CertificateBinding>();
 
-            NativeMethods.CallHttpApi(
+            HttpServiceProvider.CallHttpApi(
                 () =>
                 {
                     uint token = 0;
@@ -27,14 +28,14 @@
                     uint retVal;
                     do
                     {
-                        var query = new NativeMethods.HttpServiceConfigSslQuery
+                        var query = new HttpServiceProvider.HttpServiceConfigSslQuery
                         {
-                            QueryDesc = NativeMethods.HttpServiceConfigQueryType.HttpServiceConfigQueryNext,
+                            QueryDesc = HttpServiceProvider.HttpServiceConfigQueryType.HttpServiceConfigQueryNext,
                             Token = token
                         };
 
                         var pInputConfigInfo = Marshal.AllocCoTaskMem(
-                            Marshal.SizeOf(typeof(NativeMethods.HttpServiceConfigSslQuery)));
+                            Marshal.SizeOf(typeof(HttpServiceProvider.HttpServiceConfigSslQuery)));
                         Marshal.StructureToPtr(query, pInputConfigInfo, false);
 
                         var pOutputConfigInfo = IntPtr.Zero;
@@ -43,41 +44,41 @@
                         try
                         {
                             var inputConfigInfoSize = Marshal.SizeOf(query);
-                            retVal = NativeMethods.HttpQueryServiceConfiguration(
+                            retVal = HttpServiceProvider.HttpQueryServiceConfiguration(
                                 IntPtr.Zero,
-                                NativeMethods.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
+                                HttpServiceProvider.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
                                 pInputConfigInfo,
                                 inputConfigInfoSize,
                                 pOutputConfigInfo,
                                 returnLength,
                                 out returnLength,
                                 IntPtr.Zero);
-                            if (retVal == NativeMethods.ErrorNoMoreItems)
+                            if (retVal == HttpServiceProvider.ErrorNoMoreItems)
                             {
                                 break;
                             }
 
-                            if (retVal == NativeMethods.ErrorInsufficientBuffer)
+                            if (retVal == HttpServiceProvider.ErrorInsufficientBuffer)
                             {
                                 pOutputConfigInfo = Marshal.AllocCoTaskMem(returnLength);
 
                                 try
                                 {
-                                    retVal = NativeMethods.HttpQueryServiceConfiguration(
+                                    retVal = HttpServiceProvider.HttpQueryServiceConfiguration(
                                         IntPtr.Zero,
-                                        NativeMethods.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
+                                        HttpServiceProvider.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
                                         pInputConfigInfo,
                                         inputConfigInfoSize,
                                         pOutputConfigInfo,
                                         returnLength,
                                         out returnLength,
                                         IntPtr.Zero);
-                                    NativeMethods.ThrowWin32ExceptionIfError(retVal);
+                                    HttpServiceProvider.ThrowWin32ExceptionIfError(retVal);
 
                                     var outputConfigInfo =
-                                        (NativeMethods.HttpServiceConfigSslSet)Marshal.PtrToStructure(
+                                        (HttpServiceProvider.HttpServiceConfigSslSet)Marshal.PtrToStructure(
                                             pOutputConfigInfo,
-                                            typeof(NativeMethods.HttpServiceConfigSslSet));
+                                            typeof(HttpServiceProvider.HttpServiceConfigSslSet));
                                     var resultItem = CreateCertificateBindingInfo(outputConfigInfo);
                                     result.Add(resultItem);
                                     token++;
@@ -89,14 +90,14 @@
                             }
                             else
                             {
-                                NativeMethods.ThrowWin32ExceptionIfError(retVal);
+                                HttpServiceProvider.ThrowWin32ExceptionIfError(retVal);
                             }
                         }
                         finally
                         {
                             Marshal.FreeCoTaskMem(pInputConfigInfo);
                         }
-                    } while (retVal == NativeMethods.NoError);
+                    } while (retVal == HttpServiceProvider.NoError);
                 });
 
             return result;
@@ -112,21 +113,21 @@
             CertificateBinding result = null;
 
             uint retVal;
-            NativeMethods.CallHttpApi(
+            HttpServiceProvider.CallHttpApi(
                 () =>
                 {
                     var sockAddressHandle = SockAddressInterop.CreateSockAddressStructure(endpoint);
                     var pIpPort = sockAddressHandle.AddrOfPinnedObject();
-                    var sslKey = new NativeMethods.HttpServiceConfigSslKey(pIpPort);
+                    var sslKey = new HttpServiceProvider.HttpServiceConfigSslKey(pIpPort);
 
-                    var inputConfigInfoQuery = new NativeMethods.HttpServiceConfigSslQuery
+                    var inputConfigInfoQuery = new HttpServiceProvider.HttpServiceConfigSslQuery
                     {
-                        QueryDesc = NativeMethods.HttpServiceConfigQueryType.HttpServiceConfigQueryExact,
+                        QueryDesc = HttpServiceProvider.HttpServiceConfigQueryType.HttpServiceConfigQueryExact,
                         KeyDesc = sslKey
                     };
 
                     var pInputConfigInfo = Marshal.AllocCoTaskMem(
-                        Marshal.SizeOf(typeof(NativeMethods.HttpServiceConfigSslQuery)));
+                        Marshal.SizeOf(typeof(HttpServiceProvider.HttpServiceConfigSslQuery)));
                     Marshal.StructureToPtr(inputConfigInfoQuery, pInputConfigInfo, false);
 
                     var pOutputConfigInfo = IntPtr.Zero;
@@ -135,39 +136,39 @@
                     try
                     {
                         var inputConfigInfoSize = Marshal.SizeOf(inputConfigInfoQuery);
-                        retVal = NativeMethods.HttpQueryServiceConfiguration(
+                        retVal = HttpServiceProvider.HttpQueryServiceConfiguration(
                             IntPtr.Zero,
-                            NativeMethods.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
+                            HttpServiceProvider.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
                             pInputConfigInfo,
                             inputConfigInfoSize,
                             pOutputConfigInfo,
                             returnLength,
                             out returnLength,
                             IntPtr.Zero);
-                        if (retVal == NativeMethods.ErrorFileNotFound)
+                        if (retVal == HttpServiceProvider.ErrorFileNotFound)
                         {
                             return;
                         }
 
-                        if (retVal == NativeMethods.ErrorInsufficientBuffer)
+                        if (retVal == HttpServiceProvider.ErrorInsufficientBuffer)
                         {
                             pOutputConfigInfo = Marshal.AllocCoTaskMem(returnLength);
                             try
                             {
-                                retVal = NativeMethods.HttpQueryServiceConfiguration(
+                                retVal = HttpServiceProvider.HttpQueryServiceConfiguration(
                                     IntPtr.Zero,
-                                    NativeMethods.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
+                                    HttpServiceProvider.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
                                     pInputConfigInfo,
                                     inputConfigInfoSize,
                                     pOutputConfigInfo,
                                     returnLength,
                                     out returnLength,
                                     IntPtr.Zero);
-                                NativeMethods.ThrowWin32ExceptionIfError(retVal);
+                                HttpServiceProvider.ThrowWin32ExceptionIfError(retVal);
 
-                                var outputConfigInfo = (NativeMethods.HttpServiceConfigSslSet)Marshal.PtrToStructure(
+                                var outputConfigInfo = (HttpServiceProvider.HttpServiceConfigSslSet)Marshal.PtrToStructure(
                                     pOutputConfigInfo,
-                                    typeof(NativeMethods.HttpServiceConfigSslSet));
+                                    typeof(HttpServiceProvider.HttpServiceConfigSslSet));
                                 result = CreateCertificateBindingInfo(outputConfigInfo);
                             }
                             finally
@@ -177,7 +178,7 @@
                         }
                         else
                         {
-                            NativeMethods.ThrowWin32ExceptionIfError(retVal);
+                            HttpServiceProvider.ThrowWin32ExceptionIfError(retVal);
                         }
                     }
                     finally
@@ -201,40 +202,40 @@
         public bool Bind(CertificateBinding binding)
         {
             var bindingUpdated = false;
-            NativeMethods.CallHttpApi(
+            HttpServiceProvider.CallHttpApi(
                 () =>
                 {
                     var sockAddressHandle = SockAddressInterop.CreateSockAddressStructure(binding.Endpoint);
                     var pIpPort = sockAddressHandle.AddrOfPinnedObject();
-                    var httpServiceConfigSslKey = new NativeMethods.HttpServiceConfigSslKey(pIpPort);
+                    var httpServiceConfigSslKey = new HttpServiceProvider.HttpServiceConfigSslKey(pIpPort);
 
                     var hash = GetHash(binding.Thumbprint);
                     var handleHash = GCHandle.Alloc(hash, GCHandleType.Pinned);
                     var options = binding.Options;
-                    var configSslParam = new NativeMethods.HttpServiceConfigSslParam
+                    var configSslParam = new HttpServiceProvider.HttpServiceConfigSslParam
                     {
                         AppId = binding.AppId,
                         DefaultCertCheckMode =
                             (!options.VerifyCertificateRevocation
-                                ? NativeMethods.CertCheckModes.DoNotVerifyCertificateRevocation
+                                ? HttpServiceProvider.CertCheckModes.DoNotVerifyCertificateRevocation
                                 : 0)
                             |
                             (options.VerifyRevocationWithCachedCertificateOnly
-                                ? NativeMethods.CertCheckModes.VerifyRevocationWithCachedCertificateOnly
+                                ? HttpServiceProvider.CertCheckModes.VerifyRevocationWithCachedCertificateOnly
                                 : 0)
                             |
                             (options.EnableRevocationFreshnessTime
-                                ? NativeMethods.CertCheckModes.EnableRevocationFreshnessTime
+                                ? HttpServiceProvider.CertCheckModes.EnableRevocationFreshnessTime
                                 : 0)
-                            | (!options.UsageCheck ? NativeMethods.CertCheckModes.NoUsageCheck : 0),
+                            | (!options.UsageCheck ? HttpServiceProvider.CertCheckModes.NoUsageCheck : 0),
                         DefaultFlags =
                             (options.NegotiateClientCertificate
-                                ? NativeMethods.HttpServiceConfigSslFlag.NegotiateClientCert
+                                ? HttpServiceProvider.HttpServiceConfigSslFlag.NegotiateClientCert
                                 : 0)
-                            | (options.Mapped ? NativeMethods.HttpServiceConfigSslFlag.UseDsMapper : 0)
+                            | (options.Mapped ? HttpServiceProvider.HttpServiceConfigSslFlag.UseDsMapper : 0)
                             |
                             (options.DoNotPassRequestsToRawFilters
-                                ? NativeMethods.HttpServiceConfigSslFlag.NoRawFilter
+                                ? HttpServiceProvider.HttpServiceConfigSslFlag.NoRawFilter
                                 : 0),
                         DefaultRevocationFreshnessTime = (int)options.RevocationFreshnessTime.TotalSeconds,
                         DefaultRevocationUrlRetrievalTimeout =
@@ -246,47 +247,47 @@
                         DefaultSslCtlStoreName = options.SslControlStoreName
                     };
 
-                    var configSslSet = new NativeMethods.HttpServiceConfigSslSet
+                    var configSslSet = new HttpServiceProvider.HttpServiceConfigSslSet
                     {
                         ParamDesc = configSslParam,
                         KeyDesc = httpServiceConfigSslKey
                     };
 
                     var pInputConfigInfo = Marshal.AllocCoTaskMem(
-                        Marshal.SizeOf(typeof(NativeMethods.HttpServiceConfigSslSet)));
+                        Marshal.SizeOf(typeof(HttpServiceProvider.HttpServiceConfigSslSet)));
                     Marshal.StructureToPtr(configSslSet, pInputConfigInfo, false);
 
                     try
                     {
-                        var retVal = NativeMethods.HttpSetServiceConfiguration(
+                        var retVal = HttpServiceProvider.HttpSetServiceConfiguration(
                             IntPtr.Zero,
-                            NativeMethods.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
+                            HttpServiceProvider.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
                             pInputConfigInfo,
                             Marshal.SizeOf(configSslSet),
                             IntPtr.Zero);
 
-                        if (retVal != NativeMethods.ErrorAlreadyExists)
+                        if (retVal != HttpServiceProvider.ErrorAlreadyExists)
                         {
-                            NativeMethods.ThrowWin32ExceptionIfError(retVal);
+                            HttpServiceProvider.ThrowWin32ExceptionIfError(retVal);
                             bindingUpdated = true;
                         }
                         else
                         {
-                            retVal = NativeMethods.HttpDeleteServiceConfiguration(
+                            retVal = HttpServiceProvider.HttpDeleteServiceConfiguration(
                                 IntPtr.Zero,
-                                NativeMethods.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
+                                HttpServiceProvider.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
                                 pInputConfigInfo,
                                 Marshal.SizeOf(configSslSet),
                                 IntPtr.Zero);
-                            NativeMethods.ThrowWin32ExceptionIfError(retVal);
+                            HttpServiceProvider.ThrowWin32ExceptionIfError(retVal);
 
-                            retVal = NativeMethods.HttpSetServiceConfiguration(
+                            retVal = HttpServiceProvider.HttpSetServiceConfiguration(
                                 IntPtr.Zero,
-                                NativeMethods.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
+                                HttpServiceProvider.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
                                 pInputConfigInfo,
                                 Marshal.SizeOf(configSslSet),
                                 IntPtr.Zero);
-                            NativeMethods.ThrowWin32ExceptionIfError(retVal);
+                            HttpServiceProvider.ThrowWin32ExceptionIfError(retVal);
                             bindingUpdated = true;
                         }
                     }
@@ -335,7 +336,7 @@
                 return;
             }
 
-            NativeMethods.CallHttpApi(
+            HttpServiceProvider.CallHttpApi(
                 () =>
                 {
                     foreach (var ipPort in ipEndPoints)
@@ -343,26 +344,26 @@
                         var sockAddressHandle = SockAddressInterop.CreateSockAddressStructure(ipPort);
                         var pIpPort = sockAddressHandle.AddrOfPinnedObject();
                         var httpServiceConfigSslKey =
-                            new NativeMethods.HttpServiceConfigSslKey(pIpPort);
+                            new HttpServiceProvider.HttpServiceConfigSslKey(pIpPort);
 
-                        var configSslSet = new NativeMethods.HttpServiceConfigSslSet
+                        var configSslSet = new HttpServiceProvider.HttpServiceConfigSslSet
                         {
                             KeyDesc = httpServiceConfigSslKey
                         };
 
                         var pInputConfigInfo = Marshal.AllocCoTaskMem(
-                            Marshal.SizeOf(typeof(NativeMethods.HttpServiceConfigSslSet)));
+                            Marshal.SizeOf(typeof(HttpServiceProvider.HttpServiceConfigSslSet)));
                         Marshal.StructureToPtr(configSslSet, pInputConfigInfo, false);
 
                         try
                         {
-                            var retVal = NativeMethods.HttpDeleteServiceConfiguration(
+                            var retVal = HttpServiceProvider.HttpDeleteServiceConfiguration(
                                 IntPtr.Zero,
-                                NativeMethods.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
+                                HttpServiceProvider.HttpServiceConfigId.HttpServiceConfigSslCertInfo,
                                 pInputConfigInfo,
                                 Marshal.SizeOf(configSslSet),
                                 IntPtr.Zero);
-                            NativeMethods.ThrowWin32ExceptionIfError(retVal);
+                            HttpServiceProvider.ThrowWin32ExceptionIfError(retVal);
                         }
                         finally
                         {
@@ -376,7 +377,7 @@
                 });
         }
 
-        private static CertificateBinding CreateCertificateBindingInfo(NativeMethods.HttpServiceConfigSslSet configInfo)
+        private static CertificateBinding CreateCertificateBindingInfo(HttpServiceProvider.HttpServiceConfigSslSet configInfo)
         {
             var hash = new byte[configInfo.ParamDesc.SslHashLength];
             Marshal.Copy(configInfo.ParamDesc.SslHash, hash, 0, hash.Length);
@@ -388,12 +389,12 @@
             var options = new BindingOptions
             {
                 VerifyCertificateRevocation =
-                    !HasFlag(checkModes, NativeMethods.CertCheckModes.DoNotVerifyCertificateRevocation),
+                    !HasFlag(checkModes, HttpServiceProvider.CertCheckModes.DoNotVerifyCertificateRevocation),
                 VerifyRevocationWithCachedCertificateOnly =
-                    HasFlag(checkModes, NativeMethods.CertCheckModes.VerifyRevocationWithCachedCertificateOnly),
+                    HasFlag(checkModes, HttpServiceProvider.CertCheckModes.VerifyRevocationWithCachedCertificateOnly),
                 EnableRevocationFreshnessTime =
-                    HasFlag(checkModes, NativeMethods.CertCheckModes.EnableRevocationFreshnessTime),
-                UsageCheck = !HasFlag(checkModes, NativeMethods.CertCheckModes.NoUsageCheck),
+                    HasFlag(checkModes, HttpServiceProvider.CertCheckModes.EnableRevocationFreshnessTime),
+                UsageCheck = !HasFlag(checkModes, HttpServiceProvider.CertCheckModes.NoUsageCheck),
                 RevocationFreshnessTime = TimeSpan.FromSeconds(configInfo.ParamDesc.DefaultRevocationFreshnessTime),
                 UrlRetrievalTimeout =
                     TimeSpan.FromMilliseconds(configInfo.ParamDesc.DefaultRevocationUrlRetrievalTimeout),
@@ -402,11 +403,11 @@
                 NegotiateClientCertificate =
                     HasFlag(
                         configInfo.ParamDesc.DefaultFlags,
-                        NativeMethods.HttpServiceConfigSslFlag.NegotiateClientCert),
+                        HttpServiceProvider.HttpServiceConfigSslFlag.NegotiateClientCert),
                 Mapped =
-                    HasFlag(configInfo.ParamDesc.DefaultFlags, NativeMethods.HttpServiceConfigSslFlag.UseDsMapper),
+                    HasFlag(configInfo.ParamDesc.DefaultFlags, HttpServiceProvider.HttpServiceConfigSslFlag.UseDsMapper),
                 DoNotPassRequestsToRawFilters =
-                    HasFlag(configInfo.ParamDesc.DefaultFlags, NativeMethods.HttpServiceConfigSslFlag.NoRawFilter)
+                    HasFlag(configInfo.ParamDesc.DefaultFlags, HttpServiceProvider.HttpServiceConfigSslFlag.NoRawFilter)
             };
 
             return new CertificateBinding(GetThumbprint(hash), storeName, ipPort, appId, options);

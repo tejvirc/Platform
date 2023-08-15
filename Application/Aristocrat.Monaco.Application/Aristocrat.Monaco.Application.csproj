@@ -280,7 +280,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.22" />
-    <PackageReference Include="Aristocrat.Monaco.NativeOS.Services" Version="1.0.7" />
     <PackageReference Include="Aristocrat.Signing" Version="1.1.7" />
     <PackageReference Include="Aristocrat.SmartCard" Version="1.1.2" />
     <PackageReference Include="BouncyCastle" Version="1.8.4" />

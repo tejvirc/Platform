@@ -1,15 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Runtime
 {
-    using Application.Contracts;
-    using Contracts;
-    using Contracts.Models;
-    using Contracts.Process;
-    using Kernel;
     using System;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
+    using Application.Contracts;
+    using Contracts;
+    using Contracts.Models;
+    using Contracts.Process;
     using Hardware.Contracts.Display;
+    using Kernel;
 
     /// <summary>
     ///     Service used to start a game process
@@ -23,7 +23,7 @@
         private readonly IPropertiesManager _properties;
         private readonly IDisplayService _display;
 
-        private readonly object _lock = new object();
+        private readonly object _lock = new();
 
         private readonly string _gamesPath;
         private readonly string _runtimeRoot;
@@ -35,7 +35,11 @@
         /// <param name="processManager">The process manager</param>
         /// <param name="pathMapper">The path mapper</param>
         /// <param name="display">The display service</param>
-        public GameProcess(IPropertiesManager properties, IProcessManager processManager, IPathMapper pathMapper, IDisplayService display)
+        public GameProcess(
+            IPropertiesManager properties,
+            IProcessManager processManager,
+            IPathMapper pathMapper,
+            IDisplayService display)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _processManager = processManager ?? throw new ArgumentNullException(nameof(processManager));

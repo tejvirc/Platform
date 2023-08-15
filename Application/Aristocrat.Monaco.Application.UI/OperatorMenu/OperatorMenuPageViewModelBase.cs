@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using System.Runtime.InteropServices;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
@@ -16,6 +15,7 @@
     using Contracts.ConfigWizard;
     using Contracts.Extensions;
     using Contracts.HardwareDiagnostics;
+    using Contracts.LampTest;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Contracts.Tickets;
@@ -34,6 +34,8 @@
     using MVVM;
     using MVVM.Command;
     using MVVM.ViewModel;
+    using NativeTouch;
+    using Point = System.Drawing.Point;
 
     public enum OperatorMenuPrintData
     {
@@ -50,7 +52,8 @@
     ///     All operator menu page ViewModels should inherit from this base class
     /// </summary>
     [CLSCompliant(false)]
-    public abstract class OperatorMenuPageViewModelBase : BaseEntityViewModel, IOperatorMenuPageViewModel, ILiveSettingParent
+    public abstract class OperatorMenuPageViewModelBase : BaseEntityViewModel, IOperatorMenuPageViewModel,
+        ILiveSettingParent
     {
         private const string PlayedCount = "PlayedCount";
         private const string TestMode = "TestMode";
@@ -58,7 +61,7 @@
         private const string OnScreenKeyboardClassName = "IPTip_Main_Window";
         private const int WindowManagerSysCommand = 0x0112;
         private const int SysCommandClose = 0xF060;
-        private static readonly object TicketGenerationLock = new object();
+        private static readonly object TicketGenerationLock = new();
         protected new readonly ILog Logger;
         protected bool DefaultPrintButtonEnabled;
 
@@ -87,7 +90,7 @@
         private OperatorMenuAccessRestriction _fieldAccessRestriction;
         private string _testWarningText;
         private bool _printButtonAccessEnabled = true;
-        private CancellationTokenSource _printCancellationTokenSource = new CancellationTokenSource();
+        private CancellationTokenSource _printCancellationTokenSource = new();
 
         /// <summary>
         ///     Initialize OperatorMenuPageViewModelBase
@@ -95,7 +98,8 @@
         /// <param name="defaultPrintButtonEnabled">
         ///     Whether or not this page should have the audit menu main print button enabled by default.
         ///     GenerateTicketsForPrint MUST be implemented for the page if setting this to true.
-        ///     This can be overridden by jurisdiction by setting PrintButtonEnabled in the OperatorMenu.config.xml for the specific page.
+        ///     This can be overridden by jurisdiction by setting PrintButtonEnabled in the OperatorMenu.config.xml for the
+        ///     specific page.
         /// </param>
         protected OperatorMenuPageViewModelBase(bool defaultPrintButtonEnabled = false)
         {
@@ -109,7 +113,9 @@
             EventViewerScrolledCommand = new ActionCommand<ScrollChangedEventArgs>(OnEventViewerScrolledCommand);
             ShowInfoPopupCommand = new ActionCommand<object>(ShowInfoPopup);
             DefaultPrintButtonEnabled = defaultPrintButtonEnabled;
-            UseOperatorCultureForCurrencyFormatting = Configuration?.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false) ?? false;
+            UseOperatorCultureForCurrencyFormatting = Configuration?.GetSetting(
+                OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting,
+                false) ?? false;
             SetIgnoreProperties();
         }
 
@@ -159,11 +165,15 @@
                 {
                     _inputEnabled = value;
 
-                    MvvmHelper.ExecuteOnUI(() =>
-                    {
-                        OnInputEnabledChanged();
-                        RaisePropertyChanged(nameof(InputEnabled), nameof(InputEnabledByRuleOverride), nameof(IsInputEnabled));
-                    });
+                    MvvmHelper.ExecuteOnUI(
+                        () =>
+                        {
+                            OnInputEnabledChanged();
+                            RaisePropertyChanged(
+                                nameof(InputEnabled),
+                                nameof(InputEnabledByRuleOverride),
+                                nameof(IsInputEnabled));
+                        });
                 }
             }
         }
@@ -271,7 +281,8 @@
                 if (_printButtonAccessEnabled != value)
                 {
                     _printButtonAccessEnabled = value;
-                    RaisePropertyChanged(nameof(PrintButtonAccessEnabled),
+                    RaisePropertyChanged(
+                        nameof(PrintButtonAccessEnabled),
                         nameof(PrinterButtonsEnabled),
                         nameof(MainPrintButtonEnabled));
                     UpdatePrinterButtons();
@@ -295,24 +306,6 @@
                     _noGamesPlayed = value;
                     RaisePropertyChanged(nameof(NoGamesPlayed));
                 }
-            }
-        }
-
-        /// <summary>
-        ///     This can be used for all printer buttons other than the global Print button
-        /// </summary>
-        private bool PrinterButtonsEnabledInternal
-        {
-            get => _printerButtonsEnabledInternal ?? false;
-            set
-            {
-                if (_printerButtonsEnabledInternal != value)
-                {
-                    _printerButtonsEnabledInternal = value;
-                    RaisePropertyChanged(nameof(MainPrintButtonEnabled), nameof(PrinterButtonsEnabled));
-                }
-
-                UpdatePrinterButtons();
             }
         }
 
@@ -363,6 +356,69 @@
             }
         }
 
+        public virtual bool PageSupportsMainPrintButton
+        {
+            get => _pageSupportsMainPrintButton;
+            private set
+            {
+                if (_pageSupportsMainPrintButton != value)
+                {
+                    _pageSupportsMainPrintButton = value;
+                    RaisePropertyChanged(nameof(MainPrintButtonEnabled));
+                }
+            }
+        }
+
+        public CultureInfo CurrencyDisplayCulture => GetCurrencyDisplayCulture();
+
+        protected IEventBus EventBus =>
+            _eventBus ??= ServiceManager.GetInstance().TryGetService<IEventBus>();
+
+        protected IPropertiesManager PropertiesManager =>
+            _properties ??= ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
+
+        protected IOperatorMenuConfiguration Configuration =>
+            _configuration ??= ServiceManager.GetInstance().TryGetService<IOperatorMenuConfiguration>();
+
+        protected IOperatorMenuAccess Access =>
+            _access ??= ServiceManager.GetInstance().TryGetService<IOperatorMenuAccess>();
+
+        protected IPrinter Printer => ServiceManager.GetInstance().TryGetService<IPrinter>();
+
+        protected virtual bool IsContainerPage => false;
+
+        /// <summary>
+        ///     Is this a temporary modal dialog?
+        /// </summary>
+        protected virtual bool IsModalDialog => false;
+
+        protected OperatorMenuAccessRestriction AccessRestriction { get; private set; }
+
+        protected bool ClearValidationOnUnload { get; set; }
+
+        /// <summary>
+        ///     This can be used for all printer buttons other than the global Print button
+        /// </summary>
+        private bool PrinterButtonsEnabledInternal
+        {
+            get => _printerButtonsEnabledInternal ?? false;
+            set
+            {
+                if (_printerButtonsEnabledInternal != value)
+                {
+                    _printerButtonsEnabledInternal = value;
+                    RaisePropertyChanged(nameof(MainPrintButtonEnabled), nameof(PrinterButtonsEnabled));
+                }
+
+                UpdatePrinterButtons();
+            }
+        }
+
+        /// <summary>
+        ///     Enables live settings on this VM.
+        /// </summary>
+        public bool IsInputEnabled => InputEnabled;
+
         /// <summary>
         ///     For data that takes time to load, this can be used to display an indeterminate progress bar
         /// </summary>
@@ -384,55 +440,65 @@
 
         public virtual bool MainPrintButtonEnabled => PageSupportsMainPrintButton && PrinterButtonsEnabled;
 
-        public virtual bool PageSupportsMainPrintButton
-        {
-            get => _pageSupportsMainPrintButton;
-            private set
-            {
-                if (_pageSupportsMainPrintButton != value)
-                {
-                    _pageSupportsMainPrintButton = value;
-                    RaisePropertyChanged(nameof(MainPrintButtonEnabled));
-                }
-            }
-        }
-
         /// <inheritdoc />
         public virtual bool CanCalibrateTouchScreens => true;
 
         public virtual bool PopupOpen { get; set; }
 
-        public CultureInfo CurrencyDisplayCulture => GetCurrencyDisplayCulture();
-
-        protected IEventBus EventBus =>
-            _eventBus ??= ServiceManager.GetInstance().TryGetService<IEventBus>();
-
-        protected IPropertiesManager PropertiesManager =>
-            _properties ??= ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
-
-        protected IOperatorMenuConfiguration Configuration =>
-            _configuration ??= ServiceManager.GetInstance().TryGetService<IOperatorMenuConfiguration>();
-
-        protected IOperatorMenuAccess Access =>
-            _access ??= ServiceManager.GetInstance().TryGetService<IOperatorMenuAccess>();
-
-        protected IPrinter Printer => ServiceManager.GetInstance().TryGetService<IPrinter>();
-
-        protected virtual bool IsContainerPage => false;
-
-        /// <summary>
-        /// Is this a temporary modal dialog?
-        /// </summary>
-        protected virtual bool IsModalDialog => false;
-
-        protected OperatorMenuAccessRestriction AccessRestriction { get; private set; }
-
-        protected bool ClearValidationOnUnload { get; set; }
-
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        protected static void CloseTouchScreenKeyboard()
+        {
+            // Try to find the on-screen keyboard, which since Windows 8 is not a normal window.
+            // Search the interior of the screen in a grid pattern large enough to catch it.
+            var div = 10;
+            for (var x = SystemParameters.PrimaryScreenWidth / div;
+                 x < SystemParameters.PrimaryScreenWidth;
+                 x += SystemParameters.PrimaryScreenWidth / div)
+            {
+                for (var y = SystemParameters.PrimaryScreenHeight / div;
+                     y < SystemParameters.PrimaryScreenHeight;
+                     y += SystemParameters.PrimaryScreenHeight / div)
+                {
+                    // Is there a window at this point?
+                    var hWnd = TouchScreenKeyboard.WindowFromPoint(new Point((int)x, (int)y));
+                    if (hWnd == IntPtr.Zero)
+                    {
+                        continue;
+                    }
+
+                    // Does the window have a parent?
+                    hWnd = TouchScreenKeyboard.GetParent(hWnd);
+                    if (hWnd == IntPtr.Zero)
+                    {
+                        continue;
+                    }
+
+                    // Is the parent's class called "IPTip_Main_Window"?
+                    // 256 characters is the maximum class name length.
+                    var className = new StringBuilder(256);
+                    if (TouchScreenKeyboard.GetClassName(hWnd, className, className.Capacity) != 0 &&
+                        string.Compare(
+                            className.ToString(),
+                            OnScreenKeyboardClassName,
+                            true,
+                            CultureInfo.InvariantCulture) == 0)
+                    {
+                        // Found it!  Tell it to close.
+                        TouchScreenKeyboard.PostMessage(
+                            hWnd,
+                            WindowManagerSysCommand,
+                            (IntPtr)SysCommandClose,
+                            IntPtr.Zero);
+
+                        return;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -489,32 +555,11 @@
             return new List<Ticket>();
         }
 
-        protected virtual CultureInfo GetCurrencyDisplayCulture() => UseOperatorCultureForCurrencyFormatting ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
-
-        protected IEnumerable<Ticket> GeneratePrintVerificationTickets()
+        protected virtual CultureInfo GetCurrencyDisplayCulture()
         {
-            List<Ticket> tickets = null;
-            var ticketCreator = ServiceManager.GetInstance().TryGetService<IVerificationTicketCreator>();
-            if (ticketCreator != null)
-            {
-                tickets = new List<Ticket>();
-                for (var i = 0; i < 3; i++)
-                {
-                    var baseTickets = SplitTicket(ticketCreator.Create(i));
-
-                    if (baseTickets.Count > 1)
-                    {
-                        var secondTicket = baseTickets[1];
-                        var ticket = ticketCreator.CreateOverflowPage(i);
-                        secondTicket[TicketConstants.Left] = $"{ticket[TicketConstants.Left]}{secondTicket[TicketConstants.Left]}";
-                        secondTicket[TicketConstants.Center] = $"{ticket[TicketConstants.Center]}{secondTicket[TicketConstants.Center]}";
-                        secondTicket[TicketConstants.Right] = $"{ticket[TicketConstants.Right]}{secondTicket[TicketConstants.Right]}";
-                    }
-                    tickets.AddRange(baseTickets);
-                }
-            }
-
-            return tickets;
+            return UseOperatorCultureForCurrencyFormatting
+                ? Localizer.For(CultureFor.Operator).CurrentCulture
+                : CurrencyExtensions.CurrencyCultureInfo;
         }
 
         /// <summary>
@@ -569,33 +614,34 @@
             SetInputStatus();
         }
 
-        private void _UpdateStatusText()
+        protected IEnumerable<Ticket> GeneratePrintVerificationTickets()
         {
-            if (IsContainerPage || IsModalDialog)
+            List<Ticket> tickets = null;
+            var ticketCreator = ServiceManager.GetInstance().TryGetService<IVerificationTicketCreator>();
+            if (ticketCreator != null)
             {
-                // TODO: Please refactor this. IsModalDialog was added to fix VLT-18567,
-                // but there are better ways of fixing the issue than simply blocking
-                // modal dialogs from updating the OperatorMenu warning status text.
-                return;
+                tickets = new List<Ticket>();
+                for (var i = 0; i < 3; i++)
+                {
+                    var baseTickets = SplitTicket(ticketCreator.Create(i));
+
+                    if (baseTickets.Count > 1)
+                    {
+                        var secondTicket = baseTickets[1];
+                        var ticket = ticketCreator.CreateOverflowPage(i);
+                        secondTicket[TicketConstants.Left] =
+                            $"{ticket[TicketConstants.Left]}{secondTicket[TicketConstants.Left]}";
+                        secondTicket[TicketConstants.Center] =
+                            $"{ticket[TicketConstants.Center]}{secondTicket[TicketConstants.Center]}";
+                        secondTicket[TicketConstants.Right] =
+                            $"{ticket[TicketConstants.Right]}{secondTicket[TicketConstants.Right]}";
+                    }
+
+                    tickets.AddRange(baseTickets);
+                }
             }
 
-            // By default always display the Input Status text unless the Field Access Status text is not empty
-            if (!string.IsNullOrEmpty(FieldAccessStatusText))
-            {
-                EventBus.Publish(new OperatorMenuWarningMessageEvent(FieldAccessStatusText));
-            }
-            else if (!string.IsNullOrEmpty(InputStatusText))
-            {
-                EventBus.Publish(new OperatorMenuWarningMessageEvent(InputStatusText));
-            }
-            else if (!string.IsNullOrEmpty(PrintButtonStatusText))
-            {
-                EventBus.Publish(new OperatorMenuWarningMessageEvent(PrintButtonStatusText));
-            }
-            else
-            {
-                EventBus.Publish(new OperatorMenuWarningMessageEvent());
-            }
+            return tickets;
         }
 
         protected async void InitializeDataAsync()
@@ -648,7 +694,10 @@
 
             PrinterButtonsEnabledInternal = false;
             EventBus.Publish(new OperatorMenuPrintJobStartedEvent());
-            if (isDiagnostic) EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Printer));
+            if (isDiagnostic)
+            {
+                EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Printer));
+            }
 
             var token = _printCancellationTokenSource.Token;
 
@@ -674,7 +723,11 @@
                         else
                         {
                             EventBus.Publish(new OperatorMenuPrintJobCompletedEvent());
-                            if (isDiagnostic) EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Printer));
+                            if (isDiagnostic)
+                            {
+                                EventBus.Publish(
+                                    new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Printer));
+                            }
                         }
 
                         callback?.Invoke();
@@ -687,7 +740,8 @@
                     EventBus.Publish(new OperatorMenuPrintJobCompletedEvent());
                     if (isDiagnostic)
                     {
-                        EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Printer));
+                        EventBus.Publish(
+                            new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Printer));
                     }
                 });
         }
@@ -760,96 +814,6 @@
             }
         }
 
-        private void SetFieldAccessRestrictionText()
-        {
-            if (TryGetWarningMessage(FieldAccessRestriction, out var warningMessage) &&
-                FieldAccessStatusText != warningMessage)
-            {
-                FieldAccessStatusText = warningMessage;
-            }
-        }
-
-        private static OperatorMenuAccessRestriction GetCurrentRestriction(
-            OperatorMenuAccessRestriction accessRestriction,
-            OperatorMenuAccessRestriction fieldAccessRestriction)
-        {
-            if (accessRestriction == OperatorMenuAccessRestriction.None
-                && fieldAccessRestriction != OperatorMenuAccessRestriction.None)
-            {
-                return fieldAccessRestriction;
-            }
-
-            if (fieldAccessRestriction == OperatorMenuAccessRestriction.None
-                && accessRestriction != OperatorMenuAccessRestriction.None)
-            {
-                return accessRestriction;
-            }
-
-            return fieldAccessRestriction == accessRestriction
-                ? accessRestriction
-                : OperatorMenuAccessRestriction.None;
-        }
-
-        private bool AllFieldsReadonly()
-        {
-            return !InputEnabled;
-        }
-
-        private bool TryGetWarningMessage(OperatorMenuAccessRestriction restriction, out string warningMessage)
-        {
-            warningMessage = null;
-
-            switch (restriction)
-            {
-                case OperatorMenuAccessRestriction.None:
-                    warningMessage = string.Empty;
-                    return true;
-                case OperatorMenuAccessRestriction.GamesPlayed:
-                    warningMessage = AllFieldsReadonly()
-                        ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GamesPlayedWarning)
-                        : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SomeGamesPlayedWarning);
-                    return true;
-                case OperatorMenuAccessRestriction.InGameRound:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EndGameRoundBeforeChange);
-                    return true;
-                case OperatorMenuAccessRestriction.GameLoaded:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitGameBeforeChange);
-                    return true;
-                case OperatorMenuAccessRestriction.ZeroCredits:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RemoveAllCreditsBeforeChange);
-                    return true;
-                case OperatorMenuAccessRestriction.MainDoor:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OpenMainDoor);
-                    return true;
-                case OperatorMenuAccessRestriction.MainOpticDoor:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OpenMainDoor);
-                    return true;
-                case OperatorMenuAccessRestriction.LogicDoor:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OpenLogicDoor);
-                    return true;
-                case OperatorMenuAccessRestriction.JackpotKey:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.JackpotKeyRequired);
-                    return true;
-                case OperatorMenuAccessRestriction.EKeyVerified:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifiedEKeyRequired);
-                    return true;
-                case OperatorMenuAccessRestriction.InitialGameConfigNotCompleteOrEKeyVerified:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifiedEKeyRequiredGameConfiguration);
-                    return true;
-                case OperatorMenuAccessRestriction.NoHardLockups:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RemoveAllHardLockupsBeforeChange);
-                    return true;
-                case OperatorMenuAccessRestriction.HostTechnician:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TechnicianCardRequired);
-                    return true;
-                case OperatorMenuAccessRestriction.ProgInit:
-                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameDisabledForProgressiveInitialization);
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
         protected void SetPrintAccessStatus(bool printEnabled, OperatorMenuAccessRestriction restriction)
         {
             PrintButtonAccessEnabled = printEnabled;
@@ -868,11 +832,12 @@
 
         protected void OnPrintButtonStatusChanged(PrintButtonStatusEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
-            {
-                PrinterButtonsEnabledInternal = evt.Enabled;
-                SetPrintAccessStatus(evt.Enabled, OperatorMenuAccessRestriction.None);
-            });
+            MvvmHelper.ExecuteOnUI(
+                () =>
+                {
+                    PrinterButtonsEnabledInternal = evt.Enabled;
+                    SetPrintAccessStatus(evt.Enabled, OperatorMenuAccessRestriction.None);
+                });
         }
 
         protected void OnDialogClosed(DialogClosedEvent evt)
@@ -892,16 +857,24 @@
 
         protected List<Ticket> SplitTicket(Ticket ticket)
         {
-            if ((!ticket.Data?.Any() ?? false) || ticket[TicketConstants.Left] == null || ticket[TicketConstants.Center] == null || ticket[TicketConstants.Right] == null)
+            if ((!ticket.Data?.Any() ?? false) || ticket[TicketConstants.Left] == null ||
+                ticket[TicketConstants.Center] == null || ticket[TicketConstants.Right] == null)
             {
                 return new List<Ticket> { ticket };
             }
 
             var tickets = new List<Ticket>();
-            var leftRemainder = ticket[TicketConstants.Left].TrimEnd().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-            var centerRemainder = ticket[TicketConstants.Center].TrimEnd().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-            var rightRemainder = ticket[TicketConstants.Right].TrimEnd().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-            var lineLimit = ServiceManager.GetInstance().TryGetService<IPropertiesManager>().GetValue(ApplicationConstants.AuditTicketLineLimit, 36);
+            var leftRemainder = ticket[TicketConstants.Left].TrimEnd().Split(
+                new[] { Environment.NewLine },
+                StringSplitOptions.None);
+            var centerRemainder = ticket[TicketConstants.Center].TrimEnd().Split(
+                new[] { Environment.NewLine },
+                StringSplitOptions.None);
+            var rightRemainder = ticket[TicketConstants.Right].TrimEnd().Split(
+                new[] { Environment.NewLine },
+                StringSplitOptions.None);
+            var lineLimit = ServiceManager.GetInstance().TryGetService<IPropertiesManager>()
+                .GetValue(ApplicationConstants.AuditTicketLineLimit, 36);
 
             while (leftRemainder.Length > 0)
             {
@@ -917,10 +890,12 @@
                 {
                     leftRemainder = leftRemainder.ToList().Prepend(string.Empty).ToArray();
                 }
+
                 if (centerRemainder.Length > 1)
                 {
                     centerRemainder = centerRemainder.ToList().Prepend(string.Empty).ToArray();
                 }
+
                 if (rightRemainder.Length > 1)
                 {
                     rightRemainder = rightRemainder.ToList().Prepend(string.Empty).ToArray();
@@ -952,7 +927,7 @@
                 return Configuration.GetSetting(pageType, settingName, defaultValue);
             }
 
-            return default(T);
+            return default;
         }
 
         protected T GetConfigSetting<T>(string settingName, T defaultValue)
@@ -962,7 +937,7 @@
                 return Configuration.GetSetting(this, settingName, defaultValue);
             }
 
-            return default(T);
+            return default;
         }
 
         protected T GetGlobalConfigSetting<T>(string settingName, T defaultValue)
@@ -972,49 +947,7 @@
                 return Configuration.GetSetting(settingName, defaultValue);
             }
 
-            return default(T);
-        }
-
-        protected static void CloseTouchScreenKeyboard()
-        {
-            // Try to find the on-screen keyboard, which since Windows 8 is not a normal window.
-            // Search the interior of the screen in a grid pattern large enough to catch it.
-            var div = 10;
-            for (var x = SystemParameters.PrimaryScreenWidth / div;
-                 x < SystemParameters.PrimaryScreenWidth;
-                 x += SystemParameters.PrimaryScreenWidth / div)
-            {
-                for (var y = SystemParameters.PrimaryScreenHeight / div;
-                     y < SystemParameters.PrimaryScreenHeight;
-                     y += SystemParameters.PrimaryScreenHeight / div)
-                {
-                    // Is there a window at this point?
-                    var hWnd = NativeMethods.WindowFromPoint(new System.Drawing.Point((int)x, (int)y));
-                    if (hWnd == IntPtr.Zero)
-                    {
-                        continue;
-                    }
-
-                    // Does the window have a parent?
-                    hWnd = NativeMethods.GetParent(hWnd);
-                    if (hWnd == IntPtr.Zero)
-                    {
-                        continue;
-                    }
-
-                    // Is the parent's class called "IPTip_Main_Window"?
-                    // 256 characters is the maximum class name length.
-                    var className = new StringBuilder(256);
-                    if (NativeMethods.GetClassName(hWnd, className, className.Capacity) != 0 &&
-                        string.Compare(className.ToString(), OnScreenKeyboardClassName, true, CultureInfo.InvariantCulture) == 0)
-                    {
-                        // Found it!  Tell it to close.
-                        NativeMethods.PostMessage(hWnd, WindowManagerSysCommand, (IntPtr)SysCommandClose, IntPtr.Zero);
-
-                        return;
-                    }
-                }
-            }
+            return default;
         }
 
         protected string GetBooleanDisplayText(bool value)
@@ -1037,7 +970,8 @@
 
             SetInputStatus();
 
-            PageSupportsMainPrintButton = Configuration?.GetPrintButtonEnabled(this, DefaultPrintButtonEnabled) ?? false;
+            PageSupportsMainPrintButton =
+                Configuration?.GetPrintButtonEnabled(this, DefaultPrintButtonEnabled) ?? false;
             PrintCurrentPageButtonVisible = GetGlobalConfigSetting(OperatorMenuSetting.PrintCurrentPage, true);
             PrintLast15ButtonVisible = GetGlobalConfigSetting(OperatorMenuSetting.PrintLast15, true);
             PrintSelectedButtonVisible = GetGlobalConfigSetting(OperatorMenuSetting.PrintSelected, true);
@@ -1049,9 +983,133 @@
 
             UpdateStatusText();
 
-            TurnOffLamps();  // VLT-10029
+            TurnOffLamps(); // VLT-10029
 
             IsLoaded = true;
+        }
+
+        private static OperatorMenuAccessRestriction GetCurrentRestriction(
+            OperatorMenuAccessRestriction accessRestriction,
+            OperatorMenuAccessRestriction fieldAccessRestriction)
+        {
+            if (accessRestriction == OperatorMenuAccessRestriction.None
+                && fieldAccessRestriction != OperatorMenuAccessRestriction.None)
+            {
+                return fieldAccessRestriction;
+            }
+
+            if (fieldAccessRestriction == OperatorMenuAccessRestriction.None
+                && accessRestriction != OperatorMenuAccessRestriction.None)
+            {
+                return accessRestriction;
+            }
+
+            return fieldAccessRestriction == accessRestriction
+                ? accessRestriction
+                : OperatorMenuAccessRestriction.None;
+        }
+
+        private void _UpdateStatusText()
+        {
+            if (IsContainerPage || IsModalDialog)
+            {
+                // TODO: Please refactor this. IsModalDialog was added to fix VLT-18567,
+                // but there are better ways of fixing the issue than simply blocking
+                // modal dialogs from updating the OperatorMenu warning status text.
+                return;
+            }
+
+            // By default always display the Input Status text unless the Field Access Status text is not empty
+            if (!string.IsNullOrEmpty(FieldAccessStatusText))
+            {
+                EventBus.Publish(new OperatorMenuWarningMessageEvent(FieldAccessStatusText));
+            }
+            else if (!string.IsNullOrEmpty(InputStatusText))
+            {
+                EventBus.Publish(new OperatorMenuWarningMessageEvent(InputStatusText));
+            }
+            else if (!string.IsNullOrEmpty(PrintButtonStatusText))
+            {
+                EventBus.Publish(new OperatorMenuWarningMessageEvent(PrintButtonStatusText));
+            }
+            else
+            {
+                EventBus.Publish(new OperatorMenuWarningMessageEvent());
+            }
+        }
+
+        private void SetFieldAccessRestrictionText()
+        {
+            if (TryGetWarningMessage(FieldAccessRestriction, out var warningMessage) &&
+                FieldAccessStatusText != warningMessage)
+            {
+                FieldAccessStatusText = warningMessage;
+            }
+        }
+
+        private bool AllFieldsReadonly()
+        {
+            return !InputEnabled;
+        }
+
+        private bool TryGetWarningMessage(OperatorMenuAccessRestriction restriction, out string warningMessage)
+        {
+            warningMessage = null;
+
+            switch (restriction)
+            {
+                case OperatorMenuAccessRestriction.None:
+                    warningMessage = string.Empty;
+                    return true;
+                case OperatorMenuAccessRestriction.GamesPlayed:
+                    warningMessage = AllFieldsReadonly()
+                        ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GamesPlayedWarning)
+                        : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SomeGamesPlayedWarning);
+                    return true;
+                case OperatorMenuAccessRestriction.InGameRound:
+                    warningMessage = Localizer.For(CultureFor.Operator)
+                        .GetString(ResourceKeys.EndGameRoundBeforeChange);
+                    return true;
+                case OperatorMenuAccessRestriction.GameLoaded:
+                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitGameBeforeChange);
+                    return true;
+                case OperatorMenuAccessRestriction.ZeroCredits:
+                    warningMessage = Localizer.For(CultureFor.Operator)
+                        .GetString(ResourceKeys.RemoveAllCreditsBeforeChange);
+                    return true;
+                case OperatorMenuAccessRestriction.MainDoor:
+                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OpenMainDoor);
+                    return true;
+                case OperatorMenuAccessRestriction.MainOpticDoor:
+                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OpenMainDoor);
+                    return true;
+                case OperatorMenuAccessRestriction.LogicDoor:
+                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OpenLogicDoor);
+                    return true;
+                case OperatorMenuAccessRestriction.JackpotKey:
+                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.JackpotKeyRequired);
+                    return true;
+                case OperatorMenuAccessRestriction.EKeyVerified:
+                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VerifiedEKeyRequired);
+                    return true;
+                case OperatorMenuAccessRestriction.InitialGameConfigNotCompleteOrEKeyVerified:
+                    warningMessage = Localizer.For(CultureFor.Operator)
+                        .GetString(ResourceKeys.VerifiedEKeyRequiredGameConfiguration);
+                    return true;
+                case OperatorMenuAccessRestriction.NoHardLockups:
+                    warningMessage = Localizer.For(CultureFor.Operator)
+                        .GetString(ResourceKeys.RemoveAllHardLockupsBeforeChange);
+                    return true;
+                case OperatorMenuAccessRestriction.HostTechnician:
+                    warningMessage = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TechnicianCardRequired);
+                    return true;
+                case OperatorMenuAccessRestriction.ProgInit:
+                    warningMessage = Localizer.For(CultureFor.Operator)
+                        .GetString(ResourceKeys.GameDisabledForProgressiveInitialization);
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         private void SetInputStatus()
@@ -1111,7 +1169,7 @@
             }
 
             lamp.SetEnabled(true);
-            lamp.SetSelectedLamps(Contracts.LampTest.SelectedLamps.All, false);
+            lamp.SetSelectedLamps(SelectedLamps.All, false);
         }
 
         private void CheckPlayedCountMeter()
@@ -1241,26 +1299,5 @@
 
             _disposed = true;
         }
-
-        private static class NativeMethods
-        {
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Portability", "CA1901:PInvokeDeclarationsShouldBePortable", MessageId = "0")]
-            [DllImport("user32.dll")]
-            public static extern IntPtr WindowFromPoint(System.Drawing.Point p);
-
-            [DllImport("user32.dll")]
-            public static extern Boolean PostMessage(IntPtr hWnd, Int32 msg, IntPtr wParam, IntPtr lParam);
-
-            [DllImport("user32.dll")]
-            public static extern IntPtr GetParent(IntPtr hWnd);
-
-            [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-            public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
-        }
-
-        /// <summary>
-        /// Enables live settings on this VM.
-        /// </summary>
-        public bool IsInputEnabled => InputEnabled;
     }
 }

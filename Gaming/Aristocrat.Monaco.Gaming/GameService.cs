@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Contracts;
     using Contracts.Configuration;
@@ -15,7 +14,7 @@
     using Kernel.Contracts;
     using Localization.Properties;
     using log4net;
-	using Newtonsoft.Json;
+    using Newtonsoft.Json;
     using Runtime;
 
     /// <summary>
@@ -247,7 +246,7 @@
             }
 
             var currentGame = _gameProvider.GetGame(_propertiesManager.GetValue(GamingConstants.SelectedGameId, 0));
-                
+
             var restrictions = _gameConfiguration.GetActive(currentGame.ThemeId);
             if (restrictions is null)
             {
