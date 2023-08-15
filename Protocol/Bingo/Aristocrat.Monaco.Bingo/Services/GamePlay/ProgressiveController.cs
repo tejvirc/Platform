@@ -8,13 +8,18 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Aristocrat.Bingo.Client.Messages;
+    using Aristocrat.Sas.Client.LongPollDataClasses;
+    using Aristocrat.ServerApiGateway;
     using Common;
     using Common.Events;
+    using Common.Storage.Model;
     using Gaming.Contracts;
     using Gaming.Contracts.Progressives;
     using Gaming.Contracts.Progressives.Linked;
     using Kernel;
     using log4net;
+    using Newtonsoft.Json;
+    using Protocol.Common.Storage.Entity;
 
     /// <summary>
     ///     Implements <see cref="IProgressiveController" />.
@@ -31,11 +36,13 @@
         private readonly IProgressiveClaimService _progressiveClaimService;
         private readonly IProgressiveAwardService _progressiveAwardService;
         private readonly IPropertiesManager _propertiesManager;
+        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
+        private readonly IBingoGameOutcomeHandler _bingoGameOutcomeHandler;
 
         private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new();
         private readonly IList<ProgressiveInfo> _activeProgressiveInfos = new List<ProgressiveInfo>();
         private readonly object _pendingAwardsLock = new();
-        private readonly IList<(string poolName, long progressiveLevelId, long amountInPennies, int awardId)> _pendingAwards = new List<(string, long, long, int)>();
+        private IList<(string poolName, long progressiveLevelId, long amountInPennies, int awardId)> _pendingAwards = new List<(string, long, long, int)>();
         private bool _disposed;
 
         /// <summary>
@@ -46,27 +53,33 @@
         /// <param name="protocolLinkedProgressiveAdapter">.</param>
         /// <param name="gameHistory"><see cref="IGameHistory" />.</param>
         /// <param name="multiProtocolEventBusRegistry"><see cref="IProtocolProgressiveEventsRegistry" />.</param>
+        /// <param name="unitOfWorkFactory"><see cref="IUnitOfWorkFactory" />.</param>
         /// <param name="progressiveClaimService"><see cref="IProgressiveClaimService" />.</param>
+        /// <param name="progressiveAwardService"><see cref="IProgressiveAwardService" />.</param>
         /// <param name="propertiesManager"><see cref="IPropertiesManager" />.</param>
+        /// <param name="bingoGameOutcomeHandler"><see cref="IBingoGameOutcomeHandler" />.</param>
         public ProgressiveController(
             IEventBus eventBus,
             IGameProvider gameProvider,
             IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter,
             IGameHistory gameHistory,
             IProtocolProgressiveEventsRegistry multiProtocolEventBusRegistry,
+            IUnitOfWorkFactory unitOfWorkFactory,
             IProgressiveClaimService progressiveClaimService,
             IProgressiveAwardService progressiveAwardService,
-            IPropertiesManager propertiesManager
-            )
+            IPropertiesManager propertiesManager,
+            IBingoGameOutcomeHandler bingoGameOutcomeHandler)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ?? throw new ArgumentNullException(nameof(protocolLinkedProgressiveAdapter));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _multiProtocolEventBusRegistry = multiProtocolEventBusRegistry ?? throw new ArgumentNullException(nameof(multiProtocolEventBusRegistry));
+            _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
             _progressiveClaimService = progressiveClaimService ?? throw new ArgumentNullException(nameof(progressiveClaimService));
             _progressiveAwardService = progressiveAwardService ?? throw new ArgumentNullException(nameof(progressiveAwardService));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _bingoGameOutcomeHandler = bingoGameOutcomeHandler ?? throw new ArgumentNullException(nameof(bingoGameOutcomeHandler));
 
             SubscribeToEvents();
         }
@@ -80,7 +93,49 @@
         /// <inheritdoc />
         public void AwardJackpot(string poolName, long amountInPennies)
         {
-            // TODO
+            Logger.Debug($"AwardJackpot, poolName={poolName}, amountInPennies={amountInPennies}");
+
+            if (_gameHistory?.CurrentLog.PlayState == PlayState.Idle)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(poolName) || amountInPennies <= 0)
+            {
+                return;
+            }
+
+            IViewableProgressiveLevel level = null;
+            foreach (var l in _protocolLinkedProgressiveAdapter.ViewConfiguredProgressiveLevels())
+            {
+                var levelPoolName = CreatePoolName(l.ProgressivePackName, l.LevelName, l.ResetValue);
+                if (levelPoolName == poolName)
+                {
+                    level = l;
+                    break;
+                }
+            }
+
+            if (level is null)
+            {
+                throw new InvalidOperationException($"No progressive levels found matching '{poolName}'");
+            }
+
+            var levelId = level.LevelId;
+            var progressiveId = level.ProgressiveId;
+            lock (_pendingAwardsLock)
+            {
+
+                var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
+
+                var request = new ProgressiveAwardRequestMessage(
+                    machineSerial,
+                    progressiveId,
+                    levelId,
+                    amountInPennies,
+                    true);
+                _progressiveAwardService.AwardProgressive(request);
+            }
         }
 
         /// <inheritdoc />
@@ -91,7 +146,18 @@
             _progressives.Clear();
             _activeProgressiveInfos.Clear();
 
-            // TODO handle if there are pending awards
+            // handle if there are pending awards
+            lock (_pendingAwardsLock)
+            {
+                if (_pendingAwards is null)
+                {
+                    using var unitOfWork = _unitOfWorkFactory.Create();
+                    var pendingJackpots = unitOfWork.Repository<PendingJackpotAwards>().Queryable().SingleOrDefault();
+                    _pendingAwards = pendingJackpots?.Awards is null
+                        ? new List<(string, long, long, int)>()
+                        : JsonConvert.DeserializeObject<IList<(string, long, long, int)>>(pendingJackpots.Awards);
+                }
+            }
 
             var pools =
                 (from level in _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
@@ -112,39 +178,34 @@
             foreach (var pool in pools)
             {
                 var game = _gameProvider.GetGame(pool.Key.GameId);
-                if (game == null)
+                if (game is null)
                 {
                     continue;
                 }
 
                 var resetValue = pool.First().ResetValue;
 
-                var poolName = $"{pool.Key.PackName}_{resetValue.MillicentsToDollars()}_{pool.Key.LevelName}";
-
-                var valueAttributeName = $"ins{poolName}_Value";
-                var messageAttributeName = $"ins{poolName}_Message";
+                var poolName = CreatePoolName(pool.Key.PackName, pool.Key.LevelName, resetValue);
 
                 var progressive = new ProgressiveInfo(
                     pool.Key.PackName,
                     pool.Key.ProgId,
                     pool.Key.LevelId,
                     pool.Key.LevelName,
-                    poolName,
-                    valueAttributeName,
-                    messageAttributeName);
+                    poolName);
 
-                if (!_progressives.ContainsKey(valueAttributeName))
+                if (!_progressives.ContainsKey(poolName))
                 {
-                    _progressives.TryAdd(valueAttributeName, new List<ProgressiveInfo>());
+                    _progressives.TryAdd(poolName, new List<ProgressiveInfo>());
                 }
 
                 if (game.EgmEnabled &&
-                    !_activeProgressiveInfos.Any(p => p.ValueAttributeName.Equals(progressive.ValueAttributeName, StringComparison.OrdinalIgnoreCase)))
+                    !_activeProgressiveInfos.Any(p => p.PoolName.Equals(progressive.PoolName, StringComparison.OrdinalIgnoreCase)))
                 {
                     _activeProgressiveInfos.Add(progressive);
                 }
 
-                _progressives[valueAttributeName].Add(progressive);
+                _progressives[poolName].Add(progressive);
 
                 var linkedLevel = UpdateLinkedProgressiveLevels(
                     pool.Key.ProgId,
@@ -155,12 +216,12 @@
                 _protocolLinkedProgressiveAdapter.AssignLevelsToGame(
                     pool.Select(
                         level => new ProgressiveLevelAssignment(
-                            game,
-                            level.Denomination.First(),
-                            level,
-                            new AssignableProgressiveId(AssignableProgressiveType.Linked, linkedLevel.LevelName),
-                            level.ResetValue)).ToList(),
-                    ProtocolNames.Bingo);
+                        game,
+                        level.Denomination.First(),
+                        level,
+                        new AssignableProgressiveId(AssignableProgressiveType.Linked, linkedLevel.LevelName),
+                        level.ResetValue)).ToList(),
+                        ProtocolNames.Bingo);
             }
         }
 
@@ -179,8 +240,6 @@
 
         private void SubscribeToEvents()
         {
-            _eventBus.Subscribe<HostDisconnectedEvent>(this, Handle);
-            _eventBus.Subscribe<ProgressiveHostOfflineEvent>(this, Handle);
             _multiProtocolEventBusRegistry.SubscribeProgressiveEvent<LinkedProgressiveHitEvent>(ProtocolNames.Bingo, this);
             _eventBus.Subscribe<PendingLinkedProgressivesHitEvent>(this, Handle);
             _eventBus.Subscribe<PaytablesInstalledEvent>(this, Handle);
@@ -197,16 +256,6 @@
         {
             // On normal boot configure when the protocol is initialized
             Configure();
-        }
-
-        private void Handle(HostDisconnectedEvent evt)
-        {
-            // TODO will need to deal with bingo host going offline
-        }
-
-        private void Handle(ProgressiveHostOfflineEvent evt)
-        {
-            // TODO will need to deal with progressive host going offline
         }
 
         private void Handle(PendingLinkedProgressivesHitEvent evt)
@@ -239,22 +288,67 @@
                     var response = _progressiveClaimService.ClaimProgressive(new ProgressiveClaimRequestMessage(machineSerial, level.LevelId, level.Amount));
                     Logger.Debug($"ProgressiveClaimResponse received, ResponseCode={response.Result.ResponseCode} ProgressiveLevelId={response.Result.ProgressiveLevelId}, ProgressiveWinAmount={response.Result.ProgressiveWinAmount}, ProgressiveAwardId={response.Result.ProgressiveAwardId}");
 
+                    _bingoGameOutcomeHandler.ProcessProgressiveClaimWin(response.Result.ProgressiveWinAmount.CentsToMillicents());
+
                     // TODO copied code does not allow for multiple pending awards with the same pool name. For Bingo we allow hitting the same progressive multiple times. How to handle?
                     var poolName = GetPoolName(level.LevelName);
                     if (!string.IsNullOrEmpty(poolName) &&
-                        (!_pendingAwards.Any(a => a.poolName.Equals(poolName, StringComparison.OrdinalIgnoreCase))))
+                        !_pendingAwards.Any(a => a.poolName.Equals(poolName, StringComparison.OrdinalIgnoreCase)))
                     {
                         _pendingAwards.Add((poolName, response.Result.ProgressiveLevelId, response.Result.ProgressiveWinAmount, response.Result.ProgressiveAwardId));
                     }
 
-                    // TODO will need to persist the _pending award value in persistent storage
+                    //UpdatePendingAwards();
                 }
             }
         }
 
         private void Handle(LinkedProgressiveHitEvent evt)
         {
-            // TODO this is handled during the hit, claim, award sequence
+            Logger.Debug($"LinkedProgressiveHitEvent Handler with level Id {evt.Level.LevelId}");
+            var linkedLevel = evt.LinkedProgressiveLevels.FirstOrDefault();
+
+            if (linkedLevel is null)
+            {
+                Logger.Error($"Cannot find linkedLevel for level Id {evt.Level.LevelId} with wager credits {evt.Level.WagerCredits}");
+                return;
+            }
+
+            // Must get the win amount out of the pending awards. The value in the event will not be correct.
+            var winAmount = 0L;
+            var matchPoolName = GetPoolName(linkedLevel.LevelName);
+            lock (_pendingAwardsLock)
+            {
+                (string, long, long, int) pendingAwardToRemove = new();
+                var matched = false;
+                foreach (var pendingAward in _pendingAwards)
+                {
+                    if (pendingAward.poolName == matchPoolName)
+                    {
+                        winAmount = pendingAward.amountInPennies;
+                        pendingAwardToRemove = pendingAward;
+                        matched = true;
+                        break;
+                    }
+                }
+
+                if (matched)
+                {
+                    _pendingAwards.Remove(pendingAwardToRemove);
+                    //UpdatePendingAwards();
+                }
+            }
+
+            Logger.Debug(
+                $"AwardJackpot progressiveLevel = {evt.Level.LevelName} " +
+                $"linkedLevel = {linkedLevel.LevelName} " +
+                $"amountInPennies = {winAmount} " +
+                $"CurrentValue = {evt.Level.CurrentValue}");
+
+            _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(linkedLevel.LevelName, ProtocolNames.Bingo);
+            var poolName = GetPoolName(linkedLevel.LevelName);
+            AwardJackpot(poolName, winAmount);
+            _protocolLinkedProgressiveAdapter.AwardLinkedProgressiveLevel(linkedLevel.LevelName, winAmount, ProtocolNames.Bingo);
         }
 
         private LinkedProgressiveLevel UpdateLinkedProgressiveLevels(
@@ -284,10 +378,29 @@
             return linkedLevel;
         }
 
+        private string CreatePoolName(string packName, string levelName, long resetValueMillicents)
+        {
+            // These are the naming conventions for NYL but it should be ok to re-use for bingo
+            return $"{packName}_{resetValueMillicents.MillicentsToDollars()}_{levelName}";
+        }
+
         private string GetPoolName(string levelName)
         {
             var key = _progressives.FirstOrDefault(p => p.Value.Any(i => LevelName(i).Equals(levelName, StringComparison.OrdinalIgnoreCase))).Key;
             return key ?? string.Empty;
+        }
+
+        private void UpdatePendingAwards()
+        {
+            using var unitOfWork = _unitOfWorkFactory.Create();
+            var pendingJackpots = unitOfWork.Repository<PendingJackpotAwards>().Queryable().SingleOrDefault() ??
+                                  new PendingJackpotAwards();
+
+            pendingJackpots.Awards = JsonConvert.SerializeObject(_pendingAwards);
+
+            unitOfWork.Repository<PendingJackpotAwards>().AddOrUpdate(pendingJackpots);
+
+            unitOfWork.SaveChanges();
         }
 
         private static LinkedProgressiveLevel LinkedProgressiveLevel(int progId, int levelId, long valueInCents)
