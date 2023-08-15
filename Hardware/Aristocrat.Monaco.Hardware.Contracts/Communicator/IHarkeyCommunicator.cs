@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData;
+    using Reel.ControlData;
     using Reel.Events;
 
     /// <summary>
@@ -25,7 +25,7 @@
         /// <summary>
         ///     Event that occurs when Reels are spinning on the simulator
         /// </summary>
-        public event EventHandler<ReelEventArgs> ReelSpinning;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinning;
 
         /// <summary>
         ///     Event that occurs when Reels are stopped on the simulator
@@ -66,25 +66,25 @@
         Task<bool> TiltReels();
 
         /// <summary>
-        ///     Nudges the reels 
+        ///     Nudges the reels
         /// </summary>
         /// <returns>Whether or not the reels where nudged</returns>
         Task<bool> NudgeReels();
 
         /// <summary>
-        ///     Nudges the reels 
+        ///     Nudges the reels
         /// </summary>
         /// <returns>Whether or not the reels where nudged</returns>
         Task<bool> NudgeReels(params NudgeReelData[] nudgeData);
 
         /// <summary>
-        ///     Spins the reels 
+        ///     Spins the reels
         /// </summary>
         /// <returns>Whether or not the reels where spun </returns>
         Task<bool> SpinReels();
 
         /// <summary>
-        ///     Spins the reels 
+        ///     Spins the reels
         /// </summary>
         /// <returns>Whether or not the reels where spun </returns>
         Task<bool> SpinReels(params ReelSpinData[] spinReelData);

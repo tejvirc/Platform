@@ -6,7 +6,7 @@
     using Monaco.Common.Storage;
     using Protocol.Common.Installer;
     using Storage;
-    using Data.Model;
+    using G2S.Data.Model;
     
     /// <summary>
     ///     Create package command handler implementation.

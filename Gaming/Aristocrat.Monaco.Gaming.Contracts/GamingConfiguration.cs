@@ -13,8 +13,8 @@
 // 
 namespace Aristocrat.Monaco.Gaming.Contracts {
     using System.Xml.Serialization;
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-    
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member    
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -71,6 +71,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         private GamingConfigurationDefaultCreditDisplay defaultCreditDisplayField;
         
         private GamingConfigurationAutoHold autoHoldField;
+        
+        private GamingConfigurationAllowZeroCreditCashout allowZeroCreditCashoutField;
         
         private GamingConfigurationGameLoad gameLoadField;
         
@@ -135,6 +137,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         private GamingConfigurationWin winField;
         
         private GamingConfigurationDisplayGamePayMessage displayGamePayMessageField;
+        
+        private GamingConfigurationInstructions instructionsField;
         
         private GamingConfigurationWagerLimits wagerLimitsField;
         
@@ -405,6 +409,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.autoHoldField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationAllowZeroCreditCashout AllowZeroCreditCashout {
+            get {
+                return this.allowZeroCreditCashoutField;
+            }
+            set {
+                this.allowZeroCreditCashoutField = value;
             }
         }
         
@@ -729,6 +743,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         }
         
         /// <remarks/>
+        public GamingConfigurationInstructions Instructions {
+            get {
+                return this.instructionsField;
+            }
+            set {
+                this.instructionsField = value;
+            }
+        }
+        
+        /// <remarks/>
         public GamingConfigurationWagerLimits WagerLimits {
             get {
                 return this.wagerLimitsField;
@@ -853,7 +877,6 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             get {
                 return this.autoCompleteGameRoundField;
             }
-
             set {
                 this.autoCompleteGameRoundField = value;
             }
@@ -1993,6 +2016,48 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool Configurable {
+            get {
+                return this.configurableField;
+            }
+            set {
+                this.configurableField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationAllowZeroCreditCashout {
+        
+        private bool enableField;
+        
+        private bool configurableField;
+        
+        public GamingConfigurationAllowZeroCreditCashout() {
+            this.enableField = false;
+            this.configurableField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Enable {
+            get {
+                return this.enableField;
+            }
+            set {
+                this.enableField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
         public bool Configurable {
             get {
                 return this.configurableField;
@@ -4100,6 +4165,33 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationInstructions {
+        
+        private string gameRulesInstructionsField;
+        
+        public GamingConfigurationInstructions() {
+            this.gameRulesInstructionsField = "";
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string GameRulesInstructions {
+            get {
+                return this.gameRulesInstructionsField;
+            }
+            set {
+                this.gameRulesInstructionsField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     public partial class GamingConfigurationWagerLimits {
         
         private bool useField;
@@ -4466,7 +4558,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(true)]
+        [System.ComponentModel.DefaultValueAttribute(false)]
         public bool WinTuneCapping {
             get {
                 return this.winTuneCappingField;

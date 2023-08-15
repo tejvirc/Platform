@@ -24,6 +24,9 @@
             ReelLogicalState.Stopping,
             ReelLogicalState.SpinningBackwards,
             ReelLogicalState.SpinningForward,
+            ReelLogicalState.SpinningConstant,
+            ReelLogicalState.Accelerating,
+            ReelLogicalState.Decelerating,
             ReelLogicalState.Tilted
         };
 
@@ -45,8 +48,10 @@
 
         public int ControllerId { set; get; }
 
-        public IReadOnlyCollection<int> ConnectedReels =>
-            ReelStates.Where(x => x.Value != ReelLogicalState.Disconnected).Select(x => x.Key).ToList();
+        public IReadOnlyCollection<int> ConnectedReels => ReelStates
+            .Where(x => x.Value != ReelLogicalState.Disconnected)
+            .Select(x => x.Key)
+            .ToList();
 
         public IReadOnlyDictionary<int, ReelLogicalState> ReelStates
         {
@@ -378,6 +383,9 @@
                 .Permit(ReelControllerTrigger.TiltReels, ReelLogicalState.Tilted)
                 .Permit(ReelControllerTrigger.SpinReel, ReelLogicalState.SpinningForward)
                 .Permit(ReelControllerTrigger.SpinReelBackwards, ReelLogicalState.SpinningBackwards)
+                .Permit(ReelControllerTrigger.SpinConstant, ReelLogicalState.SpinningConstant)
+                .Permit(ReelControllerTrigger.Accelerate, ReelLogicalState.Accelerating)
+                .Permit(ReelControllerTrigger.Decelerate, ReelLogicalState.Decelerating)
                 .Permit(ReelControllerTrigger.HomeReels, ReelLogicalState.Homing)
                 .OnEntryFrom(reelStoppedTriggerParameters, (logicalState, args) => _eventBus?.Publish(new ReelStoppedEvent(args.ReelId, args.Step, logicalState == ReelLogicalState.Homing)));
 
@@ -398,7 +406,20 @@
                 .Permit(ReelControllerTrigger.Connected, ReelLogicalState.IdleUnknown);
 
             stateMachine.Configure(ReelLogicalState.SpinningForward).SubstateOf(ReelLogicalState.Spinning);
+
             stateMachine.Configure(ReelLogicalState.SpinningBackwards).SubstateOf(ReelLogicalState.Spinning);
+            
+            stateMachine.Configure(ReelLogicalState.SpinningConstant).SubstateOf(ReelLogicalState.Spinning)
+                .Permit(ReelControllerTrigger.Accelerate, ReelLogicalState.Accelerating)
+                .Permit(ReelControllerTrigger.Decelerate, ReelLogicalState.Decelerating);
+
+            stateMachine.Configure(ReelLogicalState.Accelerating).SubstateOf(ReelLogicalState.Spinning)
+                .Permit(ReelControllerTrigger.Decelerate, ReelLogicalState.Decelerating)
+                .Permit(ReelControllerTrigger.SpinConstant, ReelLogicalState.SpinningConstant);
+
+            stateMachine.Configure(ReelLogicalState.Decelerating).SubstateOf(ReelLogicalState.Spinning)
+                .Permit(ReelControllerTrigger.Accelerate, ReelLogicalState.Accelerating)
+                .Permit(ReelControllerTrigger.SpinConstant, ReelLogicalState.SpinningConstant);
 
             stateMachine.OnTransitioned(
                 transition =>
@@ -451,6 +472,9 @@
                 .Permit(ReelControllerTrigger.Disconnected, ReelControllerState.Disconnected)
                 .Permit(ReelControllerTrigger.SpinReel, ReelControllerState.Spinning)
                 .Permit(ReelControllerTrigger.SpinReelBackwards, ReelControllerState.Spinning)
+                .Permit(ReelControllerTrigger.SpinConstant, ReelControllerState.Spinning)
+                .Permit(ReelControllerTrigger.Accelerate, ReelControllerState.Spinning)
+                .Permit(ReelControllerTrigger.Decelerate, ReelControllerState.Spinning)
                 .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted)
                 .Permit(ReelControllerTrigger.HomeReels, ReelControllerState.Homing)
                 .Permit(ReelControllerTrigger.Disable, ReelControllerState.Disabled);
@@ -485,6 +509,9 @@
             stateMachine.Configure(ReelControllerState.Spinning)
                 .PermitReentry(ReelControllerTrigger.SpinReel)
                 .PermitReentry(ReelControllerTrigger.SpinReelBackwards)
+                .PermitReentry(ReelControllerTrigger.SpinConstant)
+                .PermitReentry(ReelControllerTrigger.Accelerate)
+                .PermitReentry(ReelControllerTrigger.Decelerate)
                 .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted)
                 .Permit(ReelControllerTrigger.Disconnected, ReelControllerState.Disconnected)
                 .PermitDynamic(
@@ -576,8 +603,12 @@
             {
                 return nonIdleReels.FirstOrDefault().Value switch
                 {
-                    ReelLogicalState.Spinning or ReelLogicalState.SpinningBackwards or ReelLogicalState.SpinningForward
-                        or ReelLogicalState.Stopping => ReelControllerState.Spinning,
+                    ReelLogicalState.Spinning or
+                        ReelLogicalState.SpinningBackwards or
+                        ReelLogicalState.SpinningForward or
+                        ReelLogicalState.Accelerating or
+                        ReelLogicalState.Decelerating or
+                        ReelLogicalState.Stopping => ReelControllerState.Spinning,
                     ReelLogicalState.Homing => ReelControllerState.Homing,
                     ReelLogicalState.Tilted => ReelControllerState.Tilted,
                     _ => ReelStates.All(x => x.Value == ReelLogicalState.IdleAtStop)

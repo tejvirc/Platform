@@ -12,7 +12,7 @@
     using Monaco.Common.CommandHandlers;
     using Monaco.Common.Storage;
     using Storage;
-    using Data.Model;
+    using G2S.Data.Model;
 
     /// <summary>
     ///     Verifies packages

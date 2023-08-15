@@ -1,8 +1,6 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-                    xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
-                    xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters">
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!-- Used to customize lobby for different jurisdictions -->
     <!-- **IMAGES TOP SCREEN** -->
     <BitmapImage x:Key="TopBackground"
@@ -105,12 +103,6 @@
     <BitmapImage x:Key="VBD_MenuCashOutDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_FR_MenuCashOut_Dark.png"
                  AutomationProperties.AutomationId="BitmapImage31_CE5EBD3C" />
-    <BitmapImage x:Key="VBD_MoneyNormal"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_EN_FR_Money_Normal.png"
-                 AutomationProperties.AutomationId="BitmapImage32_CE5EBD3C" />
-    <BitmapImage x:Key="VBD_MoneyDisabled"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_EN_FR_Money_Dark.png"
-                 AutomationProperties.AutomationId="BitmapImage33_CE5EBD3C" />
     <BitmapImage x:Key="VBD_Disabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/VBD_Disabled.png"
                  AutomationProperties.AutomationId="BitmapImage34_CE5EBD3C" />
@@ -255,6 +247,12 @@
     <BitmapImage x:Key="TimeLimit60MinPressed"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/60_EN_FR_Button_Pressed.png"
                  AutomationProperties.AutomationId="BitmapImage80_CE5EBD3C" />
+    <BitmapImage x:Key="TimeLimitCashOutNormal"
+                 AutomationProperties.AutomationId="BitmapImage0_4146A47A"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_RG_Normal.png" />
+    <BitmapImage x:Key="TimeLimitCashOutPressed"
+                 AutomationProperties.AutomationId="BitmapImage1_4146A47A"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_RG_Selected.png" />
     <!-- Filenames, margins, etc -->
     <sys:String x:Key="PlatinumVideoPath">../jurisdiction/Quebec-VLT/ui/Videos/12_PlatinumSeries.bk2</sys:String>
     <sys:String x:Key="NewStarPath">../jurisdiction/Quebec-VLT/ui/Videos/French/NewStar_FR.bk2</sys:String>
@@ -266,5 +264,4 @@
     <sys:String x:Key="VBD_Helix_InsertMoney">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_InsertMoney_FR.bk2</sys:String>
     <sys:String x:Key="VBD_Marsx_ChooseGame">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_ChooseGame_FR.bk2</sys:String>
     <sys:String x:Key="VBD_Marsx_InsertMoney">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_InsertMoney_FR.bk2</sys:String>
-
 </ResourceDictionary>

@@ -34,7 +34,6 @@
             _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
             _implementation = implementation;
             _stateManager = stateManager;
-
             ReadOrCreateOptions();
         }
 

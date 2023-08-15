@@ -179,7 +179,7 @@
         public event EventHandler<ReelEventArgs> ReelStopped;
 
         /// <inheritdoc />
-        public event EventHandler<ReelEventArgs> ReelSpinning;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinning;
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelSlowSpinning;
@@ -197,19 +197,16 @@
         public IReadOnlyCollection<int> ReelIds => Faults.Keys.ToList().AsReadOnly();
 
         /// <inheritdoc />
-        public ReelControllerFaults ReelControllerFaults { get; }
+        public ReelControllerFaults ReelControllerFaults { get; set; }
 
         /// <inheritdoc />
-        public IReadOnlyDictionary<int, ReelFaults> Faults { get; }
+        public IReadOnlyDictionary<int, ReelFaults> Faults { get; set; }
 
         /// <inheritdoc />
         public IReadOnlyDictionary<int, ReelStatus> ReelStatuses => _reelStatuses;
 
         /// <inheritdoc />
-        public Task<bool> HomeReels()
-        {
-            return _communicator?.HomeReels();
-        }
+        public int DefaultHomeStep { get; set; }
 
         /// <inheritdoc />
         public Task<bool> HomeReel(int reelId, int stop, bool resetStatus = true)
@@ -493,7 +490,7 @@
         }
 
         /// <summary>Executes the <see cref="ReelSpinning" /> action.</summary>
-        protected void OnReelSpinning(ReelEventArgs e)
+        protected void OnReelSpinning(ReelSpinningEventArgs e)
         {
             ReelSpinning?.Invoke(this, e);
         }
@@ -569,7 +566,7 @@
             OnReelTilted(reelStatus);
         }
 
-        private void OnReelSpinningReceived(object sender, ReelEventArgs reelStatus)
+        private void OnReelSpinningReceived(object sender, ReelSpinningEventArgs reelStatus)
         {
             OnReelSpinning(reelStatus);
         }

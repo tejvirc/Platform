@@ -29,5 +29,20 @@
         ///     Gets the stake
         /// </summary>
         long Stake { get; }
+
+        /// <summary>
+        ///     Gets the wager
+        /// </summary>
+        long Wager { get; }
+
+        /// <summary>
+        ///     Gets the bet multiplier
+        /// </summary>
+        int BetMultiplier { get; }
+
+        /// <summary>
+        ///     Gets the unique game ID
+        /// </summary>
+        int GameId { get; }
     }
 }

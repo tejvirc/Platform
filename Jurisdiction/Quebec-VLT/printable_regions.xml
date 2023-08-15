@@ -36,7 +36,7 @@
     <DPR name="Online" id="112" x="28" px="00028" y="190" py="00190" dx="476" pdx="00476" dy="31" pdy="00031" rot="1" jst="2" type="F=008" m1="1" m2="1" attr="001" property="online">
       <D></D>                                                                                           
     </DPR>                                                                                                      
-    <DPR name="VignetteVersMac" id="113" x="378" px="00320" y="822" py="00000" dx="24" pdx="00064" dy="600" pdy="01020" rot="4" jst="2" type="F=007" m1="1" m2="1" attr="001" property="serial osversion mac">
+    <DPR name="VignetteVersMac" id="113" x="378" px="00320" y="822" py="00000" dx="24" pdx="00064" dy="600" pdy="01020" rot="4" jst="2" type="F=006" m1="1" m2="1" attr="001" property="serial osversion mac">
       <D></D>                                                                                                   
     </DPR>                                                                                                      
     <DPR name="CashValue" id="114" x="450" px="00350" y="1051" py="00020" dx="70" pdx="00100" dy="1020" pdy="01020" rot="4" jst="2" type="F=002" m1="1" m2="1" attr="001" property="value">

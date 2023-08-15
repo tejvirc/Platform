@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Runtime.Server
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -20,6 +21,9 @@
     using GameRoundDetails = GdkRuntime.V1.GameRoundDetails;
     using LocalStorage = GdkRuntime.V1.LocalStorage;
 
+    /// <summary>
+    ///     Contains the methods to communicate with the Runtime using the Snapp protocol
+    /// </summary>
     public class SnappService : IGameServiceCallback
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
@@ -35,6 +39,7 @@
         private readonly ICommandHandler<GetRandomNumber> _getRandomNumber;
         private readonly ICommandHandler<Shuffle> _shuffle;
         private readonly ActionBlock<ButtonStateChanged> _buttonStateChangedProcessor;
+        private readonly ConcurrentDictionary<int, SubgameBetOptions> _subGameBetOptions = new ();
 
         public SnappService(
             IEventBus bus,
@@ -60,6 +65,7 @@
             _shuffle = _handlerFactory.Create<Shuffle>();
         }
 
+        /// <inheritdoc/>>
         public override Empty Join(JoinRequest request)
         {
             Logger.Debug("Client joined the Runtime Service");
@@ -74,6 +80,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override Empty Leave(LeaveRequest request)
         {
             Logger.Debug("Client left the Runtime Service");
@@ -87,6 +94,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override Empty FatalError(FatalErrorNotification request)
         {
             Logger.Debug($"OnGameFatalError with message: {request.ErrorCode} {request.Message}");
@@ -97,6 +105,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override Empty RuntimeEvent(RuntimeEventNotification request)
         {
             switch (request.RuntimeEvent)
@@ -175,12 +184,12 @@
                     _handlerFactory.Create<AttractModeStarted>()
                         .Handle(new AttractModeStarted());
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.GameSelectionScreenEntered:
-                case RuntimeEventNotification.Types.RuntimeEvent.GameSelectionScreenExited:
+                case EventTypes.GameSelectionScreenEntered:
+                case EventTypes.GameSelectionScreenExited:
                     _bus.Publish(new GameSelectionScreenEvent(
-                        request.RuntimeEvent == RuntimeEventNotification.Types.RuntimeEvent.GameSelectionScreenEntered));
+                        request.RuntimeEvent == EventTypes.GameSelectionScreenEntered));
                     break;
-                case RuntimeEventNotification.Types.RuntimeEvent.RequestAllowGameRound:
+                case EventTypes.RequestAllowGameRound:
                     // Not used
                     break;
                 case EventTypes.MaxWinReached:
@@ -199,6 +208,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override Empty RuntimeFlagChange(RuntimeFlagNotification request)
         {
             Logger.Debug($"OnRuntimeFlagChange {request.Flag} {request.State}");
@@ -209,6 +219,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override RuntimeRequestResponse RuntimeRequest(RuntimeRequestNotification request)
         {
             Logger.Debug($"Handle RuntimeRequest: {request.Request}");
@@ -222,6 +233,7 @@
             return new RuntimeRequestResponse { Result = command.Result };
         }
 
+        /// <inheritdoc/>>
         public override Empty RuntimeStateChange(RuntimeStateNotication request)
         {
             Logger.Debug($"OnRuntimeStateChange {request.From} {request.To}");
@@ -229,6 +241,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override Empty ButtonDeckImageChanged(Empty request)
         {
             Task.Run(() => _handlerFactory.Create<UpdateButtonDeckImage>().Handle(new UpdateButtonDeckImage()));
@@ -236,6 +249,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override Empty ButtonStatesChanged(ButtonStatesChangedNotfication request)
         {
             Logger.Debug($"OnButtonStatesChanged - count: {request.ButtonStates.Count} ");
@@ -251,6 +265,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override BeginGameRoundResponse BeginGameRound(BeginGameRoundRequest request)
         {
             Logger.Debug($"BeginGameRound({request})");
@@ -269,18 +284,12 @@
             return new BeginGameRoundResponse { Result = command.Success };
         }
 
+        /// <inheritdoc/>>
         public override Empty BeginGameRoundAsync(BeginGameRoundAsyncRequest request)
         {
             Logger.Debug($"BeginGameRoundAsync({request})");
 
-            IOutcomeRequest outcomeRequest = null;
-
-            if (request.OutcomeRequest?.Is(CentralOutcome.Descriptor) ?? false)
-            {
-                var central = request.OutcomeRequest.Unpack<CentralOutcome>();
-
-                outcomeRequest = new OutcomeRequest((int)central.OutcomeCount, (int)central.TemplateId);
-            }
+            var outcomeRequest = ProcessOutcomes(request);
 
             if (request.GameDetails.FirstOrDefault()?.Is(GameInfo.Descriptor) ?? false)
             {
@@ -301,6 +310,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override Empty BeginGameRoundResult(BeginGameRoundResultNotification request)
         {
             Logger.Debug($"BeginGameRoundResult({request})");
@@ -330,6 +340,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override Empty GameRoundEvent(GameRoundEventRequest request)
         {
             Logger.Debug(
@@ -372,6 +383,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override Empty RecoveryPoint(RecoveryPointNotification request)
         {
             Logger.Debug("Received Recovery Point");
@@ -382,6 +394,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override GetLocalStorageResponse GetLocalStorage(
             GetLocalStorageRequest request)
         {
@@ -406,6 +419,7 @@
             return response;
         }
 
+        /// <inheritdoc/>>
         public override Empty UpdateLocalStorage(UpdateLocalStorageRequest request)
         {
             Logger.Debug("SetLocalStorage called");
@@ -423,6 +437,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override GetMetersResponse GetMeters(Empty request)
         {
             // Replay gets all of it's data from the blob
@@ -446,6 +461,7 @@
             return response;
         }
 
+        /// <inheritdoc/>>
         public override Empty UpdateMeters(UpdateMetersRequest request)
         {
             if (_gameDiagnostics.IsActive)
@@ -464,9 +480,10 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override GetRandomNumber32Response GetRandomNumber32(GetRandomNumber32Request request)
         {
-            Logger.Debug($"GetRandomNumberU64({request.Range})");
+            Logger.Debug($"GetRandomNumber32({request.Range})");
 
             var command = new GetRandomNumber(request.Range);
             _getRandomNumber.Handle(command);
@@ -474,9 +491,10 @@
             return new GetRandomNumber32Response { Value = (uint)command.Value };
         }
 
+        /// <inheritdoc/>>
         public override GetRandomNumber64Response GetRandomNumber64(GetRandomNumber64Request request)
         {
-            Logger.Debug($"GetRandomNumberU64({request.Range})");
+            Logger.Debug($"GetRandomNumber64({request.Range})");
 
             var command = new GetRandomNumber(request.Range);
             _getRandomNumber.Handle(command);
@@ -484,6 +502,7 @@
             return new GetRandomNumber64Response { Value = command.Value };
         }
 
+        /// <inheritdoc/>>
         public override ShuffleResponse Shuffle(ShuffleRequest request)
         {
             var command = new Shuffle(new List<ulong>(request.Value));
@@ -497,6 +516,7 @@
             return response;
         }
 
+        /// <inheritdoc/>>
         public override Empty UpdateBonusKey(UpdateBonusKeyRequest request)
         {
             Logger.Debug($"SetBonusKey poolName: {request.PoolName} key: {request.Key}");
@@ -509,6 +529,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override Empty EndGameRound(EndGameRoundRequest request)
         {
             Logger.Debug($"EndGameRound: {request.BetAmount} {request.WinAmount}");
@@ -523,6 +544,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override ConnectJackpotPoolResponse ConnectJackpotPool(ConnectJackpotPoolRequest request)
         {
             Logger.Debug($"ConnectJackpotPool {request.PoolName}");
@@ -535,6 +557,7 @@
             return new ConnectJackpotPoolResponse { Connected = command.Connected };
         }
 
+        /// <inheritdoc/>>
         public override LevelInfoResponse GetJackpotValues(GetJackpotValuesRequest request)
         {
             var command = new GetJackpotValues(request.PoolName, request.PlayMode == GameRoundPlayMode.ModeRecovery || request.PlayMode == GameRoundPlayMode.ModeReplay);
@@ -551,6 +574,7 @@
             return response;
         }
 
+        /// <inheritdoc/>>
         public override Empty UpdateJackpotValues(UpdateJackpotValuesRequest request)
         {
             Logger.Debug(
@@ -571,6 +595,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override TriggerJackpotResponse TriggerJackpot(TriggerJackpotRequest request)
         {
             Logger.Debug(
@@ -597,6 +622,7 @@
             return response;
         }
 
+        /// <inheritdoc/>>
         public override LevelInfoResponse ClaimJackpot(ClaimJackpotRequest request)
         {
             Logger.Debug($"ClaimJackpot mode: {request.PlayMode} poolName:{request.PoolName} transactionIds:{string.Join(",", request.TransactionIds)}");
@@ -620,6 +646,7 @@
             return response;
         }
 
+        /// <inheritdoc/>>
         public override Empty SetJackpotLevelWagers(LevelWagerRequest request)
         {
             Logger.Debug($"SetJackpotWager wagers:{string.Join(",", request.Wagers)}");
@@ -633,6 +660,7 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc/>>
         public override Empty SelectDenomination(SelectDenominationRequest request)
         {
             Logger.Debug($"Select Denomination with denom: {request.Denomination}");
@@ -644,23 +672,34 @@
             return EmptyResult;
         }
 
+        /// <inheritdoc />>
         public override Empty UpdateLanguage(LanguageRequest request)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>>
         public override Empty UpdateBetOptions(UpdateBetOptionsRequest request)
         {
             Logger.Debug($"Update Bet Line option with wager : {request.Wager}");
+            var betDetails = new List<IBetDetails>();
+            // Store bet details for each game id
+            foreach (var gameDetails in request.GamesDetails)
+            {
+                var subGameBetOptions = gameDetails.Unpack<SubgameBetOptions>();
+                _subGameBetOptions.AddOrUpdate((int)subGameBetOptions.GameId, subGameBetOptions, (_,_) => subGameBetOptions);
+                betDetails.Add(new BetDetails(
+                    (int)subGameBetOptions.BetLinePresetId,
+                    (int)((long)subGameBetOptions.LineCost).MillicentsToCents(),
+                    (int)subGameBetOptions.NumberLines,
+                    (int)subGameBetOptions.Ante,
+                    (long)subGameBetOptions.StakeAmount,
+                    (long)request.Wager,
+                    (int)request.BetMultiplier,
+                    (int)subGameBetOptions.GameId));
+            }
 
-            var betOptions = new UpdateBetOptions(
-                (long)request.Wager,
-                (long)request.StakeAmount,
-                (int)request.BetMultiplier,
-                (int)request.LineCost,
-                (int)request.NumberLines,
-                (int)request.Ante,
-                (int)request.BetLinePresetId);
+            var betOptions = new UpdateBetOptions(betDetails);
 
             _handlerFactory.Create<UpdateBetOptions>().Handle(betOptions);
 
@@ -678,6 +717,82 @@
             response.Levels.Add(command.Results);
 
             return response;
+        }
+
+        private OutcomeRequest ProcessOutcomes(BeginGameRoundAsyncRequest request)
+        {
+            OutcomeRequest outcomeRequest = null;
+            var gamePlayInfo = new List<AdditionalGamePlayInfo>();
+
+            if (request.OutcomeRequest?.Is(CentralOutcome.Descriptor) ?? false)
+            {
+                var central = request.OutcomeRequest.Unpack<CentralOutcome>();
+                gamePlayInfo.Add(CreateGamePlayInfo(request, central));
+                outcomeRequest = new OutcomeRequest((int)central.OutcomeCount, 0, gamePlayInfo);
+            }
+            else if (request.OutcomeRequest?.Is(MultiGameCentralOutcome.Descriptor) ?? false)
+            {
+                var outcomes = request.OutcomeRequest.Unpack<MultiGameCentralOutcome>();
+                foreach (var outcome in outcomes.Outcomes)
+                {
+                    CreateMultiGamePlayInfo(request, outcome, gamePlayInfo);
+                }
+
+                outcomeRequest = new OutcomeRequest(outcomes.Outcomes.Count, 0, gamePlayInfo);
+            }
+            else
+            {
+                // Outcome request type not supported
+            }
+
+            return outcomeRequest;
+        }
+
+        private static AdditionalGamePlayInfo CreateGamePlayInfo(BeginGameRoundAsyncRequest request, CentralOutcome central)
+        {
+            return new AdditionalGamePlayInfo(
+                (int)central.GameIndex,
+                (int)central.GameId,
+                (long)request.Denomination,
+                (long)request.BetAmount,
+                (int)central.TemplateId);
+        }
+
+        private void CreateMultiGamePlayInfo(BeginGameRoundAsyncRequest request, CentralOutcome outcome, List<AdditionalGamePlayInfo> gamePlayInfo)
+        {
+            if (gamePlayInfo.IsNullOrEmpty())
+            {
+                gamePlayInfo.Add(CreateMultiGameMainGamePlayInfo(request, outcome));
+            }
+            else
+            {
+                gamePlayInfo.Add(CreateMultiGameSubGamePlayInfo(outcome));
+            }
+        }
+
+        private static AdditionalGamePlayInfo CreateMultiGameMainGamePlayInfo(BeginGameRoundAsyncRequest request, CentralOutcome outcome)
+        {
+            return new AdditionalGamePlayInfo(
+                (int)outcome.GameIndex,
+                (int)outcome.GameId,
+                (long)request.Denomination,
+                (long)request.BetAmount,
+                (int)outcome.TemplateId);
+        }
+
+        private AdditionalGamePlayInfo CreateMultiGameSubGamePlayInfo(CentralOutcome outcome)
+        {
+            if (!_subGameBetOptions.TryGetValue((int)outcome.GameId, out var subGameBetOptions))
+            {
+                throw new KeyNotFoundException($"No sub game bet options for game id {(int)outcome.GameId}");
+            }
+
+            return new AdditionalGamePlayInfo(
+                (int)outcome.GameIndex,
+                (int)outcome.GameId,
+                (long)subGameBetOptions.Denomination,
+                (long)subGameBetOptions.Wager,
+                (int)outcome.TemplateId);
         }
     }
 }

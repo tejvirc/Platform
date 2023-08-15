@@ -15,6 +15,7 @@
     using Polly;
     using Polly.Retry;
     using Protocol.Common.Logging;
+    using Monaco.Protocol.Common;
 
     /// <summary>
     ///     Implementation of ICentralManager

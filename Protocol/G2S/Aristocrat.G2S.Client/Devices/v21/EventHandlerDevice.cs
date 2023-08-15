@@ -6,8 +6,10 @@
     using System.Linq;
     using System.Threading;
     using Diagnostics;
+    using Monaco.Common;
     using Newtonsoft.Json;
     using Protocol.v21;
+    using Constants = Client.Constants;
 
     /// <summary>
     ///     The eventHandler class manages the event subscriptions for an EGM, providing the means to determine the
@@ -331,7 +333,7 @@
         ///     command for the host.
         /// </summary>
         /// <param name="deviceClass">class that generates event</param>
-        /// <param name="deviceId">identifier of the device that generates event</param>
+        /// <param name="eventDeviceId">identifier of the device that generates event</param>
         /// <param name="eventCode">Event code of the sub event that caused the event to be generated</param>
         /// <param name="deviceList">Contains one or more statusInfo elements. This element has no attributes.</param>
         /// <param name="eventText">Text description of the event</param>
@@ -340,7 +342,7 @@
         /// <param name="transactionList">Contains one or more transactionInfo elements. This element has no attributes</param>
         public static void EventReport(
             string deviceClass = "",
-            int deviceId = -1,
+            int eventDeviceId = -1,
             string eventCode = "",
             deviceList1 deviceList = null,
             string eventText = "",
@@ -348,7 +350,7 @@
             long transactionId = 0,
             transactionList transactionList = null)
         {
-            EventHandlerDevice[] devices;
+            EventHandlerDevice[] eventHandlerDevices;
 
             lock (Lock)
             {
@@ -357,14 +359,14 @@
                     return;
                 }
 
-                devices = new EventHandlerDevice[Devices.Count];
-                Devices.CopyTo(devices);
+                eventHandlerDevices = new EventHandlerDevice[Devices.Count];
+                Devices.CopyTo(eventHandlerDevices);
             }
 
             // Create the eventId for all instances of this event.  The EGM reserves the right to do this even if no one is subscribed to the event
-            var eventId = devices.First()._eventPersistenceManager.GetEventId();
+            var eventId = eventHandlerDevices.First()._eventPersistenceManager.GetEventId();
 
-            foreach (var device in devices)
+            foreach (var device in eventHandlerDevices)
             {
                 if (!device._open)
                 {
@@ -373,7 +375,7 @@
                         device._offlineEvents.Enqueue(
                             () => device.InternalEventReport(
                                 deviceClass,
-                                deviceId,
+                                eventDeviceId,
                                 eventCode,
                                 deviceList,
                                 eventText,
@@ -392,7 +394,7 @@
                 {
                     device.InternalEventReport(
                         deviceClass,
-                        deviceId,
+                        eventDeviceId,
                         eventCode,
                         deviceList,
                         eventText,
@@ -521,7 +523,7 @@
                     return;
                 }
 
-                var configCheck = subscription.Cast<EventReportConfig?>().FirstOrDefault(a => a?.DeviceId == deviceId);
+                var configCheck = subscription.Cast<EventReportConfig?>().FirstOrDefault();
                 if (configCheck == null)
                 {
                     return;
@@ -573,11 +575,12 @@
                     var list = new List<meterInfo>();
                     foreach (var info in meterList.meterInfo)
                     {
-                        if (info.deviceMeters != null && info.deviceMeters.Length > 0 && config.SendDeviceMeters ||
-                            (info.deviceMeters == null || info.deviceMeters.Length == 0) && config.SendClassMeters)
-                        {
-                            list.Add(info);
-                        }
+                        var infoCopy = info.DeepClone();
+
+                        infoCopy.deviceMeters = info.deviceMeters.Where(
+                            m => (m.deviceId == Constants.ClassLevelDeviceId && config.SendClassMeters)
+                                 || m.deviceId != Constants.ClassLevelDeviceId && config.SendDeviceMeters).ToArray();
+                        list.Add(info);
                     }
 
                     report.meterList = new meterList { meterInfo = list.ToArray() };

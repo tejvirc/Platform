@@ -6,6 +6,7 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
     using Application.Contracts;
     using Common;
     using Common.Storage.Model;
+    using Gaming.Contracts;
     using Kernel;
     using Newtonsoft.Json;
 
@@ -19,8 +20,9 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
         public MachineAndGameConfiguration(
             IPropertiesManager propertiesManager,
             ISystemDisableManager systemDisableManager,
-            IBingoPaytableInstaller bingoConfigurationProvider)
-            : base(propertiesManager, systemDisableManager)
+            IBingoPaytableInstaller bingoConfigurationProvider,
+            IEventBus eventBus)
+            : base(propertiesManager, systemDisableManager, eventBus)
         {
             _bingoConfigurationProvider = bingoConfigurationProvider ?? throw new ArgumentNullException(nameof(bingoConfigurationProvider));
             ConfigurationConversion =
@@ -33,6 +35,7 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
                     { MachineAndGameConfigurationConstants.LocationPosition, (ApplicationConstants.Position, null)},
                     { MachineAndGameConfigurationConstants.BingoCardPlacement, (BingoConstants.BingoCardPlacement, null)},
                     { MachineAndGameConfigurationConstants.DispBingoCard, (BingoConstants.DisplayBingoCardEgm, null)},
+                    { MachineAndGameConfigurationConstants.SideBetEnabled, (BingoConstants.SideBetEnabled, null)},
                 };
 
             RequiredSettings =
@@ -80,6 +83,11 @@ namespace Aristocrat.Monaco.Bingo.Services.Configuration
                     LogUnhandledSetting(name, value);
                     break;
             }
+        }
+
+        protected override void ServerConfigurationCompletedEvent()
+        {
+            EventBus.Publish(new ServerConfigurationCompletedEvent());
         }
 
         protected override bool IsSettingInvalid(string name, string value)

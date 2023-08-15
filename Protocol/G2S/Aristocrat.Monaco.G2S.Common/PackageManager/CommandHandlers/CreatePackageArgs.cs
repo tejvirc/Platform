@@ -2,7 +2,7 @@
 {
     using System;
     using Storage;
-    using Data.Model;
+    using G2S.Data.Model;
 
     /// <summary>
     ///     Create package arguments

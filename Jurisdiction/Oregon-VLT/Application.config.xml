@@ -51,13 +51,13 @@ as follows:
   </MeterRollover>
   <StackerRemoveBehavior AutoClearPeriodMeters="false" />
   <AutoClearPeriodMetersBehavior>
-	<AutoClearPeriodMeters>true</AutoClearPeriodMeters>
-	<ClearClearPeriodOffsetHours>3</ClearClearPeriodOffsetHours>
+  <AutoClearPeriodMeters>true</AutoClearPeriodMeters>
+  <ClearClearPeriodOffsetHours>3</ClearClearPeriodOffsetHours>
   </AutoClearPeriodMetersBehavior>  
   <SoundConfiguration>
     <DefaultVolumeLevel>3</DefaultVolumeLevel>
     <AlertVolume Value="70" />
-	<UseGameTypeVolume>false</UseGameTypeVolume>
+  <UseGameTypeVolume>false</UseGameTypeVolume>
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
   <Demonstration Enabled="true"/>
@@ -80,7 +80,7 @@ as follows:
     <string>SoftwareChange</string>
     <string>Progressive</string>
   </LogTypesAllowedForDisplay>
-  <Cashout ClearWins="false" />
+  <Cashout ClearWins="false" PaperInChuteBlocksCashout="false" />
   <MultiGame RestoreRebootStateAfterSwitch="false" StateStorageLocation="game" />
   <PlatformEnhancedDisplay Enabled="false" />
   <HandpayReceiptPrinting Enabled="true"/>

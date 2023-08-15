@@ -17,6 +17,8 @@
 
         private const string DefaultVariationId = "99";
 
+        private const int DefaultUniqueGameId = 0;
+
         /// <inheritdoc />
         public GameContent Read(string file)
         {
@@ -55,7 +57,8 @@
                 Configurations = product.configurationList?.configuration?.Select(Map).ToList(),
                 DefaultConfiguration = Map(product.configurationList?.configuration?.FirstOrDefault(c => c.name.Equals(product.configurationList?.@default))),
                 MechanicalReels = product.mechanicalReels,
-                MechanicalReelHomeSteps = GetMechanicalReelHomeSteps(product)
+                MechanicalReelHomeSteps = GetMechanicalReelHomeSteps(product),
+                PreloadedAnimationFiles = product.stepperAnimationFileList
             };
 
             foreach (var l in product.localization)
@@ -154,6 +157,8 @@
                 ReferenceId = gameInfo.referenceId ?? string.Empty,
                 Category = gameInfo.categorySpecified ? gameInfo.category : (t_category?)null,
                 SubCategory = gameInfo.subCategorySpecified ? gameInfo.subCategory : (t_subCategory?)null,
+                //BonusGames = gameInfo.bonusGameList,
+                SubGames = GetSubGames(gameInfo.subGameList),
                 Features = gameInfo.FeatureList?.Where(feature => feature.StatInfo != null)
                     .Select(feature => new Feature
                     {
@@ -163,7 +168,8 @@
                     }).ToList(),
                 MaxWagerInsideCredits = gameInfo.maxWagerInsideCredits,
                 MaxWagerOutsideCredits = gameInfo.maxWagerOutsideCredits,
-                NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier
+                NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier,
+                UniqueGameId = gameInfo.uniqueGameIdSpecified ? gameInfo.uniqueGameId : DefaultUniqueGameId
             };
         }
 
@@ -360,6 +366,24 @@
                 BetLinePresets = configurationMap.betLinePresetIdList.betLinePresetId,
                 DefaultBetLinePreset = configurationMap.betLinePresetIdList.@default
             };
+        }
+
+        private static IEnumerable<SubGame> GetSubGames(c_subGameList subGameList)
+        {
+            if (subGameList is not null)
+            {
+                return (from subGame in subGameList.SubGame
+                    let denominations = subGame.Denominations.Split(',').Select(long.Parse).ToList()
+                    select new SubGame
+                    {
+                        TitleId = long.Parse(subGame.TitleId),
+                        UniqueGameId = long.Parse(subGame.UniqueGameId),
+                        Denominations = denominations,
+                        CentralInfo = subGame.CdsInfoList?.cdsInfo.Select(Map).ToList() ?? Enumerable.Empty<CentralInfo>()
+                    }).ToList();
+            }
+
+            return new List<SubGame>();
         }
 
         private static string GetVariationFromPaytableId(string paytableId)

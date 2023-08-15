@@ -6,6 +6,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
+    using System.Windows;
     using System.Windows.Data;
     using System.Windows.Input;
     using Application.Contracts;
@@ -15,6 +16,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
+    using Aristocrat.Monaco.Application.Contracts.Protocol;
     using Common.DHCP;
     using Common.Events;
     using Data.Profile;
@@ -38,6 +40,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         private readonly List<Host> _deletedHosts = new List<Host>();
         private readonly List<Host> _editedHosts = new List<Host>();
         private readonly List<Host> _originalHosts = new List<Host>();
+        private readonly TimeSpan _defaultProgressiveHostOfflineInterval = new TimeSpan(0, 0, 0, 30);
 
         private IG2SEgm _egm;
 
@@ -46,6 +49,11 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         private int _port;
         private bool _activated;
         private bool _registeredHostsEnabled;
+
+        private bool _configurableProgressiveHost = true;
+
+        private bool _isProgressiveHost = false;
+        private int _newProgressiveHostId = -1;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="HostConfigurationViewModel" /> class.
@@ -75,6 +83,13 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             _port = PropertiesManager.GetValue(Constants.Port, Constants.DefaultPort);
 
             _egm = GetEgm();
+
+            IMultiProtocolConfigurationProvider MPCProvider = ServiceManager.GetInstance().TryGetService<IMultiProtocolConfigurationProvider>();
+            var G2SConfig = MPCProvider.MultiProtocolConfiguration.FirstOrDefault(c => c.Protocol == CommsProtocol.G2S);
+            if (G2SConfig != null && G2SConfig.IsProgressiveHandled)
+            {
+                _configurableProgressiveHost = false;
+            }
 
             LoadHosts();
 
@@ -146,6 +161,16 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             }
         }
 
+        public bool ConfigurableProgressiveHost
+        {
+            get => _configurableProgressiveHost;
+            set
+            {
+                _configurableProgressiveHost = value;
+                RaisePropertyChanged(nameof(ConfigurableProgressiveHost));
+            }
+        }
+
         protected override void OnUnloaded()
         {
             // the base calls Save, don't want to. This page saved the hosts already...
@@ -178,7 +203,27 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         {
             CommitChanges();
             OnCommitted();
+
             EventBus.Publish(new OperatorMenuSettingsChangedEvent());
+
+            //Update the owner ID on the device to match the new host THEN restart the protocol.
+            if (_isProgressiveHost && _egm != null)
+            {
+                var containerService = ServiceManager.GetInstance().TryGetService<IContainerService>();
+                var profileService = containerService?.Container.GetInstance<IProfileService>();
+                var devices = _egm.GetDevices<IProgressiveDevice>();
+                var progHost = Hosts.First(h => h.IsProgressiveHost);
+                foreach(ClientDeviceBase device in devices)
+                {
+                    bool success = device.HasOwner(progHost.Id, device.Active);
+                    if (success)
+                    {
+                        profileService?.Save(device);
+                    }
+                }
+
+                EventBus.Publish(new RestartProtocolEvent());
+            }
         }
 
         /// <summary>
@@ -254,7 +299,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     Registered = h.Registered,
                     RequiredForPlay = h.RequiredForPlay,
                     RegisteredDisplayText = GetBooleanDisplayText(h.Registered),
-                    RequiredForPlayDisplayText = GetBooleanDisplayText(h.RequiredForPlay)
+                    RequiredForPlayDisplayText = GetBooleanDisplayText(h.RequiredForPlay),
+                    IsProgressiveHost = h.IsProgressiveHost,
+                    ProgressiveHostOfflineTimerInterval = h.ProgressiveHostOfflineTimerInterval
                 };
 
                 Hosts.Add(host);
@@ -289,7 +336,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                         Registered = host.IsEgm() || host.Registered,
                         RequiredForPlay = host.RequiredForPlay,
                         RegisteredDisplayText = GetBooleanDisplayText(host.Registered),
-                        RequiredForPlayDisplayText = GetBooleanDisplayText(host.RequiredForPlay)
+                        RequiredForPlayDisplayText = GetBooleanDisplayText(host.RequiredForPlay),
+                        IsProgressiveHost = host.IsProgressiveHost,
+                        ProgressiveHostOfflineTimerInterval = host.ProgressiveHostOfflineTimerInterval
                     });
             }
 
@@ -323,7 +372,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     Id = h.Id,
                     Address = h.Address,
                     Registered = h.Registered,
-                    RequiredForPlay = h.RequiredForPlay
+                    RequiredForPlay = h.RequiredForPlay,
+                    IsProgressiveHost = h.IsProgressiveHost,
+                    ProgressiveHostOfflineTimerInterval = h.ProgressiveHostOfflineTimerInterval
                 };
 
                 _originalHosts.Add(host);
@@ -343,6 +394,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
             if (result == true)
             {
+                ClearDefaultProgressiveHosts(viewModel);
+
                 var host = new Host
                 {
                     Index = newHostId,
@@ -350,6 +403,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     Address = new Uri(viewModel.Address),
                     Registered = viewModel.Registered,
                     RequiredForPlay = viewModel.RequiredForPlay,
+                    IsProgressiveHost = viewModel.IsProgressiveHost,
+                    ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerInterval)
                 };
 
                 Hosts.Add(host);
@@ -368,7 +423,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 host.Id,
                 host.Address.ToString(),
                 host.Registered,
-                host.RequiredForPlay);
+                host.RequiredForPlay,
+                host.IsProgressiveHost,
+                host.ProgressiveHostOfflineTimerInterval.TotalSeconds);
 
             var result = _dialogService.ShowDialog<EditHostView>(
                 this,
@@ -381,6 +438,12 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 {
                     //do nothing if nothing changed or we don't have a host id
                     return;
+                }
+
+                _isProgressiveHost = viewModel.IsProgressiveHostChangedAndToggled;
+                if (_isProgressiveHost)
+                {
+                    _newProgressiveHostId = viewModel.HostId.Value;
                 }
 
                 // Stop the old host and flag it for deletion if the host id changed
@@ -397,14 +460,20 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                             Id = host.Id,
                             Index = host.Index,
                             Registered = host.Registered,
-                            RequiredForPlay = host.RequiredForPlay
+                            RequiredForPlay = host.RequiredForPlay,
+                            IsProgressiveHost = host.IsProgressiveHost,
+                            ProgressiveHostOfflineTimerInterval = host.ProgressiveHostOfflineTimerInterval
                         });
                 }
+
+                ClearDefaultProgressiveHosts(viewModel);
 
                 host.Id = viewModel.HostId.Value;
                 host.Address = new Uri(viewModel.Address);
                 host.Registered = viewModel.Registered;
                 host.RequiredForPlay = viewModel.RequiredForPlay;
+                host.IsProgressiveHost = viewModel.IsProgressiveHost;
+                host.ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerInterval);
 
                 RefreshHosts();
 
@@ -641,6 +710,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                                 $"http://{Dns.GetHostEntry(string.Empty).HostName}:3110{id}/RGS/api-services/G2SAPI"),
                             Registered = id == 1,
                             RequiredForPlay = false,
+                            IsProgressiveHost = false,
+                            ProgressiveHostOfflineTimerInterval = _defaultProgressiveHostOfflineInterval
                         });
                 }
             }
@@ -672,6 +743,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                             Address = host.Address,
                             Registered = true,
                             RequiredForPlay = requiredForPlay,
+                            IsProgressiveHost = false,
+                            ProgressiveHostOfflineTimerInterval = _defaultProgressiveHostOfflineInterval
                         });
                 }
             }
@@ -721,6 +794,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                         Address = hostUri,
                         Registered = true,
                         RequiredForPlay = false,
+                        IsProgressiveHost = false,
+                        ProgressiveHostOfflineTimerInterval = _defaultProgressiveHostOfflineInterval
                     });
 
                 RefreshHosts();
@@ -745,5 +820,19 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             base.DisposeInternal();
         }
 
+        private void ClearDefaultProgressiveHosts(EditHostViewModel viewModel)
+        {
+            if (viewModel.IsProgressiveHost)
+            {
+                for(int i = Hosts.Count - 1; i >= 0; i--)
+                {
+                    Hosts.ElementAt(i).IsProgressiveHost = false;
+                }
+                for (int i = _addedHosts.Count - 1; i >= 0; i--)
+                {
+                    _addedHosts.ElementAt(i).IsProgressiveHost = false;
+                }
+            }
+        }
     }
 }

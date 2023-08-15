@@ -4873,4 +4873,112 @@ Do you really want to do partial reset????</value>
   <data name="GamesPlayedSinceReboot" xml:space="preserve">
     <value>???Games Played since Reboot???</value>
   </data>
+  <data name="OneCent" xml:space="preserve">
+    <value>1 ¢</value>
+  </data>
+  <data name="AudioDisconnect" xml:space="preserve">
+    <value>???Audio Device Disconnected???</value>
+    <comment>Aristocrat.Monaco.Hardware</comment>
+  </data>
+  <data name="ButtonDeckDisconnected" xml:space="preserve">
+    <value>???Button Deck Disconnected???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="Disconnect" xml:space="preserve">
+    <value>???Disconnect???</value>
+  </data>
+  <data name="DisplayDisconnected" xml:space="preserve">
+    <value>???Display Disconnected???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="GatDisconnected" xml:space="preserve">
+    <value>???GAT is Disconnected???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="ProgressiveDisconnectText" xml:space="preserve">
+    <value>???Progressive Disconnected???</value>
+    <comment>Aristocrat.Monaco.G2S</comment>
+  </data>
+  <data name="TouchDisplayDisconnected" xml:space="preserve">
+    <value>???Touch Display Disconnected - Reconnect the display and Powercycle???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="TouchDisplayReconnected" xml:space="preserve">
+    <value>???Touch Display Connected - Restart Required???</value>
+    <comment>Aristocrat.Monaco.Application</comment>
+  </data>
+  <data name="VbdDisconnectedOnStartupText1" xml:space="preserve">
+    <value>???Button Deck cable not detected on start-up???</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="VbdDisconnectedOnStartupText2" xml:space="preserve">
+    <value>???Check cable and re-start platform???</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="GameConfigurationSavePrompt" xml:space="preserve">
+    <value>???Are you done with all game configuration? ???</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Non</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Oui</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="DateText" xml:space="preserve">
+    <value>??DATE??</value>
+  </data>
+  <data name="TimeText" xml:space="preserve">
+    <value>??TIME??</value>
+  </data>
+  <data name="ReadyToInsert" xml:space="preserve">
+    <value>??Ready to insert bill or voucher.??</value>
+  </data>
+  <data name="DisplayConnected" xml:space="preserve">
+    <value>???Display Connected - Restart Required???</value>
+  </data>
+  <data name="ReplayTicketPrinted" xml:space="preserve">
+    <value>??Printed Ticket for??</value>
+  </data>
+  <data name="ReplayGameWinBonusAwarded" xml:space="preserve">
+    <value>??Game Win Bonus Awarded: {0}??</value>
+  </data>
+  <data name="Printer_DfuInProgress" xml:space="preserve">
+    <value>Téléchargement du programme utilitaire de fichier de données de l’imprimante en cours : veuillez ne pas éteindre l’appareil de jeu</value>
+  </data>
+  <data name="BillInserted" xml:space="preserve">
+    <value>??Bill Inserted??</value>
+  </data>
+  <data name="DisabledByText" xml:space="preserve">
+    <value>??Disabled By ??</value>
+  </data>
+  <data name="EnabledByText" xml:space="preserve">
+    <value>??Enabled By ??</value>
+  </data>
+  <data name="FirmwareUpdateText" xml:space="preserve">
+    <value>??Firmware Update??</value>
+  </data>
+  <data name="SelfTestFailed" xml:space="preserve">
+    <value>??Self Test Failed??</value>
+  </data>
+  <data name="SelfTestInProgress" xml:space="preserve">
+    <value>??Self Test In Progress??</value>
+  </data>
+  <data name="SelfTestPassed" xml:space="preserve">
+    <value>??Self Test Passed??</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>??Service??</value>
+  </data>
+  <data name="WarningText" xml:space="preserve">
+    <value>??WARNING??</value>
+  </data>
+  <data name="WorkingText" xml:space="preserve">
+    <value>??Working??</value>
+  </data>
+  <data name="InvalidNoteAcceptorFirmware" xml:space="preserve">
+    <value>??Invalid Note Acceptor Firmware Detected ISO {0}??</value>
+  </data>
 </root>

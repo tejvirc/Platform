@@ -30,7 +30,7 @@
         event EventHandler<ReelEventArgs> ReelStopped;
 
         /// <summary> The event that occurs when the reel starts spinning </summary>
-        event EventHandler<ReelEventArgs> ReelSpinning;
+        event EventHandler<ReelSpinningEventArgs> ReelSpinning;
 
         /// <summary> The event that occurs when the reel starts slow spinning </summary>
         event EventHandler<ReelEventArgs> ReelSlowSpinning;
@@ -57,10 +57,9 @@
         IReadOnlyDictionary<int, ReelStatus> ReelStatuses { get; }
 
         /// <summary>
-        ///     Homes the reels to the requested stop
+        ///     Gets the default home step for the controller
         /// </summary>
-        /// <returns>Whether or not the reels were homed</returns>
-        Task<bool> HomeReels();
+        int DefaultHomeStep { get; }
 
         /// <summary>
         ///     Homes the reel to the requested stop

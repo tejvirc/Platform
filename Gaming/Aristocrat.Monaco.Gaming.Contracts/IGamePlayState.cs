@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using System;
+    using System.Collections.Generic;
+    using Central;
     using Kernel;
 
     /// <summary>
@@ -53,8 +55,9 @@
         /// <summary>
         ///     Called to indicate a game round is starting.
         /// </summary>
+        /// <param name="initialWager">The initial wager</param>
         /// <returns>true if the state was advanced, otherwise false</returns>
-        bool Prepare();
+        bool Prepare(long initialWager = 0);
 
         /// <summary>
         ///     Escrows the wager for central determinant games
@@ -78,7 +81,8 @@
         /// <param name="initialWager">The initial wager for the primary game.</param>
         /// <param name="data">The initial recovery blob for the primary game.</param>
         /// <param name="recovering">true, if a game round is being recovered</param>
-        void Start(long initialWager, byte[] data, bool recovering);
+        /// <param name="additionalInfo">non-empty if there are multiple games being played at once</param>
+        void Start(long initialWager, byte[] data, bool recovering, IEnumerable<IAdditionalGamePlayInfo> additionalInfo);
 
         /// <summary>
         ///     Called to indicate the secondary game has started

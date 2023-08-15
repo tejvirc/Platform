@@ -63,6 +63,11 @@
         public const int ExpirationNotSet = -1;
 
         /// <summary>
+        ///     DeviceId representing all devices within a class
+        /// </summary>
+        public const int ClassLevelDeviceId = 0;
+
+        /// <summary>
         ///     The default time to live behavior
         /// </summary>
         public const TimeToLiveBehavior DefaultTimeToLiveBehavior = TimeToLiveBehavior.Strict;
@@ -76,10 +81,5 @@
         ///     Default No Response Timer
         /// </summary>
         public static readonly TimeSpan NoResponseTimer = new TimeSpan(0, 5, 0);
-
-        /// <summary>
-        ///     A collection of configured hosts
-        /// </summary>
-        public const string RegisteredHosts = @"G2S.RegisteredHosts";
     }
 }

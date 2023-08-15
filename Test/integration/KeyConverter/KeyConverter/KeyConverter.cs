@@ -8,6 +8,7 @@
     using System.Threading;
     using Accounting.Contracts;
     using Application.Contracts.EKey;
+    using Application.Contracts.Robot;
     using Gaming.Contracts;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.IO;
@@ -17,7 +18,6 @@
     using log4net;
     using NativeKeyboard;
     using Newtonsoft.Json;
-    using RobotController.Contracts;
     using Vgt.Client12.Testing.Tools;
 
     /// <summary>

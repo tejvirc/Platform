@@ -4,6 +4,7 @@ using Aristocrat.Monaco.Hhr.Client.WorkFlow;
 using Aristocrat.Monaco.Hhr.Events;
 using Aristocrat.Monaco.Hhr.Services;
 using Aristocrat.Monaco.Kernel;
+using Aristocrat.Monaco.Protocol.Common.Communication;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;

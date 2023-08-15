@@ -8,30 +8,39 @@
     public enum DisabledReasons
     {
         /// <summary>Indicates disabled by service.</summary>
+        [LabelResourceKey("Service")]
         Service = 1,
 
         /// <summary>Indicates disabled by configuration.</summary>
+        [LabelResourceKey("Configuration")]
         Configuration = Service * 2,
 
         /// <summary>Indicates disabled by system.</summary>
+        [LabelResourceKey("System")]
         System = Configuration * 2,
 
         /// <summary>Indicates disabled by operator.</summary>
+        [LabelResourceKey("OperatorRoleName")]
         Operator = System * 2,
 
         /// <summary>Indicates disabled by error.</summary>
+        [LabelResourceKey("Error")]
         Error = Operator * 2,
 
         /// <summary>Indicates disabled by firmware update.</summary>
+        [LabelResourceKey("FirmwareUpdateText")]
         FirmwareUpdate = Error * 2,
 
         /// <summary>Indicates disabled by backend.</summary>
+        [LabelResourceKey("Backend")]
         Backend = FirmwareUpdate * 2,
 
         /// <summary>Indicates disabled by device (GDS).</summary>
+        [LabelResourceKey("HardwareDeviceCaption")]
         Device = Backend * 2,
 
         /// <summary>Indicates disabled during game play.</summary>
+        [LabelResourceKey("Gameplay")]
         GamePlay = Device * 2
     }
 
@@ -40,27 +49,35 @@
     public enum EnabledReasons
     {
         /// <summary>Indicates enabled by service.</summary>
+        [LabelResourceKey("Service")]
         Service = 1,
 
         /// <summary>Indicates enabled by configuration.</summary>
+        [LabelResourceKey("Configuration")]
         Configuration = Service * 2,
 
         /// <summary>Indicates enabled by system.</summary>
+        [LabelResourceKey("System")]
         System = Configuration * 2,
 
         /// <summary>Indicates enabled by operator.</summary>
+        [LabelResourceKey("OperatorRoleName")]
         Operator = System * 2,
 
         /// <summary>Indicates enabled by reset (power up/error cleared).</summary>
+        [LabelResourceKey("Reset")]
         Reset = Operator * 2,
 
         /// <summary>Indicates enabled by backend.</summary>
+        [LabelResourceKey("Backend")]
         Backend = Reset * 2,
 
         /// <summary>Indicates enabled by device (GDS).</summary>
+        [LabelResourceKey("HardwareDeviceCaption")]
         Device = Backend * 2,
 
         /// <summary>Indicates enabled after game play.</summary>
+        [LabelResourceKey("Gameplay")]
         GamePlay = Device * 2
     }
 

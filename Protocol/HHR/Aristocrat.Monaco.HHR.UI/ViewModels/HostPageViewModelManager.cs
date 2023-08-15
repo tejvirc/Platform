@@ -376,7 +376,7 @@
             _overlayExpiryTimer.Stop();
 
             _eventBus.Publish(new OverlayMenuExitedEvent());
-            
+
             //Notify the runtime that HHR Menu is not active any  more
             _runtimeFlagHandler.SetAwaitingPlayerSelection(false);
             _properties.SetProperty(GamingConstants.AwaitingPlayerSelection, false);

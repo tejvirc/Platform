@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Communication;
     using Messages;
+    using Monaco.Protocol.Common;
 
     /// <summary>
     ///     Provides message encoding and decoding using a flow of operations such as encryption and CRC, by applying them

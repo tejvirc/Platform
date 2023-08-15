@@ -27,7 +27,7 @@ as follows:
   <TenderIn CheckCreditsIn="Balance" AllowCreditUnderLimit="false">
     <MaxCreditsIn Default="100000000" />
   </TenderIn>
-  <CreditLimits>
+  <CreditLimits AllowCreditsInAboveMaxCredit="true">
     <MaxCreditMeter Default="100000000"/>
   </CreditLimits>
   <WinLimits>

@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using Aristocrat.G2S.Client;
+    using Aristocrat.G2S.Client.Communications;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
 
@@ -62,7 +63,7 @@
                 return _egm.Hosts.Single(h => h.IsEgm());
             }
 
-            var registeredHost = _egm.RegisterHost(host.Id, host.Address, host.RequiredForPlay, host.Index);
+            var registeredHost = _egm.RegisterHost(host.Id, host.Address, host.RequiredForPlay, host.Index, host.IsProgressiveHost, host.ProgressiveHostOfflineTimerInterval);
 
             RegisterHostOrientedDevices(registeredHost);
 

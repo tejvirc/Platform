@@ -110,12 +110,12 @@
                             levelInfos.FirstOrDefault(
                                 x => x.AssignableKey == progressive.AssignedProgressiveId.AssignedProgressiveKey ||
                                      x.Levels.Contains(progressive)) ??
-                            GetProgressiveInformation(progressive, linkedLevels, sharedSapLevel);
+                            GetProgressiveInformation(progressive, linkedLevels, sharedSapLevel, game.Id);
                     }
                     else
                     {
                         levelInfo = levelInfos.FirstOrDefault(x => x.Levels.Contains(progressive)) ??
-                                    GetProgressiveInformation(progressive, linkedLevels, sharedSapLevel);
+                                    GetProgressiveInformation(progressive, linkedLevels, sharedSapLevel, game.Id);
                     }
 
                     if (progressive.AssignedProgressiveId.AssignedProgressiveType ==
@@ -142,10 +142,11 @@
             return levelInfos;
         }
 
-        private static ProgressiveLevelInfo GetProgressiveInformation(
+        private ProgressiveLevelInfo GetProgressiveInformation(
             IViewableProgressiveLevel progressiveLevel,
             IEnumerable<IViewableLinkedProgressiveLevel> linkedLevels,
-            IEnumerable<IViewableSharedSapLevel> sharedSapLevels)
+            IEnumerable<IViewableSharedSapLevel> sharedSapLevels,
+            int gameId)
         {
             var defaultCurrent = progressiveLevel.CurrentValue.MillicentsToDollars().FormattedCurrencyString(true);
             switch (progressiveLevel.AssignedProgressiveId.AssignedProgressiveType)
@@ -154,6 +155,7 @@
                     var linkedLevel = linkedLevels
                         .FirstOrDefault(
                             x => x.LevelName == progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey);
+
                     return new ProgressiveLevelInfo
                     {
                         LevelName = linkedLevel?.LevelName,

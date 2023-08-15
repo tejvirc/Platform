@@ -5,6 +5,7 @@ using Aristocrat.Monaco.Gaming.Runtime;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Aristocrat.Monaco.Gaming.Contracts;
+using Vgt.Client12.Application.OperatorMenu;
 
 namespace Aristocrat.Monaco.Gaming.Tests
 {
@@ -16,6 +17,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
         private Mock<IMessageDisplay> _messageDisplay;
         private Mock<IPropertiesManager> _properties;
         private Mock<IGameDiagnostics> _gameReplay;
+        private Mock<IOperatorMenuLauncher> _operatorMenu;
 
         /// <summary>
         ///     Method to setup objects for the test run.
@@ -28,6 +30,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             _messageDisplay = new Mock<IMessageDisplay>();
             _properties = new Mock<IPropertiesManager>();
             _gameReplay = new Mock<IGameDiagnostics>();
+            _operatorMenu = new Mock<IOperatorMenuLauncher>();
 
             _properties.Setup(a => a.GetProperty(It.IsAny<string>(), false)).Returns(false);
             _gameReplay.SetupGet(a => a.IsActive).Returns(false);
@@ -45,7 +48,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
         [ExpectedException(typeof(ArgumentNullException), "Value cannot be null.\r\nParameter name: messageDisplay")]
         public void WhenMessageBusIsNullExpectException()
         {
-            var platformMessageBroadcaster = new GameMessageDisplayHandler(_runtimeService.Object, _eventBus.Object, null, null, null);
+            var platformMessageBroadcaster = new GameMessageDisplayHandler(_runtimeService.Object, _eventBus.Object, null, null, null, null);
 
             Assert.IsNull(platformMessageBroadcaster);
         }
@@ -54,7 +57,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
         [ExpectedException(typeof(ArgumentNullException), "Value cannot be null.\r\nParameter name: runtimeService")]
         public void WhenRuntimeServiceIsNullExpectException()
         {
-            var platformMessageBroadcaster = new GameMessageDisplayHandler(null, _eventBus.Object, _messageDisplay.Object, _properties.Object, _gameReplay.Object);
+            var platformMessageBroadcaster = new GameMessageDisplayHandler(null, _eventBus.Object, _messageDisplay.Object, _properties.Object, _gameReplay.Object, _operatorMenu.Object);
 
             Assert.IsNull(platformMessageBroadcaster);
         }
@@ -63,7 +66,16 @@ namespace Aristocrat.Monaco.Gaming.Tests
         [ExpectedException(typeof(ArgumentNullException), "Value cannot be null.\r\nParameter name: eventbus")]
         public void WhenEventBusIsNullExpectException()
         {
-            var platformMessageBroadcaster = new GameMessageDisplayHandler(_runtimeService.Object, null, _messageDisplay.Object, _properties.Object, _gameReplay.Object);
+            var platformMessageBroadcaster = new GameMessageDisplayHandler(_runtimeService.Object, null, _messageDisplay.Object, _properties.Object, _gameReplay.Object, _operatorMenu.Object);
+
+            Assert.IsNull(platformMessageBroadcaster);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException), "Value cannot be null. \r\nParameter name: operatorMenu")]
+        public void WhenOperatorMenuLauncherIsNullException()
+        {
+            var platformMessageBroadcaster = new GameMessageDisplayHandler(_runtimeService.Object, _eventBus.Object, _messageDisplay.Object, _properties.Object, _gameReplay.Object, null);
 
             Assert.IsNull(platformMessageBroadcaster);
         }
@@ -77,7 +89,7 @@ namespace Aristocrat.Monaco.Gaming.Tests
             _eventBus.Setup(foo => foo.Subscribe<GameProcessExitedEvent>(It.IsAny<object>(), It.IsAny<Action<GameProcessExitedEvent>>()))
                 .Callback((object p, Action<GameProcessExitedEvent> s) => callArgs.Add(s));
 
-            var platformMessageBroadcaster = new GameMessageDisplayHandler(_runtimeService.Object, _eventBus.Object, _messageDisplay.Object, _properties.Object, _gameReplay.Object);
+            var platformMessageBroadcaster = new GameMessageDisplayHandler(_runtimeService.Object, _eventBus.Object, _messageDisplay.Object, _properties.Object, _gameReplay.Object, _operatorMenu.Object);
             Assert.IsNotNull(platformMessageBroadcaster);
 
             // hit the message handler. it is private, so use the event bus mock to grab it

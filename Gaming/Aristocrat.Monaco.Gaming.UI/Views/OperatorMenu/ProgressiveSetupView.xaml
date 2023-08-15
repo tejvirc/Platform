@@ -12,6 +12,7 @@
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
+                               xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:ProgressiveSetupViewModel}, IsDesignTimeCreatable=True}">
     <UserControl.Resources>
@@ -27,6 +28,7 @@
             </Style>
             <converters:NullToVisibilityConverter x:Key="NullToVisConverter" />
             <converters:PercentageTextValueConvert x:Key="PercentageTextValueConvert"/>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid AutomationProperties.AutomationId="Grid0_6FC827A3">
@@ -39,6 +41,10 @@
                            AutomationProperties.AutomationId="RowDefinition3_6FC827A3" />
             <RowDefinition Height="*"
                            AutomationProperties.AutomationId="RowDefinition4_6FC827A3" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_6FC827A3" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition8_6FC827A3" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"
@@ -58,9 +64,26 @@
                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.GenerateCSAPLevels}}"
                 Command="{Binding GenerateCSAPLevelsCommand}"
                 AutomationProperties.AutomationId="Button8_6FC827A3" />
-        <DataGrid Grid.Row="2"
-                  Grid.Column="0"
-                  Grid.ColumnSpan="2"
+
+        <Label Grid.Row="2"
+               Grid.ColumnSpan="2"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.VertexGameIdLabel}}"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Left"
+               Visibility="{Binding IsConfigurableLinkedLevelId, Converter={StaticResource BoolToVisConverter}}"
+               AutomationProperties.AutomationId="Label9_6FC827A3" />
+
+        <TextBox Grid.Row="3"  
+                 Grid.ColumnSpan="2"  
+                 Width="400" 
+                 VerticalAlignment="Center"  
+                 HorizontalAlignment="Left" 
+                 IsReadOnly="{Binding IsSummaryView}"
+                 Text="{Binding ProgressiveGroupId}" 
+                 Visibility="{Binding IsConfigurableLinkedLevelId, Converter={StaticResource BoolToVisConverter}}"
+                 AutomationProperties.AutomationId="TextBox10_6FC827A3" />
+
+        <DataGrid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                   Margin="0 10"
                   ItemsSource="{Binding ProgressiveLevels}"
                   ScrollViewer.CanContentScroll="True"
@@ -88,6 +111,23 @@
                                     Binding="{Binding LevelId}"
                                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSapOrLP), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn10_6FC827A3" />
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.VertexIdLabel}}"
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsConfigurableLinkedLevelId), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn33_6FC827A3">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Visibility="{Binding IsLevelLinked, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                        AutomationProperties.AutomationId="StackPanel34_6FC827A3">
+                                <TextBox Text ="{Binding ConfigurableLinkedLevelId, UpdateSourceTrigger=PropertyChanged}"
+                                         Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSummaryView), Converter={StaticResource TrueCollapsedFalseVisible}, Source={StaticResource Proxy}}"
+                                         AutomationProperties.AutomationId="TextBox35_6FC827A3"/>
+                                <TextBlock Text ="{Binding ConfigurableLinkedLevelId}"
+                                         Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSummaryView), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
+                                         AutomationProperties.AutomationId="TextBlock36_6FC827A3"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.WinLevel}}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding LevelName}"
@@ -177,7 +217,13 @@
                             <helpers:CurrencyTextBox x:Name="InitialValueCurrencyTextBox"
                                                      PreventNegatives="True"
                                                      IsEnabled="{Binding CanSetInitialValue}"
-                                                     Number="{                                     Binding Path=InitialValue,                                      Mode=TwoWay,                                      UpdateSourceTrigger=PropertyChanged,                                      ValidatesOnDataErrors=True,                                      NotifyOnValidationError=True}" />
+                                                     Number="{
+                                                        Binding Path=InitialValue, 
+                                                        Mode=TwoWay, 
+                                                        UpdateSourceTrigger=PropertyChanged, 
+                                                        ValidatesOnDataErrors=True, 
+                                                        NotifyOnValidationError=True}"
+                            />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -240,13 +286,19 @@
                             <helpers:CurrencyTextBox x:Name="OverflowCurrencyTextBox"
                                                      PreventNegatives="True"
                                                      IsEnabled="{Binding CanSetOverflowValue}"
-                                                     Number="{                                     Binding Path=OverflowValue,                                      Mode=TwoWay,                                      UpdateSourceTrigger=PropertyChanged,                                      ValidatesOnDataErrors=True,                                      NotifyOnValidationError=True}" />
+                                                     Number="{
+                                                        Binding Path=OverflowValue,
+                                                        Mode=TwoWay,
+                                                        UpdateSourceTrigger=PropertyChanged,
+                                                        ValidatesOnDataErrors=True,
+                                                        NotifyOnValidationError=True}"
+                            />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Grid.Row="3"
+        <Label Grid.Row="5"
                Grid.Column="0"
                VerticalAlignment="Bottom"
                AutomationProperties.AutomationId="Label32_6FC827A3">

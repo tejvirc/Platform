@@ -31,6 +31,9 @@
     using Monaco.Common;
     using Services;
     using SimpleInjector;
+    using Aristocrat.Monaco.Application.Contracts.Protocol;
+    using System.Collections.Generic;
+    using DisableProvider;
 
     /// <summary>
     ///     Handle the base level G2S communications including meter managements and system events.
@@ -39,7 +42,7 @@
         protocol: CommsProtocol.G2S,
         isValidationSupported: true,
         isFundTransferSupported: false,
-        isProgressivesSupported: false,
+        isProgressivesSupported: true,
         isCentralDeterminationSystemSupported: true)]
     public class G2SBase : BaseRunnable
     {
@@ -52,6 +55,8 @@
         private ServiceWaiter _serviceWaiter = new ServiceWaiter(ServiceManager.GetInstance().GetService<IEventBus>());
         private SharedConsumerContext _sharedConsumerContext;
         private ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
+
+        private bool _g2sProgressivesEnabled = false;
 
         /// <inheritdoc />
         protected override void OnInitialize()
@@ -70,6 +75,11 @@
 
                 CreateVirtualIdReaders();
             }
+
+            _g2sProgressivesEnabled = (bool)ServiceManager.GetInstance().
+                TryGetService<IMultiProtocolConfigurationProvider>().MultiProtocolConfiguration.FirstOrDefault(c => c.Protocol == CommsProtocol.G2S)?.IsProgressiveHandled;
+            var propertyProvider = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            propertyProvider.SetProperty(Constants.G2SProgressivesEnabled, _g2sProgressivesEnabled);
 
             // The G2S Lib uses TraceSource...
             Logger.AddAsTraceSource();
@@ -95,7 +105,10 @@
                     _container.GetInstance<IVoucherValidator>());
 
                 ServiceManager.GetInstance().AddService(_container.GetInstance<IVoucherDataService>() as IService);
-                //ServiceManager.GetInstance().AddService(_container.GetInstance<IProgressiveService>() as IService);
+                if (_g2sProgressivesEnabled)
+                {
+                    ServiceManager.GetInstance().AddService(_container.GetInstance<IProgressiveService>() as IService);
+                }
                 ServiceManager.GetInstance().AddService(_container.GetInstance<IMasterResetService>() as IService);
                 ServiceManager.GetInstance().AddServiceAndInitialize(_container.GetInstance<IInformedPlayerService>() as IService);
                 ServiceManager.GetInstance().AddServiceAndInitialize(_container.GetInstance<IIdReaderValidator>());
@@ -180,6 +193,26 @@
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 propertiesManager.SetProperty(Constants.StartupContext, null);
                 propertiesManager.SetProperty(AccountingConstants.TicketBarcodeLength, AccountingConstants.DefaultTicketBarcodeLength);
+                propertiesManager.SetProperty(GamingConstants.ProgressiveConfigurableLinkedLeveId, _g2sProgressivesEnabled);
+                if (_g2sProgressivesEnabled)
+                {
+                    //Populate the levelID fields in the ProgressiveService
+                    var progressiveDeviceManager = _container.GetInstance<IProgressiveDeviceManager>();
+
+                    if (progressiveDeviceManager != null)
+                    {
+                        var vertexLevelIds = (Dictionary<int, (int linkedGroupId, int linkedLevelId)>)propertiesManager.GetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds, new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
+                        if (vertexLevelIds.Any())
+                        {
+                            progressiveDeviceManager?.OnConfiguredProgressives(false, true);
+                        }
+                        else
+                        {
+                            progressiveDeviceManager?.OnConfiguredProgressives();
+                        }
+                    }
+                }
+
 
                 // Handle all saved startup events
                 eventListener.HandleStartupEvents(
@@ -210,6 +243,7 @@
         protected override void OnStop()
         {
             LogToMessageDisplay(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClosingProtocol));
+            _container?.GetInstance<IG2SDisableProvider>().OnG2SReconfigured().Wait();
 
             // Allow OnRun to exit
             _shutdownEvent?.Set();
@@ -342,7 +376,10 @@
                     Logger.Debug("Unregistered G2S IVoucherValidator ");
                 }
                 ServiceManager.GetInstance().RemoveService(_container.GetInstance<IVoucherDataService>() as IService);
-                //ServiceManager.GetInstance().RemoveService(_container.GetInstance<IProgressiveService>() as IService);
+                if (_g2sProgressivesEnabled)
+                {
+                    ServiceManager.GetInstance().RemoveService(_container.GetInstance<IProgressiveService>() as IService);
+                }
                 ServiceManager.GetInstance().RemoveService(_container.GetInstance<IMasterResetService>() as IService);
                 ServiceManager.GetInstance().RemoveService(_container.GetInstance<IInformedPlayerService>() as IService);
                 ServiceManager.GetInstance().RemoveService(_container.GetInstance<IIdReaderValidator>());

@@ -4,12 +4,14 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Runtime.Remoting.Contexts;
     using Application.Contracts;
     using Contracts;
     using Contracts.Progressives;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using log4net;
+    using Newtonsoft.Json;
 
     /// <summary>
     ///     A <see cref="IPropertyProvider" /> implementation for the gaming layer
@@ -75,6 +77,7 @@
                     GameLoad = new GamingConfigurationGameLoad(),
                     ProgressivePoolCreation = new GamingConfigurationProgressivePoolCreation(),
                     PlayerInformationDisplay = new GamingConfigurationPlayerInformationDisplay(),
+                    AllowZeroCreditCashout = new GamingConfigurationAllowZeroCreditCashout(),
                     FreeSpin = new GamingConfigurationFreeSpin(),
                     Win = new GamingConfigurationWin(),
                     DisplayGamePayMessage = new GamingConfigurationDisplayGamePayMessage(),
@@ -248,7 +251,6 @@
                 { GamingConstants.GameConfigurableStartMethods, (configuration.PhysicalButtons?.GameStartButtons?.GameConfigurableButtons ?? new[] { GameStartConfigurableMethod.MaxBet }, false) },
                 { GamingConstants.GameStartMethodConfigurable, (configuration.PhysicalButtons?.GameStartButtons?.Configurable ?? false, false) },
                 { GamingConstants.GameStartMethodSettingVisible, (configuration.PhysicalButtons?.GameStartButtons?.SettingsVisible ?? true, false) },
-                { GamingConstants.ReportCashoutButtonPressWithZeroCredit, (configuration.PhysicalButtons?.CashOutButton?.ReportToHostWithZeroCredit ?? false, false) },
                 { GamingConstants.OperatorMenuPerformancePageDeselectedGameThemes, (InitFromStorage(GamingConstants.OperatorMenuPerformancePageDeselectedGameThemes), true) },
                 { GamingConstants.OperatorMenuPerformancePageHideNeverActive, (InitFromStorage(GamingConstants.OperatorMenuPerformancePageHideNeverActive), true) },
                 { GamingConstants.OperatorMenuPerformancePageHidePreviouslyActive, (InitFromStorage(GamingConstants.OperatorMenuPerformancePageHidePreviouslyActive), true) },
@@ -313,11 +315,14 @@
                 { GamingConstants.PlayerInformationDisplay.RestrictedModeUse, (playerInformationDisplayOptions?.RestrictedModeUse ?? false, false) },
                 { GamingConstants.PlayerInformationDisplay.GameRulesScreenEnabled, (playerInformationDisplayOptions?.GameRulesScreen?.Enabled ?? false, false) },
                 { GamingConstants.PlayerInformationDisplay.PlayerInformationScreenEnabled, (playerInformationDisplayOptions?.PlayerInformationScreen?.Enabled ?? false, false) },
+                { GamingConstants.GameRulesInstructions, (configuration.Instructions?.GameRulesInstructions ?? string.Empty, false) },
                 { GamingConstants.UseRngCycling, (configuration.RngCycling?.Enabled ?? false, false) },
                 { GamingConstants.ShowPlayerSpeedButtonEnabled, (configuration.ShowPlayerSpeedButton?.Enabled ?? true, false) },
                 { GamingConstants.BonusTransferPlaySound, ((object)configuration.BonusTransfer?.PlaySound ?? true, false) },
                 { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
                 { GamingConstants.DenomSelectionLobby, (configuration.DenomSelectionLobby?.Mode ?? DenomSelectionLobby.Allowed, false) },
+                { GamingConstants.AllowZeroCreditCashout, (InitFromStorage(GamingConstants.AllowZeroCreditCashout), true) },
+                { GamingConstants.ZeroCreditCashoutConfigurable, ((object)configuration.AllowZeroCreditCashout?.Configurable ?? false, false)},
                 { GamingConstants.DisplayGamePayMessageUseKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageUseKey), true)},
                 { GamingConstants.DisplayGamePayMessageFormatKey, (InitFromStorage(GamingConstants.DisplayGamePayMessageFormatKey), true)},
                 { GamingConstants.WinTuneCapping, (configuration.WinIncrement?.WinTuneCapping ?? false, false) },
@@ -325,7 +330,9 @@
                 { GamingConstants.AutocompleteGameRoundEnabled, (configuration.AutoCompleteGameRound?.Enabled ?? true, false) },
                 { GamingConstants.ProgressiveSetupReadonly, (configuration.ProgressiveView?.InitialSetupView?.Readonly ?? false, false) },
                 { GamingConstants.ActionOnMaxWinReached, (configuration.MaxWin?.OnMaxWinReached ?? "endgame", false) },
-                { GamingConstants.AutoEnableSimpleGames, (configuration.AutoEnableSimpleGames?.Enabled?? true, false) }
+                { GamingConstants.AutoEnableSimpleGames, (configuration.AutoEnableSimpleGames?.Enabled?? true, false) },
+                { GamingConstants.ProgressiveConfigurableLinkedLeveId, (false, false) },
+                { GamingConstants.ProgressiveConfiguredLinkedLevelIds, (InitLinkedProgressiveConfigFromStorage(), true)}
             };
 
             if (!blockExists)
@@ -371,11 +378,13 @@
                 SetProperty(GamingConstants.ShowProgramPin, GamingConstants.DefaultShowProgramPin);
                 SetProperty(GamingConstants.ShowProgramEnableResetCredits, true);
                 SetProperty(GamingConstants.AttractModeEnabled, (configuration.AttractModeOptions?.AttractEnabled ?? true));
+                SetProperty(GamingConstants.AllowZeroCreditCashout, configuration.AllowZeroCreditCashout?.Enable ?? false);
                 SetProperty(GamingConstants.ProgressiveLobbyIndicatorType,
                     configuration.ProgressiveLobbyIndicator?.Indicator ?? ProgressiveLobbyIndicator.ProgressiveValue);
                 SetProperty(GamingConstants.ShowTopPickBanners,true);
                 SetProperty(GamingConstants.ShowPlayerMenuPopup, true);
                 SetProperty(GamingConstants.LaunchGameAfterReboot, false);
+                SetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds, new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
                 if (machineSettingsImported == ImportMachineSettings.None)
@@ -432,9 +441,15 @@
             // NOTE:  Not all properties are persisted
             if (value.isPersisted)
             {
+                //transform property for storage
+                var storablePropertyValue = propertyName switch
+                {
+                    GamingConstants.ProgressiveConfiguredLinkedLevelIds => JsonConvert.SerializeObject(propertyValue),
+                    _ => propertyValue
+                };
                 Logger.Debug(
                     $"setting property {propertyName} to {propertyValue}. Type is {propertyValue.GetType()}");
-                _persistentStorageAccessor[propertyName] = propertyValue;
+                _persistentStorageAccessor[propertyName] = storablePropertyValue;
             }
 
             _properties[propertyName] = (propertyValue, value.isPersisted);
@@ -443,6 +458,20 @@
         private object InitFromStorage(string propertyName)
         {
             return _persistentStorageAccessor[propertyName];
+        }
+
+        private Dictionary<int, (int linkedGroupId, int linkedLevelId)> InitLinkedProgressiveConfigFromStorage()
+        {
+            var storedValue = InitFromStorage(GamingConstants.ProgressiveConfiguredLinkedLevelIds)?.ToString();
+
+            var toReturn = new Dictionary<int, (int linkedGroupId, int linkedLevelId)>();
+
+            if (!string.IsNullOrEmpty(storedValue))
+            {
+                toReturn = JsonConvert.DeserializeObject<Dictionary<int, (int linkedGroupId, int linkedLevelId)>>(storedValue);
+            }
+
+            return toReturn;
         }
 
         private int GetRtpValue(int configRtp, int defaultRtp)

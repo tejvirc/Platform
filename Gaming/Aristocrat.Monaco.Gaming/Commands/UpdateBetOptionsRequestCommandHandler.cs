@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System;
+    using System.Linq;
     using System.Reflection;
     using Application.Contracts.Extensions;
     using Contracts;
@@ -35,25 +36,19 @@
         public void Handle(UpdateBetOptions command)
         {
             var (currentGame, currentDenom) = _properties.GetActiveGame();
-            Logger.Debug($"UpdateBetOptions for GameId {currentGame} and Denom {currentDenom}");
-
+            Logger.Debug($"UpdateBetOptions for GameId {currentGame?.Id.ToString() ?? "null"}, UPC {currentGame?.ProductCode.ToString() ?? "null"} and Denom {currentDenom?.Value.ToString() ?? "null"}");
             if (currentGame == null || currentDenom == null)
             {
                 return;
             }
 
-            _properties.SetProperty(GamingConstants.SelectedBetMultiplier, command.BetMultiplier);
-            _properties.SetProperty(GamingConstants.SelectedLineCost, command.LineCost);
+            var mainGame = command.BetDetails.Single(x => x.GameId == currentGame.UniqueGameId);
+            _properties.SetProperty(GamingConstants.SelectedBetMultiplier, mainGame.BetMultiplier);
+            _properties.SetProperty(GamingConstants.SelectedLineCost, mainGame.BetPerLine);
+            _properties.SetProperty(GamingConstants.SelectedBetDetails, mainGame);
+            _properties.SetProperty(GamingConstants.SelectedMultiGameBetDetails, command.BetDetails);
 
-            var details = new BetDetails(
-                command.BetLinePresetId,
-                (int)((long)command.LineCost).MillicentsToCents(),
-                command.NumberLines,
-                command.Ante,
-                command.Stake);
-            _properties.SetProperty(GamingConstants.SelectedBetDetails, details);
-
-            var betCredits = command.Wager;
+            var betCredits = mainGame.Wager;
 
             _runtime?.CallJackpotNotificationIfBetAmountChanged(
                 _properties,

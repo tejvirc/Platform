@@ -38,7 +38,7 @@
             var log = new Mock<IGameHistoryLog>();
             var command = new BingoGameEndedCommand("Test Serial", new CentralTransaction(), log.Object);
             await _target.Handle(command, CancellationToken.None);
-            _reportHandler.Verify(x => x.AddReportToQueue(It.IsAny<ReportGameOutcomeMessage>()), Times.Never);
+            _reportHandler.Verify(x => x.AddReportToQueue(It.IsAny<ReportMultiGameOutcomeMessage>()), Times.Never);
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@
             var transaction = new CentralTransaction { Descriptions = new [] { new BingoGameDescription() } };
             var command = new BingoGameEndedCommand("Test Serial", transaction, log.Object);
             await _target.Handle(command, CancellationToken.None);
-            _reportHandler.Verify(x => x.AddReportToQueue(It.IsAny<ReportGameOutcomeMessage>()), Times.Once);
+            _reportHandler.Verify(x => x.AddReportToQueue(It.IsAny<ReportMultiGameOutcomeMessage>()), Times.Once);
         }
     }
 }

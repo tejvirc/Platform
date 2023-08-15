@@ -24,6 +24,7 @@
 
     <Extension path="/Kernel/Processes">
         <Process Name="GDKRuntimeHost"/>
+        <Process Name="HrgRuntimeHost"/>
     </Extension>
 
     <Extension path="/Hardware/Services">
@@ -204,13 +205,14 @@
 
     <Extension path="/Gaming/Metering/ProgressiveMeterProvider">
         <ProgressiveAtomicMeter name="ProgressiveLevel.BulkContribution" classification="Currency" group="progressiveLevel" />
-        <ProgressiveAtomicMeter name="ProgressiveLevel.WageredAmount" classification="Currency" group="progressiveLevel" />
         <ProgressiveAtomicMeter name="ProgressiveLevel.WinOccurrence" classification="Occurrence" group="progressiveLevel" />
         <ProgressiveAtomicMeter name="ProgressiveLevel.WinAccumulation" classification="Currency" group="progressiveLevel" />
         <ProgressiveAtomicMeter name="ProgressiveLevel.HiddenTotal" classification="Currency" group="progressiveLevel" />
         <ProgressiveAtomicMeter name="SharedLevel.WinOccurrence" classification="Occurrence" group="sharedLevel" />
         <ProgressiveAtomicMeter name="SharedLevel.WinAccumulation" classification="Currency" group="sharedLevel" />
-  </Extension>
+        <ProgressiveAtomicMeter name="WageredAmount" classification="Currency" group="progressive" />
+        <ProgressiveAtomicMeter name="PlayedCount" classification="Occurrence" group="progressive" />
+    </Extension>
 
     <ExtensionPoint path="/Gaming/Metering/GameMeterProvider">
         <ExtensionNode name="GameAtomicMeter" type="Aristocrat.Monaco.Gaming.Contracts.Meters.GameAtomicMeterNode" />

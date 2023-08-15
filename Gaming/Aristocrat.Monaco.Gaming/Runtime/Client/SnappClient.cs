@@ -139,7 +139,9 @@
                         Type = (V1.Outcome.Types.OutcomeType)o.Type,
                         WinAmount = (ulong)o.Value.MillicentsToCents(),
                         LookupData = o.LookupData,
-                        WinLevelIndex = o.WinLevelIndex
+                        WinLevelIndex = o.WinLevelIndex,
+                        GameId = (uint)o.GameId,
+                        GameIndex = (uint)o.GameIndex
                     }));
 
             Invoke(client => client.BeginGameRoundResult(notification));
@@ -237,7 +239,10 @@
                 overriddenPresentationMessage.OverridingMessages.Add(Any.Pack(presentationMessage));
             }
 
-            Invoke(x => x .PresentOverriddenPresentation(overriddenPresentationMessage));
+            if (_runtimePresentationStub is not null)
+            {
+                Invoke(x => x.PresentOverriddenPresentation(overriddenPresentationMessage));
+            }
         }
 
         protected virtual void Dispose(bool disposing)

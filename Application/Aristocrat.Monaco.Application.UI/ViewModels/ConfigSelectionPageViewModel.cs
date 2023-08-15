@@ -4,7 +4,9 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Timers;
     using System.Windows;
+    using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using System.Windows.Threading;
     using ConfigWizard;
@@ -29,6 +31,7 @@
     using MVVM.Command;
     using OperatorMenu;
     using Views;
+    using Xceed.Wpf.Toolkit.Primitives;
 
     [CLSCompliant(false)]
     public class ConfigSelectionPageViewModel : OperatorMenuPageViewModelBase, IConfigWizardNavigator, IService
@@ -63,6 +66,11 @@
         private bool _calibrationPending;
         private bool _serialTouchCalibrated;
         private TouchCalibrationErrorViewModel _errorViewModel;
+        private bool _popupOpen;
+        private UIElement _popupPlacementTarget;
+        private string _popupText;
+        private int _popupTimeoutSeconds;
+        private Timer _popupTimer;
 
         public ConfigSelectionPageViewModel()
         {
@@ -140,6 +148,7 @@
                 });
 
             EventBus.Subscribe<SystemDownEvent>(this, HandleSystemDownEvent);
+            EventBus.Subscribe<OperatorMenuPopupEvent>(this, OnShowPopup);
 
             // We're forcing touch screen mapping.  After doing so, we're going to force a restart
             _restartWhenFinished = !_isInspection && !_cabinetDetectionService.TouchscreensMapped;
@@ -243,6 +252,77 @@
         ///     Gets the service types of the service
         /// </summary>
         public ICollection<Type> ServiceTypes => new[] { typeof(IConfigWizardNavigator) };
+
+        public string PopupText
+        {
+            get => _popupText;
+            private set
+            {
+                if (_popupText != value)
+                {
+                    _popupText = value;
+                    RaisePropertyChanged(nameof(PopupText));
+                    PopupOpen = !string.IsNullOrEmpty(PopupText);
+                }
+            }
+        }
+
+        public override bool PopupOpen
+        {
+            get => _popupOpen;
+            set
+            {
+                if (_popupOpen != value)
+                {
+                    _popupOpen = value;
+                    RaisePropertyChanged(nameof(PopupOpen));
+
+                    if (_popupOpen)
+                    {
+                        Popup_OnOpened();
+                        if (PopupCloseOnLostFocus)
+                        {
+                            Touch.FrameReported += Touch_FrameReported;
+                        }
+                    }
+                    else
+                    {
+                        TimerElapsed(null, null);
+                        PopupText = null;
+                        if (PopupCloseOnLostFocus)
+                        {
+                            Touch.FrameReported -= Touch_FrameReported;
+                        }
+                    }
+                }
+            }
+        }
+
+        public int PopupTimeoutSeconds
+        {
+            get => _popupTimeoutSeconds > 0 ? _popupTimeoutSeconds : PopupPlacementTarget == null ? 2 : 20;
+            set => _popupTimeoutSeconds = value;
+        }
+
+        public bool PopupCloseOnLostFocus { get; private set; }
+
+        public bool PopupStaysOpen => PopupPlacementTarget != null;
+
+        public int PopupFontSize => PopupPlacementTarget == null ? 24 : 16;
+
+        public PlacementMode PopupPlacement => PopupPlacementTarget == null ? PlacementMode.Center : PlacementMode.Left;
+
+        public UIElement PopupPlacementTarget
+        {
+            get => _popupPlacementTarget;
+            set
+            {
+                _popupPlacementTarget = value;
+                RaisePropertyChanged(nameof(PopupPlacement));
+                RaisePropertyChanged(nameof(PopupPlacementTarget));
+                RaisePropertyChanged(nameof(PopupFontSize));
+            }
+        }
 
         /// <summary>
         ///     Use this to cause the configuration wizard to navigate to the next page.  This function should only be used
@@ -661,6 +741,45 @@
                         _errorViewModel = null;
                         InvokeCalibration();
                     });
+            }
+        }
+
+        private void OnShowPopup(OperatorMenuPopupEvent evt)
+        {
+            if (evt.PopupOpen)
+            {
+                PopupCloseOnLostFocus = evt.CloseOnLostFocus;
+                PopupPlacementTarget = evt.TargetElement;
+                PopupTimeoutSeconds = evt.PopupTimeoutSeconds;
+                PopupText = evt.PopupText;
+            }
+            else
+            {
+                PopupOpen = false;
+            }
+        }
+
+        private void Popup_OnOpened()
+        {
+            _popupTimer = new Timer(TimeSpan.FromSeconds(PopupTimeoutSeconds).TotalMilliseconds) { Enabled = true };
+
+            _popupTimer.Elapsed += TimerElapsed;
+            _popupTimer.Start();
+        }
+
+        private void TimerElapsed(object sender, EventArgs e)
+        {
+            PopupOpen = false;
+            _popupTimer.Stop();
+            _popupTimer.Elapsed -= TimerElapsed;
+            _popupTimer.Enabled = false;
+        }
+
+        private void Touch_FrameReported(object sender, TouchFrameEventArgs e)
+        {
+            if (PopupOpen && PopupCloseOnLostFocus)
+            {
+                PopupOpen = false;
             }
         }
 

@@ -7,7 +7,7 @@
     using Common.PackageManager.CommandHandlers;
     using Common.PackageManager.Storage;
     using Common.Transfer;
-    using Data.Model;
+    using G2S.Data.Model;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Monaco.Common.Exceptions;

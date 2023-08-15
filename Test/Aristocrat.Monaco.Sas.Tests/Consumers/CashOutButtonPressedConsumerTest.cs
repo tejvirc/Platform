@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Sas.Tests.Consumers
 {
-    using Aristocrat.Monaco.Sas.Storage.Models;
     using Aristocrat.Sas.Client;
     using Contracts.SASProperties;
     using Gaming.Contracts;
@@ -42,6 +41,40 @@
         {
             _propertiesManager.Setup(m => m.GetProperty(SasProperties.SasFeatureSettings, It.IsAny<SasFeatures>()))
                 .Returns(new SasFeatures { TransferOutAllowed = true });
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.AllowZeroCreditCashout, false))
+                .Returns(false);
+
+            _consumer.Consume(new CashOutButtonPressedEvent());
+
+            _exceptionHandler.Verify(
+                m => m.ReportException(
+                    It.Is<ISasExceptionCollection>(
+                        ex => ex.ExceptionCode == GeneralExceptionCode.CashOutButtonPressed)));
+        }
+
+        [TestMethod]
+        public void ConsumeExceptionSentTest2()
+        {
+            _propertiesManager.Setup(m => m.GetProperty(SasProperties.SasFeatureSettings, It.IsAny<SasFeatures>()))
+                .Returns(new SasFeatures { TransferOutAllowed = false });
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.AllowZeroCreditCashout, false))
+                .Returns(true);
+
+            _consumer.Consume(new CashOutButtonPressedEvent());
+
+            _exceptionHandler.Verify(
+                m => m.ReportException(
+                    It.Is<ISasExceptionCollection>(
+                        ex => ex.ExceptionCode == GeneralExceptionCode.CashOutButtonPressed)));
+        }
+
+        [TestMethod]
+        public void ConsumeExceptionSentTest3()
+        {
+            _propertiesManager.Setup(m => m.GetProperty(SasProperties.SasFeatureSettings, It.IsAny<SasFeatures>()))
+                .Returns(new SasFeatures { TransferOutAllowed = true });
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.AllowZeroCreditCashout, false))
+                .Returns(true);
 
             _consumer.Consume(new CashOutButtonPressedEvent());
 
@@ -56,6 +89,8 @@
         {
             _propertiesManager.Setup(m => m.GetProperty(SasProperties.SasFeatureSettings, It.IsAny<SasFeatures>()))
                 .Returns(new SasFeatures { TransferOutAllowed = false });
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.AllowZeroCreditCashout, false))
+                .Returns(false);
 
             _consumer.Consume(new CashOutButtonPressedEvent());
 

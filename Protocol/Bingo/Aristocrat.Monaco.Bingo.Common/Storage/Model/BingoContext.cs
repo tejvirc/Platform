@@ -28,6 +28,7 @@
             modelBuilder.Configurations.Add(new WinResultModelConfiguration());
             modelBuilder.Configurations.Add(new CertificateConfiguration());
             modelBuilder.Configurations.Add(new BingoDaubsModelConfiguration());
+            modelBuilder.Configurations.Add(new PendingJackpotAwardsConfiguration());
             Database.SetInitializer(new BingoContextInitializer(modelBuilder));
         }
     }

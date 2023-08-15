@@ -40,5 +40,10 @@
         /// </summary>
         /// <returns>The task for stopping the client</returns>
         Task<bool> Stop();
+
+        /// <summary>
+        ///     The client's unique firewall rule name.
+        /// </summary>
+        string FirewallRuleName { get; }
     }
 }

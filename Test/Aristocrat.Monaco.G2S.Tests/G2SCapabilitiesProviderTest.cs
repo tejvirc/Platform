@@ -15,7 +15,7 @@ namespace Aristocrat.Monaco.G2S.Tests
                        typeof(ProtocolCapabilityAttribute)));
             Assert.AreEqual(g2sCapabilitiesProvider.IsValidationSupported, true);
             Assert.AreEqual(g2sCapabilitiesProvider.IsFundTransferSupported, false);
-            Assert.AreEqual(g2sCapabilitiesProvider.IsProgressivesSupported, false);
+            Assert.AreEqual(g2sCapabilitiesProvider.IsProgressivesSupported, true);
             Assert.AreEqual(g2sCapabilitiesProvider.IsCentralDeterminationSystemSupported, true);
         }
     }

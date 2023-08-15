@@ -107,6 +107,11 @@
         public int[] MechanicalReelHomeSteps { get; set; }
 
         /// <summary>
+        ///     Gets or sets the preloaded animation file list
+        /// </summary>
+        public stepperAnimationFileList PreloadedAnimationFiles { get; set; }
+
+        /// <summary>
         ///     Gets or sets the uninstall sequence.
         /// </summary>
         /// <value>

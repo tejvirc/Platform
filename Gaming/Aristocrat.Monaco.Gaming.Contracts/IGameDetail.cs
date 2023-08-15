@@ -23,5 +23,15 @@
         ///     Gets the list of all supported denominations for each credit wagered as part of the game
         /// </summary>
         IEnumerable<IDenomination> Denominations { get; }
+
+        /// <summary>
+        /// Gets the list of all the available sub games
+        /// </summary>
+        IEnumerable<ISubGameDetails> SupportedSubGames { get; }
+
+        /// <summary>
+        /// Gets a list of the active sub games
+        /// </summary>
+        IEnumerable<ISubGameDetails> ActiveSubGames { get; }
     }
 }

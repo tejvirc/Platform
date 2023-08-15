@@ -63,43 +63,11 @@
                             <Button.CommandParameter>
                                 <MultiBinding Converter="{StaticResource MultiValueConverter}">
                                     <Binding ElementName="InfoButton" />
-                                    <Binding Path="DataContext.ProtocolName"
+                                    <Binding Path="DataContext.ProtocolCapabilitiesList"
                                              RelativeSource="{RelativeSource Self}" />
                                 </MultiBinding>
                             </Button.CommandParameter>
                         </Button>
-                        <Popup Margin="10"
-                               Placement="Right"
-                               PlacementTarget="{Binding ElementName=InfoButton}"
-                               VerticalOffset="22"
-                               PopupAnimation="Slide"
-                               AllowsTransparency="True"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               StaysOpen="False"
-                               AutomationProperties.AutomationId="Popup12_8C42549B">
-                            <Popup.IsOpen>
-                                <MultiBinding Converter="{StaticResource EqualityToBool}">
-                                    <Binding Path="DataContext.PopupProtocol"
-                                             RelativeSource="{RelativeSource AncestorType=Control}" />
-                                    <Binding Path="ProtocolName" />
-                                </MultiBinding>
-                            </Popup.IsOpen>
-                            <Border BorderBrush="{StaticResource HighlightBrush1}"
-                                    BorderThickness="2"
-                                    Background="{StaticResource DarkBrush4}"
-                                    Name="PopupBorder"
-                                    AutomationProperties.AutomationId="Border13_8C42549B">
-                                <TextBlock Name="PopupTextBlock"
-                                           Text="{Binding DataContext.PopupProtocolInfo, RelativeSource={RelativeSource AncestorType=Control}}"
-                                           TextWrapping="Wrap"
-                                           Padding="10"
-                                           MaxWidth="400"
-                                           Foreground="{StaticResource HighlightBrush1}"
-                                           FontSize="16"
-                                           AutomationProperties.AutomationId="TextBlock14_8C42549B" />
-                            </Border>
-                        </Popup>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

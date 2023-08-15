@@ -162,6 +162,12 @@
             <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="true" />
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AllowZeroCreditCashout">
+          <xs:complexType>
+            <xs:attribute name="Enable" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="GameLoad">
           <xs:complexType>
             <xs:attribute name="AllowGameInCharge" type="xs:boolean" use="optional" default="false" />
@@ -464,6 +470,11 @@
           <xs:complexType>
             <xs:attribute name="Use" type="xs:boolean" use="optional" default="false" />
             <xs:attribute name="Format" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="Instructions">
+          <xs:complexType>
+            <xs:attribute name="GameRulesInstructions" type="xs:string" use="optional" default="" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="WagerLimits">

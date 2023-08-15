@@ -139,7 +139,7 @@
             }
         }
 
-        public IReadOnlyDictionary<int, int> ReelHomeSteps { get; set; } = new Dictionary<int, int> { { 0, 0 }, { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } };
+        public IReadOnlyDictionary<int, int> ReelHomeSteps { get; set; } = new Dictionary<int, int>();
 
         protected override IReelControllerImplementation Implementation => _reelControllerImplementation;
 
@@ -302,6 +302,7 @@
                 throw new InvalidOperationException("reel controller addin not available");
             }
 
+            SetDefaultHomeSteps();
             ReadOrCreateOptions();
 
             Implementation.FaultCleared += ReelControllerFaultCleared;
@@ -391,10 +392,24 @@
             _stateManager?.HandleReelDisconnected(e);
         }
 
-        private void ReelControllerSpinning(object sender, ReelEventArgs e)
+        private void ReelControllerSpinning(object sender, ReelSpinningEventArgs e)
         {
             Logger.Debug($"ReelControllerSpinning reel {e.ReelId}");
-            _stateManager?.Fire(ReelControllerTrigger.SpinReel, e.ReelId);
+
+            switch (e.SpinVelocity)
+            {
+                case SpinVelocity.Accelerating:
+                    _stateManager?.Fire(ReelControllerTrigger.Accelerate, e.ReelId);
+                    return;
+                case SpinVelocity.Decelerating:
+                    _stateManager?.Fire(ReelControllerTrigger.Decelerate, e.ReelId);
+                    return;
+                default:
+                    _stateManager?.Fire(ReelControllerTrigger.SpinConstant, e.ReelId);
+                    break;
+            }
+
+            PostEvent(new ReelSpinningStatusUpdatedEvent(e.ReelId, e.SpinVelocity));
         }
 
         private void ReelControllerReelStopped(object sender, ReelEventArgs e)
@@ -635,6 +650,17 @@
             {
                 _reelSpinningLock.Release();
             }
+        }
+
+        private void SetDefaultHomeSteps()
+        {
+            var homeSteps = new Dictionary<int, int>();
+            for (var i = 0; i<ReelConstants.MaxSupportedReels; i++)
+            {
+                homeSteps.Add(i, _reelControllerImplementation.DefaultHomeStep);
+            }
+
+            ReelHomeSteps = homeSteps;
         }
     }
 }

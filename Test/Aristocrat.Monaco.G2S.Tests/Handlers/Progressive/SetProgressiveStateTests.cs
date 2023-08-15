@@ -6,6 +6,7 @@
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
+    using Aristocrat.Monaco.Test.Common;
     using G2S.Handlers;
     using G2S.Handlers.Progressive;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -75,6 +76,8 @@
         [TestMethod]
         public async Task WhenHandleCommandWithDisableProgressiveStateExpectSuccess()
         {
+            MoqServiceManager.CreateInstance(MockBehavior.Default);
+
             var deviceMock = new Mock<IProgressiveDevice>();
             deviceMock.SetupGet(m => m.DeviceClass).Returns(DeviceClass.G2S_progressive);
             deviceMock.SetupGet(m => m.HostEnabled).Returns(true);
@@ -85,13 +88,15 @@
 
             var command = CreateCommand();
             command.Command.enable = false;
-
             command.Command.disableText = "disable_text";
+
+            deviceMock.Setup(s => s.SetProgressiveState(
+                command.Command
+                )).Verifiable();
 
             await handler.Handle(command);
 
-            deviceMock.VerifySet(d => d.DisableText = command.Command.disableText);
-            deviceMock.VerifySet(d => d.HostEnabled = false);
+            deviceMock.Verify();
         }
 
         [TestMethod]

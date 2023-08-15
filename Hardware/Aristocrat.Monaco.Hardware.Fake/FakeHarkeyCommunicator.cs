@@ -7,16 +7,16 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using Aristocrat.Monaco.Hardware.Contracts.IO;
-    using Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData;
-    using Aristocrat.Simulation.HarkeyReels;
     using Contracts.Communicator;
+    using Contracts.IO;
     using Contracts.Reel;
+    using Contracts.Reel.ControlData;
     using Contracts.Reel.Events;
     using Contracts.SharedDevice;
     using Kernel;
     using log4net;
     using MVVM;
+    using Simulation.HarkeyReels;
     using Simulation.HarkeyReels.Controls;
 
     public class FakeHarkeyCommunicator : IHarkeyCommunicator
@@ -69,7 +69,7 @@
         public event EventHandler<ReelEventArgs> ReelTilted;
 
         /// <inheritdoc />
-        public event EventHandler<ReelEventArgs> ReelSpinning;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinning;
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelStopped;
@@ -468,20 +468,16 @@
         {
             Logger.Debug($"Received sim reel event {args.ReelId} {args.Step} {args.ReelState}");
 
-            var reelData = new ReelEventArgs(args.ReelId, args.Step);
-
             switch (args.ReelState)
             {
                 case ReelState.Tilted:
-                    ReelTilted?.Invoke(this, reelData);
+                    ReelTilted?.Invoke(this, new ReelEventArgs(args.ReelId, args.Step));
                     break;
                 case ReelState.Spinning:
-                    ReelSpinning?.Invoke(this, reelData);
+                    ReelSpinning?.Invoke(this, new ReelSpinningEventArgs(args.ReelId));
                     break;
                 case ReelState.Stopped:
-                    ReelStopped?.Invoke(this, reelData);
-                    break;
-                default:
+                    ReelStopped?.Invoke(this, new ReelEventArgs(args.ReelId, args.Step));
                     break;
             }
         }

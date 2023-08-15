@@ -5,8 +5,6 @@
     using System.Linq;
     using Application.Monitors;
     using Aristocrat.Cabinet;
-    using Aristocrat.Monaco.Hardware.SerialTouch;
-    using Aristocrat.Monaco.Hardware.Services;
     using Cabinet.Contracts;
     using Contracts;
     using Hardware.Contracts.ButtonDeck;
@@ -67,6 +65,8 @@
             _mockRepository = new MockRepository(MockBehavior.Strict);
             _eventBus = _mockRepository.Create<IEventBus>();
             _disableManager = _mockRepository.Create<ISystemDisableManager>();
+            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
+            _disableManager.Setup(m => m.Enable(It.IsAny<Guid>()));
             _meterManager = _mockRepository.Create<IMeterManager>();
             _persistentStorage = _mockRepository.Create<IPersistentStorageManager>();
             _cabinetDetectionService = _mockRepository.Create<ICabinetDetectionService>();
@@ -296,12 +296,15 @@
         [TestMethod]
         public void BootWithMainDisplayDisconnected()
         {
+            IReadOnlyList<Guid> moqData = new List<Guid> { ApplicationConstants.DisplayDisconnectedLockupKey };
+
             SetCabinetDetectionMock();
             SetupPersistence();
             const int display = 0;
             var device = _displayDeviceMocks.Skip(display).First();
             //device.Setup(x => x.Role).Returns(DisplayRole.Main);
             _buttonDeckDisplay.Setup(x => x.DisplayCount).Returns(2);
+            _disableManager.Setup(m => m.CurrentDisableKeys).Returns(moqData);
             TestBootUpDeviceDisconnect(
                 () =>
                 {
@@ -331,7 +334,6 @@
             const int deviceIndex = 1;
             var device = _touchDeviceMocks.Skip(deviceIndex).First();
             _disableManager.Setup(m => m.CurrentDisableKeys).Returns(_disabledDevices);
-            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
             _buttonDeckDisplay.Setup(x => x.DisplayCount).Returns(2);
             TestBootUpDeviceDisconnect(
                 () =>
@@ -357,10 +359,12 @@
         [TestMethod]
         public void BootWithVbdDisplayDisconnected()
         {
+            IReadOnlyList<Guid> moqData = new List<Guid> { ApplicationConstants.DisplayDisconnectedLockupKey };
             SetCabinetDetectionMock();
             SetupPersistence(true, false);
             const int display = 2;
             var device = _displayDeviceMocks.Skip(display).First();
+            _disableManager.Setup(m => m.CurrentDisableKeys).Returns(moqData);
             TestBootUpDeviceDisconnect(
                 () =>
                 {
@@ -419,9 +423,11 @@
         [TestMethod]
         public void MultipleDisplayDeviceDisconnect()
         {
+            IReadOnlyList<Guid> moqData = new List<Guid> { ApplicationConstants.DisplayDisconnectedLockupKey };
             SetCabinetDetectionMock();
             SetupPersistence();
             _buttonDeckDisplay.Setup(x => x.DisplayCount).Returns(2);
+            _disableManager.Setup(m => m.CurrentDisableKeys).Returns(moqData);
 
             var dm = new DisplayMonitor(
                 _eventBus.Object,
@@ -455,7 +461,6 @@
             SetupPersistence();
             _buttonDeckDisplay.Setup(x => x.DisplayCount).Returns(2);
             _disableManager.Setup(m => m.CurrentDisableKeys).Returns(_disabledDevices);
-            _disableManager.Setup(m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
 
             var dm = new DisplayMonitor(
                 _eventBus.Object,
@@ -835,7 +840,7 @@
             _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 103))).Returns(mainVideo.Object.Role);
             _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 102))).Returns(topVideo.Object.Role);
             _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 104))).Returns(vbdVideo.Object.Role);
-            _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 101))).Returns((DisplayRole?) null);
+            _cabinetDetectionService.Setup(s => s.GetDisplayRoleMappedToTouchDevice(It.Is<ITouchDevice>(d => d.Id == 101))).Returns((DisplayRole?)null);
         }
     }
 }

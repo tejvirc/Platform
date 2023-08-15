@@ -105,6 +105,64 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+    public partial class c_stepperAnimationFileList {
+        
+        private c_stepperAnimationFile[] stepperAnimationFileField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("stepperAnimationFile")]
+        public c_stepperAnimationFile[] stepperAnimationFile {
+            get {
+                return this.stepperAnimationFileField;
+            }
+            set {
+                this.stepperAnimationFileField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+    [System.Xml.Serialization.XmlRootAttribute("stepperAnimationFile", Namespace="http://www.aristocrat.com/pkg/schemas/v1.0", IsNullable=false)]
+    public partial class c_stepperAnimationFile {
+        
+        private string filePathField;
+        
+        private string identifierField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string filePath {
+            get {
+                return this.filePathField;
+            }
+            set {
+                this.filePathField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string identifier {
+            get {
+                return this.identifierField;
+            }
+            set {
+                this.identifierField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
     public partial class c_upgradeActionList {
         
         private c_upgradeAction[] upgradeActionField;
@@ -347,7 +405,7 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         private long maxWinField;
         
         private bool maxWinFieldSpecified;
-
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("bet")]
         public c_bet[] bet {
@@ -662,6 +720,10 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private string lineOptionField;
         
+        private long maxFeatureCostField;
+        
+        private bool maxFeatureCostFieldSpecified;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
         public int id {
@@ -692,6 +754,28 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             }
             set {
                 this.lineOptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public long maxFeatureCost {
+            get {
+                return this.maxFeatureCostField;
+            }
+            set {
+                this.maxFeatureCostField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool maxFeatureCostSpecified {
+            get {
+                return this.maxFeatureCostFieldSpecified;
+            }
+            set {
+                this.maxFeatureCostFieldSpecified = value;
             }
         }
     }
@@ -1127,6 +1211,16 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0", IsNullable=false)]
     public partial class upgradeActionList : c_upgradeActionList {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0", IsNullable=false)]
+    public partial class stepperAnimationFileList : c_stepperAnimationFileList {
     }
     
     /// <remarks/>
@@ -1728,6 +1822,8 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private c_configurationList configurationListField;
         
+        private stepperAnimationFileList stepperAnimationFileListField;
+        
         private System.Xml.XmlElement[] anyField;
         
         private string productTypeField;
@@ -1811,6 +1907,17 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             }
             set {
                 this.configurationListField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+        public stepperAnimationFileList stepperAnimationFileList {
+            get {
+                return this.stepperAnimationFileListField;
+            }
+            set {
+                this.stepperAnimationFileListField = value;
             }
         }
         
@@ -2155,6 +2262,10 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         private int basicMaximumWinCreditsField;
         
         private bool basicMaximumWinCreditsFieldSpecified;
+        
+        private int uniqueGameIdField;
+        
+        private bool uniqueGameIdFieldSpecified;
         
         public c_gameAttributes() {
             this.maxPaybackPctField = ((long)(0));
@@ -2687,6 +2798,28 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
                 this.basicMaximumWinCreditsFieldSpecified = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified, Namespace="http://www.aristocrat.com/pkg/schemas/v1.0")]
+        public int uniqueGameId {
+            get {
+                return this.uniqueGameIdField;
+            }
+            set {
+                this.uniqueGameIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool uniqueGameIdSpecified {
+            get {
+                return this.uniqueGameIdFieldSpecified;
+            }
+            set {
+                this.uniqueGameIdFieldSpecified = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -2782,6 +2915,8 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
         
         private string denominationsField;
         
+        private c_cdsInfoList cdsInfoListField;
+        
         private string uniqueGameIdField;
         
         private string titleIdField;
@@ -2793,6 +2928,16 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
             }
             set {
                 this.denominationsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public c_cdsInfoList CdsInfoList {
+            get {
+                return this.cdsInfoListField;
+            }
+            set {
+                this.cdsInfoListField = value;
             }
         }
         
@@ -5582,4 +5727,3 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
     public partial class uninstallSeqList : c_uninstallSeqList {
     }
 }
-#pragma warning restore 1591

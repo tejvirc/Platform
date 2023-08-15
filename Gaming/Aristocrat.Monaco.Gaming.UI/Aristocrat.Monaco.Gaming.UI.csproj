@@ -60,13 +60,12 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Gaming\Aristocrat.Monaco.Gaming.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'!='Retail'">
-    <ProjectReference Include="..\..\Test\automation\Aristocrat.Monaco.RobotController.Contracts\Aristocrat.Monaco.RobotController.Contracts.csproj" />
     <ProjectReference Include="..\..\Test\integration\DebugCurrencyHandler\DebugCurrencyHandler\DebugCurrencyHandler.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.22" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.24" />
     <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
-    <PackageReference Include="BinkWpf" Version="1.1.13" />
+    <PackageReference Include="BinkWpf" Version="1.1.14" />
     <PackageReference Include="CefSharp.Wpf" Version="93.1.140" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
