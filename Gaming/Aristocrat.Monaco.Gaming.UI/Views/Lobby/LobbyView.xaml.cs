@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics;
+    using System.Globalization;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
@@ -112,15 +113,16 @@
 
             SizeChanged += LobbyView_SizeChanged;
 
-            if (_cabinetDetectionService.Family == HardwareFamily.Unknown ||
+            if ((_cabinetDetectionService.Family == HardwareFamily.Unknown ||
                 _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Top) != null)
+                && !properties.IsPortrait())
             {
                 Logger.Debug("Creating top view");
                 _topView = new LobbyTopView();
             }
 
             if (_cabinetDetectionService.Family == HardwareFamily.Unknown &&
-                _properties.GetValue("display", string.Empty) == "windowed" ||
+                !ServiceManager.GetInstance().GetService<IPropertiesManager>().IsFullScreen() ||
                 _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Topper) != null)
             {
                 Logger.Debug("Creating topper view");
@@ -664,6 +666,20 @@
 
         private void LobbyView_OnLoaded(object sender, RoutedEventArgs e)
         {
+            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+
+            // check if the user set the display property on the bootstrap command line.
+            Height = int.Parse(
+                (string)properties.GetProperty(
+                    Constants.WindowedScreenHeightPropertyName,
+                    Constants.DefaultWindowedHeight),
+                CultureInfo.InvariantCulture);
+            Width = int.Parse(
+                (string)properties.GetProperty(
+                    Constants.WindowedScreenWidthPropertyName,
+                    Constants.DefaultWindowedWidth),
+                CultureInfo.InvariantCulture);
+
             // Hide the LobbyView window while data is being loaded on this screen.
             // This way the user will not see a black screen which using Stopwatch
             // can take up to around 2 seconds. This Fixes Defect VLT-2584.
@@ -679,14 +695,12 @@
                 SetStylusSettings(_responsibleGamingWindow);
             }
 
-            var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-
             _windowToScreenMapper.MapWindow(this);
 
-            ShowTitleBar = !_windowToScreenMapper.IsFullscreen;
-            ShowCloseButton = !_windowToScreenMapper.IsFullscreen;
-            ShowMinButton = !_windowToScreenMapper.IsFullscreen;
-            ShowMaxRestoreButton = !_windowToScreenMapper.IsFullscreen;
+            ShowTitleBar =
+            ShowCloseButton =
+            ShowMinButton =
+            ShowMaxRestoreButton = !properties.IsFullScreen();
 
             var simulateLcdButtonDeck = properties.GetValue(
                 HardwareConstants.SimulateLcdButtonDeck,
@@ -815,8 +829,7 @@
 
         private void MediaDisplayWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            var isFullscreen = WindowToScreenMapper.GetFullscreen(propertiesManager);
+            var isFullscreen = ServiceManager.GetInstance().GetService<IPropertiesManager>().IsFullScreen();
             WindowTools.AssignWindowToPrimaryScreen(sender as Window, isFullscreen);
         }
 

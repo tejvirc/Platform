@@ -3,6 +3,7 @@
     using System;
     using System.Windows;
     using Cabinet.Contracts;
+    using Monaco.Common;
     using ViewModels;
 
     /// <summary>
@@ -92,10 +93,10 @@
                 WindowStyle = WindowStyle.SingleBorderWindow;
 
                 var windowDimensions = ViewModel.GetWindowDimensions(
-                    WindowedScreenHeightPropertyName,
-                    DefaultWindowedHeight,
-                    WindowedScreenWidthPropertyName,
-                    DefaultWindowedWidth);
+                    Constants.WindowedScreenHeightPropertyName,
+                    Constants.DefaultWindowedHeight,
+                    Constants.WindowedScreenWidthPropertyName,
+                    Constants.DefaultWindowedWidth);
 
                 Height = windowDimensions.Item1;
                 Width = windowDimensions.Item2;
@@ -103,8 +104,8 @@
             else
             {
                 WindowState = WindowState.Normal;
-                _screenMapper.MapWindow(this);
             }
+            _screenMapper.MapWindow(this);
         }
     }
 }

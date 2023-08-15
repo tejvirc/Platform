@@ -7,6 +7,7 @@
     using System.Windows;
     using System.Windows.Forms;
     using Cabinet.Contracts;
+    using Contracts;
     using Hardware.Contracts.Cabinet;
     using Kernel;
     using log4net;
@@ -17,74 +18,101 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly IDisplayDevice _device;
+        private readonly IPropertiesManager _properties;
+        private readonly IDisplayDevice _device = null;
         private readonly DisplayRole _role;
+        private readonly bool _fullScreen;
         private readonly bool _showCursor;
 
-        public WindowToScreenMapper(DisplayRole role)
+        public WindowToScreenMapper(DisplayRole role, bool? fullScreen = null, bool? showCursor = null)
             : this(
                 role,
-                GetFullscreen(ServiceManager.GetInstance().GetService<IPropertiesManager>()),
-                GetShowCursor(ServiceManager.GetInstance().GetService<IPropertiesManager>()),
-                ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
-        {
-        }
-
-        public WindowToScreenMapper(DisplayRole role, bool? fullscreen = null, bool? showCursor = null)
-            : this(
-                role,
-                fullscreen ?? GetFullscreen(ServiceManager.GetInstance().GetService<IPropertiesManager>()),
-                showCursor ?? GetShowCursor(ServiceManager.GetInstance().GetService<IPropertiesManager>()),
+                fullScreen,
+                showCursor,
+                ServiceManager.GetInstance().GetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
         {
         }
 
         private WindowToScreenMapper(
             DisplayRole role,
-            bool fullscreen,
-            bool showCursor,
+            bool? fullScreen,
+            bool? showCursor,
+            IPropertiesManager properties,
             ICabinetDetectionService cabinetDetectionService)
         {
             _role = role;
-            _showCursor = showCursor;
-            IsFullscreen = fullscreen;
+            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _fullScreen = fullScreen ?? properties.IsFullScreen();
+            _showCursor = showCursor ?? GetShowCursor(properties);
             var cabinetService = cabinetDetectionService ??
                                  throw new ArgumentNullException(nameof(cabinetDetectionService));
             _device = cabinetService.GetDisplayDeviceByItsRole(role);
+
+            var requestedWidth = int.Parse(properties.GetValue(Constants.WindowedScreenWidthPropertyName, Constants.DefaultWindowedWidth));
+            var requestedHeight = int.Parse(properties.GetValue(Constants.WindowedScreenHeightPropertyName, Constants.DefaultWindowedHeight));
+            if (role == DisplayRole.Main && !_fullScreen && requestedHeight >= requestedWidth)
+            {
+                SecondDevice = cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Top);
+                Logger.Debug($"Get second device: {SecondDevice.DeviceName}");
+            }
         }
 
-        public bool IsFullscreen { get; }
+        public IDisplayDevice SecondDevice { get; } = null;
 
         /// <summary>
         ///     Gets a rectangle representing the screen bounds for the given IDisplayDevice.
         /// </summary>
         /// <param name="displayDevice">The display device.</param>
+        /// <param name="secondDevice">Optional second display device to be used along with main one</param>
         /// <returns>The screen bounds. The origin point is at the top left of the virtual screen space (composed of all screens).</returns>
-        public static Rectangle GetScreenBounds(IDisplayDevice displayDevice)
+        public static Rectangle GetScreenBounds(IDisplayDevice displayDevice, IDisplayDevice secondDevice = null, bool? fullScreen = null)
         {
             TryGetScreenForDisplayDevice(displayDevice, out var screen);
-            return GetScreenBounds(screen);
+            Screen secondScreen = null;
+            if (secondDevice is not null)
+            {
+                TryGetScreenForDisplayDevice(secondDevice, out secondScreen);
+            }
+            return GetScreenBounds(screen, secondScreen);
         }
 
         /// <summary>
         ///     Gets a rectangle representing the screen bounds.
         /// </summary>
         /// <param name="screen">The screen.</param>
+        /// <param name="secondScreen">Optional second screen to use in calculations of a window</param>
         /// <returns>The screen bounds. The origin point is at the top left of the virtual screen space (composed of all screens).</returns>
-        public static Rectangle GetScreenBounds(Screen screen)
+        public static Rectangle GetScreenBounds(Screen screen, Screen secondScreen = null, bool? fullScreen = null)
         {
-            var ratio = screen.Primary
+            var isFullscreen = fullScreen ?? ServiceManager.GetInstance().GetService<IPropertiesManager>().IsFullScreen();
+            Logger.Debug($"GetScreenBounds() primary?{screen.Primary} fullscreen?{isFullscreen}");
+            var screenSize = screen.WorkingArea;
+            var screenBounds = screen.Bounds;
+            if (screen.Primary && secondScreen is not null)
+            {
+                Logger.Debug("Adding optional second screen...");
+                screenSize.Height += secondScreen.WorkingArea.Height;
+                screenSize.Y = secondScreen.WorkingArea.Y;
+                screenBounds.Height += secondScreen.Bounds.Height;
+                screenBounds.Y = secondScreen.Bounds.Y;
+            }
+            Logger.Debug($"GetScreenBounds() new screen size: {screenSize.Left},{screenSize.Top} {screenSize.Width}x{screenSize.Height}");
+            Logger.Debug($"GetScreenBounds() new screen bounds: {screenBounds.Left},{screenBounds.Top} {screenBounds.Width}x{screenBounds.Height}");
+            var ratio = screen.Primary && isFullscreen
                 ? 1.0
                 : Math.Max(
-                    Screen.PrimaryScreen.Bounds.Width / SystemParameters.PrimaryScreenWidth,
-                    Screen.PrimaryScreen.Bounds.Height / SystemParameters.PrimaryScreenHeight);
-            var rect = screen.Primary
+                    (double)screenBounds.Width / screenSize.Width,
+                    (double)screenBounds.Height / screenSize.Height);
+            Logger.Debug($"GetScreenBounds() ratio={ratio}");
+            var rect = screen.Primary && isFullscreen
                 ? new Rectangle(
                     0,
                     0,
                     (int)SystemParameters.PrimaryScreenWidth,
                     (int)SystemParameters.PrimaryScreenHeight)
-                : screen.Bounds;
+                : screenBounds;
+            Logger.Debug($"GetScreenBounds() new rect = {rect.Left},{rect.Top} {rect.Width}x{rect.Height}");
             var left = (int)Math.Floor(rect.Left / ratio);
             var top = (int)Math.Floor(rect.Top / ratio);
             var right = (int)Math.Ceiling(rect.Right / ratio);
@@ -93,16 +121,8 @@
             rect.Y = top;
             rect.Width = right - left;
             rect.Height = bottom - top;
+            Logger.Debug($"GetScreenBounds() final rect = {rect.Left},{rect.Top} {rect.Width}x{rect.Height}");
             return rect;
-        }
-
-        public static bool GetFullscreen(IPropertiesManager properties)
-        {
-            var display = properties.GetValue(Constants.DisplayPropertyKey, Constants.DisplayPropertyFullScreen);
-
-            display = display.ToUpperInvariant();
-
-            return display == Constants.DisplayPropertyFullScreen;
         }
 
         public static bool GetShowCursor(IPropertiesManager properties)
@@ -129,7 +149,7 @@
                 return;
             }
 
-            if (!IsFullscreen)
+            if (!_properties.IsFullScreen())
             {
                 SetWindowMode(window, screen);
                 return;
@@ -194,14 +214,18 @@
 
         private static void SetWindowMode(Window window, Screen screen)
         {
+            Logger.Debug("SetWindowMode");
             window.ResizeMode = ResizeMode.CanResize;
             window.WindowStyle = window.AllowsTransparency ? WindowStyle.None : WindowStyle.SingleBorderWindow;
 
-            var rect = GetScreenBounds(screen);
+            var rect = GetScreenBounds(screen, fullScreen: false);
+            Logger.Debug($"SetWindowMode start rect={rect.Left},{rect.Top} {rect.Width}x{rect.Height}");
+            Logger.Debug($"SetWindowMode incoming window={window.Width}x{window.Height}");
             rect.X += 10;
             rect.Y += 10;
-            rect.Width = Math.Min((int)window.Width, rect.Width - 10);
-            rect.Height = Math.Min((int)window.Height, rect.Height - 10);
+            rect.Width = Math.Min((int)window.Width, rect.Width) - 20;
+            rect.Height = Math.Min((int)window.Height, rect.Height) - 20;
+            Logger.Debug($"SetWindowMode final rect={rect.Left},{rect.Top} {rect.Width}x{rect.Height}");
 
             SetWindowSize(window, rect);
         }
@@ -217,7 +241,7 @@
 
         private Rectangle GetVisibleArea(Screen screen, bool isCorrectScreen)
         {
-            var rect = GetScreenBounds(screen);
+            var rect = GetScreenBounds(screen, fullScreen: _fullScreen);
             if (!isCorrectScreen || _device == null || rect != screen.Bounds)
             {
                 return rect;

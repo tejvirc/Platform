@@ -7,6 +7,7 @@ namespace Aristocrat.Monaco.Application.UI.Views
     using Cabinet.Contracts;
     using Kernel;
     using Kernel.Contracts;
+    using Monaco.Common;
     using Monaco.UI.Common;
     using MVVM;
 
@@ -90,21 +91,21 @@ namespace Aristocrat.Monaco.Application.UI.Views
                 // check if the user set the display property on the bootstrap command line.
                 Height = int.Parse(
                     (string)propertyManager.GetProperty(
-                        BaseWindow.WindowedScreenHeightPropertyName,
-                        BaseWindow.DefaultWindowedHeight),
+                        Constants.WindowedScreenHeightPropertyName,
+                        Constants.DefaultWindowedHeight),
                     CultureInfo.InvariantCulture);
                 Width = int.Parse(
                     (string)propertyManager.GetProperty(
-                        BaseWindow.WindowedScreenWidthPropertyName,
-                        BaseWindow.DefaultWindowedWidth),
+                        Constants.WindowedScreenWidthPropertyName,
+                        Constants.DefaultWindowedWidth),
                     CultureInfo.InvariantCulture);
             }
             else
             {
                 ResizeMode = ResizeMode.NoResize;
-
-                _screenMapper.MapWindow(this);
             }
+
+            _screenMapper.MapWindow(this);
 
             Activate();
         }

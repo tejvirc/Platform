@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Input
 {
     using Cabinet.Contracts;
+    using Contracts;
     using Kernel;
     using Views;
 
@@ -15,7 +16,7 @@
         {
             DataContext = dataContext;
             InitializeComponent();
-            Topmost = WindowToScreenMapper.GetFullscreen(ServiceManager.GetInstance().GetService<IPropertiesManager>());
+            Topmost = ServiceManager.GetInstance().GetService<IPropertiesManager>().IsFullScreen();
         }
 
         public IDisplayDevice Monitor

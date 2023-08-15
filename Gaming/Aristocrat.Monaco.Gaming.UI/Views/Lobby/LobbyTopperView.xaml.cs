@@ -96,10 +96,10 @@
             ViewModel.DisplayChanged += ViewModel_OnDisplayChanged;
             _windowToScreenMapper.MapWindow(this);
 
-            ShowTitleBar = !_windowToScreenMapper.IsFullscreen;
-            ShowCloseButton = !_windowToScreenMapper.IsFullscreen;
-            ShowMinButton = !_windowToScreenMapper.IsFullscreen;
-            ShowMaxRestoreButton = !_windowToScreenMapper.IsFullscreen;
+            ShowTitleBar =
+            ShowCloseButton =
+            ShowMinButton =
+            ShowMaxRestoreButton = !ServiceManager.GetInstance().GetService<IPropertiesManager>().IsFullScreen();
         }
 
         private void TopperLayoutOverlayWindow_OnLoaded(object sender, RoutedEventArgs e)

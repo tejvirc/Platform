@@ -3,6 +3,8 @@
     using System;
     using System.Windows;
     using Cabinet.Contracts;
+    using Contracts;
+    using Kernel;
 
     /// <summary>
     /// </summary>
@@ -29,7 +31,7 @@
             {
                 _displayRole = value;
                 _mapper = new WindowToScreenMapper(value);
-                Topmost = _mapper.IsFullscreen;
+                Topmost = ServiceManager.GetInstance().GetService<IPropertiesManager>().IsFullScreen();
                 _mapper.MapWindow(this);
             }
         }

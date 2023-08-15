@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Views
 {
-    using Cabinet.Contracts;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -9,6 +8,9 @@
     using System.Windows.Ink;
     using System.Windows.Input;
     using System.Windows.Media;
+    using Cabinet.Contracts;
+    using Contracts;
+    using Kernel;
 
     /// <summary>
     /// </summary>
@@ -81,7 +83,7 @@
             set
             {
                 _mapper = new WindowToScreenMapper(value);
-                Topmost = _mapper.IsFullscreen;
+                Topmost = ServiceManager.GetInstance().GetService<IPropertiesManager>().IsFullScreen();
                 _mapper.MapWindow(this);
             }
         }

@@ -10,22 +10,6 @@
     /// </summary>
     public class BaseWindow : Window
     {
-        /// <summary>The default screen height in pixels.</summary>
-        public static readonly string DefaultWindowedHeight = "1080";
-
-        /// <summary>The default screen width in pixels.</summary>
-        public static readonly string DefaultWindowedWidth = "1920";
-
-        /// <summary>
-        ///     The property name from command line arguments for the windowed screen width
-        /// </summary>
-        public static readonly string WindowedScreenWidthPropertyName = "width";
-
-        /// <summary>
-        ///     The property name from command line arguments for the windowed screen height
-        /// </summary>
-        public static readonly string WindowedScreenHeightPropertyName = "height";
-
         /// <summary>
         ///     Gets the release target screen size in pixels. Modify this value in the ResourceLibrary.xaml file.
         /// </summary>

@@ -3,7 +3,8 @@
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Forms;
+    using Application.Contracts;
+    using Kernel;
     using log4net;
     using ViewModels;
 
@@ -16,7 +17,7 @@
         private const string DefaultLobbyPortraitTemplate = "LobbyViewPortraitTemplate";
         private const string DefaultLobbyLandscapeTemplate = "LobbyViewLandscapeTemplate";
         private const string DefaultLobbyMidKnightTemplate = "LobbyViewMidKnightTemplate";
-        /// <inheritdoc />
+
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             if (item is not LobbyViewModel lobby)
@@ -28,7 +29,7 @@
 
             var dataTemplateKey = lobby.Config.MidKnightLobbyEnabled
                 ? DefaultLobbyMidKnightTemplate
-                : Screen.PrimaryScreen.WorkingArea.Width < Screen.PrimaryScreen.WorkingArea.Height
+                : ServiceManager.GetInstance().GetService<IPropertiesManager>().IsPortrait()
                     ? DefaultLobbyPortraitTemplate
                     : DefaultLobbyLandscapeTemplate;
 

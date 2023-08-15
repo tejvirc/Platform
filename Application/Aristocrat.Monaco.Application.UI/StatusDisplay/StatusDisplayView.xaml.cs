@@ -1,12 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.StatusDisplay
 {
-    using Kernel;
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Forms;
     using Hardware.Contracts.Display;
+    using Kernel;
+    using Monaco.Common;
 
     public sealed partial class StatusDisplayView : IDisposable
     {
@@ -107,12 +108,12 @@
 
                 // check if the user set the display property on the bootstrap command line.
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-                Width = int.Parse(
-                    (string)propertiesManager.GetProperty(WindowedScreenWidthPropertyName, DefaultWindowedWidth),
-                    CultureInfo.CurrentCulture);
-                Height = int.Parse(
-                    (string)propertiesManager.GetProperty(WindowedScreenHeightPropertyName, DefaultWindowedHeight),
-                    CultureInfo.CurrentCulture);
+                Width = int.Parse(/**/
+                    (string)propertiesManager.GetProperty(Constants.WindowedScreenWidthPropertyName,/**/ Constants.DefaultWindowedWidth)/**/,
+                    CultureInfo.CurrentCulture)/**/;
+                Height = int.Parse(/**/
+                    (string)propertiesManager.GetProperty(Constants.WindowedScreenHeightPropertyName,/**/ Constants.DefaultWindowedHeight)/**/,
+                    CultureInfo.CurrentCulture)/**/;
             }
             else
             {
@@ -132,7 +133,7 @@
                     WindowState = WindowState.Normal;
 
                     // Needed for Windows to re-evaluate what screen now has the origin point
-                    // http://www.codewrecks.com/blog/index.php/2013/01/05/open-a-window-in-fullscreen-on-a-specific-monitor-in-wpf/
+                    // https://www.codewrecks.com/post/old/2013/01/open-a-window-in-fullscreen-on-a-specific-monitor-in-wpf/
                     Top += 2;
                     Left += 2;
 

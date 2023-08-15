@@ -3,6 +3,7 @@
     using System;
     using System.Windows;
     using Cabinet.Contracts;
+    using Contracts;
     using Kernel;
     using Views;
 
@@ -18,7 +19,7 @@
         public TouchCalibrationWindow()
         {
             InitializeComponent();
-            Topmost = WindowToScreenMapper.GetFullscreen(ServiceManager.GetInstance().GetService<IPropertiesManager>());
+            Topmost = ServiceManager.GetInstance().GetService<IPropertiesManager>().IsFullScreen();
             ContentView.Visibility = Visibility.Hidden;
         }
 
