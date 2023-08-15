@@ -356,7 +356,7 @@
                 },
                 (element) =>
                 {
-                    Grid grid = _overlayWindow.FindName("ViewInjectionRoot") as Grid;
+                    Grid grid = _overlayWindow?.FindName("ViewInjectionRoot") as Grid;
                     if (grid?.Children.Count > 0)
                     {
                         if (element != null)
