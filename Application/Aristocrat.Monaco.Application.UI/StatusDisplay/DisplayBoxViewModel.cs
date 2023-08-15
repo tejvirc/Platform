@@ -47,14 +47,10 @@
             }
         }
 
-        public void AddMessage(string message)
-        {
-            Messages.Insert(0, message);
-        }
-
         public void AddDisplayableMessage(DisplayableMessage message)
         {
-            DisplayableMessages.Insert(0, message); 
+            DisplayableMessages.Insert(0, message);
+            Messages.Insert(0, ResolveDisplayableMessageText(message));
         }
 
         public void RemoveMessage(DisplayableMessage message)

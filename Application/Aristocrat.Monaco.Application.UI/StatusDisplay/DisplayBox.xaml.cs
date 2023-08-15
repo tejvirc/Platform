@@ -32,7 +32,6 @@
         /// <param name="text">String to add to the display box.</param>
         public void AddToDisplay(DisplayableMessage message)
         {
-            ViewModel.AddMessage(ViewModel.ResolveDisplayableMessageText(message));
             ViewModel.AddDisplayableMessage(message);
         }
 
