@@ -386,12 +386,6 @@
             {
                 OnDeviceStatusChanged<ButtonDeckDisconnectedEvent>(ApplicationMeters.PlayerButtonErrorCount, false);
             }
-
-            HandleStatusChange(
-                !connected,
-                connected,
-                ApplicationConstants.LcdButtonDeckDisconnectedLockupKey,
-                ResourceKeys.ButtonDeckDisconnected);
         }
 
         private bool CheckDevicesCount()
