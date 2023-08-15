@@ -12,6 +12,7 @@ as follows:
 <ApplicationConfiguration>
   <Currency Id="CAD"/>
   <HardMeterMonitor DisableOnError="true"/>
+  <DisplayTopScreen Enabled="false"/>
   <NoteAcceptorMonitor DisableOnError="Queue" LockupOnStackerFull="true" />
   <PrinterMonitor FormFeedAfterKeyOff="true"/>
   <GeneralMessages>

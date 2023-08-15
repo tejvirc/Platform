@@ -2949,10 +2949,18 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 IsTopScreenRenderingDisabled = (IsInState(LobbyState.Disabled) || IsInOperatorMenu) &&
                                                 !ContainsAnyState(LobbyState.GameDiagnostics, LobbyState.GameLoadingForDiagnostics);
             }
-            else
+            else 
             {
-                IsTopScreenRenderingDisabled = IsInState(LobbyState.Disabled) &&
-                                                              !ContainsAnyState(LobbyState.GameDiagnostics, LobbyState.GameLoadingForDiagnostics);
+                if (_properties.GetValue(ApplicationConstants.DisplayTopScreenWhenCashout, true))
+                {
+                    IsTopScreenRenderingDisabled = IsInState(LobbyState.Disabled) && (IsInLobby || IsInOperatorMenu) &&
+                                                                 !ContainsAnyState(LobbyState.GameDiagnostics, LobbyState.GameLoadingForDiagnostics);
+                }
+                else
+                {
+                    IsTopScreenRenderingDisabled = IsInState(LobbyState.Disabled) &&
+                                                                !ContainsAnyState(LobbyState.GameDiagnostics, LobbyState.GameLoadingForDiagnostics);
+                }
             }
 
             IsTopperScreenRenderingDisabled = IsTopScreenRenderingDisabled;

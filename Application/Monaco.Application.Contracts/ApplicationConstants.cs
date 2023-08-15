@@ -406,6 +406,11 @@
         /// <summary>Property manager key for PaperInChuteBlocksCashout flag.</summary>
         public const string PaperInChuteBlocksCashout = "Cashout.PaperInChuteBlocksCashout";
 
+        /// <summary>
+        /// Property manager key for DisplayTopScreenWhenCashout flag.
+        /// </summary>
+        public const string DisplayTopScreenWhenCashout = "DisplayTopScreen.Enabled";
+
         /// <summary>Property manager key multi-game DefaultBetAfterSwitch flag.</summary>
         public const string DefaultBetAfterSwitch = "MultiGame.DefaultBetAfterSwitch";
 
