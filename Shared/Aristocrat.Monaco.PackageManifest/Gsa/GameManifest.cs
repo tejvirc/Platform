@@ -17,6 +17,8 @@
 
         private const string DefaultVariationId = "99";
 
+        private const int DefaultUniqueGameId = 0;
+
         /// <inheritdoc />
         public GameContent Read(string file)
         {
@@ -55,7 +57,8 @@
                 Configurations = product.configurationList?.configuration?.Select(Map).ToList(),
                 DefaultConfiguration = Map(product.configurationList?.configuration?.FirstOrDefault(c => c.name.Equals(product.configurationList?.@default))),
                 MechanicalReels = product.mechanicalReels,
-                MechanicalReelHomeSteps = GetMechanicalReelHomeSteps(product)
+                MechanicalReelHomeSteps = GetMechanicalReelHomeSteps(product),
+                PreloadedAnimationFiles = product.stepperAnimationFileList
             };
 
             foreach (var l in product.localization)
@@ -165,7 +168,8 @@
                     }).ToList(),
                 MaxWagerInsideCredits = gameInfo.maxWagerInsideCredits,
                 MaxWagerOutsideCredits = gameInfo.maxWagerOutsideCredits,
-                NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier
+                NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier,
+                UniqueGameId = gameInfo.uniqueGameIdSpecified ? gameInfo.uniqueGameId : DefaultUniqueGameId
             };
         }
 

@@ -6,7 +6,11 @@
 
     public class SubGameDetails : ISubGameDetails
     {
-        public SubGameDetails(int uniqueId, string titleId, IEnumerable<Denomination> denominations, IEnumerable<CdsGameInfo> cdsGameInfos)
+        public SubGameDetails(
+            int uniqueId,
+            string titleId,
+            IEnumerable<Denomination> denominations,
+            IEnumerable<CdsGameInfo> cdsGameInfos)
         {
             Id = uniqueId;
             CdsTitleId = titleId;

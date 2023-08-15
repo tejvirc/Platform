@@ -195,6 +195,9 @@
         public int[] MechanicalReelHomeSteps { get; set; }
 
         /// <inheritdoc />>
+        public IEnumerable<AnimationFile> PreloadedAnimationFiles { get; set; }
+
+        /// <inheritdoc />>
         public GameCategory Category { get; set; }
 
         /// <inheritdoc />>
@@ -211,6 +214,9 @@
 
         /// <inheritdoc />>
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
+        /// <inheritdoc />>
+        public int UniqueGameId { get; set; }
 
         /// <inheritdoc />>
         public IEnumerable<ISubGameDetails> SupportedSubGames { get; set; }

@@ -35,6 +35,7 @@
     internal class RelmUsbCommunicator : IRelmCommunicator
     {
         private const ReelControllerFaults PingTimeoutFault = ReelControllerFaults.CommunicationError;
+        private const int DefaultHomeStepValue = 5;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
@@ -94,7 +95,7 @@
         public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultCleared;
 
         /// <inheritdoc />
-        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinningStatusReceived;
 
         /// <inheritdoc />
         public IReadOnlyCollection<AnimationFile> AnimationFiles => _animationFiles.ToList();
@@ -119,14 +120,17 @@
         /// <inheritdoc />
         public bool IsOpen => _relmCommunicator?.IsOpen ?? false;
 
+        // TODO: Wire this up
         /// <inheritdoc />
-        public int VendorId { get; }
-
+        public int VendorId => 0;
+        
+        // TODO: Wire this up
         /// <inheritdoc />
-        public int ProductId { get; }
-
+        public int ProductId => 0;
+        
+        // TODO: Wire this up
         /// <inheritdoc />
-        public int ProductIdDfu { get; }
+        public int ProductIdDfu => 0;
 
         /// <inheritdoc />
         public string Protocol { get; private set; }
@@ -148,16 +152,19 @@
         public bool IsDfuCapable => true;
 
         /// <inheritdoc />
-        public bool InDfuMode { get; }
+        public bool InDfuMode => false;
 
         /// <inheritdoc />
-        public bool CanDownload { get; }
+        public bool CanDownload => false;
 
         /// <inheritdoc />
-        public bool IsDownloadInProgress { get; }
+        public bool IsDownloadInProgress => false;
 
         /// <inheritdoc />
         public int DefaultReelBrightness { get; set; }
+
+        /// <inheritdoc />
+        public int DefaultHomeStep => DefaultHomeStepValue;
 
         /// <inheritdoc />
         public void Dispose()
@@ -230,41 +237,49 @@
         /// <inheritdoc />
         public void ResetConnection()
         {
-            // Implement resetting connection
+            // TODO: Implement resetting connection
             throw new NotImplementedException();
         }
 
         /// <inheritdoc />
-        public async Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token = default)
+        public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token = default)
         {
-            return await LoadAnimationFiles(new[] { file }, token);
+            return LoadAnimationFiles(new[] { file }, null, token);
         }
 
         /// <inheritdoc />
-        public async Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token = default)
+        public async Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, IProgress<LoadingAnimationFileModel> progress, CancellationToken token = default)
         {
             if (_relmCommunicator is null)
             {
                 return false;
             }
 
+            var animationFilesLoaded = 0;
             var animationFiles = files as AnimationFile[] ?? files.ToArray();
-            Logger.Debug($"Downloading {animationFiles.Length} Animation files");
+            var loadingAnimationFileModel = new LoadingAnimationFileModel();
+            Logger.Debug($"Checking {animationFiles.Length} animation files to download");
 
-            var success = true;
+            var count = 1;
             foreach (var file in animationFiles)
             {
                 if (_animationFiles.Contains(file))
                 {
-                    Logger.Debug($"Animation file already loaded: {file.Path}");
+                    Logger.Debug($"Animation file already downloaded: {file.Path}");
                     continue;
                 }
+
+                loadingAnimationFileModel.Count = count;
+                loadingAnimationFileModel.Total = animationFiles.Length;
+                loadingAnimationFileModel.Filename = Path.GetFileName(file.Path);
 
                 try
                 {
                     if (!_propertiesManager.GetValue(HardwareConstants.DoNotResetRelmController, false))
                     {
-                        Logger.Debug($"Downloading Animation file: {file.Path}");
+                        Logger.Debug($"Downloading animation file {loadingAnimationFileModel.Count + "/" + loadingAnimationFileModel.Total} {file.Path}");
+                        loadingAnimationFileModel.State = LoadingAnimationState.Loading;
+                        progress?.Report(loadingAnimationFileModel);
                         var storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
                         file.AnimationId = storedFile.FileId;
                     }
@@ -275,23 +290,36 @@
                     }
 
                     _animationFiles.Add(file);
+                    animationFilesLoaded++;
                 }
                 catch (Exception e)
                 {
-                    success = false;
-                    Logger.Debug($"Error downloading {file}: {e}");
+                    Logger.Error($"Error while loading animation file  {loadingAnimationFileModel.Count + "/" + loadingAnimationFileModel.Total} {loadingAnimationFileModel.Filename}: {e}");
+                    loadingAnimationFileModel.State = LoadingAnimationState.Error;
+                    progress?.Report(loadingAnimationFileModel);
+                    return false;
                 }
 
-                Logger.Debug($"Finished downloading animation file: [{file.Path}], Name: {file.FriendlyName}, AnimationId: {file.AnimationId}");
+                Logger.Debug($"Finished downloading animation file {count} of {animationFiles.Length}: [{file.Path}], Name: {file.FriendlyName}, AnimationId: {file.AnimationId}");
+                count++;
             }
 
-            return success;
+            if (animationFilesLoaded <= 0)
+            {
+                return true;
+            }
+
+            Logger.Debug($"Completed downloading {animationFilesLoaded} animation files");
+            loadingAnimationFileModel.State = LoadingAnimationState.Completed;
+            progress?.Report(loadingAnimationFileModel);
+
+            return true;
         }
 
         /// <inheritdoc />
-        public async Task<bool> PrepareAnimation(LightShowData showData, CancellationToken token = default)
+        public Task<bool> PrepareAnimation(LightShowData showData, CancellationToken token = default)
         {
-            return await PrepareAnimations(new[] { showData }, token);
+            return PrepareAnimations(new[] { showData }, token);
         }
 
         /// <inheritdoc />
@@ -338,9 +366,9 @@
         }
 
         /// <inheritdoc />
-        public async Task<bool> PrepareAnimation(ReelCurveData curveData, CancellationToken token = default)
+        public Task<bool> PrepareAnimation(ReelCurveData curveData, CancellationToken token = default)
         {
-            return await PrepareAnimations(new[] { curveData }, token);
+            return PrepareAnimations(new[] { curveData }, token);
         }
 
         /// <inheritdoc />
@@ -382,53 +410,53 @@
         }
 
         /// <inheritdoc />
-        public async Task<bool> PlayAnimations(CancellationToken token = default)
+        public Task<bool> PlayAnimations(CancellationToken token = default)
         {
             if (_relmCommunicator is null)
             {
-                return false;
+                return Task.FromResult(false);
             }
 
             Logger.Debug("Playing prepared animations");
-            return await _relmCommunicator.SendCommandAsync(new StartAnimations(), token);
+            return _relmCommunicator.SendCommandAsync(new StartAnimations(), token);
         }
 
         /// <inheritdoc />
-        public async Task<bool> RemoveAllControllerAnimations(CancellationToken token = default)
+        public Task<bool> RemoveAllControllerAnimations(CancellationToken token = default)
         {
             if (_relmCommunicator is null)
             {
-                return false;
+                return Task.FromResult(false);
             }
 
             if (_propertiesManager is not null &&
                 _propertiesManager.GetValue(HardwareConstants.DoNotResetRelmController, false))
             {
-                return true;
+                return Task.FromResult(true);
             }
 
             Logger.Debug("Removing all animation files from controller");
             _animationFiles.Clear();
-            return await _relmCommunicator.SendCommandAsync(new RemoveAllAnimationFiles(), token);
+            return _relmCommunicator.SendCommandAsync(new RemoveAllAnimationFiles(), token);
         }
 
         /// <inheritdoc />
-        public async Task<bool> StopAllAnimationTags(string animationName, CancellationToken token = default)
+        public Task<bool> StopAllAnimationTags(string animationName, CancellationToken token = default)
         {
             if (_relmCommunicator is null)
             {
-                return false;
+                return Task.FromResult(false);
             }
 
             var animationId = GetAnimationId(animationName);
             if (animationId == 0)
             {
                 Logger.Debug($"Can not find animation file with name {animationName}");
-                return false;
+                return Task.FromResult(false);
             }
 
             Logger.Debug($"Stopping all animations for {animationName} ({animationId})");
-            return await _relmCommunicator.SendCommandAsync(new StopAllAnimationTags
+            return _relmCommunicator.SendCommandAsync(new StopAllAnimationTags
             {
                 AnimationId = animationId,
             }, token);
@@ -437,8 +465,23 @@
         /// <inheritdoc />
         public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
         {
-            // TODO: Implement stop light show animations in driver and wire up here
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return Task.FromResult(false);
+            }
+
+            var showDataArray = showData.ToArray();
+            var command = new StopLightShowAnimation
+            {
+                Count = (short)showDataArray.Length,
+                AnimationData = showDataArray.Select(x => new StopAnimationData
+                {
+                    AnimationId = GetAnimationId(x.AnimationName),
+                    TagId = x.Tag.HashDjb2()
+                }).ToList()
+            };
+
+            return _relmCommunicator.SendCommandAsync(command, token);
         }
 
         /// <inheritdoc />
@@ -496,10 +539,34 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> Synchronize(ReelSynchronizationData data, CancellationToken token = default)
+        public async Task<bool> Synchronize(ReelSynchronizationData syncData, CancellationToken token = default)
         {
-            // TODO: Implement synchronize in driver and wire up here
-            throw new NotImplementedException();
+            if (_relmCommunicator is null)
+            {
+                return false;
+            }
+
+            if (syncData.SyncType == SynchronizeType.Regular)
+            {
+                var syncDataList = syncData.ReelSyncStepData.Select(
+                    x => new ReelSyncData { ReelIndex = x.ReelIndex, SynchronizationStep = x.SyncStep });
+
+                await _relmCommunicator.SendCommandAsync(new PrepareSynchronizeReels(syncData.Duration, syncDataList), token);
+            }
+            else if (syncData.SyncType == SynchronizeType.Enhanced)
+            {
+                var syncDataList = syncData.ReelSyncStepData.Select(
+                    x => new EnhancedReelSyncData { ReelIndex = x.ReelIndex, SyncStep = x.SyncStep, Duration = x.Duration });
+
+                await _relmCommunicator.SendCommandAsync(
+                    new PrepareEnhancedSynchronizeReels(
+                        syncData.MasterReelIndex,
+                        syncData.MasterReelStep,
+                        syncDataList),
+                    token);
+            }
+
+            return true;
         }
 
         /// <inheritdoc />
@@ -556,13 +623,10 @@
                 return Task.FromResult(false);
             }
 
-            // TODO: Use proper home positions and number of reels
-            var defaultHomeStep = 5;
             var homeData = new List<short>();
-
             for (int i = 0; i < ReelCount; i++)
             {
-                homeData.Add((short)(defaultHomeStep + _reelOffsets[i]));
+                homeData.Add((short)(DefaultHomeStep + _reelOffsets[i]));
             }
 
             _relmCommunicator?.SendCommandAsync(new HomeReels(homeData));
@@ -623,6 +687,41 @@
 
             LightStatusReceived?.Invoke(this, new LightEventArgs(lightStatuses));
             ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(reelStatuses));
+        }
+        
+        /// <inheritdoc/>
+        public Task<bool> PrepareStepperRule(StepperRuleData ruleData, CancellationToken token = default)
+        {
+            if (_relmCommunicator is null)
+            {
+                return Task.FromResult(false);
+            }
+
+            RelmCommand command = ruleData.RuleType switch
+            {
+                StepperRuleType.AnticipationRule => new PrepareStepperAnticipationRule
+                {
+                    ReelIndex = ruleData.ReelIndex,
+                    StepToFollow = ruleData.StepToFollow,
+                    ReferenceStep = ruleData.ReferenceStep,
+                    Cycle = ruleData.Cycle,
+                    Delta = ruleData.Delta,
+                    EventId = ruleData.EventId
+                },
+                StepperRuleType.FollowRule => new PrepareStepperFollowRule
+                {
+                    ReelIndex = ruleData.ReelIndex,
+                    StepToFollow = ruleData.StepToFollow,
+                    ReferenceStep = ruleData.ReferenceStep,
+                    Cycle = ruleData.Cycle,
+                    EventId = ruleData.EventId
+                },
+                _ => null
+            };
+
+            return command == null
+                ? Task.FromResult(false)
+                : _relmCommunicator.SendCommandAsync(command, token);
         }
 
         private void OnInterruptReceived(object sender, RelmInterruptEventArgs e)
@@ -689,10 +788,32 @@
 
         private void HandleReelInterrupt(IReelInterrupt interrupt)
         {
+            var reelIndex = interrupt.ReelIndex + 1;
             switch (interrupt)
             {
                 case ReelIdle idle:
-                    ReelIdleInterruptReceived.Invoke(this, new ReelStopData(idle.ReelIndex, 0, idle.Step));
+                    RaiseReelSpinningStatusUpdated(
+                        ReelSpinningEventArgs.CreateForIdleAtStep(reelIndex, idle.Step));
+                    break;
+
+                case ReelAccelerating:
+                    RaiseReelSpinningStatusUpdated(
+                        new ReelSpinningEventArgs(reelIndex, SpinVelocity.Accelerating));
+                    break;
+
+                case ReelDecelerating:
+                    RaiseReelSpinningStatusUpdated(
+                        new ReelSpinningEventArgs(reelIndex, SpinVelocity.Decelerating));
+                    break;
+
+                case ReelSpinningConstant:
+                    RaiseReelSpinningStatusUpdated(
+                        new ReelSpinningEventArgs(reelIndex, SpinVelocity.Constant));
+                    break;
+
+                case ReelSlowSpin:
+                    RaiseReelSpinningStatusUpdated(
+                        ReelSpinningEventArgs.CreateForSlowSpinning(reelIndex));
                     break;
 
                 case ReelTamperingDetected:
@@ -738,6 +859,12 @@
 
                 configure(status);
                 ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(status));
+            }
+
+            void RaiseReelSpinningStatusUpdated(ReelSpinningEventArgs eventArgs)
+            {
+                ReelSpinningStatusReceived?.Invoke(this, eventArgs);
+                RaiseStatus(x => x.Connected = true);   // receiving a reel spin status means the reel must be connected
             }
         }
 

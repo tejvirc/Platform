@@ -11,7 +11,6 @@
     using System.Xml;
     using System.Xml.Serialization;
     using Application.Helpers;
-    using Application.Localization;
     using ConfigWizard;
     using Contracts;
     using Contracts.Detection;
@@ -30,6 +29,7 @@
     using Helpers;
     using Kernel;
     using Kernel.Contracts;
+    using Localization;
     using Monaco.Common;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
@@ -368,7 +368,7 @@
 
         protected virtual void Device_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("Enabled") &&
+            if ((e?.PropertyName.Equals("Enabled") ?? false) &&
                 sender is DeviceConfigViewModel device && device.Enabled)
             {
                 StartDetection();

@@ -18,7 +18,7 @@
         public Type TransactionType;
 
         /// <summary>
-        ///     The amount
+        ///     The amount in millicents
         /// </summary>
         [ProtoMember(2)]
         public long Amount;

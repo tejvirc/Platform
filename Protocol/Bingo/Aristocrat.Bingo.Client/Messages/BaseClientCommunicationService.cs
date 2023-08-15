@@ -5,11 +5,14 @@
     using System.Threading.Tasks;
     using Grpc.Core;
     using Polly;
+
     public abstract class BaseClientCommunicationService<T> where T : ClientBase<T>
     {
-        private const int RetryCount = 3;
+        // ReSharper disable once StaticMemberInGenericType
         private static readonly TimeSpan RetryDelay = TimeSpan.FromMilliseconds(100);
+        private const int RetryCount = 3;
         private readonly IClientEndpointProvider<T> _endpointProvider;
+
         protected BaseClientCommunicationService(IClientEndpointProvider<T> endpointProvider)
         {
             _endpointProvider = endpointProvider ?? throw new ArgumentNullException(nameof(endpointProvider));

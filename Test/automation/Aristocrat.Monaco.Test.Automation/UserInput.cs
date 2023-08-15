@@ -5,6 +5,7 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
+    using Aristocrat.Monaco.Gaming.Contracts.Events;
     using Gaming.Contracts;
     using Gaming.Contracts.Lobby;
     using Gaming.Contracts.Models;
@@ -14,7 +15,6 @@
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
     using log4net;
-    using RobotController.Contracts;
     using Vgt.Client12.Testing.Tools;
 
     public class Automation

@@ -2,11 +2,9 @@
 {
     using System;
     using System.Linq;
-    using System.Threading;
     using System.Threading.Tasks;
-    using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Test.Common;
-    using Aristocrat.RelmReels.Communicator.Downloads;
+    using Contracts;
     using Contracts.Reel;
     using Contracts.Reel.Events;
     using Kernel;
@@ -39,6 +37,12 @@
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoNotResetRelmController, It.IsAny<bool>())).Returns(false);
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            MoqServiceManager.RemoveInstance();
         }
 
         [TestMethod]

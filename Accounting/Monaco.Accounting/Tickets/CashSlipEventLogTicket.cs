@@ -47,7 +47,7 @@
                 // NOTE: If additional lines are added here, update the CashSlipEventLogTicketCreator.ItemLineLength
                 var entry = _events.ElementAt(i);
                 AddLine(TicketLocalizer.GetString(ResourceKeys.DateTime), null, entry.TimeStamp);
-                AddLine(TicketLocalizer.GetString(ResourceKeys.Amount), null, $"{entry.Amount.FormattedCurrencyString()}");
+                AddLine(TicketLocalizer.GetString(ResourceKeys.Amount), null, $"{entry.Amount.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture)}");
 
                 var ticketNumber = string.Empty; //Resources.StatusError;
                 if (!string.IsNullOrEmpty(entry.Barcode))

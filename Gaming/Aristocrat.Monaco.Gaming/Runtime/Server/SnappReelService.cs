@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Runtime.Server
 {
     using System;
+    using System.Collections.Generic;
     using System.Reflection;
     using Aristocrat.Monaco.Hardware.Contracts.Reel.ControlData;
     using Commands;
@@ -190,7 +191,21 @@
 
         public override MessageResponse StopLightshowAnimation(StopLightshowAnimationRequest request)
         {
-            throw new NotImplementedException();
+            Logger.Debug("StopLightShowAnimations");
+
+            var lightShowData = new LightShowData[request.LightShowData.Count];
+
+            for (var i = 0; i < request.LightShowData.Count; ++i)
+            {
+                lightShowData[i] = new LightShowData(
+                    request.LightShowData[i].AnimationName,
+                    request.LightShowData[i].Tag);
+            }
+
+            var command = new StopLightShowAnimations(lightShowData);
+            _handlerFactory.Create<StopLightShowAnimations>().Handle(command);
+
+            return new MessageResponse { Result = command.Success };
         }
 
         public override MessageResponse StopAllLightshowAnimations(Empty request)
@@ -237,12 +252,84 @@
 
         public override MessageResponse PrepareStepperRule(PrepareStepperRuleRequest request)
         {
-            throw new NotImplementedException();
+            Logger.Debug("PrepareStepperRule");
+
+            var ruleData = new StepperRuleData
+            {
+                ReelIndex = (byte)request.RuleData.ReelIndex,
+                Cycle = (short)request.RuleData.Cycle,
+                EventId = (int)request.RuleData.EventIdentifier,
+                ReferenceStep = (byte)request.RuleData.ReferenceStep,
+                StepToFollow = (byte)request.RuleData.StepToFollow
+            };
+
+            if (request.RuleTypeSpecificData.Is(PrepareStepperAnticipationRuleData.Descriptor))
+            {
+                var anticipationRuleData = request.RuleTypeSpecificData.Unpack<PrepareStepperAnticipationRuleData>();
+                ruleData.Delta = (byte)anticipationRuleData.Delta;
+                ruleData.RuleType = StepperRuleType.AnticipationRule;
+            }
+            else
+            {
+                ruleData.RuleType = StepperRuleType.FollowRule;
+            }
+
+            var command = new PrepareStepperRule(ruleData);
+            _handlerFactory.Create<PrepareStepperRule>()
+                .Handle(command);
+
+            return new MessageResponse { Result = command.Success };
         }
 
         public override MessageResponse SynchronizeReels(SynchronizeReelsRequest request)
         {
-            throw new NotImplementedException();
+            Logger.Debug("SynchronizeReels");
+
+            var reelSyncStepData = new List<ReelSyncStepData>();
+            var syncData = new ReelSynchronizationData();
+
+            if (request.SynchronizationData.Is(SynchronizeReelsData.Descriptor))
+            {
+                var snappSyncData = request.SynchronizationData.Unpack<SynchronizeReelsData>();
+
+                foreach (var data in request.Data)
+                {
+                    reelSyncStepData.Add(new(
+                            (byte)data.ReelIndex,
+                            (short)data.SynchronizationStep));
+                }
+
+                syncData.Duration = (short)snappSyncData.Duration;
+                syncData.ReelSyncStepData = reelSyncStepData;
+                syncData.SyncType = SynchronizeType.Regular;
+            }
+            else if (request.SynchronizationData.Is(EnhancedSynchronizeReelsData.Descriptor))
+            {
+                var snappEnhancedSyncData = request.SynchronizationData.Unpack<EnhancedSynchronizeReelsData>();
+
+                foreach (var data in request.Data)
+                {
+                    reelSyncStepData.Add(new(
+                        (byte)data.ReelIndex,
+                        (short)data.SynchronizationStep));
+                }
+
+                for(var i = 0; i < snappEnhancedSyncData.Duration.Count; i++)
+                {
+                    reelSyncStepData[i].Duration = (short)snappEnhancedSyncData.Duration[i];
+                }
+
+                syncData.MasterReelIndex = (byte)snappEnhancedSyncData.MasterReelIndex;
+                syncData.MasterReelStep = (short)snappEnhancedSyncData.MasterReelSynchronizationStep;
+                syncData.ReelSyncStepData = reelSyncStepData;
+                syncData.SyncType = SynchronizeType.Enhanced;
+            }
+
+            var command = new PrepareSynchronizeReels(syncData);
+            _handlerFactory.Create<PrepareSynchronizeReels>()
+                .Handle(command);
+
+            return new MessageResponse { Result = command.Success };
         }
 
         public override MessageResponse SetBrightness(SetBrightnessRequest request)

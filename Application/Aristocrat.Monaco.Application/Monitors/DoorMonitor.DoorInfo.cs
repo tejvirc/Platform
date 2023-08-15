@@ -34,7 +34,7 @@
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.ForLockup().GetString(ResourceKeys.BellyDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.BellyDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -48,7 +48,7 @@
                            typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.ForLockup().GetString(ResourceKeys.CashDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.CashDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -62,7 +62,7 @@
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.ForLockup().GetString(ResourceKeys.LogicDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.LogicDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -76,7 +76,7 @@
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.ForLockup().GetString(ResourceKeys.MainDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.MainDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -90,7 +90,7 @@
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.ForLockup().GetString(ResourceKeys.SecondaryCashDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.SecondaryCashDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -104,7 +104,7 @@
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.ForLockup().GetString(ResourceKeys.TopBoxDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.TopBoxDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -118,7 +118,7 @@
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.ForLockup().GetString(ResourceKeys.DropDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.DropDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -132,7 +132,7 @@
                         typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.ForLockup().GetString(ResourceKeys.MechanicalMeterDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.MechanicalMeterDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -146,7 +146,7 @@
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.ForLockup().GetString(ResourceKeys.MainOpticDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.MainOpticDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -160,7 +160,7 @@
                             typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.ForLockup().GetString(ResourceKeys.TopBoxOpticDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.TopBoxOpticDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));
@@ -174,7 +174,7 @@
                         typeof(OpenEvent));
 
                     DoorClosedMessage = new DisplayableMessage(
-                        () => Localizer.ForLockup().GetString(ResourceKeys.UniversalInterfaceBoxDoorClosed),
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.UniversalInterfaceBoxDoorClosed),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Immediate,
                         typeof(ClosedEvent));

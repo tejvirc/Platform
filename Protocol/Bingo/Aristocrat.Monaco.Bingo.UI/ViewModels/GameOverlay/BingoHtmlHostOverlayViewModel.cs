@@ -569,8 +569,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
 
             var gameIndex = e.GameIndex;
 
-            // Currently, only main game gets non-pattern daubs on ball call events; exclude others here to prevent wiping winning patterns
-            if (gameIndex == 0 && _bingoInstances.ContainsKey(gameIndex))
+            if (_bingoInstances.ContainsKey(gameIndex))
             {
                 await UpdateOverlay(
                     () =>

@@ -28,6 +28,7 @@
     {
         private const int WaitForReportTime = 30000;
         private const int DefaultSpinSpeedValue = 1;
+        private const int DefaultHomeStepValue = 0;
 
         private const int InitializationWaitTimeout = 30000;
 
@@ -71,7 +72,7 @@
         public event EventHandler<ReelEventArgs> ReelStopped;
 
         /// <inheritdoc />
-        public event EventHandler<ReelEventArgs> ReelSpinning;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinning;
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelSlowSpinning;
@@ -93,6 +94,9 @@
         
         /// <inheritdoc />
         public int DefaultSpinSpeed => DefaultSpinSpeedValue;
+
+        /// <inheritdoc />
+        public int DefaultHomeStep => DefaultHomeStepValue;
 
         /// <inheritdoc />
         public ReelControllerFaults ReelControllerFaults { get; private set; }
@@ -150,21 +154,7 @@
             SendCommand(new HomeReel { ReelId = reelId, Stop = stop });
             return Task.FromResult(true);
         }
-
-        /// <inheritdoc />
-        public async Task<bool> HomeReels()
-        {
-            for (var reelId = 1; reelId < ReelConstants.MaxSupportedReels; reelId++)
-            {
-                ResetConnectedReelStatus(reelId);
-            }
-
-            var results = Faults.Where(x => !x.Value.HasFlag(ReelFaults.Disconnected) && x.Key > 0).Select(x => x.Key)
-                .Select(reelId => HomeReel(reelId, -1, false));
-            var homed = await Task.WhenAll(results);
-            return homed.All(x => x);
-        }
-
+ 
         /// <inheritdoc />
         public Task<bool> SpinReels(params ReelSpinData[] spinData)
         {
@@ -318,7 +308,7 @@
         ///     Called when a reel is spinning
         /// </summary>
         /// <param name="e">The event arguments</param>
-        protected virtual void OnReelSpinning(ReelEventArgs e)
+        protected virtual void OnReelSpinning(ReelSpinningEventArgs e)
         {
             ReelSpinning?.Invoke(this, e);
         }
@@ -624,7 +614,7 @@
 
             if (status.Spinning)
             {
-                OnReelSpinning(new ReelEventArgs(status.ReelId));
+                OnReelSpinning(new ReelSpinningEventArgs(status.ReelId));
             }
         }
 

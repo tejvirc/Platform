@@ -650,7 +650,7 @@ namespace Aristocrat.Monaco.Application
             // Create a soft error message for Power Reset
             var display = ServiceManager.GetInstance().GetService<IMessageDisplay>();
             var powerResetMessage = new DisplayableMessage(
-                () => Localizer.ForLockup().GetString(ResourceKeys.PowerResetText),
+                () => Localizer.DynamicCulture().GetString(ResourceKeys.PowerResetText),
                 DisplayableMessageClassification.Informative,
                 DisplayableMessagePriority.Immediate,
                 typeof(PlatformBootedEvent),

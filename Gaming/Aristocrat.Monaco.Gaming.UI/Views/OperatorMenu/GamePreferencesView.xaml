@@ -287,6 +287,23 @@
                         </ComboBox.IsEnabled>
                     </ComboBox>
                 </StackPanel>
+
+                <!-- AllowZeroCreditCashout option -->
+                <StackPanel x:Name="AllowZeroCreditCashoutStackPanel"
+                            Visibility="{Binding ShowZeroCreditCashoutCheckbox, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                            Orientation="Vertical"
+                            Margin="0 5 0 15"
+                            AutomationProperties.AutomationId="StackPanel33_2AB589A7">
+                    <TextBlock
+                        Text="{lex:Loc Key={x:Static loc:ResourceKeys.ZeroCreditCashoutOption}}"
+                        AutomationProperties.AutomationId="TextBlock34_2AB589A7"/>
+                    <CheckBox x:Name="AllowZeroCreditCashoutCheckBox"
+                              Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableZeroCreditCashoutText}}"
+                              IsChecked="{Binding AllowZeroCreditCashout}"
+                              IsEnabled="{Binding Path=InputEnabled}"
+                              AutomationProperties.AutomationId="CheckBox35_2AB589A7"/>
+                </StackPanel>
+
                 <!-- Show Program Options Section -->
                 <TextBlock x:Name="ShowProgramOptionsTextBlock"
                            Margin="0 30 0 0"

@@ -6,7 +6,7 @@
     <Configurations>Debug;Release;Retail</Configurations>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.RelmReels" Version="0.1.22" />
+    <PackageReference Include="Aristocrat.RelmReels" Version="0.1.25" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />

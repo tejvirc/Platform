@@ -44,6 +44,12 @@
                     new ReelSynchronizationCapability(controllerImplementation.GetCapability<ISynchronizationImplementation>(), stateManager));
             }
 
+            if (implementationType == typeof(IStepperRuleImplementation))
+            {
+                return (typeof(IStepperRuleCapabilities),
+                    new StepperRuleCapability(controllerImplementation.GetCapability<IStepperRuleImplementation>(), stateManager));
+            }
+
             return (null, null);
         }
 

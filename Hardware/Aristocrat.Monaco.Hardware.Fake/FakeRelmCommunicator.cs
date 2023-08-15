@@ -26,12 +26,14 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
         private readonly IPathMapper _pathMapper;
-        private int[] _reelOffsets;
+        private readonly string _baseName = "FakeRelm";
+
         private const string SimWindowNamePartial = "ReelLayout_";
         private const string GamesDirectory = "/Games";
         private const string PackagesDirectory = "/Packages";
-        private readonly string _baseName = "FakeRelm";
+        private const int DefaultHomeStepValue = 5;
 
+        private int[] _reelOffsets;
         private int _id;
         private bool _disposed;
 
@@ -73,7 +75,7 @@
         public event EventHandler<LightEventArgs> LightStatusReceived;
 
         /// <inheritdoc/>
-        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinningStatusReceived;
 #pragma warning restore 67
 
         /// <summary>
@@ -83,6 +85,9 @@
         
         /// <inheritdoc/>
         public int DefaultReelBrightness { get; set; }
+
+        /// <inheritdoc />
+        public int DefaultHomeStep => DefaultHomeStepValue;
 
         /// <inheritdoc/>
         public string Manufacturer => _baseName + DeviceType;
@@ -262,12 +267,14 @@
         /// <inheritdoc/>
         public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token)
         {
+            Thread.Sleep(500);
             return Task.FromResult(true);
         }
 
         /// <inheritdoc/>
-        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
+        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, IProgress<LoadingAnimationFileModel> progress, CancellationToken token)
         {
+            Thread.Sleep(500);
             return Task.FromResult(true);
         }
 
@@ -343,7 +350,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> Synchronize(ReelSynchronizationData data, CancellationToken token)
+        public Task<bool> Synchronize(ReelSynchronizationData syncData, CancellationToken token = default)
         {
             throw new NotImplementedException();
         }
@@ -387,6 +394,12 @@
         public Task<bool> TiltReels()
         {
             return Task.FromResult(true);
+        }
+        
+        /// <inheritdoc/>
+        public Task<bool> PrepareStepperRule(StepperRuleData ruleData, CancellationToken token = default)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc/>

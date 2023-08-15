@@ -196,6 +196,8 @@
 
         public int[] MechanicalReelHomeSteps { get; set; }
 
+        public IEnumerable<AnimationFile> PreloadedAnimationFiles { get; set; }
+
         public IEnumerable<ISubGameDetails> SupportedSubGames { get; set; }
 
         public IEnumerable<ISubGameDetails> ActiveSubGames { get; set; }
@@ -213,6 +215,13 @@
             get => throw new NotImplementedException();
             set => throw new NotImplementedException();
         }
+
+        public int UniqueGameId
+        {
+            get => throw new NotImplementedException();
+            set => throw new NotImplementedException();
+        }
+
         public static IEnumerable<IGameDetail> GetMockGameDetailInfo()
         {
             var gameDetail = new List<IGameDetail>();

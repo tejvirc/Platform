@@ -14,6 +14,7 @@
     using System.Windows.Forms;
     using Accounting.Contracts;
     using Application.Contracts.EKey;
+    using Application.Contracts.Robot;
     using Gaming.Contracts;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.IO;
@@ -22,7 +23,6 @@
     using Kernel.Contracts;
     using log4net;
     using Newtonsoft.Json;
-    using RobotController.Contracts;
     using Vgt.Client12.Testing.Tools;
 
     /// <summary>

@@ -116,7 +116,7 @@
         long AmountOut { get; }
 
         /// <summary>
-        ///     Gets the amount awarded as paytable wins after the presentation completed
+        ///     Gets the amount awarded as paytable wins after the presentation completed (in cents)
         /// </summary>
         long GameWinBonus { get; }
 

@@ -1,7 +1,8 @@
 ﻿namespace Aristocrat.Bingo.Client
 {
     using System;
-    using System.Threading;
+    using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
     using Configuration;
     using Grpc.Core;
@@ -65,8 +66,16 @@
         }
 
 		public bool IsConnected => StateIsConnected(_channel?.State);
-
-        protected IClientConfigurationProvider ConfigurationProvider { get; }
+		
+        public virtual GrpcChannel CreateChannel()
+        {
+            var configuration = ConfigurationProvider.CreateConfiguration();
+            var credentials = configuration.Certificates.Any()
+                ? new SslCredentials(
+                    string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))
+                : ChannelCredentials.Insecure;
+            return GrpcChannel.ForAddress(configuration.Address, new GrpcChannelOptions());
+        }
 
         public abstract GrpcChannel CreateChannel();
 

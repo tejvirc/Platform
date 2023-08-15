@@ -1,8 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Reel.Capabilities
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+    using Contracts.Reel;
     using Contracts.Reel.Capabilities;
     using Contracts.Reel.ControlData;
     using Contracts.Reel.ImplementationCapabilities;
@@ -32,9 +34,9 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token = default)
+        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, IProgress<LoadingAnimationFileModel> progress, CancellationToken token = default)
         {
-            return _implementation.LoadAnimationFiles(files, token);
+            return _implementation.LoadAnimationFiles(files, progress, token);
         }
 
         /// <inheritdoc />

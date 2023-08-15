@@ -5,6 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Contracts.Communicator;
+    using Contracts.Reel;
     using Contracts.Reel.ControlData;
     using Contracts.Reel.Events;
     using Contracts.Reel.ImplementationCapabilities;
@@ -46,9 +47,9 @@
         }
 
         /// <inheritdoc />
-        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token = default)
+        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, IProgress<LoadingAnimationFileModel> progress, CancellationToken token = default)
         {
-            return _communicator.LoadAnimationFiles(files, token);
+            return _communicator.LoadAnimationFiles(files, progress, token);
         }
 
         /// <inheritdoc />

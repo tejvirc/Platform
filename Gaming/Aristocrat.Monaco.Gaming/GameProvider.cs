@@ -1146,6 +1146,10 @@ namespace Aristocrat.Monaco.Gaming
             gameDetail.NextToMaxBetTopAwardMultiplier = game.NextToMaxBetTopAwardMultiplier;
 
             gameDetail.SupportedSubGames ??= GetSubGames(game.SubGames, gameDetail.Denominations.ToList());
+
+            gameDetail.PreloadedAnimationFiles = GetPreloadedAnimationFiles(gameContent, gameFolder);
+            gameDetail.UniqueGameId = game.UniqueGameId;
+
             return (gameDetail, progressiveDetails);
         }
 
@@ -1943,6 +1947,27 @@ namespace Aristocrat.Monaco.Gaming
             }
 
             return subGameList;
+        }
+
+        private static IEnumerable<AnimationFile> GetPreloadedAnimationFiles(GameContent gameContent, string gameFolder)
+        {
+            var animationFiles = new List<AnimationFile>();
+            if (gameContent.PreloadedAnimationFiles?.stepperAnimationFile == null)
+            {
+                return animationFiles;
+            }
+
+            foreach (var t in gameContent.PreloadedAnimationFiles.stepperAnimationFile)
+            {
+                animationFiles.Add(
+                    new AnimationFile
+                    {
+                        FilePath = Path.Combine(gameFolder, t.filePath),
+                        FileIdentifier = t.identifier
+                    });
+            }
+
+            return animationFiles;
         }
     }
 }
