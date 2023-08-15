@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -12361,5 +12361,13 @@ Do you really want to do full reset?</value>
   </data>
   <data name="WorkingText" xml:space="preserve">
     <value>Working</value>
+  </data>
+  <data name="OrderNumberErrorMessage" xml:space="preserve">
+    <value>Order number is a required field</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="InspectorInitialsErrorMessage" xml:space="preserve">
+    <value>Inspector initials is a required field</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
 </root>

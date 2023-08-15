@@ -13,6 +13,8 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Common;
+    using Monaco.Localization.Properties;
+    using Monaco.UI.Common.Extensions;
     using MVVM;
     using MVVM.Command;
 
@@ -212,8 +214,11 @@
             {
                 SetProperty(ref _orderNumber, value, nameof(OrderNumber));
                 SetItemPickFlag(ItemPick.Order);
+                var errorMessage = _orderNumber.IsEmpty() ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OrderNumberErrorMessage) : string.Empty;
+                SetError(nameof(OrderNumber), errorMessage);
             }
-
+            
+                   
         }
 
         public string InspectorInitials
@@ -223,6 +228,8 @@
             {
                 SetProperty(ref _inspectorInitials, value, nameof(InspectorInitials));
                 SetItemPickFlag(ItemPick.Initials);
+                var errorMessage = _inspectorInitials.IsEmpty() ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InspectorInitialsErrorMessage) : string.Empty;
+                SetError(nameof(InspectorInitials), errorMessage);
             }
         }
 
@@ -397,6 +404,18 @@
             Order = 32,
             Initials = 64,
             All = 127,
+        }
+
+        protected override void SetError(string propertyName, string error)
+        {
+            if (string.IsNullOrEmpty(error))
+            {
+                ClearErrors(propertyName);
+            }
+            else
+            {
+                base.SetError(propertyName, error);
+            }
         }
     }
 }
