@@ -33,7 +33,7 @@
 
         public const uint Tpci940AvailableOutputMask = 0xFFFF;
 
-        public const int Tpci940Gen8PollingFrequency = 100;
+        public const int Tpci940Gen8PollingFrequency = 75;
 
         public static readonly IntPtr Tpci940TemplateFile = IntPtr.Zero;
 

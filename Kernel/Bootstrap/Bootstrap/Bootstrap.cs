@@ -9,6 +9,7 @@
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Security.Permissions;
+    using System.Threading;
     using System.Threading.Tasks;
     using Kernel;
     using Kernel.Contracts;
@@ -131,6 +132,14 @@
 
             Logger.Debug($"_softBootTime: {_softBootTime} kind:{_softBootTime.Kind}");
             Logger.Debug($"_hardBootTime: {_hardBootTime} kind:{_softBootTime.Kind}");
+
+            int minWorkerThreads = 32, minCompletionPortThreads = 32;
+            ThreadPool.SetMinThreads(minWorkerThreads, minCompletionPortThreads);
+            int readWorkerThreads, readCompletionPortThreads;
+            ThreadPool.GetMinThreads(out readWorkerThreads, out readCompletionPortThreads);
+            Logger.Info($"Min Worker threads: {readWorkerThreads}, Min I/O threads: {readCompletionPortThreads}");
+            ThreadPool.GetMaxThreads(out readWorkerThreads, out readCompletionPortThreads);
+            Logger.Info($"Max Worker threads: {readWorkerThreads}, Max I/O threads: {readCompletionPortThreads}");
 
             LoadKernel();
             RunBootExtender();

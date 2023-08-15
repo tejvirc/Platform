@@ -5,8 +5,8 @@
     using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Reflection;
+    using System.Text;
     using System.Threading;
-    using System.Timers;
     using Cabinet.Contracts;
     using Contracts.HardMeter;
     using Contracts.IO;
@@ -17,7 +17,6 @@
     using Properties;
     using DisabledEvent = Contracts.IO.DisabledEvent;
     using EnabledEvent = Contracts.IO.EnabledEvent;
-    using Timer = System.Timers.Timer;
 
     /// <summary>
     ///     The IO Service component is the serviceable component which manages a physical IO implementation such as Innocore,
@@ -33,10 +32,7 @@
         private const string DeviceImplementationsExtensionPath = "/Hardware/IO/IOImplementations";
         private const ulong IntrusionMasks = 0X3F;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-        private static readonly Timer PollTimer = new Timer();
-        private static readonly AutoResetEvent Poll = new AutoResetEvent(true);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly object QueuedEventsLock = new object();
 
@@ -208,7 +204,7 @@
         {
             if (physicalId < 0 || physicalId >= _inputOutput.GetMaxOutputs)
             {
-                Logger.ErrorFormat($"Invalid physical ID {physicalId}");
+                Logger.Error($"Invalid physical ID {physicalId}");
                 return;
             }
 
@@ -479,14 +475,6 @@
                 Logger.Debug("Carrier board removal/change detected.");
             }
 
-            // Set poll timer to elapsed event.
-            PollTimer.Elapsed += OnPollTimeout;
-
-            // Set poll timer interval to implementation polling frequency and start.
-            var device = _inputOutput.DeviceConfiguration;
-            PollTimer.Interval = device.PollingFrequency;
-            PollTimer.Start();
-
             // Set service initialized.
             Initialized = true;
 
@@ -513,7 +501,8 @@
 
         protected override void OnRun()
         {
-            if (CanProceed(false) == false)
+            const int spacer = 4;
+            if (!CanProceed(false))
             {
                 return;
             }
@@ -522,87 +511,76 @@
 
             var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
 
+            var sb = new StringBuilder();
+            var stopWatch = new Stopwatch();
+            var defaultSleep = TimeSpan.FromMilliseconds(DeviceConfiguration.PollingFrequency); //Polling frequency
             while (RunState == RunnableState.Running)
             {
-                // Do we have a pending inspected event?
-                if (_pendingInspectedEvent)
+                HandlePendingEvents();
+
+                var sleepTime = stopWatch.IsRunning
+                    ? defaultSleep - GetSleepTime(stopWatch.Elapsed, defaultSleep)
+                    : defaultSleep;
+                if (sleepTime > TimeSpan.Zero)
                 {
-                    _pendingInspectedEvent = false;
-
-                    // Disable the service for configuration.  This service should only be enabled by configuration after
-                    // all logical IO services have been started so that all physical input events are handled.
-                    Disable(DisabledReasons.Configuration);
-
-                    // Set last logical state to current disabled logical state so we transition to idle when enabled.
-                    LastEnabledLogicalState = LogicalState;
-                }
-                else if (_pendingInspectionFailedEvent)
-                {
-                    _postedInspectionFailedEvent = true;
-                    _pendingInspectionFailedEvent = false;
-
-                    // Disable service for error.
-                    Disable(DisabledReasons.Error);
+                    Thread.Sleep(sleepTime);
                 }
 
-                // Block the thread until it is time to poll.
-                Poll.WaitOne();
-
-                if (RunState == RunnableState.Running)
+                stopWatch.Restart();
+                if (RunState != RunnableState.Running)
                 {
-                    if (LogicalState == IOLogicalState.Idle ||
-                        LogicalState == IOLogicalState.Disabled && _hardMeterStoppedResponding)
+                    continue;
+                }
+
+                if (LogicalState != IOLogicalState.Idle &&
+                    !(LogicalState == IOLogicalState.Disabled && _hardMeterStoppedResponding))
+                {
+                    continue;
+                }
+
+                var inputs = _inputOutput.GetInputs;
+
+                if (inputs == LastChangedInputs)
+                {
+                    continue;
+                }
+
+                sb.Clear();
+                var changedBits = inputs ^ LastChangedInputs;
+
+                // Post an event for each changed input.
+                for (var i = 0; i < _inputOutput.GetMaxInputs; i++)
+                {
+                    var currentBit = 1UL << i;
+                    if (i != 0 && i % spacer == 0)
                     {
-                        var inputs = _inputOutput.GetInputs;
+                        sb.Append(' ');
+                    }
 
-                        if (inputs != LastChangedInputs)
+                    sb.Append((inputs & currentBit) != 0 ? '1' : '0');
+                    if ((changedBits & currentBit) == 0)
+                    {
+                        continue;
+                    }
+
+                    var isOn = (inputs & currentBit) != 0;
+                    var inputEvent = new InputEvent(i, isOn);
+
+                    if (!_platformBooted)
+                    {
+                        lock (QueuedEventsLock)
                         {
-                            Logger.DebugFormat("Inputs {0}", FormatBits(_inputOutput.GetMaxInputs, 4, inputs));
-
-                            // Post an event for each changed input.
-                            ulong testBit = 1;
-                            for (var i = 0; i < _inputOutput.GetMaxInputs; i++)
-                            {
-                                int physicalId;
-                                if ((inputs & testBit) != 0 && (LastChangedInputs & testBit) == 0)
-                                {
-                                    physicalId = i;
-                                    Logger.Debug($"Queuing Input {physicalId} on. size is {_queuedEvents.Count}");
-                                    var inputEvent = new InputEvent(physicalId, true);
-                                    if (!_platformBooted)
-                                    {
-                                        lock (QueuedEventsLock)
-                                        {
-                                            _queuedEvents.Add(inputEvent);
-                                        }
-                                    }
-
-                                    eventBus.Publish(inputEvent);
-                                }
-                                else if ((inputs & testBit) == 0 && (LastChangedInputs & testBit) != 0)
-                                {
-                                    physicalId = i;
-                                    Logger.Debug($"Queuing Input {physicalId} off. size is {_queuedEvents.Count}");
-                                    var inputEvent = new InputEvent(physicalId, false);
-                                    if (!_platformBooted)
-                                    {
-                                        lock (QueuedEventsLock)
-                                        {
-                                            _queuedEvents.Add(inputEvent);
-                                        }
-                                    }
-
-                                    eventBus.Publish(inputEvent);
-                                }
-
-                                testBit = testBit << 1;
-                            }
-
-                            // Set last changed inputs.
-                            LastChangedInputs = inputs;
+                            Logger.Debug($"Queuing Input {i} {(isOn ? "on" : "off")}. size is {_queuedEvents.Count}");
+                            _queuedEvents.Add(inputEvent);
                         }
                     }
+
+                    eventBus.Publish(inputEvent);
                 }
+
+                Logger.Debug($"Inputs {sb}");
+                // Set last changed inputs.
+                LastChangedInputs = inputs;
             }
 
             // Unsubscribe from all events.
@@ -620,41 +598,37 @@
 
             // Disable the logical service.
             Disable(DisabledReasons.Service);
-
-            // Set poll event to unblock the runnable in order to stop.
-            Poll.Set();
         }
 
-        private static string FormatBits(int max, int spacer, ulong value)
+        private static TimeSpan GetSleepTime(TimeSpan t1, TimeSpan t2) => t1 > t2 ? t2 : t1;
+
+        private void HandlePendingEvents()
         {
-            var formattedBits = string.Empty;
-            for (var i = 0; i < max; i++)
+            if (_pendingInspectedEvent)
             {
-                if (spacer > 0)
-                {
-                    if (i % spacer == 0)
-                    {
-                        formattedBits += " ";
-                    }
-                }
+                _pendingInspectedEvent = false;
 
-                formattedBits += (value & (1UL << i)) != 0 ? "1" : "0";
+                // Disable the service for configuration.  This service should only be enabled by configuration after
+                // all logical IO services have been started so that all physical input events are handled.
+                Disable(DisabledReasons.Configuration);
+
+                // Set last logical state to current disabled logical state so we transition to idle when enabled.
+                LastEnabledLogicalState = LogicalState;
             }
+            else if (_pendingInspectionFailedEvent)
+            {
+                _postedInspectionFailedEvent = true;
+                _pendingInspectionFailedEvent = false;
 
-            return formattedBits;
-        }
-
-        private static void OnPollTimeout(object sender, ElapsedEventArgs e)
-        {
-            // Set to poll.
-            Poll.Set();
+                Disable(DisabledReasons.Error);
+            }
         }
 
         private void RemoveDisabledReason(EnabledReasons reason)
         {
             if (((ReasonDisabled & DisabledReasons.Error) > 0 ||
                  (ReasonDisabled & DisabledReasons.FirmwareUpdate) > 0) &&
-                (reason == EnabledReasons.Reset || reason == EnabledReasons.Operator))
+                reason is EnabledReasons.Reset or EnabledReasons.Operator)
             {
                 if ((ReasonDisabled & DisabledReasons.Error) > 0)
                 {
@@ -692,7 +666,7 @@
 
         private bool CanProceed(bool checkEnabled)
         {
-            if (Initialized == false)
+            if (!Initialized)
             {
                 var stackTrace = new StackTrace();
                 var stackFrame = stackTrace.GetFrame(1);
@@ -701,7 +675,7 @@
                 return false;
             }
 
-            if (checkEnabled && Enabled == false)
+            if (checkEnabled && !Enabled)
             {
                 var stackTrace = new StackTrace();
                 var stackFrame = stackTrace.GetFrame(1);
@@ -749,9 +723,8 @@
 
         private void ReceiveEvent(IEvent data)
         {
-            if (typeof(ErrorEvent) == data.GetType())
+            if (data is ErrorEvent errorEvent)
             {
-                var errorEvent = (ErrorEvent)data;
                 var id = errorEvent.Id;
 
                 LastError = id.ToString();
@@ -762,34 +735,34 @@
                     case ErrorEventId.OutputFailure:
                     case ErrorEventId.InvalidHandle:
                     case ErrorEventId.ReadBoardInfoFailure:
-                    {
-                        Logger.ErrorFormat("Handled ErrorEventId {0}", id);
-
-                        // Are we uninitialized?
-                        if (LogicalState == IOLogicalState.Uninitialized && _postedInspectionFailedEvent == false)
                         {
-                            // Yes, set pending inspection failed event.
-                            _pendingInspectionFailedEvent = true;
-                        }
-                        else
-                        {
-                            _hardMeterStoppedResponding = false;
-                            // Disable service for error.
-                            Disable(DisabledReasons.Error);
-                        }
+                            Logger.ErrorFormat("Handled ErrorEventId {0}", id);
 
-                        break;
-                    }
+                            // Are we uninitialized?
+                            if (LogicalState == IOLogicalState.Uninitialized && _postedInspectionFailedEvent == false)
+                            {
+                                // Yes, set pending inspection failed event.
+                                _pendingInspectionFailedEvent = true;
+                            }
+                            else
+                            {
+                                _hardMeterStoppedResponding = false;
+                                // Disable service for error.
+                                Disable(DisabledReasons.Error);
+                            }
+
+                            break;
+                        }
 
                     case ErrorEventId.Read:
                     case ErrorEventId.Write:
                     case ErrorEventId.WatchdogEnableFailure:
                     case ErrorEventId.WatchdogDisableFailure:
                     case ErrorEventId.WatchdogResetFailure:
-                    {
-                        Logger.InfoFormat("Handled ErrorEventId {0}", id);
-                        break;
-                    }
+                        {
+                            Logger.InfoFormat("Handled ErrorEventId {0}", id);
+                            break;
+                        }
 
                     default:
                         Logger.InfoFormat("Unhandled ErrorEventId {0}", id);
@@ -811,27 +784,29 @@
             }
         }
 
-        private void RegisterHardwareDevice(
+        private static void RegisterHardwareDevice(
             ComponentType componentType,
             string path,
             string componentId,
             string description,
             long size)
         {
-            if (size > 0)
+            if (size <= 0)
             {
-                var component = new Component
-                {
-                    ComponentId = ("ATI_" + componentId).Replace(" ", "_"),
-                    Description = description,
-                    Path = path,
-                    Size = size,
-                    Type = componentType,
-                    FileSystemType = FileSystemType.Stream
-                };
-
-                ServiceManager.GetInstance().GetService<IComponentRegistry>().Register(component);
+                return;
             }
+
+            var component = new Component
+            {
+                ComponentId = ("ATI_" + componentId).Replace(" ", "_"),
+                Description = description,
+                Path = path,
+                Size = size,
+                Type = componentType,
+                FileSystemType = FileSystemType.Stream
+            };
+
+            ServiceManager.GetInstance().GetService<IComponentRegistry>().Register(component);
         }
     }
 }
