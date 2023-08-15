@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "VB65aCCv9vwEcVIVwKTg8P6iaKz8rX+4pSCdMKP/UX4="
+          "hash": "D6AsN71fFTNHY4x8lD9QKgB2/ROYdOxCcgPcs4BsI/g="
         }
       },
       "is_incremental": false,
@@ -18842,30 +18842,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.Common.Data.Models.PendingJackpotAwards.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Common.Data.Models.PendingJackpotAwards.html",
-          "hash": "wKdOoz3sqDtO9Sq2HKA/9owF4WST4CiJB2EI1KgqltE="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.Common.Data.Models.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Common.Data.Models.html",
-          "hash": "CWWI6TYpg0rX7/Sen3mIz9qao421SKss0sG6cvFnLsM="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.Common.EgmStatusFlag.yml",
       "output": {
         ".html": {
@@ -19434,7 +19410,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Common.ProgressiveInfo.html",
-          "hash": "Xl8MZcrHeqBqGwaGib6nnVLzNuhNaLFblgQ9fKtxu2U="
+          "hash": "ozaE77+VvNePfO3f7PDGrXcoyUy7clmMBWhRLyVvydY="
         }
       },
       "is_incremental": false,
@@ -19778,6 +19754,30 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.Common.Storage.Model.PendingJackpotAwards.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Common.Storage.Model.PendingJackpotAwards.html",
+          "hash": "XQtYHwLf4GiVNK4w9+HPFJWnwCMHq+VO61Ie1k/UkhM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.Common.Storage.Model.PendingJackpotAwardsConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Common.Storage.Model.PendingJackpotAwardsConfiguration.html",
+          "hash": "Ui8hGZngDFPpo+t/dzEvHebPLPXeqcHRksuOPGV7Gxc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/bingo/Aristocrat.Monaco.Bingo.Common.Storage.Model.ReportEventModel.yml",
       "output": {
         ".html": {
@@ -19878,7 +19878,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Common.Storage.Model.html",
-          "hash": "EJxLZ0GlHIJqAVUZazNb+/1R0TkNKUKuVOyz6UnpU7Q="
+          "hash": "iUAhm6xw39gw9X0w+QPMSO1pqjXBuYKgZMvKL9s15MU="
         }
       },
       "is_incremental": false,
@@ -21570,7 +21570,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Services.GamePlay.CentralHandler.html",
-          "hash": "dI3lhQQ88L8wJdr09GlaRK/INPmvX7VGAAi1cAlh9Cw="
+          "hash": "Al8Po7BcZVwIn1VPW5YQdbgsTFfxrf2YjBcZ7INjssI="
         }
       },
       "is_incremental": false,
@@ -21582,7 +21582,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Services.GamePlay.IBingoGameOutcomeHandler.html",
-          "hash": "BRzEG29xqEuWEssa2FHM4gUuH+eRy0JEghVADud7eNM="
+          "hash": "2luAaotgVb3I1IAJUR8SAwqObebjo5fcefwf58eZQ5U="
         }
       },
       "is_incremental": false,
@@ -21630,7 +21630,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Services.GamePlay.ProgressiveController.html",
-          "hash": "ewLw+/QNkc7hvhPP+BK18r7hcrPmhonVVEMVc0jol1Y="
+          "hash": "iC/wKkLC989bl+GQEaq6cRNey9Y3j+Bn7JfDT0ReIrI="
         }
       },
       "is_incremental": false,
@@ -21642,7 +21642,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.Services.GamePlay.TotalWinValidator.html",
-          "hash": "6JV0CGr57LG7p4dabM0Kuzp6CktE7QZXs+mWaYVqV5g="
+          "hash": "kKoKMXdZsszxQTIs8PTA3qtccIiTBuO6/u1sl1H29T0="
         }
       },
       "is_incremental": false,
@@ -46970,11 +46970,23 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Contracts.Central.LookupData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Central.LookupData.html",
+          "hash": "Ll1YC2iq6CQ+W/pYmijlQZhSptk3yJF+/hweTFq7r2A="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Gaming.Contracts.Central.Outcome.yml",
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Central.Outcome.html",
-          "hash": "Q3M89WfWNblrG3C7idHCNbQDsMK2o2eo2o2NURDwJCk="
+          "hash": "fvaMV45kR5ZkzDTk34YjTl9bc6CIeV7MfTSg0w7a8AQ="
         }
       },
       "is_incremental": false,
@@ -47106,7 +47118,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Central.html",
-          "hash": "Qxt10426yr56iudN7751VauMhwLxSG6/F4AP8rTA2TI="
+          "hash": "Z3uDigA6LPRKfrudc8T6HUSaRNv6eFYOMv2nG68NfZ4="
         }
       },
       "is_incremental": false,
@@ -82458,7 +82470,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/mgam/Aristocrat.Monaco.Mgam.Commands.RequestPlayCommandHandler.html",
-          "hash": "4EP84hu74aY6W4ehjkLYyCCqsvUxV8GJcufBTdx9KbQ="
+          "hash": "n3PM88GUZsyYp//qrAeU0ki5RmF7vr6SyAdKoWi0pF4="
         }
       },
       "is_incremental": false,
@@ -85161,7 +85173,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 7063,
+          "total_file_count": 7064,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
