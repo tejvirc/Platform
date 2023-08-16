@@ -4981,4 +4981,7 @@ Do you really want to do partial reset????</value>
   <data name="InvalidNoteAcceptorFirmware" xml:space="preserve">
     <value>??Invalid Note Acceptor Firmware Detected ISO {0}??</value>
   </data>
+  <data name="RemoveAllCreditsBeforeChange" xml:space="preserve">
+    <value>??Please remove all credits from the machine before changing these settings.??</value>
+  </data>
 </root>
