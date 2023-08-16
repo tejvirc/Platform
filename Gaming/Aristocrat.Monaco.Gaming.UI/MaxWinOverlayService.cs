@@ -20,6 +20,7 @@
     using System.Timers;
     using log4net;
     using System.Reflection;
+    using System.Windows;
 
     public class MaxWinOverlayService : IMaxWinOverlayService, IService, IDisposable
     {
@@ -154,9 +155,18 @@
             var gameId = _properties.GetValue(GamingConstants.SelectedGameId, 0);
             var game = _properties.GetValues<IGameDetail>(GamingConstants.Games).SingleOrDefault(g => g.Id == gameId);
             var denomination = game.Denominations.Single(d => d.Value == _properties.GetValue(GamingConstants.SelectedDenom, 0L));
-            _maxWinDialogViewModel.MaxWinAmount = (game.BetOptionList.FirstOrDefault(x => x.Name == denomination.BetOption)?.MaxWin * denomination.Value)?.MillicentsToDollars().ToString(CultureInfo.InvariantCulture) ?? "";
+            MvvmHelper.ExecuteOnUI(
+            () =>
+            {
+                //MaxWin dialog visibility is set to Hidden and then to Visible once the dialog is added to the main view
+                //as there is a delay in rendering the maxWin amount value in the dialog
+                //Please refer to https://jerry.aristocrat.com/browse/TXM-13435
+                _maxWinDialog.Visibility = Visibility.Hidden;
+                _maxWinDialogViewModel.MaxWinAmount = (game.BetOptionList.FirstOrDefault(x => x.Name == denomination.BetOption)?.MaxWin * denomination.Value)?.MillicentsToDollars().ToString(CultureInfo.InvariantCulture) ?? "";
 
-            _eventBus.Publish(new ViewInjectionEvent(_maxWinDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));
+                _eventBus.Publish(new ViewInjectionEvent(_maxWinDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));
+                _maxWinDialog.Visibility = Visibility.Visible;
+            });
         }
 
         private void CloseMaxWinDialog()
