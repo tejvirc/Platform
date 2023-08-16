@@ -44,7 +44,7 @@
   </RewardLevels>
   <CoinInStrategy>
     <CoinInRate>
-      <SessionRateInMs>100</SessionRateInMs>
+      <SessionRateInMs>500</SessionRateInMs>
       <Amount>100</Amount>
     </CoinInRate>
     <SessionTimeout>100</SessionTimeout>

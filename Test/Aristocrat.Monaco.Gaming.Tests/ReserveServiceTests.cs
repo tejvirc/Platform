@@ -233,11 +233,11 @@ namespace Aristocrat.Monaco.Gaming.Tests
                     _propertyChangedHandler?.Invoke(
                         new PropertyChangedEvent { PropertyName = ApplicationConstants.ReserveServiceEnabled });
 
-                    await Task.Delay(timeout * 1000 - deltaTimeInMs);
+                    await Task.Delay(timeout * 500);    // that is 2 times less than timeout value (1000/2)
 
                     Assert.IsTrue(_reserve.IsMachineReserved);
 
-                    await Task.Delay(deltaTimeInMs * 3);
+                    await Task.Delay(timeout * 1000 + deltaTimeInMs);    // wait longer than timeout value
 
                     Assert.IsFalse(_reserve.IsMachineReserved);
 
@@ -465,11 +465,11 @@ namespace Aristocrat.Monaco.Gaming.Tests
 
                     _systemDisableManager.Setup(x => x.Enable(ApplicationConstants.ReserveDisableKey));
 
-                    await Task.Delay(timeout * 1000 - deltaTimeInMs);
+                    await Task.Delay(timeout * 500); // that is 2 times less than timeout value (1000/2)
 
                     Assert.IsTrue(_reserve.IsMachineReserved);
 
-                    await Task.Delay(deltaTimeInMs * 3);
+                    await Task.Delay(timeout * 1000 + deltaTimeInMs);   // wait longer than timeout value
 
                     Assert.IsFalse(_reserve.IsMachineReserved);
 

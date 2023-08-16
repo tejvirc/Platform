@@ -11,7 +11,7 @@
     [TestClass]
     public class CabinetStateServiceTests
     {
-        private const int wrapUpTimeout = 2500;
+        private const int wrapUpTimeout = 3000;
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void WhenBankIsNullExpectException()

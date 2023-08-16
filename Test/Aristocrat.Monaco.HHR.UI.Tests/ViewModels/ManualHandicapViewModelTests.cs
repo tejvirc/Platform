@@ -32,7 +32,7 @@
         private Mock<IManualHandicapEntityHelper> _manualHandicapEntityHelper;
 
         [TestInitialize]
-        public void TestInitialization()
+        public async void TestInitialization()
         {
             _serviceManagerMock = MoqServiceManager.CreateInstance(MockBehavior.Default);
             _prizeDeterminationService = new Mock<IPrizeDeterminationService>(MockBehavior.Default);
@@ -67,7 +67,7 @@
                 _manualHandicapEntityHelper.Object,
                 _gameProvider.Object);
 
-            _target.Init(Command.ManualHandicap);
+            await _target.Init(Command.ManualHandicap);
         }
 
         [TestCleanup]

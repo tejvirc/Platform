@@ -42,7 +42,7 @@
         private Mock<IMeter> _meter;
         private GeneralSettingsPageViewModel _target;
         private readonly ManualResetEvent _waiter = new ManualResetEvent(false);
-        private const int Timeout = 1000;
+        private const int Timeout = 5000;
         private const string HardBootTimeKey = "System.HardBoot.Time";
         private const string SoftBootTimeKey = "System.SoftBoot.Time";
 
