@@ -19,6 +19,16 @@
         protected ConfigWizardViewModelBase(bool isWizardPage = false)
         {
             IsWizardPage = isWizardPage;
+            if (isWizardPage)
+            {
+                var currencyLocalizationPreference = PropertiesManager.GetValue(ApplicationConstants.ConfigWizardLocalizationCurrency, Culture.Default);
+
+                if (currencyLocalizationPreference is not Culture.Default)
+                {
+                    UseOperatorCultureForCurrencyFormatting = currencyLocalizationPreference is Culture.Operator;
+                }
+            }
+
             _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
         }
 
