@@ -17,7 +17,7 @@
 
         private readonly IEventBus _eventBus;
         private readonly IVirtualKeyboardProvider _keyboardProvider;
-        private readonly CultureInfo _startupCulture;
+        private readonly CultureInfo _startupCulture = InputLanguage.CurrentInputLanguage.Culture;
 
         private bool _disableKeyboard;
         private bool _disposed;
@@ -35,7 +35,6 @@
 
             var configuredKeyboardProvider = propertiesManager.GetValue(ApplicationConstants.KeyboardProvider, KeyboardProviderType.Default);
             _keyboardProvider = GetKeyboardProvider(configuredKeyboardProvider);
-            _startupCulture = InputLanguage.CurrentInputLanguage.Culture;
         }
 
         public string Name => GetType().Name;
@@ -92,7 +91,7 @@
             var culture = Localizer.For(CultureFor.Operator).CurrentCulture;
             SetInputLanguage(culture);
 
-            _keyboardProvider.OpenKeyboard(targetControl);
+            _keyboardProvider.OpenKeyboard(targetControl, culture);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -117,16 +116,8 @@
                 return;
             }
 
-            foreach (var installed in InputLanguage.InstalledInputLanguages)
-            {
-                if (installed is InputLanguage language &&
-                    language.Culture.ThreeLetterISOLanguageName == culture.ThreeLetterISOLanguageName &&
-                    !Equals(InputLanguage.CurrentInputLanguage, language))
-                {
-                    InputLanguage.CurrentInputLanguage = language;
-                    Logger.Debug($"Set Windows Input language to {language.Culture.EnglishName}");
-                }
-            }
+            InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(culture);
+            Logger.Debug($"Set Windows Input language to {culture.EnglishName}");
         }
 
         private void CloseOnScreenKeyboard()
