@@ -12,11 +12,17 @@
         /// </summary>
         public IViewableProgressiveLevel Level { get; }
 
+        /// <summary>
+        ///     Gets the remaining amount that can be claimed
+        /// </summary>
+        public double? RemainingAmount { get; }
+
         /// <inheritdoc />
-        public LinkedProgressiveHitEvent(IViewableProgressiveLevel level, IEnumerable<IViewableLinkedProgressiveLevel> linkedLevels)
+        public LinkedProgressiveHitEvent(IViewableProgressiveLevel level, IEnumerable<IViewableLinkedProgressiveLevel> linkedLevels, double? remainingAmount = default)
             : base(linkedLevels)
         {
             Level = level;
+            RemainingAmount = remainingAmount;
         }
     }
 }

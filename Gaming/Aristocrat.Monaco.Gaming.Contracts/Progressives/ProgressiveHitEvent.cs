@@ -11,11 +11,13 @@
         /// <param name="jackpot">The associated jackpot transaction</param>
         /// <param name="level">The progressive level that was hit</param>
         /// <param name="isRecovery">Whether or not we are processing recovery</param>
-        public ProgressiveHitEvent(JackpotTransaction jackpot, IViewableProgressiveLevel level, bool isRecovery)
+        /// <param name="remainingAmount">The remaining amount that can be claimed</param>
+        public ProgressiveHitEvent(JackpotTransaction jackpot, IViewableProgressiveLevel level, bool isRecovery, long? remainingAmount = default)
             : base(jackpot)
         {
             Level = level;
             IsRecovery = isRecovery;
+            RemainingAmount = remainingAmount;  
         }
 
         /// <summary>
@@ -27,5 +29,10 @@
         ///     Gets whether or not we recovering
         /// </summary>
         public bool IsRecovery { get; }
+
+        /// <summary>
+        ///     Gets the remaining amount that can be claimed
+        /// </summary>
+        public long? RemainingAmount { get; }
     }
 }

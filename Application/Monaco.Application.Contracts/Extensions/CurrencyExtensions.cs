@@ -120,6 +120,13 @@
         }
 
         /// <summary>
+        ///     Remove the fractional units from the millicents.
+        /// </summary>
+        /// <param name="millicents">The millicents to remove fraction.</param>
+        /// <returns>Millicents without fraction units for the provided millicents.</returns>
+        public static long RemoveMillicentsFraction(this long millicents) => millicents.MillicentsToDollarsNoFraction().DollarsToMillicents();
+
+        /// <summary>
         ///     Converts dollars to millicents.
         /// </summary>
         /// <param name="dollars">The value in dollars.</param>

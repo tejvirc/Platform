@@ -2,6 +2,7 @@
 {
     using System;
     using Application.Contracts;
+    using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Contracts.Progressives;
     using Kernel;
 
@@ -35,7 +36,7 @@
             calculator?.Increment(level, wager, ante, hiddenTotalMeter);
         }
 
-        public void ProcessHit(ProgressiveLevel level, IViewableJackpotTransaction transaction)
+        public void ProcessHit(ProgressiveLevel level, IViewableJackpotTransaction transaction, long? remainingAmount)
         {
             if (level == null)
             {
@@ -50,6 +51,10 @@
             var calculator = _calculatorFactory.Create(level.FundingType);
 
             var awardAmount = calculator?.Claim(level) ?? 0L;
+            if (level.AllowTruncation && remainingAmount.HasValue && remainingAmount.Value >= 0)
+            {
+                awardAmount = Math.Min(awardAmount, remainingAmount.Value).RemoveMillicentsFraction();
+            }
 
             if (level.TriggerControl == TriggerType.Mystery)
             {
@@ -67,7 +72,7 @@
             }
 
             var calculator = _calculatorFactory.Create(level.FundingType);
-            
+
             calculator?.Reset(level);
         }
 
@@ -85,7 +90,7 @@
                 (theEvent.Level.AssignedProgressiveId == null ||
                  theEvent.Level.AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.None))
             {
-                ProcessHit(theEvent.Level as ProgressiveLevel, theEvent.Jackpot);
+                ProcessHit(theEvent.Level as ProgressiveLevel, theEvent.Jackpot, theEvent.RemainingAmount);
             }
         }
 

@@ -122,7 +122,7 @@
 
         public override MessageResponse PrepareLightShowAnimations(PrepareLightShowAnimationsRequest request)
         {
-            throw new NotImplementedException();
+            return default;
         }
 
         public override MessageResponse PrepareStepperCurves(PrepareStepperCurvesRequest request)
@@ -205,6 +205,11 @@
         public override MessageResponse SetBrightness(SetBrightnessRequest request)
         {
             throw new NotImplementedException();
+        }
+
+        public override LightshowQueueAttributesResponse GetLightshowQueueAttributes(Empty request)
+        {
+            return default;
         }
     }
 }

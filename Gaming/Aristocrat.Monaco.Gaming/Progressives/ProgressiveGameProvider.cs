@@ -36,6 +36,7 @@
         private readonly ISharedSapProvider _sharedSap;
         private readonly ISapProvider _standaloneProgressives;
         private readonly IPropertiesManager _propertiesManager;
+        private readonly IGameProvider _gameProvider;
 
         private readonly List<long> _pendingTransactions = new List<long>();
         private readonly object _sync = new object();
@@ -44,6 +45,7 @@
         private IDictionary<int, long> _pendingContributions = new Dictionary<int, long>();
         private int _gameId = -1;
         private long _denomination;
+        private string _betOption;
         private string _packName;
 
         private bool _disposed;
@@ -61,7 +63,8 @@
             ILinkedProgressiveProvider linkedProgressiveProvider,
             ISharedSapProvider sharedSapProvider,
             ISapProvider standaloneProgressives,
-            IPropertiesManager propertiesManager)
+            IPropertiesManager propertiesManager,
+            IGameProvider gameProvider)
         {
             _levelProvider = levelProvider ?? throw new ArgumentNullException(nameof(levelProvider));
             _gameStorage = gameStorage ?? throw new ArgumentNullException(nameof(gameStorage));
@@ -78,6 +81,7 @@
             _standaloneProgressives =
                 standaloneProgressives ?? throw new ArgumentNullException(nameof(standaloneProgressives));
 
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
 
             _bus.Subscribe<GameProcessExitedEvent>(this, _ => Reset());
@@ -127,6 +131,7 @@
 
             _gameId = gameId;
             _denomination = denomination;
+            _betOption = betOption;
             _packName = packName;
             _pendingContributions.Clear();
 
@@ -287,7 +292,8 @@
             string packName,
             IList<int> levelIds,
             IList<long> transactionIds,
-            bool recovering)
+            bool recovering,
+            long? existingWinInCents)
         {
             var bonusId = _gameStorage.GetValue<string>(
                 _gameId,
@@ -302,7 +308,8 @@
                     levelIds,
                     transactionIds,
                     recovering,
-                    bonusId).ToList();
+                    bonusId,
+                    existingWinInCents).ToList();
                 _levelProvider.UpdateProgressiveLevels(_packName, _gameId, _denomination, _activeLevels);
                 TryNotifyWin();
 
@@ -471,10 +478,16 @@
             IEnumerable<int> levelIds,
             IList<long> transactionIds,
             bool recovering,
-            string bonusId)
+            string bonusId,
+            long? existingWinInCents)
         {
             var transactions = _transactions.RecallTransactions<JackpotTransaction>();
             _pendingTransactions.Clear();
+
+            var currentGame = _gameProvider.GetGame(_gameId);
+            var selectedBetOption = currentGame.BetOptionList?.FirstOrDefault(x => x.Name == _betOption);
+            var maxWin = selectedBetOption?.MaxWin * _denomination;
+            var existingWinInMillicents = existingWinInCents?.CentsToMillicents();
 
             var index = 0;
             foreach (var levelId in levelIds)
@@ -482,6 +495,11 @@
                 JackpotTransaction transaction;
 
                 var level = GetUniqueLevelIDs().First(l => l.LevelId == levelId);
+                if (level.AllowTruncation && maxWin.HasValue && existingWinInMillicents.HasValue && maxWin.Value < existingWinInMillicents.Value)
+                {
+                    Logger.Error($"Max win is less than existing win amount. Max win: {maxWin}, Existing win: {existingWinInMillicents}");
+                    maxWin = existingWinInMillicents;
+                }
 
                 // If there's no corresponding transaction Id a new transaction must be created
                 //  There may be an associated transaction during recovery
@@ -520,10 +538,15 @@
 
                 if (transaction.State == ProgressiveState.Hit)
                 {
+                    var remainingAmount = level.AllowTruncation ? maxWin - existingWinInMillicents : default;
                     // This notifies the various providers (like the SAP provider) that there's a hit to handle
-                    _bus.Publish(new ProgressiveHitEvent(transaction, level, recovering));
+                    _bus.Publish(new ProgressiveHitEvent(transaction, level, recovering, remainingAmount));
                 }
 
+                // No need to consider maxWin truncation for transaction.ValueAmount.
+                // Because the truncation is always done on the last transaction.
+                // Once the maxWin truncation is done, existingWinInMillicents is ignored.
+                existingWinInMillicents += transaction.ValueAmount.RemoveMillicentsFraction();
                 yield return new ProgressiveTriggerResult
                 {
                     GameId = _gameId,
