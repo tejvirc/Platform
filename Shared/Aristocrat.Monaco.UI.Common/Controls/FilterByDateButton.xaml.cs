@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Controls
 {
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using System;
     using System.Windows;
 
@@ -14,7 +15,26 @@
         /// </summary>
         public FilterByDateButton()
         {
+            DateCulture = Localizer.For(CultureFor.Operator).CurrentCulture.IetfLanguageTag;
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly DependencyProperty DateCultureProperty = DependencyProperty.Register(
+            nameof(DateCulture),
+            typeof(string),
+            typeof(FilterByDateButton),
+            new PropertyMetadata("en-US"));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string DateCulture
+        {
+            get => (string)GetValue(DateCultureProperty);
+            set => SetValue(DateCultureProperty, value);
         }
 
         /// <summary>
