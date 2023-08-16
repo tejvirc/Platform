@@ -360,6 +360,11 @@
         public static Guid ReelLoadingAnimationFilesDisableKey => new("{5EF31199-D255-4428-8327-630046BC6394}");
 
         /// <summary>
+        ///     Key used to disable the system if there is an error while loading animation files to the reel controller
+        /// </summary>
+        public static Guid ReelLoadingAnimationFilesErrorKey => new("{8CA04ABE-B989-4487-A00E-4DEB68FD6D90}");
+
+        /// <summary>
         ///     Key used to disable the system when the reel controller is disconnected
         /// </summary>
         public static readonly Guid ReelControllerDisconnectedGuid = new Guid("{47402BA4-420B-4E89-936A-385D760B53C3}");

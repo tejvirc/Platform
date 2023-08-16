@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics;
+    using System.Linq;
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
@@ -128,7 +129,7 @@
             }
 
             Logger.Debug("Creating overlay view");
-            _overlayWindow = new OverlayWindow(this);
+            _overlayWindow = _cabinetDetectionService.ExpectedDisplayDevices.Any(d => d.IsPrimary && d.Role == DisplayRole.Top) ? new OverlayWindow(_topView) : new OverlayWindow(this);
 
             Logger.Debug("Creating view model");
             ViewModel = new LobbyViewModel();

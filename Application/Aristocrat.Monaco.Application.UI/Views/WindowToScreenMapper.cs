@@ -7,6 +7,7 @@
     using System.Windows;
     using System.Windows.Forms;
     using Cabinet.Contracts;
+    using Hardware.Contracts;
     using Hardware.Contracts.Cabinet;
     using Kernel;
     using log4net;
@@ -21,18 +22,17 @@
         private readonly DisplayRole _role;
         private readonly bool _showCursor;
 
-        public WindowToScreenMapper(DisplayRole role)
+        /// <summary>
+        ///     Maps the given display role to this window.
+        /// </summary>
+        /// <param name="role">The display role to map this window to.</param>
+        /// <param name="swapRoles">Indicates whether we should swap the role of the designated primary display with the and main display when mapped to this window.</param>
+        /// <param name="fullscreen">Indicates whether or not this window is in full screen.</param>
+        /// <param name="showCursor">Indicates whether or not this window shows the cursor.</param>
+        public WindowToScreenMapper(DisplayRole role, bool swapRoles = false, bool? fullscreen = null, bool? showCursor = null)
             : this(
                 role,
-                GetFullscreen(ServiceManager.GetInstance().GetService<IPropertiesManager>()),
-                GetShowCursor(ServiceManager.GetInstance().GetService<IPropertiesManager>()),
-                ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
-        {
-        }
-
-        public WindowToScreenMapper(DisplayRole role, bool? fullscreen = null, bool? showCursor = null)
-            : this(
-                role,
+                swapRoles,
                 fullscreen ?? GetFullscreen(ServiceManager.GetInstance().GetService<IPropertiesManager>()),
                 showCursor ?? GetShowCursor(ServiceManager.GetInstance().GetService<IPropertiesManager>()),
                 ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
@@ -41,6 +41,7 @@
 
         private WindowToScreenMapper(
             DisplayRole role,
+            bool swapRoles,
             bool fullscreen,
             bool showCursor,
             ICabinetDetectionService cabinetDetectionService)
@@ -48,9 +49,27 @@
             _role = role;
             _showCursor = showCursor;
             IsFullscreen = fullscreen;
+
             var cabinetService = cabinetDetectionService ??
                                  throw new ArgumentNullException(nameof(cabinetDetectionService));
-            _device = cabinetService.GetDisplayDeviceByItsRole(role);
+
+            // Are we swapping roles and we have a designated primary display?
+            if (swapRoles && cabinetService.ExpectedDisplayDevices.Any(d => d.IsPrimary))
+            {
+                // Yes, get the role of the desinated primary display.
+                var primaryDisplayRole = cabinetService.ExpectedDisplayDevices.FirstOrDefault(d => d.IsPrimary).Role;
+
+                if (_role == DisplayRole.Main )
+                {
+                    _role = primaryDisplayRole;
+                }
+                else if (_role == primaryDisplayRole)
+                {
+                    _role = DisplayRole.Main;
+                }
+            }
+
+            _device = cabinetService.GetDisplayDeviceByItsRole(_role);
         }
 
         public bool IsFullscreen { get; }

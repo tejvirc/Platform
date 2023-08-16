@@ -19034,6 +19034,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Animation files are being loaded to the reel contr....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string LoadingAnimationFilesInfo {
+			get {
+				return ResourceManager.GetString("LoadingAnimationFilesInfo", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Loading Application Runnables.
 		/// </summary>
         /// <remarks>
@@ -55621,6 +55633,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Animation files are being loaded to the reel contr....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string LoadingAnimationFilesInfo {
+			get {
+				return "LoadingAnimationFilesInfo";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Loading Application Runnables.
 		/// </summary>
         /// <remarks>
@@ -84039,6 +84063,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting
         /// </remarks>
 		LoadingAccountingServices,
+		/// <summary>
+		///   Looks up a localized string similar to Animation files are being loaded to the reel contr....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		LoadingAnimationFilesInfo,
 		/// <summary>
 		///   Looks up a localized string similar to Loading Application Runnables.
 		/// </summary>

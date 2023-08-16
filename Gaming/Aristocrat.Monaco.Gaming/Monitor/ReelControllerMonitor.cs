@@ -546,7 +546,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 case LoadingAnimationState.Error:
                     var disableText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReelControllerFaults_HardwareError) + " " + loadingAnimationFilesText;
                     _disableManager.Disable(
-                        ApplicationConstants.ReelLoadingAnimationFilesDisableKey,
+                        ApplicationConstants.ReelLoadingAnimationFilesErrorKey,
                         SystemDisablePriority.Immediate,
                         () => disableText,
                         true);

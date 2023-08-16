@@ -151,7 +151,9 @@
             { ApplicationConstants.ReserveDisableKey, ResourceKeys.ReservedMachineErrorFaultMessage },
             { ApplicationConstants.ExcessiveMeterIncrementErrorGuid, ResourceKeys.ClearLockupExcessiveMeterIncrement },
             { ApplicationConstants.BellyDoorDiscrepencyGuid, ResourceKeys.BellyDoorDiscrepancy },
-            { ApplicationConstants.MemoryBelowThresholdDisableKey, ResourceKeys.OutOfMemoryMessageDescription }
+            { ApplicationConstants.MemoryBelowThresholdDisableKey, ResourceKeys.OutOfMemoryMessageDescription },
+            { ApplicationConstants.ReelLoadingAnimationFilesDisableKey, ResourceKeys.LoadingAnimationFilesInfo },
+            { ApplicationConstants.ReelLoadingAnimationFilesErrorKey, ResourceKeys.ClearLockupReconnectedRebootKeyMessage }
         };
 
         private bool _isExitReserveButtonEnabled;

@@ -12362,4 +12362,8 @@ Do you really want to do full reset?</value>
   <data name="WorkingText" xml:space="preserve">
     <value>Working</value>
   </data>
+  <data name="LoadingAnimationFilesInfo" xml:space="preserve">
+    <value>Animation files are being loaded to the reel controller.  This lockup will be removed once all animation files have been loaded.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>
