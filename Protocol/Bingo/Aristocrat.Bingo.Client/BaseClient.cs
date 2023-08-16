@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Reflection;
+    using System.Threading;
     using System.Threading.Tasks;
     using Configuration;
     using Grpc.Core;
@@ -13,9 +14,11 @@
 
     public abstract class BaseClient<TClientApi> : IClient
     {
-        private readonly ILog _logger;
-        private readonly BaseClientAuthorizationInterceptor _clientAuthorizationInterceptor;
-        private readonly LoggingInterceptor _loggingInterceptor;
+        protected readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+		protected static readonly TimeSpan StateChangeTimeOut = TimeSpan.FromSeconds(3);
+        protected readonly IClientConfigurationProvider ConfigurationProvider;
+        protected readonly BaseClientAuthorizationInterceptor ClientAuthorizationInterceptor;
+        protected readonly LoggingInterceptor LoggingInterceptor;
 
         private readonly object _clientLock = new();
         private GrpcChannel _channel;
@@ -31,10 +34,10 @@
         {
             ConfigurationProvider =
                 configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
-            _clientAuthorizationInterceptor = authorizationInterceptor ?? throw new ArgumentNullException(nameof(authorizationInterceptor));
-            _loggingInterceptor = loggingInterceptor ?? throw new ArgumentNullException(nameof(loggingInterceptor));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _loggingInterceptor.MessageReceived += OnMessageReceived;
+            ClientAuthorizationInterceptor = authorizationInterceptor ?? throw new ArgumentNullException(nameof(authorizationInterceptor));
+            LoggingInterceptor = loggingInterceptor ?? throw new ArgumentNullException(nameof(loggingInterceptor));
+            Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            LoggingInterceptor.MessageReceived += OnMessageReceived;
         }
 
         public abstract string FirewallRuleName { get; }
@@ -74,10 +77,8 @@
                 ? new SslCredentials(
                     string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))
                 : ChannelCredentials.Insecure;
-            return GrpcChannel.ForAddress(configuration.Address, new GrpcChannelOptions());
+            return GrpcChannel.ForAddress(configuration.Address, new GrpcChannelOptions() { Credentials = credentials });
         }
-
-        public abstract GrpcChannel CreateChannel();
 
         public abstract TClientApi CreateClient(CallInvoker callInvoker);
 
@@ -87,7 +88,7 @@
             {
                 await Stop().ConfigureAwait(false);
                 _channel = CreateChannel();
-                var callInvoker = _channel.Intercept(_clientAuthorizationInterceptor, _loggingInterceptor);
+                var callInvoker = _channel.Intercept(ClientAuthorizationInterceptor, LoggingInterceptor);
                 var configuration = ConfigurationProvider.CreateConfiguration();
                 if (configuration.ConnectionTimeout > TimeSpan.Zero)
                 {
@@ -103,15 +104,15 @@
             }
             catch (RpcException rpcException)
             {
-                _logger.Error($"Failed to connect the {GetType().Name}", rpcException);
+                Logger.Error($"Failed to connect the {GetType().Name}", rpcException);
             }
             catch (OperationCanceledException operationCanceled)
             {
-                _logger.Error($"Failed to connect the {GetType().Name}", operationCanceled);
+                Logger.Error($"Failed to connect the {GetType().Name}", operationCanceled);
             }
             catch (Exception ex)
             {
-                _logger.Error($"Failed to connect to the {GetType().Name}", ex);
+                Logger.Error($"Failed to connect to the {GetType().Name}", ex);
             }
 
             return false;
@@ -133,7 +134,7 @@
             }
             catch (RpcException rpcException)
             {
-                _logger.Error($"Failed to shutdown the {GetType().Name}", rpcException);
+                Logger.Error($"Failed to shutdown the {GetType().Name}", rpcException);
                 return false;
             }
 
@@ -192,9 +193,9 @@
 
             if (disposing)
             {
-                _loggingInterceptor.MessageReceived -= OnMessageReceived;
+                LoggingInterceptor.MessageReceived -= OnMessageReceived;
                 Stop().ContinueWith(
-                    _ => _logger.Error($"Stopping {GetType().Name} failed while disposing"),
+                    _ => Logger.Error($"Stopping {GetType().Name} failed while disposing"),
                     TaskContinuationOptions.OnlyOnFaulted);
                 _channel?.Dispose();
                 _channel = null;
@@ -211,7 +212,7 @@
             }
 
             var lastObservedState = channel.State;
-            _logger.Info($"{GetType().Name} Channel last observed state: {lastObservedState}");
+            Logger.Info($"{GetType().Name} Channel last observed state: {lastObservedState}");
             UpdateState(GetConnectionState(lastObservedState));
             while (StateIsConnected(lastObservedState))
             {
@@ -223,10 +224,10 @@
 
                 lastObservedState = observedState;
                 UpdateState(GetConnectionState(lastObservedState));
-                _logger.Info($"{GetType().Name} Channel connection state changed: {lastObservedState}");
+                Logger.Info($"{GetType().Name} Channel connection state changed: {lastObservedState}");
             }
 
-            _logger.Error($"{GetType().Name} Channel connection is no longer connected: {lastObservedState}");
+            Logger.Error($"{GetType().Name} Channel connection is no longer connected: {lastObservedState}");
             await Stop().ConfigureAwait(false);
         }
 
@@ -246,7 +247,7 @@
             Task.Run(async () => await MonitorConnectionAsync(_channel)).ContinueWith(
                 async _ =>
                 {
-                    _logger.Error($"Monitor Connection Failed for {GetType().Name} failed Forcing a disconnect");
+                    Logger.Error($"Monitor Connection Failed for {GetType().Name} failed Forcing a disconnect");
                     await Stop();
                 },
                 TaskContinuationOptions.OnlyOnFaulted);

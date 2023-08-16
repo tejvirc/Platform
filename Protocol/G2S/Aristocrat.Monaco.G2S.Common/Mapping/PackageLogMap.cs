@@ -2,7 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using G2S.Data.Model;
+    using Data.Model;
 
     /// <summary>
     ///     Configuration for the <see cref="PackageLog" /> entity

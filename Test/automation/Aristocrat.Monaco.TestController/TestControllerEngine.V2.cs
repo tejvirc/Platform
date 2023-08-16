@@ -48,85 +48,72 @@ namespace Aristocrat.Monaco.TestController
     using HardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
     using Kernel;
     using log4net;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Threading;
-    using HardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
-    using NoteAcceptorDisconnectedEvent = Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
-    using PrinterDisconnectedEvent = Aristocrat.Monaco.Hardware.Contracts.Printer.DisconnectedEvent;
-    using VirtualDeviceType = Hardware.Contracts.SharedDevice.DeviceType;
-    using System.Linq;
-    using Newtonsoft.Json;
-    using Aristocrat.Monaco.Gaming.Contracts.Lobby;
-    using Aristocrat.Monaco.Gaming.Contracts.Models;
-    using Aristocrat.Monaco.Gaming.Contracts.Events;
-    using PrinterDisconnectedEvent = Hardware.Contracts.Printer.DisconnectedEvent; 
-    using RobotController.Contracts;
+    using PrinterDisconnectedEvent = Hardware.Contracts.Printer.DisconnectedEvent;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using NoteAcceptorDisconnectedEvent = Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
     using TestController.Models.Request;
     using VirtualDeviceType = Hardware.Contracts.SharedDevice.DeviceType;
+    using Aristocrat.Monaco.Gaming.Contracts.Events;
 
     public partial class TestControllerEngine
     {
         private static ILobbyStateManager _lobbyStateManager = null;
-        private static ManualResetEvent   _returnedToLobbyEvent = new ManualResetEvent(false);
-        private static bool               _logIt = true;
-        private static ILog               _noteAcceptorLogger = LogManager.GetLogger(Assembly.GetCallingAssembly(), "NoteAcceptorV2");
-        private static ManualResetEvent   _printCompleted = new ManualResetEvent(false);
-        private static ManualResetEvent   _gameLoaded = new ManualResetEvent(false);
-        private static SemaphoreSlim      _oneAPICallAtATime = new SemaphoreSlim(1, 1);
+        private static ManualResetEvent _returnedToLobbyEvent = new ManualResetEvent(false);
+        private static bool _logIt = true;
+        private static ILog _noteAcceptorLogger = LogManager.GetLogger(Assembly.GetCallingAssembly(), "NoteAcceptorV2");
+        private static ManualResetEvent _printCompleted = new ManualResetEvent(false);
+        private static ManualResetEvent _gameLoaded = new ManualResetEvent(false);
+        private static SemaphoreSlim _oneAPICallAtATime = new SemaphoreSlim(1, 1);
         private static ManualResetEvent[] _insertCreditsEvents = new ManualResetEvent[3];
-        private static ManualResetEvent   _insertCreditsCompletedAfterInsertCredits = new ManualResetEvent(false);
-        private static ManualResetEvent   _bankBalanceChangedAfterInsertCredits = new ManualResetEvent(false);
-        private static ManualResetEvent   _bankBalanceChangedAfterCashOut = new ManualResetEvent(false);
+        private static ManualResetEvent _insertCreditsCompletedAfterInsertCredits = new ManualResetEvent(false);
+        private static ManualResetEvent _bankBalanceChangedAfterInsertCredits = new ManualResetEvent(false);
+        private static ManualResetEvent _bankBalanceChangedAfterCashOut = new ManualResetEvent(false);
 
-        private static ManualResetEvent   _currencyReturnedAfterInsertCredits = new ManualResetEvent(false);
-        private static ManualResetEvent   _currencyStackedAfterInsertCredits = new ManualResetEvent(false);
-        private static INoteAcceptor      _noteAcceptor = null;
-        private static Stopwatch          _stopWatch = new Stopwatch();
+        private static ManualResetEvent _currencyReturnedAfterInsertCredits = new ManualResetEvent(false);
+        private static ManualResetEvent _currencyStackedAfterInsertCredits = new ManualResetEvent(false);
+        private static INoteAcceptor _noteAcceptor = null;
+        private static Stopwatch _stopWatch = new Stopwatch();
         private static ManualResetEvent[] _cashOutEvents = new ManualResetEvent[2];
-        private static ManualResetEvent[] _fakePrinterErrorEvents      = new ManualResetEvent[6];
-        private static ManualResetEvent   _fakePrinterErrorChassisOpen   = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakePrinterErrorPaperEmpty    = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakePrinterErrorPaperInChute  = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakePrinterErrorPaperJam      = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakePrinterErrorPaperLow      = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakePrinterErrorPrintHeadOpen = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakePrinterDisconnected = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorDisconnected = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorMechanicalFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorOpticalFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorComponentFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorNvmFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorOtherFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorStackerDisconnected = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorNone = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorNoteJammed = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorFirmwareFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorCheatDetected = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorStackerFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorStackerFull = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorStackerJammed = new ManualResetEvent(false);
-        private static ManualResetEvent   _cashOutAborted = new ManualResetEvent(false);
+        private static ManualResetEvent[] _fakePrinterErrorEvents = new ManualResetEvent[6];
+        private static ManualResetEvent _fakePrinterErrorChassisOpen = new ManualResetEvent(false);
+        private static ManualResetEvent _fakePrinterErrorPaperEmpty = new ManualResetEvent(false);
+        private static ManualResetEvent _fakePrinterErrorPaperInChute = new ManualResetEvent(false);
+        private static ManualResetEvent _fakePrinterErrorPaperJam = new ManualResetEvent(false);
+        private static ManualResetEvent _fakePrinterErrorPaperLow = new ManualResetEvent(false);
+        private static ManualResetEvent _fakePrinterErrorPrintHeadOpen = new ManualResetEvent(false);
+        private static ManualResetEvent _fakePrinterDisconnected = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorDisconnected = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorMechanicalFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorOpticalFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorComponentFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorNvmFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorOtherFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorStackerDisconnected = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorNone = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorNoteJammed = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorFirmwareFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorCheatDetected = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorStackerFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorStackerFull = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorStackerJammed = new ManualResetEvent(false);
+        private static ManualResetEvent _cashOutAborted = new ManualResetEvent(false);
 
-        private static ManualResetEvent   _gamePlayInitiated = new ManualResetEvent(false);
-        private static ManualResetEvent   _gameEnded = new ManualResetEvent(false);
-        private static Stopwatch          _gameRunningStopWatch = new Stopwatch();
+        private static ManualResetEvent _gamePlayInitiated = new ManualResetEvent(false);
+        private static ManualResetEvent _gameEnded = new ManualResetEvent(false);
+        private static Stopwatch _gameRunningStopWatch = new Stopwatch();
         private static ManualResetEvent[] _gamePlayEvents = new ManualResetEvent[2];
-        private static Stopwatch          _gameLoadingStopwatch = new Stopwatch();
+        private static Stopwatch _gameLoadingStopwatch = new Stopwatch();
 
 
         //
         // NOTE***  We included the 250 value to allow negative testing
         //          We would expect the 250 to get returned not processed
         //          
-        private static List<int>          _validBills = new List<int> { 1, 2, 5, 10, 20, 50, 100, 250 };
-        private static int                _milliSecondsToWaitForSystemToReact = 3000;
-        private static Action             _waitForSystemToReact = () => Thread.Sleep(_milliSecondsToWaitForSystemToReact);
-        private static bool               _initialized = false;
+        private static List<int> _validBills = new List<int> { 1, 2, 5, 10, 20, 50, 100, 250 };
+        private static int _milliSecondsToWaitForSystemToReact = 3000;
+        private static Action _waitForSystemToReact = () => Thread.Sleep(_milliSecondsToWaitForSystemToReact);
+        private static bool _initialized = false;
 
 
         private static Func<NoteAcceptorStackerState, NoteAcceptorStackerState, string> _noteAcceptorStackerStatePresent = (stackerStateToTest, stackerState) =>
@@ -151,7 +138,7 @@ namespace Aristocrat.Monaco.TestController
         /// Solution Monaco -> Test -> Automation -> Aristocrat.Monaco.TestController
         /// else { it does nothing }
         /// </summary>
-        private static Action<string,bool> _displayDebugText = (message,logItFlag) =>
+        private static Action<string, bool> _displayDebugText = (message, logItFlag) =>
         {
             if (!string.IsNullOrEmpty(message))
             {
@@ -370,7 +357,8 @@ namespace Aristocrat.Monaco.TestController
                 _fakePrinterErrorPaperLow.Reset();
             }
 
-            if (evt.PrintHeadOpen)  {
+            if (evt.PrintHeadOpen)
+            {
                 _fakePrinterErrorPrintHeadOpen.Set();
             }
             else
@@ -422,7 +410,7 @@ namespace Aristocrat.Monaco.TestController
             ? _fakeNoteAcceptorMechanicalFault.Set()
             : _fakeNoteAcceptorMechanicalFault.Reset();
 
-            _ = ((evt.Fault & NoteAcceptorFaultTypes.OpticalFault) == NoteAcceptorFaultTypes.OpticalFault )
+            _ = ((evt.Fault & NoteAcceptorFaultTypes.OpticalFault) == NoteAcceptorFaultTypes.OpticalFault)
             ? _fakeNoteAcceptorOpticalFault.Set()
             : _fakeNoteAcceptorOpticalFault.Reset();
 
@@ -567,7 +555,7 @@ namespace Aristocrat.Monaco.TestController
 
         private void HandleEvent(FakeDeviceConnectedEvent evt)
         {
-            switch ( evt.Type )
+            switch (evt.Type)
             {
                 case VirtualDeviceType.Printer:
                     if (evt.Connected)
@@ -598,7 +586,7 @@ namespace Aristocrat.Monaco.TestController
                 default:
                     _displayDebugText($"ERRORMESSAGE: Unknown Virtual Device Type {evt.Timestamp}", !_logIt);
                     break;
-            }    
+            }
         }
 
         public Dictionary<string, object> GetAvailableGamesV2(GetAvailableGamesV2Request request)
@@ -723,7 +711,7 @@ namespace Aristocrat.Monaco.TestController
                     //
                     // now we have to wait for the lobby to
                     // go back to the "Chooser" State or the game will never load
-                    int  triesToGetChooserLobbyState = 0;
+                    int triesToGetChooserLobbyState = 0;
                     bool lobbyStateIsChooser = false;
 
                     //
@@ -933,7 +921,7 @@ namespace Aristocrat.Monaco.TestController
                         ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                         ["load-time"] = "0 ms."
                     };
-                    
+
                     var info = $"ERRORMESSAGE: TryLoadGameV2() Failed with Internal Error - Return to Lobby Event never fired.";
                     data.Add("Info", info);
                     _displayDebugText($"({request.TestName}) reports {info}", _logIt);
@@ -995,7 +983,7 @@ namespace Aristocrat.Monaco.TestController
                 // wait up to 25 seconds for the required events to fire...
                 // 
                 //
-                if ( WaitHandle.WaitAll(_gamePlayEvents, TimeSpan.FromSeconds(25)))
+                if (WaitHandle.WaitAll(_gamePlayEvents, TimeSpan.FromSeconds(25)))
                 {
                     //
                     // happy path - return SUCCESS:
@@ -1014,7 +1002,7 @@ namespace Aristocrat.Monaco.TestController
                         ["game_play_ended"] = "true",
                         ["game-time"] = _gameRunningStopWatch.ElapsedMilliseconds.ToString() + " ms."
                     };
-                    
+
                     var info = "Request to RequestSpinV2 completed successfully.";
                     data.Add("Info", info);
                     _displayDebugText($"SUCCESS: {info}.", _logIt);
@@ -1107,7 +1095,7 @@ namespace Aristocrat.Monaco.TestController
                 int numFaults = 0;
 
                 _stopWatch.Restart();
-               
+
                 if (null == _noteAcceptor)
                 {
                     _noteAcceptor = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
@@ -1583,7 +1571,7 @@ namespace Aristocrat.Monaco.TestController
                     // get the beginning known event state setup
                     //
                     ResetLocalManualResetEvents();
-                    EnableCashOut(new EnableCashOutRequest{ Enable = true });
+                    EnableCashOut(new EnableCashOutRequest { Enable = true });
                     _eventBus.Publish(new CashOutButtonPressedEvent());
 
                     //
@@ -1765,7 +1753,7 @@ namespace Aristocrat.Monaco.TestController
         ///     The "Info" member will always have information about the request and activity
         ///     
         /// </returns>
-        public Dictionary<string, object> InsertCreditsV2([FromRoute]string id, [FromBody]InsertCreditsV2Request request)
+        public Dictionary<string, object> InsertCreditsV2([FromRoute] string id, [FromBody] InsertCreditsV2Request request)
         {
             string testName = request.TestName;
 
@@ -1850,9 +1838,9 @@ namespace Aristocrat.Monaco.TestController
                     {
                         Message = new NoteValidated
                         {
-                            ReportId        = GdsConstants.ReportId.NoteAcceptorAcceptNoteOrTicket,
-                            TransactionId   = _bnaNoteTransactionId,
-                            NoteId          = GetNoteId(request.BillValue)
+                            ReportId = GdsConstants.ReportId.NoteAcceptorAcceptNoteOrTicket,
+                            TransactionId = _bnaNoteTransactionId,
+                            NoteId = GetNoteId(request.BillValue)
                         }
                     });
 

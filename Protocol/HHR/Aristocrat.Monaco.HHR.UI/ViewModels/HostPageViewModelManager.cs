@@ -51,7 +51,7 @@
         private readonly IPlayerBank _bank;
         private readonly ITransactionCoordinator _transactionCoordinator;
         private Guid _raceInfoTransactionId;
-        protected readonly ILog Logger;
+        protected new readonly ILog Logger;
 
         public IHhrMenuPageViewModel SelectedViewModel
         {

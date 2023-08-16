@@ -66,6 +66,8 @@ namespace Aristocrat.Monaco.Gaming
 
             _changePropagationTimer = new Timer(UpdateMessages, null, Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
 
+            _showMessages = properties.GetValue(GamingConstants.ShowMessages, false);
+
             _messageDisplay.AddMessageDisplayHandler(this);
 
             _eventBus.Subscribe<GameInitializationCompletedEvent>(this, HandleEvent);
@@ -76,7 +78,8 @@ namespace Aristocrat.Monaco.Gaming
         public void DisplayMessage(DisplayableMessage displayableMessage)
         {
             if (!_showMessages || _gameDiagnostics.IsActive || displayableMessage == null ||
-                displayableMessage.Classification != DisplayableMessageClassification.SoftError &&
+                (displayableMessage.Classification != DisplayableMessageClassification.SoftError &&
+                 displayableMessage.Classification != DisplayableMessageClassification.Informative))
                 displayableMessage.Classification != DisplayableMessageClassification.Informative)
             {
                 return;

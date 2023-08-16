@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Bingo.Client
 {
+    using System.Reflection;
     using Configuration;
     using Grpc.Core;
     using Grpc.Net.Client;
@@ -9,17 +10,16 @@
 
     public class BingoClient : BaseClient<BingoClientApi>, IClientEndpointProvider<BingoClientApi>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public BingoClient(
             IClientConfigurationProvider configurationProvider,
             BingoClientAuthorizationInterceptor authorizationInterceptor,
-            LoggingInterceptor loggingInterceptor)
+            LoggingInterceptor loggingInterceptor,
+            ILog logger)
             : base(
                 configurationProvider,
                 authorizationInterceptor,
-                loggingInterceptor,
-                Logger)
+                loggingInterceptor, logger)
         {
         }
 
