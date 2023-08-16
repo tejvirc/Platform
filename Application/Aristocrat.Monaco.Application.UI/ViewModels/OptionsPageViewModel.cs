@@ -37,6 +37,8 @@
             PrintVerificationButtonClickedCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom1));
         }
 
+        public override bool CanCalibrateTouchScreens => true;
+
         // This needs to be false to allow printing from this page
         protected override bool IsContainerPage => false;
 
