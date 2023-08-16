@@ -58,7 +58,7 @@
                 if (_removeNodes == null)
                 {
                     _removeNodes = new List<Type>();
-                    foreach (var node in ChildNodes)
+                    foreach (var node in GetChildNodes())
                     {
                         if (node is MessageRemoveReasonNode removeNode)
                         {

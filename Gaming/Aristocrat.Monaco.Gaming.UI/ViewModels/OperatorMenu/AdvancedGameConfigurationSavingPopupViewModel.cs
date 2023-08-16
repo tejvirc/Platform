@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
+    using System.Threading.Tasks;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
     using MVVM;
@@ -19,12 +20,9 @@
         protected override void OnLoaded()
         {
             base.OnLoaded();
-            _loadedAction.BeginInvoke(
-                ar =>
-                {
-                    MvvmHelper.ExecuteOnUI(() => _dialogService.DismissOpenedDialog());
-                },
-                this);
+
+            var workTask = Task.Run(() => _loadedAction());
+            workTask.ContinueWith((_) => Task.Run(() => MvvmHelper.ExecuteOnUI(() => _dialogService.DismissOpenedDialog())));
         }
     }
 }

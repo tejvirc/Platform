@@ -43,28 +43,28 @@
             Assert.AreEqual(innerException, target.InnerException);
         }
 
-        /// <summary>
-        ///     A test for serializing and deserializing the BankException.
-        /// </summary>
-        [TestMethod]
-        public void SerializeClearedEventTest()
-        {
-            string message = "Just a test";
-            Exception innerException = new Exception();
-            var target = new TransactionHistoryException(message);
+        ///// <summary>
+        /////     A test for serializing and deserializing the BankException.
+        ///// </summary>
+        //[TestMethod]
+        //public void SerializeClearedEventTest()
+        //{
+        //    string message = "Just a test";
+        //    Exception innerException = new Exception();
+        //    var target = new TransactionHistoryException(message);
 
-            MemoryStream memoryStream = new MemoryStream();
+        //    MemoryStream memoryStream = new MemoryStream();
 
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            binaryFormatter.Serialize(memoryStream, target);
+        //    BinaryFormatter binaryFormatter = new BinaryFormatter();
+        //    binaryFormatter.Serialize(memoryStream, target);
 
-            memoryStream.Seek(0, SeekOrigin.Begin);
+        //    memoryStream.Seek(0, SeekOrigin.Begin);
 
-            TransactionHistoryException deserializedException =
-                (TransactionHistoryException)binaryFormatter.Deserialize(memoryStream);
+        //    TransactionHistoryException deserializedException =
+        //        (TransactionHistoryException)binaryFormatter.Deserialize(memoryStream);
 
-            Assert.AreEqual(message, deserializedException.Message);
-        }
+        //    Assert.AreEqual(message, deserializedException.Message);
+        //}
 
         [TestMethod]
         public void AttachTransactionTest()

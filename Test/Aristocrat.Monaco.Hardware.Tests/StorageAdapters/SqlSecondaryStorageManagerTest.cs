@@ -3,10 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Data.SqlClient;
-    using System.Data.SQLite;
+    using Microsoft.Data.Sqlite;
     using System.IO;
     using System.Linq;
     using Contracts.Persistence;
+    using Monaco.Hardware.Persistence;
     using Hardware.Serial;
     using Hardware.StorageAdapters;
     using Kernel;
@@ -14,6 +15,7 @@
     using Mono.Addins;
     using Moq;
     using Test.Common;
+    using System.Text;
 
     [TestClass]
     public class SqlSecondaryStorageManagerTest
@@ -50,6 +52,9 @@
 
             _eventBus =
                 MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
+
+            EncodingProvider netFrameworkEncoding = CodePagesEncodingProvider.Instance;
+            Encoding.RegisterProvider(netFrameworkEncoding);
 
             _target = new SqlSecondaryStorageManager();
         }
@@ -310,6 +315,8 @@
 
         private static void WriteToFile(string filePath, string content)
         {
+            SqliteConnection.ClearAllPools();
+
             using (var fs = File.OpenWrite(filePath))
             {
                 if (!string.IsNullOrEmpty(content))
@@ -360,6 +367,7 @@
 
         private bool IsFileSame(string fileName)
         {
+            SqliteConnection.ClearAllPools();
             return FilesEquals(
                 new FileInfo(Path.Combine(_primaryDirectory, fileName)),
                 new FileInfo(Path.Combine(_secondaryDirectory, fileName)));
@@ -367,21 +375,20 @@
 
         private void CreateDbFile(string dbFilePath)
         {
-            SQLiteConnection.CreateFile(dbFilePath);
-
             // Create dummy table
             using (var connection = CreateConnection(dbFilePath))
             {
                 connection.Open();
 
-                using (var command = new SQLiteCommand(connection))
+                using (var command = new SqliteCommand(CreateTableCommand, connection))
                 {
                     try
                     {
-                        command.CommandText = CreateTableCommand;
+                        //command.CommandText = CreateTableCommand;
                         command.ExecuteNonQuery();
+                       
                     }
-                    catch (SQLiteException)
+                    catch (SqliteException)
                     {
                     }
                     catch (Exception)
@@ -389,31 +396,20 @@
                         // ignored
                     }
                 }
+                
             }
         }
 
-        private SQLiteConnection CreateConnection(string filePath)
+        private SqliteConnection CreateConnection(string filePath)
         {
-            var connection = new SQLiteConnection(ConnectionString(filePath));
-
-            connection.SetPassword(DbFilePassword);
-
-            return connection;
-        }
-
-        private string ConnectionString(string filePath)
-        {
-            var sqlBuilder = new SqlConnectionStringBuilder
+            var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = filePath,
                 Pooling = true,
-                MaxPoolSize = int.MaxValue,
-                ConnectRetryCount = 10,
-                ConnectRetryInterval = 1,
-                ConnectTimeout = 15
+                Password = SqliteStoreConstants.DatabasePassword
             };
 
-            return sqlBuilder.ConnectionString + ";FailIfMissing=True;Journal Mode=WAL;Synchronous=FULL;";
+            return new SqliteConnection($"{sqlBuilder.ConnectionString};");
         }
 
         private void CreatePrimaryDirectory()
@@ -473,12 +469,28 @@
             }
         }
 
+        private void ClearSqlPoolConnection(string file)
+        {
+            using (var connection = CreateConnection(file))
+            {
+                connection.Close();
+            }
+
+            SqliteConnection.ClearAllPools();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+        }
+
         private void DeleteAll()
         {
+
+            MoqServiceManager.RemoveInstance();
             if (Directory.Exists(_primaryDirectory))
             {
                 foreach (var file in Directory.GetFiles(_primaryDirectory))
                 {
+                    ClearSqlPoolConnection(file);
+
                     File.Delete(file);
                 }
 
@@ -493,6 +505,8 @@
             {
                 foreach (var file in Directory.GetFiles(_secondaryDirectory))
                 {
+                    ClearSqlPoolConnection(file);
+
                     File.Delete(file);
                 }
 

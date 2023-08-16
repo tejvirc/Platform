@@ -4,7 +4,6 @@
     using CefSharp;
 
     /// <inheritdoc cref="IContextMenuHandler" />
-    [CLSCompliant(false)]
     public class DisabledContextMenuHandler : IContextMenuHandler
     {
         /// <inheritdoc />

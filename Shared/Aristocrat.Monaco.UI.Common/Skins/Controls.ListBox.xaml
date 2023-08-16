@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                    xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events">
+                    xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events"
+                    xmlns:b="http://schemas.microsoft.com/xaml/behaviors">
+
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Controls.Label.xaml" />
         <ResourceDictionary Source="Reskin.xaml" />
@@ -91,7 +93,7 @@
                      Value="False"
                      AutomationProperties.AutomationId="Trigger4_FDE84D7">
                 <Setter Property="BorderBrush"
-                        Value="{DynamicResource GrayBrush9}" />
+                        Value="{DynamicResource MahApps.Brushes.Gray9}" />
             </Trigger>
             <Trigger Property="VirtualizingStackPanel.IsVirtualizing"
                      Value="True"
@@ -166,23 +168,23 @@
                                  Value="True"
                                  AutomationProperties.AutomationId="Trigger11_FDE84D7">
                             <Setter Property="Foreground"
-                                    Value="{DynamicResource AccentSelectedColorBrush}" />
+                                    Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
                             <Setter TargetName="Border"
                                     Property="Background"
-                                    Value="{DynamicResource AccentColorBrush}" />
+                                    Value="{DynamicResource Aristocrat.Bingo.Client}" />
                         </Trigger>
                         <Trigger Property="IsMouseOver"
                                  Value="True"
                                  AutomationProperties.AutomationId="Trigger12_FDE84D7">
                             <Setter TargetName="Border"
                                     Property="Background"
-                                    Value="{DynamicResource AccentColorBrush3}" />
+                                    Value="{DynamicResource MahApps.Brushes.Accent3}" />
                         </Trigger>
                         <Trigger Property="IsEnabled"
                                  Value="False"
                                  AutomationProperties.AutomationId="Trigger13_FDE84D7">
                             <Setter Property="Foreground"
-                                    Value="{DynamicResource GrayBrush7}" />
+                                    Value="{DynamicResource MahApps.Brushes.Gray7}" />
                         </Trigger>
                         <MultiTrigger AutomationProperties.AutomationId="MultiTrigger14_FDE84D7">
                             <MultiTrigger.Conditions>
@@ -192,7 +194,7 @@
                                            Value="True" />
                             </MultiTrigger.Conditions>
                             <Setter Property="Foreground"
-                                    Value="{DynamicResource AccentSelectedColorBrush}" />
+                                    Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
                             <Setter TargetName="Border"
                                     Property="Background"
                                     Value="{DynamicResource GrayBrush7}" />
@@ -206,7 +208,7 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="Border"
                                     Property="Background"
-                                    Value="{DynamicResource AccentColorBrush2}" />
+                                    Value="{DynamicResource MahApps.Brushes.Accent2}" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -334,13 +336,13 @@
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                           VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
                                           AutomationProperties.AutomationId="ScrollViewer27_FDE84D7">
-                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                                 AutomationProperties.AutomationId="ItemsPresenter28_FDE84D7" />
-                                <i:Interaction.Triggers>
-                                    <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
-                                        <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}" />
-                                    </events:RoutedEventTrigger>
-                                </i:Interaction.Triggers>
+                                <b:Interaction.Triggers>
+                                    <!--<events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                                        <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}"/>
+                                    </events:RoutedEventTrigger>-->
+                                </b:Interaction.Triggers>
                             </ScrollViewer>
                             <DockPanel Grid.Column="1"
                                        LastChildFill="False"

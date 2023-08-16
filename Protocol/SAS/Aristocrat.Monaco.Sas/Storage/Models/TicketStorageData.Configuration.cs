@@ -1,39 +1,40 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     The database configuration for <see cref="TicketStorageData"/> entity
     /// </summary>
-    public class TicketStorageDataConfiguration : EntityTypeConfiguration<TicketStorageData>
+    public class TicketStorageDataConfiguration : IEntityTypeConfiguration<TicketStorageData>
     {
         /// <summary>
         ///     Creates an instance of <see cref="TicketStorageDataConfiguration"/>
         /// </summary>
-        public TicketStorageDataConfiguration()
+        public void Configure(EntityTypeBuilder<TicketStorageData> builder)
         {
-            ToTable(nameof(TicketStorageData));
-            HasKey(x => x.Id);
-            Property(x => x.CashableTicketExpiration)
+            builder.ToTable(nameof(TicketStorageData));
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.CashableTicketExpiration)
                 .IsRequired();
-            Property(x => x.VoucherInState)
+            builder.Property(x => x.VoucherInState)
                 .IsRequired();
-            Property(x => x.TicketInfoField);
-            Property(x => x.PoolId)
+            builder.Property(x => x.TicketInfoField);
+            builder.Property(x => x.PoolId)
                 .IsRequired();
-            Property(x => x.RedemptionEnabled)
+            builder.Property(x => x.RedemptionEnabled)
                 .IsRequired();
-            Property(x => x.TicketExpiration)
+            builder.Property(x => x.TicketExpiration)
                 .IsRequired();
-            Property(x => x.RestrictedTicketExpiration)
+            builder.Property(x => x.RestrictedTicketExpiration)
                 .IsRequired();
-            Property(x => x.RestrictedTicketDefaultExpiration)
+            builder.Property(x => x.RestrictedTicketDefaultExpiration)
                 .IsRequired();
-            Property(x => x.RestrictedTicketCombinedExpiration)
+            builder.Property(x => x.RestrictedTicketCombinedExpiration)
                 .IsRequired();
-            Property(x => x.RestrictedTicketIndependentExpiration)
+            builder.Property(x => x.RestrictedTicketIndependentExpiration)
                 .IsRequired();
-            Property(x => x.RestrictedTicketCreditsExpiration)
+            builder.Property(x => x.RestrictedTicketCreditsExpiration)
                 .IsRequired();
         }
     }

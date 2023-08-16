@@ -4,6 +4,7 @@
     using System.Globalization;
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Event emitted when a currency-in transaction has been completed.
@@ -18,7 +19,7 @@
     ///         of the units are determined dynamically based on the currency code.
     ///     </para>
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class CurrencyInCompletedEvent : BaseEvent
     {
         /// <summary>
@@ -41,16 +42,19 @@
         /// <summary>
         ///     Gets the currency amount that were added by the note acceptor.
         /// </summary>
+        [ProtoMember(1)]
         public long Amount { get; }
 
         /// <summary>
         ///     Gets the information on the Note that was accepted.
         /// </summary>
+        [ProtoMember(2)]
         public INote Note { get; }
 
         /// <summary>
         ///     Gets the transaction that was accepted.
         /// </summary>
+        [ProtoMember(3)]
         public BillTransaction Transaction { get; }
 
         /// <inheritdoc />

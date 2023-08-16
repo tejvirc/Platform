@@ -285,10 +285,10 @@
         private BonusReason GetEnumFromDescription (string description)
         {
             var field = typeof(BonusReason).GetFields(BindingFlags.Public | BindingFlags.Static)
-                .Where(f => ((BonusReason)f.GetRawConstantValue()).GetDescription() == description)
+                .Where(f => ((BonusReason)f.GetRawConstantValue()!).GetDescription() == description)
                 .SingleOrDefault();
 
-            return field == null ? DataSources.BonusReason.Unknown : (BonusReason)field.GetRawConstantValue();
+            return field == null ? DataSources.BonusReason.Unknown : (BonusReason)field.GetRawConstantValue()!;
         }
 
         public void Dispose()

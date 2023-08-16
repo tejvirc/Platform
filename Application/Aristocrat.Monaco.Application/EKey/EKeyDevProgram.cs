@@ -3,7 +3,6 @@
     using System.Threading;
     using SmartCard;
 
-#pragma warning disable 0162
     /// <summary>
     ///    Development EKey  program.
     /// </summary>
@@ -14,9 +13,9 @@
         {
 #if (RETAIL)
             return false;
-#endif
+#else
             return base.Run(connection, cancellation);
-
+#endif
         }
 
         /// <inheritdoc />
@@ -26,4 +25,3 @@
         }
     }
 }
-#pragma warning restore 0162

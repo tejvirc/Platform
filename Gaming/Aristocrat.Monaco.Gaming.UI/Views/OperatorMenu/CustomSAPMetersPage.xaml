@@ -7,6 +7,8 @@
                                xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:meterPage="clr-namespace:Aristocrat.Monaco.Application.UI.MeterPage;assembly=Aristocrat.Monaco.Application.UI"
                                mc:Ignorable="d"
@@ -32,7 +34,7 @@
                   Visibility="{Binding Path=HasEnabledCustomSAPLevels, Converter={StaticResource TrueVisibleFalseHidden}}"
                   AutomationProperties.AutomationId="DataGrid1_577EE25">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Level}}"
+                <DataGridTemplateColumn Header="{lex:Loc Level}"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn2_577EE25">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type meterPage:CountDisplayMeter}">
@@ -41,7 +43,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Hit}}"
+                <DataGridTextColumn Header="{lex:Loc Hit}"
                                     Width="350"
                                     Binding="{Binding Count, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn3_577EE25" />

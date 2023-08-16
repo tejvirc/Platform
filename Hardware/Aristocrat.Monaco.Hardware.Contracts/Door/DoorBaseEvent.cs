@@ -3,9 +3,10 @@
     using System;
     using Kernel;
     using Properties;
+    using ProtoBuf;
 
     /// <summary>Class to handle door specific events.</summary>
-    [Serializable]
+    [ProtoContract]
     public abstract class DoorBaseEvent : BaseEvent
     {
         /// <summary>
@@ -29,12 +30,15 @@
         }
 
         /// <summary>Gets the value of the LogicalId.</summary>
+        [ProtoMember(1)]
         public int LogicalId { get; }
 
         /// <summary>Gets a value indicating whether the event occurred while the EGM was powered down.</summary>
+        [ProtoMember(2)]
         public bool WhilePoweredDown { get; }
 
         /// <summary>Gets the value of the door name.</summary>
+        [ProtoMember(3)]
         public string DoorName { get; }
 
         /// <inheritdoc />

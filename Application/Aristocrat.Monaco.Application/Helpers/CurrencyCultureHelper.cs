@@ -35,7 +35,9 @@
 
                 using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(sr.ReadToEnd())))
                 {
-                    var serializer = new XmlSerializer(typeof(CurrencyDefaults));
+                    var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(CurrencyDefaults))
+                        .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                    var serializer = new XmlSerializer(typeof(CurrencyDefaults), theXmlRootAttribute ?? new XmlRootAttribute(nameof(CurrencyDefaults)));
                     currencyDefaults = (CurrencyDefaults)serializer.Deserialize(stream);
                 }
 

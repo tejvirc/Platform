@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Monaco.Gaming.Contracts</AssemblyTitle>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <Configurations>Debug;Release;Retail</Configurations>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
-    <PlatformTarget>x64</PlatformTarget>
+    <Platform>x64</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG;CODE_ANALYSIS;TRACE</DefineConstants>
@@ -43,7 +43,6 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.PackageManifest\Aristocrat.Monaco.PackageManifest.csproj" />
-    <ProjectReference Include="..\..\Shared\PRNG\PRNGLib\PRNGLib.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Barkeeper\BarkeeperRewardLevels.xsd">
@@ -62,12 +61,13 @@
     </CodeAnalysisDictionary>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.24" />
-    <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0046" />
+    <PackageReference Include="Aristocrat.CryptoRng" Version="1.1.0" />
+    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
-    <PackageReference Include="Mono.Addins" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="SimpleInjector" Version="4.9.2" />
+    <PackageReference Include="protobuf-net" Version="3.1.25" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Diagnostics\" />

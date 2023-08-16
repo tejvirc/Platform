@@ -1,58 +1,59 @@
 ﻿namespace Aristocrat.Monaco.Mgam.Common.Data.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     Configuration for <see cref="Voucher"/> model.
     /// </summary>
-    public class VoucherConfiguration : EntityTypeConfiguration<Voucher>
+    public class VoucherConfiguration : IEntityTypeConfiguration<Voucher>
     {
         /// <summary>
         ///     Initializes an instance of the <see cref="VoucherConfiguration"/> class.
         /// </summary>
-        public VoucherConfiguration()
+        public void Configure(EntityTypeBuilder<Voucher> builder)
         {
-            ToTable(nameof(Voucher));
+            builder.ToTable(nameof(Voucher));
 
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.VoucherBarcode)
+            builder.Property(t => t.VoucherBarcode)
                 .IsRequired();
 
-            Property(t => t.CasinoName)
+            builder.Property(t => t.CasinoName)
                 .IsRequired();
 
-            Property(t => t.CasinoAddress)
+            builder.Property(t => t.CasinoAddress)
                 .IsRequired();
 
-            Property(t => t.VoucherType)
+            builder.Property(t => t.VoucherType)
                 .IsRequired();
 
-            Property(t => t.CashAmount)
+            builder.Property(t => t.CashAmount)
                 .IsRequired();
 
-            Property(t => t.CouponAmount)
+            builder.Property(t => t.CouponAmount)
                 .IsRequired();
 
-            Property(t => t.TotalAmount)
+            builder.Property(t => t.TotalAmount)
                 .IsRequired();
 
-            Property(t => t.AmountLongForm)
+            builder.Property(t => t.AmountLongForm)
                 .IsRequired();
 
-            Property(t => t.Date)
+            builder.Property(t => t.Date)
                 .IsRequired();
 
-            Property(t => t.Time)
+            builder.Property(t => t.Time)
                 .IsRequired();
 
-            Property(t => t.Expiration)
+            builder.Property(t => t.Expiration)
                 .IsRequired();
 
-            Property(t => t.DeviceId)
+            builder.Property(t => t.DeviceId)
                 .IsRequired();
 
-            Property(t => t.OfflineReason)
+            builder.Property(t => t.OfflineReason)
                 .IsRequired();
         }
     }

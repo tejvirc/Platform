@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Serial.Tests.Printer
 {
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
+    using System.Threading;
     using Aristocrat.Monaco.Hardware.Serial;
     using Aristocrat.Monaco.Hardware.Serial.Printer;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -226,6 +228,7 @@
                     new PrintDataField() { Data = expiryDate }, // 118 expiry date
                 }
             };
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 
             var newPrintCommand = _override.RemapPrintCommand(printCommand, _printableTemplate, _printableRegions);
 
@@ -293,6 +296,7 @@
                     new PrintDataField() { Data = validationTitle } // 120 validation title
                 }
             };
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 
             var newPrintCommand = _override.RemapPrintCommand(printCommand, _printableTemplate, _printableRegions);
 

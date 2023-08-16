@@ -35,7 +35,7 @@
                                AutomationProperties.AutomationId="RowDefinition10_7030A184" />
             </Grid.RowDefinitions>
             <!-- Time Zone -->
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneLabel}}"
+            <Label Content="{lex:Loc TimeZoneLabel}"
                    Grid.Row="0"
                    AutomationProperties.AutomationId="Label11_7030A184" />
             <Grid Grid.Row="1"
@@ -61,21 +61,17 @@
                           ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}"
                           AutomationProperties.AutomationId="ComboBox15_7030A184" />
             </Grid>
-            <Label Grid.Row="2"
-                   Margin="0 20 0 0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeZoneOffsetLabel}}"
+
+            <Label Grid.Row="2" Margin="0 20 0 0" Content="{lex:Loc TimeZoneOffsetLabel}"
                    Visibility="{Binding OffsetIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                   AutomationProperties.AutomationId="Label16_7030A184" />
-            <TextBlock Grid.Row="3"
-                       Style="{StaticResource MonacoTextBlock}"
+                   AutomationProperties.AutomationId="Label16_7030A184"/>
+            <TextBlock Grid.Row="3" Style="{StaticResource MonacoTextBlock}"
                        Text="{Binding TimeZoneOffset, UpdateSourceTrigger=PropertyChanged}"
                        Visibility="{Binding OffsetIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                        AutomationProperties.AutomationId="TextBlock17_7030A184" />
             <!-- Date -->
-            <Label Grid.Row="4"
-                   Margin="0 20 0 0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.Date}}"
-                   AutomationProperties.AutomationId="Label18_7030A184" />
+            <Label Grid.Row="4" Margin="0 20 0 0" Content="{lex:Loc Date}"
+                   AutomationProperties.AutomationId="Label18_7030A184"  />
             <DatePicker Grid.Row="5"
                         SelectedDateFormat="Long"
                         Text="{Binding PickerDate, Mode=TwoWay}"
@@ -86,16 +82,13 @@
                         Language="{Binding DatePickerLanguage}"
                         AutomationProperties.AutomationId="DatePicker19_7030A184" />
             <!-- Time -->
-            <Label Grid.Row="6"
-                   Margin="0 20 0 0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeLabel}}"
-                   AutomationProperties.AutomationId="Label20_7030A184" />
-            <StackPanel Grid.Row="7"
-                        Orientation="Horizontal"
-                        AutomationProperties.AutomationId="StackPanel21_7030A184">
-                <ComboBox Style="{StaticResource MonacoTimeZoneComboBox}"
-                          ItemsSource="{Binding Hours}"
-                          SelectedItem="{Binding Hour, Mode=TwoWay}"
+            <Label Grid.Row="6" Margin="0 20 0 0" Content="{lex:Loc TimeLabel}" 
+                   AutomationProperties.AutomationId="Label20_7030A184"/>
+            <StackPanel Grid.Row="7" Orientation="Horizontal"
+                        AutomationProperties.AutomationId="StackPanel21_7030A184" >
+                <ComboBox Style="{StaticResource MonacoTimeZoneComboBox}" 
+                          ItemsSource="{Binding Hours}" 
+                          SelectedItem="{Binding Hour, Mode=TwoWay}" 
                           IsEnabled="{Binding InputEnabled}"
                           ItemContainerStyle="{StaticResource MonacoUnselectableComboBoxItem}"
                           AutomationProperties.AutomationId="ComboBox22_7030A184">
@@ -142,10 +135,9 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
-            <Button Grid.Row="8"
-                    Margin="0 30 0 0"
-                    HorizontalAlignment="Left"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}"
+
+            <Button Grid.Row="8" Margin="0 30 0 0" HorizontalAlignment="Left" 
+                    Content="{lex:Loc ApplyLabel}" 
                     IsEnabled="{Binding InputEnabled}"
                     Command="{Binding ApplyCommand}"
                     Visibility="{Binding ApplyButtonIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"

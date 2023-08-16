@@ -54,11 +54,10 @@
                         <RowDefinition Height="*"
                                        AutomationProperties.AutomationId="RowDefinition2_595BAD01" />
                     </Grid.RowDefinitions>
-                    <Border Grid.Row="0"
-                            Padding="0 5 0 5"
+
+                    <Border Grid.Row="0" Padding="0 5 0 5"
                             AutomationProperties.AutomationId="Border3_595BAD01">
-                        <Label Content="{Binding Name}"
-                               Foreground="{DynamicResource WhiteColorBrush}"
+                        <Label Content="{Binding Name}" Foreground="{DynamicResource MahApps.Brushes.ThemeBackground}" 
                                AutomationProperties.AutomationId="Label4_595BAD01" />
                     </Border>
                     <Border Grid.Row="1"

@@ -31,7 +31,7 @@
         /// <returns>A collection of package entities</returns>
         public IEnumerable<Package> Execute()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _packageRepository.GetAll(context);
             }

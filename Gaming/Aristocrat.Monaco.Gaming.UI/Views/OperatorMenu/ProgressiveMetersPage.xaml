@@ -6,6 +6,8 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:ProgressiveMetersPageViewModel}}">
@@ -55,12 +57,12 @@
                    Margin="0 20 0 0"
                    AutomationProperties.AutomationId="Label9_F589A27"
                    Visibility="{Binding HasProgressivesButNoneEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveGamesEnabled}}" />
+                   Content="{lex:Loc NoProgressiveGamesEnabled}" />
             <Label VerticalAlignment="Top"
                    HorizontalAlignment="Left"
                    Margin="0 20 0 0"
                    Visibility="{Binding HasProgressives, Converter={StaticResource TrueCollapsedFalseVisible}}"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoProgressiveMeters}}"
+                   Content="{lex:Loc NoProgressiveMeters}"
                    AutomationProperties.AutomationId="Label0_7471432F" />
         </StackPanel>
         <StackPanel Grid.Row="2"
@@ -71,7 +73,7 @@
             <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding PreviousGameCommand}"
                     IsEnabled="{Binding PreviousGameIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"
+                    Content="{lex:Loc PrevButton}"
                     AutomationProperties.AutomationId="Button13_F589A27" />
             <ComboBox Style="{StaticResource MonacoMetersComboBox}"
                       SelectedValuePath="Id"
@@ -116,7 +118,7 @@
             <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding NextGameCommand}"
                     IsEnabled="{Binding NextGameIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"
+                    Content="{lex:Loc NextButtonText}"
                     AutomationProperties.AutomationId="Button18_F589A27" />
         </StackPanel>
         <StackPanel Grid.Row="3"
@@ -127,7 +129,7 @@
             <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding PreviousDenomCommand}"
                     IsEnabled="{Binding PreviousDenomIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"
+                    Content="{lex:Loc PrevButton}"
                     AutomationProperties.AutomationId="Button20_F589A27" />
             <ComboBox Style="{StaticResource MonacoMetersComboBox}"
                       SelectedValuePath="Id"
@@ -140,7 +142,7 @@
             <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding NextDenomCommand}"
                     IsEnabled="{Binding NextDenomIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"
+                    Content="{lex:Loc NextButtonText}"
                     AutomationProperties.AutomationId="Button22_F589A27" />
         </StackPanel>
         <StackPanel Grid.Row="4"
@@ -152,7 +154,7 @@
             <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding PreviousBetOptionCommand}"
                     IsEnabled="{Binding PreviousBetOptionIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrevButton}}"
+                    Content="{lex:Loc PrevButton}"
                     AutomationProperties.AutomationId="Button24_F589A27" />
             <ComboBox Style="{StaticResource MonacoMetersComboBox}"
                       SelectedValuePath="Id"
@@ -164,7 +166,7 @@
             <Button Style="{StaticResource MonacoPrevNextButton}"
                     Command="{Binding NextBetOptionCommand}"
                     IsEnabled="{Binding NextBetOptionIsEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"
+                    Content="{lex:Loc NextButtonText}"
                     AutomationProperties.AutomationId="Button26_F589A27" />
         </StackPanel>
     </Grid>

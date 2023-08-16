@@ -15,7 +15,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
-
+    using Test.Common.UnitTesting;
 
     /// <summary>
     ///     This contains the unit tests for the PrinterMonitor class

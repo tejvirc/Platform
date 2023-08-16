@@ -137,7 +137,9 @@
                         if (message is DefineRegion region)
                         {
                             var reader = new StringReader(region.Data);
-                            var serializer = new XmlSerializer(typeof(dprtype));
+                            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(dprtype))
+                                .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                            var serializer = new XmlSerializer(typeof(dprtype), theXmlRootAttribute ?? new XmlRootAttribute(nameof(dprtype)));
                             var printableRegion = (dprtype)serializer.Deserialize(reader);
                             var result = await DefineRegion(printableRegion);
                             OnMessageReceived(new TransferStatus
@@ -153,7 +155,9 @@
                         if (message is DefineTemplate template)
                         {
                             var reader = new StringReader(template.Data);
-                            var serializer = new XmlSerializer(typeof(dpttype));
+                            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(dpttype))
+                                .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                            var serializer = new XmlSerializer(typeof(dpttype), theXmlRootAttribute ?? new XmlRootAttribute(nameof(dpttype)));
                             var printableTemplate = (dpttype)serializer.Deserialize(reader);
                             var result = await DefineTemplate(printableTemplate);
                             OnMessageReceived(new TransferStatus
@@ -174,7 +178,9 @@
                         else if (message is PrintTicket ticket)
                         {
                             var reader = new StringReader(CleanTicket(ticket.Data));
-                            var serializer = new XmlSerializer(typeof(PrintCommand));
+                            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(PrintCommand))
+                                .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                            var serializer = new XmlSerializer(typeof(PrintCommand), theXmlRootAttribute ?? new XmlRootAttribute(nameof(PrintCommand)));
                             var job = (PrintCommand)serializer.Deserialize(reader);
                             await PrintTicket(job, token);
                         }

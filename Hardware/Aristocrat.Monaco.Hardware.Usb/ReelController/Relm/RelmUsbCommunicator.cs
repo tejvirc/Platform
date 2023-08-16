@@ -56,6 +56,7 @@
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>())
         {
+            _relmCommunicator = new RelmCommunicator(new VerificationFactory(), RelmConstants.DefaultKeepAlive);
         }
 
         /// <summary>
@@ -274,20 +275,11 @@
 
                 try
                 {
-                    if (!_propertiesManager.GetValue(HardwareConstants.DoNotResetRelmController, false))
-                    {
-                        Logger.Debug($"Downloading animation file {loadingAnimationFileModel.Count + "/" + loadingAnimationFileModel.Total} {file.Path}");
-                        loadingAnimationFileModel.State = LoadingAnimationState.Loading;
-                        progress?.Report(loadingAnimationFileModel);
-                        var storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
-                        file.AnimationId = storedFile.FileId;
-                    }
-                    else
-                    {
-                        var id = Path.GetFileName(file.Path).HashDjb2();
-                        file.AnimationId = id;
-                    }
+                    Logger.Debug($"Downloading Animation file: {file.Path}");
 
+                    var storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
+
+                    file.AnimationId = storedFile.FileId;
                     _animationFiles.Add(file);
                     animationFilesLoaded++;
                 }

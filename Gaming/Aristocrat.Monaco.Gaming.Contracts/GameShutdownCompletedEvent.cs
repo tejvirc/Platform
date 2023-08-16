@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     A GameShutdownStartedCompleted is posted when a game is shutdown.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameShutdownCompletedEvent : BaseEvent
     {
     }

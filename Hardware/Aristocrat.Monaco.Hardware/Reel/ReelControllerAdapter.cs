@@ -265,6 +265,12 @@
                 _reelSpinningLock.Dispose();
             }
 
+            if (_reelControllerImplementation != null)
+            {
+                _reelControllerImplementation.Dispose();
+                _reelControllerImplementation= null;
+            }
+
             base.Dispose(disposing);
         }
 
@@ -281,6 +287,9 @@
 
             SetDefaultHomeSteps();
             ReadOrCreateOptions();
+
+            _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
+                .ToDictionary(x => x.Key, x => x.Value);
 
             Implementation.FaultCleared += ReelControllerFaultCleared;
             Implementation.FaultOccurred += ReelControllerFaultOccurred;

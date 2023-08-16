@@ -14,11 +14,11 @@
     </ResourceDictionary.MergedDictionaries>
     <!-- Converters -->
     <converters:StringFormatConverter x:Key="UneditedStringConverter"
-                                      StringFormat="{lex:Loc Key={x:Static loc:ResourceKeys.LiveSettingStatusUnedited}}" />
+                                      StringFormat="{lex:Loc LiveSettingStatusUnedited}" />
     <converters:StringFormatConverter x:Key="EditedStringConverter"
-                                      StringFormat="{lex:Loc Key={x:Static loc:ResourceKeys.LiveSettingStatusEdited}}" />
+                                      StringFormat="{lex:Loc LiveSettingStatusEdited}" />
     <converters:StringFormatConverter x:Key="ConflictedStringConverter"
-                                      StringFormat="{lex:Loc Key={x:Static loc:ResourceKeys.LiveSettingStatusConflicted}}" />
+                                      StringFormat="{lex:Loc LiveSettingStatusConflicted}" />
     <!-- Styles the little triangle that decorates live settings -->
     <SolidColorBrush x:Key="UneditedColor"
                      Color="#4000bfff"
@@ -121,7 +121,7 @@
                                        Width="300"
                                        MinWidth="300"
                                        HorizontalAlignment="Left"
-                                       Text="{Binding EditedValue, Mode=TwoWay,                     UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                       Text="{Binding EditedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                                        ErrorText="{Binding ErrorFromView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
                                        MaxLength="{Binding MaxLength, Mode=OneWay}"
                                        IsReadOnly="{Binding IsReadOnly, Mode=OneWay}"

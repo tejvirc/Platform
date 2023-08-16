@@ -1,67 +1,64 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Aristocrat.Monaco.G2S.Data.Model;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using PackageManager.Storage;
 
     /// <summary>
     ///     Configuration for the <see cref="Script" /> entity
     /// </summary>
-    public class ScriptMap : EntityTypeConfiguration<Script>
+    public class ScriptMap : IEntityTypeConfiguration<Script>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ScriptMap" /> class.
         /// </summary>
-        public ScriptMap()
+        public void Configure(EntityTypeBuilder<Script> builder)
         {
-            ToTable("Script");
+            builder.ToTable(nameof(Script));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.ScriptId)
+            builder.Property(t => t.ScriptId)
                 .IsRequired();
 
-            Property(t => t.DeviceId)
+            builder.Property(t => t.DeviceId)
                 .IsRequired();
 
-            Property(t => t.State)
+            builder.Property(t => t.State)
                 .IsRequired();
 
-            Property(t => t.ApplyCondition)
+            builder.Property(t => t.ApplyCondition)
                 .IsRequired();
 
-            Property(t => t.DisableCondition)
+            builder.Property(t => t.DisableCondition)
                 .IsRequired();
 
-            Property(t => t.AuthorizeDateTime)
-                .IsOptional();
+            builder.Property(t => t.AuthorizeDateTime);
 
-            Property(t => t.ScriptException)
+            builder.Property(t => t.ScriptException)
                 .IsRequired();
 
-            Property(t => t.CompletedDateTime)
-                .IsOptional();
+            builder.Property(t => t.CompletedDateTime);
 
-            Property(t => t.StartDateTime)
-                .IsOptional();
+            builder.Property(t => t.StartDateTime);
 
-            Property(t => t.EndDateTime)
-                .IsOptional();
+            builder.Property(t => t.EndDateTime);
 
-            Property(t => t.TransactionId)
+            builder.Property(t => t.TransactionId)
                 .IsRequired();
 
-            Property(t => t.ScriptCompleteHostAcknowledged)
+            builder.Property(t => t.ScriptCompleteHostAcknowledged)
                 .IsRequired();
 
-            Property(t => t.ReasonCode)
+            builder.Property(t => t.ReasonCode)
                 .IsRequired();
 
-            Property(t => t.CommandData)
+            builder.Property(t => t.CommandData)
                 .IsRequired();
 
-            HasMany(l => l.AuthorizeItems)
-                .WithOptional()
+            builder.HasMany(l => l.AuthorizeItems).WithOne()
                 .HasForeignKey(item => item.ScriptChangeLogId);
         }
     }

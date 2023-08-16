@@ -8,7 +8,6 @@
     /// <summary>
     ///     NativeMethods contains the user32.dll imports used with the KeyConverter.
     /// </summary>
-    [CLSCompliant(false)]
     public static class NativeMethods
     {
         /// <summary>

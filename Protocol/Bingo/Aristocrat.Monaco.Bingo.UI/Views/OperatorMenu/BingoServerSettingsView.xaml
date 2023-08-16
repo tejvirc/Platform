@@ -4,6 +4,8 @@
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
@@ -101,11 +103,11 @@
             <Label Grid.Row="0"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.FloorConfigurationLabel}}"
+                   Content="{lex:Loc FloorConfigurationLabel}"
                    AutomationProperties.AutomationId="Label26_5897E720" />
             <Label Grid.Row="1"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherInLimit}}"
+                   Content="{lex:Loc VoucherInLimit}"
                    AutomationProperties.AutomationId="Label27_5897E720" />
             <TextBlock Grid.Row="1"
                        Grid.Column="1"
@@ -113,7 +115,7 @@
                        AutomationProperties.AutomationId="TextBlock28_5897E720" />
             <Label Grid.Row="2"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BillAcceptanceLimit}}"
+                   Content="{lex:Loc BillAcceptanceLimit}"
                    AutomationProperties.AutomationId="Label29_5897E720" />
             <TextBlock Grid.Row="2"
                        Grid.Column="1"
@@ -121,7 +123,7 @@
                        AutomationProperties.AutomationId="TextBlock30_5897E720" />
             <Label Grid.Row="3"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TicketReprintLabel}}"
+                   Content="{lex:Loc TicketReprintLabel}"
                    AutomationProperties.AutomationId="Label31_5897E720" />
             <TextBlock Grid.Row="3"
                        Grid.Column="1"
@@ -129,7 +131,7 @@
                        AutomationProperties.AutomationId="TextBlock32_5897E720" />
             <Label Grid.Row="4"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.CaptureGameAnalyticsLabel}}"
+                   Content="{lex:Loc CaptureGameAnalyticsLabel}"
                    AutomationProperties.AutomationId="Label33_5897E720" />
             <TextBlock Grid.Row="4"
                        Grid.Column="1"
@@ -137,7 +139,7 @@
                        AutomationProperties.AutomationId="TextBlock34_5897E720" />
             <Label Grid.Row="5"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.AlarmConfigurationLabel}}"
+                   Content="{lex:Loc AlarmConfigurationLabel}"
                    AutomationProperties.AutomationId="Label35_5897E720" />
             <TextBlock Grid.Row="5"
                        Grid.Column="1"
@@ -145,7 +147,7 @@
                        AutomationProperties.AutomationId="TextBlock36_5897E720" />
             <Label Grid.Row="6"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PlayerMayHideBingoCardLabel}}"
+                   Content="{lex:Loc PlayerMayHideBingoCardLabel}"
                    Visibility="{Binding IsPlayerMayHideBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
                    AutomationProperties.AutomationId="Label37_5897E720" />
             <TextBlock Grid.Row="6"
@@ -157,11 +159,11 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 20 10 10"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoSettingsLabel}}"
+                   Content="{lex:Loc BingoSettingsLabel}"
                    AutomationProperties.AutomationId="Label39_5897E720" />
             <Label Grid.Row="8"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameEndingPrizeLabel}}"
+                   Content="{lex:Loc GameEndingPrizeLabel}"
                    AutomationProperties.AutomationId="Label40_5897E720" />
             <TextBlock Grid.Row="8"
                        Grid.Column="1"
@@ -169,7 +171,7 @@
                        AutomationProperties.AutomationId="TextBlock41_5897E720" />
             <Label Grid.Row="9"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PlayButtonBehaviorLabel}}"
+                   Content="{lex:Loc PlayButtonBehaviorLabel}"
                    AutomationProperties.AutomationId="Label42_5897E720" />
             <TextBlock Grid.Row="9"
                        Grid.Column="1"
@@ -177,7 +179,7 @@
                        AutomationProperties.AutomationId="TextBlock43_5897E720" />
             <Label Grid.Row="10"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.DisplayBingoCardLabel}}"
+                   Content="{lex:Loc DisplayBingoCardLabel}"
                    Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
                    AutomationProperties.AutomationId="Label44_5897E720" />
             <TextBlock Grid.Row="10"
@@ -187,7 +189,7 @@
                        AutomationProperties.AutomationId="TextBlock45_5897E720" />
             <Label Grid.Row="11"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.HideBingoCardWhenInactiveLabel}}"
+                   Content="{lex:Loc HideBingoCardWhenInactiveLabel}"
                    Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
                    AutomationProperties.AutomationId="Label46_5897E720" />
             <TextBlock Grid.Row="11"
@@ -197,7 +199,7 @@
                        AutomationProperties.AutomationId="TextBlock47_5897E720" />
             <Label Grid.Row="12"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoCardPlacementLabel}}"
+                   Content="{lex:Loc BingoCardPlacementLabel}"
                    Visibility="{Binding IsBingoCardPlacementSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
                    AutomationProperties.AutomationId="Label48_5897E720" />
             <TextBlock Grid.Row="12"
@@ -207,7 +209,7 @@
                        AutomationProperties.AutomationId="TextBlock49_5897E720" />
             <Label Grid.Row="13"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.WaitForPlayersLength}}"
+                   Content="{lex:Loc WaitForPlayersLength}"
                    AutomationProperties.AutomationId="Label50_5897E720" />
             <TextBlock Grid.Row="13"
                        Grid.Column="1"
@@ -217,11 +219,11 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 20 10 10"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.AFTTitleLabel}}"
+                   Content="{lex:Loc AFTTitleLabel}"
                    AutomationProperties.AutomationId="Label52_5897E720" />
             <Label Grid.Row="15"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.LegacyBonusAllowed}}"
+                   Content="{lex:Loc LegacyBonusAllowed}"
                    AutomationProperties.AutomationId="Label53_5897E720" />
             <TextBlock Grid.Row="15"
                        Grid.Column="1"
@@ -229,7 +231,7 @@
                        AutomationProperties.AutomationId="TextBlock54_5897E720" />
             <Label Grid.Row="16"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.AftBonusingEnabledLabel}}"
+                   Content="{lex:Loc AftBonusingEnabledLabel}"
                    AutomationProperties.AutomationId="Label55_5897E720" />
             <TextBlock Grid.Row="16"
                        Grid.Column="1"
@@ -283,11 +285,11 @@
             <Label Grid.Row="0"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.JackpotConfigurationLabel}}"
+                   Content="{lex:Loc JackpotConfigurationLabel}"
                    AutomationProperties.AutomationId="Label76_5897E720" />
             <Label Grid.Row="1"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MaximumVoucherValueLabel}}"
+                   Content="{lex:Loc MaximumVoucherValueLabel}"
                    AutomationProperties.AutomationId="Label77_5897E720" />
             <TextBlock Grid.Row="1"
                        Grid.Column="1"
@@ -295,7 +297,7 @@
                        AutomationProperties.AutomationId="TextBlock78_5897E720" />
             <Label Grid.Row="2"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MinimumJackpotValueLabel}}"
+                   Content="{lex:Loc MinimumJackpotValueLabel}"
                    AutomationProperties.AutomationId="Label79_5897E720" />
             <TextBlock Grid.Row="2"
                        Grid.Column="1"
@@ -303,7 +305,7 @@
                        AutomationProperties.AutomationId="TextBlock80_5897E720" />
             <Label Grid.Row="3"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.JackpotStrategyLabel}}"
+                   Content="{lex:Loc JackpotStrategyLabel}"
                    AutomationProperties.AutomationId="Label81_5897E720" />
             <TextBlock Grid.Row="3"
                        Grid.Column="1"
@@ -311,7 +313,7 @@
                        AutomationProperties.AutomationId="TextBlock82_5897E720" />
             <Label Grid.Row="4"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.JackpotAmountDeterminationLabel}}"
+                   Content="{lex:Loc JackpotAmountDeterminationLabel}"
                    AutomationProperties.AutomationId="Label83_5897E720" />
             <TextBlock Grid.Row="4"
                        Grid.Column="1"
@@ -319,7 +321,7 @@
                        AutomationProperties.AutomationId="TextBlock84_5897E720" />
             <Label Grid.Row="5"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintHandpayReceipt}}"
+                   Content="{lex:Loc PrintHandpayReceipt}"
                    AutomationProperties.AutomationId="Label85_5897E720" />
             <TextBlock Grid.Row="5"
                        Grid.Column="1"
@@ -329,11 +331,11 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 20 10 10"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.EGMSettingsLabel}}"
+                   Content="{lex:Loc EGMSettingsLabel}"
                    AutomationProperties.AutomationId="Label87_5897E720" />
             <Label Grid.Row="7"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.CreditsStrategyLabel}}"
+                   Content="{lex:Loc CreditsStrategyLabel}"
                    AutomationProperties.AutomationId="Label88_5897E720" />
             <TextBlock Grid.Row="7"
                        Grid.Column="1"
@@ -341,7 +343,7 @@
                        AutomationProperties.AutomationId="TextBlock89_5897E720" />
             <Label Grid.Row="8"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ZoneId}}"
+                   Content="{lex:Loc ZoneId}"
                    AutomationProperties.AutomationId="Label90_5897E720" />
             <TextBlock Grid.Row="8"
                        Grid.Column="1"
@@ -349,7 +351,7 @@
                        AutomationProperties.AutomationId="TextBlock91_5897E720" />
             <Label Grid.Row="9"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BankId}}"
+                   Content="{lex:Loc BankId}"
                    AutomationProperties.AutomationId="Label92_5897E720" />
             <TextBlock Grid.Row="9"
                        Grid.Column="1"
@@ -357,7 +359,7 @@
                        AutomationProperties.AutomationId="TextBlock93_5897E720" />
             <Label Grid.Row="10"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PositionText}}"
+                   Content="{lex:Loc PositionText}"
                    AutomationProperties.AutomationId="Label94_5897E720" />
             <TextBlock Grid.Row="10"
                        Grid.Column="1"
@@ -367,11 +369,11 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 20 10 10"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.LAPSettingsLabel}}"
+                   Content="{lex:Loc LAPSettingsLabel}"
                    AutomationProperties.AutomationId="Label96_5897E720" />
             <Label Grid.Row="12"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoType}}"
+                   Content="{lex:Loc BingoType}"
                    AutomationProperties.AutomationId="Label97_5897E720" />
             <TextBlock Grid.Row="12"
                        Grid.Column="1"
@@ -379,7 +381,7 @@
                        AutomationProperties.AutomationId="TextBlock98_5897E720" />
             <Label Grid.Row="13"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.LAPLevelIDsLabel}}"
+                   Content="{lex:Loc LAPLevelIDsLabel}"
                    AutomationProperties.AutomationId="Label99_5897E720" />
             <TextBlock Grid.Row="13"
                        Grid.Column="1"
@@ -389,11 +391,11 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Margin="0 20 10 10"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoServerInformationTitle}}"
+                   Content="{lex:Loc BingoServerInformationTitle}"
                    AutomationProperties.AutomationId="Label101_5897E720" />
             <Label Grid.Row="15"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BingoServerVersionLabel}}"
+                   Content="{lex:Loc BingoServerVersionLabel}"
                    AutomationProperties.AutomationId="Label102_5897E720" />
             <TextBlock Grid.Row="15"
                        Grid.Column="1"

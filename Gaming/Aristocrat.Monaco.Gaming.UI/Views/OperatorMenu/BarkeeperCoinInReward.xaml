@@ -8,11 +8,14 @@
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
              xmlns:core="clr-namespace:System;assembly=mscorlib"
              xmlns:loc="http://monaco.aristocrat.com/localization"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
              xmlns:barkeeper="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Barkeeper;assembly=Aristocrat.Monaco.Gaming.Contracts"
              xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              d:DataContext="{d:DesignInstance {x:Type viewModels:BarkeeperConfigurationViewModel}}"
              mc:Ignorable="d"
              AutomationProperties.AutomationId="UserControl0_92431926">
@@ -99,7 +102,7 @@
                   EnableRowVirtualization="True"
                   AutomationProperties.AutomationId="DataGrid9_92431926">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Enable}}"
+                <DataGridTemplateColumn Header="{lex:Loc Enable}"
                                         HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn10_92431926">
                     <DataGridTemplateColumn.CellTemplate>
@@ -112,7 +115,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Level}}"
+                <DataGridTemplateColumn Header="{lex:Loc Level}"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn12_92431926">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CoinInRewardLevel}">
@@ -121,7 +124,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Threshold}}"
+                <DataGridTemplateColumn Header="{lex:Loc Threshold}"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn14_92431926">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CoinInRewardLevel}">
@@ -135,7 +138,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Color}}"
+                <DataGridTemplateColumn Header="{lex:Loc Color}"
                                         IsReadOnly="False"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn15_92431926">
                     <DataGridTemplateColumn.CellTemplate>
@@ -148,7 +151,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Alert}}"
+                <DataGridTemplateColumn Header="{lex:Loc Alert}"
                                         IsReadOnly="False"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn17_92431926">
                     <DataGridTemplateColumn.CellTemplate>
@@ -169,7 +172,7 @@
                     Orientation="Horizontal"
                     Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="StackPanel19_92431926">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.CoinInRateOfPlay}}"
+            <Label Content="{lex:Loc CoinInRateOfPlay}"
                    AutomationProperties.AutomationId="Label20_92431926" />
             <Button Name="CoinInRateInfoButton"
                     Margin="5 0 0 0"
@@ -179,12 +182,9 @@
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="CoinInRateInfoButton" />
-                        <Binding ElementName="CoinInRateInfoButtonProxy"
-                                 Path="Result" />
+                        <Binding Source="{lex:Loc BarkeeperCoinInRateOfPlayToolTip}"/>
                     </MultiBinding>
                 </Button.CommandParameter>
-                <lex:LocProxy x:Name="CoinInRateInfoButtonProxy"
-                              Source="{x:Static loc:ResourceKeys.BarkeeperCoinInRateOfPlayToolTip}" />
             </Button>
         </StackPanel>
         <StackPanel Grid.Row="3"
@@ -197,20 +197,20 @@
                       IsChecked="{Binding CoinInRateEnabled, Mode=TwoWay}"
                       IsEnabled="{Binding InputEnabledByRuleOverride}"
                       AutomationProperties.AutomationId="CheckBox23_92431926">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Checked"
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="Checked"
                                     AutomationProperties.AutomationId="EventTrigger24_92431926">
-                        <i:InvokeCommandAction
+                        <b:InvokeCommandAction
                                 Command="{Binding DataContext.CoinInRateEnabledChangedCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                CommandParameter="{Binding CoinInRateEnabled}" />
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="Unchecked"
+                    </b:EventTrigger>
+                    <b:EventTrigger EventName="Unchecked"
                                     AutomationProperties.AutomationId="EventTrigger25_92431926">
-                        <i:InvokeCommandAction
+                        <b:InvokeCommandAction
                                 Command="{Binding DataContext.CoinInRateEnabledChangedCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                CommandParameter="{Binding CoinInRateEnabled}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
             </CheckBox>
             <helpers:CurrencyTextBox Margin="20 0 0 0"
                                      MinWidth="200"
@@ -236,7 +236,7 @@
                     Orientation="Horizontal"
                     Margin="0 15 0 0"
                     AutomationProperties.AutomationId="StackPanel27_92431926">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BarkeeperCoinInMeter}}"
+            <Label Content="{lex:Loc BarkeeperCoinInMeter}"
                    VerticalAlignment="Center"
                    Visibility="{Binding CoinInRewardLevelsExist, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                    AutomationProperties.AutomationId="Label28_92431926" />
@@ -253,14 +253,11 @@
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="CoinInMeterInfoButton" />
-                        <Binding ElementName="CoinInMeterInfoButtonProxy"
-                                 Path="Result" />
+                        <Binding Source="{lex:Loc BarkeeperCoinInMeterToolTip}"/>
                     </MultiBinding>
                 </Button.CommandParameter>
-                <lex:LocProxy Name="CoinInMeterInfoButtonProxy"
-                              Source="{x:Static loc:ResourceKeys.BarkeeperCoinInMeterToolTip}" />
             </Button>
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BarkeeperCoinInDisabled}}"
+            <Label Content="{lex:Loc BarkeeperCoinInDisabled}"
                    Visibility="{Binding CoinInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}"
                    AutomationProperties.AutomationId="Label31_92431926" />
         </StackPanel>

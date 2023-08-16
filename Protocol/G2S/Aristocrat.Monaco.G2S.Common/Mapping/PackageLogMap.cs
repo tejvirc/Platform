@@ -1,88 +1,73 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
-    using G2S.Data.Model;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Data.Model;
 
     /// <summary>
     ///     Configuration for the <see cref="PackageLog" /> entity
     /// </summary>
-    public class PackageLogMap : EntityTypeConfiguration<PackageLog>
+    public class PackageLogMap : IEntityTypeConfiguration<PackageLog>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="PackageLogMap" /> class.
         /// </summary>
-        public PackageLogMap()
+        public void Configure(EntityTypeBuilder<PackageLog> builder)
         {
-            ToTable("PackageLog");
+            builder.ToTable(nameof(PackageLog));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.PackageId)
+            builder.Property(t => t.PackageId)
                 .IsRequired();
 
-            Property(t => t.Size)
+            builder.Property(t => t.Size)
                 .IsRequired();
 
-            Property(t => t.ReasonCode)
+            builder.Property(t => t.ReasonCode)
                 .IsRequired();
 
-            Property(t => t.ErrorCode)
-                .IsOptional();
+            builder.Property(t => t.ErrorCode);
 
-            Property(t => t.State)
+            builder.Property(t => t.State)
                 .IsRequired();
 
-            Property(t => t.Exception)
-                .IsOptional();
+            builder.Property(t => t.Exception);
 
-            Property(t => t.DeviceId)
+            builder.Property(t => t.DeviceId)
                 .IsRequired();
 
-            Property(t => t.TransactionId)
+            builder.Property(t => t.TransactionId)
                 .IsRequired();
 
-            Property(t => t.ActivityDateTime)
-                .IsOptional();
+            builder.Property(t => t.ActivityDateTime);
 
-            Property(t => t.ActivityType)
-                .IsOptional();
+            builder.Property(t => t.ActivityType);
 
-            Property(t => t.Overwrite)
-                .IsOptional();
+            builder.Property(t => t.Overwrite);
 
-            Property(t => t.Hash)
-                .IsOptional();
+            builder.Property(t => t.Hash);
 
-            Property(t => t.TransferId)
-                .IsOptional();
+            builder.Property(t => t.TransferId);
 
-            Property(t => t.Location)
-                .IsOptional();
+            builder.Property(t => t.Location);
 
-            Property(t => t.Parameters)
-                .IsOptional();
+            builder.Property(t => t.Parameters);
 
-            Property(t => t.TransferState)
-                .IsOptional();
+            builder.Property(t => t.TransferState);
 
-            Property(t => t.TransferType)
-                .IsOptional();
+            builder.Property(t => t.TransferType);
 
-            Property(t => t.DeleteAfter)
-                .IsOptional();
+            builder.Property(t => t.DeleteAfter);
 
-            Property(t => t.TransferPaused)
-                .IsOptional();
+            builder.Property(t => t.TransferPaused);
 
-            Property(t => t.TransferSize)
-                .IsOptional();
+            builder.Property(t => t.TransferSize);
 
-            Property(t => t.TransferCompletedDateTime)
-                .IsOptional();
+            builder.Property(t => t.TransferCompletedDateTime);
 
-            Property(t => t.PackageValidateDateTime)
-                .IsOptional();
+            builder.Property(t => t.PackageValidateDateTime);
         }
     }
 }

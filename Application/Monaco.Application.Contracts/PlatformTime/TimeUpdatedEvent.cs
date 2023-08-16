@@ -10,6 +10,7 @@ namespace Aristocrat.Monaco.Application.Contracts
     using System;
     using System.Globalization;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to notify that the system time has been updated.
@@ -19,7 +20,7 @@ namespace Aristocrat.Monaco.Application.Contracts
     ///     through the <c>Update</c> of <c>ITime</c>. Any component which is sensitive to
     ///     the system time adjustment should consider handling this event.
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class TimeUpdatedEvent : BaseEvent
     {
         /// <summary>
@@ -43,6 +44,7 @@ namespace Aristocrat.Monaco.Application.Contracts
         /// <summary>
         ///     Gets the amount of time that the system has been updated by.
         /// </summary>
+        [ProtoMember(1)]
         public TimeSpan TimeUpdate { get; }
 
         /// <inheritdoc />

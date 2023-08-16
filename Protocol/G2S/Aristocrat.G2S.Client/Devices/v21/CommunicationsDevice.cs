@@ -47,6 +47,7 @@
         private readonly IEventLift _eventLift;
 
         private Timer _commsOnlineTimer;
+
         private Timer _commsTimer;
         private ICommunicationContext _context;
         private IHostQueue _hostQueue;
@@ -333,7 +334,7 @@
                         _commsTimer.Dispose();
                         _commsTimer = null;
                     }
-
+                        
                     if (_commsOnlineTimer != null)
                     {
                         _commsOnlineTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);

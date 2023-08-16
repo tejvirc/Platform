@@ -1,6 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor
 {
+    using ProtoBuf;
+
     /// <summary>Interface for note.</summary>
+    [ProtoContract]
+    [ProtoInclude(4, typeof(Note))]
     public interface INote
     {
         /// <summary>Gets the value.</summary>

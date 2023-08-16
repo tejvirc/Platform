@@ -64,10 +64,12 @@
 
         public void Shutdown()
         {
+            Logger.Debug("Shutdown SnappServer");
             lock (_lock)
             {
                 if (_server == null)
                 {
+                    Logger.Debug("(no server to shut down)");
                     return;
                 }
 
@@ -75,11 +77,14 @@
                 {
                     if (_server is IDisposable disposableServer)
                     {
+                        Logger.Debug("(disposing server)");
                         disposableServer.Dispose();
                     }
+                    Logger.Debug("(server disposed)");
                 }
-                catch
+                catch (Exception ex) 
                 {
+                    Logger.Warn("Error while ending comms with", ex);
                 }
                 finally
                 {

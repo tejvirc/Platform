@@ -3,14 +3,23 @@
     using System;
     using System.Threading;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event when all component hashes complete
     /// </summary>
 
-    [Serializable]
+    [ProtoContract]
     public class AllComponentsHashCompleteEvent : BaseEvent
     {
+
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public AllComponentsHashCompleteEvent()
+        {
+        }
+
         /// <summary>
         ///     Constructor
         /// </summary>
@@ -25,6 +34,7 @@
         /// <summary>
         ///     True if hashes were cancelled.
         /// </summary>
+        [ProtoMember(1)]
         public bool Cancelled { get; }
 
         /// <summary>

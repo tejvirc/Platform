@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     GameFatalErrorEvent
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameFatalErrorEvent : BaseEvent
     {
     }

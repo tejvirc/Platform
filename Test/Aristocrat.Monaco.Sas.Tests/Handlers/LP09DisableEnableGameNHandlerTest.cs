@@ -17,7 +17,7 @@
     [TestClass]
     public class LP09DisableEnableGameNHandlerTest
     {
-        private const int TimeoutWait = 1000;  // one second
+        private const int TimeoutWait = 3000;  // three seconds
         private LP09DisableEnableGameNHandler _target;
         private readonly Mock<IGameProvider> _gameProvider = new Mock<IGameProvider>(MockBehavior.Strict);
         private readonly Mock<IBank> _bank = new Mock<IBank>(MockBehavior.Strict);

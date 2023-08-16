@@ -54,6 +54,7 @@
 
                 if (disposing)
                 {
+                    _windowLauncher.Dispose();
                 }
             }
         }

@@ -75,11 +75,14 @@
                                     NativeMethods.ThrowWin32ExceptionIfError(retVal);
 
                                     var outputConfigInfo =
-                                        (NativeMethods.HttpServiceConfigSslSet)Marshal.PtrToStructure(
+                                        (NativeMethods.HttpServiceConfigSslSet?)Marshal.PtrToStructure(
                                             pOutputConfigInfo,
                                             typeof(NativeMethods.HttpServiceConfigSslSet));
-                                    var resultItem = CreateCertificateBindingInfo(outputConfigInfo);
-                                    result.Add(resultItem);
+                                    if (outputConfigInfo.HasValue)
+                                    {
+                                        var resultItem = CreateCertificateBindingInfo(outputConfigInfo.Value);
+                                        result.Add(resultItem);
+                                    }
                                     token++;
                                 }
                                 finally
@@ -165,10 +168,11 @@
                                     IntPtr.Zero);
                                 NativeMethods.ThrowWin32ExceptionIfError(retVal);
 
-                                var outputConfigInfo = (NativeMethods.HttpServiceConfigSslSet)Marshal.PtrToStructure(
+                                var outputConfigInfo = (NativeMethods.HttpServiceConfigSslSet?)Marshal.PtrToStructure(
                                     pOutputConfigInfo,
                                     typeof(NativeMethods.HttpServiceConfigSslSet));
-                                result = CreateCertificateBindingInfo(outputConfigInfo);
+                                if (outputConfigInfo != null)
+                                    result = CreateCertificateBindingInfo(outputConfigInfo.Value);
                             }
                             finally
                             {

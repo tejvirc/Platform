@@ -247,7 +247,7 @@
             else if (transactionType == typeof(HandpayTransaction))
             {
                 transaction = (ITransaction)Activator.CreateInstance(transactionType);
-                ((HandpayTransaction)transaction).KeyOffCashableAmount = outAmount;
+                ((HandpayTransaction)transaction!).KeyOffCashableAmount = outAmount;
             }
             else
             {

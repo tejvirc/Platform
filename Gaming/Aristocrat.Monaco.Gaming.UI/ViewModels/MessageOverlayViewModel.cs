@@ -29,7 +29,7 @@
 
     public class MessageOverlayViewModel : BaseEntityViewModel
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string HandPayDisplayKey = "HandPayImage";
         private const string CashoutDisplayKey = "CashOutImage";
@@ -706,6 +706,10 @@
 
             Logger.Debug("Sending PresentOverriddenPresentation Clear");
             _overlayMessageStrategyController.ClearGameDrivenPresentation();
+        }
+        private static void HandleEvent(IEvent evt)
+        {
+            // no implementation intentionally
         }
     }
 }

@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     A GameConnectedEvent should be posted when IPC connection is made, (join)
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameConnectedEvent : BaseEvent
     {
         /// <summary>
@@ -19,8 +20,16 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public GameConnectedEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets the replay status of the game.
         /// </summary>
+        [ProtoMember(1)]
         public bool IsReplay { get; }
     }
 }

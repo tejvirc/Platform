@@ -46,31 +46,6 @@
         }
 
         /// <summary>
-        ///     A test for serialization
-        /// </summary>
-        [TestMethod]
-        public void SerializeTest()
-        {
-            var expected = typeof(IServiceManager);
-            var originalEvent = new ServiceRemovedEvent(expected);
-            var expectedGuid = originalEvent.GloballyUniqueId;
-
-            var stream = new FileStream("ServiceRemovedEvent.dat", FileMode.Create);
-            var formatter = new SoapFormatter(
-                null,
-                new StreamingContext(StreamingContextStates.File));
-
-            formatter.Serialize(stream, originalEvent);
-
-            stream.Position = 0;
-
-            var target = (ServiceRemovedEvent)formatter.Deserialize(stream);
-
-            Assert.AreEqual(expected, target.ServiceType);
-            Assert.AreEqual(expectedGuid, target.GloballyUniqueId);
-        }
-
-        /// <summary>
         ///     A test for ToString()
         /// </summary>
         [TestMethod]

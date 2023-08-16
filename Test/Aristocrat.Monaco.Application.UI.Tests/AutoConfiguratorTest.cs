@@ -309,6 +309,7 @@ namespace Aristocrat.Monaco.Application.UI.Tests
             Assert.IsFalse(_target.SetToggleButton(null, "Item1"));
         }
 
+        [RequireSTA]
         [TestMethod]
         public void SetToggleButtonTestWithFalseValues()
         {
@@ -336,6 +337,7 @@ namespace Aristocrat.Monaco.Application.UI.Tests
             Assert.AreEqual(false, button.IsChecked);
         }
 
+        [RequireSTA]
         [TestMethod]
         public void SetToggleButtonTestWithTrueValues()
         {
@@ -382,6 +384,7 @@ namespace Aristocrat.Monaco.Application.UI.Tests
             Assert.IsFalse(_target.SetSelector(null, "badkey"));
         }
 
+        [RequireSTA]
         [TestMethod]
         public void SetSelectorTestWithValueNotFound()
         {
@@ -396,6 +399,7 @@ namespace Aristocrat.Monaco.Application.UI.Tests
             Assert.IsFalse(_target.SetSelector(comboBox, "Item2"));
         }
 
+        [RequireSTA]
         [TestMethod]
         public void SetSelectorTestWithValueFound()
         {

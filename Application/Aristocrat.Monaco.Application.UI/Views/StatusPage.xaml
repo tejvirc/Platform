@@ -10,6 +10,8 @@
                               xmlns:loc="http://monaco.aristocrat.com/localization"
                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
                               xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                               common:DialogParticipation.Register="{Binding}"
                               mc:Ignorable="d"
                               FocusManager.FocusedElement="{Binding ElementName=Ok}" 
@@ -102,7 +104,7 @@
                                       Margin="10 0 0 0"/>
             <Button Width="250"
                     HorizontalAlignment="Left" Margin="10 0 0 0"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitReserve}}"
+                    Content="{lex:Loc ExitReserve}"
                     Command="{Binding ExitReserveCommand}"
                     Visibility="{Binding IsExitReserveButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
                     AutomationProperties.AutomationId="Button16_189ED632" />

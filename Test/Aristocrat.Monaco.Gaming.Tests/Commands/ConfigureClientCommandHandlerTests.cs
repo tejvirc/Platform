@@ -241,7 +241,7 @@
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.GameStartMethod, GameStartMethodOption.Bet))
                 .Returns(param);
             handler.Handle(new ConfigureClient());
-            Assert.AreEqual(localDict["/Runtime/StartGame&buttons"], expectedResult);
+            Assert.AreEqual(localDict!["/Runtime/StartGame&buttons"], expectedResult);
         }
 
         [DataRow(1000, true, 1000)]
@@ -283,7 +283,7 @@
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.GameRoundDurationMs, GamingConstants.DefaultMinimumGameRoundDurationMs)).Returns(minimumReelDuration);
             handler.Handle(new ConfigureClient());
 
-            Assert.AreEqual(shouldBeStored, localDict.ContainsKey("/Runtime/GameRoundDurationMs"));
+            Assert.AreEqual(shouldBeStored, localDict!.ContainsKey("/Runtime/GameRoundDurationMs"));
 
             if (shouldBeStored)
             {
@@ -329,7 +329,7 @@
                 .Verifiable();
             handler.Handle(new ConfigureClient());
 
-            Assert.AreEqual(expected, localDict["/Runtime/IKey"]);
+            Assert.AreEqual(expected, localDict!["/Runtime/IKey"]);
 
             _propertiesManager.Verify();
         }
@@ -372,7 +372,7 @@
                 .Verifiable();
             handler.Handle(new ConfigureClient());
 
-            Assert.AreEqual(expected, localDict["/Runtime/IKey&restrictedModeUse"]);
+            Assert.AreEqual(expected, localDict!["/Runtime/IKey&restrictedModeUse"]);
 
             _propertiesManager.Verify();
         }

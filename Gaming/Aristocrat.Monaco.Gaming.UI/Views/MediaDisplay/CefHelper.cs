@@ -48,7 +48,6 @@
 //  We can whitelist it, but it grows without bounds (which is bad)
                 LogSeverity = LogSeverity.Disable,
 #endif
-                //Locale = ViewModel.ActiveLocaleCode, // Is this needed?
                 CachePath = directory.FullName,
                 WindowlessRenderingEnabled = true,
                 IgnoreCertificateErrors = true
@@ -76,7 +75,10 @@
             try
             {
                 var initialized = false;
-                Application.Current.Dispatcher.Invoke(() => initialized = Cef.Initialize(settings, true, (IBrowserProcessHandler)null));
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    initialized = Cef.Initialize(settings, true, (IBrowserProcessHandler)null);
+                });
 
                 Logger.Info($"CEF Initialized={initialized}");
             }

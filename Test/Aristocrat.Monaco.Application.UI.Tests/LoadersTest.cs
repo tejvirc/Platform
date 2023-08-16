@@ -6,6 +6,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mono.Addins;
     using Moq;
+    using System;
     using System.IO;
 
     [TestClass]
@@ -28,7 +29,14 @@
         [TestCleanup]
         public void MyTestCleanup()
         {
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
             MoqServiceManager.RemoveInstance();
         }
 

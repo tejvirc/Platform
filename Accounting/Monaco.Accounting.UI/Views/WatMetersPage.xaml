@@ -5,6 +5,8 @@
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Accounting.UI.ViewModels"
                                mc:Ignorable="d"
@@ -39,17 +41,17 @@
                       IsHitTestVisible="False"
                       AutomationProperties.AutomationId="DataGrid6_B456BF68">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                    <DataGridTextColumn Header="{lex:Loc Meter}"
                                         Width="350"
-                                        Binding="{Binding Name}"
+                                        Binding="{Binding Name}" 
                                         AutomationProperties.AutomationId="DataGridTextColumn7_B456BF68" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                    <DataGridTextColumn Header="{lex:Loc Count}"
                                         Width="500"
                                         Binding="{Binding Count, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
-                                        CellStyle="{StaticResource DataGridCellRight}"
+                                        CellStyle="{StaticResource DataGridCellRight}" 
                                         AutomationProperties.AutomationId="DataGridTextColumn8_B456BF68" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                    <DataGridTextColumn Header="{lex:Loc Value}"
                                         Width="500"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -74,18 +76,13 @@
                     <ColumnDefinition Width="{Binding ElementName=WatOnGrid, Path=Columns[2].ActualWidth}"
                                       AutomationProperties.AutomationId="ColumnDefinition14_B456BF68" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.WatOnLabelContent}}"
-                           Margin="5 0"
+                <TextBlock Text="{lex:Loc WatOnLabelContent}" Margin="5 0" 
                            AutomationProperties.AutomationId="TextBlock15_B456BF68" />
-                <TextBlock Grid.Column="1"
-                           HorizontalAlignment="Right"
-                           Margin="5 0"
-                           Text="{Binding WatOnTotalCount, UpdateSourceTrigger=PropertyChanged}"
+                <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="5 0"
+                           Text="{Binding WatOnTotalCount, UpdateSourceTrigger=PropertyChanged}" 
                            AutomationProperties.AutomationId="TextBlock16_B456BF68" />
-                <TextBlock Grid.Column="2"
-                           HorizontalAlignment="Right"
-                           Margin="5 0"
-                           Text="{Binding WatOnTotalValue, UpdateSourceTrigger=PropertyChanged}"
+                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Margin="5 0"
+                           Text="{Binding WatOnTotalValue, UpdateSourceTrigger=PropertyChanged}" 
                            AutomationProperties.AutomationId="TextBlock17_B456BF68" />
             </Grid>
         </Border>
@@ -106,17 +103,16 @@
                       IsHitTestVisible="False"
                       AutomationProperties.AutomationId="DataGrid19_B456BF68">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                    <DataGridTextColumn Header="{lex:Loc Meter}"
                                         Width="350"
-                                        Binding="{Binding Name}"
+                                        Binding="{Binding Name}" 
                                         AutomationProperties.AutomationId="DataGridTextColumn20_B456BF68" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                    <DataGridTextColumn Header="{lex:Loc Count}"
                                         Width="500"
                                         Binding="{Binding Count, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
-                                        CellStyle="{StaticResource DataGridCellRight}"
-                                        AutomationProperties.AutomationId="DataGridTextColumn21_B456BF68" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                                        CellStyle="{StaticResource DataGridCellRight}" AutomationProperties.AutomationId="DataGridTextColumn21_B456BF68" />
+                    <DataGridTextColumn Header="{lex:Loc Value}"
                                         Width="500"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -141,18 +137,13 @@
                     <ColumnDefinition Width="{Binding ElementName=WatOffGrid, Path=Columns[2].ActualWidth}"
                                       AutomationProperties.AutomationId="ColumnDefinition27_B456BF68" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.WatOffLabelContent}}"
-                           Margin="5 0"
+                <TextBlock Text="{lex:Loc WatOffLabelContent}" Margin="5 0" 
                            AutomationProperties.AutomationId="TextBlock28_B456BF68" />
-                <TextBlock Grid.Column="1"
-                           HorizontalAlignment="Right"
-                           Margin="5 0"
-                           Text="{Binding WatOffTotalCount, UpdateSourceTrigger=PropertyChanged}"
+                <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="5 0"
+                           Text="{Binding WatOffTotalCount, UpdateSourceTrigger=PropertyChanged}" 
                            AutomationProperties.AutomationId="TextBlock29_B456BF68" />
-                <TextBlock Grid.Column="2"
-                           HorizontalAlignment="Right"
-                           Margin="5 0"
-                           Text="{Binding WatOffTotalValue, UpdateSourceTrigger=PropertyChanged}"
+                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Margin="5 0"
+                           Text="{Binding WatOffTotalValue, UpdateSourceTrigger=PropertyChanged}" 
                            AutomationProperties.AutomationId="TextBlock30_B456BF68" />
             </Grid>
         </Border>

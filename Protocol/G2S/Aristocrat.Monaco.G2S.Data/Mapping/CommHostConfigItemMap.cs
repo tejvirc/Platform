@@ -1,61 +1,67 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Microsoft.EntityFrameworkCore.Sqlite.Metadata;
     using CommConfig;
+    using System.Diagnostics;
 
     /// <summary>
     ///     Configuration for the <see cref="CommHostConfigItem" /> entity
     /// </summary>
-    public class CommHostConfigItemMap : EntityTypeConfiguration<CommHostConfigItem>
+    public class CommHostConfigItemMap : IEntityTypeConfiguration<CommHostConfigItem>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="CommHostConfigItemMap" /> class.
         /// </summary>
-        public CommHostConfigItemMap()
+        public void Configure(EntityTypeBuilder<CommHostConfigItem> builder)
         {
-            ToTable("CommHostConfigItem");
+            builder.ToTable(nameof(CommHostConfigItem));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.HostIndex)
+            builder.Property(t => t.HostIndex)
                 .IsRequired();
 
-            Property(t => t.HostId)
+            builder.Property(t => t.HostId)
                 .IsRequired();
 
-            Property(t => t.HostLocation)
+            builder.Property(t => t.HostLocation)
                 .IsRequired();
 
-            Property(t => t.HostRegistered)
+            builder.Property(t => t.HostRegistered)
                 .IsRequired();
 
-            Property(t => t.UseDefaultConfig)
+            builder.Property(t => t.UseDefaultConfig)
                 .IsRequired();
 
-            Property(t => t.RequiredForPlay)
+            builder.Property(t => t.RequiredForPlay)
                 .IsRequired();
 
-            Property(t => t.TimeToLive)
+            builder.Property(t => t.TimeToLive)
                 .IsRequired();
 
-            Property(t => t.NoResponseTimer)
+            builder.Property(t => t.NoResponseTimer)
                 .IsRequired();
 
-            Property(t => t.AllowMulticast)
+            builder.Property(t => t.AllowMulticast)
                 .IsRequired();
 
-            Property(t => t.CanModLocal)
+            builder.Property(t => t.CanModLocal)
                 .IsRequired();
 
-            Property(t => t.DisplayCommFault)
+            builder.Property(t => t.DisplayCommFault)
                 .IsRequired();
 
-            Property(t => t.CanModRemote)
+            builder.Property(t => t.CanModRemote)
                 .IsRequired();
 
-            HasMany(x => x.CommHostConfigDevices)
-                .WithRequired()
+            builder.Property(t => t.CommHostConfigId)
+                .IsRequired();
+
+            builder.HasMany(x => x.CommHostConfigDevices)
+                .WithOne()
                 .HasForeignKey(device => device.CommHostConfigItemId);
         }
     }

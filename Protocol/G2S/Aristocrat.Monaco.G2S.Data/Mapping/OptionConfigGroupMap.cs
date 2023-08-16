@@ -1,31 +1,32 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using OptionConfig;
 
     /// <summary>
     ///     Configuration for the <see cref="OptionConfigGroup" /> entity
     /// </summary>
-    public class OptionConfigGroupMap : EntityTypeConfiguration<OptionConfigGroup>
+    public class OptionConfigGroupMap : IEntityTypeConfiguration<OptionConfigGroup>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="OptionConfigGroupMap" /> class.
         /// </summary>
-        public OptionConfigGroupMap()
+        public void Configure(EntityTypeBuilder<OptionConfigGroup> builder)
         {
-            ToTable("OptionConfigGroup");
+            builder.ToTable(nameof(OptionConfigGroupMap));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.OptionGroupId)
+            builder.Property(t => t.OptionGroupId)
                 .IsRequired();
 
-            Property(t => t.OptionGroupName)
+            builder.Property(t => t.OptionGroupName)
                 .IsRequired();
 
-            HasMany(x => x.OptionConfigItems)
-                .WithRequired(x => x.OptionConfigGroup)
+            builder.HasMany(x => x.OptionConfigItems)
+                .WithOne(x => x.OptionConfigGroup)
                 .HasForeignKey(x => x.OptionConfigGroupId);
         }
     }

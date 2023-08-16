@@ -19,7 +19,7 @@
     <Style TargetType="{x:Type custom:CurrencyTextBox}" BasedOn="{StaticResource MonacoTextBox}"/>
     <Style TargetType="{x:Type custom:ExpirationTextBox}" BasedOn="{StaticResource MonacoTextBox}"/>
     <Style TargetType="{x:Type custom:PercentageTextBox}" BasedOn="{StaticResource MonacoTextBox}"/>
-    <Style TargetType="{x:Type controls:ToggleSwitchButton}" BasedOn="{StaticResource MonacoToggleSwitchButton}"/>
+    <Style TargetType="{x:Type controls:ToggleSwitch}" BasedOn="{StaticResource MonacoToggleSwitchButton}"/>
     <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource MonacoTextBlock}"/>
     <Style TargetType="{x:Type Label}" BasedOn="{StaticResource MonacoLabel}"/>
     <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource MonacoGroupBox}"/>

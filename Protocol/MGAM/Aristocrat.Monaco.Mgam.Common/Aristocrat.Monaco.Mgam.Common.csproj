@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <AssemblyTitle>Aristocrat.Monaco.Mgam.Common</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
@@ -22,11 +22,6 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Update="Data\Models\Certificate.Configuration.cs">
       <DependentUpon>Certificate.cs</DependentUpon>
@@ -63,13 +58,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
-    <PackageReference Include="Aristocrat.System.Data.SQLite.Core" Version="1.0.110" />
+    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
     <PackageReference Include="LinqKit" Version="1.1.17" />
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="SimpleInjector" Version="4.9.2" />
-    <PackageReference Include="SQLite.CodeFirst" Version="1.6.0.30" />
-    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.110" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
+    <PackageReference Include="SQLite.CodeFirst" Version="1.7.0.34" />
+    <PackageReference Include="Aristocrat.Microsoft.EntityFrameworkCore" Version="6.0.18" />
+    <PackageReference Include="Aristocrat.Microsoft.EntityFrameworkCore.Relational" Version="6.0.18" />
+    <PackageReference Include="Aristocrat.Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.18" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />

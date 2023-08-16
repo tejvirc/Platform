@@ -7,7 +7,9 @@
                                xmlns:printer="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               mc:Ignorable="d"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               mc:Ignorable="d" 
                                Background="Transparent"
                                d:DataContext="{d:DesignInstance {x:Type printer:PrinterViewModel}}">
     <UserControl.Resources>
@@ -95,7 +97,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}"
+                           Content="{lex:Loc ManufacturerLabel}"
                            AutomationProperties.AutomationId="Label21_5E78AF2B" />
                     <TextBlock Grid.Row="0"
                                Grid.Column="1"
@@ -108,7 +110,7 @@
                                                  Value=""
                                                  AutomationProperties.AutomationId="DataTrigger23_5E78AF2B">
                                         <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text"
@@ -118,7 +120,7 @@
                     </TextBlock>
                     <Label Grid.Row="1"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}"
+                           Content="{lex:Loc ModelLabel}"
                            AutomationProperties.AutomationId="Label24_5E78AF2B" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
@@ -131,7 +133,7 @@
                                                  Value=""
                                                  AutomationProperties.AutomationId="DataTrigger26_5E78AF2B">
                                         <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text"
@@ -141,7 +143,7 @@
                     </TextBlock>
                     <Label Grid.Row="2"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolLabel}}"
+                           Content="{lex:Loc ProtocolLabel}"
                            AutomationProperties.AutomationId="Label27_5E78AF2B" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
@@ -154,7 +156,7 @@
                                                  Value=""
                                                  AutomationProperties.AutomationId="DataTrigger29_5E78AF2B">
                                         <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text"
@@ -164,7 +166,7 @@
                     </TextBlock>
                     <Label Grid.Row="3"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}"
+                           Content="{lex:Loc Port}"
                            Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                            AutomationProperties.AutomationId="Label30_5E78AF2B" />
                     <TextBlock Grid.Row="3"
@@ -179,7 +181,7 @@
                                                  Value=""
                                                  AutomationProperties.AutomationId="DataTrigger32_5E78AF2B">
                                         <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text"
@@ -189,7 +191,7 @@
                     </TextBlock>
                     <Label Grid.Row="4"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"
+                           Content="{lex:Loc SerialNumberLabel}"
                            AutomationProperties.AutomationId="Label33_5E78AF2B" />
                     <TextBlock Grid.Row="4"
                                Grid.Column="1"
@@ -202,7 +204,7 @@
                                                  Value=""
                                                  AutomationProperties.AutomationId="DataTrigger35_5E78AF2B">
                                         <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text"
@@ -212,7 +214,7 @@
                     </TextBlock>
                     <Label Grid.Row="5"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareVersionLabel}}"
+                           Content="{lex:Loc FirmwareVersionLabel}"
                            AutomationProperties.AutomationId="Label36_5E78AF2B" />
                     <TextBlock Grid.Row="5"
                                Grid.Column="1"
@@ -226,7 +228,7 @@
                                                  Value=""
                                                  AutomationProperties.AutomationId="DataTrigger38_5E78AF2B">
                                         <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text"
@@ -236,7 +238,7 @@
                     </TextBlock>
                     <Label Grid.Row="6"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareRevisionLabel}}"
+                           Content="{lex:Loc FirmwareRevisionLabel}"
                            AutomationProperties.AutomationId="Label39_5E78AF2B" />
                     <TextBlock Grid.Row="6"
                                Grid.Column="1"
@@ -250,7 +252,7 @@
                                                  Value=""
                                                  AutomationProperties.AutomationId="DataTrigger41_5E78AF2B">
                                         <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text"
@@ -260,7 +262,7 @@
                     </TextBlock>
                     <Label Grid.Row="7"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareCRCLabel}}"
+                           Content="{lex:Loc FirmwareCRCLabel}"
                            AutomationProperties.AutomationId="Label42_5E78AF2B" />
                     <TextBlock Grid.Row="7"
                                Grid.Column="1"
@@ -273,7 +275,7 @@
                                                  Value=""
                                                  AutomationProperties.AutomationId="DataTrigger44_5E78AF2B">
                                         <Setter Property="Text"
-                                                Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                Value="{lex:BLoc NotAvailable}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                                 <Setter Property="Text"
@@ -283,7 +285,7 @@
                     </TextBlock>
                     <Label Grid.Row="8"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ActivationTimeLabel}}"
+                           Content="{lex:Loc ActivationTimeLabel}"
                            Visibility="{Binding ActivationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                            AutomationProperties.AutomationId="Label45_5E78AF2B" />
                     <TextBlock Grid.Row="8"
@@ -328,7 +330,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.StateLabel}}"
+                           Content="{lex:Loc StateLabel}"
                            AutomationProperties.AutomationId="Label60_5E78AF2B" />
                     <TextBlock Grid.Row="0"
                                Grid.Column="1"
@@ -337,7 +339,7 @@
                                AutomationProperties.AutomationId="TextBlock61_5E78AF2B" />
                     <Label Grid.Row="1"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}"
+                           Content="{lex:Loc SelfTestLabel}"
                            AutomationProperties.AutomationId="Label62_5E78AF2B" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
@@ -362,7 +364,7 @@
                                               AutomationProperties.AutomationId="ColumnDefinition67_5E78AF2B" />
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0"
-                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}"
+                               Content="{lex:Loc StatusLabel}"
                                AutomationProperties.AutomationId="Label68_5E78AF2B" />
                         <TextBlock Grid.Column="1"
                                    Grid.RowSpan="6"
@@ -394,7 +396,7 @@
                             <Label Grid.Row="0"
                                    Grid.Column="0"
                                    Margin="0 5 0 0"
-                                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintLanguage}}"
+                                   Content="{lex:Loc PrintLanguage}"
                                    AutomationProperties.AutomationId="Label76_5E78AF2B" />
                             <CheckBox Name="PrintLanguageOverrideCheckbox"
                                       Grid.Row="0"
@@ -427,26 +429,26 @@
                 AutomationProperties.AutomationId="Border79_5E78AF2B">
             <StackPanel Orientation="Horizontal"
                         AutomationProperties.AutomationId="StackPanel80_5E78AF2B">
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.FormFeedButton}}"
+                <Button Content="{lex:Loc FormFeedButton}"
                         Command="{Binding FormFeedButtonCommand}"
                         IsEnabled="{Binding PrinterButtonsEnabled}"
                         AutomationProperties.AutomationId="Button81_5E78AF2B" />
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintDiagnosticButton}}"
+                <Button Content="{lex:Loc PrintDiagnosticButton}"
                         Command="{Binding PrintDiagnosticButtonCommand}"
                         IsEnabled="{Binding PrinterButtonsEnabled}"
                         AutomationProperties.AutomationId="Button82_5E78AF2B" />
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}"
+                <Button Content="{lex:Loc SelfTestLabel}"
                         Name="SelfTestButton"
                         Command="{Binding SelfTestButtonCommand}"
                         Visibility="{Binding IsSelfTestVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         IsEnabled="{Binding PrinterButtonsEnabled}"
                         AutomationProperties.AutomationId="Button83_5E78AF2B" />
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestClearNVM}}"
+                <Button Content="{lex:Loc SelfTestClearNVM}"
                         Command="{Binding SelfTestClearButtonCommand}"
                         Visibility="{Binding IsSelfTestVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         IsEnabled="{Binding PrinterButtonsEnabled}"
                         AutomationProperties.AutomationId="Button84_5E78AF2B" />
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintTestTicket}}"
+                <Button Content="{lex:Loc PrintTestTicket}"
                         Name="PrintTestTicketButton"
                         Command="{Binding PrintTestTicketCommand}"
                         AutomationProperties.AutomationId="Button85_5E78AF2B">

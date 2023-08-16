@@ -16,7 +16,10 @@
         /// <returns>The serialized data</returns>
         public static string Serialize<T>(T data)
         {
-            return JsonConvert.SerializeObject(data);
+            return JsonConvert.SerializeObject(data, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling= ReferenceLoopHandling.Ignore,
+            });
         }
 
         /// <summary>

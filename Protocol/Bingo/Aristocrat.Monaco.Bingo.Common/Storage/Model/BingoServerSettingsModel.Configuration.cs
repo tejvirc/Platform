@@ -1,42 +1,41 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.Storage.Model
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class BingoServerSettingsModelConfiguration : EntityTypeConfiguration<BingoServerSettingsModel>
+    public class BingoServerSettingsModelConfiguration : IEntityTypeConfiguration<BingoServerSettingsModel>
     {
-        public BingoServerSettingsModelConfiguration()
+        public void Configure(EntityTypeBuilder<BingoServerSettingsModel> builder)
         {
-            ToTable(nameof(BingoServerSettingsModel));
-            HasKey(x => x.Id);
-            Property(x => x.VoucherInLimit).IsOptional();
-            Property(x => x.BillAcceptanceLimit).IsOptional();
-            Property(x => x.TicketReprint).IsOptional();
-            Property(x => x.CaptureGameAnalytics).IsOptional();
-            Property(x => x.AlarmConfiguration).IsOptional();
-            Property(x => x.PlayerMayHideBingoCard).IsOptional();
-            Property(x => x.GameEndingPrize).IsOptional();
-            Property(x => x.PlayButtonBehavior).IsOptional();
-            Property(x => x.DisplayBingoCard).IsOptional();
-            Property(x => x.HideBingoCardWhenInactive).IsOptional();
-            Property(x => x.BingoCardPlacement).IsOptional();
-            Property(x => x.MaximumVoucherValue).IsOptional();
-            Property(x => x.MinimumJackpotValue).IsOptional();
-            Property(x => x.JackpotStrategy).IsOptional();
-            Property(x => x.JackpotAmountDetermination).IsOptional();
-            Property(x => x.PrintHandpayReceipt).IsOptional();
-            Property(x => x.LegacyBonusAllowed).IsOptional();
-            Property(x => x.AftBonusingEnabled).IsOptional();
-            Property(x => x.CreditsStrategy).IsOptional();
-            Property(x => x.BankId).IsOptional();
-            Property(x => x.ZoneId).IsOptional();
-            Property(x => x.Position).IsOptional();
-            Property(x => x.LapLevelIDs).IsOptional();
-            Property(x => x.BallCallService).IsOptional();
-            Property(x => x.BingoType).IsOptional();
-            Property(x => x.ReadySetGo).IsOptional();
-            Property(x => x.WaitingForPlayersMs).IsOptional();
-            Property(x => x.ServerGameConfiguration).IsOptional();
-            Property(x => x.GamesConfigurationText).IsOptional();
+            builder.ToTable(nameof(BingoServerSettingsModel));
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.VoucherInLimit).IsRequired(false);
+            builder.Property(x => x.BillAcceptanceLimit).IsRequired(false);
+            builder.Property(x => x.TicketReprint).IsRequired(false);
+            builder.Property(x => x.CaptureGameAnalytics).IsRequired(false);
+            builder.Property(x => x.AlarmConfiguration).IsRequired(false);
+            builder.Property(x => x.PlayerMayHideBingoCard).IsRequired(false);
+            builder.Property(x => x.GameEndingPrize).IsRequired(false);
+            builder.Property(x => x.PlayButtonBehavior).IsRequired(false);
+            builder.Property(x => x.DisplayBingoCard).IsRequired(false);
+            builder.Property(x => x.HideBingoCardWhenInactive).IsRequired(false);
+            builder.Property(x => x.BingoCardPlacement).IsRequired(false);
+            builder.Property(x => x.MaximumVoucherValue).IsRequired(false);
+            builder.Property(x => x.MinimumJackpotValue).IsRequired(false);
+            builder.Property(x => x.PrintHandpayReceipt).IsRequired(false);
+            builder.Property(x => x.LegacyBonusAllowed).IsRequired(false);
+            builder.Property(x => x.AftBonusingEnabled).IsRequired(false);
+            builder.Property(x => x.CreditsStrategy).IsRequired(false);
+            builder.Property(x => x.BankId).IsRequired(false);
+            builder.Property(x => x.ZoneId).IsRequired(false);
+            builder.Property(x => x.Position).IsRequired(false);
+            builder.Property(x => x.LapLevelIDs).IsRequired(false);
+            builder.Property(x => x.BallCallService).IsRequired(false);
+            builder.Property(x => x.WaitingForPlayersMs).IsRequired(false);
+            builder.Property(x => x.ServerGameConfiguration).IsRequired(false);
+            builder.Property(x => x.GamesConfigurationText)
+                .UsePropertyAccessMode(PropertyAccessMode.PreferProperty)
+                .IsRequired(false);
         }
     }
 }

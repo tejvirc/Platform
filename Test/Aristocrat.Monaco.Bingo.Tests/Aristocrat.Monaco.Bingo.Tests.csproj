@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <AssemblyTitle>Aristocrat.Monaco.Bingo.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <PlatformTarget>x64</PlatformTarget>
+    <Platform>x64</Platform>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="www\bingo\ATI_TEST1234\VAR01\page_1.html" />
@@ -25,9 +26,10 @@
     <ProjectReference Include="..\..\Protocol\Bingo\Aristocrat.Monaco.Bingo\Aristocrat.Monaco.Bingo.csproj" />
     <ProjectReference Include="..\..\Protocol\SAS\Aristocrat.Sas.Client\Aristocrat.Sas.Client.csproj" />
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BouncyCastle" Version="1.8.4" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.4" />
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
+    <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
@@ -38,14 +40,10 @@
             <Style x:Key="SettingValueStyle"
                    TargetType="TextBlock"
                    BasedOn="{StaticResource {x:Type TextBlock}}">
-                <Setter Property="Foreground"
-                        Value="{StaticResource WhiteColorBrush}" />
-                <Setter Property="TextWrapping"
-                        Value="Wrap" />
-                <Setter Property="VerticalAlignment"
-                        Value="Top" />
-                <Setter Property="HorizontalAlignment"
-                        Value="Left" />
+                <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
             </Style>
             <DataTemplate x:Key="SettingsViewer"
                           DataType="models:ConfigurationSetting">
@@ -60,7 +58,7 @@
                             Padding="0 5 0 5"
                             AutomationProperties.AutomationId="Border3_73D19A36">
                         <Label Content="{Binding Name}"
-                               Foreground="{DynamicResource WhiteColorBrush}"
+                               Foreground="{DynamicResource MahApps.Brushes.ThemeBackground}"
                                AutomationProperties.AutomationId="Label4_73D19A36" />
                     </Border>
                     <Border Grid.Row="1"
@@ -84,10 +82,8 @@
         </Grid.RowDefinitions>
         <Border Grid.Row="0"
                 AutomationProperties.AutomationId="Border11_73D19A36">
-            <TextBlock DockPanel.Dock="Top"
-                       TextWrapping="Wrap"
-                       Text="{lex:Loc {x:Static loc:ResourceKeys.ExportSettingsText}}"
-                       AutomationProperties.AutomationId="TextBlock12_73D19A36" />
+            <TextBlock DockPanel.Dock="Top" TextWrapping="Wrap" Text="{lex:Loc ExportSettingsText}" 
+                       AutomationProperties.AutomationId="TextBlock12_73D19A36" />              
         </Border>
         <Border Grid.Row="1"
                 AutomationProperties.AutomationId="Border13_73D19A36">
@@ -124,7 +120,7 @@
                             HorizontalAlignment="Left"
                             AutomationProperties.AutomationId="StackPanel21_73D19A36">
                     <Button Width="Auto"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExportMachineSettings}}"
+                            Content="{lex:Loc ExportMachineSettings}"
                             Command="{Binding ExportCommand}"
                             AutomationProperties.AutomationId="Button22_73D19A36" />
                     <Button Margin="0 15 0 0"
@@ -141,20 +137,20 @@
                             </MultiBinding>
                         </Button.CommandParameter>
                     </Button>
-                    <controls:ProgressRing Margin="20 0 0 0"
-                                           Foreground="{DynamicResource AccentColorBrush}"
-                                           Height="40"
-                                           Width="40"
-                                           IsActive="{Binding IsInProgress}"
+                    <controls:ProgressRing Margin="20 0 0 0" 
+                                           Foreground="{DynamicResource MahApps.Brushes.Accent}" 
+                                           Height="40" 
+                                           Width="40" 
+                                           IsActive="{Binding IsInProgress}" 
                                            VerticalAlignment="Center" />
                 </StackPanel>
-                <Label DockPanel.Dock="Top"
-                       Content="{lex:Loc {x:Static loc:ResourceKeys.ExportSettingsErrorText}}"
-                       Style="{StaticResource MonacoLabel}"
-                       Margin="0 20 0 0"
-                       Foreground="{StaticResource RedBrush}"
-                       FontSize="{StaticResource NormalFontSize}"
-                       Visibility="{Binding IsError, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                <Label  DockPanel.Dock="Top"
+                        Content="{lex:Loc ExportSettingsErrorText}"  
+                        Style="{StaticResource MonacoLabel}" 
+                        Margin="0 20 0 0"
+                        Foreground="{StaticResource RedBrush}"  
+                        FontSize="{StaticResource NormalFontSize}" 
+                        Visibility="{Binding IsError, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                        AutomationProperties.AutomationId="Label24_73D19A36" />
             </DockPanel>
         </Border>

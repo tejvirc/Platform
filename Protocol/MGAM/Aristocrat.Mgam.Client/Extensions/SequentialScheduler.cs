@@ -33,13 +33,17 @@ namespace Aristocrat.Mgam.Client
         }
 
         /// <inheritdoc />
-        public void Dispose()
+        public void  Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
-        private void Dispose(bool disposing)
+        /// <summary>
+        ///     Dispose the object.
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
                 return;

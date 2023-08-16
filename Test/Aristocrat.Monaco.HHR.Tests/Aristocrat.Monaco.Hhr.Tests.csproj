@@ -1,16 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Aristocrat.Monaco.HHR.Tests</RootNamespace>
     <AssemblyName>Aristocrat.Monaco.HHR.Tests</AssemblyName>
     <AssemblyTitle>Aristocrat.Monaco.Hhr.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <PlatformTarget>x64</PlatformTarget>
+    <Platform>x64</Platform>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System.Data.DataSetExtensions" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
     <ProjectReference Include="..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
@@ -26,6 +23,6 @@
     <ProjectReference Include="..\Aristocrat.Monaco.HHR.Client.Tests\Aristocrat.Monaco.HHR.Client.Tests.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.110" />
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>

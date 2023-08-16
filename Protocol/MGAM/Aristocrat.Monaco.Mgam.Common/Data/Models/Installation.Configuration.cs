@@ -1,25 +1,26 @@
 ﻿namespace Aristocrat.Monaco.Mgam.Common.Data.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     Model configuration for an Installation that is stored on the site-controller.
     /// </summary>
-    public class InstallationConfiguration : EntityTypeConfiguration<Installation>
+    public class InstallationConfiguration : IEntityTypeConfiguration<Installation>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="InstallationConfiguration"/> class.
         /// </summary>
-        public InstallationConfiguration()
+        public void Configure(EntityTypeBuilder<Installation> builder)
         {
-            ToTable(nameof(Installation));
+            builder.ToTable(nameof(Installation));
 
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.InstallationGuid)
+            builder.Property(t => t.InstallationGuid)
                 .IsRequired();
 
-            Property(t => t.Name)
+            builder.Property(t => t.Name)
                 .IsRequired();
         }
     }

@@ -12,8 +12,11 @@
                    xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                    xmlns:loc="http://monaco.aristocrat.com/localization"
                    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                   lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                   lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                    xmlns:behaviors="clr-namespace:Aristocrat.Monaco.UI.Common.Behaviors;assembly=Aristocrat.Monaco.UI.Common"
                    xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
+                   xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                    loc:Localizer.For="Operator"
                    mc:Ignorable="d"
                    d:DataContext="{d:DesignInstance {x:Type viewModels:MenuSelectionViewModel}}"
@@ -25,17 +28,20 @@
                    BorderBrush="Black"
                    BorderThickness="1"
                    x:Name="OperatorMenuWindow">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded" AutomationProperties.AutomationId="EventTrigger0_746B68B4">
-            <i:InvokeCommandAction Command="{Binding HandleLoadedCommand}" />
-        </i:EventTrigger>
-        <i:EventTrigger EventName="Closing" AutomationProperties.AutomationId="EventTrigger1_746B68B4">
-            <i:InvokeCommandAction Command="{Binding HandleClosingCommand}" />
-        </i:EventTrigger>
-        <i:EventTrigger EventName="ContentRendered" AutomationProperties.AutomationId="EventTrigger2_746B68B4">
-            <i:InvokeCommandAction Command="{Binding HandleContentRenderedCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="Loaded"
+                        AutomationProperties.AutomationId="EventTrigger0_746B68B4">
+            <b:InvokeCommandAction Command="{Binding HandleLoadedCommand}" />
+        </b:EventTrigger>
+        <b:EventTrigger EventName="Closing"
+                        AutomationProperties.AutomationId="EventTrigger1_746B68B4">
+            <b:InvokeCommandAction Command="{Binding HandleClosingCommand}" />
+        </b:EventTrigger>
+        <b:EventTrigger EventName="ContentRendered"
+                        AutomationProperties.AutomationId="EventTrigger2_746B68B4">
+            <b:InvokeCommandAction Command="{Binding HandleContentRenderedCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
     <common:BaseWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -93,23 +99,25 @@
             <GridLength x:Key="GoldenRatioGridLength">1.618*</GridLength>
         </ResourceDictionary>
     </common:BaseWindow.Resources>
-    <i:Interaction.Behaviors>
+    <b:Interaction.Behaviors>
         <behaviors:TouchWindowBehavior />
-        <behaviors:HighDpiWindowBehavior />
-    </i:Interaction.Behaviors>
+        <behaviors:HighDpiWindowBehavior/>
+    </b:Interaction.Behaviors>
+
     <Grid AutomationProperties.AutomationId="Grid13_746B68B4">
         <Grid.RowDefinitions>
             <RowDefinition Height="0" AutomationProperties.AutomationId="RowDefinition14_746B68B4" />
             <RowDefinition Height="1*" AutomationProperties.AutomationId="RowDefinition15_746B68B4" />
         </Grid.RowDefinitions>
-        <i:Interaction.Triggers>
+
+        <b:Interaction.Triggers>
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.SizeChangedEvent}" Target="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
             </events:RoutedEventTrigger>
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.LoadedEvent}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
             </events:RoutedEventTrigger>
-        </i:Interaction.Triggers>
+        </b:Interaction.Triggers>
         <Viewbox Grid.Row="0"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Center"
@@ -194,8 +202,8 @@
                                          Style="{StaticResource MonacoListBox}">
                         <common:TouchListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderThickness="0 0 0 0"
-                                        BorderBrush="{StaticResource AccentColorBrush2}"
+                                <Border BorderThickness="0,0,0,0"
+                                        BorderBrush="{StaticResource MahApps.Brushes.Accent2}"
                                         Background="Transparent"
                                         AutomationProperties.AutomationId="Border41_746B68B4">
                                     <TextBlock Text="{Binding PageName}"
@@ -211,7 +219,8 @@
                             </DataTemplate>
                         </common:TouchListBox.ItemTemplate>
                         <common:TouchListBox.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource MetroListBoxItem}">
+                            <Style TargetType="{x:Type ListBoxItem}"
+                                   BasedOn="{StaticResource MahApps.Styles.ListBoxItem}">
                                 <Style.Resources>
                                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
                                                      Color="{StaticResource HighlightColor}"
@@ -341,7 +350,7 @@
                                     Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource TrueCollapsedFalseVisible}}"
                                     AutomationProperties.AutomationId="Button57_746B68B4">
                                 <Grid AutomationProperties.AutomationId="Grid58_746B68B4">
-                                    <iconPacks:PackIconFontAwesome Kind="Print"
+                                    <iconPacks:PackIconFontAwesome Kind="PrintSolid"
                                                                    Width="25"
                                                                    Height="25" />
                                 </Grid>
@@ -376,7 +385,7 @@
                                     Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource TrueCollapsedFalseVisible}}"
                                     AutomationProperties.AutomationId="Button63_746B68B4">
                                 <Grid AutomationProperties.AutomationId="Grid64_746B68B4">
-                                    <iconPacks:PackIconFontAwesome Kind="Print"
+                                    <iconPacks:PackIconFontAwesome Kind="PrintSolid"
                                                                    Width="25"
                                                                    Height="25" />
                                 </Grid>
@@ -452,19 +461,15 @@
                                    FontSize="{StaticResource Heading3FontSize}"
                                    AutomationProperties.AutomationId="Label80_746B68B4" />
                         </StackPanel>
-                        <ComboBox Grid.Column="2"
-                                  Name="LanguageComboBox"
-                                  ItemsSource="{Binding SupportedLanguages}"
-                                  Visibility="Hidden"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Margin="0 0 20 0"
+                        <ComboBox Grid.Column="2" Name="LanguageComboBox" ItemsSource="{Binding SupportedLanguages}" Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,20,0"
                                   AutomationProperties.AutomationId="ComboBox81_746B68B4">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged" AutomationProperties.AutomationId="EventTrigger82_746B68B4">
-                                    <i:InvokeCommandAction Command="{Binding LanguageChangedCommand}" CommandParameter="{Binding SelectedItem, ElementName=LanguageComboBox}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                            <b:Interaction.Triggers>
+                                <b:EventTrigger EventName="SelectionChanged"
+                                                AutomationProperties.AutomationId="EventTrigger82_746B68B4">
+                                    <b:InvokeCommandAction Command="{Binding LanguageChangedCommand}"
+                                                           CommandParameter="{Binding SelectedItem, ElementName=LanguageComboBox}" />
+                                </b:EventTrigger>
+                            </b:Interaction.Triggers>
                         </ComboBox>
                         <Label Grid.Column="3"
                                Name="DateTime"
@@ -494,7 +499,7 @@
                         <LinearGradientBrush StartPoint="0,.3"
                                              EndPoint="1,.7"
                                              AutomationProperties.AutomationId="LinearGradientBrush86_746B68B4">
-                            <GradientStop Color="{StaticResource BlackColor}"
+                            <GradientStop Color="{StaticResource MahApps.Colors.ThemeForeground}"
                                           Offset="0"
                                           AutomationProperties.AutomationId="GradientStop87_746B68B4" />
                             <GradientStop Color="{StaticResource DarkColor1}"
@@ -553,16 +558,16 @@
                                Foreground="{StaticResource HighlightBrush1}"
                                AutomationProperties.AutomationId="Label95_746B68B4" />
                         <TextBlock Margin="0 0 20 0"
-                                   Visibility="{Binding CanCalibrateTouchScreens, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.CalibrationText}}"
+                                   Visibility="{Binding CanCalibrateTouchScreens,Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                   Text="{lex:Loc CalibrationText}"
                                    Style="{StaticResource CalibrationTextStyle}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Right"
                                    Foreground="{StaticResource HighlightBrush1}"
                                    AutomationProperties.AutomationId="TextBlock96_746B68B4" />
                         <TextBlock Margin="0 0 20 0"
-                                   Visibility="{Binding ShowMainDoorText, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.CalibrationAccess}}"
+                                   Visibility="{Binding ShowMainDoorText,Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                   Text="{lex:Loc CalibrationAccess}"
                                    Style="{StaticResource CalibrationTextStyle}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Right"

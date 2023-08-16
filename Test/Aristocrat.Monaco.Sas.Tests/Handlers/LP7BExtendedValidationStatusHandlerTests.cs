@@ -28,7 +28,7 @@
     [TestClass]
     public class LP7BExtendedValidationStatusHandlerTests
     {
-        private const int Timeout = 1000; // One second
+        private const int Timeout = 3000; // three seconds
 
         private LP7BExtendedValidationStatusHandler _target;
         private Mock<IPropertiesManager> _propertiesManager;

@@ -9,11 +9,14 @@
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:converter="http://monaco.aristocrat.com/common"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Application.UI.Models;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                                mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance viewModels:EventLogFilterViewModel,                                                                 IsDesignTimeCreatable=False}"
+                               d:DataContext="{d:DesignInstance viewModels:EventLogFilterViewModel, IsDesignTimeCreatable=False}"
                                common:DialogParticipation.Register="{Binding}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -52,13 +55,13 @@
                       ScrollViewer.CanContentScroll="True"
                       ScrollViewer.PanningMode="VerticalOnly"
                       AutomationProperties.AutomationId="DataGrid6_26AF2323">
-                <i:Interaction.Triggers>
+                <b:Interaction.Triggers>
                     <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
                         <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}" />
                     </events:RoutedEventTrigger>
-                </i:Interaction.Triggers>
+                </b:Interaction.Triggers>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTime}}"
+                    <DataGridTextColumn Header="{lex:Loc DateAndTime}"
                                         loc:Localizer.For="Operator"
                                         MinWidth="200"
                                         Width="Auto"
@@ -66,7 +69,7 @@
                                         Binding="{Binding Description.Timestamp, Converter={StaticResource DateTimeFormatConverter}}"
                                         AutomationProperties.AutomationId="DataGridTextColumn7_26AF2323" />
                     <DataGridTextColumn x:Name="LogType"
-                                        Header="{lex:Loc Key={x:Static loc:ResourceKeys.LogType}}"
+                                        Header="{lex:Loc LogType}"
                                         loc:Localizer.For="Operator"
                                         FontSize="18"
                                         MinWidth="200"
@@ -75,7 +78,7 @@
                                         x:FieldModifier="public"
                                         AutomationProperties.AutomationId="DataGridTextColumn8_26AF2323" />
                     <DataGridTemplateColumn x:Name="EventLog"
-                                            Header="{lex:Loc Key={x:Static loc:ResourceKeys.EventLog}}"
+                                            Header="{lex:Loc EventLog}"
                                             loc:Localizer.For="Operator"
                                             MinWidth="350"
                                             Width="Auto"
@@ -106,7 +109,7 @@
                         Margin="0 10 0 0"
                         Orientation="Horizontal"
                         AutomationProperties.AutomationId="StackPanel13_26AF2323">
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintSelectedButtonText}}"
+                <Button Content="{lex:Loc PrintSelectedButtonText}"
                         Height="45"
                         Width="200"
                         Margin="0 0 20 0"
@@ -114,7 +117,7 @@
                         IsEnabled="{Binding PrintSelectedButtonEnabled}"
                         Command="{Binding PrintSelectedButtonCommand}"
                         AutomationProperties.AutomationId="Button14_26AF2323" />
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintCurrentPageButtonText}}"
+                <Button Content="{lex:Loc PrintCurrentPageButtonText}"
                         Height="45"
                         Width="200"
                         Margin="0 0 20 0"
@@ -122,7 +125,7 @@
                         IsEnabled="{Binding MainPrintButtonEnabled}"
                         Command="{Binding PrintCurrentPageButtonCommand}"
                         AutomationProperties.AutomationId="Button15_26AF2323" />
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintLast15RecordsButtonText}}"
+                <Button Content="{lex:Loc PrintLast15RecordsButtonText}"
                         Height="45"
                         Width="200"
                         Margin="0 0 20 0"
@@ -149,7 +152,7 @@
 
         <Grid Grid.Column="1"
               AutomationProperties.AutomationId="Grid20_26AF2323">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.FilterBy}}" VerticalAlignment="Top"
+            <Label Content="{lex:Loc FilterBy}" VerticalAlignment="Top"
                    AutomationProperties.AutomationId="Label21_26AF2323" />
             <DataGrid Margin="0 20 0 0"
                       x:Name="FilterByDataGrid"
@@ -174,7 +177,7 @@
                     <DataGridTemplateColumn AutomationProperties.AutomationId="DataGridTemplateColumn23_26AF2323">
                         <DataGridTemplateColumn.HeaderTemplate>
                             <DataTemplate>
-                                <CheckBox Content = "{lex:Loc Key={x:Static loc:ResourceKeys.All}}"
+                                <CheckBox Content = "{lex:Loc All}"
                                           Margin="0 5 0 0"
                                           FontSize="16"
                                           IsChecked="{Binding DataContext.IsAllFiltersSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=DataGrid}}"

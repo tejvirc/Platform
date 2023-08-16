@@ -11,29 +11,28 @@
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Application.Contracts;
+    using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Communications;
     using Aristocrat.G2S.Client.Configuration;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Client.Security;
+    using Aristocrat.G2S.Communicator.ServiceModel;
     using Aristocrat.G2S.Emdi;
-    using Aristocrat.Monaco.G2S.Common;
-    using Aristocrat.Monaco.G2S.Common.Data.Models;
-    using Aristocrat.Monaco.G2S.Services;
     using Common.CertificateManager;
+    using CoreWCF.Description;
     using Data.Hosts;
     using Data.Profile;
-    using DisableProvider;
-    using Gaming.Contracts.Progressives;
     using Gaming.Contracts.Session;
-    using Gaming.Progressives;
     using Handlers;
     using Handlers.CommConfig;
     using Handlers.OptionConfig;
     using Kernel;
     using log4net;
     using Meters;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
     using Monaco.Common.Container;
     using Monaco.Common.Scheduler;
     using Monaco.Common.Storage;
@@ -44,7 +43,6 @@
     using Protocol.Common.Installer;
     using Security;
     using SimpleInjector;
-    using SimpleInjector.Lifestyles;
     using Constants = G2S.Constants;
 
     /// <summary>
@@ -67,15 +65,13 @@
         private static Container ConfigureContainer()
         {
             var container = new Container();
+            container.AddResolveUnregisteredType(typeof(Bootstrapper).FullName, Logger);
 
-            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             container.Register<IEngine, G2SEngine>(Lifestyle.Singleton);
-            container.Register<IG2SDisableProvider, G2SDisableProvider>(Lifestyle.Singleton);
             container.RegisterAuthenticationService(ConnectionString());
             container.RegisterPackageManager(ConnectionString());
             container.RegisterCertificateManager(ConnectionString());
             container.RegisterData(ConnectionString());
-            container.AddDbContext();
 
             // Register the handlers
             container.ConfigureHandlers();
@@ -159,9 +155,6 @@
             @this.Register<ITarArchive, TarArchive>(Lifestyle.Singleton);
             @this.Register<IPackageService, PackageService>(Lifestyle.Singleton);
             @this.Register<IManifest<Image>, ImageManifest>(Lifestyle.Singleton);
-            @this.Register<IProgressiveDeviceManager, ProgressiveDeviceManager>(Lifestyle.Singleton);
-            @this.Register<IProgressiveLevelManager, ProgressiveLevelManager>(Lifestyle.Singleton);
-            @this.Register<IProgressiveService, ProgressiveService>(Lifestyle.Singleton);
         }
 
         private static void ConfigureMeterProviders(this Container @this)
@@ -171,16 +164,28 @@
 
         private static void ConfigureCommunications(this Container @this)
         {
-            var egm = EgmFactory.Create(
-                e =>
+            @this.Register<MessageBuilder>(Lifestyle.Singleton);
+            @this.Register<ReceiveEndpointProvider>(Lifestyle.Singleton);
+            @this.Register<ICommunicator>(() => @this.GetInstance<ReceiveEndpointProvider>(), Lifestyle.Singleton);
+            @this.Register<G2SService>(Lifestyle.Singleton);
+            @this.Register<ServiceDebugBehavior>(Lifestyle.Singleton);
+            @this.Register<IWcfApplicationRuntime>(() =>
+            {
+                var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+                var port = properties.GetValue(Constants.Port, Constants.DefaultPort);
+                return new AspNetCoreWebRuntime(port, r =>
                 {
-                    e.UsesNamespace("Aristocrat.G2S.Protocol.v21");
-                    e.ListenOn(ConfigureBinding);
-                    e.WithEgmId(
-                        ServiceManager.GetInstance().GetService<IPropertiesManager>()
-                            .GetValue<string>(Constants.EgmId, null));
+                    r.AddLogging(l => l.ClearProviders());
+                    MapService<ICommunicator>();
+                    MapService<G2SService>();
+                    MapService<MessageBuilder>();
+                    MapService<ServiceDebugBehavior>();
+                    MapInterfacedService<IReceiveEndpointProvider, ReceiveEndpointProvider>();
+
+                    void MapService<T>() where T : class => r.AddSingleton(@this.GetInstance<T>());
+                    void MapInterfacedService<I, T>() where I : class where T : class, I => r.AddSingleton<I>(@this.GetInstance<T>());
                 });
-            
+            });
             @this.Register<IDeviceFactory, DeviceFactory>(Lifestyle.Singleton);
             @this.Register<IGatComponentFactory, GatComponentFactory>(Lifestyle.Singleton);
             @this.Register<IHostFactory, HostFactory>(Lifestyle.Singleton);
@@ -188,7 +193,6 @@
             @this.Register<ITransportStateObserver, TransportStateObserver>(Lifestyle.Singleton);
             @this.Register<ICommunicationsStateObserver, CommunicationsStateObserver>(Lifestyle.Singleton);
             @this.Register<IDeviceObserver, DeviceObserver>(Lifestyle.Singleton);
-            @this.Register<IProgressiveDeviceObserver, ProgressiveDeviceObserver>(Lifestyle.Singleton);
             @this.Register<IEgmStateObserver, EgmStateObserver>(Lifestyle.Singleton);
             @this.Register<IEgmStateManager, EgmStateManager>(Lifestyle.Singleton);
             @this.Register<IProfileService, ProfileService>(Lifestyle.Singleton);
@@ -199,7 +203,20 @@
             @this.Register<IMetersSubscriptionManager, MetersSubscriptionManager>(Lifestyle.Singleton);
             @this.Register<ISelfTest, SelfTest>(Lifestyle.Singleton);
 
-            @this.RegisterInstance(typeof(IG2SEgm), egm);
+            @this.Register(typeof(IG2SEgm), () =>
+                {
+                    var egm = EgmFactory.Create(
+                    e =>
+                    {
+                        e.UsesNamespace("Aristocrat.G2S.Protocol.v21");
+                        e.ListenOn(ConfigureBinding);
+                        var propertiesManager = @this.GetInstance<IPropertiesManager>();
+                        var egmValue = propertiesManager.GetValue<string>(Constants.EgmId, null);
+                        e.WithEgmId(egmValue);
+                    }, @this.GetInstance<IWcfApplicationRuntime>());
+                    return egm;
+                },
+            Lifestyle.Singleton);
         }
 
         private static void ConfigureHandlers(this Container @this)
@@ -272,7 +289,8 @@
 
             // Adding only Ssl3 suddenly stopped working with a Win10 update, so we're going to forcibly set all required types
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls | SecurityProtocolType.Tls11 |
-                                                    SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
+                                                    SecurityProtocolType.Tls12;
+            //| SecurityProtocolType.Ssl3;  //PlanA: This protocol has been deprecated: https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca5364
 
             var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 

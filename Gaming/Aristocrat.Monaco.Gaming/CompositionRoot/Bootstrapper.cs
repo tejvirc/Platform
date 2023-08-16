@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
+    using Aristocrat.CryptoRng;
     using Barkeeper;
     using BeagleBone;
     using Bonus;
@@ -28,13 +30,13 @@
     using GameSpecificOptions;
     using Hardware.Contracts;
     using Kernel;
+    using log4net;
     using Monitor;
     using PackageManifest;
     using PackageManifest.Ati;
     using PackageManifest.Gsa;
     using PackageManifest.Models;
     using Payment;
-    using PRNGLib;
     using Progressives;
     using Runtime;
     using Runtime.Client;
@@ -47,6 +49,8 @@
     /// </summary>
     internal static class Bootstrapper
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         ///     Initialize the container
         /// </summary>
@@ -59,6 +63,7 @@
         private static Container ConfigureContainer()
         {
             var container = new Container();
+            container.AddResolveUnregisteredType(typeof(Bootstrapper).FullName, Logger);
 
             container.Register<SnappService>(Lifestyle.Singleton);
             container.Register<SnappReelService>(Lifestyle.Singleton);
@@ -175,24 +180,16 @@
             container.Collection.Register<IPropertyProvider>(
                 new[] { gamePropertyProvider, gameInstaller, browserPropertyProvider });
 
-            container.Register<GameMeterProvider>(Lifestyle.Singleton);
-            container.Register<PlayerMeterProvider>(Lifestyle.Singleton);
-            container.Register<BonusMeterProvider>(Lifestyle.Singleton);
-
-            container.Register<ProgressiveMeterProvider>(Lifestyle.Singleton);
-            container.Register<CabinetMeterProvider>(Lifestyle.Singleton);
-            container.Collection.Register<IMeterProvider>(
-                typeof(GameMeterProvider),
-                typeof(PlayerMeterProvider),
-                typeof(BonusMeterProvider),
-                typeof(ProgressiveMeterProvider),
-                typeof(CabinetMeterProvider));
+            container.RegisterSingleton<GameMeterProvider>();
+            container.RegisterSingleton<PlayerMeterProvider>();
+            container.RegisterSingleton<BonusMeterProvider>();
+            container.RegisterSingleton<ProgressiveMeterProvider>();
+            container.RegisterSingleton<CabinetMeterProvider>();
 
             container.Register<IRandomStateProvider, RandomStateProvider>(Lifestyle.Singleton);
-            // IPRNG implementations are keyed by PRNGLib.RandomType:
+            // IRandom implementations are keyed by Monaco.Gaming.Contracts.RandomType:
             var rngFactory = new RandomFactory(container);
-            rngFactory.Register<ATICryptoRNG>(RandomType.Gaming, Lifestyle.Singleton);
-            rngFactory.Register<MSCryptoRNG>(RandomType.NonGaming, Lifestyle.Singleton);
+            rngFactory.Register<AtiCryptoRng>(RandomType.Gaming, Lifestyle.Singleton);
             container.Register<IRandomFactory>(() => rngFactory, Lifestyle.Singleton);
 
             var runtimeEventHandlerFactory = new RuntimeEventHandlerFactory(container);
@@ -218,6 +215,8 @@
             container.Register<ExcessiveMeterIncrementMonitor>(Lifestyle.Singleton);
 
             container.Register<RngCyclingService>(Lifestyle.Singleton);
+            container.Register<BonusEventLogAdapter>(Lifestyle.Singleton);
+            //container.Register<DetailedGameMetersViewModel>(Lifestyle.Singleton);
 
             container.Register<IGamePackConfigurationProvider, GamePackConfigurationProvider>(Lifestyle.Singleton);
 

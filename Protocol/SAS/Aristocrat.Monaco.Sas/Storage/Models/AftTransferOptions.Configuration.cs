@@ -1,24 +1,25 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     The aft transfer options persistence configuration
     /// </summary>
-    public class AftTransferOptionsConfiguration : EntityTypeConfiguration<AftTransferOptions>
+    public class AftTransferOptionsConfiguration : IEntityTypeConfiguration<AftTransferOptions>
     {
         /// <summary>
         ///     Creates an instance of <see cref="AftTransferOptionsConfiguration"/>
         /// </summary>
-        public AftTransferOptionsConfiguration()
+        public void Configure(EntityTypeBuilder<AftTransferOptions> builder)
         {
-            ToTable(nameof(AftTransferOptions));
-            HasKey(x => x.Id);
-            Property(x => x.IsTransferAcknowledgedByHost)
+            builder.ToTable(nameof(AftTransferOptions));
+            builder.HasKey(x => x.Id);
+            builder.Property(x => x.IsTransferAcknowledgedByHost)
                 .IsRequired();
-            Property(x => x.CurrentTransfer)
+            builder.Property(x => x.CurrentTransfer)
                 .IsRequired();
-            Property(x => x.CurrentTransferFlags)
+            builder.Property(x => x.CurrentTransferFlags)
                 .IsRequired();
         }
     }

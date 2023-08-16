@@ -4,9 +4,20 @@
     using CefSharp;
 
     /// <inheritdoc />
-    [CLSCompliant(false)]
     public class DownloadHandler : IDownloadHandler
     {
+        /// <inheritdoc />
+        public bool CanDownload(
+            IWebBrowser chromiumWebBrowser,
+            IBrowser browser,
+            string url,
+            string requestMethod)
+        {
+            return false;
+        }
+
+
+
         /// <inheritdoc />
         public void OnBeforeDownload(
             IWebBrowser chromiumWebBrowser,

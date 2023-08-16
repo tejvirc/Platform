@@ -4,11 +4,13 @@ namespace Aristocrat.Monaco.Application.Authentication
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Security.Authentication;
     using System.Security.Cryptography;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using Common;
@@ -31,29 +33,32 @@ namespace Aristocrat.Monaco.Application.Authentication
     ///     Provides a mechanism to monitor events and trigger Live Authentication process.
     ///     This service is disabled by default.
     /// </summary>
-    public class LiveAuthenticationManager : ILiveAuthenticationManager, IDisposable
+    public sealed class LiveAuthenticationManager : ILiveAuthenticationManager, IDisposable
     {
         private const string ManifestExtension = "manifest";
         private const string GameType = "game";
+#if RETAIL
         private const string PlatformPrefix = @"ATI_platform";
-
+#endif
         private static readonly Guid DisableGuid = ApplicationConstants.LiveAuthenticationDisableKey;
-        // ReSharper disable once PossibleNullReferenceException
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly string[] ExtensionExclusions =
-            { ".mercury", ".png", ".bk2", ".gsaManifest", ".dat", ".exp", ".pdb", ".manifest", ".xlf", ".ttf",
-              ".iobj", ".ipdb", ".pak", ".ogg", ".jpg", ".jpeg", ".xaml", ".db", ".xldf" };
+        {
+            ".mercury", ".png", ".bk2", ".gsaManifest", ".dat", ".exp", ".pdb", ".manifest", ".xlf", ".ttf",
+            ".iobj", ".ipdb", ".pak", ".ogg", ".jpg", ".jpeg", ".xaml", ".db", ".xldf"
+        };
 
         private static readonly string[] FolderExclusions = { @"downloads\temp" };
 
         private readonly ISystemDisableManager _disableManager;
         private readonly IEventBus _eventBus;
+        // ReSharper disable once NotAccessedField.Local
         private readonly IPathMapper _pathMapper;
         private readonly IPropertiesManager _propertiesManager;
         private readonly IAudio _audioService;
-        private readonly object _cancellationLock = new object();
-        private readonly ConcurrentDictionary<string, string> _cache = new ConcurrentDictionary<string, string>();
+        private readonly object _cancellationLock = new();
+        private readonly ConcurrentDictionary<string, string> _cache = new();
 
         private static DsaKeyParameters _systemKey;
         private static DsaKeyParameters _gameKey;
@@ -95,8 +100,19 @@ namespace Aristocrat.Monaco.Application.Authentication
         /// <inheritdoc />
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (_disposed)
+            {
+                return;
+            }
+
+            lock (_cancellationLock)
+            {
+                Enabled = false;
+                CancelTask();
+                _cancellationTokenSource = null;
+            }
+
+            _disposed = true;
         }
 
         /// <inheritdoc />
@@ -113,10 +129,8 @@ namespace Aristocrat.Monaco.Application.Authentication
             var systemKeyFile = _propertiesManager.GetValue(KernelConstants.SystemKey, string.Empty);
             if (!string.IsNullOrEmpty(systemKeyFile))
             {
-                using (var reader = File.OpenText(systemKeyFile))
-                {
-                    _systemKey = (DsaKeyParameters)new PemReader(reader).ReadObject();
-                }
+                using var reader = File.OpenText(systemKeyFile);
+                _systemKey = (DsaKeyParameters)new PemReader(reader).ReadObject();
             }
 #if !(RETAIL)
             else
@@ -128,10 +142,8 @@ namespace Aristocrat.Monaco.Application.Authentication
             var gameKeyFile = _propertiesManager.GetValue(KernelConstants.GameKey, string.Empty);
             if (!string.IsNullOrEmpty(gameKeyFile))
             {
-                using (var reader = File.OpenText(gameKeyFile))
-                {
-                    _gameKey = (DsaKeyParameters)new PemReader(reader).ReadObject();
-                }
+                using var reader = File.OpenText(gameKeyFile);
+                _gameKey = (DsaKeyParameters)new PemReader(reader).ReadObject();
             }
 #if !(RETAIL)
             else
@@ -149,7 +161,7 @@ namespace Aristocrat.Monaco.Application.Authentication
             _eventBus.Subscribe<DiskMountedEvent>(this, Handle);
             _eventBus.Subscribe<DiskUnmountedEvent>(this, Handle);
 
-            bool runSignatureVerificationAfterReboot = (bool)_propertiesManager.GetProperty(
+            var runSignatureVerificationAfterReboot = _propertiesManager.GetValue(
                 ApplicationConstants.RunSignatureVerificationAfterReboot,
                 false);
 
@@ -188,68 +200,25 @@ namespace Aristocrat.Monaco.Application.Authentication
         private event EventHandler LiveAuthenticationCanceledEvent;
         private event EventHandler LiveAuthenticationCompleteEvent;
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            lock (_cancellationLock)
-            {
-                if (disposing)
-                {
-                    Enabled = false;
-
-                    CancelTask();
-                }
-
-                _cancellationTokenSource = null;
-            }
-
-            _disposed = true;
-        }
-
         private static string GetHashFromPath(string path)
         {
             string result = null;
-
             var directory = new DirectoryInfo(path);
 
             var files = directory.EnumerateFiles(@"*", SearchOption.AllDirectories)
-                .Where(f => ExtensionExclusions.All(e => !e.Equals(f.Extension, StringComparison.InvariantCultureIgnoreCase)))
-                .OrderBy(f => f.FullName)
+                .Where(f => ExtensionExclusions.All(e => !e.Equals(f.Extension, StringComparison.OrdinalIgnoreCase)))
+                .OrderBy(f => f, new FileInfoComparer())
                 .ToList();
 
-            if (files.Count > 0)
+            if (files.Count <= 0)
             {
-                using (var stream = new DirectoryStream(files))
-                using (var sha = new SHA1CryptoServiceProvider())
-                {
-                    result = Convert.ToBase64String(sha.ComputeHash(stream));
-                }
+                return result;
             }
 
-            return result;
-        }
-
-        private void Handle(DiskMountedEvent evt)
-        {
-            if (FolderExclusions.Any(exclusion => evt.PhysicalPath.Contains(exclusion)))
-            {
-                return;
-            }
-
-            var manifest = Path.ChangeExtension(evt.VirtualDisk, ManifestExtension);
-
-            AddAuthenticatedPath(evt.PhysicalPath, manifest);
-        }
-
-        private void Handle(DiskUnmountedEvent evt)
-        {
-            _cache.TryRemove(evt.PhysicalPath, out _);
-
-            Logger.Debug($"Removed path {evt.PhysicalPath}");
+            Logger.Debug(string.Join(Environment.NewLine, files.Select(x => x.FullName)));
+            using var stream = new DirectoryStream(files);
+            using var sha = SHA1.Create();
+            return Convert.ToBase64String(sha.ComputeHash(stream));
         }
 
         private void OnEnabled()
@@ -280,8 +249,26 @@ namespace Aristocrat.Monaco.Application.Authentication
             CancelTask();
         }
 
+        private void Handle(DiskMountedEvent evt)
+        {
+            if (FolderExclusions.Any(exclusion => evt.PhysicalPath.Contains(exclusion, StringComparison.OrdinalIgnoreCase)))
+            {
+                return;
+            }
+
+            var manifest = Path.ChangeExtension(evt.VirtualDisk, ManifestExtension);
+            AddAuthenticatedPath(evt.PhysicalPath, manifest);
+        }
+
+        private void Handle(DiskUnmountedEvent evt)
+        {
+            _cache.TryRemove(evt.PhysicalPath, out _);
+            Logger.Debug($"Removed path {evt.PhysicalPath}");
+        }
+
         private void Handle(PlatformBootedEvent evt)
         {
+            Debugger.Break();
             Logger.Info("Running signature verification on PlatformBootedEvent");
             _disableManager.Disable(
                 DisableGuid,
@@ -296,22 +283,24 @@ namespace Aristocrat.Monaco.Application.Authentication
         private void Handle(SystemDisableAddedEvent evt)
         {
             // A system lockup was added, and it was not us, so we flag for verification
-            if (evt.DisableId != DisableGuid)
+            if (evt.DisableId == DisableGuid)
             {
-                lock (_cancellationLock)
+                return;
+            }
+
+            lock (_cancellationLock)
+            {
+                // Cancel the current verification task if there is one running
+                if (_cancellationTokenSource != null)
                 {
-                    // Cancel the current verification task if there is one running
-                    if (_cancellationTokenSource != null)
-                    {
-                        CancelTask();
-                        _disableManager.Disable(DisableGuid, SystemDisablePriority.Immediate, () => string.Empty);
-                    }
-                    // Set the verification flag when the disable event is a 'Immediate' type and NOT caused by the operator menu
-                    else if (evt.Priority == SystemDisablePriority.Immediate
-                             && evt.DisableId != ApplicationConstants.OperatorMenuLauncherDisableGuid)
-                    {
-                        _disableManager.Disable(DisableGuid, SystemDisablePriority.Immediate, () => string.Empty);
-                    }
+                    CancelTask();
+                    _disableManager.Disable(DisableGuid, SystemDisablePriority.Immediate, () => string.Empty);
+                }
+                // Set the verification flag when the disable event is a 'Immediate' type and NOT caused by the operator menu
+                else if (evt.Priority == SystemDisablePriority.Immediate
+                         && evt.DisableId != ApplicationConstants.OperatorMenuLauncherDisableGuid)
+                {
+                    _disableManager.Disable(DisableGuid, SystemDisablePriority.Immediate, () => string.Empty);
                 }
             }
         }
@@ -320,13 +309,14 @@ namespace Aristocrat.Monaco.Application.Authentication
         {
             // Check if we are the only system disable that's left
             var disableManagerKeys = _disableManager.CurrentImmediateDisableKeys.ToList();
-            if (disableManagerKeys.Count == 1 && disableManagerKeys.Contains(DisableGuid))
+            if (disableManagerKeys.Count != 1 || !disableManagerKeys.Contains(DisableGuid))
             {
-                _disableManager.Disable(DisableGuid, SystemDisablePriority.Immediate,
-                    () => Localizer.ForLockup().GetString(ResourceKeys.VerifyingSignaturesText));
-
-                VerifySignatures();
+                return;
             }
+
+            _disableManager.Disable(DisableGuid, SystemDisablePriority.Immediate,
+                () => Localizer.ForLockup().GetString(ResourceKeys.VerifyingSignaturesText));
+            VerifySignatures();
         }
 
         private void VerifySignatures()
@@ -346,7 +336,7 @@ namespace Aristocrat.Monaco.Application.Authentication
 
         private void HandleLiveAuthenticationFailedEvent(object sender, string message)
         {
-            Logger.Fatal("Live Authentication failed - " + message);
+            Logger.Fatal($"Live Authentication failed - {message}");
 
             // Cancel the current verification task
             CancelTask();
@@ -468,8 +458,8 @@ namespace Aristocrat.Monaco.Application.Authentication
                     (item, _) =>
                     {
                         Logger.Info($"Validating: {item.Key} - {item.Value}");
-
-                        if (string.IsNullOrEmpty(item.Value) || !item.Value.Equals(GetHashFromPath(item.Key)))
+                        if (string.IsNullOrEmpty(item.Value) ||
+                            !string.Equals(item.Value, GetHashFromPath(item.Key), StringComparison.OrdinalIgnoreCase))
                         {
                             throw new AuthenticationException($"Signature verification failed for path: {item.Key}");
                         }
@@ -498,11 +488,14 @@ namespace Aristocrat.Monaco.Application.Authentication
         private static DsaKeyParameters GetPublicKey(string type)
         {
             if (string.IsNullOrEmpty(type))
+            {
                 throw new ArgumentNullException(nameof(type));
+            }
 
-            return type.Equals(GameType, StringComparison.InvariantCultureIgnoreCase) ? _gameKey : _systemKey;
+            return type.Equals(GameType, StringComparison.OrdinalIgnoreCase) ? _gameKey : _systemKey;
         }
 
+#if (RETAIL)
         private static string GetPlatformManifest(string path)
         {
             var directory = new DirectoryInfo(path);
@@ -511,24 +504,21 @@ namespace Aristocrat.Monaco.Application.Authentication
 
             return files.OrderByDescending(f => f.Name).FirstOrDefault()?.FullName;
         }
+#endif
 
 #if !(RETAIL)
         private static DsaKeyParameters GetDevelopmentKey()
         {
-            if (_developmentKey == null)
+            if (_developmentKey != null)
             {
-                const string key = "dev_pub.pem";
-
-                using (var reader = new StreamReader(key))
-                {
-                    var devKeyText = reader.ReadToEnd();
-                    using (var dummyReader = new StringReader(devKeyText))
-                    {
-                        _developmentKey = (DsaKeyParameters)new PemReader(dummyReader).ReadObject();
-                    }
-                }
+                return _developmentKey;
             }
 
+            const string key = "dev_pub.pem";
+            using var reader = new StreamReader(key);
+            var devKeyText = reader.ReadToEnd();
+            using var dummyReader = new StringReader(devKeyText);
+            _developmentKey = (DsaKeyParameters)new PemReader(dummyReader).ReadObject();
             return _developmentKey;
         }
 #endif

@@ -2,6 +2,7 @@ namespace Aristocrat.Monaco.Application.Contracts.OperatorMenu
 {
     using System;
     using Kernel;
+    using ProtoBuf;
     using Vgt.Client12.Application.OperatorMenu;
 
     /// <summary>
@@ -11,7 +12,7 @@ namespace Aristocrat.Monaco.Application.Contracts.OperatorMenu
     ///     This event will be posted when the <c>Show()</c> method of <see cref="IOperatorMenuLauncher" />
     ///     is called and the operator menu is displayed from the hiding status.
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class OperatorMenuEnteredEvent : BaseEvent
     {
         /// <summary>
@@ -26,13 +27,22 @@ namespace Aristocrat.Monaco.Application.Contracts.OperatorMenu
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public OperatorMenuEnteredEvent() : this(string.Empty, string.Empty)
+        {
+        }
+
+        /// <summary>
         ///     Gets the Role that was assigned when entering the Operator Menu
         /// </summary>
+        [ProtoMember(1)]
         public string Role { get; }
 
         /// <summary>
         ///     Gets the ID of the operator who is entering the Operator Menu
         /// </summary>
+        [ProtoMember(2)]
         public string OperatorId { get; }
 
         /// <summary>

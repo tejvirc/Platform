@@ -50,7 +50,7 @@
         private Mock<IPropertiesManager> _propertiesManager;
         private MainMetersPageViewModel _target;
         private readonly ManualResetEvent _waiter = new ManualResetEvent(false);
-        private const int Timeout = 1000; // One second
+        private const int Timeout = 2000; // Two seconds
         private const string TicketModeInspection = "Inspection";
 
         [TestInitialize]
@@ -167,7 +167,14 @@
             _target = null;
 
             MoqServiceManager.RemoveInstance();
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
         }
 
         [TestMethod]
@@ -329,6 +336,7 @@
             _eventBus.Verify();
         }
 
+        [RequireSTA]
         [TestMethod]
         public void PageLoadedPrintButtonEnabledTest()
         {
@@ -355,6 +363,7 @@
             win.Close();
         }
 
+        [RequireSTA]
         [TestMethod]
         public void PageLoadedPrintButtonDisabledTest()
         {

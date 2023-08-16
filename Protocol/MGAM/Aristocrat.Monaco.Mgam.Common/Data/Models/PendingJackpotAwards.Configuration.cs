@@ -1,22 +1,23 @@
 ﻿namespace Aristocrat.Monaco.Mgam.Common.Data.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     Configuration for <see cref="PendingJackpotAwards"/> model.
     /// </summary>
-    public class PendingJackpotAwardsConfiguration : EntityTypeConfiguration<PendingJackpotAwards>
+    public class PendingJackpotAwardsConfiguration : IEntityTypeConfiguration<PendingJackpotAwards>
     {
         /// <summary>
         ///     Initializes an instance of the <see cref="PendingJackpotAwardsConfiguration"/> class.
         /// </summary>
-        public PendingJackpotAwardsConfiguration()
+        public void Configure(EntityTypeBuilder<PendingJackpotAwards> builder)
         {
-            ToTable(nameof(PendingJackpotAwards));
+            builder.ToTable(nameof(PendingJackpotAwards));
 
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.Awards)
+            builder.Property(t => t.Awards)
                 .IsRequired();
         }
     }

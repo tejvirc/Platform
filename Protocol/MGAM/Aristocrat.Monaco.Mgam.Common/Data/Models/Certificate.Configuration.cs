@@ -1,25 +1,26 @@
 ﻿namespace Aristocrat.Monaco.Mgam.Common.Data.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     Model configuration for a Certificate that is stored on the site-controller.
     /// </summary>
-    public class CertificateConfiguration : EntityTypeConfiguration<Certificate>
+    public class CertificateConfiguration : IEntityTypeConfiguration<Certificate>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="CertificateConfiguration"/> class.
         /// </summary>
-        public CertificateConfiguration()
+        public void Configure(EntityTypeBuilder<Certificate> builder)
         {
-            ToTable(nameof(Certificate));
+            builder.ToTable(nameof(Certificate));
 
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.Thumbprint)
+            builder.Property(t => t.Thumbprint)
                 .IsRequired();
 
-            Property(t => t.RawData)
+            builder.Property(t => t.RawData)
                 .IsRequired();
         }
     }

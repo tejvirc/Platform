@@ -1,11 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Demonstration</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
-    <PlatformTarget>x64</PlatformTarget>
+    <Platform>x64</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
@@ -14,7 +13,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Retail|AnyCPU' ">
     <DefineConstants>TRACE;CODE_ANALYSIS;RETAIL</DefineConstants>
@@ -37,6 +35,6 @@
     <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.13" />
   </ItemGroup>
 </Project>

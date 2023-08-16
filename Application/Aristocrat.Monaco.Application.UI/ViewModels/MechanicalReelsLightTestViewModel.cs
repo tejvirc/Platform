@@ -240,5 +240,10 @@
 
             return colors.ToArray();
         }
+
+        private bool HasLightId(int id)
+        {
+            return ReelLightIdNames.Any(i => i.Contains($" {id}"));
+        }
     }
 }

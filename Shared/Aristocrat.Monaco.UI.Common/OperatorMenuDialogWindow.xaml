@@ -6,6 +6,7 @@
                    xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common"
                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    xmlns:behaviors="clr-namespace:Aristocrat.Monaco.UI.Common.Behaviors"
+                   xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                    mc:Ignorable="d"
                    WindowStyle="None"
                    WindowState="Normal"
@@ -28,11 +29,11 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <i:Interaction.Behaviors>
+    <b:Interaction.Behaviors>
         <behaviors:HighDpiWindowBehavior />
-    </i:Interaction.Behaviors>
-    <Grid HorizontalAlignment="Center"
-          VerticalAlignment="Center"
+    </b:Interaction.Behaviors>
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center"
           AutomationProperties.AutomationId="Grid1_1F1A283A">
         <Border BorderBrush="{DynamicResource Brush3}"
                 BorderThickness="2"

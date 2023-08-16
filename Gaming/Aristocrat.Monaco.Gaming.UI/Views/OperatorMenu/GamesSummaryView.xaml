@@ -8,6 +8,9 @@
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+                               xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:GamesSummaryViewModel}}"
                                common:DialogParticipation.Register="{Binding}">
@@ -43,7 +46,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.GamePackHashesID}}"
+                   Content="{lex:Loc GamePackHashesID}"
                    Visibility="{Binding IsHashComponentVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                    AutomationProperties.AutomationId="Label10_6205C64E" />
             <TextBlock Grid.Row="0"
@@ -55,7 +58,7 @@
                        AutomationProperties.AutomationId="TextBlock11_6205C64E" />
             <Label Grid.Row="1"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.NumberOfGamesEnabled}}"
+                   Content="{lex:Loc NumberOfGamesEnabled}"
                    AutomationProperties.AutomationId="Label12_6205C64E" />
             <TextBlock Grid.Row="1"
                        Grid.Column="1"
@@ -65,7 +68,7 @@
                        AutomationProperties.AutomationId="TextBlock13_6205C64E" />
             <Label Grid.Row="2"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MachineTheoreticalRTPRange}}"
+                   Content="{lex:Loc MachineTheoreticalRTPRange}"
                    AutomationProperties.AutomationId="Label14_6205C64E" />
             <TextBlock Grid.Row="2"
                        Grid.Column="1"
@@ -100,71 +103,71 @@
                 <DataGridTextColumn Header="#"
                                     Binding="{Binding UniqueId}"
                                     AutomationProperties.AutomationId="DataGridTextColumn23_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameName}}"
+                <DataGridTextColumn Header="{lex:Loc GameName}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding ThemeName}"
                                     AutomationProperties.AutomationId="DataGridTextColumn24_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Version}}"
+                <DataGridTextColumn Header="{lex:Loc VersionText}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding Version}"
                                     AutomationProperties.AutomationId="DataGridTextColumn25_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PaytableId}}"
+                <DataGridTextColumn Header="{lex:Loc PaytableId}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding PaytableId}"
                                     AutomationProperties.AutomationId="DataGridTextColumn26_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}"
+                <DataGridTextColumn Header="{lex:Loc Denom}"
                                     loc:Localizer.For="Operator"
-                                    Binding="{Binding Denomination, Converter={StaticResource FormattedCurrencyConverter}}"
+                                    Binding="{Binding Denomination}"
                                     AutomationProperties.AutomationId="DataGridTextColumn27_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxBet}}"
+                <DataGridTextColumn Header="{lex:Loc MaxBet}"
                                     loc:Localizer.For="Operator"
-                                    Binding="{Binding MaximumWagerCredits, Converter={StaticResource FormattedCurrencyConverter}}"
+                                    Binding="{Binding MaximumWagerCredits}"
                                     AutomationProperties.AutomationId="DataGridTextColumn28_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TopAward}}"
+                <DataGridTextColumn Header="{lex:Loc TopAward}"
                                     loc:Localizer.For="Operator"
-                                    Binding="{Binding TopAward, Converter={StaticResource FormattedCurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
+                                    Binding="{Binding TopAward, Converter={StaticResource CurrencyConverter}, ConverterParameter=ZeroNotAvailable, Mode=OneWay}"
                                     AutomationProperties.AutomationId="DataGridTextColumn29_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameRTP}}"
+                <DataGridTextColumn Header="{lex:Loc BaseGameRTP}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding BaseGameRTP}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn30_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameRTPMin}}"
+                <DataGridTextColumn Header="{lex:Loc BaseGameRTPMin}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding BaseGameRTPMin}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn31_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BaseGameRTPMax}}"
+                <DataGridTextColumn Header="{lex:Loc BaseGameRTPMax}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding BaseGameRTPMax}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn32_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveResetRTP}}"
+                <DataGridTextColumn Header="{lex:Loc ProgressiveResetRTP}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding ProgressiveResetRTP}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTemplateColumn33_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveResetRTPMin}}"
+                <DataGridTextColumn Header="{lex:Loc ProgressiveResetRTPMin}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding ProgressiveResetRTPMin}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTemplateColumn36_6205C64E"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveResetRTPMax}}"
+                <DataGridTextColumn Header="{lex:Loc ProgressiveResetRTPMax}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding ProgressiveResetRTPMax}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTemplateColumn39_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveIncrementRTP}}"
+                <DataGridTextColumn Header="{lex:Loc ProgressiveIncrementRTP}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding ProgressiveIncrementRTP}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpAsRange), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTemplateColumn42_6205C64E"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveIncrementRTPMin}}"
+                <DataGridTextColumn Header="{lex:Loc ProgressiveIncrementRTPMin}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding ProgressiveIncrementRTPMin}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTemplateColumn45_6205C64E"/>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveIncrementRTPMax}}"
+                <DataGridTextColumn Header="{lex:Loc ProgressiveIncrementRTPMax}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding ProgressiveIncrementRTPMax}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowProgressiveRtpSeparately), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
@@ -175,7 +178,7 @@
                     <DataGridTextColumn.HeaderTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal" AutomationProperties.AutomationId="StackPanel52_6205C64E">
-                                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTP}}"
+                                <TextBlock Text="{lex:Loc TotalGameRTP}"
                                            loc:Localizer.For="Operator"
                                            TextWrapping="Wrap"
                                            AutomationProperties.AutomationId="TextBlock53_6205C64E" />
@@ -186,23 +189,21 @@
                                         AutomationProperties.AutomationId="Button54_6205C64E">
                                     <Button.CommandParameter>
                                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                                            <Binding ElementName="InfoButton" />
-                                            <Binding ElementName="TotalJurisdictionRtpProxy" Path="Result" />
+                                            <Binding ElementName="InfoButton"/>
+                                            <Binding Source="{lex:Loc TotalJurisdictionalRtpInfoButtonText}"/>
                                         </MultiBinding>
                                     </Button.CommandParameter>
-                                    <lex:LocProxy x:Name="TotalJurisdictionRtpProxy" Source="{x:Static loc:ResourceKeys.TotalJurisdictionalRtpInfoButtonText}" />
                                 </Button>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTPMin}}"
-                                    loc:Localizer.For="Operator"
+
+                <DataGridTextColumn Header="{lex:Loc TotalGameRTPMin}"
                                     Binding="{Binding TotalJurisdictionalRTPMin}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn55_6205C64E" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTPMax}}"
-                                    loc:Localizer.For="Operator"
+                <DataGridTextColumn Header="{lex:Loc TotalGameRTPMax}"
                                     Binding="{Binding TotalJurisdictionalRTPMax}"
                                     Visibility="{Binding Path=Data.(viewModels:GamesSummaryViewModel.ShowGameRtpAsRange), Converter={StaticResource TrueHiddenFalseVisible}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn56_6205C64E" />
@@ -217,18 +218,16 @@
                                         AutomationProperties.AutomationId="Button59_6205C64E">
                                     <Button.CommandParameter>
                                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                                            <Binding ElementName="InfoButton" />
-                                            <Binding ElementName="TotalJurisdictionRtpProxy" Path="Result" />
+                                            <Binding ElementName="InfoButton"/>
+                                            <Binding Source="{lex:Loc TotalJurisdictionalRtpInfoButtonText}"/>
                                         </MultiBinding>
                                     </Button.CommandParameter>
-                                    <lex:LocProxy x:Name="TotalJurisdictionRtpProxy" Source="{x:Static loc:ResourceKeys.TotalJurisdictionalRtpInfoButtonText}" />
                                 </Button>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTextColumn.HeaderTemplate>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RuntimeVersion}}"
-                                    loc:Localizer.For="Operator"
+                <DataGridTextColumn Header="{lex:Loc RuntimeVersion}"
                                     Binding="{Binding RuntimeVersion}"
                                     AutomationProperties.AutomationId="DataGridTextColumn60_6205C64E" />
             </DataGrid.Columns>

@@ -2,8 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.SqlClient;
-    using System.Data.SQLite;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
@@ -14,6 +12,7 @@
     using Contracts.Persistence;
     using Kernel;
     using log4net;
+    using Microsoft.Data.Sqlite;
 
     public class SqlSecondaryStorageManager : ISecondaryStorageManager, IService
     {
@@ -177,19 +176,22 @@
 
                 File.WriteAllText(tempFile, string.Empty);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 // failed to write to secondary media.
+                Logger.Error("Failed to write to secondary drive", e);
                 return null;
             }
+
             finally
             {
                 try
                 {
                     File.Delete(tempFile);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Logger.Error("Failed to write to secondary drive", e);
                     //ignore
                 }
             }
@@ -197,19 +199,17 @@
             return mirrorPath;
         }
 
-        private static string ConnectionString(string filePath)
+        private static string ConnectionString(string filePath, string password)
         {
-            var sqlBuilder = new SqlConnectionStringBuilder
+            var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = filePath,
                 Pooling = true,
-                MaxPoolSize = int.MaxValue,
-                ConnectRetryCount = 10,
-                ConnectRetryInterval = 1,
-                ConnectTimeout = 15
+                Password = password,
+                DefaultTimeout = 15
             };
 
-            return sqlBuilder.ConnectionString + ";FailIfMissing=True;Journal Mode=WAL;Synchronous=FULL;";
+            return $"{sqlBuilder.ConnectionString};";
         }
 
         private static bool IsValidSqlFile(string filePath, string password)
@@ -227,7 +227,7 @@
                 // This command is used to verify that the SQL lite file is valid and does not have errors
                 const string verifySqlFileIsValidCommand = "PRAGMA integrity_check(1)";
                 const string successfulCommandResponse = "ok";
-                using var command = new SQLiteCommand(verifySqlFileIsValidCommand, connection);
+                using var command = new SqliteCommand(verifySqlFileIsValidCommand, connection);
                 return command.ExecuteScalar().ToString() == successfulCommandResponse;
             }
             catch (Exception e)
@@ -238,13 +238,9 @@
             }
         }
 
-        private static SQLiteConnection CreateConnection(string filePath, string password)
+        private static SqliteConnection CreateConnection(string filePath, string password)
         {
-            var connection = new SQLiteConnection(ConnectionString(filePath));
-
-            connection.SetPassword(password);
-
-            return connection;
+            return new SqliteConnection(ConnectionString(filePath, password));
         }
 
         private bool VerifySqlFiles(string sqlFile)
@@ -277,6 +273,8 @@
 
                 Logger.Debug($"Restoring to primary {primary.FullName} => {secondary.FullName}.");
 
+                SqliteConnection.ClearAllPools();
+
                 File.Copy(primary.FullName, secondary.FullName, true);
 
                 var sqliteTempFileExtensions = new[] { "-wal", "-shm", "-journal" };
@@ -284,13 +282,7 @@
                 return sqliteTempFileExtensions.All(
                     x =>
                     {
-                        var primaryTempFile = primary.FullName + x;
                         var secondaryTempFile = secondary.FullName + x;
-                        Debug.Assert(!File.Exists(primaryTempFile));
-                        if (File.Exists(primaryTempFile)) // This should never be true.
-                        {
-                            return false;
-                        }
 
                         if (File.Exists(secondaryTempFile))
                         {

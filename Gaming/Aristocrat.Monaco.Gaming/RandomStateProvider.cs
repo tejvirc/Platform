@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
+    using Aristocrat.CryptoRng;
     using Hardware.Contracts;
     using Hardware.Contracts.Persistence;
-    using PRNGLib;
 
     public class RandomStateProvider : IRandomStateProvider
     {

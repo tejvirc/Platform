@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Tests.Services
 {
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Aristocrat.G2S;
     using Data.OptionConfig;
     using G2S.Services;

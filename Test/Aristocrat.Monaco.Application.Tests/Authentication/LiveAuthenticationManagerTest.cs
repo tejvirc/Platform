@@ -11,6 +11,7 @@
     using System;
     using System.IO;
     using Test.Common;
+    using Test.Common.UnitTesting;
 
     [TestClass]
     public class LiveAuthenticationManagerTest

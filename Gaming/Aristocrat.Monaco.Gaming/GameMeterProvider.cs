@@ -7,7 +7,6 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using Application.Contracts;
-    using Application.Contracts.Extensions;
     using Application.Contracts.Metering;
     using Contracts;
     using Contracts.Meters;
@@ -24,10 +23,11 @@
 
         private const string GameMeterProviderExtensionPoint = "/Gaming/Metering/GameMeterProvider";
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private readonly object _lock = new object();
-        private readonly IGameMeterManager _meterManager;
+        private readonly object _lock = new();
+        private readonly IGameMeterManager _gamingMeterManager;
+        private readonly IGameProvider _gameProvider;
 
         private readonly char[] _operators = { '+', '-', '*', '/', '(', ')' };
 
@@ -39,21 +39,28 @@
         ///     Initializes a new instance of the <see cref="GameMeterProvider" /> class.
         /// </summary>
         /// <param name="persistentStorage">The persistent storage manager</param>
-        /// <param name="properties">The properties manager</param>
         /// <param name="meterManager">The meter manager</param>
+        /// <param name="properties">The properties manager</param>
+        /// <param name="gamingMeterManager">The gaming meter manager</param>
+        /// <param name="gameProvider">The game provider</param>
         public GameMeterProvider(
             IPersistentStorageManager persistentStorage,
-            IGameMeterManager meterManager)
-            : base(typeof(GameMeterProvider).ToString())
+            IGameMeterManager gamingMeterManager,
+            IMeterManager meterManager,
+            IPropertiesManager properties,
+            IGameProvider gameProvider)
+            : base(typeof(GameMeterProvider).ToString(), properties)
         {
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
-            _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
+            _gamingMeterManager = gamingMeterManager ?? throw new ArgumentNullException(nameof(gamingMeterManager));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
 
             RolloverTest = PropertiesManager.GetValue(@"maxmeters", "false") == "true";
 
             Initialize();
 
-            _meterManager.GameAdded += OnGameAdded;
+            meterManager.AddProvider(this);
+            _gamingMeterManager.GameAdded += OnGameAdded;
         }
 
         public void Dispose()
@@ -71,7 +78,7 @@
 
             if (disposing)
             {
-                _meterManager.GameAdded -= OnGameAdded;
+                _gamingMeterManager.GameAdded -= OnGameAdded;
             }
 
             _disposed = true;
@@ -142,15 +149,15 @@
 
                 if (meter.Group.Equals("performance", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    blockSize = _meterManager.GameCount;
+                    blockSize = _gamingMeterManager.GameCount;
                 }
                 else if (meter.Group.Equals("denomination", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    blockSize = _meterManager.DenominationCount;
+                    blockSize = _gamingMeterManager.DenominationCount;
                 }
                 else if (meter.Group.Equals("wagerCategory", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    blockSize = _meterManager.WagerCategoryCount;
+                    blockSize = _gamingMeterManager.WagerCategoryCount;
                 }
 
                 if (_persistentStorage.BlockExists(meterBlockName))
@@ -181,8 +188,7 @@
         {
             var blockName = GetType().ToString();
 
-            var games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames).OrderBy(g => g.Id).ToList();
-
+            var games = _gameProvider.GetAllGames();
             foreach (var meter in meters)
             {
                 Logger.Debug($"Adding new meter \"{meter.Name}\"");
@@ -215,7 +221,7 @@
             var gameMeters = new List<string>();
             foreach (var game in games)
             {
-                var meterName = _meterManager.GetMeterName(game.Id, meter.Name);
+                var meterName = _gamingMeterManager.GetMeterName(game.Id, meter.Name);
 
                 gameMeters.Add(meterName);
 
@@ -224,7 +230,7 @@
                     continue;
                 }
 
-                var blockIndex = _meterManager.GetBlockIndex(game.Id);
+                var blockIndex = _gamingMeterManager.GetBlockIndex(game.Id);
 
                 var lifetime = 0L;
                 var period = 0L;
@@ -266,7 +272,7 @@
                         denomMeters[denomination] = new List<string>();
                     }
 
-                    var meterName = _meterManager.GetMeterName(game.Id, denomination, meter.Name);
+                    var meterName = _gamingMeterManager.GetMeterName(game.Id, denomination, meter.Name);
 
                     denomMeters[denomination].Add(meterName);
                     betLevelMeters.Add(meterName);
@@ -276,7 +282,7 @@
                         continue;
                     }
 
-                    var index = _meterManager.GetBlockIndex(game.Id, denomination);
+                    var index = _gamingMeterManager.GetBlockIndex(game.Id, denomination);
 
                     var lifetime = 0L;
                     var period = 0L;
@@ -293,7 +299,7 @@
                     AddMeter(atomicMeter);
                 }
 
-                var compositeMeterName = _meterManager.GetMeterName(game.Id, meter.Name);
+                var compositeMeterName = _gamingMeterManager.GetMeterName(game.Id, meter.Name);
 
                 CreateSummaryMeter(compositeMeterName, meter.Classification, betLevelMeters);
                 gameMeters.Add(compositeMeterName);
@@ -301,7 +307,7 @@
 
             foreach (var denomMeter in denomMeters)
             {
-                var compositeMeterName = _meterManager.GetMeterName(denomMeter.Key, meter.Name);
+                var compositeMeterName = _gamingMeterManager.GetMeterName(denomMeter.Key, meter.Name);
                 CreateSummaryMeter(compositeMeterName, meter.Classification, denomMeter.Value);
             }
 
@@ -327,7 +333,7 @@
                             wagerMeters[wagerCategory.Id] = new List<string>();
                         }
 
-                        var meterName = _meterManager.GetMeterName(game.Id, denomination, wagerCategory.Id, meter.Name);
+                        var meterName = _gamingMeterManager.GetMeterName(game.Id, denomination, wagerCategory.Id, meter.Name);
                         if (Contains(meterName))
                         {
                             continue;
@@ -337,7 +343,7 @@
                         var period = 0L;
 
                         wagerMeters[wagerCategory.Id].Add(meterName);
-                        var index = _meterManager.GetBlockIndex(game.Id, denomination, wagerCategory.Id);
+                        var index = _gamingMeterManager.GetBlockIndex(game.Id, denomination, wagerCategory.Id);
 
                         if (currentValues.TryGetValue(index, out var current))
                         {
@@ -361,7 +367,7 @@
 
                 foreach (var wagerMeter in wagerMeters)
                 {
-                    var compositeMeterName = _meterManager.GetMeterName(game.Id, wagerMeter.Key, meter.Name);
+                    var compositeMeterName = _gamingMeterManager.GetMeterName(game.Id, wagerMeter.Key, meter.Name);
                     CreateSummaryMeter(compositeMeterName, meter.Classification, wagerMeter.Value);
                 }
             }
@@ -369,7 +375,7 @@
 
         private void AddCompositeMeters(IReadOnlyCollection<GameCompositeMeterNode> compositeMeterNodes)
         {
-            var games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames).OrderBy(g => g.Id).ToList();
+            var games = _gameProvider.GetAllGames();
             AddTheoreticalPaybackMeter(games);
 
             // This will temporarily allow us to avoid using the Flee library for calculating simple sums of meters (the majority)
@@ -408,9 +414,9 @@
             foreach (var game in games)
             {
                 CreateSummaryMeter(
-                    _meterManager.GetMeterName(game.Id, meter.Name),
+                    _gamingMeterManager.GetMeterName(game.Id, meter.Name),
                     meter.Classification,
-                    meters.Select(symbol => _meterManager.GetMeterName(game.Id, symbol)).ToList());
+                    meters.Select(symbol => _gamingMeterManager.GetMeterName(game.Id, symbol)).ToList());
             }
 
             // Creates the summary composite meter
@@ -434,30 +440,30 @@
                         denomMeters[denomination] = new List<IMeter>();
                     }
 
-                    var gameDenomMeterName = _meterManager.GetMeterName(game.Id, denomination, meter.Name);
+                    var gameDenomMeterName = _gamingMeterManager.GetMeterName(game.Id, denomination, meter.Name);
 
                     var denomMeter = CreateSummaryMeter(
                         gameDenomMeterName,
                         meter.Classification,
-                        meters.Select(symbol => _meterManager.GetMeterName(game.Id, denomination, symbol)).ToList());
+                        meters.Select(symbol => _gamingMeterManager.GetMeterName(game.Id, denomination, symbol)).ToList());
 
                     denomMeters[denomination].Add(denomMeter);
                 }
 
                 // Create a composite game summary meter
                 CreateSummaryMeter(
-                    _meterManager.GetMeterName(game.Id, meter.Name),
+                    _gamingMeterManager.GetMeterName(game.Id, meter.Name),
                     meter.Classification,
-                    meters.Select(symbol => _meterManager.GetMeterName(game.Id, symbol)).ToList());
+                    meters.Select(symbol => _gamingMeterManager.GetMeterName(game.Id, symbol)).ToList());
             }
 
             // Create a composite denomination summary meter
             foreach (var denomMeter in denomMeters)
             {
                 CreateSummaryMeter(
-                    _meterManager.GetMeterName(denomMeter.Key, meter.Name),
+                    _gamingMeterManager.GetMeterName(denomMeter.Key, meter.Name),
                     meter.Classification,
-                    meters.Select(symbol => _meterManager.GetMeterName(denomMeter.Key, symbol)).ToList());
+                    meters.Select(symbol => _gamingMeterManager.GetMeterName(denomMeter.Key, symbol)).ToList());
             }
 
             CreateSummaryMeter(
@@ -472,7 +478,7 @@
                 classification == "Percentage"
                     ? new CompositeMeter(name, BuildPercentMeterExpression(meters), meters, new PercentageMeterClassification())
                     : new CompositeMeter(name, BuildGameMeterExpression(meters), meters, classification));
-        }   
+        }
 
         private static IEnumerable<string> FormatGameMeterList(IEnumerable<string> symbols)
         {
@@ -484,7 +490,7 @@
         {
             foreach (var game in games)
             {
-                var meterName = _meterManager.GetMeterName(game.Id, meter.Name);
+                var meterName = _gamingMeterManager.GetMeterName(game.Id, meter.Name);
 
                 var expression = FormatConfiguredExpression(
                     new StringBuilder(meter.Expression),
@@ -510,7 +516,7 @@
                         denomMeters[denomination] = new List<string>();
                     }
 
-                    var meterName = _meterManager.GetMeterName(game.Id, denomination, meter.Name);
+                    var meterName = _gamingMeterManager.GetMeterName(game.Id, denomination, meter.Name);
                     denomMeters[denomination].Add(meterName);
 
                     var expression = FormatConfiguredExpression(
@@ -523,7 +529,7 @@
                 }
 
                 // Create a composite game summary meter
-                var compositeGameMeterName = _meterManager.GetMeterName(game.Id, meter.Name);
+                var compositeGameMeterName = _gamingMeterManager.GetMeterName(game.Id, meter.Name);
                 var compositeGameExpression = FormatConfiguredExpression(
                     new StringBuilder(meter.Expression),
                     meter.Expression.Split(_operators),
@@ -535,7 +541,7 @@
             // Create a composite denomination summary meter
             foreach (var denomMeter in denomMeters)
             {
-                var meterName = _meterManager.GetMeterName(denomMeter.Key, meter.Name);
+                var meterName = _gamingMeterManager.GetMeterName(denomMeter.Key, meter.Name);
                 var compositeDenomExpression = FormatConfiguredExpression(
                     new StringBuilder(meter.Expression),
                     meter.Expression.Split(_operators),
@@ -561,7 +567,7 @@
                             new List<(int gameId, long denom, string wagerCategory, decimal theoPaybackPercent)>());
                     }
 
-                    var meterName = _meterManager.GetMeterName(game.Id, denomination, GamingMeters.TheoPayback);
+                    var meterName = _gamingMeterManager.GetMeterName(game.Id, denomination, GamingMeters.TheoPayback);
 
                     var gameInfo = game.WagerCategories.Select(x => (game.Id, denomination, x.Id, x.TheoPaybackPercent))
                         .ToList();
@@ -569,7 +575,7 @@
                     denomMeters[denomination].AddRange(gameInfo);
                 }
 
-                var compositeMeterName = _meterManager.GetMeterName(game.Id, GamingMeters.TheoPayback);
+                var compositeMeterName = _gamingMeterManager.GetMeterName(game.Id, GamingMeters.TheoPayback);
                 CreateTheoreticalPaybackMeter(
                     compositeMeterName,
                     game.SupportedDenominations.SelectMany(
@@ -578,7 +584,7 @@
 
             foreach (var denomMeter in denomMeters)
             {
-                var compositeMeterName = _meterManager.GetMeterName(denomMeter.Key, GamingMeters.TheoPayback);
+                var compositeMeterName = _gamingMeterManager.GetMeterName(denomMeter.Key, GamingMeters.TheoPayback);
                 CreateTheoreticalPaybackMeter(compositeMeterName, denomMeter.Value);
             }
 
@@ -597,14 +603,14 @@
                     (timeFrame) => (long)Math.Round(
                         gameInfo.Sum(
                             x =>
-                                _meterManager.GetMeter(
+                                _gamingMeterManager.GetMeter(
                                     x.gameId,
                                     x.denom,
                                     x.wagerCategory,
                                     GamingMeters.WagerCategoryWageredAmount).GetValue(timeFrame) *
                                 x.theoPaybackPercent.ToDecimal())),
                     gameInfo.Select(
-                        x => _meterManager.GetMeterName(
+                        x => _gamingMeterManager.GetMeterName(
                             x.gameId,
                             x.denom,
                             x.wagerCategory,
@@ -647,7 +653,7 @@
                 }
 
                 var regex = new Regex(@"\b" + originalSymbol + @"\b");
-                expression = regex.Replace(expression, _meterManager.GetMeterName(gameId, originalSymbol), 1);
+                expression = regex.Replace(expression, _gamingMeterManager.GetMeterName(gameId, originalSymbol), 1);
             }
 
             return expression;
@@ -670,7 +676,7 @@
                 }
 
                 var regex = new Regex(@"\b" + originalSymbol + @"\b");
-                expression = regex.Replace(expression, _meterManager.GetMeterName(denomination, originalSymbol), 1);
+                expression = regex.Replace(expression, _gamingMeterManager.GetMeterName(denomination, originalSymbol), 1);
             }
 
             return expression;
@@ -696,7 +702,7 @@
                 var regex = new Regex(@"\b" + originalSymbol + @"\b");
                 expression = regex.Replace(
                     expression,
-                    _meterManager.GetMeterName(gameId, denomination, originalSymbol),
+                    _gamingMeterManager.GetMeterName(gameId, denomination, originalSymbol),
                     1);
             }
 

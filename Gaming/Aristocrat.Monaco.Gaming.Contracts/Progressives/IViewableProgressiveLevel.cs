@@ -1,10 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Progressives
 {
+    using ProtoBuf;
     using System.Collections.Generic;
 
     /// <summary>
     ///     Provides a read-only view of a <see cref="ProgressiveLevel" />
     /// </summary>
+    [ProtoContract]
+    [ProtoInclude(3, typeof(ProgressiveLevel))]
     public interface IViewableProgressiveLevel
     {
         /// <summary>

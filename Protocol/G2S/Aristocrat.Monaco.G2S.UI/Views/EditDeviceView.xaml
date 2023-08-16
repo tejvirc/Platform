@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                mc:Ignorable="d"
@@ -39,7 +41,7 @@
                            AutomationProperties.AutomationId="RowDefinition9_CC526D56" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewDeviceCaption}}"
+               Content="{lex:Loc DeviceManagerEditDeviceViewDeviceCaption}"
                VerticalAlignment="Stretch"
                AutomationProperties.AutomationId="Label10_CC526D56" />
         <TextBox Grid.Row="1"
@@ -50,7 +52,7 @@
                  AutomationProperties.AutomationId="TextBox11_CC526D56" />
         <Label Margin="0 15 0 0"
                Grid.Row="2"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewDeviceIdCaption}}"
+               Content="{lex:Loc DeviceManagerEditDeviceViewDeviceIdCaption}"
                VerticalAlignment="Stretch"
                AutomationProperties.AutomationId="Label12_CC526D56" />
         <TextBox Grid.Row="3"
@@ -61,7 +63,7 @@
                  AutomationProperties.AutomationId="TextBox13_CC526D56" />
         <Label Margin="0 15 0 0"
                Grid.Row="4"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewOwnerIdCaption}}"
+               Content="{lex:Loc DeviceManagerEditDeviceViewOwnerIdCaption}"
                VerticalAlignment="Stretch"
                AutomationProperties.AutomationId="Label14_CC526D56" />
         <ComboBox Grid.Row="5"
@@ -73,13 +75,13 @@
                   HorizontalAlignment="Left"
                   IsEnabled="False"
                   IsChecked="{Binding Enabled, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}"
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewEnabledCaption}}"
+                  Content="{lex:Loc DeviceManagerEditDeviceViewEnabledCaption}"
                   AutomationProperties.AutomationId="CheckBox16_CC526D56" />
         <CheckBox Grid.Row="7"
                   Margin="0 15 0 0"
                   HorizontalAlignment="Left"
                   IsChecked="{Binding Active}"
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewActiveCaption}}"
+                  Content="{lex:Loc DeviceManagerEditDeviceViewActiveCaption}"
                   AutomationProperties.AutomationId="CheckBox17_CC526D56" />
         <Label Grid.Row="8"
                Margin="10 0 0 0"

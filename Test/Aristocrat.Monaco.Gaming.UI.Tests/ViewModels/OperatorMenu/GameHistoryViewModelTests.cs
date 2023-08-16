@@ -5,6 +5,7 @@
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Application.Contracts;
     using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
+    using Aristocrat.Monaco.Common.Container;
     using Aristocrat.Monaco.Gaming.Contracts.Central;
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Gaming.Contracts.Meters;
@@ -87,6 +88,8 @@
             MockLocalization.Setup(MockBehavior.Strict);
 
             _container = new Container();
+            _container.AddResolveUnregisteredType(typeof(GameHistoryViewModelTests).FullName);
+            
             _container.Register(() => _gameDiagnostics.Object, Lifestyle.Singleton);
             _container.Register(() => _gameHistory.Object, Lifestyle.Singleton);
             _container.Register(() => _gameRecovery.Object, Lifestyle.Singleton);
@@ -102,7 +105,7 @@
             _container.Register(() => _protocolLinkedProgressiveAdapter.Object, Lifestyle.Singleton);
             _container.Register(() => _disableManager.Object, Lifestyle.Singleton);
             _container.Register(() => _gameRoundMeterSnapshotProvider.Object, Lifestyle.Singleton);
-
+            
             _containerService.Setup(m => m.Container).Returns(_container);
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.MeterFreeGamesIndependently, false)).Returns(false);
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.ReplayPauseActive, true)).Returns(true);

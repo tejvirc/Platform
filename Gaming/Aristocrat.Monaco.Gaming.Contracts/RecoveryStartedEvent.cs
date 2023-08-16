@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Raised when recovery starts.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class RecoveryStartedEvent : BaseEvent
     {
     }

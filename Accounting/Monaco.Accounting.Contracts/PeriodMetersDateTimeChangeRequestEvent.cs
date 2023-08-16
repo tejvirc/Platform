@@ -2,6 +2,7 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Event emitted when one of the meters' sub pages request to change the displayed periodic meter
@@ -11,9 +12,16 @@
     ///     This event is only required when the periodic clear date for a set of meters can potentially differ from 
     ///     the periodic clear date provided by IMeterManager.
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class PeriodMetersDateTimeChangeRequestEvent : BaseEvent
     {
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public PeriodMetersDateTimeChangeRequestEvent()
+        {
+        }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -26,9 +34,11 @@
         }
 
         /// <summary>PageName</summary>
+        [ProtoMember(1)]
         public string PageName { get; }
 
         /// <summary>PeriodicClearDateTime</summary>
+        [ProtoMember(2)]
         public DateTime PeriodicClearDateTime { get; }
     }
 }

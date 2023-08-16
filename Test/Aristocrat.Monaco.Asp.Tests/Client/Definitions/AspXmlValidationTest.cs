@@ -67,7 +67,9 @@
                     }
                 }
 
-                var xmlSerializer = new XmlSerializer(typeof(Devices));
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(Devices))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var xmlSerializer = new XmlSerializer(typeof(Devices), theXmlRootAttribute ?? new XmlRootAttribute(nameof(Devices)));
                 using (Stream stream = aspAssembly.GetManifestResourceStream(resourceName))
                 {
                     using (XmlReader reader = XmlReader.Create(stream))

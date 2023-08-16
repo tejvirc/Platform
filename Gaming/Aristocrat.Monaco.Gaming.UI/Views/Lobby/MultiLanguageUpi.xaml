@@ -21,11 +21,9 @@
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary
-                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:IntToBoolConverter x:Key="IntToBool" />
@@ -133,7 +131,7 @@
             <RadioButton Style="{StaticResource stlFlatToggleButton}"
                          Margin="0 0 12 0"
                          Command="{Binding Path=DenomFilterPressedCommand}"
-                         IsChecked="{Binding DenomFilter,                                     Converter={StaticResource IntToBool},                                      ConverterParameter={StaticResource AllDenom}}"
+                         IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource AllDenom}}"
                          AutomationProperties.AutomationId="RadioButton16_6CF61223">
                 <RadioButton.Template>
                     <ControlTemplate TargetType="ToggleButton">
@@ -155,7 +153,7 @@
             <RadioButton Style="{StaticResource stlFlatToggleButton}"
                          Margin="0 0 12 0"
                          Command="{Binding Path=DenomFilterPressedCommand}"
-                         IsChecked="{Binding DenomFilter,                                     Converter={StaticResource IntToBool},                                      ConverterParameter={StaticResource DenomA}}"
+                         IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomA}}"
                          AutomationProperties.AutomationId="RadioButton19_6CF61223">
                 <RadioButton.Template>
                     <ControlTemplate TargetType="ToggleButton">
@@ -177,7 +175,7 @@
             <RadioButton Style="{StaticResource stlFlatToggleButton}"
                          Command="{Binding Path=DenomFilterPressedCommand}"
                          Margin="0 0 12 0"
-                         IsChecked="{Binding DenomFilter,                                     Converter={StaticResource IntToBool},                                      ConverterParameter={StaticResource DenomB}}"
+                         IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomB}}"
                          AutomationProperties.AutomationId="RadioButton22_6CF61223">
                 <RadioButton.Template>
                     <ControlTemplate TargetType="ToggleButton">
@@ -198,7 +196,7 @@
             </RadioButton>
             <RadioButton Style="{StaticResource stlFlatToggleButton}"
                          Command="{Binding Path=DenomFilterPressedCommand}"
-                         IsChecked="{Binding DenomFilter,                                     Converter={StaticResource IntToBool},                                      ConverterParameter={StaticResource DenomC}}"
+                         IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomC}}"
                          AutomationProperties.AutomationId="RadioButton25_6CF61223">
                 <RadioButton.Template>
                     <ControlTemplate TargetType="ToggleButton">

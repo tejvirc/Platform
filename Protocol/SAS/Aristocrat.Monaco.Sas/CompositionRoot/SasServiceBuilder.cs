@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Sas.CompositionRoot
 {
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;

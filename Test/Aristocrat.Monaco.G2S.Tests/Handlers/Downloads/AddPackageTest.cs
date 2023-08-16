@@ -11,6 +11,7 @@
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
     using Aristocrat.Monaco.Protocol.Common.Installer;
+    using Aristocrat.Monaco.Test.Common.UnitTesting;
     using Common.PackageManager;
     using Common.PackageManager.CommandHandlers;
     using Common.PackageManager.Storage;

@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.CompositionRoot
 {
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Protocol.Common.Storage;
     using Protocol.Common.Storage.Entity;
     using Protocol.Common.Storage.Repositories;

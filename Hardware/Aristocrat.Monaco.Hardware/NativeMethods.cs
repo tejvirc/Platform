@@ -147,9 +147,6 @@ namespace Aristocrat.Monaco.Hardware
             return true;
         }
 
-        [DllImport("System.Data.SQLite.dll", CharSet = CharSet.Unicode)]
-        internal static extern void set_mirror_dir(string dir);
-
         #region TouchInjection
 
         /// <summary>
@@ -261,7 +258,7 @@ namespace Aristocrat.Monaco.Hardware
             /// <summary>
             ///     Indicates that this pointer continues to exist.
             /// </summary>
-            /// <remarks>When this flag is not set, it indicates the pointer has left detection range. 
+            /// <remarks>When this flag is not set, it indicates the pointer has left detection range.
             /// This flag is typically not set when a hovering pointer leaves detection range (PointerFlag.UPDATE is set)
             /// or when a pointer in contact with a window surface leaves detection range (PointerFlag.UP is set). </remarks>
             INRANGE = 0x00000002,
@@ -291,8 +288,8 @@ namespace Aristocrat.Monaco.Hardware
             /// <summary>
             ///     Indicates a secondary action, analogous to a mouse middle button down.
             /// </summary>
-            /// <remarks>A touch pointer does not use this flag. 
-            /// A pen pointer does not use this flag. 
+            /// <remarks>A touch pointer does not use this flag.
+            /// A pen pointer does not use this flag.
             /// A mouse pointer has this flag set when the mouse middle button is down.</remarks>
             THIRDBUTTON = 0x00000040,
 
@@ -379,7 +376,7 @@ namespace Aristocrat.Monaco.Hardware
         public enum PointerInputType
         {
             /// <summary>
-            ///     Generic pointer type. This type never appears in pointer messages or pointer data. 
+            ///     Generic pointer type. This type never appears in pointer messages or pointer data.
             /// </summary>
             /// <remarks>Some data query functions allow the caller to restrict the query to specific pointer type.
             /// The PT_POINTER type can be used in these functions to specify that the query is to include pointers
@@ -483,7 +480,7 @@ namespace Aristocrat.Monaco.Hardware
             public uint HistoryCount;
 
             /// <summary>
-            ///     A value whose meaning depends on the nature of input. 
+            ///     A value whose meaning depends on the nature of input.
             /// </summary>
             /// <remarks>When flags indicate PointerFlag.WHEEL, this value indicates the distance the wheel is rotated,
             /// expressed in multiples or factors of WHEEL_DELTA.  A positive value indicates that the wheel was rotated
@@ -497,7 +494,7 @@ namespace Aristocrat.Monaco.Hardware
             ///     Indicates which keyboard modifier keys were pressed at the time the input was generated.
             /// </summary>
             /// <remarks>May be zero or a combination of the following values.
-            /// POINTER_MOD_SHIFT – A SHIFT key was pressed. 
+            /// POINTER_MOD_SHIFT – A SHIFT key was pressed.
             /// POINTER_MOD_CTRL – A CTRL key was pressed.</remarks>
             public uint KeyStates;
 
@@ -553,7 +550,7 @@ namespace Aristocrat.Monaco.Hardware
             public TouchMask TouchMasks;
 
             /// <summary>
-            ///     Pointer contact area in pixel screen coordinates. 
+            ///     Pointer contact area in pixel screen coordinates.
             /// </summary>
             public ContactArea ContactArea;
 
@@ -565,7 +562,7 @@ namespace Aristocrat.Monaco.Hardware
             public ContactArea ContactAreaRaw;
 
             /// <summary>
-            ///     A pointer orientation, with a value between 0 and 359, where 0 indicates a touch pointer 
+            ///     A pointer orientation, with a value between 0 and 359, where 0 indicates a touch pointer
             /// aligned with the x-axis and pointing from left to right; increasing values indicate degrees
             /// of rotation in the clockwise direction.
             /// </summary>

@@ -6,7 +6,7 @@
     using Protocol.Common.Storage;
 
     /// <summary>
-    ///     
+    ///
     /// </summary>
     public class DefaultConnectionStringResolver : IConnectionStringResolver
     {
@@ -27,7 +27,7 @@
         private const string DatabasePassword = @"tk7tjBLQ8GpySFNZTHYD";
 
         /// <summary>
-        ///     
+        ///
         /// </summary>
         /// <param name="pathMapper"></param>
         public DefaultConnectionStringResolver(IPathMapper pathMapper)

@@ -164,7 +164,7 @@
                 return;
             }
 
-            var basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) ?? "";
+            var basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "";
 
             var tilePath = Path.Combine(new[] { basePath, ResourcesDirName, HorseNumberImagesDirName });
 
@@ -248,7 +248,7 @@
         /// <returns>A bitmap image</returns>
         public static BitmapImage GetBitMapImage(string resourcePath)
         {
-            var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase) ?? "";
+            var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "";
             var imagePath = Path.Combine(outPutDirectory, resourcePath);
             var imageLocalPath = new Uri(imagePath).LocalPath;
 

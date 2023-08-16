@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Progressives
 {
-    using System;
+    using ProtoBuf;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -8,30 +8,31 @@
     ///     The fundamental data structure for a progressive level defined by a game. <see cref="IProgressiveLevelProvider" />
     ///     will manage all progressive levels for all games.
     /// </summary>
-    [Serializable]
-#if DEBUG
-    [DebuggerDisplay("{nameof(ProgressiveLevel),nq} D:{DeviceId} T:{LevelType} P:{ProgressivePackName,nq} G:{GameId} L:{LevelId}-{LevelName,nq} V:{CurrentValue/100000.0}")]
-#endif
+    [ProtoContract]
     public class ProgressiveLevel : IViewableProgressiveLevel
     {
         /// <summary>
         ///     Gets or sets the device identifier of the progressive.  This Id is guaranteed to be unique for each unique game and progressive pack
         /// </summary>
+        [ProtoMember(1)]
         public int DeviceId { get; set; }
 
         /// <summary>
         ///     Gets or sets the progressive pack name. This is not necessarily unique.
         /// </summary>
+        [ProtoMember(2)]
         public string ProgressivePackName { get; set; }
 
         /// <summary>
         ///     Gets or sets the progressive pack id. This is not necessarily unique across games.
         /// </summary>
+        [ProtoMember(3)]
         public int ProgressivePackId { get; set; }
 
         /// <summary>
         ///     Gets or sets the progressive id. This is not necessarily unique across games.
         /// </summary>
+        [ProtoMember(4)]
         public int ProgressiveId { get; set; }
 
         /// <summary>
@@ -42,46 +43,55 @@
         ///     If more than one denom is specified what should the startup value be if "cr" is specified in the config?
         ///     Should we always assume currency values locally?
         /// </summary>
+        [ProtoMember(5)]
         public IEnumerable<long> Denomination { get; set; }
 
         /// <summary>
         ///     Gets or sets the bet option name (if any) associated with this progressive level
         /// </summary>
+        [ProtoMember(6)]
         public string BetOption { get; set; }
 
         /// <summary>
         ///     Gets or sets the variation associated with this progressive level
         /// </summary>
+        [ProtoMember(7)]
         public string Variation { get; set; }
 
         /// <summary>
         ///     Gets or sets the RTP of the progressive pack associated with this progressive level
         /// </summary>
+        [ProtoMember(8)]
         public ProgressiveRtp ProgressivePackRtp { get; set; }
 
         /// <summary>
         ///     Gets or sets the progressive level type associated with this level.
         /// </summary>
+        [ProtoMember(9)]
         public ProgressiveLevelType LevelType { get; set; }
 
         /// <summary>
         ///     Gets or sets the progressive funding type associated with this level.
         /// </summary>
+        [ProtoMember(10)]
         public SapFundingType FundingType { get; set; }
 
         /// <summary>
         ///     Gets or sets the id for the progressive level. This should be unique within a progressive pack.
         /// </summary>
+        [ProtoMember(11)]
         public int LevelId { get; set; }
 
         /// <summary>
         ///     Gets or sets the name of the progressive level.
         /// </summary>
+        [ProtoMember(12)]
         public string LevelName { get; set; }
 
         /// <summary>
         ///     Gets or sets the increment rate for this progressive level.
         /// </summary>
+        [ProtoMember(13)]
         public long IncrementRate { get; set; }
 
         /// <summary>
@@ -93,42 +103,50 @@
         ///     Gets or sets the hidden increment rate for this progressive level. It is for incrementing the hidden pool
         ///     which will be added to the start-up value after JP hit and reset
         /// </summary>
+        [ProtoMember(14)]
         public long HiddenIncrementRate { get; set; }
 
         /// <summary>
         ///     The total value of the hidden pool (in millicents) which will be added after JP hit and reset
         /// </summary>
+        [ProtoMember(15)]
         public long HiddenValue { get; set; }
 
         /// <summary>
         ///     Gets or sets the probability for the level to be hit. Optional for linked progressives. This is the theoretical
         ///     probability for a 1c bet to trigger a hit on the progressive level
         /// </summary>
+        [ProtoMember(16)]
         public long Probability { get; set; }
 
         /// <summary>
         ///     Gets or sets the maximum value (Ceiling)
         /// </summary>
+        [ProtoMember(17)]
         public long MaximumValue { get; set; }
 
         /// <summary>
         ///     Gets or sets the reset value. This is also the minimum value of the progressive level.
         /// </summary>
+        [ProtoMember(18)]
         public long ResetValue { get; set; }
 
         /// <summary>
         ///     Gets or sets the return to player value for a given progressive level.
         /// </summary>
+        [ProtoMember(19)]
         public long LevelRtp { get; set; }
 
         /// <summary>
         ///     Gets or set the Line Group ID required for Line-Based funding.
         /// </summary>
+        [ProtoMember(20)]
         public int LineGroup { get; set; }
 
         /// <summary>
         ///     Gets or sets the allowTruncation value indicating whether it is a platinum jackpot level (allowTruncation)
         /// </summary>
+        [ProtoMember(21)]
         public bool AllowTruncation { get; set; }
 
         /// <summary>
@@ -137,66 +155,80 @@
         ///     about this value because the game will always perform this calculation. Turnover games can be both linked and
         ///     standalone.
         /// </summary>
+        [ProtoMember(22)]
         public long Turnover { get; set; }
 
         /// <summary>
         ///     Gets or sets what kind of trigger will be used for the progressive level.
         /// </summary>
+        [ProtoMember(23)]
         public TriggerType TriggerControl { get; set; }
 
         /// <summary>
         ///     Gets or sets the current state of the progressive level
         /// </summary>
+        [ProtoMember(24)]
         public ProgressiveLevelState CurrentState { get; set; }
 
         /// <summary>
         ///     Gets or sets the errors associated with this progressive level
         /// </summary>
+        [ProtoMember(25)]
         public ProgressiveErrors Errors { get; set; }
 
         /// <summary>
         ///     Gets or sets the current value of the progressive level
         /// </summary>
+        [ProtoMember(26)]
         public long CurrentValue { get; set; }
 
         /// <summary>
         ///     Gets or sets the initial value of the progressive level
         /// </summary>
+        [ProtoMember(27)]
         public long InitialValue { get; set; }
 
         /// <summary>
         ///     Gets or sets the current value of the overflow amount
         /// </summary>
+        [ProtoMember(28)]
         public long Overflow { get; set; }
 
         /// <summary>
         ///     The total accumulated value of the overflow amounts over the life of the machine (in millicents)
         /// </summary>
+        [ProtoMember(29)]
         public long OverflowTotal { get; set; }
 
         /// <summary>
         ///     Gets or sets the current residual
         /// </summary>
+        [ProtoMember(30)]
         public long Residual { get; set; }
 
         /// <summary>
         ///     Gets or sets the assigned progressive id.
         /// </summary>
+        [ProtoMember(31)]
         public AssignableProgressiveId AssignedProgressiveId { get; set; }
 
         /// <summary>
         ///     Gets or sets the game id associated with the progressive level. This should always match 1-1 with what is defined
         ///     in <see cref="IGameDetail" />
         /// </summary>
+        [ProtoMember(32)]
         public int GameId { get; set; }
 
         /// <inheritdoc />
+        [ProtoMember(33)]
         public bool CanEdit { get; set; }
 
         /// <inheritdoc />
+        [ProtoMember(34)]
         public LevelCreationType CreationType { get; set; }
 
         /// <inheritdoc />
+        [ProtoMember(35)]
         public long WagerCredits { get; set; }
     }
 

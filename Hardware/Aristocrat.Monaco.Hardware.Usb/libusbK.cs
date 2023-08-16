@@ -417,19 +417,19 @@ namespace Aristocrat.Monaco.Hardware.Usb
 
     public struct KLstDevInfoHandle : IKlibHandle
     {
-        private static readonly int OfsClassGuid = Marshal.OffsetOf(typeof (KLstDevinfo), "ClassGUID").ToInt32();
-        private static readonly int OfsCommon = Marshal.OffsetOf(typeof (KLstDevinfo), "Common").ToInt32();
-        private static readonly int OfsConnected = Marshal.OffsetOf(typeof (KLstDevinfo), "Connected").ToInt32();
-        private static readonly int OfsDeviceDesc = Marshal.OffsetOf(typeof (KLstDevinfo), "DeviceDesc").ToInt32();
-        private static readonly int OfsDeviceInterfaceGuid = Marshal.OffsetOf(typeof (KLstDevinfo), "DeviceInterfaceGUID").ToInt32();
-        private static readonly int OfsDevicePath = Marshal.OffsetOf(typeof (KLstDevinfo), "DevicePath").ToInt32();
-        private static readonly int OfsDriverId = Marshal.OffsetOf(typeof (KLstDevinfo), "DriverID").ToInt32();
-        private static readonly int OfsInstanceId = Marshal.OffsetOf(typeof (KLstDevinfo), "InstanceID").ToInt32();
-        private static readonly int OfsLUsb0FilterIndex = Marshal.OffsetOf(typeof (KLstDevinfo), "LUsb0FilterIndex").ToInt32();
-        private static readonly int OfsMfg = Marshal.OffsetOf(typeof (KLstDevinfo), "Mfg").ToInt32();
-        private static readonly int OfsService = Marshal.OffsetOf(typeof (KLstDevinfo), "Service").ToInt32();
-        private static readonly int OfsSymbolicLink = Marshal.OffsetOf(typeof (KLstDevinfo), "SymbolicLink").ToInt32();
-        private static readonly int OfsSyncFlags = Marshal.OffsetOf(typeof (KLstDevinfo), "SyncFlags").ToInt32();
+        private static readonly int OfsClassGuid = Marshal.OffsetOf(typeof(KLstDevinfo), "ClassGUID").ToInt32();
+        private static readonly int OfsCommon = Marshal.OffsetOf(typeof(KLstDevinfo), "Common").ToInt32();
+        private static readonly int OfsConnected = Marshal.OffsetOf(typeof(KLstDevinfo), "Connected").ToInt32();
+        private static readonly int OfsDeviceDesc = Marshal.OffsetOf(typeof(KLstDevinfo), "DeviceDesc").ToInt32();
+        private static readonly int OfsDeviceInterfaceGuid = Marshal.OffsetOf(typeof(KLstDevinfo), "DeviceInterfaceGUID").ToInt32();
+        private static readonly int OfsDevicePath = Marshal.OffsetOf(typeof(KLstDevinfo), "DevicePath").ToInt32();
+        private static readonly int OfsDriverId = Marshal.OffsetOf(typeof(KLstDevinfo), "DriverID").ToInt32();
+        private static readonly int OfsInstanceId = Marshal.OffsetOf(typeof(KLstDevinfo), "InstanceID").ToInt32();
+        private static readonly int OfsLUsb0FilterIndex = Marshal.OffsetOf(typeof(KLstDevinfo), "LUsb0FilterIndex").ToInt32();
+        private static readonly int OfsMfg = Marshal.OffsetOf(typeof(KLstDevinfo), "Mfg").ToInt32();
+        private static readonly int OfsService = Marshal.OffsetOf(typeof(KLstDevinfo), "Service").ToInt32();
+        private static readonly int OfsSymbolicLink = Marshal.OffsetOf(typeof(KLstDevinfo), "SymbolicLink").ToInt32();
+        private static readonly int OfsSyncFlags = Marshal.OffsetOf(typeof(KLstDevinfo), "SyncFlags").ToInt32();
 
         private readonly IntPtr handle;
 
@@ -440,7 +440,7 @@ namespace Aristocrat.Monaco.Hardware.Usb
 
         public static KLstDevInfoHandle Empty => new KLstDevInfoHandle();
 
-        public KlstSyncFlag SyncFlags => (KlstSyncFlag) Marshal.ReadInt32(handle, OfsSyncFlags);
+        public KlstSyncFlag SyncFlags => (KlstSyncFlag)Marshal.ReadInt32(handle, OfsSyncFlags);
 
         public bool Connected => Marshal.ReadInt32(handle, OfsConnected) != 0;
 
@@ -464,7 +464,18 @@ namespace Aristocrat.Monaco.Hardware.Usb
 
         public int DriverId => Marshal.ReadInt32(handle, OfsDriverId);
 
-        public KLstDevCommonInfo Common => (KLstDevCommonInfo) Marshal.PtrToStructure(new IntPtr(handle.ToInt64() + OfsCommon), typeof (KLstDevCommonInfo));
+        public KLstDevCommonInfo Common
+        {
+            get
+            {
+                var box = (KLstDevCommonInfo?)Marshal.PtrToStructure(new IntPtr(handle.ToInt64() + OfsCommon), typeof(KLstDevCommonInfo));
+                if (box == null)
+                {
+                    throw new NullReferenceException("Common");
+                }
+                return box.Value;
+            }
+        }
 
         #region IKLIB_HANDLE Members
         public KlibHandleType HandleType => KlibHandleType.LstInfok;
@@ -1685,7 +1696,7 @@ namespace Aristocrat.Monaco.Hardware.Usb
         /// <Summary>Initializes a new usb device list containing all supported devices.</Summary>
         public LstK(KlstFlag flags)
         {
-            RuntimeHelpers.PrepareConstrainedRegions();
+            //RuntimeHelpers.PrepareConstrainedRegions();   //PLANA: https://docs.microsoft.com/en-us/dotnet/fundamentals/syslib-diagnostics/syslib0004#workarounds
 
             try
             {
@@ -1713,7 +1724,7 @@ namespace Aristocrat.Monaco.Hardware.Usb
         /// <Summary>Initializes a new usb device list containing only devices matching a specific class GUID.</Summary>
         public LstK(KlstFlag flags, ref KLstPatternMatch patternMatch)
         {
-            RuntimeHelpers.PrepareConstrainedRegions();
+            //RuntimeHelpers.PrepareConstrainedRegions();   //PLANA: https://docs.microsoft.com/en-us/dotnet/fundamentals/syslib-diagnostics/syslib0004#workarounds
 
             try
             {
@@ -1785,21 +1796,13 @@ namespace Aristocrat.Monaco.Hardware.Usb
         /// <Summary>Creates a new hot-plug handle for USB device arrival/removal event monitoring.</Summary>
         public HotK(ref KHotParams initParams)
         {
-            RuntimeHelpers.PrepareConstrainedRegions();
+            var success = NativeMethods.HotK_Init(out handle, ref initParams);
+            var errorCode = Marshal.GetLastWin32Error();
 
-            try
+            if (!success || handle.IsInvalid || handle.IsClosed)
             {
-            }
-            finally
-            {
-                var success = NativeMethods.HotK_Init(out handle, ref initParams);
-                var errorCode = Marshal.GetLastWin32Error();
-
-                if (!success || handle.IsInvalid || handle.IsClosed)
-                {
-                    handle.SetHandleAsInvalid();
-                    throw new Exception(GetType().Name + " failed. ErrorCode=" + errorCode.ToString("X"));
-                }
+                handle.SetHandleAsInvalid();
+                throw new Exception(GetType().Name + " failed. ErrorCode=" + errorCode.ToString("X"));
             }
         }
 
@@ -1835,8 +1838,6 @@ namespace Aristocrat.Monaco.Hardware.Usb
                 throw new Exception(GetType().Name + " failed loading Driver API. ErrorCode=" + error.ToString("X"));
             }
 
-            RuntimeHelpers.PrepareConstrainedRegions();
-
             bool success = DriverApi.Init(out handle, devInfo);
 
             if (!success || handle.IsInvalid || handle.IsClosed)
@@ -1856,8 +1857,6 @@ namespace Aristocrat.Monaco.Hardware.Usb
 
                 throw new Exception(GetType().Name + " failed loading Driver API. ErrorCode=" + error.ToString("X"));
             }
-
-            RuntimeHelpers.PrepareConstrainedRegions();
 
             bool success = DriverApi.Initialize(deviceHandle, out handle);
 
@@ -2226,8 +2225,6 @@ namespace Aristocrat.Monaco.Hardware.Usb
         /// <Summary>Creates a new overlapped pool.</Summary>
         public OvlK(KusbHandle usbHandle, int maxOverlappedCount, KOvlPoolFlag flags)
         {
-            RuntimeHelpers.PrepareConstrainedRegions();
-
             bool success = NativeMethods.OvlK_Init(out handle, usbHandle, maxOverlappedCount, flags);
             int errorCode = Marshal.GetLastWin32Error();
 
@@ -2304,8 +2301,6 @@ namespace Aristocrat.Monaco.Hardware.Usb
         /// <Summary>Initializes a new uni-directional pipe stream.</Summary>
         public StmK(KusbHandle usbHandle, byte pipeId, int maxTransferSize, int maxPendingTransfers, int maxPendingIo, ref KStmCallback callbacks, KStmFlag flags)
         {
-            RuntimeHelpers.PrepareConstrainedRegions();
-
             bool success = NativeMethods.StmK_Init(out handle, usbHandle, pipeId, maxTransferSize, maxPendingTransfers, maxPendingIo, ref callbacks, flags);
             int errorCode = Marshal.GetLastWin32Error();
 
@@ -2376,8 +2371,6 @@ namespace Aristocrat.Monaco.Hardware.Usb
         /// <Summary>Creates a new iso transfer context.</Summary>
         public IsoK(int numberOfPackets, int startFrame)
         {
-            RuntimeHelpers.PrepareConstrainedRegions();
-
             bool success = NativeMethods.IsoK_Init(out handle, numberOfPackets, startFrame);
             int errorCode = Marshal.GetLastWin32Error();
 

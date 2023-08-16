@@ -2,7 +2,7 @@
 {
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Interactivity;
+    using Microsoft.Xaml.Behaviors;
 
     /// <summary>
     /// This custom implementation of the <see cref="InvokeCommandAction"/> automatically executes the command with the

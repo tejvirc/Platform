@@ -1,18 +1,20 @@
 ﻿<menu:HHRMenuPage x:Class="Aristocrat.Monaco.Hhr.UI.Views.PreviousRaceResultPageView"
-                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                  xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
-                  xmlns:controls="clr-namespace:Aristocrat.Monaco.Hhr.UI.Controls"
-                  xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
-                  xmlns:lex="http://wpflocalizeextension.codeplex.com"
-                  xmlns:loc="http://monaco.aristocrat.com/localization"
-                  xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Hhr.UI.ViewModels"
-                  mc:Ignorable="d"
-                  d:DesignHeight="300"
-                  d:DesignWidth="808"
-                  d:DataContext="{d:DesignInstance viewModels:PreviousRaceResultPageViewModel, IsDesignTimeCreatable=False}">
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                         xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
+                         xmlns:controls="clr-namespace:Aristocrat.Monaco.Hhr.UI.Controls"
+                         xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
+                         xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                         lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                         lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                         xmlns:loc="http://monaco.aristocrat.com/localization"
+                         xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Hhr.UI.ViewModels"
+                         mc:Ignorable="d"
+                         d:DesignHeight="300" d:DesignWidth="808"
+                         d:DataContext="{d:DesignInstance viewModels:PreviousRaceResultPageViewModel, IsDesignTimeCreatable=False}">
+
     <UserControl.Resources>
         <ResourceDictionary>
             <Style x:Key="HeaderTextStyle"
@@ -65,7 +67,7 @@
                            HorizontalAlignment="Left"
                            Style="{StaticResource HeaderTextStyle}"
                            AutomationProperties.AutomationId="TextBlock8_D2E9EB52">
-                    <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrRaceSet}}"
+                    <Run Text="{lex:Loc HhrRaceSet}"
                          AutomationProperties.AutomationId="Run9_D2E9EB52" />
                     <Run FontWeight="UltraBold"
                          Text=" 1"
@@ -74,13 +76,13 @@
                 <TextBlock Grid.Column="1"
                            HorizontalAlignment="Center"
                            Style="{StaticResource HeaderTextStyle}"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResults}}"
+                           Text="{lex:Loc HhrPreviousRaceResults}"
                            AutomationProperties.AutomationId="TextBlock11_D2E9EB52" />
                 <TextBlock Grid.Column="2"
                            HorizontalAlignment="Right"
                            Style="{StaticResource HeaderTextStyle}"
                            AutomationProperties.AutomationId="TextBlock12_D2E9EB52">
-                    <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrRaceSet}}"
+                    <Run Text="{lex:Loc HhrRaceSet}"
                          AutomationProperties.AutomationId="Run13_D2E9EB52" />
                     <Run FontWeight="UltraBold"
                          Text=" 2"
@@ -102,7 +104,7 @@
                             HorizontalAlignment="Left"
                             AutomationProperties.AutomationId="StackPanel18_D2E9EB52">
                     <ItemsControl
-                            ItemsSource="{Binding DataContext.PreviousResultCollection1,                                                 RelativeSource={RelativeSource Mode=FindAncestor,                                                 AncestorType=menu:HHRMenuPage}}"
+                            ItemsSource="{Binding DataContext.PreviousResultCollection1, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=menu:HHRMenuPage}}"
                                   BorderThickness="0"
                                   AutomationProperties.AutomationId="ItemsControl19_D2E9EB52">
                         <ItemsControl.ItemTemplate>
@@ -116,7 +118,7 @@
                     </ItemsControl>
                     <TextBlock Style="{StaticResource WagerTextStyle}"
                                Margin="60 0 0 0"
-                               Text="{Binding DataContext.WagerLabel1,                                       RelativeSource={RelativeSource Mode=FindAncestor,                                       AncestorType=menu:HHRMenuPage}}"
+                               Text="{Binding DataContext.WagerLabel1, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=menu:HHRMenuPage}}"
                                AutomationProperties.AutomationId="TextBlock20_D2E9EB52" />
                 </StackPanel>
                 <!--
@@ -128,7 +130,7 @@
                             Margin="30 0 0 0"
                             AutomationProperties.AutomationId="StackPanel21_D2E9EB52">
                     <ItemsControl
-                            ItemsSource="{Binding DataContext.PreviousResultCollection2,                                                 RelativeSource={RelativeSource Mode=FindAncestor,                                                 AncestorType=menu:HHRMenuPage}}"
+                            ItemsSource="{Binding DataContext.PreviousResultCollection2, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=menu:HHRMenuPage}}"
                                   BorderThickness="0"
                                   AutomationProperties.AutomationId="ItemsControl22_D2E9EB52">
                         <ItemsControl.ItemTemplate>
@@ -142,7 +144,7 @@
                     </ItemsControl>
                     <TextBlock Style="{StaticResource WagerTextStyle}"
                                Margin="60 0 0 0"
-                               Text="{Binding DataContext.WagerLabel2,                                       RelativeSource={RelativeSource Mode=FindAncestor,                                       AncestorType=menu:HHRMenuPage}}"
+                               Text="{Binding DataContext.WagerLabel2, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=menu:HHRMenuPage}}"
                                AutomationProperties.AutomationId="TextBlock23_D2E9EB52" />
                 </StackPanel>
             </Grid>
@@ -156,12 +158,12 @@
                        Margin="0 20 0 0"
                        Foreground="GreenYellow"
                        AutomationProperties.AutomationId="TextBlock24_D2E9EB52">
-                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart1}}"
+                <Run Text="{lex:Loc HhrPreviousRaceResultsTextPart1}"
                      AutomationProperties.AutomationId="Run25_D2E9EB52" />
                 <Run Foreground="Red"
-                     Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart2}}"
+                     Text="{lex:Loc HhrPreviousRaceResultsTextPart2}"
                      AutomationProperties.AutomationId="Run26_D2E9EB52" />:
-                <Run Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart3}}"
+                <Run Text="{lex:Loc HhrPreviousRaceResultsTextPart3}"
                      AutomationProperties.AutomationId="Run27_D2E9EB52" /></TextBlock>
             <TextBlock HorizontalAlignment="Center"
                        FontWeight="Bold"
@@ -169,7 +171,7 @@
                        Foreground="Red"
                        FontSize="13"
                        FontStyle="Italic"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.HhrPreviousRaceResultsTextPart4}}"
+                       Text="{lex:Loc HhrPreviousRaceResultsTextPart4}"
                        AutomationProperties.AutomationId="TextBlock28_D2E9EB52" />
         </StackPanel>
     </Grid>

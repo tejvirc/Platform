@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Hhr.CompositionRoot
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Reflection;
     using Accounting.Contracts;
     using Application.Contracts;

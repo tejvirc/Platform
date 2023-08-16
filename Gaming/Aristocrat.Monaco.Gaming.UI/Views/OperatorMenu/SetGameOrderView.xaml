@@ -8,6 +8,8 @@
                                xmlns:dialog="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:SetGameOrderViewModel, IsDesignTimeCreatable=False}"
@@ -61,7 +63,7 @@
                  MaxHeight="800"
                  AutomationProperties.AutomationId="ListBox7_8945B958" />
         <TextBlock Grid.Row="2"
-                   Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameOrderTestMessage}}"
+                   Text="{lex:Loc GameOrderTestMessage}"
                    Foreground="Yellow"
                    TextWrapping="Wrap"
                    Margin="0,10,0,0"

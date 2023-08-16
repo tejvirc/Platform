@@ -3,8 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SqlClient;
-    using System.Data.SQLite;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -12,11 +10,12 @@
     using Contracts.Persistence;
     using Kernel;
     using log4net;
+    using Microsoft.Data.Sqlite;
     using Newtonsoft.Json;
 
     /// <summary> A sqlite persistent store. </summary>
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Contracts.Persistence.IPersistentStore" />
-    /// <seealso cref="T:System.IDisposable" />
+    /// <seealso cref="IPersistentStore" />
+    /// <seealso cref="IDisposable" />
     public class SqlitePersistentStore : IPersistentStore, IDisposable
     {
         private const string CreateTablesCommand = @"CREATE TABLE KeyLevelTable (Key TEXT PRIMARY KEY NOT NULL, Level TEXT NOT NULL); CREATE TABLE KeyValueTable (Key TEXT PRIMARY KEY NOT NULL, Value BLOB)";
@@ -36,14 +35,12 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly string _connection;
-        private readonly string _password;
         private readonly string _path;
 
-        public SqlitePersistentStore(string directory, string name, string password)
+        public SqlitePersistentStore(string directory, string name)
         {
             var databaseDirectoryName = directory ?? throw new ArgumentNullException(nameof(directory));
             var databaseFileName = name ?? throw new ArgumentNullException(nameof(name));
-            _password = password ?? throw new ArgumentNullException(nameof(password));
 
             var databaseDirectoryPath = ServiceManager.GetInstance().GetService<IPathMapper>()
                 .GetDirectory(databaseDirectoryName);
@@ -54,14 +51,12 @@
             }
 
             _path = Path.Combine(databaseDirectoryPath.FullName, databaseFileName);
-            var builder = new SqlConnectionStringBuilder
+            var builder = new SqliteConnectionStringBuilder
             {
                 DataSource = _path,
                 Pooling = true,
-                MaxPoolSize = int.MaxValue,
-                ConnectRetryCount = 10,
-                ConnectRetryInterval = 1,
-                ConnectTimeout = 15
+                Password = SqliteStoreConstants.DatabasePassword,
+                DefaultTimeout = 15
             };
 
             _connection = builder.ConnectionString + ";FailIfMissing=True;Journal Mode=WAL;Synchronous=FULL;";
@@ -73,28 +68,19 @@
 
             try
             {
-                SQLiteConnection.CreateFile(_path);
-                using (var connection = CreateConnection())
-                {
-                    connection.Open();
-                    using (var command = new SQLiteCommand(connection))
-                    {
-                        command.CommandText = CreateTablesCommand;
-                        command.ExecuteNonQuery();
-                    }
-                }
+                using var connection = CreateConnection();
+                connection.Open();
+                using var command = new SqliteCommand(CreateTablesCommand, connection);
+                command.ExecuteNonQuery();
             }
-            catch (SQLiteException exception)
+            catch (SqliteException exception)
             {
                 Logger.Error($"{SqliteStoreConstants.DatabaseName} creation failed: {exception.Message}");
             }
         }
 
         public SqlitePersistentStore()
-            : this(
-                SqliteStoreConstants.DataPath,
-                SqliteStoreConstants.DatabaseName,
-                SqliteStoreConstants.DatabasePassword)
+            : this(SqliteStoreConstants.DataPath, SqliteStoreConstants.DatabaseName)
         {
         }
 
@@ -110,34 +96,30 @@
         {
             try
             {
-                using (var connection = CreateConnection())
+                using var connection = CreateConnection();
+                connection.Open();
+                using var transaction = connection.BeginTransaction(IsolationLevel.Serializable);
+                using (var command = connection.CreateCommand())
                 {
-                    connection.Open();
-                    using (var transaction = connection.BeginTransaction(IsolationLevel.Serializable))
+                    command.CommandText = AddOrUpdateKeyLevelCommand;
+                    command.Parameters.Add(new SqliteParameter("@Key", key));
+                    command.Parameters.Add(new SqliteParameter("@Level", level));
+
+                    try
                     {
-                        using (var command = connection.CreateCommand())
-                        {
-                            command.CommandText = AddOrUpdateKeyLevelCommand;
-                            command.Parameters.Add(new SQLiteParameter("@Key", key));
-                            command.Parameters.Add(new SQLiteParameter("@Level", level));
-
-                            try
-                            {
-                                command.ExecuteNonQuery();
-                            }
-                            catch (InvalidOperationException)
-                            {
-                                transaction.Rollback();
-                                return false;
-                            }
-                        }
-
-                        transaction.Commit();
-                        return true;
+                        command.ExecuteNonQuery();
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        transaction.Rollback();
+                        return false;
                     }
                 }
+
+                transaction.Commit();
+                return true;
             }
-            catch (SQLiteException exception)
+            catch (SqliteException exception)
             {
                 Logger.Error($"Error in updating level {level} of key {key} in {SqliteStoreConstants.DatabaseName}: {exception.Message}");
                 return false;
@@ -178,24 +160,20 @@
                 using (var connection = CreateConnection())
                 {
                     connection.Open();
-                    using (var command = connection.CreateCommand())
+                    using var command = connection.CreateCommand();
+                    command.CommandText = GetAllKeyLevelsCommand;
+                    using var reader = command.ExecuteReader();
+                    while (reader.Read())
                     {
-                        command.CommandText = GetAllKeyLevelsCommand;
-                        using (var reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var key = reader.GetString(0);
-                                var level = (PersistenceLevel)Enum.Parse(typeof(PersistenceLevel), reader.GetString(1));
-                                keyLevels.Add(key, level);
-                            }
-                        }
+                        var key = reader.GetString(0);
+                        var level = (PersistenceLevel)Enum.Parse(typeof(PersistenceLevel), reader.GetString(1));
+                        keyLevels.Add(key, level);
                     }
                 }
 
                 return keyLevels.AsEnumerable();
             }
-            catch (SQLiteException)
+            catch (SqliteException)
             {
                 Logger.Error($"Error in getting key persistence levels from {SqliteStoreConstants.DatabaseName}");
                 return null;
@@ -214,34 +192,30 @@
             var serialized = JsonConvert.SerializeObject(value, Formatting.None);
             try
             {
-                using (var connection = CreateConnection())
+                using var connection = CreateConnection();
+                connection.Open();
+                using var transaction = connection.BeginTransaction(IsolationLevel.Serializable);
+                using (var command = connection.CreateCommand())
                 {
-                    connection.Open();
-                    using (var transaction = connection.BeginTransaction(IsolationLevel.Serializable))
+                    command.CommandText = AddOrUpdateKeyValueCommand;
+                    command.Parameters.Add(new SqliteParameter("@Key", key));
+                    command.Parameters.Add(new SqliteParameter("@Value", serialized));
+
+                    try
                     {
-                        using (var command = connection.CreateCommand())
-                        {
-                            command.CommandText = AddOrUpdateKeyValueCommand;
-                            command.Parameters.Add(new SQLiteParameter("@Key", key));
-                            command.Parameters.Add(new SQLiteParameter("@Value", serialized));
-
-                            try
-                            {
-                                command.ExecuteNonQuery();
-                            }
-                            catch (InvalidOperationException)
-                            {
-                                transaction.Rollback();
-                                return false;
-                            }
-                        }
-
-                        transaction.Commit();
-                        return true;
+                        command.ExecuteNonQuery();
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        transaction.Rollback();
+                        return false;
                     }
                 }
+
+                transaction.Commit();
+                return true;
             }
-            catch (SQLiteException exception)
+            catch (SqliteException exception)
             {
                 Logger.Error($"Error in adding/updating key {key} in {SqliteStoreConstants.DatabaseName}: {exception.Message}");
                 return false;
@@ -261,8 +235,8 @@
                         using (var command = connection.CreateCommand())
                         {
                             command.CommandText = AddOrUpdateKeyValueCommand;
-                            command.Parameters.Add(new SQLiteParameter("@Key", DbType.String));
-                            command.Parameters.Add(new SQLiteParameter("@Value", DbType.Binary));
+                            command.Parameters.Add(new SqliteParameter("@Key", DbType.String));
+                            command.Parameters.Add(new SqliteParameter("@Value", DbType.Binary));
                             foreach (var (key, value) in values)
                             {
                                 var serialized = JsonConvert.SerializeObject(value, Formatting.None);
@@ -285,7 +259,7 @@
                     }
                 }
             }
-            catch (SQLiteException exception)
+            catch (SqliteException exception)
             {
                 Logger.Error($"Error in adding/updating keys in {SqliteStoreConstants.DatabaseName}: {exception.Message}");
                 return false;
@@ -309,36 +283,32 @@
         {
             try
             {
-                using (var connection = CreateConnection())
+                using var connection = CreateConnection();
+                connection.Open();
+                using var transaction = connection.BeginTransaction(IsolationLevel.Serializable);
+                using (var command = connection.CreateCommand())
                 {
-                    connection.Open();
-                    using (var transaction = connection.BeginTransaction(IsolationLevel.Serializable))
+                    command.CommandText = DeleteKeyValueCommand;
+                    command.Parameters.Add(new SqliteParameter("@Key", DbType.String));
+                    foreach (var key in keys)
                     {
-                        using (var command = connection.CreateCommand())
+                        command.Parameters["@Key"].Value = key;
+                        try
                         {
-                            command.CommandText = DeleteKeyValueCommand;
-                            command.Parameters.Add(new SQLiteParameter("@Key", DbType.String));
-                            foreach (var key in keys)
-                            {
-                                command.Parameters["@Key"].Value = key;
-                                try
-                                {
-                                    command.ExecuteNonQuery();
-                                }
-                                catch (InvalidOperationException)
-                                {
-                                    transaction.Rollback();
-                                    return false;
-                                }
-                            }
+                            command.ExecuteNonQuery();
                         }
-
-                        transaction.Commit();
-                        return true;
+                        catch (InvalidOperationException)
+                        {
+                            transaction.Rollback();
+                            return false;
+                        }
                     }
                 }
+
+                transaction.Commit();
+                return true;
             }
-            catch (SQLiteException exception)
+            catch (SqliteException exception)
             {
                 Logger.Error($"Error in deleting keys from KeyValue table in {SqliteStoreConstants.DatabaseName}: {exception.Message}");
                 return false;
@@ -375,7 +345,7 @@
 
                 return keys;
             }
-            catch (SQLiteException)
+            catch (SqliteException)
             {
                 return null;
             }
@@ -386,18 +356,14 @@
         {
             try
             {
-                using (var connection = CreateConnection())
-                {
-                    connection.Open();
-                    using (var command = connection.CreateCommand())
-                    {
-                        command.CommandText = full ? FullIntegrityCheckCommand : QuickIntegrityCheckCommand;
-                        var result = command.ExecuteScalar();
-                        return result.ToString().Equals("ok");
-                    }
-                }
+                using var connection = CreateConnection();
+                connection.Open();
+                using var command = connection.CreateCommand();
+                command.CommandText = full ? FullIntegrityCheckCommand : QuickIntegrityCheckCommand;
+                var result = command.ExecuteScalar();
+                return result.ToString().Equals("ok");
             }
-            catch (SQLiteException exception)
+            catch (SqliteException exception)
             {
                 Logger.Error($"{SqliteStoreConstants.DatabaseName} verification failed: {exception.Message}");
                 return false;
@@ -420,10 +386,9 @@
             }
         }
 
-        private SQLiteConnection CreateConnection()
+        private SqliteConnection CreateConnection()
         {
-            var connection = new SQLiteConnection(_connection);
-            connection.SetPassword(_password);
+            var connection = new SqliteConnection(_connection);
             return connection;
         }
 
@@ -431,33 +396,27 @@
         {
             try
             {
-                using (var connection = CreateConnection())
+                using var connection = CreateConnection();
+                connection.Open();
+                using var command = connection.CreateCommand();
+                command.CommandText = GetKeyValueCommand;
+                command.Parameters.Add(new SqliteParameter("@Key", key));
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    using (var command = connection.CreateCommand())
-                    {
-                        command.CommandText = GetKeyValueCommand;
-                        command.Parameters.Add(new SQLiteParameter("@Key", key));
-                        using (var reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var result = reader.GetString(0);
+                    var result = reader.GetString(0);
 
-                                value = JsonConvert.DeserializeObject<T>(result);
+                    value = JsonConvert.DeserializeObject<T>(result);
 
-                                return true;
-                            }
-                        }
-                    }
+                    return true;
                 }
             }
-            catch (SQLiteException exception)
+            catch (SqliteException exception)
             {
                 Logger.Error($"Error in reading key value for key {key} in {SqliteStoreConstants.DatabaseName}: {exception.Message}");
             }
 
-            value = default(T);
+            value = default;
 
             return false;
         }
@@ -466,50 +425,40 @@
         {
             try
             {
-                using (var connection = CreateConnection())
+                using var connection = CreateConnection();
+                connection.Open();
+                using var command = connection.CreateCommand();
+                command.CommandText = GetKeyLevelCommand;
+                command.Parameters.Add(new SqliteParameter("@Key", key));
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    using (var command = connection.CreateCommand())
-                    {
-                        command.CommandText = GetKeyLevelCommand;
-                        command.Parameters.Add(new SQLiteParameter("@Key", key));
-                        using (var reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var level = reader.GetString(0);
-                                return JsonConvert.DeserializeObject<PersistenceLevel>(level);
-                            }
-                        }
-                    }
+                    var level = reader.GetString(0);
+                    return JsonConvert.DeserializeObject<PersistenceLevel>(level);
                 }
             }
-            catch (SQLiteException exception)
+            catch (SqliteException exception)
             {
                 Logger.Error($"Error in reading key level for key {key} in {SqliteStoreConstants.DatabaseName}: {exception.Message}");
-                return default(PersistenceLevel);
+                return default;
             }
 
-            return default(PersistenceLevel);
+            return default;
         }
 
         private bool KeyLevelExists(string key)
         {
             try
             {
-                using (var connection = CreateConnection())
-                {
-                    connection.Open();
-                    using (var command = connection.CreateCommand())
-                    {
-                        command.CommandText = IfKeyLevelExistsCommand;
-                        command.Parameters.Add(new SQLiteParameter("@Key", key));
-                        var result = command.ExecuteScalar();
-                        return (long)result > 0;
-                    }
-                }
+                using var connection = CreateConnection();
+                connection.Open();
+                using var command = connection.CreateCommand();
+                command.CommandText = IfKeyLevelExistsCommand;
+                command.Parameters.Add(new SqliteParameter("@Key", key));
+                var result = command.ExecuteScalar() ?? 0;
+                return (long)result > 0;
             }
-            catch (SQLiteException exception)
+            catch (SqliteException exception)
             {
                 Logger.Error($"Error in finding key level for {key} in {SqliteStoreConstants.DatabaseName}: {exception.Message}");
                 return false;

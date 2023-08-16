@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.G2S.Client</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
   </PropertyGroup>
@@ -22,13 +22,6 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.IdentityModel" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  <ItemGroup>
     <AdditionalFiles Include="..\..\..\stylecop.json">
       <Link>stylecop.json</Link>
     </AdditionalFiles>
@@ -39,9 +32,19 @@
     </CodeAnalysisDictionary>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.G2S" Version="4.1.44" />
+    <PackageReference Include="Aristocrat.G2S" Version="5.0.0-beta0006" />
+    <PackageReference Include="CoreWCF.NetTcp" Version="1.1.0" />
+    <PackageReference Include="CoreWCF.ConfigurationManager" Version="1.1.0" />
+    <PackageReference Include="CoreWCF.Http" Version="1.1.0" />
+    <PackageReference Include="CoreWCF.Primitives" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Stateless" Version="4.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.9.0" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.9.0" />
+    <PackageReference Include="System.ServiceModel.Federation" Version="4.9.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />

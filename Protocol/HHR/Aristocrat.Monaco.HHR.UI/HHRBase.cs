@@ -3,6 +3,7 @@
     using System.Reflection;
     using System.Threading;
     using Application.Contracts;
+    using Common.Container;
     using Kernel;
     using log4net;
     using SimpleInjector;
@@ -24,7 +25,7 @@
         protected override void OnInitialize()
         {
             Logger.Debug($"Initializing {nameof(HHRBase)}");
-
+            _container.AddResolveUnregisteredType(typeof(HHRBase).FullName, Logger);
             _container.Initialize();
             _container.ConfigureConsumers();
             _container.Verify();

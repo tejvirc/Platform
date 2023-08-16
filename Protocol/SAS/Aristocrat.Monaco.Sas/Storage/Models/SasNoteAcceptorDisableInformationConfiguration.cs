@@ -1,21 +1,22 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     The database configuration for the <see cref="SasNoteAcceptorDisableInformation"/> entity
     /// </summary>
-    public class SasNoteAcceptorDisableInformationConfiguration : EntityTypeConfiguration<SasNoteAcceptorDisableInformation>
+    public class SasNoteAcceptorDisableInformationConfiguration : IEntityTypeConfiguration<SasNoteAcceptorDisableInformation>
     {
         /// <summary>
         ///     Creates an instance of <see cref="SasNoteAcceptorDisableInformationConfiguration"/>
         /// </summary>
-        public SasNoteAcceptorDisableInformationConfiguration()
+        public void Configure(EntityTypeBuilder<SasNoteAcceptorDisableInformation> builder)
         {
-            ToTable(nameof(SasNoteAcceptorDisableInformation));
-            HasKey(x => x.Id);
+            builder.ToTable(nameof(SasNoteAcceptorDisableInformation));
+            builder.HasKey(x => x.Id);
 
-            Property(x => x.DisableReasons)
+            builder.Property(x => x.DisableReasons)
                 .IsRequired();
         }
     }

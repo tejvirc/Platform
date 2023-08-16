@@ -140,7 +140,6 @@
             }
 
             InitializeCompositeMeters(provider);
-
             _bus.Publish(new MeterProviderAddedEvent());
         }
 
@@ -367,7 +366,7 @@
 
             // Load MeterProvider add-ins.  They only need to be constructed, during
             // which they should call back to register the meters they create.
-            foreach (TypeExtensionNode node in AddinManager.GetExtensionNodes(MeterProvidersExtensionPoint))
+            foreach (TypeExtensionNode node in AddinManager.GetExtensionNodes<TypeExtensionNode>(MeterProvidersExtensionPoint))
             {
                 Logger.Debug($"Creating Meter Provider: {node.Type}");
 

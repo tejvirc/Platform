@@ -1,55 +1,53 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Model;
 
     /// <summary>
     ///     Configuration for the <see cref="EventHandlerLog" /> entity
     /// </summary>
-    public class EventHandlerLogMap : EntityTypeConfiguration<EventHandlerLog>
+    public class EventHandlerLogMap : IEntityTypeConfiguration<EventHandlerLog>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="EventHandlerLogMap" /> class.
         /// </summary>
-        public EventHandlerLogMap()
+        public void Configure(EntityTypeBuilder<EventHandlerLog> builder)
         {
-            ToTable("EventHandlerLog");
+            builder.ToTable(nameof(EventHandlerLog));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.HostId)
+            builder.Property(t => t.HostId)
                 .IsRequired();
 
-            Property(t => t.DeviceId)
+            builder.Property(t => t.DeviceId)
                 .IsRequired();
 
-            Property(t => t.EventId)
+            builder.Property(t => t.EventId)
                 .IsRequired();
 
-            Property(t => t.DeviceClass)
+            builder.Property(t => t.DeviceClass)
                 .IsRequired();
 
-            Property(t => t.EventCode)
+            builder.Property(t => t.EventCode)
                 .IsRequired();
 
-            Property(t => t.EventDateTime)
+            builder.Property(t => t.EventDateTime)
                 .IsRequired();
 
-            Property(t => t.TransactionId)
+            builder.Property(t => t.TransactionId)
                 .IsRequired();
 
-            Property(t => t.EventAck)
+            builder.Property(t => t.EventAck)
                 .IsRequired();
 
-            Property(t => t.TransactionList)
-                .IsOptional();
+            builder.Property(t => t.TransactionList).IsRequired(false);
 
-            Property(t => t.DeviceList)
-                .IsOptional();
+            builder.Property(t => t.DeviceList).IsRequired(false);
 
-            Property(t => t.MeterList)
-                .IsOptional();
+            builder.Property(t => t.MeterList).IsRequired(false);
         }
     }
 }

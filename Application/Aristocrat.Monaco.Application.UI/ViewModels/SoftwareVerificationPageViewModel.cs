@@ -60,7 +60,7 @@
             new AlgorithmInfo(
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AlgorithmSha1DisplayName),
                 AlgorithmType.Sha1,
-                new SHA1CryptoServiceProvider().HashSize),
+                SHA1.Create().HashSize),
             new AlgorithmInfo(
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AlgorithmHmacSha1DisplayName),
                 AlgorithmType.HmacSha1,
@@ -68,7 +68,7 @@
             new AlgorithmInfo(
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AlgorithmSha256DisplayName),
                 AlgorithmType.Sha256,
-                new SHA256Managed().HashSize),
+                SHA256.Create().HashSize),
             new AlgorithmInfo(
                 Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AlgorithmHmacSha256DisplayName),
                 AlgorithmType.HmacSha256,

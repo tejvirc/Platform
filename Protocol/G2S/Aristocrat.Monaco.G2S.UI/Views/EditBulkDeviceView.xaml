@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                mc:Ignorable="d"
@@ -31,7 +33,7 @@
                            AutomationProperties.AutomationId="RowDefinition5_9DDD80CF" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditBulkDeviceViewFieldCaption}}"
+               Content="{lex:Loc DeviceManagerEditBulkDeviceViewFieldCaption}"
                AutomationProperties.AutomationId="Label6_9DDD80CF" />
         <ComboBox Grid.Row="1"
                   ItemsSource="{Binding Path=EditableFields, UpdateSourceTrigger=PropertyChanged}"
@@ -39,7 +41,7 @@
                   AutomationProperties.AutomationId="ComboBox7_9DDD80CF" />
         <Label Margin="0 15 0 0"
                Grid.Row="2"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditBulkDeviceViewHostCaption}}"
+               Content="{lex:Loc DeviceManagerEditBulkDeviceViewHostCaption}"
                Visibility="{Binding OwnerVisibility, UpdateSourceTrigger=PropertyChanged}"
                AutomationProperties.AutomationId="Label8_9DDD80CF" />
         <ComboBox Grid.Row="3"
@@ -49,7 +51,7 @@
                   AutomationProperties.AutomationId="ComboBox9_9DDD80CF" />
         <Label Margin="0 15 0 0"
                Grid.Row="2"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditBulkDeviceViewActiveCaption}}"
+               Content="{lex:Loc DeviceManagerEditBulkDeviceViewActiveCaption}"
                Visibility="{Binding ActiveVisibility, UpdateSourceTrigger=PropertyChanged}"
                AutomationProperties.AutomationId="Label10_9DDD80CF" />
         <CheckBox Grid.Row="3"

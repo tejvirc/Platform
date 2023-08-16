@@ -11,9 +11,9 @@
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                                common:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
                                FocusManager.FocusedElement="{Binding ElementName=NextButton}"
@@ -35,7 +35,7 @@
             <RowDefinition Height="1*"
                            AutomationProperties.AutomationId="RowDefinition2_61B35ED2" />
         </Grid.RowDefinitions>
-        <i:Interaction.Triggers>
+        <b:Interaction.Triggers>
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.SizeChangedEvent}"
                                        Target="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
@@ -43,7 +43,7 @@
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.LoadedEvent}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
             </events:RoutedEventTrigger>
-        </i:Interaction.Triggers>
+        </b:Interaction.Triggers>
         <Viewbox Grid.Row="0"
                  HorizontalAlignment="Center"
                  VerticalAlignment="Center"
@@ -66,7 +66,7 @@
                     AutomationProperties.AutomationId="Border9_61B35ED2">
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel10_61B35ED2">
-                    <iconPacks:PackIconFontAwesome Kind="Cog"
+                    <iconPacks:PackIconFontAwesome Kind="CogSolid"
                                                    Width="35"
                                                    Height="35"
                                                    VerticalAlignment="Center"
@@ -111,7 +111,7 @@
                 <Button Grid.Column="1"
                         Name="ReportButton"
                         Command="{Binding ReportButtonClicked}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReportFailure}}"
+                        Content="{lex:Loc ReportFailure}"
                         Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0"
                         controls:ControlsHelper.CornerRadius="3"
@@ -126,7 +126,7 @@
                         Style="{StaticResource MonacoButton1}"
                         AutomationProperties.AutomationId="Button22_61B35ED2">
                     <Grid AutomationProperties.AutomationId="Grid23_61B35ED2">
-                        <iconPacks:PackIconFontAwesome Kind="Print"
+                        <iconPacks:PackIconFontAwesome Kind="PrintSolid"
                                                        Width="25"
                                                        Height="25" />
                     </Grid>
@@ -174,7 +174,7 @@
                 <Button Grid.Column="4"
                         Name="ClearConfigButton"
                         Command="{Binding ClearConfigButtonClicked}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearConfig}}"
+                        Content="{lex:Loc ClearConfig}"
                         Visibility="{Binding IsClearConfigVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0"
                         controls:ControlsHelper.CornerRadius="3"
@@ -182,7 +182,7 @@
                 <Button Grid.Column="4"
                         Name="AutoTestButton"
                         Command="{Binding AutoTestButtonClicked}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.AutoTest}}"
+                        Content="{lex:Loc AutoTest}"
                         Visibility="{Binding IsReportFailureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0"
                         controls:ControlsHelper.CornerRadius="3"
@@ -190,7 +190,7 @@
                 <Button Grid.Column="5"
                         Name="BackButton"
                         Command="{Binding BackButtonClicked}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackText}}"
+                        Content="{lex:Loc BackText}"
                         Visibility="{Binding IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0"
                         controls:ControlsHelper.CornerRadius="3"

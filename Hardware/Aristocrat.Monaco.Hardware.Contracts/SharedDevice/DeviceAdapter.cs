@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using System.Xml.Serialization;
     using Communicator;
     using Dfu;
     using Kernel;

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
+    using System.Runtime.Loader;
     using log4net;
 
     /// <summary>
@@ -41,7 +42,7 @@
             // Load the directories to be recursively searched
             LoadPathsToScan();
 
-            AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolveHandler;
+            AssemblyLoadContext.Default.Resolving += AssemblyResolveHandler;
         }
 
         /// <summary>
@@ -57,7 +58,7 @@
 
             if (disposing)
             {
-                AppDomain.CurrentDomain.AssemblyResolve -= AssemblyResolveHandler;
+                AssemblyLoadContext.Default.Resolving -= AssemblyResolveHandler;
             }
 
             _disposed = true;
@@ -89,11 +90,9 @@
             }
         }
 
-        private Assembly AssemblyResolveHandler(object sender, ResolveEventArgs args)
+        private Assembly AssemblyResolveHandler(AssemblyLoadContext context, AssemblyName assemblyName)
         {
-            var assemblyDetail = args.Name.Split(',');
-
-            if (!_files.TryGetValue(assemblyDetail[0], out var fullPath))
+            if (!_files.TryGetValue(assemblyName.Name, out var fullPath))
             {
                 return null;
             }

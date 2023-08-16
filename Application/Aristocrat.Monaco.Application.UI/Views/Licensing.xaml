@@ -7,6 +7,8 @@
                                xmlns:dialog="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:LicenseViewModel, IsDesignTimeCreatable=False}"
@@ -66,7 +68,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.LicenseId}}"
+                   Content="{lex:Loc LicenseId}"
                    AutomationProperties.AutomationId="Label11_1D4F2826" />
             <TextBlock Grid.Row="0"
                        Grid.Column="1"
@@ -75,7 +77,7 @@
                        AutomationProperties.AutomationId="TextBlock12_1D4F2826" />
             <Label Grid.Row="1"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.LicenseConfiguration}}"
+                   Content="{lex:Loc LicenseConfiguration}"
                    AutomationProperties.AutomationId="Label13_1D4F2826" />
             <TextBlock Grid.Row="1"
                        Grid.Column="1"
@@ -84,7 +86,7 @@
                        AutomationProperties.AutomationId="TextBlock14_1D4F2826" />
             <Label Grid.Row="2"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeRemaining}}"
+                   Content="{lex:Loc TimeRemaining}"
                    AutomationProperties.AutomationId="Label15_1D4F2826" />
             <TextBlock Grid.Row="2"
                        Grid.Column="1"
@@ -93,7 +95,7 @@
                        AutomationProperties.AutomationId="TextBlock16_1D4F2826" />
             <Label Grid.Row="3"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.JurisdictionId}}"
+                   Content="{lex:Loc JurisdictionId}"
                    AutomationProperties.AutomationId="Label17_1D4F2826" />
             <TextBlock Grid.Row="3"
                        Grid.Column="1"
@@ -102,7 +104,7 @@
                        AutomationProperties.AutomationId="TextBlock18_1D4F2826" />
             <Label Grid.Row="4"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnabledGamesLimit}}"
+                   Content="{lex:Loc EnabledGamesLimit}"
                    AutomationProperties.AutomationId="Label19_1D4F2826" />
             <TextBlock Grid.Row="4"
                        Grid.Column="1"
@@ -135,9 +137,9 @@
                 </Style>
             </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.SoftwareLicense}}"
-                                    Binding="{Binding}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn22_1D4F2826" />
+                <DataGridTextColumn Header="{lex:Loc SoftwareLicense}" Binding="{Binding}" 
+                                    AutomationProperties.AutomationId="DataGridTextColumn22_1D4F2826"
+                                    loc:Localizer.For="Operator"  />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -3,11 +3,13 @@
     using System;
     using System.IO;
     using System.Net;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Net.Security;
     using System.Security.Cryptography.X509Certificates;
     using System.Threading;
     using System.Threading.Tasks;
-    using System.Web;
+    using System.Text;
 
     /// <summary>
     ///     HTTP(S) implementation of transfer service that supports HTTP and HTTPS protocols.
@@ -52,7 +54,7 @@
             DownloadAsync(downloadLocation, transferParameters, destinationStream).Wait(ct);
         }
 
-        private static void SetClientCredentials(WebClient client, string credentialsParameters)
+        private static void SetClientCredentials(HttpClient client, string credentialsParameters)
         {
             var parametersArray = credentialsParameters.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
             if (parametersArray.Length != 2)
@@ -65,7 +67,10 @@
 
             if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
             {
-                client.Credentials = new NetworkCredential(userName, password);
+                //client.Credentials = new NetworkCredential(userName, password);
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(
+                        string.Format("{0}:{1}", userName, password))));
             }
         }
 
@@ -89,21 +94,20 @@
         /// <returns>A <see cref="Task" /> representing the asynchronous operation.</returns>
         private async Task UploadAsync(string destinationLocation, string transferParameters, Stream sourceStream)
         {
-            InitializeSecureSocketSettings(transferParameters);
+            InitializeSecureSocketSettings(transferParameters);     
 
             // Here we do not close sourceStream. It is a task for code that created it.
-            using (var client = new HttpWebClient(ValidateRemoteCertificate))
+            using (var client = new HttpClient())
             {
+                ServicePointManager.ServerCertificateValidationCallback += ValidateRemoteCertificate;
                 InitializeCredentials(client, transferParameters);
-
-                using (var httpStream =
-                    await client.OpenWriteTaskAsync(new Uri(GetPackageLocation(destinationLocation))))
+                var req = new HttpRequestMessage(HttpMethod.Post, new Uri(GetPackageLocation(destinationLocation)));
+                using (var content = new StreamContent(sourceStream))
                 {
-                    var buffer = new byte[BufferSize];
-                    int count;
-                    while ((count = sourceStream.Read(buffer, 0, buffer.Length)) > 0)
+                    req.Content = content;
+                    using (var response = await client.SendAsync(req, HttpCompletionOption.ResponseHeadersRead))
                     {
-                        httpStream.Write(buffer, 0, count);
+                        response.EnsureSuccessStatusCode();
                     }
                 }
             }
@@ -121,12 +125,15 @@
             InitializeSecureSocketSettings(transferParameters);
 
             // Here we do not close destinationStream. It is a task for code that created it.
-            using (var client = new HttpWebClient(ValidateRemoteCertificate))
+            using (var client = new HttpClient())
             {
+                ServicePointManager.ServerCertificateValidationCallback += ValidateRemoteCertificate;
                 InitializeCredentials(client, transferParameters, downloadLocation);
 
-                using (var httpStream = await client.OpenReadTaskAsync(new Uri(GetPackageLocation(downloadLocation))))
+                using (var response = await client.GetAsync(new Uri(GetPackageLocation(downloadLocation))))
                 {
+                    response.EnsureSuccessStatusCode();
+                    var httpStream = await response.Content.ReadAsStreamAsync();
                     var buffer = new byte[BufferSize];
                     int count;
                     while ((count = httpStream.Read(buffer, 0, buffer.Length)) > 0)
@@ -143,10 +150,10 @@
         /// <param name="client">Web client instance.</param>
         /// <param name="transferParameters">A string containing optional parameters required for the transfer of the package.</param>
         /// <param name="downloadLocation">A string containing downloadLocation.</param>
-        private void InitializeCredentials(WebClient client, string transferParameters, string downloadLocation = null)
+        private void InitializeCredentials(HttpClient client, string transferParameters, string downloadLocation = null)
         {
             string credentialsParameters;
-
+            
             if (string.IsNullOrEmpty(transferParameters))
             {
                 if (!string.IsNullOrEmpty(downloadLocation))
@@ -176,7 +183,7 @@
         /// <param name="transferParameters">A string containing optional parameters required for the transfer of the package.</param>
         private void InitializeSecureSocketSettings(string transferParameters)
         {
-            IssuerName = HttpUtility.UrlDecode(
+            IssuerName = System.Web.HttpUtility.UrlDecode(
                 TransferService.GetParameterByName(transferParameters, IssuerNameParameterName));
         }
 

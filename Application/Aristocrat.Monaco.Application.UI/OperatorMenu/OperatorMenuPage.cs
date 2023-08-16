@@ -4,11 +4,11 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
-    using System.Windows.Interactivity;
     using System.Windows.Media;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Localizer = Monaco.Localization.Markup.Localizer;
+    using Microsoft.Xaml.Behaviors;
 
     /// <summary>
     ///     Use this base UserControl class when creating an Operator Menu WPF page
@@ -40,7 +40,7 @@
             var binding = new Binding { Path = new PropertyPath(commandName) };
             BindingOperations.SetBinding(invokeCommandAction, InvokeCommandAction.CommandProperty, binding);
 
-            var eventTrigger = new System.Windows.Interactivity.EventTrigger { EventName = eventName };
+            var eventTrigger = new Microsoft.Xaml.Behaviors.EventTrigger { EventName = eventName };
             eventTrigger.Actions.Add(invokeCommandAction);
 
             var triggers = Interaction.GetTriggers(this);

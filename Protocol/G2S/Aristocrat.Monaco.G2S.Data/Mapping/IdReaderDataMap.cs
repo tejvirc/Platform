@@ -1,81 +1,82 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Model;
 
     /// <summary>
     ///     Configuration for the <see cref="IdReaderDataMap" /> entity
     /// </summary>
-    public class IdReaderDataMap : EntityTypeConfiguration<IdReaderData>
+    public class IdReaderDataMap : IEntityTypeConfiguration<IdReaderData>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="IdReaderDataMap" /> class. 
         /// </summary>
-        public IdReaderDataMap()
+        public void Configure(EntityTypeBuilder<IdReaderData> builder)
         {
-            ToTable("IdReaderData");
+            builder.ToTable(nameof(IdReaderData));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.IdNumber)
+            builder.Property(t => t.IdNumber)
                 .IsRequired();
 
-            Property(t => t.IdType)
+            builder.Property(t => t.IdType)
                 .IsRequired();
 
-            Property(t => t.IdValidDateTime)
+            builder.Property(t => t.IdValidDateTime)
                 .IsRequired();
 
-            Property(t => t.IdValidSource)
+            builder.Property(t => t.IdValidSource)
                 .IsRequired();
 
-            Property(t => t.IdState)
+            builder.Property(t => t.IdState)
                 .IsRequired();
 
-            Property(t => t.IdPreferName)
+            builder.Property(t => t.IdPreferName)
                 .IsRequired();
 
-            Property(t => t.IdFullName)
+            builder.Property(t => t.IdFullName)
                 .IsRequired();
 
-            Property(t => t.IdClass)
+            builder.Property(t => t.IdClass)
                 .IsRequired();
 
-            Property(t => t.LocaleId)
+            builder.Property(t => t.LocaleId)
                 .IsRequired();
 
-            Property(t => t.PlayerId)
+            builder.Property(t => t.PlayerId)
                 .IsRequired();
 
-            Property(t => t.IdValidExpired)
+            builder.Property(t => t.IdValidExpired)
                 .IsRequired();
 
-            Property(t => t.IdVip)
+            builder.Property(t => t.IdVip)
                 .IsRequired();
 
-            Property(t => t.IdBirthday)
+            builder.Property(t => t.IdBirthday)
                 .IsRequired();
 
-            Property(t => t.IdAnniversary)
+            builder.Property(t => t.IdAnniversary)
                 .IsRequired();
 
-            Property(t => t.IdBanned)
+            builder.Property(t => t.IdBanned)
                 .IsRequired();
 
-            Property(t => t.IdPrivacy)
+            builder.Property(t => t.IdPrivacy)
                 .IsRequired();
 
-            Property(t => t.IdGender)
+            builder.Property(t => t.IdGender)
                 .IsRequired();
 
-            Property(t => t.IdRank)
+            builder.Property(t => t.IdRank)
                 .IsRequired();
 
-            Property(t => t.IdAge)
+            builder.Property(t => t.IdAge)
                 .IsRequired();
 
-            Property(t => t.IdDisplayMessages)
+            builder.Property(t => t.IdDisplayMessages)
                 .IsRequired();
         }
     }

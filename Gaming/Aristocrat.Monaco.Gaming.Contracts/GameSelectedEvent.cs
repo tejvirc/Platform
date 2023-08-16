@@ -2,6 +2,7 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     A GameSelectedEvent should be posted when the current game selection changes.  A game is defined by a game Id
@@ -10,9 +11,16 @@
     ///     Another example of a game selection change could be a player choosing to use a different paytable available within
     ///     a game.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameSelectedEvent : BaseEvent
     {
+        /// <summary>
+        /// Empty Constructor for Deserialization
+        /// </summary>
+        public GameSelectedEvent()
+        {
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameSelectedEvent" /> class.
         /// </summary>
@@ -47,41 +55,49 @@
         /// <summary>
         ///     Gets the unique identifier of the game.
         /// </summary>
+        [ProtoMember(1)]
         public int GameId { get; }
 
         /// <summary>
         ///     Gets the denomination of the game.
         /// </summary>
+        [ProtoMember(2)]
         public long Denomination { get; }
 
         /// <summary>
         ///     Gets the bet option of the game.
         /// </summary>
+        [ProtoMember(3)]
         public string BetOption { get; }
 
         /// <summary>
         ///     Gets a value indicating whether this is a replay.
         /// </summary>
+        [ProtoMember(4)]
         public bool IsReplay { get; }
 
         /// <summary>
         ///     Gets the window handle the bottom game is drawn in.
         /// </summary>
+        [ProtoMember(5)]
         public IntPtr GameBottomHwnd { get; }
 
         /// <summary>
         ///     Gets the window handle the top game is drawn in.
         /// </summary>
+        [ProtoMember(6)]
         public IntPtr GameTopHwnd { get; }
 
         /// <summary>
         ///     Gets the window handle the top game is drawn in.
         /// </summary>
+        [ProtoMember(7)]
         public IntPtr GameTopperHwnd { get; }
 
         /// <summary>
         ///     Gets the window handle the virtual button deck is drawn in.
         /// </summary>
+        [ProtoMember(8)]
         public IntPtr GameVirtualButtonDeckHwnd { get; }
     }
 }

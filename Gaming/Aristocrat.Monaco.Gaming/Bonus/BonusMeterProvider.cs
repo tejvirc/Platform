@@ -2,16 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Reflection;
     using Application.Contracts;
-    using Application.Contracts.Extensions;
     using Application.Contracts.Metering;
     using Contracts;
     using Contracts.Bonus;
     using Hardware.Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
-    using log4net;
 
     /// <summary>
     ///     Provides Voucher out meters for the EGM
@@ -19,10 +16,9 @@
     public class BonusMeterProvider : BaseMeterProvider
     {
         private const PersistenceLevel Level = PersistenceLevel.Critical;
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IMeterManager _meterManager;
 
-        private readonly List<Tuple<string, MeterClassification>> _meters = new List<Tuple<string, MeterClassification>>
+        private readonly List<Tuple<string, MeterClassification>> _meters = new()
         {
             Tuple.Create<string, MeterClassification>(BonusMeters.MjtGamesPlayedCount, new OccurrenceMeterClassification()),
             Tuple.Create<string, MeterClassification>(BonusMeters.HandPaidMjtBonusCount, new OccurrenceMeterClassification()),
@@ -33,8 +29,8 @@
             Tuple.Create<string, MeterClassification>(BonusMeters.EgmPaidBonusCount, new OccurrenceMeterClassification()),
         };
 
-        public BonusMeterProvider(IPersistentStorageManager storage, IMeterManager meterManager)
-            : base(@"Aristocrat.Monaco.Gaming.BonusMeterProvider")
+        public BonusMeterProvider(IPersistentStorageManager storage, IMeterManager meterManager, IPropertiesManager properties)
+            : base(@"Aristocrat.Monaco.Gaming.BonusMeterProvider", properties)
         {
             _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
 
@@ -43,6 +39,7 @@
             AddMeters(storage.GetAccessor(Level, Name));
 
             AddCompositeMeters();
+            _meterManager.AddProvider(this);
         }
 
         private void AddMeters(IPersistentStorageAccessor accessor)

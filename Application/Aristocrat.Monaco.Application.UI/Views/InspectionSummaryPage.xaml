@@ -113,19 +113,19 @@
                   AutomationProperties.AutomationId="DataGrid10_ED427CB9">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Category}"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.Category}}"
+                                    Header="{lex:Loc Category}"
                                     CellStyle="{StaticResource DefaultColumnStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn11_ED427CB9" />
                 <DataGridTextColumn Binding="{Binding StatusText}"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}"
+                                    Header="{lex:Loc StatusLabel}"
                                     CellStyle="{StaticResource StatusColumnStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn12_ED427CB9" />
                 <DataGridTextColumn Binding="{Binding FirmwareMessage}"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareVersionLabel}}"
+                                    Header="{lex:Loc FirmwareVersionLabel}"
                                     CellStyle="{StaticResource DefaultColumnStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn13_ED427CB9" />
                 <DataGridTextColumn Binding="{Binding FailureMessage}"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.Failure}}"
+                                    Header="{lex:Loc Failure}"
                                     CellStyle="{StaticResource FailureColumnStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn14_ED427CB9" />
             </DataGrid.Columns>

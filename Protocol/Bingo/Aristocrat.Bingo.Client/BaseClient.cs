@@ -1,12 +1,12 @@
 ﻿namespace Aristocrat.Bingo.Client
 {
     using System;
-    using System.Linq;
-    using System.Reflection;
+    using System.Threading;
     using System.Threading.Tasks;
     using Configuration;
     using Grpc.Core;
     using Grpc.Core.Interceptors;
+    using Grpc.Net.Client;
     using log4net;
     using Messages.Interceptor;
 
@@ -19,7 +19,7 @@
         protected readonly LoggingInterceptor LoggingInterceptor;
 
         private readonly object _clientLock = new();
-        private Channel _channel;
+        private GrpcChannel _channel;
         private TClientApi _client;
         private RpcConnectionState _state;
         private bool _disposed;
@@ -27,14 +27,15 @@
         protected BaseClient(
             IClientConfigurationProvider configurationProvider,
             BaseClientAuthorizationInterceptor authorizationInterceptor,
-            LoggingInterceptor loggingInterceptor)
+            LoggingInterceptor loggingInterceptor,
+            ILog logger)
         {
             ConfigurationProvider =
                 configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
-            ClientAuthorizationInterceptor = authorizationInterceptor ?? throw new ArgumentNullException(nameof(authorizationInterceptor));
-            LoggingInterceptor = loggingInterceptor ?? throw new ArgumentNullException(nameof(loggingInterceptor));
-
-            LoggingInterceptor.MessageReceived += OnMessageReceived;
+            _clientAuthorizationInterceptor = authorizationInterceptor ?? throw new ArgumentNullException(nameof(authorizationInterceptor));
+            _loggingInterceptor = loggingInterceptor ?? throw new ArgumentNullException(nameof(loggingInterceptor));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _loggingInterceptor.MessageReceived += OnMessageReceived;
         }
 
         public abstract string FirewallRuleName { get; }
@@ -44,9 +45,9 @@
         public event EventHandler<DisconnectedEventArgs> Disconnected;
 
         public event EventHandler<EventArgs> MessageReceived;
-		
+
 		public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
-		
+
         public TClientApi Client
         {
             get
@@ -74,8 +75,10 @@
                 ? new SslCredentials(
                     string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))
                 : ChannelCredentials.Insecure;
-            return new Channel(configuration.Address.Host, configuration.Address.Port, credentials);
+            return GrpcChannel.From(configuration.Address, new GrpcChannelOptions() { credentials = credentials });
         }
+
+        public abstract GrpcChannel CreateChannel();
 
         public abstract TClientApi CreateClient(CallInvoker callInvoker);
 
@@ -85,11 +88,12 @@
             {
                 await Stop().ConfigureAwait(false);
                 _channel = CreateChannel();
-                var callInvoker = _channel.Intercept(ClientAuthorizationInterceptor, LoggingInterceptor);
+                var callInvoker = _channel.Intercept(_clientAuthorizationInterceptor, _loggingInterceptor);
                 var configuration = ConfigurationProvider.CreateConfiguration();
                 if (configuration.ConnectionTimeout > TimeSpan.Zero)
                 {
-                    await _channel.ConnectAsync(DateTime.UtcNow + configuration.ConnectionTimeout)
+                    using var source = new CancellationTokenSource(configuration.ConnectionTimeout);
+                    await _channel.ConnectAsync(source.Token)
                         .ConfigureAwait(false);
                 }
 
@@ -100,21 +104,21 @@
             }
             catch (RpcException rpcException)
             {
-                Logger.Error($"Failed to connect the {GetType().Name}", rpcException);
+                _logger.Error($"Failed to connect the {GetType().Name}", rpcException);
             }
             catch (OperationCanceledException operationCanceled)
             {
-                Logger.Error($"Failed to connect the {GetType().Name}", operationCanceled);
+                _logger.Error($"Failed to connect the {GetType().Name}", operationCanceled);
             }
             catch (Exception ex)
             {
-                Logger.Error($"Failed to connect to the {GetType().Name}", ex);
+                _logger.Error($"Failed to connect to the {GetType().Name}", ex);
             }
 
             return false;
         }
 
-        public virtual async Task<bool> Stop()
+        public async Task<bool> Stop()
         {
             try
             {
@@ -130,7 +134,7 @@
             }
             catch (RpcException rpcException)
             {
-                Logger.Error($"Failed to shutdown the {GetType().Name}", rpcException);
+                _logger.Error($"Failed to shutdown the {GetType().Name}", rpcException);
                 return false;
             }
 
@@ -148,34 +152,33 @@
             MessageReceived?.Invoke(this, EventArgs.Empty);
         }
 
-        protected static RpcConnectionState GetConnectionState(ChannelState state) =>
+        protected static RpcConnectionState GetConnectionState(ConnectivityState state) =>
             state switch
             {
-                ChannelState.Idle => RpcConnectionState.Disconnected,
-                ChannelState.Connecting => RpcConnectionState.Connecting,
-                ChannelState.Ready => RpcConnectionState.Connected,
-                ChannelState.TransientFailure => RpcConnectionState.Disconnected,
-                ChannelState.Shutdown => RpcConnectionState.Closed,
+                ConnectivityState.Idle => RpcConnectionState.Disconnected,
+                ConnectivityState.Connecting => RpcConnectionState.Connecting,
+                ConnectivityState.Ready => RpcConnectionState.Connected,
+                ConnectivityState.TransientFailure => RpcConnectionState.Disconnected,
+                ConnectivityState.Shutdown => RpcConnectionState.Closed,
                 _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
             };
 
-        protected static bool StateIsConnected(ChannelState? state) =>
-            state is ChannelState.Ready or
-                ChannelState.Idle or
-                ChannelState.TransientFailure or
-                ChannelState.Connecting;
+        protected static bool StateIsConnected(ConnectivityState? state) =>
+            state is ConnectivityState.Ready or
+                ConnectivityState.Idle or
+                ConnectivityState.TransientFailure or
+                ConnectivityState.Connecting;
 
-        protected static async Task<ChannelState> WaitForStateChanges(Channel channel, ChannelState lastObservedState)
+        protected static async Task<ConnectivityState> WaitForStateChanges(GrpcChannel channel, ConnectivityState lastObservedState)
         {
-            if (lastObservedState is ChannelState.Ready)
+            if (lastObservedState is ConnectivityState.Ready)
             {
-                await channel.TryWaitForStateChangedAsync(lastObservedState).ConfigureAwait(false);
+                await channel.WaitForStateChangedAsync(lastObservedState).ConfigureAwait(false);
             }
             else
             {
-                await channel.TryWaitForStateChangedAsync(
-                    lastObservedState,
-                    DateTime.UtcNow.Add(StateChangeTimeOut)).ConfigureAwait(false);
+                using var source = new CancellationTokenSource(ClientConstants.StateChangeTimeOut);
+                await channel.WaitForStateChangedAsync(lastObservedState, source.Token).ConfigureAwait(false);
             }
 
             return channel.State;
@@ -190,16 +193,18 @@
 
             if (disposing)
             {
-                LoggingInterceptor.MessageReceived -= OnMessageReceived;
+                _loggingInterceptor.MessageReceived -= OnMessageReceived;
                 Stop().ContinueWith(
-                    _ => Logger.Error($"Stopping {GetType().Name} failed while disposing"),
+                    _ => _logger.Error($"Stopping {GetType().Name} failed while disposing"),
                     TaskContinuationOptions.OnlyOnFaulted);
+                _channel?.Dispose();
+                _channel = null;
             }
 
             _disposed = true;
         }
 
-        protected virtual async Task MonitorConnectionAsync(Channel channel)
+        protected virtual async Task MonitorConnectionAsync(GrpcChannel channel)
         {
             if (channel is null)
             {
@@ -207,22 +212,22 @@
             }
 
             var lastObservedState = channel.State;
-            Logger.Info($"{GetType().Name} Channel last observed state: {lastObservedState}");
+            _logger.Info($"{GetType().Name} Channel last observed state: {lastObservedState}");
             UpdateState(GetConnectionState(lastObservedState));
             while (StateIsConnected(lastObservedState))
             {
                 var observedState = await WaitForStateChanges(channel, lastObservedState).ConfigureAwait(false);
-                if (lastObservedState is not ChannelState.Ready && observedState == lastObservedState)
+                if (lastObservedState is not ConnectivityState.Ready && observedState == lastObservedState)
                 {
                     break;
                 }
 
                 lastObservedState = observedState;
                 UpdateState(GetConnectionState(lastObservedState));
-                Logger.Info($"{GetType().Name} Channel connection state changed: {lastObservedState}");
+                _logger.Info($"{GetType().Name} Channel connection state changed: {lastObservedState}");
             }
 
-            Logger.Error($"{GetType().Name} Channel connection is no longer connected: {lastObservedState}");
+            _logger.Error($"{GetType().Name} Channel connection is no longer connected: {lastObservedState}");
             await Stop().ConfigureAwait(false);
         }
 
@@ -242,7 +247,7 @@
             Task.Run(async () => await MonitorConnectionAsync(_channel)).ContinueWith(
                 async _ =>
                 {
-                    Logger.Error($"Monitor Connection Failed for {GetType().Name} failed Forcing a disconnect");
+                    _logger.Error($"Monitor Connection Failed for {GetType().Name} failed Forcing a disconnect");
                     await Stop();
                 },
                 TaskContinuationOptions.OnlyOnFaulted);

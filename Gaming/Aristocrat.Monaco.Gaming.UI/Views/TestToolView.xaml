@@ -17,12 +17,11 @@
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
                 <!-- Accent and AppTheme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary
-                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </controls:MetroWindow.Resources>
@@ -278,12 +277,10 @@
                                 <ColumnDefinition Width="5*"
                                                   AutomationProperties.AutomationId="ColumnDefinition73_814CF979" />
                             </Grid.ColumnDefinitions>
-                            <Button Style="{StaticResource AccentedSquareButtonStyle}"
-                                    Grid.Column="0"
-                                    Width="125"
-                                    Content="Override Time Limits"
-                                    Command="{Binding SetTimeLimitsCommand}"
-                                    AutomationProperties.AutomationId="Button74_814CF979">
+                            <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Grid.Column="0" Width="125"
+                                Content="Override Time Limits"
+                                Command="{Binding SetTimeLimitsCommand}"
+                                AutomationProperties.AutomationId="Button74_814CF979">
                                 <Button.ToolTip>
                                     <ToolTip AutomationProperties.AutomationId="ToolTip75_814CF979">
                                         <StackPanel AutomationProperties.AutomationId="StackPanel76_814CF979">
@@ -307,7 +304,7 @@
                                 <TextBox Text="{Binding TimeLimitInterval,UpdateSourceTrigger=PropertyChanged}"
                                          Width="40"
                                          AutomationProperties.AutomationId="TextBox80_814CF979" />
-                                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                                <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                                         Margin="7,0,0,0"
                                         Width="125"
                                         Content="Create Interval"
@@ -329,10 +326,9 @@
                                     </Button.ToolTip>
                                 </Button>
                             </StackPanel>
-                            <Button Style="{StaticResource AccentedSquareButtonStyle}"
-                                    Grid.Column="2"
-                                    Content="Reset Defaults"
-                                    Command="{Binding ResetDefaultsCommand}"
+                            <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Grid.Column="2"
+                                Content="Reset Defaults"
+                                Command="{Binding ResetDefaultsCommand}"
                                     AutomationProperties.AutomationId="Button86_814CF979">
                                 <Button.ToolTip>
                                     <ToolTip AutomationProperties.AutomationId="ToolTip87_814CF979">
@@ -522,7 +518,7 @@
                             <TextBox Text="{Binding ElapsedTime, UpdateSourceTrigger=PropertyChanged}"
                                      Width="60"
                                      AutomationProperties.AutomationId="TextBox134_814CF979" />
-                            <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                            <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                                     Margin="20,0,0,0"
                                     Width="150"
                                     Content="Set Elapsed Time"
@@ -565,7 +561,7 @@
                                     Text="{Binding ResponsibleGamingDialogTimeout, UpdateSourceTrigger=PropertyChanged}"
                                      Width="60"
                                      AutomationProperties.AutomationId="TextBox143_814CF979" />
-                            <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                            <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                                     Margin="20,0,0,0"
                                     Width="150"
                                     Content="Set Dialog Timeout"
@@ -604,7 +600,7 @@
                             <TextBox Text="{Binding SessionCount, UpdateSourceTrigger=PropertyChanged}"
                                      Width="60"
                                      AutomationProperties.AutomationId="TextBox152_814CF979" />
-                            <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                            <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                                     Margin="20,0,0,0"
                                     Width="150"
                                     Content="Set Session Count"
@@ -668,28 +664,28 @@
                            Content="Insert: "
                            AutomationProperties.AutomationId="Label169_814CF979" />
                     <Button MinWidth="40"
-                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                             Margin="5"
                             Content="$1"
                             Command="{Binding InsertBillCommand}"
                             CommandParameter="1"
                             AutomationProperties.AutomationId="Button170_814CF979" />
                     <Button MinWidth="40"
-                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                             Margin="5"
                             Content="$5"
                             Command="{Binding InsertBillCommand}"
                             CommandParameter="5"
                             AutomationProperties.AutomationId="Button171_814CF979" />
                     <Button MinWidth="40"
-                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                             Margin="5"
                             Content="$20"
                             Command="{Binding InsertBillCommand}"
                             CommandParameter="20"
                             AutomationProperties.AutomationId="Button172_814CF979" />
                     <Button MinWidth="40"
-                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                             Margin="5"
                             Content="$100"
                             Command="{Binding InsertBillCommand}"
@@ -704,7 +700,7 @@
                              Text="{Binding VoucherBarcode}"
                              AutomationProperties.AutomationId="TextBox175_814CF979" />
                     <Button MinWidth="40"
-                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                             Margin="5"
                             Content="Insert Voucher"
                             Command="{Binding InsertVoucherCommand}"
@@ -715,7 +711,7 @@
                             Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel177_814CF979">
                     <Button MinWidth="80"
-                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                             Margin="5"
                             Content="Cash Out"
                             Command="{Binding CashOutCommand}"
@@ -726,7 +722,7 @@
                             Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel179_814CF979">
                     <Button MinWidth="80"
-                            Style="{StaticResource AccentedSquareButtonStyle}"
+                            Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                             Margin="5"
                             Content="Override Large Win Limit"
                             Command="{Binding SetLargeWinLimitCommand}"
@@ -757,12 +753,12 @@
             <StackPanel Orientation="Vertical"
                         HorizontalAlignment="Left"
                         AutomationProperties.AutomationId="StackPanel187_814CF979">
-                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                         Margin="5"
                         Content="Full RAM Clear"
                         Command="{Binding FullClearCommand}"
                         AutomationProperties.AutomationId="Button188_814CF979" />
-                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                         Margin="5"
                         Content="Partial RAM Clear"
                         Command="{Binding PartialClearCommand}"
@@ -774,31 +770,31 @@
             <StackPanel Orientation="Vertical"
                         HorizontalAlignment="Left"
                         AutomationProperties.AutomationId="StackPanel191_814CF979">
-                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                         Margin="5"
                         Content="Toggle Media Player 1 &amp; 2"
                         Command="{Binding TogglePlayerCommand}"
                         CommandParameter="0"
                         AutomationProperties.AutomationId="Button192_814CF979" />
-                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                         Margin="5"
                         Content="Toggle Media Player 1"
                         Command="{Binding TogglePlayerCommand}"
                         CommandParameter="1"
                         AutomationProperties.AutomationId="Button193_814CF979" />
-                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                         Margin="5"
                         Content="Toggle Media Player 2"
                         Command="{Binding TogglePlayerCommand}"
                         CommandParameter="2"
                         AutomationProperties.AutomationId="Button194_814CF979" />
-                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                         Margin="5"
                         Content="Toggle Media Player 3"
                         Command="{Binding TogglePlayerCommand}"
                         CommandParameter="3"
                         AutomationProperties.AutomationId="Button195_814CF979" />
-                <Button Style="{StaticResource AccentedSquareButtonStyle}"
+                <Button Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                         Margin="5"
                         Content="Toggle Media Player 4"
                         Command="{Binding TogglePlayerCommand}"
@@ -826,7 +822,7 @@
                 </Grid.ColumnDefinitions>
                 <Button Grid.Row="0"
                         Grid.Column="0"
-                        Style="{StaticResource AccentedSquareButtonStyle}"
+                        Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                         Width="160"
                         Margin="4,8,4,8"
                         HorizontalAlignment="Center"
@@ -854,7 +850,7 @@
                          AutomationProperties.AutomationId="TextBox209_814CF979" />
                 <Button Grid.Row="1"
                         Grid.Column="0"
-                        Style="{StaticResource AccentedSquareButtonStyle}"
+                        Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                         Width="160"
                         Margin="4,8,4,8"
                         HorizontalAlignment="Center"
@@ -882,7 +878,7 @@
                          AutomationProperties.AutomationId="TextBox215_814CF979" />
                 <Button Grid.Row="2"
                         Grid.Column="0"
-                        Style="{StaticResource AccentedSquareButtonStyle}"
+                        Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                         Width="160"
                         Margin="4,8,4,8"
                         HorizontalAlignment="Center"
@@ -1018,7 +1014,7 @@
                                   Margin="4,4,4,4"
                                   AutomationProperties.AutomationId="ComboBox247_814CF979" />
                         <Button Grid.Column="2"
-                                Style="{StaticResource AccentedSquareButtonStyle}"
+                                Style="{StaticResource MahApps.Styles.Button.Square.Accent}"
                                 HorizontalAlignment="Center"
                                 Content="SET"
                                 Width="60"

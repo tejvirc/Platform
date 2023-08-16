@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.Tests.PackageManager.CommandHandlers
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.IO;
     using System.Threading;
     using Application.Contracts;
@@ -16,6 +16,7 @@
     using Moq;
     using PackageManifest;
     using PackageManifest.Models;
+    using Aristocrat.Monaco.Protocol.Common.Storage;
 
     [TestClass]
     public class DownloadPackageHandlerTests
@@ -197,7 +198,10 @@
             var packageLog = new PackageLog() { PackageId = "Test" };
             var helper = new HandlerTestHelper();
             helper.ConfigureAndRegisterMocks();
-            helper.ContextFactoryMock.Setup(x => x.Create()).Returns(new DbContext("test"));
+
+            var dbContextOptions = new Mock<DbContextOptions>();
+
+            helper.ContextFactoryMock.Setup(x => x.CreateDbContext()).Returns(new MonacoContext("test"));
             helper.PackageRepositoryMock
                 .Setup(x => x.GetPackageByPackageId(It.IsAny<DbContext>(), It.IsAny<string>()))
                 .Returns((Package)null)

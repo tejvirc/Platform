@@ -2,6 +2,7 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Event emitted when a Wat transfer has started.
@@ -12,7 +13,7 @@
     ///     client to perform any messaging to the user, but otherwise the client should not allow any other
     ///     actions to take place.
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class WatOnStartedEvent : BaseEvent
     {
     }

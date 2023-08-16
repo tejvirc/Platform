@@ -12,12 +12,13 @@
     /// </summary>
     public abstract class BaseRunnable : IRunnable, IDisposable
     {
+        
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(10);
 
-        private readonly ReaderWriterLockSlim _stateLock =
-            new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
+        private readonly ReaderWriterLockSlim _stateLock = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
+
 
         private RunnableState _runState;
 
@@ -64,7 +65,7 @@
                 return _runState;
             }
 
-            private set
+            set
             {
                 try
                 {
@@ -89,7 +90,7 @@
         }
 
         /// <inheritdoc />
-        public TimeSpan Timeout { get; protected set; } = DefaultTimeout;
+        public TimeSpan Timeout { get;  set; } = DefaultTimeout;
 
         /// <inheritdoc />
         public void Initialize()

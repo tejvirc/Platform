@@ -34,7 +34,7 @@
         /// <inheritdoc />
         public async Task Build(IOptionConfigDevice device, optionChangeStatus command)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var optionChangeLog = _changeLogRepository.GetByTransactionId(context, command.transactionId);
 

@@ -1,33 +1,33 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Model;
 
     /// <summary>
     ///     Configuration for the <see cref="ConfigChangeAuthorizeItem" /> entity
     /// </summary>
-    public class ConfigChangeAuthorizeItemMap : EntityTypeConfiguration<ConfigChangeAuthorizeItem>
+    public class ConfigChangeAuthorizeItemMap : IEntityTypeConfiguration<ConfigChangeAuthorizeItem>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ConfigChangeAuthorizeItemMap" /> class.
         /// </summary>
-        public ConfigChangeAuthorizeItemMap()
+        public void Configure(EntityTypeBuilder<ConfigChangeAuthorizeItem> builder)
         {
-            ToTable("ConfigChangeAuthorizeItem");
+            builder.ToTable(nameof(ConfigChangeAuthorizeItem));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.HostId)
+            builder.Property(t => t.HostId)
                 .IsRequired();
 
-            Property(t => t.TimeoutDate)
-                .IsOptional();
+            builder.Property(t => t.TimeoutDate).IsRequired(false);
 
-            Property(t => t.AuthorizeStatus)
+            builder.Property(t => t.AuthorizeStatus)
                 .IsRequired();
 
-            Property(t => t.TimeoutAction)
+            builder.Property(t => t.TimeoutAction)
                 .IsRequired();
         }
     }

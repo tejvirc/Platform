@@ -207,6 +207,7 @@
                         .Start();
 
                     _authResponseData.Status = AuthenticationStatus.AuthenticationCurrentlyInProgress;
+
                     Logger.Debug("Authentication started");
                     break;
 

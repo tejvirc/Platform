@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
+    using ProtoBuf;
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Runtime.Serialization.Formatters.Binary;
     using Hardware.Contracts.Persistence;
 
     public abstract class StorageBase
@@ -36,31 +36,27 @@
         {
             var block = GetBlock(name);
 
-            return (T)(GetValue(block) ?? default(T));
+            return GetValue<T>(block);
         }
 
         public T GetValue<T>(int gameId, long betAmount, string name)
         {
             var block = GetBlock(gameId, betAmount, name);
 
-            return (T)(GetValue(block) ?? default(T));
+            return GetValue<T>(block);
         }
 
         public IEnumerable<T> GetValues<T>(int gameId, string name)
         {
             var block = GetBlock(gameId, name);
-
-            var list = GetValue(block) as IEnumerable;
-
+            var list = GetValue<T>(block) as IEnumerable;
             return list?.Cast<T>() ?? Enumerable.Empty<T>();
         }
 
         public IEnumerable<T> GetValues<T>(int gameId, long betAmount, string name)
         {
             var block = GetBlock(gameId, betAmount, name);
-
-            var list = GetValue(block) as IEnumerable;
-
+            var list = GetValues<T>(block) as IEnumerable;
             return list?.Cast<T>() ?? Enumerable.Empty<T>();
         }
 
@@ -165,24 +161,40 @@
             return _persistentStorage.BlockExists(blockName);
         }
 
-        internal object GetValue(IPersistentStorageAccessor block)
+        internal T GetValue<T>(IPersistentStorageAccessor block)
         {
             lock (_sync)
             {
                 var data = (byte[])block[Data];
                 if (data.Length <= 2)
                 {
-                    return null;
+                    return default(T);
                 }
 
                 using (var stream = new MemoryStream())
                 {
-                    var formatter = new BinaryFormatter();
-
                     stream.Write(data, 0, data.Length);
                     stream.Position = 0;
+                    return Serializer.Deserialize<T>(stream);
+                }
+            }
+        }
 
-                    return formatter.Deserialize(stream);
+        internal List<T> GetValues<T>(IPersistentStorageAccessor block)
+        {
+            lock (_sync)
+            {
+                var data = (byte[])block[Data];
+                if (data.Length <= 2)
+                {
+                    return default(List<T>);
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                    stream.Position = 0;
+                    return Serializer.Deserialize<List<T>>(stream);
                 }
             }
         }
@@ -193,10 +205,7 @@
             {
                 using (var stream = new MemoryStream())
                 {
-                    var formatter = new BinaryFormatter();
-
-                    formatter.Serialize(stream, value);
-
+                    Serializer.Serialize(stream, value);
                     using (var transaction = block.StartTransaction())
                     {
                         transaction[Data] = stream.ToArray();

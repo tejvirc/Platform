@@ -6,16 +6,24 @@
     using Kernel;
     using Localization;
     using Monaco.Localization.Properties;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event when a component hash completes
     /// </summary>
- 
-    [Serializable]
+
+    [ProtoContract]
     [CLSCompliant(false)]
     public class ComponentHashCompleteEvent : BaseEvent
     {
         private const string EventDescriptionNameDelimiter = " - ";
+
+        /// <summary>
+        /// Empty construcotr for deserialization
+        /// </summary>
+        public ComponentHashCompleteEvent()
+        {
+        }
 
         /// <summary>
         ///     Constructor
@@ -31,6 +39,7 @@
         /// <summary>
         ///     Component verification
         /// </summary>
+        [ProtoMember(1)]
         public ComponentVerification ComponentVerification { get; }
 
         /// <summary>

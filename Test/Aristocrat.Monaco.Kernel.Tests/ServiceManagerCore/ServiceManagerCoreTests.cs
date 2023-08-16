@@ -6,6 +6,7 @@
     using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using Test.Common.UnitTesting;
     using TestServices;
     using ServiceManagerCore = Kernel.ServiceManagerCore;
 

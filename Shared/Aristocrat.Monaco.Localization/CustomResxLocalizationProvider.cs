@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Resources;
+    using System.Runtime.Loader;
     using System.Windows;
     using Markup;
     using WPFLocalizeExtension.Engine;
@@ -265,7 +266,7 @@
 
             try
             {
-                var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+                var loadedAssemblies = AssemblyLoadContext.Default.Assemblies;
                 foreach (var assemblyInAppDomain in loadedAssemblies)
                 {
                     var assemblyName = new AssemblyName(assemblyInAppDomain.FullName);
@@ -344,7 +345,7 @@
             return from c in CultureInfo.GetCultures(CultureTypes.AllCultures)
                    join d in directory.EnumerateDirectories() on c.IetfLanguageTag equals d.Name
                    where d.EnumerateFiles(fileName).Any()
-                   select c;
+                   select (CultureInfo)c.Clone();
         }
 
         private object GetResource(string key, DependencyObject target, CultureInfo culture)

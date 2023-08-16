@@ -1,13 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Aristocrat.Monaco.Accounting.UI</RootNamespace>
     <AssemblyTitle>Monaco.Accounting.UI</AssemblyTitle>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <Configurations>Debug;Release;Retail</Configurations>
     <UseWPF>true</UseWPF>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
-    <PlatformTarget>x64</PlatformTarget>
+    <Platform>x64</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
@@ -51,12 +51,15 @@
     <ProjectReference Include="..\Monaco.Accounting\Monaco.Accounting.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
-    <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="MahApps.Metro" Version="1.6.5" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="1.9.1" />
-    <PackageReference Include="Mono.Addins" Version="1.0.0" />
-    <PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />
+    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="WpfVoucherInHistoryLog.addin.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

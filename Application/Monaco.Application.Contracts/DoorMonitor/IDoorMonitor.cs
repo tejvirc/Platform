@@ -191,7 +191,6 @@ namespace Aristocrat.Monaco.Application.Contracts
                 hash = hash * 23 + DoorId.GetHashCode();
                 hash = hash * 23 + IsOpen.GetHashCode();
                 hash = hash * 23 + Time.GetHashCode();
-
                 hash = hash * 23 + ValidationPassed.GetHashCode();
                 return hash;
             }

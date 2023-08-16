@@ -6,8 +6,9 @@
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
              xmlns:helpers="http://monaco.aristocrat.com/common"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:core="clr-namespace:System;assembly=mscorlib"
-             xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
              xmlns:barkeeper="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Barkeeper;assembly=Aristocrat.Monaco.Gaming.Contracts"
              xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
@@ -88,7 +89,7 @@
                   EnableRowVirtualization="True"
                   AutomationProperties.AutomationId="DataGrid5_4A6C4BF0">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Enable}}"
+                <DataGridTemplateColumn Header="{lex:Loc Enable}"
                                         HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn6_4A6C4BF0">
                     <DataGridTemplateColumn.CellTemplate>
@@ -101,7 +102,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Level}}"
+                <DataGridTemplateColumn Header="{lex:Loc Level}"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn8_4A6C4BF0">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CashInRewardLevel}">
@@ -110,7 +111,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Threshold}}"
+                <DataGridTemplateColumn Header="{lex:Loc Threshold}"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn10_4A6C4BF0">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:CashInRewardLevel}">
@@ -124,7 +125,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Color}}"
+                <DataGridTemplateColumn Header="{lex:Loc Color}"
                                         IsReadOnly="False"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn11_4A6C4BF0">
                     <DataGridTemplateColumn.CellTemplate>
@@ -137,7 +138,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Alert}}"
+                <DataGridTemplateColumn Header="{lex:Loc Alert}"
                                         IsReadOnly="False"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn13_4A6C4BF0">
                     <DataGridTemplateColumn.CellTemplate>
@@ -156,14 +157,14 @@
                     Orientation="Horizontal"
                     Margin="0 15 0 0"
                     AutomationProperties.AutomationId="StackPanel15_4A6C4BF0">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BarkeeperCashInMeter}}"
+            <Label Content="{lex:Loc BarkeeperCashInMeter}"
                    Visibility="{Binding CashInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                    AutomationProperties.AutomationId="Label16_4A6C4BF0" />
             <Label Content="{Binding CashInSessionMeter, UpdateSourceTrigger=PropertyChanged}"
                    VerticalAlignment="Center"
                    Visibility="{Binding CashInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                    AutomationProperties.AutomationId="Label17_4A6C4BF0" />
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.BarkeeperCashInDisabled}}"
+            <Label Content="{lex:Loc BarkeeperCashInDisabled}"
                    Visibility="{Binding CashInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}"
                    AutomationProperties.AutomationId="Label18_4A6C4BF0" />
         </StackPanel>

@@ -105,126 +105,92 @@
                 <ColumnDefinition Width="100"
                                   AutomationProperties.AutomationId="ColumnDefinition22_39FD1230" />
             </Grid.ColumnDefinitions>
-            <Label x:Name="ButtonData0Label"
-                   Grid.Row="1"
-                   Grid.Column="0"
-                   Content="{Binding Result, ElementName=ButtonData0LocProxy}"
-                   IsEnabled="{Binding ButtonData[0].Enabled}"
-                   AutomationProperties.AutomationId="Label23_39FD1230"></Label>
-            <lex:LocProxy x:Name="ButtonData0LocProxy"
-                          Grid.Row="1"
-                          Grid.Column="0"
-                          Source="{Binding ButtonData[0].ResourceKey}" />
-            <Label x:Name="ButtonData1Label"
-                   Grid.Row="1"
-                   Grid.Column="2"
-                   Content="{Binding Result, ElementName=ButtonData1LocProxy}"
-                   IsEnabled="{Binding ButtonData[1].Enabled}"
+
+            <Label x:Name="ButtonData0Label" 
+                   Grid.Row="1" 
+                   Grid.Column="0" 
+                   Content="{Binding ButtonData[0].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[0].Enabled}" 
+                   AutomationProperties.AutomationId="Label23_39FD1230">
+            </Label>
+
+            <Label x:Name="ButtonData1Label" 
+                   Grid.Row="1" 
+                   Grid.Column="2" 
+                   Content="{Binding ButtonData[1].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[1].Enabled}" 
                    AutomationProperties.AutomationId="Label24_39FD1230" />
-            <lex:LocProxy x:Name="ButtonData1LocProxy"
-                          Grid.Row="1"
-                          Grid.Column="2"
-                          Source="{Binding ButtonData[1].ResourceKey}" />
-            <Label x:Name="ButtonData2Label"
-                   Grid.Row="1"
-                   Grid.Column="4"
-                   Content="{Binding Result, ElementName=ButtonData2LocProxy}"
+
+            <Label x:Name="ButtonData2Label" 
+                   Grid.Row="1" 
+                   Grid.Column="4" 
+                   Content="{Binding ButtonData[2].ResourceKey}" 
                    IsEnabled="{Binding ButtonData[2].Enabled}"
                    AutomationProperties.AutomationId="Label25_39FD1230" />
-            <lex:LocProxy x:Name="ButtonData2LocProxy"
-                          Grid.Row="1"
-                          Grid.Column="4"
-                          Source="{Binding ButtonData[2].ResourceKey}" />
-            <Label x:Name="ButtonData3Label"
-                   Grid.Row="1"
-                   Grid.Column="6"
-                   Content="{Binding Result, ElementName=ButtonData3LocProxy}"
+
+            <Label x:Name="ButtonData3Label" 
+                   Grid.Row="1" 
+                   Grid.Column="6" 
+                   Content="{Binding ButtonData[3].ResourceKey}" 
                    IsEnabled="{Binding ButtonData[3].Enabled}"
                    AutomationProperties.AutomationId="Label26_39FD1230" />
-            <lex:LocProxy x:Name="ButtonData3LocProxy"
-                          Grid.Row="1"
-                          Grid.Column="6"
-                          Source="{Binding ButtonData[3].ResourceKey}" />
-            <Label x:Name="ButtonData4Label"
-                   Grid.Row="1"
-                   Grid.Column="8"
-                   Content="{Binding Result, ElementName=ButtonData4LocProxy}"
+
+            <Label x:Name="ButtonData4Label" 
+                   Grid.Row="1" 
+                   Grid.Column="8" 
+                   Content="{Binding ButtonData[4].ResourceKey}" 
                    IsEnabled="{Binding ButtonData[4].Enabled}"
                    AutomationProperties.AutomationId="Label27_39FD1230" />
-            <lex:LocProxy x:Name="ButtonData4LocProxy"
-                          Grid.Row="1"
-                          Grid.Column="8"
-                          Source="{Binding ButtonData[4].ResourceKey}" />
-            <Label x:Name="ButtonData5Label"
-                   Grid.Row="1"
-                   Grid.Column="10"
-                   Content="{Binding Result, ElementName=ButtonData5LocProxy}"
+
+            <Label x:Name="ButtonData5Label" 
+                   Grid.Row="1" 
+                   Grid.Column="10" 
+                   Content="{Binding ButtonData[5].ResourceKey}" 
                    IsEnabled="{Binding ButtonData[5].Enabled}"
                    AutomationProperties.AutomationId="Label28_39FD1230" />
-            <lex:LocProxy x:Name="ButtonData5LocProxy"
-                          Grid.Row="1"
-                          Grid.Column="10"
-                          Source="{Binding ButtonData[5].ResourceKey}" />
-            <Label x:Name="ButtonData6Label"
-                   Grid.Row="3"
-                   Grid.Column="0"
-                   Content="{Binding Result, ElementName=ButtonData6LocProxy}"
+
+            <Label x:Name="ButtonData6Label" 
+                   Grid.Row="3" 
+                   Grid.Column="0" 
+                   Content="{Binding ButtonData[6].ResourceKey}" 
                    IsEnabled="{Binding ButtonData[6].Enabled}"
                    AutomationProperties.AutomationId="Label29_39FD1230" />
-            <lex:LocProxy x:Name="ButtonData6LocProxy"
-                          Grid.Row="3"
-                          Grid.Column="0"
-                          Source="{Binding ButtonData[6].ResourceKey}" />
-            <Label x:Name="ButtonData7Label"
-                   Grid.Row="3"
-                   Grid.Column="2"
-                   Content="{Binding Result, ElementName=ButtonData7LocProxy}"
+
+            <Label x:Name="ButtonData7Label" 
+                   Grid.Row="3" 
+                   Grid.Column="2" 
+                   Content="{Binding  ButtonData[7].ResourceKey}" 
                    IsEnabled="{Binding ButtonData[7].Enabled}"
                    AutomationProperties.AutomationId="Label30_39FD1230" />
-            <lex:LocProxy x:Name="ButtonData7LocProxy"
-                          Grid.Row="3"
-                          Grid.Column="2"
-                          Source="{Binding ButtonData[7].ResourceKey}" />
-            <Label x:Name="ButtonData8Label"
-                   Grid.Row="3"
-                   Grid.Column="4"
-                   Content="{Binding Result, ElementName=ButtonData8LocProxy}"
+
+            <Label x:Name="ButtonData8Label" 
+                   Grid.Row="3" 
+                   Grid.Column="4" 
+                   Content="{Binding ButtonData[8].ResourceKey}" 
                    IsEnabled="{Binding ButtonData[8].Enabled}"
                    AutomationProperties.AutomationId="Label31_39FD1230" />
-            <lex:LocProxy x:Name="ButtonData8LocProxy"
-                          Grid.Row="3"
-                          Grid.Column="4"
-                          Source="{Binding ButtonData[8].ResourceKey}" />
-            <Label x:Name="ButtonData9Label"
-                   Grid.Row="3"
-                   Grid.Column="6"
-                   Content="{Binding Result, ElementName=ButtonData9LocProxy}"
+
+            <Label x:Name="ButtonData9Label" 
+                   Grid.Row="3" 
+                   Grid.Column="6" 
+                   Content="{Binding ButtonData[9].ResourceKey}" 
                    IsEnabled="{Binding ButtonData[9].Enabled}"
                    AutomationProperties.AutomationId="Label32_39FD1230" />
-            <lex:LocProxy x:Name="ButtonData9LocProxy"
-                          Grid.Row="3"
-                          Grid.Column="6"
-                          Source="{Binding ButtonData[9].ResourceKey}" />
-            <Label x:Name="ButtonData10Label"
-                   Grid.Row="3"
-                   Grid.Column="8"
-                   Content="{Binding Result, ElementName=ButtonData10LocProxy}"
+
+            <Label x:Name="ButtonData10Label" 
+                   Grid.Row="3" 
+                   Grid.Column="8" 
+                   Content="{Binding ButtonData[10].ResourceKey}" 
                    IsEnabled="{Binding ButtonData[10].Enabled}"
                    AutomationProperties.AutomationId="Label33_39FD1230" />
-            <lex:LocProxy x:Name="ButtonData10LocProxy"
-                          Grid.Row="3"
-                          Grid.Column="8"
-                          Source="{Binding ButtonData[10].ResourceKey}" />
-            <Label x:Name="ButtonData11Label"
-                   Grid.Row="3"
-                   Grid.Column="10"
-                   Content="{Binding Result, ElementName=ButtonData11LocProxy}"
+
+            <Label x:Name="ButtonData11Label" 
+                   Grid.Row="3" 
+                   Grid.Column="10" 
+                   Content="{Binding ButtonData[11].ResourceKey}" 
                    IsEnabled="{Binding ButtonData[11].Enabled}"
                    AutomationProperties.AutomationId="Label34_39FD1230" />
-            <lex:LocProxy x:Name="ButtonData11LocProxy"
-                          Grid.Row="3"
-                          Grid.Column="10"
-                          Source="{Binding ButtonData[11].ResourceKey}" />
+
         </Grid>
         <Label Name="BashButton"
                Grid.Row="0"

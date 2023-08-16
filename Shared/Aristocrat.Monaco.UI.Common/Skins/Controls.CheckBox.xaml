@@ -60,7 +60,7 @@
                         <Grid x:Name="PART_CHECKBOX"
                               AutomationProperties.AutomationId="Grid6_E224597B">
                             <Rectangle Margin="-6 0"
-                                       Fill="{DynamicResource TransparentWhiteBrush}"
+                                       Fill="{DynamicResource MahApps.Brushes.Transparent}"
                                        AutomationProperties.AutomationId="Rectangle7_E224597B" />
                             <Border x:Name="normal"
                                     Width="{Binding Path=(helpers:CheckBoxHelper.CheckBoxPartWidth), RelativeSource={RelativeSource TemplatedParent}}"

@@ -1,23 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\..\Build\shared.props" />	
   <PropertyGroup>
-    <Monaco_DisableCodeAnalysis>true</Monaco_DisableCodeAnalysis>
-  </PropertyGroup>
-
-  <Import Project="$(MSBuildThisFileDirectory)..\..\..\..\Build\shared.props" />
-
-  <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Vgt.Client12.Testing.Tools</RootNamespace>
     <AssemblyTitle>DebugCurrencyHandler</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <UseWPF>true</UseWPF>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <PlatformTarget>x64</PlatformTarget>
+    <Platform>x64</Platform>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
   <ItemGroup>
     <Content Include="DebugCurrencyHandler.addin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -35,6 +26,6 @@
     <ProjectReference Include="..\..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.13" />
   </ItemGroup>
 </Project>

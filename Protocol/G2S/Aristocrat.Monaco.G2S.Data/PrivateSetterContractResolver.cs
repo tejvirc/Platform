@@ -24,12 +24,10 @@
         }
     }
 
-#pragma warning disable SA1402 // File may only contain a single class
     /// <summary>
     ///     MemberInfo extension methods
     /// </summary>
     internal static class MemberInfoExtensions
-#pragma warning restore SA1402 // File may only contain a single class
     {
         /// <summary>
         ///     Determines if the MemberInfo is a property and has a setter.

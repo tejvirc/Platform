@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
@@ -80,7 +80,7 @@
 
             Assert.IsFalse(result);
 
-            _contextFactoryMock.Verify(m => m.Create(), Times.Once);
+            _contextFactoryMock.Verify(m => m.CreateDbContext(), Times.Once);
         }
 
         [TestMethod]
@@ -98,7 +98,7 @@
 
             Assert.IsTrue(result);
 
-            _contextFactoryMock.Verify(m => m.Create(), Times.Once);
+            _contextFactoryMock.Verify(m => m.CreateDbContext(), Times.Once);
         }
 
         [TestMethod]
@@ -115,7 +115,7 @@
             var profiles = service.GetAll();
             Assert.AreEqual(2, profiles.Count());
 
-            _contextFactoryMock.Verify(m => m.Create(), Times.Once);
+            _contextFactoryMock.Verify(m => m.CreateDbContext(), Times.Once);
         }
 
         [TestMethod]
@@ -143,7 +143,7 @@
             service.Save(_deviceMock.Object);
 
             _profileDataRepository.Verify(m => m.Add(It.IsAny<DbContext>(), It.IsAny<ProfileData>()), Times.Once);
-            _contextFactoryMock.Verify(m => m.Create(), Times.Once);
+            _contextFactoryMock.Verify(m => m.CreateDbContext(), Times.Once);
         }
 
         [TestMethod]
@@ -160,7 +160,7 @@
             service.Save(_deviceMock.Object);
 
             _profileDataRepository.Verify(m => m.Update(It.IsAny<DbContext>(), It.IsAny<ProfileData>()), Times.Once);
-            _contextFactoryMock.Verify(m => m.Create(), Times.Once);
+            _contextFactoryMock.Verify(m => m.CreateDbContext(), Times.Once);
         }
 
         [TestMethod]
@@ -187,7 +187,7 @@
 
             service.Delete(_deviceMock.Object);
 
-            _contextFactoryMock.Verify(m => m.Create(), Times.Once);
+            _contextFactoryMock.Verify(m => m.CreateDbContext(), Times.Once);
             _profileDataRepository.Verify(m => m.Get(It.IsAny<DbContext>(), DeviceClass, DeviceId), Times.Once);
             _profileDataRepository.Verify(m => m.Delete(It.IsAny<DbContext>(), profileData));
         }
@@ -234,7 +234,7 @@
 
             Assert.AreEqual(true, deviceToPopulate.HostEnabled);
 
-            _contextFactoryMock.Verify(m => m.Create(), Times.Once);
+            _contextFactoryMock.Verify(m => m.CreateDbContext(), Times.Once);
         }
 
         private class DeviceStub : IDevice

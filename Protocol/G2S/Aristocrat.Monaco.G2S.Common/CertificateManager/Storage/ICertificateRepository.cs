@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.CertificateManager.Storage
 {
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore; 
     using Models;
     using Monaco.Common.Storage;
 

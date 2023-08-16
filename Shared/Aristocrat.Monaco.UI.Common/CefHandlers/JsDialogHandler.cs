@@ -4,7 +4,6 @@
     using CefSharp;
 
     /// <inheritdoc />
-    [CLSCompliant(false)]
     public class JsDialogHandler : IJsDialogHandler
     {
         /// <inheritdoc />

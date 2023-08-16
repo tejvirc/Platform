@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.XMLValidation.Tests
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Xml.Serialization;
@@ -42,7 +43,9 @@
 
         private ConfigWizardConfiguration DeserializeConfig(string filename)
         {
-            var serializer = new XmlSerializer(typeof(ConfigWizardConfiguration));
+            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(ConfigWizardConfiguration))
+                                                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+            var serializer = new XmlSerializer(typeof(ConfigWizardConfiguration), theXmlRootAttribute ?? new XmlRootAttribute(nameof(ConfigWizardConfiguration)));
 
             using (Stream reader = new FileStream(filename, FileMode.Open))
             {

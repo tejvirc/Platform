@@ -10,6 +10,8 @@
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
                                xmlns:behaviors="clr-namespace:Aristocrat.Monaco.Gaming.UI.Behaviors"
                                mc:Ignorable="d"
@@ -70,7 +72,7 @@
                         Margin="0 0 20 0"
                         Visibility="{Binding HasMultipleGames, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         AutomationProperties.AutomationId="StackPanel5_FA38938A">
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameType}}"
+                <TextBlock Text="{lex:Loc GameType}"
                            loc:Localizer.For="Operator"
                            VerticalAlignment="Center"
                            Margin="0 0 5 0"
@@ -97,9 +99,9 @@
                         </ItemsPanelTemplate>
                     </ComboBox.ItemsPanel>
                 </ComboBox>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameText}}"
+
+                <TextBlock Text="{lex:Loc GameText}" VerticalAlignment="Center"
                            loc:Localizer.For="Operator"
-                           VerticalAlignment="Center"
                            Margin="20 0 5 0"
                            FontSize="16"
                            AutomationProperties.AutomationId="TextBlock10_FA38938A" />
@@ -129,7 +131,7 @@
                         VerticalAlignment="Center"
                         Visibility="{Binding HasTopAward, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         AutomationProperties.AutomationId="StackPanel14_FA38938A">
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.MachineTopAward}}"
+                <TextBlock Text="{lex:Loc MachineTopAward}"
                            Margin="0 0 5 0"
                            FontSize="16"
                            AutomationProperties.AutomationId="TextBlock15_FA38938A" />
@@ -162,7 +164,7 @@
                             ZIndex="1"
                             Visibility="{Binding ShowRestrictionChooser, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                             AutomationProperties.AutomationId="StackPanel23_FA38938A">
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.PackageLabel}}"
+                    <TextBlock Text="{lex:Loc PackageLabel}"
                                VerticalAlignment="Center"
                                Margin="0 0 5 0"
                                FontSize="16"
@@ -232,7 +234,7 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denom}}"
+                        <DataGridTemplateColumn Header="{lex:Loc Denom}"
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn29_FA38938A">
@@ -255,7 +257,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PaytableRTP}}"
+                        <DataGridTemplateColumn Header="{lex:Loc PaytableRTP}"
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 AutomationProperties.AutomationId="DataGridTemplateColumn33_FA38938A">
@@ -283,7 +285,8 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BetOption}}"
+
+                        <DataGridTemplateColumn Header="{lex:Loc BetOption}"
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -307,7 +310,8 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LineOption}}"
+
+                        <DataGridTemplateColumn Header="{lex:Loc LineOption}"
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -330,7 +334,8 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusBet}}"
+
+                        <DataGridTemplateColumn Header="{lex:Loc BonusBet}"
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsPokerGameSelected), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -345,11 +350,10 @@
                                                   Visibility="{Binding BonusBetAvailable, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                                   SelectedValue="{Binding SelectedBonusBet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                   IsEnabled="{Binding BonusBetEnabled}"
-                                                  AutomationProperties.AutomationId="ComboBox45_FA38938A"
-                                                  Validation.ErrorTemplate="{x:Null}">
+                                                  AutomationProperties.AutomationId="ComboBox45_FA38938A">
                                             <ComboBox.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <VirtualizingStackPanel IsVirtualizing="False"
+                                                    <VirtualizingStackPanel IsVirtualizing="True"
                                                                             AutomationProperties.AutomationId="VirtualizingStackPanel46_FA38938A" />
                                                 </ItemsPanelTemplate>
                                             </ComboBox.ItemsPanel>
@@ -361,7 +365,7 @@
                                                 </DataTemplate>
                                             </ComboBox.ItemTemplate>
                                         </ComboBox>
-                                        <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                        <TextBlock Text="{lex:Loc NotAvailable}"
                                                    VerticalAlignment="Center"
                                                    Width="80"
                                                    Visibility="{Binding BonusBetAvailable, Converter={StaticResource TrueCollapsedFalseVisible}}"
@@ -370,7 +374,8 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxBet}}"
+
+                        <DataGridTextColumn Header="{lex:Loc MaxBet}" 
                                             loc:Localizer.For="Operator"
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                             Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.MaxBetIsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -384,7 +389,8 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TopAward}}"
+
+                        <DataGridTextColumn Header="{lex:Loc TopAward}"
                                             loc:Localizer.For="Operator"
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                             Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GlobalOptionsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -399,7 +405,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BetOptionMaxWin}}"
+                        <DataGridTextColumn Header="{lex:Loc BetOptionMaxWin}"
                                             loc:Localizer.For="Operator"
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                             Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.MaxWinColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -413,7 +419,7 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
 
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Gamble}}" 
+                        <DataGridTemplateColumn Header="{lex:Loc Gamble}" 
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.GambleOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -427,7 +433,8 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LetItRide}}"
+
+                        <DataGridTemplateColumn Header="{lex:Loc LetItRide}" 
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.LetItRideOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -441,7 +448,9 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMinBet}}"
+
+
+                        <DataGridTemplateColumn Header="{lex:Loc ForcedMinBet}"
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -461,7 +470,8 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMinBet}}"
+
+                        <DataGridTemplateColumn Header="{lex:Loc ForcedMinBet}"
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -480,7 +490,8 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMaxBetInside}}"
+
+                        <DataGridTemplateColumn Header="{lex:Loc ForcedMaxBetInside}"
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -498,7 +509,8 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ForcedMaxBetOutside}}"
+
+                        <DataGridTemplateColumn Header="{lex:Loc ForcedMaxBetOutside}"
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.IsRouletteGameSelected), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -535,7 +547,8 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveColumnHeader}}"
+
+                        <DataGridTemplateColumn Header="{lex:Loc ProgressiveColumnHeader}" 
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                                 Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.OptionColumnVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -556,14 +569,14 @@
                                                 AutomationProperties.AutomationId="Button63_FA38938A" />
                                         <Button Name="ProgressiveViewButton"
                                                 Margin="2 0 0 0"
-                                                Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveViewButtonText}}"
+                                                Content="{lex:Loc ProgressiveViewButtonText}"
                                                 Command="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.ProgressiveViewCommand), Source={StaticResource PageModel}}"
                                                 CommandParameter="{Binding}"
                                                 Width="55"
                                                 FontSize="14"
                                                 Visibility="{Binding ProgressiveViewVisibility, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
                                                 AutomationProperties.AutomationId="Button64_FA38938A" />
-                                        <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                        <TextBlock Text="{lex:Loc NotAvailable}"
                                                    VerticalAlignment="Center"
                                                    Visibility="{Binding ProgressivesEnabled, Converter={StaticResource TrueCollapsedFalseVisible}, UpdateSourceTrigger=PropertyChanged}"
                                                    AutomationProperties.AutomationId="TextBlock65_FA38938A" />
@@ -606,7 +619,7 @@
                     Visibility="{Binding ShowCancelButtonOverride, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Width="Auto"
                     AutomationProperties.AutomationId="Button70_FA38938A" />
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReconfigureGames}}"
+            <Button Content="{lex:Loc ReconfigureGames}"
                     Command="{Binding ConfigCommand, Mode=OneWay}"
                     IsEnabled="{Binding InputEnabled, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding ConfigureVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -622,7 +635,7 @@
                         Visibility="{Binding ImportVisibleOverride, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         AutomationProperties.AutomationId="StackPanel73_FA38938A">
                 <Button x:Name="ImportBtn"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ImportGameSettings}}"
+                        Content="{lex:Loc ImportGameSettings}"
                         Command="{Binding ImportCommand}"
                         Width="Auto"
                         AutomationProperties.AutomationId="Button74_FA38938A" />
@@ -635,18 +648,15 @@
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="ImportInfoButton" />
-                            <Binding ElementName="GameSetupEKeyImportVerified"
-                                     Path="Result" />
+                            <Binding Source="{lex:Loc GameSetupEKeyImportVerified}" />
                         </MultiBinding>
                     </Button.CommandParameter>
-                    <lex:LocProxy x:Name="GameSetupEKeyImportVerified"
-                                  Source="{x:Static loc:ResourceKeys.GameSetupEKeyImportVerified}" />
                 </Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Visibility="{Binding ExportVisibleOverride, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         AutomationProperties.AutomationId="StackPanel76_FA38938A">
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExportGameSettings}}"
+                <Button Content="{lex:Loc ExportGameSettings}"
                         Command="{Binding ExportCommand}"
                         Width="Auto"
                         AutomationProperties.AutomationId="Button77_FA38938A" />
@@ -659,20 +669,17 @@
                     <Button.CommandParameter>
                         <MultiBinding Converter="{StaticResource MultiValueConverter}">
                             <Binding ElementName="ExportInfoButton" />
-                            <Binding ElementName="GameSetupEKeyExportVerified"
-                                     Path="Result" />
+                            <Binding Source="{lex:Loc GameSetupEKeyExportVerified}" />
                         </MultiBinding>
                     </Button.CommandParameter>
-                    <lex:LocProxy x:Name="GameSetupEKeyExportVerified"
-                                  Source="{x:Static loc:ResourceKeys.GameSetupEKeyExportVerified}" />
                 </Button>
             </StackPanel>
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ViewRTPSummary}}"
+            <Button Content="{lex:Loc ViewRTPSummary}"
                     Command="{Binding ShowRtpSummaryCommand}"
                     Visibility="{Binding ShowSummaryButtons, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
                     Width="Auto"
                     AutomationProperties.AutomationId="Button79_FA38938A" />
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ViewProgressiveSummary}}"
+            <Button Content="{lex:Loc ViewProgressiveSummary}"
                     Command="{Binding ShowProgressiveSummaryCommand}"
                     Visibility="{Binding ShowSummaryButtons, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}"
                     Width="Auto"

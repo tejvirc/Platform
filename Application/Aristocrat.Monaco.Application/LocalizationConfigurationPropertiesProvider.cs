@@ -212,7 +212,9 @@
 
             try
             {
-                var serializer = new XmlSerializer(typeof(T));
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(T))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var serializer = new XmlSerializer(typeof(T), theXmlRootAttribute ?? new XmlRootAttribute(nameof(T)));
                 using (var reader = new StreamReader(configurationFileName))
                 {
                     configuration = serializer.Deserialize(reader) as T;

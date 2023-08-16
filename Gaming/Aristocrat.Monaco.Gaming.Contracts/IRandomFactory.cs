@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using System;
-    using PRNGLib;
-
+    using CryptoRng;
+    
     /// <summary>
     ///     RandomType - we use separate RNGs for gaming (outcome) and non-gaming purposes.
     /// </summary>
@@ -30,6 +30,6 @@
         /// </summary>
         /// <param name="type">Gaming or NonGaming.</param>
         /// <returns>A random number generator implementation.</returns>
-        IPRNG Create(RandomType type);
+        IRandom Create(RandomType type);
     }
 }

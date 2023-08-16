@@ -1,11 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.Tests
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Monaco.Common.Storage;
     using Moq;
     using Storage.Model;
+    using Aristocrat.Monaco.Protocol.Common.Storage;
 
     [TestClass]
     public class BingoHostServiceTests
@@ -37,9 +38,11 @@
             var oldHost = CreateHost("oldHost", 1, 123);
             var newHost = CreateHost("newHost", 1, 1234);
 
-            var dbContext = new DbContext("TestDb");
+            var mockConnectionStringResolver = new Mock<IConnectionStringResolver>();
+            mockConnectionStringResolver.Setup(a => a.Resolve()).Returns("TestDb");
+            var dbContext = new BingoContext(mockConnectionStringResolver.Object);
 
-            _factory.Setup(x => x.Create()).Returns(dbContext).Verifiable();
+            _factory.Setup(x => x.CreateDbContext()).Returns(dbContext).Verifiable();
             _repository.Setup(r => r.GetSingle(dbContext)).Returns(oldHost).Verifiable();
             _repository.Setup(r => r.Delete(dbContext, oldHost)).Verifiable();
             _repository.Setup(r => r.Add(dbContext, newHost)).Verifiable();
@@ -64,9 +67,12 @@
             var oldHost = CreateHost("oldHost", 1, 123);
             var updatedOldHost = CreateHost("UpdatedHost", 2, 123);
 
-            var dbContext = new DbContext("TestDb");
+            var mockConnectionStringResolver = new Mock<IConnectionStringResolver>();
+            mockConnectionStringResolver.Setup(a => a.Resolve()).Returns("TestDb");
 
-            _factory.Setup(x => x.Create()).Returns(dbContext).Verifiable();
+            var dbContext = new BingoContext(mockConnectionStringResolver.Object);
+
+            _factory.Setup(x => x.CreateDbContext()).Returns(dbContext).Verifiable();
             _repository.Setup(r => r.GetSingle(dbContext)).Returns(oldHost).Verifiable();
             _repository.Setup(r => r.Update(dbContext, oldHost)).Verifiable();
 
@@ -89,9 +95,11 @@
 
             var newHost = CreateHost("newHost", 2, 123);
 
-            var dbContext = new DbContext("TestDb");
+            var mockConnectionStringResolver = new Mock<IConnectionStringResolver>();
+            mockConnectionStringResolver.Setup(a => a.Resolve()).Returns("TestDb");
+            var dbContext = new BingoContext(mockConnectionStringResolver.Object);
 
-            _factory.Setup(x => x.Create()).Returns(dbContext).Verifiable();
+            _factory.Setup(x => x.CreateDbContext()).Returns(dbContext).Verifiable();
             _repository.Setup(r => r.GetSingle(dbContext)).Returns((Host)null).Verifiable();
             _repository.Setup(r => r.Add(dbContext, newHost)).Verifiable();
 
@@ -112,9 +120,11 @@
         {
             _target = new BingoHostService(_factory.Object, _repository.Object);
 
-            var dbContext = new DbContext("TestDb");
+            var mockConnectionStringResolver = new Mock<IConnectionStringResolver>();
+            mockConnectionStringResolver.Setup(a => a.Resolve()).Returns("TestDb");
+            var dbContext = new BingoContext(mockConnectionStringResolver.Object);
 
-            _factory.Setup(x => x.Create()).Returns(dbContext).Verifiable();
+            _factory.Setup(x => x.CreateDbContext()).Returns(dbContext).Verifiable();
             _repository.Setup(r => r.GetSingle(dbContext)).Returns((Host)null).Verifiable();
 
             var currentHost = _target.GetHost();

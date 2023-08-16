@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.Application.Contracts
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to notify that the button deck navigator has already finished its job.
@@ -29,7 +30,7 @@ namespace Aristocrat.Monaco.Application.Contracts
     ///         component.
     ///     </para>
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class ButtonDeckNavigatorEndedEvent : BaseEvent
     {
     }

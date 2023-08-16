@@ -11,6 +11,7 @@
     using Common.Extensions;
     using Common.Storage;
     using Common.Storage.Model;
+    using Events;
     using Kernel;
     using Localization.Properties;
 
@@ -86,6 +87,8 @@
             }
 
             using var context = new BingoContext(new DefaultConnectionStringResolver(PathMapper));
+
+            context.Database.EnsureCreated();
             if (!context.Certificates.Any())
             {
                 Logger.Debug("Creating Certificate table...");

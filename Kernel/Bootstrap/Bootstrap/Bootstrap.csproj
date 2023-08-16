@@ -1,13 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Aristocrat.Monaco.Bootstrap</RootNamespace>
     <AssemblyTitle>Bootstrap</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
@@ -26,6 +25,8 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
+    <OutputType>Exe</OutputType>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="$(SolutionDir)CustomDictionary.xml">
@@ -47,14 +48,16 @@
     <ProjectReference Include="..\..\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.manifest">
-      <SubType>Designer</SubType>
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="Mono.Addins" Version="1.4.1" />
+    <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="app.manifest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
-  </ItemGroup>
-  <ItemGroup>
     <None Update="logging.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

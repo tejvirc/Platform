@@ -52,7 +52,7 @@
 
             var validationResult = _configurationValidator.Validate(parameter);
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 if (validationResult.IsValid)
                 {

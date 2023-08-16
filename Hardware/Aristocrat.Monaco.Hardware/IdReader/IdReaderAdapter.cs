@@ -428,6 +428,12 @@
             }
 
             _timer = null;
+            if (_reader != null)
+            {
+                _reader.Dispose();
+                _reader = null;
+            }
+
 
             base.Dispose(disposing);
         }

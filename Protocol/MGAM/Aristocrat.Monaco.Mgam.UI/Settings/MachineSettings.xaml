@@ -22,7 +22,7 @@
             <TextBlock Grid.Column="0"
                        Style="{DynamicResource SettingNameStyle}"
                        Grid.Row="0"
-                       Text="{lex:Loc {x:Static loc:ResourceKeys.DirectoryPort}}"
+                       Text="{lex:Loc DirectoryPort}"
                        AutomationProperties.AutomationId="TextBlock6_C437F9AC" />
             <TextBlock Grid.Column="1"
                        Style="{DynamicResource SettingValueStyle}"
@@ -32,7 +32,7 @@
             <TextBlock Grid.Column="0"
                        Style="{DynamicResource SettingNameStyle}"
                        Grid.Row="1"
-                       Text="{lex:Loc {x:Static loc:ResourceKeys.ServiceName}}"
+                       Text="{lex:Loc ServiceName}"
                        AutomationProperties.AutomationId="TextBlock8_C437F9AC" />
             <TextBlock Grid.Column="1"
                        Style="{DynamicResource SettingValueStyle}"

@@ -18,6 +18,7 @@
         {
             Button = button;
             Text = text;
+
         }
 
         public DialogButton Button { get; set; }

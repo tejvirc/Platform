@@ -29,7 +29,7 @@
     using Contracts.Progressives.SharedSap;
     using Kernel;
     using Localization.Properties;
-    using Microsoft.Expression.Interactivity.Core;
+    using Microsoft.Xaml.Behaviors.Core;
     using Models;
     using MVVM;
     using MVVM.Command;

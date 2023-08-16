@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.G2S.Client.Communications
-{
+{    
     using System;
-    using System.ServiceModel.Channels;
-    using System.ServiceModel.Description;
+    using CoreWCF.Channels;
+    using CoreWCF.Description;
     using System.Xml;
 
     /// <summary>
@@ -128,6 +128,8 @@
             return new HostTextMessageBindingElement(this);
         }
 
+        //PlanA: We disabled two below methods, because in CoreWCF.Channels.BindingElement they have been disabled.
+        /*
         /// <inheritdoc />
         public override IChannelFactory<TChannel> BuildChannelFactory<TChannel>(BindingContext context)
         {
@@ -150,7 +152,10 @@
 
             return context.CanBuildInnerChannelFactory<TChannel>();
         }
+        */
 
+        //PlanA: We disabled two below methods, because in CoreWCF.Channels.BindingElement they have been removed.
+        /*
         /// <inheritdoc />
         public override IChannelListener<TChannel> BuildChannelListener<TChannel>(BindingContext context)
         {
@@ -174,6 +179,7 @@
             context.BindingParameters.Add(this);
             return context.CanBuildInnerChannelListener<TChannel>();
         }
+        */
 
         /// <inheritdoc />
         public override T GetProperty<T>(BindingContext context)

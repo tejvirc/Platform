@@ -15,7 +15,7 @@ namespace Aristocrat.Monaco.Hhr.Tests.Services
     [TestClass]
     public class PlayerSessionServiceTests
     {
-        private const double InactivityInterval = 250.0;
+        private const double InactivityInterval = 3000.0;
 
         private readonly Mock<ICentralManager> _mockManager = new Mock<ICentralManager>(MockBehavior.Strict);
         private readonly Mock<IEventBus> _mockEventBus = new Mock<IEventBus>(MockBehavior.Default);
@@ -90,13 +90,13 @@ namespace Aristocrat.Monaco.Hhr.Tests.Services
         {
             Assert.AreEqual(_nextWaitingId, await _playService.GetCurrentPlayerId());
             Assert.AreEqual(1, _requestEventCount);
-            _sendBalanceChanged(new BankBalanceChangedEvent(1, 0, Guid.Empty));
             _mockPlayerBank.SetupGet(m => m.Balance).Returns(0);
+            _sendBalanceChanged(new BankBalanceChangedEvent(1, 0, Guid.Empty));
             Thread.Sleep((int)(InactivityInterval * 0.6)); // Wait until the timeout is half over.
             Assert.AreEqual(_nextWaitingId, await _playService.GetCurrentPlayerId());
             Assert.AreEqual(1, _requestEventCount);
             _nextWaitingId = "PLAYERID02";
-            Thread.Sleep((int)(InactivityInterval * 0.6)); // Wait until the timeout is well over.
+            Thread.Sleep((int)(InactivityInterval)); // Wait until the timeout is well over.
             Assert.AreEqual(_nextWaitingId, await _playService.GetCurrentPlayerId());
             Assert.AreEqual(2, _requestEventCount);
         }

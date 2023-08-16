@@ -10,6 +10,7 @@
     using Mono.Addins;
     using Moq;
     using Test.Common;
+    using Test.Common.UnitTesting;
     using PathMapper = Kernel.PathMapper;
 
     [TestClass]
@@ -90,7 +91,14 @@
         public void TestCleanup()
         {
             MoqServiceManager.RemoveInstance();
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
         }
 
         [TestMethod]

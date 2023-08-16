@@ -26,7 +26,7 @@
             <TextBlock Grid.Column="0"
                        Style="{DynamicResource SettingNameStyle}"
                        Grid.Row="0"
-                       Text="{lex:Loc {x:Static loc:ResourceKeys.CentralServerIpAddressLabel}}"
+                       Text="{lex:Loc CentralServerIpAddressLabel}"
                        AutomationProperties.AutomationId="TextBlock8_6B48DA50" />
             <TextBlock Grid.Column="1"
                        Style="{DynamicResource SettingValueStyle}"
@@ -36,7 +36,7 @@
             <TextBlock Grid.Column="0"
                        Style="{DynamicResource SettingNameStyle}"
                        Grid.Row="1"
-                       Text="{lex:Loc {x:Static loc:ResourceKeys.CentralServerTcpPortNumberLabel}}"
+                       Text="{lex:Loc CentralServerTcpPortNumberLabel}"
                        AutomationProperties.AutomationId="TextBlock10_6B48DA50" />
             <TextBlock Grid.Column="1"
                        Style="{DynamicResource SettingValueStyle}"
@@ -46,7 +46,7 @@
             <TextBlock Grid.Column="0"
                        Style="{DynamicResource SettingNameStyle}"
                        Grid.Row="2"
-                       Text="{lex:Loc {x:Static loc:ResourceKeys.CentralServerEncryptionKeyLabel}}"
+                       Text="{lex:Loc CentralServerEncryptionKeyLabel}"
                        AutomationProperties.AutomationId="TextBlock12_6B48DA50" />
             <TextBlock Grid.Column="1"
                        Style="{DynamicResource SettingValueStyle}"
@@ -56,7 +56,7 @@
             <TextBlock Grid.Column="0"
                        Style="{DynamicResource SettingNameStyle}"
                        Grid.Row="3"
-                       Text="{lex:Loc {x:Static loc:ResourceKeys.CentralServerUdpPortNumberLabel}}"
+                       Text="{lex:Loc CentralServerUdpPortNumberLabel}"
                        AutomationProperties.AutomationId="TextBlock14_6B48DA50" />
             <TextBlock Grid.Column="1"
                        Style="{DynamicResource SettingValueStyle}"
@@ -66,7 +66,7 @@
             <TextBlock Grid.Column="0"
                        Style="{DynamicResource SettingNameStyle}"
                        Grid.Row="4"
-                       Text="{lex:Loc {x:Static loc:ResourceKeys.ManualHandicapModeLabel}}"
+                       Text="{lex:Loc ManualHandicapModeLabel}"
                        AutomationProperties.AutomationId="TextBlock16_6B48DA50" />
             <TextBlock Grid.Column="1"
                        Style="{DynamicResource SettingValueStyle}"

@@ -1,19 +1,22 @@
-﻿<UserControl x:Class="Aristocrat.Monaco.Application.UI.Views.SoundTestPage"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
-             xmlns:lex="http://wpflocalizeextension.codeplex.com"
-             xmlns:loc="http://monaco.aristocrat.com/localization"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             xmlns:common="http://monaco.aristocrat.com/common"
-             xmlns:audio="clr-namespace:Aristocrat.Monaco.Hardware.Contracts.Audio;assembly=Aristocrat.Monaco.Hardware.Contracts"
-             mc:Ignorable="d"
-             Height="Auto"
-             Width="Auto"
-             d:DataContext="{d:DesignInstance {x:Type viewModels:SoundTestPageViewModel}}"
-             AutomationProperties.AutomationId="UserControl0_9A0249AD">
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.SoundTestPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                               xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                               xmlns:common="http://monaco.aristocrat.com/common"
+                               xmlns:audio="clr-namespace:Aristocrat.Monaco.Hardware.Contracts.Audio;assembly=Aristocrat.Monaco.Hardware.Contracts"
+                               mc:Ignorable="d" 
+                               Height="Auto" Width="Auto"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:SoundTestPageViewModel}}"
+                               AutomationProperties.AutomationId="UserControl0_9A0249AD">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -73,10 +76,10 @@
                         <LinearGradientBrush StartPoint=".5,1"
                                              EndPoint=".5,0"
                                              AutomationProperties.AutomationId="LinearGradientBrush2_9A0249AD">
-                            <GradientStop Color="{StaticResource Gray5}"
+                            <GradientStop Color="{StaticResource MahApps.Colors.Gray5}"
                                           Offset="0"
                                           AutomationProperties.AutomationId="GradientStop3_9A0249AD" />
-                            <GradientStop Color="{StaticResource WhiteColor}"
+                            <GradientStop Color="{StaticResource MahApps.Colors.ThemeBackground}"
                                           Offset=".5"
                                           AutomationProperties.AutomationId="GradientStop4_9A0249AD" />
                         </LinearGradientBrush>
@@ -112,7 +115,7 @@
     <StackPanel HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 AutomationProperties.AutomationId="StackPanel6_9A0249AD">
-        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.SampleSoundTest}}"
+        <Label Content="{lex:Loc SampleSoundTest}"
                AutomationProperties.AutomationId="Label7_9A0249AD" />
         <StackPanel Orientation="Horizontal"
                     AutomationProperties.AutomationId="StackPanel8_9A0249AD">
@@ -122,10 +125,10 @@
                       SelectedItem="{Binding Sound}"
                       Style="{StaticResource OptionComboStyle}"
                       AutomationProperties.AutomationId="ComboBox9_9A0249AD" />
-            <Button Content="{iconPacks:PackIconMaterial Kind=Play, Width=10, Height=10}"
-                    Name="PlayButton"
+            <Button Name="PlayButton"
                     Command="{Binding PlayCommand}"
                     AutomationProperties.AutomationId="Button10_9A0249AD">
+                <iconPacks:PackIconFontAwesome Kind="PlaySolid" Width="10" Height="10"/>
                 <Button.Style>
                     <Style TargetType="Button"
                            BasedOn="{StaticResource SoundButtonStyle}">
@@ -134,22 +137,23 @@
                                          Value="True"
                                          AutomationProperties.AutomationId="DataTrigger11_9A0249AD">
                                 <Setter Property="ToolTip"
-                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.ServiceNotAvailableText}}" />
+                                                Value="{lex:BLoc ServiceNotAvailableText}" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>
             </Button>
-            <Button Content="{iconPacks:PackIconMaterial Kind=Stop, Width=10, Height=10}"
-                    Name="StopButton"
+            <Button Name="StopButton"
                     Command="{Binding StopCommand}"
                     Style="{StaticResource SoundButtonStyle}"
                     RenderTransformOrigin="1.48,0.567"
-                    AutomationProperties.AutomationId="Button12_9A0249AD" />
+                    AutomationProperties.AutomationId="Button12_9A0249AD" >
+                <iconPacks:PackIconFontAwesome Kind="StopSolid" Width="10" Height="10"/>
+            </Button>
         </StackPanel>
         <Label HorizontalAlignment="Left"
                Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SoundVolumeTest}}"
+               Content="{lex:Loc SoundVolumeTest}"
                AutomationProperties.AutomationId="Label13_9A0249AD" />
         <ComboBox ItemsSource="{common:Enumeration {x:Type audio:VolumeLevel}}"
                   Name="SoundLevelComboBox"
@@ -161,7 +165,7 @@
                   AutomationProperties.AutomationId="ComboBox14_9A0249AD" />
         <Label HorizontalAlignment="Left"
                Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SoundSpeakerTest}}"
+               Content="{lex:Loc SoundSpeakerTest}"
                AutomationProperties.AutomationId="Label15_9A0249AD" />
         <GroupBox HorizontalAlignment="Stretch"
                   VerticalAlignment="Top"
@@ -199,7 +203,7 @@
                             Grid.Column="1"
                             IsEnabled="{Binding FrontLeftSpeaker, Mode=TwoWay}"
                             AutomationProperties.AutomationId="StackPanel28_9A0249AD">
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.FrontLeftText}}"
+                    <TextBlock Text="{lex:Loc FrontLeftText}"
                                AutomationProperties.AutomationId="TextBlock29_9A0249AD" />
                     <Button Command="{Binding PlayCommandOnFrontLeftSpeaker}"
                             CommandParameter="{DynamicResource FrontLeft}"
@@ -216,9 +220,9 @@
                                                     VerticalAlignment="Center"
                                                     AutomationProperties.AutomationId="Border31_9A0249AD">
                                                 <iconPacks:PackIconFontAwesome FontSize="6"
-                                                                               Kind="VolumeUp"
+                                                                               Kind="VolumeUpSolid"
                                                                                Height="40"
-                                                                               Rotation="90"
+                                                                               RotationAngle="90"
                                                                                Width="40" />
                                             </Border>
                                         </ControlTemplate>
@@ -232,7 +236,7 @@
                             Grid.Column="2"
                             IsEnabled="{Binding CenterSpeaker, Mode=TwoWay}"
                             AutomationProperties.AutomationId="StackPanel32_9A0249AD">
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.CenterText}}"
+                    <TextBlock Text="{lex:Loc CenterText}"
                                AutomationProperties.AutomationId="TextBlock33_9A0249AD" />
                     <Button Command="{Binding PlayCommandOnCenterSpeaker}"
                             CommandParameter="{DynamicResource Center}"
@@ -249,9 +253,9 @@
                                                     VerticalAlignment="Center"
                                                     AutomationProperties.AutomationId="Border35_9A0249AD">
                                                 <iconPacks:PackIconFontAwesome FontSize="6"
-                                                                               Kind="VolumeUp"
+                                                                               Kind="VolumeUpSolid"
                                                                                Height="40"
-                                                                               Rotation="90"
+                                                                               RotationAngle="90"
                                                                                Width="40" />
                                             </Border>
                                         </ControlTemplate>
@@ -265,7 +269,7 @@
                             Grid.Column="3"
                             IsEnabled="{Binding FrontRightSpeaker, Mode=TwoWay}"
                             AutomationProperties.AutomationId="StackPanel36_9A0249AD">
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.FrontRightText}}"
+                    <TextBlock Text="{lex:Loc FrontRightText}"
                                AutomationProperties.AutomationId="TextBlock37_9A0249AD" />
                     <Button Command="{Binding PlayCommandOnFrontRightSpeaker}"
                             CommandParameter="{DynamicResource FrontRight}"
@@ -282,9 +286,9 @@
                                                     VerticalAlignment="Center"
                                                     AutomationProperties.AutomationId="Border39_9A0249AD">
                                                 <iconPacks:PackIconFontAwesome FontSize="6"
-                                                                               Kind="VolumeUp"
+                                                                               Kind="VolumeUpSolid"
                                                                                Height="40"
-                                                                               Rotation="90"
+                                                                               RotationAngle="90"
                                                                                Width="40" />
                                             </Border>
                                         </ControlTemplate>
@@ -313,9 +317,9 @@
                                                     VerticalAlignment="Center"
                                                     AutomationProperties.AutomationId="Border42_9A0249AD">
                                                 <iconPacks:PackIconFontAwesome FontSize="6"
-                                                                               Kind="VolumeUp"
+                                                                               Kind="VolumeUpSolid"
                                                                                Height="40"
-                                                                               Rotation="0"
+                                                                               RotationAngle="0"
                                                                                Width="40" />
                                             </Border>
                                         </ControlTemplate>
@@ -324,7 +328,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.SideLeftText}}"
+                    <TextBlock Text="{lex:Loc SideLeftText}"
                                AutomationProperties.AutomationId="TextBlock43_9A0249AD" />
                 </StackPanel>
                 <StackPanel Grid.Row="2"
@@ -346,9 +350,9 @@
                                                     VerticalAlignment="Center"
                                                     AutomationProperties.AutomationId="Border46_9A0249AD">
                                                 <iconPacks:PackIconFontAwesome FontSize="6"
-                                                                               Kind="VolumeUp"
+                                                                               Kind="VolumeUpSolid"
                                                                                Height="40"
-                                                                               Rotation="180"
+                                                                               RotationAngle="180"
                                                                                Width="40" />
                                             </Border>
                                         </ControlTemplate>
@@ -357,7 +361,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.SideRightText}}"
+                    <TextBlock Text="{lex:Loc SideRightText}"
                                AutomationProperties.AutomationId="TextBlock47_9A0249AD" />
                 </StackPanel>
                 <Button Grid.Row="3"
@@ -365,7 +369,7 @@
                         Name="LowFrequencySpeakerButton"
                         IsEnabled="{Binding LowFrequencySpeaker, Mode=TwoWay}"
                         Command="{Binding PlayCommandOnLowFrequencySpeaker}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.LowFrequencyText}}"
+                        Content="{lex:Loc LowFrequencyText}"
                         CommandParameter="{DynamicResource LowFrequency}"
                         Width="35"
                         Height="20"
@@ -390,15 +394,9 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="Button">
-                                            <Border Background="Transparent"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
+                                            <Border Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                     AutomationProperties.AutomationId="Border51_9A0249AD">
-                                                <iconPacks:PackIconFontAwesome FontSize="6"
-                                                                               Kind="VolumeUp"
-                                                                               Height="40"
-                                                                               Rotation="270"
-                                                                               Width="40" />
+                                                <iconPacks:PackIconFontAwesome FontSize="6" Kind="VolumeUpSolid" Height="40" RotationAngle="270" Width="40" />
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -406,7 +404,7 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.RearLeftText}}"
+                    <TextBlock Text="{lex:Loc RearLeftText}"
                                AutomationProperties.AutomationId="TextBlock52_9A0249AD" />
                 </StackPanel>
                 <StackPanel Grid.Row="4"
@@ -428,9 +426,9 @@
                                                     VerticalAlignment="Center"
                                                     AutomationProperties.AutomationId="Border55_9A0249AD">
                                                 <iconPacks:PackIconFontAwesome FontSize="6"
-                                                                               Kind="VolumeUp"
+                                                                               Kind="VolumeUpSolid"
                                                                                Height="40"
-                                                                               Rotation="270"
+                                                                               RotationAngle="270"
                                                                                Width="40" />
                                             </Border>
                                         </ControlTemplate>
@@ -439,10 +437,10 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.RearRightText}}"
+                    <TextBlock Text="{lex:Loc RearRightText}"
                                AutomationProperties.AutomationId="TextBlock56_9A0249AD" />
                 </StackPanel>
             </Grid>
         </GroupBox>
     </StackPanel>
-</UserControl>
+</operatorMenu:OperatorMenuPage>

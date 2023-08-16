@@ -7,10 +7,8 @@
         <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
         <!-- Accent and AppTheme setting -->
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
         <!-- Overrides -->
         <ResourceDictionary
                 Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
@@ -109,7 +107,7 @@
     </Style>
     <!-- The default label style. -->
     <Style TargetType="{x:Type Label}"
-           BasedOn="{StaticResource MetroLabel}">
+           BasedOn="{StaticResource MahApps.Styles.Label}">
         <Setter Property="Foreground"
                 Value="{StaticResource OperatorMenuLabelText}" />
         <Setter Property="FontFamily"
@@ -119,7 +117,7 @@
     </Style>
     <!-- The default text box style. -->
     <Style TargetType="{x:Type TextBox}"
-           BasedOn="{StaticResource MetroTextBox}">
+           BasedOn="{StaticResource MahApps.Styles.TextBox}">
         <Setter Property="FontFamily"
                 Value="{StaticResource InputFontFamily}" />
         <Setter Property="FontSize"
@@ -127,7 +125,7 @@
     </Style>
     <!-- The default button style. -->
     <Style TargetType="{x:Type Button}"
-           BasedOn="{StaticResource MetroButton}">
+           BasedOn="{StaticResource MahApps.Styles.Button.Square.Accent}">
         <Setter Property="FontFamily"
                 Value="{StaticResource ButtonFontFamily}" />
         <Setter Property="FontSize"
@@ -135,7 +133,7 @@
     </Style>
     <!-- The default combo box style. -->
     <Style TargetType="{x:Type ComboBox}"
-           BasedOn="{StaticResource MetroComboBox}">
+           BasedOn="{StaticResource MahApps.Styles.ComboBox}">
         <Setter Property="FontFamily"
                 Value="{StaticResource InputFontFamily}" />
         <Setter Property="FontSize"
@@ -147,7 +145,7 @@
                 Value="{StaticResource DefaultFontSize}" />
     </Style>
     <Style TargetType="{x:Type CheckBox}"
-           BasedOn="{StaticResource MetroCheckBox}">
+           BasedOn="{StaticResource MahApps.Styles.CheckBox}">
         <Setter Property="Width"
                 Value="40" />
         <Setter Property="Height"
@@ -330,7 +328,7 @@
         </Setter>
     </Style>
     <Style TargetType="{x:Type DatePicker}"
-           BasedOn="{StaticResource MetroDatePicker}">
+           BasedOn="{StaticResource MahApps.Styles.DatePicker}">
         <Setter Property="FontSize"
                 Value="{StaticResource DefaultFontSize}" />
     </Style>

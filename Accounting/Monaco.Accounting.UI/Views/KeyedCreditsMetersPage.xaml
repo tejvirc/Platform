@@ -6,6 +6,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Accounting.UI.ViewModels"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:KeyedCreditsMetersPageViewModel}}">
@@ -39,17 +41,17 @@
                       IsHitTestVisible="False"
                       AutomationProperties.AutomationId="DataGrid6_1002E5A6">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                    <DataGridTextColumn Header="{lex:Loc Meter}"
                                         Width="400"
                                         Binding="{Binding Name}"
                                         AutomationProperties.AutomationId="DataGridTextColumn7_1002E5A6" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                    <DataGridTextColumn Header="{lex:Loc Count}"
                                         Width="300"
                                         Binding="{Binding Count, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                         CellStyle="{StaticResource DataGridCellRight}"
                                         AutomationProperties.AutomationId="DataGridTextColumn8_1002E5A6" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                    <DataGridTextColumn Header="{lex:Loc Value}"
                                         Width="450"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -74,7 +76,7 @@
                     <ColumnDefinition Width="{Binding ElementName=KeyedOnGrid, Path=Columns[2].ActualWidth}"
                                       AutomationProperties.AutomationId="ColumnDefinition14_1002E5A6" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.KeyedOnCreditsTotalLabel}}"
+                <TextBlock Text="{lex:Loc KeyedOnCreditsTotalLabel}" 
                            Margin="5 0"
                            AutomationProperties.AutomationId="TextBlock15_1002E5A6" />
                 <TextBlock Grid.Column="1"
@@ -106,17 +108,17 @@
                       IsHitTestVisible="False"
                       AutomationProperties.AutomationId="DataGrid19_1002E5A6">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                    <DataGridTextColumn Header="{lex:Loc Meter}"
                                         Width="400"
                                         Binding="{Binding Name}"
                                         AutomationProperties.AutomationId="DataGridTextColumn20_1002E5A6" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                    <DataGridTextColumn Header="{lex:Loc Count}"
                                         Width="300"
                                         Binding="{Binding Count, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                         CellStyle="{StaticResource DataGridCellRight}"
                                         AutomationProperties.AutomationId="DataGridTextColumn21_1002E5A6" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                    <DataGridTextColumn Header="{lex:Loc Value}"
                                         Width="450"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -141,7 +143,7 @@
                     <ColumnDefinition Width="{Binding ElementName=KeyedOffGrid, Path=Columns[2].ActualWidth}"
                                       AutomationProperties.AutomationId="ColumnDefinition27_1002E5A6" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.KeyedOffCreditsTotalLabel}}"
+                <TextBlock Text="{lex:Loc KeyedOffCreditsTotalLabel}"
                            Margin="5 0"
                            AutomationProperties.AutomationId="TextBlock28_1002E5A6" />
                 <TextBlock Grid.Column="1"

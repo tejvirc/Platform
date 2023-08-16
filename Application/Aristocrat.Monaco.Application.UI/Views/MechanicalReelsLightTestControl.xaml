@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
@@ -40,12 +42,12 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalReels_Light}}"
+                   Content="{lex:Loc MechanicalReels_Light}"
                    VerticalAlignment="Center"
                    AutomationProperties.AutomationId="Label8_632C29A8" />
             <Label Grid.Row="1"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ColorText}}"
+                   Content="{lex:Loc ColorText}"
                    VerticalAlignment="Center"
                    Margin="0 10 0 0"
                    AutomationProperties.AutomationId="Label9_632C29A8" />
@@ -71,13 +73,14 @@
                       HorizontalAlignment="Right"
                       VerticalAlignment="Center"
                       AutomationProperties.AutomationId="ComboBox11_632C29A8" />
-            <controls:ToggleSwitchButton Grid.Row="2"
+            <controls:ToggleSwitch Grid.Row="2"
                                          Grid.Column="0"
                                          Grid.ColumnSpan="2"
                                          Name="LightToggleButton"
                                          IsEnabled="{Binding Initialized}"
                                          Margin="0 10 0 0"
-                                         IsChecked="{Binding TestActive, Mode=TwoWay}" />
+                                         IsOn ="{Binding TestActive, Mode=TwoWay}"/>
+
         </Grid>
     </StackPanel>
 </UserControl>

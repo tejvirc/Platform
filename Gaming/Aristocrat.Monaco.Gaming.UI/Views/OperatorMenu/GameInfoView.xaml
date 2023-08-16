@@ -9,6 +9,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:GameInfoViewModel, IsDesignTimeCreatable=False}"
                                FocusManager.FocusedElement="{Binding ElementName=MainMenu}"
@@ -39,17 +41,12 @@
                  AutomationProperties.AutomationId="ListBox3_D335FFB1">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type models1:GameOrderData}">
-                    <StackPanel AutomationProperties.AutomationId="StackPanel4_D335FFB1">
-                        <Label Content="{Binding Name}"
-                               Style="{DynamicResource MonacoListBoxLabelHeader}"
+                        <StackPanel AutomationProperties.AutomationId="StackPanel4_D335FFB1">
+                            <Label Content="{Binding Name}" Style="{DynamicResource MonacoListBoxLabelHeader}"
                                AutomationProperties.AutomationId="Label5_D335FFB1" />
-                        <Label Content="{Binding Paytable}"
-                               Margin="0"
-                               Style="{DynamicResource MonacoListBoxLabel}"
+                            <Label Content="{Binding Paytable}" Margin="0" Style="{DynamicResource MonacoListBoxLabel}"
                                AutomationProperties.AutomationId="Label6_D335FFB1" />
-                        <Label Content="{Binding Version}"
-                               Margin="0"
-                               Style="{DynamicResource MonacoListBoxLabel}"
+                            <Label Content="{Binding Version}" Margin="0" Style="{DynamicResource MonacoListBoxLabel}"
                                AutomationProperties.AutomationId="Label7_D335FFB1" />
                         <Label Content="{Binding TheoPaybackPctDisplay}" 
                                Margin="0"
@@ -60,9 +57,9 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Row="1"
-                Margin="0 15 0 0"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.SetGameOrder}}"
+
+        <Button Grid.Row="1" Margin="0 15 0 0"
+                Content="{lex:Loc SetGameOrder}" 
                 Visibility="{Binding SetGameOrderVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                 Command="{Binding SetGameOrderCommand}"
                 Height="50"

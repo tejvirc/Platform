@@ -11,6 +11,7 @@
 namespace Aristocrat.Monaco.Application.Contracts
 {
     using Kernel;
+    using ProtoBuf;
     using System;
 
     /// <summary>
@@ -26,9 +27,17 @@ namespace Aristocrat.Monaco.Application.Contracts
     ///         print button and display a printing status specific to the page content.
     ///     </para>
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class PrintButtonStatusEvent : BaseEvent
     {
+
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public PrintButtonStatusEvent()
+        {
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="PrintButtonStatusEvent" /> class.
         /// </summary>
@@ -39,6 +48,7 @@ namespace Aristocrat.Monaco.Application.Contracts
         }
 
         /// <summary>Gets a value indicating whether or not the print button is enabled.</summary>
+        [ProtoMember(1)]
         public bool Enabled { get; }
     }
 }

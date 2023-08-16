@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Posted when a provider is added to the <see cref="IMeterManager" />
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class MeterProviderAddedEvent : BaseEvent
     {
     }

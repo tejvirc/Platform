@@ -175,23 +175,21 @@
                 return false;
             }
 
-            #pragma warning disable CS0618
             _managedWriteOverlapped = new Overlapped(
                 0,
                 0,
-                _writeEvent.Handle,
+                _writeEvent.SafeWaitHandle.DangerousGetHandle(),
                 null);
             _managedReadOverlapped = new Overlapped(
                 0,
                 0,
-                _readEvent.Handle,
+                _readEvent.SafeWaitHandle.DangerousGetHandle(),
                 null);
             _managedWaitCommOverlapped = new Overlapped(
                 0,
                 0,
-                _waitCommEvent.Handle,
+                _waitCommEvent.SafeWaitHandle.DangerousGetHandle(),
                 null);
-            #pragma warning restore CS0618
 
             unsafe
             {

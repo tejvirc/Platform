@@ -1,17 +1,21 @@
 ﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.MachineSettingsPage"
-                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
-                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
-                               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-                               xmlns:helpers="http://monaco.aristocrat.com/common"
-                               xmlns:uiconverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
-                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
-                               xmlns:loc="http://monaco.aristocrat.com/localization"
-                               mc:Ignorable="d"
-                               d:DataContext="{d:DesignInstance viewModels:MachineSettingsPageViewModel}">
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                              xmlns:helpers="http://monaco.aristocrat.com/common"
+                              xmlns:uiconverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              xmlns:loc="http://monaco.aristocrat.com/localization"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                              mc:Ignorable="d"
+                              d:DataContext="{d:DesignInstance viewModels:MachineSettingsPageViewModel}">
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -44,12 +48,14 @@
             <Thickness x:Key="LabelMargin">0,0,40,0</Thickness>
         </ResourceDictionary>
     </UserControl.Resources>
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="VisibilityChanged"
+
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="VisibilityChanged"
                         AutomationProperties.AutomationId="EventTrigger0_D3C5ECAC">
-            <i:InvokeCommandAction Command="{Binding VisibilityChangedCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+            <b:InvokeCommandAction Command="{Binding VisibilityChangedCommand}"/>
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+
     <Grid x:Name="MainGrid"
           AutomationProperties.AutomationId="Grid1_D3C5ECAC">
         <Grid.ColumnDefinitions>
@@ -108,7 +114,7 @@
                        Grid.Row="0"
                        Grid.Column="0"
                        Margin="{StaticResource LabelMargin}"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"
+                       Content="{lex:Loc SerialNumberLabel}"
                        AutomationProperties.AutomationId="Label20_D3C5ECAC" />
                 <Grid x:Name="SerialNumberGrid"
                       Grid.Row="0"
@@ -131,7 +137,7 @@
                             Style="{StaticResource MonacoWarningButton}"
                             Command="{Binding ShowInfoPopupCommand}"
                             Margin="10 0 0 0"
-                            Visibility="{                             Binding SerialNumberWarningEnabled,                              Mode=OneWay,                              Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                            Visibility="{Binding SerialNumberWarningEnabled, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                             AutomationProperties.AutomationId="Button25_D3C5ECAC">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
@@ -147,7 +153,7 @@
                        Grid.Row="1"
                        Grid.Column="0"
                        Margin="{StaticResource LabelMargin}"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AssetNumber}}"
+                       Content="{lex:Loc AssetNumber}"
                        AutomationProperties.AutomationId="Label26_D3C5ECAC" />
                 <Grid x:Name="AssetNumberGrid"
                       Grid.Row="1"
@@ -170,7 +176,7 @@
                             Style="{StaticResource MonacoWarningButton}"
                             Command="{Binding ShowInfoPopupCommand}"
                             Margin="10 0 0 0"
-                            Visibility="{                             Binding AssetNumberWarningEnabled,                              Mode=OneWay,                              Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                            Visibility="{Binding AssetNumberWarningEnabled, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                             AutomationProperties.AutomationId="Button31_D3C5ECAC">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
@@ -185,7 +191,7 @@
                 <Label Grid.Row="2"
                        Grid.Column="0"
                        Margin="{StaticResource LabelMargin}"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.AreaLabel}}"
+                       Content="{lex:Loc AreaLabel}"
                        Visibility="{Binding Area.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                        AutomationProperties.AutomationId="Label32_D3C5ECAC" />
                 <ContentControl Grid.Row="2"
@@ -198,7 +204,7 @@
                 <Label Grid.Row="3"
                        Grid.Column="0"
                        Margin="{StaticResource LabelMargin}"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.ZoneText}}"
+                       Content="{lex:Loc ZoneText}"
                        Visibility="{Binding Zone.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                        AutomationProperties.AutomationId="Label34_D3C5ECAC" />
                 <ContentControl Grid.Row="3"
@@ -211,7 +217,7 @@
                 <Label Grid.Row="4"
                        Grid.Column="0"
                        Margin="{StaticResource LabelMargin}"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.BankText}}"
+                       Content="{lex:Loc BankText}"
                        Visibility="{Binding Bank.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                        AutomationProperties.AutomationId="Label36_D3C5ECAC" />
                 <ContentControl Grid.Row="4"
@@ -224,7 +230,7 @@
                 <Label Grid.Row="5"
                        Grid.Column="0"
                        Margin="{StaticResource LabelMargin}"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.PositionText}}"
+                       Content="{lex:Loc PositionText}"
                        Visibility="{Binding Position.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                        AutomationProperties.AutomationId="Label38_D3C5ECAC" />
                 <ContentControl Grid.Row="5"
@@ -237,7 +243,7 @@
                 <Label Grid.Row="6"
                        Grid.Column="0"
                        Margin="{StaticResource LabelMargin}"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.Location}}"
+                       Content="{lex:Loc Location}"
                        Visibility="{Binding Location.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                        AutomationProperties.AutomationId="Label40_D3C5ECAC" />
                 <ContentControl Grid.Row="6"
@@ -250,7 +256,7 @@
                 <Label Grid.Row="7"
                        Grid.Column="0"
                        Margin="{StaticResource LabelMargin}"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceName}}"
+                       Content="{lex:Loc DeviceName}"
                        Visibility="{Binding DeviceName.IsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                        AutomationProperties.AutomationId="Label42_D3C5ECAC" />
                 <ContentControl Grid.Row="7"
@@ -288,29 +294,29 @@
                 <Label x:Name="HardBootLabel"
                        Grid.Row="0"
                        Grid.Column="0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.HardBootTimeLabel}}"
+                       Content="{lex:Loc HardBootTimeLabel}"
                        AutomationProperties.AutomationId="Label53_D3C5ECAC" />
                 <TextBlock x:Name="HardBootTextBlock"
                            Grid.Row="0"
                            Grid.Column="1"
-                           Text="{Binding HardBootTime,                              Mode=OneWay,                              UpdateSourceTrigger=PropertyChanged,                             Converter={StaticResource DateTimeFormatConverter}}"
+                           Text="{Binding HardBootTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeFormatConverter}}"
                            AutomationProperties.AutomationId="TextBlock54_D3C5ECAC" />
                 <!-- Soft Boot Time Section -->
                 <Label x:Name="SoftBootLabel"
                        Grid.Row="1"
                        Grid.Column="0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.SoftBootTimeLabel}}"
+                       Content="{lex:Loc SoftBootTimeLabel}"
                        AutomationProperties.AutomationId="Label55_D3C5ECAC" />
                 <TextBlock x:Name="SoftBootTextBlock"
                            Grid.Row="1"
                            Grid.Column="1"
-                           Text="{Binding SoftBootTime,                              Mode=OneWay,                              UpdateSourceTrigger=PropertyChanged,                             Converter={StaticResource DateTimeFormatConverter}}"
+                           Text="{Binding SoftBootTime, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeFormatConverter}}"
                            AutomationProperties.AutomationId="TextBlock56_D3C5ECAC" />
                 <!-- IP Address Section -->
                 <Label x:Name="IpAddressLabel"
                        Grid.Row="2"
                        Grid.Column="0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.IPAddressesLabel}}"
+                       Content="{lex:Loc IPAddressesLabel}"
                        AutomationProperties.AutomationId="Label57_D3C5ECAC" />
                 <TextBlock x:Name="IpAddressTextBlock"
                            Grid.Row="2"
@@ -321,7 +327,7 @@
                 <Label x:Name="PhysicalAddressLabel"
                        Grid.Row="3"
                        Grid.Column="0"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.MacAddressLabel}}"
+                       Content="{lex:Loc MacAddressLabel}"
                        AutomationProperties.AutomationId="Label59_D3C5ECAC" />
                 <TextBlock x:Name="PhysicalAddressTextBlock"
                            Grid.Row="3"
@@ -333,7 +339,7 @@
                        Grid.Row="4"
                        Grid.Column="0"
                        Visibility="{Binding IsVisibleForInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.JurisdictionLabel}}"
+                       Content="{lex:Loc JurisdictionLabel}"
                        Margin="0,2.222,9.556,13.555"
                        AutomationProperties.AutomationId="Label61_D3C5ECAC" />
                 <TextBlock x:Name="JurisdictionTextBlock"
@@ -348,7 +354,7 @@
                        Grid.Row="5"
                        Grid.Column="0"
                        Visibility="{Binding IsVisibleForInspection, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                       Content="{lex:Loc Key={x:Static loc:ResourceKeys.Currency}}"
+                       Content="{lex:Loc Currency}"
                        Margin="0,2.222,9.556,13.555"
                        AutomationProperties.AutomationId="Label63_D3C5ECAC" />
                 <TextBlock x:Name="CurrencyTextBlock"
@@ -407,7 +413,7 @@
             <Label x:Name="ModelLabel"
                    Grid.Row="0"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}"
+                   Content="{lex:Loc ModelLabel}"
                    AutomationProperties.AutomationId="Label83_D3C5ECAC" />
             <TextBlock x:Name="ModelTextBlock"
                        Grid.Row="0"
@@ -419,7 +425,7 @@
                    Grid.Row="1"
                    Grid.Column="0"
                    loc:Localizer.For="Operator"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.Electronics}}"
+                   Content="{lex:Loc Electronics}"
                    AutomationProperties.AutomationId="Label85_D3C5ECAC" />
             <TextBlock x:Name="ElectronicsTextBlock"
                        Grid.Row="1"
@@ -431,7 +437,7 @@
                    Grid.Row="2"
                    Grid.Column="0"
                    loc:Localizer.For="Operator"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.GraphicsCard}}"
+                   Content="{lex:Loc GraphicsCard}"
                    AutomationProperties.AutomationId="Label87_D3C5ECAC" />
             <TextBlock x:Name="GraphicsCardTextBlock"
                        Grid.Row="2"
@@ -443,7 +449,7 @@
                    Grid.Row="3"
                    Grid.Column="0"
                    loc:Localizer.For="Operator"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonDeck}}"
+                   Content="{lex:Loc ButtonDeck}"
                    AutomationProperties.AutomationId="Label89_D3C5ECAC" />
             <TextBlock x:Name="ButtonDeckTextBlock"
                        Grid.Row="3"
@@ -455,7 +461,7 @@
                    Grid.Row="4"
                    Grid.Column="0"
                    loc:Localizer.For="Operator"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.Displays}}"
+                   Content="{lex:Loc Displays}"
                    AutomationProperties.AutomationId="Label91_D3C5ECAC" />
             <TextBlock x:Name="DisplaysTextBlock"
                        Grid.Row="4"
@@ -467,7 +473,7 @@
                    Grid.Row="5"
                    Grid.Column="0"
                    loc:Localizer.For="Operator"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TouchScreen}}"
+                   Content="{lex:Loc TouchScreen}"
                    AutomationProperties.AutomationId="Label93_D3C5ECAC" />
             <TextBlock x:Name="TouchScreenTextBlock"
                        Grid.Row="5"
@@ -479,7 +485,7 @@
                    Grid.Row="6"
                    Grid.Column="0"
                    loc:Localizer.For="Operator"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.EdgeLighting}}"
+                   Content="{lex:Loc EdgeLighting}"
                    AutomationProperties.AutomationId="Label95_D3C5ECAC" />
             <TextBlock x:Name="LightingTextBlock"
                        Grid.Row="6"
@@ -490,7 +496,7 @@
             <Label x:Name="NoteAcceptorLabel"
                    Grid.Row="7"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoteAcceptorLabel}}"
+                   Content="{lex:Loc NoteAcceptorLabel}"
                    AutomationProperties.AutomationId="Label97_D3C5ECAC" />
             <TextBlock x:Name="NoteAcceptorTextBlock"
                        Grid.Row="7"
@@ -504,7 +510,7 @@
                                          Value=""
                                          AutomationProperties.AutomationId="DataTrigger99_D3C5ECAC">
                                 <Setter Property="Text"
-                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                        Value="{lex:BLoc NotAvailable}" />
                             </DataTrigger>
                         </Style.Triggers>
                         <Setter Property="Text"
@@ -516,7 +522,7 @@
             <Label x:Name="PrinterLabel"
                    Grid.Row="8"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrinterLabel}}"
+                   Content="{lex:Loc PrinterLabel}"
                    AutomationProperties.AutomationId="Label100_D3C5ECAC" />
             <TextBlock x:Name="PrinterTextBlock"
                        Grid.Row="8"
@@ -530,7 +536,7 @@
                                          Value=""
                                          AutomationProperties.AutomationId="DataTrigger102_D3C5ECAC">
                                 <Setter Property="Text"
-                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                        Value="{lex:BLoc NotAvailable}" />
                             </DataTrigger>
                         </Style.Triggers>
                         <Setter Property="Text"
@@ -543,7 +549,7 @@
                    Grid.Row="9"
                    Grid.Column="0"
                    loc:Localizer.For="Operator"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReelControllerLabel}}"
+                   Content="{lex:Loc ReelControllerLabel}"
                    AutomationProperties.AutomationId="Label103_D3C5ECAC" />
             <TextBlock x:Name="ReelControllerTextBlock"
                        Grid.Row="9"
@@ -554,7 +560,7 @@
             <Label x:Name="BiosVersionLabel"
                    Grid.Row="10"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BiosVersion}}"
+                   Content="{lex:Loc BiosVersion}"
                    AutomationProperties.AutomationId="Label105_D3C5ECAC" />
             <TextBlock x:Name="BiosVersionTextBlock"
                        Grid.Row="10"
@@ -565,7 +571,7 @@
             <Label x:Name="FpgaVersionLabel"
                    Grid.Row="11"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.FpgaVersion}}"
+                   Content="{lex:Loc FpgaVersion}"
                    AutomationProperties.AutomationId="Label107_D3C5ECAC" />
             <TextBlock x:Name="FpgaVersionTextBlock"
                        Grid.Row="11"
@@ -576,7 +582,7 @@
             <Label x:Name="WindowsLabel"
                    Grid.Row="12"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.WindowsVersionLabel}}"
+                   Content="{lex:Loc WindowsVersionLabel}"
                    AutomationProperties.AutomationId="Label109_D3C5ECAC" />
             <TextBlock x:Name="WindowsTextBlock"
                        Grid.Row="12"
@@ -587,7 +593,7 @@
             <Label x:Name="OsImageLabel"
                    Grid.Row="13"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.OSImageVersionLabel}}"
+                   Content="{lex:Loc OSImageVersionLabel}"
                    AutomationProperties.AutomationId="Label111_D3C5ECAC" />
             <TextBlock x:Name="OsImageTextBlock"
                        Grid.Row="13"
@@ -598,7 +604,7 @@
             <Label x:Name="PlatformLabel"
                    Grid.Row="14"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.PlatformVersionLabel}}"
+                   Content="{lex:Loc PlatformVersionLabel}"
                    AutomationProperties.AutomationId="Label113_D3C5ECAC" />
             <TextBlock x:Name="PlatformTextBlock"
                        Grid.Row="14"

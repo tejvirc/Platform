@@ -5,6 +5,8 @@
                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                        xmlns:lex="http://wpflocalizeextension.codeplex.com"
                        xmlns:loc="http://monaco.aristocrat.com/localization"
+                       lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                       lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                        xmlns:menu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                        xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Accounting.UI.ViewModels"
                        mc:Ignorable="d"
@@ -21,11 +23,11 @@
     <DataGrid ItemsSource="{Binding Meters}"
               AutomationProperties.AutomationId="DataGrid0_F519F1F4">
         <DataGrid.Columns>
-            <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+            <DataGridTextColumn Header="{lex:Loc Meter}"
                                 Width="350"
                                 Binding="{Binding Name}"
                                 AutomationProperties.AutomationId="DataGridTextColumn1_F519F1F4" />
-            <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+            <DataGridTextColumn Header="{lex:Loc Value}"
                                 Width="200"
                                 Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                 HeaderStyle="{StaticResource DataGridColumnHeaderRight}"

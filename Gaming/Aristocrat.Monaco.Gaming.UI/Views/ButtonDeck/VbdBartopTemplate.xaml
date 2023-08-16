@@ -3,7 +3,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
-                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
                     xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                     mc:Ignorable="d">
     <!-- Apply MahApps.Metro styles to all controls -->
@@ -151,11 +151,11 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        AutomationProperties.AutomationId="Image16_21563702">
-                    <i:Interaction.Triggers>
+                    <b:Interaction.Triggers>
                         <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
                             <events:EventToCommandAction Command="{Binding PreviousGameCommand}" />
                         </events:RoutedEventTrigger>
-                    </i:Interaction.Triggers>
+                    </b:Interaction.Triggers>
                 </Image>
                 <!--prev tab-->
                 <Image x:Name="VBDButton5Blank"
@@ -191,11 +191,11 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        AutomationProperties.AutomationId="Image19_21563702">
-                    <i:Interaction.Triggers>
+                    <b:Interaction.Triggers>
                         <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
                             <events:EventToCommandAction Command="{Binding PreviousTabCommand}" />
                         </events:RoutedEventTrigger>
-                    </i:Interaction.Triggers>
+                    </b:Interaction.Triggers>
                 </Image>
                 <!--change denom-->
                 <Image x:Name="VBDButton6Blank"
@@ -231,11 +231,11 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        AutomationProperties.AutomationId="Image22_21563702">
-                    <i:Interaction.Triggers>
+                    <b:Interaction.Triggers>
                         <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
                             <events:EventToCommandAction Command="{Binding ChangeDenomCommand}" />
                         </events:RoutedEventTrigger>
-                    </i:Interaction.Triggers>
+                    </b:Interaction.Triggers>
                 </Image>
                 <!--next tab-->
                 <Image x:Name="VBDButton11Blank"
@@ -271,11 +271,11 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        AutomationProperties.AutomationId="Image25_21563702">
-                    <i:Interaction.Triggers>
+                    <b:Interaction.Triggers>
                         <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
                             <events:EventToCommandAction Command="{Binding NextTabCommand}" />
                         </events:RoutedEventTrigger>
-                    </i:Interaction.Triggers>
+                    </b:Interaction.Triggers>
                 </Image>
                 <!--next game-->
                 <Image x:Name="VBDButton12"
@@ -311,11 +311,11 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        AutomationProperties.AutomationId="Image28_21563702">
-                    <i:Interaction.Triggers>
+                    <b:Interaction.Triggers>
                         <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
                             <events:EventToCommandAction Command="{Binding NextGameCommand}" />
                         </events:RoutedEventTrigger>
-                    </i:Interaction.Triggers>
+                    </b:Interaction.Triggers>
                 </Image>
                 <!--select game-->
                 <Image x:Name="VBDButton7"
@@ -329,11 +329,11 @@
                        VerticalAlignment="Top"
                        HorizontalAlignment="Left"
                        AutomationProperties.AutomationId="Image29_21563702">
-                    <i:Interaction.Triggers>
+                    <b:Interaction.Triggers>
                         <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
                             <events:EventToCommandAction Command="{Binding SelectGameCommand}" />
                         </events:RoutedEventTrigger>
-                    </i:Interaction.Triggers>
+                    </b:Interaction.Triggers>
                 </Image>
             </Canvas>
             <!-- Rectangle to give screen a disabled look if message overlay is visible -->

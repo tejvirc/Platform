@@ -2,6 +2,7 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     A <see cref="CabinetNotIdleEvent" /> should be posted when the EGM is no longer idle. EGM is considered idle if the
@@ -13,7 +14,7 @@
     ///     EGM, typically, the EGM must restart the sequence—that is, wait for the credit meters to reach 0 (zero) and then
     ///     wait for the duration specified in the idleTimePeriod attribute—before becoming idle.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class CabinetNotIdleEvent : BaseEvent
     {
     }

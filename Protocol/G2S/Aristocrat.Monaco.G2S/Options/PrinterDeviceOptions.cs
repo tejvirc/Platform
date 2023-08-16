@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Options
 {
+    using System;
     using System.Globalization;
     using System.IO;
     using System.Linq;
@@ -51,7 +52,10 @@
                         var templateConfig =
                             tableRow.GetDeviceOptionConfigValue(TemplateConfigParameterName).StringValue();
 
-                        var serializer = new XmlSerializer(typeof(dpttype));
+                        var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(dpttype))
+                        .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                        var serializer = new XmlSerializer(typeof(dpttype), theXmlRootAttribute ?? new XmlRootAttribute(nameof(dpttype)));
+
                         dpttype dptElement;
 
                         using (var reader = new StringReader(templateConfig))
@@ -96,7 +100,10 @@
                         var regionConfig =
                             tableRow.GetDeviceOptionConfigValue(RegionConfigParameterName).StringValue();
 
-                        var serializer = new XmlSerializer(typeof(dprtype));
+                        var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(dpttype))
+                        .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                        var serializer = new XmlSerializer(typeof(dpttype), theXmlRootAttribute ?? new XmlRootAttribute(nameof(dpttype)));
+
                         dprtype dprElement;
 
                         using (TextReader reader = new StringReader(regionConfig))

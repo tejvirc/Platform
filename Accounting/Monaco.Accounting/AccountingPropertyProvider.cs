@@ -101,7 +101,7 @@
                     },
                 });
 
-            var storageName = GetType().ToString();
+            var storageName = this.GetType().ToString();
 
             var blockExists = storageManager.BlockExists(storageName);
 

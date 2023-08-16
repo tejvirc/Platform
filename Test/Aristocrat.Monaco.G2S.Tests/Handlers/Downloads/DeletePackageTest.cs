@@ -370,7 +370,9 @@
 
             using (var stringwriter = new StringWriter())
             {
-                var serializer = new XmlSerializer(typeof(commandStatusList));
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(commandStatusList))
+                                        .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var serializer = new XmlSerializer(typeof(commandStatusList), theXmlRootAttribute ?? new XmlRootAttribute(nameof(commandStatusList)));
                 serializer.Serialize(stringwriter, result);
                 return stringwriter.ToString();
             }

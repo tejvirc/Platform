@@ -9,6 +9,7 @@
     using System.Reflection;
     using System.Threading.Tasks;
     using Contracts.Communicator;
+    using Contracts.Gds.Reel;
     using Contracts.Reel;
     using Contracts.Reel.ControlData;
     using Contracts.Reel.Events;
@@ -105,6 +106,7 @@
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelDisconnected;
 
+
         /// <inheritdoc />
         public event EventHandler HardwareInitialized;
 #pragma warning restore 67
@@ -185,6 +187,7 @@
                 _communicator = relmCommunicator;
                 RegisterEventListeners();
                 await _communicator.Initialize();
+                IsInitialized = _communicator.IsOpen;
 
                 if (_communicator.IsOpen)
                 {

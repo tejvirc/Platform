@@ -12,6 +12,7 @@
     using System.Timers;
     using Kernel;
     using log4net;
+    using ProtoBuf;
     using Timer = System.Timers.Timer;
 
     /// <summary>
@@ -125,14 +126,12 @@
         {
             using (var inputStream = File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                var formatter = new BinaryFormatter();
-
                 try
                 {
                     while (inputStream.Position < inputStream.Length)
                     {
                         //deserialize each object in the file
-                        list.Add((PerformanceCounters)formatter.Deserialize(inputStream));
+                        list.Add(Serializer.DeserializeWithLengthPrefix<PerformanceCounters>(inputStream, PrefixStyle.Fixed32));
                     }
                 }
                 catch (Exception)
@@ -227,14 +226,12 @@
                 }
 
                 // Flush Data to the disk
-                var formatter = new BinaryFormatter();
-
                 using (var outputStream =
                     new FileStream(logFileName, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
                 {
                     try
                     {
-                        formatter.Serialize(outputStream, GetAllCountersData());
+                        Serializer.SerializeWithLengthPrefix(outputStream, GetAllCountersData(), PrefixStyle.Fixed32);
                     }
                     catch (EndOfStreamException e)
                     {

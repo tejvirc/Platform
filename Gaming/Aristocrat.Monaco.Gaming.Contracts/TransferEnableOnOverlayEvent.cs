@@ -2,10 +2,11 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     The TransferOnDisabledOverlayEvent is posted when FundsTransferDisable on overlay become false
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class TransferEnableOnOverlayEvent : BaseEvent {}
 }

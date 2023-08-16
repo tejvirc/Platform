@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <AssemblyTitle>Aristocrat.Monaco.G2S.Common</AssemblyTitle>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -24,13 +24,11 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.Web" />
+    <None Remove="DownloadDirectories.addin.xml" />
+    <None Remove="Transfer\Transfer.addin.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
-    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
     <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
     <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
     <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
@@ -44,20 +42,22 @@
     <CodeAnalysisDictionary Include="CustomDictionary.xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BouncyCastle" Version="1.8.4" />
-    <PackageReference Include="Expressmapper" Version="1.9.1" />
-    <PackageReference Include="FluentFTP" Version="32.4.3" />
-    <PackageReference Include="FluentValidation" Version="7.4.0" />
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="SQLite.CodeFirst" Version="1.6.0.30" />
-    <PackageReference Include="SSH.NET" Version="2016.1.0" />
-    <PackageReference Include="System.Data.SQLite.EF6" Version="1.0.110" />
-    <PackageReference Include="System.Data.SQLite.Linq" Version="1.0.110" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="DownloadDirectories.addin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Transfer\Transfer.addin.xml" />
+    <Content Include="Transfer\Transfer.addin.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.4" />
+    <PackageReference Include="ExpressMapper.Core" Version="1.9.3" />
+    <PackageReference Include="FluentFTP" Version="32.4.3" />
+    <PackageReference Include="FluentValidation" Version="7.4.0" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="SSH.NET" Version="2016.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 </Project>

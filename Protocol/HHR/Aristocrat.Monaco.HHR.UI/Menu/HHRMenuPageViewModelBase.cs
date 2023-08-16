@@ -11,7 +11,7 @@
     /// </summary>
     public abstract class HhrMenuPageViewModelBase : BaseEntityViewModel, IHhrMenuPageViewModel
     {
-        protected new readonly ILog Logger;
+        protected readonly ILog Logger;
 
         protected HhrMenuPageViewModelBase()
         {

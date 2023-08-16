@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Definition of the ShowServiceConfirmationEvent class.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class ShowServiceConfirmationEvent : BaseEvent
     {
         /// <summary>

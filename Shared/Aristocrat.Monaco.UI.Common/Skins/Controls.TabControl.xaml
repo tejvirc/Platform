@@ -4,20 +4,16 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TabControl.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <Style x:Key="MonacoTabControl"
-           TargetType="{x:Type TabControl}"
-           BasedOn="{StaticResource MetroTabControl}">
-        <Setter Property="Background"
-                Value="{DynamicResource DarkBrush1}" />
-        <Setter Property="BorderBrush"
-                Value="{DynamicResource Brush3}" />
-        <Setter Property="BorderThickness"
-                Value="2" />
+
+    <Style x:Key="MonacoTabControl" TargetType="{x:Type TabControl}" BasedOn="{StaticResource MahApps.Styles.TabControl}">
+        <Setter Property="Background" Value="{DynamicResource DarkBrush1}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush3}" />
+        <Setter Property="BorderThickness" Value="2" />
     </Style>
     <DataTemplate x:Key="MonacoTabItemHeaderTemplate">
-        <TextBlock Text="{Binding}"
-                   Padding="30 5"
-                   FontSize="{DynamicResource TabItemFontSize}"
+        <TextBlock Text="{Binding}" 
+                   Padding="30 5" 
+                   FontSize="{DynamicResource MahApps.Font.Size.TabItem}"
                    AutomationProperties.AutomationId="TextBlock0_812675E6">
             <TextBlock.Style>
                 <Style TargetType="TextBlock"
@@ -55,21 +51,14 @@
             </TextBlock.Style>
         </TextBlock>
     </DataTemplate>
-    <Style x:Key="MonacoTabItem"
-           TargetType="{x:Type TabItem}"
-           BasedOn="{StaticResource MetroTabItem}">
-        <Setter Property="Background"
-                Value="{DynamicResource DarkBrush1}" />
-        <Setter Property="BorderBrush"
-                Value="{DynamicResource Brush3}" />
-        <Setter Property="BorderThickness"
-                Value="2 2 2 0" />
-        <Setter Property="Padding"
-                Value="0" />
-        <Setter Property="HeaderTemplate"
-                Value="{StaticResource MonacoTabItemHeaderTemplate}" />
-        <Setter Property="controls:ControlsHelper.ContentCharacterCasing"
-                Value="Upper" />
+
+    <Style x:Key="MonacoTabItem" TargetType="{x:Type TabItem}" BasedOn="{StaticResource MahApps.Styles.TabItem}">
+        <Setter Property="Background" Value="{DynamicResource DarkBrush1}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush3}" />
+        <Setter Property="BorderThickness" Value="2 2 2 0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HeaderTemplate" Value="{StaticResource MonacoTabItemHeaderTemplate}" />
+        <Setter Property="controls:ControlsHelper.ContentCharacterCasing" Value="Upper" />
         <Style.Triggers>
             <Trigger Property="IsSelected"
                      Value="False"

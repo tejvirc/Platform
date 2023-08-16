@@ -2,45 +2,28 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Shared.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/controls.shared.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    <Style x:Key="MonacoTextBox"
-           TargetType="{x:Type TextBox}">
-        <Setter Property="Background"
-                Value="{DynamicResource DarkBrush1}" />
-        <Setter Property="BorderBrush"
-                Value="{DynamicResource Brush3}" />
-        <Setter Property="BorderThickness"
-                Value="2" />
-        <Setter Property="CaretBrush"
-                Value="{DynamicResource Brush3}" />
-        <Setter Property="ContextMenu"
-                Value="{DynamicResource TextBoxMetroContextMenu}" />
-        <Setter Property="controls:ControlsHelper.FocusBorderBrush"
-                Value="{DynamicResource FocusBorderBrush}" />
-        <Setter Property="controls:ControlsHelper.MouseOverBorderBrush"
-                Value="{DynamicResource MouseOverHighlightBrush}" />
-        <Setter Property="controls:TextBoxHelper.ButtonFontSize"
-                Value="{DynamicResource ClearTextButtonFontSize}" />
-        <Setter Property="controls:TextBoxHelper.ButtonWidth"
-                Value="22" />
-        <Setter Property="controls:TextBoxHelper.IsMonitoring"
-                Value="True" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource MonacoFontFamily}" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource ContentFontSize}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource Brush3}" />
-        <Setter Property="MinHeight"
-                Value="26" />
-        <Setter Property="Padding"
-                Value="5 10" />
-        <Setter Property="SelectionBrush"
-                Value="{DynamicResource HighlightBrush1}" />
-        <Setter Property="SnapsToDevicePixels"
-                Value="True" />
+
+    <Style x:Key="MonacoTextBox" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="{DynamicResource DarkBrush1}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush3}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource Brush3}"/>
+        <Setter Property="ContextMenu" Value="{DynamicResource MahApps.TextBox.ContextMenu}"/>
+        <Setter Property="controls:ControlsHelper.FocusBorderBrush" Value="{DynamicResource FocusBorderBrush}"/>
+        <Setter Property="controls:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource MouseOverHighlightBrush}"/>
+        <Setter Property="controls:TextBoxHelper.ButtonFontSize" Value="{DynamicResource ClearTextButtonFontSize}"/>
+        <Setter Property="controls:TextBoxHelper.ButtonWidth" Value="22"/>
+        <Setter Property="controls:TextBoxHelper.IsMonitoring" Value="True"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MonacoFontFamily}"/>
+        <Setter Property="FontSize" Value="{DynamicResource ContentFontSize}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Brush3}"/>
+        <Setter Property="MinHeight" Value="26"/>
+        <Setter Property="Padding" Value="5 10"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource HighlightBrush1}"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
@@ -144,12 +127,12 @@
                                             Grid.ColumnSpan="2"
                                             Grid.Column="0"
                                             Grid.Row="0"
-                                            Style="{DynamicResource FloatingMessageContainerStyle}"
+                                            Style="{DynamicResource MahApps.Styles.ContentControl.FloatingMessageContainer}"
                                             AutomationProperties.AutomationId="ContentControl20_1C0DFFE8">
                                 <TextBlock x:Name="PART_FloatingMessage"
                                            Foreground="{TemplateBinding Foreground}"
                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                           Style="{DynamicResource MetroAutoCollapsingTextBlock}"
+                                           Style="{DynamicResource MahApps.Styles.TextBlock.AutoCollapsing}"
                                            TextAlignment="{TemplateBinding controls:TextBoxHelper.WatermarkAlignment}"
                                            Text="{TemplateBinding controls:TextBoxHelper.Watermark}"
                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -167,7 +150,7 @@
                                     controls:TextBoxHelper.IsClearTextButtonBehaviorEnabled="{Binding (controls:TextBoxHelper.ClearTextButton), Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
                                     Grid.Row="0"
                                     Grid.RowSpan="2"
-                                    Style="{DynamicResource ChromelessButtonStyle}"
+                                    Style="{DynamicResource MahApps.Styles.Button.Chromeless}"
                                     Width="{TemplateBinding controls:TextBoxHelper.ButtonWidth}"
                                     AutomationProperties.AutomationId="Button22_1C0DFFE8">
                                 <Button.Visibility>
@@ -440,12 +423,12 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </MultiTrigger.EnterActions>
-                            <Setter Property="Visibility"
-                                    TargetName="PART_WaitingForDataEffectAdornerDecorator"
-                                    Value="Visible" />
-                            <Setter Property="Effect"
-                                    TargetName="PART_WaitingForDataEffectGrid"
-                                    Value="{DynamicResource WaitingForDataEffect}" />
+                            <Setter Property="Visibility" 
+                                    TargetName="PART_WaitingForDataEffectAdornerDecorator" 
+                                    Value="Visible"/>
+                            <Setter Property="Effect" 
+                                    TargetName="PART_WaitingForDataEffectGrid" 
+                                    Value="{DynamicResource MahApps.DropShadowEffect.WaitingForData}"/>
                         </MultiTrigger>
                         <Trigger Property="controls:TextBoxHelper.IsWaitingForData"
                                  Value="False"
@@ -461,8 +444,8 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Validation.ErrorTemplate"
-                Value="{DynamicResource ValidationErrorTemplate}" />
+        <Setter Property="Validation.ErrorTemplate" 
+                Value="{DynamicResource MahApps.Templates.ValidationError}"/>
     </Style>
     <Style  x:Key="MonacoTextBoxSmall"
             TargetType="TextBox"

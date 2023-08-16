@@ -16,9 +16,9 @@
         [TestInitialize]
         public void Initialize()
         {
-            _testDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PackageManager/TestData/TestZip");
+            _testDirectoryPath = Path.Combine(AppContext.BaseDirectory, "PackageManager/TestData/TestZip");
             _testOutputDirectoryPath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
+                AppContext.BaseDirectory,
                 "PackageManager/TestData/TestZipOut");
 
             _zipArchive = new ZipArchive();

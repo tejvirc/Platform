@@ -1,14 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Hhr.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class FailedRequestEntityConfiguration : EntityTypeConfiguration<PendingRequestEntity>
+    public class FailedRequestEntityConfiguration : IEntityTypeConfiguration<PendingRequestEntity>
     {
-	    public FailedRequestEntityConfiguration()
-	    {
-		    ToTable(nameof(PendingRequestEntity));
-
-		    HasKey(t => t.Id);
+        public void Configure(EntityTypeBuilder<PendingRequestEntity> builder)
+        {
+            builder.ToTable(nameof(PendingRequestEntity));
+            builder.HasKey(t => t.Id);
 	    }
     }
 }

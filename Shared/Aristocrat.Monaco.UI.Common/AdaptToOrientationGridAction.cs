@@ -3,8 +3,8 @@
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls;
-    using System.Windows.Interactivity;
     using Application.Contracts.Media;
+    using Microsoft.Xaml.Behaviors;
 
     /// <summary>
     ///     Resizes the first row of the Grid to 0 if the containing Window has a Landscape aspect-ratio.

@@ -15,6 +15,7 @@
     using Kernel.Debugging;
     using log4net;
     using log4net.Config;
+    using log4net.Repository;
     using Mono.Addins;
 
     public sealed class Bootstrap : MarshalByRefObject
@@ -103,7 +104,7 @@
 
             if (ParseCommandLineArguments(args))
             {
-                return (int)AppExitCode.Ok;
+                return (int) AppExitCode.Ok;
             }
 
             NativeMethods.DisableProcessWindowsGhosting();
@@ -134,13 +135,11 @@
 
             LoadKernel();
             RunBootExtender();
-            UnloadKernel(false);
 
             Logger.Info($"Shutting down ({_exitAction})...");
-
-            ShutdownAddinManager();
-
             Logger.Info($"Application version {GetVersion()} exiting...");
+            ShutdownAddinManager();
+            UnloadKernel(false);
 
             if (!CrashDumpRegistered)
             {
@@ -152,12 +151,12 @@
             switch (_exitAction)
             {
                 case ExitAction.ShutDown:
-                    return (int)AppExitCode.Shutdown;
+                    return (int) AppExitCode.Shutdown;
                 case ExitAction.Reboot:
-                    return (int)AppExitCode.Reboot;
+                    return (int) AppExitCode.Reboot;
             }
 
-            return (int)AppExitCode.Ok;
+            return (int) AppExitCode.Ok;
         }
 
         private static void ConfigureLogging()
@@ -169,7 +168,10 @@
             GlobalContext.Properties["AssemblyInfo.Version"] = GetVersion();
             GlobalContext.Properties["Runtime.Version"] = RuntimeInformation.FrameworkDescription;
 
-            XmlConfigurator.Configure(loggingConfig);
+            // XmlConfigurator.Configure(loggingConfig);
+
+            ILoggerRepository loggerRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(loggerRepository, loggingConfig);
         }
 
         private static int InternalStart(string[] args)
@@ -188,7 +190,7 @@
             catch (Exception ex)
             {
                 Crash(ex);
-                return (int)AppExitCode.Error;
+                return (int) AppExitCode.Error;
             }
         }
 
@@ -256,7 +258,14 @@
         private static void ShutdownAddinManager()
         {
             Logger.Info("Shutting down the addin manager...");
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
             Logger.Info("Done.");
         }
 
@@ -270,7 +279,6 @@
             Crash(args.ExceptionObject);
         }
 
-        [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         private static void Crash(object exception)
         {
             Logger.Fatal("UNHANDLED EXCEPTION CAUGHT");
@@ -279,7 +287,7 @@
             Console.WriteLine(exception);
             if (!CrashDumpRegistered)
             {
-                Environment.Exit((int)AppExitCode.Error);
+                Environment.Exit((int) AppExitCode.Error);
             }
         }
 
@@ -304,14 +312,13 @@
             OutputStatus("Creating " + name);
 
             var typeExtensionNode = MonoAddinsHelper.GetSingleTypeExtensionNode(serviceExtensionPath);
-            var service = (IService)typeExtensionNode.CreateInstance();
+            var service = (IService) typeExtensionNode.CreateInstance();
             ServiceManager.GetInstance().AddServiceAndInitialize(service);
             _requiredServices.Push(service);
 
             Logger.Info("Done.");
         }
 
-        [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
         private void SetUnhandledExceptionHandler()
         {
             Logger.Info("Setting Unhandled Exception Handler...");
@@ -345,7 +352,7 @@
 
             foreach (var arg in args)
             {
-                var tokens = arg.Split(new[] { '=' }, 2);
+                var tokens = arg.Split(new[] {'='}, 2);
 
                 if (tokens.Length == 2 && !string.IsNullOrEmpty(tokens[1]))
                 {
@@ -383,7 +390,7 @@
 
             var typeExtensionNode =
                 MonoAddinsHelper.GetSingleSelectedExtensionNode<TypeExtensionNode>("/Kernel/AssemblyResolver");
-            _assemblyResolver = (IService)typeExtensionNode.CreateInstance();
+            _assemblyResolver = (IService) typeExtensionNode.CreateInstance();
             _assemblyResolver.Initialize();
 
             LoadRequiredService("Localizer", LocalizerExtensionPath);
@@ -399,9 +406,9 @@
             eventBus.Subscribe<ExitRequestedEvent>(this, HandleEvent);
 
             OutputStatus("Loading Kernel Services");
-            foreach (TypeExtensionNode node in AddinManager.GetExtensionNodes(ServicesExtensionPath))
+            foreach (TypeExtensionNode node in AddinManager.GetExtensionNodes<TypeExtensionNode>(ServicesExtensionPath))
             {
-                var service = (IService)node.CreateInstance();
+                var service = (IService) node.CreateInstance();
                 serviceManager.AddServiceAndInitialize(service);
                 _optionalServices.Add(service);
             }
@@ -471,7 +478,7 @@
         {
             var typeExtensionNode =
                 MonoAddinsHelper.GetSingleTypeExtensionNode(ExtenderExtensionPath);
-            _extender = (IRunnable)typeExtensionNode.CreateInstance();
+            _extender = (IRunnable) typeExtensionNode.CreateInstance();
             _extender.Initialize();
 
             Logger.Debug("Running boot extender...");

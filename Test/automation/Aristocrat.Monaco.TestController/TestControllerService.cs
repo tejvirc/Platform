@@ -2,33 +2,29 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
     using System.Reflection;
+    using System.Security.Policy;
     using System.ServiceModel;
     using System.ServiceModel.Description;
+    using System.Threading.Tasks;
     using log4net;
+    using Microsoft.AspNetCore;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Server.Kestrel.Core;
+    using Microsoft.Extensions.DependencyInjection;
 
     public class TestControllerService : ITestControllerService, IDisposable
     {
-        private const string SoapHostUrl = "http://localhost:8087/VLTTestController";
-
-        private const string RestHostUrl = "http://localhost:8087/PlatformTestController";
-
         /// <summary>
-        ///     Amazing comment
+        ///     Logger instance
         /// </summary>
-        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-        private TestControllerEngine _soapEngine;
-        private ServiceHost _soapHost;
-
-        private TestControllerEngine _restEngine;
-        private ServiceHost _restHost;
-
-        private bool _disposed;
+        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public void Dispose()
         {
-            Dispose(true);
             GC.SuppressFinalize(this);
         }
 
@@ -38,109 +34,51 @@
 
         public void Initialize()
         {
-            Log("Initializing...");
-
-            InitializeHost();
-
-            Log("Initialized");
-        }
-
-        public void InitializeHost()
-        {
             try
             {
-                #region REST
-
-                _restEngine = new TestControllerEngine();
-                _restEngine.Initialize();
-
-                _restHost = new ServiceHost(_restEngine, new Uri(RestHostUrl));
-
-                var behavior = new ServiceMetadataBehavior { HttpGetEnabled = true };
-
-                //REST API endpoint
-                ServiceEndpoint restEndpoint = new WebHttpEndpoint(
-                    ContractDescription.GetContract(typeof(ITestController)),
-                    new EndpointAddress(RestHostUrl));
-                restEndpoint.Name = "rest";
-                if (restEndpoint.Binding != null)
-                {
-                    restEndpoint.Binding.Name = "rest";
-                }
-
-                _restHost.Description.Behaviors.Add(behavior);
-                _restHost.AddServiceEndpoint(
-                    typeof(IMetadataExchange),
-                    new BasicHttpBinding { Name = "meta" },
-                    "MEX");
-                _restHost.AddServiceEndpoint(restEndpoint);
-
-                Log("Endpoints available:");
-
-                foreach (var se in _restHost.Description.Endpoints)
-                {
-                    Log($"Address: {se.Address}, Binding: {se.Binding?.Name}, Contract: {se.Contract.Name}");
-                }
-
-                _restHost.Open();
-
-                _restEngine.SubscribeToEvents();
-
-                #endregion
-
-                #region SOAP
-
-                _soapEngine = new TestControllerEngine();
-                _soapEngine.Initialize();
-
-                _soapHost = new ServiceHost(_soapEngine, new Uri(SoapHostUrl));
-                _soapHost.Description.Behaviors.Add(behavior);
-                _soapHost.AddServiceEndpoint(typeof(IMetadataExchange), new BasicHttpBinding(), "MEX");
-                _soapHost.AddDefaultEndpoints();
-
-                Log("Endpoints available:");
-
-                foreach (var se in _soapHost.Description.Endpoints)
-                {
-                    Log($"Address: {se.Address}, Binding: {se.Binding?.Name}, Contract: {se.Contract.Name}");
-                }
-
-                _soapEngine.SubscribeToEvents();
-
-                _soapHost.Open();
-
-                #endregion
+                Log("Initializing...");
+                Task.Run(() => { StartWebApiEndpoints(); }).ConfigureAwait(false);
+                Log("Endpoints available");
+                Log("Initialized");
             }
             catch (Exception ex)
             {
                 Log(ex.ToString());
-            }
+            }            
         }
 
-        protected virtual void Dispose(bool disposing)
+        private static void StartWebApiEndpoints()
         {
-            if (_disposed)
+            var webApiBuilder = WebApplication.CreateBuilder();
+            webApiBuilder.WebHost.ConfigureServices(services =>
             {
-                return;
-            }
+                services.AddControllers().AddApplicationPart(typeof(TestControllerEngine).Assembly);
+                var controllerEngine = new TestControllerEngine();
+                controllerEngine.SubscribeToEvents();
+                services.AddSingleton(controllerEngine);
+            });
 
-            if (disposing)
+            webApiBuilder.WebHost.UseUrls($"http://{GetLocalIPAddress()}:8087/").ConfigureKestrel((context, option) =>
             {
-                _soapEngine?.CancelEventSubscriptions();
+                option.AllowSynchronousIO = true;
+            });
 
-                _soapHost?.Close();
-
-                _restEngine?.CancelEventSubscriptions();
-
-                _soapHost?.Close();
-            }
-
-            _disposed = true;
+            var app = webApiBuilder.Build();
+            app.MapGet("/healthcheck", (Func<object>)(() => new { Value = "Hello World!" }));
+            app.MapControllers();
+            app.Run();
         }
 
         private void Log(string msg)
         {
             _logger.Info(msg);
+        }
+
+        private static string GetLocalIPAddress()
+        {
+            var hostEntry = Dns.GetHostEntry(Dns.GetHostName());
+            var ipAddress = hostEntry.AddressList.FirstOrDefault(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+            return ipAddress?.ToString();
         }
     }
 }

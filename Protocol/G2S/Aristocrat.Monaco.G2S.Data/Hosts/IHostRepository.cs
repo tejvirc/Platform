@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Hosts
 {
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Common.Storage;
     using Model;
 

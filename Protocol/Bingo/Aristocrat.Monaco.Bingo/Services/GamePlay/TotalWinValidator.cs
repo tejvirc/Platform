@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Services.GamePlay
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using Application.Contracts.Localization;
     using Common;

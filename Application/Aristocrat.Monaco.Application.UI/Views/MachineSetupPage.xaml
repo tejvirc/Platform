@@ -8,6 +8,8 @@
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:MachineSetupPageViewModel, IsDesignTimeCreatable=True}">
@@ -46,7 +48,7 @@
         </Grid.RowDefinitions>
         <Label Grid.Column="0"
                Grid.Row="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Currency}}"
+               Content="{lex:Loc Currency}"
                AutomationProperties.AutomationId="Label11_A1126224" />
         <ComboBox Grid.Column="0"
                   Grid.Row="1"
@@ -61,7 +63,7 @@
         <Label Grid.Column="0"
                Grid.Row="2"
                Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"
+               Content="{lex:Loc SerialNumberLabel}"
                AutomationProperties.AutomationId="Label13_A1126224" />
         <helpers:AlphaNumericTextBox Grid.Column="0"
                                      Grid.Row="3"
@@ -76,7 +78,7 @@
         <Label Grid.Column="0"
                Grid.Row="4"
                Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AssetNumber}}"
+               Content="{lex:Loc AssetNumber}"
                AutomationProperties.AutomationId="Label14_A1126224" />
         <helpers:AlphaNumericTextBox Grid.Column="0"
                                      Grid.Row="5"
@@ -91,15 +93,15 @@
         <Label Grid.Column="0"
                Grid.Row="6"
                Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.RequireZeroCredit}}"
+               Content="{lex:Loc RequireZeroCredit}"
                AutomationProperties.AutomationId="Label15_A1126224" />
-        <controls:ToggleSwitchButton Grid.Column="0"
+        <controls:ToggleSwitch Grid.Column="0"
                                      Grid.Row="7"
-                                     IsChecked="{Binding RequireZeroCredit}"
+                                     IsOn="{Binding RequireZeroCredit}"
                                      IsEnabled="{Binding RequireZeroCreditChangeAllowed}"
                                      controls:ControlsHelper.ContentCharacterCasing="Upper"
                                      controls:ControlsHelper.CornerRadius="0"
-                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.OffText}}"
-                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.OnText}}" />
+                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc OffText}"
+                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc OnText}" />
     </Grid>
 </operatorMenu:OperatorMenuPage>

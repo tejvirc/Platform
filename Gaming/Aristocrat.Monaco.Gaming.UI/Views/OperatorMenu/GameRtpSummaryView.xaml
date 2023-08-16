@@ -8,6 +8,8 @@
                                xmlns:converters="http://monaco.aristocrat.com/common"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:GameRtpSummaryViewModel}, IsDesignTimeCreatable=True}"
@@ -46,7 +48,7 @@
                HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center"
                Style="{StaticResource MonacoLabel}"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AllGamesDisabled}}"
+               Content="{lex:Loc AllGamesDisabled}"
                Visibility="{Binding HasGameTypeItems, Mode=OneWay, Converter={StaticResource TrueCollapsedFalseVisible}}"
                AutomationProperties.AutomationId="Label5_DDB851F1" />
         <DataGrid Grid.Column="0"
@@ -57,17 +59,17 @@
                   AutomationProperties.AutomationId="DataGrid6_DDB851F1">
             <DataGrid.Columns>
                 <DataGridTextColumn MaxWidth="150"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameTypeSummary}}"
+                                    Header="{lex:Loc GameTypeSummary}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding Name}"
                                     AutomationProperties.AutomationId="DataGridTextColumn7_DDB851F1" />
                 <DataGridTextColumn MaxWidth="120"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedRTP}}"
+                                    Header="{lex:Loc BlendedRTP}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding BlendedRTP}"
                                     AutomationProperties.AutomationId="DataGridTextColumn8_DDB851F1" />
                 <DataGridTextColumn MaxWidth="120"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedHold}}"
+                                    Header="{lex:Loc BlendedHold}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding BlendedHold}"
                                     AutomationProperties.AutomationId="DataGridTextColumn9_DDB851F1" />
@@ -83,17 +85,17 @@
                   AutomationProperties.AutomationId="DataGrid10_DDB851F1">
             <DataGrid.Columns>
                 <DataGridTextColumn MaxWidth="150"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.DenomSummary}}"
+                                    Header="{lex:Loc DenomSummary}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding Name}"
                                     AutomationProperties.AutomationId="DataGridTextColumn11_DDB851F1" />
                 <DataGridTextColumn MaxWidth="120"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedRTP}}"
+                                    Header="{lex:Loc BlendedRTP}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding BlendedRTP}"
                                     AutomationProperties.AutomationId="DataGridTextColumn12_DDB851F1" />
                 <DataGridTextColumn MaxWidth="120"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedHold}}"
+                                    Header="{lex:Loc BlendedHold}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding BlendedHold}"
                                     AutomationProperties.AutomationId="DataGridTextColumn13_DDB851F1" />
@@ -106,7 +108,7 @@
                  Visibility="{Binding HasMoreThanOneGameType, Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                  Margin="0"
                  Padding="10 0 0 0"
-                 BorderBrush="{DynamicResource AccentColorBrush}"
+                 BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
                  BorderThickness="2 0 0 0"
                  Height="{Binding ElementName=GamesDenomsGrid, Path=ActualHeight}"
                  AutomationProperties.AutomationId="ListBox14_DDB851F1">
@@ -127,18 +129,20 @@
                                                    AutomationProperties.AutomationId="TextBlock17_DDB851F1">
                                             <lex:EnumRun Text="{Binding Path=DataContext.Key, ElementName=DG, Mode=OneWay, Converter={StaticResource LTextCaseConverter}, ConverterParameter=Upper}" PrependType="False" />
                                             <LineBreak AutomationProperties.AutomationId="LineBreak18_DDB851F1" />
-                                            <Run Text="{Binding Source={lex:Loc Key={x:Static loc:ResourceKeys.Summary}}, Mode=OneWay, Converter={StaticResource TextCaseConverter}, ConverterParameter=Upper}" AutomationProperties.AutomationId="Run19_DDB851F1" />
+                                            <Run
+                                                    Text="{Binding Source={lex:Loc Summary}, Mode=OneWay, Converter={StaticResource TextCaseConverter}, ConverterParameter=Upper}"
+                                                 AutomationProperties.AutomationId="Run19_DDB851F1" />
                                         </TextBlock>
                                     </DataTemplate>
                                 </DataGridTextColumn.HeaderTemplate>
                             </DataGridTextColumn>
                             <DataGridTextColumn MaxWidth="120"
-                                                Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedRTP}}"
+                                                Header="{lex:Loc BlendedRTP}"
                                                 loc:Localizer.For="Operator"
                                                 Binding="{Binding BlendedRTP}"
                                                 AutomationProperties.AutomationId="DataGridTextColumn20_DDB851F1" />
                             <DataGridTextColumn MaxWidth="120"
-                                                Header="{lex:Loc Key={x:Static loc:ResourceKeys.BlendedHold}}"
+                                                Header="{lex:Loc BlendedHold}"
                                                 loc:Localizer.For="Operator"
                                                 Binding="{Binding BlendedHold}"
                                                 AutomationProperties.AutomationId="DataGridTextColumn21_DDB851F1" />

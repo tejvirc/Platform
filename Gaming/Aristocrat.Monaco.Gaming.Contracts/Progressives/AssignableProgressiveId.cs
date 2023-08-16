@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Progressives
 {
+    using ProtoBuf;
     using System;
+    using System.Runtime.Serialization;
 
     /// <summary>
     ///     The AssignedProgressiveId defines a type and unique string identifier used to
@@ -8,7 +10,7 @@
     ///     key. The key should be unique and can be used to lookup the associated selectable
     ///     progressive in the corresponding provider that owns the progressive level.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class AssignableProgressiveId
     {
         /// <summary>
@@ -23,13 +25,22 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public AssignableProgressiveId()
+        {
+        }
+
+        /// <summary>
         ///     The type of selectable progressive
         /// </summary>
+        [ProtoMember(1)]
         public AssignableProgressiveType AssignedProgressiveType { get; }
 
         /// <summary>
         ///     The unique identifier used to lookup the assigned level
         /// </summary>
+        [ProtoMember(2)]
         public string AssignedProgressiveKey { get; }
 
         /// <inheritdoc />

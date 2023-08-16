@@ -7,6 +7,7 @@
     using Contracts;
     using Contracts.Bonus;
     using Hardware.Contracts.Persistence;
+    using Kernel;
 
     /// <summary>
     ///     Provides cabinet specific meters related to game play
@@ -16,7 +17,7 @@
         private const PersistenceLevel Level = PersistenceLevel.Critical;
 
         private readonly List<Tuple<string, MeterClassification, bool>> _meters =
-            new List<Tuple<string, MeterClassification, bool>>
+            new()
             {
                 Tuple.Create<string, MeterClassification, bool>(
                     GamingMeters.WageredCashableAmount,
@@ -49,8 +50,8 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="CabinetMeterProvider" /> class.
         /// </summary>
-        public CabinetMeterProvider(IPersistentStorageManager persistentStorage, IMeterManager meterManager)
-            : base(typeof(CabinetMeterProvider).ToString())
+        public CabinetMeterProvider(IPersistentStorageManager persistentStorage, IMeterManager meterManager, IPropertiesManager properties)
+            : base(typeof(CabinetMeterProvider).ToString(), properties)
         {
             if (persistentStorage == null)
             {
@@ -58,16 +59,14 @@
             }
 
             _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
-
             var blockName = GetType().ToString();
-
             var accessor = persistentStorage.BlockExists(blockName)
                 ? persistentStorage.GetBlock(blockName)
                 : persistentStorage.CreateBlock(Level, blockName, 1);
 
             AddMeters(accessor);
-
             AddCompositeMeters();
+            _meterManager.AddProvider(this);
         }
 
         private void AddMeters(IPersistentStorageAccessor accessor)

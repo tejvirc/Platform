@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.G2S.Client.Communications
 {
-    using System.ServiceModel.Channels;
+    using CoreWCF.Channels;
 
     /// <summary>
     ///     A custom text message encoder factory used to support a null/content type

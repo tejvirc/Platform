@@ -9,6 +9,8 @@
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:audio="clr-namespace:Aristocrat.Monaco.Hardware.Contracts.Audio;assembly=Aristocrat.Monaco.Hardware.Contracts"
                                xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
                                mc:Ignorable="d"
@@ -98,9 +100,9 @@
                             Orientation="Vertical"
                             IsEnabled="{Binding AttractOptionsEnabled}"
                             AutomationProperties.AutomationId="StackPanel12_2AB589A7">
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.AttractModeOptions}}"
+                    <TextBlock Text="{lex:Loc AttractModeOptions}"
                                AutomationProperties.AutomationId="TextBlock13_2AB589A7" />
-                    <CheckBox Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableAttractCheckBoxText}}"
+                    <CheckBox Content="{lex:Loc EnableAttractCheckBoxText}"
                               IsChecked="{Binding AttractEnabled, Mode=TwoWay}"
                               IsEnabled="{Binding Path=InputEnabled}"
                               AutomationProperties.AutomationId="CheckBox14_2AB589A7" />
@@ -110,12 +112,12 @@
                                 IsEnabled="{Binding AttractEnabled}"
                                 AutomationProperties.AutomationId="StackPanel15_2AB589A7">
                         <Button x:Name="AttractModeCustomizeButton"
-                                Content="{lex:Loc Key={x:Static loc:ResourceKeys.AttractModeCustomizeButtonText}}"
+                                Content="{lex:Loc AttractModeCustomizeButtonText}"
                                 Command="{Binding AttractModeCustomizeCommand}"
                                 IsEnabled="{Binding Path=InputEnabled}"
                                 AutomationProperties.AutomationId="Button16_2AB589A7" />
                         <Button x:Name="AttractModePreviewButton"
-                                Content="{lex:Loc Key={x:Static loc:ResourceKeys.AttractModePreviewButtonText}}"
+                                Content="{lex:Loc AttractModePreviewButtonText}"
                                 Command="{Binding AttractModePreviewCommand}"
                                 IsEnabled="{Binding Path=InputEnabled}"
                                 AutomationProperties.AutomationId="Button17_2AB589A7" />
@@ -124,12 +126,12 @@
                 <!-- Game Censorship Options Section -->
                 <TextBlock x:Name="GameCensorshipOptionsTextBlock"
                            Margin="0 30 0 0"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameCensorshipOptions}}"
+                           Text="{lex:Loc GameCensorshipOptions}"
                            Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                            AutomationProperties.AutomationId="TextBlock18_2AB589A7" />
                 <!-- Censor Violent Content Section -->
                 <CheckBox x:Name="CensorViolentContentCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.CensorViolentContent}}"
+                          Content="{lex:Loc CensorViolentContent}"
                           IsChecked="{Binding CensorViolentContent}"
                           Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                           AutomationProperties.AutomationId="CheckBox19_2AB589A7">
@@ -142,7 +144,7 @@
                 </CheckBox>
                 <!-- Censor Drug Use Content Section -->
                 <CheckBox x:Name="CensorDrugUseContentCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.CensorDrugUseContent}}"
+                          Content="{lex:Loc CensorDrugUseContent}"
                           IsChecked="{Binding CensorDrugUseContent}"
                           Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                           AutomationProperties.AutomationId="CheckBox20_2AB589A7">
@@ -155,7 +157,7 @@
                 </CheckBox>
                 <!-- Censor Sexual Content Section -->
                 <CheckBox x:Name="CensorSexualContentCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.CensorSexualContent}}"
+                          Content="{lex:Loc CensorSexualContent}"
                           IsChecked="{Binding CensorSexualContent}"
                           Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                           AutomationProperties.AutomationId="CheckBox21_2AB589A7">
@@ -168,7 +170,7 @@
                 </CheckBox>
                 <!-- Censor Offensive Language Section -->
                 <CheckBox x:Name="CensorOffensiveLanguageCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.CensorOffensiveLanguage}}"
+                          Content="{lex:Loc CensorOffensiveLanguage}"
                           IsChecked="{Binding CensorOffensiveContent}"
                           Visibility="{Binding Path=CensorshipEnforced, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                           AutomationProperties.AutomationId="CheckBox22_2AB589A7">
@@ -182,7 +184,7 @@
                 <!-- Button Behavior Options Section -->
                 <TextBlock x:Name="ButtonBehaviorOptionsTextBlock"
                            Margin="0 30 0 0"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonBehaviorOptions}}"
+                           Text="{lex:Loc ButtonBehaviorOptions}"
                            AutomationProperties.AutomationId="TextBlock23_2AB589A7" />
                 <!-- Button Continuous Play Section -->
                 <StackPanel x:Name="ContinuousPlaySectionStackPanel"
@@ -190,7 +192,7 @@
                             Visibility="Collapsed"
                             AutomationProperties.AutomationId="StackPanel24_2AB589A7">
                     <CheckBox x:Name="ContinuousPlayCheckBox"
-                              Content="{lex:Loc Key={x:Static loc:ResourceKeys.ButtonContinuousPlay}}"
+                              Content="{lex:Loc ButtonContinuousPlay}"
                               IsChecked="{Binding IsButtonContinuousPlayChecked, Mode=TwoWay}"
                               AutomationProperties.AutomationId="CheckBox25_2AB589A7">
                         <CheckBox.IsEnabled>
@@ -207,13 +209,10 @@
                             AutomationProperties.AutomationId="Button26_2AB589A7">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                                <Binding ElementName="ContinuousPlayCheckBox" />
-                                <Binding ElementName="ContinuousPlayButtonInfoProxy"
-                                         Path="Result" />
+                                <Binding ElementName="ContinuousPlayCheckBox"/>
+                                <Binding Source="{lex:Loc ButtonContinuousPlayButtonInfo}"/>
                             </MultiBinding>
                         </Button.CommandParameter>
-                        <lex:LocProxy x:Name="ContinuousPlayButtonInfoProxy"
-                                      Source="{x:Static loc:ResourceKeys.ButtonContinuousPlayButtonInfo}" />
                     </Button>
                 </StackPanel>
                 <!-- Game Round Time Settings Section -->
@@ -222,7 +221,7 @@
                             AutomationProperties.AutomationId="StackPanel27_2AB589A7">
                     <Label x:Name="GameRoundTimeSettingLabel"
                            Margin="0 10 20 0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameRoundTimeSettingLabel}}"
+                           Content="{lex:Loc GameRoundTimeSettingLabel}"
                            VerticalAlignment="Center"
                            AutomationProperties.AutomationId="Label28_2AB589A7" />
                     <xctk:IntegerUpDown Minimum="{Binding MinimumGameRoundDuration}"
@@ -239,7 +238,7 @@
                             Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel29_2AB589A7">
                     <CheckBox x:Name="DoubleTapReelStopCheckBox"
-                              Content="{lex:Loc Key={x:Static loc:ResourceKeys.DoubleTapForcesGameRoundStop}}"
+                              Content="{lex:Loc DoubleTapForcesGameRoundStop}"
                               IsChecked="{Binding IsDoubleTapForceReelStopChecked, Mode=TwoWay}"
                               AutomationProperties.AutomationId="CheckBox30_2AB589A7">
                         <CheckBox.IsEnabled>
@@ -256,13 +255,10 @@
                             AutomationProperties.AutomationId="Button31_2AB589A7">
                         <Button.CommandParameter>
                             <MultiBinding Converter="{StaticResource MultiValueConverter}">
-                                <Binding ElementName="DoubleTapReelStopCheckBox" />
-                                <Binding ElementName="DoubleTapForceReelStopProxy"
-                                         Path="Result" />
+                                <Binding ElementName="DoubleTapReelStopCheckBox"/>
+                                <Binding Source="{lex:Loc DoubleTapForcesGameRoundStopButtonInfo}"/>
                             </MultiBinding>
                         </Button.CommandParameter>
-                        <lex:LocProxy x:Name="DoubleTapForceReelStopProxy"
-                                      Source="{x:Static loc:ResourceKeys.DoubleTapForcesGameRoundStopButtonInfo}" />
                     </Button>
                 </StackPanel>
                 <!--Game Start Method Section -->
@@ -274,13 +270,12 @@
                     <Label x:Name="GameStartMethodLabel"
                            Margin="0 10 0 0"
                            VerticalAlignment="Bottom"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.GameStartMethod}}"
+                           Content="{lex:Loc GameStartMethod}"
                            AutomationProperties.AutomationId="Label33_2AB589A7" />
                     <ComboBox x:Name="GameStartMethodComboBox"
                               HorizontalAlignment="Left"
                               DisplayMemberPath="Description"
                               SelectedValuePath="Value"
-                              Width="240"
                               ItemsSource="{Binding GameStartMethods}"
                               SelectedValue="{Binding GameStartMethod, Mode=TwoWay}"
                               AutomationProperties.AutomationId="ComboBox34_2AB589A7">
@@ -312,12 +307,12 @@
                 <!-- Show Program Options Section -->
                 <TextBlock x:Name="ShowProgramOptionsTextBlock"
                            Margin="0 30 0 0"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.ShowProgramOptionsLabel}}"
+                           Text="{lex:Loc ShowProgramOptionsLabel}"
                            Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                            AutomationProperties.AutomationId="TextBlock35_2AB589A7" />
                 <!-- Enable Show Program PIN Section -->
                 <CheckBox x:Name="ShowProgramPinRequiredCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowProgramEnableShowProgramPin}}"
+                          Content="{lex:Loc ShowProgramEnableShowProgramPin}" 
                           IsChecked="{Binding ShowProgramPinRequired}"
                           Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                           AutomationProperties.AutomationId="CheckBox36_2AB589A7">
@@ -352,12 +347,12 @@
                     <Label x:Name="ShowProgramPinLabel"
                            Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowProgramPin}}"
+                           Content="{lex:Loc ShowProgramPin}"
                            AutomationProperties.AutomationId="Label39_2AB589A7" />
                 </StackPanel>
                 <!-- Show Program Enable Reset Credits Section -->
                 <CheckBox x:Name="ShowProgramEnableResetCreditsCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowProgramEnableResetCredits}}"
+                          Content="{lex:Loc ShowProgramEnableResetCredits}"
                           IsChecked="{Binding ShowProgramEnableResetCredits}"
                           IsEnabled="{Binding FieldAccessEnabled}"
                           Visibility="{Binding Path=DemoModeEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
@@ -370,17 +365,17 @@
                         AutomationProperties.AutomationId="StackPanel41_2AB589A7">
                 <!-- Game UI / Lobby Options Section -->
                 <TextBlock x:Name="LobbyOptionsTextBlock"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.GameUILobbyOptions}}"
+                           Text="{lex:Loc GameUILobbyOptions}"
                            AutomationProperties.AutomationId="TextBlock42_2AB589A7" />
                 <!-- Show Service Section -->
                 <CheckBox x:Name="ShowServiceCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowService}}"
+                          Content="{lex:Loc ShowService}"
                           IsChecked="{Binding ShowServiceButton}"
                           IsEnabled="{Binding Path=InputEnabled}"
                           AutomationProperties.AutomationId="CheckBox43_2AB589A7" />
                 <!-- Show Top Picks Banners -->
                 <CheckBox x:Name="ShowTopPickBannersCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowTopPickBanners}}"
+                          Content="{lex:Loc ShowTopPickBanners}"
                           Visibility="{Binding ShowTopPickBannersVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                           IsChecked="{Binding ShowTopPickBanners}"
                           IsEnabled="{Binding Path=InputEnabled}"
@@ -402,7 +397,7 @@
                     <Label x:Name="LobbyVolumeLevelLabel"
                            Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.RelativeVolume}}"
+                           Content="{lex:Loc RelativeVolume}"
                            AutomationProperties.AutomationId="Label47_2AB589A7" />
                 </StackPanel>
                 <!-- Enable once lobby work is done -->
@@ -425,17 +420,17 @@
                     </ComboBox>
                     <Label Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveLobbyIndicatorSelection}}"
+                           Content="{lex:Loc ProgressiveLobbyIndicatorSelection}"
                            AutomationProperties.AutomationId="Label50_2AB589A7" />
                 </StackPanel>
                 <!-- Slot Game Options Section -->
                 <TextBlock x:Name="SlotGameOptionsTextBlock"
                            Margin="0 30 0 0"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.SlotGamesOptions}}"
+                           Text="{lex:Loc SlotGamesOptions}"
                            AutomationProperties.AutomationId="TextBlock51_2AB589A7" />
                 <!-- Slot Enable Auto Play Section -->
                 <CheckBox x:Name="SlotEnableAutoPlayCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableAutoPlay}}"
+                          Content="{lex:Loc EnableAutoPlay}"
                           IsChecked="{Binding SlotEnableAutoPlay}"
                           AutomationProperties.AutomationId="CheckBox52_2AB589A7">
                     <CheckBox.IsEnabled>
@@ -466,19 +461,20 @@
                         </ComboBox.IsEnabled>
                     </ComboBox>
                     <Label x:Name="SlotVolumeLevelLabel"
-                           Margin="5 5 0 0"
-                           VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.RelativeVolume}}"
-                           AutomationProperties.AutomationId="Label55_2AB589A7" />
+                       Margin="5 5 0 0"
+                       VerticalAlignment="Center"
+                       Content="{lex:Loc RelativeVolume}"
+                       AutomationProperties.AutomationId="Label55_2AB589A7" />
                 </StackPanel>
                 <!-- Keno Games Option Section -->
                 <TextBlock x:Name="KenoGamesTextBlock"
                            Margin="0 30 0 0"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.KenoGamesOptions}}"
+                           Text="{lex:Loc KenoGamesOptions}"
                            AutomationProperties.AutomationId="TextBlock56_2AB589A7" />
+
                 <!-- Keno Enable Auto Play Section -->
                 <CheckBox x:Name="KenoEnableAutoPlayCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableAutoPlay}}"
+                          Content="{lex:Loc EnableAutoPlay}" 
                           IsChecked="{Binding KenoEnableAutoPlay}"
                           AutomationProperties.AutomationId="CheckBox57_2AB589A7">
                     <CheckBox.IsEnabled>
@@ -490,7 +486,7 @@
                 </CheckBox>
                 <!-- Keno Show Player Speed Section -->
                 <CheckBox x:Name="KenoShowPlayerSpeedCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowPlayerSpeedButton}}"
+                          Content="{lex:Loc ShowPlayerSpeedButton}" 
                           IsChecked="{Binding KenoShowPlayerSpeedButton}"
                           AutomationProperties.AutomationId="CheckBox58_2AB589A7">
                     <CheckBox.IsEnabled>
@@ -522,7 +518,7 @@
                     <Label x:Name="KenoSpeedLevelLabel"
                            Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.SpeedLevel}}"
+                           Content="{lex:Loc SpeedLevel}"
                            AutomationProperties.AutomationId="Label61_2AB589A7" />
                 </StackPanel>
                 <!-- Keno Default Player Speed Section -->
@@ -546,7 +542,7 @@
                     <Label x:Name="KenoDefaultPlayerSpeedLabel"
                            Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.DefaultPlayerSpeed}}"
+                           Content="{lex:Loc DefaultPlayerSpeed}"
                            AutomationProperties.AutomationId="Label64_2AB589A7" />
                 </StackPanel>
                 <!-- Keno Volume Section -->
@@ -572,7 +568,7 @@
                     <Label x:Name="KenoVolumeLabel"
                            Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.RelativeVolume}}"
+                           Content="{lex:Loc RelativeVolume}"
                            AutomationProperties.AutomationId="Label67_2AB589A7" />
                 </StackPanel>
             </StackPanel>
@@ -583,30 +579,30 @@
                         AutomationProperties.AutomationId="StackPanel68_2AB589A7">
                 <!-- Poker Game Options Section -->
                 <TextBlock x:Name="PokerGameOptionsTextBlock"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.PokerGamesOptions}}"
+                           Text="{lex:Loc PokerGamesOptions}"
                            AutomationProperties.AutomationId="TextBlock69_2AB589A7" />
                 <!-- Poker Enable Auto Hold Section -->
                 <CheckBox x:Name="PokerEnableAutoHoldCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableAutoHold}}"
+                          Content="{lex:Loc EnableAutoHold}"
                           IsChecked="{Binding PokerEnableAutoHold}"
                           AutomationProperties.AutomationId="CheckBox70_2AB589A7">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="AutoHoldConfigurable" />
-                            <Binding Path="LogicDoorEnabled" />
-                            <Binding Path="InputEnabled" />
+                            <Binding Path="LogicDoorEnabled"/>
+                            <Binding Path="InputEnabled"/>
                         </MultiBinding>
                     </CheckBox.IsEnabled>
                 </CheckBox>
                 <!-- Poker Show Player Speed Section -->
                 <CheckBox x:Name="PokerShowPlayerSpeedCheckBox"
-                          Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowPlayerSpeedButton}}"
+                          Content="{lex:Loc ShowPlayerSpeedButton}" 
                           IsChecked="{Binding PokerShowPlayerSpeedButton}"
                           AutomationProperties.AutomationId="CheckBox71_2AB589A7">
                     <CheckBox.IsEnabled>
                         <MultiBinding Converter="{StaticResource BoolAndConverter}">
                             <Binding Path="PokerOptionsEnabled" />
-                            <Binding Path="InputEnabled" />
+                            <Binding Path="InputEnabled"/>
                             <Binding Path="PokerPlayerSpeedButtonEnabled" />
                         </MultiBinding>
                     </CheckBox.IsEnabled>
@@ -632,7 +628,7 @@
                     <Label x:Name="PokerSpeedLevelLabel"
                            Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.SpeedLevel}}"
+                           Content="{lex:Loc SpeedLevel}"
                            AutomationProperties.AutomationId="Label74_2AB589A7" />
                 </StackPanel>
                 <!-- Poker Default Player Speed Section -->
@@ -653,10 +649,11 @@
                             </MultiBinding>
                         </ComboBox.IsEnabled>
                     </ComboBox>
-                    <Label x:Name="PokerDefaultPlayerSpeedLabel"
+
+                    <Label x:Name="PokerDefaultPlayerSpeedLabel" 
                            Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.DefaultPlayerSpeed}}"
+                           Content="{lex:Loc DefaultPlayerSpeed}"
                            AutomationProperties.AutomationId="Label77_2AB589A7" />
                 </StackPanel>
                 <!-- Poker Volume Level Section -->
@@ -682,7 +679,7 @@
                     <Label x:Name="PokerVolumeLevelLabel"
                            Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.RelativeVolume}}"
+                           Content="{lex:Loc RelativeVolume}"
                            AutomationProperties.AutomationId="Label80_2AB589A7" />
                 </StackPanel>
                 <!-- Poker Background color Section -->
@@ -707,21 +704,22 @@
                         <Label x:Name="PokerColorLabel"
                                Margin="5 5 0 0"
                                VerticalAlignment="Center"
-                               Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackgroundColor}}"
+                               Content="{lex:Loc BackgroundColor}"
                                AutomationProperties.AutomationId="Label84_2AB589A7" />
                     </StackPanel>
                     <Button Margin="10 10 0 10"
                             HorizontalAlignment="Right"
                             IsEnabled="{Binding BackgroundPreviewAvailable}"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.AttractModePreviewButtonText}}"
+                            Content="{lex:Loc AttractModePreviewButtonText}"
                             Command="{Binding PreviewBackgroundCommand}"
                             AutomationProperties.AutomationId="Button85_2AB589A7" />
                 </StackPanel>
-                <!-- Blackjack Game Options Section -->
+
                 <TextBlock x:Name="BlackjackGameOptionsTextBlock"
                            Margin="0 30 0 0"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.BlackjackGamesOptions}}"
+                           Text="{lex:Loc BlackjackGamesOptions}"
                            AutomationProperties.AutomationId="TextBlock86_2AB589A7" />
+
                 <!-- Blackjack Volume Level Section -->
                 <StackPanel x:Name="BlackjackVolumeLevelStackPanel"
                             Orientation="Horizontal"
@@ -745,14 +743,15 @@
                     <Label x:Name="BlackjackVolumeLevelLabel"
                            Margin="5 5 0 0"
                            VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.RelativeVolume}}"
+                           Content="{lex:Loc RelativeVolume}"
                            AutomationProperties.AutomationId="Label89_2AB589A7" />
                 </StackPanel>
                 <!-- Roulette Game Options Section -->
                 <TextBlock x:Name="RouletteGameOptionsTextBlock"
                            Margin="0 30 0 0"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.RouletteGamesOptions}}"
+                           Text="{lex:Loc RouletteGamesOptions}"
                            AutomationProperties.AutomationId="TextBlock90_2AB589A7" />
+
                 <!-- Roulette Volume Level Section -->
                 <StackPanel x:Name="RouletteVolumeLevelStackPanel"
                             Orientation="Horizontal"
@@ -773,23 +772,22 @@
                             </MultiBinding>
                         </ComboBox.IsEnabled>
                     </ComboBox>
-                    <Label x:Name="RouletteVolumeLevelLabel"
-                           Margin="5 5 0 0"
-                           VerticalAlignment="Center"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.RelativeVolume}}"
+                    <Label x:Name="RouletteVolumeLevelLabel" 
+                           Margin="5 5 0 0" 
+                           VerticalAlignment="Center" 
+                           Content="{lex:Loc RelativeVolume}"
                            AutomationProperties.AutomationId="Label93_2AB589A7" />
                 </StackPanel>
             </StackPanel>
             <!-- Change Game Lobby Layout Section -->
-            <Button x:Name="ChangeGameLobbyLayoutButton"
-                    Grid.Column="4"
-                    Grid.Row="3"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ChangeGameLobbyLayout}}"
-                    HorizontalAlignment="Left"
-                    Margin="5"
-                    Visibility="Hidden"
-                    Command="{Binding ChangeGameLobbyLayoutCommand}"
-                    AutomationProperties.AutomationId="Button94_2AB589A7" />
+            <Button x:Name="ChangeGameLobbyLayoutButton" 
+                Grid.Column="4" 
+                Grid.Row="3" 
+                Content="{lex:Loc ChangeGameLobbyLayout}"
+                Margin="5"
+                Visibility="Hidden"
+                Command="{Binding ChangeGameLobbyLayoutCommand}"
+                AutomationProperties.AutomationId="Button94_2AB589A7"/>
         </Grid>
     </ScrollViewer>
 </operatorMenu:OperatorMenuPage>

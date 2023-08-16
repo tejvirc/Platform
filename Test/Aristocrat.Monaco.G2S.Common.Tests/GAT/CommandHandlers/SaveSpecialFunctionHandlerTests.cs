@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.Tests.GAT.CommandHandlers
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Common.GAT.CommandHandlers;
     using Common.GAT.Storage;
     using Common.GAT.Validators;

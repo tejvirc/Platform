@@ -5,7 +5,6 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.Serialization.Formatters.Binary;
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
@@ -18,6 +17,7 @@
     using Kernel;
     using Kernel.Contracts;
     using Localization.Properties;
+    using ProtoBuf;
     using log4net;
 
     public class CurrencyInProvider : TransferInProviderBase, IService, IDisposable
@@ -313,10 +313,7 @@
         {
             using (var stream = new MemoryStream())
             {
-                var formatter = new BinaryFormatter();
-
-                formatter.Serialize(stream, evt);
-
+                Serializer.Serialize(stream, evt);
                 return stream.ToArray();
             }
         }
@@ -677,15 +674,10 @@
             {
                 using (var stream = new MemoryStream())
                 {
-                    var formatter = new BinaryFormatter();
-
                     stream.Write(data, 0, data.Length);
                     stream.Position = 0;
 
-                    if (formatter.Deserialize(stream) is CurrencyEscrowedEvent evt)
-                    {
-                        return evt;
-                    }
+                    return Serializer.Deserialize<CurrencyEscrowedEvent>(stream);
                 }
             }
 

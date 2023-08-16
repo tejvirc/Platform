@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     The GambleFeatureEnabledEvent is posted when the runtime updates the GambleFeatureActive flag.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GambleFeatureActiveEvent : BaseEvent
     {
         /// <summary>
@@ -19,8 +20,16 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing  
+        /// </summary>
+        public GambleFeatureActiveEvent()
+        {
+        }
+
+        /// <summary>
         ///     True if Gamble Button is Enabled on Game's UPI
         /// </summary>
+        [ProtoMember(1)]
         public bool Active { get; }
     }
 }

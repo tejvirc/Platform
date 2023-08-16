@@ -2,10 +2,11 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
     using static System.FormattableString;
 
     /// <summary>Definition of the ValidateEvent class.</summary>
-    [Serializable]
+    [ProtoContract]
     public class ValidateEvent : BaseEvent
     {
         /// <summary>
@@ -21,13 +22,21 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deseriliazing
+        /// </summary>
+        public ValidateEvent()
+        { }
+
+        /// <summary>
         ///     Gets the property name to which the validate event applies
         /// </summary>
+        [ProtoMember(1)]
         public string PropertyName { get; }
 
         /// <summary>
         ///     Gets whether valid or not
         /// </summary>
+        [ProtoMember(2)]
         public bool Valid { get; }
 
         /// <inheritdoc />

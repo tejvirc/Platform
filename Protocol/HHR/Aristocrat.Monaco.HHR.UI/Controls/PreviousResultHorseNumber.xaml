@@ -16,7 +16,7 @@
     </UserControl.Resources>
     <Grid AutomationProperties.AutomationId="Grid1_FEE1906">
         <Image
-                Source="{Binding HorseNumber, ElementName=ThisHorseNumberControl,                Converter={StaticResource PreviousResultHorseNumberToImageConverter}}"
+                Source="{Binding HorseNumber, ElementName=ThisHorseNumberControl, Converter={StaticResource PreviousResultHorseNumberToImageConverter}}"
                AutomationProperties.AutomationId="Image2_FEE1906" />
         <Image AutomationProperties.AutomationId="Image3_FEE1906">
             <Image.Source>

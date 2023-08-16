@@ -1,31 +1,32 @@
 namespace Aristocrat.Monaco.Sas.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     The database configuration for <see cref="ValidationInformation"/>
     /// </summary>
-    public class ValidationInformationConfiguration : EntityTypeConfiguration<ValidationInformation>
+    public class ValidationInformationConfiguration : IEntityTypeConfiguration<ValidationInformation>
     {
         /// <summary>
         ///     Creates an instance of <see cref="ValidationInformationConfiguration"/>
         /// </summary>
-        public ValidationInformationConfiguration()
+        public void Configure(EntityTypeBuilder<ValidationInformation> builder)
         {
-            ToTable(nameof(ValidationInformation));
-            HasKey(x => x.Id);
+            builder.ToTable(nameof(ValidationInformation));
+            builder.HasKey(x => x.Id);
 
-            Property(x => x.ExtendedTicketDataStatus)
+            builder.Property(x => x.ExtendedTicketDataStatus)
                 .IsRequired();
-            Property(x => x.ExtendedTicketDataSet)
+            builder.Property(x => x.ExtendedTicketDataSet)
                 .IsRequired();
-            Property(x => x.LastReceivedSequenceNumber)
+            builder.Property(x => x.LastReceivedSequenceNumber)
                 .IsRequired();
-            Property(x => x.SequenceNumber)
+            builder.Property(x => x.SequenceNumber)
                 .IsRequired();
-            Property(x => x.MachineValidationId)
+            builder.Property(x => x.MachineValidationId)
                 .IsRequired();
-            Property(x => x.ValidationConfigured)
+            builder.Property(x => x.ValidationConfigured)
                 .IsRequired();
         }
     }

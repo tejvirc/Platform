@@ -55,7 +55,7 @@
             Disable(DisabledReasons.Service);
         }
 
-        public bool IsRinging { get; private set; }
+        public bool IsRinging { get; set; }
 
         public string Name { get; } = nameof(BellService);
 
@@ -63,11 +63,11 @@
 
         public bool Enabled => _bellEnabled && ReasonDisabled == 0 && Initialized;
 
-        public bool Initialized { get; private set; }
+        public bool Initialized { get; set; }
 
         public string LastError { get; } = string.Empty;
 
-        public DisabledReasons ReasonDisabled { get; private set; }
+        public DisabledReasons ReasonDisabled { get; set; }
 
         public string ServiceProtocol
         {

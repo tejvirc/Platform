@@ -10,7 +10,7 @@
     using Transfer;
     using Storage;
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Application.Contracts.Localization;
     using Localization.Properties;
 
@@ -85,7 +85,7 @@
                 throw new ArgumentNullException(nameof(parameter.ChangeStatusCallback));
             }
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 // 1. Check if package transfer exists.
                 var foundTransfer = _transferRepository.GetByPackageId(context, parameter.PackageId);

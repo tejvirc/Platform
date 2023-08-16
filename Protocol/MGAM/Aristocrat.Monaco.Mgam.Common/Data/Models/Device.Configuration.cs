@@ -1,28 +1,29 @@
 ﻿namespace Aristocrat.Monaco.Mgam.Common.Data.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     Model configuration for an Device that is stored on the site-controller.
     /// </summary>
-    public class DeviceConfiguration : EntityTypeConfiguration<Device>
+    public class DeviceConfiguration : IEntityTypeConfiguration<Device>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="DeviceConfiguration"/> class.
         /// </summary>
-        public DeviceConfiguration()
+        public void Configure(EntityTypeBuilder<Device> builder)
         {
-            ToTable(nameof(Device));
+            builder.ToTable(nameof(Device));
 
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.DeviceGuid)
+            builder.Property(t => t.DeviceGuid)
                 .IsRequired();
 
-            Property(t => t.Name)
+            builder.Property(t => t.Name)
                 .IsRequired();
 
-            Property(t => t.ManufacturerName)
+            builder.Property(t => t.ManufacturerName)
                 .IsRequired();
         }
     }

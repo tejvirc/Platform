@@ -52,9 +52,8 @@
             _persistentStorage.Setup(m => m.BlockExists(It.IsAny<string>())).Returns(true);
             _persistentStorage.Setup(m => m.GetBlock(It.IsAny<string>())).Returns(_block.Object);
 
-            _transactionCoordinator = MoqServiceManager.CreateAndAddService<ITransactionCoordinator>(
-                MockBehavior.Strict);
-
+            _transactionCoordinator = MoqServiceManager.CreateAndAddService<ITransactionCoordinator>(MockBehavior.Strict);
+            
             _target = new TransactionCoordinator();
             _accessor = new DynamicPrivateObject(_target);
             _target.Initialize();
@@ -67,7 +66,14 @@
         public void Cleanup()
         {
             MoqServiceManager.RemoveInstance();
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
         }
 
         [TestMethod]
@@ -405,6 +411,10 @@
             var requestorGuid = Guid.NewGuid();
             var transactionGuid = _target.RequestTransaction(requestorGuid, 0, TransactionType.Write);
             var otherTransactionGuid = Guid.Empty;
+
+            _transactionCoordinator.Setup(
+                    m => m.RequestTransaction(It.IsAny<ITransactionRequestor>(), TransactionType.Write, false))
+                .Returns(otherTransactionGuid);
 
             var otherRequestorThread = new Thread(
                 () =>

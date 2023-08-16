@@ -48,7 +48,7 @@
         /// <returns>An GetCertificateStatusResult</returns>
         public OcspQueryResult Execute()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var currentCertificate = _certificateRepository.Get(context, c => c.Default).SingleOrDefault();
                 if (currentCertificate == null)
@@ -62,7 +62,7 @@
 
         private OcspQueryResult QueryOcsp()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var configuration = _certificateConfigurationRepository.GetSingle(context);
 

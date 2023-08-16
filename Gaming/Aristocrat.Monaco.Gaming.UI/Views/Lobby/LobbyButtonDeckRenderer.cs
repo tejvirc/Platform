@@ -2,8 +2,10 @@
 {
     using System;
     using System.Diagnostics;
+    using CefSharp.DevTools.DOM;
     using Hardware.Contracts.ButtonDeck;
     using ManagedBink;
+    using Rect = ManagedBink.Rect;
 
     /// <summary>
     ///     Helper class for rendering the two LCD button deck images from bink video in the lobby.

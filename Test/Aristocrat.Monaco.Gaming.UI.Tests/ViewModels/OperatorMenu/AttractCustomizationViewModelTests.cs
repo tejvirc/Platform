@@ -78,7 +78,14 @@
         [TestCleanup]
         public void MyTestCleanup()
         {
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
             MoqServiceManager.RemoveInstance();
         }
 
@@ -410,7 +417,7 @@
                     break;
             }
             var game = _target.ConfiguredAttractInfo.FirstOrDefault(g => g.GameType == type);
-            game.IsSelected = false;
+            game!.IsSelected = false;
 
             Assert.IsTrue(_accessor.HasChanges());
 

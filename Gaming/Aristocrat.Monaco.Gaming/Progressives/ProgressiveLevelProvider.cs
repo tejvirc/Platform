@@ -6,7 +6,6 @@ namespace Aristocrat.Monaco.Gaming.Progressives
     using System.Reflection;
     using Application.Contracts;
     using Application.Contracts.Extensions;
-    using Common;
     using Contracts;
     using Contracts.Meters;
     using Contracts.Progressives;
@@ -27,8 +26,8 @@ namespace Aristocrat.Monaco.Gaming.Progressives
         private readonly ISharedSapProvider _sharedSapProvider;
         private readonly IMysteryProgressiveProvider _mysteryProgressiveProvider;
 
-        private readonly List<ProgressiveLevel> _levels = new List<ProgressiveLevel>();
-        private readonly object _sync = new object();
+        private readonly List<ProgressiveLevel> _levels = new();
+        private readonly object _sync = new();
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public ProgressiveLevelProvider(
@@ -48,7 +47,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
         }
 
         /// <inheritdoc />
-        public event EventHandler<ProgressivesLoadedEventArgs> ProgressivesLoaded;
+        public event EventHandler<ProgressivesAddedEventArgs> ProgressivesAdded;
 
         public void LoadProgressiveLevels(IGameDetail gameDetails, IEnumerable<ProgressiveDetail> progressiveDetails)
         {
@@ -62,7 +61,6 @@ namespace Aristocrat.Monaco.Gaming.Progressives
                 throw new ArgumentNullException(nameof(progressiveDetails));
             }
 
-            var progressiveLevels = new List<ProgressiveLevel>();
             lock (_sync)
             {
                 _sharedSapProvider.AutoGenerateAssociatedLevels(gameDetails, progressiveDetails);
@@ -71,22 +69,19 @@ namespace Aristocrat.Monaco.Gaming.Progressives
                 {
                     var denominations = ToDenoms(gameDetails, detail.Denomination.ToList()).ToList();
 
-                    var levels = ToProgressiveLevels(
+                    var addedLevels =
+                        ToProgressiveLevels(
                             gameDetails.Id,
                             denominations,
                             gameDetails.BetOptionList,
                             detail,
                             gameDetails.CentralAllowed
                                 ? gameDetails.CdsGameInfos.Select(x => new WagerInfos(x.Id, x.MaxWagerCredits))
-                                : gameDetails.WagerCategories.Select(x => new WagerInfos(x.Id, x.MaxWagerCredits)))
-                        .ToList();
-                    progressiveLevels.AddRange(levels);
-                    _levels.AddRange(levels);
+                                : gameDetails.WagerCategories.Select(x => new WagerInfos(x.Id, x.MaxWagerCredits)));
+                    _levels.AddRange(addedLevels);
+                    ProgressivesAdded?.Invoke(this, new ProgressivesAddedEventArgs(addedLevels));
                 }
             }
-
-            // Invoke progressives loaded
-            ProgressivesLoaded?.Invoke(this, new ProgressivesLoadedEventArgs(progressiveLevels));
         }
 
         public IReadOnlyCollection<ProgressiveLevel> GetProgressiveLevels()
@@ -392,7 +387,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
             _gameStorage.SetValue(gameId, denomination, packName, progressiveLevels);
         }
 
-        private IEnumerable<ProgressiveLevel> ToProgressiveLevels(
+        private IReadOnlyCollection<ProgressiveLevel> ToProgressiveLevels(
             int gameId,
             IReadOnlyCollection<long> denominations,
             BetOptionList betOptions,

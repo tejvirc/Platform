@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Event emitted when a WAT On transfer has been rejected.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class WatOnRejectedEvent : BaseEvent
     {
     }

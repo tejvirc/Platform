@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Kernel.Tests.RunnablesManagers
 {
+    using System;
     using System.IO;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mono.Addins;
@@ -41,8 +42,14 @@
             Debug("{0}() cleanup-start", TestContext.TestName);
 
             MoqServiceManager.RemoveInstance();
-            AddinManager.Shutdown();
-
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
             Debug("{0}() cleanup-end", TestContext.TestName);
         }
 

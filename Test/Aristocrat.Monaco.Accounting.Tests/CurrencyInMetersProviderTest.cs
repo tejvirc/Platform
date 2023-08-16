@@ -5,8 +5,8 @@
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.IO;
+    using Accounting.Contracts;
     using Application.Contracts;
-    using Aristocrat.Monaco.Accounting.Contracts;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -14,6 +14,7 @@
     using Mono.Addins;
     using Moq;
     using Test.Common;
+    using Test.Common.UnitTesting;
 
     /// <summary>
     ///     This is a test class for CurrencyInMetersProvider and is intended
@@ -84,7 +85,14 @@
         [TestCleanup]
         public void CleanUp()
         {
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
             MoqServiceManager.RemoveInstance();
 
             GC.Collect();

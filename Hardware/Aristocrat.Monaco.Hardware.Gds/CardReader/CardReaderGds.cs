@@ -50,7 +50,7 @@
             Yellow = 4
         }
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private bool _inserted;
         private bool _isPhysical = true;
         private IdReaderTypes _idReaderType = IdReaderTypes.MagneticCard;

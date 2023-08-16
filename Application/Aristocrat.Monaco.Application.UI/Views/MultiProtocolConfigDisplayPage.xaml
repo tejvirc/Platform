@@ -6,6 +6,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
                                mc:Ignorable="d"
@@ -51,7 +53,7 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.ValidationProtocolLabel}}"
+               Content="{lex:Loc ValidationProtocolLabel}"
                AutomationProperties.AutomationId="Label7_B605EA59" />
         <TextBlock Grid.Row="0"
                    Grid.Column="1"
@@ -60,7 +62,7 @@
         <Label Grid.Row="1"
                Grid.Column="0"
                Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.FundTransferProtocolLabel}}"
+               Content="{lex:Loc FundTransferProtocolLabel}"
                AutomationProperties.AutomationId="Label9_B605EA59" />
         <TextBlock Grid.Row="1"
                    Grid.Column="1"
@@ -70,7 +72,7 @@
         <Label Grid.Row="2"
                Grid.Column="0"
                Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveProtocolLabel}}"
+               Content="{lex:Loc ProgressiveProtocolLabel}"
                AutomationProperties.AutomationId="Label11_B605EA59" />
         <TextBlock Grid.Row="2"
                    Grid.Column="1"
@@ -80,7 +82,7 @@
         <Label Grid.Row="3"
                Grid.Column="0"
                Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralDeterminationSystemLabel}}"
+               Content="{lex:Loc CentralDeterminationSystemLabel}"
                AutomationProperties.AutomationId="Label13_B605EA59" />
         <TextBlock Grid.Row="3"
                    Grid.Column="1"

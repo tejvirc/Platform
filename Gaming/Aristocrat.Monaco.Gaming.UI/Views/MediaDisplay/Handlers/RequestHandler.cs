@@ -16,7 +16,7 @@
         // PUI content SHOULD NOT expect that such support will be available.
         // PUI content SHOULD include content-based controls for authenticating end-users when necessary.
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly int _mediaPlayerId;

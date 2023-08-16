@@ -20,7 +20,7 @@
     using Storage;
     using Transfer;
     using Module = Storage.Module;
-    using DbContext = System.Data.Entity.DbContext;
+    using DbContext = Microsoft.EntityFrameworkCore.DbContext;
 
     /// <summary>
     ///     Package manager implementation that facades Game To System Message Protocol.
@@ -96,26 +96,26 @@
         public IDictionary<string, CancellationTokenSource> PackageTaskAbortTokens => _packageTaskAbortTokens;
 
         /// <inheritdoc />
-        public int PackageCount => _packageRepository?.Count(_contextFactory.Create()) ?? 0;
+        public int PackageCount => _packageRepository?.Count(_contextFactory.CreateDbContext()) ?? 0;
 
         /// <inheritdoc />
-        public int ScriptCount => _scriptRepository?.Count(_contextFactory.Create()) ?? 0;
+        public int ScriptCount => _scriptRepository?.Count(_contextFactory.CreateDbContext()) ?? 0;
         
         /// <inheritdoc />
         public IReadOnlyCollection<Package> PackageEntityList =>
-            new List<Package>(_packageRepository.GetAll(_contextFactory.Create()));
+            new List<Package>(_packageRepository.GetAll(_contextFactory.CreateDbContext()));
 
         /// <inheritdoc />
         public IReadOnlyCollection<Script> ScriptEntityList =>
-            new List<Script>(_scriptRepository.GetAll(_contextFactory.Create()));
+            new List<Script>(_scriptRepository.GetAll(_contextFactory.CreateDbContext()));
 
         /// <inheritdoc />
         public IReadOnlyCollection<TransferEntity> TransferEntityList =>
-            new List<TransferEntity>(_transferRepository.GetAll(_contextFactory.Create()));
+            new List<TransferEntity>(_transferRepository.GetAll(_contextFactory.CreateDbContext()));
 
         /// <inheritdoc />
         public IReadOnlyCollection<Module> ModuleEntityList =>
-            new List<Module>(_moduleRepository.GetAll(_contextFactory.Create()));
+            new List<Module>(_moduleRepository.GetAll(_contextFactory.CreateDbContext()));
 
         /// <inheritdoc />
         public CreatePackageState CreatePackage(PackageLog packageEntity, Module module, bool overwrite, string format)
@@ -194,7 +194,7 @@
         /// <inheritdoc />
         public void AddPackageLog(PackageLog packageLog)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 AddPackageLog(packageLog, context);
             }
@@ -203,7 +203,7 @@
         /// <inheritdoc />
         public void UpdatePackage(PackageLog packageLog)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 UpdatePackageLog(packageLog, context);
             }
@@ -212,7 +212,7 @@
         /// <inheritdoc />
         public bool UpdateModuleEntity(Module module)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var me = _moduleRepository.GetModuleByModuleId(context, module.ModuleId);
 
@@ -236,7 +236,7 @@
         /// <inheritdoc />
         public void UpdateTransferEntity(TransferEntity entity)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 UpdateTransferEntity(entity, context);
             }
@@ -245,7 +245,7 @@
         /// <inheritdoc />
         public void UpdateScript(Script script)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var se = _scriptRepository.GetScriptByScriptId(context, script.ScriptId);
 
@@ -299,7 +299,7 @@
         /// <inheritdoc />
         public PackageLog GetPackageLogEntity(string packageId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _packageLogs.GetLastPackageLogeByPackageId(context, packageId);
             }
@@ -308,7 +308,7 @@
         /// <inheritdoc />
         public Package GetPackageEntity(string packageId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _packageRepository.GetPackageByPackageId(context, packageId);
             }
@@ -317,7 +317,7 @@
         /// <inheritdoc />
         public PackageError GetPackageErrorEntity(string packageId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _packageErrorRepository.GetByPackageId(context, packageId).OrderByDescending(a => a.Id)
                     .FirstOrDefault();
@@ -349,7 +349,11 @@
         {
             using (TextReader reader = new StringReader(xml))
             {
-                return (T)new XmlSerializer(typeof(T)).Deserialize(reader);
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(T))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var serializer = new XmlSerializer(typeof(T), theXmlRootAttribute ?? new XmlRootAttribute(nameof(T)));
+
+                return (T)serializer.Deserialize(reader);
             }
         }
 
@@ -364,7 +368,10 @@
 
             using (var writer = new StringWriter())
             {
-                var serializer = new XmlSerializer(typeof(T));
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(T))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var serializer = new XmlSerializer(typeof(T), theXmlRootAttribute ?? new XmlRootAttribute(nameof(T)));
+
                 serializer.Serialize(writer, @class);
                 return writer.ToString();
             }
@@ -373,7 +380,7 @@
         /// <inheritdoc />
         public bool HasPackage(string packageId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var pe = _packageRepository.GetPackageByPackageId(context, packageId);
                 if (pe != null)
@@ -388,7 +395,7 @@
         /// <inheritdoc />
         public bool HasModule(string moduleId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var me = _moduleRepository.GetModuleByModuleId(context, moduleId);
 
@@ -399,7 +406,7 @@
         /// <inheritdoc />
         public bool HasScript(int scriptId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _scriptRepository.GetScriptByScriptId(context, scriptId) != null;
             }
@@ -408,7 +415,7 @@
         /// <inheritdoc />
         public Script GetScript(int scriptId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _scriptRepository.GetScriptByScriptId(context, scriptId);
             }
@@ -417,7 +424,7 @@
         /// <inheritdoc />
         public Module GetModuleEntity(string moduleId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _moduleRepository.GetModuleByModuleId(context, moduleId);
             }
@@ -426,7 +433,7 @@
         /// <inheritdoc />
         public bool IsTransferring(string packageId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var te = _transferRepository.GetByPackageId(context, packageId);
                 if (te != null)
@@ -441,7 +448,7 @@
         /// <inheritdoc />
         public TransferEntity GetTransferEntity(string packageId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var te = _transferRepository.GetByPackageId(context, packageId);
 
@@ -452,7 +459,7 @@
         /// <inheritdoc />
         public TransferEntity GetTransferEntity(long transferId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var te = _transferRepository.Get(context, transferId);
 
@@ -513,7 +520,7 @@
         /// <inheritdoc />
         public long GetScriptLastSequence()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return ScriptCount != 0 ? _scriptRepository.GetMaxLastSequence(context) : 0;
             }

@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.Sas</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
-    <PlatformTarget>x64</PlatformTarget>
+    <Platform>x64</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
@@ -74,9 +73,6 @@
     <Content Include="Aristocrat.Monaco.Sas.addin.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Aristocrat.Monaco.SAS.BonusProvider.addin.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Aristocrat.Monaco.SAS.Configuration.addin.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -99,10 +95,30 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="Mono.Addins" Version="1.0.0" />
-    <PackageReference Include="SimpleInjector" Version="4.9.2" />
+    <PackageReference Include="Aristocrat.SQLitePCLRaw.bundle_e_sqlcipher" Version="2.1.4" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
     <PackageReference Include="SQLite.CodeFirst" Version="1.6.0.30" />
     <PackageReference Include="Stateless" Version="4.0.0" />
+    <PackageReference Include="Mono.Addins" Version="1.4.1" />
+    <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Aristocrat.Monaco.SAS.BonusProvider.addin.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Aristocrat.Monaco.SAS.Client.addin.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Aristocrat.Monaco.SAS.BonusProvider.addin.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Aristocrat.Monaco.SAS.Client.addin.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

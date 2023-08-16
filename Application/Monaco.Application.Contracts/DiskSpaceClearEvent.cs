@@ -2,6 +2,7 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to notify that the hard tilt condition related to the disk space has been removed.
@@ -12,7 +13,7 @@
     ///         disabled because of low disk space.
     ///     </para>
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class DiskSpaceClearEvent : BaseEvent
     {
     }

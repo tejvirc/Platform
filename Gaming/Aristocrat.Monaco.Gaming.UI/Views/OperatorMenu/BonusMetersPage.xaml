@@ -6,6 +6,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:BonusMetersPageViewModel}, IsDesignTimeCreatable=True}">
@@ -43,12 +45,12 @@
                       IsHitTestVisible="False"
                       AutomationProperties.AutomationId="DataGrid6_7F68A5EA">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MachinePaidBonusAwardsLabel}}"
+                    <DataGridTextColumn Header="{lex:Loc MachinePaidBonusAwardsLabel}"
                                         loc:Localizer.For="Operator"
                                         Width="460"
                                         Binding="{Binding Name}"
                                         AutomationProperties.AutomationId="DataGridTextColumn7_7F68A5EA" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                    <DataGridTextColumn Header="{lex:Loc Value}"
                                         loc:Localizer.For="Operator"
                                         Width="200"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
@@ -75,7 +77,7 @@
                     <ColumnDefinition Width="{Binding ElementName=EgmPaidBonusAwardsGrid, Path=Columns[2].ActualWidth}"
                                       AutomationProperties.AutomationId="ColumnDefinition13_7F68A5EA" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.MachinePaidBonusTotalLabel}}"
+                <TextBlock Text="{lex:Loc MachinePaidBonusTotalLabel}"
                            Margin="5 0"
                            AutomationProperties.AutomationId="TextBlock14_7F68A5EA" />
                 <TextBlock Grid.Column="1"
@@ -104,12 +106,12 @@
                       IsHitTestVisible="False"
                       AutomationProperties.AutomationId="DataGrid17_7F68A5EA">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.AttendantPaidBonusAwardsLabel}}"
+                    <DataGridTextColumn Header="{lex:Loc AttendantPaidBonusAwardsLabel}"
                                         loc:Localizer.For="Operator"
                                         Width="460"
                                         Binding="{Binding Name}"
                                         AutomationProperties.AutomationId="DataGridTextColumn18_7F68A5EA" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                    <DataGridTextColumn Header="{lex:Loc Value}"
                                         loc:Localizer.For="Operator"
                                         Width="200"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
@@ -136,7 +138,7 @@
                     <ColumnDefinition Width="{Binding ElementName=HandPaidBonusAwardsGrid, Path=Columns[2].ActualWidth}"
                                       AutomationProperties.AutomationId="ColumnDefinition24_7F68A5EA" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.AttendantPaidBonusTotalLabel}}"
+                <TextBlock Text="{lex:Loc AttendantPaidBonusTotalLabel}"
                            Margin="5 0"
                            AutomationProperties.AutomationId="TextBlock25_7F68A5EA" />
                 <TextBlock Grid.Column="1"

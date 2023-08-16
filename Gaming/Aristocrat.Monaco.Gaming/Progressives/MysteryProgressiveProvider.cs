@@ -7,7 +7,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
     using Contracts;
     using Contracts.Progressives;
     using Hardware.Contracts.Persistence;
-    using PRNGLib;
+    using Aristocrat.CryptoRng;
     using log4net;
 
 
@@ -16,7 +16,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         private readonly Dictionary<string, long> _magicNumberSapIndex;
         private readonly IPersistentBlock _saveBlock;
-        private readonly IPRNG _prng;
+        private readonly IRandom _prng;
         private readonly string _saveKey;
 
         public MysteryProgressiveProvider(

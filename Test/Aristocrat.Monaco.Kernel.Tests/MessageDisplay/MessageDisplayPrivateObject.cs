@@ -6,6 +6,7 @@
     using System.Reflection;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using MessageDisplay = Kernel.MessageDisplay;
+    using Test.Common.UnitTesting;
 
     /// <summary>
     /// </summary>
@@ -41,7 +42,6 @@
         /// <summary>
         ///     List of the configured display nodes
         /// </summary>
-        [CLSCompliant(false)]
         public List<MessageDisplayReasonNode> ConfiguredDisplayNodes
         {
             get { return (List<MessageDisplayReasonNode>)GetField("_configuredDisplayNodes"); }

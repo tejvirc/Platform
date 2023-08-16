@@ -48,7 +48,7 @@
 
             if (validationResult.IsValid)
             {
-                using (var context = _contextFactory.Create())
+                using (var context = _contextFactory.CreateDbContext())
                 {
                     if (parameter.Id == 0)
                     {

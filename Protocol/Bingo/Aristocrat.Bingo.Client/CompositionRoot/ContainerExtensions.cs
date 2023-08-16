@@ -15,13 +15,6 @@
     {
         public static Container RegisterClient(this Container container, bool isBingoProgressiveEnabled, params Assembly[] assemblies)
         {
-            /*
-             * Set the DNS Resolution to native the default does not always resolve host names correctly.
-             * Unfortunately GRPC does not offer a way to set these outside of environment variables.
-             * So set them here before anything is loaded
-             */
-            Environment.SetEnvironmentVariable(GrpcConstants.GrpcDnsResolver, GrpcConstants.GrpcDefaultDnsResolver);
-
             return container.RegisterClient(isBingoProgressiveEnabled)
                 .AddCommandProcessors(isBingoProgressiveEnabled)
                 .RegisterMessageHandlers(isBingoProgressiveEnabled, assemblies.Append(Assembly.GetExecutingAssembly()).ToArray());
@@ -34,9 +27,6 @@
                 return container;
             }
 
-            Environment.SetEnvironmentVariable(GrpcConstants.GrpcTrace, GrpcConstants.GrpcTraceLevel);
-            Environment.SetEnvironmentVariable(GrpcConstants.GrpcVerbosity, GrpcConstants.GrpcLogLevel);
-            container.Register<GrpcLogger>();
             return container;
         }
 

@@ -40,7 +40,7 @@
         </Grid.RowDefinitions>
         <!-- Accepted Bills -->
         <Label Grid.Row="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnabledDenominationsLabel}}"
+               Content="{lex:Loc EnabledDenominationsLabel}"
                AutomationProperties.AutomationId="Label9_E1D9C789" />
         <Grid Grid.Row="1"
               Margin="10 0 0 20"
@@ -59,7 +59,7 @@
         </Grid>
         <!-- Internal Memory Information -->
         <Label Grid.Row="2"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DiagnosticResourcesPageTitle}}"
+               Content="{lex:Loc DiagnosticResourcesPageTitle}"
                AutomationProperties.AutomationId="Label15_E1D9C789" />
         <Grid Grid.Row="3"
               Margin="10 0 0 20"
@@ -100,7 +100,7 @@
         </Grid>
         <!-- G2S Hosts Configuration -->
         <Label Grid.Row="4"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationPageTitle}}"
+               Content="{lex:Loc HostConfigurationPageTitle}"
                AutomationProperties.AutomationId="Label28_E1D9C789" />
         <ItemsControl Grid.Row="5"
                       ItemsSource="{Binding Path=G2SHosts}"
@@ -121,7 +121,7 @@
         </ItemsControl>
         <!-- GDS Devices -->
         <Label Grid.Row="6"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.HardwareLabel}}"
+               Content="{lex:Loc HardwareLabel}"
                AutomationProperties.AutomationId="Label32_E1D9C789" />
         <Grid Grid.Row="7"
               Margin="0 0 0 20"
@@ -141,7 +141,7 @@
                         Grid.Column="0"
                         Margin="10 0 0 0"
                         AutomationProperties.AutomationId="StackPanel41_E1D9C789">
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrinterLabel}}" AutomationProperties.AutomationId="Label42_E1D9C789" />
+                <Label Content="{lex:Loc PrinterLabel}" AutomationProperties.AutomationId="Label42_E1D9C789" />
                 <Grid Margin="10 0 0 0" AutomationProperties.AutomationId="Grid43_E1D9C789">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition44_E1D9C789" />
@@ -158,7 +158,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.NameLabel}}"
+                           Content="{lex:Loc NameLabel}"
                            AutomationProperties.AutomationId="Label53_E1D9C789" />
                     <TextBlock Grid.Row="0"
                                Grid.Column="1"
@@ -166,7 +166,7 @@
                                AutomationProperties.AutomationId="TextBlock54_E1D9C789" />
                     <Label Grid.Row="1"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}"
+                           Content="{lex:Loc ManufacturerLabel}"
                            AutomationProperties.AutomationId="Label55_E1D9C789" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
@@ -174,7 +174,7 @@
                                AutomationProperties.AutomationId="TextBlock56_E1D9C789" />
                     <Label Grid.Row="2"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}"
+                           Content="{lex:Loc ModelLabel}"
                            AutomationProperties.AutomationId="Label57_E1D9C789" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
@@ -182,7 +182,7 @@
                                AutomationProperties.AutomationId="TextBlock58_E1D9C789" />
                     <Label Grid.Row="3"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.State}}"
+                           Content="{lex:Loc State}"
                            AutomationProperties.AutomationId="Label59_E1D9C789" />
                     <TextBlock Grid.Row="3"
                                Grid.Column="1"
@@ -190,7 +190,7 @@
                                AutomationProperties.AutomationId="TextBlock60_E1D9C789" />
                     <Label Grid.Row="4"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareVersionLabel}}"
+                           Content="{lex:Loc FirmwareVersionLabel}"
                            AutomationProperties.AutomationId="Label61_E1D9C789" />
                     <TextBlock Grid.Row="4"
                                Grid.Column="1"
@@ -198,7 +198,7 @@
                                AutomationProperties.AutomationId="TextBlock62_E1D9C789" />
                     <Label Grid.Row="5"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareRevisionLabel}}"
+                           Content="{lex:Loc FirmwareRevisionLabel}"
                            AutomationProperties.AutomationId="Label63_E1D9C789" />
                     <TextBlock Grid.Row="5"
                                Grid.Column="1"
@@ -206,7 +206,7 @@
                                AutomationProperties.AutomationId="TextBlock64_E1D9C789" />
                     <Label Grid.Row="6"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"
+                           Content="{lex:Loc SerialNumberLabel}"
                            AutomationProperties.AutomationId="Label65_E1D9C789" />
                     <TextBlock Grid.Row="6"
                                Grid.Column="1"
@@ -217,7 +217,7 @@
             <StackPanel Grid.Row="1"
                         Grid.Column="1"
                         AutomationProperties.AutomationId="StackPanel67_E1D9C789">
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.NoteAcceptorLabel}}" AutomationProperties.AutomationId="Label68_E1D9C789" />
+                <Label Content="{lex:Loc NoteAcceptorLabel}" AutomationProperties.AutomationId="Label68_E1D9C789" />
                 <Grid Margin="10 0 0 0" AutomationProperties.AutomationId="Grid69_E1D9C789">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition70_E1D9C789" />
@@ -234,7 +234,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.NameLabel}}"
+                           Content="{lex:Loc NameLabel}"
                            AutomationProperties.AutomationId="Label79_E1D9C789" />
                     <TextBlock Grid.Row="0"
                                Grid.Column="1"
@@ -242,7 +242,7 @@
                                AutomationProperties.AutomationId="TextBlock80_E1D9C789" />
                     <Label Grid.Row="1"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}"
+                           Content="{lex:Loc ManufacturerLabel}"
                            AutomationProperties.AutomationId="Label81_E1D9C789" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
@@ -250,7 +250,7 @@
                                AutomationProperties.AutomationId="TextBlock82_E1D9C789" />
                     <Label Grid.Row="2"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}"
+                           Content="{lex:Loc ModelLabel}"
                            AutomationProperties.AutomationId="Label83_E1D9C789" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
@@ -258,7 +258,7 @@
                                AutomationProperties.AutomationId="TextBlock84_E1D9C789" />
                     <Label Grid.Row="3"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.State}}"
+                           Content="{lex:Loc State}"
                            AutomationProperties.AutomationId="Label85_E1D9C789" />
                     <TextBlock Grid.Row="3"
                                Grid.Column="1"
@@ -266,7 +266,7 @@
                                AutomationProperties.AutomationId="TextBlock86_E1D9C789" />
                     <Label Grid.Row="4"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareVersionLabel}}"
+                           Content="{lex:Loc FirmwareVersionLabel}"
                            AutomationProperties.AutomationId="Label87_E1D9C789" />
                     <TextBlock Grid.Row="4"
                                Grid.Column="1"
@@ -274,7 +274,7 @@
                                AutomationProperties.AutomationId="TextBlock88_E1D9C789" />
                     <Label Grid.Row="5"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareRevisionLabel}}"
+                           Content="{lex:Loc FirmwareRevisionLabe}"
                            AutomationProperties.AutomationId="Label89_E1D9C789" />
                     <TextBlock Grid.Row="5"
                                Grid.Column="1"
@@ -282,7 +282,7 @@
                                AutomationProperties.AutomationId="TextBlock90_E1D9C789" />
                     <Label Grid.Row="6"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.SerialNumberLabel}}"
+                           Content="{lex:Loc SerialNumberLabel}"
                            AutomationProperties.AutomationId="Label91_E1D9C789" />
                     <TextBlock Grid.Row="6"
                                Grid.Column="1"

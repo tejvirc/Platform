@@ -35,6 +35,7 @@
             MoqServiceManager.RemoveInstance();
         }
 
+        [RequireSTA]
         [TestMethod]
         public void ConstructorTest()
         {

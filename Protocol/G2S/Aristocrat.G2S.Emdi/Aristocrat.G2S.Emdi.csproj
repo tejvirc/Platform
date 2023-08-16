@@ -1,12 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.G2S.Emdi.Host</AssemblyTitle>
-    <NoWarn>CS1591</NoWarn>
+    <Product>Aristocrat.G2S.Emdi.Host</Product>
     <Configurations>Debug;Release;Retail</Configurations>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
-    <PlatformTarget>x64</PlatformTarget>
+    <Platform>x64</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
@@ -29,12 +28,6 @@
     <Exec Command="for %%f in (@(XamlGeneratedCodeFiles)) do copy /y %%f.temp %%f" />
     <Message Text="XamlGeneratedCodeWarningRemoved: @(XamlGeneratedCodeFiles)" />
   </Target>
-  <ItemGroup>
-    <Reference Include="System.Net" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Update="Protocol\v21ext1b1\mdMsg.cs">
       <DependentUpon>mdMsg.xsd</DependentUpon>
@@ -106,8 +99,9 @@
     <ProjectReference Include="..\Aristocrat.Monaco.G2S.Common\Aristocrat.Monaco.G2S.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="SimpleInjector" Version="4.9.2" />
+    <PackageReference Include="Aristocrat.G2S" Version="5.0.0-beta0009" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
     <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.11.0" />
   </ItemGroup>
 </Project>

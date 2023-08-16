@@ -3,7 +3,7 @@
   <PropertyGroup>
     <RootNamespace>Vgt.Client12.Hardware.TicketContent</RootNamespace>
     <AssemblyName>RenderPdl</AssemblyName>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>RenderPdl</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
@@ -36,6 +36,6 @@
     <ProjectReference Include="..\..\..\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.13" />
   </ItemGroup>
 </Project>

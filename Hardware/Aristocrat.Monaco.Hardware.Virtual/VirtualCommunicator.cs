@@ -109,12 +109,9 @@
             {
                 // Common to all GDS devices
                 case GdsConstants.ReportId.Ack:
-                    if (message is Ack ack)
+                    if (message is Ack ack && ack.Resync)
                     {
-                        if (ack.Resync)
-                        {
-                            _transactionId = ack.TransactionId;
-                        }
+                        _transactionId = ack.TransactionId;
                     }
                     break;
                 case GdsConstants.ReportId.Enable:

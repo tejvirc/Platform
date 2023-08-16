@@ -1,12 +1,8 @@
-﻿
-namespace Aristocrat.Monaco.Gaming.UI.Models
+﻿namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Kernel;
-    using Aristocrat.MVVM.ViewModel;
-    using Contracts.Barkeeper;
-    using MVVM.Model;
+    using Kernel;
 
     /// <summary>
     /// CashInRewardLevel which binds to BarkeeperConfigurationViewModel for RewardsLevels.

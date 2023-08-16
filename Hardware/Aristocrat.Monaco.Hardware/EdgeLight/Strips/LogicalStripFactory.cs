@@ -56,7 +56,9 @@
 
         private void LoadXmlDefinition(Stream stream)
         {
-            var xmlSerializer = new XmlSerializer(typeof(EdgeLightMappings));
+            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(EdgeLightMappings))
+                .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+            var xmlSerializer = new XmlSerializer(typeof(EdgeLightMappings), theXmlRootAttribute ?? new XmlRootAttribute(nameof(EdgeLightMappings)));
 
             _mappings = (EdgeLightMappings)xmlSerializer.Deserialize(stream);
         }

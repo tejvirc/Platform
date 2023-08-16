@@ -7,6 +7,8 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:AddSAPLevelViewModel}, IsDesignTimeCreatable=True}">
@@ -47,82 +49,93 @@
                Content="{Binding GameTypeLabel}"
                AutomationProperties.AutomationId="Label10_B60D3E9" />
         <!-- Level Name Section -->
-        <Label x:Name="LevelNameLabel"
-               Grid.Row="1"
-               Grid.Column="0"
-               Margin="20 10 0 0"
-               Foreground="GhostWhite"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.LevelNameLabel}}"
+        <Label x:Name="LevelNameLabel" 
+               Grid.Row="1" 
+               Grid.Column="0" 
+               Margin="20 10 0 0" 
+               Foreground="GhostWhite" 
+               Content="{lex:Loc LevelNameLabel}"
                AutomationProperties.AutomationId="Label11_B60D3E9" />
-        <helpers:TouchTextBox x:Name="LevelNameTextBox"
-                              Grid.Row="1"
-                              Grid.Column="1"
-                              Margin="20 10 0 0"
-                              InputScope="AlphanumericFullWidth"
-                              MaxLength="64"
-                              Text="{Binding LevelName,                                 Mode=TwoWay,                                 UpdateSourceTrigger=PropertyChanged,                                  ValidatesOnDataErrors=True,                                  NotifyOnValidationError=True}" />
+
+        <helpers:TouchTextBox x:Name="LevelNameTextBox" 
+                 Grid.Row="1" 
+                 Grid.Column ="1" 
+                 Margin="20 10 0 0"
+                 InputScope="AlphanumericFullWidth"
+                 MaxLength="64"
+                 Text="{Binding LevelName,
+                                Mode=TwoWay,
+                                UpdateSourceTrigger=PropertyChanged, 
+                                ValidatesOnDataErrors=True, 
+                                NotifyOnValidationError=True}"/>
+
         <!-- Reset Value Section -->
-        <Label x:Name="ResetValueLabel"
-               Grid.Row="2"
-               Grid.Column="0"
-               Margin="20 10 0 0"
-               Foreground="GhostWhite"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.ResetValue}}"
+        <Label x:Name="ResetValueLabel" 
+               Grid.Row="2" 
+               Grid.Column="0" 
+               Margin="20 10 0 0" 
+               Foreground="GhostWhite" 
+               Content="{lex:Loc ResetValue}"
                AutomationProperties.AutomationId="Label12_B60D3E9" />
-        <helpers:CurrencyTextBox x:Name="ResetValueCurrencyTextBox"
-                                 Grid.Row="2"
-                                 Grid.Column="1"
+
+        <helpers:CurrencyTextBox x:Name="ResetValueCurrencyTextBox" 
+                                 Grid.Row="2" 
+                                 Grid.Column="1" 
                                  Margin="20 10 0 0"
                                  PreventNegatives="True"
                                  IsEnabled="{Binding IsLevelUnassigned}"
-                                 Number="{                                     Binding Path=ResetValue,                                      Mode=TwoWay,                                      UpdateSourceTrigger=PropertyChanged,                                      ValidatesOnDataErrors=True,                                      NotifyOnValidationError=True}" />
+                                 Number="{Binding Path=ResetValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
         <!-- Initial Value Section -->
-        <Label x:Name="InitialValueLabel"
-               Grid.Row="3"
-               Grid.Column="0"
-               Margin="20 10 0 0"
-               Foreground="GhostWhite"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.InitialValue}}"
+        <Label x:Name="InitialValueLabel" 
+               Grid.Row="3" 
+               Grid.Column="0" 
+               Margin="20 10 0 0" 
+               Foreground="GhostWhite" 
+               Content="{lex:Loc InitialValue}"
                AutomationProperties.AutomationId="Label13_B60D3E9" />
-        <helpers:CurrencyTextBox x:Name="InitialValueCurrencyTextBox"
-                                 Grid.Row="3"
-                                 Grid.Column="1"
+
+        <helpers:CurrencyTextBox x:Name="InitialValueCurrencyTextBox" 
+                                 Grid.Row="3" 
+                                 Grid.Column="1" 
                                  Margin="20 10 0 0"
                                  PreventNegatives="True"
                                  IsEnabled="True"
-                                 Number="{                                     Binding Path=InitialValue,                                      Mode=TwoWay,                                      UpdateSourceTrigger=PropertyChanged,                                      ValidatesOnDataErrors=True,                                      NotifyOnValidationError=True}" />
+                                 Number="{Binding Path=InitialValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
         <!-- Increment Rate Section -->
-        <Label x:Name="IncrementRateLabel"
-               Grid.Row="4"
-               Grid.Column="0"
-               Margin="20 10 0 0"
-               Foreground="GhostWhite"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.IncrementRate}}"
+        <Label x:Name="IncrementRateLabel" 
+               Grid.Row="4" 
+               Grid.Column="0" 
+               Margin="20 10 0 0" 
+               Foreground="GhostWhite" 
+               Content="{lex:Loc IncrementRate}"
                AutomationProperties.AutomationId="Label14_B60D3E9" />
-        <helpers:PercentageTextBox x:Name="IncrementRatePercentageTextBox"
-                                   Grid.Row="4"
-                                   Grid.Column="1"
+
+        <helpers:PercentageTextBox x:Name="IncrementRatePercentageTextBox" 
+                                   Grid.Row="4" 
+                                   Grid.Column ="1" 
                                    Margin="20 10 0 0"
                                    IsReadOnly="False"
-                                   EditingFormatter="{lex:Loc Key={x:Static loc:ResourceKeys.PercentageEditingFormatter}}"
-                                   DisplayFormatter="{lex:Loc Key={x:Static loc:ResourceKeys.PercentageDisplayFormatter}}"
+                                   ZeroPercentage="{lex:Loc ZeroPercentage}"
+                                   EditingFormatter="{lex:Loc PercentageEditingFormatter}"
+                                   DisplayFormatter="{lex:Loc PercentageDisplayFormatter}"
                                    PreventNegatives="True"
                                    MaximumValue="{Binding MaximumIncrementRate, Mode=OneWay}"
-                                   Number="{                                     Binding IncrementRate,                                      Mode=TwoWay,                                      UpdateSourceTrigger=PropertyChanged,                                      ValidatesOnDataErrors=True}" />
+                                   Number="{Binding IncrementRate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
         <!-- Max Value Section -->
-        <Label x:Name="MaxValueLabel"
-               Grid.Row="5"
-               Grid.Column="0"
-               Margin="20 10 0 0"
-               Foreground="GhostWhite"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"
+        <Label x:Name="MaxValueLabel" 
+               Grid.Row="5" 
+               Grid.Column="0" 
+               Margin="20 10 0 0" 
+               Foreground="GhostWhite" 
+               Content="{lex:Loc MaxValue}"
                AutomationProperties.AutomationId="Label15_B60D3E9" />
-        <helpers:CurrencyTextBox x:Name="MaxValueCurrencyTextBox"
-                                 Grid.Row="5"
-                                 Grid.Column="1"
-                                 Margin="20 10 0 0"
+
+        <helpers:CurrencyTextBox x:Name="MaxValueCurrencyTextBox"  
+                                 Grid.Row="5" 
+                                 Grid.Column="1" 
+                                 Margin="20 10 0 0" 
                                  PreventNegatives="True"
                                  IsEnabled="{Binding IsLevelUnassigned}"
-                                 Number="{                                     Binding MaxValue,                                      Mode=TwoWay,                                      UpdateSourceTrigger=PropertyChanged,                                      ValidatesOnDataErrors=True,                                      NotifyOnValidationError=True}" />
+                                 Number="{Binding MaxValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}" />
     </Grid>
 </operatorMenu:OperatorMenuPage>

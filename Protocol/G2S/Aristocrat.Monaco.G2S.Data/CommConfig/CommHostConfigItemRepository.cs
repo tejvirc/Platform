@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.CommConfig
 {
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using System.Linq;
     using Common.Storage;
 

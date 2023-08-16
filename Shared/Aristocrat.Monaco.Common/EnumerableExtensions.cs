@@ -10,36 +10,6 @@
     public static class EnumerableExtensions
     {
         /// <summary>
-        ///     Returns distinct elements from a sequence by using a specified key selector
-        /// </summary>
-        /// <typeparam name="TSource">The source collection type</typeparam>
-        /// <typeparam name="TKey">The key type</typeparam>
-        /// <param name="this">The source</param>
-        /// <param name="keySelector">The key</param>
-        /// <returns></returns>
-        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> @this, Func<TSource, TKey> keySelector)
-        {
-            if (@this == null)
-            {
-                throw new ArgumentNullException(nameof(@this));
-            }
-
-            if (keySelector == null)
-            {
-                throw new ArgumentNullException(nameof(keySelector));
-            }
-
-            var seen = new HashSet<TKey>();
-            foreach (var element in @this)
-            {
-                if (seen.Add(keySelector(element)))
-                {
-                    yield return element;
-                }
-            }
-        }
-
-        /// <summary>
         ///     Returns the contiguous elements starting from the matching element.
         /// </summary>
         /// <typeparam name="T">The type of the elements of source.</typeparam>

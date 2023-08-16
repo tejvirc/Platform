@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -64,7 +66,7 @@
                                   AutomationProperties.AutomationId="ColumnDefinition12_2F3D0D04" />
             </Grid.ColumnDefinitions>
             <Button Grid.Column="4"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateRenewButtonTitle}}"
+                    Content="{lex:Loc CertificateRenewButtonTitle}"
                     Command="{Binding RenewCertificateCommand, Mode=OneWay}"
                     IsEnabled="{Binding Path=RenewEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     VerticalAlignment="Bottom"
@@ -72,7 +74,7 @@
                     Margin="5 0 0 0"
                     AutomationProperties.AutomationId="Button13_2F3D0D04" />
             <Button Grid.Column="5"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateRemoveButtonTitle}}"
+                    Content="{lex:Loc CertificateRemoveButtonTitle}"
                     Command="{Binding RemoveCertificateCommand, Mode=OneWay}"
                     IsEnabled="{Binding Path=RemoveEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     VerticalAlignment="Bottom"
@@ -118,7 +120,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificatePreSharedSecretTitle}}"
+                           Content="{lex:Loc CertificatePreSharedSecretTitle}"
                            VerticalAlignment="Center"
                            Margin="10,5,0,0"
                            AutomationProperties.AutomationId="Label25_2F3D0D04" />
@@ -136,7 +138,7 @@
                     </TextBox>
                     <Button Grid.Row="0"
                             Grid.Column="3"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateEnrollButtonTitle}}"
+                            Content="{lex:Loc CertificateEnrollButtonTitle}"
                             Command="{Binding EnrollCertificateCommand, Mode=OneWay}"
                             Margin="5 0 0 0"
                             VerticalAlignment="Bottom"
@@ -171,38 +173,38 @@
                   loc:Localizer.For="Operator"
                   AutomationProperties.AutomationId="DataGrid29_2F3D0D04">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.NameLabel}}"
+                <DataGridTextColumn Header="{lex:Loc NameLabel}"
                                     Width="Auto"
                                     Binding="{Binding CommonName}"
                                     loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn30_2F3D0D04" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateThumbprint}}"
+                <DataGridTextColumn Header="{lex:Loc CertificateThumbprint}"
                                     Width="Auto"
                                     Binding="{Binding Thumbprint}"
                                     FontSize="14"
                                     loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn31_2F3D0D04" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateNotBefore}}"
+                <DataGridTextColumn Header="{lex:Loc CertificateNotBefore}"
                                     Width="Auto"
                                     Binding="{Binding NotBefore}"
                                     loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn32_2F3D0D04" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateNotAfter}}"
+                <DataGridTextColumn Header="{lex:Loc CertificateNotAfter}"
                                     Width="Auto"
                                     Binding="{Binding NotAfter}"
                                     loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn33_2F3D0D04" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateVerifyDate}}"
+                <DataGridTextColumn Header="{lex:Loc CertificateVerifyDate}"
                                     Width="Auto"
                                     Binding="{Binding VerificationDate}"
                                     loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn34_2F3D0D04" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}"
+                <DataGridTextColumn Header="{lex:Loc StatusText}"
                                     Width="Auto"
                                     Binding="{Binding Status}"
                                     loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn35_2F3D0D04" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CertificateOcspOfflineDate}}"
+                <DataGridTextColumn Header="{lex:Loc CertificateOcspOfflineDate}"
                                     Width="Auto"
                                     Binding="{Binding OcspOfflineDate}"
                                     loc:Localizer.For="Operator"
@@ -219,13 +221,13 @@
                     AutomationProperties.AutomationId="Border38_2F3D0D04">
                 <DockPanel LastChildFill="True"
                            AutomationProperties.AutomationId="DockPanel39_2F3D0D04">
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusText}}"
+                    <Label Content="{lex:Loc StatusText}"
                            DockPanel.Dock="Top"
                            HorizontalAlignment="Center"
                            AutomationProperties.AutomationId="Label40_2F3D0D04" />
                     <Button DockPanel.Dock="Bottom"
                             Margin="10"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Cancel}}"
+                            Content="{lex:Loc Cancel}"
                             Command="{Binding CancelRequestCommand}"
                             HorizontalAlignment="Center"
                             AutomationProperties.AutomationId="Button41_2F3D0D04" />

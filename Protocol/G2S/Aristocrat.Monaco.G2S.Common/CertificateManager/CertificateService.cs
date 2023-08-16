@@ -149,7 +149,7 @@
         /// <inheritdoc />
         public DateTime NextRenewal()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var current = _certificateRepository.Get(context, c => c.Default).FirstOrDefault();
                 if (current == null)
@@ -175,7 +175,7 @@
         {
             Logger.Debug("Initiating certificate renewal");
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var current = _certificateRepository.Get(context, c => c.Default).FirstOrDefault();
                 if (current == null)
@@ -206,7 +206,7 @@
         /// <inheritdoc />
         public DateTime NextExchange()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 // A non-default cert with a private key is waiting to be activated
                 var pending = _certificateRepository.Get(context, c => !c.Default).ToList()
@@ -219,7 +219,7 @@
         /// <inheritdoc />
         public void Exchange(X509Certificate2 certificate)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var current = _certificateRepository.Get(context, c => c.Default).FirstOrDefault();
 
@@ -303,7 +303,7 @@
         {
             Logger.Debug("Retrieving certificate status");
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var current = _certificateRepository.GetDefault(context);
 
@@ -365,7 +365,7 @@
         /// <inheritdoc />
         public IList<Certificate> GetCertificates()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _certificateRepository.GetAll(context).ToList();
             }
@@ -374,7 +374,7 @@
         /// <inheritdoc />
         public bool IsEnrolled()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var current = _certificateRepository.Get(context, c => c.Default).SingleOrDefault();
 
@@ -394,7 +394,7 @@
         {
             var config = GetConfiguration();
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var current = _certificateRepository.Get(context, c => c.Default).SingleOrDefault();
 

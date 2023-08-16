@@ -6,6 +6,8 @@
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
              xmlns:loc="http://monaco.aristocrat.com/localization"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              loc:Localizer.For="Player"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
@@ -19,15 +21,15 @@
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
                 <!-- Accent and AppTheme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary
-                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.ListBox.xaml" />
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.GroupBox.xaml" />
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.TextBlock.xaml" />
-                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                <!--<ResourceDictionary
+                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.ListBox.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.GroupBox.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.TextBlock.xaml"/>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="LocalListBoxStyle"
                    TargetType="{x:Type ListBox}"
@@ -87,13 +89,13 @@
                             HorizontalAlignment="Left"
                             Margin="0 0 0 150"
                             AutomationProperties.AutomationId="StackPanel6_39EE8395">
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.SelectPayModeText}}"
+                    <TextBlock Text="{lex:Loc SelectPayModeText}"
                                Style="{DynamicResource MonacoTextBlock}"
                                FontSize="36"
                                FontFamily="Arial"
                                FontWeight="ExtraBold"
                                AutomationProperties.AutomationId="TextBlock7_39EE8395" />
-                    <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.TurnAttendantKeyToCommitText}}"
+                    <TextBlock Text="{lex:Loc TurnAttendantKeyToCommitText}"
                                Style="{DynamicResource MonacoTextBlock}"
                                FontSize="36"
                                FontFamily="Arial"

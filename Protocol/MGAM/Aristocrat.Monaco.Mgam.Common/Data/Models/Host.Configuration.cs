@@ -1,34 +1,35 @@
 ﻿namespace Aristocrat.Monaco.Mgam.Common.Data.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     Model configuration for an Host that is stored on the site-controller.
     /// </summary>
-    public class HostConfiguration : EntityTypeConfiguration<Host>
+    public class HostConfiguration : IEntityTypeConfiguration<Host>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="HostConfiguration"/> class.
         /// </summary>
-        public HostConfiguration()
+        public void Configure(EntityTypeBuilder<Host> builder)
         {
-            ToTable(nameof(Host));
+            builder.ToTable(nameof(Host));
 
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.ServiceName)
+            builder.Property(t => t.ServiceName)
                 .IsRequired();
 
-            Property(t => t.DirectoryPort)
+            builder.Property(t => t.DirectoryPort)
                 .IsRequired();
 
-            Property(t => t.IcdVersion)
+            builder.Property(t => t.IcdVersion)
                 .IsRequired();
 
-            Property(t => t.UseUdpBroadcasting)
+            builder.Property(t => t.UseUdpBroadcasting)
                 .IsRequired();
 
-            Property(t => t.DirectoryIpAddress)
+            builder.Property(t => t.DirectoryIpAddress)
                 .IsRequired();
         }
     }

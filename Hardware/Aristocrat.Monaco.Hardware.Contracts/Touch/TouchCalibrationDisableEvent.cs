@@ -2,9 +2,10 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>Class to handle Touch Calibration Mappings specific events.</summary>
-    [Serializable]
+    [ProtoContract]
     public class TouchCalibrationDisableEvent : BaseEvent
     {
     }

@@ -3,11 +3,12 @@
     using System;
     using System.Collections.Generic;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Sent by the PokerHandProvider when the poker game is finished.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class CardsHeldEvent : BaseEvent
     {
         /// <summary>
@@ -20,8 +21,16 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public CardsHeldEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets or sets the held cards
         /// </summary>
+        [ProtoMember(1)]
         public IList<HoldStatus> CardsHeld { get; set; }
     }
 }

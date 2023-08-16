@@ -27,7 +27,8 @@
 
             command.Values.Add(
                 StorageType.GameLocalSession,
-                _gameStorage.GetValue<Dictionary<string, string>>(gameId, denomId, StorageType.GameLocalSession.ToString()) ??
+                _gameStorage.GetValue<Dictionary<string, string>>(gameId, denomId, StorageType.GameLocalSession.ToString())
+                ??
                 new Dictionary<string, string>());
 
             command.Values.Add(
@@ -47,7 +48,7 @@
 
             if (value?.Any() ?? false)
             {
-                command.Values.Add(StorageType.GamePlayerSession, value);
+                command.Values.Add(StorageType.GamePlayerSession, (IDictionary<string, string>)value);
             }
         }
     }

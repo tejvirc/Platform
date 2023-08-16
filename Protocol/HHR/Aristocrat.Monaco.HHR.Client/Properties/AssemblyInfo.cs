@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
@@ -17,6 +18,7 @@ using System.Runtime.InteropServices;
 // to COM components.  If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
+[assembly: SupportedOSPlatform("windows7.0")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("290afd5d-d3ce-4632-af7b-c1eaf7464595")]

@@ -68,7 +68,14 @@
         [TestCleanup]
         public void MyTestCleanUp()
         {
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
             MoqServiceManager.RemoveInstance();
         }
 

@@ -92,7 +92,7 @@
                                 <DataTemplate>
                                     <Grid HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
-                                          Width="{Binding Path=(ItemsControl.AlternationIndex),                                            RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IndexToWidthOfStackGrid}}"
+                                          Width="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource IndexToWidthOfStackGrid}}"
                                           Height="39"
                                           Margin="20 10 0 0"
                                           AutomationProperties.AutomationId="Grid19_8240C67D">

@@ -268,7 +268,7 @@
         private static bool VerifyHash(RSAParameters parameters, byte[] signedData, byte[] signature)
         {
             var rsaCsp = new RSACryptoServiceProvider();
-            var hash = new SHA1Managed();
+            var hash = SHA1.Create();
 
             rsaCsp.ImportParameters(parameters);
 
@@ -295,7 +295,7 @@
 
         private static ulong GetRandom()
         {
-            using (var cryptoProvider = new RNGCryptoServiceProvider())
+            using (var cryptoProvider = RandomNumberGenerator.Create())
             {
                 var buffer = new byte[8];
                 cryptoProvider.GetBytes(buffer);

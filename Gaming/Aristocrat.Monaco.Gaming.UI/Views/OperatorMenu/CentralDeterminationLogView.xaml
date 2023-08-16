@@ -4,6 +4,8 @@
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
@@ -11,7 +13,8 @@
                                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:common="http://monaco.aristocrat.com/common"
-                               mc:Ignorable="d"
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                               mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance viewModels:CentralDeterminationLogViewModel, IsDesignTimeCreatable=False}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -134,40 +137,40 @@
                   SelectionMode="Single"
                   IsReadOnly="True"
                   AutomationProperties.AutomationId="DataGrid18_2B312E18">
-            <i:Interaction.Triggers>
+            <b:Interaction.Triggers>
                 <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
                     <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}" />
                 </events:RoutedEventTrigger>
-            </i:Interaction.Triggers>
+            </b:Interaction.Triggers>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTimeHeader}}"
+                <DataGridTextColumn Header="{lex:Loc DateAndTimeHeader}"
                                     Binding="{Binding TransactionDateTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}"
                                     MinWidth="150"
                                     AutomationProperties.AutomationId="DataGridTextColumn19_2B312E18" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameIdHeader}}"
+                <DataGridTextColumn Header="{lex:Loc GameIdHeader}"
                                     Binding="{Binding GameId}"
                                     ElementStyle="{StaticResource Centered}"
                                     AutomationProperties.AutomationId="DataGridTextColumn20_2B312E18" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DenominationShortHeader}}"
+                <DataGridTextColumn Header="{lex:Loc DenominationShortHeader}"
                                     Binding="{Binding Denomination}"
                                     ElementStyle="{StaticResource Centered}"
                                     AutomationProperties.AutomationId="DataGridTextColumn21_2B312E18" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.WagerCategoryHeader}}"
+                <DataGridTextColumn Header="{lex:Loc WagerCategoryHeader}"
                                     Binding="{Binding WagerCategory}"
                                     ElementStyle="{StaticResource Centered}"
                                     AutomationProperties.AutomationId="DataGridTextColumn22_2B312E18" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Wager}}"
+                <DataGridTextColumn Header="{lex:Loc Wager}"
                                     Binding="{Binding WagerAmount}"
                                     ElementStyle="{StaticResource Centered}"
                                     AutomationProperties.AutomationId="DataGridTextColumn23_2B312E18" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.OutcomesRequestedHeader}}"
+                <DataGridTextColumn Header="{lex:Loc OutcomesRequestedHeader}"
                                     Binding="{Binding OutcomesRequested}"
                                     ElementStyle="{StaticResource Centered}"
                                     AutomationProperties.AutomationId="DataGridTextColumn24_2B312E18" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.OutcomeStateHeader}}"
+                <DataGridTextColumn Header="{lex:Loc OutcomeStateHeader}"
                                     Binding="{Binding OutcomeState}"
                                     AutomationProperties.AutomationId="DataGridTextColumn25_2B312E18" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.OutcomeExceptionHeader}}"
+                <DataGridTextColumn Header="{lex:Loc OutcomeExceptionHeader}"
                                     Binding="{Binding OutcomeException}"
                                     AutomationProperties.AutomationId="DataGridTextColumn26_2B312E18" />
             </DataGrid.Columns>
@@ -206,7 +209,7 @@
                     AutomationProperties.AutomationId="StackPanel27_2B312E18">
             <TextBlock x:Name="TextBlockGameRoundInfo"
                        Margin="0,0,0,5"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.OutcomesHeader}}"
+                       Text="{lex:Loc OutcomesHeader}"
                        FontSize="{StaticResource NormalFontSize}"
                        FontWeight="Bold"
                        AutomationProperties.AutomationId="TextBlock28_2B312E18" />
@@ -220,14 +223,13 @@
                           Style="{StaticResource OutcomeViewDataGrid}"
                           ScrollViewer.CanContentScroll="True"
                           ScrollViewer.VerticalScrollBarVisibility="Auto"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                          CellStyle="{StaticResource OutcomeCellStyle}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" CellStyle="{StaticResource OutcomeCellStyle}"
                           AutomationProperties.AutomationId="DataGrid30_2B312E18">
-                    <i:Interaction.Triggers>
+                    <b:Interaction.Triggers>
                         <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
                             <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}" />
                         </events:RoutedEventTrigger>
-                    </i:Interaction.Triggers>
+                    </b:Interaction.Triggers>
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
                             <Setter Property="Foreground"
@@ -237,24 +239,24 @@
                         </Style>
                     </DataGrid.RowStyle>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameSetIdHeader}}"
+                        <DataGridTextColumn Header="{lex:Loc GameSetIdHeader}"
                                             Binding="{Binding GameSetId}"
                                             AutomationProperties.AutomationId="DataGridTextColumn31_2B312E18" />
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ReferenceHeader}}"
+                        <DataGridTextColumn Header="{lex:Loc ReferenceHeader}"
                                             Binding="{Binding Reference}"
                                             AutomationProperties.AutomationId="DataGridTextColumn32_2B312E18" />
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TypeHeader}}"
+                        <DataGridTextColumn Header="{lex:Loc TypeHeader}"
                                             Binding="{Binding Type}"
                                             MinWidth="150"
                                             AutomationProperties.AutomationId="DataGridTextColumn33_2B312E18" />
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ValueHeader}}"
+                        <DataGridTextColumn Header="{lex:Loc ValueHeader}"
                                             Binding="{Binding Value}"
                                             MinWidth="100"
                                             AutomationProperties.AutomationId="DataGridTextColumn34_2B312E18" />
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.WinLevelHeader}}"
+                        <DataGridTextColumn Header="{lex:Loc WinLevelHeader}"
                                             Binding="{Binding WinLevelIndex}"
                                             AutomationProperties.AutomationId="DataGridTextColumn35_2B312E18" />
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LookupDataHeader}}"
+                        <DataGridTextColumn Header="{lex:Loc LookupDataHeader}"
                                             Binding="{Binding LookupData}"
                                             AutomationProperties.AutomationId="DataGridTextColumn36_2B312E18" />
                     </DataGrid.Columns>

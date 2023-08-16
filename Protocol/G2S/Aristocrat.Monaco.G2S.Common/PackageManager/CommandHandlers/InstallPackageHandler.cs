@@ -50,7 +50,7 @@
                     parameter.PackageEntity.PackageId,
                     () =>
                     {
-                        using (var context = ContextFactory.Create())
+                        using (var context = ContextFactory.CreateDbContext())
                         {
                             _packageRepository.Update(context, parameter.PackageEntity);
                         }

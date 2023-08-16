@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.Transfer
 {
     using System;
+    using System.Runtime.Serialization;
 
     /// <summary>
     ///     FTP Service Not Available exception

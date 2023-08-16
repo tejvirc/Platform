@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Accounting.UI.ViewModels"
                                xmlns:common="http://monaco.aristocrat.com/common"
@@ -34,21 +36,21 @@
                       x:Name="MetersGrid"
                       AutomationProperties.AutomationId="DataGrid6_EC411710">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Denomination}}"
+                    <DataGridTextColumn Header="{lex:Loc Denomination}" 
                                         loc:Localizer.For="Operator"
-                                        Width="200"
-                                        Binding="{Binding Name}"
+                                        Width="200" 
+                                        Binding="{Binding Name}" 
                                         AutomationProperties.AutomationId="DataGridTextColumn7_EC411710" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                    <DataGridTextColumn Header="{lex:Loc Count}" 
                                         loc:Localizer.For="Operator"
-                                        Width="500"
-                                        Binding="{Binding Count, UpdateSourceTrigger=PropertyChanged}"
+                                        Width="500" 
+                                        Binding="{Binding Count, UpdateSourceTrigger=PropertyChanged}" 
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                         CellStyle="{StaticResource DataGridCellRight}"
                                         AutomationProperties.AutomationId="DataGridTextColumn8_EC411710" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                    <DataGridTextColumn Header="{lex:Loc Value}" 
                                         loc:Localizer.For="Operator"
-                                        Width="500"
+                                        Width="500" 
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                         CellStyle="{StaticResource DataGridCellRight}"
@@ -72,7 +74,7 @@
                     <ColumnDefinition Width="{Binding ElementName=MetersGrid, Path=Columns[2].ActualWidth}"
                                       AutomationProperties.AutomationId="ColumnDefinition14_EC411710" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.Total}}"
+                <TextBlock Text="{lex:Loc Total}"
                            Margin="5 0"
                            AutomationProperties.AutomationId="TextBlock15_EC411710" />
                 <TextBlock Grid.Column="1"
@@ -93,12 +95,12 @@
                   x:Name="RejectionMetersGrid"
                   AutomationProperties.AutomationId="DataGrid18_EC411710">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                	<DataGridTextColumn Header="{lex:Loc Meter}"
                                     loc:Localizer.For="Operator"
                                     Width="200"
                                     Binding="{Binding Name}"
                                     AutomationProperties.AutomationId="DataGridTextColumn19_EC411710" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                <DataGridTextColumn Header="{lex:Loc Count}" 
                                     loc:Localizer.For="Operator"
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                     CellStyle="{StaticResource DataGridCellRight}"
@@ -114,7 +116,7 @@
             <Button Margin="0 0 15 0"
                     Width="250"
                     Command="{Binding BillClearanceButtonClickedCommand}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearBillsPeriodMeters}}"
+                    Content="{lex:Loc ClearBillsPeriodMeters}"
                     IsEnabled="{Binding BillClearanceButtonEnabled, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding BillClearanceEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="Button22_EC411710" />

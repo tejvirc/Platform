@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An End Game Process event is posted to terminate the current game process.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class TerminateGameProcessEvent : BaseEvent
     {
         /// <summary>
@@ -23,6 +24,13 @@
         public TerminateGameProcessEvent(bool terminateExpected = true)
         {
             TerminateExpected = terminateExpected;
+        }
+
+        /// <summary>
+        /// Empty constructor for Dersialization
+        /// </summary>
+        public TerminateGameProcessEvent()
+        {
         }
     }
 }

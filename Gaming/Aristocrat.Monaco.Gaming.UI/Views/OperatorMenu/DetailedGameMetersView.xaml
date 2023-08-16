@@ -6,6 +6,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.DetailedGameMeters"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:DetailedGameMetersViewModel}, IsDesignTimeCreatable=True}">
@@ -25,16 +27,16 @@
                   AutomationProperties.AutomationId="DataGrid1_E8911C99">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                                    Header="{lex:Loc Meter}"
                                     AutomationProperties.AutomationId="DataGridTextColumn2_E8911C99" />
                 <DataGridTextColumn Binding="{Binding BeforeGameStart}"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.BeforeGameStart}}"
+                                    Header="{lex:Loc BeforeGameStart}"
                                     AutomationProperties.AutomationId="DataGridTextColumn3_E8911C99" />
                 <DataGridTextColumn Binding="{Binding GameEnd}"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.GameEnd}}"
+                                    Header="{lex:Loc GameEnd}"
                                     AutomationProperties.AutomationId="DataGridTextColumn4_E8911C99" />
                 <DataGridTextColumn Binding="{Binding BeforeNextGame}"
-                                    Header="{lex:Loc Key={x:Static loc:ResourceKeys.BeforeNextGame}}"
+                                    Header="{lex:Loc BeforeNextGame}"
                                     AutomationProperties.AutomationId="DataGridTextColumn5_E8911C99" />
             </DataGrid.Columns>
         </DataGrid>

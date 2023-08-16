@@ -11,9 +11,9 @@
     public interface IProgressiveLevelProvider
     {
         /// <summary>
-        ///     Registers a <see cref="ProgressivesLoaded" /> event handler.
+        ///     An event that is raised when progressives are added
         /// </summary>
-        event EventHandler<ProgressivesLoadedEventArgs> ProgressivesLoaded;
+        event EventHandler<ProgressivesAddedEventArgs> ProgressivesAdded;
 
         /// <summary>
         ///     Loads progressive levels from the progressive detail data when games are loaded.

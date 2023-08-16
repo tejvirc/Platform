@@ -10,6 +10,8 @@
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.CustomSAPView"
                                dialog:DialogParticipation.Register="{Binding}"
@@ -35,19 +37,19 @@
             <RowDefinition Height="Auto"
                            AutomationProperties.AutomationId="RowDefinition4_EF8014A4" />
         </Grid.RowDefinitions>
-        <controls:ToggleSwitchButton Grid.Row="0"
+        <controls:ToggleSwitch Grid.Row="0"
                                      Grid.Column="0"
                                      Margin="0,-10,0,0"
                                      IsEnabled="True"
-                                     IsChecked="{Binding GameTypeSelect}"
+                                     IsOn="{Binding GameTypeSelect}"
                                      controls:ControlsHelper.ContentCharacterCasing="Upper"
                                      controls:ControlsHelper.CornerRadius="0"
-                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Poker}}"
-                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.Keno}}" />
+                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Poker}"
+                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Keno}" />
         <Label Grid.Row="1"
                Grid.Column="0"
                Margin="0,20,0,0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CustomSAPConfigSetup}}"
+               Content="{lex:Loc CustomSAPConfigSetup}"
                AutomationProperties.AutomationId="Label5_EF8014A4" />
         <DataGrid ItemsSource="{Binding LevelDetails}"
                   Grid.Row="2"
@@ -70,12 +72,12 @@
                                      Data="{Binding}" />
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelId}}"
+                <DataGridTextColumn Header="{lex:Loc LevelId}"
                                     loc:Localizer.For="Operator"
                                     MaxWidth="80"
                                     Binding="{Binding LevelId , UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn7_EF8014A4" />
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelNameLabel}}"
+                <DataGridTemplateColumn Header="{lex:Loc LevelNameLabel}"
                                         loc:Localizer.For="Operator"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn8_EF8014A4">
                     <DataGridTemplateColumn.CellTemplate>
@@ -85,32 +87,32 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentValue}}"
+                <DataGridTextColumn Header="{lex:Loc CurrentValue}"
                                     loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn9_EF8014A4" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.InitialValue}}"
+                <DataGridTextColumn Header="{lex:Loc InitialValue}"
                                     loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding InitialValue, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn10_EF8014A4" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
+                <DataGridTextColumn Header="{lex:Loc BonusInfoOverflowColumn}"
                                     loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding OverflowValue , UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn11_EF8014A4" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ResetValue}}"
+                <DataGridTextColumn Header="{lex:Loc ResetValue}"
                                     loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding ResetValue, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn12_EF8014A4" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.IncrementRate}}"
+                <DataGridTextColumn Header="{lex:Loc IncrementRate}"
                                     loc:Localizer.For="Operator"
                                     MaxWidth="200"
-                                    Binding="{Binding IncrementRate, Converter={StaticResource PercentageTextValueConvert}, UpdateSourceTrigger=PropertyChanged}"
+                                    Binding="{Binding IncrementRate, StringFormat={}{0:#0.00'%'}, UpdateSourceTrigger=PropertyChanged}"
                                     AutomationProperties.AutomationId="DataGridTextColumn13_EF8014A4" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"
+                <DataGridTextColumn Header="{lex:Loc MaxValue}"
                                     loc:Localizer.For="Operator"
                                     MaxWidth="200"
                                     Binding="{Binding MaximumValue, UpdateSourceTrigger=PropertyChanged}"
@@ -119,7 +121,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:CustomSAPViewModel+SharedLevelDisplay}">
                             <Button Margin="0,5,0,0"
-                                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.EditLabel}}"
+                                    Content="{lex:Loc EditLabel}"
                                     CommandParameter="{Binding Path=Name}"
                                     Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.EditSAPLevelCommand}"
                                     AutomationProperties.AutomationId="Button16_EF8014A4">
@@ -138,7 +140,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:CustomSAPViewModel+SharedLevelDisplay}">
                             <Button Margin="0,5,0,0"
-                                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeleteLabel}}"
+                                    Content="{lex:Loc DeleteLabel}"
                                     CommandParameter="{Binding Path=Name}"
                                     Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteSAPLevelCommand}"
                                     AutomationProperties.AutomationId="Button18_EF8014A4">
@@ -162,7 +164,7 @@
             <Button HorizontalAlignment="Left"
                     Margin="0 10 10 5"
                     IsEnabled="{Binding InputEnabled}"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.AddSAPLevel}}"
+                    Content="{lex:Loc AddSAPLevel}"
                     Command="{Binding AddSAPLevelCommand}"
                     AutomationProperties.AutomationId="Button20_EF8014A4" />
         </StackPanel>

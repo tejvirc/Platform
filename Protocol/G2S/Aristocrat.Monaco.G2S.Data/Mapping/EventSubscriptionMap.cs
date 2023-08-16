@@ -1,55 +1,56 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Model;
 
     /// <summary>
     ///     Configuration for the <see cref="EventSubscription" /> entity
     /// </summary>
-    public class EventSubscriptionMap : EntityTypeConfiguration<EventSubscription>
+    public class EventSubscriptionMap : IEntityTypeConfiguration<EventSubscription>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="EventSubscriptionMap" /> class.
         /// </summary>
-        public EventSubscriptionMap()
+        public void Configure(EntityTypeBuilder<EventSubscription> builder)
         {
-            ToTable("EventSubscription");
+            builder.ToTable(nameof(EventSubscription));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.HostId)
+            builder.Property(t => t.HostId)
                 .IsRequired();
 
-            Property(t => t.DeviceId)
+            builder.Property(t => t.DeviceId)
                 .IsRequired();
 
-            Property(t => t.EventCode)
+            builder.Property(t => t.EventCode)
                 .IsRequired();
 
-            Property(t => t.SubType)
+            builder.Property(t => t.SubType)
                 .IsRequired();
 
-            Property(t => t.DeviceClass)
+            builder.Property(t => t.DeviceClass)
                 .IsRequired();
 
-            Property(t => t.EventPersist)
+            builder.Property(t => t.EventPersist)
                 .IsRequired();
 
-            Property(t => t.SendClassMeters)
+            builder.Property(t => t.SendClassMeters)
                 .IsRequired();
 
-            Property(t => t.SendDeviceMeters)
+            builder.Property(t => t.SendDeviceMeters)
                 .IsRequired();
 
-            Property(t => t.SendDeviceStatus)
+            builder.Property(t => t.SendDeviceStatus)
                 .IsRequired();
 
 
-            Property(t => t.SendTransaction)
+            builder.Property(t => t.SendTransaction)
                 .IsRequired();
 
-            Property(t => t.SendUpdatableMeters)
+            builder.Property(t => t.SendUpdatableMeters)
                 .IsRequired();
         }
     }

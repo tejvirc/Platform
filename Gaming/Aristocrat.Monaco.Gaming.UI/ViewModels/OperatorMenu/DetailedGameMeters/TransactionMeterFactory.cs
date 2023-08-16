@@ -140,8 +140,8 @@
 
             foreach (var prop in MeteredProps)
             {
-                var olderValue = (long)prop.GetValue(olderSnapshot, null);
-                var newerValue = (long)prop.GetValue(newerSnapshot, null);
+                var olderValue = (long?)prop.GetValue(olderSnapshot, null);
+                var newerValue = (long?)prop.GetValue(newerSnapshot, null);
 
                 prop.SetValue(result, newerValue - olderValue);
             }

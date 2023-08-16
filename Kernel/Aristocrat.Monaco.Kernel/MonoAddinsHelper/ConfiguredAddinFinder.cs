@@ -35,12 +35,12 @@ namespace Aristocrat.Monaco.Kernel
                 new Dictionary<string, AddinConfigurationGroupNode>();
             ICollection<ExtensionNode> nodes = new LinkedList<ExtensionNode>();
 
-            foreach (ExtensionNode node in AddinManager.GetExtensionNodes(extensionPath))
+            foreach (ExtensionNode node in AddinManager.GetExtensionNodes<ExtensionNode>(extensionPath))
             {
                 nodes.Add(node);
             }
 
-            foreach (AddinConfigurationGroupNode configurationGroup in AddinManager.GetExtensionNodes(
+            foreach (AddinConfigurationGroupNode configurationGroup in AddinManager.GetExtensionNodes<AddinConfigurationGroupNode>(
                 MonoAddinsHelper.AddinConfigurationGroupExtensionPoint))
             {
                 groups.Add(configurationGroup.Name, configurationGroup);

@@ -30,6 +30,7 @@
     using Kernel.Contracts;
     using Localization.Properties;
     using log4net;
+    using Microsoft.Extensions.DependencyInjection;
     using Progressives;
     using Runtime;
     using SimpleInjector;
@@ -160,7 +161,6 @@
             LoadPropertyProviders();
             LoadRuntime();
             LoadGames();
-            LoadMeterProviders();
 
             AddServices();
 
@@ -213,16 +213,6 @@
             provider?.Initialize();
             ServiceManager.GetInstance().AddService(provider);
             manager.AddPropertyProvider(provider as IPropertyProvider);
-        }
-
-        private void LoadMeterProviders()
-        {
-            var meterManager = ServiceManager.GetInstance().GetService<IMeterManager>();
-
-            foreach (var provider in _container.GetAllInstances<IMeterProvider>())
-            {
-                meterManager.AddProvider(provider);
-            }
         }
 
         private void AddServices()

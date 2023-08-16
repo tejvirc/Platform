@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Threading;
     using Kernel;
     using Monaco.Common.Storage;
@@ -11,8 +11,9 @@
     public class DbContextFactory : IMonacoContextFactory, IService, IDisposable
     {
         private readonly IConnectionStringResolver _connectionStringResolver;
+        private readonly ManualResetEventSlim _exclusiveLock = new(true);
+
         private bool _disposed;
-        private ManualResetEventSlim _exclusiveLock = new ManualResetEventSlim(true);
 
         public DbContextFactory()
             : this(new DefaultConnectionStringResolver(ServiceManager.GetInstance().GetService<IPathMapper>()))
@@ -23,6 +24,8 @@
         {
             _connectionStringResolver = connectionStringResolver ??
                                         throw new ArgumentNullException(nameof(connectionStringResolver));
+            using var context = new BingoContext(_connectionStringResolver);
+            context.Database.EnsureCreated();
         }
 
         public void Dispose()
@@ -31,16 +34,16 @@
             GC.SuppressFinalize(this);
         }
 
-        public DbContext Create()
+        public DbContext CreateDbContext()
         {
             _exclusiveLock.Wait();
-            return new BingoContext(_connectionStringResolver);
+            return CreateContext();
         }
 
         public DbContext Lock()
         {
             _exclusiveLock.Reset();
-            return new BingoContext(_connectionStringResolver);
+            return CreateContext();
         }
 
         public void Release()
@@ -49,7 +52,7 @@
         }
 
         public string Name => GetType().Name;
-        
+
         public ICollection<Type> ServiceTypes => new[] { typeof(IMonacoContextFactory) };
 
         public void Initialize()
@@ -68,8 +71,21 @@
                 _exclusiveLock.Dispose();
             }
 
-            _exclusiveLock = null;
             _disposed = true;
+        }
+
+        private DbContext CreateContext()
+        {
+            var context = new BingoContext(_connectionStringResolver);
+            try
+            {
+                return context;
+            }
+            catch
+            {
+                context.Dispose();
+                throw;
+            }
         }
     }
 }

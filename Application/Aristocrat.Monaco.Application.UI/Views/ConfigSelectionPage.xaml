@@ -10,9 +10,11 @@
                                xmlns:extensions="clr-namespace:Aristocrat.Monaco.UI.Common.Extensions;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
-                               xmlns:loc="http://monaco.aristocrat.com/localization"
-                               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                                common:DialogParticipation.Register="{Binding}"
                                mc:Ignorable="d"
@@ -35,7 +37,8 @@
             <RowDefinition Height="1*"
                            AutomationProperties.AutomationId="RowDefinition2_A332C969" />
         </Grid.RowDefinitions>
-        <i:Interaction.Triggers>
+
+        <b:Interaction.Triggers>
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.SizeChangedEvent}"
                                        Target="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
@@ -43,13 +46,11 @@
             <events:RoutedEventTrigger RoutedEvent="{x:Static FrameworkElement.LoadedEvent}">
                 <common:AdaptToOrientationGridAction FirstRowHeightWhenPortrait="{StaticResource GoldenRatioGridLength}" />
             </events:RoutedEventTrigger>
-        </i:Interaction.Triggers>
-        <Viewbox Grid.Row="0"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Center"
-                 Stretch="UniformToFill"
+        </b:Interaction.Triggers>
+
+        <Viewbox Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill"
                  AutomationProperties.AutomationId="Viewbox3_A332C969">
-            <Image Source="{Binding PortraitLogoFilePath}"
+            <Image Source="{Binding PortraitLogoFilePath}" 
                    AutomationProperties.AutomationId="Image4_A332C969" />
         </Viewbox>
         <Grid Grid.Row="1"
@@ -62,16 +63,17 @@
                 <RowDefinition Height="Auto"
                                AutomationProperties.AutomationId="RowDefinition8_A332C969" />
             </Grid.RowDefinitions>
+
             <Border Background="{StaticResource ConfigTitleBarBrush}"
                     AutomationProperties.AutomationId="Border9_A332C969">
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel10_A332C969">
-                    <iconPacks:PackIconFontAwesome Kind="Cog"
-                                                   Width="35"
-                                                   Height="35"
-                                                   VerticalAlignment="Center"
-                                                   Margin="10,0,5,0"
-                                                   Foreground="{StaticResource HighlightBrush1}" />
+                    <iconPacks:PackIconFontAwesome Kind="CogSolid" 
+                                                   Width="35" 
+                                                   Height="35" 
+                                                   VerticalAlignment="Center" 
+                                                   Margin="10,0,5,0" 
+                                                   Foreground="{StaticResource HighlightBrush1}"/>
                     <Label HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            Margin="0,5"
@@ -105,7 +107,7 @@
                 <Button Grid.Column="2"
                         Name="BackButton"
                         Command="{Binding BackButtonClicked}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.BackText}}"
+                        Content="{lex:Loc BackText}"
                         Visibility="{Binding IsBackButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         Margin="0,0,20,0"
                         controls:ControlsHelper.CornerRadius="3"
@@ -115,8 +117,7 @@
                         Command="{Binding NextButtonClicked}"
                         extensions:FocusExtension.IsFocused="{Binding NextButtonFocused}"
                         Content="{Binding NextButtonText}"
-                        Margin="0"
-                        controls:ControlsHelper.CornerRadius="3"
+                        Margin="0" controls:ControlsHelper.CornerRadius="3" 
                         AutomationProperties.AutomationId="Button19_A332C969" />
             </Grid>
             <views:OperatorMenuPopup />

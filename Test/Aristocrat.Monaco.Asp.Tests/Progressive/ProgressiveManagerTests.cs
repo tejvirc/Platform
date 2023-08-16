@@ -221,7 +221,7 @@
             // Get an id and a level amount
             _subject.UpdateProgressiveJackpotAmountUpdate(multipleProgressiveUpdateList);
             _protocolLinkedProgressiveAdapter.Verify(v => v.UpdateLinkedProgressiveLevels(It.IsAny<IReadOnlyCollection<IViewableLinkedProgressiveLevel>>(), ProtocolNames.DACOM), Times.Once);
-            _perLevelMeterProvider.Verify(x => x.SetValue(It.IsInRange<int>(0, 1, Range.Inclusive), It.IsAny<string>(), It.IsAny<long>()), Times.Exactly(2));
+            _perLevelMeterProvider.Verify(x => x.SetValue(It.IsInRange<int>(0, 1, Moq.Range.Inclusive), It.IsAny<string>(), It.IsAny<long>()), Times.Exactly(2));
         }
 
         [TestMethod]

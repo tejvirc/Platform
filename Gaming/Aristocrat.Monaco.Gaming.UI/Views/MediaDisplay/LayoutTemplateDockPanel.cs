@@ -50,7 +50,7 @@
                     {
                         Logger.Info($"Restarting browser for ID {id}");
 
-                        var previousVisible = viewModel.IsVisible;
+                        var previousVisible = viewModel!.IsVisible;
                         viewModel.SetVisibility(false);
                         var index = Children.IndexOf(view);
                         Children.Remove(view);

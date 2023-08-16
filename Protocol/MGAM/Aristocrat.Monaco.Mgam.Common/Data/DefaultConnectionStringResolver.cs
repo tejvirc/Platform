@@ -6,14 +6,14 @@
     using Protocol.Common.Storage;
 
     /// <summary>
-    ///     
+    ///
     /// </summary>
     public class DefaultConnectionStringResolver : IConnectionStringResolver
     {
         private readonly string _connectionString;
 
         /// <summary>
-        ///     
+        ///
         /// </summary>
         /// <param name="pathMapper"></param>
         public DefaultConnectionStringResolver(IPathMapper pathMapper)

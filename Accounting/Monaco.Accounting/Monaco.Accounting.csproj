@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
     <RootNamespace>Aristocrat.Monaco.Accounting</RootNamespace>
     <AssemblyTitle>Monaco.Accounting</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
-    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Platform>x64</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
@@ -25,9 +25,6 @@
   <ItemGroup>
     <None Remove="Aristocrat.Monaco.Accounting.Contracts.KeyedOffCreditsTransaction.xml" />
     <None Remove="Aristocrat.Monaco.Accounting.Contracts.KeyedOnCreditsTransaction.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.configuration" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\..\CustomDictionary.xml">
@@ -97,12 +94,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Aristocrat.Monaco.Accounting.Contracts.KeyedOnCreditsTransaction.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Aristocrat.Monaco.Accounting.Contracts.KeyedOffCreditsTransaction.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Aristocrat.Monaco.Accounting.VoucherOutMetersProvider.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -138,9 +129,11 @@
     <ProjectReference Include="..\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="Mono.Addins" Version="1.0.0" />
+    <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
+    <PackageReference Include="Mono.Addins" Version="1.4.1" />
+    <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Aristocrat.Monaco.Accounting.Contracts.HandCount.ResidualCreditsTransaction.xml">

@@ -8,6 +8,8 @@
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
                                mc:Ignorable="d"
@@ -39,19 +41,19 @@
                       Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
                       AutomationProperties.AutomationId="DataGrid3_E7F67FAD">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTimeHeader}}"
+                    <DataGridTextColumn Header="{lex:Loc DateAndTimeHeader}"
                                         Width="200"
                                         Binding="{Binding WinDateTime, Converter={StaticResource DateTimeConverter}, ConverterParameter=MinDateBlank}"
                                         AutomationProperties.AutomationId="DataGridTextColumn4_E7F67FAD" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceId}}"
+                    <DataGridTextColumn Header="{lex:Loc DeviceId}"
                                         Width="100"
                                         Binding="{Binding DeviceId}"
                                         AutomationProperties.AutomationId="DataGridTextColumn5_E7F67FAD" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LevelId}}"
+                    <DataGridTextColumn Header="{lex:Loc LevelId}"
                                         Width="100"
                                         Binding="{Binding LevelId}"
                                         AutomationProperties.AutomationId="DataGridTextColumn6_E7F67FAD" />
-                    <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Level}}"
+                    <DataGridTemplateColumn Header="{lex:Loc Level}"
                                             AutomationProperties.AutomationId="DataGridTemplateColumn7_E7F67FAD">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate DataType="{x:Type models:ProgressiveWinModel}">
@@ -60,11 +62,11 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Win}}"
+                    <DataGridTextColumn Header="{lex:Loc Win}"
                                         Width="120"
                                         Binding="{Binding WinAmount}"
                                         AutomationProperties.AutomationId="DataGridTextColumn8_E7F67FAD" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TransactionId}}"
+                    <DataGridTextColumn Header="{lex:Loc TransactionId}"
                                         Width="170"
                                         Binding="{Binding TransactionId}"
                                         AutomationProperties.AutomationId="DataGridTextColumn9_E7F67FAD" />

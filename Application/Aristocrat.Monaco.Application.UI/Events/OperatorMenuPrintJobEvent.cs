@@ -2,6 +2,7 @@
 {
     using Hardware.Contracts.Ticket;
     using Kernel;
+    using ProtoBuf;
     using System;
     using System.Collections.Generic;
 
@@ -14,7 +15,7 @@
     ///         passed in the event.
     ///     </remarks>
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class OperatorMenuPrintJobEvent : BaseEvent
     {
         /// <summary>
@@ -26,8 +27,16 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public OperatorMenuPrintJobEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets or sets field of interest
         /// </summary>
+        [ProtoMember(1)]
         public IEnumerable<Ticket> TicketsToPrint { get;}
     }
 }

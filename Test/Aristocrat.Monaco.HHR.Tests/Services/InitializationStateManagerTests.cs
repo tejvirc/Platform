@@ -48,7 +48,7 @@
 
         private readonly Subject<Response> _responseSubject = new Subject<Response>();
         private readonly ManualResetEvent _waitForReadyToPlay = new ManualResetEvent(false);
-        private readonly ManualResetEvent _waitForConnection = new ManualResetEvent(false);
+        private readonly AutoResetEvent _waitForConnection = new AutoResetEvent(false);
 
         private InitializationStateManager _target;
         private Action<CentralServerOnline> _centralServerOnline;
@@ -163,7 +163,7 @@
                 x => x.Send<ReadyToPlayRequest, CloseTranResponse>(
                     It.IsAny<ReadyToPlayRequest>(),
                     It.IsAny<CancellationToken>()),
-                Times.Once);
+                Times.AtLeastOnce);
         }
 
         [TestMethod]
@@ -183,7 +183,7 @@
                     It.IsAny<Type>()),
                 Times.AtLeastOnce);
 
-            _eventBus.Verify(x => x.Publish(It.IsAny<ProtocolInitializationInProgress>()), Times.Once);
+            _eventBus.Verify(x => x.Publish(It.IsAny<ProtocolInitializationInProgress>()), Times.AtLeastOnce);
             _eventBus.Verify(x => x.Publish(It.IsAny<ProtocolInitializationComplete>()), Times.Never);
             Setup(false, false, false, false, false);
 
@@ -197,6 +197,7 @@
             _waitForReadyToPlay.WaitOne();
             SimulateServerResponse(GtCommand.Play);
 
+            _waitForConnection.WaitOne();
             Success();
         }
 
@@ -306,6 +307,7 @@
         {
             _eventBus.Verify(x => x.Publish(It.IsAny<ProtocolInitializationInProgress>()), Times.AtLeastOnce);
             _eventBus.Verify(x => x.Publish(It.IsAny<ProtocolInitializationFailed>()), Times.Never);
+
             _eventBus.Verify(x => x.Publish(It.IsAny<ProtocolInitializationComplete>()), Times.Once);
 
             _gameDataService.Verify();

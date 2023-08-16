@@ -25,7 +25,7 @@
 
             _connectionString = sqlBuilder.ConnectionString;
         }
-        
+
         public string Resolve()
         {
             return _connectionString;

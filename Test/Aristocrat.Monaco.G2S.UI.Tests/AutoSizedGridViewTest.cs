@@ -8,6 +8,7 @@
     [TestClass]
     public class AutoSizedGridViewTest
     {
+        [RequireSTA]
         [TestMethod]
         public void ConstructorTest()
         {
@@ -15,6 +16,7 @@
             Assert.IsNotNull(target);
         }
 
+        [RequireSTA]
         [TestMethod]
         public void PrepareItemTest()
         {

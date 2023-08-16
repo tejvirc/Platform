@@ -209,9 +209,9 @@
         private static Mock<IPersistentStorageAccessor> Factory_CreateMockLogData(int count = 1)
         {
             var storageAccessorDataBlock = new Mock<IPersistentStorageAccessor>();
-            storageAccessorDataBlock.Setup(m => m[It.IsInRange(0, count, Range.Inclusive), "FileName"])
+            storageAccessorDataBlock.Setup(m => m[It.IsInRange(0, count, Moq.Range.Inclusive), "FileName"])
                 .Returns("ATI_FakeGame.iso");
-            storageAccessorDataBlock.Setup(m => m[It.IsInRange(0, count, Range.Inclusive), "Active"]).Returns(false);
+            storageAccessorDataBlock.Setup(m => m[It.IsInRange(0, count, Moq.Range.Inclusive), "Active"]).Returns(false);
             return storageAccessorDataBlock;
         }
     }

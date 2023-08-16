@@ -61,7 +61,7 @@
                 PackageId = packageId, ErrorCode = errorCode, ErrorMessage = errorMessage
             };
 
-            using (var context = ContextFactory.Create())
+            using (var context = ContextFactory.CreateDbContext())
             {
                 PackageErrorRepository.Add(context, errorEntity);
             }

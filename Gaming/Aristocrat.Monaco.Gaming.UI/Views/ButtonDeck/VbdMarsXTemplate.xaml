@@ -3,10 +3,10 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:contracts="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Models;assembly=Aristocrat.Monaco.Gaming.Contracts"
-                    xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
                     xmlns:buttonDeck1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck"
                     xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
                     xmlns:infoBar="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.InfoBar"
+                    xmlns:managedBink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
                     mc:Ignorable="d">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../../Skins/Styles.xaml" />
@@ -69,23 +69,21 @@
               Visibility="{Binding IsLobbyVbdVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
               AutomationProperties.AutomationId="Grid8_1BB868E4">
             <!--Lobby Background Image Animation-->
-            <bink:BinkGpuControl x:Name="BinkControl"
-                                 LoopVideo="True"
-                                 Cache="True"
-                                 Width="1390"
-                                 Height="540"
-                                 VerticalAlignment="Top"
-                                 HorizontalAlignment="Left"
-                                 ShowFirstFrameOnLoad="True">
-                <bink:BinkGpuControl.RenderTransform>
-                    <TranslateTransform X="158"
-                                        Y="0"
-                                        AutomationProperties.AutomationId="TranslateTransform9_1BB868E4" />
-                </bink:BinkGpuControl.RenderTransform>
-                <bink:BinkGpuControl.Style>
-                    <Style TargetType="bink:BinkGpuControl">
-                        <Setter Property="VideoState"
-                                Value="Playing" />
+            <managedBink:BinkGpuControl
+                x:Name="BinkControl"
+                LoopVideo="True"
+                Cache="True"
+                Width="1390" 
+                Height="540" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                ShowFirstFrameOnLoad="True">
+                <managedBink:BinkGpuControl.RenderTransform>
+                    <TranslateTransform X="158" Y="0" AutomationProperties.AutomationId="TranslateTransform9_1BB868E4" />
+                </managedBink:BinkGpuControl.RenderTransform>
+                <managedBink:BinkGpuControl.Style>
+                    <Style TargetType="managedBink:BinkGpuControl">
+                        <Setter Property="VideoState" Value="Playing" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding VbdVideoState}"
                                          Value="{x:Static contracts:LobbyVbdVideoState.InsertMoney}"
@@ -113,8 +111,8 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </bink:BinkGpuControl.Style>
-            </bink:BinkGpuControl>
+                </managedBink:BinkGpuControl.Style>
+            </managedBink:BinkGpuControl>
             <!--Blank background if vbd is blank-->
             <Viewbox Stretch="Fill"
                      VerticalAlignment="Top"

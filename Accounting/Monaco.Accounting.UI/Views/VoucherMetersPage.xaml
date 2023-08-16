@@ -6,6 +6,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Accounting.UI.ViewModels"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                mc:Ignorable="d"
@@ -40,12 +42,12 @@
                       HorizontalAlignment="Left"
                       AutomationProperties.AutomationId="DataGrid6_D1FE7F80">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                    <DataGridTextColumn Header="{lex:Loc Meter}"
                                         loc:Localizer.For="Operator"
                                         Width="350"
-                                        Binding="{Binding Name}"
+                                        Binding="{Binding Name}" 
                                         AutomationProperties.AutomationId="DataGridTextColumn7_D1FE7F80" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                    <DataGridTextColumn Header="{lex:Loc Count}"
                                         loc:Localizer.For="Operator"
                                         Width="500"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -61,7 +63,7 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                    <DataGridTextColumn Header="{lex:Loc Value}"
                                         loc:Localizer.For="Operator"
                                         Width="500"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
@@ -88,18 +90,18 @@
                     <ColumnDefinition Width="{Binding ElementName=VoucherInGrid, Path=Columns[2].ActualWidth}"
                                       AutomationProperties.AutomationId="ColumnDefinition14_D1FE7F80" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherInLabelContent}}"
-                           Margin="5 0"
+                <TextBlock Text="{lex:Loc VoucherInLabelContent}" 
+                           Margin="5 0" 
                            AutomationProperties.AutomationId="TextBlock15_D1FE7F80" />
-                <TextBlock Grid.Column="1"
-                           HorizontalAlignment="Right"
+                <TextBlock Grid.Column="1" 
+                           HorizontalAlignment="Right" 
                            Margin="5 0"
-                           Text="{Binding VoucherInTotalCount, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                           Text="{Binding VoucherInTotalCount, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" 
                            AutomationProperties.AutomationId="TextBlock16_D1FE7F80" />
-                <TextBlock Grid.Column="2"
-                           HorizontalAlignment="Right"
+                <TextBlock Grid.Column="2" 
+                           HorizontalAlignment="Right" 
                            Margin="5 0"
-                           Text="{Binding VoucherInTotalValue, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                           Text="{Binding VoucherInTotalValue, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" 
                            AutomationProperties.AutomationId="TextBlock17_D1FE7F80" />
             </Grid>
         </Border>
@@ -110,12 +112,12 @@
                       x:Name="VoucherOutGrid"
                       AutomationProperties.AutomationId="DataGrid19_D1FE7F80">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+                    <DataGridTextColumn Header="{lex:Loc Meter}"
                                         loc:Localizer.For="Operator"
                                         Width="350"
-                                        Binding="{Binding Name}"
+                                        Binding="{Binding Name}" 
                                         AutomationProperties.AutomationId="DataGridTextColumn20_D1FE7F80" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+                    <DataGridTextColumn Header="{lex:Loc Count}"
                                         loc:Localizer.For="Operator"
                                         Width="500"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -131,8 +133,8 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
-                                        loc:Localizer.For="Operator"
+                    <DataGridTextColumn Header="{lex:Loc Value}"
+                                    loc:Localizer.For="Operator"
                                         Width="500"
                                         Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
@@ -157,33 +159,26 @@
                     <ColumnDefinition Width="{Binding ElementName=VoucherOutGrid, Path=Columns[2].ActualWidth}"
                                       AutomationProperties.AutomationId="ColumnDefinition27_D1FE7F80" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.VoucherOutLabelContent}}"
-                           Margin="5 0"
+                <TextBlock Text="{lex:Loc VoucherOutLabelContent}" Margin="5 0" 
                            AutomationProperties.AutomationId="TextBlock28_D1FE7F80" />
-                <TextBlock Grid.Column="1"
-                           HorizontalAlignment="Right"
-                           Margin="5 0"
+                <TextBlock Grid.Column="1" HorizontalAlignment="Right" Margin="5 0"
                            Text="{Binding VoucherOutTotalCount, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
                            AutomationProperties.AutomationId="TextBlock29_D1FE7F80" />
-                <TextBlock Grid.Column="2"
-                           HorizontalAlignment="Right"
-                           Margin="5 0"
-                           Text="{Binding VoucherOutTotalValue, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                <TextBlock Grid.Column="2" HorizontalAlignment="Right" Margin="5 0"
+                           Text="{Binding VoucherOutTotalValue, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" 
                            AutomationProperties.AutomationId="TextBlock30_D1FE7F80" />
             </Grid>
         </Border>
-        <DataGrid Grid.Row="4"
-                  ItemsSource="{Binding RejectionMeters}"
-                  Margin="0 50 0 0"
-                  x:Name="RejectionMetersGrid"
+
+		<DataGrid Grid.Row="4" ItemsSource="{Binding RejectionMeters}" Margin="0 50 0 0" x:Name="RejectionMetersGrid"
                   AutomationProperties.AutomationId="DataGrid31_D1FE7F80">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="{lex:Loc Meter}"
                                     loc:Localizer.For="Operator"
                                     Width="350"
                                     Binding="{Binding Name}"
                                     AutomationProperties.AutomationId="DataGridTextColumn32_D1FE7F80" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
+				<DataGridTextColumn Header="{lex:Loc Count}" 
                                     loc:Localizer.For="Operator"
                                     HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                     CellStyle="{StaticResource DataGridCellRight}"

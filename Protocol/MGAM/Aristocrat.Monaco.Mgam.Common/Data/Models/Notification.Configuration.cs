@@ -1,25 +1,26 @@
 ﻿namespace Aristocrat.Monaco.Mgam.Common.Data.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     Model configuration for an Notification that is stored on the site-controller.
     /// </summary>
-    public class NotificationConfiguration : EntityTypeConfiguration<Notification>
+    public class NotificationConfiguration : IEntityTypeConfiguration<Notification>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="NotificationConfiguration"/> class.
         /// </summary>
-        public NotificationConfiguration()
+        public void Configure(EntityTypeBuilder<Notification> builder)
         {
-            ToTable(nameof(Notification));
+            builder.ToTable(nameof(Notification));
 
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.NotificationId)
+            builder.Property(t => t.NotificationId)
                 .IsRequired();
 
-            Property(t => t.Parameter);
+            builder.Property(t => t.Parameter);
         }
     }
 }

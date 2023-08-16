@@ -78,7 +78,7 @@
 
                 Marshal.Copy(data, 0, ptr, _bufferSize);
 
-                return (T)Marshal.PtrToStructure(ptr, typeof(T));
+                return ((T?)Marshal.PtrToStructure(ptr, typeof(T))).Value;
             }
             finally
             {
@@ -178,9 +178,9 @@
 
                 Marshal.Copy(buffer, 0, readPtr, _bufferSize);
 
-                var current = (T)Marshal.PtrToStructure(readPtr, typeof(T));
-
-                if (!current.Equals(data))
+                var current = (T?)Marshal.PtrToStructure(readPtr, typeof(T));
+                if (current == null) throw new InvalidOperationException();
+                if (!current.Value.Equals(data))
                 {
                     var writeBuffer = new byte[_bufferSize];
 
@@ -191,7 +191,7 @@
                     _view.WriteArray(0, writeBuffer, 0, writeBuffer.Length);
                 }
 
-                return current;
+                return (T)current;
             }
             finally
             {

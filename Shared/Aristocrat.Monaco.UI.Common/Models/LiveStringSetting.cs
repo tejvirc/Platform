@@ -6,7 +6,6 @@
     /// <summary>
     /// A setting with string live and edited values.
     /// </summary>
-    [CLSCompliant(false)]
     public class LiveStringSetting : LiveSetting<string>
     {
         private int _minLength, _maxLength;

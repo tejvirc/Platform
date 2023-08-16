@@ -72,7 +72,7 @@
                 throw new ArgumentNullException(nameof(parameter.ChangeStatusCallback));
             }
 
-            using (var context = ContextFactory.Create())
+            using (var context = ContextFactory.CreateDbContext())
             {
                 // 1. Check if package already exists.
                 var found = _packageRepository.GetPackageByPackageId(context, parameter.PackageId);
@@ -144,7 +144,7 @@
             transferEntity.State = TransferState.Failed;
             var errorCode = transferEntity.Exception == 0 ? 7 : transferEntity.Exception;
             transferEntity.Exception = errorCode;
-            using (var context = ContextFactory.Create())
+            using (var context = ContextFactory.CreateDbContext())
             {
                 _transferRepository.Update(context, transferEntity);
             }

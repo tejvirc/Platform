@@ -94,7 +94,6 @@
                     if (IsRunning)
                     {
                         Logger.Error("Asp could not stop the AspDataLinkTask aborting.");
-                        _thread.Abort();
                         while (IsRunning)
                         {
                             Thread.Sleep(0);

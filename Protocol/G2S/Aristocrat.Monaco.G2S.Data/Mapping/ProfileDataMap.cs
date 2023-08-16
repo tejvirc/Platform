@@ -1,30 +1,31 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Model;
 
     /// <summary>
     ///     Configuration for the <see cref="ProfileData" /> entity
     /// </summary>
-    public class ProfileDataMap : EntityTypeConfiguration<ProfileData>
+    public class ProfileDataMap : IEntityTypeConfiguration<ProfileData>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="ProfileDataMap" /> class.
         /// </summary>
-        public ProfileDataMap()
+        public void Configure(EntityTypeBuilder<ProfileData> builder)
         {
-            ToTable("ProfileData");
+            builder.ToTable(nameof(ProfileData));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.ProfileType)
+            builder.Property(t => t.ProfileType)
                 .IsRequired();
 
-            Property(t => t.DeviceId)
+            builder.Property(t => t.DeviceId)
                 .IsRequired();
 
-            Property(t => t.Data)
+            builder.Property(t => t.Data)
                 .IsRequired();
         }
     }

@@ -370,6 +370,12 @@
                     _stateLock.Dispose();
                     _stateLock = null;
                 }
+
+                if (_printer != null)
+                {
+                    _printer.Dispose();
+                    _printer = null;
+                }
             }
 
             base.Dispose(disposing);

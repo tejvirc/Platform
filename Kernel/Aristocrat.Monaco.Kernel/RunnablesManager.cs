@@ -100,9 +100,9 @@ namespace Aristocrat.Monaco.Kernel
                 {
                     if (!runnableStruct.Thread.Join(runnableStruct.Runnable.Timeout))
                     {
-                        runnableStruct.Thread.Abort();
-                        Log.Error($"Aborted runnable: {runnableStruct.Runnable.GetType()}");
-                        Debug.Assert(true, $"Aborted runnable: {runnableStruct.Runnable.GetType()}");
+                        runnableStruct.Thread.Interrupt();
+                        Log.Error($"Interrupt runnable: {runnableStruct.Runnable.GetType()}");
+                        Debug.Assert(true, $"Interrupt runnable: {runnableStruct.Runnable.GetType()}");
                     }
                 }
                 catch (Exception e)

@@ -42,7 +42,7 @@
             Amount = amount;
             TypeOfAccount = accountType;
             Barcode = barcode;
-            AssociatedTransactions = Enumerable.Empty<long>();
+            AssociatedTransactions = Enumerable.Empty<long>().ToList();
             LogDisplayType = string.Empty;
         }
 

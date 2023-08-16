@@ -5,12 +5,13 @@
     using System.Runtime.Serialization;
     using System.Security;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event used to signal that the hardware layer should shut down higher layers,
     ///     perform a persistent storage clear, and restart.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class PersistentStorageClearStartedEvent : BaseEvent, ISerializable
     {
         /// <summary>
@@ -34,12 +35,22 @@
         /// <param name="context">The streaming context</param>
         protected PersistentStorageClearStartedEvent(SerializationInfo info, StreamingContext context)
         {
-            Level = (PersistenceLevel)info.GetValue(PersistenceLevelValueKey, typeof(PersistenceLevel));
+            var level = info.GetValue(PersistenceLevelValueKey, typeof(PersistenceLevel));
+            if (level == null)
+                throw new ArgumentNullException(nameof(PersistenceLevelValueKey));
+            Level = (PersistenceLevel)level;
         }
+
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing
+        /// </summary>
+        public PersistentStorageClearStartedEvent()
+        { }
 
         /// <summary>
         ///     Gets the level of persistent storage that needs to be cleared.
         /// </summary>
+        [ProtoMember(1)]
         public PersistenceLevel Level { get; }
 
         /// <summary>

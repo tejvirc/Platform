@@ -1,34 +1,36 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Common.Storage.Model
 {
-    using System.Data.Entity;
-    using System.Data.SQLite;
-    using Monaco.Common.Storage;
+    using Microsoft.EntityFrameworkCore;
     using Protocol.Common.Storage;
 
-    [DbConfigurationType(typeof(SQLiteConfiguration))]
     public class BingoContext : DbContext
     {
+        private readonly string _connectionString;
+
         /// <summary>
         ///     Gets a set of <see cref="Certificate"/> items.
         /// </summary>
         public DbSet<Certificate> Certificates { get; set; }
 
         public BingoContext(IConnectionStringResolver connectionStringResolver)
-            : base(new SQLiteConnection(connectionStringResolver.Resolve()), true)
         {
+            _connectionString = connectionStringResolver.Resolve();
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Configurations.Add(new BingoServerSettingsModelConfiguration());
-            modelBuilder.Configurations.Add(new HostConfiguration());
-            modelBuilder.Configurations.Add(new ReportTransactionModelConfiguration());
-            modelBuilder.Configurations.Add(new ReportEventModelConfiguration());
-            modelBuilder.Configurations.Add(new WinResultModelConfiguration());
-            modelBuilder.Configurations.Add(new CertificateConfiguration());
-            modelBuilder.Configurations.Add(new BingoDaubsModelConfiguration());
-            Database.SetInitializer(new BingoContextInitializer(modelBuilder));
+            optionsBuilder.UseSqlite(_connectionString);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new BingoServerSettingsModelConfiguration());
+            modelBuilder.ApplyConfiguration(new HostConfiguration());
+            modelBuilder.ApplyConfiguration(new ReportTransactionModelConfiguration());
+            modelBuilder.ApplyConfiguration(new ReportEventModelConfiguration());
+            modelBuilder.ApplyConfiguration(new WinResultModelConfiguration());
+            modelBuilder.ApplyConfiguration(new CertificateConfiguration());
+            modelBuilder.ApplyConfiguration(new BingoDaubsModelConfiguration());
         }
     }
 }

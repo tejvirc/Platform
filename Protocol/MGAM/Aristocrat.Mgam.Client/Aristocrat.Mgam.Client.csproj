@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Mgam.Client</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
-    <PlatformTarget>x64</PlatformTarget>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Platform>x64</Platform>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>TRACE;CODE_ANALYSIS;DEBUG</DefineConstants>
@@ -23,11 +23,6 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Net.Http" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Update="Protocol\ApplicationPackageDescription.cs">
       <DependentUpon>ApplicationPackageDescription.xsd</DependentUpon>
@@ -545,11 +540,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="Log4Net.Async" Version="2.0.4" />
+    <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Polly" Version="7.2.1" />
     <PackageReference Include="SharpZipLib" Version="1.2.0" />
-    <PackageReference Include="SimpleInjector" Version="4.9.2" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
     <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
     <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.11.0" />

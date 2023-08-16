@@ -8,6 +8,8 @@
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:SoftwareVerificationPageViewModel}, IsDesignTimeCreatable=False}">
@@ -61,7 +63,7 @@
                Grid.Row="0"
                VerticalAlignment="Bottom"
                Style="{DynamicResource MonacoLabel}"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelectHashType}}"
+               Content="{lex:Loc SelectHashType}"
                AutomationProperties.AutomationId="Label13_9BB4B1CA" />
         <ComboBox Grid.Column="0"
                   Grid.Row="2"
@@ -102,7 +104,7 @@
                 Width="200"
                 VerticalAlignment="Center"
                 IsEnabled="{Binding Path=IsValidResult, UpdateSourceTrigger=PropertyChanged}"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.Reset}}"
+                Content="{lex:Loc Reset}"
                 AutomationProperties.AutomationId="Button16_9BB4B1CA" />
         <Button Grid.Column="4"
                 Grid.Row="2"
@@ -112,7 +114,7 @@
                 Width="200"
                 VerticalAlignment="Center"
                 IsEnabled="{Binding Path=IsIdle, UpdateSourceTrigger=PropertyChanged}"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.CalculateSignatures}}"
+                Content="{lex:Loc CalculateSignatures}"
                 AutomationProperties.AutomationId="Button17_9BB4B1CA" />
         <DataGrid Grid.Column="0"
                   Grid.Row="4"
@@ -129,13 +131,13 @@
                   AutomationProperties.AutomationId="DataGrid18_9BB4B1CA"
                   loc:Localizer.For="Operator">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ComponentIdVersion}}"
+                <DataGridTextColumn Header="{lex:Loc ComponentIdVersion}"
                                     Width="Auto"
                                     MinWidth="320"
                                     Binding="{Binding ComponentId}"
                                     AutomationProperties.AutomationId="DataGridTextColumn19_9BB4B1CA"
                                     loc:Localizer.For="Operator" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HashResult}}"
+                <DataGridTextColumn Header="{lex:Loc HashResult}"
                                     FontFamily="Consolas"
                                     MinWidth="600"
                                     MaxWidth="800"
@@ -153,7 +155,7 @@
                     AutomationProperties.AutomationId="StackPanel21_9BB4B1CA">
             <Label Width="Auto"
                    MinWidth="200"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MasterResultText}}"
+                   Content="{lex:Loc MasterResultText}"
                    AutomationProperties.AutomationId="Label22_9BB4B1CA" />
             <Label AutomationProperties.AutomationId="Label23_9BB4B1CA">
                 <Label.Content>

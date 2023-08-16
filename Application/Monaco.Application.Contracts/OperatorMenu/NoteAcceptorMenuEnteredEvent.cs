@@ -12,11 +12,12 @@ namespace Aristocrat.Monaco.Application.Contracts.OperatorMenu
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to notify that the screen related to note acceptor has entered.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class NoteAcceptorMenuEnteredEvent : BaseEvent
     {
     }

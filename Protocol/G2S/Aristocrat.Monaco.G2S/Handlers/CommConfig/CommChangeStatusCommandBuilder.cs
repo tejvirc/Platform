@@ -33,7 +33,7 @@
         /// <inheritdoc />
         public async Task Build(ICommConfigDevice device, commChangeStatus command)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var log = _changeLogRepository.GetByTransactionId(context, command.transactionId);
 

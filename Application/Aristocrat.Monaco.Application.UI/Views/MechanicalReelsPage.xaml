@@ -7,6 +7,8 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:models="clr-namespace:Aristocrat.Monaco.Application.UI.Models"
                                xmlns:views="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                                xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -108,7 +110,7 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0"
                                    Grid.Column="0"
-                                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}"
+                                   Content="{lex:Loc ManufacturerLabel}"
                                    AutomationProperties.AutomationId="Label18_EA876383" />
                             <TextBlock Grid.Row="0"
                                        Grid.Column="1"
@@ -124,7 +126,7 @@
                                                          Value=""
                                                          AutomationProperties.AutomationId="DataTrigger20_EA876383">
                                                 <Setter Property="Text"
-                                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                        Value="{lex:BLoc NotAvailable}" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                         <Setter Property="Text"
@@ -134,7 +136,7 @@
                             </TextBlock>
                             <Label Grid.Row="1"
                                    Grid.Column="0"
-                                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}"
+                                   Content="{lex:Loc ModelLabel}"
                                    AutomationProperties.AutomationId="Label21_EA876383" />
                             <TextBlock Grid.Row="1"
                                        Grid.Column="1"
@@ -149,7 +151,7 @@
                                                          Value=""
                                                          AutomationProperties.AutomationId="DataTrigger23_EA876383">
                                                 <Setter Property="Text"
-                                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                        Value="{lex:BLoc NotAvailable}" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                         <Setter Property="Text"
@@ -159,7 +161,7 @@
                             </TextBlock>
                             <Label Grid.Row="2"
                                    Grid.Column="0"
-                                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.FirmwareVersionLabel}}"
+                                   Content="{lex:Loc FirmwareVersionLabel}"
                                    AutomationProperties.AutomationId="Label24_EA876383" />
                             <TextBlock Grid.Row="2"
                                        Grid.Column="1"
@@ -175,7 +177,7 @@
                                                          Value=""
                                                          AutomationProperties.AutomationId="DataTrigger26_EA876383">
                                                 <Setter Property="Text"
-                                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                        Value="{lex:BLoc NotAvailable}" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                         <Setter Property="Text"
@@ -185,7 +187,7 @@
                             </TextBlock>
                             <Label Grid.Row="3"
                                    Grid.Column="0"
-                                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalReels_ReelCountLabel}}"
+                                   Content="{lex:Loc MechanicalReels_ReelCountLabel}"
                                    AutomationProperties.AutomationId="Label27_EA876383" />
                             <TextBlock Grid.Row="3"
                                        Grid.Column="1"
@@ -200,7 +202,7 @@
                                                          Value=""
                                                          AutomationProperties.AutomationId="DataTrigger29_EA876383">
                                                 <Setter Property="Text"
-                                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                        Value="{lex:BLoc NotAvailable}" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                         <Setter Property="Text"
@@ -210,7 +212,7 @@
                             </TextBlock>
                             <Label Grid.Row="4"
                                    Grid.Column="0"
-                                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}"
+                                   Content="{lex:Loc StatusLabel}"
                                    AutomationProperties.AutomationId="Label30_EA876383" />
                             <TextBlock Grid.Row="4"
                                        Grid.Column="1"
@@ -225,7 +227,7 @@
                                                          Value=""
                                                          AutomationProperties.AutomationId="DataTrigger32_EA876383">
                                                 <Setter Property="Text"
-                                                        Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                        Value="{lex:BLoc NotAvailable}" />
                                             </DataTrigger>
                                         </Style.Triggers>
                                         <Setter Property="Text"
@@ -259,13 +261,13 @@
                     </Grid.IsEnabled>
                     <Label Grid.Row="0"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.OffsetText}}"
+                           Content="{lex:Loc OffsetText}"
                            Margin="5 0 0 0"
                            VerticalAlignment="Center"
                            AutomationProperties.AutomationId="Label38_EA876383" />
                     <Label Grid.Row="1"
                            Grid.Column="0"
-                           Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalReels_ReelBrightnessLabel}}"
+                           Content="{lex:Loc MechanicalReels_ReelBrightnessLabel}"
                            Margin="5 0 0 0"
                            VerticalAlignment="Center"
                            AutomationProperties.AutomationId="Label39_EA876383" />
@@ -316,7 +318,7 @@
                                 Value="{Binding Brightness}"
                                 IsEnabled="{Binding BrightnessChanging, Converter={StaticResource InverseBoolConverter}}"
                                 AutomationProperties.AutomationId="Slider45_EA876383" />
-                        <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}"
+                        <Button Content="{lex:Loc ApplyLabel}"
                                 IsEnabled="{Binding BrightnessChangePending}"
                                 Command="{Binding ApplyBrightnessCommand}"
                                 Margin="10 0 0 0"
@@ -339,12 +341,6 @@
                     </MultiBinding>
                 </StackPanel.IsEnabled>
                 <!-- Reels -->
-                <StackPanel
-                    Visibility="{Binding ReelAnimationTestScreenHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"
-                    AutomationProperties.AutomationId="StackPanel0_A06673F2">
-                    <views:MechanicalReelsAnimationTestControl x:Name="ReelAnimationTestControl"
-                                                               DataContext="{Binding ReelAnimationTestViewModel}"/>
-                </StackPanel>
                 <StackPanel
                         Visibility="{Binding ReelTestScreenHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"
                             AutomationProperties.AutomationId="StackPanel48_EA876383">
@@ -372,7 +368,7 @@
                 AutomationProperties.AutomationId="Border50_EA876383">
             <StackPanel Orientation="Horizontal"
                         AutomationProperties.AutomationId="StackPanel51_EA876383">
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalReels_ReelSettingsText}}"
+                <Button Content="{lex:Loc MechanicalReels_ReelSettingsText}"
                         Command="{Binding ShowSettingsCommand}"
                         Visibility="{Binding SettingsButtonHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"
                         Margin="0 10 10 10"
@@ -387,7 +383,7 @@
                             <Binding Path="TestModeEnabled" />
                         </MultiBinding>
                     </StackPanel.IsEnabled>
-                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalReels_TestReelsText}}"
+                    <Button Content="{lex:Loc MechanicalReels_TestReelsText}"
                             Command="{Binding ShowReelTestCommand}"
                             Name="TestReelsButton"
                             Visibility="{Binding ReelTestButtonHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"
@@ -396,7 +392,7 @@
                             Height="50"
                             Width="150"
                             AutomationProperties.AutomationId="Button54_EA876383" />
-                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalReels_TestLightsText}}"
+                    <Button Content="{lex:Loc MechanicalReels_TestLightsText}"
                             Command="{Binding ShowLightTestCommand}"
                             Name="TestLightsButton"
                             Visibility="{Binding LightTestButtonHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"
@@ -405,7 +401,7 @@
                             Height="50"
                             Width="150"
                             AutomationProperties.AutomationId="Button55_EA876383" />
-                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestLabel}}"
+                    <Button Content="{lex:Loc SelfTestLabel}"
                             Command="{Binding SelfTestCommand}"
                             Name="SelfTestButton"
                             Visibility="{Binding SettingsScreenHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"
@@ -414,7 +410,7 @@
                             Height="50"
                             Width="150"
                             AutomationProperties.AutomationId="Button56_EA876383" />
-                    <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.SelfTestClearNVM}}"
+                    <Button Content="{lex:Loc SelfTestClearNVM}"
                             Command="{Binding SelfTestClearCommand}"
                             Visibility="{Binding SettingsScreenHidden, Converter={StaticResource TrueCollapsedFalseVisible}}"
                             Margin="10 10 10 10"

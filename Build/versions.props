@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <DotNetReproducibleBuildsVersion>1.1.1</DotNetReproducibleBuildsVersion>
-    <NetAnalyzersVersion>5.0.3</NetAnalyzersVersion>
+    <NetAnalyzersVersion>6.0.0</NetAnalyzersVersion>
     <SonarAnalyzerVersion>8.45.0.54064</SonarAnalyzerVersion>
   </PropertyGroup>
 </Project>

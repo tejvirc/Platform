@@ -33,7 +33,7 @@
         /// <inheritdoc />
         public Certificate Execute(X509Certificate2 parameter)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var currentDefault = _certificateRepository.Get(context, c => c.Default).SingleOrDefault();
 

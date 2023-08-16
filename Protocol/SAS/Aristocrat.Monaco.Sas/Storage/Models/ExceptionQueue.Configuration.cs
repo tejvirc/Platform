@@ -1,24 +1,25 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     The database configuration for <see cref="ExceptionQueue"/>
     /// </summary>
-    public class ExceptionQueueConfiguration : EntityTypeConfiguration<ExceptionQueue>
+    public class ExceptionQueueConfiguration : IEntityTypeConfiguration<ExceptionQueue>
     {
         /// <summary>
         ///     Creates an instance of <see cref="ExceptionQueueConfiguration"/>
         /// </summary>
-        public ExceptionQueueConfiguration()
+        public void Configure(EntityTypeBuilder<ExceptionQueue> builder)
         {
-            ToTable(nameof(ExceptionQueue));
-            HasKey(x => x.Id);
+            builder.ToTable(nameof(ExceptionQueue));
+            builder.HasKey(x => x.Id);
 
-            Property(x => x.ClientId);
-            Property(x => x.Queue)
+            builder.Property(x => x.ClientId);
+            builder.Property(x => x.Queue)
                 .IsRequired();
-            Property(x => x.PriorityQueue)
+            builder.Property(x => x.PriorityQueue)
                 .IsRequired();
         }
     }

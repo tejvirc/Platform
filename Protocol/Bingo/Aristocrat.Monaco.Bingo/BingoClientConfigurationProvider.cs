@@ -12,7 +12,8 @@
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly ICertificateService _certificateService;
 
-        public BingoClientConfigurationProvider(IUnitOfWorkFactory unitOfWorkFactory,
+        public BingoClientConfigurationProvider(
+            IUnitOfWorkFactory unitOfWorkFactory,
             ICertificateService certificateService)
         {
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
@@ -21,6 +22,6 @@
 
         public ClientConfigurationOptions CreateConfiguration() =>
             _unitOfWorkFactory.Invoke(x => x.Repository<Host>().Queryable().Single())
-            .ToConfigurationOptions(_certificateService.GetCertificates());
+                .ToConfigurationOptions(_certificateService.GetCertificates());
     }
 }

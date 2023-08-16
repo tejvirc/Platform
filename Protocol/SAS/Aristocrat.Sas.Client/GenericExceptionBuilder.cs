@@ -1,25 +1,26 @@
-﻿namespace Aristocrat.Sas.Client
+﻿namespace Aristocrat.Sas.Client;
+
+using System.Collections.Generic;
+using Newtonsoft.Json;
+
+/// <summary>
+///     A generic exception builder which only sends one byte of data
+/// </summary>
+[JsonObject(MemberSerialization = MemberSerialization.Fields)]
+public class GenericExceptionBuilder : List<byte>, ISasExceptionCollection
 {
-    using System;
-    using System.Collections.Generic;
-
     /// <summary>
-    ///     A generic exception builder which only sends one byte of data
+    ///     Creates a GenericExceptionBuilder
     /// </summary>
-    [Serializable]
-    public class GenericExceptionBuilder : List<byte>, ISasExceptionCollection
+    /// <param name="exceptionType">The exception to build</param>
+    [JsonConstructor]
+    public GenericExceptionBuilder(GeneralExceptionCode exceptionType)
     {
-        /// <summary>
-        ///     Creates a GenericExceptionBuilder
-        /// </summary>
-        /// <param name="exceptionType">The exception to build</param>
-        public GenericExceptionBuilder(GeneralExceptionCode exceptionType)
-        {
-            ExceptionCode = exceptionType;
-            Add((byte)ExceptionCode);
-        }
-
-        /// <inheritdoc />
-        public GeneralExceptionCode ExceptionCode { get; }
+        ExceptionCode = exceptionType;
+        Add((byte)ExceptionCode);
     }
+
+    /// <inheritdoc />
+    [JsonProperty(nameof(ExceptionCode))]
+    public GeneralExceptionCode ExceptionCode { get; }
 }

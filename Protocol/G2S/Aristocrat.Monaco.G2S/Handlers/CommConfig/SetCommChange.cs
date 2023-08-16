@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Handlers.CommConfig
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Threading.Tasks;
     using Application.Contracts;
@@ -82,7 +82,7 @@
                 return new Error(ErrorCode.G2S_CCX009);
             }
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 if (IsDuplicateCommand(context, command.Command))
                 {
@@ -298,7 +298,7 @@
 
         private CommChangeLog AddNewChangeLog(int deviceId, setCommChange command, DateTime dateTime)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 AbortExistingPendingChangeLogs(context);
 

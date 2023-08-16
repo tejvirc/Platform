@@ -39,7 +39,14 @@
             _transactionCoordinator = null;
 
             MoqServiceManager.RemoveInstance();
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
         }
 
         /// <summary>
@@ -135,7 +142,7 @@
                     theRequestId =>
                     {
                         Thread.Sleep(2000);
-                        proxy.NotifyTransactionReady((Guid)theRequestId);
+                        proxy.NotifyTransactionReady((Guid)theRequestId!);
                     });
                 notifyThread.Start(requestId);
 

@@ -11,6 +11,9 @@
     /// </summary>
     public static class CurrencyLoader
     {
+        private const string WorldCultureName = "ar-001";
+        private const string WorldCurrencySymbol = "XDR";
+
         /// <summary>
         /// Load the currencies from Windows cultures
         /// </summary>
@@ -26,11 +29,14 @@
                              .Where(c => !string.IsNullOrEmpty(c.Name) && !c.IsNeutralCulture))
                 {
                     var region = new RegionInfo(culture.Name);
-                    string currencyCode = region.ISOCurrencySymbol;
+                    //There is one special scenario where culture is "ar-001"
+                    //.NET 6 expects correct country name, if its incorrect RegionInfo will return
+                    //empty string or special characters.
+                    string currencyCode = culture.Name == WorldCultureName ? WorldCurrencySymbol : region.ISOCurrencySymbol;
 
-                    if (!string.IsNullOrEmpty(currencyCode) && !currencyList.ContainsKey(currencyCode))
+                    if (!string.IsNullOrEmpty(currencyCode) && currencyCode != "¤¤" && !currencyList.ContainsKey(currencyCode))
                     {
-                        currencyList[currencyCode] = culture;
+                        currencyList[currencyCode] = (CultureInfo) culture.Clone();
                     }
                 }
             }

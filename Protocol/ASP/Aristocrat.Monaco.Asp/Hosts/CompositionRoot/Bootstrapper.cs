@@ -13,15 +13,19 @@
     using Kernel;
     using Progressive;
     using SimpleInjector;
+    using log4net;
 
     /// <summary>
     ///     This class is mainly used to compose the object graph for this layer
     /// </summary>
     internal static class Bootstrapper
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         internal static Container ConfigureContainer(ProtocolSettings protocolSettings)
         {
             var container = new Container();
+            container.AddResolveUnregisteredType(typeof(Bootstrapper).FullName, Logger);
 
             container.RegisterClasses(protocolSettings);
             container.ConfigureConsumers();

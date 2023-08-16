@@ -2,7 +2,8 @@
 {
     using System.Collections.ObjectModel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using PRNGLib;
+    using Aristocrat.CryptoRng;
+    using Moq;
 
     [TestClass]
     public class NonGamingRngTest
@@ -10,12 +11,13 @@
         [TestMethod]
         public void NonCryptoRangeTest()
         {
-            var rng = new MSCryptoRNG();
+            var state = new Mock<IRandomStateProvider>();
+            var rng = new AtiCryptoRng(state.Object);
 
             RangeTest(rng);
         }
 
-        private static void RangeTest(IPRNG rng)
+        private static void RangeTest(IRandom rng)
         {
             for (var i = 0; i < 64; i++)
             {

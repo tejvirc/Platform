@@ -8,7 +8,7 @@
     using Hardware.Contracts.Persistence;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
-    using PRNGLib;
+    using Aristocrat.CryptoRng;
     using Gaming.Contracts;
 
     [TestClass]
@@ -100,7 +100,7 @@
 
         private MysteryProgressiveProvider _mysteryProgressiveProvider;
         private Mock<IRandomFactory> _randomFactory;
-        private Mock<IPRNG> _prng;
+        private Mock<IRandom> _prng;
         private Mock<IPersistentBlock> _persistentBlock;
         private Mock<IPersistentTransaction> _persistentTransaction;
         private Mock<IPersistenceProvider> _persistenceProvider;
@@ -108,7 +108,7 @@
         [TestInitialize]
         public void Init()
         {
-            _prng = new Mock<IPRNG>();
+            _prng = new Mock<IRandom>();
             _prng.Setup(x => x.GetValue(It.IsAny<ulong>()))
                  .Returns<ulong>(x => x / 2);
 

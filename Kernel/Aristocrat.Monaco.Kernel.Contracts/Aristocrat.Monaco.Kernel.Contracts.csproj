@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Kernel.Contracts</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
   </PropertyGroup>
@@ -22,9 +22,6 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="JurisdictionAddinConfiguration.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -38,7 +35,9 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="Mono.Addins" Version="1.0.0" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="Mono.Addins" Version="1.4.1" />
+    <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
+    <PackageReference Include="protobuf-net" Version="3.1.25" />
   </ItemGroup>
 </Project>

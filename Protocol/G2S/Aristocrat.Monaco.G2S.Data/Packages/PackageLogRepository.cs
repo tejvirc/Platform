@@ -2,7 +2,7 @@
 {
     using Common.Storage;
     using Model;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
 
     /// <summary>

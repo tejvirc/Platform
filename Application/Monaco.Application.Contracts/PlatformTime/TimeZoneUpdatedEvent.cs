@@ -2,6 +2,7 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to notify that the system time zone has been updated.
@@ -11,7 +12,7 @@
     ///     through the <c>TimeZoneInformation</c> of <c>ITime</c>. Any component which is sensitive to
     ///     the system time zone adjustment should consider handling this event.
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class TimeZoneUpdatedEvent : BaseEvent
     {
     }

@@ -1,64 +1,64 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using CommConfig;
 
     /// <summary>
     ///     Configuration for the <see cref="CommChangeLog" /> entity
     /// </summary>
-    public class CommChangeLogMap : EntityTypeConfiguration<CommChangeLog>
+    public class CommChangeLogMap : IEntityTypeConfiguration<CommChangeLog>
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="CommChangeLogMap" /> class.
+        /// 
         /// </summary>
-        public CommChangeLogMap()
+        /// <param name="builder"></param>
+        public void Configure(EntityTypeBuilder<CommChangeLog> builder)
         {
-            ToTable("CommChangeLog");
+            builder.ToTable(nameof(CommChangeLog));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.ConfigurationId)
+            builder.Property(t => t.ConfigurationId)
                 .IsRequired();
 
-            Property(t => t.DeviceId)
+            builder.Property(t => t.DeviceId)
                 .IsRequired();
 
-            Property(t => t.TransactionId)
+            builder.Property(t => t.TransactionId)
                 .IsRequired();
 
-            Property(t => t.ApplyCondition)
+            builder.Property(t => t.ApplyCondition)
                 .IsRequired();
 
-            Property(t => t.DisableCondition)
+            builder.Property(t => t.DisableCondition)
                 .IsRequired();
 
-            Property(t => t.StartDateTime)
-                .IsOptional();
+            builder.Property(t => t.StartDateTime).IsRequired(false);
 
-            Property(t => t.EndDateTime)
-                .IsOptional();
+            builder.Property(t => t.EndDateTime).IsRequired(false);
 
-            Property(t => t.RestartAfter)
+            builder.Property(t => t.RestartAfter)
                 .IsRequired();
 
-            Property(t => t.ChangeStatus)
+            builder.Property(t => t.ChangeStatus)
                 .IsRequired();
 
-            Property(t => t.ChangeDateTime)
+            builder.Property(t => t.ChangeDateTime)
                 .IsRequired();
 
-            Property(t => t.EgmActionConfirmed)
+            builder.Property(t => t.EgmActionConfirmed)
                 .IsRequired();
 
-            Property(t => t.ChangeException)
+            builder.Property(t => t.ChangeException)
                 .IsRequired();
 
-            Property(t => t.ChangeData)
+            builder.Property(t => t.ChangeData)
                 .IsRequired();
 
-            HasMany(l => l.AuthorizeItems)
-                .WithOptional()
+            builder.HasMany(l => l.AuthorizeItems)
+                .WithOne()
                 .HasForeignKey(item => item.CommChangeLogId);
         }
     }

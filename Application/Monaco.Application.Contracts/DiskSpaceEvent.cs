@@ -2,6 +2,7 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to notify that the cabinet disk space is low in a hard tilt condition.
@@ -11,7 +12,7 @@
     ///         This is posted when low disk space is monitored.
     ///     </para>
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class DiskSpaceEvent : BaseEvent
     {
     }

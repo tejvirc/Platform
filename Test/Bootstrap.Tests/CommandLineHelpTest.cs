@@ -8,6 +8,7 @@
     using Bootstrap;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mono.Addins;
+    using Test.Common.UnitTesting;
 
     /// <summary>
     ///     This is a test class for CommandLineHelpTest and is intended
@@ -68,7 +69,14 @@
         {
             if (AddinManager.IsInitialized)
             {
-                AddinManager.Shutdown();
+                try
+                {
+                    AddinManager.Shutdown();
+                }
+                catch (InvalidOperationException)
+                {
+                    // temporarily swallow exception
+                }
             }
         }
 

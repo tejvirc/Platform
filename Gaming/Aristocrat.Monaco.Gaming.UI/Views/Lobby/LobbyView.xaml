@@ -1,49 +1,54 @@
-﻿<metro:MetroWindow
-    x:Class="Aristocrat.Monaco.Gaming.UI.Views.Lobby.LobbyView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl" xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:behaviors="clr-namespace:Aristocrat.Monaco.Gaming.UI.Behaviors" xmlns:lobby="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Lobby" xmlns:overlay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Overlay" xmlns:mediaDisplay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay" xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls" xmlns:loc="http://monaco.aristocrat.com/localization" xmlns:infoBar="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.InfoBar" xmlns:lex="http://wpflocalizeextension.codeplex.com"
-                   loc:Localizer.For="Player"
-                   mc:Ignorable="d"
-                   Title="{Binding MainTitle}"
-                   Width="1920"
-                   Height="1080"
-                   ShowTitleBar="False"
-                   ShowIconOnTitleBar="True"
-                   ShowCloseButton="False"
-                   ShowMaxRestoreButton="False"
-                   ShowMinButton="False"
-                   Loaded="LobbyView_OnLoaded"
-                   Closed="LobbyView_OnClosed"
-                   IgnoreTaskbarOnMaximize="True"
-                   Background="Black"
-                   BorderThickness="0"
-                   GotFocus="LobbyView_OnGotFocus"
-                   Activated="LobbyView_OnActivated"
-                   ContentRendered="LobbyView_OnContentRendered"
-                   d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
-                   Name="Root">
+﻿<metro:MetroWindow x:Class="Aristocrat.Monaco.Gaming.UI.Views.Lobby.LobbyView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"        
+        xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+        xmlns:behaviors="clr-namespace:Aristocrat.Monaco.Gaming.UI.Behaviors"
+        xmlns:lobby="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Lobby"
+        xmlns:overlay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Overlay"
+        xmlns:mediaDisplay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay"
+        xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
+        xmlns:loc="http://monaco.aristocrat.com/localization"
+        xmlns:infoBar="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.InfoBar"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        loc:Localizer.For="Player"
+        mc:Ignorable="d" 
+        Title="{Binding MainTitle}"
+        Width="1920"
+        Height="1080"
+        ShowTitleBar="False"
+        ShowIconOnTitleBar="True"
+        ShowCloseButton="False"
+        ShowMaxRestoreButton="False"
+        ShowMinButton="False"
+        Loaded="LobbyView_OnLoaded"
+        Closed="LobbyView_OnClosed"
+        IgnoreTaskbarOnMaximize="True"
+        Background="Black"
+        BorderThickness="0" 
+        GotFocus="LobbyView_OnGotFocus" 
+        Activated="LobbyView_OnActivated"
+        ContentRendered="LobbyView_OnContentRendered"
+        d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
+        Name="Root">
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
             <!-- Apply MahApps.Metro styles to all controls -->
             <ResourceDictionary.MergedDictionaries>
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
-                <ResourceDictionary
-                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <!-- Accent and AppTheme setting -->
-                <ResourceDictionary
-                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary
-                    Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
-                <ResourceDictionary
-                    Source="../../Skins/Styles.xaml" />
-                <ResourceDictionary
-                    Source="LobbyViewLandscapeTemplate.xaml" />
-                <ResourceDictionary
-                    Source="LobbyViewPortraitTemplate.xaml" />
-                <ResourceDictionary
-                    Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+
+                <ResourceDictionary Source="../../Skins/Styles.xaml" />
+                <ResourceDictionary Source="LobbyViewLandscapeTemplate.xaml" />
+                <ResourceDictionary Source="LobbyViewPortraitTemplate.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
                 <ResourceDictionary
                     Source="LobbyViewMidKnightTemplate.xaml"/>
                 <!-- Jurisdiction xaml dictionary is loaded dynamically; see SkinLoader -->
@@ -52,21 +57,19 @@
                 x:Key="LobbyViewTemplateSelector" />
         </ResourceDictionary>
     </metro:MetroWindow.Resources>
-    <i:Interaction.Behaviors>
-        <behaviors:ActivateBehavior
-            Activated="{Binding LobbyActivated, Mode=TwoWay}" />
-    </i:Interaction.Behaviors>
-    <mediaDisplay:LayoutTemplateDockPanel
-        x:Name="LayoutTemplate"
-                                          ScreenType="Primary">
-        <Grid
-            x:Name="GameLayout"
+
+    <b:Interaction.Behaviors>
+        <behaviors:ActivateBehavior Activated="{Binding LobbyActivated, Mode=TwoWay}"/>
+    </b:Interaction.Behaviors>
+
+    <mediaDisplay:LayoutTemplateDockPanel x:Name="LayoutTemplate" ScreenType="Primary">
+
+        <Grid x:Name="GameLayout"
               ClipToBounds="True"
               DataContext="{Binding ElementName=Root, Path=DataContext}"
               SizeChanged="GameLayout_OnSizeChanged"
               AutomationProperties.AutomationId="Grid0_C7C81470">
-            <Grid
-                x:Name="GameRoot"
+            <Grid x:Name="GameRoot"
                   Height="{Binding GameControlHeight, Mode=TwoWay}"
                   Width="{Binding GameControlWidth, Mode=TwoWay}"
                   AutomationProperties.AutomationId="Grid1_C7C81470">
@@ -154,7 +157,7 @@
                             FontWeight="ExtraBold"
                             Foreground="Gold"
                             TextAlignment="Center"
-                            Text="{lex:Loc {x:Static loc:ResourceKeys.NoGamesForThisLanguage}}"
+                            Text="{lex:Loc NoGamesForThisLanguage}"
                             Visibility="{Binding NoGamesForThisLanguageErrorIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                             AutomationProperties.AutomationId="TextBlock0_28910376" />
                         <!-- BOTTOM ATTRACT: Do not collapse BinkGpuControl.  You will get null BackBuffer. -->

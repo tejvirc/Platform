@@ -834,8 +834,11 @@
             return ex?.InnerExceptions.Any(e => e.GetType() == typeof(TaskCanceledException)) ?? false;
         }
 
-        // ReSharper disable UseNullPropagation
-        private void Dispose(bool disposing)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {
@@ -902,7 +905,7 @@
                 if (_outboundQueue != null)
                 {
                     _outboundQueue.Complete();
-                }
+                }                
             }
 
             _disposed = true;

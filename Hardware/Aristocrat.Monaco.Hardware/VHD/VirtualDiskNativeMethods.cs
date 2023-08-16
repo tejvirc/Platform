@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.VHD
 {
     using System;
-    using System.Runtime.ConstrainedExecution;
     using System.Runtime.InteropServices;
     using System.Security;
     using System.Text;
@@ -539,7 +538,6 @@
         /// <returns>true if successful</returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
         public static extern bool CloseHandle(IntPtr virtualDiskHandle);
 
         /// <summary>

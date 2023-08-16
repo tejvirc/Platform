@@ -14,10 +14,10 @@
         <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+         <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
         <!-- Accent and AppTheme setting -->
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+         <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
         <ResourceDictionary Source="../../Skins/Styles.xaml" />
         <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
     </ResourceDictionary.MergedDictionaries>
@@ -113,7 +113,7 @@
                         AutomationProperties.AutomationId="StackPanel11_74910100">
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Margin="0 0 10 0"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource AllDenom}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource AllDenom}}"
                              AutomationProperties.AutomationId="RadioButton12_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -134,7 +134,7 @@
                 </RadioButton>
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Margin="0 0 10 0"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomA}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomA}}"
                              AutomationProperties.AutomationId="RadioButton15_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -155,7 +155,7 @@
                 </RadioButton>
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Margin="0 0 10 0"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomB}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomB}}"
                              AutomationProperties.AutomationId="RadioButton18_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -175,7 +175,7 @@
                     </RadioButton.Template>
                 </RadioButton>
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomC}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomC}}"
                              AutomationProperties.AutomationId="RadioButton21_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -305,7 +305,7 @@
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Margin="0 0 10 0"
                              Command="{Binding Path=DenomFilterPressedCommand}"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource AllDenom}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource AllDenom}}"
                              AutomationProperties.AutomationId="RadioButton42_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -327,7 +327,7 @@
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              Margin="0 0 10 0"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomB}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomB}}"
                              AutomationProperties.AutomationId="RadioButton45_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -348,7 +348,7 @@
                 </RadioButton>
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomC}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomC}}"
                              AutomationProperties.AutomationId="RadioButton48_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -497,7 +497,7 @@
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Margin="0 0 10 0"
                              Command="{Binding Path=DenomFilterPressedCommand}"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource AllDenom}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource AllDenom}}"
                              AutomationProperties.AutomationId="RadioButton72_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -519,7 +519,7 @@
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              Margin="0 0 10 0"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomA}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomA}}"
                              AutomationProperties.AutomationId="RadioButton75_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -541,7 +541,7 @@
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              Margin="0 0 10 0"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomB}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomB}}"
                              AutomationProperties.AutomationId="RadioButton78_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -562,7 +562,7 @@
                 </RadioButton>
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomC}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomC}}"
                              AutomationProperties.AutomationId="RadioButton81_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -652,7 +652,7 @@
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Margin="0 0 10 0"
                              Command="{Binding Path=DenomFilterPressedCommand}"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource AllDenom}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource AllDenom}}"
                              AutomationProperties.AutomationId="RadioButton96_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -674,7 +674,7 @@
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              Margin="0 0 10 0"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomA}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomA}}"
                              AutomationProperties.AutomationId="RadioButton99_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -695,7 +695,7 @@
                 </RadioButton>
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomB}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomB}}"
                              AutomationProperties.AutomationId="RadioButton102_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -807,7 +807,7 @@
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Margin="0 0 10 0"
                              Command="{Binding Path=DenomFilterPressedCommand}"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource AllDenom}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource AllDenom}}"
                              AutomationProperties.AutomationId="RadioButton121_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -829,7 +829,7 @@
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              Margin="0 0 10 0"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomB}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomB}}"
                              AutomationProperties.AutomationId="RadioButton124_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -850,7 +850,7 @@
                 </RadioButton>
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomC}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomC}}"
                              AutomationProperties.AutomationId="RadioButton127_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -967,7 +967,7 @@
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Margin="0 0 10 0"
                              Command="{Binding Path=DenomFilterPressedCommand}"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource AllDenom}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource AllDenom}}"
                              AutomationProperties.AutomationId="RadioButton146_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -989,7 +989,7 @@
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
                              Margin="0 0 10 0"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomA}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomA}}"
                              AutomationProperties.AutomationId="RadioButton149_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -1010,7 +1010,7 @@
                 </RadioButton>
                 <RadioButton Style="{StaticResource stlFlatToggleButton}"
                              Command="{Binding Path=DenomFilterPressedCommand}"
-                             IsChecked="{Binding DenomFilter,                             Converter={StaticResource IntToBool},                              ConverterParameter={StaticResource DenomB}}"
+                             IsChecked="{Binding DenomFilter, Converter={StaticResource IntToBool}, ConverterParameter={StaticResource DenomB}}"
                              AutomationProperties.AutomationId="RadioButton152_74910100">
                     <RadioButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
@@ -1140,8 +1140,7 @@
                             AutomationProperties.AutomationId="Button166_74910100">&gt;
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Image
-                                        common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=0}"
+                                <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=0}"
                                        AutomationProperties.AutomationId="Image167_74910100" />
                             </ControlTemplate>
                         </Button.Template>
@@ -1153,8 +1152,7 @@
                             AutomationProperties.AutomationId="Button168_74910100">&gt;
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Image
-                                        common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=1}"
+                                <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=1}"
                                        AutomationProperties.AutomationId="Image169_74910100" />
                             </ControlTemplate>
                         </Button.Template>
@@ -1166,8 +1164,7 @@
                             AutomationProperties.AutomationId="Button170_74910100">&gt;
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Image
-                                        common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=2}"
+                                <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=2}"
                                        AutomationProperties.AutomationId="Image171_74910100" />
                             </ControlTemplate>
                         </Button.Template>
@@ -1179,8 +1176,7 @@
                             AutomationProperties.AutomationId="Button172_74910100">&gt;
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Image
-                                        common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=3}"
+                                <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=3}"
                                        AutomationProperties.AutomationId="Image173_74910100" />
                             </ControlTemplate>
                         </Button.Template>
@@ -1192,8 +1188,7 @@
                             AutomationProperties.AutomationId="Button174_74910100">&gt;
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Image
-                                        common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=4}"
+                                <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=4}"
                                        AutomationProperties.AutomationId="Image175_74910100" />
                             </ControlTemplate>
                         </Button.Template>
@@ -1205,8 +1200,7 @@
                             AutomationProperties.AutomationId="Button176_74910100">&gt;
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Image
-                                        common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=5}"
+                                <Image common:ImageHelper.SourceResourceKey="{Binding Volume.ResourceKeys, Converter={StaticResource CollectionConverter}, ConverterParameter=5}"
                                        AutomationProperties.AutomationId="Image177_74910100" />
                             </ControlTemplate>
                         </Button.Template>

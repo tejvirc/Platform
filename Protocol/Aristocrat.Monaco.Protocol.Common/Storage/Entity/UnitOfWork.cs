@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.Common;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Storage;
     using System.Reflection;
     using log4net;
     using Monaco.Common.Storage;
@@ -24,7 +24,7 @@
 
         private Scope _scope;
         private DbContext _context;
-        private DbTransaction _transaction;
+        private IDbContextTransaction _transaction;
 
         private bool _disposed;
 
@@ -39,6 +39,7 @@
             _scope = AsyncScopedLifestyle.BeginScope(_container);
 
             _context = _scope.GetInstance<DbContext>();
+            _context.Database.EnsureCreated();
         }
 
         /// <inheritdoc />
@@ -86,9 +87,9 @@
         /// <inheritdoc />
         public int? CommandTimeout
         {
-            get => _context.Database.CommandTimeout;
+            get => _context.Database.GetCommandTimeout();
 
-            set => _context.Database.CommandTimeout = value;
+            set => _context.Database.SetCommandTimeout(value);
         }
 
         /// <inheritdoc />
@@ -97,12 +98,12 @@
         /// <inheritdoc />
         public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Unspecified)
         {
-            if (_context.Database.Connection.State != ConnectionState.Open)
+            if (_context.Database.GetDbConnection().State != ConnectionState.Open)
             {
-                _context.Database.Connection.Open();
+                _context.Database.GetDbConnection().Open();
             }
 
-            _transaction = _context.Database.BeginTransaction(isolationLevel).UnderlyingTransaction;
+            _transaction = _context.Database.BeginTransaction(isolationLevel);
         }
 
         /// <inheritdoc />
@@ -138,7 +139,7 @@
             GC.SuppressFinalize(this);
         }
 
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {
@@ -162,7 +163,6 @@
 
             _transaction = null;
             _scope = null;
-            _context = null;
 
             _disposed = true;
         }

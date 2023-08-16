@@ -10,6 +10,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d"
+    d:DesignHeight="450"
              d:DesignWidth="800"
              Loaded="ControlLoaded"
              d:DataContext="{d:DesignInstance {x:Type viewModels:MechanicalReelsAnimationTestViewModel}}"
@@ -70,7 +71,7 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     VerticalAlignment="Center"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.Enable}}"
+                    Content="{lex:Loc Enable}"
                     AutomationProperties.AutomationId="Label12_A97F2FA5" />
                 <StackPanel
                     Grid.Row="1"
@@ -79,14 +80,14 @@
                     VerticalAlignment="Center"
                     AutomationProperties.AutomationId="StackPanel13_A97F2FA5">
                     <Label
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.State}}"
+                        Content="{lex:Loc State}"
                         AutomationProperties.AutomationId="Label14_A97F2FA5" />
                     <Label
                         Content=" / "
                         Margin="5 0 0 0"
                         AutomationProperties.AutomationId="Label15_A97F2FA5" />
                     <Label
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.MechanicalReels_StepText}}"
+                        Content="{lex:Loc MechanicalReels_StepText}"
                         Margin="5 0 0 0"
                         AutomationProperties.AutomationId="Label16_A97F2FA5" />
                 </StackPanel>
@@ -94,7 +95,7 @@
                     Grid.Row="2"
                     Grid.Column="0"
                     Name="NudgeButton"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.NudgeButton}}"
+                    Content="{lex:Loc NudgeButton}"
                     Command="{Binding NudgeCommand}"
                     IsEnabled="{Binding NudgeEnabled}"
                     Height="50"
@@ -104,7 +105,7 @@
                     Grid.Row="3"
                     Grid.Column="0"
                     Name="StopButton"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.StopButton}}"
+                    Content="{lex:Loc StopButton}"
                     Command="{Binding StopCommand}"
                     IsEnabled="{Binding StopEnabled}"
                     Height="50"
@@ -199,7 +200,7 @@
                                                         AutomationProperties.AutomationId="DataTrigger32_A97F2FA5">
                                                         <Setter
                                                             Property="Text"
-                                                            Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                            Value="{lex:BLoc NotAvailable}" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                                 <Setter
@@ -232,7 +233,7 @@
                                                         AutomationProperties.AutomationId="DataTrigger35_A97F2FA5">
                                                         <Setter
                                                             Property="Text"
-                                                            Value="{lex:BLoc Key={x:Static loc:ResourceKeys.NotAvailable}}" />
+                                                            Value="{lex:BLoc NotAvailable}" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                                 <Setter
@@ -329,7 +330,7 @@
         <StackPanel Orientation="Horizontal"
                     AutomationProperties.AutomationId="StackPanel40_A97F2FA5">
             <Button
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.HomeButton}}"
+                Content="{lex:Loc HomeButton}"
                 Command="{Binding HomeCommand}"
                 Name="HomeButton"
                 IsEnabled="{Binding HomeEnabled}"
@@ -339,7 +340,7 @@
                 Width="150"
                 AutomationProperties.AutomationId="Button41_A97F2FA5" />
             <Button
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.PlayStepperCurveButton}}"
+                Content="{lex:Loc PlayStepperCurveButton}"
                 Command="{Binding PlayStepperCurveCommand}"
                 IsEnabled="{Binding PlayCurveEnabled}"
                 HorizontalAlignment="Left"

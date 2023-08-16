@@ -35,7 +35,7 @@
         /// <returns>Returns the configuration entity.</returns>
         public PkiConfiguration Execute()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _certificateConfigurationRepository.GetSingle(context);
             }

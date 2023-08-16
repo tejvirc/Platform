@@ -5,10 +5,14 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                                xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
-                               mc:Ignorable="d">
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                               mc:Ignorable="d" >
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -31,47 +35,46 @@
                   Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
                   ItemsSource="{Binding Path=HandpayData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedItem="{Binding SelectedRow}"
-                  ScrollViewer.CanContentScroll="True"
-                  SelectionMode="Single"
+                  ScrollViewer.CanContentScroll="True" SelectionMode="Single" 
                   AutomationProperties.AutomationId="DataGrid4_E4F98A26">
-            <i:Interaction.Triggers>
+            <b:Interaction.Triggers>
                 <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
                     <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}" />
                 </events:RoutedEventTrigger>
-            </i:Interaction.Triggers>
+            </b:Interaction.Triggers>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.SequenceNumberHeader}}"
+                <DataGridTextColumn Header="{lex:Loc SequenceNumberHeader}"
                                     IsReadOnly="True"
                                     Visibility="Collapsed"
                                     Binding="{Binding SequenceNumber}"
                                     Width="200"
                                     AutomationProperties.AutomationId="DataGridTextColumn5_E4F98A26" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTimeHeader}}"
+                <DataGridTextColumn Header="{lex:Loc DateAndTimeHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding TimeStamp}"
                                     Width="220"
                                     AutomationProperties.AutomationId="DataGridTextColumn6_E4F98A26" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.TransactionType}}"
+                <DataGridTextColumn Header="{lex:Loc TransactionType}"
                                     IsReadOnly="True"
                                     Binding="{Binding HandpayType}"
                                     Width="220"
                                     AutomationProperties.AutomationId="DataGridTextColumn7_E4F98A26" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CashableHeader}}"
+                <DataGridTextColumn Header="{lex:Loc CashableHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding CashableAmount}"
                                     Width="190"
                                     AutomationProperties.AutomationId="DataGridTextColumn8_E4F98A26" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.PromoHeader}}"
+                <DataGridTextColumn Header="{lex:Loc PromoHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding PromoAmount}"
                                     Width="190"
                                     AutomationProperties.AutomationId="DataGridTextColumn9_E4F98A26" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.NonCashableHeader}}"
+                <DataGridTextColumn  Header="{lex:Loc NonCashableHeader}"
                                     IsReadOnly="True"
                                     Binding="{Binding NonCashAmount}"
                                     Width="190"
                                     AutomationProperties.AutomationId="DataGridTextColumn10_E4F98A26" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.State}}"
+                <DataGridTextColumn Header="{lex:Loc State}"
                                     IsReadOnly="True"
                                     Binding="{Binding State}"
                                     Width="140"
@@ -95,18 +98,18 @@
             <!--<Button Content="{x:Static loc:Resources.PrintSelectedButtonText}"
                     IsEnabled="{Binding EnablePrintSelectedButton}" Width="200"
                     Command="{Binding PrintSelectedCommand}"-->
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReprintButtonText}}"
-                    Command="{Binding ReprintButtonCommand}"
+            <Button Content="{lex:Loc ReprintButtonText}"
+                    Command="{Binding ReprintButtonCommand}" 
                     IsEnabled="{Binding CanReprint}"
                     Visibility="{Binding IsReprintButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="Button13_E4F98A26" />
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintLast15RecordsButtonText}}"
+            <Button Content="{lex:Loc PrintLast15RecordsButtonText}"
                     IsEnabled="{Binding PrinterButtonsEnabled}"
                     Width="200"
                     Command="{Binding PrintLast15ButtonCommand}"
                     Visibility="{Binding PrintLast15ButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="Button14_E4F98A26" />
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.PrintCurrentPageButtonText}}"
+            <Button Content="{lex:Loc PrintCurrentPageButtonText}"
                     IsEnabled="{Binding PrinterButtonsEnabled}"
                     Width="200"
                     Command="{Binding PrintCurrentPageButtonCommand}"

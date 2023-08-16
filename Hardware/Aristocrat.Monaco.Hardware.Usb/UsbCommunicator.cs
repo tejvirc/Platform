@@ -210,11 +210,13 @@
             ProductId = int.Parse(comConfiguration.UsbDeviceProductId.Substring(4), NumberStyles.HexNumber);
             ProductIdDfu = int.Parse(comConfiguration.UsbDeviceProductIdDfu.Substring(4), NumberStyles.HexNumber);
 
+            _hidDriver?.Dispose();
             _hidDriver = new HidDriver
             {
                 VendorId = VendorId,
                 ProductId = ProductId
             };
+
             _hidDriver.ReportReceived += DriverReportReceived;
             _hidDriver.DeviceAttached += DriverAttached;
             _hidDriver.DeviceDetached += DriverDetached;

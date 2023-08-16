@@ -1,12 +1,7 @@
-﻿using System.Data.Entity;
-using System.IO;
-using Aristocrat.Monaco.G2S.Data.Model;
-using Moq;
-
-namespace Aristocrat.Monaco.G2S.Common.Tests.PackageManager.CommandHandlers
+﻿namespace Aristocrat.Monaco.G2S.Common.Tests.PackageManager.CommandHandlers
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.IO;
     using Application.Contracts;
     using Application.Contracts.Authentication;

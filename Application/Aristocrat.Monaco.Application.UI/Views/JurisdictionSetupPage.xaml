@@ -6,8 +6,10 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               xmlns:common="http://monaco.aristocrat.com/common"
+                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:JurisdictionSetupPageViewModel, IsDesignTimeCreatable=True}"
                                common:DialogParticipation.Register="{Binding}">
@@ -39,7 +41,7 @@
         </Grid.RowDefinitions>
         <Label Grid.Column="0"
                Grid.Row="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.AddinJurisdictionSelection}}"
+               Content="{lex:Loc AddinJurisdictionSelection}"
                AutomationProperties.AutomationId="Label8_CCDD8208" />
         <ComboBox Grid.Column="0"
                   Grid.Row="1"
@@ -56,7 +58,7 @@
                   Margin="0 30 0 0"
                   Visibility="{Binding ShowModeVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
                   IsEnabled="{Binding IsJurisdictionSelectionEnabled}"
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableShowMode}}"
+                  Content="{lex:Loc EnableShowMode}"
                   IsChecked="{Binding IsShowModeChecked}"
                   AutomationProperties.AutomationId="CheckBox10_CCDD8208" />
         <CheckBox Grid.Column="0"
@@ -64,7 +66,7 @@
                   Margin="0 10 0 0"
                   IsEnabled="{Binding GameRulesEditable}"
                   Visibility="{Binding GameRulesVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.ShowGameRules}}"
+                  Content="{lex:Loc ShowGameRules}"
                   IsChecked="{Binding IsGameRulesChecked}"
                   AutomationProperties.AutomationId="CheckBox11_CCDD8208" />
         <StackPanel Grid.Column="0"
@@ -80,7 +82,7 @@
             <StackPanel Orientation="Horizontal"
                         Margin="0 10 0 0"
                         AutomationProperties.AutomationId="StackPanel14_CCDD8208">
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ImportMachineSettingsLabel}}"
+                <Button Content="{lex:Loc ImportMachineSettingsLabel}"
                         Command="{Binding ImportCommand}"
                         AutomationProperties.AutomationId="Button15_CCDD8208" />
             </StackPanel>

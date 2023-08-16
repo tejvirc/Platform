@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
@@ -182,7 +182,7 @@
         /// <inheritdoc />
         public int VoucherIdAvailable()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _voucherData.Count(context);
             }
@@ -254,7 +254,7 @@
 
             lock (_voucherDataLock)
             {
-                using (var context = _contextFactory.Create())
+                using (var context = _contextFactory.CreateDbContext())
                 {
                     var count = _voucherData.Count(context);
                     if (count > 0)
@@ -283,7 +283,7 @@
         /// <inheritdoc />
         public VoucherData ReadVoucherData()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return GetLastVoucher(context);
             }
@@ -496,7 +496,7 @@
             TimeSpan? time = null;
             var now = DateTime.UtcNow;
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var lastData = GetLastVoucher(context);
                 if (lastData == null)
@@ -700,7 +700,7 @@
 
                 lock (_voucherDataLock)
                 {
-                    using (var context = _contextFactory.Create())
+                    using (var context = _contextFactory.CreateDbContext())
                     {
                         var data = _voucherData.GetAll(context).ToList();
 
@@ -838,7 +838,7 @@
 
             lock (_voucherDataLock)
             {
-                using (var context = _contextFactory.Create())
+                using (var context = _contextFactory.CreateDbContext())
                 {
                     foreach (var del in toDeleteData)
                     {
@@ -863,7 +863,7 @@
 
         private void DeleteAllValidationIds(IVoucherDevice device)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var voucherData = _voucherData.GetAll(context).ToList();
 
@@ -878,7 +878,7 @@
 
             Logger.Debug("Requesting voucher data");
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 count = _voucherData.Count(context);
 
@@ -923,7 +923,7 @@
 
             lock (_voucherDataLock)
             {
-                using (var context = _contextFactory.Create())
+                using (var context = _contextFactory.CreateDbContext())
                 {
                     List<VoucherData> vouchersToDelete = null;
                     if (voucherData.deleteCurrent)
@@ -1034,7 +1034,7 @@
 
         private void SetState()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 if (_voucherData.Count(context) <= 0)
                 {

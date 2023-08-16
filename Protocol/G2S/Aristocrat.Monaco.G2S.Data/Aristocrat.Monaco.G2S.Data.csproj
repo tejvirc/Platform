@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.G2S.Data</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
   </PropertyGroup>
@@ -21,9 +21,6 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-  </ItemGroup>
-  <ItemGroup>
     <CodeAnalysisDictionary Include="CustomDictionary.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -32,8 +29,10 @@
     <ProjectReference Include="..\Aristocrat.G2S.Client\Aristocrat.G2S.Client.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.G2S" Version="4.1.44" />
-    <PackageReference Include="EntityFramework" Version="6.4.0" />
+    <PackageReference Include="Aristocrat.G2S" Version="5.0.0-beta0009" />
+    <PackageReference Include="Aristocrat.Microsoft.EntityFrameworkCore" Version="6.0.18" />
+    <PackageReference Include="Aristocrat.Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.18" />
+    <PackageReference Include="Aristocrat.SQLitePCLRaw.bundle_e_sqlcipher" Version="2.1.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 </Project>

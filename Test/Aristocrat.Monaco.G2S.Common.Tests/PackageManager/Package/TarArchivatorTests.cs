@@ -22,11 +22,11 @@
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
             MockLocalization.Setup(MockBehavior.Strict);
 
-            //_testDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData\\TestTar").Replace("\\", "/").TrimEnd('/');
-            //_testOutputDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData/TestTarOut").Replace("\\", "/").TrimEnd('/');
+            //_testDirectoryPath = Path.Combine(AppContext.BaseDirectory, "TestData\\TestTar").Replace("\\", "/").TrimEnd('/');
+            //_testOutputDirectoryPath = Path.Combine(AppContext.BaseDirectory, "TestData/TestTarOut").Replace("\\", "/").TrimEnd('/');
 
-            _testDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData\\TestTar");
-            _testOutputDirectoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData/TestTarOut");
+            _testDirectoryPath = Path.Combine(AppContext.BaseDirectory, "TestData\\TestTar");
+            _testOutputDirectoryPath = Path.Combine(AppContext.BaseDirectory, "TestData/TestTarOut");
 
             _tarArchive = new TarArchive();
         }

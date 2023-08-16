@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Aristocrat.Monaco.Accounting.UI.Settings"
                     xmlns:lex="http://wpflocalizeextension.codeplex.com"
@@ -150,8 +150,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="0"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.CreditLimit}}"
-                           AutomationProperties.AutomationId="TextBlock67_D57C8E38" />
+                           AutomationProperties.AutomationId="TextBlock67_D57C8E38"
+                           Text="{lex:Loc CreditLimit}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="0"
@@ -160,8 +160,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="1"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.HandpayLimit}}"
-                           AutomationProperties.AutomationId="TextBlock69_D57C8E38" />
+                           AutomationProperties.AutomationId="TextBlock69_D57C8E38" 
+                           Text="{lex:Loc HandpayLimit}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="1"
@@ -170,8 +170,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="2"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.LargeWinLimit}}"
-                           AutomationProperties.AutomationId="TextBlock71_D57C8E38" />
+                           AutomationProperties.AutomationId="TextBlock71_D57C8E38"
+                           Text="{lex:Loc LargeWinLimit}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="2"
@@ -180,8 +180,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="3"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.LargeWinRatio}}"
-                           AutomationProperties.AutomationId="TextBlock73_D57C8E38" />
+                           AutomationProperties.AutomationId="TextBlock73_D57C8E38" 
+                           Text="{lex:Loc LargeWinRatio}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="3"
@@ -190,8 +190,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="4"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.LargeWinRatioThreshold}}"
-                           AutomationProperties.AutomationId="TextBlock75_D57C8E38" />
+                           AutomationProperties.AutomationId="TextBlock75_D57C8E38"
+                           Text="{lex:Loc LargeWinRatioThreshold}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="4"
@@ -200,8 +200,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="5"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.MaxBetLimit}}"
-                           AutomationProperties.AutomationId="TextBlock77_D57C8E38" />
+                           Text="{lex:Loc MaxBetLimit}"
+                           AutomationProperties.AutomationId="TextBlock77_D57C8E38"  />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="5"
@@ -210,8 +210,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="6"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.CelebrationLockupLimit}}"
-                           AutomationProperties.AutomationId="TextBlock79_D57C8E38" />
+                           AutomationProperties.AutomationId="TextBlock79_D57C8E38"
+                           Text="{lex:Loc CelebrationLockupLimit}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="6"
@@ -220,8 +220,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="7"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AllowRemoteHandpayReset}}"
-                           AutomationProperties.AutomationId="TextBlock81_D57C8E38" />
+                           AutomationProperties.AutomationId="TextBlock81_D57C8E38"
+                           Text="{lex:Loc AllowRemoteHandpayReset}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="7"
@@ -230,8 +230,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="8"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.LargeWinHandpayResetMethod}}"
-                           AutomationProperties.AutomationId="TextBlock83_D57C8E38" />
+                           AutomationProperties.AutomationId="TextBlock83_D57C8E38"
+                           Text="{lex:Loc LargeWinHandpayResetMethod}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="8"
@@ -240,8 +240,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="9"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.VoucherInLimit}}"
-                           AutomationProperties.AutomationId="TextBlock85_D57C8E38" />
+                           AutomationProperties.AutomationId="TextBlock85_D57C8E38"
+                           Text="{lex:Loc VoucherInLimit}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="9"
@@ -250,8 +250,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="10"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AllowVoucherOut}}"
-                           AutomationProperties.AutomationId="TextBlock87_D57C8E38" />
+                            AutomationProperties.AutomationId="TextBlock87_D57C8E38"
+                           Text="{lex:Loc AllowVoucherOut}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="10"
@@ -260,8 +260,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="11"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.VoucherOutLimit}}"
-                           AutomationProperties.AutomationId="TextBlock89_D57C8E38" />
+                           AutomationProperties.AutomationId="TextBlock89_D57C8E38"
+                           Text="{lex:Loc VoucherOutLimit}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="11"
@@ -270,8 +270,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="12"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AllowNonCashableVoucherOut}}"
-                           AutomationProperties.AutomationId="TextBlock91_D57C8E38" />
+                           AutomationProperties.AutomationId="TextBlock91_D57C8E38"
+                           Text="{lex:Loc AllowNonCashableVoucherOut}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="12"
@@ -280,8 +280,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="13"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.PrintHandpayReceipt}}"
-                           AutomationProperties.AutomationId="TextBlock93_D57C8E38" />
+                           AutomationProperties.AutomationId="TextBlock93_D57C8E38"
+                           Text="{lex:Loc PrintHandpayReceipt}" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="13"
@@ -290,7 +290,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="14"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.VoucherCashExpiration}}"
+                           Text="{lex:Loc VoucherCashExpiration}" 
                            AutomationProperties.AutomationId="TextBlock95_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -300,8 +300,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="15"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.VoucherNonCashExpiration}}"
-                           AutomationProperties.AutomationId="TextBlock97_D57C8E38" />
+                           Text="{lex:Loc VoucherNonCashExpiration}"
+                           AutomationProperties.AutomationId="TextBlock97_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="15"
@@ -310,8 +310,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="16"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AllowCashWinTicket}}"
-                           AutomationProperties.AutomationId="TextBlock99_D57C8E38" />
+                           Text="{lex:Loc AllowCashWinTicket}" 
+                           AutomationProperties.AutomationId="TextBlock99_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="16"
@@ -320,8 +320,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="17"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AllowCreditUnderLimit}}"
-                           AutomationProperties.AutomationId="TextBlock101_D57C8E38" />
+                           Text="{lex:Loc AllowCreditUnderLimit}" 
+                           AutomationProperties.AutomationId="TextBlock101_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="17"
@@ -330,8 +330,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="18"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.CheckCreditsIn}}"
-                           AutomationProperties.AutomationId="TextBlock103_D57C8E38" />
+                           Text="{lex:Loc CheckCreditsIn}" 
+                           AutomationProperties.AutomationId="TextBlock103_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="18"
@@ -340,8 +340,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="19"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.CombineCashableOut}}"
-                           AutomationProperties.AutomationId="TextBlock105_D57C8E38" />
+                           Text="{lex:Loc CombineCashableOut}"
+                           AutomationProperties.AutomationId="TextBlock105_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="19"
@@ -350,7 +350,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="20"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledLocalCredit}}"
+                           Text="{lex:Loc DisabledLocalCredit}"
                            AutomationProperties.AutomationId="TextBlock107_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -360,8 +360,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="21"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledLocalHandpay}}"
-                           AutomationProperties.AutomationId="TextBlock109_D57C8E38" />
+                           Text="{lex:Loc DisabledLocalHandpay}"
+                           AutomationProperties.AutomationId="TextBlock109_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="21"
@@ -370,8 +370,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="22"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledLocalVoucher}}"
-                           AutomationProperties.AutomationId="TextBlock111_D57C8E38" />
+                           Text="{lex:Loc DisabledLocalVoucher}" 
+                           AutomationProperties.AutomationId="TextBlock111_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="22"
@@ -380,7 +380,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="23"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledLocalWat}}"
+                           Text="{lex:Loc DisabledLocalWat}"
                            AutomationProperties.AutomationId="TextBlock113_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -390,7 +390,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="24"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledRemoteCredit}}"
+                           Text="{lex:Loc DisabledRemoteCredit}"
                            AutomationProperties.AutomationId="TextBlock115_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -400,8 +400,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="25"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledRemoteHandpay}}"
-                           AutomationProperties.AutomationId="TextBlock117_D57C8E38" />
+                           Text="{lex:Loc DisabledRemoteHandpay}" 
+                           AutomationProperties.AutomationId="TextBlock117_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="25"
@@ -410,8 +410,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="26"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledRemoteVoucher}}"
-                           AutomationProperties.AutomationId="TextBlock119_D57C8E38" />
+                           Text="{lex:Loc DisabledRemoteVoucher}"
+                           AutomationProperties.AutomationId="TextBlock119_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="26"
@@ -420,8 +420,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="27"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledRemoteWat}}"
-                           AutomationProperties.AutomationId="TextBlock121_D57C8E38" />
+                           Text="{lex:Loc DisabledRemoteWat}"
+                           AutomationProperties.AutomationId="TextBlock121_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="27"
@@ -430,8 +430,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="28"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledLocalCredit}}"
-                           AutomationProperties.AutomationId="TextBlock123_D57C8E38" />
+                           Text="{lex:Loc EnabledLocalCredit}" 
+                           AutomationProperties.AutomationId="TextBlock123_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="28"
@@ -440,8 +440,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="29"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledLocalHandpay}}"
-                           AutomationProperties.AutomationId="TextBlock125_D57C8E38" />
+                           Text="{lex:Loc EnabledLocalHandpay}" 
+                           AutomationProperties.AutomationId="TextBlock125_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="29"
@@ -450,7 +450,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="30"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledLocalVoucher}}"
+                           Text="{lex:Loc EnabledLocalVoucher}"
                            AutomationProperties.AutomationId="TextBlock127_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -460,7 +460,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="31"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledLocalWat}}"
+                           Text="{lex:Loc EnabledLocalWat}" 
                            AutomationProperties.AutomationId="TextBlock129_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -470,8 +470,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="32"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledRemoteCredit}}"
-                           AutomationProperties.AutomationId="TextBlock131_D57C8E38" />
+                           Text="{lex:Loc EnabledRemoteCredit}"
+                           AutomationProperties.AutomationId="TextBlock131_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="32"
@@ -480,7 +480,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="33"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledRemoteHandpay}}"
+                           Text="{lex:Loc EnabledRemoteHandpay}"
                            AutomationProperties.AutomationId="TextBlock133_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -490,7 +490,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="34"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledRemoteVoucher}}"
+                           Text="{lex:Loc EnabledRemoteVoucher}"
                            AutomationProperties.AutomationId="TextBlock135_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -500,8 +500,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="35"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.EnabledRemoteWat}}"
-                           AutomationProperties.AutomationId="TextBlock137_D57C8E38" />
+                           Text="{lex:Loc EnabledRemoteWat}"
+                           AutomationProperties.AutomationId="TextBlock137_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="35"
@@ -510,8 +510,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="36"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.IdReaderId}}"
-                           AutomationProperties.AutomationId="TextBlock139_D57C8E38" />
+                           Text="{lex:Loc IdReaderId}" 
+                           AutomationProperties.AutomationId="TextBlock139_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="36"
@@ -520,8 +520,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="37"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.IgnoreVoucherStackedDuringReboot}}"
-                           AutomationProperties.AutomationId="TextBlock141_D57C8E38" />
+                           Text="{lex:Loc IgnoreVoucherStackedDuringReboot}"
+                           AutomationProperties.AutomationId="TextBlock141_D57C8E38"  />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="37"
@@ -530,8 +530,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="38"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.LocalKeyOff}}"
-                           AutomationProperties.AutomationId="TextBlock143_D57C8E38" />
+                           Text="{lex:Loc LocalKeyOff}" 
+                           AutomationProperties.AutomationId="TextBlock143_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="38"
@@ -540,7 +540,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="39"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.MaxTenderInLimit}}"
+                           Text="{lex:Loc MaxTenderInLimit}"
                            AutomationProperties.AutomationId="TextBlock145_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -550,8 +550,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="40"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.MaxWinAmount}}"
-                           AutomationProperties.AutomationId="TextBlock147_D57C8E38" />
+                           Text="{lex:Loc MaxWinAmount}" 
+                           AutomationProperties.AutomationId="TextBlock147_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="40"
@@ -560,7 +560,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="41"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.MixCreditTypes}}"
+                           Text="{lex:Loc MixCreditTypes}" 
                            AutomationProperties.AutomationId="TextBlock149_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -570,7 +570,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="42"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.MoneyInEnabled}}"
+                           Text="{lex:Loc MoneyInEnabled}" 
                            AutomationProperties.AutomationId="TextBlock151_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -580,8 +580,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="43"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.PartialHandpays}}"
-                           AutomationProperties.AutomationId="TextBlock153_D57C8E38" />
+                           Text="{lex:Loc PartialHandpays}"
+                           AutomationProperties.AutomationId="TextBlock153_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="43"
@@ -590,8 +590,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="44"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.RedeemText}}"
-                           AutomationProperties.AutomationId="TextBlock155_D57C8E38" />
+                           Text="{lex:Loc RedeemText}" 
+                           AutomationProperties.AutomationId="TextBlock155_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="44"
@@ -600,8 +600,8 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="45"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ReprintLoggedVoucher}}"
-                           AutomationProperties.AutomationId="TextBlock157_D57C8E38" />
+                           Text="{lex:Loc ReprintLoggedVoucher}" 
+                           AutomationProperties.AutomationId="TextBlock157_D57C8E38"/>
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
                            Grid.Row="45"
@@ -610,7 +610,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="46"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ReprintLoggedVoucherDoorOpenRequirement}}"
+                           Text="{lex:Loc ReprintLoggedVoucherDoorOpenRequirement}" 
                            AutomationProperties.AutomationId="TextBlock159_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -620,7 +620,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="47"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ReprintLoggedVoucherTitleOverride}}"
+                           Text="{lex:Loc ReprintLoggedVoucherTitleOverride}" 
                            AutomationProperties.AutomationId="TextBlock161_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -630,7 +630,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="48"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.RequestNonCash}}"
+                           Text="{lex:Loc RequestNonCash}" 
                            AutomationProperties.AutomationId="TextBlock163_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -640,7 +640,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="49"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketBarcodeLength}}"
+                           Text="{lex:Loc TicketBarcodeLength}" 
                            AutomationProperties.AutomationId="TextBlock165_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -650,7 +650,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="50"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleBonusCash}}"
+                           Text="{lex:Loc TicketTitleBonusCash}" 
                            AutomationProperties.AutomationId="TextBlock167_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -660,7 +660,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="51"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleBonusNonCash}}"
+                           Text="{lex:Loc TicketTitleBonusNonCash}" 
                            AutomationProperties.AutomationId="TextBlock169_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -670,7 +670,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="52"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleBonusPromo}}"
+                           Text="{lex:Loc TicketTitleBonusPromo}" 
                            AutomationProperties.AutomationId="TextBlock171_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -680,7 +680,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="53"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleCash}}"
+                           Text="{lex:Loc TicketTitleCash}" 
                            AutomationProperties.AutomationId="TextBlock173_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -690,7 +690,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="54"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleLargeWin}}"
+                           Text="{lex:Loc TicketTitleLargeWin}" 
                            AutomationProperties.AutomationId="TextBlock175_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -700,7 +700,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="55"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleNonCash}}"
+                           Text="{lex:Loc TicketTitleNonCash}" 
                            AutomationProperties.AutomationId="TextBlock177_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -710,7 +710,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="56"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitlePromo}}"
+                           Text="{lex:Loc TicketTitlePromo}" 
                            AutomationProperties.AutomationId="TextBlock179_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -720,7 +720,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="57"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleWatNonCash}}"
+                           Text="{lex:Loc TicketTitleWatNonCash}" 
                            AutomationProperties.AutomationId="TextBlock181_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -730,7 +730,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="58"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.TicketTitleWatPromo}}"
+                           Text="{lex:Loc TicketTitleWatPromo}" 
                            AutomationProperties.AutomationId="TextBlock183_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -740,7 +740,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="59"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.TitleCancelReceipt}}"
+                           Text="{lex:Loc TitleCancelReceipt}" 
                            AutomationProperties.AutomationId="TextBlock185_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -750,7 +750,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="60"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.TitleJackpotReceipt}}"
+                           Text="{lex:Loc TitleJackpotReceipt}" 
                            AutomationProperties.AutomationId="TextBlock187_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -760,7 +760,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="61"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.UsePlayerIdReader}}"
+                           Text="{lex:Loc UsePlayerIdReader}" 
                            AutomationProperties.AutomationId="TextBlock189_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -770,7 +770,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="62"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ValidateHandpays}}"
+                           Text="{lex:Loc ValidateHandpays}" 
                            AutomationProperties.AutomationId="TextBlock191_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -780,7 +780,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="63"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.PayoutLimit}}"
+                           Text="{lex:Loc PayoutLimit}"
                            AutomationProperties.AutomationId="TextBlock193_D57C8E38" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"

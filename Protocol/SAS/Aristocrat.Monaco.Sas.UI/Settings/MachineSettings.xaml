@@ -69,7 +69,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="0"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.DualHost}}"
+                           Text="{lex:Loc DualHost}"
                            AutomationProperties.AutomationId="TextBlock27_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -79,7 +79,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="1"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.GeneralControlPortLabel}}"
+                           Text="{lex:Loc GeneralControlPortLabel}"
                            AutomationProperties.AutomationId="TextBlock29_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -89,7 +89,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="2"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.SasHost}}"
+                           Text="{lex:Loc SasHost}"
                            AutomationProperties.AutomationId="TextBlock31_3A936147" />
                 <DataGrid Grid.Column="1"
                           Grid.Row="2"
@@ -119,7 +119,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="3"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ValidationPortLabel}}"
+                           Text="{lex:Loc ValidationPortLabel}"
                            AutomationProperties.AutomationId="TextBlock36_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -129,7 +129,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="4"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftPortLabel}}"
+                           Text="{lex:Loc AftPortLabel}"
                            AutomationProperties.AutomationId="TextBlock38_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -139,7 +139,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="5"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.LegacyBonusPortLabel}}"
+                           Text="{lex:Loc LegacyBonusPortLabel}"
                            AutomationProperties.AutomationId="TextBlock40_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -149,7 +149,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="6"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.GameStartEndPortLabel}}"
+                           Text="{lex:Loc GameStartEndPortLabel}"
                            AutomationProperties.AutomationId="TextBlock42_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -159,7 +159,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="7"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ProgressivePortLabel}}"
+                           Text="{lex:Loc ProgressivePortLabel}"
                            AutomationProperties.AutomationId="TextBlock44_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -169,7 +169,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="8"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ProgGroupIdLabel}}"
+                           Text="{lex:Loc ProgGroupIdLabel}"
                            AutomationProperties.AutomationId="TextBlock46_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -179,7 +179,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="9"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftInLabel}}"
+                           Text="{lex:Loc AftInLabel}"
                            AutomationProperties.AutomationId="TextBlock48_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -189,7 +189,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="10"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftOutLabel}}"
+                           Text="{lex:Loc AftOutLabel}"
                            AutomationProperties.AutomationId="TextBlock50_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -199,7 +199,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="11"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftPartialTransfersAllowedLabel}}"
+                           Text="{lex:Loc AftPartialTransfersAllowedLabel}"
                            AutomationProperties.AutomationId="TextBlock52_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -209,7 +209,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="12"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftBonusingEnabledLabel}}"
+                           Text="{lex:Loc AftBonusingEnabledLabel}"
                            AutomationProperties.AutomationId="TextBlock54_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -219,7 +219,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="13"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftWinAmountToHostTransfersEnabledLabel}}"
+                           Text="{lex:Loc AftWinAmountToHostTransfersEnabledLabel}"
                            AutomationProperties.AutomationId="TextBlock56_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -229,7 +229,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="14"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.AftTransferLimitLabel}}"
+                           Text="{lex:Loc AftTransferLimitLabel}"
                            AutomationProperties.AutomationId="TextBlock58_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -239,7 +239,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="15"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ValidationFeatureLabel}}"
+                           Text="{lex:Loc ValidationFeatureLabel}"
                            AutomationProperties.AutomationId="TextBlock60_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -249,7 +249,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="16"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.HandpayModeLabel}}"
+                           Text="{lex:Loc HandpayModeLabel}"
                            AutomationProperties.AutomationId="TextBlock62_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -259,7 +259,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="17"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.HostDisableCashoutActionLabel}}"
+                           Text="{lex:Loc HostDisableCashoutActionLabel}"
                            AutomationProperties.AutomationId="TextBlock64_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -269,7 +269,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="18"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ConfigChangeNotification}}"
+                           Text="{lex:Loc ConfigChangeNotification}"
                            AutomationProperties.AutomationId="TextBlock66_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -279,7 +279,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="19"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.LegacyBonusAllowed}}"
+                           Text="{lex:Loc LegacyBonusAllowed}"
                            AutomationProperties.AutomationId="TextBlock68_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -289,7 +289,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="20"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.RequireLP02OnPowerUp}}"
+                           Text="{lex:Loc RequireLP02OnPowerUp}"
                            AutomationProperties.AutomationId="TextBlock70_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -299,7 +299,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="21"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.EGMDisabledOnHostOfflineLabel}}"
+                           Text="{lex:Loc EGMDisabledOnHostOfflineLabel}"
                            AutomationProperties.AutomationId="TextBlock72_3A936147" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -309,7 +309,7 @@
                 <TextBlock Grid.Column="0"
                            Grid.Row="22"
                            Style="{DynamicResource SettingNameStyle}"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.OverflowText}}"
+                           Text="{lex:Loc OverflowText}"
                            AutomationProperties.AutomationId="TextBlock74_3A936147" />
                 <TextBlock Grid.Column="1"
                            Grid.Row="22"

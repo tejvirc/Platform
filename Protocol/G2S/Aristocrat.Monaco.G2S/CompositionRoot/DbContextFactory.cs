@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Data.SqlClient;
     using System.IO;
     using System.Threading;
@@ -15,10 +15,9 @@
     public class DbContextFactory : IMonacoContextFactory, IService, IDisposable
     {
         private readonly string _connectionString;
+        private readonly ManualResetEventSlim _exclusiveLock = new(true);
 
         private bool _disposed;
-
-        private ManualResetEventSlim _exclusiveLock = new ManualResetEventSlim(true);
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="DbContextFactory" /> class.
@@ -40,6 +39,8 @@
             }
 
             _connectionString = ConnectionString(pathMapper, Constants.DatabasePassword);
+            using var context = new MonacoContext(_connectionString);
+            context.Database.EnsureCreated();
         }
 
         /// <inheritdoc />
@@ -50,19 +51,17 @@
         }
 
         /// <inheritdoc />
-        public DbContext Create()
+        public DbContext CreateDbContext()
         {
             _exclusiveLock.Wait();
-
-            return new MonacoContext(_connectionString);
+            return CreateContext();
         }
 
         /// <inheritdoc />
         public DbContext Lock()
         {
             _exclusiveLock.Reset();
-
-            return new MonacoContext(_connectionString);
+            return CreateContext();
         }
 
         /// <inheritdoc />
@@ -101,8 +100,6 @@
                 _exclusiveLock.Dispose();
             }
 
-            _exclusiveLock = null;
-
             _disposed = true;
         }
 
@@ -118,6 +115,20 @@
             };
 
             return sqlBuilder.ConnectionString;
+        }
+
+        private DbContext CreateContext()
+        {
+            var context = new MonacoContext(_connectionString);
+            try
+            {
+                return context;
+            }
+            catch
+            {
+                context.Dispose();
+                throw;
+            }
         }
     }
 }

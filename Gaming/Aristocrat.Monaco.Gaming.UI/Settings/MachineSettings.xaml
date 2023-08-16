@@ -32,7 +32,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="0"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ApplyGameCategorySettings}}"
+                           Text="{lex:Loc ApplyGameCategorySettings}"
                            AutomationProperties.AutomationId="TextBlock9_28204D57" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -42,7 +42,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="1"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.IdleTextTitle}}"
+                           Text="{lex:Loc IdleTextTitle}"
                            AutomationProperties.AutomationId="TextBlock11_28204D57" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -52,7 +52,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="2"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.IdleTimePeriod}}"
+                           Text="{lex:Loc IdleTimePeriod}"
                            AutomationProperties.AutomationId="TextBlock13_28204D57" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -62,7 +62,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="3"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.GameRoundDuration}}"
+                           Text="{lex:Loc GameRoundDuration}"
                            AutomationProperties.AutomationId="TextBlock15_28204D57" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -72,7 +72,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="4"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ReelStopConfigured}}"
+                           Text="{lex:Loc ReelStopConfigured}"
                            AutomationProperties.AutomationId="TextBlock17_28204D57" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"

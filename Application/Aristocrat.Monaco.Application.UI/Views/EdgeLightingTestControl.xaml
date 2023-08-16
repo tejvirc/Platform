@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+            lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:loc="http://monaco.aristocrat.com/localization"
              xmlns:сontrols="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
@@ -27,7 +29,7 @@
         <StackPanel AutomationProperties.AutomationId="StackPanel2_EC35FDE1">
             <StackPanel Margin="0 5"
                         AutomationProperties.AutomationId="StackPanel3_EC35FDE1">
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LightingBrightnessLabel}}"
+                <Label Content="{lex:Loc LightingBrightnessLabel}"
                        AutomationProperties.AutomationId="Label4_EC35FDE1" />
                 <Slider Maximum="100"
                         Minimum="0"
@@ -43,7 +45,7 @@
                     <Style TargetType="{x:Type сontrols:RangeSlider}">
                         <Style.Triggers>
                             <DataTrigger
-                                    Binding="{Binding Path=SelectedIndex,                                                 ElementName=StripsComboBox}"
+                                    Binding="{Binding Path=SelectedIndex, ElementName=StripsComboBox}"
                                          Value="0"
                                          AutomationProperties.AutomationId="DataTrigger7_EC35FDE1">
                                 <Setter Property="IsEnabled"
@@ -56,7 +58,7 @@
                             AutomationProperties.AutomationId="StackPanel8_EC35FDE1">
                     <StackPanel Margin="0 0 10 0"
                                 AutomationProperties.AutomationId="StackPanel9_EC35FDE1">
-                        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Strip}}"
+                        <Label Content="{lex:Loc Strip}"
                                AutomationProperties.AutomationId="Label10_EC35FDE1" />
                         <ComboBox Name="StripsComboBox"
                                   SelectedIndex="{Binding SelectedStripIndex}"
@@ -67,7 +69,7 @@
                     </StackPanel>
                     <StackPanel Margin="0 0 10 0"
                                 AutomationProperties.AutomationId="StackPanel12_EC35FDE1">
-                        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Color}}"
+                        <Label Content="{lex:Loc Color}"
                                AutomationProperties.AutomationId="Label13_EC35FDE1" />
                         <ComboBox ItemsSource="{Binding StripColors}"
                                   SelectedIndex="{Binding SelectedColorIndex}"
@@ -94,12 +96,12 @@
                                               Width="200" />
                     </Viewbox>
                     <Label Content="{Binding SelectedLedCount}"
-                           Visibility="{Binding ElementName=LedRangeSlider, Path=IsEnabled,                          Converter={StaticResource TrueVisibleFalseHidden}}"
+                           Visibility="{Binding ElementName=LedRangeSlider, Path=IsEnabled, Converter={StaticResource TrueVisibleFalseHidden}}"
                            AutomationProperties.AutomationId="Label17_EC35FDE1" />
                 </StackPanel>
             </StackPanel>
             <StackPanel AutomationProperties.AutomationId="StackPanel18_EC35FDE1">
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.LightShows}}"
+                <Label Content="{lex:Loc LightShows}"
                        AutomationProperties.AutomationId="Label19_EC35FDE1" />
                 <ComboBox HorizontalAlignment="Left"
                           ItemsSource="{Binding LightShows}"

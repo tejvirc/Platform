@@ -8,6 +8,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                common:DialogParticipation.Register="{Binding}"
@@ -40,10 +42,30 @@
         <StackPanel Grid.Row="1" Margin="0 10"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"
+                    AutomationProperties.AutomationId="StackPanel6_529054B4">
+            <Label VerticalAlignment="Center"
+                   Content="{lex:Loc MasterSoundVolumeLabel}"
+                   AutomationProperties.AutomationId="Label7_529054B4" />
+            <ComboBox MinWidth="250"
+                      Margin="0 10 0 0"
+                      ItemsSource="{common:Enumeration {x:Type audio:VolumeLevel}}"
+                      SelectedIndex="0"
+                      DisplayMemberPath="Description"
+                      SelectedValuePath="Value"
+                      SelectedValue="{Binding SoundLevel}"
+                      Style="{StaticResource OptionComboStyle}"
+                      IsEnabled="{Binding Path=CanEditVolume}"
+                      AutomationProperties.AutomationId="ComboBox8_529054B4" />
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Margin="0 10"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
                     Visibility="{Binding IsAlertConfigurable, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="StackPanel9_529054B4">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AlertVolumeLabel}}"
-                   VerticalAlignment="Center" HorizontalAlignment="Left"
+            <Label Content="{lex:Loc AlertVolumeLabel}"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
                    AutomationProperties.AutomationId="Label10_529054B4" />
             <Slider x:Name="AlertSlider"
                     Style="{StaticResource MonacoSlider}"
@@ -69,13 +91,13 @@
                     HorizontalAlignment="Left"
                     Visibility="{Binding IsWizardPage, Converter={StaticResource TrueHiddenFalseVisible}}"
                     AutomationProperties.AutomationId="StackPanel13_529054B4">
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnterSoundTest}}"
+            <Button Content="{lex:Loc EnterSoundTest}"
                     Command="{Binding ToggleTestModeCommand}"
                     IsEnabled="{Binding TestModeEnabled, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding InTestMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
                     AutomationProperties.AutomationId="Button14_529054B4" />
             <Button Name="ExitTestModeButton"
-                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitSoundTest}}"
+                    Content="{lex:Loc ExitSoundTest}"
                     Command="{Binding ToggleTestModeCommand}"
                     Visibility="{Binding InTestMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="Button15_529054B4" />

@@ -330,7 +330,9 @@
 
             using (var stringWriter = new StringWriter())
             {
-                var serializer = new XmlSerializer(typeof(T));
+                var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(T))
+                    .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+                var serializer = new XmlSerializer(typeof(T), theXmlRootAttribute ?? new XmlRootAttribute(nameof(T)));
                 serializer.Serialize(stringWriter, @class);
                 return stringWriter.ToString();
             }

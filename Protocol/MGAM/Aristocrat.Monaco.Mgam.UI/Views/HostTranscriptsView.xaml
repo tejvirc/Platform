@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Mgam.UI.ViewModels"
                                xmlns:common="http://monaco.aristocrat.com/common"
@@ -71,7 +73,7 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0"
                Grid.Column="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.EgmIdLabel}}"
+               Content="{lex:Loc EgmIdLabel}"
                AutomationProperties.AutomationId="Label12_A57A7502" />
         <TextBlock Grid.Row="0"
                    Grid.Column="1"
@@ -82,7 +84,7 @@
         <Label Grid.Row="1"
                Grid.Column="0"
                Margin="0 10 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.State}}"
+               Content="{lex:Loc State}"
                AutomationProperties.AutomationId="Label14_A57A7502" />
         <TextBlock Grid.Row="1"
                    Grid.Column="1"
@@ -110,7 +112,7 @@
                Grid.ColumnSpan="2"
                Margin="0 20 0 0"
                HorizontalAlignment="Left"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.RegisteredInstance}}"
+               Content="{lex:Loc RegisteredInstance}"
                AutomationProperties.AutomationId="Label17_A57A7502" />
         <Border Grid.Row="3"
                 Grid.Column="0"
@@ -123,31 +125,31 @@
                       ItemsSource="{Binding RegisteredInstances, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       AutomationProperties.AutomationId="DataGrid19_A57A7502">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTime}}"
+                    <DataGridTextColumn Header="{lex:Loc DateAndTime}"
                                         Width="Auto"
                                         Binding="{Binding Timestamp, Converter={StaticResource DateTimeFormatConverter}}"
                                         AutomationProperties.AutomationId="DataGridTextColumn20_A57A7502"></DataGridTextColumn>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Address}}"
+                    <DataGridTextColumn Header="{lex:Loc Address}"
                                         Width="Auto"
                                         Binding="{Binding Address}"
                                         CellStyle="{StaticResource DataGridCellCenter}"
                                         AutomationProperties.AutomationId="DataGridTextColumn21_A57A7502" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceId}}"
+                    <DataGridTextColumn Header="{lex:Loc DeviceId}"
                                         Width="Auto"
                                         Binding="{Binding DeviceId}"
                                         CellStyle="{StaticResource DataGridCellCenter}"
                                         AutomationProperties.AutomationId="DataGridTextColumn22_A57A7502" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.InstanceId}}"
+                    <DataGridTextColumn Header="{lex:Loc InstanceId}"
                                         Width="Auto"
                                         Binding="{Binding InstanceId}"
                                         CellStyle="{StaticResource DataGridCellCenter}"
                                         AutomationProperties.AutomationId="DataGridTextColumn23_A57A7502" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.SiteId}}"
+                    <DataGridTextColumn Header="{lex:Loc SiteId}"
                                         Width="Auto"
                                         Binding="{Binding SiteId}"
                                         CellStyle="{StaticResource DataGridCellCenter}"
                                         AutomationProperties.AutomationId="DataGridTextColumn24_A57A7502" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Description}}"
+                    <DataGridTextColumn Header="{lex:Loc Description}"
                                         Width="Auto"
                                         Binding="{Binding Description}"
                                         AutomationProperties.AutomationId="DataGridTextColumn25_A57A7502" />
@@ -165,7 +167,7 @@
                Grid.Column="0"
                Margin="0 20 0 0"
                HorizontalAlignment="Left"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Transcripts}}"
+               Content="{lex:Loc Transcripts}"
                AutomationProperties.AutomationId="Label27_A57A7502" />
         <DataGrid Grid.Row="5"
                   Grid.Column="0"
@@ -178,23 +180,23 @@
                   ScrollViewer.CanContentScroll="True"
                   AutomationProperties.AutomationId="DataGrid28_A57A7502">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DateAndTime}}"
+                <DataGridTextColumn Header="{lex:Loc DateAndTime}"
                                     Width="Auto"
                                     Binding="{Binding Timestamp, Converter={StaticResource DateTimeFormatConverter}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn29_A57A7502"></DataGridTextColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.NameLabel}}"
+                <DataGridTextColumn Header="{lex:Loc NameLabel}"
                                     Width="Auto"
                                     Binding="{Binding Name}"
                                     AutomationProperties.AutomationId="DataGridTextColumn30_A57A7502" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Source}}"
+                <DataGridTextColumn Header="{lex:Loc Source}"
                                     Width="Auto"
                                     Binding="{Binding Source}"
                                     AutomationProperties.AutomationId="DataGridTextColumn31_A57A7502" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Destination}}"
+                <DataGridTextColumn Header="{lex:Loc Destination}"
                                     Width="Auto"
                                     Binding="{Binding Destination}"
                                     AutomationProperties.AutomationId="DataGridTextColumn32_A57A7502" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ResponseCode}}"
+                <DataGridTextColumn Header="{lex:Loc ResponseCode}"
                                     Width="Auto"
                                     Binding="{Binding ResponseCode}"
                                     CellStyle="{StaticResource DataGridCellCenter}"
@@ -205,7 +207,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Visibility="Collapsed"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsViewDetail}}"
+                Content="{lex:Loc HostTranscriptsViewDetail}"
                 Command="{Binding ViewHostTranscriptsCommand, Mode=OneWay}"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Left"
@@ -221,12 +223,12 @@
                     AutomationProperties.AutomationId="Border36_A57A7502">
                 <DockPanel LastChildFill="True"
                            AutomationProperties.AutomationId="DockPanel37_A57A7502">
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsDetailTitle}}"
+                    <Label Content="{lex:Loc HostTranscriptsDetailTitle}"
                            DockPanel.Dock="Top"
                            HorizontalAlignment="Left"
                            AutomationProperties.AutomationId="Label38_A57A7502" />
                     <Button DockPanel.Dock="Bottom"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Close}}"
+                            Content="{lex:Loc Close}"
                             Command="{Binding CloseDetailCommand}"
                             HorizontalAlignment="Right"
                             AutomationProperties.AutomationId="Button39_A57A7502" />

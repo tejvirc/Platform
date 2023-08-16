@@ -9,6 +9,8 @@
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:BarkeeperConfigurationViewModel}">
@@ -65,7 +67,7 @@
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal"
                     AutomationProperties.AutomationId="StackPanel4_6DD7D3CA">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableBarkeeperButton}}"
+            <Label Content="{lex:Loc EnableBarkeeperButton}"
                    AutomationProperties.AutomationId="Label5_6DD7D3CA" />
             <Button Name="EnabledBarkeeperInfoButton"
                     Margin="2 0 0 0"
@@ -75,21 +77,18 @@
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="EnabledBarkeeperInfoButton" />
-                        <Binding ElementName="EnabledBarkeeperInfoButtonProxy"
-                                 Path="Result" />
+                        <Binding Source="{lex:Loc EnableBarkeeperButtonToolTip}" Path="Result" />
                     </MultiBinding>
                 </Button.CommandParameter>
-                <lex:LocProxy Name="EnabledBarkeeperInfoButtonProxy"
-                              Source="{x:Static loc:ResourceKeys.EnableBarkeeperButtonToolTip}" />
             </Button>
         </StackPanel>
-        <controls:ToggleSwitchButton Grid.Row="1"
+        <controls:ToggleSwitch Grid.Row="1"
                                      IsEnabled="{Binding InputEnabledByRuleOverride}"
-                                     IsChecked="{Binding RewardLevelsEnabled}"
+                                     IsOn="{Binding RewardLevelsEnabled}"
                                      controls:ControlsHelper.ContentCharacterCasing="Upper"
                                      controls:ControlsHelper.CornerRadius="0"
-                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
-                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}"
+                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}"
                                      Grid.ColumnSpan="2" />
         <TabControl Grid.Row="2"
                     Margin="0 20"

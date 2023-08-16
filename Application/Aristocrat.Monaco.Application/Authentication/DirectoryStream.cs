@@ -15,7 +15,7 @@
     {
         private const string DefaultSearchPattern = @"*";
 
-        private readonly IEnumerable<FileInfo> _files;
+        private readonly IReadOnlyCollection<FileInfo> _files;
 
         private FileStream _currentStream;
         private int _currentStreamIndex;
@@ -101,7 +101,7 @@
         public override long Position
         {
             get => _position;
-            set => throw new NotSupportedException(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StreamNotSeekable));
+            set => throw new NotSupportedException();
         }
 
         /// <summary>
@@ -123,10 +123,8 @@
         {
             get
             {
-                return _fileStreams ??
-                       (_fileStreams =
-                           _files.Select(file => file.Open(FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                               .ToList());
+                return _fileStreams ??= _files.Select(file => file.Open(FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    .ToList();
             }
         }
 
@@ -143,7 +141,7 @@
         /// </summary>
         /// <param name="offset">A byte offset relative to the <paramref name="origin" /> parameter.</param>
         /// <param name="origin">
-        ///     A value of type <see cref="T:System.IO.SeekOrigin" /> indicating the reference point used to
+        ///     A value of type <see cref="SeekOrigin" /> indicating the reference point used to
         ///     obtain the new position.
         /// </param>
         /// <returns>
@@ -188,11 +186,7 @@
                 return 0;
             }
 
-            if (_currentStream == null)
-            {
-                _currentStream = FileStreams[0];
-            }
-
+            _currentStream ??= FileStreams[0];
             if (_endReached)
             {
                 for (var i = offset; i < offset + count; i++)
@@ -255,7 +249,7 @@
         }
 
         /// <summary>
-        ///     Releases the unmanaged resources used by the <see cref="T:System.IO.Stream" /> and optionally releases the managed
+        ///     Releases the unmanaged resources used by the <see cref="Stream" /> and optionally releases the managed
         ///     resources.
         /// </summary>
         /// <param name="disposing">

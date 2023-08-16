@@ -17,7 +17,7 @@
     [CLSCompliant(false)]
     public class VolumeViewModel : BaseViewModel
     {
-        protected new readonly ILog Logger;
+        protected readonly ILog Logger;
         private readonly IPropertiesManager _propertiesManager;
         private readonly ISystemDisableManager _disableManager;
         private readonly IEventBus _eventBus;

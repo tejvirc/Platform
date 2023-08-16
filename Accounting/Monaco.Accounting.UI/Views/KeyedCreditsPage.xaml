@@ -7,6 +7,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:KeyedCreditsPageViewModel}">
@@ -28,7 +30,7 @@
                            AutomationProperties.AutomationId="RowDefinition3_41282DC0" />
         </Grid.RowDefinitions>
         <GroupBox Grid.Row="0"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.KeyedOnCredits}}"
+                  Header="{lex:Loc KeyedOnCredits}"
                   AutomationProperties.AutomationId="GroupBox4_41282DC0">
             <Grid Margin="20 -10 0 0"
                   AutomationProperties.AutomationId="Grid5_41282DC0">
@@ -44,7 +46,7 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Top"
                             AutomationProperties.AutomationId="StackPanel9_41282DC0">
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.CreditType}}"
+                    <Label Content="{lex:Loc CreditType}"
                            HorizontalAlignment="Left"
                            Margin="0 10 0 0"
                            AutomationProperties.AutomationId="Label10_41282DC0" />
@@ -62,7 +64,7 @@
                             VerticalAlignment="Top"
                             Margin="0 5 0 0"
                             AutomationProperties.AutomationId="StackPanel12_41282DC0">
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.KeyedOnCreditValue}}"
+                    <Label Content="{lex:Loc KeyedOnCreditValue}"
                            HorizontalAlignment="Left"
                            AutomationProperties.AutomationId="Label13_41282DC0" />
                     <helpers:CurrencyTextBox MinWidth="300"
@@ -77,13 +79,13 @@
                         Margin="8 10 0 0"
                         Width="250"
                         IsEnabled="{Binding KeyedOnCreditsAllowed}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.KeyedOnCreditsConfirmButtonLabel}}"
+                        Content="{lex:Loc KeyedOnCreditsConfirmButtonLabel}"
                         Command="{Binding ConfirmKeyOnCreditsCommand}"
                         AutomationProperties.AutomationId="Button14_41282DC0" />
             </Grid>
         </GroupBox>
         <GroupBox Grid.Row="1"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.KeyedOffCredits}}"
+                  Header="{lex:Loc KeyedOffCredits}"
                   Margin="0 10 0 0"
                   AutomationProperties.AutomationId="GroupBox15_41282DC0">
             <StackPanel Margin="20 -10 0 0"
@@ -94,19 +96,20 @@
                           RowBackground="Transparent"
                           AutomationProperties.AutomationId="DataGrid17_41282DC0">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CreditType}}"
+                        <DataGridTextColumn Header="{lex:Loc CreditType}"
                                             loc:Localizer.For="Operator"
                                             Width="300"
                                             Binding="{Binding CreditType}"
                                             AutomationProperties.AutomationId="DataGridTextColumn18_41282DC0" />
-                        <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                        <DataGridTextColumn Header="{lex:Loc Value}"
                                             loc:Localizer.For="Operator"
                                             Width="150"
                                             Binding="{Binding FormattedValue, UpdateSourceTrigger=PropertyChanged}"
                                             HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                             CellStyle="{StaticResource DataGridCellRight}"
-                                            AutomationProperties.AutomationId="DataGridTextColumn19_41282DC0"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.KeyOff}}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn19_41282DC0"/>
+                        
+                        <DataGridTemplateColumn Header="{lex:Loc KeyOff}"
                                                 loc:Localizer.For="Operator"
                                                 Width="250"
                                                 HeaderStyle="{StaticResource DataGridColumnHeaderCenter}"
@@ -132,11 +135,11 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button HorizontalAlignment="Left"
+                <Button HorizontalAlignment="Left" 
                         Margin="8 5 0 0"
-                        Width="250"
+                        Width="250" 
                         IsEnabled="{Binding KeyOffCreditsButtonEnabled}"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.KeyedOffCreditsConfirmButtonLabel}}"
+                        Content="{lex:Loc KeyedOffCreditsConfirmButtonLabel}"
                         Command="{Binding ConfirmKeyOffCreditsCommand}"
                         AutomationProperties.AutomationId="Button22_41282DC0" />
             </StackPanel>

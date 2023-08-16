@@ -10,31 +10,31 @@
     </ResourceDictionary.MergedDictionaries>
     <mvvm:TemplateDictionary x:Key="DayOfWeek">
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Sunday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Sunday}}"
+            <TextBlock Text="{lex:Loc Sunday}" 
                        AutomationProperties.AutomationId="TextBlock0_92C8EE06" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Monday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Monday}}"
+            <TextBlock Text="{lex:Loc Monday}"
                        AutomationProperties.AutomationId="TextBlock1_92C8EE06" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Tuesday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Tuesday}}"
-                       AutomationProperties.AutomationId="TextBlock2_92C8EE06" />
+            <TextBlock Text="{lex:Loc Tuesday}" 
+                       AutomationProperties.AutomationId="TextBlock2_92C8EE06"/>
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Wednesday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Wednesday}}"
+            <TextBlock Text="{lex:Loc Wednesday}" 
                        AutomationProperties.AutomationId="TextBlock3_92C8EE06" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Thursday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Thursday}}"
+            <TextBlock Text="{lex:Loc Thursday}"
                        AutomationProperties.AutomationId="TextBlock4_92C8EE06" />
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Friday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Friday}}"
-                       AutomationProperties.AutomationId="TextBlock5_92C8EE06" />
+            <TextBlock Text="{lex:Loc Friday}" 
+                       AutomationProperties.AutomationId="TextBlock5_92C8EE06"/>
         </DataTemplate>
         <DataTemplate x:Key="{x:Static sys:DayOfWeek.Saturday}">
-            <TextBlock Text="{lex:Loc {x:Static loc:ResourceKeys.Saturday}}"
+            <TextBlock Text="{lex:Loc Saturday}" 
                        AutomationProperties.AutomationId="TextBlock6_92C8EE06" />
         </DataTemplate>
     </mvvm:TemplateDictionary>
@@ -47,7 +47,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel9_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.JurisdictionLabel}}"
+                               Text="{lex:Loc JurisdictionLabel}" 
                                AutomationProperties.AutomationId="TextBlock10_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding Jurisdiction}"
@@ -56,7 +56,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel12_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.EnableShowMode}}"
+                               Text="{lex:Loc EnableShowMode}" 
                                AutomationProperties.AutomationId="TextBlock13_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding ShowMode, Converter={StaticResource BoolToStringConverter}}"
@@ -65,7 +65,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel15_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ShowGameRules}}"
+                               Text="{lex:Loc ShowGameRules}" 
                                AutomationProperties.AutomationId="TextBlock16_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding GameRules, Converter={StaticResource BoolToStringConverter}}"
@@ -74,7 +74,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel18_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ProtocolLabel}}"
+                               Text="{lex:Loc ProtocolLabel}" 
                                AutomationProperties.AutomationId="TextBlock19_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding Protocols}"
@@ -83,7 +83,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel21_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.NoteAcceptorEnabled}}"
+                               Text="{lex:Loc NoteAcceptorEnabled}" 
                                AutomationProperties.AutomationId="TextBlock22_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding NoteAcceptorEnabled, Converter={StaticResource BoolToStringConverter}}"
@@ -92,7 +92,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel24_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.NoteAcceptorManufacturer}}"
+                               Text="{lex:Loc NoteAcceptorManufacturer}" 
                                AutomationProperties.AutomationId="TextBlock25_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding NoteAcceptorManufacturer}"
@@ -101,7 +101,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel27_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.Printer_Enabled}}"
+                               Text="{lex:Loc Printer_Enabled}" 
                                AutomationProperties.AutomationId="TextBlock28_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding PrinterEnabled, Converter={StaticResource BoolToStringConverter}}"
@@ -110,7 +110,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel30_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.PrinterManufacturer}}"
+                               Text="{lex:Loc PrinterManufacturer}" 
                                AutomationProperties.AutomationId="TextBlock31_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding PrinterManufacturer}"
@@ -119,7 +119,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel33_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.IdReaderEnabled}}"
+                               Text="{lex:Loc IdReaderEnabled}" 
                                AutomationProperties.AutomationId="TextBlock34_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding IdReaderEnabled, Converter={StaticResource BoolToStringConverter}}"
@@ -128,7 +128,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel36_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.IdReaderManufacturer}}"
+                               Text="{lex:Loc IdReaderManufacturer}"
                                AutomationProperties.AutomationId="TextBlock37_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding IdReaderManufacturer}"
@@ -137,8 +137,8 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel39_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.HardMetersEnabled}}"
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                               Text="{lex:Loc HardMetersEnabled}"
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                                AutomationProperties.AutomationId="TextBlock40_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding HardMetersEnabled, Converter={StaticResource BoolToStringConverter}}"
@@ -148,7 +148,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel42_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.HardMetersAvailableMeterMappings}}"
+                               Text="{lex:Loc HardMetersAvailableMeterMappings}" 
                                Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                AutomationProperties.AutomationId="TextBlock43_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
@@ -159,8 +159,8 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel45_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.HardMeterIncrementValue}}"
-                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                               Text="{lex:Loc HardMeterIncrementValue}" 
+                               Visibility="{Binding HardMeterVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" 
                                AutomationProperties.AutomationId="TextBlock46_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding HardMeterTickValue, Converter={StaticResource FormattedCurrencyConverter}, ConverterParameter='ZeroNotAvailable'}"
@@ -170,7 +170,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel48_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.DoorOpticSensorEnabled}}"
+                               Text="{lex:Loc DoorOpticSensorEnabled}" 
                                AutomationProperties.AutomationId="TextBlock49_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding DoorOpticSensorEnabled, Converter={StaticResource BoolToStringConverter}}"
@@ -179,7 +179,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel51_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ReelControllerEnabled}}"
+                               Text="{lex:Loc ReelControllerEnabled}" 
                                AutomationProperties.AutomationId="TextBlock52_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding ReelControllerEnabled, Converter={StaticResource BoolToStringConverter}}"
@@ -188,7 +188,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel54_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ReelControllerManufacturer}}"
+                               Text="{lex:Loc ReelControllerManufacturer}" 
                                AutomationProperties.AutomationId="TextBlock55_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding ReelControllerManufacturer}"
@@ -197,7 +197,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel57_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.BellEnabled}}"
+                               Text="{lex:Loc BellEnabled}" 
                                AutomationProperties.AutomationId="TextBlock58_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding BellEnabled, Converter={StaticResource BoolToStringConverter}}"
@@ -206,16 +206,16 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel60_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.Currency}}"
+                               Text="{lex:Loc Currency}" 
                                AutomationProperties.AutomationId="TextBlock61_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
-                               Text="{Binding CurrencyDisplayText}"
+                               Text="{Binding CurrencyDescription}"
                                AutomationProperties.AutomationId="TextBlock62_92C8EE06" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel63_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.RequireZeroCredit}}"
+                               Text="{lex:Loc RequireZeroCredit}" 
                                AutomationProperties.AutomationId="TextBlock64_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding RequireZeroCreditsForOutOfService, Converter={StaticResource BoolToStringConverter}}"
@@ -224,7 +224,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel66_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.DisabledNotes}}"
+                               Text="{lex:Loc DisabledNotes}" 
                                AutomationProperties.AutomationId="TextBlock67_92C8EE06" />
                     <DataGrid IsHitTestVisible="False"
                               VerticalAlignment="Top"
@@ -235,19 +235,15 @@
                               Visibility="{Binding DisabledNotesVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                               AutomationProperties.AutomationId="DataGrid68_92C8EE06">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.Denom}}"
-                                                Binding="{Binding DenomDisplay}"
-                                                AutomationProperties.AutomationId="DataGridTextColumn69_92C8EE06" />
-                            <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.IsoCode}}"
-                                                Binding="{Binding IsoCode}"
-                                                AutomationProperties.AutomationId="DataGridTextColumn70_92C8EE06" />
+                            <DataGridTextColumn Header="{lex:Loc Denom}" Binding="{Binding DenomDisplay}" AutomationProperties.AutomationId="DataGridTextColumn69_92C8EE06" />
+                            <DataGridTextColumn Header="{lex:Loc IsoCode}" Binding="{Binding IsoCode}"  AutomationProperties.AutomationId="DataGridTextColumn70_92C8EE06" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel71_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.BillAcceptanceLimit}}"
+                               Text="{lex:Loc BillAcceptanceLimit}" 
                                AutomationProperties.AutomationId="TextBlock72_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding MaxCreditsIn, Converter={StaticResource FormattedCurrencyConverter}, ConverterParameter='ZeroNoLimit'}"
@@ -256,7 +252,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel74_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ExcessiveRejectDisable}}"
+                               Text="{lex:Loc ExcessiveRejectDisable}" 
                                AutomationProperties.AutomationId="TextBlock75_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding ExcessiveRejectDisable, Converter={StaticResource BoolToStringConverter}}"
@@ -265,7 +261,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel77_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.MasterSoundVolumeLabel}}"
+                               Text="{lex:Loc MasterSoundVolumeLabel}" 
                                AutomationProperties.AutomationId="TextBlock78_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding DefaultVolumeLevelDisplay, Converter={StaticResource EnumDescriptionToStringConverter}}"
@@ -274,7 +270,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel80_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.VolumeControlLocationTitle}}"
+                               Text="{lex:Loc VolumeControlLocationTitle}" 
                                AutomationProperties.AutomationId="TextBlock81_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding VolumeControlLocation, Converter={StaticResource EnumDescriptionToStringConverter}}"
@@ -283,7 +279,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel83_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.AllowVoucherIn}}"
+                               Text="{lex:Loc AllowVoucherIn}" 
                                AutomationProperties.AutomationId="TextBlock84_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding VoucherIn, Converter={StaticResource BoolToStringConverter}}"
@@ -292,7 +288,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel86_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.BarcodeType}}"
+                               Text="{lex:Loc BarcodeType}" 
                                AutomationProperties.AutomationId="TextBlock87_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding BarcodeType, Converter={StaticResource EnumDescriptionToStringConverter}}"
@@ -301,7 +297,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel89_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ValidationLength}}"
+                               Text="{lex:Loc ValidationLength}" 
                                AutomationProperties.AutomationId="TextBlock90_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding ValidationLength, Converter={StaticResource EnumDescriptionToStringConverter}}"
@@ -310,7 +306,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel92_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.LayoutType}}"
+                               Text="{lex:Loc LayoutType}" 
                                AutomationProperties.AutomationId="TextBlock93_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding LayoutType, Converter={StaticResource EnumDescriptionToStringConverter}}"
@@ -319,7 +315,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel95_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.PropertyName}}"
+                               Text="{lex:Loc PropertyName}" 
                                AutomationProperties.AutomationId="TextBlock96_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding TicketTextLine1}"
@@ -328,7 +324,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel98_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.PropertyAddressLine1}}"
+                               Text="{lex:Loc PropertyAddressLine1}" 
                                AutomationProperties.AutomationId="TextBlock99_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding TicketTextLine2}"
@@ -337,7 +333,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel101_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.PropertyAddressLine2}}"
+                               Text="{lex:Loc PropertyAddressLine2}" 
                                AutomationProperties.AutomationId="TextBlock102_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding TicketTextLine3}"
@@ -346,7 +342,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel104_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.OperatingHours}}"
+                               Text="{lex:Loc OperatingHours}" 
                                AutomationProperties.AutomationId="TextBlock105_92C8EE06" />
                     <DataGrid IsHitTestVisible="False"
                               VerticalAlignment="Top"
@@ -356,25 +352,22 @@
                               AutoGenerateColumns="False"
                               AutomationProperties.AutomationId="DataGrid106_92C8EE06">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="{lex:Loc {x:Static loc:ResourceKeys.Day}}"
+                            <DataGridTemplateColumn Header="{lex:Loc Day}"
                                                     loc:Localizer.For="Operator"
-                                                    CellTemplateSelector="{mvvm:TemplateSelector Property=Day, TemplateDictionary={StaticResource DayOfWeek}}"
-                                                    AutomationProperties.AutomationId="DataGridTemplateColumn107_92C8EE06" />
-                            <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.Time}}"
+                                                    CellTemplateSelector="{mvvm:TemplateSelector Property=Day, TemplateDictionary={StaticResource DayOfWeek}}" AutomationProperties.AutomationId="DataGridTemplateColumn107_92C8EE06"/>
+                            <DataGridTextColumn Header="{lex:Loc Time}"
                                                 loc:Localizer.For="Operator"
-                                                Binding="{Binding Time}"
-                                                AutomationProperties.AutomationId="DataGridTextColumn108_92C8EE06" />
-                            <DataGridTextColumn Header="{lex:Loc {x:Static loc:ResourceKeys.Enabled}}"
+                                                Binding="{Binding Time}" AutomationProperties.AutomationId="DataGridTextColumn108_92C8EE06" />
+                            <DataGridTextColumn Header="{lex:Loc Enabled}" 
                                                 loc:Localizer.For="Operator"
-                                                Binding="{Binding Enabled, Converter={StaticResource BoolToStringConverter}}"
-                                                AutomationProperties.AutomationId="DataGridTextColumn109_92C8EE06" />
+                                                Binding="{Binding Enabled, Converter={StaticResource BoolToStringConverter}}" AutomationProperties.AutomationId="DataGridTextColumn109_92C8EE06" />
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel110_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.DemonstrationMode}}"
+                               Text="{lex:Loc DemonstrationMode}" 
                                AutomationProperties.AutomationId="TextBlock111_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding DemonstrationMode, Converter={StaticResource BoolToStringConverter}}"
@@ -383,7 +376,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel113_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.DeletePackageAfterInstall}}"
+                               Text="{lex:Loc DeletePackageAfterInstall}" 
                                AutomationProperties.AutomationId="TextBlock114_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding DeletePackageAfterInstall, Converter={StaticResource BoolToStringConverter}}"
@@ -392,7 +385,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel116_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ScreenBrightness}}"
+                               Text="{lex:Loc ScreenBrightness}" 
                                AutomationProperties.AutomationId="TextBlock117_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding ScreenBrightness}"
@@ -401,7 +394,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel119_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.MediaDisplayEnabled}}"
+                               Text="{lex:Loc MediaDisplayEnabled}" 
                                AutomationProperties.AutomationId="TextBlock120_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding MediaDisplayEnabled, Converter={StaticResource BoolToStringConverter}}"
@@ -410,7 +403,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel122_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.RebootWhilePrinting}}"
+                               Text="{lex:Loc RebootWhilePrinting}" 
                                AutomationProperties.AutomationId="TextBlock123_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding RebootWhilePrintingBehavior}"
@@ -419,7 +412,7 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel125_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ReserveGamingMachine}}"
+                               Text="{lex:Loc ReserveGamingMachine}" 
                                AutomationProperties.AutomationId="TextBlock126_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                Text="{Binding ReserveServiceEnabled, Converter={StaticResource BoolToStringConverter}}"
@@ -428,13 +421,13 @@
                 <StackPanel Orientation="Horizontal"
                             AutomationProperties.AutomationId="StackPanel128_92C8EE06">
                     <TextBlock Style="{DynamicResource SettingNameStyle}"
-                               Text="{lex:Loc {x:Static loc:ResourceKeys.ReserveMachineDuration}}"
+                               Text="{lex:Loc ReserveMachineDuration}" 
                                AutomationProperties.AutomationId="TextBlock129_92C8EE06" />
                     <TextBlock Style="{DynamicResource SettingValueStyle}"
                                AutomationProperties.AutomationId="TextBlock130_92C8EE06">
                         <Run Text="{Binding ReserveServiceTimeoutInMinutes, Mode=OneWay}"
                              AutomationProperties.AutomationId="Run131_92C8EE06" />
-                        <Run Text="{lex:Loc {x:Static loc:ResourceKeys.Minutes}}"
+                        <Run Text="{lex:Loc Minutes}"
                              AutomationProperties.AutomationId="Run132_92C8EE06" />
                     </TextBlock>
                 </StackPanel>

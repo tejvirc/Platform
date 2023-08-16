@@ -7,6 +7,8 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Accounting.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:CurrentCreditsPageViewModel}}">
     <UserControl.Resources>
@@ -30,12 +32,12 @@
                       HorizontalAlignment="Left"
                       AutomationProperties.AutomationId="DataGrid4_46E896EC">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CreditType}}"
+                    <DataGridTextColumn Header="{lex:Loc CreditType}"
                                         loc:Localizer.For="Operator"
                                         Width="350"
                                         Binding="{Binding AccountType}"
                                         AutomationProperties.AutomationId="DataGridTextColumn5_46E896EC" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
+                    <DataGridTextColumn Header="{lex:Loc Value}"
                                         loc:Localizer.For="Operator"
                                         Width="200"
                                         Binding="{Binding FormattedBalance}"
@@ -59,7 +61,7 @@
                     <ColumnDefinition Width="{Binding ElementName=Grid, Path=Columns[1].ActualWidth}"
                                       AutomationProperties.AutomationId="ColumnDefinition10_46E896EC" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="{lex:Loc Key={x:Static loc:ResourceKeys.TotalCredits}}"
+                <TextBlock Text="{lex:Loc TotalCredits}"
                            Margin="5 0"
                            AutomationProperties.AutomationId="TextBlock11_46E896EC" />
                 <TextBlock Grid.Column="1"

@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Kernel.Tests
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
@@ -72,8 +73,9 @@
             builder.Append(@"</root>");
             builder.Append(@"</log4net>");
 
+            var loggerRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             Stream s = new MemoryStream(Encoding.Default.GetBytes(builder.ToString()));
-            XmlConfigurator.Configure(s);
+            XmlConfigurator.Configure(loggerRepository, s);
 
             var logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -104,7 +106,14 @@
         public void CleanUp()
         {
             MoqServiceManager.RemoveInstance();
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
         }
 
         /// <summary>

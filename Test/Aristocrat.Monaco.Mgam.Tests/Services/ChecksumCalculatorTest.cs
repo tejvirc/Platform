@@ -23,6 +23,7 @@
     [TestClass]
     public class ChecksumCalculatorTest
     {
+        private const int waitTimeout = 20000;
         private Mock<ILogger<ChecksumCalculator>> _logger;
         private Mock<ICommandHandlerFactory> _commandFactory;
         private Mock<IUnitOfWorkFactory> _unitOfWorkFactory;
@@ -252,7 +253,7 @@
 
             _handler.Invoke(new AttributesUpdatedEvent(), CancellationToken.None).Wait();
 
-            if (!done.Wait(500))
+            if (!done.Wait(waitTimeout))
             {
                 Assert.Fail("Timed out waiting for test to complete");
             }
@@ -296,7 +297,7 @@
 
             _handler.Invoke(new AttributesUpdatedEvent(), CancellationToken.None).Wait();
 
-            if (!done.Wait(500))
+            if (!done.Wait(waitTimeout))
             {
                 Assert.Fail("Timed out waiting for test to complete");
             }

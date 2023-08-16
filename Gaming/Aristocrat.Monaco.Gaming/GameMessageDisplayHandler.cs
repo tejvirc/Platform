@@ -23,8 +23,7 @@ namespace Aristocrat.Monaco.Gaming
         private static readonly TimeSpan MaxDisplayLimit = TimeSpan.FromSeconds(3);
         private static readonly TimeSpan UpdateInterval = TimeSpan.FromMilliseconds(100);
         private static readonly TimeSpan ShutdownTimeout = TimeSpan.FromSeconds(5);
-
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IRuntime _runtime;
         private readonly IGameDiagnostics _gameDiagnostics;
@@ -60,11 +59,7 @@ namespace Aristocrat.Monaco.Gaming
             _runtime = runtimeService ?? throw new ArgumentNullException(nameof(runtimeService));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
-
-            if (properties == null)
-            {
-                throw new ArgumentNullException(nameof(properties));
-            }
+            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
 
             _gameDiagnostics = gameDiagnostics ?? throw new ArgumentNullException(nameof(gameDiagnostics));
 
@@ -170,11 +165,12 @@ namespace Aristocrat.Monaco.Gaming
                             }
                         }
                     }
+
+                    _changePropagationTimer.Dispose();
                 }
 
                 _eventBus.UnsubscribeAll(this);
             }
-
             _changePropagationTimer = null;
 
             _disposed = true;

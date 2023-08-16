@@ -24,7 +24,7 @@
                 Style="{StaticResource MonacoGridNavButton}"
                 AutomationProperties.AutomationId="Button2_3F41B75B">
             <iconPacks:PackIconMaterial Kind="PageLast"
-                                        Rotation="270" />
+                                        RotationAngle="270" />
         </Button>
         <Button Name="PageUpButton"
                 Click="PageUpButton_OnClick"
@@ -58,7 +58,7 @@
                 Style="{StaticResource MonacoGridNavButton}"
                 AutomationProperties.AutomationId="Button7_3F41B75B">
             <iconPacks:PackIconMaterial Kind="PageLast"
-                                        Rotation="90" />
+                                        RotationAngle="90" />
         </Button>
     </StackPanel>
 </UserControl>

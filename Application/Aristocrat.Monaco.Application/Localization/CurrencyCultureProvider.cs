@@ -114,7 +114,7 @@
         private static IEnumerable<CultureInfo> GetNonNeutralCultureInfos()
         {
             return CultureInfo.GetCultures(CultureTypes.AllCultures)
-                .Where(culture => !string.IsNullOrEmpty(culture.Name) && !culture.IsNeutralCulture);
+                .Where(culture => !string.IsNullOrEmpty(culture.Name) && !culture.IsNeutralCulture).Select(culture => (CultureInfo)culture.Clone());
         }
 
         private void Initialize()

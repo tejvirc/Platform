@@ -162,7 +162,8 @@
             catch (Exception ex) when (
                 ex is ArgumentException ||
                 ex is NotSupportedException ||
-                ex is UriFormatException)
+                ex is UriFormatException ||
+                ex is IOException)
             {
                 Logger.Error("URI for auto config file is not correct");
             }

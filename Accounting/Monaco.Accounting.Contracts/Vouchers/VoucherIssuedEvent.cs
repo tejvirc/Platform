@@ -3,13 +3,21 @@ namespace Aristocrat.Monaco.Accounting.Contracts
     using System;
     using Hardware.Contracts.Ticket;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Event emitted when a Voucher Out has completed.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class VoucherIssuedEvent : BaseEvent
     {
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public VoucherIssuedEvent()
+        {
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="VoucherIssuedEvent" /> class.
         /// </summary>
@@ -24,11 +32,13 @@ namespace Aristocrat.Monaco.Accounting.Contracts
         /// <summary>
         ///     Gets the associated transaction
         /// </summary>
+        [ProtoMember(1)]
         public VoucherOutTransaction Transaction { get; }
 
         ///<summary>
         ///     Gets the associated ticket
-        /// </summary>|
+        /// </summary>
+        [ProtoMember(2)]
         public Ticket PrintedTicket { get; }
     }
 }

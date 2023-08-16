@@ -9,11 +9,12 @@
         /// Hardware device is unknown
         /// </summary>
         Unknown,
+		
+		/// <summary>
+		/// The entire Machine is the hardware device
+		/// </summary>
+		Machine,
 
-        /// <summary>
-        /// The entire Machine is the hardware device
-        /// </summary>
-        	Machine,
 
         /// <summary>
         /// Hardware device being tested relates to Buttons

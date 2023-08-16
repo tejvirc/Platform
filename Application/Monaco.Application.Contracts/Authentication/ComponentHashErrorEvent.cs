@@ -4,15 +4,23 @@
     using System.Globalization;
     using System.Threading;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event when a component hash results in an error
     /// </summary>
- 
-    [Serializable]
+
+    [ProtoContract]
     [CLSCompliant(false)]
     public class ComponentHashErrorEvent : BaseEvent
     {
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public ComponentHashErrorEvent()
+        {
+        }
+
         /// <summary>
         ///     Constructor
         /// </summary>
@@ -29,6 +37,7 @@
         /// <summary>
         ///     Component verification
         /// </summary>
+        [ProtoMember(1)]
         public ComponentVerification ComponentVerification { get; }
 
         /// <summary>
@@ -39,6 +48,7 @@
         /// <summary>
         ///     The error message.
         /// </summary>
+        [ProtoMember(2)]
         public string Error { get; }
 
         /// <inheritdoc />

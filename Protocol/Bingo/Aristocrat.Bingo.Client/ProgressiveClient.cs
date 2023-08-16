@@ -1,20 +1,23 @@
 ﻿namespace Aristocrat.Bingo.Client
 {
-    using System;
-    using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
     using Configuration;
     using Grpc.Core;
+    using Grpc.Net.Client;
+    using log4net;
     using Messages.Interceptor;
     using ProgressiveClientApi = ServerApiGateway.ProgressiveApi.ProgressiveApiClient;
 
     public class ProgressiveClient : BaseClient<ProgressiveClientApi>, IClientEndpointProvider<ProgressiveClientApi>
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
         public ProgressiveClient(
             IClientConfigurationProvider configurationProvider,
             ProgressiveClientAuthorizationInterceptor authorizationInterceptor,
             LoggingInterceptor loggingInterceptor)
-            : base(configurationProvider, authorizationInterceptor, loggingInterceptor)
+            : base(configurationProvider, authorizationInterceptor, loggingInterceptor, Logger)
         {
         }
 
@@ -25,7 +28,7 @@
             return new (callInvoker);
         }
 
-        protected override async Task MonitorConnectionAsync(Channel channel)
+        protected override async Task MonitorConnectionAsync(GrpcChannel channel)
         {
             if (channel is null)
             {
@@ -40,7 +43,7 @@
                 var observedState = await WaitForStateChanges(channel, lastObservedState).ConfigureAwait(false);
 
                 // The progressive client does not send regular messages on the channel so it will go idle. Do not disconnect in this situation.
-                if (lastObservedState is not ChannelState.Ready && lastObservedState is not ChannelState.Idle && observedState == lastObservedState)
+                if (lastObservedState is not ConnectivityState.Ready && lastObservedState is not ConnectivityState.Idle && observedState == lastObservedState)
                 {
                     break;
                 }

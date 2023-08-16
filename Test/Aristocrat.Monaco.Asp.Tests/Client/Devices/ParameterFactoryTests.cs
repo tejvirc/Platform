@@ -26,7 +26,7 @@
         [TestMethod]
         public void ParameterFactoryTest()
         {
-            Assert.ThrowsException<NullReferenceException>(
+            Assert.ThrowsException<ArgumentNullException>(
                 () =>
                 {
                     var factory = new ParameterFactory(

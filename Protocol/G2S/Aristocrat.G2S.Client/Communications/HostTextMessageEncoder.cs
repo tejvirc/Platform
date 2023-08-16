@@ -1,9 +1,10 @@
 ﻿namespace Aristocrat.G2S.Client.Communications
-{
+{    
     using System;
     using System.IO;
-    using System.ServiceModel.Channels;
+    using CoreWCF.Channels;
     using System.Text;
+    using System.Threading.Tasks;
     using System.Xml;
 
     /// <summary>
@@ -67,16 +68,25 @@
             var msgContents = new byte[buffer.Count];
             Array.Copy(buffer.Array, buffer.Offset, msgContents, 0, msgContents.Length);
             bufferManager.ReturnBuffer(buffer.Array);
-
             var stream = new MemoryStream(msgContents);
-            return ReadMessage(stream, int.MaxValue);
+            var result = ReadMessageAsync(stream, int.MaxValue).GetAwaiter().GetResult();
+            return result;
         }
 
+        // PlanA description: The bellow method has been deprecated.
+        ///// <inheritdoc />
+        //public override Message ReadMessage(Stream stream, int maxSizeOfHeaders, string contentType)
+        //{
+        //    var reader = XmlReader.Create(stream);
+        //    return Message.CreateMessage(reader, maxSizeOfHeaders, MessageVersion);
+        //}
+
         /// <inheritdoc />
-        public override Message ReadMessage(Stream stream, int maxSizeOfHeaders, string contentType)
+        public override Task<Message> ReadMessageAsync(Stream stream, int maxSizeOfHeaders, string contentType)
         {
             var reader = XmlReader.Create(stream);
-            return Message.CreateMessage(reader, maxSizeOfHeaders, MessageVersion);
+            var message = Message.CreateMessage(reader, maxSizeOfHeaders, MessageVersion);
+            return Task.FromResult(message);
         }
 
         /// <inheritdoc />
@@ -101,11 +111,21 @@
             return new ArraySegment<byte>(totalBytes, messageOffset, messageLength);
         }
 
+
+        // PlanA description: The bellow method has been deprecated.
+        ///// <inheritdoc />
+        //public override void WriteMessage(Message message, Stream stream)
+        //{
+        //    var writer = XmlWriter.Create(stream, _writerSettings);
+        //    message.WriteMessage(writer);
+        //    writer.Close();
+        //}
+
         /// <inheritdoc />
-        public override void WriteMessage(Message message, Stream stream)
+        public override async Task WriteMessageAsync(Message message, Stream stream)
         {
             var writer = XmlWriter.Create(stream, _writerSettings);
-            message.WriteMessage(writer);
+            await message.WriteMessageAsync(writer);
             writer.Close();
         }
     }

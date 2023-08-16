@@ -7,6 +7,8 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                mc:Ignorable="d"
                                d:DesignHeight="600"
                                d:DesignWidth="1080"
@@ -34,7 +36,7 @@
                       AutomationProperties.AutomationId="ScrollViewer4_86EADED7">
             <StackPanel Margin="5"
                         AutomationProperties.AutomationId="StackPanel5_86EADED7">
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.Detected}}"
+                <Label Content="{lex:Loc Detected}"
                        HorizontalAlignment="Left"
                        AutomationProperties.AutomationId="Label6_86EADED7" />
                 <ItemsControl ItemsSource="{Binding DisplaysDetected}"
@@ -118,13 +120,10 @@
                     Visibility="{Binding IsCabinetThatAllowsChangingBrightness, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Grid.Row="1"
                     AutomationProperties.AutomationId="StackPanel18_86EADED7">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.VideoDisplayBrightness}}"
-                   VerticalAlignment="Bottom"
-                   HorizontalAlignment="Left"
+            <Label Content="{lex:Loc VideoDisplayBrightness}"
+                   VerticalAlignment="Bottom" HorizontalAlignment="Left" 
                    AutomationProperties.AutomationId="Label19_86EADED7" />
-            <Slider Style="{StaticResource MonacoSlider}"
-                    MinWidth="400"
-                    IsEnabled="{Binding InputEnabled}"
+            <Slider Style="{StaticResource MonacoSlider}" MinWidth="400" IsEnabled="{Binding InputEnabled}"
                     TickFrequency="10"
                     IsSnapToTickEnabled="True"
                     Minimum="{Binding MinimumBrightness, Mode=OneWay}"
@@ -139,7 +138,7 @@
             <StackPanel Orientation="Horizontal"
                         AutomationProperties.AutomationId="StackPanel22_86EADED7">
                 <Button Name="EnterTouchScreenPixelBtn"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.TestTouchScreen}}"
+                        Content="{lex:Loc TestTouchScreen}"
                         Height="50"
                         Width="240"
                         IsEnabled="{Binding TouchScreenButtonsEnabled, Mode=OneWay}"
@@ -148,26 +147,20 @@
                         Visibility="{Binding TestTouchScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         AutomationProperties.AutomationId="Button23_86EADED7" />
                 <Button Name="CalibrateTouchScreenButton"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.CalibrateTouchScreen}}"
-                        Height="50"
-                        Width="240"
+                        Content="{lex:Loc CalibrateTouchScreen}" Height="50" Width="240"
                         IsEnabled="{Binding TouchScreenButtonsEnabled, Mode=OneWay}"
                         Command="{Binding EnterCalibrateTouchScreenCommand}"
                         CommandParameter="{Binding ElementName=CalibrateTouchScreenButton}"
                         Visibility="{Binding CalibrateTouchScreenVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         AutomationProperties.AutomationId="Button24_86EADED7" />
                 <Button Name="EnterIdentifyScreenBtn"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.IdentifyVideoDisplay}}"
-                        Height="50"
-                        Width="240"
+                        Content="{lex:Loc IdentifyVideoDisplay}" Height="50" Width="240"
                         IsEnabled="{Binding TestsEnabled, Mode=OneWay}"
                         Command="{Binding EnterIdentifyScreenCommand}"
                         CommandParameter="{Binding ElementName=EnterIdentifyScreenBtn}"
                         AutomationProperties.AutomationId="Button25_86EADED7" />
                 <Button Name="EnterColorTestButton"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnterDisplayColorTest}}"
-                        Height="50"
-                        Width="240"
+                        Content="{lex:Loc EnterDisplayColorTest}" Height="50" Width="240"
                         IsEnabled="{Binding TestsEnabled, Mode=OneWay}"
                         Command="{Binding EnterColorTestCommand}"
                         CommandParameter="{Binding ElementName=EnterColorTestButton}"

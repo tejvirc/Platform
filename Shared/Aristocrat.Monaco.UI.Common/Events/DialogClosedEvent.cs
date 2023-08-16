@@ -2,6 +2,7 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Definition of the DialogClosedEvent class.
@@ -10,7 +11,7 @@
     ///         When a modal dialog window is closed.
     ///     </remarks>
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class DialogClosedEvent : BaseEvent
     {
     }

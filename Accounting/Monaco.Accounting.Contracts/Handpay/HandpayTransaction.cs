@@ -58,7 +58,7 @@
             HandpayType = type;
             PrintTicket = printTicket;
             BankTransactionId = transactionId;
-            AssociatedTransactions = Enumerable.Empty<long>();
+            AssociatedTransactions = Enumerable.Empty<long>().ToList();
         }
 
         /// <summary>

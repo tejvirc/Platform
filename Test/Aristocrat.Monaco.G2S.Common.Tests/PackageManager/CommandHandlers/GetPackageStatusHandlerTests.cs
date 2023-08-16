@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using Common.PackageManager.CommandHandlers;
     using Common.PackageManager.Storage;
     using G2S.Data.Model;

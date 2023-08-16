@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Threading.Tasks;
     using Aristocrat.G2S;
@@ -69,7 +69,6 @@
         public async Task WhenRunWithNoErrorExpectResponseValues()
         {
             var count = new Random().Next(1, 100);
-            var seq = new Random().Next(1, 100);
 
             var egm = new Mock<IG2SEgm>();
             var rep = new Mock<ICommChangeLogRepository>();
@@ -88,7 +87,7 @@
             var command = ClassCommandUtilities.CreateClassCommand<commConfig, getCommChangeLog>(
                 TestConstants.HostId,
                 TestConstants.EgmId);
-            command.Command.lastSequence = seq;
+            command.Command.lastSequence = logs.First().Id;
             command.Command.totalEntries = count;
 
             await handler.Handle(command);

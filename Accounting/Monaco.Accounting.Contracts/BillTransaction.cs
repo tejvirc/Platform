@@ -7,11 +7,12 @@ namespace Aristocrat.Monaco.Accounting.Contracts
     using Application.Contracts.Localization;
     using Hardware.Contracts.Persistence;
     using Localization.Properties;
+    using ProtoBuf;
 
     /// <summary>
     ///     BillTransaction defines the data necessary to store a bill in NVRam for recall purposes.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class BillTransaction : BaseTransaction
     {
         private const int CurrencyIdLength = 3;
@@ -84,11 +85,13 @@ namespace Aristocrat.Monaco.Accounting.Contracts
         /// <summary>
         ///     Gets the denomination of the note inserted
         /// </summary>
+        [ProtoMember(1)]
         public long Denomination { get; set; }
 
         /// <summary>
         ///     Gets the amount of money involved in the transaction.
         /// </summary>
+        [ProtoMember(2)]
         public long Amount { get; private set; }
 
         /// <summary>
@@ -99,16 +102,19 @@ namespace Aristocrat.Monaco.Accounting.Contracts
         /// <summary>
         ///     Gets or sets the time that the bill was accepted
         /// </summary>
+        [ProtoMember(3)]
         public DateTime Accepted { get; set; }
 
         /// <summary>
         ///     Gets or sets the current note state
         /// </summary>
+        [ProtoMember(4)]
         public CurrencyState State { get; set; }
 
         /// <summary>
         ///     Gets or sets an exception code
         /// </summary>
+        [ProtoMember(5)]
         public int Exception { get; set; }
 
         /// <summary>

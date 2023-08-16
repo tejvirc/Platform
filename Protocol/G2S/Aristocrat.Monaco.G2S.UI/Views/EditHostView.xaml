@@ -7,6 +7,8 @@
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                Width="600"
@@ -41,7 +43,7 @@
                            AutomationProperties.AutomationId="RowDefinition9_A7144911" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_HostId}}"
+               Content="{lex:Loc CommsInfo_HostId}"
                d:Content="Host Id"
                AutomationProperties.AutomationId="Label7_A7144911" />
         <TextBox Grid.Row="1"
@@ -55,10 +57,9 @@
                  Width="Auto"
                  InputScope="Number"
                  AutomationProperties.AutomationId="TextBox8_A7144911" />
-
-        <Label Grid.Row="2" 
-               Margin="0 15 0 0" 
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_Address}}"
+        <Label Grid.Row="2"
+               Margin="0 15 0 0"
+               Content="{lex:Loc CommsInfo_Address}"
                d:Content="Address"
                AutomationProperties.AutomationId="Label9_A7144911" />
 
@@ -94,7 +95,7 @@
                   HorizontalAlignment="Left" 
                   Margin="0 15 0 0"
                   IsChecked="{Binding Registered}"
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationRegisteredHeader}}"
+                  Content="{lex:Loc HostConfigurationRegisteredHeader}"
                   d:Content="Registered"
                   AutomationProperties.AutomationId="CheckBox11_A7144911" />
         <CheckBox Grid.Row="5"
@@ -102,7 +103,7 @@
                   Margin="0 15 0 0"
                   IsChecked="{Binding RequiredForPlay}"
                   Visibility="{Binding IsInWizard, Converter={StaticResource TrueCollapsedFalseVisible}}"
-                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.RequiredForPlay}}"
+                  Content="{lex:Loc RequiredForPlay}"
                   d:Content="Required for Play"
                   AutomationProperties.AutomationId="CheckBox12_A7144911" />
         <CheckBox Grid.Row="6"

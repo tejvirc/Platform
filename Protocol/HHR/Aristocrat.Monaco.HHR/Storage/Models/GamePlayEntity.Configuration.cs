@@ -1,22 +1,19 @@
 ﻿namespace Aristocrat.Monaco.Hhr.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class GamePlayEntityConfiguration : EntityTypeConfiguration<GamePlayEntity>
+    public class GamePlayEntityConfiguration : IEntityTypeConfiguration<GamePlayEntity>
     {
-	    public GamePlayEntityConfiguration()
-	    {
-		    ToTable(nameof(GamePlayEntity));
+        public void Configure(EntityTypeBuilder<GamePlayEntity> builder)
+        {
+            builder.ToTable(nameof(GamePlayEntity));
 
-		    HasKey(t => t.Id);
-            Property(t => t.GamePlayRequest)
-                .IsRequired();
-            Property(t => t.GamePlayResponse)
-                .IsRequired();
-            Property(t => t.RaceStartRequest)
-                .IsRequired();
-            Property(t => t.PrizeCalculationError)
-                .IsRequired();
+            builder.HasKey(t => t.Id);
+            builder.Property(t => t.GamePlayRequest).IsRequired();
+            builder.Property(t => t.GamePlayResponse).IsRequired();
+            builder.Property(t => t.RaceStartRequest).IsRequired();
+            builder.Property(t => t.PrizeCalculationError).IsRequired();
         }
     }
 }

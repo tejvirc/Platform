@@ -1,12 +1,13 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="MonacoCalendarButtonStyle" TargetType="{x:Type CalendarButton}">
-        <Setter Property="Background" Value="{DynamicResource AccentColorBrush4}"/>
-        <Setter Property="FontFamily" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}, Path=FontFamily, Mode=OneWay}"/>
-        <Setter Property="FontSize" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}, Path=FontSize, Mode=OneWay}"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="MinHeight" Value="42"/>
-        <Setter Property="MinWidth" Value="40"/>
+        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent4}" />
+        <Setter Property="FontFamily" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}, Path=FontFamily, Mode=OneWay}" />
+        <Setter Property="FontSize" Value="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}, Path=FontSize, Mode=OneWay}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="MinHeight" Value="42" />
+        <Setter Property="MinWidth" Value="40" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CalendarButton}">
@@ -27,7 +28,7 @@
                                           AutomationProperties.AutomationId="ContentPresenter3_9E12167E" />
                         <Rectangle x:Name="CalendarButtonFocusVisual"
                                    IsHitTestVisible="false"
-                                   Stroke="{DynamicResource AccentColorBrush3}"
+                                   Stroke="{DynamicResource MahApps.Brushes.Accent}"
                                    Visibility="Collapsed"
                                    AutomationProperties.AutomationId="Rectangle4_9E12167E" />
                         <VisualStateManager.VisualStateGroups>
@@ -94,7 +95,7 @@
                                                                        Storyboard.TargetProperty="(TextElement.Foreground)"
                                                                        Duration="0"
                                                                        AutomationProperties.AutomationId="ObjectAnimationUsingKeyFrames25_9E12167E">
-                                            <DiscreteObjectKeyFrame Value="{DynamicResource GrayBrush2}"
+                                            <DiscreteObjectKeyFrame Value="{DynamicResource MahApps.Brushes.Gray2}"
                                                                     AutomationProperties.AutomationId="DiscreteObjectKeyFrame26_9E12167E" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
@@ -173,11 +174,11 @@
                 <ControlTemplate TargetType="{x:Type CalendarDayButton}">
                     <Grid AutomationProperties.AutomationId="Grid38_9E12167E">
                         <Rectangle x:Name="TodayBackground"
-                                   Fill="{DynamicResource AccentColorBrush}"
+                                   Fill="{DynamicResource MahApps.Brushes.Accent}"
                                    Opacity="0"
                                    AutomationProperties.AutomationId="Rectangle39_9E12167E" />
                         <Rectangle x:Name="SelectedBackground"
-                                   Fill="{DynamicResource AccentColorBrush4}"
+                                   Fill="{DynamicResource MahApps.Brushes.Accent4}"
                                    Opacity="0"
                                    AutomationProperties.AutomationId="Rectangle40_9E12167E" />
                         <Border Background="{TemplateBinding Background}"
@@ -185,7 +186,7 @@
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 AutomationProperties.AutomationId="Border41_9E12167E" />
                         <Rectangle x:Name="HighlightBackground"
-                                   Fill="{DynamicResource AccentColorBrush4}"
+                                   Fill="{DynamicResource MahApps.Brushes.Accent4}"
                                    Opacity="0"
                                    AutomationProperties.AutomationId="Rectangle42_9E12167E" />
                         <Path x:Name="Blackout"
@@ -193,7 +194,7 @@
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"
                               Data="M8.1772461,11.029181 L10.433105,11.029181 L11.700684,12.801641 L12.973633,11.029181 L15.191895,11.029181 L12.844727,13.999395 L15.21875,17.060919 L12.962891,17.060919 L11.673828,15.256231 L10.352539,17.060919 L8.1396484,17.060919 L10.519043,14.042364 z"
-                              Fill="{DynamicResource AccentColorBrush3}"
+                              Fill="{DynamicResource MahApps.Brushes.Accent3}"
                               Opacity="0"
                               RenderTransformOrigin="0.5,0.5"
                               Stretch="Fill"
@@ -206,7 +207,7 @@
                                           AutomationProperties.AutomationId="ContentPresenter44_9E12167E" />
                         <Rectangle x:Name="DayButtonFocusVisual"
                                    IsHitTestVisible="false"
-                                   Stroke="{DynamicResource AccentColorBrush3}"
+                                   Stroke="{DynamicResource MahApps.Brushes.Accent3}"
                                    Visibility="Collapsed"
                                    AutomationProperties.AutomationId="Rectangle45_9E12167E" />
                         <VisualStateManager.VisualStateGroups>
@@ -269,7 +270,7 @@
                                                                        Storyboard.TargetProperty="(TextElement.Foreground)"
                                                                        Duration="0"
                                                                        AutomationProperties.AutomationId="ObjectAnimationUsingKeyFrames64_9E12167E">
-                                            <DiscreteObjectKeyFrame Value="{DynamicResource GrayBrush2}"
+                                            <DiscreteObjectKeyFrame Value="{DynamicResource MahApps.Brushes.Gray2}"
                                                                     AutomationProperties.AutomationId="DiscreteObjectKeyFrame65_9E12167E" />
                                         </ObjectAnimationUsingKeyFrames>
                                     </Storyboard>
@@ -305,7 +306,7 @@
                                     Value="Visible" />
                             <Setter TargetName="NormalText"
                                     Property="TextElement.Foreground"
-                                    Value="{DynamicResource AccentColorBrush}" />
+                                    Value="{DynamicResource MahApps.Brushes.Accent` }" />
                         </Trigger>
                         <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger73_9E12167E">
                             <MultiDataTrigger.Conditions>
@@ -319,13 +320,13 @@
                             </MultiDataTrigger.Conditions>
                             <Setter TargetName="DayButtonFocusVisual"
                                     Property="Stroke"
-                                    Value="{DynamicResource GrayBrush1}" />
+                                    Value="{DynamicResource MahApps.Brushes.Gray1}" />
                             <Setter TargetName="DayButtonFocusVisual"
                                     Property="Visibility"
                                     Value="Visible" />
                             <Setter TargetName="NormalText"
                                     Property="TextElement.Foreground"
-                                    Value="{DynamicResource AccentColorBrush}" />
+                                    Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </MultiDataTrigger>
                         <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger74_9E12167E">
                             <MultiDataTrigger.Conditions>
@@ -335,12 +336,8 @@
                                 <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsToday}"
                                            Value="True" />
                             </MultiDataTrigger.Conditions>
-                            <Setter TargetName="NormalText"
-                                    Property="TextElement.Foreground"
-                                    Value="{DynamicResource AccentSelectedColorBrush}" />
-                            <Setter TargetName="TodayBackground"
-                                    Property="Opacity"
-                                    Value="1" />
+                            <Setter TargetName="NormalText" Property="TextElement.Foreground" Value="{DynamicResource MahApps.Brushes.Selected.Foreground}" />
+                            <Setter TargetName="TodayBackground" Property="Opacity" Value="1" />
                         </MultiDataTrigger>
                         <MultiTrigger AutomationProperties.AutomationId="MultiTrigger75_9E12167E">
                             <MultiTrigger.Conditions>
@@ -349,12 +346,8 @@
                                 <Condition Property="IsBlackedOut"
                                            Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Blackout"
-                                    Property="Fill"
-                                    Value="{DynamicResource AccentColorBrush}" />
-                            <Setter TargetName="TodayBackground"
-                                    Property="Opacity"
-                                    Value="0.5" />
+                            <Setter TargetName="Blackout" Property="Fill" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                            <Setter TargetName="TodayBackground" Property="Opacity" Value="0.5" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -381,7 +374,7 @@
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        FontWeight="Bold"
-                                       Foreground="{DynamicResource Brush3}"
+                                       Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
                                        Opacity="0.8"
                                        Text="{Binding}"
                                        AutomationProperties.AutomationId="TextBlock76_9E12167E" />
@@ -401,7 +394,7 @@
                                                      TargetType="{x:Type Button}">
                                         <Grid Cursor="Hand"
                                               AutomationProperties.AutomationId="Grid80_9E12167E">
-                                            <Rectangle Fill="{DynamicResource AccentColorBrush}"
+                                            <Rectangle Fill="{DynamicResource MahApps.Brushes.Accent}"
                                                        Opacity="0.1"
                                                        Stretch="Fill"
                                                        AutomationProperties.AutomationId="Rectangle81_9E12167E" />
@@ -451,7 +444,7 @@
                                                      TargetType="{x:Type Button}">
                                         <Grid Cursor="Hand"
                                               AutomationProperties.AutomationId="Grid91_9E12167E">
-                                            <Rectangle Fill="{DynamicResource AccentColorBrush}"
+                                            <Rectangle Fill="{DynamicResource MahApps.Brushes.Accent}"
                                                        Opacity="0.1"
                                                        Stretch="Fill"
                                                        AutomationProperties.AutomationId="Rectangle92_9E12167E" />
@@ -568,7 +561,7 @@
                                 </Grid.RowDefinitions>
                                 <Grid Grid.Row="0"
                                       HorizontalAlignment="Stretch"
-                                      Background="{DynamicResource AccentColorBrush}"
+                                      Background="{DynamicResource MahApps.Brushes.Accent}"
                                       AutomationProperties.AutomationId="Grid115_9E12167E">
                                     <Button x:Name="PART_HeaderButton"
                                             Grid.Row="0"
@@ -724,26 +717,17 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="MonacoCalendar"
-           TargetType="{x:Type Calendar}">
-        <Setter Property="Background"
-                Value="{DynamicResource WhiteBrush}" />
-        <Setter Property="BorderBrush"
-                Value="{DynamicResource BlackBrush}" />
-        <Setter Property="BorderThickness"
-                Value="1" />
-        <Setter Property="CalendarButtonStyle"
-                Value="{StaticResource MonacoCalendarButtonStyle}" />
-        <Setter Property="CalendarDayButtonStyle"
-                Value="{StaticResource CalendarDayButtonStyle}" />
-        <Setter Property="CalendarItemStyle"
-                Value="{StaticResource CalendarItemStyle}" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource TextBrush}" />
-        <Setter Property="HorizontalContentAlignment"
-                Value="Left" />
-        <Setter Property="SnapsToDevicePixels"
-                Value="True" />
+
+    <Style x:Key="MonacoCalendar" TargetType="{x:Type Calendar}">
+        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CalendarButtonStyle" Value="{StaticResource MonacoCalendarButtonStyle}" />
+        <Setter Property="CalendarDayButtonStyle" Value="{StaticResource CalendarDayButtonStyle}" />
+        <Setter Property="CalendarItemStyle" Value="{StaticResource CalendarItemStyle}" />
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Calendar}">

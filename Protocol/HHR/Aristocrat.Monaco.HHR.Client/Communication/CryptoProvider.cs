@@ -27,24 +27,23 @@
                 {
                     if (!string.IsNullOrEmpty(_encryptionKey))
                     {
-                        using (MD5 md5 = new MD5CryptoServiceProvider())
-                            using (TripleDES des = new TripleDESCryptoServiceProvider())
+                        using (MD5 md5 = MD5.Create())
+                        {
+                            using (var des = TripleDES.Create())
                             {
                                 des.Key = md5.ComputeHash(Encoding.UTF8.GetBytes(_encryptionKey));
                                 des.IV = new byte[des.BlockSize / 8];
                                 using (var ct = des.CreateEncryptor())
                                 {
-                                    var encBytes = ct.TransformFinalBlock(src, 0, src.Length);
-                                    return encBytes;
+                                    return ct.TransformFinalBlock(src, 0, src.Length);
                                 }
                             }
+                        }
                     }
 
-                    {
-                        var encBytes = new byte[src.Length];
-                        src.CopyTo(encBytes, 0);
-                        return encBytes;
-                    }
+                    var encBytes = new byte[src.Length];
+                    src.CopyTo(encBytes, 0);
+                    return encBytes;
                 });
         }
 
@@ -56,8 +55,8 @@
                 {
                     if (!string.IsNullOrEmpty(_encryptionKey))
                     {
-                        using (MD5 md5 = new MD5CryptoServiceProvider())
-                            using (TripleDES des = new TripleDESCryptoServiceProvider())
+                        using (MD5 md5 = MD5.Create())
+                            using (var des = TripleDES.Create())
                             {
                                 des.Key = md5.ComputeHash(Encoding.UTF8.GetBytes(_encryptionKey));
                                 des.IV = new byte[des.BlockSize / 8];

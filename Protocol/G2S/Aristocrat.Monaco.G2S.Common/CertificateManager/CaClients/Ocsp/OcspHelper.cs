@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Net;
+    using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Security.Cryptography.X509Certificates;
     using Application.Contracts.Localization;
     using Localization.Properties;
@@ -34,8 +36,8 @@
         /// <returns>Returns certificate authority from server.</returns>
         public static X509Certificate2Collection GetCertificateAuthorityFromServer(string certificateAuthorityServerUrl)
         {
-            var webClient = new WebClient { BaseAddress = certificateAuthorityServerUrl };
-            var caCertData = webClient.DownloadData("?operation=GetCACert&message=1");
+            var webClient = new System.Net.Http.HttpClient { BaseAddress = new Uri(certificateAuthorityServerUrl) };
+            var caCertData = webClient.GetByteArrayAsync("?operation=GetCACert&message=1").GetAwaiter().GetResult();
 
             var caCertChain = new X509Certificate2Collection();
             caCertChain.Import(caCertData);
@@ -97,20 +99,14 @@
         {
             byte[] result;
 
-            var request = (HttpWebRequest)WebRequest.Create(certificateAuthorityServerUrl);
-            request.Method = "POST";
-            request.ContentType = OcspRequestContentType;
-            request.ContentLength = requestData.Length;
-            request.Accept = OcspResponseContentType;
-
-            var stream = request.GetRequestStream();
-            stream.Write(requestData, 0, requestData.Length);
-            stream.Close();
-
-            var response = (HttpWebResponse)request.GetResponse();
-            using (var respStream = response.GetResponseStream())
+            var client = new HttpClient(new HttpClientHandler() { UseDefaultCredentials = true });
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(OcspRequestContentType));
+            var c = new ByteArrayContent(requestData);
+            var response = client.PostAsync(certificateAuthorityServerUrl, c).GetAwaiter().GetResult();
+            using (var streamResponse = response.Content.ReadAsStreamAsync().GetAwaiter().GetResult())
             {
-                result = ReadFully(respStream, 0);
+                result = ReadFully(streamResponse, 0);
             }
 
             return result;

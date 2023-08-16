@@ -6,6 +6,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
                                mc:Ignorable="d"
@@ -42,7 +44,7 @@
                            AutomationProperties.AutomationId="RowDefinition9_6B945F92" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MultiProtocolValidationSelection}}"
+               Content="{lex:Loc MultiProtocolValidationSelection}"
                Visibility="{Binding IsValidationProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"
                AutomationProperties.AutomationId="Label10_6B945F92" />
         <ComboBox Grid.Row="1"
@@ -55,7 +57,7 @@
                   AutomationProperties.AutomationId="ComboBox11_6B945F92" />
         <Label Grid.Row="2"
                Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MultiProtocolFundTransferSelection}}"
+               Content="{lex:Loc MultiProtocolFundTransferSelection}"
                Visibility="{Binding IsFundTransferProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"
                AutomationProperties.AutomationId="Label12_6B945F92" />
         <ComboBox Grid.Row="3"
@@ -68,7 +70,7 @@
                   AutomationProperties.AutomationId="ComboBox13_6B945F92" />
         <Label Grid.Row="4"
                Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.MultiProtocolProgressiveSelection}}"
+               Content="{lex:Loc MultiProtocolProgressiveSelection}"
                Visibility="{Binding IsProgressiveProtocolsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"
                AutomationProperties.AutomationId="Label14_6B945F92" />
         <ComboBox Grid.Row="5"
@@ -81,7 +83,7 @@
                   AutomationProperties.AutomationId="ComboBox15_6B945F92" />
         <Label Grid.Row="6"
                Margin="0 20 0 0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.CentralDeterminationSystemSelection}}"
+               Content="{lex:Loc CentralDeterminationSystemSelection}"
                Visibility="{Binding IsCentralDeterminationSystemsEmpty, Converter={StaticResource TrueCollapsedFalseVisible}}"
                AutomationProperties.AutomationId="Label16_6B945F92" />
         <ComboBox Grid.Row="7"

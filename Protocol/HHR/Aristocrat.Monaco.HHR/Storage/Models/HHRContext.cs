@@ -1,43 +1,51 @@
 ﻿namespace Aristocrat.Monaco.Hhr.Storage.Models
 {
-    using System.Data.Entity;
-    using System.Data.Entity.ModelConfiguration.Conventions;
-    using System.Data.SQLite;
-    using Common.Storage;
+    using System;
+    using System.IO;
+    using System.Reflection;
+    using Microsoft.EntityFrameworkCore;
     using Protocol.Common.Storage;
 
     /// <summary>
-    ///     
+    ///     HHRContext class
     /// </summary>
-    [DbConfigurationType(typeof(SQLiteConfiguration))]
     public class HHRContext : DbContext
     {
+        private readonly string _connectionString;
+        
         /// <summary>
         ///     Initializes a new instance of the <see cref="HHRContext" /> class.
         /// </summary>
         /// <param name="connectionStringResolver">Connection string.</param>
         public HHRContext(IConnectionStringResolver connectionStringResolver)
-            : base(new SQLiteConnection(connectionStringResolver.Resolve()), true)
         {
-            Configuration.LazyLoadingEnabled = false;
-            Configuration.ProxyCreationEnabled = false;
+            _connectionString = connectionStringResolver.Resolve();
+        }
+
+        public DbSet<ProgressiveUpdateEntity> ProgressiveUpdateEntity { get; set; }
+        public DbSet<PrizeInformationEntity> PrizeInformationEntity { get; set; }
+        public DbSet<GamePlayEntity> GamePlayEntity { get; set; }
+        public DbSet<PendingRequestEntity> PendingRequestEntity { get; set; }
+        public DbSet<ManualHandicapEntity> ManualHandicapEntity { get; set; }
+        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            var sqliteFile = _connectionString.Replace("Data Source=", string.Empty, StringComparison.OrdinalIgnoreCase);
+            if (sqliteFile.EndsWith(".sqlite") && !File.Exists(sqliteFile))
+            {
+                using (var fs = File.Create(sqliteFile)) { }
+            }
+            optionsBuilder.UseSqlite(_connectionString);
         }
 
         /// <inheritdoc />
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Conventions
-                .Remove<PluralizingTableNameConvention>();
-
-            modelBuilder.Configurations.Add(new ProgressiveUpdateEntityConfiguration());
-            modelBuilder.Configurations.Add(new PrizeInformationEntityConfiguration());
-            modelBuilder.Configurations.Add(new GamePlayEntityConfiguration());
-            modelBuilder.Configurations.Add(new FailedRequestEntityConfiguration());
-            modelBuilder.Configurations.Add(new ManualHandicapEntityConfiguration());
-
-            Database.SetInitializer(new HHRContextInitializer(modelBuilder));
+            modelBuilder.ApplyConfiguration(new ProgressiveUpdateEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new PrizeInformationEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new GamePlayEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new FailedRequestEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new ManualHandicapEntityConfiguration());
         }
     }
 }

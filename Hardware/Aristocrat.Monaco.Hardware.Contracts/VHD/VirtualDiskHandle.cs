@@ -9,8 +9,6 @@
     /// <summary>
     ///     Represents a VHD SafeHandle
     /// </summary>
-    [SecurityPermission(SecurityAction.InheritanceDemand, UnmanagedCode = true)]
-    [SecurityPermission(SecurityAction.Demand, UnmanagedCode = true)]
     public class VirtualDiskHandle : SafeHandleZeroOrMinusOneIsInvalid
     {
         /// <summary>
@@ -22,7 +20,6 @@
         }
 
         /// <inheritdoc />
-        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
         protected override bool ReleaseHandle()
         {
             return SafeNativeMethods.CloseHandle(handle);
@@ -32,7 +29,6 @@
         {
             [DllImport("kernel32.dll", SetLastError = true)]
             [return: MarshalAs(UnmanagedType.Bool)]
-            [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
             public static extern bool CloseHandle(IntPtr handle);
         }
     }

@@ -1,24 +1,25 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using GAT.Storage;
 
     /// <summary>
     ///     Configuration for the <see cref="GatSpecialFunctionParameter" /> entity
     /// </summary>
-    public class GatSpecialFunctionParameterMap : EntityTypeConfiguration<GatSpecialFunctionParameter>
+    public class GatSpecialFunctionParameterMap : IEntityTypeConfiguration<GatSpecialFunctionParameter>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="GatSpecialFunctionParameterMap" /> class.
         /// </summary>
-        public GatSpecialFunctionParameterMap()
+        public void Configure(EntityTypeBuilder<GatSpecialFunctionParameter> builder)
         {
-            ToTable("GatSpecialFunctionParameter");
+            builder.ToTable(nameof(GatSpecialFunctionParameter));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.Parameter)
+            builder.Property(t => t.Parameter)
                 .IsRequired();
         }
     }

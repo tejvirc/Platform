@@ -1,10 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Gaming
 {
-    using System;
-    using System.Timers;
+    using Aristocrat.GdkRuntime.V1;
+    using Aristocrat.Monaco.Gaming.Runtime.Server;
     using Contracts;
     using Kernel;
-    using PRNGLib;
+    using Aristocrat.CryptoRng;
+    using System;
+    using System.Timers;
 
     /// <summary>
     ///     A service that will occasionally call for generation of a random number, so that if a
@@ -18,7 +20,7 @@
         private const int MaximumExtraCycleTimeMs = 800;
 
         private readonly IPropertiesManager _properties;
-        private readonly IPRNG _prng;
+        private readonly IRandom _prng;
 
         private Timer _cycleTimer;
         private bool _disposed;

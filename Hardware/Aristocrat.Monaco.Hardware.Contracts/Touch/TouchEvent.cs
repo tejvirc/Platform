@@ -3,9 +3,10 @@
     using System;
     using System.Globalization;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>Class to handle Touch specific events. This class must be inherited from to use.</summary>
-    [Serializable]
+    [ProtoContract]
     public class TouchEvent : BaseEvent
     {
         /// <summary>
@@ -25,6 +26,7 @@
         }
 
         /// <summary>Gets a X coordinate value .</summary>
+        [ProtoMember(1)]
         public TouchInfo Info { get; }
 
         /// <inheritdoc />

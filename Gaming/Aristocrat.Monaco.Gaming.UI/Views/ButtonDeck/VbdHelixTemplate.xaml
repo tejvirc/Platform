@@ -3,10 +3,10 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:contracts="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Models;assembly=Aristocrat.Monaco.Gaming.Contracts"
-                    xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
                     xmlns:buttonDeck1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck"
                     xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
                     xmlns:infoBar="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.InfoBar"
+                    xmlns:managedBink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
                     mc:Ignorable="d">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="../../Skins/Styles.xaml" />
@@ -77,12 +77,12 @@
                   Visibility="{Binding IsLobbyVbdVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
                   AutomationProperties.AutomationId="Grid10_C1B74141">
                 <!--Lobby Background Image Animation-->
-                <bink:BinkGpuControl x:Name="BinkControl"
+                <managedBink:BinkGpuControl x:Name="BinkControl"
                                      LoopVideo="True"
                                      Cache="True"
                                      ShowFirstFrameOnLoad="True">
-                    <bink:BinkGpuControl.Style>
-                        <Style TargetType="bink:BinkGpuControl">
+                    <managedBink:BinkGpuControl.Style>
+                        <Style TargetType="managedBink:BinkGpuControl">
                             <Setter Property="VideoState"
                                     Value="Playing" />
                             <Style.Triggers>
@@ -112,8 +112,8 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </bink:BinkGpuControl.Style>
-                </bink:BinkGpuControl>
+                    </managedBink:BinkGpuControl.Style>
+                </managedBink:BinkGpuControl>
                 <!--Blank background if vbd is blank-->
                 <Image x:Name="ImageBlankBackground"
                        Stretch="Fill"

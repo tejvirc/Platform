@@ -2,7 +2,7 @@
 {
     using System;
     using System.Data.SqlClient;
-    using System.Data.SQLite;
+    using Microsoft.Data.Sqlite;
     using System.IO;
     using System.Linq;
     using System.Reflection;
@@ -199,8 +199,11 @@
         {
             if (File.Exists(_databaseFullPath))
             {
-                var connection = CreateConnection();
-                connection.Close();
+                using (var connection = CreateConnection())
+                {
+                    connection.Close();
+                }
+                SqliteConnection.ClearAllPools();
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
                 File.Delete(_databaseFullPath);
@@ -592,26 +595,22 @@
             }
         }
 
-        private SQLiteConnection CreateConnection()
+        private SqliteConnection CreateConnection()
         {
-            var connection = new SQLiteConnection(ConnectionString());
-            connection.SetPassword(DatabasePassword);
+            var connection = new SqliteConnection(ConnectionString());
+            //connection.SetPassword(DatabasePassword);
             return connection;
         }
 
         private string ConnectionString()
         {
-            var sqlBuilder = new SqlConnectionStringBuilder
+            var sqlBuilder = new SqliteConnectionStringBuilder
             {
                 DataSource = _databaseFullPath,
-                Pooling = true,
-                MaxPoolSize = int.MaxValue,
-                ConnectRetryCount = 10,
-                ConnectRetryInterval = 1,
-                ConnectTimeout = 15
+                Pooling = true
             };
 
-            return sqlBuilder.ConnectionString + ";FailIfMissing=True;Journal Mode=WAL;Synchronous=FULL;";
+            return $"{sqlBuilder.ConnectionString};";
         }
     }
 }

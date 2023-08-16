@@ -43,7 +43,7 @@
         /// <inheritdoc />
         public GetPackageStatusResult Execute(string parameter)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 if (string.IsNullOrEmpty(parameter))
                 {

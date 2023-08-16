@@ -59,7 +59,7 @@
         private const int WindowManagerSysCommand = 0x0112;
         private const int SysCommandClose = 0xF060;
         private static readonly object TicketGenerationLock = new object();
-        protected new readonly ILog Logger;
+        protected  readonly ILog Logger;
         protected bool DefaultPrintButtonEnabled;
 
         private volatile bool _disposed;
@@ -1214,7 +1214,7 @@
                 });
         }
 
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
             {

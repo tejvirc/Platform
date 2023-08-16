@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
@@ -180,7 +180,7 @@
                 return;
             }
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var sub = _meterSubscriptionRepository.Get(context, subId);
                 if (sub == null)
@@ -204,7 +204,7 @@
         /// <inheritdoc />
         public void SendEndOfDayMeters(bool onDoorOpen = false, bool onNoteDrop = false)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var hostSubscriptions = new List<int>();
                 foreach (
@@ -259,7 +259,7 @@
         /// <inheritdoc />
         public IEnumerable<MeterSubscription> GetMeterSub(int hostId, MetersSubscriptionType type)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return GetMeterSub(context, hostId, type);
             }
@@ -268,7 +268,7 @@
         /// <inheritdoc />
         public void SetMetersSubscription(int hostId, MetersSubscriptionType type, IList<MeterSubscription> subsList)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 ClearSubscriptions(hostId, type);
                 foreach (var s in subsList)
@@ -283,7 +283,7 @@
         /// <inheritdoc />
         public MeterSubscription ClearSubscriptions(int hostId, MetersSubscriptionType type)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var metersSubs = GetMeterSub(context, hostId, type).ToList();
 
@@ -333,7 +333,7 @@
             var gameDenomMeters = new List<gameDenomMeters>();
             var wagerMeters = new List<wagerMeters>();
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 foreach (var s in _meterSubscriptionRepository.GetAll(context)
                     .Where(item => item.HostId == sub.HostId && item.SubType == sub.SubType))
@@ -385,7 +385,7 @@
 
                             if (endOfDayMeters && sentAndTimeToLive.Item1)
                             {
-                                using (var dbContext = _contextFactory.Create())
+                                using (var dbContext = _contextFactory.CreateDbContext())
                                 {
                                     var updateSubs = GetMeterSub(dbContext, sub.HostId, sub.SubType);
 
@@ -409,7 +409,7 @@
             MetersSubscriptionType type = MetersSubscriptionType.EndOfDay,
             bool startUp = true)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 if (hostId == -1)
                 {

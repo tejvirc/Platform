@@ -6,8 +6,11 @@
     using System.Net;
     using System.Security.Authentication.ExtendedProtection;
     using System.ServiceModel;
-    using System.ServiceModel.Channels;
+    //using System.ServiceModel.Channels;
+    //using CoreWCF;
+    using CoreWCF.Channels;
     using System.Xml;
+    //using System.ServiceModel;
 
     /// <summary>
     ///     Utility methods for endpoints
@@ -22,6 +25,7 @@
         private const int MaxNameTableCharCount = 65536;
         private const int MaxBufferPoolSize = 524288;
         private const int MaxBufferSize = 2147483647;
+
 
         /// <summary>
         ///     Creates a BasicHttpBinding from given address
@@ -47,55 +51,56 @@
                     ReaderQuotas = readerQuotas
                 });
 
-            TransportBindingElement bindingElement;
+            TransportBindingElement bindingElement = null;
 
+            //PLANA: Some of the following features have been deprecated in CoreWCF.
             if (address.IsSecure())
             {
                 bindingElement = new HttpsTransportBindingElement
                 {
                     RequireClientCertificate = true,
-                    AllowCookies = false,
+                    //AllowCookies = false,
                     AuthenticationScheme = AuthenticationSchemes.Anonymous,
-                    BypassProxyOnLocal = false,
-                    DecompressionEnabled = true,
+                    //BypassProxyOnLocal = false,
+                    //DecompressionEnabled = true,
                     ExtendedProtectionPolicy = new ExtendedProtectionPolicy(
                         PolicyEnforcement.Always,
                         ProtectionScenario.TransportSelected,
                         null),
-                    HostNameComparisonMode = HostNameComparisonMode.StrongWildcard,
+                    //HostNameComparisonMode = HostNameComparisonMode.StrongWildcard,
                     KeepAliveEnabled = true,
                     ManualAddressing = false,
                     MaxBufferPoolSize = MaxBufferPoolSize,
                     MaxBufferSize = MaxBufferSize,
                     MaxReceivedMessageSize = MaxReceivedMessageSize,
-                    MaxPendingAccepts = 0,
-                    ProxyAuthenticationScheme = AuthenticationSchemes.Anonymous,
-                    TransferMode = TransferMode.Buffered,
-                    UseDefaultWebProxy = true
+                    //MaxPendingAccepts = 0,
+                    //ProxyAuthenticationScheme = AuthenticationSchemes.Anonymous,
+                    TransferMode = CoreWCF.TransferMode.Buffered, //TransferMode.Buffered,
+                    //UseDefaultWebProxy = true
                 };
             }
             else
             {
                 bindingElement = new HttpTransportBindingElement
                 {
-                    AllowCookies = false,
+                    //AllowCookies = false,
                     AuthenticationScheme = AuthenticationSchemes.Anonymous,
-                    BypassProxyOnLocal = false,
-                    DecompressionEnabled = true,
+                    //BypassProxyOnLocal = false,
+                    //DecompressionEnabled = true,
                     ExtendedProtectionPolicy = new ExtendedProtectionPolicy(PolicyEnforcement.Never),
-                    HostNameComparisonMode = HostNameComparisonMode.StrongWildcard,
+                    //HostNameComparisonMode = HostNameComparisonMode.StrongWildcard,
                     KeepAliveEnabled = true,
                     ManualAddressing = false,
                     MaxBufferPoolSize = MaxBufferPoolSize,
                     MaxBufferSize = MaxBufferSize,
                     MaxReceivedMessageSize = MaxReceivedMessageSize,
-                    MaxPendingAccepts = 0,
-                    ProxyAuthenticationScheme = AuthenticationSchemes.Anonymous,
-                    TransferMode = TransferMode.Buffered,
-                    UseDefaultWebProxy = true
+                    //MaxPendingAccepts = 0,
+                    //ProxyAuthenticationScheme = AuthenticationSchemes.Anonymous,
+                    TransferMode = CoreWCF.TransferMode.Buffered,
+                    //UseDefaultWebProxy = true
                 };
             }
-
+            
             customBinding.Elements.Add(bindingElement);
 
             return customBinding;
@@ -106,7 +111,7 @@
         /// </summary>
         /// <param name="address">endpoint address to bind to</param>
         /// <returns>a BasicHttpBinding as a Binding</returns>
-        public static Binding ClientBinding(Uri address)
+        public static System.ServiceModel.Channels.Binding ClientBinding(Uri address)
         {
             var readerQuotas = new XmlDictionaryReaderQuotas
             {

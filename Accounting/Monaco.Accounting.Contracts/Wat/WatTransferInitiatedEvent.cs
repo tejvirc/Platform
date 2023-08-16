@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Accounting.Contracts.Wat
 {
+    using ProtoBuf;
     using System;
 
     /// <summary>
@@ -11,7 +12,7 @@
     ///     client to perform any messaging to the user, but otherwise the client should not allow any other
     ///     actions to take place.
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class WatTransferInitiatedEvent : BaseWatEvent
     {
         /// <summary>

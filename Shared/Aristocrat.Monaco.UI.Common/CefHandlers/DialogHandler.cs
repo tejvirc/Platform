@@ -5,7 +5,6 @@
     using CefSharp;
 
     /// <inheritdoc />
-    [CLSCompliant(false)]
     public class DialogHandler : IDialogHandler
     {
         /// <inheritdoc />
@@ -13,11 +12,9 @@
             IWebBrowser chromiumWebBrowser,
             IBrowser browser,
             CefFileDialogMode mode,
-            CefFileDialogFlags flags,
             string title,
             string defaultFilePath,
             List<string> acceptFilters,
-            int selectedAcceptFilter,
             IFileDialogCallback callback)
         {
             // Don't allow file dialogs

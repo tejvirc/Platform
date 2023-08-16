@@ -254,7 +254,10 @@
 
             try
             {
-                tzi = (NativeMethods.Tzi)Marshal.PtrToStructure(h.AddrOfPinnedObject(), typeof(NativeMethods.Tzi));
+                var tziBox = (NativeMethods.Tzi?)Marshal.PtrToStructure(h.AddrOfPinnedObject(), typeof(NativeMethods.Tzi));
+                if (tziBox == null)
+                    throw new NullReferenceException("h.AddrOfPinnedObject()");
+                tzi = tziBox.Value;
                 return tzi;
             }
             finally

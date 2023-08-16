@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Kernel.Tests.MonoAddinsHelpers
 {
     #region Using
-
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mono.Addins;
-
+    using Test.Common.UnitTesting;
     #endregion
 
     /// <summary>
@@ -124,7 +124,14 @@
 
             if (AddinManager.IsInitialized == true)
             {
-                AddinManager.Shutdown();
+                try
+                {
+                    AddinManager.Shutdown();
+                }
+                catch (InvalidOperationException)
+                {
+                    // temporarily swallow exception
+                }
             }
         }
     }

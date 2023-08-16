@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Behaviors
 {
     using System.Windows;
-    using System.Windows.Interactivity;
+    using Microsoft.Xaml.Behaviors;
 
     /// <summary>
     ///     Behavior to pump WM_Touch messages to a window that has had WPF Stylus Support turned off.

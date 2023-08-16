@@ -133,7 +133,7 @@
         public bool WasStackingOnLastPowerUp
         {
             get => _wasStackingOnLastPowerUp;
-            private set
+            set
             {
                 if (_wasStackingOnLastPowerUp != value)
                 {
@@ -187,7 +187,7 @@
         public DocumentResult LastDocumentResult
         {
             get => _lastResult;
-            protected set
+            set
             {
                 if (_lastResult != value)
                 {
@@ -514,6 +514,12 @@
                     {
                         _stackingEventWaitHandle.Set();
                         _stackingEventWaitHandle.Dispose();
+                    }
+
+                    if (_noteAcceptor != null)
+                    {
+                        _noteAcceptor.Dispose();
+                        _noteAcceptor = null;
                     }
 
                     _stateLock.Dispose();

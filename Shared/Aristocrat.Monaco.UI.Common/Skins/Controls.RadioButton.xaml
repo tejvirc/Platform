@@ -49,8 +49,7 @@
                         </Grid.ColumnDefinitions>
                         <Grid x:Name="PART_CHECKBOX"
                               AutomationProperties.AutomationId="Grid6_B4C6FD09">
-                            <Rectangle Margin="-6 0"
-                                       Fill="{DynamicResource TransparentWhiteBrush}"
+                            <Rectangle Margin="-6 0" Fill="{DynamicResource MahApps.Brushes.Transparent}" 
                                        AutomationProperties.AutomationId="Rectangle7_B4C6FD09" />
                             <Ellipse x:Name="normal"
                                      Width="25"

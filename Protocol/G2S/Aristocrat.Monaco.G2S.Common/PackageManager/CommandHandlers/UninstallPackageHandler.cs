@@ -40,7 +40,7 @@
                 parameter.PackageEntity.PackageId,
                 files =>
                 {
-                    using (var context = ContextFactory.Create())
+                    using (var context = ContextFactory.CreateDbContext())
                     {
                         foreach (var file in files)
                         {

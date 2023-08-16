@@ -288,7 +288,7 @@ namespace Aristocrat.Monaco.Hardware
                 InitializeService(listenerBase);
             }
 
-            foreach (TypeExtensionNode serviceNode in AddinManager.GetExtensionNodes(ServicesPath))
+            foreach (TypeExtensionNode serviceNode in AddinManager.GetExtensionNodes<TypeExtensionNode>(ServicesPath))
             {
                 InitializeService((IService)serviceNode.CreateInstance());
             }

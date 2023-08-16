@@ -1,48 +1,49 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using OptionConfig;
 
     /// <summary>
     ///     Configuration for the <see cref="OptionConfigItem" /> entity
     /// </summary>
-    public class OptionConfigItemMap : EntityTypeConfiguration<OptionConfigItem>
+    public class OptionConfigItemMap : IEntityTypeConfiguration<OptionConfigItem>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="OptionConfigItemMap" /> class.
         /// </summary>
-        public OptionConfigItemMap()
+        public void Configure(EntityTypeBuilder<OptionConfigItem> builder)
         {
-            ToTable("OptionConfigItem");
+            builder.ToTable(nameof(OptionConfigItem));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.OptionId)
+            builder.Property(t => t.OptionId)
                 .IsRequired();
 
-            Property(t => t.SecurityLevel)
+            builder.Property(t => t.SecurityLevel)
                 .IsRequired();
 
-            Property(t => t.MinSelections)
+            builder.Property(t => t.MinSelections)
                 .IsRequired();
 
-            Property(t => t.MaxSelections)
+            builder.Property(t => t.MaxSelections)
                 .IsRequired();
 
-            Property(t => t.Duplicates)
+            builder.Property(t => t.Duplicates)
                 .IsRequired();
 
-            Property(t => t.Parameters)
+            builder.Property(t => t.Parameters)
                 .IsRequired();
 
-            Property(t => t.CurrentValues)
+            builder.Property(t => t.CurrentValues)
                 .IsRequired();
 
-            Property(t => t.DefaultValues)
+            builder.Property(t => t.DefaultValues)
                 .IsRequired();
 
-            Property(t => t.ParameterType)
+            builder.Property(t => t.ParameterType)
                 .IsRequired();
         }
     }

@@ -8,7 +8,8 @@
              xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
              xmlns:common="http://monaco.aristocrat.com/common"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
-             mc:Ignorable="d"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
              Background="Transparent"
              d:DesignHeight="300"
@@ -21,22 +22,23 @@
                 <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
                 <!-- Accent and AppTheme setting -->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary
-                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
+
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:EqualityVisibilityConverter x:Key="EqualToVisible"></converters:EqualityVisibilityConverter>
         </ResourceDictionary>
     </UserControl.Resources>
-    <i:Interaction.Triggers>
+
+    <b:Interaction.Triggers>
         <events:RoutedEventTrigger RoutedEvent="Control.MouseLeftButtonDown">
             <events:EventToCommandAction Command="{Binding TouchResponsibleGamingInfoCommand}" />
         </events:RoutedEventTrigger>
-    </i:Interaction.Triggers>
+    </b:Interaction.Triggers>
     <Grid AutomationProperties.AutomationId="Grid1_610F9F94">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"

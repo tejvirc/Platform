@@ -34,7 +34,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="0"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.Enabled}}"
+                           Text="{lex:Loc Enabled}" 
                            AutomationProperties.AutomationId="TextBlock11_E6A45C10" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -45,7 +45,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="1"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.CashInRewardLevel}}"
+                           Text="{lex:Loc CashInRewardLevel}"
                            AutomationProperties.AutomationId="TextBlock13_E6A45C10" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -56,7 +56,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="2"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.CoinInRewardLevels}}"
+                           Text="{lex:Loc CoinInRewardLevels}"
                            AutomationProperties.AutomationId="TextBlock15_E6A45C10" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"
@@ -67,7 +67,7 @@
                 <TextBlock Grid.Column="0"
                            Style="{DynamicResource SettingNameStyle}"
                            Grid.Row="3"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.CoinInRate}}"
+                           Text="{lex:Loc CoinInRate}"
                            AutomationProperties.AutomationId="TextBlock17_E6A45C10" />
                 <TextBlock Grid.Column="1"
                            Style="{DynamicResource SettingValueStyle}"

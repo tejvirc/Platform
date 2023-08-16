@@ -3,9 +3,10 @@ namespace Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor
     using System;
     using System.Globalization;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>Definition of the RebootNotStackedEvent class.</summary>
-    [Serializable]
+    [ProtoContract]
     public class RebootNotStackedEvent : BaseEvent
     {
         /// <summary>
@@ -19,10 +20,18 @@ namespace Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor
             Amount = amount;
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public RebootNotStackedEvent()
+        { }
+
         /// <summary>Gets a value indicating whether or not this is a voucher.</summary>
+        [ProtoMember(1)]
         public bool IsVoucher { get; }
 
         /// <summary>Gets a amount.</summary>
+        [ProtoMember(2)]
         public long Amount { get; }
 
         /// <inheritdoc />

@@ -35,7 +35,7 @@
         /// <returns>List of GAT special function.</returns>
         public IEnumerable<GatSpecialFunction> Execute()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 return _gatSpecialFunctionRepository.GetAll(context).ToList();
             }

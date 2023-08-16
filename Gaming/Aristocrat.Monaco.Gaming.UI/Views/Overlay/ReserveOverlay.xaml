@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
              xmlns:loc="http://monaco.aristocrat.com/localization"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
@@ -114,7 +116,7 @@
         <Grid Name="FullScreenLockupGrid"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"
-              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowLockupBackground,                   Converter={StaticResource TrueVisibleFalseHidden}}"
+              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowLockupBackground, Converter={StaticResource TrueVisibleFalseHidden}}"
               AutomationProperties.AutomationId="Grid5_4C70D0C5">
             <Grid.Background>
                 <ImageBrush Stretch="Fill"
@@ -126,7 +128,7 @@
         <Grid Name="CountdownTimerGrid"
               HorizontalAlignment="Center"
               VerticalAlignment="Top"
-              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowCountDownTimer,                   Converter={StaticResource TrueVisibleFalseHidden}}"
+              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowCountDownTimer, Converter={StaticResource TrueVisibleFalseHidden}}"
               AutomationProperties.AutomationId="Grid7_4C70D0C5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"
@@ -140,7 +142,7 @@
             <TextBlock Name="GiantReservedText"
                        Grid.Row="0"
                        Style="{StaticResource GiantReservedLockupTextBlockStyle}"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.Reserved}}"
+                       Text="{lex:Loc Reserved}"
                        Margin="0 60 0 0"
                        FontSize="300"
                        AutomationProperties.AutomationId="TextBlock11_4C70D0C5" />
@@ -181,7 +183,7 @@
         <Grid Name="IncorrectPinMessageGrid"
               HorizontalAlignment="Center"
               VerticalAlignment="Center"
-              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectUnlockPinDisplay,                     Converter={StaticResource TrueVisibleFalseHidden}}"
+              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectUnlockPinDisplay, Converter={StaticResource TrueVisibleFalseHidden}}"
               AutomationProperties.AutomationId="Grid16_4C70D0C5">
             <!-- An image of the background used for the reserve unlock screen but blank -->
             <Image x:Name="IncorrectPinImage"
@@ -191,7 +193,7 @@
             <!-- Top part of the incorrect pin attempts message -->
             <TextBlock Name="IncorrectPinText1"
                        Style="{StaticResource IncorrectPinTextBlockStyle}"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineIncorrectPinWaitText1}}"
+                       Text="{lex:Loc ReserveMachineIncorrectPinWaitText1}"
                        Margin="0 16 0 0"
                        AutomationProperties.AutomationId="TextBlock18_4C70D0C5" />
             <!-- The time remaining that the player must wait to try again -->
@@ -204,7 +206,7 @@
             <!-- Bottom part of the incorrect pin attempts message -->
             <TextBlock Name="IncorrectPinText2"
                        Style="{StaticResource IncorrectPinTextBlockStyle}"
-                       Text="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineIncorrectPinWaitText2}}"
+                       Text="{lex:Loc ReserveMachineIncorrectPinWaitText2}"
                        Margin="0 290 0 0"
                        AutomationProperties.AutomationId="TextBlock20_4C70D0C5" />
         </Grid>
@@ -212,7 +214,7 @@
         <Grid Name="PinPanel"
               HorizontalAlignment="Center"
               VerticalAlignment="Center"
-              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowPinEntryPanel,                   Converter={StaticResource TrueVisibleFalseHidden}}"
+              Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowPinEntryPanel, Converter={StaticResource TrueVisibleFalseHidden}}"
               AutomationProperties.AutomationId="Grid21_4C70D0C5">
             <!-- The background image, will change depending on if confirming or exiting reserve -->
             <Image Name="ConfirmOrExitImage"
@@ -257,7 +259,7 @@
                          AutomationProperties.AutomationId="TextBox27_4C70D0C5" />
                 <!-- The red rectangle that appears around the text box (which is actually a part of the background image) when an incorrect PIN is entered -->
                 <Rectangle Name="IncorrectPinHighlight"
-                           Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectPinWarning,                                Converter={StaticResource TrueVisibleFalseHidden}}"
+                           Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectPinWarning, Converter={StaticResource TrueVisibleFalseHidden}}"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Top"
                            StrokeThickness="4"
@@ -269,8 +271,8 @@
                            AutomationProperties.AutomationId="Rectangle28_4C70D0C5" />
                 <!-- The incorrect PIN warning message -->
                 <TextBlock Name="IncorrectPinWarningText"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineIncorrectPinText}}"
-                           Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectPinWarning,                                Converter={StaticResource TrueVisibleFalseHidden}}"
+                           Text="{lex:Loc ReserveMachineIncorrectPinText}"
+                           Visibility="{Binding MessageOverlayDisplay.ReserveOverlayViewModel.ShowIncorrectPinWarning, Converter={StaticResource TrueVisibleFalseHidden}}"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Top"
                            Foreground="Red"

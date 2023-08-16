@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.GAT.CommandHandlers
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Reflection;
     using Application.Contracts.Authentication;
@@ -50,7 +50,7 @@
         /// </summary>
         public void VerifyComponent()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var component =
                     _components.Components.SingleOrDefault(x => x.ComponentId == _componentVerification.ComponentId);

@@ -10,15 +10,12 @@
     using static System.FormattableString;
 
     /// <summary>A HID driver.</summary>
-    /// <seealso cref="T:Aristocrat.Monaco.Hardware.Usb.IHid" />
-    public class HidDriver : IHidDriver
+    /// <seealso cref="IHidDriver" />
+    public sealed class HidDriver : IHidDriver
     {
-        private const int DefaultExitTimeout = 10000; //milliseconds
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-        private bool _closing;
-
+        private bool _disposed;
         private HidDevice _device;
         private HidStream _stream;
         private Thread _thread; // thread for reading reports
@@ -26,37 +23,37 @@
         /// <summary>
         ///     Identifier of the Vendor
         /// </summary>
-        public virtual int VendorId { get; set; }
+        public int VendorId { get; init; }
 
         /// <summary>
         ///     Identifier of the Product
         /// </summary>
-        public virtual int ProductId { get; set; }
+        public int ProductId { get; init; }
 
         /// <summary>
         ///     string identifying manufacturer of the device
         /// </summary>
-        public virtual string Manufacturer => _device?.GetManufacturer() ?? string.Empty;
+        public string Manufacturer => _device?.GetManufacturer() ?? string.Empty;
 
         /// <summary>
         ///     string identifying model number of the device
         /// </summary>
-        public virtual string Model => _device?.GetProductName() ?? string.Empty;
+        public string Model => _device?.GetProductName() ?? string.Empty;
 
         /// <summary>
         ///     string identifying firmware version of the device
         /// </summary>
-        public virtual string Firmware => Invariant($"{_device?.ReleaseNumber ?? new Version()}");
+        public string Firmware => Invariant($"{_device?.ReleaseNumber ?? new Version()}");
 
         /// <summary>
         ///     string identifying serial number of the device
         /// </summary>
-        public virtual string SerialNumber => _device?.GetSerialNumber();
+        public string SerialNumber => _device?.GetSerialNumber();
 
         /// <summary>
         ///     True if driver is open for HID
         /// </summary>
-        public virtual bool IsOpen => _stream != null;
+        public bool IsOpen => _stream != null;
 
         /// <inheritdoc />
         public int InputReportLength => _device?.GetMaxInputReportLength() ?? 0;
@@ -84,11 +81,10 @@
         public void Dispose()
         {
             Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         /// <summary>Initializes a new instance of the Aristocrat.Monaco.Hardware.Usb.HidDriver class.</summary>
-        public virtual void Initialize()
+        public void Initialize()
         {
             DeviceList.Local.Changed += DevicesChanged;
             _device = DeviceList.Local.GetHidDeviceOrNull(VendorId, ProductId);
@@ -98,22 +94,10 @@
         /// closes the driver.
         /// </summary>
         /// <returns>True, if close was successful. False, otherwise.</returns>
-        public virtual bool Close()
+        public bool Close()
         {
-            if (_thread != null)
-            {
-                _closing = true;
-                if (!_thread.Join(DefaultExitTimeout))
-                {
-                    _thread.Abort();
-                } 
-
-                _thread = null;
-            } 
-
-            _stream?.Dispose();
-            _stream = null;
             Logger.Info("Close: closed HID");
+            Dispose(true);
             return true;
         }
 
@@ -121,8 +105,13 @@
         /// Opens driver for hid communication.
         /// </summary>
         /// <returns>True if open was successful.False, otherwise.</returns>
-        public virtual bool Open()
+        public bool Open()
         {
+            if (_disposed)
+            {
+                throw new ObjectDisposedException(nameof(HidDevice));
+            }
+
             if (_device == null)
             {
                 return false;
@@ -140,25 +129,23 @@
             }
 
             _stream.ReadTimeout = Timeout.Infinite;
-
-            _closing = false;
             Logger.Info("Open: opened HID");
-
             _thread = new Thread(ReadReports)
             {
                 Name = $"{GetType()}.ReportReader",
-                IsBackground = true
+                IsBackground = true,
             };
+
             _thread.Start();
             return true;
         }
 
         /// <inheritdoc/>
-        public virtual byte[] GetFeature(byte reportId)
+        public byte[] GetFeature(byte reportId)
         {
             if (_stream == null)
             {
-                return null;
+                return Array.Empty<byte>();
             }
 
             var report = new byte[FeatureReportLength + 1];
@@ -167,19 +154,17 @@
             try
             {
                 _stream.GetFeature(report);
-                //Logger.Debug($"GetFeature: {BitConverter.ToString(report)}");
                 return report;
             }
             catch (IOException e)
             {
                 Logger.Error($"GetFeature: IOException {e}");
-                //var _ = Reset();
-                return null;
+                return Array.Empty<byte>();
             }
         }
 
         /// <inheritdoc />
-        public virtual bool SetFeature(byte[] buffer)
+        public bool SetFeature(byte[] buffer)
         {
             if (_stream == null || buffer == null)
             {
@@ -195,14 +180,12 @@
             Buffer.BlockCopy(buffer, 0, report, 0, buffer.Length);
             try
             {
-                //Logger.Debug($"SetFeature: {BitConverter.ToString(report)}");
                 _stream.SetFeature(report);
                 return true;
             }
             catch (IOException e)
             {
                 Logger.Error($"SetFeature: IOException {e}");
-                //var _ = Reset();
                 return false;
             }
         }
@@ -213,13 +196,11 @@
             try
             {
                 _stream?.Write(buffer);
-                //Logger.Debug($"SetOutputReport: {BitConverter.ToString(buffer)}");
                 return _stream != null;
             }
             catch (IOException e)
             {
                 Logger.Error($"SetOutputReport: IOException {e}");
-                //var _ = Reset();
                 return false;
             }
         }
@@ -229,7 +210,7 @@
         {
             if (_stream == null)
             {
-                return null;
+                return Array.Empty<byte>();
             }
 
             var report = new byte[InputReportLength + 1];
@@ -237,21 +218,20 @@
 
             try
             {
-                _stream.Read(report, 0, report.Length);
-                //Logger.Debug($"GetInputReport: {BitConverter.ToString(report)}");
-                return report;
+                var span = report.AsSpan();
+                var read = _stream.Read(span);
+                return read < report.Length ? span[..read].ToArray() : report;
             }
             catch (IOException e)
             {
                 Logger.Error($"GetInputReport: IOException {e}");
-                //var _ = Reset();
-                return null;
+                return Array.Empty<byte>();
             }
         }
 
         /// <summary>Raises the <see cref="ReportReceived" /> event.</summary>
         /// <param name="e">Event information to send to registered event handlers.</param>
-        protected virtual void OnReportReceived(ReportEventArgs e)
+        private void OnReportReceived(ReportEventArgs e)
         {
             var invoker = ReportReceived;
             invoker?.Invoke(this, e);
@@ -265,24 +245,35 @@
         ///     True to release both managed and unmanaged resources; false to release only unmanaged
         ///     resources.
         /// </param>
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
+            if (_disposed)
+            {
+                return;
+            }
+
             if (disposing)
             {
                 DeviceList.Local.Changed -= DevicesChanged;
-                Close();
+                _thread?.Interrupt();
+                _stream?.Dispose();
+                _stream = null;
+                _thread?.Join();
+                _thread = null;
             }
+
+            _disposed = true;
         }
 
         /// <summary>Raises the <see cref="DeviceAttached" /> event.</summary>
-        protected virtual void OnDeviceAttached()
+        private void OnDeviceAttached()
         {
             var invoker = DeviceAttached;
             invoker?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>Raises the <see cref="DeviceDetached" /> event.</summary>
-        protected virtual void OnDeviceDetached()
+        private void OnDeviceDetached()
         {
             var invoker = DeviceDetached;
             invoker?.Invoke(this, EventArgs.Empty);
@@ -312,16 +303,14 @@
 
             try
             {
-                while (_stream != null && !_closing)
+                while (_stream != null)
                 {
                     var buffer = new byte[InputReportLength];
 
                     try
                     {
                         var read = _stream.Read(buffer, 0, buffer.Length);
-                        //Logger.Debug($"ReadReports: {BitConverter.ToString(buffer)}");
-
-                        OnReportReceived(new ReportEventArgs(buffer, 0, read));
+                        OnReportReceived(new ReportEventArgs(new ReadOnlySpan<byte>(buffer, 0, read)));
                     }
                     catch (TimeoutException)
                     {
@@ -337,6 +326,9 @@
             {
             }
             catch (ThreadAbortException)
+            {
+            }
+            catch (ThreadInterruptedException)
             {
             }
         }

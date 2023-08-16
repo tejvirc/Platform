@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.Application.Contracts
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to notify that the period meter values have been cleared.
@@ -18,7 +19,7 @@ namespace Aristocrat.Monaco.Application.Contracts
     ///     all meters, it will iterate all meter providers to ask each to clear its provided
     ///     meters' period value. This event will be posted when the iteration is done.
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class PeriodMetersClearedEvent : BaseEvent
     {
         /// <summary>
@@ -41,6 +42,7 @@ namespace Aristocrat.Monaco.Application.Contracts
         /// <summary>
         /// The provider whose meters has been reset. If this is blank, all periodic meters were reset.
         /// </summary>
+        [ProtoMember(1)]
         public string ProviderName { get; set; }
     }
 }

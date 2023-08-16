@@ -1,25 +1,28 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using CommConfig;
+    using System.Diagnostics;
+    using System.Reflection.Emit;
 
     /// <summary>
     ///     Configuration for the <see cref="CommHostConfig" /> entity
     /// </summary>
-    public class CommHostConfigMap : EntityTypeConfiguration<CommHostConfig>
+    public class CommHostConfigMap : IEntityTypeConfiguration<CommHostConfig>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="CommHostConfigMap" /> class.
         /// </summary>
-        public CommHostConfigMap()
+        public void Configure(EntityTypeBuilder<CommHostConfig> builder)
         {
-            ToTable("CommHostConfig");
+            builder.ToTable(nameof(CommHostConfig));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            HasMany(x => x.CommHostConfigItems)
-                .WithRequired()
+            builder.HasMany(x => x.CommHostConfigItems)
+                .WithOne()
                 .HasForeignKey(item => item.CommHostConfigId);
         }
     }

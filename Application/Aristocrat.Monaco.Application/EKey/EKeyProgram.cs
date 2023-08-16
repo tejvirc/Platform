@@ -263,7 +263,7 @@
         private static bool VerifyHash(RSAParameters parameters, byte[] signedData, byte[] signature)
         {
             var rsaCsp = new RSACryptoServiceProvider();
-            var hash = new SHA1Managed();
+            var hash = SHA1.Create();
 
             rsaCsp.ImportParameters(parameters);
 

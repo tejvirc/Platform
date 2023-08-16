@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.GAT.Exceptions
 {
     using System;
+    using System.Runtime.Serialization;
 
     /// <summary>
     ///     Transaction id not corresponding verification id exception

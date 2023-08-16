@@ -3,9 +3,10 @@
     using System;
     using System.Globalization;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>Class to handle key switch events.</summary>
-    [Serializable]
+    [ProtoContract]
     public abstract class KeySwitchBaseEvent : BaseEvent
     {
         /// <summary>
@@ -27,9 +28,11 @@
         }
 
         /// <summary>Gets a value indicating whether LogicalId is set.</summary>
+        [ProtoMember(1)]
         public int LogicalId { get; }
 
         /// <summary>Gets the value of the key switch name.</summary>
+        [ProtoMember(2)]
         public string KeySwitchName { get; }
 
         /// <inheritdoc />

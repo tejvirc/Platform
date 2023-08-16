@@ -9,7 +9,9 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
-                               mc:Ignorable="d"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+                               mc:Ignorable="d" 
                                d:DataContext="{d:DesignInstance {x:Type viewModels:LampsPageViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -18,20 +20,14 @@
             </ResourceDictionary.MergedDictionaries>
             <common:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
             <Style x:Key="ToggleSwitchButtonStyle"
-                   TargetType="controls:ToggleSwitchButton"
+                   TargetType="controls:ToggleSwitch"
                    BasedOn="{StaticResource MonacoToggleSwitchButton}">
-                <Setter Property="Height"
-                        Value="40" />
-                <Setter Property="HorizontalAlignment"
-                        Value="Center" />
-                <Setter Property="Margin"
-                        Value="0" />
-                <Setter Property="ThumbIndicatorWidth"
-                        Value="75" />
-                <Setter Property="VerticalAlignment"
-                        Value="Center" />
-                <Setter Property="Width"
-                        Value="150" />
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0"/>
+                <!--<Setter Property="ThumbIndicatorWidth" Value="75"/>-->
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Width" Value="150"/>
             </Style>
             <Style x:Key="LampButtonListBoxItemStyle"
                    TargetType="{x:Type ListBoxItem}"
@@ -48,10 +44,10 @@
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="0"
                                         AutomationProperties.AutomationId="Border3_CE65367A">
-                                    <controls:ToggleSwitchButton Style="{StaticResource ToggleSwitchButtonStyle}"
-                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                                                 common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
-                                                                 common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}" />
+                                    <controls:ToggleSwitch Style="{StaticResource ToggleSwitchButtonStyle}"
+                                                                 IsOn="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                 common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                                                                 common:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}" />
                                 </Border>
                                 <Border Grid.Column="1"
                                         Margin="10 0 0 0"
@@ -113,10 +109,10 @@
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="0"
                                         AutomationProperties.AutomationId="Border10_CE65367A">
-                                    <controls:ToggleSwitchButton Style="{StaticResource ToggleSwitchButtonStyle}"
-                                                                 IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                                                 common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
-                                                                 common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}"/>
+                                    <controls:ToggleSwitch Style="{StaticResource ToggleSwitchButtonStyle}"
+                                                                 IsOn="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                                                 common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                                                                 common:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}"/>
                                 </Border>
                                 <Border Grid.Column="1"
                                         Margin="10 0 0 0"
@@ -129,12 +125,9 @@
                                             <MultiBinding StringFormat="{}{0} {1}">
                                                 <Binding Path="DataContext"
                                                          RelativeSource="{RelativeSource TemplatedParent}" />
-                                                <Binding ElementName="MillisecondIntervalTextProxy"
-                                                         Path="Result" />
+                                                <Binding Source="{lex:Loc MillisecondIntervalText}"/>
                                             </MultiBinding>
                                         </TextBlock.Text>
-                                        <lex:LocProxy x:Name="MillisecondIntervalTextProxy"
-                                                      Source="{x:Static loc:ResourceKeys.MillisecondIntervalText}" />
                                     </TextBlock>
                                 </Border>
                             </Grid>
@@ -191,7 +184,7 @@
         <GroupBox Grid.Row="0"
                   Grid.Column="0"
                   Margin="0"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.TestButtonLamps}}"
+                  Header="{lex:Loc TestButtonLamps}"
                   IsEnabled="{Binding TestModeEnabled}"
                   Visibility="{Binding ButtonLampsAvailable, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                   AutomationProperties.AutomationId="GroupBox20_CE65367A">
@@ -203,7 +196,7 @@
                          Style="{StaticResource LampButtonListBoxStyle}"
                          Visibility="{Binding ButtonLampsAvailable, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                          AutomationProperties.AutomationId="ListBox22_CE65367A" />
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.FlashIntervals}}"
+                <Label Content="{lex:Loc FlashIntervals}"
                        Margin="0 20 0 10"
                        AutomationProperties.AutomationId="Label23_CE65367A" />
                 <ListBox ItemsSource="{Binding Intervals}"
@@ -216,7 +209,7 @@
         <GroupBox Grid.Row="2"
                   Grid.Column="0"
                   IsEnabled="{Binding TowerLightsIsEnabled}"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.TestTowerLights}}"
+                  Header="{lex:Loc TestTowerLights}"
                   Visibility="{Binding TowerLightsIsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                   AutomationProperties.AutomationId="GroupBox25_CE65367A">
             <Grid Margin="4"
@@ -257,7 +250,7 @@
                           AutomationProperties.AutomationId="ComboBox34_CE65367A" />
                 <Button Grid.Column="2"
                         Name="SetTowerLightFlashStateButton"
-                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.Set}}"
+                        Content="{lex:Loc Set}"
                         Command="{Binding SetTowerLightFlashStateCommand}"
                         MaxHeight="45"
                         Margin="15 0 0 0"
@@ -266,7 +259,7 @@
                          ItemsSource="{Binding TowerLights}"
                          ItemContainerStyle="{StaticResource MonacoUnselectableListBoxItem}"
                          MinWidth="275"
-                         BorderBrush="{DynamicResource GrayBrush9}"
+                         BorderBrush="{DynamicResource MahApps.Brushes.Gray9}"
                          Style="{StaticResource MonacoListBox}"
                          AutomationProperties.AutomationId="ListBox37_CE65367A">
                     <ListBox.ItemTemplate>

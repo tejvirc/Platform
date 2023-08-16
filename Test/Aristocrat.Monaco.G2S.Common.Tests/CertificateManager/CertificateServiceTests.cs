@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.IO;
     using System.Linq;
     using System.Linq.Expressions;
@@ -128,7 +128,7 @@
         {
             var certificate = CertificateHelper.GenerateCertificate("aaa-bbb-ccc");
 
-            var sha1CryptoServiceProvider = new SHA1CryptoServiceProvider();
+            var sha1CryptoServiceProvider = SHA1.Create();
             var hash = sha1CryptoServiceProvider.ComputeHash(certificate.GetRawCertData());
 
             var hashHexadecimalViewBuilder = new StringBuilder();

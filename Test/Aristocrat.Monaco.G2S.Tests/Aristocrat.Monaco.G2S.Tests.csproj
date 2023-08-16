@@ -1,14 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <AssemblyTitle>Aristocrat.Monaco.G2S.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
-    <PlatformTarget>x64</PlatformTarget>
+    <Platform>x64</Platform>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
     <ProjectReference Include="..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
@@ -26,16 +24,18 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
-    <PackageReference Include="Aristocrat.G2S" Version="4.1.44" />
-    <PackageReference Include="BouncyCastle" Version="1.8.4" />
-    <PackageReference Include="EntityFramework" Version="6.4.0" />
-    <PackageReference Include="Expressmapper" Version="1.9.1" />
+    <PackageReference Include="Aristocrat.G2S" Version="5.0.0-beta0009" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.4" />
+    <PackageReference Include="Aristocrat.Microsoft.EntityFrameworkCore" Version="6.0.18" />
+    <PackageReference Include="Aristocrat.Microsoft.EntityFrameworkCore.Relational" Version="6.0.18" />
+    <PackageReference Include="Aristocrat.Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.18" />
+    <PackageReference Include="ExpressMapper.Core" Version="1.9.3" />
     <PackageReference Include="FluentValidation" Version="7.4.0" />
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="NBuilder" Version="6.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="SimpleInjector" Version="4.9.2" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.1" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
 </Project>

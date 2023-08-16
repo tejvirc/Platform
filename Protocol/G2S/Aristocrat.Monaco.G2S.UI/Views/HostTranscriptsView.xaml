@@ -5,6 +5,8 @@
                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
@@ -57,7 +59,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_EgmId}}"
+                   Content="{lex:Loc CommsInfo_EgmId}"
                    AutomationProperties.AutomationId="Label15_66620A3A" />
             <TextBlock Grid.Row="0"
                        Grid.Column="1"
@@ -67,7 +69,7 @@
                        AutomationProperties.AutomationId="TextBlock16_66620A3A" />
             <Label Grid.Row="1"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_Address}}"
+                   Content="{lex:Loc CommsInfo_Address}"
                    AutomationProperties.AutomationId="Label17_66620A3A" />
             <TextBlock Grid.Row="1"
                        Grid.Column="1"
@@ -84,32 +86,32 @@
                       AutomationProperties.AutomationId="DataGrid20_66620A3A"
                       loc:Localizer.For="Operator">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_HostId}}"
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_HostId}"
                                         Width="Auto"
                                         Binding="{Binding HostId}"
-                                        AutomationProperties.AutomationId="DataGridTextColumn21_66620A3A"
-                                        loc:Localizer.For="Operator" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_Address}}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn21_66620A3A" 
+                                        loc:Localizer.For="Operator"/>
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_Address}"
                                         Width="Auto"
                                         Binding="{Binding Address}"
                                         AutomationProperties.AutomationId="DataGridTextColumn22_66620A3A"
                                         loc:Localizer.For="Operator" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_TransportState}}"
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_TransportState}"
                                         Width="Auto"
                                         Binding="{Binding TransportState}"
-                                        AutomationProperties.AutomationId="DataGridTextColumn23_66620A3A"
-                                        loc:Localizer.For="Operator" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.State}}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn23_66620A3A" 
+                                        loc:Localizer.For="Operator"/>
+                    <DataGridTextColumn Header="{lex:Loc State}"
                                         Width="Auto"
                                         Binding="{Binding State}"
                                         AutomationProperties.AutomationId="DataGridTextColumn24_66620A3A"
                                         loc:Localizer.For="Operator" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_OutboundOverflow}}"
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_OutboundOverflow}"
                                         Width="Auto"
-                                        Binding="{Binding OutboundOverflowText}"
+                                        Binding="{Binding OutboundOverflow}"
                                         AutomationProperties.AutomationId="DataGridTextColumn25_66620A3A"
                                         loc:Localizer.For="Operator" />
-                    <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_InboundOverflow}}"
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_InboundOverflow}"
                                         Width="Auto"
                                         Binding="{Binding InboundOverflowText}"
                                         AutomationProperties.AutomationId="DataGridTextColumn26_66620A3A"
@@ -122,7 +124,7 @@
         <Button x:Name="HostTranscriptsButton"
                 Grid.Row="3"
                 Visibility="Collapsed"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsViewDetail}}"
+                Content="{lex:Loc HostTranscriptsViewDetail}"
                 Command="{Binding ViewHostTranscriptsCommand, Mode=OneWay}"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Left"
@@ -130,7 +132,7 @@
                 AutomationProperties.AutomationId="Button28_66620A3A" />
         <Label x:Name="TranscriptsLabel"
                Grid.Row="4"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.Transcripts}}"
+               Content="{lex:Loc Transcripts}"
                Margin="0 0 0 20"
                AutomationProperties.AutomationId="Label29_66620A3A" />
         <DataGrid x:Name="HostTranscriptViewer"
@@ -143,42 +145,35 @@
                   AutomationProperties.AutomationId="DataGrid30_66620A3A"
                   loc:Localizer.For="Operator">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsDateReceived}}"
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsDateReceived}"
                                     Width="Auto"
                                     Binding="{Binding DateReceived, Converter={StaticResource DateTimeFormat}}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn31_66620A3A"
-                                    loc:Localizer.For="Operator" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsToLocation}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn31_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsToLocation}"
                                     Width="Auto"
                                     Binding="{Binding ToLocation}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn32_66620A3A"
-                                    loc:Localizer.For="Operator" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsSessionType}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn32_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsSessionType}"
                                     Width="Auto"
                                     Binding="{Binding SessionType}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn33_66620A3A"
-                                    loc:Localizer.For="Operator" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsSessionId}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn33_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsSessionId}"
                                     Width="Auto"
                                     Binding="{Binding SessionId}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn34_66620A3A"
-                                    loc:Localizer.For="Operator" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsCommandId}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn34_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsCommandId}"
                                     Width="Auto"
                                     Binding="{Binding CommandId}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn35_66620A3A"
-                                    loc:Localizer.For="Operator" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsDevice}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn35_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsDevice}"
                                     Width="Auto"
                                     Binding="{Binding Device}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn36_66620A3A"
-                                    loc:Localizer.For="Operator" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsSummary}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn36_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsSummary}"
                                     Width="Auto"
                                     Binding="{Binding Summary}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn37_66620A3A"
-                                    loc:Localizer.For="Operator" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsErrorCode}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn37_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsErrorCode}"
                                     Width="Auto"
                                     Binding="{Binding ErrorCode}"
                                     AutomationProperties.AutomationId="DataGridTextColumn38_66620A3A"
@@ -197,7 +192,7 @@
                 <TextBlock x:Name="TextBlockGameRoundInfo"
                            Visibility="Hidden"
                            IsEnabled="False"
-                           Text="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsViewTitle}}"
+                           Text="{lex:Loc HostTranscriptsViewTitle}"
                            AutomationProperties.AutomationId="TextBlock40_66620A3A" />
             </GroupBox.Header>
             <ScrollViewer x:Name="ScrollGameInfo"
@@ -236,12 +231,12 @@
                     AutomationProperties.AutomationId="Border45_66620A3A">
                 <DockPanel LastChildFill="True"
                            AutomationProperties.AutomationId="DockPanel46_66620A3A">
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostTranscriptsDetailTitle}}"
+                    <Label Content="{lex:Loc HostTranscriptsDetailTitle}"
                            DockPanel.Dock="Top"
                            HorizontalAlignment="Left"
                            AutomationProperties.AutomationId="Label47_66620A3A" />
                     <Button DockPanel.Dock="Bottom"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Close}}"
+                            Content="{lex:Loc Close}"
                             Command="{Binding CloseDetailCommand}"
                             HorizontalAlignment="Right"
                             AutomationProperties.AutomationId="Button48_66620A3A" />

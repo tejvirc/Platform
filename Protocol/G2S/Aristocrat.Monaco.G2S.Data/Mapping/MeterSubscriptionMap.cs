@@ -1,60 +1,61 @@
 ﻿namespace Aristocrat.Monaco.G2S.Data.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Model;
 
     /// <summary>
     ///     Configuration for the <see cref="MeterSubscription" /> entity
     /// </summary>
-    public class MeterSubscriptionMap : EntityTypeConfiguration<MeterSubscription>
+    public class MeterSubscriptionMap : IEntityTypeConfiguration<MeterSubscription>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="MeterSubscriptionMap" /> class.
         /// </summary>
-        public MeterSubscriptionMap()
+        public void Configure(EntityTypeBuilder<MeterSubscription> builder)
         {
-            ToTable("MeterSubscription");
+            builder.ToTable(nameof(MeterSubscription));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.HostId)
+            builder.Property(t => t.HostId)
                 .IsRequired();
 
-            Property(t => t.SubType)
+            builder.Property(t => t.SubType)
                 .IsRequired();
 
-            Property(t => t.Base)
+            builder.Property(t => t.Base)
                 .IsRequired();
 
-            Property(t => t.PeriodInterval)
+            builder.Property(t => t.PeriodInterval)
                 .IsRequired();
 
-            Property(t => t.DeviceId)
+            builder.Property(t => t.DeviceId)
                 .IsRequired();
 
-            Property(t => t.MeterType)
+            builder.Property(t => t.MeterType)
                 .IsRequired();
 
-            Property(t => t.ClassName)
+            builder.Property(t => t.ClassName)
                 .IsRequired();
 
-            Property(t => t.MeterDefinition)
+            builder.Property(t => t.MeterDefinition)
                 .IsRequired();
 
-            Property(t => t.OnEndOfDay)
+            builder.Property(t => t.OnEndOfDay)
                 .IsRequired();
 
-            Property(t => t.OnDoorOpen)
+            builder.Property(t => t.OnDoorOpen)
                 .IsRequired();
 
-            Property(t => t.OnCoinDrop)
+            builder.Property(t => t.OnCoinDrop)
                 .IsRequired();
 
-            Property(t => t.OnNoteDrop)
+            builder.Property(t => t.OnNoteDrop)
                 .IsRequired();
 
-            Property(t => t.LastAckedTime)
+            builder.Property(t => t.LastAckedTime)
                 .IsRequired();
         }
     }

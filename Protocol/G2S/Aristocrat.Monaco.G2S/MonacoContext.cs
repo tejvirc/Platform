@@ -1,122 +1,125 @@
 ﻿namespace Aristocrat.Monaco.G2S
 {
     using System;
-    using System.Collections.Concurrent;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    using System.Data.SQLite;
     using System.Linq;
-    using System.Reflection;
     using Common.CertificateManager.Mapping;
+    using Common.CertificateManager.Models;
+    using Common.GAT.Storage;
     using Common.Mapping;
+    using Common.PackageManager.Storage;
+    using Data.CommConfig;
     using Data.Mapping;
-    using Monaco.Common.Storage;
-    using SQLite.CodeFirst;
+    using Data.Model;
+    using Data.OptionConfig;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
     /// <summary>
     ///     A Monaco specific DbContext implementation
     /// </summary>
-    [DbConfigurationType(typeof(SQLiteConfiguration))]
     public class MonacoContext : DbContext
     {
-        private static readonly ConcurrentDictionary<Type, PropertyInfo[]> ObjectCache =
-            new ConcurrentDictionary<Type, PropertyInfo[]>();
+        private readonly string _connectionString;
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="MonacoContext" /> class.
-        /// </summary>
-        public MonacoContext()
-            : base("name=MonacoContext")
-        {
-            ((IObjectContextAdapter)this).ObjectContext.ObjectMaterialized +=
-                (sender, e) => FixDateTimeValues(e.Entity);
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="MonacoContext" /> class.
-        /// </summary>
-        /// <param name="connectionString">Connection string.</param>
         public MonacoContext(string connectionString)
-            : base(new SQLiteConnection(connectionString), true)
         {
-            ((IObjectContextAdapter)this).ObjectContext.ObjectMaterialized +=
-                (sender, e) => FixDateTimeValues(e.Entity);
+            _connectionString = connectionString;
         }
 
-        /// <inheritdoc />
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        public DbSet<Data.Model.Host> Host { get; set; }
+        public DbSet<ProfileData> ProfileData { get; set; }
+        public DbSet<EventHandlerLog> EventHandlerLog { get; set; }
+        public DbSet<EventSubscription> EventSubscription { get; set; }
+        public DbSet<SupportedEvent> SupportedEvent { get; set; }
+        public DbSet<MeterSubscription> MeterSubscription { get; set; }
+        public DbSet<CommHostConfig> CommHostConfig { get; set; }
+        public DbSet<CommHostConfigItem> CommHostConfigItem { get; set; }
+        public DbSet<CommHostConfigDevice> CommHostConfigDevice { get; set; }
+        public DbSet<CommChangeLog> CommChangeLog { get; set; }
+        public DbSet<ConfigChangeAuthorizeItem> ConfigChangeAuthorizeItem { get; set; }
+        public DbSet<OptionChangeLog> OptionChangeLog { get; set; }
+        public DbSet<OptionConfigDeviceEntity> OptionConfigDevice { get; set; }
+        public DbSet<OptionConfigGroup> OptionConfigGroup { get; set; }
+        public DbSet<OptionConfigItem> OptionConfigItem { get; set; }
+        public DbSet<GatVerificationRequest> GatVerificationRequest { get; set; }
+        public DbSet<GatComponentVerification> GatComponentVerification { get; set; }
+        public DbSet<GatSpecialFunction> GatSpecialFunction { get; set; }
+        public DbSet<GatSpecialFunctionParameter> GatSpecialFunctionParameter { get; set; }
+        public DbSet<PkiConfiguration> PkiConfiguration { get; set; }
+        public DbSet<Certificate> Certificate { get; set; }
+        public DbSet<Module> Module { get; set; }
+        public DbSet<PackageError> PackageError { get; set; }
+        public DbSet<Package> Package { get; set; }
+        public DbSet<Script> Script { get; set; }
+        public DbSet<TransferEntity> Transfer { get; set; }
+        public DbSet<PrintLog> PrinterLog { get; set; }
+        public DbSet<VoucherData> VoucherData { get; set; }
+        public DbSet<IdReaderData> IdReaderData { get; set; }
+        public DbSet<PackageLog> PackageLog { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // NOTE:  If you're adding a new table make sure it's included in the clean-up that occurs in StorageHandler.cs (order is important)
-            modelBuilder.Configurations.Add(new HostMap());
-            modelBuilder.Configurations.Add(new ProfileDataMap());
-
-            modelBuilder.Configurations.Add(new EventHandlerLogMap());
-            modelBuilder.Configurations.Add(new EventSubscriptionMap());
-            modelBuilder.Configurations.Add(new SupportedEventMap());
-            modelBuilder.Configurations.Add(new MeterSubscriptionMap());
-
-            modelBuilder.Configurations.Add(new ConfigChangeAuthorizeItemMap());
-            modelBuilder.Configurations.Add(new CommHostConfigMap());
-            modelBuilder.Configurations.Add(new CommHostConfigItemMap());
-            modelBuilder.Configurations.Add(new CommHostConfigDeviceMap());
-            modelBuilder.Configurations.Add(new CommChangeLogMap());
-
-            modelBuilder.Configurations.Add(new OptionChangeLogMap());
-            modelBuilder.Configurations.Add(new OptionConfigDeviceEntityMap());
-            modelBuilder.Configurations.Add(new OptionConfigGroupMap());
-            modelBuilder.Configurations.Add(new OptionConfigItemMap());
-
-            modelBuilder.Configurations.Add(new GatVerificationRequestMap());
-            modelBuilder.Configurations.Add(new GatComponentVerificationMap());
-            modelBuilder.Configurations.Add(new GatSpecialFunctionMap());
-            modelBuilder.Configurations.Add(new GatSpecialFunctionParameterMap());
-
-            modelBuilder.Configurations.Add(new PkiConfigurationMap());
-            modelBuilder.Configurations.Add(new CertificateMap());
-
-            modelBuilder.Configurations.Add(new ModuleMap());
-            modelBuilder.Configurations.Add(new PackageErrorMap());
-            modelBuilder.Configurations.Add(new PackageMap());
-            modelBuilder.Configurations.Add(new ScriptMap());
-            modelBuilder.Configurations.Add(new TransferMap());
-
-            modelBuilder.Configurations.Add(new PrintLogMap());
-            modelBuilder.Configurations.Add(new VoucherDataMap());
-            modelBuilder.Configurations.Add(new IdReaderDataMap());
-            modelBuilder.Configurations.Add(new PackageLogMap());
-
-            Database.SetInitializer(new SqliteCreateDatabaseIfNotExists<MonacoContext>(modelBuilder, true));
+            optionsBuilder.UseSqlite(_connectionString);
         }
 
-        private static void FixDateTimeValues(object entity)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            if (entity == null)
+            modelBuilder.ApplyConfiguration(new HostMap());
+            modelBuilder.ApplyConfiguration(new ProfileDataMap());
+            modelBuilder.ApplyConfiguration(new EventHandlerLogMap());
+            modelBuilder.ApplyConfiguration(new EventSubscriptionMap());
+            modelBuilder.ApplyConfiguration(new SupportedEventMap());
+            modelBuilder.ApplyConfiguration(new MeterSubscriptionMap());
+
+            modelBuilder.ApplyConfiguration(new ConfigChangeAuthorizeItemMap());
+            modelBuilder.ApplyConfiguration(new CommHostConfigMap());
+            modelBuilder.ApplyConfiguration(new CommHostConfigItemMap());
+            modelBuilder.ApplyConfiguration(new CommHostConfigDeviceMap());
+            modelBuilder.ApplyConfiguration(new CommChangeLogMap());
+
+            modelBuilder.ApplyConfiguration(new OptionChangeLogMap());
+            modelBuilder.ApplyConfiguration(new OptionConfigDeviceEntityMap());
+            modelBuilder.ApplyConfiguration(new OptionConfigGroupMap());
+            modelBuilder.ApplyConfiguration(new OptionConfigItemMap());
+
+            modelBuilder.ApplyConfiguration(new GatVerificationRequestMap());
+            modelBuilder.ApplyConfiguration(new GatComponentVerificationMap());
+            modelBuilder.ApplyConfiguration(new GatSpecialFunctionMap());
+            modelBuilder.ApplyConfiguration(new GatSpecialFunctionParameterMap());
+
+            modelBuilder.ApplyConfiguration(new PkiConfigurationMap());
+            modelBuilder.ApplyConfiguration(new CertificateMap());
+            modelBuilder.ApplyConfiguration(new ModuleMap());
+            modelBuilder.ApplyConfiguration(new PackageErrorMap());
+            modelBuilder.ApplyConfiguration(new PackageMap());
+            modelBuilder.ApplyConfiguration(new ScriptMap());
+            modelBuilder.ApplyConfiguration(new TransferMap());
+
+            modelBuilder.ApplyConfiguration(new PrintLogMap());
+            modelBuilder.ApplyConfiguration(new VoucherDataMap());
+            modelBuilder.ApplyConfiguration(new IdReaderDataMap());
+            modelBuilder.ApplyConfiguration(new PackageLogMap());
+
+            var entityTypes = modelBuilder.Model.GetEntityTypes();
+
+            foreach (var entityType in entityTypes)
             {
-                return;
-            }
-
-            var type = entity.GetType();
-            var properties = ObjectCache.GetOrAdd(
-                type,
-                t =>
-                {
-                    return t.GetProperties().Where(
-                            x => x.PropertyType == typeof(DateTime) || x.PropertyType == typeof(DateTime?))
+                var dateTimePropertities = entityType.GetProperties().Where(
+                            x => x.PropertyInfo != null &&
+                                (x.PropertyInfo.PropertyType == typeof(DateTime) || x.PropertyInfo.PropertyType == typeof(DateTime?)))
                         .ToArray();
-                });
 
-            foreach (var property in properties)
-            {
-                var dt = property.PropertyType == typeof(DateTime?)
-                    ? (DateTime?)property.GetValue(entity)
-                    : (DateTime)property.GetValue(entity);
-
-                if (dt == null)
+                foreach (var property in dateTimePropertities)
                 {
-                    continue;
+                    if (property.PropertyInfo.PropertyType == typeof(DateTime))
+                    {
+                        property.SetValueConverter(new ValueConverter<DateTime, DateTime>(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Local).ToUniversalTime()));
+                    }
+                    else
+                    {
+                        property.SetValueConverter(new ValueConverter<DateTime?, DateTime?>(v => v, v => !v.HasValue ? null : DateTime.SpecifyKind(v.Value, DateTimeKind.Local).ToUniversalTime()));
+                    }
                 }
-
-                property.SetValue(entity, DateTime.SpecifyKind(dt.Value, DateTimeKind.Local).ToUniversalTime());
             }
         }
     }

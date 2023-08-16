@@ -71,11 +71,25 @@
             MessageCallback = () => message;
             var helpText = (string)info.GetValue("HelpText", typeof(string));
             HelpTextCallback = () => helpText;
-            Classification = (DisplayableMessageClassification)info.GetValue("Classification", typeof(DisplayableMessageClassification));
-            Priority = (DisplayableMessagePriority)info.GetValue("Priority", typeof(DisplayableMessagePriority));
+            var classification = info.GetValue("Classification", typeof(DisplayableMessageClassification));
+            if (classification == null)
+                throw new ArgumentException("SerializationInfo info does not contain Classification field.");
+            Classification = (DisplayableMessageClassification)classification;
+            var priority = info.GetValue("Priority", typeof(DisplayableMessagePriority));
+            if (priority == null)
+                throw new ArgumentException("SerializationInfo info does not contain Priority field.");
+            Priority = (DisplayableMessagePriority)priority;
             ReasonEvent = (Type)info.GetValue("ReasonEvent", typeof(Type));
-            Id = (Guid)info.GetValue("Id", typeof(Guid));
-            MessageHasDynamicGuid = (bool)info.GetValue("MessageHasDynamicGuid", typeof(bool));
+
+            var id = info.GetValue("Id", typeof(Guid));
+            if (id == null)
+                throw new ArgumentException("Serialization info does not contain Id field.");
+            Id = (Guid)id;
+
+            var messageHasDynamicGuid = info.GetValue("MessageHasDynamicGuid", typeof(bool));
+            if (messageHasDynamicGuid == null)
+                throw new ArgumentException("Serialization info does not contain MessageHasDynamicGuid field.");
+            MessageHasDynamicGuid = (bool)messageHasDynamicGuid;
         }
 
         /// <summary>
@@ -140,7 +154,6 @@
         }
 
         /// <inheritdoc />
-        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             if (null == info)

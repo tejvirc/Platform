@@ -10,9 +10,10 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Button
     using System;
     using System.Globalization;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>Class to handle button specific events. This class must be inherited from to use.</summary>
-    [Serializable]
+    [ProtoContract]
     public abstract class ButtonBaseEvent : BaseEvent
     {
         /// <summary>
@@ -32,6 +33,7 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Button
         }
 
         /// <summary>Gets a value indicating whether LogicalId is set.</summary>
+        [ProtoMember(1)]
         public int LogicalId { get; }
 
         /// <inheritdoc />

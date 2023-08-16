@@ -6,9 +6,9 @@
     using Monaco.Common.Storage;
     using Protocol.Common.Installer;
     using Storage;
-    using G2S.Data.Model;
-    using G2S.Data.Packages;
-    using System.Data.Entity;
+    using Data.Model;
+    using Data.Packages;
+    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     ///     Delete package command handler implementation.
@@ -47,7 +47,7 @@
         /// <inheritdoc />
         public void Execute(DeletePackageArgs parameter)
         {
-            using (var context = ContextFactory.Create())
+            using (var context = ContextFactory.CreateDbContext())
             {
                 if (parameter == null)
                 {

@@ -23,7 +23,7 @@
         /// <inheritdoc />
         public IUnitOfWork Create()
         {
-            return _container.GetInstance<UnitOfWork>();
+            return _container.GetInstance<IUnitOfWork>();
         }
 
         /// <inheritdoc />

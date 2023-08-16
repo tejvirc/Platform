@@ -3,17 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Data.SQLite;
+    using System.Linq;
     using System.Globalization;
     using System.IO;
-    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Xml;
     using System.Xml.Serialization;
     using Contracts.Persistence;
     using log4net;
-    using StorageAdapters;
+    using Microsoft.Data.Sqlite;
 
     /// <summary>
     ///     Sql persistent storage accessor
@@ -50,7 +49,7 @@
             }
         }
 
-        public SqlPersistentStorageAccessor(SQLiteTransaction transaction, string name, int count, BlockFormat format)
+        public SqlPersistentStorageAccessor(SqliteTransaction transaction, string name, int count, BlockFormat format)
         {
             _connectionString = transaction?.Connection.ConnectionString;
 
@@ -163,10 +162,9 @@
                 {
                     connection.Open();
 
-                    using (var command = new SQLiteCommand(connection))
+                    using (var command = new SqliteCommand("SELECT FieldName, Data FROM StorageBlockField WHERE BlockName = @BlockName", connection))
                     {
-                        command.CommandText = "SELECT FieldName, Data FROM StorageBlockField WHERE BlockName = @BlockName";
-                        command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
+                        command.Parameters.Add(new SqliteParameter("@BlockName", Name));
 
                         using (var result = command.ExecuteReader())
                         {
@@ -321,13 +319,13 @@
                                 {
                                     var fieldName = description.FieldName + "@" + i;
 
-                                    using (var command = new SQLiteCommand(
+                                    using (var command = new SqliteCommand(
                                         "DELETE FROM StorageBlockField WHERE BlockName = @BlockName AND FieldName = @FieldName",
                                         connection,
                                         transaction))
                                     {
-                                        command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
-                                        command.Parameters.Add(new SQLiteParameter("@FieldName", fieldName));
+                                        command.Parameters.Add(new SqliteParameter("@BlockName", Name));
+                                        command.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
 
                                         command.ExecuteNonQuery();
                                     }
@@ -344,20 +342,20 @@
 
                                 for (var i = Count; i < size; i++)
                                 {
-                                    using (var command = new SQLiteCommand(
+                                    using (var command = new SqliteCommand(
                                         "INSERT INTO StorageBlockField (BlockName, FieldName, DataType, Data, Count) VALUES (@BlockName, @FieldName, @DataType, @Data, @Count)",
                                         connection,
                                         transaction))
                                     {
-                                        command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
+                                        command.Parameters.Add(new SqliteParameter("@BlockName", Name));
                                         command.Parameters.Add(
-                                            new SQLiteParameter("@FieldName", description.FieldName + "@" + i));
+                                            new SqliteParameter("@FieldName", description.FieldName + "@" + i));
                                         command.Parameters.Add(
-                                            new SQLiteParameter(
+                                            new SqliteParameter(
                                                 "@DataType",
                                                 Format.GetFieldType(description.FieldName).ToString()));
-                                        command.Parameters.Add(new SQLiteParameter("@Data", defaultValue));
-                                        command.Parameters.Add(new SQLiteParameter("@Count", description.Count));
+                                        command.Parameters.Add(new SqliteParameter("@Data", defaultValue));
+                                        command.Parameters.Add(new SqliteParameter("@Count", description.Count));
 
                                         command.ExecuteNonQuery();
                                     }
@@ -365,13 +363,13 @@
                             }
                         }
 
-                        using (var command = new SQLiteCommand(
+                        using (var command = new SqliteCommand(
                             "UPDATE StorageBlock SET Count = @Count WHERE Name = @Name",
                             connection,
                             transaction))
                         {
-                            command.Parameters.Add(new SQLiteParameter("@Name", Name));
-                            command.Parameters.Add(new SQLiteParameter("@Count", size));
+                            command.Parameters.Add(new SqliteParameter("@Name", Name));
+                            command.Parameters.Add(new SqliteParameter("@Count", size));
 
                             command.ExecuteNonQuery();
                         }
@@ -391,26 +389,29 @@
         private static BlockFormat[] DeserializeBlockFormats(string pathName)
         {
             BlockFormat[] blockFormats = { };
-            using (var xr = new XmlTextReader(new FileStream(pathName, FileMode.Open, FileAccess.Read)))
+
+            var serializerArray = new XmlSerializer(typeof(BlockFormat[]), new XmlRootAttribute("ArrayOfBlockFormat"));
+
+            var singleBlockFormatXmlRootAttribute = Attribute.GetCustomAttributes(typeof(BlockFormat))
+                .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+            var serializerSingle = new XmlSerializer(typeof(BlockFormat), singleBlockFormatXmlRootAttribute ?? new XmlRootAttribute(nameof(BlockFormat)));
+
+            var content = File.ReadAllText(pathName);
+            using (var reader = new StringReader(content))
+            using (var xmlReader = XmlReader.Create(reader))
             {
-                var xs = new XmlSerializer(typeof(BlockFormat[]));
-                if (xs.CanDeserialize(xr))
+                if (serializerArray.CanDeserialize(xmlReader))
                 {
                     Logger.Debug("Can deserialize multiple block formats...");
-                    var blockFormatArray = (BlockFormat[])xs.Deserialize(xr);
+                    var blockFormatArray = (BlockFormat[])serializerArray.Deserialize(xmlReader);
                     Array.ForEach(blockFormatArray, x => x.UpdateDictionary());
                     blockFormats = blockFormatArray;
                 }
-                else
+                else if(serializerSingle.CanDeserialize(xmlReader))
                 {
-                    xs = new XmlSerializer(typeof(BlockFormat));
-                    if (xs.CanDeserialize(xr))
-                    {
-                        Logger.Debug("Can deserialize singular block format...");
-                        var blockFormatSingle = (BlockFormat)xs.Deserialize(xr);
-                        blockFormatSingle.UpdateDictionary();
-                        blockFormats = new[] { blockFormatSingle };
-                    }
+                    var blockFormatSingle = (BlockFormat)serializerSingle.Deserialize(xmlReader);
+                    blockFormatSingle.UpdateDictionary();
+                    blockFormats = new[] { blockFormatSingle };
                 }
             }
 
@@ -460,10 +461,9 @@
                 {
                     connection.Open();
 
-                    using (var command = new SQLiteCommand(connection))
+                    using (var command = new SqliteCommand("SELECT * FROM StorageBlock WHERE Name = @Name", connection))
                     {
-                        command.CommandText = "SELECT * FROM StorageBlock WHERE Name = @Name";
-                        command.Parameters.Add(new SQLiteParameter("@Name", name));
+                        command.Parameters.Add(new SqliteParameter("@Name", name));
 
                         using (var result = command.ExecuteReader(CommandBehavior.SingleRow))
                         {
@@ -512,10 +512,9 @@
                     {
                         connection.Open();
 
-                        using (var command = new SQLiteCommand(connection))
+                        using (var command = new SqliteCommand("SELECT * FROM StorageBlockField WHERE BlockName = @BlockName", connection))
                         {
-                            command.CommandText = "SELECT * FROM StorageBlockField WHERE BlockName = @BlockName";
-                            command.Parameters.Add(new SQLiteParameter("@BlockName", blockName));
+                            command.Parameters.Add(new SqliteParameter("@BlockName", blockName));
 
                             using (var result = command.ExecuteReader())
                             {
@@ -570,10 +569,9 @@
                 {
                     connection.Open();
 
-                    using (var command = new SQLiteCommand(connection))
+                    using (var command = new SqliteCommand("SELECT * FROM StorageBlockField WHERE BlockName = @BlockName", connection))
                     {
-                        command.CommandText = "SELECT * FROM StorageBlockField WHERE BlockName = @BlockName";
-                        command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
+                        command.Parameters.Add(new SqliteParameter("@BlockName", Name));
 
                         using (var result = command.ExecuteReader())
                         {
@@ -627,9 +625,9 @@
             }
         }
 
-        private void AddFields(SQLiteTransaction transaction, BlockFormat format, IEnumerable<FieldDescription> fields, int version = -1)
+        private void AddFields(SqliteTransaction transaction, BlockFormat format, IEnumerable<FieldDescription> fields, int version = -1)
         {
-            using (var command = new SQLiteCommand(
+            using (var command = new SqliteCommand(
                 "INSERT INTO StorageBlockField (BlockName, FieldName, DataType, Data, Count) VALUES (@BlockName, @FieldName, @DataType, @Data, @Count)",
                 transaction.Connection,
                 transaction))
@@ -640,41 +638,43 @@
                         description.FieldName,
                         DefaultValueFromFieldDescription(description));
 
-                    command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
-                    command.Parameters.Add(new SQLiteParameter("@FieldName", description.FieldName));
+                    command.Parameters.Add(new SqliteParameter("@BlockName", Name));
+                    command.Parameters.Add(new SqliteParameter("@FieldName", description.FieldName));
                     command.Parameters.Add(
-                        new SQLiteParameter("@DataType", format.GetFieldType(description.FieldName).ToString()));
-                    command.Parameters.Add(new SQLiteParameter("@Data", defaultValue));
-                    command.Parameters.Add(new SQLiteParameter("@Count", description.Count));
+                        new SqliteParameter("@DataType", format.GetFieldType(description.FieldName).ToString()));
+                    command.Parameters.Add(new SqliteParameter("@Data", defaultValue));
+                    command.Parameters.Add(new SqliteParameter("@Count", description.Count));
 
                     command.ExecuteNonQuery();
+                    command.Parameters.Clear();
 
                     for (var i = 1; i < Count; i++)
                     {
-                        command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
+                        command.Parameters.Add(new SqliteParameter("@BlockName", Name));
                         command.Parameters.Add(
-                            new SQLiteParameter("@FieldName", description.FieldName + "@" + i));
+                            new SqliteParameter("@FieldName", description.FieldName + "@" + i));
                         command.Parameters.Add(
-                            new SQLiteParameter(
+                            new SqliteParameter(
                                 "@DataType",
                                 format.GetFieldType(description.FieldName).ToString()));
-                        command.Parameters.Add(new SQLiteParameter("@Data", defaultValue));
-                        command.Parameters.Add(new SQLiteParameter("@Count", description.Count));
+                        command.Parameters.Add(new SqliteParameter("@Data", defaultValue));
+                        command.Parameters.Add(new SqliteParameter("@Count", description.Count));
 
                         command.ExecuteNonQuery();
+                        command.Parameters.Clear();
                     }
                 }
             }
 
             if (version > 0)
             {
-                using (var command = new SQLiteCommand(
+                using (var command = new SqliteCommand(
                     "UPDATE StorageBlock SET Version = @Version WHERE Name = @Name",
                     transaction.Connection,
                     transaction))
                 {
-                    command.Parameters.Add(new SQLiteParameter("@Name", Name));
-                    command.Parameters.Add(new SQLiteParameter("@Version", version));
+                    command.Parameters.Add(new SqliteParameter("@Name", Name));
+                    command.Parameters.Add(new SqliteParameter("@Version", version));
 
                     command.ExecuteNonQuery();
                 }
@@ -691,14 +691,13 @@
                 {
                     connection.Open();
 
-                    using (var command = new SQLiteCommand(connection))
+                    using (var command = new SqliteCommand("SELECT Data FROM StorageBlockField WHERE BlockName = @BlockName AND FieldName = @FieldName", connection))
                     {
-                        command.CommandText =
-                            "SELECT Data FROM StorageBlockField WHERE BlockName = @BlockName AND FieldName = @FieldName";
-                        command.Parameters.Add(new SQLiteParameter("@BlockName", Name));
-                        command.Parameters.Add(new SQLiteParameter("@FieldName", fieldName));
+                        command.Parameters.Add(new SqliteParameter("@BlockName", Name));
+                        command.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
 
-                        var fieldData = (byte[])command.ExecuteScalar(CommandBehavior.SingleRow);
+                        //var fieldData = (byte[])command.ExecuteScalar(CommandBehavior.SingleRow);
+                        var fieldData = (byte[])command.ExecuteScalar();
 
                         var fd = Format.GetFieldDescription(blockFieldName);
 
@@ -732,11 +731,11 @@
                 {
                     connection.Open();
 
-                    using (var command = new SQLiteCommand(
+                    using (var command = new SqliteCommand(
                         "SELECT COUNT(FieldName) FROM StorageBlockField WHERE BlockName = @BlockName",
                         connection))
                     {
-                        command.Parameters.Add(new SQLiteParameter("@BlockName", name));
+                        command.Parameters.Add(new SqliteParameter("@BlockName", name));
 
                         return Convert.ToInt32(command.ExecuteScalar()) > 0;
                     }
@@ -749,11 +748,11 @@
             }
         }
 
-        private SQLiteConnection CreateConnection()
+        private SqliteConnection CreateConnection()
         {
-            var connection = new SQLiteConnection(_connectionString);
+            var connection = new SqliteConnection(_connectionString);
 
-            connection.SetPassword(StorageConstants.DatabasePassword);
+            // connection.SetPassword(StorageConstants.DatabasePassword);
 
             return connection;
         }

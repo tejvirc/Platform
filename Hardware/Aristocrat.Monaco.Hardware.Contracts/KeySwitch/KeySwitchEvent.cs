@@ -3,11 +3,12 @@
     using System;
     using System.Globalization;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     The KeySwitchEvent is fired when a key switch is turned
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public abstract class KeySwitchEvent : BaseEvent
     {
         /// <summary>
@@ -35,6 +36,7 @@
         /// <summary>
         ///     Gets the id of the switch
         /// </summary>
+        [ProtoMember(1)]
         public int SwitchId => _keySwitchId;
 
         /// <inheritdoc />

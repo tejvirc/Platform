@@ -1,14 +1,23 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using System;
+    using System.CodeDom;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Posted to indicate replay pauses until user input.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class GameReplayPauseInputEvent : BaseEvent
     {
+        /// <summary>
+        /// Empty constructor for derserialization
+        /// </summary>
+        public GameReplayPauseInputEvent()
+        {
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameReplayPauseInputEvent" /> class.
         /// </summary>
@@ -20,6 +29,7 @@
         /// <summary>
         ///     Property indicating if RuntimeHost is paused during Replay
         /// </summary>
+        [ProtoMember(1)]
         public bool ReplayPauseState { get; set; }
     }
 }

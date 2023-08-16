@@ -1,15 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <AssemblyTitle>Aristocrat.Monaco.Kernel.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <PlatformTarget>x64</PlatformTarget>
+    <Platform>x64</Platform>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
@@ -102,22 +100,27 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="Mono.Addins" Version="1.0.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.1" />
+    <PackageReference Include="SoapFormatter" Version="1.1.9" />
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="Mono.Addins" Version="1.4.1" />
+    <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <ItemGroup>
-      <AssemblySource1 Include="$(MSBuildThisFileDirectory)AssemblyResolver\AssemblyToFind.dll"></AssemblySource1>
-      <AssemblyDest1 Include="$(OutputPath)AssemblyResolver\DirectoryToSearch\AssemblyToFind.tmp"></AssemblyDest1>
-      <AssemblySource2 Include="$(MSBuildThisFileDirectory)AssemblyResolver\AnotherAssemblyToFind.dll"></AssemblySource2>
-      <AssemblyDest2 Include="$(OutputPath)AssemblyResolver\DirectoryToSearch\AnotherDirectoryToSearch\AnotherAssemblyToFind.tmp"></AssemblyDest2>
+      <AssemblySource1 Include="$(MSBuildThisFileDirectory)AssemblyResolver\AssemblyToFind.dll">
+      </AssemblySource1>
+      <AssemblyDest1 Include="$(OutputPath)AssemblyResolver\DirectoryToSearch\AssemblyToFind.tmp">
+      </AssemblyDest1>
+      <AssemblySource2 Include="$(MSBuildThisFileDirectory)AssemblyResolver\AnotherAssemblyToFind.dll">
+      </AssemblySource2>
+      <AssemblyDest2 Include="$(OutputPath)AssemblyResolver\DirectoryToSearch\AnotherDirectoryToSearch\AnotherAssemblyToFind.tmp">
+      </AssemblyDest2>
     </ItemGroup>
-
     <Copy SourceFiles="@(AssemblySource1)" DestinationFiles="@(AssemblyDest1)" />
-
     <Copy SourceFiles="@(AssemblySource2)" DestinationFiles="@(AssemblyDest2)" />
   </Target>
 </Project>

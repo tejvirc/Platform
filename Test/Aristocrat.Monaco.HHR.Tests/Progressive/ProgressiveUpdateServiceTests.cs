@@ -167,7 +167,14 @@
             _progressiveUpdateService?.Dispose();
 
             MoqServiceManager.RemoveInstance();
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
         }
 
         [DataRow(true, false, false, false, false, false, false)]

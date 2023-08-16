@@ -17,7 +17,7 @@
     {
         private int _mouseDownTimeStamp;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         public BitmapImage ThreeSectionBackgroundImage { get; set; }
 
         public BitmapImage TwoSectionTrackingBackgroundImage { get; set; }
@@ -126,6 +126,11 @@
         {
             SubscribeEvents();
             ViewModel.PlayClickSound();
+        }
+
+        private void PlayerMenuPopupView_OnUnloaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

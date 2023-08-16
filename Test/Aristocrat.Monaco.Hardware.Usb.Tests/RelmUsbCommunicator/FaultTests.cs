@@ -163,7 +163,7 @@
             {
                 actualLightStatus = e.Statuses.First();
             };
-            
+
             await usbCommunicator.Initialize();
             await usbCommunicator.HomeReels();
 

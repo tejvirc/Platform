@@ -8,6 +8,8 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:BellPageViewModel}}">
@@ -17,18 +19,13 @@
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="ToggleSwitchButtonStyle"
-                   TargetType="controls:ToggleSwitchButton"
+                   TargetType="controls:ToggleSwitch"
                    BasedOn="{StaticResource MonacoToggleSwitchButton}">
-                <Setter Property="Height"
-                        Value="40" />
-                <Setter Property="Margin"
-                        Value="0" />
-                <Setter Property="ThumbIndicatorWidth"
-                        Value="75" />
-                <Setter Property="VerticalAlignment"
-                        Value="Center" />
-                <Setter Property="Width"
-                        Value="150" />
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Margin" Value="0"/>
+                <!--<Setter Property="ThumbIndicatorWidth" Value="75"/>-->
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="Width" Value="150"/>
             </Style>
             <Style TargetType="GroupBox"
                    BasedOn="{StaticResource MonacoGroupBox}">
@@ -58,25 +55,25 @@
         </Grid.ColumnDefinitions>
         <GroupBox Grid.Row="0"
                   Margin="0"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}"
+                  Header="{lex:Loc StatusLabel}"
                   AutomationProperties.AutomationId="GroupBox7_7095ED6D">
-            <TextBlock Text="{Binding Status}"
+            <TextBlock Text="{Binding Status}" 
                        AutomationProperties.AutomationId="TextBlock8_7095ED6D" />
         </GroupBox>
         <GroupBox Grid.Row="1"
                   Margin="0"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.TestBellLabel}}"
+                  Header="{lex:Loc TestBellLabel}"
                   Visibility="{Binding ShowToggle, Converter={StaticResource TrueHiddenFalseVisible}}"
                   AutomationProperties.AutomationId="GroupBox9_7095ED6D">
             <StackPanel Orientation="Horizontal"
                         AutomationProperties.AutomationId="StackPanel10_7095ED6D">
-                <controls:ToggleSwitchButton Style="{StaticResource ToggleSwitchButtonStyle}"
-                                             Name="BellToggleSwitch"
+                <controls:ToggleSwitch Style="{StaticResource ToggleSwitchButtonStyle}"
                                              IsEnabled="{Binding IsToggleEnabled}"
-                                             IsChecked="{Binding ToggleBell, Mode=TwoWay}"
-                                             helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
-                                             helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}" />
-                <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.Ring}}"
+                                             Name="BellToggleSwitch"
+                                             IsOn="{Binding ToggleBell, Mode=TwoWay}"
+                                             helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                                             helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}"/>
+                <Button Content="{lex:Loc Ring}"
                         Command="{Binding RingBellClicked}"
                         IsEnabled="{Binding RingBellEnabled}"
                         Margin="10,0,0,0"
@@ -99,7 +96,7 @@
         </GroupBox>
         <GroupBox Grid.Row="2"
                   Margin="0"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.InitialBellRingLabel}}"
+                  Header="{lex:Loc InitialBellRingLabel}"
                   Visibility="{Binding ShowToggle, Converter={StaticResource TrueHiddenFalseVisible}}"
                   AutomationProperties.AutomationId="GroupBox13_7095ED6D">
             <helpers:CurrencyTextBox MinWidth="200"
@@ -111,7 +108,7 @@
         </GroupBox>
         <GroupBox Grid.Row="3"
                   Margin="0"
-                  Header="{lex:Loc Key={x:Static loc:ResourceKeys.IntervalBellRingLabel}}"
+                  Header="{lex:Loc IntervalBellRingLabel}"
                   Visibility="{Binding ShowToggle, Converter={StaticResource TrueHiddenFalseVisible}}"
                   AutomationProperties.AutomationId="GroupBox14_7095ED6D">
             <helpers:CurrencyTextBox MinWidth="200"

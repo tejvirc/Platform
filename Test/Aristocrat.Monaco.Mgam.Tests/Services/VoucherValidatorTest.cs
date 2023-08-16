@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Threading.Tasks;
     using Accounting.Contracts;
     using Accounting.Contracts.TransferOut;
@@ -323,8 +324,8 @@
                 SessionId = 1,
                 OfflineVoucherPrinted = false
             };
-            var sessionQuery = new DataModelHelpers.MockDbSet<Session>(new List<Session> { session });
-            sessionRepo.Setup(r => r.Queryable()).Returns(sessionQuery);
+            var sessionQuery = new List<Session> { session };
+            sessionRepo.Setup(r => r.Queryable()).Returns(sessionQuery.AsQueryable());
 
             sessionRepo.Setup(r => r.Update(It.IsAny<Session>())).Verifiable();
             setUp.unit.Setup(u => u.Repository<Session>()).Returns(sessionRepo.Object);

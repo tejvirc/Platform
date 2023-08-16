@@ -44,27 +44,27 @@
             Assert.AreEqual(exception, target.InnerException);
         }
 
-        [TestMethod]
-        public void SerializedConstructorTest()
-        {
-            var expectedMessage = "This is a test of LocalizationException";
+        //[TestMethod]
+        //public void SerializedConstructorTest()
+        //{
+        //    var expectedMessage = "This is a test of LocalizationException";
 
-            // Just need a specific exception type for the inner exception
-            Exception innerException = new ArgumentException("this is the inner exception");
+        //    // Just need a specific exception type for the inner exception
+        //    Exception innerException = new ArgumentException("this is the inner exception");
 
-            var runnableException = new LocalizationException(expectedMessage, innerException);
-            var stream = new MemoryStream();
+        //    var runnableException = new LocalizationException(expectedMessage, innerException);
+        //    var stream = new MemoryStream();
 
-            var formatter = new BinaryFormatter();
+        //    var formatter = new BinaryFormatter();
 
-            formatter.Serialize(stream, runnableException);
+        //    formatter.Serialize(stream, runnableException);
 
-            stream.Position = 0;
+        //    stream.Position = 0;
 
-            var deserializedException = (LocalizationException)formatter.Deserialize(stream);
+        //    var deserializedException = (LocalizationException)formatter.Deserialize(stream);
 
-            Assert.AreEqual(expectedMessage, deserializedException.Message);
-            Assert.AreEqual(innerException.Message, deserializedException.InnerException.Message);
-        }
+        //    Assert.AreEqual(expectedMessage, deserializedException.Message);
+        //    Assert.AreEqual(innerException.Message, deserializedException.InnerException.Message);
+        //}
     }
 }

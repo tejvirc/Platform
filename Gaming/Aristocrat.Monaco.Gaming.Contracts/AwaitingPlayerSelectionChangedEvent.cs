@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     The AwaitingPlayerSelectionChangedEvent is posted when the runtime updates the Awaiting Player Selection flag.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class AwaitingPlayerSelectionChangedEvent : BaseEvent
     {
         /// <summary>
@@ -19,8 +20,16 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing
+        /// </summary>
+        public AwaitingPlayerSelectionChangedEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets the AwaitingPlayerSelection parameter
         /// </summary>
+        [ProtoMember(1)]
         public bool AwaitingPlayerSelection { get; }
     }
 }

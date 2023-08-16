@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Application.Tests
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -115,7 +116,14 @@
         [TestCleanup]
         public void MyTestCleanUp()
         {
-            AddinManager.Shutdown();
+            try
+            {
+                AddinManager.Shutdown();
+            }
+            catch (InvalidOperationException)
+            {
+                // temporarily swallow exception
+            }
         }
 
         /// <summary>

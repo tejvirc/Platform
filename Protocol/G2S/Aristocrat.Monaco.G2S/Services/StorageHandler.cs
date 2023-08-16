@@ -7,6 +7,7 @@
     using Hardware.Contracts.Persistence;
     using Kernel;
     using log4net;
+    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     ///     Handles storage events like clearing persistent storage
@@ -107,7 +108,7 @@
                 {
                     foreach (var table in tables)
                     {
-                        context.Database.ExecuteSqlCommand($"DELETE FROM [{table}]");
+                        context.Database.ExecuteSqlRaw($"DELETE FROM [{table}]");
                     }
                 }
             }

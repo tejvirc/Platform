@@ -12,6 +12,11 @@
     [CLSCompliant(false)]
     public interface IReelAnimationCapabilities : IReelControllerCapability
     {
+        // TODO: Remove "Controller" from all the method names.T
+        // This was added to lower the % of duplicated lines SonarQube was seeing.T
+        //  This interface should match IAnimationImplementation
+        //  Once more code is added the % will be much lower.
+
         /// <summary>
         ///     Contains all the loaded animation files
         /// </summary>

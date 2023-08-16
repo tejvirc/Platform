@@ -1,28 +1,29 @@
 ﻿namespace Aristocrat.Monaco.Mgam.Common.Data.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     Configuration for <see cref="Session"/> model.
     /// </summary>
-    public class SessionConfiguration : EntityTypeConfiguration<Session>
+    public class SessionConfiguration : IEntityTypeConfiguration<Session>
     {
         /// <summary>
         ///     Initializes an instance of the <see cref="SessionConfiguration"/> class.
         /// </summary>
-        public SessionConfiguration()
+        public void Configure(EntityTypeBuilder<Session> builder)
         {
-            ToTable(nameof(Session));
+            builder.ToTable(nameof(Session));
 
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.SessionId)
+            builder.Property(t => t.SessionId)
                 .IsRequired();
 
-            Property(t => t.OfflineVoucherBarcode)
+            builder.Property(t => t.OfflineVoucherBarcode)
                 .IsRequired();
 
-            Property(t => t.OfflineVoucherPrinted)
+            builder.Property(t => t.OfflineVoucherPrinted)
                 .IsRequired();
         }
     }

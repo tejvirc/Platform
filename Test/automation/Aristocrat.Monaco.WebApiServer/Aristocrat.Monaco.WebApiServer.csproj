@@ -1,24 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <Monaco_DisableCodeAnalysis>true</Monaco_DisableCodeAnalysis>
-  </PropertyGroup>
-
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
-
-	<PropertyGroup>
-		<TargetFramework>net472</TargetFramework>
-		<Configurations>Debug;Release;Retail</Configurations>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Platform>x64</Platform>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.WebApi.SelfHost" Version="5.2.7" />
+    <None Remove="Aristocrat.Monaco.WebApiServer.addin.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Aristocrat.Monaco.WebApiServer.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Owin" Version="6.0.15" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Aristocrat.Monaco.WebApiServer.addin.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

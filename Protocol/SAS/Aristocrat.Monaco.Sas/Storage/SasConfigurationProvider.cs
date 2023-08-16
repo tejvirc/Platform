@@ -46,7 +46,7 @@
         /// <inheritdoc />
         public IEnumerable<Host> GetHosts()
         {
-            using var context = _contextFactory.Create();
+            using var context = _contextFactory.CreateDbContext();
             return _hostRepository.GetAll(context).ToList();
         }
 
@@ -59,7 +59,7 @@
             }
 
             var hostList = hosts.ToList();
-            using var context = _contextFactory.Create();
+            using var context = _contextFactory.CreateDbContext();
             var currentList = _hostRepository.GetAll(context).ToList();
             var deleted = currentList.Where(c => hostList.All(h => h.ComPort != c.ComPort));
             foreach (var host in deleted)
@@ -87,7 +87,7 @@
         /// <inheritdoc />
         public PortAssignment GetPortAssignment()
         {
-            using var context = _contextFactory.Create();
+            using var context = _contextFactory.CreateDbContext();
             return _portRepository.GetSingle(context) ?? new PortAssignment { ProgressivePort = HostId.None };
         }
 
@@ -119,7 +119,7 @@
         /// <inheritdoc />
         public SasFeatures GetSasFeatures()
         {
-            using var context = _contextFactory.Create();
+            using var context = _contextFactory.CreateDbContext();
             return _featuresRepository.GetSingle(context) ??
                    new SasFeatures { ValidationType = SasValidationType.SecureEnhanced };
         }
@@ -169,7 +169,7 @@
 
         private void AddOrUpdate<T>(IRepository<T> repository, T entity, Action<T> dataUpdater) where T : BaseEntity
         {
-            using var context = _contextFactory.Create();
+            using var context = _contextFactory.CreateDbContext();
             var current = repository.GetSingle(context);
 
             var add = current is null || current.Id != entity.Id;

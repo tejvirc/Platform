@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     A MeterSnapshotCompletedEvent should be posted when the MeterSnapshot is updated.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class MeterSnapshotCompletedEvent : BaseEvent
     {
     }

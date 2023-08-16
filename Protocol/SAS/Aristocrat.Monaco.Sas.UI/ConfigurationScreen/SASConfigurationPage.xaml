@@ -9,6 +9,8 @@
                                xmlns:helpers="http://monaco.aristocrat.com/common"
                                xmlns:cs="clr-namespace:Aristocrat.Monaco.Sas.UI.ConfigurationScreen"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:SasConfigurationViewModel}}">
@@ -91,18 +93,18 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Column="0"
                Grid.Row="0"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.DualHost}}"
+               Content="{lex:Loc DualHost}"
                AutomationProperties.AutomationId="Label8_AA676FA5" />
-        <controls:ToggleSwitchButton Grid.Row="1"
+        <controls:ToggleSwitch Grid.Row="1"
                                      Grid.Column="0"
                                      IsEnabled="{Binding InputEnabled}"
-                                     IsChecked="{Binding DualHostSetup}"
+                                     IsOn="{Binding DualHostSetup}"
                                      controls:ControlsHelper.CornerRadius="0"
-                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
-                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}" />
+                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}" />
         <GroupBox Grid.Column="0"
                   Grid.Row="2"
-                  Header="{lex:BLoc Key={x:Static loc:ResourceKeys.PortAssignmentGroupHeader}}"
+                  Header="{lex:BLoc PortAssignmentGroupHeader}"
                   Margin="0 20 0 0"
                   IsEnabled="{Binding InputEnabled}"
                   AutomationProperties.AutomationId="GroupBox9_AA676FA5">
@@ -193,14 +195,14 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0"
                        Grid.Column="1"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.Host1Label}}"
+                       Content="{lex:BLoc Host1Label}"
                        HorizontalContentAlignment="Center"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        AutomationProperties.AutomationId="Label30_AA676FA5" />
                 <Label Grid.Row="0"
                        Grid.Column="2"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.Host2Label}}"
+                       Content="{lex:BLoc Host2Label}"
                        HorizontalContentAlignment="Center"
                        Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
                        HorizontalAlignment="Center"
@@ -209,7 +211,7 @@
                 <Label x:Name="AddressLabel"
                        Grid.Row="1"
                        Grid.Column="0"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.AddressLabel}}"
+                       Content="{lex:BLoc AddressLabel}"
                        AutomationProperties.AutomationId="Label32_AA676FA5" />
                 <helpers:AlphaNumericTextBox x:Name="Address1TextBox"
                                              Grid.Row="1"
@@ -220,8 +222,8 @@
                                              CharacterCasing="Upper"
                                              VerticalAlignment="Center"
                                              TextChanged="SasAddressTextBox_OnTextChanged"
-                                             Text="{                                                 Binding CommunicationAddress1,                                                  Mode=TwoWay,                                                  UpdateSourceTrigger=PropertyChanged,                                                  ValidatesOnDataErrors=True,                                                  NotifyOnValidationError=True}"
-                                             ErrorText="{                                                 Binding CommunicationAddress1ErrorText,                                                  Mode=TwoWay,                                                  UpdateSourceTrigger=PropertyChanged}"
+                                             Text="{Binding CommunicationAddress1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                             ErrorText="{Binding CommunicationAddress1ErrorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              IsEnabled="{Binding AddressHost1Editable}"
                                              MaxLength="{Binding CommunicationAddress1MaxLength, Mode=OneWay}" />
                 <helpers:AlphaNumericTextBox x:Name="Address2TextBox"
@@ -233,8 +235,8 @@
                                              CharacterCasing="Upper"
                                              VerticalAlignment="Center"
                                              TextChanged="SasAddressTextBox_OnTextChanged"
-                                             Text="{                                                 Binding CommunicationAddress2,                                                  Mode=TwoWay,                                                  UpdateSourceTrigger=PropertyChanged,                                                  ValidatesOnDataErrors=True,                                                  NotifyOnValidationError=True}"
-                                             ErrorText="{                                                 Binding CommunicationAddress2ErrorText,                                                  Mode=TwoWay,                                                  UpdateSourceTrigger=PropertyChanged}"
+                                             Text="{Binding CommunicationAddress2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                             ErrorText="{Binding CommunicationAddress2ErrorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              IsEnabled="{Binding AddressHost2Editable}"
                                              MaxLength="{Binding CommunicationAddress2MaxLength, Mode=OneWay}"
                                              Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}" />
@@ -242,7 +244,7 @@
                        Grid.Row="2"
                        Grid.Column="0"
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.GeneralControlPortLabel}}"
+                       Content="{lex:BLoc GeneralControlPortLabel}"
                        AutomationProperties.AutomationId="Label33_AA676FA5" />
                 <RadioButton x:Name="Host1GeneralControlCheck"
                              Grid.Row="2"
@@ -264,7 +266,7 @@
                 <Label Grid.Row="3"
                        Grid.Column="0"
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.AccountingDenom}}"
+                       Content="{lex:BLoc AccountingDenom}"
                        AutomationProperties.AutomationId="Label36_AA676FA5" />
                 <ComboBox Grid.Row="3"
                           Grid.Column="1"
@@ -305,7 +307,7 @@
                        Grid.Row="4"
                        Grid.Column="0"
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.ValidationPortLabel}}"
+                       Content="{lex:BLoc ValidationPortLabel}"
                        AutomationProperties.AutomationId="Label42_AA676FA5" />
                 <cs:OptionalRadioButton x:Name="Host1ValidationCheck"
                                         Grid.Row="4"
@@ -324,7 +326,7 @@
                        Grid.Row="5"
                        Grid.Column="0"
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.AftPortLabel}}"
+                       Content="{lex:BLoc AftPortLabel}"
                        AutomationProperties.AutomationId="Label43_AA676FA5" />
                 <cs:OptionalRadioButton x:Name="Host1AftCheck"
                                         Grid.Row="5"
@@ -343,7 +345,7 @@
                        Grid.Row="6"
                        Grid.Column="0"
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.LegacyBonusPortLabel}}"
+                       Content="{lex:BLoc LegacyBonusPortLabel}"
                        AutomationProperties.AutomationId="Label44_AA676FA5" />
                 <cs:OptionalRadioButton x:Name="Host1LegacyBonusCheck"
                                         Grid.Row="6"
@@ -362,7 +364,7 @@
                        Grid.Row="7"
                        Grid.Column="0"
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.GameStartEndPortLabel}}"
+                       Content="{lex:BLoc GameStartEndPortLabel}"
                        AutomationProperties.AutomationId="Label45_AA676FA5" />
                 <CheckBox x:Name="Host1GameStartEndCheck"
                           Grid.Row="7"
@@ -381,7 +383,7 @@
                        Grid.Row="8"
                        Grid.Column="0"
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.ProgressivePortLabel}}"
+                       Content="{lex:BLoc ProgressivePortLabel}"
                        AutomationProperties.AutomationId="Label48_AA676FA5" />
                 <cs:OptionalRadioButton x:Name="Host1ProgressiveCheck"
                                         Grid.Row="8"
@@ -400,7 +402,7 @@
                        Grid.Row="9"
                        Grid.Column="0"
                        VerticalAlignment="Center"
-                       Content="{lex:BLoc Key={x:Static loc:ResourceKeys.NonSasProgressiveHitReportingLabel}}"
+                       Content="{lex:BLoc NonSasProgressiveHitReportingLabel}"
                        AutomationProperties.AutomationId="Label49_AA676FA5" />
                 <CheckBox x:Name="Host1NonSasProgressiveHitReporting"
                           Grid.Row="9"
@@ -434,7 +436,7 @@
             <Label x:Name="ProgGroupId"
                    Grid.Row="0"
                    Grid.Column="0"
-                   Content="{lex:BLoc Key={x:Static loc:ResourceKeys.ProgGroupIdLabel}}"
+                   Content="{lex:BLoc ProgGroupIdLabel}"
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Left"
                    Visibility="{Binding SasProtocolConfiguration.IsProgressiveHandled, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
@@ -451,8 +453,8 @@
                                          IsAlphaNumeric="False"
                                          CanBeEmpty="False"
                                          CharacterCasing="Upper"
-                                         Text="{                                                 Binding ProgressiveGroupId,                                                  Mode=TwoWay,                                                  UpdateSourceTrigger=PropertyChanged,                                                  ValidatesOnDataErrors=True,                                                  NotifyOnValidationError=True}"
-                                         ErrorText="{                                                 Binding ProgressiveGroupIdErrorText,                                                  Mode=TwoWay,                                                  UpdateSourceTrigger=PropertyChanged}"
+                                         Text="{Binding ProgressiveGroupId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         ErrorText="{Binding ProgressiveGroupIdErrorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          IsEnabled="{Binding InputEnabled}"
                                          MaxLength="{Binding ProgressiveGroupIdMaxLength, Mode=OneWay}"
                                          Visibility="{Binding SasProtocolConfiguration.IsProgressiveHandled, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}" />

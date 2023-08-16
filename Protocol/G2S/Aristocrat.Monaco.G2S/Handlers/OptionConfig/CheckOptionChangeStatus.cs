@@ -97,7 +97,7 @@
 
         private void CheckAndAbortChangeLogsIfRequired()
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var currentTime = DateTime.UtcNow;
                 var pendingChangeLog = _changeLogRepository.GetByTransactionId(context, TransactionId);

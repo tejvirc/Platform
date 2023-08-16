@@ -4,12 +4,13 @@
     using Kernel;
     using Aristocrat.Monaco.Application.Contracts.Localization;
     using Localization.Properties;
+    using ProtoBuf;
 
     /// <summary>Definition of the ExcessiveDocumentRejectedEvent class. </summary>
     /// <remarks>
     ///     This event is posted when a document had been rejected too many times.
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class ExcessiveDocumentRejectedEvent : BaseEvent
     {
         /// <inheritdoc />

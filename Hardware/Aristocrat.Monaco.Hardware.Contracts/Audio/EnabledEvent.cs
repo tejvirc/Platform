@@ -2,12 +2,13 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Audio
 {
     using System;
     using Kernel;
+    using ProtoBuf;
     using SharedDevice;
     using static System.FormattableString;
 
     /// <summary>Definition of the Audio EnabledEvent class.</summary>
     /// <remarks>This event is posted when Audio device becomes Enabled.</remarks>
-    [Serializable]
+    [ProtoContract]
     public class EnabledEvent : BaseEvent
     {
         /// <summary>
@@ -19,7 +20,14 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Audio
             Reasons = reasons;
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing
+        /// </summary>
+        public EnabledEvent()
+        { }
+
         /// <summary>Gets the reasons for the enabled event.</summary>
+        [ProtoMember(1)]
         public EnabledReasons Reasons { get; }
 
         /// <inheritdoc />

@@ -3,6 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
+    using System.Threading.Tasks;
+    using System.Threading;
     using Gaming.Contracts;
     using Kernel;
     using Protocol.Common.Storage.Entity;
@@ -59,7 +62,7 @@
         private static Uri GetHelpUri(this IUnitOfWorkFactory unitOfWorkFactory, BingoGameConfiguration serverSettings)
         {
             var helpUrl = serverSettings?.HelpUrl;
-            return helpUrl.IsValidHelpUri() ? new Uri(helpUrl) : unitOfWorkFactory.GetFallbackUri(serverSettings);
+            return helpUrl.IsValidHelpUri() ? new Uri(helpUrl!) : unitOfWorkFactory.GetFallbackUri(serverSettings);
         }
 
         private static Uri GetFallbackUri(this IUnitOfWorkFactory unitOfWorkFactory, BingoGameConfiguration serverSettings)

@@ -299,7 +299,9 @@
 
         public string ToXml(BarkeeperRewardLevels rewardLevels)
         {
-            var xmlSerializer = new XmlSerializer(typeof(BarkeeperRewardLevels));
+            var theXmlRootAttribute = Attribute.GetCustomAttributes(typeof(BarkeeperRewardLevels))
+                .FirstOrDefault(x => x is XmlRootAttribute) as XmlRootAttribute;
+            var xmlSerializer = new XmlSerializer(typeof(BarkeeperRewardLevels), theXmlRootAttribute ?? new XmlRootAttribute(nameof(BarkeeperRewardLevels)));
             using (var stream = new StringWriter())
             {
                 xmlSerializer.Serialize(stream, rewardLevels);

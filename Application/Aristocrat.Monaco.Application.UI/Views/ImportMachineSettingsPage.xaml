@@ -5,6 +5,8 @@
                                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
@@ -37,14 +39,10 @@
             <Style x:Key="SettingValueStyle"
                    TargetType="TextBlock"
                    BasedOn="{StaticResource {x:Type TextBlock}}">
-                <Setter Property="Foreground"
-                        Value="{StaticResource WhiteColorBrush}" />
-                <Setter Property="TextWrapping"
-                        Value="Wrap" />
-                <Setter Property="VerticalAlignment"
-                        Value="Top" />
-                <Setter Property="HorizontalAlignment"
-                        Value="Left" />
+                <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.ThemeBackground}" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="VerticalAlignment" Value="Top" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
             </Style>
             <DataTemplate x:Key="SettingsViewer"
                           DataType="models:ConfigurationSetting">
@@ -64,7 +62,7 @@
                             Padding="0 15 0 5"
                             AutomationProperties.AutomationId="Border5_6D542D7F">
                         <Label Content="{Binding Name}"
-                               Foreground="{DynamicResource WhiteColorBrush}"
+                               Foreground="{DynamicResource MahApps.Brushes.ThemeBackground}"
                                AutomationProperties.AutomationId="Label6_6D542D7F" />
                     </Border>
                 </Grid>
@@ -85,7 +83,7 @@
                                Width="{Binding ElementName=MainGrid, Path=ActualWidth}">
                 <controls:FlipView.Resources>
                     <SolidColorBrush x:Key="BlackBrush"
-                                     Color="{StaticResource WhiteColor}"
+                                     Color="{StaticResource MahApps.Colors.ThemeBackground}"
                                      AutomationProperties.AutomationId="SolidColorBrush9_6D542D7F" />
                     <SolidColorBrush x:Key="WhiteBrush"
                                      Color="{StaticResource DarkColor1}"
@@ -98,23 +96,23 @@
             <StackPanel Orientation="Vertical"
                         AutomationProperties.AutomationId="StackPanel12_6D542D7F">
                 <TextBlock TextWrapping="Wrap"
-                           Text="{lex:Loc {x:Static loc:ResourceKeys.ImportSettingsText}}"
+                           Text="{lex:Loc ImportSettingsText}"
                            AutomationProperties.AutomationId="TextBlock13_6D542D7F" />
                 <StackPanel Orientation="Horizontal"
                             Margin="0 20 0 0"
                             AutomationProperties.AutomationId="StackPanel14_6D542D7F">
                     <Button Width="100"
-                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.Import}}"
+                            Content="{lex:Loc Import}"
                             Command="{Binding ImportCommand}"
                             AutomationProperties.AutomationId="Button15_6D542D7F" />
                     <controls:ProgressRing Margin="20 0 0 0"
-                                           Foreground="{DynamicResource AccentColorBrush}"
+                                           Foreground="{DynamicResource MahApps.Brushes.Accent}"
                                            Height="40"
                                            Width="40"
                                            IsActive="{Binding IsInProgress}"
                                            VerticalAlignment="Center" />
                 </StackPanel>
-                <Label Content="{lex:Loc {x:Static loc:ResourceKeys.ImportSettingsErrorText}}"
+                <Label Content="{lex:Loc ImportSettingsErrorText}"  
                        Margin="0 20 0 0"
                        Style="{StaticResource MonacoLabel}"
                        Foreground="{StaticResource RedBrush}"

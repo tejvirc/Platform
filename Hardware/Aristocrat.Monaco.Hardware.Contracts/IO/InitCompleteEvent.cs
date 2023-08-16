@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     Definition of the InitCompleteEvent class.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class InitCompleteEvent : BaseEvent
     {
     }

@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S.Services
 {
     using System;
-    using System.Data.Entity;
+    using Microsoft.EntityFrameworkCore;
     using System.Linq;
     using System.Reflection;
     using Application.Contracts.Localization;
@@ -142,7 +142,7 @@
         /// <inheritdoc />
         public void Abort(long transactionId, ChangeExceptionErrorCode exception)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var log = GetChangeLog(context, transactionId);
                 if (log == null)
@@ -159,7 +159,7 @@
         {
             Logger.Debug($"Preparing to apply configuration changes for transaction {transactionId}");
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var log = GetChangeLog(context, transactionId);
 
@@ -200,7 +200,7 @@
         {
             Logger.Debug($"Canceling configuration changes for transaction {transactionId}");
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var log = GetChangeLog(context, transactionId);
                 if (log == null)
@@ -217,7 +217,7 @@
         {
             Logger.Debug($"Authorizing configuration changes for transaction {transactionId}");
 
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var log = GetChangeLog(context, transactionId);
 
@@ -476,7 +476,7 @@
 
         private bool IsAuthorized(long transactionId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var log = GetChangeLog(context, transactionId);
 
@@ -486,7 +486,7 @@
 
         private void ApplyCommand(long transactionId)
         {
-            using (var context = _contextFactory.Create())
+            using (var context = _contextFactory.CreateDbContext())
             {
                 var log = GetChangeLog(context, transactionId);
                 if (log == null)

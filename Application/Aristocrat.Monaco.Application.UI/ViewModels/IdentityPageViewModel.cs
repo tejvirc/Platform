@@ -2,9 +2,9 @@
 {
     using System;
     using System.Text.RegularExpressions;
-    using System.Web.UI;
     using Contracts;
     using Contracts.Localization;
+    using Helpers;
     using Kernel;
     using Monaco.Common;
     using Monaco.Localization.Properties;
@@ -513,7 +513,7 @@
                         var fmtStr = match.Groups["fmt"]?.Value ?? "";
                         expStr += editedValueRelPath;
                         Logger.Debug($"Try to eval '{expStr}' with format '{fmtStr}'");
-                        var resStr = DataBinder.Eval(this, expStr)?.ToString();
+                        var resStr = DataBinderHelper.Eval(this, expStr)?.ToString();
                         if (!string.IsNullOrEmpty(fmtStr) && !string.IsNullOrEmpty(resStr))
                         {
                             resStr = int.Parse(resStr).ToString(fmtStr);
@@ -528,7 +528,7 @@
                         var expStr = match.Groups["exp"]?.Value ?? "";
                         expStr += editedValueRelPath;
                         Logger.Debug($"Try to eval '{expStr}' with no format");
-                        var resStr = DataBinder.Eval(this, expStr)?.ToString();
+                        var resStr = DataBinderHelper.Eval(this, expStr)?.ToString();
                         Logger.Debug($"... got '{resStr}'");
                         return resStr;
                     });

@@ -1,8 +1,6 @@
 ﻿namespace Aristocrat.Monaco.G2S.Tests.Handlers.OptionConfig
 {
-    using System;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using Aristocrat.Monaco.Test.Common.UnitTesting;
     using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
@@ -15,6 +13,9 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
 
     [TestClass]
     public class EnterOptionConfigModeTest

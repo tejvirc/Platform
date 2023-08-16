@@ -4,13 +4,22 @@
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Localization.Properties;
+    using ProtoBuf;
 
     /// <summary>
     ///     An event to notify that a request to handpay has been cancelled.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class HandpayCanceledEvent : BaseHandpayEvent
     {
+
+        /// <summary>
+        /// Empty constructor for deserialization
+        /// </summary>
+        public HandpayCanceledEvent()
+        {
+        }
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="HandpayCanceledEvent" /> class.
         /// </summary>

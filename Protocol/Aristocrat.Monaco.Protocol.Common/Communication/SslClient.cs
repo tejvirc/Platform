@@ -1057,6 +1057,12 @@
                     DisconnectAsync();
                 }
 
+                if (_connectEventArg != null)
+                {
+                    _connectEventArg.Dispose();
+                    _connectEventArg = null;
+                }
+
                 _disposed = true;
             }
         }

@@ -2,11 +2,12 @@
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>
     ///     The AllowGameRoundChangedEvent is posted when the runtime updates the Allow Game Round Flag.
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class AllowGameRoundChangedEvent : BaseEvent
     {
         /// <summary>
@@ -19,8 +20,16 @@
         }
 
         /// <summary>
+        /// Parameterless constructor used while deserializing 
+        /// </summary>
+        public AllowGameRoundChangedEvent()
+        {
+        }
+
+        /// <summary>
         ///     Gets the AllowGameRound parameter
         /// </summary>
+        [ProtoMember(1)]
         public bool AllowGameRound { get; }
     }
 }

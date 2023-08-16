@@ -619,8 +619,7 @@ namespace Aristocrat.Monaco.Gaming
             }
 
             using var scope = _storageManager.ScopedTransaction();
-            var result = InstallNewGame(game, paytableConfiguration);
-            _progressiveProvider.LoadProgressiveLevels(result, progressiveDetails);
+            var result = InstallNewGame(game, progressiveDetails, paytableConfiguration);
             scope.Complete();
 
             return result;
@@ -718,7 +717,7 @@ namespace Aristocrat.Monaco.Gaming
                 var mainDisplay = _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Main);
                 if (mainDisplay == null)
                 {
-                    throw new Exception("Missing Main Display. Cabinet Detection Service could not register Main Display.");
+                    throw new InvalidDataException("Missing Main Display. Cabinet Detection Service could not register Main Display.");
                 }
 
                 var mainDisplayRect = Rectangle.Empty;
@@ -888,11 +887,20 @@ namespace Aristocrat.Monaco.Gaming
 
                 foreach (var gameDir in gameDirs)
                 {
-                    var files = Directory.GetFiles(gameDir, ManifestFilter, SearchOption.TopDirectoryOnly);
+                    string[] files;
+                    try
+                    {
+                        files = Directory.GetFiles(gameDir, ManifestFilter, SearchOption.TopDirectoryOnly);
+                    }
+                    catch (DirectoryNotFoundException e) // Catch this in-case the mount didn't get cleaned up
+                    {
+                        Logger.Warn("Failed to get the files.  The folder appears to be a left over ISO mount", e);
+                        continue;
+                    }
 
                     if (files.Length > 1)
                     {
-                        throw new Exception("Only one manifest file should be present for each game.");
+                        throw new InvalidOperationException("Only one manifest file should be present for each game.");
                     }
 
                     if (files.Length == 1)
@@ -1147,6 +1155,7 @@ namespace Aristocrat.Monaco.Gaming
 
         private IGameDetail InstallNewGame(
             GameDetail gameDetail,
+            List<ProgressiveDetail> progressiveDetails,
             ServerPaytableConfiguration paytableConfiguration = null)
         {
             if (!gameDetail.New)
@@ -1209,7 +1218,7 @@ namespace Aristocrat.Monaco.Gaming
 
                 // This is only used to track whether or not the game was added in GetOrCreateGame. Reset to avoid reentry
                 gameDetail.New = false;
-
+                _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
                 _bus.Publish(new GameAddedEvent(gameDetail.Id, gameDetail.ThemeId));
             }
 
@@ -1246,8 +1255,7 @@ namespace Aristocrat.Monaco.Gaming
                     }
                     else if (!serverControlledPaytables)
                     {
-                        InstallNewGame(gameDetail);
-                        _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
+                        InstallNewGame(gameDetail, progressiveDetails);
                     }
                     else
                     {

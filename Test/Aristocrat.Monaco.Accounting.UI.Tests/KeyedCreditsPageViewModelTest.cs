@@ -5,14 +5,15 @@
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Localization;
+    using Accounting.Contracts.Transactions;
     using Application.Contracts.OperatorMenu;
     using Contracts;
-    using Contracts.Transactions;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
+    using Test.Common.UnitTesting;
     using UI.ViewModels;
 
     /// <summary>

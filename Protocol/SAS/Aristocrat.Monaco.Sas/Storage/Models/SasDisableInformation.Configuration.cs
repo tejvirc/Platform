@@ -1,21 +1,22 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     /// <summary>
     ///     The database configuration for the <see cref="SasDisableInformation"/> entity
     /// </summary>
-    public class SasDisableInformationConfiguration : EntityTypeConfiguration<SasDisableInformation>
+    public class SasDisableInformationConfiguration : IEntityTypeConfiguration<SasDisableInformation>
     {
         /// <summary>
         ///     Creates an instance of <see cref="SasDisableInformationConfiguration"/>
         /// </summary>
-        public SasDisableInformationConfiguration()
+        public void Configure(EntityTypeBuilder<SasDisableInformation> builder)
         {
-            ToTable(nameof(SasDisableInformation));
-            HasKey(x => x.Id);
+            builder.ToTable(nameof(SasDisableInformation));
+            builder.HasKey(x => x.Id);
 
-            Property(x => x.DisableStates)
+            builder.Property(x => x.DisableStates)
                 .IsRequired();
         }
     }

@@ -7,6 +7,8 @@
                                xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
                                mc:Ignorable="d"
@@ -43,21 +45,21 @@
                     Margin="10"
                     IsEnabled="{Binding InputEnabledByRuleOverride}"
                     AutomationProperties.AutomationId="StackPanel3_6976406C">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.EnableMachineReserve}}"
+            <Label Content="{lex:Loc EnableMachineReserve}"
                    AutomationProperties.AutomationId="Label4_6976406C" />
-            <mah:ToggleSwitchButton
+            <mah:ToggleSwitch
                     IsEnabled="{Binding IsReserveMachineOptionEnabled, UpdateSourceTrigger=PropertyChanged}"
-                                    IsChecked="{Binding AllowPlayerToReserveMachine, UpdateSourceTrigger=PropertyChanged}"
-                                    mah:ControlsHelper.ContentCharacterCasing="Upper"
-                                    mah:ControlsHelper.CornerRadius="0"
-                                    common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Key={x:Static loc:ResourceKeys.Off}}"
-                                    common:ToggleSwitchButtonHelper.OnContent="{lex:Loc Key={x:Static loc:ResourceKeys.On}}" />
+                    IsOn="{Binding AllowPlayerToReserveMachine, UpdateSourceTrigger=PropertyChanged}"
+                    mah:ControlsHelper.ContentCharacterCasing="Upper"
+                    mah:ControlsHelper.CornerRadius="0"
+                    common:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                    common:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}" />
         </StackPanel>
         <StackPanel Grid.Row="1"
                     Margin="10"
                     IsEnabled="{Binding InputEnabledByRuleOverride}"
                     AutomationProperties.AutomationId="StackPanel5_6976406C">
-            <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReserveMachineDuration}}"
+            <Label Content="{lex:Loc ReserveMachineDuration}"
                    HorizontalAlignment="Left"
                    AutomationProperties.AutomationId="Label6_6976406C" />
             <ComboBox HorizontalAlignment="Left"

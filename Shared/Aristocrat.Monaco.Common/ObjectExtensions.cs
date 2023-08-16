@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Common
 {
     using System.IO;
-    using System.Runtime.Serialization.Formatters.Binary;
+    using ServiceStack.Text;
 
     /// <summary>
     ///     Extenstion methods for objects.
@@ -21,12 +21,11 @@
                 return default;
             }
 
-            var binaryFormatter = new BinaryFormatter();
             using (var memoryStream = new MemoryStream())
             {
-                binaryFormatter.Serialize(memoryStream, obj);
+                JsonSerializer.SerializeToStream(obj, memoryStream);
                 memoryStream.Seek(0L, SeekOrigin.Begin);
-                return (T)binaryFormatter.Deserialize(memoryStream);
+                return JsonSerializer.DeserializeFromStream<T>(memoryStream);
             }
         }
 

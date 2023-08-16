@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.Build.NoTargets/3.3.0">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
-    <OutputPath>..\bin\$(Configuration)\Platform\bin\jurisdiction\</OutputPath>
     <Configurations>Debug;Release;Retail</Configurations>
+    <OutputPath>..\bin\$(Configuration)\Platform\bin\jurisdiction\</OutputPath>
     <EnableDefaultItems>true</EnableDefaultItems>
     <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
     <EnableDefaultEmbeddedResourceItems>true</EnableDefaultEmbeddedResourceItems>
@@ -20,4 +20,9 @@
     <RemoveDir Directories="$(OutputPath)" />
   </Target>
   <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
+  <ItemGroup>
+    <None Update="**/Jurisdiction.addin.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

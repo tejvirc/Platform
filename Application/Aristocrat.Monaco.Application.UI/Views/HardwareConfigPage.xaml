@@ -9,11 +9,14 @@
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
                                xmlns:common="http://monaco.aristocrat.com/common"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                mc:Ignorable="d"
                                d:DesignHeight="400"
                                d:DesignWidth="1420"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:HardwareManagerPageViewModel}, IsDesignTimeCreatable=True}">
+
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -27,6 +30,8 @@
                     <Trigger Property="IsSelected"
                              Value="True"
                              AutomationProperties.AutomationId="Trigger0_3A60546D">
+                        <Setter Property="Background" Value="{x:Null}" />
+                        <Setter Property="BorderBrush" Value="{x:Null}" />
                         <Setter Property="Foreground"
                                 Value="{StaticResource LightBrush4}" />
                     </Trigger>
@@ -81,10 +86,8 @@
                 <Style.Triggers>
                     <MultiTrigger AutomationProperties.AutomationId="MultiTrigger2_3A60546D">
                         <MultiTrigger.Conditions>
-                            <Condition Property="controls:DataGridRowHelper.SelectionUnit"
-                                       Value="FullRow" />
-                            <Condition Property="IsSelected"
-                                       Value="True" />
+                            <Condition Property="controls:DataGridHelper.SelectionUnit" Value="FullRow" />
+                            <Condition Property="IsSelected" Value="True" />
                         </MultiTrigger.Conditions>
                         <Setter Property="Background"
                                 Value="Transparent" />
@@ -93,12 +96,9 @@
                     </MultiTrigger>
                     <MultiTrigger AutomationProperties.AutomationId="MultiTrigger3_3A60546D">
                         <MultiTrigger.Conditions>
-                            <Condition Property="controls:DataGridRowHelper.SelectionUnit"
-                                       Value="FullRow" />
-                            <Condition Property="IsSelected"
-                                       Value="True" />
-                            <Condition Property="Selector.IsSelectionActive"
-                                       Value="False" />
+                            <Condition Property="controls:DataGridHelper.SelectionUnit" Value="FullRow" />
+                            <Condition Property="IsSelected" Value="True" />
+                            <Condition Property="Selector.IsSelectionActive" Value="False" />
                         </MultiTrigger.Conditions>
                         <Setter Property="Background"
                                 Value="Transparent" />
@@ -154,18 +154,18 @@
                   x:Name="DeviceDataGrid"
                   ItemsSource="{Binding Devices}"
                   RowStyle="{StaticResource RowStyle}"
+                  CellStyle="{StaticResource MonacoCompactDataGridCell}"
                   IsEnabled="{Binding InputEnabled}"
                   AutomationProperties.AutomationId="DataGrid13_3A60546D"
                   loc:Localizer.For="Operator">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceLabel}}"
-                                    MinWidth="200"
-                                    FontSize="{StaticResource LabelFontSize}"
+                <DataGridTextColumn Header="{lex:Loc DeviceLabel}"
+                                    MinWidth="200" FontSize="{StaticResource LabelFontSize}"
                                     Binding="{Binding DeviceName}"
                                     CellStyle="{StaticResource CellStyle}"
                                     AutomationProperties.AutomationId="DataGridTextColumn14_3A60546D"
                                     loc:Localizer.For="Operator"/>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.EnabledLabel}}"
+                <DataGridTemplateColumn Header="{lex:Loc EnabledLabel}"
                                         IsReadOnly="False"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn15_3A60546D"
                                         loc:Localizer.For="Operator">
@@ -196,7 +196,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ManufacturerLabel}}"
+                <DataGridTemplateColumn Header="{lex:Loc ManufacturerLabel}"
                                         IsReadOnly="False"
                                         MinWidth="300"
                                         CellStyle="{StaticResource MakeCellStyle}"
@@ -205,10 +205,10 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:DeviceConfigViewModel}">
                             <ComboBox
-                                    ItemsSource="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturers), RelativeSource={RelativeSource AncestorType=DataGridCell}}"
-                                      SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturer), RelativeSource={RelativeSource AncestorType=DataGridCell}, Mode=TwoWay}"
-                                      IsSynchronizedWithCurrentItem="True"
-                                      AutomationProperties.AutomationId="ComboBox18_3A60546D">
+                                ItemsSource="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturers), RelativeSource={RelativeSource AncestorType=DataGridCell}}"
+                                SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturer), RelativeSource={RelativeSource AncestorType=DataGridCell}, Mode=TwoWay}"
+                                IsSynchronizedWithCurrentItem="True"
+                                AutomationProperties.AutomationId="ComboBox18_3A60546D">
                                 <ComboBox.IsEnabled>
                                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                                         <Binding Path="DataContext.IsValidating"
@@ -228,13 +228,13 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProtocolLabel}}"
+                <DataGridTextColumn Header="{lex:Loc ProtocolLabel}"
                                     MinWidth="110"
                                     CellStyle="{StaticResource ProtocolCellStyle}"
                                     Binding="{Binding Protocol}"
                                     AutomationProperties.AutomationId="DataGridTextColumn19_3A60546D"
                                     loc:Localizer.For="Operator" />
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}"
+                <DataGridTemplateColumn Header="{lex:Loc Port}"
                                         IsReadOnly="False"
                                         MinWidth="110"
                                         CellStyle="{StaticResource PortCellStyle}"
@@ -243,8 +243,8 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type viewModels:DeviceConfigViewModel}">
                             <common:VariableItemsControl
-                                    Items="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Ports), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged}"
-                                                         SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Port), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                Items="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Ports), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Port), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                 <common:VariableItemsControl.IsEnabled>
                                     <MultiBinding Converter="{StaticResource BoolAndConverter}">
                                         <Binding Path="DataContext.IsValidating"
@@ -261,7 +261,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.StatusLabel}}"
+                <DataGridTextColumn Header="{lex:Loc StatusLabel}"
                                     FontSize="{StaticResource SmallLabelFontSize}"
                                     Binding="{Binding Status}"
                                     CellStyle="{StaticResource StatusCellStyle}"
@@ -290,11 +290,9 @@
             <Label Grid.Row="0"
                    Grid.Column="0"
                    Width="{Binding ElementName=DeviceDataGrid, Path=Columns[0].ActualWidth}"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.HardMetersLabel}}"
+                   Content="{lex:Loc HardMetersLabel}"
                    AutomationProperties.AutomationId="Label31_3A60546D" />
-            <CheckBox Grid.Row="0"
-                      Grid.Column="1"
-                      Name="HardMeterEnabled"
+            <CheckBox Grid.Row="0" Grid.Column="1" Name="HardMeterEnabled"
                       IsChecked="{Binding Path=HardMetersEnabled, Mode=TwoWay}"
                       IsEnabled="{Binding ConfigurableHardMeters}"
                       Style="{StaticResource CheckBoxStyle}"
@@ -304,7 +302,7 @@
                         Orientation="Horizontal"
                         Visibility="{Binding ElementName=HardMeterEnabled, Path=IsChecked, Converter={StaticResource TrueVisibleFalseHidden}}"
                         AutomationProperties.AutomationId="StackPanel33_3A60546D">
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.AvailableMeterMappings}}"
+                <Label Content="{lex:Loc AvailableMeterMappings}"
                        AutomationProperties.AutomationId="Label34_3A60546D" />
                 <ComboBox Style="{StaticResource MonacoComboBox}"
                           SelectedValue="{Binding HardMeterMapSelection, Mode=TwoWay}"
@@ -320,7 +318,7 @@
                         Orientation="Horizontal"
                         Visibility="{Binding TickValueVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         AutomationProperties.AutomationId="StackPanel36_3A60546D">
-                <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.HardMeterTickValue}}"
+                <Label Content="{lex:Loc HardMeterTickValue}"
                        AutomationProperties.AutomationId="Label37_3A60546D" />
                 <ComboBox ItemsSource="{Binding TickValues}"
                           DisplayMemberPath="Cents"
@@ -349,7 +347,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.DoorOpticSensor}}"
+                   Content="{lex:Loc DoorOpticSensor}"
                    Margin="4 8 0 0"
                    AutomationProperties.AutomationId="Label43_3A60546D" />
             <CheckBox Grid.Row="0"
@@ -381,7 +379,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BellyPanelDoor}}"
+                   Content="{lex:Loc BellyPanelDoor}"
                    Margin="4 0 0 0"
                    AutomationProperties.AutomationId="Label49_3A60546D" />
             <CheckBox Grid.Row="0"
@@ -407,7 +405,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.BellLabel}}"
+                   Content="{lex:Loc BellLabel}"
                    Margin="4 8 0 0"
                    AutomationProperties.AutomationId="Label55_3A60546D" />
             <CheckBox Grid.Row="0"
@@ -433,7 +431,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
                    Grid.Column="0"
-                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.TowerLightTierType}}"
+                   Content="{lex:Loc TowerLightTierType}"
                    AutomationProperties.AutomationId="Label61_3A60546D" />
             <ComboBox Grid.Row="0"
                       Grid.Column="1"
@@ -455,11 +453,11 @@
                     Orientation="Horizontal"
                     Margin="5 20 0 0"
                     AutomationProperties.AutomationId="StackPanel63_3A60546D">
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.Validate}}"
+            <Button Content="{lex:Loc Validate}"
                     Visibility="{Binding ShowValidateButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     Command="{Binding ValidateCommand}"
                     AutomationProperties.AutomationId="Button64_3A60546D" />
-            <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.ApplyLabel}}"
+            <Button Content="{lex:Loc ApplyLabel}"
                     Visibility="{Binding ShowApplyButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     IsEnabled="{Binding InputEnabled}"
                     Command="{Binding ApplyHardwareSettingsCommand}"
@@ -472,12 +470,9 @@
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="ApplyInfoButton" />
-                        <Binding ElementName="ApplyInfoButtonProxy"
-                                 Path="Result" />
+                        <Binding Source="{lex:Loc RebootWarningMessage}" />
                     </MultiBinding>
                 </Button.CommandParameter>
-                <lex:LocProxy Name="ApplyInfoButtonProxy"
-                              Source="{x:Static loc:ResourceKeys.RebootWarningMessage}" />
             </Button>
             <Label Content="{Binding ValidationStatus}"
                    Style="{StaticResource MonacoWarningLabel}"

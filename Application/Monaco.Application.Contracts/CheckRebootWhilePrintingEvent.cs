@@ -2,6 +2,7 @@ namespace Aristocrat.Monaco.Application.Contracts
 {
     using System;
     using Kernel;
+    using ProtoBuf;
 
     /// <summary>Definition of the CheckRebootWhilePrintingEvent class.</summary>
     /// <remarks>
@@ -12,7 +13,7 @@ namespace Aristocrat.Monaco.Application.Contracts
     ///     so that the voucher out that was triggered will force a reboot while printing error to be displayed by the
     ///     PrinterMonitor.
     /// </remarks>
-    [Serializable]
+    [ProtoContract]
     public class CheckRebootWhilePrintingEvent : BaseEvent
     {
     }

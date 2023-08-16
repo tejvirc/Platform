@@ -282,22 +282,14 @@
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
-        <Setter Property="BorderThickness"
-                Value="0" />
-        <Setter Property="controls:ControlsHelper.ContentCharacterCasing"
-                Value="Normal" />
-        <Setter Property="controls:ControlsHelper.CornerRadius"
-                Value="3" />
-        <Setter Property="FontFamily"
-                Value="{DynamicResource MonacoFontFamily}" />
-        <Setter Property="FontSize"
-                Value="{DynamicResource UpperCaseContentFontSize}" />
-        <Setter Property="FontWeight"
-                Value="Normal" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource DarkBrush3}" />
-        <Setter Property="Padding"
-                Value="5,6" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="controls:ControlsHelper.ContentCharacterCasing" Value="Normal"/>
+        <Setter Property="controls:ControlsHelper.CornerRadius" Value="3"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MonacoFontFamily}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MahApps.Font.Size.Button}"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Foreground" Value="{DynamicResource DarkBrush3}"/>
+        <Setter Property="Padding" Value="5,6"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">

@@ -1,49 +1,50 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.Mapping
 {
-    using System.Data.Entity.ModelConfiguration;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using GAT.Storage;
 
     /// <summary>
     ///     Configuration for the <see cref="GatVerificationRequest" /> entity
     /// </summary>
-    public class GatVerificationRequestMap : EntityTypeConfiguration<GatVerificationRequest>
+    public class GatVerificationRequestMap : IEntityTypeConfiguration<GatVerificationRequest>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="GatVerificationRequestMap" /> class.
         /// </summary>
-        public GatVerificationRequestMap()
+        public void Configure(EntityTypeBuilder<GatVerificationRequest> builder)
         {
-            ToTable("GatVerificationRequest");
+            builder.ToTable(nameof(GatVerificationRequest));
 
             // Primary Key
-            HasKey(t => t.Id);
+            builder.HasKey(t => t.Id);
 
-            Property(t => t.VerificationId)
+            builder.Property(t => t.VerificationId)
                 .IsRequired();
 
-            Property(t => t.DeviceId)
+            builder.Property(t => t.DeviceId)
                 .IsRequired();
 
-            Property(t => t.TransactionId)
+            builder.Property(t => t.TransactionId)
                 .IsRequired();
 
-            Property(t => t.Completed)
+            builder.Property(t => t.Completed)
                 .IsRequired();
 
-            Property(t => t.DeviceId)
+            builder.Property(t => t.DeviceId)
                 .IsRequired();
 
-            Property(t => t.FunctionType)
+            builder.Property(t => t.FunctionType)
                 .IsRequired();
 
-            Property(t => t.EmployeeId)
+            builder.Property(t => t.EmployeeId)
                 .IsRequired();
 
-            Property(t => t.Date)
+            builder.Property(t => t.Date)
                 .IsRequired();
 
-            HasMany(l => l.ComponentVerifications)
-                .WithOptional()
+            builder.HasMany(l => l.ComponentVerifications)
+                .WithOne()
                 .HasForeignKey(item => item.RequestId);
         }
     }

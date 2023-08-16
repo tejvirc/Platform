@@ -9,10 +9,11 @@ namespace Aristocrat.Monaco.Hardware.Contracts.KeySwitch
     using System;
     using System.Globalization;
     using Kernel;
+    using ProtoBuf;
     using SharedDevice;
 
     /// <summary>Definition of the EnabledEvent class.</summary>
-    [Serializable]
+    [ProtoContract]
     public class EnabledEvent : BaseEvent
     {
         /// <summary>
@@ -25,8 +26,15 @@ namespace Aristocrat.Monaco.Hardware.Contracts.KeySwitch
             Reasons = reasons;
         }
 
+        /// <summary>
+        /// Parameterless constructor used while deseriliazing 
+        /// </summary>
+        public EnabledEvent()
+        { }
+
         /// <summary>Gets the reasons for the enabled event.</summary>
         [CLSCompliant(false)]
+        [ProtoMember(1)]
         public EnabledReasons Reasons { get; }
 
         /// <inheritdoc />
