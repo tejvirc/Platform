@@ -2,8 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Security.Cryptography.X509Certificates;
 
     /// <summary>
     ///     The provider for mapping server supplied progressive level Ids to sequence number.
@@ -67,6 +65,23 @@
             }
 
             return -1L;
+        }
+
+        /// <inheritdoc />
+        public IEnumerable<(int, long)> GetGamesUsingProgressive(int sequenceNumber)
+        {
+            var gameTitles = new List<(int, long)>();
+            foreach (var pair in _progressiveIdMapping)
+            {
+                var gameInfo = pair.Key;
+                var progressives = pair.Value;
+                if (progressives.ContainsKey(sequenceNumber))
+                {
+                    gameTitles.Add((gameInfo.Item1, gameInfo.Item2));
+                }
+            }
+
+            return gameTitles;
         }
 
         /// <inheritdoc />
