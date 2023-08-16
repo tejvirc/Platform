@@ -139,7 +139,7 @@ a mapping to one sequence number.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ProgressiveLevelInfoProvider_AddProgressiveLevelInfo_System_Int64_System_Int32_System_Int32_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ProgressiveLevelInfoProvider.AddProgressiveLevelInfo(System.Int64%2CSystem.Int32%2CSystem.Int32%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ProgressiveLevelInfoProvider.cs/#L19" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ProgressiveLevelInfoProvider.cs/#L17" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_ProgressiveLevelInfoProvider_AddProgressiveLevelInfo_" data-uid="Aristocrat.Bingo.Client.Messages.ProgressiveLevelInfoProvider.AddProgressiveLevelInfo*"></a>
@@ -211,7 +211,7 @@ a mapping to one sequence number.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ProgressiveLevelInfoProvider_ClearProgressiveLevelInfo.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ProgressiveLevelInfoProvider.ClearProgressiveLevelInfo%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ProgressiveLevelInfoProvider.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ProgressiveLevelInfoProvider.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_ProgressiveLevelInfoProvider_ClearProgressiveLevelInfo_" data-uid="Aristocrat.Bingo.Client.Messages.ProgressiveLevelInfoProvider.ClearProgressiveLevelInfo*"></a>
@@ -245,10 +245,68 @@ a mapping to one sequence number.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ProgressiveLevelInfoProvider_GetGamesUsingProgressive_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ProgressiveLevelInfoProvider.GetGamesUsingProgressive(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ProgressiveLevelInfoProvider.cs/#L71" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Bingo_Client_Messages_ProgressiveLevelInfoProvider_GetGamesUsingProgressive_" data-uid="Aristocrat.Bingo.Client.Messages.ProgressiveLevelInfoProvider.GetGamesUsingProgressive*"></a>
+  
+  <h4 id="Aristocrat_Bingo_Client_Messages_ProgressiveLevelInfoProvider_GetGamesUsingProgressive_System_Int32_" data-uid="Aristocrat.Bingo.Client.Messages.ProgressiveLevelInfoProvider.GetGamesUsingProgressive(System.Int32)"><a href="#collapsible-Aristocrat_Bingo_Client_Messages_ProgressiveLevelInfoProvider_GetGamesUsingProgressive_System_Int32_" class="expander" data-toggle="collapse">GetGamesUsingProgressive(Int32)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Bingo_Client_Messages_ProgressiveLevelInfoProvider_GetGamesUsingProgressive_System_Int32_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the GameTitleId/Denomination tuples that are using a progressive with the specified sequence number</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;(int, long)&gt; GetGamesUsingProgressive(int sequenceNumber)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">sequenceNumber</span>
+        <p><p>The 0-based sequence number of the progressive</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-2">(T1, T2)</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a>&gt;&gt;
+        <p><p>The GameTitleId/Denomination tuples that are using the specified progressive</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  <h5 class="implements">Implements</h5>
+      <div><a class="xref" href="Aristocrat.Bingo.Client.Messages.IProgressiveLevelInfoProvider.html#Aristocrat_Bingo_Client_Messages_IProgressiveLevelInfoProvider_GetGamesUsingProgressive_System_Int32_">IProgressiveLevelInfoProvider.GetGamesUsingProgressive(Int32)</a></div>
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ProgressiveLevelInfoProvider_GetServerProgressiveLevelId_System_Int32_.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ProgressiveLevelInfoProvider.GetServerProgressiveLevelId(System.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ProgressiveLevelInfoProvider.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ProgressiveLevelInfoProvider.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Bingo_Client_Messages_ProgressiveLevelInfoProvider_GetServerProgressiveLevelId_" data-uid="Aristocrat.Bingo.Client.Messages.ProgressiveLevelInfoProvider.GetServerProgressiveLevelId*"></a>
@@ -305,7 +363,7 @@ a mapping to one sequence number.</p>
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Bingo_Client_Messages_ProgressiveLevelInfoProvider.md&amp;value=---%0Auid%3A%20Aristocrat.Bingo.Client.Messages.ProgressiveLevelInfoProvider%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ProgressiveLevelInfoProvider.cs/#L13" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/Bingo/Aristocrat.Bingo.Client/Messages/ProgressiveLevelInfoProvider.cs/#L11" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
