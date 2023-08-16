@@ -12,6 +12,8 @@
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using Accounting.Contracts;
+    using Aristocrat.Cabinet.Contracts;
+    using Aristocrat.Monaco.Hardware.Contracts.Cabinet;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.Input;
@@ -59,6 +61,8 @@
         private readonly IOperatorMenuGamePlayMonitor _gamePlayMonitor;
         private readonly ISerialTouchService _serialTouchService;
         private readonly ILocalization _localization;
+        private readonly ICabinetDetectionService _cabinetDetectionService;
+        private readonly ISystemDisableManager _systemDisableManager;
 
         private readonly ButtonDeckNavigator _buttonNavigator = new ButtonDeckNavigator();
         private readonly object _printLock = new object();
@@ -229,6 +233,10 @@
             _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
 
             TopMost = _propertiesManager.GetValue("display", string.Empty) != "windowed";
+
+            _systemDisableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
+            _cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
+            RaisePropertyChanged(nameof(ShouldDisplaySafetyMessage));
         }
 
         /// <summary>
@@ -653,6 +661,12 @@
             }
         }
 
+        /// <summary>
+        ///     Determines if the safety message should be displayed
+        /// </summary>
+        public bool ShouldDisplaySafetyMessage => _cabinetDetectionService.Type == CabinetType.Marquis34 &&
+                                                  _systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.MainDoorGuid);
+
         private bool PrintButtonEnabledInternal
         {
             get => _printButtonEnabledInternal;
@@ -765,6 +779,18 @@
             _eventBus.Subscribe<SerialTouchCalibrationCompletedEvent>(this, HandleEvent);
             _eventBus.Subscribe<DialogOpenedEvent>(this, _ => RaisePropertyChanged(nameof(CanCalibrateTouchScreens)));
             _eventBus.Subscribe<DialogClosedEvent>(this, _ => RaisePropertyChanged(nameof(CanCalibrateTouchScreens)));
+            _eventBus.Subscribe<SystemDisableAddedEvent>(this, HandleEvent);
+            _eventBus.Subscribe<SystemDisableRemovedEvent>(this, HandleEvent);
+        }
+
+        private void HandleEvent(SystemDisableAddedEvent disableAddedEvent)
+        {
+            RaisePropertyChanged(nameof(ShouldDisplaySafetyMessage));
+        }
+
+        private void HandleEvent(SystemDisableRemovedEvent disableAddedEvent)
+        {
+            RaisePropertyChanged(nameof(ShouldDisplaySafetyMessage));
         }
 
         private void OnPrintButtonStatusUpdated(PrintButtonStatus status)

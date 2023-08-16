@@ -92,6 +92,11 @@
     <PackageReference Include="WPFLocalizeExtension" Version="3.3.1" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Resources\FullScreenWarning_Marquis34.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Skins\Controls.FilterButton.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>

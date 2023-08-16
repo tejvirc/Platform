@@ -7,12 +7,15 @@
     using System.Reflection;
     using System.Text;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Accounting.Contracts.HandCount;
+    using Aristocrat.Cabinet.Contracts;
+    using Aristocrat.Monaco.Hardware.Contracts.Cabinet;
+    using Aristocrat.Monaco.Hardware.Services;
     using Contracts;
     using Contracts.Events;
     using Contracts.Lobby;
@@ -45,12 +48,14 @@
         private readonly ILobbyStateManager _lobbyStateManager;
         private readonly PlayerMenuPopupViewModel _playerMenuPopup;
         private readonly IPlayerInfoDisplayManager _playerInfoDisplayManager;
+        private readonly ICabinetDetectionService _cabinetDetectionService;
 
         private MessageOverlayState _messageOverlayState;
         private bool _isLockupMessageVisible;
         private bool _isReplayRecoveryDlgVisible;
         private bool _isAgeWarningDlgVisible;
         private bool _isResponsibleGamingInfoOverlayDlgVisible;
+        private bool _isSafetyMessageVisible;
         private bool _isOverlayWindowVisible;
 
         /// <summary>
@@ -64,7 +69,8 @@
                 ServiceManager.GetInstance().TryGetService<IContainerService>(),
                 ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().TryGetService<ITransferOutHandler>(),
-                ServiceManager.GetInstance().TryGetService<ISystemDisableManager>())
+                ServiceManager.GetInstance().TryGetService<ISystemDisableManager>(),
+                ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>())
         {
             _playerMenuPopup = playerMenuPopup;
             _playerInfoDisplayManager = playerInfoDisplayManager;
@@ -76,7 +82,8 @@
             IContainerService containerService,
             IPropertiesManager properties,
             ITransferOutHandler transferOutHandler,
-            ISystemDisableManager systemDisableManager)
+            ISystemDisableManager systemDisableManager,
+            ICabinetDetectionService cabinetDetectionService)
         {
             if (containerService == null)
             {
@@ -88,6 +95,7 @@
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _transferOutHandler = transferOutHandler ?? throw new ArgumentNullException(nameof(transferOutHandler));
             _systemDisableManager = systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
+            _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
 
             ReserveOverlayViewModel = new ReserveOverlayViewModel();
 
@@ -142,6 +150,15 @@
         {
             get => _isResponsibleGamingInfoOverlayDlgVisible;
             set => SetProperty(ref _isResponsibleGamingInfoOverlayDlgVisible, value);
+        }
+
+        /// <summary>
+        ///     Determines if the safety message is visible
+        /// </summary>
+        public bool IsSafetyMessageVisible
+        {
+            get => _isSafetyMessageVisible;
+            set => SetProperty(ref _isSafetyMessageVisible, value);
         }
 
         /// <summary>
@@ -379,6 +396,11 @@
         {
             IsLockupMessageVisible = _lobbyStateManager.IsInState(LobbyState.Disabled);
 
+            IsSafetyMessageVisible =
+                IsLockupMessageVisible &&
+                HardErrorMessages.ContainsKey(ApplicationConstants.MainDoorGuid) &&
+                _cabinetDetectionService.Type == CabinetType.Marquis34;
+
             IsReplayRecoveryDlgVisible = _lobbyStateManager.CurrentState == LobbyState.GameLoadingForDiagnostics ||
                                          _lobbyStateManager.CurrentState == LobbyState.GameDiagnostics ||
                                          _lobbyStateManager.CurrentState == LobbyState.GameLoading && _gameRecovery.IsRecovering;
@@ -424,6 +446,7 @@
                                      IsResponsibleGamingInfoOverlayDlgVisible ||
                                      MessageOverlayData.IsDialogVisible ||
                                      ReserveOverlayViewModel.IsDialogVisible ||
+                                     IsSafetyMessageVisible ||
                                      _playerMenuPopup.IsMenuVisible ||
                                      _playerInfoDisplayManager.IsActive() ||
                                      CustomMainViewElementVisible;
@@ -441,8 +464,9 @@
                          $"ShowProgressiveGameDisabledNotification={ShowProgressiveGameDisabledNotification}, " +
                          $"ShowVoucherNotification={ShowVoucherNotification}, " +
                          $"MessageOverlayData.IsDialogVisible={MessageOverlayData.IsDialogVisible}, " +
-                         $"IsPresentationOverridden={isPresentationOverridden}" +
-                         $"IsOverlayWindowVisible={IsOverlayWindowVisible}, ");
+                         $"IsPresentationOverridden={isPresentationOverridden}, " +
+                         $"IsSafetyMessageVisible={IsSafetyMessageVisible}, " +
+                         $"IsOverlayWindowVisible={IsOverlayWindowVisible}");
         }
 
         private string BuildLockupMessageText()
