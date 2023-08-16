@@ -88,6 +88,9 @@
 
             _target = new GameSelectionVerificationService(_eventBus.Object, _gameProvider.Object, _gameDataService.Object);
 
+            _gameProvider.Setup(m => m.GetEnabledGames())
+                .Returns(new List<IGameDetail>());
+
             _sendProtocolInitializationComplete(new ProtocolInitializationComplete());
         }
 

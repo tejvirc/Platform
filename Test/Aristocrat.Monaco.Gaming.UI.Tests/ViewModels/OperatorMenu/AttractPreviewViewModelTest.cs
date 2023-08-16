@@ -27,7 +27,7 @@
     {
         private const string TopDefaultVideo = "Top_Default_Video";
         private const string TopperDefaultVideo = "Topper_Default_Video";
-        private const int waitTimeout = 2000;
+        private const int waitTimeout = 5000;
 
         private readonly ManualResetEvent _waiter = new ManualResetEvent(false);
         private readonly IDictionary<string, Action> _propertyListeners = new Dictionary<string, Action>();

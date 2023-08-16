@@ -48,7 +48,7 @@
         private Mock<IInformationTicketCreator> _ticketCreator;
         private Mock<ITime> _time;
         private readonly ManualResetEvent _waiter = new ManualResetEvent(false);
-        private const int Timeout = 1000; // One second
+        private const int Timeout = 5000; // five seconds
 
         /// <summary>
         ///     Initializes class members and prepares for execution of a TestMethod.

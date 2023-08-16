@@ -27,6 +27,7 @@
         private readonly Dictionary<string, WindowInfo> _windows = new();
 
         private bool _disposed;
+        private bool _disposing = false;
         private Thread _uiThread;
 
         /// <inheritdoc />
@@ -37,9 +38,14 @@
                 return;
             }
 
-            Shutdown(false);
+            if (!_disposing)
+            {
+                _disposing = true;
 
-            _waitForAppCreated.Close();
+                Shutdown(false);
+
+                _waitForAppCreated.Close();
+            }
 
             Logger.Debug("Disposed");
 
@@ -95,7 +101,7 @@
                 DispatcherPriority.Send,
                 new Action(() => InternalCreateWindow<T>(windowInfo)));
 
-            if (isDialog)
+            if (isDialog && !_disposing)
             {
                 windowInfo.WindowLoadedResetEvent.WaitOne();
             }
@@ -462,6 +468,7 @@
                     return;
                 }
 
+                WindowLoadedResetEvent?.Set();
                 WindowLoadedResetEvent?.Dispose();
                 _disposed = true;
             }

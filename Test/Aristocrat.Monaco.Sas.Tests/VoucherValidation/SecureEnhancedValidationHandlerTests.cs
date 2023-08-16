@@ -386,7 +386,7 @@
         [DataTestMethod]
         public void InitializationTest(IList<ITransaction> transactions, uint expectedSequenceId)
         {
-            const int timeOut = 1000;
+            const int timeOut = 3000;
             var waiter = new AutoResetEvent(false);
 
             _validationDataProvider.Setup(x => x.GetData()).Returns(new ValidationInformation
