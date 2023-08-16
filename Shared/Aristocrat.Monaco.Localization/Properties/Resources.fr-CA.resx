@@ -5033,4 +5033,19 @@ Consulter le manuel pour plus de détails</value>
   <data name="ProtocolScreenTitle" xml:space="preserve">
     <value>??Protocol Configuration Selection??</value>
   </data>
+  <data name="LicenseFileValidationError" xml:space="preserve">
+    <value>??Invalid License File??</value>
+  </data>
+  <data name="SmartCardExpired" xml:space="preserve">
+    <value>??Smart Card Expired??</value>
+  </data>
+  <data name="SmartCardMissing" xml:space="preserve">
+    <value>??Smart Card Not Present??</value>
+  </data>
+  <data name="SmartCardRemoved" xml:space="preserve">
+    <value>??Smart Card Removed??</value>
+  </data>
+  <data name="EKeyDetected" xml:space="preserve">
+    <value>??EKey Detected??</value>
+  </data>
 </root>
