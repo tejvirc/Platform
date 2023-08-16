@@ -11,7 +11,7 @@
 
     public class ProgressiveClient : BaseClient<ProgressiveClientApi>, IClientEndpointProvider<ProgressiveClientApi>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public ProgressiveClient(
             IClientConfigurationProvider configurationProvider,

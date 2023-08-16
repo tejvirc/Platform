@@ -59,7 +59,6 @@ namespace Aristocrat.Monaco.Gaming
             _runtime = runtimeService ?? throw new ArgumentNullException(nameof(runtimeService));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
 
             _gameDiagnostics = gameDiagnostics ?? throw new ArgumentNullException(nameof(gameDiagnostics));
 

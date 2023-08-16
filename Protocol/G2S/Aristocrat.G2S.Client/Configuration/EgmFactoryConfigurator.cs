@@ -72,7 +72,7 @@
 
             var receiver = new ReceiveEndpoint(_address, _certificate, _certificateValidator, _app);
 
-            var messageConsumer = new MessageConsumer(egm);
+            var messageConsumer = new MessageConsumer(egm, deviceConnector);
             receiveEndpointProvider.ConnectConsumer(messageConsumer);
             var hostConnector = new HostConnector(
                 egm,

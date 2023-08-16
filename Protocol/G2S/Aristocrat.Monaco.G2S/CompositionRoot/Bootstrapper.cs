@@ -20,6 +20,7 @@
     using Aristocrat.G2S.Client.Security;
     using Aristocrat.G2S.Communicator.ServiceModel;
     using Aristocrat.G2S.Emdi;
+    using Aristocrat.Monaco.G2S.Services;
     using Common.CertificateManager;
     using CoreWCF.Description;
     using Data.Hosts;

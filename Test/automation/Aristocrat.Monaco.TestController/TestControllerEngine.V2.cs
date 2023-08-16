@@ -27,88 +27,93 @@
 //
 namespace Aristocrat.Monaco.TestController
 {
-    using Accounting.Contracts;
-    using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
-    using Aristocrat.Monaco.Hardware.Contracts.Printer;
-    using DataModel;
-    using Gaming.Contracts;
-    using Hardware.Contracts.Gds;
-    using Hardware.Contracts.Gds.NoteAcceptor;
-    using Hardware.Contracts.IO;
-    using Kernel;
-    using log4net;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Threading;
-    using HardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
-    using NoteAcceptorDisconnectedEvent = Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
-    using PrinterDisconnectedEvent = Aristocrat.Monaco.Hardware.Contracts.Printer.DisconnectedEvent;
-    using VirtualDeviceType = Hardware.Contracts.SharedDevice.DeviceType;
     using System.Linq;
+    using System.Reflection;
+    using System.Threading;
+    using Accounting.Contracts;
+    using Aristocrat.G2S.Emdi.Host;
+    using DataModel;
+    using Hardware.Contracts.Gds;
+    using Hardware.Contracts.Gds.NoteAcceptor;
+    using Gaming.Contracts;
+    using Gaming.Contracts.Lobby;
+    using Gaming.Contracts.Models;
+    using Hardware.Contracts.IO;
+    using Hardware.Contracts.Printer;
+    using Hardware.Contracts.NoteAcceptor;
+    using Hardware.Contracts.Reel;
+    using HardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
+    using Kernel;
+    using log4net;
+    using PrinterDisconnectedEvent = Hardware.Contracts.Printer.DisconnectedEvent;
+    using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
-    using Aristocrat.Monaco.Gaming.Contracts.Lobby;
-    using Aristocrat.Monaco.Gaming.Contracts.Models;
+    using NoteAcceptorDisconnectedEvent = Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
+    using TestController.Models.Request;
+    using VirtualDeviceType = Hardware.Contracts.SharedDevice.DeviceType;
     using Aristocrat.Monaco.Gaming.Contracts.Events;
 
-    public partial class TestControllerEngine : ITestController
+    public partial class TestControllerEngine
     {
         private static ILobbyStateManager _lobbyStateManager = null;
-        private static ManualResetEvent   _returnedToLobbyEvent = new ManualResetEvent(false);
-        private static bool               _logIt = true;
-        private static ILog               _noteAcceptorLogger = LogManager.GetLogger("NoteAcceptorV2");
-        private static ManualResetEvent   _printCompleted = new ManualResetEvent(false);
-        private static ManualResetEvent   _gameLoaded = new ManualResetEvent(false);
-        private static SemaphoreSlim      _oneAPICallAtATime = new SemaphoreSlim(1, 1);
+        private static ManualResetEvent _returnedToLobbyEvent = new ManualResetEvent(false);
+        private static bool _logIt = true;
+        private static ILog _noteAcceptorLogger = LogManager.GetLogger(Assembly.GetCallingAssembly(), "NoteAcceptorV2");
+        private static ManualResetEvent _printCompleted = new ManualResetEvent(false);
+        private static ManualResetEvent _gameLoaded = new ManualResetEvent(false);
+        private static SemaphoreSlim _oneAPICallAtATime = new SemaphoreSlim(1, 1);
         private static ManualResetEvent[] _insertCreditsEvents = new ManualResetEvent[3];
-        private static ManualResetEvent   _insertCreditsCompletedAfterInsertCredits = new ManualResetEvent(false);
-        private static ManualResetEvent   _bankBalanceChangedAfterInsertCredits = new ManualResetEvent(false);
-        private static ManualResetEvent   _bankBalanceChangedAfterCashOut = new ManualResetEvent(false);
+        private static ManualResetEvent _insertCreditsCompletedAfterInsertCredits = new ManualResetEvent(false);
+        private static ManualResetEvent _bankBalanceChangedAfterInsertCredits = new ManualResetEvent(false);
+        private static ManualResetEvent _bankBalanceChangedAfterCashOut = new ManualResetEvent(false);
 
-        private static ManualResetEvent   _currencyReturnedAfterInsertCredits = new ManualResetEvent(false);
-        private static ManualResetEvent   _currencyStackedAfterInsertCredits = new ManualResetEvent(false);
-        private static INoteAcceptor      _noteAcceptor = null;
-        private static Stopwatch          _stopWatch = new Stopwatch();
+        private static ManualResetEvent _currencyReturnedAfterInsertCredits = new ManualResetEvent(false);
+        private static ManualResetEvent _currencyStackedAfterInsertCredits = new ManualResetEvent(false);
+        private static INoteAcceptor _noteAcceptor = null;
+        private static Stopwatch _stopWatch = new Stopwatch();
         private static ManualResetEvent[] _cashOutEvents = new ManualResetEvent[2];
-        private static ManualResetEvent[] _fakePrinterErrorEvents      = new ManualResetEvent[6];
-        private static ManualResetEvent   _fakePrinterErrorChassisOpen   = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakePrinterErrorPaperEmpty    = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakePrinterErrorPaperInChute  = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakePrinterErrorPaperJam      = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakePrinterErrorPaperLow      = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakePrinterErrorPrintHeadOpen = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakePrinterDisconnected = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorDisconnected = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorMechanicalFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorOpticalFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorComponentFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorNvmFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorOtherFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorStackerDisconnected = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorNone = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorNoteJammed = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorFirmwareFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorCheatDetected = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorStackerFault = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorStackerFull = new ManualResetEvent(false);
-        private static ManualResetEvent   _fakeNoteAcceptorStackerJammed = new ManualResetEvent(false);
-        private static ManualResetEvent   _cashOutAborted = new ManualResetEvent(false);
+        private static ManualResetEvent[] _fakePrinterErrorEvents = new ManualResetEvent[6];
+        private static ManualResetEvent _fakePrinterErrorChassisOpen = new ManualResetEvent(false);
+        private static ManualResetEvent _fakePrinterErrorPaperEmpty = new ManualResetEvent(false);
+        private static ManualResetEvent _fakePrinterErrorPaperInChute = new ManualResetEvent(false);
+        private static ManualResetEvent _fakePrinterErrorPaperJam = new ManualResetEvent(false);
+        private static ManualResetEvent _fakePrinterErrorPaperLow = new ManualResetEvent(false);
+        private static ManualResetEvent _fakePrinterErrorPrintHeadOpen = new ManualResetEvent(false);
+        private static ManualResetEvent _fakePrinterDisconnected = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorDisconnected = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorMechanicalFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorOpticalFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorComponentFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorNvmFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorOtherFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorStackerDisconnected = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorNone = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorNoteJammed = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorFirmwareFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorCheatDetected = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorStackerFault = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorStackerFull = new ManualResetEvent(false);
+        private static ManualResetEvent _fakeNoteAcceptorStackerJammed = new ManualResetEvent(false);
+        private static ManualResetEvent _cashOutAborted = new ManualResetEvent(false);
 
-        private static ManualResetEvent   _gamePlayInitiated = new ManualResetEvent(false);
-        private static ManualResetEvent   _gameEnded = new ManualResetEvent(false);
-        private static Stopwatch          _gameRunningStopWatch = new Stopwatch();
+        private static ManualResetEvent _gamePlayInitiated = new ManualResetEvent(false);
+        private static ManualResetEvent _gameEnded = new ManualResetEvent(false);
+        private static Stopwatch _gameRunningStopWatch = new Stopwatch();
         private static ManualResetEvent[] _gamePlayEvents = new ManualResetEvent[2];
-        private static Stopwatch          _gameLoadingStopwatch = new Stopwatch();
+        private static Stopwatch _gameLoadingStopwatch = new Stopwatch();
 
 
         //
         // NOTE***  We included the 250 value to allow negative testing
         //          We would expect the 250 to get returned not processed
         //          
-        private static List<int>          _validBills = new List<int> { 1, 2, 5, 10, 20, 50, 100, 250 };
-        private static int                _milliSecondsToWaitForSystemToReact = 3000;
-        private static Action             _waitForSystemToReact = () => Thread.Sleep(_milliSecondsToWaitForSystemToReact);
-        private static bool               _initialized = false;
+        private static List<int> _validBills = new List<int> { 1, 2, 5, 10, 20, 50, 100, 250 };
+        private static int _milliSecondsToWaitForSystemToReact = 3000;
+        private static Action _waitForSystemToReact = () => Thread.Sleep(_milliSecondsToWaitForSystemToReact);
+        private static bool _initialized = false;
 
 
         private static Func<NoteAcceptorStackerState, NoteAcceptorStackerState, string> _noteAcceptorStackerStatePresent = (stackerStateToTest, stackerState) =>
@@ -133,7 +138,7 @@ namespace Aristocrat.Monaco.TestController
         /// Solution Monaco -> Test -> Automation -> Aristocrat.Monaco.TestController
         /// else { it does nothing }
         /// </summary>
-        private static Action<string,bool> _displayDebugText = (message,logItFlag) =>
+        private static Action<string, bool> _displayDebugText = (message, logItFlag) =>
         {
             if (!string.IsNullOrEmpty(message))
             {
@@ -152,7 +157,6 @@ namespace Aristocrat.Monaco.TestController
                         _noteAcceptorLogger.Debug(message);
                 }
             }
-
         };
 
         /// <summary>
@@ -211,7 +215,6 @@ namespace Aristocrat.Monaco.TestController
                 _eventBus.Subscribe<NoteAcceptorDisconnectedEvent>(this, HandleEvent);
                 _eventBus.Subscribe<FakeDeviceConnectedEvent>(this, HandleEvent);
                 _eventBus.Subscribe<CurrencyStackedEvent>(this, HandleEvent);
-                _initialized = true;
 
                 _eventBus.Subscribe<GameLoadedEvent>(this, HandleEvent);
                 _eventBus.Subscribe<GameStatusChangedEvent>(this, HandleEvent);
@@ -221,9 +224,8 @@ namespace Aristocrat.Monaco.TestController
                 _eventBus.Subscribe<GameEndedEvent>(this, HandleEvent);
                 _gamePlayEvents[0] = _gamePlayInitiated;
                 _gamePlayEvents[1] = _gameEnded;
-
+                _initialized = true;
             }
-
         }
 
         /// <summary>
@@ -282,12 +284,6 @@ namespace Aristocrat.Monaco.TestController
             {
                 _gameLoaded.Reset();
             }
-
-        }
-
-        private void HandleEvent(IEvent evt)
-        {
-            //this method is required to support unhandled events.
         }
 
         private void HandleEvent(GameRequestedLobbyEvent evt)
@@ -297,8 +293,6 @@ namespace Aristocrat.Monaco.TestController
 
         private void HandleEvent(LobbyInitializedEvent evt)
         {
-            var guid = evt.GloballyUniqueId;
-         
         }
 
         /// <summary>
@@ -363,14 +357,14 @@ namespace Aristocrat.Monaco.TestController
                 _fakePrinterErrorPaperLow.Reset();
             }
 
-            if (evt.PrintHeadOpen)  {
+            if (evt.PrintHeadOpen)
+            {
                 _fakePrinterErrorPrintHeadOpen.Set();
             }
             else
             {
                 _fakePrinterErrorPrintHeadOpen.Reset();
             }
-
         }
 
         private void HandleEvent(PrintFakeTicketEvent evt)
@@ -416,7 +410,7 @@ namespace Aristocrat.Monaco.TestController
             ? _fakeNoteAcceptorMechanicalFault.Set()
             : _fakeNoteAcceptorMechanicalFault.Reset();
 
-            _ = ((evt.Fault & NoteAcceptorFaultTypes.OpticalFault) == NoteAcceptorFaultTypes.OpticalFault )
+            _ = ((evt.Fault & NoteAcceptorFaultTypes.OpticalFault) == NoteAcceptorFaultTypes.OpticalFault)
             ? _fakeNoteAcceptorOpticalFault.Set()
             : _fakeNoteAcceptorOpticalFault.Reset();
 
@@ -472,11 +466,6 @@ namespace Aristocrat.Monaco.TestController
             // DONT CARE ABOUT THIS - SO FAR
         }
 
-        private void HandleEvent(PrinterDisconnectedEvent evt)
-        {
-            // DONT CARE ABOUT THIS - SO FAR
-        }
-
         /// <summary>
         /// This event handler will set the local _currencyReturnedAfterInsertCredits event.
         /// This local event is used by the InsertCreditsV2 method and is reset there.
@@ -500,7 +489,6 @@ namespace Aristocrat.Monaco.TestController
             _currencyStackedAfterInsertCredits.Set();
         }
 
-
         private void HandleEvent(CurrencyInStartedEvent evt)
         {
             _displayDebugText($"CurrencyInStartedEvent(1) - Note = {evt.Note}", !_logIt);
@@ -518,7 +506,6 @@ namespace Aristocrat.Monaco.TestController
         {
             _displayDebugText($"CurrencyEscrowedEvent(1) - Note = {evt.Note.Value}", !_logIt);
             // DONT CARE So Far
-
         }
 
         private void HandleEvent(PrintStartedEvent evt)
@@ -550,7 +537,6 @@ namespace Aristocrat.Monaco.TestController
             // DONT CARE ABOUT THIS - SO FAR
         }
 
-
         private void HandleEvent(VoucherOutStartedEvent evt)
         {
             _displayDebugText($"VoucherOutStartedEvent(1) - Time Stamp = {evt.Timestamp} Amount = {evt.Amount}", !_logIt);
@@ -562,12 +548,6 @@ namespace Aristocrat.Monaco.TestController
             _displayDebugText($"VoucherIssuedEvent(1) - Time Stamp = {evt.Timestamp} ", !_logIt);
         }
 
-        private void HandleEvent(VoucherOutCanceledEvent evt)
-        {
-            _displayDebugText($"VoucherOutCanceledEvent(1) - Time Stamp = {evt.Timestamp}", !_logIt);
-        }
-
-
         private void HandleEvent(NoteAcceptorDisconnectedEvent evt)
         {
             // DONT CARE ABOUT THIS - SO FAR
@@ -575,8 +555,7 @@ namespace Aristocrat.Monaco.TestController
 
         private void HandleEvent(FakeDeviceConnectedEvent evt)
         {
-
-            switch ( evt.Type )
+            switch (evt.Type)
             {
                 case VirtualDeviceType.Printer:
                     if (evt.Connected)
@@ -607,35 +586,26 @@ namespace Aristocrat.Monaco.TestController
                 default:
                     _displayDebugText($"ERRORMESSAGE: Unknown Virtual Device Type {evt.Timestamp}", !_logIt);
                     break;
-
             }
-     
         }
 
-        public CommandResult GetAvailableGamesV2(string test_name)
+        public Dictionary<string, object> GetAvailableGamesV2(GetAvailableGamesV2Request request)
         {
-            CommandResult commandResult = null;
+            var data = new Dictionary<string, object>();
 
             if (_oneAPICallAtATime.WaitAsync(TimeSpan.FromSeconds(15)).Result)
             {
-
                 var games = _pm.GetValues<IGameDetail>(GamingConstants.Games).ToList();
-
-                commandResult = new CommandResult()
+                data = new Dictionary<string, object>
                 {
-                    data = new Dictionary<string, object>
-                    {
-                        ["response-to"] = "/Platform/GetAvailableGamesV2",
-                        ["status"] = "SUCCESS:",
-                        ["location-in-code"] = "GetAvailableGamesV2(1)",
-                        ["test-name"] = $"{test_name}",
-                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                        ["number_of_games"] = games.Count
-                    },
-                    Result = true,
-                    Info = $"Returning {games.Count} game records"
+                    ["response-to"] = "/Platform/GetAvailableGamesV2",
+                    ["status"] = "SUCCESS:",
+                    ["location-in-code"] = "GetAvailableGamesV2(1)",
+                    ["test-name"] = $"{request.TestName}",
+                    ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                    ["number_of_games"] = games.Count,
+                    ["Info"] = $"Returning {games.Count} game records"
                 };
-
 
                 //
                 // This purpose of this code is a little OBSCURE and maybe TRICKY!
@@ -672,47 +642,46 @@ namespace Aristocrat.Monaco.TestController
                         version = gameProfile.Version
                     };
 
-                    commandResult.data.Add($"game_{gameIndex++}", JsonConvert.SerializeObject(game));
+                    data.Add($"game_{gameIndex++}", JsonConvert.SerializeObject(game));
                 }
             }
             else
             {
-                commandResult = new CommandResult()
+                data.Add("response-to", "/Platform/GetAvailableGamesV2");
+                data.Add("status", "ERRORMESSAGE:");
+                data.Add("location-in-code", "GetAvailableGamesV2(1)");
+                data.Add("test-name", $"{request.TestName}");
+                data.Add("time-stamp", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"));
+                data.Add("error-message", "Could not get access to the method (The wait timed out). Please try again. ");
+                data.Add("Info", "ERRORMESSAGE: Request to RequestSpinV2 Failed. The synchronization semaphore wait just timed out?");
+                data = new Dictionary<string, object>
                 {
-                    data = new Dictionary<string, object>
-                    {
-                        ["response-to"] = "/Platform/GetAvailableGamesV2",
-                        ["status"] = "ERRORMESSAGE:",
-                        ["location-in-code"] = "GetAvailableGamesV2(1)",
-                        ["test-name"] = $"{test_name}",
-                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                        ["error-message"] = $"Could not get access to the method (The wait timed out).  Please try again. "
-                    },
-                    Result = false,
-                    Info = $"ERRORMESSAGE: Request to RequestSpinV2 Failed. The synchronization semaphore wait just timed out?"
+                    ["response-to"] = "/Platform/GetAvailableGamesV2",
+                    ["status"] = "ERRORMESSAGE:",
+                    ["location-in-code"] = "GetAvailableGamesV2(1)",
+                    ["test-name"] = $"{request.TestName}",
+                    ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                    ["error-message"] = $"Could not get access to the method (The wait timed out).  Please try again. ",
+                    ["Info"] = $"ERRORMESSAGE: Request to RequestSpinV2 Failed. The synchronization semaphore wait just timed out?"
                 };
-
-                _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
+                _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
             }
 
             ResetLocalManualResetEvents();
             _oneAPICallAtATime.Release();
 
-            return commandResult;
+            return data;
         }
 
-        public CommandResult TryLoadGameV2(string gameName, string denomination, string test_name)
+        public Dictionary<string, object> TryLoadGameV2(TryLoadGameV2Request request)
         {
-
-            CommandResult commandResult = null;
+            var data = new Dictionary<string, object>();
 
             //
             // This should never be a problem - but who knows what the test developers might try to do?
             // 
             if (_oneAPICallAtATime.WaitAsync(TimeSpan.FromSeconds(15)).Result)
             {
-
                 _stopWatch.Restart();
                 _gameLoadingStopwatch.Reset();
 
@@ -726,7 +695,6 @@ namespace Aristocrat.Monaco.TestController
                 //
                 if (_returnedToLobbyEvent.WaitOne(TimeSpan.FromSeconds(30)))
                 {
-
                     //
                     // reset the lobby event
                     //
@@ -743,7 +711,7 @@ namespace Aristocrat.Monaco.TestController
                     //
                     // now we have to wait for the lobby to
                     // go back to the "Chooser" State or the game will never load
-                    int  triesToGetChooserLobbyState = 0;
+                    int triesToGetChooserLobbyState = 0;
                     bool lobbyStateIsChooser = false;
 
                     //
@@ -780,7 +748,7 @@ namespace Aristocrat.Monaco.TestController
                             // the service is expecting the denomination to be in the form of 0.01 and so forth
                             // this is consistent with the older version
                             //
-                            if (decimal.TryParse(denomination, out decimal denom))
+                            if (decimal.TryParse(request.Denomination, out decimal denom))
                             {
                                 // E.g.  (0.01 * 100000M) gets it into 1000 millipennies
                                 denom *= 100000M;
@@ -790,7 +758,7 @@ namespace Aristocrat.Monaco.TestController
                                 if (null != games)
                                 {
 
-                                    var gameInfo = games.FirstOrDefault(g => g.ThemeName == gameName && g.EgmEnabled && g.ActiveDenominations.Contains(Convert.ToInt64(denom)));
+                                    var gameInfo = games.FirstOrDefault(g => g.ThemeName == request.GameName && g.EgmEnabled && g.ActiveDenominations.Contains(Convert.ToInt64(denom)));
 
                                     if (null != gameInfo)
                                     {
@@ -804,103 +772,79 @@ namespace Aristocrat.Monaco.TestController
                                             _stopWatch.Stop();
                                             _gameLoadingStopwatch.Stop();
 
-                                            commandResult = new CommandResult()
+                                            data = new Dictionary<string, object>
                                             {
-                                                data = new Dictionary<string, object>
-                                                {
-                                                    ["response-to"] = "/Platform/LoadGameV2",
-                                                    ["status"] = "SUCCESS:",
-                                                    ["location-in-code"] = "TryLoadGameV2(1)",
-                                                    ["test-name"] = $"{test_name}",
-                                                    ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                                    ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                                                    ["load-time"] = _gameLoadingStopwatch.ElapsedMilliseconds.ToString() + " ms."
-                                                },
-                                                Result = true,
-                                                Info = $"SUCCESS: TryLoadGameV2() Game ({gameName}) Loaded Successfully."
+                                                ["response-to"] = "/Platform/LoadGameV2",
+                                                ["status"] = "SUCCESS:",
+                                                ["location-in-code"] = "TryLoadGameV2(1)",
+                                                ["test-name"] = $"{request.TestName}",
+                                                ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                                                ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                                                ["load-time"] = _gameLoadingStopwatch.ElapsedMilliseconds.ToString() + " ms."
                                             };
 
-                                            _displayDebugText($"{commandResult.Info}", _logIt);
-
-
-
+                                            var info = $"SUCCESS: TryLoadGameV2() Game ({request.GameName}) Loaded Successfully.";
+                                            data.Add("Info", info);
+                                            _displayDebugText($"{info}", _logIt);
                                         }
                                         else
                                         {
                                             _stopWatch.Stop();
                                             _gameLoadingStopwatch.Stop();
 
-                                            commandResult = new CommandResult()
+                                            data = new Dictionary<string, object>
                                             {
-                                                data = new Dictionary<string, object>
-                                                {
-                                                    ["response-to"] = "/Platform/LoadGameV2",
-                                                    ["status"] = "ERRORMESSAGE:",
-                                                    ["location-in-code"] = "TryLoadGameV2(2)",
-                                                    ["test-name"] = $"{test_name}",
-                                                    ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                                    ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                                                    ["load-time"] = "0 ms."
-                                                },
-                                                Result = false,
-                                                Info = $"ERRORMESSAGE: TryLoadGameV2() failed. Wait for Game Loaded Event Timed-Out. Game state is unknown."
+                                                ["response-to"] = "/Platform/LoadGameV2",
+                                                ["status"] = "ERRORMESSAGE:",
+                                                ["location-in-code"] = "TryLoadGameV2(2)",
+                                                ["test-name"] = $"{request.TestName}",
+                                                ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                                                ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                                                ["load-time"] = "0 ms."
                                             };
-
-                                            _displayDebugText($"{commandResult.Info}", _logIt);
-
+                                            var info = $"ERRORMESSAGE: TryLoadGameV2() failed. Wait for Game Loaded Event Timed-Out. Game state is unknown.";
+                                            data.Add("Info", info);
+                                            _displayDebugText($"{info}", _logIt);
                                         }
-
-
-
                                     }  // if (null != gameInfo)
                                     else
                                     {
                                         _stopWatch.Stop();
 
-                                        commandResult = new CommandResult()
+                                        data = new Dictionary<string, object>
                                         {
-                                            data = new Dictionary<string, object>
-                                            {
-                                                ["response-to"] = "/Platform/LoadGameV2",
-                                                ["status"] = "ERRORMESSAGE:",
-                                                ["location-in-code"] = "TryLoadGameV2(3)",
-                                                ["test-name"] = $"{test_name}",
-                                                ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                                ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                                                ["load-time"] = "0 ms."
-                                            },
-                                            Result = false,
-                                            Info = $"ERRORMESSAGE: TryLoadGameV2() failed. Could not find a game to load using the parameters provided."
+                                            ["response-to"] = "/Platform/LoadGameV2",
+                                            ["status"] = "ERRORMESSAGE:",
+                                            ["location-in-code"] = "TryLoadGameV2(3)",
+                                            ["test-name"] = $"{request.TestName}",
+                                            ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                                            ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                                            ["load-time"] = "0 ms."
                                         };
 
-                                        _displayDebugText($"{commandResult.Info}", _logIt);
-
-
+                                        var info = $"ERRORMESSAGE: TryLoadGameV2() failed. Could not find a game to load using the parameters provided.";
+                                        data.Add("Info", info);
+                                        _displayDebugText($"{info}", _logIt);
                                     }
-
                                 } // if (null != games)
                                 else
                                 {
                                     _stopWatch.Stop();
 
-                                    commandResult = new CommandResult()
+                                    data = new Dictionary<string, object>
                                     {
-                                        data = new Dictionary<string, object>
-                                        {
-                                            ["response-to"] = "/Platform/LoadGameV2",
-                                            ["status"] = "ERRORMESSAGE:",
-                                            ["location-in-code"] = "TryLoadGameV2(4)",
-                                            ["test-name"] = $"{test_name}",
-                                            ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                            ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                                            ["load-time"] = "0 ms."
-                                        },
-                                        Result = false,
-                                        Info = $"ERRORMESSAGE: TryLoadGameV2() failed. Internal Error - No Games Retrieved."
+                                        ["response-to"] = "/Platform/LoadGameV2",
+                                        ["status"] = "ERRORMESSAGE:",
+                                        ["location-in-code"] = "TryLoadGameV2(4)",
+                                        ["test-name"] = $"{request.TestName}",
+                                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                                        ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                                        ["load-time"] = "0 ms."
                                     };
 
-                                    _displayDebugText($"{commandResult.Info}", _logIt);
-
+                                    var info = $"ERRORMESSAGE: TryLoadGameV2() failed. Internal Error - No Games Retrieved.";
+                                    data.Add("Info", info);
+                                    _displayDebugText($"{info}", _logIt);
                                 }
 
                             }  // if (decimal.TryParse(denomination, out decimal denom))
@@ -908,124 +852,98 @@ namespace Aristocrat.Monaco.TestController
                             {
                                 _stopWatch.Stop();
 
-                                commandResult = new CommandResult()
+                                data = new Dictionary<string, object>
                                 {
-                                    data = new Dictionary<string, object>
-                                    {
-                                        ["response-to"] = "/Platform/LoadGameV2",
-                                        ["status"] = "ERRORMESSAGE:",
-                                        ["location-in-code"] = "TryLoadGameV2(5)",
-                                        ["test-name"] = $"{test_name}",
-                                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                        ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                                        ["load-time"] = "0 ms."
-                                    },
-                                    Result = false,
-                                    Info = $"ERRORMESSAGE: TryLoadGameV2() failed. The denomination ({denomination}) would not parse into a decimal value."
+                                    ["response-to"] = "/Platform/LoadGameV2",
+                                    ["status"] = "ERRORMESSAGE:",
+                                    ["location-in-code"] = "TryLoadGameV2(5)",
+                                    ["test-name"] = $"{request.TestName}",
+                                    ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                                    ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                                    ["load-time"] = "0 ms."
                                 };
-
-                                _displayDebugText($"{commandResult.Info}", _logIt);
-
+                                var info = $"ERRORMESSAGE: TryLoadGameV2() failed. The denomination ({request.Denomination}) would not parse into a decimal value.";
+                                data.Add("Info", info);
+                                _displayDebugText($"{info}", _logIt);
                             }
                         }
                         catch (Exception ex)
                         {
                             _stopWatch.Stop();
 
-                            commandResult = new CommandResult()
+                            data = new Dictionary<string, object>
                             {
-                                data = new Dictionary<string, object>
-                                {
-                                    ["response-to"] = "/Platform/LoadGameV2",
-                                    ["status"] = "ERRORMESSAGE:",
-                                    ["location-in-code"] = "TryLoadGameV2(6)",
-                                    ["test-name"] = $"{test_name}",
-                                    ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                    ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                                    ["load-time"] = "0 ms."
-                                },
-                                Result = false,
-                                Info = $"ERRORMESSAGE: TryLoadGameV2() failed with this Exception - ({ex.Message})"
+                                ["response-to"] = "/Platform/LoadGameV2",
+                                ["status"] = "ERRORMESSAGE:",
+                                ["location-in-code"] = "TryLoadGameV2(6)",
+                                ["test-name"] = $"{request.TestName}",
+                                ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                                ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                                ["load-time"] = "0 ms."
                             };
-
-                            _displayDebugText($"{commandResult.Info}", _logIt);
-
+                            var info = $"ERRORMESSAGE: TryLoadGameV2() failed with this Exception - ({ex.Message})";
+                            data.Add("Info", info);
+                            _displayDebugText($"{info}", _logIt);
                         }
 
                     } // if (lobbyStateIsChooser)
                     else
                     {
                         _stopWatch.Stop();
-                   
-                        commandResult = new CommandResult()
-                        {
-                            data = new Dictionary<string, object>
-                            {
-                                ["response-to"] = "/Platform/LoadGameV2",
-                                ["status"] = "ERRORMESSAGE:",
-                                ["location-in-code"] = "TryLoadGameV2(1)",
-                                ["test-name"] = $"{test_name}",
-                                ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                                ["load-time"] = "0 ms."
-                            },
-                            Result = false,
-                            Info = $"ERRORMESSAGE: TryLoadGameV2() Failed with Internal Error - Lobby State did not allow the game to be loaded.."
-                        };
 
-                        _displayDebugText($"{commandResult.Info}", _logIt);
-
-                    }
-
-
-                } // if (_returnedToLobbyEvent.WaitOne(TimeSpan.FromSeconds(30)))
-                else
-                {
-                    _stopWatch.Stop();
-
-                    commandResult = new CommandResult()
-                    {
                         data = new Dictionary<string, object>
                         {
                             ["response-to"] = "/Platform/LoadGameV2",
                             ["status"] = "ERRORMESSAGE:",
                             ["location-in-code"] = "TryLoadGameV2(1)",
-                            ["test-name"] = $"{test_name}",
+                            ["test-name"] = $"{request.TestName}",
                             ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                             ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
                             ["load-time"] = "0 ms."
-                        },
-                        Result = false,
-                        Info = $"ERRORMESSAGE: TryLoadGameV2() Failed with Internal Error - Return to Lobby Event never fired."
+                        };
+
+                        var info = $"ERRORMESSAGE: TryLoadGameV2() Failed with Internal Error - Lobby State did not allow the game to be loaded..";
+                        data.Add("Info", info);
+                        _displayDebugText($"{info}", _logIt);
+                    }
+                } // if (_returnedToLobbyEvent.WaitOne(TimeSpan.FromSeconds(30)))
+                else
+                {
+                    _stopWatch.Stop();
+
+                    data = new Dictionary<string, object>
+                    {
+                        ["response-to"] = "/Platform/LoadGameV2",
+                        ["status"] = "ERRORMESSAGE:",
+                        ["location-in-code"] = "TryLoadGameV2(1)",
+                        ["test-name"] = $"{request.TestName}",
+                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                        ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                        ["load-time"] = "0 ms."
                     };
 
-                    _displayDebugText($"({test_name}) reports {commandResult.Info}", _logIt);
-
+                    var info = $"ERRORMESSAGE: TryLoadGameV2() Failed with Internal Error - Return to Lobby Event never fired.";
+                    data.Add("Info", info);
+                    _displayDebugText($"({request.TestName}) reports {info}", _logIt);
                 }
-
             } // if (_oneAPICallAtATime.WaitAsync(TimeSpan.FromSeconds(15)).Result)
             else
             {
                 _stopWatch.Stop();
 
-                commandResult = new CommandResult()
+                data = new Dictionary<string, object>
                 {
-                    data = new Dictionary<string, object>
-                    {
-                        ["response-to"] = "/Platform/LoadGameV2",
-                        ["status"] = "ERRORMESSAGE:",
-                        ["location-in-code"] = "TryLoadGameV2(7)",
-                        ["test-name"] = $"{test_name}",
-                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                        ["elapsed-time"] = "0 ms.",
-                        ["load-time"] = "0 ms."
-                    },
-                    Result = false,
-                    Info = $"ERRORMESSAGE: TryLoadGameV2() failed. The synchronization semaphore wait just timed out? "
+                    ["response-to"] = "/Platform/LoadGameV2",
+                    ["status"] = "ERRORMESSAGE:",
+                    ["location-in-code"] = "TryLoadGameV2(7)",
+                    ["test-name"] = $"{request.TestName}",
+                    ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                    ["elapsed-time"] = "0 ms.",
+                    ["load-time"] = "0 ms."
                 };
-
-                _displayDebugText($"{commandResult.Info}", _logIt);
-
+                var info = $"ERRORMESSAGE: TryLoadGameV2() failed. The synchronization semaphore wait just timed out? ";
+                data.Add("Info", info);
+                _displayDebugText($"{info}", _logIt);
             }
 
             //
@@ -1036,22 +954,18 @@ namespace Aristocrat.Monaco.TestController
             ResetLocalManualResetEvents();
             _oneAPICallAtATime.Release();
 
-            return commandResult;
-
-
+            return data;
         }
 
-        public CommandResult RequestSpinV2(string test_name)
+        public Dictionary<string, object> RequestSpinV2(RequestSpinV2Request request)
         {
-
-            CommandResult commandResult = null;
+            var data = new Dictionary<string, object>();
 
             //
             // This should never be a problem - but who knows what the test developers might try to do?
             // 
             if (_oneAPICallAtATime.WaitAsync(TimeSpan.FromSeconds(15)).Result)
             {
-
                 _stopWatch.Restart();
 
                 ResetLocalManualResetEvents();
@@ -1065,40 +979,33 @@ namespace Aristocrat.Monaco.TestController
                 //
                 _eventBus.Publish(new InputEvent(22, true));
 
-
                 //
                 // wait up to 25 seconds for the required events to fire...
                 // 
                 //
-                if ( WaitHandle.WaitAll(_gamePlayEvents, TimeSpan.FromSeconds(25)))
+                if (WaitHandle.WaitAll(_gamePlayEvents, TimeSpan.FromSeconds(25)))
                 {
-
-                    
                     //
                     // happy path - return SUCCESS:
                     //
                     _stopWatch.Stop();
 
-                    commandResult = new CommandResult()
+                    data = new Dictionary<string, object>
                     {
-                        data = new Dictionary<string, object>
-                        {
-                            ["response-to"]         = "/Runtime/RequestSpinV2",
-                            ["status"]              = "SUCCESS:",
-                            ["location-in-code"]    = "RequestSpinV2(1)",
-                            ["test-name"]           = $"{test_name}",
-                            ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                            ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                            ["game_play_initiated"] = "true",
-                            ["game_play_ended"]     = "true",
-                            ["game-time"]           = _gameRunningStopWatch.ElapsedMilliseconds.ToString() + " ms."
-                        },
-                        Result = true,
-                        Info = $"Request to RequestSpinV2 completed successfully."
+                        ["response-to"] = "/Runtime/RequestSpinV2",
+                        ["status"] = "SUCCESS:",
+                        ["location-in-code"] = "RequestSpinV2(1)",
+                        ["test-name"] = $"{request.TestName}",
+                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                        ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                        ["game_play_initiated"] = "true",
+                        ["game_play_ended"] = "true",
+                        ["game-time"] = _gameRunningStopWatch.ElapsedMilliseconds.ToString() + " ms."
                     };
 
-                    _displayDebugText($"SUCCESS: {commandResult.Info}.", _logIt);
-
+                    var info = "Request to RequestSpinV2 completed successfully.";
+                    data.Add("Info", info);
+                    _displayDebugText($"SUCCESS: {info}.", _logIt);
                 }
                 else
                 {
@@ -1111,58 +1018,47 @@ namespace Aristocrat.Monaco.TestController
                     bool a2 = _gamePlayInitiated.WaitOne(0);
                     bool b2 = _gameEnded.WaitOne(0);
 
-                    commandResult = new CommandResult()
+                    data = new Dictionary<string, object>
                     {
-                        data = new Dictionary<string, object>
-                        {
-                            ["response-to"]         = "/Runtime/RequestSpinV2",
-                            ["status"]              = "ERRORMESSAGE:",
-                            ["test_name"]           = $"{test_name}",
-                            ["location-in-code"]    = "RequestSpinV2(2)",
-                            ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                            ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                            ["game-time"]           = "0 ms.",
-                            ["game_play_initiated"] = $"{a2}",
-                            ["game_play_ended"]     = $"{b2}",
-                            ["error-message"]       = $"All expected events did not happen. Game Play Initiated = ({a2}) or Game Play Ended = ({b2}) did not get handled.  Current state of Game Play is unknown."
-                        },
-                        Result = false,
-                        Info = $"ERRORMESSAGE: Request to RequestSpinV2 Failed. Expected Events did not happen"
+                        ["response-to"] = "/Runtime/RequestSpinV2",
+                        ["status"] = "ERRORMESSAGE:",
+                        ["test_name"] = $"{request.TestName}",
+                        ["location-in-code"] = "RequestSpinV2(2)",
+                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                        ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                        ["game-time"] = "0 ms.",
+                        ["game_play_initiated"] = $"{a2}",
+                        ["game_play_ended"] = $"{b2}",
+                        ["error-message"] = $"All expected events did not happen. Game Play Initiated = ({a2}) or Game Play Ended = ({b2}) did not get handled.  Current state of Game Play is unknown."
                     };
 
-                    _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
+                    var info = "ERRORMESSAGE: Request to RequestSpinV2 Failed. Expected Events did not happen";
+                    data.Add("Info", info);
+                    _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
                 }
-
             }
             else
             {
-
                 //
                 // This is not really likely to ever happen!
                 // If we got here then the thread synchronization semaphore was not acquired?
                 //
                 _stopWatch.Stop();
 
-                commandResult = new CommandResult()
+                data = new Dictionary<string, object>
                 {
-                    data = new Dictionary<string, object>
-                    {
-                        ["response-to"]         = "/Runtime/RequestSpinV2",
-                        ["status"]              = "ERRORMESSAGE:",
-                        ["test_name"]           = $"{test_name}",
-                        ["location-in-code"]    = "RequestSpinV2(3)",
-                        ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                        ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                        ["game-time"]           = "0 ms.",
-                        ["error-message"]       = $"Could not get access to the method (The wait timed out).  Please try again. "
-                    },
-                    Result = false,
-                    Info = $"ERRORMESSAGE: Request to RequestSpinV2 Failed. The synchronization semaphore wait just timed out?"
+                    ["response-to"] = "/Runtime/RequestSpinV2",
+                    ["status"] = "ERRORMESSAGE:",
+                    ["test_name"] = $"{request.TestName}",
+                    ["location-in-code"] = "RequestSpinV2(3)",
+                    ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                    ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                    ["game-time"] = "0 ms.",
+                    ["error-message"] = $"Could not get access to the method (The wait timed out).  Please try again. "
                 };
-
-                _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
+                var info = "ERRORMESSAGE: Request to RequestSpinV2 Failed. The synchronization semaphore wait just timed out?";
+                data.Add("Info", info);
+                _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
             }
 
             //
@@ -1174,8 +1070,7 @@ namespace Aristocrat.Monaco.TestController
             _stopWatch.Stop();
             _oneAPICallAtATime.Release();
 
-            return commandResult;
-
+            return data;
         }
 
         /// <summary>
@@ -1186,9 +1081,9 @@ namespace Aristocrat.Monaco.TestController
         /// <param name="test_name"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public CommandResult RequestBNAStatusV2(string test_name, string id)
+        public Dictionary<string, object> RequestBNAStatusV2(int id, RequestBNAStatusV2 request)
         {
-            CommandResult commandResult = null;
+            var data = new Dictionary<string, object>();
 
             //
             // This should never be a problem - but who knows what the test developers might try to do?
@@ -1200,7 +1095,7 @@ namespace Aristocrat.Monaco.TestController
                 int numFaults = 0;
 
                 _stopWatch.Restart();
-               
+
                 if (null == _noteAcceptor)
                 {
                     _noteAcceptor = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
@@ -1373,214 +1268,128 @@ namespace Aristocrat.Monaco.TestController
                 //
                 if (_fakeNoteAcceptorDisconnected.WaitOne(TimeSpan.FromSeconds(3)))
                 {
-
                     _stopWatch.Stop();
 
-                    commandResult = new CommandResult()
+                    data = new Dictionary<string, object>
                     {
-                        data = new Dictionary<string, object>
-                        {
-                            ["response-to"] = $"/BNA/{id}/StatusV2",
-                            ["status"] = "ERRORMESSAGE:",
-                            ["is-faulted"] = isFaulted.ToString(),
-                            ["number-of-faults"] = numFaults.ToString(),
-                            ["test_name"] = $"{test_name}",
-                            ["location-in-code"] = "RequestBNAStatusV2(1)",
-                            ["error-message"] = $"Fake Note Acceptor is not connected or enabled",
-                            ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                            ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                        ["response-to"] = $"/BNA/{id}/StatusV2",
+                        ["status"] = "ERRORMESSAGE:",
+                        ["is-faulted"] = isFaulted.ToString(),
+                        ["number-of-faults"] = numFaults.ToString(),
+                        ["test_name"] = $"{request.TestName}",
+                        ["location-in-code"] = "RequestBNAStatusV2(1)",
+                        ["error-message"] = $"Fake Note Acceptor is not connected or enabled",
+                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                        ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
 
-                            ["faults-cheat-detected"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.CheatDetected),
-                            ["faults-component-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.ComponentFault),
-                            ["faults-firmware-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.FirmwareFault),
-                            ["faults-mechanical-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.MechanicalFault),
-                            ["faults-note-jammed"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.NoteJammed),
-                            ["faults-nvm-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.NvmFault),
-                            ["faults-optical-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.OpticalFault),
-                            ["faults-other-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.OtherFault),
-                            ["faults-stacker-disconnected"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerDisconnected),
-                            ["faults-stacker-full"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerFull),
-                            ["faults-stacker-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerFault),
-                            ["faults-stacker-jammed"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerJammed),
+                        ["faults-cheat-detected"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.CheatDetected),
+                        ["faults-component-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.ComponentFault),
+                        ["faults-firmware-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.FirmwareFault),
+                        ["faults-mechanical-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.MechanicalFault),
+                        ["faults-note-jammed"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.NoteJammed),
+                        ["faults-nvm-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.NvmFault),
+                        ["faults-optical-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.OpticalFault),
+                        ["faults-other-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.OtherFault),
+                        ["faults-stacker-disconnected"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerDisconnected),
+                        ["faults-stacker-full"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerFull),
+                        ["faults-stacker-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerFault),
+                        ["faults-stacker-jammed"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerJammed),
 
-                            ["logical-states-disabled"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Disabled),
-                            ["logical-states-disconnected"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Disconnected),
-                            ["logical-states-idle"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Idle),
-                            ["logical-states-in-escrow"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.InEscrow),
-                            ["logical-states-inspecting"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Inspecting),
-                            ["logical-states-returning"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Returning),
-                            ["logical-states-stacking"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Stacking),
-                            ["logical-states-uninitialized"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Uninitialized),
+                        ["logical-states-disabled"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Disabled),
+                        ["logical-states-disconnected"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Disconnected),
+                        ["logical-states-idle"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Idle),
+                        ["logical-states-in-escrow"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.InEscrow),
+                        ["logical-states-inspecting"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Inspecting),
+                        ["logical-states-returning"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Returning),
+                        ["logical-states-stacking"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Stacking),
+                        ["logical-states-uninitialized"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Uninitialized),
 
-                            ["stacker-states-fault"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Fault),
-                            ["stacker-states-full"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Full),
-                            ["stacker-states-inserted"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Inserted),
-                            ["stacker-states-jammed"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Jammed),
-                            ["stacker-states-removed"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Removed),
+                        ["stacker-states-fault"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Fault),
+                        ["stacker-states-full"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Full),
+                        ["stacker-states-inserted"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Inserted),
+                        ["stacker-states-jammed"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Jammed),
+                        ["stacker-states-removed"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Removed),
 
-                            ["enabled"] = _noteAcceptor.Enabled ? "Enabled" : "Disabled",
-                            ["can-validate"] = _noteAcceptor.CanValidate ? "True" : "False",
-                            ["connected"] = _noteAcceptor.Connected ? "True" : "False",
-                            ["disabled-by-error"] = _noteAcceptor.DisabledByError ? "True" : "False",
-                            ["initialized"] = _noteAcceptor.Initialized ? "True" : "False",
-                            ["stacker-state"] = _noteAcceptor.StackerState.ToString(),
-                            ["last-error"] = _noteAcceptor.LastError,
-                            ["reason-disabled"] = _noteAcceptor.DisabledByError ? _noteAcceptor.ReasonDisabled.ToString() : string.Empty
-
-                        },
-                        Result = false,
-                        Info = "Test Controller NoteAcceptorStatusV2() Failed!"
+                        ["enabled"] = _noteAcceptor.Enabled ? "Enabled" : "Disabled",
+                        ["can-validate"] = _noteAcceptor.CanValidate ? "True" : "False",
+                        ["connected"] = _noteAcceptor.Connected ? "True" : "False",
+                        ["disabled-by-error"] = _noteAcceptor.DisabledByError ? "True" : "False",
+                        ["initialized"] = _noteAcceptor.Initialized ? "True" : "False",
+                        ["stacker-state"] = _noteAcceptor.StackerState.ToString(),
+                        ["last-error"] = _noteAcceptor.LastError,
+                        ["reason-disabled"] = _noteAcceptor.DisabledByError ? _noteAcceptor.ReasonDisabled.ToString() : string.Empty,
+                        ["Info"] = "Test Controller NoteAcceptorStatusV2() Failed!"
                     };
-
-                    _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
+                    _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
                 }
                 else if (_noteAcceptor.Faults != NoteAcceptorFaultTypes.None)
                 {
                     _stopWatch.Stop();
 
-                    commandResult = new CommandResult()
+                    data = new Dictionary<string, object>
                     {
-                        data = new Dictionary<string, object>
-                        {
-                            ["response-to"] = $"/BNA/{id}/StatusV2",
-                            ["status"] = "ERRORMESSAGE:",
-                            ["is-faulted"] = isFaulted.ToString(),
-                            ["number-of-faults"] = numFaults.ToString(),
-                            ["test_name"] = $"{test_name}",
-                            ["location-in-code"] = "RequestBNAStatusV2(2)",
-                            ["error-message"] = $"Fake Note Acceptor is not connected or enabled",
-                            ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                            ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                        ["response-to"] = $"/BNA/{id}/StatusV2",
+                        ["status"] = "ERRORMESSAGE:",
+                        ["is-faulted"] = isFaulted.ToString(),
+                        ["number-of-faults"] = numFaults.ToString(),
+                        ["test_name"] = $"{request.TestName}",
+                        ["location-in-code"] = "RequestBNAStatusV2(2)",
+                        ["error-message"] = $"Fake Note Acceptor is not connected or enabled",
+                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                        ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
 
-                            ["faults-cheat-detected"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.CheatDetected),
-                            ["faults-component-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.ComponentFault),
-                            ["faults-firmware-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.FirmwareFault),
-                            ["faults-mechanical-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.MechanicalFault),
-                            ["faults-note-jammed"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.NoteJammed),
-                            ["faults-nvm-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.NvmFault),
-                            ["faults-optical-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.OpticalFault),
-                            ["faults-other-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.OtherFault),
-                            ["faults-stacker-disconnected"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerDisconnected),
-                            ["faults-stacker-full"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerFull),
-                            ["faults-stacker-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerFault),
-                            ["faults-stacker-jammed"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerJammed),
+                        ["faults-cheat-detected"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.CheatDetected),
+                        ["faults-component-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.ComponentFault),
+                        ["faults-firmware-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.FirmwareFault),
+                        ["faults-mechanical-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.MechanicalFault),
+                        ["faults-note-jammed"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.NoteJammed),
+                        ["faults-nvm-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.NvmFault),
+                        ["faults-optical-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.OpticalFault),
+                        ["faults-other-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.OtherFault),
+                        ["faults-stacker-disconnected"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerDisconnected),
+                        ["faults-stacker-full"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerFull),
+                        ["faults-stacker-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerFault),
+                        ["faults-stacker-jammed"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerJammed),
 
-                            ["logical-states-disabled"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Disabled),
-                            ["logical-states-disconnected"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Disconnected),
-                            ["logical-states-idle"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Idle),
-                            ["logical-states-in-escrow"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.InEscrow),
-                            ["logical-states-inspecting"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Inspecting),
-                            ["logical-states-returning"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Returning),
-                            ["logical-states-stacking"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Stacking),
-                            ["logical-states-uninitialized"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Uninitialized),
+                        ["logical-states-disabled"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Disabled),
+                        ["logical-states-disconnected"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Disconnected),
+                        ["logical-states-idle"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Idle),
+                        ["logical-states-in-escrow"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.InEscrow),
+                        ["logical-states-inspecting"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Inspecting),
+                        ["logical-states-returning"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Returning),
+                        ["logical-states-stacking"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Stacking),
+                        ["logical-states-uninitialized"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Uninitialized),
 
-                            ["stacker-states-fault"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Fault),
-                            ["stacker-states-full"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Full),
-                            ["stacker-states-inserted"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Inserted),
-                            ["stacker-states-jammed"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Jammed),
-                            ["stacker-states-removed"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Removed),
+                        ["stacker-states-fault"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Fault),
+                        ["stacker-states-full"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Full),
+                        ["stacker-states-inserted"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Inserted),
+                        ["stacker-states-jammed"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Jammed),
+                        ["stacker-states-removed"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Removed),
 
-                            ["enabled"] = _noteAcceptor.Enabled ? "Enabled" : "Disabled",
-                            ["can-validate"] = _noteAcceptor.CanValidate ? "True" : "False",
-                            ["connected"] = _noteAcceptor.Connected ? "True" : "False",
-                            ["disabled-by-error"] = _noteAcceptor.DisabledByError ? "True" : "False",
-                            ["initialized"] = _noteAcceptor.Initialized ? "True" : "False",
-                            ["stacker-state"] = _noteAcceptor.StackerState.ToString(),
-                            ["last-error"] = _noteAcceptor.LastError,
-                            ["reason-disabled"] = _noteAcceptor.DisabledByError ? _noteAcceptor.ReasonDisabled.ToString() : string.Empty
-
-                        },
-                        Result = false,
-                        Info = "Test Controller NoteAcceptorStatusV2() Failed!"
+                        ["enabled"] = _noteAcceptor.Enabled ? "Enabled" : "Disabled",
+                        ["can-validate"] = _noteAcceptor.CanValidate ? "True" : "False",
+                        ["connected"] = _noteAcceptor.Connected ? "True" : "False",
+                        ["disabled-by-error"] = _noteAcceptor.DisabledByError ? "True" : "False",
+                        ["initialized"] = _noteAcceptor.Initialized ? "True" : "False",
+                        ["stacker-state"] = _noteAcceptor.StackerState.ToString(),
+                        ["last-error"] = _noteAcceptor.LastError,
+                        ["reason-disabled"] = _noteAcceptor.DisabledByError ? _noteAcceptor.ReasonDisabled.ToString() : string.Empty,
+                        ["Info"] = "Test Controller NoteAcceptorStatusV2() Failed!"
                     };
-
-                    _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
+                    _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
                 }
                 else
                 {
                     _stopWatch.Stop();
 
-                    commandResult = new CommandResult
-                    {
-
-                        data = new Dictionary<string, object>
-                        {
-                            ["response-to"] = $"/BNA/{id}/StatusV2",
-                            ["test-name"] = $"{test_name}",
-                            ["status"] = isFaulted ? "ERRORMESSAGE:" : "SUCCESS:",
-                            ["error-message"] = isFaulted ? $"There are {numFaults} active faults" : string.Empty,
-                            ["is-faulted"] = isFaulted.ToString(),
-                            ["number-of-faults"] = numFaults.ToString(),
-                            ["location-in-code"] = "RequestBNAStatusV2(3)",
-                            ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                            ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-
-                            ["faults-cheat-detected"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.CheatDetected),
-                            ["faults-component-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.ComponentFault),
-                            ["faults-firmware-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.FirmwareFault),
-                            ["faults-mechanical-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.MechanicalFault),
-                            ["faults-note-jammed"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.NoteJammed),
-                            ["faults-nvm-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.NvmFault),
-                            ["faults-optical-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.OpticalFault),
-                            ["faults-other-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.OtherFault),
-                            ["faults-stacker-disconnected"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerDisconnected),
-                            ["faults-stacker-full"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerFull),
-                            ["faults-stacker-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerFault),
-                            ["faults-stacker-jammed"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerJammed),
-
-                            ["logical-states-disabled"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Disabled),
-                            ["logical-states-disconnected"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Disconnected),
-                            ["logical-states-idle"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Idle),
-                            ["logical-states-in-escrow"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.InEscrow),
-                            ["logical-states-inspecting"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Inspecting),
-                            ["logical-states-returning"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Returning),
-                            ["logical-states-stacking"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Stacking),
-                            ["logical-states-uninitialized"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Uninitialized),
-
-                            ["stacker-states-fault"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Fault),
-                            ["stacker-states-full"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Full),
-                            ["stacker-states-inserted"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Inserted),
-                            ["stacker-states-jammed"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Jammed),
-                            ["stacker-states-removed"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Removed),
-
-                            ["enabled"] = _noteAcceptor.Enabled ? "Enabled" : "Disabled",
-                            ["can-validate"] = _noteAcceptor.CanValidate ? "True" : "False",
-                            ["connected"] = _noteAcceptor.Connected ? "True" : "False",
-                            ["disabled-by-error"] = _noteAcceptor.DisabledByError ? "True" : "False",
-                            ["initialized"] = _noteAcceptor.Initialized ? "True" : "False",
-                            ["stacker-state"] = _noteAcceptor.StackerState.ToString(),
-                            ["last-error"] = _noteAcceptor.LastError,
-                            ["reason-disabled"] = _noteAcceptor.DisabledByError ? _noteAcceptor.ReasonDisabled.ToString() : string.Empty
-
-                        },
-
-                        Result = isFaulted ? false : true,
-                        Info = isFaulted ? "RequestBNAStatusV2() Failed!" : "RequestBNAStatusV2() Returned requested status."
-
-                    };
-
-                    _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
-                }
-
-            }
-            else
-            {
-                _stopWatch.Stop();
-
-                commandResult = new CommandResult
-                {
-
                     data = new Dictionary<string, object>
                     {
                         ["response-to"] = $"/BNA/{id}/StatusV2",
-                        ["test-name"] = $"{test_name}",
-                        ["status"] = "ERRORMESSAGE:",
-                        ["error-message"] = "",
-                        ["is-faulted"] = "False",
-                        ["number-of-faults"] = "0",
+                        ["test-name"] = $"{request.TestName}",
+                        ["status"] = isFaulted ? "ERRORMESSAGE:" : "SUCCESS:",
+                        ["error-message"] = isFaulted ? $"There are {numFaults} active faults" : string.Empty,
+                        ["is-faulted"] = isFaulted.ToString(),
+                        ["number-of-faults"] = numFaults.ToString(),
                         ["location-in-code"] = "RequestBNAStatusV2(3)",
                         ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
                         ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
@@ -1620,25 +1429,75 @@ namespace Aristocrat.Monaco.TestController
                         ["initialized"] = _noteAcceptor.Initialized ? "True" : "False",
                         ["stacker-state"] = _noteAcceptor.StackerState.ToString(),
                         ["last-error"] = _noteAcceptor.LastError,
-                        ["reason-disabled"] = _noteAcceptor.DisabledByError ? _noteAcceptor.ReasonDisabled.ToString() : string.Empty
+                        ["reason-disabled"] = _noteAcceptor.DisabledByError ? _noteAcceptor.ReasonDisabled.ToString() : string.Empty,
+                        ["Info"] = isFaulted ? "RequestBNAStatusV2() Failed!" : "RequestBNAStatusV2() Returned requested status."
+                    };
 
-                    },
+                    _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
+                }
+            }
+            else
+            {
+                _stopWatch.Stop();
 
-                    Result = false,
-                    Info = $"Attempt to get BNA Status failed! The synchronization semaphore wait timed out?"
+                data = new Dictionary<string, object>
+                {
+                    ["response-to"] = $"/BNA/{id}/StatusV2",
+                    ["test-name"] = $"{request.TestName}",
+                    ["status"] = "ERRORMESSAGE:",
+                    ["error-message"] = "",
+                    ["is-faulted"] = "False",
+                    ["number-of-faults"] = "0",
+                    ["location-in-code"] = "RequestBNAStatusV2(3)",
+                    ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                    ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+
+                    ["faults-cheat-detected"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.CheatDetected),
+                    ["faults-component-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.ComponentFault),
+                    ["faults-firmware-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.FirmwareFault),
+                    ["faults-mechanical-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.MechanicalFault),
+                    ["faults-note-jammed"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.NoteJammed),
+                    ["faults-nvm-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.NvmFault),
+                    ["faults-optical-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.OpticalFault),
+                    ["faults-other-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.OtherFault),
+                    ["faults-stacker-disconnected"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerDisconnected),
+                    ["faults-stacker-full"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerFull),
+                    ["faults-stacker-fault"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerFault),
+                    ["faults-stacker-jammed"] = _noteAcceptorFaultPresent(_noteAcceptor.Faults, NoteAcceptorFaultTypes.StackerJammed),
+
+                    ["logical-states-disabled"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Disabled),
+                    ["logical-states-disconnected"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Disconnected),
+                    ["logical-states-idle"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Idle),
+                    ["logical-states-in-escrow"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.InEscrow),
+                    ["logical-states-inspecting"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Inspecting),
+                    ["logical-states-returning"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Returning),
+                    ["logical-states-stacking"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Stacking),
+                    ["logical-states-uninitialized"] = _noteAcceptorLogicalStatePresent(_noteAcceptor.LogicalState, NoteAcceptorLogicalState.Uninitialized),
+
+                    ["stacker-states-fault"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Fault),
+                    ["stacker-states-full"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Full),
+                    ["stacker-states-inserted"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Inserted),
+                    ["stacker-states-jammed"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Jammed),
+                    ["stacker-states-removed"] = _noteAcceptorStackerStatePresent(_noteAcceptor.StackerState, NoteAcceptorStackerState.Removed),
+
+                    ["enabled"] = _noteAcceptor.Enabled ? "Enabled" : "Disabled",
+                    ["can-validate"] = _noteAcceptor.CanValidate ? "True" : "False",
+                    ["connected"] = _noteAcceptor.Connected ? "True" : "False",
+                    ["disabled-by-error"] = _noteAcceptor.DisabledByError ? "True" : "False",
+                    ["initialized"] = _noteAcceptor.Initialized ? "True" : "False",
+                    ["stacker-state"] = _noteAcceptor.StackerState.ToString(),
+                    ["last-error"] = _noteAcceptor.LastError,
+                    ["reason-disabled"] = _noteAcceptor.DisabledByError ? _noteAcceptor.ReasonDisabled.ToString() : string.Empty,
+                    ["Info"] = "Attempt to get BNA Status failed! The synchronization semaphore wait timed out?"
                 };
-
-                _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
+                _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
             }
 
             _stopWatch.Stop();
             _oneAPICallAtATime.Release();
 
-            return commandResult;
-
+            return data;
         }
-
 
 
         /// <summary>
@@ -1687,9 +1546,9 @@ namespace Aristocrat.Monaco.TestController
         /// </summary>
         /// <param name="test_name">The name of the calling test</param>
         /// <returns>A populated JSON object that is returned to the calling REST client</returns>
-        public CommandResult RequestCashOutV2(string test_name)
+        public Dictionary<string, object> RequestCashOutV2([FromBody] RequestCashOutV2 request)
         {
-            CommandResult commandResult = null;
+            var data = new Dictionary<string, object>();
 
             //
             // wait for access to the semaphore
@@ -1712,7 +1571,7 @@ namespace Aristocrat.Monaco.TestController
                     // get the beginning known event state setup
                     //
                     ResetLocalManualResetEvents();
-                    EnableCashOut(true);
+                    EnableCashOut(new EnableCashOutRequest { Enable = true });
                     _eventBus.Publish(new CashOutButtonPressedEvent());
 
                     //
@@ -1722,7 +1581,6 @@ namespace Aristocrat.Monaco.TestController
 
                     if (WaitHandle.WaitAll(_cashOutEvents, TimeSpan.FromSeconds(25)))
                     {
-
                         //   
                         // check to see if there are any _fakePrinterErrorEvents 
                         //
@@ -1739,25 +1597,20 @@ namespace Aristocrat.Monaco.TestController
                                 //
                                 _stopWatch.Stop();
 
-                                commandResult = new CommandResult()
+                                data = new Dictionary<string, object>
                                 {
-                                    data = new Dictionary<string, object>
-                                    {
-                                        ["response-to"] = "/Platform/CashoutV2/Request",
-                                        ["status"] = "SUCCESS:",
-                                        ["location-in-code"] = "RequestCashOutV2(1)",
-                                        ["test-name"] = $"{test_name}",
-                                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                        ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                                        ["starting-balance"] = creditMeterValue.ToString(),
-                                        ["ending-balance"] = _meterManager.GetMeter("Credit", "Panel", "Lifetime", 0, 0).ToString()
-                                    },
-                                    Result = true,
-                                    Info = $"Attempt to Cash Out ({creditMeterValue}) credits completed successfully."
-
+                                    ["response-to"] = "/Platform/CashoutV2/Request",
+                                    ["status"] = "SUCCESS:",
+                                    ["location-in-code"] = "RequestCashOutV2(1)",
+                                    ["test-name"] = $"{request.TestName}",
+                                    ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                                    ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                                    ["starting-balance"] = creditMeterValue.ToString(),
+                                    ["ending-balance"] = _meterManager.GetMeter("Credit", "Panel", "Lifetime", 0, 0).ToString(),
+                                    ["Info"] = $"Attempt to Cash Out ({creditMeterValue}) credits completed successfully."
                                 };
 
-                                _displayDebugText($"SUCCESS: {commandResult.Info}.", _logIt);
+                                _displayDebugText($"SUCCESS: {data["Info"]}.", _logIt);
                                 break;
 
                             //
@@ -1766,33 +1619,26 @@ namespace Aristocrat.Monaco.TestController
                             default:
                                 _stopWatch.Stop();
 
-                                commandResult = new CommandResult()
+                                data = new Dictionary<string, object>
                                 {
-                                    data = new Dictionary<string, object>
-                                    {
-                                        ["response-to"] = "/Platform/CashoutV2/Request",
-                                        ["status"] = "ERRORMESSAGE:",
-                                        ["test-name"] = $"{test_name}",
-                                        ["error-message"] = $"[Unknown Internal Error].",
-                                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                        ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                                        ["location-in-code"] = "RequestCashOutV2(2)",
-                                        ["starting-balance"] = creditMeterValue.ToString(),
-                                        ["ending-balance"] = _meterManager.GetMeter("Credit", "Panel", "Lifetime", 0, 0).ToString()
-                                    },
-                                    Result = false,
-                                    Info = "Test Controller RequestCashOutV2() Failed!"
+                                    ["response-to"] = "/Platform/CashoutV2/Request",
+                                    ["status"] = "ERRORMESSAGE:",
+                                    ["test-name"] = $"{request.TestName}",
+                                    ["error-message"] = $"[Unknown Internal Error].",
+                                    ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                                    ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                                    ["location-in-code"] = "RequestCashOutV2(2)",
+                                    ["starting-balance"] = creditMeterValue.ToString(),
+                                    ["ending-balance"] = _meterManager.GetMeter("Credit", "Panel", "Lifetime", 0, 0).ToString(),
+                                    ["Info"] = "Test Controller RequestCashOutV2() Failed!"
                                 };
 
-                                _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
+                                _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
                                 break;
                         }
-
                     }
                     else
                     {
-
                         _stopWatch.Stop();
 
                         //
@@ -1807,35 +1653,29 @@ namespace Aristocrat.Monaco.TestController
                         bool g0 = _fakePrinterErrorPaperLow.WaitOne(0);
                         bool h0 = _fakePrinterErrorPrintHeadOpen.WaitOne(0);
 
-                        commandResult = new CommandResult()
+                        data = new Dictionary<string, object>
                         {
-                            data = new Dictionary<string, object>
-                            {
-                                ["response-to"]             = "/Platform/CashoutV2/Request",
-                                ["status"]                  = "ERRORMESSAGE:",
-                                ["test-name"]               = $"{test_name}",
-                                ["time-stamp"]              = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                ["elapsed-time"]            = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                                ["location-in-code"]        = "RequestCashOutV2(3)",
-                                ["error-message"]           = $"All required events:  Print Completed({b0}), BankBalanceChanged({a0}) did not get handled. Current state of the Bank is now unknown",
-                                ["starting-balance"]        = creditMeterValue.ToString(),
-                                ["ending-balance"]          = _meterManager.GetMeter("Credit", "Panel", "Lifetime", 0, 0).ToString(),
-                                ["bank-balance-changed"]    = a0.ToString(),
-                                ["print-completed"]         = b0.ToString(),
-                                ["printer-chassis-open"]    = c0.ToString(),
-                                ["printer-paper-empty"]     = d0.ToString(),
-                                ["printer-paper-in-chute"]  = e0.ToString(),
-                                ["printer-paper-jam"]       = f0.ToString(),
-                                ["printer-paper-low"]       = g0.ToString(),
-                                ["printer-print-head-open"] = h0.ToString(),
-                            },
-
-                            Result = false,
-                            Info = $"Attempt to insert cash out failed! The state of the Bank is now unknown."
+                            ["response-to"] = "/Platform/CashoutV2/Request",
+                            ["status"] = "ERRORMESSAGE:",
+                            ["test-name"] = $"{request.TestName}",
+                            ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                            ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                            ["location-in-code"] = "RequestCashOutV2(3)",
+                            ["error-message"] = $"All required events:  Print Completed({b0}), BankBalanceChanged({a0}) did not get handled. Current state of the Bank is now unknown",
+                            ["starting-balance"] = creditMeterValue.ToString(),
+                            ["ending-balance"] = _meterManager.GetMeter("Credit", "Panel", "Lifetime", 0, 0).ToString(),
+                            ["bank-balance-changed"] = a0.ToString(),
+                            ["print-completed"] = b0.ToString(),
+                            ["printer-chassis-open"] = c0.ToString(),
+                            ["printer-paper-empty"] = d0.ToString(),
+                            ["printer-paper-in-chute"] = e0.ToString(),
+                            ["printer-paper-jam"] = f0.ToString(),
+                            ["printer-paper-low"] = g0.ToString(),
+                            ["printer-print-head-open"] = h0.ToString(),
+                            ["Info"] = "Attempt to insert cash out failed! The state of the Bank is now unknown."
                         };
 
-                        _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
+                        _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
                     }
                 } // if (0 != creditMeterValue)
                 else
@@ -1843,26 +1683,19 @@ namespace Aristocrat.Monaco.TestController
                     _stopWatch.Stop();
 
                     // error nothing to cash out
-                    commandResult = new CommandResult()
+                    data = new Dictionary<string, object>
                     {
-                        data = new Dictionary<string, object>
-                        {
-                            ["response-to"] = "/Platform/CashoutV2/Request",
-                            ["status"] = "SUCCESS:",
-                            ["test-name"] = $"{test_name}",
-                            ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                            ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
-                            ["location-in-code"] = "RequestCashOutV2(4)",
-                            ["starting-balance"] = creditMeterValue.ToString(),
-                            ["ending-balance"] = _meterManager.GetMeter("Credit", "Panel", "Lifetime", 0, 0).ToString()
-                        },
-                        Result = true,
-                        Info = $"Cash Out (ZERO) credits"
-
+                        ["response-to"] = "/Platform/CashoutV2/Request",
+                        ["status"] = "SUCCESS:",
+                        ["test-name"] = $"{request.TestName}",
+                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                        ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms.",
+                        ["location-in-code"] = "RequestCashOutV2(4)",
+                        ["starting-balance"] = creditMeterValue.ToString(),
+                        ["ending-balance"] = _meterManager.GetMeter("Credit", "Panel", "Lifetime", 0, 0).ToString(),
+                        ["Info"] = "Cash Out (ZERO) credits"
                     };
-
-                    _displayDebugText($"SUCCESS: {commandResult.Info}", _logIt);
-
+                    _displayDebugText($"SUCCESS: {data["Info"]}", _logIt);
                 }
 
             }  // if (_oneAPICallAtATime.WaitAsync(TimeSpan.FromSeconds(15)).Result)
@@ -1870,26 +1703,21 @@ namespace Aristocrat.Monaco.TestController
             {
                 long currentBalance = _meterManager.GetMeter("Credit", "Panel", "Lifetime", 0, 0);
 
-                commandResult = new CommandResult()
+                data = new Dictionary<string, object>
                 {
-                    data = new Dictionary<string, object>
-                    {
-                        ["response-to"]         = "/Platform/CashoutV2/Request",
-                        ["status"]              = "ERRORMESSAGE:",
-                        ["test-name"]           = $"{test_name}",
-                        ["error-message"]       = $"Could not get access to the method [The wait timed out].  Please try again. ",
-                        ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                        ["elapsed-time"]        = "0 ms.",
-                        ["location-in-code"]    = "RequestCashOutV2(5)",
-                        ["starting-balance"]    = currentBalance.ToString(),
-                        ["ending-balance"]      = currentBalance.ToString()
-                    },
-                    Result = false,
-                    Info = $"Attempt to Cash Out failed! The synchronization semaphore wait timed out?"
-
+                    ["response-to"] = "/Platform/CashoutV2/Request",
+                    ["status"] = "ERRORMESSAGE:",
+                    ["test-name"] = $"{request.TestName}",
+                    ["error-message"] = $"Could not get access to the method [The wait timed out].  Please try again. ",
+                    ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                    ["elapsed-time"] = "0 ms.",
+                    ["location-in-code"] = "RequestCashOutV2(5)",
+                    ["starting-balance"] = currentBalance.ToString(),
+                    ["ending-balance"] = currentBalance.ToString(),
+                    ["Info"] = "Attempt to Cash Out failed! The synchronization semaphore wait timed out?"
                 };
 
-                _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
+                _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
 
             }
 
@@ -1897,8 +1725,7 @@ namespace Aristocrat.Monaco.TestController
             ResetLocalManualResetEvents();
             _oneAPICallAtATime.Release();
 
-            return commandResult;
-
+            return data;
         }
 
         /// <summary>
@@ -1926,11 +1753,11 @@ namespace Aristocrat.Monaco.TestController
         ///     The "Info" member will always have information about the request and activity
         ///     
         /// </returns>
-        public CommandResult InsertCreditsV2(int bill_value, string test_name, string id)
+        public Dictionary<string, object> InsertCreditsV2([FromRoute] string id, [FromBody] InsertCreditsV2Request request)
         {
-            string testName = test_name;
+            string testName = request.TestName;
 
-            CommandResult commandResult = null;
+            var data = new Dictionary<string, object>();
 
             //
             // This should never be a problem - but who knows what the test developers might try to do?
@@ -1947,29 +1774,23 @@ namespace Aristocrat.Monaco.TestController
                 //
                 // make sure it is a bill we recognize
                 //
-                if (!_validBills.Contains(bill_value))
+                if (!_validBills.Contains(request.BillValue))
                 {
-
                     _stopWatch.Stop();
 
-                    commandResult = new CommandResult()
+                    data = new Dictionary<string, object>()
                     {
-                        data = new Dictionary<string, object>()
-                        {
-                            ["response-to"]         = $"/BNA/{id}/Bill/InsertV2",
-                            ["status"]              = "ERRORMESSAGE:",
-                            ["test_name"]           = $"{testName}",
-                            ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                            ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms",          
-                            ["error-message"]       = $"Bill Value ({bill_value}) is invalid.",
-                            ["location-in-code"]    = "InsertCreditsV2(1)"
-                        },
-                        Result = false,
-                        Info = $"Attempt to insert {bill_value} dollar bill failed!",
-
+                        ["response-to"] = $"/BNA/{id}/Bill/InsertV2",
+                        ["status"] = "ERRORMESSAGE:",
+                        ["test_name"] = $"{testName}",
+                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                        ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
+                        ["error-message"] = $"Bill Value ({request.BillValue}) is invalid.",
+                        ["location-in-code"] = "InsertCreditsV2(1)",
+                        ["Info"] = $"Attempt to insert {request.BillValue} dollar bill failed!"
                     };
 
-                    _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
+                    _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
 
                 } // if (_validBills.Contains(bill_value))
 
@@ -1979,26 +1800,18 @@ namespace Aristocrat.Monaco.TestController
                 else if (!int.TryParse(id, out int deviceId))
                 {
                     _stopWatch.Stop();
-
-                    commandResult = new CommandResult()
+                    data = new Dictionary<string, object>()
                     {
-                        data = new Dictionary<string, object>()
-                        {
-                            ["response-to"]         = $"/BNA/{id}/Bill/InsertV2",
-                            ["status"]              = "ERRORMESSAGE:",
-                            ["test_name"]           = $"{testName}",
-                            ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                            ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
-                            ["error-message"]       = $"Could not parse the BNA/ID where ID is {id}",
-                            ["location-in-code"]    = "InsertCreditsV2(2)"
-                        },
-                        Result = false,
-                        Info = $"Attempt to insert {bill_value} dollar bill failed!",
-
+                        ["response-to"] = $"/BNA/{id}/Bill/InsertV2",
+                        ["status"] = "ERRORMESSAGE:",
+                        ["test_name"] = $"{testName}",
+                        ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                        ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
+                        ["error-message"] = $"Could not parse the BNA/ID where ID is {id}",
+                        ["location-in-code"] = "InsertCreditsV2(2)",
+                        ["Info"] = $"Attempt to insert {request.BillValue} dollar bill failed!"
                     };
-
-                    _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
+                    _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
 
                 } // else if (!int.TryParse(id, out int deviceId))
                 else
@@ -2025,9 +1838,9 @@ namespace Aristocrat.Monaco.TestController
                     {
                         Message = new NoteValidated
                         {
-                            ReportId        = GdsConstants.ReportId.NoteAcceptorAcceptNoteOrTicket,
-                            TransactionId   = _bnaNoteTransactionId,
-                            NoteId          = GetNoteId(bill_value)
+                            ReportId = GdsConstants.ReportId.NoteAcceptorAcceptNoteOrTicket,
+                            TransactionId = _bnaNoteTransactionId,
+                            NoteId = GetNoteId(request.BillValue)
                         }
                     });
 
@@ -2042,7 +1855,6 @@ namespace Aristocrat.Monaco.TestController
                     //
                     if (WaitHandle.WaitAll(_insertCreditsEvents, TimeSpan.FromSeconds(25)))
                     {
-
                         _stopWatch.Stop();
 
                         //
@@ -2051,23 +1863,18 @@ namespace Aristocrat.Monaco.TestController
                         //
                         if (_currencyReturnedAfterInsertCredits.WaitOne(0))
                         {
-                            commandResult = new CommandResult()
+                            data = new Dictionary<string, object>
                             {
-                                data = new Dictionary<string, object>
-                                {
-                                    ["response-to"]         = $"/BNA/{id}/Bill/InsertV2",
-                                    ["status"]              = "ERRORMESSAGE:",
-                                    ["test_name"]           = $"{testName}",
-                                    ["location-in-code"]    = "InsertCreditsV2(3)",
-                                    ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                    ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
-                                    ["error-message"]       = $"{bill_value} dollars was returned"
-                                },
-                                Result = false,
-                                Info = $"Failed to insert {bill_value} dollars. The bill was returned"
+                                ["response-to"] = $"/BNA/{id}/Bill/InsertV2",
+                                ["status"] = "ERRORMESSAGE:",
+                                ["test_name"] = $"{request.TestName}",
+                                ["location-in-code"] = "InsertCreditsV2(3)",
+                                ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                                ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
+                                ["error-message"] = $"{request.BillValue} dollars was returned",
+                                ["Info"] = $"Failed to insert {request.BillValue} dollars. The bill was returned"
                             };
-
-                            _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
+                            _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
 
                         }
                         else
@@ -2078,29 +1885,22 @@ namespace Aristocrat.Monaco.TestController
                             // if we got here then all the dependent events have been set
                             // so we can proceed with the response
                             //
-                            commandResult = new CommandResult()
+                            data = new Dictionary<string, object>
                             {
-                                data = new Dictionary<string, object>
-                                {
-                                    ["response-to"]         = $"/BNA/{id}/Bill/InsertV2",
-                                    ["location-in-code"]    = "InsertCreditsV2(4)",
-                                    ["test_name"]           = $"{testName}",
-                                    ["status"]              = "SUCCESS:",
-                                    ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                    ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
-                                },
-                                Result = true,
-                                Info = $"Inserted {bill_value} dollars."
+                                ["response-to"] = $"/BNA/{id}/Bill/InsertV2",
+                                ["location-in-code"] = "InsertCreditsV2(4)",
+                                ["test_name"] = $"{request.TestName}",
+                                ["status"] = "SUCCESS:",
+                                ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                                ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
+                                ["Info"] = $"Inserted {request.BillValue} dollars."
                             };
 
-                            _displayDebugText($"SUCCESS: At-{commandResult.data["location-in-code"]} {commandResult.Info}", _logIt);
-
-
+                            _displayDebugText($"SUCCESS: At-{data["location-in-code"]} {data["Info"]}", _logIt);
                         }
                     } //if (WaitHandle.WaitAll(_insertCreditsEvents, TimeSpan.FromSeconds(25)))
                     else
                     {
-
                         //
                         //  if we got here then the required events did not happen
                         //  before the wait timed out.  So, we report the error
@@ -2121,32 +1921,25 @@ namespace Aristocrat.Monaco.TestController
                         {
                             _stopWatch.Stop();
 
-                            commandResult = new CommandResult()
+                            data = new Dictionary<string, object>
                             {
-                                data = new Dictionary<string, object>
-                                {
-                                    ["response-to"]         = $"/BNA/{id}/Bill/InsertV2",
-                                    ["status"]              = "ERRORMESSAGE:",
-                                    ["test_name"]           = $"{testName}",
-                                    ["location-in-code"]    = "InsertCreditsV2(5)",
-                                    ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                    ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
-                                    ["error-message"]       = $"{bill_value} dollars was returned",
+                                ["response-to"] = $"/BNA/{id}/Bill/InsertV2",
+                                ["status"] = "ERRORMESSAGE:",
+                                ["test_name"] = $"{request.TestName}",
+                                ["location-in-code"] = "InsertCreditsV2(5)",
+                                ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                                ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
+                                ["error-message"] = $"{request.BillValue} dollars was returned",
 
-                                    //
-                                    // a,b,c are declared just above - see that code
-                                    //
-                                    ["insert-completed"]        = a1.ToString(),
-                                    ["bank-balance-changed"]    = b1.ToString(),
-                                    ["bill-stacked"]            = c1.ToString()
-
-                                },
-                                Result = false,
-                                Info = $"Failed to insert {bill_value} dollars. The bill was returned Check Limit Settings."
+                                //
+                                // a,b,c are declared just above - see that code
+                                //
+                                ["insert-completed"] = a1.ToString(),
+                                ["bank-balance-changed"] = b1.ToString(),
+                                ["bill-stacked"] = c1.ToString(),
+                                ["Info"] = $"Failed to insert {request.BillValue} dollars. The bill was returned Check Limit Settings."
                             };
-
-                            _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
+                            _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
 
                         } // if (_currencyReturnedAfterInsertCredits.WaitOne(0))
                         else
@@ -2165,74 +1958,52 @@ namespace Aristocrat.Monaco.TestController
 
                             _stopWatch.Stop();
 
-                            commandResult = new CommandResult()
+                            data = new Dictionary<string, object>
                             {
-                                data = new Dictionary<string, object>
-                                {
-                                    ["response-to"]         = $"/BNA/{id}/Bill/InsertV2",
-                                    ["status"]              = "ERRORMESSAGE:",
-                                    ["test_name"]           = $"{testName}",
-                                    ["location-in-code"]    = "InsertCreditsV2(6)",
-                                    ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                                    ["elapsed-time"]        = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
-                                    ["error-message"]       = $"All required events:  Insert Completed({a2}), BankBalanceChanged({b2}) BillStacked({c2}) did not get handled. Current state of the Bank is now unknown",
+                                ["response-to"] = $"/BNA/{id}/Bill/InsertV2",
+                                ["status"] = "ERRORMESSAGE:",
+                                ["test_name"] = $"{testName}",
+                                ["location-in-code"] = "InsertCreditsV2(6)",
+                                ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                                ["elapsed-time"] = _stopWatch.ElapsedMilliseconds.ToString() + " ms",
+                                ["error-message"] = $"All required events:  Insert Completed({a2}), BankBalanceChanged({b2}) BillStacked({c2}) did not get handled. Current state of the Bank is now unknown",
 
-                                    //
-                                    // a,b,c are declared just above - see that code
-                                    //
-                                    ["insert-completed"]        = a2.ToString(),
-                                    ["bank-balance-changed"]    = b2.ToString(),
-                                    ["bill-stacked"]            = c2.ToString()
-
-                                },
-                                Result = false,
-                                Info = $"Attempt to insert {bill_value} dollar bill failed! The state of the Bank is now unknown."
+                                //
+                                // a,b,c are declared just above - see that code
+                                //
+                                ["insert-completed"] = a2.ToString(),
+                                ["bank-balance-changed"] = b2.ToString(),
+                                ["bill-stacked"] = c2.ToString(),
+                                ["Info"] = $"Attempt to insert {request.BillValue} dollar bill failed! The state of the Bank is now unknown."
                             };
-
-                            _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
+                            _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
                         }
-
                     }
-
                 }
-
             }  // if (_oneInsertCreditsAtATime.Wait(TimeSpan.FromSeconds(35)))
             else
             {
-
                 _stopWatch.Stop();
-                
-                commandResult = new CommandResult()
+
+                data = new Dictionary<string, object>
                 {
-                    data = new Dictionary<string, object>
-                    {
-                        ["response-to"]         = $"/BNA/{id}/Bill/InsertV2",
-                        ["status"]              = "ERRORMESSAGE:",
-                        ["test_name"]           = $"{testName}",
-                        ["location-in-code"]    = "InsertCreditsV2(7)",
-                        ["time-stamp"]          = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
-                        ["elapsed-time"]        = "0",
-                        ["error-message"]       = $"Could not get access to the method (The wait timed out).  Please try again. "
-                    },
-                    Result = false,
-                    Info = $"Attempt to insert {bill_value} dollar bill failed! The synchronization semaphore wait just timed out?"
+                    ["response-to"] = $"/BNA/{id}/Bill/InsertV2",
+                    ["status"] = "ERRORMESSAGE:",
+                    ["test_name"] = $"{testName}",
+                    ["location-in-code"] = "InsertCreditsV2(7)",
+                    ["time-stamp"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffff"),
+                    ["elapsed-time"] = "0",
+                    ["error-message"] = $"Could not get access to the method (The wait timed out).  Please try again. ",
+                    ["Info"] = $"Attempt to insert {request.BillValue} dollar bill failed! The synchronization semaphore wait just timed out?"
                 };
-
-                _displayDebugText($"ERRORMESSAGE: At-{commandResult.data["location-in-code"]} {commandResult.data["error-message"]}", _logIt);
-
+                _displayDebugText($"ERRORMESSAGE: At-{data["location-in-code"]} {data["error-message"]}", _logIt);
             }
 
             _stopWatch.Stop();
-
             ResetLocalManualResetEvents();
-
             _oneAPICallAtATime.Release();
 
-            return commandResult;
-
+            return data;
         }
-
     }
-
 }

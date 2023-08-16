@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
     <AssemblyTitle>Aristocrat.Monaco.G2S.Data</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
   </PropertyGroup>
