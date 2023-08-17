@@ -19,6 +19,7 @@
       <xs:element minOccurs="0" maxOccurs="1" name="SkinFilenames" type="ArrayOfString" />
       <xs:element minOccurs="0" maxOccurs="1" name="LocaleCodes" type="ArrayOfString" />
       <xs:element minOccurs="0" maxOccurs="1" name="LanguageButtonResourceKeys" type="ArrayOfString" />
+      <xs:element minOccurs="0" maxOccurs="1" name="LanguageButtonActiveResourceKeys" type="ArrayOfString" />
       <xs:element minOccurs="0" maxOccurs="1" name="DefaultLoadingScreenFilename" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="DefaultTopAttractVideoFilename" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="DefaultTopperAttractVideoFilename" type="xs:string" />
