@@ -67,7 +67,7 @@
 
         <Label Grid.Row="2"
                Grid.ColumnSpan="2"
-               Content="{lex:Loc Key={x:Static loc:ResourceKeys.VertexGameIdLabel}}"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.LinkedGameIdLabel}}"
                VerticalAlignment="Center"
                HorizontalAlignment="Left"
                Visibility="{Binding IsConfigurableLinkedLevelId, Converter={StaticResource BoolToVisConverter}}"
@@ -111,19 +111,46 @@
                                     Binding="{Binding LevelId}"
                                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSapOrLP), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn10_6FC827A3" />
-                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.VertexIdLabel}}"
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.LinkedLevelIdLabel}}"
+                                        HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                         Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsConfigurableLinkedLevelId), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn33_6FC827A3">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Visibility="{Binding IsLevelLinked, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                                        AutomationProperties.AutomationId="StackPanel34_6FC827A3">
-                                <TextBox Text ="{Binding ConfigurableLinkedLevelId, UpdateSourceTrigger=PropertyChanged}"
-                                         Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSummaryView), Converter={StaticResource TrueCollapsedFalseVisible}, Source={StaticResource Proxy}}"
-                                         AutomationProperties.AutomationId="TextBox35_6FC827A3"/>
-                                <TextBlock Text ="{Binding ConfigurableLinkedLevelId}"
-                                         Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSummaryView), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
-                                         AutomationProperties.AutomationId="TextBlock36_6FC827A3"/>
+                            <StackPanel AutomationProperties.AutomationId="StackPanel34_6FC827A3">
+                                <!-- Linked Levels show the vertex level id config field, either read only or editable if the form is summary or not-->
+                                <StackPanel Visibility="{Binding IsLP, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                            AutomationProperties.AutomationId="StackPanel35_6FC827A3">
+                                    <TextBox Text ="{Binding ConfigurableLinkedLevelId, UpdateSourceTrigger=PropertyChanged}"
+                                             Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSummaryView), Converter={StaticResource TrueCollapsedFalseVisible}, Source={StaticResource Proxy}}"
+                                             AutomationProperties.AutomationId="TextBox36_6FC827A3"/>
+                                    <TextBlock Text ="{Binding ConfigurableLinkedLevelId}"
+                                               Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSummaryView), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
+                                               AutomationProperties.AutomationId="TextBlock37_6FC827A3"/>
+                                </StackPanel>
+                                <!-- Non-linked Levels show N/A (or language equivalent)-->
+                                <StackPanel Orientation="Horizontal"
+                                            Visibility="{Binding IsLP, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                                            AutomationProperties.AutomationId="StackPanel38_6FC827A3">
+                                    <TextBlock Text ="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                               AutomationProperties.AutomationId="TextBox39_6FC827A3"/>
+                                    <Button Name="ConfigurableIdNotUsedForSapButton"
+                                            Style="{StaticResource MonacoInfoButton}"
+                                            Margin="4,0,0,0"
+                                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.ShowInfoPopupCommand}"
+                                            Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSummaryView), Converter={StaticResource TrueCollapsedFalseVisible}, Source={StaticResource Proxy}}"
+                                            AutomationProperties.AutomationId="Button40_6FC827A3">
+                                        <Button.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                                                <Binding ElementName="ConfigurableIdNotUsedForSapButton" />
+                                                <Binding ElementName="ConfigurableIdNotUsedForSapMessage"
+                                                         Path="Result" />
+                                            </MultiBinding>
+                                        </Button.CommandParameter>
+                                        <lex:LocProxy x:Name="ConfigurableIdNotUsedForSapMessage"
+                                                      Source="{x:Static loc:ResourceKeys.ConfigurableIdNotUsedForSapMessage}" />
+                                    </Button>
+                                </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -214,43 +241,73 @@
                                         AutomationProperties.AutomationId="DataGridTemplateColumn22_6FC827A3">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:LevelModel}">
-                            <helpers:CurrencyTextBox x:Name="InitialValueCurrencyTextBox"
-                                                     PreventNegatives="True"
-                                                     IsEnabled="{Binding CanSetInitialValue}"
-                                                     Number="{
-                                                        Binding Path=InitialValue, 
-                                                        Mode=TwoWay, 
-                                                        UpdateSourceTrigger=PropertyChanged, 
-                                                        ValidatesOnDataErrors=True, 
-                                                        NotifyOnValidationError=True}"
-                            />
+                            <StackPanel AutomationProperties.AutomationId="StackPanel22_6FC827A3">
+                                <helpers:CurrencyTextBox x:Name="InitialValueCurrencyTextBox"
+                                                         PreventNegatives="True"
+                                                         IsEnabled="{Binding CanSetInitialValue}"
+                                                         Visibility="{Binding IsSap, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                                         Number="{
+                                                            Binding Path=InitialValue,
+                                                            Mode=TwoWay,
+                                                            UpdateSourceTrigger=PropertyChanged,
+                                                            ValidatesOnDataErrors=True,
+                                                            NotifyOnValidationError=True}"
+                                />
+                                <TextBlock Text ="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                           Visibility="{Binding IsLP, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                           AutomationProperties.AutomationId="TextBox40_6FC827A3"/>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentValue}}"
                                     loc:Localizer.For="Operator"
                                     Binding="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}"
-                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.InitialValueReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.ShowCurrentValueSapLp), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn23_6FC827A3" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.InitialValue}}"
-                                    loc:Localizer.For="Operator"
-                                    Binding="{Binding InitialValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FormattedCurrencyConverter}}"
-                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.InitialValueReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn24_6FC827A3" />
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.InitialValue}}"
+                                        loc:Localizer.For="Operator"
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.InitialValueReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn24_6FC827A3">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:LevelModel}">
+                            <StackPanel AutomationProperties.AutomationId="StackPanel23_6FC827A3">
+                                <TextBlock Text ="{Binding InitialValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FormattedCurrencyConverter}}"
+                                           Visibility="{Binding IsSap, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                           AutomationProperties.AutomationId="TextBox41_6FC827A3"/>
+                                <TextBlock Text ="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                           Visibility="{Binding IsLP, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                           AutomationProperties.AutomationId="TextBox42_6FC827A3"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MinimumRequiredValue}}"
                                     loc:Localizer.For="Operator"
                                     HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}"
                                     Binding="{Binding MinimumRequiredValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FormattedCurrencyConverter}}"
                                     Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn25_6FC827A3" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ResetValue}}"
-                                    loc:Localizer.For="Operator"
-                                    Binding="{Binding ResetValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FormattedCurrencyConverter}}"
-                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn26_6FC827A3" />
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ResetValue}}"
+                                        loc:Localizer.For="Operator"
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn26_6FC827A3">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:LevelModel}">
+                            <StackPanel AutomationProperties.AutomationId="StackPanel24_6FC827A3">
+                                <TextBlock Text ="{Binding ResetValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FormattedCurrencyConverter}}"
+                                           Visibility="{Binding IsSap, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                           AutomationProperties.AutomationId="TextBox43_6FC827A3"/>
+                                <TextBlock Text ="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                           Visibility="{Binding IsLP, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                           AutomationProperties.AutomationId="TextBox44_6FC827A3"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentValue}}"
                                         loc:Localizer.For="Operator"
-                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectableOrLP), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSelectable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
                                         IsReadOnly="false"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn27_6FC827A3">
                     <DataGridTemplateColumn.CellTemplate>
@@ -261,38 +318,105 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.IncrementRate}}"
-                                    loc:Localizer.For="Operator"
-                                    HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}"
-                                    Binding="{Binding IncrementRate, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PercentageTextValueConvert}}"
-                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn0_727D75F6" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"
-                                    loc:Localizer.For="Operator"
-                                    Binding="{Binding MaxValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FormattedCurrencyConverter}}"
-                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn1_727D75F6" />
-                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
-                                    loc:Localizer.For="Operator"
-                                    Binding="{Binding OverflowValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FormattedCurrencyConverter}}"
-                                    Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.OverflowValueReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
-                                    AutomationProperties.AutomationId="DataGridTextColumn2_727D75F6" />
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.IncrementRate}}"
+                                        HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeaderSmall}"
+                                        loc:Localizer.For="Operator"
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn28_6FC827A3">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:LevelModel}">
+                            <StackPanel AutomationProperties.AutomationId="StackPanel25_6FC827A3">
+                                <TextBlock Text ="{Binding IncrementRate, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PercentageTextValueConvert}}"
+                                           Visibility="{Binding IsSap, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                           AutomationProperties.AutomationId="TextBox45_6FC827A3"/>
+                                <TextBlock Text ="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                           Visibility="{Binding IsLP, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                           AutomationProperties.AutomationId="TextBox46_6FC827A3"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MaxValue}}"
+                                        loc:Localizer.For="Operator"
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSap), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn29_6FC827A3">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:LevelModel}">
+                            <StackPanel AutomationProperties.AutomationId="StackPanel26_6FC827A3">
+                                <TextBlock Text ="{Binding MaxValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FormattedCurrencyConverter}}"
+                                           Visibility="{Binding IsSap, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                           AutomationProperties.AutomationId="TextBox47_6FC827A3"/>
+                                <TextBlock Text ="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                           Visibility="{Binding IsLP, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                           AutomationProperties.AutomationId="TextBox48_6FC827A3"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
+                                        loc:Localizer.For="Operator"
+                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.OverflowValueReadOnly), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn30_6FC827A3">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:LevelModel}">
+                            <StackPanel AutomationProperties.AutomationId="StackPanel27_6FC827A3">
+                                <TextBlock Text ="{Binding OverflowValue, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FormattedCurrencyConverter}}"
+                                           Visibility="{Binding IsSap, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                           AutomationProperties.AutomationId="TextBox49_6FC827A3"/>
+                                <TextBlock Text ="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                           Visibility="{Binding IsLP, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                           AutomationProperties.AutomationId="TextBox50_6FC827A3"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.BonusInfoOverflowColumn}}"
                                         loc:Localizer.For="Operator"
                                         Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.OverflowValueEditable), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
                                         AutomationProperties.AutomationId="DataGridTemplateColumn3_727D75F6">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="{x:Type models:LevelModel}">
-                            <helpers:CurrencyTextBox x:Name="OverflowCurrencyTextBox"
-                                                     PreventNegatives="True"
-                                                     IsEnabled="{Binding CanSetOverflowValue}"
-                                                     Number="{
-                                                        Binding Path=OverflowValue,
-                                                        Mode=TwoWay,
-                                                        UpdateSourceTrigger=PropertyChanged,
-                                                        ValidatesOnDataErrors=True,
-                                                        NotifyOnValidationError=True}"
-                            />
+                            <StackPanel AutomationProperties.AutomationId="StackPanel28_6FC827A3">
+                                <helpers:CurrencyTextBox x:Name="OverflowCurrencyTextBox"
+                                                         PreventNegatives="True"
+                                                         IsEnabled="{Binding CanSetOverflowValue}"
+                                                         Visibility="{Binding IsSap, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                                         Number="{
+                                                            Binding Path=OverflowValue,
+                                                            Mode=TwoWay,
+                                                            UpdateSourceTrigger=PropertyChanged,
+                                                            ValidatesOnDataErrors=True,
+                                                            NotifyOnValidationError=True}"
+                                />
+                                <TextBlock Text ="{lex:Loc Key={x:Static loc:ResourceKeys.NotAvailable}}"
+                                           Visibility="{Binding IsLP, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                           AutomationProperties.AutomationId="TextBox51_6FC827A3"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSapAndLp), Converter={StaticResource TrueVisibleFalseHidden}, Source={StaticResource Proxy}}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn4_727D75F6">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel AutomationProperties.AutomationId="StackPanel39_6FC827A3">
+                                <Button Name="ColumnsUnavailableForLpLevels"
+                                        Style="{StaticResource MonacoInfoButton}"
+                                        Margin="4,0,0,0"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.ShowInfoPopupCommand}"
+                                        Visibility="{Binding Path=IsLP, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                        AutomationProperties.AutomationId="Button41_6FC827A3">
+                                    <Button.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                                            <Binding ElementName="ColumnsUnavailableForLpLevels" />
+                                            <Binding ElementName="ColumnsNotAvailableForLpLevelsMessage"
+                                                     Path="Result" />
+                                        </MultiBinding>
+                                    </Button.CommandParameter>
+                                    <lex:LocProxy x:Name="ColumnsNotAvailableForLpLevelsMessage"
+                                                  Source="{x:Static loc:ResourceKeys.ColumnsNotAvailableForLpLevelsMessage}" />
+                                </Button>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

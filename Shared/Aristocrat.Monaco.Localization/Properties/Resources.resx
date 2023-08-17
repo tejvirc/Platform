@@ -12332,12 +12332,13 @@ Do you really want to do full reset?</value>
     <value>Setting this lower than the default 30 seconds can result in excessive EGM lockups. </value>
     <comment>Aristocrat.Monaco.G2S.UI</comment>
   </data>
-  <data name="VertexGameIdLabel" xml:space="preserve">
-    <value>Vertex Game Id</value>
+  <data name="LinkedGameIdLabel" xml:space="preserve">
+    <value>Linked Game Id</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
-  <data name="VertexIdLabel" xml:space="preserve">
-    <value>VERTEX ID</value>
+  <data name="LinkedLevelIdLabel" xml:space="preserve">
+    <value>LINKED
+LEVEL ID</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="ReelController_LoadingAnimationFile" xml:space="preserve">
@@ -12365,5 +12366,13 @@ Do you really want to do full reset?</value>
   <data name="LoadingAnimationFilesInfo" xml:space="preserve">
     <value>Animation files are being loaded to the reel controller.  This lockup will be removed once all animation files have been loaded.</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ConfigurableIdNotUsedForSapMessage" xml:space="preserve">
+    <value>Linked level id is only needed for Linked levels</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="ColumnsNotAvailableForLpLevelsMessage" xml:space="preserve">
+    <value>Certain Linked level parameters are Not Applicable in this screen as they are managed in the progressive controller.</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
 </root>

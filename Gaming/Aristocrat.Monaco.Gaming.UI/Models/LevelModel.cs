@@ -119,6 +119,21 @@
         /// </summary>
         public ProgressiveLevelType LevelType => AssociatedProgressiveLevel.LevelType;
 
+        /// <summary>
+        ///     Gets whether this level is SAP
+        /// </summary>
+        public bool IsSap => LevelType == ProgressiveLevelType.Sap;
+
+        /// <summary>
+        ///     Gets whether this level is LP
+        /// </summary>
+        public bool IsLP => LevelType == ProgressiveLevelType.LP;
+
+        /// <summary>
+        ///     Gets whether this level is LP
+        /// </summary>
+        public bool IsSelectable => LevelType == ProgressiveLevelType.Selectable;
+
         public void SetCSAPLevels(IReadOnlyCollection<IViewableSharedSapLevel> levels)
         {
             _sharedSapLevels = levels;
@@ -332,8 +347,6 @@
         /// Gets or sets the original configurable linked level id this model was constructed with (for change tracking)
         /// </summary>
         public int OriginalConfigurableLinkedLevelId { get; }
-
-        public bool IsLevelLinked => LevelType == ProgressiveLevelType.LP;
 
         public bool CanSetInitialValue => LevelType == ProgressiveLevelType.Sap && _canEdit;
 

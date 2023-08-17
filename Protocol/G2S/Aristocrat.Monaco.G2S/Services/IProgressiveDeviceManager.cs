@@ -25,7 +25,6 @@
         /// <summary>
         ///     Create progressive devices and associate to the EGM
         /// </summary>
-        /// <param name="initialCreation">If this is being called on protocol boot up or just due to a reconfiguration.</param>
-        void AddProgressiveDevices(bool initialCreation = false);
+        void AddProgressiveDevices();
     }
 }

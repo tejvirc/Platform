@@ -188,6 +188,8 @@
             {
                 _isSap = value;
                 RaisePropertyChanged(nameof(IsSap));
+                RaisePropertyChanged(nameof(IsSapOrLP));
+                RaisePropertyChanged(nameof(IsSapAndLp));
                 RaisePropertyChanged(nameof(ProgressiveTypeEditable));
                 RaisePropertyChanged(nameof(ProgressiveTypeReadOnly));
                 RaisePropertyChanged(nameof(ProgressiveLevelEditable));
@@ -195,6 +197,7 @@
                 RaisePropertyChanged(nameof(InitialValueEditable));
                 RaisePropertyChanged(nameof(InitialValueReadOnly));
                 RaisePropertyChanged(nameof(ShowAssociatedSap));
+                RaisePropertyChanged(nameof(ShowCurrentValueSapLp));
                 RaisePropertyChanged(nameof(OverflowValueEditable));
                 RaisePropertyChanged(nameof(OverflowValueReadOnly));
             }
@@ -208,13 +211,17 @@
                 _isLP = value;
                 RaisePropertyChanged(nameof(IsLP));
                 RaisePropertyChanged(nameof(IsSapOrLP));
+                RaisePropertyChanged(nameof(IsSapAndLp));
                 RaisePropertyChanged(nameof(IsSelectableOrLP));
                 RaisePropertyChanged(nameof(ProgressiveTypeReadOnly));
                 RaisePropertyChanged(nameof(ShowAssociatedSap));
+                RaisePropertyChanged(nameof(ShowCurrentValueSapLp));
             }
         }
 
         public bool IsSapOrLP => IsSap || IsLP;
+
+        public bool IsSapAndLp => IsSap && IsLP;
 
         public bool IsSelectableOrLP => IsSelectable || IsLP;
 
@@ -242,6 +249,9 @@
         public bool OverflowValueReadOnly => IsSummaryView && IsSap;
 
         public bool ShowAssociatedSap => !IsSummaryView && IsSap && _isAssociatedSap;
+
+        //CurrentValue should only be shown for Sap when InitialValue is Readonly, but also needs to be shown for LP
+        public bool ShowCurrentValueSapLp => InitialValueReadOnly || (IsLP && !IsSap);
 
         public string SelectedGameInfo
         {
@@ -302,7 +312,7 @@
 
             if (IsConfigurableLinkedLevelId)
             {
-                Dictionary<int, (int linkedGroupId, int linkedLevelId)> configuredLevelIds = _propertiesManager.GetValue(GamingConstants.ProgressiveConfiguredLinkedLevelIds, new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
+                var configuredLevelIds = _propertiesManager.GetValue(GamingConstants.ProgressiveConfiguredLinkedLevelIds, new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
                 foreach (var progLevel in ProgressiveLevels)
                 {
                     (int linkedGroupId, int linkedLevelId) newConfig = (ProgressiveGroupId, progLevel.ConfigurableLinkedLevelId);
@@ -417,10 +427,11 @@
             _originalNonSapProgressiveLevels = new List<(LevelModel.LevelDefinition SelectableLevel, string SelectableLevelType)>();
 
             // Set view format based on progressive level type.
-            // *NOTE* Mixed configurations are currently not supported.
+            // *NOTE* Mixed configurations with Selectable are currently not supported.
+            // Sap and LP can be mixed however. 
             IsSelectable = _validProgressiveLevels.All(x => x.LevelType == ProgressiveLevelType.Selectable);
-            IsSap = _validProgressiveLevels.All(x => x.LevelType == ProgressiveLevelType.Sap);
-            IsLP = _validProgressiveLevels.All(x => x.LevelType == ProgressiveLevelType.LP);
+            IsSap = _validProgressiveLevels.Any(x => x.LevelType == ProgressiveLevelType.Sap);
+            IsLP = _validProgressiveLevels.Any(x => x.LevelType == ProgressiveLevelType.LP);
 
             foreach (var level in _validProgressiveLevels)
             {

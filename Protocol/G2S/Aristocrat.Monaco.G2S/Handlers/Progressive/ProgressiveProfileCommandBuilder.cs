@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
     using Accounting.Contracts;
+    using Application.Contracts;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
@@ -46,7 +47,8 @@
                 throw new ArgumentNullException(nameof(command));
             }
 
-            var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels().Where(ll => ll.ProgressiveGroupId == device.ProgressiveId).ToList();
+            var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels()
+                .Where(ll => ll.ProgressiveGroupId == device.ProgressiveId && ll.ProtocolName == ProtocolNames.G2S).ToList();
             var linkedLevelNames = linkedLevels.Select(ll => ll.LevelName).ToList();
             var levels = _progressives.GetProgressiveLevels()
                 .Where(l => linkedLevelNames.Contains(l.AssignedProgressiveId?.AssignedProgressiveKey ?? string.Empty))

@@ -5792,6 +5792,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Certain Linked level parameters are Not Applicable....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ColumnsNotAvailableForLpLevelsMessage {
+			get {
+				return ResourceManager.GetString("ColumnsNotAvailableForLpLevelsMessage", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Combination Test.
 		/// </summary>
         /// <remarks>
@@ -6127,6 +6139,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ConfigTimeZoneScreenTitle {
 			get {
 				return ResourceManager.GetString("ConfigTimeZoneScreenTitle", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Linked level id is only needed for Linked levels.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ConfigurableIdNotUsedForSapMessage {
+			get {
+				return ResourceManager.GetString("ConfigurableIdNotUsedForSapMessage", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -18862,6 +18886,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LinkDown {
 			get {
 				return ResourceManager.GetString("LinkDown", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Linked Game Id.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string LinkedGameIdLabel {
+			get {
+				return ResourceManager.GetString("LinkedGameIdLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to LINKED LEVEL ID.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string LinkedLevelIdLabel {
+			get {
+				return ResourceManager.GetString("LinkedLevelIdLabel", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -35363,30 +35411,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Vertex Game Id.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VertexGameIdLabel {
-			get {
-				return ResourceManager.GetString("VertexGameIdLabel", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
-		///   Looks up a localized string similar to VERTEX ID.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VertexIdLabel {
-			get {
-				return ResourceManager.GetString("VertexIdLabel", resourceCulture) ?? string.Empty;
-			}
-		}
-
-		/// <summary>
 		///   Looks up a localized string similar to Video.
 		/// </summary>
         /// <remarks>
@@ -42391,6 +42415,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Certain Linked level parameters are Not Applicable....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ColumnsNotAvailableForLpLevelsMessage {
+			get {
+				return "ColumnsNotAvailableForLpLevelsMessage";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Combination Test.
 		/// </summary>
         /// <remarks>
@@ -42726,6 +42762,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ConfigTimeZoneScreenTitle {
 			get {
 				return "ConfigTimeZoneScreenTitle";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Linked level id is only needed for Linked levels.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string ConfigurableIdNotUsedForSapMessage {
+			get {
+				return "ConfigurableIdNotUsedForSapMessage";
 			}
 		}
 
@@ -55461,6 +55509,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LinkDown {
 			get {
 				return "LinkDown";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Linked Game Id.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string LinkedGameIdLabel {
+			get {
+				return "LinkedGameIdLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to LINKED LEVEL ID.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string LinkedLevelIdLabel {
+			get {
+				return "LinkedLevelIdLabel";
 			}
 		}
 
@@ -71962,30 +72034,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Vertex Game Id.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VertexGameIdLabel {
-			get {
-				return "VertexGameIdLabel";
-			}
-		}
-
-		/// <summary>
-		///		Looks up a localized string similar to VERTEX ID.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		public static string VertexIdLabel {
-			get {
-				return "VertexIdLabel";
-			}
-		}
-
-		/// <summary>
 		///		Looks up a localized string similar to Video.
 		/// </summary>
         /// <remarks>
@@ -76527,6 +76575,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ColorText,
 		/// <summary>
+		///   Looks up a localized string similar to Certain Linked level parameters are Not Applicable....
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		ColumnsNotAvailableForLpLevelsMessage,
+		/// <summary>
 		///   Looks up a localized string similar to Combination Test.
 		/// </summary>
         /// <remarks>
@@ -76720,6 +76775,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.G2S.UI
         /// </remarks>
 		ConfigTimeZoneScreenTitle,
+		/// <summary>
+		///   Looks up a localized string similar to Linked level id is only needed for Linked levels.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		ConfigurableIdNotUsedForSapMessage,
 		/// <summary>
 		///   Looks up a localized string similar to Configuration.
 		/// </summary>
@@ -83965,6 +84027,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Asp
         /// </remarks>
 		LinkDown,
+		/// <summary>
+		///   Looks up a localized string similar to Linked Game Id.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		LinkedGameIdLabel,
+		/// <summary>
+		///   Looks up a localized string similar to LINKED LEVEL ID.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		LinkedLevelIdLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Linked.
 		/// </summary>
@@ -93352,20 +93428,6 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to Version.
 		/// </summary>
 		VersionText,
-		/// <summary>
-		///   Looks up a localized string similar to Vertex Game Id.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		VertexGameIdLabel,
-		/// <summary>
-		///   Looks up a localized string similar to VERTEX ID.
-		/// </summary>
-        /// <remarks>
-        /// Aristocrat.Monaco.Gaming.UI
-        /// </remarks>
-		VertexIdLabel,
 		/// <summary>
 		///   Looks up a localized string similar to Video.
 		/// </summary>
