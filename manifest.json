@@ -15595,6 +15595,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -15679,6 +15682,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -25843,9 +25849,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -27027,7 +27030,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.Constants.html",
-          "hash": "+s5wd8viu2C0uCyN6uyUFFlP7/4iZZBNydoN6Ohb4r8="
+          "hash": "/HIMUgweNFzHQbL0MKPqO+sxrEXou5qFhfv0oXRlEkg="
         }
       },
       "is_incremental": false,
@@ -43522,9 +43525,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -53322,7 +53322,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Progressives.FlavorType.html",
-          "hash": "dMNxB/YMY6QcxeRvgmNlebOISqw3EaT5saq0ZUFHzgY="
+          "hash": "f7tSQ6uHxwVY9WX8Cg23JbaGHKJRWmJDCo/rADR1XWk="
         }
       },
       "is_incremental": false,
@@ -53442,7 +53442,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Progressives.IViewableProgressiveLevel.html",
-          "hash": "wT2ZTDhw/Z3RC6JYIj9FSKuDmVRt58uAQdHab+UabMA="
+          "hash": "e2fQ0ybnSmRKTbYQX2hJfuEaArGFBwoCZ4suwKNGVQA="
         }
       },
       "is_incremental": false,
@@ -53478,7 +53478,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Progressives.LevelCreationType.html",
-          "hash": "aoWS/nFU0itifGa765AbjoQHVGROCjbvftCpFmmRzhY="
+          "hash": "hLG2cL6vmoyOtFX5WUa8inXRUZ8jwaIAnXSnx1gPhD0="
         }
       },
       "is_incremental": false,
@@ -53874,7 +53874,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel.html",
-          "hash": "0Jdq69nWoBx646nRcmPyxFyycHF6nP6rgaDBxohQn+o="
+          "hash": "yEieh8E5RAsg9kDikhyEarn6uAN38f3eP+bds6p7kD8="
         }
       },
       "is_incremental": false,
@@ -53898,7 +53898,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevelState.html",
-          "hash": "aTZ8zWKHyzZ2pLZtJQaI0etIdJA1w/fVUiPPH5aQrb4="
+          "hash": "mExtgFDWgwIWsuLTNlIMun0Yu4Tc/WOiW/ltv/Zz46o="
         }
       },
       "is_incremental": false,
@@ -53910,7 +53910,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevelType.html",
-          "hash": "tkV+W5czZmYdloy37g0bYTC9kbvISXtt30g8DMrA/T8="
+          "hash": "MpciZVuJ5xEPQu6Nm3qmiNKYvkLg4nL4MG/eWEi+lvg="
         }
       },
       "is_incremental": false,
@@ -54078,7 +54078,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Progressives.SapFundingType.html",
-          "hash": "dX7fNSrlBT8FAPdYRdDuIXd7g3FCpB1Uvzrb7OoaUZs="
+          "hash": "gDVrkB6dLiYvOs9tkl5N90uyU61pY/nBwtV20IfA4BA="
         }
       },
       "is_incremental": false,
@@ -54210,7 +54210,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.Progressives.TriggerType.html",
-          "hash": "pXuwsmfE9uKLkrqoJX1v4xJaN3/stZsewMlC4WQFF7E="
+          "hash": "jYOdVW9J1OBlbC3q+RTt0ReeK/FfZxnePoxGsxKaMfA="
         }
       },
       "is_incremental": false,
