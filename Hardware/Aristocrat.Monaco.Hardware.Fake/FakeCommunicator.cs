@@ -628,7 +628,7 @@
                 () =>
                 {
                     Simulation.HarkeyReels.Logger.Log += SimulatorLog;
-                    _simWindow = new ReelSetWindow(_id, gamesPath, knownReels, packagesPath);
+                    _simWindow = new ReelSetWindow(_id, gamesPath, knownReels);
                     Logger.Debug($"Game says: {_reelCount} reels");
                     _simWindow.ReelStateChanged += SimWindowReelStateChanged;
                     _simWindow.Show();

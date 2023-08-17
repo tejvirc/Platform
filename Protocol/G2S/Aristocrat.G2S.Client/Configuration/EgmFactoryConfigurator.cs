@@ -5,8 +5,8 @@
     using System.Net.NetworkInformation;
     using System.Reflection;
     using System.Security.Cryptography.X509Certificates;
-    using Communications;
     using CoreWCF.IdentityModel.Selectors;
+    using Communications;
     using Devices;
 
     /// <summary>
@@ -68,8 +68,10 @@
             var handlerConnector = new HandlerConnector();
             var commandDispatcher = new CommandDispatcher(handlerConnector, deviceConnector);
 
-            var service = new G2SService(receiveEndpointProvider);
-            var receiver = new ReceiveEndpoint(service, _address, _certificate, _certificateValidator);
+            var receiveEndpointProvider = _app.GetRequiredService<IReceiveEndpointProvider>();
+
+            var receiver = new ReceiveEndpoint(_address, _certificate, _certificateValidator, _app);
+
             var messageConsumer = new MessageConsumer(egm, deviceConnector);
             receiveEndpointProvider.ConnectConsumer(messageConsumer);
             var hostConnector = new HostConnector(

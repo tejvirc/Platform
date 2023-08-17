@@ -79,8 +79,7 @@ namespace Aristocrat.Monaco.Gaming
         {
             if (!_showMessages || _gameDiagnostics.IsActive || displayableMessage == null ||
                 (displayableMessage.Classification != DisplayableMessageClassification.SoftError &&
-                 displayableMessage.Classification != DisplayableMessageClassification.Informative))
-                displayableMessage.Classification != DisplayableMessageClassification.Informative)
+                displayableMessage.Classification != DisplayableMessageClassification.Informative))
             {
                 return;
             }

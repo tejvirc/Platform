@@ -33,6 +33,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Contracts.PlayerInfoDisplay;
     using Contracts.Tickets;
     using Converters;
+    using Commands;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.ButtonDeck;
