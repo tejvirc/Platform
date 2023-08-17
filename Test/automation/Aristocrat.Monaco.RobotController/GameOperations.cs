@@ -13,6 +13,8 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Linq;
+    using Aristocrat.Monaco.Application.Contracts;
 
     internal class GameOperations : IRobotOperations
     {
@@ -74,23 +76,23 @@
                                null,
                                _robotController.Config.Active.IntervalLoadGame,
                                _robotController.Config.Active.IntervalLoadGame);
-            _RgTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestRg();
-                               },
-                               null,
-                               _robotController.Config.Active.IntervalRgSet,
-                               _robotController.Config.Active.IntervalRgSet);
-            _forceGameExitTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestForceExitToLobby();
-                               },
-                               null,
-                               _robotController.Config.Active.IntervalLobby,
-                               _robotController.Config.Active.IntervalLobby);
-            LoadGameWithDelay(Constants.loadGameDelayDuration);
+            //_RgTimer = new Timer(
+            //                   (sender) =>
+            //                   {
+            //                       RequestRg();
+            //                   },
+            //                   null,
+            //                   _robotController.Config.Active.IntervalRgSet,
+            //                   _robotController.Config.Active.IntervalRgSet);
+            //_forceGameExitTimer = new Timer(
+            //                   (sender) =>
+            //                   {
+            //                       RequestForceExitToLobby();
+            //                   },
+            //                   null,
+            //                   _robotController.Config.Active.IntervalLobby,
+            //                   _robotController.Config.Active.IntervalLobby);
+            //LoadGameWithDelay(Constants.loadGameDelayDuration);
         }
 
         public void Reset()
@@ -231,35 +233,69 @@
                  evt =>
                  {
                      _logger.Info($"TimeLimitDialogVisibleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                     Console.WriteLine("TimeLimitDialogVisibleEvent");
+
                      _isTimeLimitDialogVisible = true;
-                     DismissTimeLimitDialog();
+                     //DismissTimeLimitDialog();
+
+                     Console.WriteLine("\r\nTimeLimitDialogVisibleEvent Robot handler...");
+
+                     Thread.Sleep(5000);
+
+                     System.Windows.Application.Current.Dispatcher.Invoke(() => DismissTimeLimitDialog2());
+                     
+
                      if (evt.IsLastPrompt)
                      {
                          _exitWhenIdle = !IsRegularRobots();
                      }
                  });
-            _eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
-                this,
-                evt =>
-                {
-                    _logger.Info($"TimeLimitDialogHiddenEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    _isTimeLimitDialogVisible = false;
-                });
-            _eventBus.Subscribe<GameRequestFailedEvent>(
-                this,
-                _ =>
-                {
-                    _logger.Error($"GameRequestFailedEvent Got Triggered!  Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    _requestGameIsInProgress = false;
-                    if (!_stateChecker.IsAllowSingleGameAutoLaunch)
-                    {
-                        RequestGame();
-                    }
-                });
+            //_eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
+            //    this,
+            //    evt =>
+            //    {
+            //        _logger.Info($"TimeLimitDialogHiddenEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //        _isTimeLimitDialogVisible = false;
+            //    });
+            //_eventBus.Subscribe<GameRequestFailedEvent>(
+            //    this,
+            //    _ =>
+            //    {
+            //        _logger.Error($"GameRequestFailedEvent Got Triggered!  Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //        _requestGameIsInProgress = false;
+            //        if (!_stateChecker.IsAllowSingleGameAutoLaunch)
+            //        {
+            //            RequestGame();
+            //        }
+            //    });
+
             _eventBus.Subscribe<GameInitializationCompletedEvent>(
                 this,
                 _ =>
                 {
+                    Console.WriteLine("\r\nRobot GameInitializationCompletedEvent handler ...");
+                    var games = _propertyManager.GetValues<IGameDetail>(GamingConstants.Games).ToList();
+                    var selectedGameId = (int)_propertyManager.GetProperty(GamingConstants.SelectedGameId, -1);
+
+                    if(!games.Any(game => game.Id == selectedGameId))
+                    {
+                        return;
+                    }
+
+                    var selectedGame = games.FirstOrDefault(game => game.Id == selectedGameId);
+                    var denominationInfo = selectedGame?.Denominations.FirstOrDefault();
+
+                    var denomMultiplier = (decimal)_propertyManager.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
+                    var denom = (denominationInfo?.Value ?? 100000L) * denomMultiplier;
+
+                    //var betRange = selectedGame.GetBetAmounts(selectedGame.ActiveBetOption, selectedGame.ActiveLineOption, denom, selectedGame.GameType);
+
+                    var minCredits = selectedGame?.MinimumWagerCredits(selectedGame.ActiveBetOption, selectedGame.ActiveLineOption) ?? 0;
+                    var maxCredits = selectedGame?.MaximumWagerCredits(selectedGame.ActiveBetOption, selectedGame.ActiveLineOption) ?? 0;
+
+                    var forcedMinBet = (denominationInfo?.MinimumWagerCredits ?? minCredits) * denom;
+                    var forcedMaxBet = (denominationInfo?.MaximumWagerCredits ?? maxCredits) * denom;
+
                     _logger.Info($"GameInitializationCompletedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                     _gameIsRunning = true;
                     _sanityCounter = 0;
@@ -267,33 +303,41 @@
                     BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
                 });
 
-            _eventBus.Subscribe<GamePlayRequestFailedEvent>(
-                this,
-                _ =>
-                {
-                    _logger.Info($"Keying off GamePlayRequestFailed! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    ToggleJackpotKey(Constants.ToggleJackpotKeyDuration);
-                });
+            //_eventBus.Subscribe<GamePlayRequestFailedEvent>(
+            //    this,
+            //    _ =>
+            //    {
+            //        _logger.Info($"Keying off GamePlayRequestFailed! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //        ToggleJackpotKey(Constants.ToggleJackpotKeyDuration);
+            //    });
 
-            _eventBus.Subscribe<UnexpectedOrNoResponseEvent>(
-                this,
-                _ =>
-                {
-                    _logger.Info($"Keying off UnexpectedOrNoResponseEvent Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    ToggleJackpotKey(Constants.ToggleJackpotKeyLongerDuration);
-                });
+            //_eventBus.Subscribe<UnexpectedOrNoResponseEvent>(
+            //    this,
+            //    _ =>
+            //    {
+            //        _logger.Info($"Keying off UnexpectedOrNoResponseEvent Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //        ToggleJackpotKey(Constants.ToggleJackpotKeyLongerDuration);
+            //    });
             _eventBus.Subscribe<GameIdleEvent>(
                  this,
                  _ =>
                  {
-                     _logger.Info($"GameIdleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                     var respGaming = ServiceManager.GetInstance().GetService<IContainerService>().Container.GetInstance<IResponsibleGaming>();
+                     var remainingTime = (int)_propertyManager.GetProperty(LobbyConstants.LobbyPlayTimeRemainingInSeconds, 99999);
+
+                     Console.WriteLine($"Remaing time: {respGaming.RemainingSessionTime.ToString()}");
+
+                     //Console.WriteLine($"\r\n\r\nRemaining time: {remainingTime}\r\n");
+
+                     //_logger.Info($"GameIdleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                      BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
-                     HandleExitToLobbyRequest();
+                     //HandleExitToLobbyRequest();
                  });
             _eventBus.Subscribe<GameProcessExitedEvent>(
                  this,
                  evt =>
                  {
+                     return;
                      _gameIsRunning = false;
                      _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
                      if (evt.Unexpected)
@@ -316,45 +360,45 @@
                      }
                      LoadGameWithDelay(Constants.loadGameDelayDuration);
                  });
-            _eventBus.Subscribe<GameFatalErrorEvent>(
-                 this,
-                 _ =>
-                 {
-                     _logger.Error($"GameFatalErrorEvent Got Triggered! There is an issue with [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     _robotController.Enabled = false;
-                 });
-            _eventBus.Subscribe<GamePlayStateChangedEvent>(
-                 this,
-                 _ =>
-                 {
-                     _logger.Info($"GamePlayStateChangedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     _robotController.IdleDuration = 0;
-                     _sanityCounter = 0;
-                 });
-            _eventBus.Subscribe<HandpayStartedEvent>(this, evt =>
-            {
-                if (evt.Handpay == HandpayType.GameWin ||
-                     evt.Handpay == HandpayType.CancelCredit)
-                {
-                    _logger.Info($"Keying off large win Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    ToggleJackpotKey(Constants.ToggleJackpotKeyDuration);
-                }
-                else
-                {
-                    _logger.Info($"Skip toggling jackpot key since evt.Handpay = [{evt.Handpay}] is not valid!", GetType().Name);
-                }
-            });
-            _eventBus.Subscribe<SystemEnabledEvent>(
-                this,
-                _ =>
-                {
-                    _logger.Info($"SystemEnabledEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    LoadGameWithDelay(Constants.loadGameDelayDuration);
-                });
+            //_eventBus.Subscribe<GameFatalErrorEvent>(
+            //     this,
+            //     _ =>
+            //     {
+            //         _logger.Error($"GameFatalErrorEvent Got Triggered! There is an issue with [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //         _robotController.Enabled = false;
+            //     });
+            //_eventBus.Subscribe<GamePlayStateChangedEvent>(
+            //     this,
+            //     _ =>
+            //     {
+            //         _logger.Info($"GamePlayStateChangedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //         _robotController.IdleDuration = 0;
+            //         _sanityCounter = 0;
+            //     });
+            //_eventBus.Subscribe<HandpayStartedEvent>(this, evt =>
+            //{
+            //    if (evt.Handpay == HandpayType.GameWin ||
+            //         evt.Handpay == HandpayType.CancelCredit)
+            //    {
+            //        _logger.Info($"Keying off large win Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //        ToggleJackpotKey(Constants.ToggleJackpotKeyDuration);
+            //    }
+            //    else
+            //    {
+            //        _logger.Info($"Skip toggling jackpot key since evt.Handpay = [{evt.Handpay}] is not valid!", GetType().Name);
+            //    }
+            //});
+            //_eventBus.Subscribe<SystemEnabledEvent>(
+            //    this,
+            //    _ =>
+            //    {
+            //        _logger.Info($"SystemEnabledEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+            //        LoadGameWithDelay(Constants.loadGameDelayDuration);
+            //    });
 
-            HandleCashoutRequest();
+            //HandleCashoutRequest();
 
-            InitGameProcessHungEvent();
+            //InitGameProcessHungEvent();
         }
 
         private void InitGameProcessHungEvent()
@@ -456,10 +500,13 @@
         private void ExecuteGameLoad()
         {
             _requestGameIsInProgress = true;
+
             SelectNextGame(_goToNextGame);
+
             _goToNextGame = false;
             var games = _propertyManager.GetValues<IGameDetail>(GamingConstants.Games).ToList();
             var gameInfo = games.FirstOrDefault(g => g.ThemeName == _robotController.Config.CurrentGame && g.Enabled);
+
             if (gameInfo != null)
             {
                 var denom = gameInfo.Denominations.Where(d => d.Active == true).RandomElement().Value;
@@ -498,6 +545,20 @@
         }
 
         private bool GetRandomBoolean() => new Random((int)DateTime.Now.Ticks).Next() % 2 != 0;
-        
+
+        private void DismissTimeLimitDialog2()
+        {
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            var responsibleGamingController = ServiceManager.GetInstance().GetService<IContainerService>().Container.GetInstance<IResponsibleGaming>();
+
+            var timeLimitOptions = propertiesManager.GetProperty(LobbyConstants.RGTimeLimitsInMinutes, null) as double[];
+
+            if(timeLimitOptions == null)
+            {
+                return;
+            }
+
+            responsibleGamingController.AcceptTimeLimit(timeLimitOptions.Length - 1);
+        }
     }
 }

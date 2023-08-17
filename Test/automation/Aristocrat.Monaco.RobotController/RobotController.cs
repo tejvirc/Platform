@@ -407,6 +407,8 @@
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IBank>());
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IPathMapper>());
             container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IGameService>());
+            container.RegisterInstance(serviceManager.GetService<IContainerService>().Container.GetInstance<IResponsibleGaming>());
+
             container.Register<RobotLogger>(Lifestyle.Singleton);
             container.Register<Automation>(Lifestyle.Singleton);
             container.Register<StateChecker>(Lifestyle.Singleton);

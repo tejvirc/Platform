@@ -548,9 +548,9 @@
             return actions == null || !actions.Any()
                 ? new HashSet<Actions>
                 {
-                    Actions.BetLevel,
-                    Actions.BetMax,
-                    Actions.LineLevel,
+                    //Actions.BetLevel,
+                    //Actions.BetMax,
+                    //Actions.LineLevel,
                     Actions.SpinRequest
                 }
                 : actions;
