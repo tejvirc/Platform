@@ -238,6 +238,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
                 LineGroup = level.LineGroup,
                 TriggerControl = (TriggerType)level.Trigger,
                 FundingType = (SapFundingType)level.SapFundingType,
+                FlavorType = (FlavorType)level.FlavorType,
                 Errors = ProgressiveErrors.None,
                 AssignedProgressiveId = GenerateAssignableId(current, progressive, denominationList.First(), level.Name),
                 Turnover = 0,

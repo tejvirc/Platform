@@ -65,6 +65,11 @@
         public sapFundingType SapFundingType { get; set; }
 
         /// <summary>
+        ///     Gets or sets flavor type
+        /// </summary>
+        public flavorType FlavorType { get; set; }
+
+        /// <summary>
         ///     Gets or sets the selection values of the level.
         /// </summary>
         public LevelSelectType[] Selections { get; set; }

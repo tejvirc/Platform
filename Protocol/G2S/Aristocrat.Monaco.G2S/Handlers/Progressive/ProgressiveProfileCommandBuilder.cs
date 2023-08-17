@@ -78,11 +78,18 @@
 
                 var profile = new levelProfile();
                 profile.levelId = linkedLevel.LevelId;
-                var levelType = firstProgLevel.FundingType.ToString().ToLower();
-                profile.levelType = $"{Constants.ManufacturerPrefix}_{levelType}";
                 profile.incrementRate = firstProgLevel.IncrementRate;
                 profile.maxValue = firstProgLevel.MaximumValue;
                 profile.resetValue = firstProgLevel.ResetValue;
+
+                profile.levelType = firstProgLevel.FlavorType switch
+                {
+                    FlavorType.Standard => Constants.VertexProgTypeStandard,
+                    FlavorType.VertexMystery => Constants.VertexProgTypeMystery,
+                    FlavorType.BulkContribution => Constants.VertexProgTypeBulkContribution,
+                    FlavorType.HostChoice => Constants.VertexProgTypeHostChoice,
+                    _ => profile.levelType
+                };
 
                 var gameLevelConfigs = new List<gameLevelConfig>();
                 foreach (var progLevel in progLevels)

@@ -70,6 +70,11 @@
         public SapFundingType FundingType { get; set; }
 
         /// <summary>
+        ///     Gets or sets the progressive flavor type associated with this level.
+        /// </summary>
+        public FlavorType FlavorType { get; set; }
+
+        /// <summary>
         ///     Gets or sets the id for the progressive level. This should be unique within a progressive pack.
         /// </summary>
         public int LevelId { get; set; }
@@ -322,22 +327,22 @@
     public enum FlavorType
     {
         /// <summary>
-        ///     The default, for sane rational people who don't use Vertex, apparently.
+        ///     The default Vertex standard G2S style progressive.
         /// </summary>
         Standard,
 
         /// <summary>
-        ///     This is to support Vertex's AnteBet Bulk contribution feature. Not currently supported
+        ///     This is to support Vertex's AnteBet Bulk contribution feature.
         /// </summary>
         BulkContribution,
 
         /// <summary>
-        ///     This is to support Vertex's Mystery feature, which is different from mystery sap. Not currently supported.
+        ///     This is to support Vertex's Mystery feature, which is different from mystery SAP.
         /// </summary>
         VertexMystery,
 
         /// <summary>
-        ///     Vertex specific feature. Not currently supported.
+        ///     Vertex specific feature where the winner is determined by the host.
         /// </summary>
         HostChoice
     }
