@@ -4,7 +4,6 @@
     xmlns:statusDisplay="clr-namespace:Aristocrat.Monaco.Application.UI.StatusDisplay"
     xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
-    xmlns:loc="http://monaco.aristocrat.com/localization"
     lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
     xmlns:behaviors="http://monaco.aristocrat.com/common"
@@ -68,7 +67,7 @@
             <LinearGradientBrush StartPoint="0,.3"
                                  EndPoint="1,.7"
                                  AutomationProperties.AutomationId="LinearGradientBrush8_631FA6B">
-                <GradientStop Color="{StaticResource MahApps.Colors.SystemChromeBlackMedium}"
+                <GradientStop Color="{StaticResource MahApps.Colors.SystemChromeBlackHigh}"
                               Offset="0"
                               AutomationProperties.AutomationId="GradientStop9_631FA6B" />
                 <GradientStop Color="{StaticResource DarkColor1}"
