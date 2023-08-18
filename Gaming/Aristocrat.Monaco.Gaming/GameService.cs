@@ -153,6 +153,7 @@
         {
             if (!Running)
             {
+                _ipc.EndComms();
                 _eventBus.Publish(new GameShutdownCompletedEvent());
             }
         }
@@ -212,6 +213,8 @@
             {
                 _process.EndGameProcess(processId, notifyExited, terminateExpected);
             }
+
+            _ipc.EndComms();
 
             _processId = 0;
             Logger.Info("All game processes and IPC terminated.");
