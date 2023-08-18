@@ -102,9 +102,6 @@
       <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseEvent.html#Aristocrat_Monaco_Kernel_BaseEvent_GloballyUniqueId">BaseEvent.GloballyUniqueId</a>
     </div>
     <div>
-      <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseEvent.html#Aristocrat_Monaco_Kernel_BaseEvent_ToString">BaseEvent.ToString()</a>
-    </div>
-    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
     </div>
     <div>
@@ -142,38 +139,38 @@ public class ReelAnimationUpdatedEvent : BaseEvent, IEvent</code></pre>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_System_String_System_UInt32_Aristocrat_Monaco_Hardware_Contracts_Reel_AnimationState_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.%23ctor(System.String%2CSystem.UInt32%2CAristocrat.Monaco.Hardware.Contracts.Reel.AnimationState)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_System_Int32_System_String_Aristocrat_Monaco_Hardware_Contracts_Reel_AnimationState_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.%23ctor(System.Int32%2CSystem.String%2CAristocrat.Monaco.Hardware.Contracts.Reel.AnimationState)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Events/ReelAnimationUpdatedEvent.cs/#L18" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Events/ReelAnimationUpdatedEvent.cs/#L19" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.#ctor*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_System_String_System_UInt32_Aristocrat_Monaco_Hardware_Contracts_Reel_AnimationState_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.#ctor(System.String,System.UInt32,Aristocrat.Monaco.Hardware.Contracts.Reel.AnimationState)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_System_String_System_UInt32_Aristocrat_Monaco_Hardware_Contracts_Reel_AnimationState_" class="expander" data-toggle="collapse">ReelAnimationUpdatedEvent(String, UInt32, AnimationState)</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_System_Int32_System_String_Aristocrat_Monaco_Hardware_Contracts_Reel_AnimationState_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.#ctor(System.Int32,System.String,Aristocrat.Monaco.Hardware.Contracts.Reel.AnimationState)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_System_Int32_System_String_Aristocrat_Monaco_Hardware_Contracts_Reel_AnimationState_" class="expander" data-toggle="collapse">ReelAnimationUpdatedEvent(Int32, String, AnimationState)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_System_String_System_UInt32_Aristocrat_Monaco_Hardware_Contracts_Reel_AnimationState_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_System_Int32_System_String_Aristocrat_Monaco_Hardware_Contracts_Reel_AnimationState_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ReelAnimationUpdatedEvent(string animationName, uint reelIndex, AnimationState state)</code></pre>
+    <pre><code class="lang-csharp hljs">public ReelAnimationUpdatedEvent(int reelId, string animationName, AnimationState state)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
-        <span class="parametername">animationName</span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
+        <span class="parametername">reelId</span>
         <p>
       </td>
     </tr>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">UInt32</a></span>
-        <span class="parametername">reelIndex</span>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">animationName</span>
         <p>
       </td>
     </tr>
@@ -197,6 +194,60 @@ public class ReelAnimationUpdatedEvent : BaseEvent, IEvent</code></pre>
   
   
   </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_System_String_Aristocrat_Monaco_Hardware_Contracts_Reel_AnimationPreparedStatus_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.%23ctor(System.String%2CAristocrat.Monaco.Hardware.Contracts.Reel.AnimationPreparedStatus)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Events/ReelAnimationUpdatedEvent.cs/#L31" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_System_String_Aristocrat_Monaco_Hardware_Contracts_Reel_AnimationPreparedStatus_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.#ctor(System.String,Aristocrat.Monaco.Hardware.Contracts.Reel.AnimationPreparedStatus)"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_System_String_Aristocrat_Monaco_Hardware_Contracts_Reel_AnimationPreparedStatus_" class="expander" data-toggle="collapse">ReelAnimationUpdatedEvent(String, AnimationPreparedStatus)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent__ctor_System_String_Aristocrat_Monaco_Hardware_Contracts_Reel_AnimationPreparedStatus_" class="collapse in">
+  <div class="markdown level1 summary"><p>Creates a new instance of <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.html">ReelAnimationUpdatedEvent</a></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ReelAnimationUpdatedEvent(string animationName, AnimationPreparedStatus preparedStatus)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">animationName</span>
+        <p><p>the animation identifier</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.AnimationPreparedStatus.html">AnimationPreparedStatus</a></span>
+        <span class="parametername">preparedStatus</span>
+        <p><p>The prepared status</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
   <h3 id="properties">Properties
   </h3>
   
@@ -205,7 +256,7 @@ public class ReelAnimationUpdatedEvent : BaseEvent, IEvent</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_AnimationName.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.AnimationName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Events/ReelAnimationUpdatedEvent.cs/#L28" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Events/ReelAnimationUpdatedEvent.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_AnimationName_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.AnimationName*"></a>
@@ -213,7 +264,7 @@ public class ReelAnimationUpdatedEvent : BaseEvent, IEvent</code></pre>
   <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_AnimationName" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.AnimationName"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_AnimationName" class="expander" data-toggle="collapse">AnimationName</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_AnimationName" class="collapse in">
-  <div class="markdown level1 summary"><p>the animation identifier</p>
+  <div class="markdown level1 summary"><p>Gets the animation name</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -246,24 +297,24 @@ public class ReelAnimationUpdatedEvent : BaseEvent, IEvent</code></pre>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ReelIndex.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.ReelIndex%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_PreparedStatus.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.PreparedStatus%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Events/ReelAnimationUpdatedEvent.cs/#L33" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Events/ReelAnimationUpdatedEvent.cs/#L56" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
-  <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ReelIndex_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.ReelIndex*"></a>
+  <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_PreparedStatus_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.PreparedStatus*"></a>
   
-  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ReelIndex" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.ReelIndex"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ReelIndex" class="expander" data-toggle="collapse">ReelIndex</a></h4>
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_PreparedStatus" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.PreparedStatus"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_PreparedStatus" class="expander" data-toggle="collapse">PreparedStatus</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ReelIndex" class="collapse in">
-  <div class="markdown level1 summary"><p>what reel this event is for</p>
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_PreparedStatus" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the animation prepared status</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public uint ReelIndex { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public AnimationPreparedStatus PreparedStatus { get; }</code></pre>
   </div>
   
   
@@ -274,7 +325,51 @@ public class ReelAnimationUpdatedEvent : BaseEvent, IEvent</code></pre>
   <table>
     <tr>
       <td>
-        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">UInt32</a>
+        <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.AnimationPreparedStatus.html">AnimationPreparedStatus</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ReelId.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.ReelId%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Events/ReelAnimationUpdatedEvent.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ReelId_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.ReelId*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ReelId" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.ReelId"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ReelId" class="expander" data-toggle="collapse">ReelId</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ReelId" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the reel id</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ReelId { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>
         <p>
       </td>
     </tr>
@@ -293,7 +388,7 @@ public class ReelAnimationUpdatedEvent : BaseEvent, IEvent</code></pre>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_State.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.State%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Events/ReelAnimationUpdatedEvent.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Events/ReelAnimationUpdatedEvent.cs/#L51" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_State_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.State*"></a>
@@ -301,7 +396,7 @@ public class ReelAnimationUpdatedEvent : BaseEvent, IEvent</code></pre>
   <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_State" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.State"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_State" class="expander" data-toggle="collapse">State</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_State" class="collapse in">
-  <div class="markdown level1 summary"><p>what state the animation is in</p>
+  <div class="markdown level1 summary"><p>Gets the animation state</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -331,13 +426,60 @@ public class ReelAnimationUpdatedEvent : BaseEvent, IEvent</code></pre>
   
   
   </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ToString.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Events/ReelAnimationUpdatedEvent.cs/#L59" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ToString_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.ToString*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ToString" data-uid="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent.ToString"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ToString" class="expander" data-toggle="collapse">ToString()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent_ToString" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.BaseEvent.html#Aristocrat_Monaco_Kernel_BaseEvent_ToString">BaseEvent.ToString()</a></div>
+  
+  
+  
+  
+  
+  </div>
   
   
 </article>
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Reel_Events_ReelAnimationUpdatedEvent.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationUpdatedEvent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Events/ReelAnimationUpdatedEvent.cs/#L9" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Reel/Events/ReelAnimationUpdatedEvent.cs/#L10" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">

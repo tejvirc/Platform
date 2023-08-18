@@ -174,9 +174,6 @@
       <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Communicator.IDfuDriver.html#Aristocrat_Monaco_Hardware_Contracts_Communicator_IDfuDriver_AbortDownload">IDfuDriver.AbortDownload()</a>
     </div>
     <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a>
-    </div>
-    <div>
       <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IReelAnimationCapabilities.html#Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IReelAnimationCapabilities_AnimationFiles">IReelAnimationCapabilities.AnimationFiles</a>
     </div>
     <div>
@@ -230,6 +227,9 @@
     <div>
       <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Capabilities.IStepperRuleCapabilities.html#Aristocrat_Monaco_Hardware_Contracts_Reel_Capabilities_IStepperRuleCapabilities_PrepareStepperRule_Aristocrat_Monaco_Hardware_Contracts_Reel_ControlData_StepperRuleData_System_Threading_CancellationToken_">IStepperRuleCapabilities.PrepareStepperRule(StepperRuleData, CancellationToken)</a>
     </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.idisposable.dispose#system-idisposable-dispose">IDisposable.Dispose()</a>
+    </div>
   </div>
   
   <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Communicator.html">Aristocrat.Monaco.Hardware.Contracts.Communicator</a></h6>
@@ -238,7 +238,7 @@
   <h5 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IReelAnimationCapabilities, IReelSynchronizationCapabilities, IReelBrightnessCapabilities, IStepperRuleCapabilities, IReelControllerCapability</code></pre>
+public interface IRelmCommunicator : ICommunicator, IDfuDriver, IReelAnimationCapabilities, IReelSynchronizationCapabilities, IReelBrightnessCapabilities, IStepperRuleCapabilities, IReelControllerCapability, IDisposable</code></pre>
   </div>
   
   
@@ -299,7 +299,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_HomeReel_System_Int32_System_Int32_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.HomeReel(System.Int32%2CSystem.Int32%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L62" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L122" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_HomeReel_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.HomeReel*"></a>
@@ -371,7 +371,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_Initialize.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.Initialize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L53" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L113" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_Initialize_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.Initialize*"></a>
@@ -415,7 +415,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_RemoveAllControllerAnimations_System_Threading_CancellationToken_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.RemoveAllControllerAnimations(System.Threading.CancellationToken)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L86" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L146" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_RemoveAllControllerAnimations_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.RemoveAllControllerAnimations*"></a>
@@ -470,7 +470,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_RequestDeviceStatuses.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.RequestDeviceStatuses%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L80" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L140" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_RequestDeviceStatuses_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.RequestDeviceStatuses*"></a>
@@ -514,7 +514,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_SetReelOffsets_System_Int32___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.SetReelOffsets(System.Int32%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L69" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L129" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_SetReelOffsets_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.SetReelOffsets*"></a>
@@ -570,7 +570,7 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_TiltReels.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.TiltReels%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L75" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L135" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_TiltReels_" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.TiltReels*"></a>
@@ -611,6 +611,49 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
   </div>
   <h3 id="events">Events
   </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_AllLightAnimationsCleared.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.AllLightAnimationsCleared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_AllLightAnimationsCleared" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.AllLightAnimationsCleared"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_AllLightAnimationsCleared" class="expander" data-toggle="collapse">AllLightAnimationsCleared</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_AllLightAnimationsCleared" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when all light animations are removed from the playing queue </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler AllLightAnimationsCleared</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
@@ -700,6 +743,178 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationPrepared.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.LightAnimationPrepared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L78" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationPrepared" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.LightAnimationPrepared"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationPrepared" class="expander" data-toggle="collapse">LightAnimationPrepared</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationPrepared" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel controller prepares a light animation</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;LightAnimationEventArgs&gt; LightAnimationPrepared</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.LightAnimationEventArgs.html">LightAnimationEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationRemoved.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.LightAnimationRemoved%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationRemoved" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.LightAnimationRemoved"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationRemoved" class="expander" data-toggle="collapse">LightAnimationRemoved</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationRemoved" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when a light animation is removed from the playing queue </p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;LightAnimationEventArgs&gt; LightAnimationRemoved</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.LightAnimationEventArgs.html">LightAnimationEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationStarted.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.LightAnimationStarted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L68" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationStarted" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.LightAnimationStarted"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationStarted" class="expander" data-toggle="collapse">LightAnimationStarted</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationStarted" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel controller starts a light animation</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;LightAnimationEventArgs&gt; LightAnimationStarted</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.LightAnimationEventArgs.html">LightAnimationEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationStopped.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.LightAnimationStopped%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L73" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationStopped" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.LightAnimationStopped"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationStopped" class="expander" data-toggle="collapse">LightAnimationStopped</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightAnimationStopped" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel controller stops a light animation</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;LightAnimationEventArgs&gt; LightAnimationStopped</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.LightAnimationEventArgs.html">LightAnimationEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_LightStatusReceived.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.LightStatusReceived%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
@@ -729,6 +944,135 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <tr>
       <td>
         <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.LightEventArgs.html">LightEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelAnimationPrepared.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.ReelAnimationPrepared%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelAnimationPrepared" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.ReelAnimationPrepared"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelAnimationPrepared" class="expander" data-toggle="collapse">ReelAnimationPrepared</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelAnimationPrepared" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel controller prepares a reels animation</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;ReelAnimationEventArgs&gt; ReelAnimationPrepared</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationEventArgs.html">ReelAnimationEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelAnimationStarted.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.ReelAnimationStarted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelAnimationStarted" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.ReelAnimationStarted"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelAnimationStarted" class="expander" data-toggle="collapse">ReelAnimationStarted</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelAnimationStarted" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel controller starts a reel animation</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;ReelAnimationEventArgs&gt; ReelAnimationStarted</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationEventArgs.html">ReelAnimationEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelAnimationStopped.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.ReelAnimationStopped%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L88" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelAnimationStopped" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.ReelAnimationStopped"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelAnimationStopped" class="expander" data-toggle="collapse">ReelAnimationStopped</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelAnimationStopped" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel controller stops a reel animation</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;ReelAnimationEventArgs&gt; ReelAnimationStopped</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelAnimationEventArgs.html">ReelAnimationEventArgs</a>&gt;
         <p>
       </td>
     </tr>
@@ -815,6 +1159,178 @@ public interface IRelmCommunicator : ICommunicator, IDfuDriver, IDisposable, IRe
     <tr>
       <td>
         <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelStatusReceivedEventArgs.html">ReelStatusReceivedEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelStopping.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.ReelStopping%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L53" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelStopping" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.ReelStopping"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelStopping" class="expander" data-toggle="collapse">ReelStopping</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_ReelStopping" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel begins to stop spinning and idle time is calculated</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;ReelStoppingEventArgs&gt; ReelStopping</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelStoppingEventArgs.html">ReelStoppingEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_StepperRuleTriggered.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.StepperRuleTriggered%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L98" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_StepperRuleTriggered" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.StepperRuleTriggered"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_StepperRuleTriggered" class="expander" data-toggle="collapse">StepperRuleTriggered</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_StepperRuleTriggered" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel controller triggers a stepper rule (user event)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;StepperRuleTriggeredEventArgs&gt; StepperRuleTriggered</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.StepperRuleTriggeredEventArgs.html">StepperRuleTriggeredEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_SynchronizationCompleted.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.SynchronizationCompleted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_SynchronizationCompleted" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.SynchronizationCompleted"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_SynchronizationCompleted" class="expander" data-toggle="collapse">SynchronizationCompleted</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_SynchronizationCompleted" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel controller completes reel synchronization</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;ReelSynchronizationEventArgs&gt; SynchronizationCompleted</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelSynchronizationEventArgs.html">ReelSynchronizationEventArgs</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_SynchronizationStarted.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.SynchronizationStarted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Hardware/Aristocrat.Monaco.Hardware.Contracts/Communicator/IRelmCommunicator.cs/#L103" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  
+  <h4 id="Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_SynchronizationStarted" data-uid="Aristocrat.Monaco.Hardware.Contracts.Communicator.IRelmCommunicator.SynchronizationStarted"><a href="#collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_SynchronizationStarted" class="expander" data-toggle="collapse">SynchronizationStarted</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Hardware_Contracts_Communicator_IRelmCommunicator_SynchronizationStarted" class="collapse in">
+  <div class="markdown level1 summary"><p>The event that occurs when the reel controller starts reel synchronization</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;ReelSynchronizationEventArgs&gt; SynchronizationStarted</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  <h5 class="eventType">Event Type</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Aristocrat.Monaco.Hardware.Contracts.Reel.Events.ReelSynchronizationEventArgs.html">ReelSynchronizationEventArgs</a>&gt;
         <p>
       </td>
     </tr>
