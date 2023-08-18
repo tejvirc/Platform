@@ -6,6 +6,10 @@
     using System.Reflection;
     using System.Windows.Forms;
     using Aristocrat.Monaco.Application.Contracts.Input;
+#if !RETAIL
+    using Aristocrat.Monaco.Hardware.Contracts.Cabinet;
+    using Cabinet.Contracts;
+#endif
     using Contracts;
     using Contracts.Localization;
     using Kernel;
@@ -140,11 +144,20 @@
 
         private IVirtualKeyboardProvider GetKeyboardProvider(KeyboardProviderType configuredType)
         {
+#if !RETAIL
+            var cabinetType = ServiceManager.GetInstance().GetService<ICabinetDetectionService>().Type;
+            if (cabinetType == CabinetType.Unknown)
+            {
+                // Only dev machines should have Unknown type
+                return null;
+            }
+#endif
+
             return configuredType switch
             {
-                KeyboardProviderType.Embedded => new EmbeddedKeyboardProvider(),
+                // Default to Embedded (third party) keyboard for all known cabinets
                 KeyboardProviderType.Windows => new WindowsKeyboardProvider(),
-                _ => null
+                _ => new EmbeddedKeyboardProvider()
             };
         }
     }
