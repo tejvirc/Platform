@@ -18,7 +18,6 @@
     public class StepperRuleTests
     {
         private readonly Mock<RelmReels.Communicator.IRelmCommunicator> _driver = new();
-        private readonly Mock<IEventBus> _eventBus = new();
         private RelmUsbCommunicator _usbCommunicator;
         private Mock<IPropertiesManager> _propertiesManager;
 
@@ -34,7 +33,7 @@
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoNotResetRelmController, It.IsAny<bool>())).Returns(false);
-            _usbCommunicator = new RelmUsbCommunicator(_driver.Object, _eventBus.Object, _propertiesManager.Object);
+            _usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object);
         }
 
         [TestCleanup]

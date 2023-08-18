@@ -246,6 +246,7 @@
                     Implementation.ControllerFaultOccurred -= ReelControllerFaultOccurred;
                     Implementation.ControllerFaultCleared -= ReelControllerFaultCleared;
                     Implementation.ReelSlowSpinning -= ReelControllerSlowSpinning;
+                    Implementation.ReelStopping -= ReelControllerReelStopping;
                     Implementation.ReelStopped -= ReelControllerReelStopped;
                     Implementation.ReelSpinning -= ReelControllerSpinning;
                     Implementation.Connected -= ReelControllerConnected;
@@ -257,6 +258,14 @@
                     Implementation.HardwareInitialized -= HardwareInitialized;
                     Implementation.Dispose();
                     _reelControllerImplementation = null;
+
+                    foreach (var capability in _supportedCapabilities)
+                    {
+                        capability.Value.Dispose();
+                        _supportedCapabilities[capability.Key] = null;
+                    }
+
+                    _supportedCapabilities.Clear();
                 }
 
                 var stateManager = _stateManager;
@@ -287,6 +296,7 @@
             Implementation.ControllerFaultOccurred += ReelControllerFaultOccurred;
             Implementation.ControllerFaultCleared += ReelControllerFaultCleared;
             Implementation.ReelSlowSpinning += ReelControllerSlowSpinning;
+            Implementation.ReelStopping += ReelControllerReelStopping;
             Implementation.ReelStopped += ReelControllerReelStopped;
             Implementation.ReelSpinning += ReelControllerSpinning;
             Implementation.Connected += ReelControllerConnected;
@@ -387,6 +397,11 @@
             }
 
             PostEvent(new ReelSpinningStatusUpdatedEvent(e.ReelId, e.SpinVelocity));
+        }
+
+        private void ReelControllerReelStopping(object sender, ReelStoppingEventArgs e)
+        {
+            PostEvent(new ReelStoppingEvent(e.ReelId, e.TimeToStop));
         }
 
         private void ReelControllerReelStopped(object sender, ReelEventArgs e)

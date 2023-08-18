@@ -9,7 +9,7 @@
     using Contracts.Reel.ImplementationCapabilities;
     using log4net;
 
-    internal class ReelSpinCapability : IReelSpinCapabilities
+    internal sealed class ReelSpinCapability : IReelSpinCapabilities
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
@@ -23,6 +23,10 @@
         }
 
         public int DefaultSpinSpeed => _implementation.DefaultSpinSpeed;
+
+        public void Dispose()
+        {
+        }
 
         public Task<bool> NudgeReels(params NudgeReelData[] reelData)
         {

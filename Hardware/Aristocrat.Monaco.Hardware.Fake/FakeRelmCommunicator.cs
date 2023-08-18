@@ -16,9 +16,6 @@
     using Kernel;
     using log4net;
     using MVVM;
-    using MonacoReelStatus = Contracts.Reel.ReelStatus;
-    using MonacoLightStatus = Contracts.Reel.LightStatus;
-
 
     public class FakeRelmCommunicator : IRelmCommunicator
     {
@@ -70,11 +67,48 @@
 
         /// <inheritdoc/>
         public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultCleared;
-
+        
+        /// <inheritdoc />
         public event EventHandler<LightEventArgs> LightStatusReceived;
 
         /// <inheritdoc/>
         public event EventHandler<ReelSpinningEventArgs> ReelSpinningStatusReceived;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelStoppingEventArgs> ReelStopping;
+        
+        /// <inheritdoc />
+        public event EventHandler<StepperRuleTriggeredEventArgs> StepperRuleTriggered;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelSynchronizationEventArgs> SynchronizationStarted;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelSynchronizationEventArgs> SynchronizationCompleted;
+        
+        /// <inheritdoc />
+        public event EventHandler AllLightAnimationsCleared;
+        
+        /// <inheritdoc />
+        public event EventHandler<LightAnimationEventArgs> LightAnimationRemoved;
+        
+        /// <inheritdoc />
+        public event EventHandler<LightAnimationEventArgs> LightAnimationStarted;
+        
+        /// <inheritdoc />
+        public event EventHandler<LightAnimationEventArgs> LightAnimationStopped;
+        
+        /// <inheritdoc />
+        public event EventHandler<LightAnimationEventArgs> LightAnimationPrepared;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelAnimationEventArgs> ReelAnimationStarted;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelAnimationEventArgs> ReelAnimationStopped;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelAnimationEventArgs> ReelAnimationPrepared;
 #pragma warning restore 67
 
         /// <summary>
@@ -249,12 +283,6 @@
             OnDeviceDetached();
             Task.Delay(500);
             OnDeviceAttached();
-        }
-
-        /// <inheritdoc/>
-        public Task<bool> HomeReels()
-        {
-            return Task.FromResult(true);
         }
 
         /// <inheritdoc/>

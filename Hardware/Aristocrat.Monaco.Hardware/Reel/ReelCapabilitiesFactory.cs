@@ -6,13 +6,15 @@
     using Contracts.Reel;
     using Contracts.Reel.Capabilities;
     using Contracts.Reel.ImplementationCapabilities;
+    using Kernel;
 
     internal static class ReelCapabilitiesFactory
     {
         public static (Type CapabilityType, IReelControllerCapability Capability) Create(
             Type implementationType,
             IReelControllerImplementation controllerImplementation,
-            ReelControllerStateManager stateManager)
+            ReelControllerStateManager stateManager,
+            IEventBus eventBus)
         {
             if (implementationType == typeof(IReelBrightnessImplementation))
             {
@@ -35,19 +37,19 @@
             if (implementationType == typeof(IAnimationImplementation))
             {
                 return (typeof(IReelAnimationCapabilities),
-                    new ReelAnimationCapability(controllerImplementation.GetCapability<IAnimationImplementation>(), stateManager));
+                    new ReelAnimationCapability(controllerImplementation.GetCapability<IAnimationImplementation>(), eventBus));
             }
 
             if (implementationType == typeof(ISynchronizationImplementation))
             {
                 return (typeof(IReelSynchronizationCapabilities),
-                    new ReelSynchronizationCapability(controllerImplementation.GetCapability<ISynchronizationImplementation>(), stateManager));
+                    new ReelSynchronizationCapability(controllerImplementation.GetCapability<ISynchronizationImplementation>(), eventBus));
             }
 
             if (implementationType == typeof(IStepperRuleImplementation))
             {
                 return (typeof(IStepperRuleCapabilities),
-                    new StepperRuleCapability(controllerImplementation.GetCapability<IStepperRuleImplementation>(), stateManager));
+                    new StepperRuleCapability(controllerImplementation.GetCapability<IStepperRuleImplementation>(), eventBus));
             }
 
             return (null, null);
@@ -57,10 +59,12 @@
             IReelControllerImplementation implementation,
             ReelControllerStateManager stateManager)
         {
+            var eventBus = ServiceManager.GetInstance().TryGetService<IEventBus>();
+
             List<KeyValuePair<Type, IReelControllerCapability>> capabilities = new();
             foreach (var implementationCapability in implementation.GetCapabilities())
             {
-                var (capabilityType, capability) = Create(implementationCapability, implementation, stateManager);
+                var (capabilityType, capability) = Create(implementationCapability, implementation, stateManager, eventBus);
                 if (capabilityType is not null)
                 {
                     capabilities.Add(new KeyValuePair<Type, IReelControllerCapability>(capabilityType, capability));

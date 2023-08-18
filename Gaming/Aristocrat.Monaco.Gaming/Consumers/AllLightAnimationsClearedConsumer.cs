@@ -6,37 +6,37 @@
     using Runtime;
 
     /// <summary>
-    ///     Handles the <see cref="AllLightShowsClearedEvent" /> and sends an event to the runtime.
+    ///     Handles the <see cref="AllLightAnimationsClearedEvent" /> and sends an event to the runtime.
     /// </summary>
-    public class AllLightShowsClearedConsumer : Consumes<AllLightShowsClearedEvent>
+    public class AllLightAnimationsClearedConsumer : Consumes<AllLightAnimationsClearedEvent>
     {
         private readonly IReelService _reelService;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AllLightShowsClearedConsumer" /> class.
+        ///     Initializes a new instance of the <see cref="AllLightAnimationsClearedConsumer" /> class.
         /// </summary>
         /// <param name="reelService">The reel service</param>
-        public AllLightShowsClearedConsumer(IReelService reelService)
+        public AllLightAnimationsClearedConsumer(IReelService reelService)
         {
             _reelService = reelService ?? throw new ArgumentNullException(nameof(reelService));
         }
 
         /// <inheritdoc />
-        public override void Consume(AllLightShowsClearedEvent theEvent)
+        public override void Consume(AllLightAnimationsClearedEvent theEvent)
         {
             if (!_reelService.Connected)
             {
                 return;
             }
 
-            var updateNotification = new AnimationUpdatedNotification()
+            var updateNotification = new AnimationUpdatedNotification
             {
                 AnimationId = string.Empty,
                 AnimationData = null,
                 State = AnimationState.AllAnimationsCleared
             };
 
-            _reelService.AnimationUpdated(updateNotification);
+            _reelService.NotifyAnimationUpdated(updateNotification);
         }
     }
 }

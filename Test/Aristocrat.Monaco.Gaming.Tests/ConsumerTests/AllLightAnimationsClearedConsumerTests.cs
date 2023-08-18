@@ -12,11 +12,11 @@
     using GDKAnimationState = GdkRuntime.V1.AnimationState;
 
     [TestClass]
-    public class AllLightShowsClearedConsumerTests
+    public class AllLightAnimationsClearedConsumerTests
     {
         private Mock<IReelService> _reelService;
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
-        private AllLightShowsClearedConsumer _target;
+        private AllLightAnimationsClearedConsumer _target;
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -25,7 +25,7 @@
             MoqServiceManager.AddService(_eventBus);
             _reelService = MoqServiceManager.CreateAndAddService<IReelService>(MockBehavior.Default);
 
-            _target = new AllLightShowsClearedConsumer(_reelService.Object);
+            _target = new AllLightAnimationsClearedConsumer(_reelService.Object);
         }
 
         [TestCleanup]
@@ -38,17 +38,13 @@
         [TestMethod]
         public void AllLightShowsClearedConsumerNullReelService()
         {
-            _target = new AllLightShowsClearedConsumer(null);
+            _target = new AllLightAnimationsClearedConsumer(null);
         }
 
         [TestMethod]
         public void ConsumeAllLightShowsClearedEvent()
         {
-            var allLightShowsClearedEvent = new AllLightShowsClearedEvent();
             _reelService.Setup(s => s.Connected).Returns(true);
-
-            _target.Consume(allLightShowsClearedEvent);
-
             var notification = new AnimationUpdatedNotification
             {
                 AnimationData = null,
@@ -56,18 +52,19 @@
                 State = GDKAnimationState.AllAnimationsCleared
             };
 
-            _reelService.Verify(s => s.AnimationUpdated(notification), Times.Once);
+            _target.Consume(new AllLightAnimationsClearedEvent());
+
+            _reelService.Verify(s => s.NotifyAnimationUpdated(notification), Times.Once);
         }
 
         [TestMethod]
         public void ConsumeNotConnected()
         {
-            var animationUpdatedEvent = new AllLightShowsClearedEvent();
             _reelService.Setup(s => s.Connected).Returns(false);
 
-            _target.Consume(animationUpdatedEvent);
+            _target.Consume(new AllLightAnimationsClearedEvent());
 
-            _reelService.Verify(s => s.AnimationUpdated(It.IsAny<AnimationUpdatedNotification>()), Times.Never);
+            _reelService.Verify(s => s.NotifyAnimationUpdated(It.IsAny<AnimationUpdatedNotification>()), Times.Never);
         }
     }
 }

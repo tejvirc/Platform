@@ -8,22 +8,31 @@
     using Contracts.Reel.Events;
     using Contracts.Reel.ImplementationCapabilities;
 
-    internal class RelmStepperRule : IStepperRuleImplementation
+    internal sealed class RelmStepperRule : IStepperRuleImplementation
     {
         private readonly IRelmCommunicator _communicator;
 
         public RelmStepperRule(IRelmCommunicator communicator)
         {
             _communicator = communicator;
+            _communicator.StepperRuleTriggered += HandleStepperRuleTriggered;
         }
 
-#pragma warning disable 67
         public event EventHandler<StepperRuleTriggeredEventArgs> StepperRuleTriggered;
-#pragma warning restore 67
+
+        public void Dispose()
+        {
+            _communicator.StepperRuleTriggered -= HandleStepperRuleTriggered;
+        }
 
         public Task<bool> PrepareStepperRule(StepperRuleData ruleData, CancellationToken token = default)
         {
             return _communicator.PrepareStepperRule(ruleData, token);
+        }
+
+        private void HandleStepperRuleTriggered(object sender, StepperRuleTriggeredEventArgs args)
+        {
+            StepperRuleTriggered?.Invoke(sender, args);
         }
     }
 }

@@ -24,7 +24,7 @@
         event EventHandler<ReelFaultedEventArgs> FaultCleared;
 
         /// <summary> The event that occurs when the reel begins to stop spinning </summary>
-        event EventHandler<ReelEventArgs> ReelStopping;
+        event EventHandler<ReelStoppingEventArgs> ReelStopping;
 
         /// <summary> The event that occurs when the reel stops spinning </summary>
         event EventHandler<ReelEventArgs> ReelStopped;
