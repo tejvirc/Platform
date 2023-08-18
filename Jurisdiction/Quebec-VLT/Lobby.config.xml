@@ -27,6 +27,10 @@
     <string>FrenchOff</string>
     <string>EnglishOff</string>
   </LanguageButtonResourceKeys>
+  <LanguageButtonActiveResourceKeys>
+    <string>FrenchOn</string>
+    <string>EnglishOn</string>
+  </LanguageButtonActiveResourceKeys>
   <DefaultLoadingScreenFilename>../jurisdiction/Quebec-VLT/ui/Images/BS_LoadingScreen.png</DefaultLoadingScreenFilename>
   <DefaultTopAttractVideoFilename>../jurisdiction/Quebec-VLT/ui/Videos/LobbyAttract.bk2</DefaultTopAttractVideoFilename>
   <DefaultTopperAttractVideoFilename>../jurisdiction/Quebec-VLT/ui/Videos/LobbyAttract.bk2</DefaultTopperAttractVideoFilename>

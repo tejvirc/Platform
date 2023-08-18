@@ -42,12 +42,13 @@
             var transactionHistory = ServiceManager.GetInstance().GetService<ITransactionHistory>();
             var voucherOutTransactions = transactionHistory.RecallTransactions<VoucherOutTransaction>()
                 .OrderByDescending(x => x.LogSequence).ToList();
+            var culture = Localizer.For(CultureFor.Operator).CurrentCulture;
 
             var events = from transaction in voucherOutTransactions
                          let additionalInfo = new[]{
                             (ResourceKeys.TicketNumberHeader, transaction.VoucherSequence.ToString()),
                             GetDateAndTimeHeader(transaction.TransactionDateTime),
-                            (ResourceKeys.AmountHeader,transaction.Amount > 0 && _multiplier > 0 ? $"{(transaction.Amount / _multiplier).FormattedCurrencyString()}" : $"{transaction.Amount.FormattedCurrencyString()}"),
+                            (ResourceKeys.AmountHeader,transaction.Amount > 0 && _multiplier > 0 ? $"{(transaction.Amount / _multiplier).FormattedCurrencyString(culture: culture)}" : $"{transaction.Amount.FormattedCurrencyString(culture: culture)}"),
                             (ResourceKeys.TypeOfAccountHeader, GetTypeOfAccount(transaction)),
                             (ResourceKeys.ValidationNumber, VoucherExtensions.GetValidationString(transaction.Barcode)),
                             (ResourceKeys.StatusHeader, transaction.HostAcknowledged ? Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.Acknowledged) : Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.Pending))}
@@ -213,13 +214,13 @@
             switch (transaction.TypeOfAccount)
             {
                 case AccountType.Cashable:
-                    typeOfAccount = Localizer.For(CultureFor.Player).GetString(ResourceKeys.Cashable);
+                    typeOfAccount = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Cashable);
                     break;
                 case AccountType.Promo:
-                    typeOfAccount = Localizer.For(CultureFor.Player).GetString(ResourceKeys.CashablePromotion);
+                    typeOfAccount = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashablePromotion);
                     break;
                 case AccountType.NonCash:
-                    typeOfAccount = Localizer.For(CultureFor.Player).GetString(ResourceKeys.NonCashablePromotional);
+                    typeOfAccount = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NonCashablePromotional);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(transaction.TypeOfAccount), transaction.TypeOfAccount, null);
