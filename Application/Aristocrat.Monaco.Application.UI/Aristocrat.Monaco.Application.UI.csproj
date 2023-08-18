@@ -49,6 +49,9 @@
     <Content Include="MonacoDefaultQwertyLayout.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="MonacoQwertyLayout_fr-CA.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Resources\Aristocrat_Logo_White_Large.png" />
     <Resource Include="Resources\AristocratLogoPortrait.png" />
     <Content Include="StatusPages.addin.xml">
