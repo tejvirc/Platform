@@ -11844,7 +11844,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.Input.EmbeddedKeyboardProvider.html",
-          "hash": "130atr15uFfGyzpTWVIJz0aJlndgQwnbgmegW4njtjU="
+          "hash": "mDLDmQ1w0e8Ly5dXbEQ19aiue4hWSQDLn06eviHhmRE="
         }
       },
       "is_incremental": false,
@@ -11856,7 +11856,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.Input.EmbeddedKeyboardWindow.html",
-          "hash": "5KWb5gMMc3aIFb/NesJvXX8Q3FUm1Fz06kj/Z5ZLVFY="
+          "hash": "v8WF2XiLZVUF/TpO8yu8qMqZpUCNQv/4/A8iV4vaIAg="
         }
       },
       "is_incremental": false,
@@ -11868,7 +11868,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.Input.IVirtualKeyboardProvider.html",
-          "hash": "OC195T8ytr4eZhp4etpuVU0QFKtqxiRYgAnaQU8KWWQ="
+          "hash": "cJCS/+i9wiTaFTnDZuP4vuPivaAuOzqq9PEoxa9bteQ="
         }
       },
       "is_incremental": false,
@@ -11880,7 +11880,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.Input.OnScreenKeyboardService.html",
-          "hash": "nKIt0iQKQdYNlRwgiUEL9vq1sLbMIkyu4kmQsTy5w6k="
+          "hash": "JKVYCbzwA8QtM3W5QtYiaahockPwYrScyM2dm+G+TYo="
         }
       },
       "is_incremental": false,
@@ -11976,7 +11976,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.Input.WindowsKeyboardProvider.html",
-          "hash": "V212wJnTuyaG82eowD2XvM8c62p7zoLby9OsrYXfv5Y="
+          "hash": "CA+7heQnMrp4M+Go9eo1GBHa56cz/Qs+BhmOdLbF8xg="
         }
       },
       "is_incremental": false,
@@ -15595,6 +15595,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -43522,9 +43525,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
