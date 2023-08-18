@@ -246,23 +246,13 @@
         public string StateText
         {
             get => _stateText;
-
-            set
-            {
-                _stateText = value;
-                RaisePropertyChanged(nameof(StateText));
-            }
+            set => SetProperty(ref _stateText, value);
         }
 
         public StateMode StateCurrentMode
         {
             get => _stateMode;
-
-            set
-            {
-                _stateMode = value;
-                RaisePropertyChanged(nameof(StateForeground));
-            }
+            set => SetProperty(ref _stateMode, value, nameof(StateForeground));
         }
 
         public Brush StateForeground =>

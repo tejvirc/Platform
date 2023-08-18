@@ -534,53 +534,16 @@
             }
 
             var logicalState = NoteAcceptor?.LogicalState ?? NoteAcceptorLogicalState.Disabled;
+            updateStatus = logicalState.StateToString(
+                HasDocumentCheckFault,
+                StateCurrentMode,
+                StatusCurrentMode,
+                out var stateMode,
+                out var stateText) ?? updateStatus;
 
-            StateText = logicalState.ToString();
+            StateCurrentMode = stateMode;
+            StateText = stateText;
 
-            switch (logicalState)
-            {
-                case NoteAcceptorLogicalState.Disabled:
-                    StateCurrentMode = StateMode.Error;
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disabled);
-                    break;
-                case NoteAcceptorLogicalState.Disconnected:
-                    StateCurrentMode = StateMode.Error;
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disconnected);
-                    break;
-                case NoteAcceptorLogicalState.Uninitialized:
-                    StateCurrentMode = StateMode.Uninitialized;
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Uninitialized);
-                    break;
-                case NoteAcceptorLogicalState.InEscrow:
-                    StateCurrentMode = StateMode.Warning;
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InEscrow);
-                    break;
-                case NoteAcceptorLogicalState.Inspecting:
-                    StateCurrentMode = StateMode.Processing;
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Inspecting);
-                    break;
-                case NoteAcceptorLogicalState.Returning:
-                    StateCurrentMode = StateMode.Processing;
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Returning);
-                    break;
-                case NoteAcceptorLogicalState.Stacking:
-                    StateCurrentMode = StateMode.Processing;
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Stacking);
-                    break;
-                default:
-                    if (!HasDocumentCheckFault &&
-                        (StateCurrentMode != StateMode.Normal || StatusCurrentMode != StatusMode.None))
-                    {
-                        StateCurrentMode = StateMode.Normal;
-                        updateStatus = true;
-                    }
-
-                    if (logicalState == NoteAcceptorLogicalState.Idle)
-                    {
-                        StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Idle);
-                    }
-                    break;
-            }
 
             if (updateStatus)
             {

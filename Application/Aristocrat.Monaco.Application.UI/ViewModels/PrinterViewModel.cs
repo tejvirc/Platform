@@ -43,7 +43,7 @@
             PlayerLocalesAvailable = playerAvailableLocales.Length > 1;
             PrintLanguages = new ObservableCollection<Tuple<string, string>>();
 
-            var playerTicketSelectionArrayEntry = new []
+            var playerTicketSelectionArrayEntry = new[]
             {
                 new PlayerTicketSelectionArrayEntry
                 {
@@ -478,31 +478,9 @@
             var printer = ServiceManager.GetInstance().TryGetService<IPrinter>();
 
             var logicalState = printer?.LogicalState ?? PrinterLogicalState.Disabled;
-
-            SetStateText(logicalState);
-
-            switch (logicalState)
-            {
-                case PrinterLogicalState.Disabled:
-                case PrinterLogicalState.Disconnected:
-                    StateCurrentMode = StateMode.Error;
-                    StatusCurrentMode = StatusMode.Error;
-                    break;
-                case PrinterLogicalState.Uninitialized:
-                    StateCurrentMode = StateMode.Uninitialized;
-                    StatusCurrentMode = StatusMode.Error;
-                    break;
-                case PrinterLogicalState.Inspecting:
-                    StateCurrentMode = StateMode.Processing;
-                    break;
-                case PrinterLogicalState.Printing:
-                    StateCurrentMode = StateMode.Processing;
-                    StatusCurrentMode = StatusMode.Working;
-                    break;
-                default:
-                    StateCurrentMode = StateMode.Normal;
-                    break;
-            }
+            StateText = logicalState.StateToString(StatusCurrentMode, out var stateMode, out var statusMode);
+            StateCurrentMode = stateMode;
+            StatusCurrentMode = statusMode;
 
             if (updateStatus)
             {
@@ -514,37 +492,6 @@
                 {
                     StatusText = string.Empty;
                 }
-            }
-        }
-
-        private void SetStateText(PrinterLogicalState state)
-        {
-            switch(state)
-            {
-                case PrinterLogicalState.Uninitialized:
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Uninitialized);
-                    break;
-                case PrinterLogicalState.Inspecting:
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Inspecting);
-                    break;
-                case PrinterLogicalState.Initializing:
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Initializing);
-                    break;
-                case PrinterLogicalState.Idle:
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Idle);
-                    break;
-                case PrinterLogicalState.Printing:
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Printing);
-                    break;
-                case PrinterLogicalState.Disabled:
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disabled);
-                    break;
-                case PrinterLogicalState.Disconnected:
-                    StateText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Disconnected);
-                    break;
-                default:
-                    StateText = state.ToString();
-                    break;
             }
         }
 
