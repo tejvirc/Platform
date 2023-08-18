@@ -41,7 +41,10 @@
 
 
             var genericSolutionFolderPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\..\\"));
-            _allXamlFiles = Directory.GetFiles(genericSolutionFolderPath, "*.xaml", SearchOption.AllDirectories).Where(x => !x.StartsWith(genericSolutionFolderPath + "bin"));
+            _allXamlFiles = Directory
+                .GetFiles(genericSolutionFolderPath, "*.xaml", SearchOption.AllDirectories)
+                .Where(x => !x.StartsWith(genericSolutionFolderPath + "bin"))
+                .Where(x => !x.Contains("\\Skins\\"));
         }
 
         /// <summary>
@@ -58,7 +61,7 @@
                 CollectDuplicateAutomationIdsFromXaml(automationTracker, xamlFile);
             });
 
-            string failMessage = $"The following {_automationIdAttributeName} value(s) already exist:{Environment.NewLine}{string.Join(Environment.NewLine, automationTracker.CollisionPairs.Select(x => $"filename: {x.Value}, value: {x.Key}"))}";
+            var failMessage = $"The following {_automationIdAttributeName} value(s) already exist:{Environment.NewLine}{GetCollisionDetails(automationTracker)}";
 
             Assert.AreEqual(0, automationTracker.CollisionPairs.Count(), failMessage);
         }
@@ -97,13 +100,18 @@
                 if (_eligibleAutomationIdXamlElements.Contains(element.Name.LocalName) &&
                 element.Attribute(_automationIdAttributeName) != null)
                 {
-                    string automationId = element.Attribute(_automationIdAttributeName).Value;
+                    var automationId = element.Attribute(_automationIdAttributeName).Value;
 
                     lock (automationTracker.AutomationIds)
                     {
-                        if (!automationTracker.AutomationIds.Add(automationId))
+                        if (automationTracker.AutomationIds.TryGetValue(automationId, out var existingFilePath))
                         {
-                            automationTracker.CollisionPairs.TryAdd(automationId, xamlFilePath);
+                            var collisionKey = $"{automationId}*{xamlFilePath}";
+                            automationTracker.CollisionPairs.TryAdd(collisionKey, existingFilePath);
+                        }
+                        else
+                        {
+                            automationTracker.AutomationIds.Add(automationId, xamlFilePath);
                         }
                     }
                 }
@@ -170,11 +178,20 @@
             throw new InvalidOperationException
                 ("element has been removed from its parent.");
         }
+
+        private string GetCollisionDetails(AutomationIdTracker tracker)
+        {
+            var collisionDetails = tracker.CollisionPairs
+                .Select(pair =>
+                    $"Value: {pair.Key.Split('*')[0]}, Existing File: {pair.Value}, Colliding File: {pair.Key.Split('*')[1]}");
+
+            return string.Join(Environment.NewLine, collisionDetails);
+        }
     }
 
     public class AutomationIdTracker
     {
-        public HashSet<string> AutomationIds { get; } = new HashSet<string>();
+        public Dictionary<string, string> AutomationIds { get; } = new Dictionary<string, string>();
 
         // Store the file and element information if the AutomationId is non-unique in the codebase
         public ConcurrentDictionary<string, string> CollisionPairs { get; } = new ConcurrentDictionary<string, string>();
