@@ -437,7 +437,7 @@
                     }
 
                     var windowToScreenMapper = new WindowToScreenMapper(display.DisplayDevice.Role, true);
-                    var screenBounds = WindowToScreenMapper.GetScreenBounds(display.DisplayDevice);
+                    var screenBounds = windowToScreenMapper.GetScreenBounds(display.DisplayDevice);
                     var visibleArea = windowToScreenMapper.GetVisibleArea();
                     // Translate the origin of the Visible Area for the global Screen coordinate space to
                     // local relative space. This is needed for ScreenIdentifyWindow as it takes a

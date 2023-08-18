@@ -3,8 +3,7 @@
     using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
-    using Application.Contracts;
-    using Kernel;
+    using Aristocrat.Monaco.Application.UI.Views;
     using log4net;
     using ViewModels;
 
@@ -29,7 +28,7 @@
 
             var dataTemplateKey = lobby.Config.MidKnightLobbyEnabled
                 ? DefaultLobbyMidKnightTemplate
-                : ServiceManager.GetInstance().GetService<IPropertiesManager>().IsPortrait()
+                : WindowToScreenMapper.IsPortrait()
                     ? DefaultLobbyPortraitTemplate
                     : DefaultLobbyLandscapeTemplate;
 

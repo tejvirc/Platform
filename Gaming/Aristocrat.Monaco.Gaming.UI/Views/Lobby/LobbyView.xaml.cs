@@ -115,7 +115,7 @@
 
             if ((_cabinetDetectionService.Family == HardwareFamily.Unknown ||
                 _cabinetDetectionService.GetDisplayDeviceByItsRole(DisplayRole.Top) != null)
-                && !properties.IsPortrait())
+                && !WindowToScreenMapper.IsPortrait())
             {
                 Logger.Debug("Creating top view");
                 _topView = new LobbyTopView();
