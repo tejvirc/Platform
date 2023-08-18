@@ -234,6 +234,14 @@ namespace Aristocrat.Monaco.Accounting
         {
             lock (_lock)
             {
+                // Check if the requesting transaction is the same as the current transaction
+                // Game recovery cashouts will have the same transaction id, but a different trace id.
+                // In that case we want to allow the transfer to proceed
+                if(CurrentTransaction.TransactionId.Equals(transactionId))
+                {
+                    ClearTransaction();
+                }
+
                 if (InProgress)
                 {
                     _pending.Enqueue((traceId,
