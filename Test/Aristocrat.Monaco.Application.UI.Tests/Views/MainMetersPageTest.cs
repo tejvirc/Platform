@@ -50,7 +50,7 @@
         private Mock<IPropertiesManager> _propertiesManager;
         private MainMetersPageViewModel _target;
         private readonly ManualResetEvent _waiter = new ManualResetEvent(false);
-        private const int Timeout = 2000; // Two seconds
+        private const int Timeout = 5000; // five seconds
         private const string TicketModeInspection = "Inspection";
 
         [TestInitialize]

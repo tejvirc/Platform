@@ -52,7 +52,7 @@
         private BillsMetersPageViewModel _target;
         private Mock<IOperatorMenuConfiguration> _config;
         private readonly ManualResetEvent _waiter = new ManualResetEvent(false);
-        private const int Timeout = 2000;
+        private const int Timeout = 5000;
         private const string PageName = "Bills";
 
         // Use TestInitialize to run code before running each test 

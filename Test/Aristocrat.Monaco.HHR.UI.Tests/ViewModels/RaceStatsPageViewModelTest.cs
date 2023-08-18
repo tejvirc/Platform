@@ -44,9 +44,9 @@
         }
 
         [TestMethod]
-        public void RaceStaPageLoaded_Init_VerifyPageTimeout()
+        public async void RaceStaPageLoaded_Init_VerifyPageTimeout()
         {
-            _target.Init(Menu.Command.RaceStats);
+            await _target.Init(Menu.Command.RaceStats);
 
             Assert.AreEqual(ClientProperties.RaceStatTimeOut, _target.TimerInfo.Timeout);
         }
