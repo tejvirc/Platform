@@ -1346,6 +1346,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     RaisePropertyChanged(nameof(FormattedCredits));
                     RaisePropertyChanged(nameof(DisableCountdownMessage));
                     RaisePropertyChanged(nameof(LanguageButtonResourceKey));
+                    RaisePropertyChanged(nameof(LanguageButtonPressedResourceKey));
                     RaisePropertyChanged(nameof(PaidMeterLabel));
 
                     UpdateLcdButtonDeckVideo();
@@ -1616,7 +1617,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         public bool IsPaidMeterVisible => PaidMeterValue != string.Empty;
 
-        public string LanguageButtonResourceKey => GetCurrentLanguageButtonResourceKey();
+        public string LanguageButtonResourceKey => GetCurrentLanguageButtonResourceKey(false);
+
+        public string LanguageButtonPressedResourceKey => GetCurrentLanguageButtonResourceKey(true);
 
         public string TopImageResourceKey
         {
@@ -4007,6 +4010,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void OnLanguageChanged()
         {
+
             // Fixed defect VLT-3714.  Do not need to LoadGameInfo (takes along long time) when toggling between the languages.
             // We just need to change what is needed the currency format and the icon.  This way it will be fast.
             foreach (var game in GameList)
@@ -4516,7 +4520,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             MessageOverlayDisplay.IsCashingInDlgVisible = false;
         }
 
-        private string GetCurrentLanguageButtonResourceKey()
+        private string GetCurrentLanguageButtonResourceKey(bool isButtonPressed)
         {
             Logger.Debug("GetCurrentLanguageButtonResourceKey entered");
             if (!Config.MultiLanguageEnabled)
@@ -4526,7 +4530,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             // return the opposite language of whatever is selected, since we show the language the button will switch you TO.
             // Note:  This will need to be updated to support more than 2 languages.
-            return Config.LanguageButtonResourceKeys[IsPrimaryLanguageSelected ? 1 : 0];
+
+            if (isButtonPressed && Config.LanguageButtonActiveResourceKeys?.Count() > 0)
+            {
+                return Config.LanguageButtonActiveResourceKeys[IsPrimaryLanguageSelected ? 1 : 0];
+            }
+            else
+            {
+                return Config.LanguageButtonResourceKeys[IsPrimaryLanguageSelected ? 1 : 0];
+            }
         }
 
         private void SetVbdGameInput(bool cashingOut, bool validatingBill, bool displayResponsibleGamingDialog, bool displayOverlay)
