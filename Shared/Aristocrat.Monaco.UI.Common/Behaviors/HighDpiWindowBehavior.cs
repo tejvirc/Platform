@@ -21,8 +21,8 @@
     ///     Attaching this behavior to a Window will make the window automatically adjust its DPI scaling for the display it is
     ///     contained in.
     ///     <remarks>
-    ///         This Behavior works in both windowed and fullscreen modes. This behavior will also ensure scaling is
-    ///         consistent, no matter what the System DPI scaling is set to.
+    ///         This Behavior works in both windowed (with the allowWindowedScaling override) and fullscreen modes.
+    ///         This behavior will also ensure scaling is consistent, no matter what the System DPI scaling is set to.
     ///     </remarks>
     /// </summary>
     /// <seealso cref="Behavior" />
@@ -134,7 +134,7 @@
             if (window.Content is FrameworkElement content)
             {
                 Scale = adjustedScale = _isWindowedMode && adjustedScale >= 1.0
-                    ? 1.0               // Leave scaling as-is for developers working in windowed mode
+                    ? 1.0               // Leave scaling as-is for developers working in windowed mode, unless specifically overridden
                     : adjustedScale;    // In fullscreen mode or windowed mode when the TargetResolution can't fit on screen, use adjusted scaling
                 UpdateApplicationSurfaceLayout(content, adjustedScale);
             }
@@ -196,6 +196,14 @@
 
         private Size GetContainingScreenSize()
         {
+            if (_isWindowedMode &&
+                AssociatedObject is not OperatorMenuDialogWindow &&
+                (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>()
+                    .GetProperty(Constants.AllowWindowedScalingKey, false))
+            {
+                return new Size((int)AssociatedObject.Width, (int)AssociatedObject.Height);
+            }
+
             var containingScreen = Screen.FromHandle(new WindowInteropHelper(AssociatedObject).Handle);
             var screenSize = new Size(containingScreen.Bounds.Width, containingScreen.Bounds.Height);
             return screenSize;

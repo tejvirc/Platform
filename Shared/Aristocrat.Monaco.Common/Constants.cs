@@ -27,6 +27,12 @@
         public const string DisplayPropertyKey = "display";
 
         /// <summary>
+        ///     Key for the allowWindowedScaling property in property manager, which allows override
+        ///     of the default behavior where windowed displays don't scale to the window size.
+        /// </summary>
+        public const string AllowWindowedScalingKey = "allowWindowedScaling";
+
+        /// <summary>
         ///     Default value for the display property in property manager.
         /// </summary>
         public const string DisplayPropertyFullScreen = "FULLSCREEN";
