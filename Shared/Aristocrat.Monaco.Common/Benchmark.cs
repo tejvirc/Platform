@@ -103,12 +103,9 @@
 
             if (benchmarkName == "Commit")
             {
-                //lock (syncCumulatedCommitValues)
-                //{
                 Interlocked.Add(ref cumulatedCommitTimeSpan, elapsedTime);
                 Interlocked.Increment(ref cumulatedCommitBenchmarkCount);
                 Interlocked.Exchange(ref cumulatedCommitsAvg, cumulatedCommitTimeSpan / cumulatedCommitBenchmarkCount);
-                //}
             }
 
             if (elapsedTime > 1000000)
