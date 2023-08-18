@@ -4984,4 +4984,7 @@ Do you really want to do partial reset????</value>
   <data name="RemoveAllCreditsBeforeChange" xml:space="preserve">
     <value>??Please remove all credits from the machine before changing these settings.??</value>
   </data>
+  <data name="PrinterWarningTypes_PaperLow" xml:space="preserve">
+    <value>Papier d'imprimante bas</value>
+  </data>
 </root>
