@@ -168,5 +168,8 @@ as follows:
       <Rule Restriction="ZeroCredits" />
       <Rule Restriction="EKeyVerified" />
     </AccessRuleSet>
+    <AccessRuleSet Name="ZeroGamesPlayed">
+			<Rule Restriction="ZeroGamesPlayed" />
+		</AccessRuleSet>	
   </AccessRules>
 </OperatorMenuConfiguration>
