@@ -133,7 +133,6 @@
     <BitmapImage x:Key="VBD_TimeExpired"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_Expired_FR.png"
                  AutomationProperties.AutomationId="BitmapImage43_CE5EBD3C" />
-    <!-- **STANDARD UPI** -->
     <!-- **MULTILANGUAGE UPI** -->
     <BitmapImage x:Key="UpiBackground"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/ConsoleBackground.png"

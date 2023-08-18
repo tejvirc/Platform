@@ -201,10 +201,10 @@
                         BorderBrush="{DynamicResource OperatorMenuDark}"
                         Height="100"
                         AutomationProperties.AutomationId="Border36_F088786C">
-                    <Image Source="../Resources/Aristocrat_Logo_White_Large.png"
+                    <Image Source="../Resources/Aristocrat_Logo_White.png"
                            Stretch="Uniform"
                            VerticalAlignment="Center"
-                           Margin="12"
+                           Margin="0"
                            AutomationProperties.AutomationId="Image37_F088786C" />
                 </Border>
                 <Border Grid.Row="1"
