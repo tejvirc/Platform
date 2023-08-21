@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Kernel.MarketConfig
 {
+    using System.Collections.Generic;
     using Kernel;
 
     /// <summary>
@@ -81,7 +82,26 @@
         /// <typeparam name="T">
         ///     The model object class to return for the segment data to be retrieved.
         /// </typeparam>
-        /// <returns></returns>
+        /// <returns>
+        ///     The parsed configuration data for the segment model and the selected market jurisdiction.
+        /// </returns>
         public T GetMarketConfigForSelectedJurisdiction<T>();
+
+        /// <summary>
+        ///     Returns true if a jurisdiction has been selected.
+        /// </summary>
+        /// <returns>
+        ///     Returns true if a jurisdiction has been selected.
+        /// </returns>
+        public bool IsJurisdictionSelected();
+
+        /// <summary>
+        ///     Retrieve the list of all available market jurisdictions. These come from the manifest.json from from the
+        ///     configuration tool, but are mapped to a simpler model class.
+        /// </summary>
+        /// <returns>
+        ///     The list of all available market jurisdictions.
+        /// </returns>
+        public IList<MarketConfigJurisdictionInfo> GetAllMarketJurisdictions();
     }
 }

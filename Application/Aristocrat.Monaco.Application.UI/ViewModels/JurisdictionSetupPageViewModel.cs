@@ -14,6 +14,7 @@
     using Contracts.Settings;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.MarketConfig;
     using Models;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
@@ -48,7 +49,9 @@
 
         public JurisdictionSetupPageViewModel() : base(true)
         {
-            var jurisdictions = MonoAddinsHelper.GetSelectableConfigurationAddinNodes(ApplicationConstants.Jurisdiction);
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
+
+            var jurisdictions = marketConfigManager.GetAllMarketJurisdictions();
 
             // If a jurisdiction ID was specified in license info, curtail the jurisdiction
             // selections to those that match the license data.
@@ -60,10 +63,10 @@
 
             if (!string.IsNullOrEmpty(licensedJurisdictionId))
             {
-                jurisdictions = jurisdictions.Where(j => j.Id.Contains(licensedJurisdictionId)).ToList();
+                jurisdictions = jurisdictions.Where(j => j.DrmIdentifiers.Contains(licensedJurisdictionId)).ToList();
             }
 
-            Jurisdictions = new List<string>(jurisdictions.Select(j => j.Name).OrderBy(o => o));
+            Jurisdictions = new List<string>(jurisdictions.Select(j => j.JurisdictionInstallationId).OrderBy(o => o));
 
             var jurisdiction = PropertiesManager.GetValue(ApplicationConstants.JurisdictionKey, string.Empty);
 

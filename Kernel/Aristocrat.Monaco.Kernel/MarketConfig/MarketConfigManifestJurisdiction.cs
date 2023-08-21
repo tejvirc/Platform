@@ -29,6 +29,12 @@ public class MarketConfigManifestJurisdiction
     public string Label { get; set; }
 
     /// <summary>
+    ///     Comma separated list of smart card DRM identifiers for this jurisdiction.
+    /// </summary>
+    [JsonProperty(Required = Required.Always)]
+    public string DrmIdentifiers { get; set; } = string.Empty;
+
+    /// <summary>
     ///     A dictionary of the configuration tool segments and the relative path of the json files exported from the
     ///     configuration tool for this jurisdiction. The key is the segment ID and the value is the relative path to
     ///     the json file.

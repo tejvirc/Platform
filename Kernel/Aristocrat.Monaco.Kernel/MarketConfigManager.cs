@@ -121,12 +121,29 @@ public sealed class MarketConfigManager: IMarketConfigManager
     /// <inheritdoc />
     public T GetMarketConfigForSelectedJurisdiction<T>()
     {
-        var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-
         // Get the current jurisdiction installation id that was selected
-        var jurisdictionInstallationId = propertiesManager.GetValue(JurisdictionKey, string.Empty);
 
-        return GetMarketConfiguration<T>(jurisdictionInstallationId);
+        return GetMarketConfiguration<T>(GetSelectedJurisdiction());
+    }
+
+    private string GetSelectedJurisdiction()
+    {
+        var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+        return propertiesManager.GetValue(JurisdictionKey, string.Empty);
+    }
+
+    /// <inheritdoc />
+    public bool IsJurisdictionSelected()
+    {
+        var jurisdiction = GetSelectedJurisdiction();
+
+        if (!string.IsNullOrEmpty(jurisdiction))
+        {
+            return true;
+        }
+
+        Logger.Debug("No jurisdiction selected");
+        return false;
     }
 
     /// <inheritdoc />
@@ -163,5 +180,21 @@ public sealed class MarketConfigManager: IMarketConfigManager
         {
             throw new MarketConfigException(ex);
         }
+    }
+
+    /// <inheritdoc />
+    public IList<MarketConfigJurisdictionInfo> GetAllMarketJurisdictions()
+    {
+        Logger.Debug("Getting list of all market jurisdictions");
+
+        if (!_serviceInitialized) throw new MarketConfigException("Service not initialized");
+
+        return _marketConfigManifest.Jurisdictions.Select(jurisdiction => new MarketConfigJurisdictionInfo
+        {
+            JurisdictionInstallationId = jurisdiction.JurisdictionInstallationId,
+            MachineId = jurisdiction.MachineId,
+            Label = jurisdiction.Label,
+            DrmIdentifiers = jurisdiction.DrmIdentifiers,
+        }).ToList();
     }
 }
