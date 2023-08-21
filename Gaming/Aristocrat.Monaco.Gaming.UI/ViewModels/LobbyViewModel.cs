@@ -1,7 +1,6 @@
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
@@ -250,7 +249,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private int _currentNotificationIndex;
         private string _currentNotificationText = string.Empty;
         private bool? _cashInStartZeroCredits;
-        private readonly ConcurrentQueue<bool> _forcedCashOutData = new ConcurrentQueue<bool>();
         private IEdgeLightToken _edgeLightStateToken;
         private EdgeLightState? _currentEdgeLightState;
         private bool _canOverrideEdgeLight;
@@ -5245,10 +5243,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void ClearCashOutDialog(bool success)
         {
             _cashOutTimer?.Stop();
+            _lobbyStateManager.RemoveFlagState(LobbyState.ForcedCashoutByMaxBank);
             _lobbyStateManager.RemoveFlagState(LobbyState.CashOut, success);
             CashOutDialogState = LobbyCashOutDialogState.Hidden;
             MessageOverlayDisplay.UpdateCashoutButtonState(false);
-            MessageOverlayDisplay.LastCashOutForcedByMaxBank = false;
         }
 
         private void UpdateLcdButtonDeckVideo()

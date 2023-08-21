@@ -9,7 +9,6 @@
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using Application.Contracts;
-    using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.Media;
@@ -570,7 +569,10 @@
             if (bonusEvent.Transaction.Mode == BonusMode.GameWin &&
                 bonusEvent.Transaction.PayMethod == PayMethod.Voucher)
             {
-                _forcedCashOutData.Enqueue(true);
+                MvvmHelper.ExecuteOnUI(() =>
+                {
+                    _lobbyStateManager.AddFlagState(LobbyState.ForcedCashoutByMaxBank);
+                });
             }
         }
 
@@ -665,14 +667,13 @@
 
                     ClearCashOutDialog(false);
 
+                    _lobbyStateManager.RemoveFlagState(LobbyState.ForcedCashoutByMaxBank);
                     _lobbyStateManager.RemoveFlagState(LobbyState.CashOut, false);
 
                     if (Config.NonCashCashoutFailureMessageEnabled && platformEvent.NonCashableAmount > 0)
                     {
                         _lobbyStateManager.AddFlagState(LobbyState.CashOutFailure);
                     }
-
-                    MessageOverlayDisplay.LastCashOutForcedByMaxBank = false;
                 });
         }
 
@@ -690,17 +691,6 @@
             }
 
             _lobbyStateManager.CashOutState = LobbyCashOutState.Undefined;
-
-            if (_forcedCashOutData.TryDequeue(out var forcedByMaxBank))
-            {
-                if (_bank.QueryBalance().MillicentsToCents() + platformEvent.Total.MillicentsToCents() >
-                    ((long)_properties.GetProperty(AccountingConstants.MaxCreditMeter, long.MaxValue))
-                    .MillicentsToCents())
-                {
-                    MessageOverlayDisplay.LastCashOutForcedByMaxBank = forcedByMaxBank;
-                }
-            }
-
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
@@ -714,16 +704,23 @@
         private void HandleEvent(CashOutStartedEvent platformEvent)
         {
             Logger.Debug($"Detected CashOutStartedEvent.  Forced By Max Bank: {platformEvent.ForcedByMaxBank}");
-            _forcedCashOutData.Enqueue(platformEvent.ForcedByMaxBank);
+            if (platformEvent.ForcedByMaxBank)
+            {
+                MvvmHelper.ExecuteOnUI(() =>
+                {
+                    _lobbyStateManager.AddFlagState(LobbyState.ForcedCashoutByMaxBank);
+                });
+            }
         }
 
         private void HandleEvent(CashOutAbortedEvent platformEvent)
         {
             Logger.Debug("Detected CashOutAbortedEvent");
             // Dequeue the forced cashout data from this failed operation.
-            _forcedCashOutData.TryDequeue(out _);
-
-            MvvmHelper.ExecuteOnUI(UpdateUI);
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                _lobbyStateManager.RemoveFlagState(LobbyState.ForcedCashoutByMaxBank);
+            });
         }
 
         private void HandleEvent(WatTransferInitiatedEvent platformEvent)
