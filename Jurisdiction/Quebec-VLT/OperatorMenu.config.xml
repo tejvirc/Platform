@@ -113,7 +113,7 @@ as follows:
     <Page Type="KeyedCreditsPageViewModel" TabType="KeyedCreditsPageLoader" Visible="false"/>
   </Menu>
   <Menu Type="GamesMainPageLoader">
-    <Page Type="AdvancedGameSetupViewModel" Access="Technician">
+    <Page Type="AdvancedGameSetupViewModel" Access="TechnicianGameIdle">
       <Setting Name="AllowImportExport" Value="false" />
       <Setting Name="ShowGlobalOptions" Value="true" />
       <Setting Name="EnableAdvancedConfig" Value="true" />
@@ -164,6 +164,10 @@ as follows:
     <AccessRuleSet Name="TechnicianZeroCredits">
       <Rule DeviceName="Jackpot" />
       <Rule Restriction="ZeroCredits" />
+    </AccessRuleSet>
+    <AccessRuleSet Name="TechnicianGameIdle">
+      <Rule DeviceName="Jackpot" />
+      <Rule Restriction="GameIdle" />
     </AccessRuleSet>
     <AccessRuleSet Name="GameIdleZeroCreditsEKeyPresent">
       <Rule Restriction="GameIdle" />
