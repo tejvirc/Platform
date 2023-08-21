@@ -12,6 +12,8 @@
     using Hardware.Contracts.Printer;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.MarketConfig;
+    using Kernel.MarketConfig.Models.Application;
     using log4net;
     using Monaco.Localization.Properties;
 
@@ -40,54 +42,17 @@
 
             _blockExists = _storageManager.BlockExists(GetBlockName());
 
-            var configuration = ConfigurationUtilities.GetConfiguration(
-                ApplicationConstants.JurisdictionConfigurationExtensionPath,
-                () =>
-                    new ApplicationConfiguration
-                    {
-                        AllowedLocales = new string[0],
-                        AutoClearPeriodMetersBehavior = new ApplicationConfigurationAutoClearPeriodMetersBehavior
-                        {
-                            AutoClearPeriodMeters = false,
-                            ClearClearPeriodOffsetHours = 0,
-                        },
-                        BillsAccepted = new ApplicationConfigurationBillsAccepted
-                        {
-                            Bills = 255
-                        },
-                        SoftwareInstall = new ApplicationConfigurationSoftwareInstall
-                        {
-                            DeletePackageAfter = false
-                        },
-                        ExcessiveDocumentReject = new ApplicationConfigurationExcessiveDocumentReject
-                        {
-                            LockupType = ExcessiveDocumentRejectLockupType.Soft,
-                            ConsecutiveRejectsBeforeLockup = -1
-                        },
-                        OperatorLockupReset = new ApplicationConfigurationOperatorLockupReset
-                        {
-                            Enabled = false
-                        },
-                        FirmwareCrcMonitor = new ApplicationConfigurationFirmwareCrcMonitor()
-                        {
-                            Enabled = false
-                        },
-                        SecondaryStorageMedia = new ApplicationConfigurationSecondaryStorageMedia(),
-                        ReadOnlyMedia = new ApplicationConfigurationReadOnlyMedia(),
-                        HandpayReceiptPrinting = new ApplicationConfigurationHandpayReceiptPrinting(),
-                        EdgeLightConfiguration = new ApplicationConfigurationEdgeLightConfiguration(),
-                    });
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
 
-            var deletePackageAfterInstall = configuration.SoftwareInstall?.DeletePackageAfter ?? false;
-            var mediaDisplayEnabled = configuration.MediaDisplay?.Enabled ?? false;
-            var defaultVolumeLevel = configuration.SoundConfiguration?.DefaultVolumeLevelSpecified == true
-                ? configuration.SoundConfiguration.DefaultVolumeLevel
-                : ApplicationConstants.DefaultVolumeLevel;
-            var defaultVolumeControlLocation = configuration.SoundConfiguration?.VolumeControl?.Location ??
-                                               (VolumeControlLocation)ApplicationConstants.VolumeControlLocationDefault;
-            var excessiveDocumentRejectCount = configuration.ExcessiveDocumentReject?.ConsecutiveRejectsBeforeLockup ??
+            var configuration = marketConfigManager.GetMarketConfigForSelectedJurisdiction<ApplicationConfigSegment>();
+
+            var deletePackageAfterInstall = configuration.DeletePackageAfterSoftwareInstall;
+            var mediaDisplayEnabled = configuration.MediaDisplayEnabled;
+            var defaultVolumeLevel = configuration.SoundConfiguration?.DefaultVolumeLevel;
+            var defaultVolumeControlLocation = configuration.SoundConfiguration?.Location;
+            var excessiveDocumentRejectCount = configuration.ExcessiveDocumentRejection?.ConsecutiveRejectsBeforeLockup ??
                                                ApplicationConstants.ExcessiveDocumentRejectDefaultCount;
-            var excessiveDocumentRejectSoundFilePath = configuration.ExcessiveDocumentReject?.SoundFilePath ?? string.Empty;
+            var excessiveDocumentRejectSoundFilePath = configuration.ExcessiveDocumentRejection?.SoundFilePath ?? string.Empty;
             var barCodeType = configuration.BarcodeType;
             var validationLength = configuration.ValidationLength;
             var layoutType = configuration.LayoutType;
@@ -106,10 +71,7 @@
             if (!_blockExists && machineSettingsImported != ImportMachineSettings.None)
             {
                 deletePackageAfterInstall = propertiesManager.GetValue(ApplicationConstants.DeletePackageAfterInstall, false);
-                if (configuration.MediaDisplay != null)
-                {
-                    mediaDisplayEnabled = propertiesManager.GetValue(ApplicationConstants.MediaDisplayEnabled, false);
-                }
+                mediaDisplayEnabled = propertiesManager.GetValue(ApplicationConstants.MediaDisplayEnabled, false);
 
                 defaultVolumeLevel = propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
                 defaultVolumeControlLocation = (VolumeControlLocation)propertiesManager.GetValue(
@@ -147,77 +109,77 @@
                 {
                     ApplicationConstants.DisabledByOperatorText,
                     Tuple.Create(
-                        (object)configuration.GeneralMessages?.DisabledByOperator.Message,
+                        (object)configuration.GeneralMessages.DisabledByOperator,
                         ApplicationConstants.DisabledByOperatorText,
                         false)
                 },
                 {
                     ApplicationConstants.LockupCulture,
                     Tuple.Create(
-                        (object)configuration.GeneralMessages?.Lockup?.Culture ?? CultureFor.Operator,
+                        (object)configuration.GeneralMessages?.LockupCulture ?? CultureFor.Operator,
                         ApplicationConstants.LockupCulture,
                         false)
                 },
                 {
                     ApplicationConstants.NoteAcceptorErrorBillJamText,
                     Tuple.Create(
-                        (object)configuration.NoteAcceptorErrorMessages?.BillJam.Message,
+                        (object)configuration.NoteAcceptorErrorMessages?.BillJam,
                         ApplicationConstants.NoteAcceptorErrorBillJamText,
                         false)
                 },
                 {
                     ApplicationConstants.NoteAcceptorErrorBillStackerErrorText,
                     Tuple.Create(
-                        (object)configuration.NoteAcceptorErrorMessages?.BillStackerError.Message,
+                        (object)configuration.NoteAcceptorErrorMessages?.BillStackerError,
                         ApplicationConstants.NoteAcceptorErrorBillStackerErrorText,
                         false)
                 },
                 {
                     ApplicationConstants.NoteAcceptorErrorBillStackerFullText,
                     Tuple.Create(
-                        (object)configuration.NoteAcceptorErrorMessages?.BillStackerFull.Message,
+                        (object)configuration.NoteAcceptorErrorMessages?.BillStackerFull,
                         ApplicationConstants.NoteAcceptorErrorBillStackerFullText,
                         false)
                 },
                 {
                     ApplicationConstants.NoteAcceptorErrorBillStackerJamText,
                     Tuple.Create(
-                        (object)configuration.NoteAcceptorErrorMessages?.BillStackerJam.Message,
+                        (object)configuration.NoteAcceptorErrorMessages?.BillStackerJam,
                         ApplicationConstants.NoteAcceptorErrorBillStackerJamText,
                         false)
                 },
                 {
                     ApplicationConstants.NoteAcceptorErrorBillUnexpectedErrorText,
                     Tuple.Create(
-                        (object)configuration.NoteAcceptorErrorMessages?.BillUnexpectedError.Message,
+                        (object)configuration.NoteAcceptorErrorMessages?.BillUnexpectedError,
                         ApplicationConstants.NoteAcceptorErrorBillUnexpectedErrorText,
                         false)
                 },
                 {
                     ApplicationConstants.NoteAcceptorErrorBillValidatorFaultText,
                     Tuple.Create(
-                        (object)configuration.NoteAcceptorErrorMessages?.BillValidatorFault.Message,
+                        (object)configuration.NoteAcceptorErrorMessages?.BillValidatorFault,
                         ApplicationConstants.NoteAcceptorErrorBillValidatorFaultText,
                         false)
                 },
                 {
                     ApplicationConstants.NoteAcceptorErrorInvalidBillText,
                     Tuple.Create(
-                        (object)configuration.NoteAcceptorErrorMessages?.InvalidBill.Message,
+                        (object)configuration.NoteAcceptorErrorMessages?.InvalidBill,
                         ApplicationConstants.NoteAcceptorErrorInvalidBillText,
                         false)
                 },
                 {
                     ApplicationConstants.NoteAcceptorErrorCashBoxRemovedText,
                     Tuple.Create(
-                        (object)configuration.NoteAcceptorErrorMessages?.CashBoxRemoved.Message,
+                        (object)configuration.NoteAcceptorErrorMessages?.CashBoxRemoved,
                         ApplicationConstants.NoteAcceptorErrorCashBoxRemovedText,
                         false)
                 },
                 {
                     ApplicationConstants.NoteAcceptorErrorGeneralFailureText,
                     Tuple.Create(
-                        (object)configuration.NoteAcceptorErrorMessages?.GeneralFailure.Message,
+                        (object)configuration.NoteAcceptorErrorMessages?.GeneralFailure,
                         ApplicationConstants.NoteAcceptorErrorGeneralFailureText,
                         false)
                 },
@@ -263,7 +225,7 @@
                 {
                     ApplicationConstants.StackerRemovedBehaviorAutoClearPeriodMetersText,
                     Tuple.Create(
-                        (object)configuration.StackerRemoveBehavior?.AutoClearPeriodMeters,
+                        (object)configuration.AutoClearPeriodMetersWhenRemovingStacker,
                         ApplicationConstants.StackerRemovedBehaviorAutoClearPeriodMetersText,
                         false)
                 },
@@ -277,7 +239,7 @@
                 {
                     ApplicationConstants.ClearClearPeriodOffsetHoursText,
                     Tuple.Create(
-                        (object)configuration.AutoClearPeriodMetersBehavior?.ClearClearPeriodOffsetHours,
+                        (object)configuration.AutoClearPeriodMetersBehavior?.MeterClearTime,
                         ApplicationConstants.ClearClearPeriodOffsetHoursText,
                         false)
                 },
@@ -403,7 +365,7 @@
                 {
                     ApplicationConstants.ExcessiveDocumentRejectLockupType,
                     Tuple.Create(
-                        (object)configuration.ExcessiveDocumentReject?.LockupType ?? ExcessiveDocumentRejectLockupType.Soft,
+                        (object)configuration.ExcessiveDocumentRejection?.LockupType ?? ExcessiveDocumentRejectLockupType.Soft,
                         ApplicationConstants.ExcessiveDocumentRejectLockupType,
                         false)
                 },
@@ -419,7 +381,7 @@
                 {
                     ApplicationConstants.ExcessiveDocumentRejectCountDefault,
                     Tuple.Create(
-                        (object)configuration.ExcessiveDocumentReject?.ConsecutiveRejectsBeforeLockup ?? -1,
+                        (object)configuration.ExcessiveDocumentRejection?.ConsecutiveRejectsBeforeLockup ?? -1,
                         ApplicationConstants.ExcessiveDocumentRejectCountDefault,
                         false)
                 },
@@ -433,7 +395,7 @@
                 {
                     ApplicationConstants.ExcessiveDocumentRejectResetMethodKey,
                     Tuple.Create(
-                        (object)configuration.ExcessiveDocumentReject?.ResetMethodKey ?? ResetMethodKeyType.MainDoor,
+                        (object)configuration.ExcessiveDocumentRejection?.ResetMethodKey ?? ResetMethodKeyType.MainDoor,
                         ApplicationConstants.ExcessiveDocumentRejectResetMethodKey,
                         false)
                 },
@@ -461,112 +423,112 @@
                 {
                     ApplicationConstants.PaperInChuteSoundKey,
                     Tuple.Create(
-                        (object)configuration.PaperInChuteSound?.FilePath,
+                        (object)configuration.PaperInChuteSoundFilePath,
                         ApplicationConstants.PaperInChuteSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.PrinterErrorSoundKey,
                     Tuple.Create(
-                        (object)configuration.PrinterErrorSound?.FilePath,
+                        (object)configuration.PrinterErrorSoundFilePath,
                         ApplicationConstants.PrinterErrorSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.PrinterWarningSoundKey,
                     Tuple.Create(
-                        (object)configuration?.PrinterWarningSound?.FilePath,
+                        (object)configuration?.PrinterWarningSoundFilePath,
                         ApplicationConstants.PrinterWarningSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.NoteAcceptorErrorSoundKey,
                     Tuple.Create(
-                        (object)configuration.NoteAcceptorErrorSound?.FilePath,
+                        (object)configuration.NoteAcceptorErrorSoundFilePath,
                         ApplicationConstants.NoteAcceptorErrorSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.DiskSpaceMonitorErrorSoundKey,
                     Tuple.Create(
-                        (object)configuration.DiskSpaceMonitorErrorSound?.FilePath,
+                        (object)configuration.DiskSpaceMonitorErrorSoundFilePath,
                         ApplicationConstants.DiskSpaceMonitorErrorSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.FirmwareCrcErrorSoundKey,
                     Tuple.Create(
-                        (object)configuration.FirmwareCrcErrorSound?.FilePath,
+                        (object)configuration.FirmwareCrcErrorSoundFilePath,
                         ApplicationConstants.FirmwareCrcErrorSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.LiveAuthenticationFailedSoundKey,
                     Tuple.Create(
-                        (object)configuration?.LiveAuthenticationFailedSound?.FilePath,
+                        (object)configuration?.LiveAuthenticationFailedSoundFilePath,
                         ApplicationConstants.LiveAuthenticationFailedSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.TouchSoundKey,
                     Tuple.Create(
-                        (object)configuration.TouchSound?.FilePath,
+                        (object)configuration.TouchSoundFilePath,
                         ApplicationConstants.TouchSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.CoinInSoundKey,
                     Tuple.Create(
-                        (object)configuration.CoinInSound?.FilePath,
+                        (object)configuration.CoinInSoundFilePath,
                         ApplicationConstants.CoinInSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.CoinOutSoundKey,
                     Tuple.Create(
-                        (object)configuration.CoinOutSound?.FilePath,
+                        (object)configuration.CoinOutSoundFilePath,
                         ApplicationConstants.CoinOutSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.FeatureBellSoundKey,
                     Tuple.Create(
-                        (object)configuration.FeatureBellSound?.FilePath,
+                        (object)configuration.FeatureBellSoundFilePath,
                         ApplicationConstants.FeatureBellSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.CollectSoundKey,
                     Tuple.Create(
-                        (object)configuration.CollectSound?.FilePath,
+                        (object)configuration.CollectSoundFilePath,
                         ApplicationConstants.CollectSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.HostOfflineSoundKey,
                     Tuple.Create(
-                        (object)configuration.HostOfflineSound?.FilePath,
+                        (object)configuration.HostOfflineSoundFilePath,
                         ApplicationConstants.HostOfflineSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.DingSoundKey,
                     Tuple.Create(
-                        (object)configuration.DingSound?.FilePath,
+                        (object)configuration.DingSoundFilePath,
                         ApplicationConstants.DingSoundKey,
                         false)
                 },
                 {
                     ApplicationConstants.TicketModeAuditKey,
                     Tuple.Create(
-                        (object)configuration.TicketMode?.Audit ?? TicketModeAuditBehavior.Audit,
+                        (object)configuration.TicketModeAuditBehavior,
                         ApplicationConstants.TicketModeAuditKey,
                         false)
                 },
                 {
                     ApplicationConstants.OperatorLockupResetEnabled,
                     Tuple.Create(
-                        (object)configuration.OperatorLockupReset?.Enabled ?? false,
+                        (object)configuration.OperatorLockupResetEnabled,
                         ApplicationConstants.OperatorLockupResetEnabled,
                         false)
                 },
@@ -622,21 +584,21 @@
                 {
                     ApplicationConstants.PlatformEnhancedDisplayEnabled,
                     Tuple.Create(
-                        (object)configuration.PlatformEnhancedDisplay?.Enabled ?? true,
+                        (object)configuration.PlatformEnhancedDisplayEnabled,
                         ApplicationConstants.PlatformEnhancedDisplayEnabled,
                         false)
                 },
                 {
                     SecondaryStorageConstants.SecondaryStorageRequired,
                     Tuple.Create(
-                        (object)configuration.SecondaryStorageMedia?.Required ?? false,
+                        (object)configuration.SecondaryStorageMediaRequired,
                         SecondaryStorageConstants.SecondaryStorageRequired,
                         false)
                 },
                 {
                     ApplicationConstants.ReadOnlyMediaRequired,
                     Tuple.Create(
-                        (object)configuration.ReadOnlyMedia?.Required ?? false,
+                        (object)configuration.ReadOnlyMediaRequired,
                         ApplicationConstants.ReadOnlyMediaRequired,
                         false)
                 },
@@ -660,7 +622,7 @@
                 {
                     ApplicationConstants.HandpayReceiptPrintingEnabled,
                     Tuple.Create(
-                        (object)configuration.HandpayReceiptPrinting?.Enabled ?? false,
+                        (object)configuration.HandpayReceiptPrintingEnabled,
                         ApplicationConstants.HandpayReceiptPrintingEnabled,
                         false)
                 },
@@ -735,14 +697,14 @@
                 {
                     ApplicationConstants.WaitForProgressiveInitialization,
                     Tuple.Create(
-                        (object)configuration.WaitForProgressiveInitialization?.Enabled ?? false,
+                        (object)configuration.WaitForProgressiveInitializationEnabled,
                         ApplicationConstants.WaitForProgressiveInitialization,
                         false)
                 },
                 {
                     ApplicationConstants.ShowMasterResult,
                     Tuple.Create(
-                        (object)configuration.SoftwareVerification?.ShowMasterResult ?? false,
+                        (object)configuration.ShowMasterResultForSoftwareVerification,
                         ApplicationConstants.ShowMasterResult,
                         false)
                 },
@@ -763,34 +725,34 @@
                 {
                     ApplicationConstants.RunSignatureVerificationAfterReboot,
                     Tuple.Create(
-                        (object)configuration.LiveAuthenticationManager?.RunSignatureVerificationAfterReboot ?? false,
+                        (object)configuration.LiveAuthenticationManagerRunsSignatureVerificationAfterReboot,
                         ApplicationConstants.RunSignatureVerificationAfterReboot,
                         false)
                 },
                 {
                     ApplicationConstants.LowMemoryThreshold,
                     Tuple.Create(
-                        (object)configuration.MemoryMonitor?.LowMemoryThreshold ?? ApplicationConstants.LowMemoryThresholdDefault,
+                        (object)configuration.MemoryMonitorLowMemoryThreshold,
                         ApplicationConstants.LowMemoryThreshold,
                         false)
                 },
                 {
                     ApplicationConstants.ShowWagerWithLargeWinInfo,
                     Tuple.Create(
-                        (object)configuration.LargeWinInfo?.ShowWager ?? false,
+                        (object)configuration.LargeWinInfoShowsWager,
                         ApplicationConstants.ShowWagerWithLargeWinInfo,
                         false)
                 },
                 {
                     ApplicationConstants.TopperDisplayDisconnectNoReconfigure,
                     Tuple.Create(
-                        (object)configuration.DisplayDisconnectNoReconfigure?.Topper ?? false,
+                        (object)configuration.DisplayRatherThanRequireEgmReconfigureIfTopperDisconnected,
                         ApplicationConstants.TopperDisplayDisconnectNoReconfigure,
                         false)
                 }
             };
 
-            if (configuration.MediaDisplay != null)
+            if (mediaDisplayEnabled)
             {
                 _properties.Add(
                     ApplicationConstants.MediaDisplayEnabled,
@@ -800,22 +762,22 @@
                         true));
             }
 
-            if (configuration.DetailedAuditTickets != null)
+            if (configuration.DetailedAuditTicketsEnabled)
             {
                 _properties.Add(
                     ApplicationConstants.DetailedAuditTickets,
                     Tuple.Create(
-                        (object)(configuration?.DetailedAuditTickets.Enabled ?? false),
+                        (object)(configuration.DetailedAuditTicketsEnabled),
                         ApplicationConstants.DetailedAuditTickets,
                         true));
             }
 
-            if (configuration.Demonstration != null)
+            if (configuration.DemonstrationEnabled)
             {
                 _properties.Add(
                     ApplicationConstants.DemonstrationModeEnabled,
                     Tuple.Create(
-                        (object)configuration.Demonstration.Enabled,
+                        (object)configuration.DemonstrationEnabled,
                         ApplicationConstants.DemonstrationModeEnabled,
                         false));
             }
@@ -914,7 +876,7 @@
             return (T)accessor[propertyName];
         }
 
-        private void SetPrinterLineLimits(ApplicationConfigurationAuditTicket auditTicket)
+        private void SetPrinterLineLimits(AuditTicketFieldset auditTicket)
         {
             int eventsPerPage = 6;
             int lineLimit = 36;

@@ -9,6 +9,7 @@
     using Contracts.Handpay;
     using Contracts.TransferOut;
     using Hardware.Contracts.Persistence;
+    using Kernel.MarketConfig.Models.Accounting;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;

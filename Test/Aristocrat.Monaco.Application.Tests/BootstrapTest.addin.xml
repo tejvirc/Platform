@@ -24,10 +24,6 @@
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
 
-  <ExtensionPoint path = "/Application/JurisdictionConfiguration">
-    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
-  </ExtensionPoint>
-
   <Extension path="/Kernel/SelectableAddinConfiguration">
     <SelectableAddinConfiguration name="Jurisdiction" order="0"/>
     <SelectableAddinConfiguration name="Protocol" order="1"/>

@@ -6,6 +6,7 @@
     using Application.UI.Settings;
     using Contracts;
     using Contracts.Handpay;
+    using Kernel.MarketConfig.Models.Accounting;
     using Localization.Properties;
     using Newtonsoft.Json;
 

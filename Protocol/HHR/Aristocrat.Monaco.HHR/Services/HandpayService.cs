@@ -13,6 +13,7 @@
     using Client.WorkFlow;
     using Gaming.Contracts;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
     using Localization.Properties;
     using log4net;
     using Storage.Helpers;

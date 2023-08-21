@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Accounting.UI.Models
 {
-    using Application.Contracts;
+    using Kernel.MarketConfig.Models.Application;
 
     /// <summary>
     ///     Defines the bar code types

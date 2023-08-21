@@ -16,6 +16,7 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.MarketConfig.Models.Application;
     using Localization.Properties;
 
     /// <summary>

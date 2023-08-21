@@ -11,7 +11,8 @@
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
     using Contracts.Currency;
-
+    using Kernel.MarketConfig;
+    using Kernel.MarketConfig.Models.Application;
     using CurrencyDefaultsCurrencyInfo = Localization.CurrencyDefaultsCurrencyInfo;
 
     [CLSCompliant(false)]
@@ -48,13 +49,10 @@
                 ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEditable,
                 true);
 
-            var configuration = ConfigurationUtilities.GetConfiguration(
-                ApplicationConstants.JurisdictionConfigurationExtensionPath,
-                () =>
-                    new ApplicationConfiguration
-                    {
-                        Currency = new ApplicationConfigurationCurrency { Configurable = false }
-                    });
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
+
+            var configuration = marketConfigManager.GetMarketConfigForSelectedJurisdiction<ApplicationConfigSegment>();
+
             CurrencyChangeAllowed = configuration.Currency.Configurable;
         }
 
@@ -99,7 +97,7 @@
         public bool CurrencyChangeAllowed { get; }
 
         protected override void Loaded()
-        { 
+        {
             _currencies = new List<Currency>();
             var currencyCode = PropertiesManager.GetValue(
                 ApplicationConstants.CurrencyId,

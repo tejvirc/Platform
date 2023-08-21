@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Kernel.MarketConfig
 {
+    using System.Collections.Generic;
     using Kernel;
 
     /// <summary>
@@ -69,5 +70,38 @@
         ///     This exception will be thrown if there is any issue with parsing the configuration.
         /// </exception>
         public T GetMarketConfiguration<T>(string jurisdictionInstallationId);
+
+        /// <summary>
+        ///     Retrieve the configuration data for the currently selected jurisdiction and a segment. The segment is identified by the
+        ///     templated class type. The template class must have the <see cref="MarketConfigSegmentAttribute"/> class attribute
+        ///     applied to it and the segment name must match the segment name in the manifest.json file.
+        /// </summary>
+        /// <exception cref="MarketConfigException">
+        ///     This exception will be thrown if there is any issue with parsing the configuration.
+        /// </exception>
+        /// <typeparam name="T">
+        ///     The model object class to return for the segment data to be retrieved.
+        /// </typeparam>
+        /// <returns>
+        ///     The parsed configuration data for the segment model and the selected market jurisdiction.
+        /// </returns>
+        public T GetMarketConfigForSelectedJurisdiction<T>();
+
+        /// <summary>
+        ///     Returns true if a jurisdiction has been selected.
+        /// </summary>
+        /// <returns>
+        ///     Returns true if a jurisdiction has been selected.
+        /// </returns>
+        public bool IsJurisdictionSelected();
+
+        /// <summary>
+        ///     Retrieve the list of all available market jurisdictions. These come from the manifest.json from from the
+        ///     configuration tool, but are mapped to a simpler model class.
+        /// </summary>
+        /// <returns>
+        ///     The list of all available market jurisdictions.
+        /// </returns>
+        public IList<MarketConfigJurisdictionInfo> GetAllMarketJurisdictions();
     }
 }

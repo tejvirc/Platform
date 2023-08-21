@@ -34,6 +34,7 @@
     using Hardware.Contracts.Reel.Events;
     using Hardware.Contracts.Ticket;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
     using Localization.Properties;
     using Models;
     using Monaco.UI.Common.Models;

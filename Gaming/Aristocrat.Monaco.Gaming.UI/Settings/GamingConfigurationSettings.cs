@@ -10,6 +10,7 @@
     using Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
+    using Kernel.MarketConfig.Models.Application;
     using MVVM;
 
     /// <summary>
@@ -133,7 +134,7 @@
                         _properties.GetValue(GamingConstants.IdleText, string.Empty),
                     IdleTimePeriod =
                         _properties.GetValue(GamingConstants.IdleTimePeriod, 0),
-                    GameRoundDurationMs = 
+                    GameRoundDurationMs =
                         _properties.GetValue(GamingConstants.GameRoundDurationMs, 0),
                 });
         }

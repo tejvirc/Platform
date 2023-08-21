@@ -14,6 +14,10 @@ using Newtonsoft.Json.Serialization;
 /// <inheritdoc />
 public sealed class MarketConfigManager: IMarketConfigManager
 {
+    /// <summary> Property Manager key for the selected Jurisdiction </summary>
+    // Duplicate of ApplicationConstants.JurisdictionKey to prevent circular dependency
+    private const string JurisdictionKey = "System.Jurisdiction";
+
     private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
     private bool _serviceInitialized;
@@ -75,7 +79,8 @@ public sealed class MarketConfigManager: IMarketConfigManager
 
         // Scan the assembly for classes decorated with MarketConfigSegmentAttribute and build a map of segment ID to
         // class name
-        ModelObjectAssembly.GetExportedTypes()
+        Assembly.LoadFrom("Aristocrat.Monaco.Kernel.Contracts.dll")
+            .GetExportedTypes()
             .Where(t => t.GetCustomAttribute(typeof(MarketConfigSegmentAttribute), false) != null)
             .ToList()
             .ForEach(t =>
@@ -114,6 +119,34 @@ public sealed class MarketConfigManager: IMarketConfigManager
     }
 
     /// <inheritdoc />
+    public T GetMarketConfigForSelectedJurisdiction<T>()
+    {
+        // Get the current jurisdiction installation id that was selected
+
+        return GetMarketConfiguration<T>(GetSelectedJurisdiction());
+    }
+
+    private string GetSelectedJurisdiction()
+    {
+        var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+        return propertiesManager.GetValue(JurisdictionKey, string.Empty);
+    }
+
+    /// <inheritdoc />
+    public bool IsJurisdictionSelected()
+    {
+        var jurisdiction = GetSelectedJurisdiction();
+
+        if (!string.IsNullOrEmpty(jurisdiction))
+        {
+            return true;
+        }
+
+        Logger.Debug("No jurisdiction selected");
+        return false;
+    }
+
+    /// <inheritdoc />
     public T GetMarketConfiguration<T>(string jurisdictionInstallationId)
     {
         Logger.Debug("Getting market configuration for " + jurisdictionInstallationId + " for type " + typeof(T).FullName);
@@ -147,5 +180,21 @@ public sealed class MarketConfigManager: IMarketConfigManager
         {
             throw new MarketConfigException(ex);
         }
+    }
+
+    /// <inheritdoc />
+    public IList<MarketConfigJurisdictionInfo> GetAllMarketJurisdictions()
+    {
+        Logger.Debug("Getting list of all market jurisdictions");
+
+        if (!_serviceInitialized) throw new MarketConfigException("Service not initialized");
+
+        return _marketConfigManifest.Jurisdictions.Select(jurisdiction => new MarketConfigJurisdictionInfo
+        {
+            JurisdictionInstallationId = jurisdiction.JurisdictionInstallationId,
+            MachineId = jurisdiction.MachineId,
+            Label = jurisdiction.Label,
+            DrmIdentifiers = jurisdiction.DrmIdentifiers,
+        }).ToList();
     }
 }

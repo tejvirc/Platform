@@ -11,6 +11,7 @@
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.MarketConfig.Models.Accounting;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Mono.Addins;
     using Moq;

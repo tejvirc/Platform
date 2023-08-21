@@ -17,7 +17,8 @@
     using Localization;
     using log4net;
     using Contracts.Extensions;
-
+    using Kernel.MarketConfig;
+    using Kernel.MarketConfig.Models.Application;
     using CurrencyDefaultsCurrencyInfo = Localization.CurrencyDefaultsCurrencyInfo;
 
     public static class CurrencyCultureHelper
@@ -62,7 +63,7 @@
             Dictionary<string, List<int>> currencyFormats = new();
 
             var set = new List<Currency>();
-            
+
             // Get supported currencies from Windows system
             var currencies = CurrencyLoader.GetCurrenciesFromWindows(logger);
             foreach(var currencyInfo in currencies)
@@ -93,7 +94,7 @@
                             currency = new Currency(currencyInfo.Key, region, culture, format.MinorUnitSymbol);
                             bool hasOverride = false;
 
-                            // check if the currency with format has been already added 
+                            // check if the currency with format has been already added
                             if (currencyFormats.ContainsKey(currency.IsoCode))
                             {
                                 if (currencyFormats[currencyInfo.Key].All(f => f != format.id))
@@ -129,7 +130,7 @@
                 set.Add(currency);
             }
 
-            
+
             return set;
         }
 
@@ -169,11 +170,18 @@
 
         public static string GetDefaultCurrencyCode(string defaultValue = ApplicationConstants.DefaultCurrencyId)
         {
-            var configuration = ConfigurationUtilities.GetConfiguration(
-                ApplicationConstants.JurisdictionConfigurationExtensionPath,
-                () => default(ApplicationConfiguration));
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
 
-            return configuration?.Currency.Id ?? defaultValue;
+            if (!marketConfigManager.IsJurisdictionSelected())
+            {
+                return defaultValue;
+            }
+
+            var configuration =
+                marketConfigManager.GetMarketConfigForSelectedJurisdiction<ApplicationConfigSegment>();
+
+            return configuration?.Currency.CurrencyCode ?? defaultValue;
+
         }
 
         public static List<NoCurrency> GetNoCurrencies()

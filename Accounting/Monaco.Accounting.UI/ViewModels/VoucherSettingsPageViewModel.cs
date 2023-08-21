@@ -11,6 +11,7 @@
     using Contracts;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.MarketConfig.Models.Application;
     using Localization.Properties;
     using Models;
     using MVVM;

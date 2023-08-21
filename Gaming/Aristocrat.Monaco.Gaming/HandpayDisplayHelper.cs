@@ -9,6 +9,7 @@
     using Application.Contracts.Localization;
     using Contracts;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
     using Localization.Properties;
     using Quartz.Util;
 
@@ -85,7 +86,7 @@
                     throw new ArgumentOutOfRangeException();
             }
         }
-        
+
         /// <summary>
         /// Returns true if the alternative cancel credit ticker message should be used, false otherwise
         /// </summary>

@@ -14,6 +14,7 @@
     using Gaming.Tickets;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.MarketConfig.Models.Application;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;

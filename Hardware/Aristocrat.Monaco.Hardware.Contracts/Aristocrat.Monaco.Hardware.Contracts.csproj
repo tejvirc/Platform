@@ -28,9 +28,6 @@
     <Reference Include="System.Management" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Discovery\ConfiguredDevicesConfiguration.cs">
-      <DependentUpon>ConfiguredDevicesConfiguration.xsd</DependentUpon>
-    </Compile>
     <Compile Update="Discovery\IOConfigurations.cs">
       <DependentUpon>IOConfigurations.xsd</DependentUpon>
     </Compile>
@@ -70,9 +67,6 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Discovery\ConfiguredDevicesConfiguration.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Discovery\IOConfigurations.xsd">
       <SubType>Designer</SubType>
     </None>

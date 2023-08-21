@@ -8,6 +8,7 @@
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.Ticket;
     using Kernel;
+    using Kernel.MarketConfig.Models.Application;
     using Monaco.Localization.Properties;
 
     /// <summary>

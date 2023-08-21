@@ -6,6 +6,7 @@
     using System;
     using System.Linq;
     using Accounting.Contracts;
+    using Kernel.MarketConfig.Models.Accounting;
 
     public static class HandpayExtensions
     {

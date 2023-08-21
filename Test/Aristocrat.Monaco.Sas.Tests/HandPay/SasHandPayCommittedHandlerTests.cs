@@ -14,6 +14,7 @@
     using Contracts.SASProperties;
     using Gaming.Contracts;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Progressive;

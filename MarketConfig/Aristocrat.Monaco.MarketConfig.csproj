@@ -18,8 +18,12 @@
     <ItemGroup>
       <MarketConfigFiles Include="DeveloperConfigs/**/*" Exclude="**/*.resx;*.*;obj/**" />
     </ItemGroup>
+    <ItemGroup>
+      <ResourceFiles Include="Resources/**/*" Exclude="**/*.resx;*.*;obj/**" />
+    </ItemGroup>
     <RemoveDir Directories="$(OutputPath)" />
     <Copy SourceFiles="@(MarketConfigFiles)" DestinationFiles="@(MarketConfigFiles->'$(OutputPath)%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(ResourceFiles)" DestinationFiles="@(ResourceFiles->'$(OutputPath)Resources\%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
   </Target>
   <Target Name="Cleanup" AfterTargets="Clean">
     <RemoveDir Directories="$(OutputPath)" />

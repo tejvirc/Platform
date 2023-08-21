@@ -31,7 +31,6 @@
     using Kernel;
     using Kernel.Contracts;
     using Kernel.MarketConfig;
-    using Kernel.MarketConfig.Models.Accounting;
     using Kernel.MarketConfig.Models.ConfiguredDevices;
     using Monaco.Common;
     using Monaco.Localization.Properties;
@@ -588,20 +587,6 @@
                     return CheckHardware(d, ref device) != true;
                 });
 
-        private static ConfiguredDevicesConfigSegment GetConfiguredDevices()
-        {
-            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
-
-            // Get the current jurisdiction installation id that was selected
-            var jurisdictionInstallationId = propertiesManager.GetValue(
-                ApplicationConstants.JurisdictionKey, string.Empty);
-
-            // Use the MarketConfigManager to get the accounting configuration
-            return marketConfigManager.GetMarketConfiguration<ConfiguredDevicesConfigSegment>(
-                jurisdictionInstallationId);
-        }
-
         private static void LoadDevice(DeviceConfigViewModel configViewModel, string manufacturer)
         {
             configViewModel.Manufacturer =
@@ -1125,7 +1110,8 @@
                 }
             }
 
-            var configuredDevices = GetConfiguredDevices();
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
+            var configuredDevices = marketConfigManager.GetMarketConfigForSelectedJurisdiction<ConfiguredDevicesConfigSegment>();
 
             // Add enabled hardware configurations & set defaults from platform config file
             foreach (var config in available.Devices)

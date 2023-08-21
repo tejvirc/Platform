@@ -13,6 +13,7 @@
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
+    using Kernel.MarketConfig.Models.Application;
     using Localization.Properties;
 
     public class DocumentRejectedService : IService, IDisposable

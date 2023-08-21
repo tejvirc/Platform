@@ -19,6 +19,7 @@
     using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;
     using Aristocrat.Monaco.Kernel;
     using Aristocrat.Monaco.Kernel.Contracts.Events;
+    using Aristocrat.Monaco.Kernel.MarketConfig.Models.Accounting;
     using log4net;
     using DisabledEvent = Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DisabledEvent;
     using EnabledEvent = Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.EnabledEvent;
@@ -54,7 +55,7 @@
         private bool _showModeActive;
 
         // Default _restrictDebugCreditsIn is off (false) to allow debug credits in to be inserted over the configured max credits in limit.
-        // Use F5 key to toggle on/off.  When on, debug credits in will be restricted to the configured max credits in limit the same as when 
+        // Use F5 key to toggle on/off.  When on, debug credits in will be restricted to the configured max credits in limit the same as when
         // real currency with the note acceptor.
         private bool _restrictDebugCreditsIn;
 
@@ -123,7 +124,7 @@
             var serviceManager = ServiceManager.GetInstance();
 
             // Build the meter name, which is "prefix + denom + postfix".
-            // The denom should be in bill units (eg. dollars), whereas the 
+            // The denom should be in bill units (eg. dollars), whereas the
             // amount' is in currency units (eg. cents or millicents).
             var propertiesManager = serviceManager.GetService<IPropertiesManager>();
             var denominationToCurrencyMultiplier =
@@ -151,7 +152,7 @@
             var serviceManager = ServiceManager.GetInstance();
 
             // Build the meter name, which is "prefix + denom + postfix".
-            // The denom should be in bill units (eg. dollars), whereas the 
+            // The denom should be in bill units (eg. dollars), whereas the
             // amount' is in currency units (eg. cents or millicents).
             var propertiesManager = serviceManager.GetService<IPropertiesManager>();
             var denominationToCurrencyMultiplier =

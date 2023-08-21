@@ -1,9 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Settings
 {
     using System.Collections.ObjectModel;
-    using Aristocrat.Monaco.Application.Contracts;
     using Contracts;
     using Hardware.Contracts.Audio;
+    using Kernel.MarketConfig.Models.Application;
     using MVVM.Model;
 
     /// <summary>

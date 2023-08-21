@@ -10,6 +10,7 @@
     using Moq;
     using System;
     using System.IO;
+    using Kernel.MarketConfig.Models.Accounting;
     using Test.Common;
 
     /// <summary>

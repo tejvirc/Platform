@@ -16,6 +16,7 @@
     using Common.Events;
     using Hardware.Contracts.Button;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
     using Lockup;
     using Notification;
     using Protocol.Common.Storage.Entity;
@@ -164,7 +165,7 @@
 
             await Task.CompletedTask;
         }
-        
+
         public Task HandpayKeyedOff(HandpayTransaction transaction) => Task.CompletedTask;
 
         private void Handle(EmployeeLoggedInEvent evt)

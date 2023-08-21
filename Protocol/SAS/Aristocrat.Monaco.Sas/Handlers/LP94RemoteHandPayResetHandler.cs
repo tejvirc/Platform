@@ -8,6 +8,7 @@
     using Aristocrat.Sas.Client;
     using Aristocrat.Sas.Client.LongPollDataClasses;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
 
     /// <inheritdoc />
     public class LP94RemoteHandPayResetHandler :

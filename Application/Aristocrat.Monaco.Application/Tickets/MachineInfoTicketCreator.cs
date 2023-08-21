@@ -6,6 +6,7 @@
     using Contracts.Tickets;
     using Hardware.Contracts.Ticket;
     using Kernel;
+    using Kernel.MarketConfig.Models.Application;
 
     public class MachineInfoTicketCreator : IMachineInfoTicketCreator, IService
     {

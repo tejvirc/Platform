@@ -4,13 +4,14 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading.Tasks;
-    using Contracts;
     using Contracts.Authentication;
     using Contracts.Localization;
     using Contracts.SerialGat;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Kernel.Contracts.Components;
+    using Kernel.MarketConfig;
+    using Kernel.MarketConfig.Models.Application;
     using log4net;
     using Monaco.Localization.Properties;
 
@@ -44,7 +45,7 @@
             _componentRegistry = componentRegistry ?? throw new ArgumentNullException(nameof(componentRegistry));
         }
 
-        public ApplicationConfigurationGatSerial Config { get; private set; }
+        public GatSerialFieldset Config { get; private set; }
 
         // This code added to correctly implement the disposable pattern.
         public void Dispose()
@@ -65,11 +66,11 @@
             Task.Run(
                 () =>
                 {
-                    Config = new ApplicationConfigurationGatSerial();
+                    Config = new GatSerialFieldset();
 
-                    var configuration = ConfigurationUtilities.GetConfiguration(
-                        ApplicationConstants.JurisdictionConfigurationExtensionPath,
-                        () => new ApplicationConfiguration { GatSerial = Config });
+                    var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
+
+                    var configuration = marketConfigManager.GetMarketConfigForSelectedJurisdiction<ApplicationConfigSegment>();
 
                     if (configuration.GatSerial != null)
                     {

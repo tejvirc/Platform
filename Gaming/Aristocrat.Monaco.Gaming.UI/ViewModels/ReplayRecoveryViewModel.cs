@@ -17,6 +17,7 @@
     using Diagnostics;
     using Hardware.Contracts.Button;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
     using Localization.Properties;
     using MVVM.Command;
     using MVVM.ViewModel;
@@ -326,7 +327,7 @@
         {
             if (_properties.GetValue(GamingConstants.ReplayPauseActive, true))
             {
-                // The ReplayPause can be sent after the game-end Game Event 
+                // The ReplayPause can be sent after the game-end Game Event
                 if (ReplayPauseMessageText != CompletionText)
                 {
                     ReplayPauseMessageText = @event.ReplayPauseState ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReplayPauseInputText) : string.Empty;
@@ -335,7 +336,7 @@
                 return;
             }
 
-            // Let the replay continue if the pause is requested but it is disabled 
+            // Let the replay continue if the pause is requested but it is disabled
             if (@event.ReplayPauseState)
             {
                 _eventBus.Publish(new DownEvent((int)ButtonLogicalId.Play));

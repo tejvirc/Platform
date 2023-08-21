@@ -6,6 +6,7 @@
     using Hardware.Contracts.Audio;
     using Kernel;
     using Kernel.Contracts;
+    using Kernel.MarketConfig.Models.Application;
     using Runtime;
 
     public class PropertyChangedConsumer : Kernel.Consumes<PropertyChangedEvent>

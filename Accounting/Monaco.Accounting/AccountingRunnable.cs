@@ -1,5 +1,6 @@
 namespace Aristocrat.Monaco.Accounting
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Reflection;
@@ -27,7 +28,6 @@ namespace Aristocrat.Monaco.Accounting
 
         private const string ServicesExtensionPath = "/Accounting/Services";
         private const string RunnablesExtensionPath = "/Accounting/Runnables";
-        private const string ExtenderExtensionPath = "/Accounting/BootExtender";
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -162,19 +162,43 @@ namespace Aristocrat.Monaco.Accounting
 
         private void RunBootExtender()
         {
-            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
-
-            // Get the current jurisdiction installation id that was selected
-            var jurisdictionInstallationId = propertiesManager.GetValue(
-                ApplicationConstants.JurisdictionKey, string.Empty);
-
-            // Use the MarketConfigManager to get the accounting configuration
-            var configuration = marketConfigManager.GetMarketConfiguration<ApplicationConfigSegment>(
-                jurisdictionInstallationId);
+            var configuration = marketConfigManager.GetMarketConfigForSelectedJurisdiction<ApplicationConfigSegment>();
 
             Logger.Debug($"Initializing accounting gaming runnable {configuration.GamingRunnable}");
-            _extender = MarketConfigHelper.CreateInstanceFromTypeName<IRunnable>(configuration.GamingRunnable);
+
+            string runnableAssemblyName;
+            string runnableClassName;
+
+            switch (configuration.GamingRunnable)
+            {
+                case GamingRunnableType.Class2:
+                    runnableAssemblyName = "Aristocrat.Monaco.Gaming.Class2.dll";
+                    runnableClassName = "Aristocrat.Monaco.Gaming.Class2.Class2Runnable";
+                    break;
+                case GamingRunnableType.Class3:
+                    runnableAssemblyName = "Aristocrat.Monaco.Gaming.Class3.dll";
+                    runnableClassName = "Aristocrat.Monaco.Gaming.Class3.Class3Runnable";
+                    break;
+                case GamingRunnableType.VLT:
+                    runnableAssemblyName = "Aristocrat.Monaco.Gaming.VideoLottery.dll";
+                    runnableClassName = "Aristocrat.Monaco.Gaming.VideoLottery.VideoLotteryRunnable";
+                    break;
+                case GamingRunnableType.Class3Coam:
+                    runnableAssemblyName = "Aristocrat.Monaco.Gaming.Class3Coam.dll";
+                    runnableClassName = "Aristocrat.Monaco.Gaming.Class3.Class3CoamRunnable";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException($"Unknown gaming runnable type {configuration.GamingRunnable}");
+            }
+
+            _extender = Activator
+                .CreateInstance(
+                    Assembly.LoadFrom(runnableAssemblyName)
+                        .GetType(runnableClassName) ?? throw new ArgumentOutOfRangeException(
+                        $"Cannot instanciate gaming runnable type {configuration.GamingRunnable} from {runnableAssemblyName} with class name {runnableClassName}")
+                ) as IRunnable ?? throw new ArgumentOutOfRangeException(
+                $"Cannot instanciate gaming runnable type {configuration.GamingRunnable} from {runnableAssemblyName} with class name {runnableClassName}");
 
             _extender.Initialize();
             if (RunState == RunnableState.Running)

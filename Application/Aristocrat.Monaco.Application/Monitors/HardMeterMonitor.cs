@@ -8,6 +8,8 @@
     using Hardware.Contracts;
     using Hardware.Contracts.HardMeter;
     using Kernel;
+    using Kernel.MarketConfig;
+    using Kernel.MarketConfig.Models.Application;
     using log4net;
     using Monaco.Localization.Properties;
 
@@ -63,14 +65,11 @@
         /// <inheritdoc />
         public void Initialize()
         {
-            var configuration = ConfigurationUtilities.GetConfiguration(
-                ApplicationConstants.JurisdictionConfigurationExtensionPath,
-                () => new ApplicationConfiguration
-                {
-                    HardMeterMonitor = new ApplicationConfigurationHardMeterMonitor { DisableOnError = false }
-                });
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
 
-            if (!(configuration?.HardMeterMonitor?.DisableOnError ?? false) ||
+            var configuration = marketConfigManager.GetMarketConfigForSelectedJurisdiction<ApplicationConfigSegment>();
+
+            if (!(configuration?.DisableHardMeterMonitorOnError ?? false) ||
                 !_properties.GetValue(HardwareConstants.HardMetersEnabledKey, false))
             {
                 return;

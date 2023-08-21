@@ -8,7 +8,7 @@
     using Hardware.Contracts.Communicator;
     using Hardware.Contracts.SharedDevice;
     using Hardware.Contracts.SerialPorts;
-    using Contracts;
+    using Kernel.MarketConfig.Models.Application;
     using log4net;
 
     /// <summary>
@@ -44,7 +44,7 @@
         /// </summary>
         public event EventHandler GatKeepAliveExpired;
 
-        public SerialGatDataLayer(ApplicationConfigurationGatSerial config)
+        public SerialGatDataLayer(GatSerialFieldset config)
         {
             if (config == null)
             {

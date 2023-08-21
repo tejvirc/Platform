@@ -7,6 +7,7 @@
     using Contracts;
     using Contracts.Handpay;
     using Kernel;
+    using Kernel.MarketConfig.Models.Accounting;
     using MVVM;
 
     /// <summary>
