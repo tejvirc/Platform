@@ -1429,8 +1429,7 @@
 
         public Dictionary<string, object> SetIo(SetIoRequest request)
         {
-            _io.SetInput(request.Index, request.Status);
-
+            _io.SetInput(request.Index, int.TryParse(request.Status, out var val) ? Convert.ToBoolean(val) : Convert.ToBoolean(request.Status));
             return new Dictionary<string, object>
             {
                 { "response-to", "/Io/Set" }

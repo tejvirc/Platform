@@ -248,7 +248,7 @@
         public string Index { get; set; }
 
         [JsonPropertyName("status")]
-        public bool Status { get; set; }
+        public string Status { get; set; }
     }
 
     public class NoteAcceptorSetMaskRequest
