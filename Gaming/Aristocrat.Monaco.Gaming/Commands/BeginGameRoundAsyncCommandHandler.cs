@@ -186,6 +186,10 @@
                     w =>
                         w.Id.Equals(request.TemplateId.ToString(), StringComparison.Ordinal));
 
+                var subGameList = new List<ISubGameDetails> { currentSubGame };
+                _gameProvider.SetActiveSubGames(game.Id, subGameList);
+                _gameProvider.SetSubGameActiveDenomination(game.Id, currentSubGame, gameInfo.Denomination);
+
                 return cdsInfo is not null;
             }
         }

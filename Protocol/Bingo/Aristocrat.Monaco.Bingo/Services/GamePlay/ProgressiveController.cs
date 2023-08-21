@@ -265,24 +265,63 @@
             foreach (var wager in evt.Wagers)
             {
                 var gamesUsingProgressive = _progressiveContributionService.GetGamesUsingProgressive(levelId);
+                var activeGame = _propertiesManager.GetActiveGame();
                 foreach (var game in gamesUsingProgressive.Result)
                 {
                     var gameTitleId = game.Item1;
                     var denomination = game.Item2;
-                    var message = new ProgressiveContributionRequestMessage(
-                        wager,
-                        machineSerial,
-                        gameTitleId,
-                        false, // Not used with server 11
-                        false, // Not used with server 11
-                        (int)denomination);
-                    _progressiveContributionService.Contribute(message);
+                    if (IsActiveGame(gameTitleId, denomination))
+                    {
+                        var message = new ProgressiveContributionRequestMessage(
+                            wager,
+                            machineSerial,
+                            gameTitleId,
+                            false, // Not used with server 11
+                            false, // Not used with server 11
+                            (int)denomination);
+                        _progressiveContributionService.Contribute(message);
 
-                    Logger.Debug($"Game [GameTitleId={gameTitleId}, Denom={denomination}] is contributing to progressive {levelId} a wager amount of {wager}");
+                        Logger.Debug($"Game [GameTitleId={gameTitleId}, Denom={denomination}] is contributing to progressive {levelId} a wager amount of {wager}");
+                    }
+                }
 
-                    ++levelId;
+                ++levelId;
+            }
+        }
+
+        private bool IsActiveGame(int gameTitleId, long denom)
+        {
+            var activeGame = _propertiesManager.GetActiveGame();
+
+            // Check if the active main game a match
+            if (gameTitleId == Convert.ToInt32(activeGame.game.CdsTitleId) && denom == activeGame.denomination.Value)
+            {
+                return true;
+            }
+
+            // Check if the active sub game is a match
+            var activeSubGames = activeGame.game.ActiveSubGames;
+            if (activeSubGames is not null)
+            {
+                foreach (var subGame in activeSubGames)
+                {
+                    if (gameTitleId == Convert.ToInt32(subGame.CdsTitleId))
+                    {
+                        if (subGame.ActiveDenoms is not null)
+                        {
+                            foreach (var activeDenom in subGame.ActiveDenoms)
+                            {
+                                if (denom == activeDenom)
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
                 }
             }
+
+            return false;
         }
 
         private void Handle(PaytablesInstalledEvent evt)

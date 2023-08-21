@@ -208,7 +208,39 @@ namespace Aristocrat.Monaco.Gaming
         {
             lock (_sync)
             {
-                return currentGame.SupportedSubGames.ToList();
+                return currentGame?.SupportedSubGames?.ToList();
+            }
+        }
+
+        public IReadOnlyCollection<ISubGameDetails> GetActiveSubGames(IGameDetail currentGame)
+        {
+            lock (_sync)
+            {
+                return currentGame?.ActiveSubGames?.ToList();
+            }
+        }
+
+        public void SetActiveSubGames(int primaryGameId, IEnumerable<ISubGameDetails> currentSubGameDetails)
+        {
+            lock (_sync)
+            {
+                var game = _games.Single(g => g.Id == primaryGameId);
+                if (game is not null)
+                {
+                    game.ActiveSubGames = currentSubGameDetails;
+                }
+            }
+        }
+
+        public void SetSubGameActiveDenomination(int primaryGameId, ISubGameDetails subGame, long denomination)
+        {
+            lock (_sync)
+            {
+                var game = _games.Single(g => g.Id == primaryGameId);
+                if (game?.ActiveSubGames?.Single(x => x.Id == subGame.Id) is SubGameDetails activeSubGame)
+                {
+                    activeSubGame.ActiveDenoms = new List<long> { denomination };
+                }
             }
         }
 
