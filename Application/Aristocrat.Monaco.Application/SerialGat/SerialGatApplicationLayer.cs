@@ -9,12 +9,12 @@
     using System.Threading.Tasks;
     using System.Xml;
     using System.Xml.Serialization;
-    using Contracts;
     using Contracts.Authentication;
     using Contracts.SerialGat;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Kernel.Contracts.Components;
+    using Kernel.MarketConfig.Models.Application;
     using log4net;
 
     /// <summary>
@@ -78,7 +78,7 @@
             IPersistentStorageManager storageManager,
             IAuthenticationService authenticationService,
             IComponentRegistry componentRegistry,
-            ApplicationConfigurationGatSerial config)
+            GatSerialFieldset config)
         {
             if (storageManager == null)
             {

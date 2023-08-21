@@ -7,6 +7,7 @@
     using Contracts.Tickets;
     using Hardware.Contracts.Ticket;
     using Kernel;
+    using Kernel.MarketConfig.Models.Application;
 
     /// <summary>
     ///     This class creates game meters ticket objects

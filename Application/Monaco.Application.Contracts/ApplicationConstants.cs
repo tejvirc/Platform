@@ -265,11 +265,6 @@
         public const string CurrentOperatorId = "CurrentOperatorId";
 
         /// <summary>
-        ///     Mono.Addins extension path for Application's JurisdictionConfiguration
-        /// </summary>
-        public const string JurisdictionConfigurationExtensionPath = "/Application/JurisdictionConfiguration";
-
-        /// <summary>
         ///     Jurisdiction extension string
         /// </summary>
         public const string Jurisdiction = "Jurisdiction";
@@ -518,7 +513,7 @@
         ///     Key used to disable the system while waiting for ticket to be printed
         /// </summary>
         public static readonly Guid PrintingTicketDisableKey = new Guid("D8C7D0FA-CE9E-4E5D-B3CD-EBB00FBB84FD");
-        
+
         /// <summary>
         ///     Key used to disable the system when a cashout failed
         /// </summary>

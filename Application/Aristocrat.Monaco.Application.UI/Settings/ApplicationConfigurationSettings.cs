@@ -16,6 +16,7 @@
     using Kernel.Contracts;
     using MVVM;
     using Application.Contracts.Localization;
+    using Kernel.MarketConfig.Models.Application;
 
     /// <summary>
     ///     Implements the <see cref="IConfigurationSettings"/> interface.

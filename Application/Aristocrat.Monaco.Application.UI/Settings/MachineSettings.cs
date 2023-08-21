@@ -2,11 +2,11 @@
 {
     using System;
     using System.Collections.ObjectModel;
-    using Contracts;
     using Contracts.Localization;
     using Contracts.Protocol;
     using Hardware.Contracts.Audio;
     using Kernel;
+    using Kernel.MarketConfig.Models.Application;
     using Localization;
     using Newtonsoft.Json;
 

@@ -14,6 +14,8 @@
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
+    using Kernel.MarketConfig;
+    using Kernel.MarketConfig.Models.Application;
     using log4net;
     using Monaco.Localization.Properties;
     using Util;
@@ -432,19 +434,9 @@
 
         private void Configure()
         {
-            var configuration = ConfigurationUtilities.GetConfiguration(
-                ApplicationConstants.JurisdictionConfigurationExtensionPath,
-                () => new ApplicationConfiguration
-                {
-                    NoteAcceptorMonitor =
-                        new ApplicationConfigurationNoteAcceptorMonitor
-                        {
-                            DisableOnError = NoteAcceptorMonitorDisableBehavior.Immediate,
-                            LockupOnDisconnect = true,
-                            SoftErrorOnStackerFull = false,
-                            StopAlarmWhenAuditMenuOpened = true
-                        }
-                });
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
+
+            var configuration = marketConfigManager.GetMarketConfigForSelectedJurisdiction<ApplicationConfigSegment>();
 
             if (configuration.NoteAcceptorMonitor.DisableOnError == NoteAcceptorMonitorDisableBehavior.Queue)
             {

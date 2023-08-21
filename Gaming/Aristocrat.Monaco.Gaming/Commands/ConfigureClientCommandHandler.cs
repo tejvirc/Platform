@@ -23,6 +23,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
+    using Kernel.MarketConfig.Models.Application;
     using log4net;
     using Runtime;
     using Runtime.Client;
@@ -86,7 +87,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
             _hardwareHelper = hardwareHelper ?? throw new ArgumentNullException(nameof(hardwareHelper));
             _attendantService = attendantService ?? throw new ArgumentNullException(nameof(attendantService));
-            _gameConfiguration = gameConfiguration ?? throw new ArgumentNullException(nameof(gameConfiguration)); 
+            _gameConfiguration = gameConfiguration ?? throw new ArgumentNullException(nameof(gameConfiguration));
             _gameSpecificOptionProvider = gameSpecificOptionProvider ?? throw new ArgumentNullException(nameof(gameSpecificOptionProvider));
         }
 
@@ -319,7 +320,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 Logger.Debug(subGameConfiguration);
                 parameters.Add("/Runtime/SimultaneousPlayGames", subGameConfiguration);
             }
-            
+
             var gameRulesInstructions = _properties.GetValue(GamingConstants.GameRulesInstructions, string.Empty);
             if (!string.IsNullOrEmpty(gameRulesInstructions))
             {

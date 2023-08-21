@@ -11,6 +11,7 @@
     using Contracts;
     using Contracts.Events;
     using Kernel;
+    using Kernel.MarketConfig.Models.Application;
     using log4net;
     using MVVM.Command;
     using MVVM.ViewModel;

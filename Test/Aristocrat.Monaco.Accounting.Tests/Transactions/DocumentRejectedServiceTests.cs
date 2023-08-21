@@ -11,6 +11,7 @@
     using Hardware.Contracts.Door;
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
+    using Kernel.MarketConfig.Models.Application;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Test.Common;
@@ -176,7 +177,7 @@
             }
 
             _voucherRedeemedEvent?.Invoke(new VoucherRedeemedEvent(new VoucherInTransaction()));
-            
+
             _systemDisableManager.Verify();
         }
 
@@ -191,7 +192,7 @@
                 .Throws(new Exception("Shouldn't clear lockup on Valid currency in event"));
 
             Assert.IsNotNull(_currencyInCompletedEvent);
-            
+
             //Send bill reject max times
             for (var i = 0; i < MaxBillReject; i++)
             {
@@ -200,7 +201,7 @@
 
             Assert.AreEqual(_displayedMessages.Count, 1);
             Assert.AreEqual(_displayedMessages[0], ReasonText);
-            
+
             //Send currency in with positive amount
             _currencyInCompletedEvent(new CurrencyInCompletedEvent(1));
 
@@ -360,9 +361,9 @@
                             null))
                     .Throws(new Exception("Shouldn't create lockup if Max rejections are not in succession"));
             }
-            
+
             CreateTarget();
-            
+
             Assert.IsNotNull(_currencyInCompletedEvent);
 
             //Send bill reject max-1 times
@@ -400,9 +401,9 @@
                 SetupForHardLockup();
                 MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ReasonText);
             }
-            
+
             CreateTarget();
-            
+
             Assert.IsNotNull(_voucherRejectedEvent);
 
             //Send voucher reject once
@@ -489,7 +490,7 @@
                 MockDisableManager(true, ApplicationConstants.ExcessiveDocumentRejectGuid, ReasonText);
                 MockDisableManager(false, ApplicationConstants.ExcessiveDocumentRejectGuid);
             }
-            
+
             CreateTarget();
 
             Assert.IsNotNull(_voucherRejectedEvent);
@@ -557,7 +558,7 @@
             Assert.AreEqual(_accessor._consecutiveDocumentRejectCount, MaxBillReject);
 
             _currencyInCompletedEvent(new CurrencyInCompletedEvent(1));
-            
+
             Assert.AreEqual(_removedMessages.Count, 0);
         }
 
@@ -584,7 +585,7 @@
                             null))
                     .Throws(new Exception("Shouldn't create lockup if Max rejections are not in succession"));
             }
-            
+
             CreateTarget();
 
             Assert.IsNotNull(_voucherRejectedEvent);

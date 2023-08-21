@@ -6,6 +6,8 @@
     using OperatorMenu;
     using System;
     using System.Collections.ObjectModel;
+    using Kernel.MarketConfig;
+    using Kernel.MarketConfig.Models.Application;
 
     [CLSCompliant(false)]
     public sealed class SerialGatPageViewModel : OperatorMenuPageViewModelBase
@@ -79,11 +81,11 @@
 
         protected override void OnLoaded()
         {
-            var config = new ApplicationConfigurationGatSerial();
+            var config = new GatSerialFieldset();
 
-            var configuration = ConfigurationUtilities.GetConfiguration(
-                ApplicationConstants.JurisdictionConfigurationExtensionPath,
-                () => new ApplicationConfiguration());
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
+
+            var configuration = marketConfigManager.GetMarketConfigForSelectedJurisdiction<ApplicationConfigSegment>();
 
             if (configuration.GatSerial != null)
             {

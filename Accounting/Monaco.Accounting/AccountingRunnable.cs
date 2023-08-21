@@ -184,6 +184,10 @@ namespace Aristocrat.Monaco.Accounting
                     runnableAssemblyName = "Aristocrat.Monaco.Gaming.VideoLottery.dll";
                     runnableClassName = "Aristocrat.Monaco.Gaming.VideoLottery.VideoLotteryRunnable";
                     break;
+                case GamingRunnableType.Class3Coam:
+                    runnableAssemblyName = "Aristocrat.Monaco.Gaming.Class3Coam.dll";
+                    runnableClassName = "Aristocrat.Monaco.Gaming.Class3.Class3CoamRunnable";
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException($"Unknown gaming runnable type {configuration.GamingRunnable}");
             }

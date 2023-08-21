@@ -26,9 +26,6 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="ApplicationConfiguration.cs">
-      <DependentUpon>ApplicationConfiguration.xsd</DependentUpon>
-    </Compile>
     <Compile Update="CabinetCapability\CabinetFeatures.cs">
       <DependentUpon>CabinetFeatures.xsd</DependentUpon>
       <SubType>code</SubType>
@@ -63,9 +60,6 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ApplicationConfiguration.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="CabinetCapability\CabinetFeatures.xsd">
       <SubType>Designer</SubType>
     </None>

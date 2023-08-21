@@ -11,6 +11,8 @@
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
+    using Kernel.MarketConfig;
+    using Kernel.MarketConfig.Models.Application;
     using Util;
     using DisabledEvent = Hardware.Contracts.Printer.DisabledEvent;
     using EnabledEvent = Hardware.Contracts.Printer.EnabledEvent;
@@ -101,16 +103,9 @@
 
         private void Configure()
         {
-            var configuration = ConfigurationUtilities.GetConfiguration(
-                ApplicationConstants.JurisdictionConfigurationExtensionPath,
-                () => new ApplicationConfiguration
-                {
-                    PrinterMonitor =
-                        new ApplicationConfigurationPrinterMonitor()
-                        {
-                            StopAlarmWhenAuditMenuOpened = true
-                        }
-                });
+            var marketConfigManager = ServiceManager.GetInstance().GetService<IMarketConfigManager>();
+
+            var configuration = marketConfigManager.GetMarketConfigForSelectedJurisdiction<ApplicationConfigSegment>();
 
             _stopAlarmWhenAuditMenuOpened = configuration.PrinterMonitor.StopAlarmWhenAuditMenuOpened;
         }
