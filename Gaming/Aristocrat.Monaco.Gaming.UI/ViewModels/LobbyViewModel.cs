@@ -1345,7 +1345,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
                     OnLanguageChanged();
 
-                    CurrencyExtensions.UpdateCurrencyCulture();
+                    CurrencyExtensions.UpdateCurrencyCulture(CultureInfo.CurrentCulture);
                     RaisePropertyChanged(nameof(IsPrimaryLanguageSelected));
                     RaisePropertyChanged(nameof(ActiveLocaleCode));
                     RaisePropertyChanged(nameof(FormattedCredits));

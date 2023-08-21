@@ -996,7 +996,7 @@
         {
             MvvmHelper.ExecuteOnUI(() =>
             {
-                CurrencyExtensions.UpdateCurrencyCulture();
+                CurrencyExtensions.UpdateCurrencyCulture(CultureInfo.CurrentCulture);
 
                 foreach (var denom in Denominations)
                 {

@@ -767,9 +767,12 @@ namespace Aristocrat.Monaco.Application.Contracts {
         
         private bool configurableField;
         
+        private bool allowFormatToChangeField;
+        
         public ApplicationConfigurationCurrency() {
             this.idField = "USD";
             this.configurableField = false;
+            this.allowFormatToChangeField = false;
         }
         
         /// <remarks/>
@@ -793,6 +796,18 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
             set {
                 this.configurableField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool AllowFormatToChange {
+            get {
+                return this.allowFormatToChangeField;
+            }
+            set {
+                this.allowFormatToChangeField = value;
             }
         }
     }
@@ -3908,4 +3923,3 @@ namespace Aristocrat.Monaco.Application.Contracts {
         }
     }
 }
-#pragma warning restore CS1591

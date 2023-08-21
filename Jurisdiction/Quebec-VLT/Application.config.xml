@@ -10,7 +10,7 @@ as follows:
     the corresponding class definition in csharp (ApplicationConfiguration.cs).
 -->
 <ApplicationConfiguration>
-  <Currency Id="CAD"/>
+  <Currency Id="CAD" AllowFormatToChange="true"/>
   <HardMeterMonitor DisableOnError="true"/>
   <DisplayTopScreen Enabled="false"/>
   <NoteAcceptorMonitor DisableOnError="Queue" LockupOnStackerFull="true" />
