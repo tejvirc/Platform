@@ -60,7 +60,6 @@
                 scriptManager.Object,
                 packageDownloadManager.Object,
                 deviceObserver.Object,
-                progressiveDeviceManager.Object,
                 egmStateObserver.Object,
                 deviceRegistryService.Object,
                 gatComponentFactory.Object,
@@ -73,8 +72,7 @@
                 certificateMonitor.Object,
                 emdi.Object,
                 central.Object,
-                eventLift.Object,
-                multiProtocolConfigurationProvider.Object);
+                eventLift.Object);
             MoqServiceManager.AddService(_g2sEngineMock);
         }
 

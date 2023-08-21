@@ -34,6 +34,7 @@
     using Vgt.Client12.Application.OperatorMenu;
     using Constants = G2S.Constants;
     using Aristocrat.G2S.Client.Communications;
+    using Aristocrat.Monaco.G2S.Services;
 
     [TestClass]
     public class BootstrapperTest
@@ -99,11 +100,15 @@
             MoqServiceManager.CreateAndAddService<IOperatorMenuLauncher>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<ICentralProvider>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IProtocolLinkedProgressiveAdapter>(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IProtocolProgressiveEventsRegistry>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IProgressiveLevelProvider>(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IProgressiveDeviceManager>(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IProgressiveMeterManager>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IOSInstaller>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IPrinterFirmwareInstaller>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<INoteAcceptorFirmwareInstaller>(MockBehavior.Default);
             MoqServiceManager.CreateAndAddService<IWcfApplicationRuntime>(MockBehavior.Default);
+            MoqServiceManager.CreateAndAddService<IMultiProtocolConfigurationProvider>(MockBehavior.Default);
 
             var persistence = MoqServiceManager.CreateAndAddService<IPersistenceProvider>(MockBehavior.Default);
             persistence.Setup(a => a.GetOrCreateBlock(It.IsAny<string>(), It.IsAny<PersistenceLevel>())).Returns(new Mock<IPersistentBlock>().Object);
