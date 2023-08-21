@@ -31,6 +31,7 @@
         private Component _component;
         private IEventBus _eventBus;
         private IDfuProvider _dfuProvider;
+        private object _reasonLock = new object();
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.Contracts.SharedDevice.DeviceAdapter class.
@@ -208,82 +209,88 @@
         /// <inheritdoc />
         public void Disable(DisabledReasons reason)
         {
-            DisabledReasons condition = 0;
-            foreach (DisabledReasons value in Enum.GetValues(typeof(DisabledReasons)))
+            lock(_reasonLock)
             {
-                if ((reason & value) != value)
+                DisabledReasons condition = 0;
+                foreach (DisabledReasons value in Enum.GetValues(typeof(DisabledReasons)))
                 {
-                    continue;
+                    if ((reason & value) != value)
+                    {
+                        continue;
+                    }
+
+                    if ((ReasonDisabled & reason) > 0)
+                    {
+                        continue;
+                    }
+
+                    condition |= value;
                 }
 
-                if ((ReasonDisabled & reason) > 0)
+                if (condition == 0)
                 {
-                    continue;
+                    return;
                 }
 
-                condition |= value;
+                ReasonDisabled |= condition;
+                Logger.Debug($"{Name} disabled by {reason}");
+                Enabled = false;
+                Disabling(condition);
             }
-
-            if (condition == 0)
-            {
-                return;
-            }
-
-            ReasonDisabled |= condition;
-            Logger.Debug($"{Name} disabled by {reason}");
-            Enabled = false;
-            Disabling(condition);
         }
 
         /// <inheritdoc />
         public bool Enable(EnabledReasons reason)
         {
-            if (!Initialized)
+            lock(_reasonLock)
             {
-                Logger.Warn($"{Name} can not be enabled by {reason} because service is not initialized");
-                Disable(ReasonDisabled);
-                return false;
-            }
-
-            if (!reason.HasFlag(EnabledReasons.Backend) &&
-                !reason.HasFlag(EnabledReasons.GamePlay) &&
-                !reason.HasFlag(EnabledReasons.Reset) &&
-                (!Implementation?.IsConnected ?? true))
-            {
-                // This check will be for the case where the BNA was disconnected in the audit menu,
-                // and the audit menu was exited before reconnecting the BNA. The System disable
-                // should be removed from the disabled reasons.
-                if (reason.HasFlag(EnabledReasons.System))
+                if (!Initialized)
                 {
-                    UpdateDisabledReasons(EnabledReasons.System);
+                    Logger.Warn($"{Name} can not be enabled by {reason} because service is not initialized");
+                    Disable(ReasonDisabled);
+                    return false;
                 }
 
-                Logger.Warn($"{Name} can not be enabled by {reason} because implementation is not connected");
-                Disable(ReasonDisabled);
-                return false;
-            }
+                if (!reason.HasFlag(EnabledReasons.Backend) &&
+                    !reason.HasFlag(EnabledReasons.GamePlay) &&
+                    !reason.HasFlag(EnabledReasons.Reset) &&
+                    (!Implementation?.IsConnected ?? true))
+                {
+                    // This check will be for the case where the BNA was disconnected in the audit menu,
+                    // and the audit menu was exited before reconnecting the BNA. The System disable
+                    // should be removed from the disabled reasons.
+                    if (reason.HasFlag(EnabledReasons.System))
+                    {
+                        UpdateDisabledReasons(EnabledReasons.System);
+                    }
 
-            if (Enabled)
-            {
-                Logger.Debug($"{Name} enabled by {reason} already Enabled");
-                Enabling(reason, 0);
-                return true;
-            }
+                    Logger.Warn($"{Name} can not be enabled by {reason} because implementation is not connected");
+                    Disable(ReasonDisabled);
+                    return false;
+                }
 
-            var updated = UpdateDisabledReasons(reason);
+                if (Enabled)
+                {
+                    Logger.Debug($"{Name} enabled by {reason} already Enabled");
+                    Enabling(reason, 0);
+                    return true;
+                }
 
-            Enabled = ReasonDisabled == 0;
-            Enabling(reason, updated);
-            if (Enabled)
-            {
-                Logger.Debug($"{Name} enabled by {reason}");
-            }
-            else
-            {
-                Logger.Warn($"{Name} can not be enabled by {reason} because disabled by {ReasonDisabled}");
-            }
+                var updated = UpdateDisabledReasons(reason);
 
-            return Enabled;
+                Enabled = ReasonDisabled == 0;
+                Enabling(reason, updated);
+                if (Enabled)
+                {
+                    Logger.Debug($"{Name} enabled by {reason}");
+                }
+                else
+                {
+                    Logger.Warn($"{Name} can not be enabled by {reason} because disabled by {ReasonDisabled}");
+                }
+
+                return Enabled;
+            }
         }
 
         /// <inheritdoc />

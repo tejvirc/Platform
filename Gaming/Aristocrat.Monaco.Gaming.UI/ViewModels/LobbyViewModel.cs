@@ -81,6 +81,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private const string ResponsibleGamingPropNameDialogState = "TimeLimitDialogState";
         private const string ResponsibleGamingPropNameDialogResourceKey = "ResponsibleGamingDialogResourceKey";
         private const int DemonstrationCashInAmount = 10;
+        private const int OverlimitCashoutDelayInMS = 20000;
         private const string TopImageDefaultResourceKey = "TopBackground";
         private const string TopImageAlternateResourceKey = "TopBackgroundAlternate";
         private const string LobbyIdleTextDefaultResourceKey = "LobbyIdleTextDefault";

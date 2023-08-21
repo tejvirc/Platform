@@ -14,6 +14,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Application.Contracts.Media;
     using Cabinet.Contracts;
     using Commands;
+    using Common;
     using Contracts;
     using Contracts.Bonus;
     using Contracts.Events;
@@ -493,11 +494,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     {
                         _lobbyStateManager.RemoveFlagState(LobbyState.CashOutFailure);
                     }
-                    if (_bank.QueryBalance() == 0 && _gameState.Idle &&
-                        !_gameState.InGameRound &&
-                        platformEvent.OldBalance >= _properties.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue))
+
+                if (_bank.QueryBalance() == 0 &&
+                    platformEvent.OldBalance >= _properties.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue))
                     {
-                        _overlimitCashoutProcessed = true;
+                         _overlimitCashoutProcessed = true;
                     }
 
                     HandleMessageOverlayText();
@@ -1518,13 +1519,22 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             if (_overlimitCashoutProcessed && !MessageOverlayDisplay.IsOverlayWindowVisible)
             {
-                Logger.Debug("Cashed out after going over limit. Returning player to Lobby and changing Language to default.");
-                Execute.OnUIThread(() =>
+                Task.Delay(OverlimitCashoutDelayInMS).ContinueWith(_ =>
                 {
-                    IsPrimaryLanguageSelected = true;
-                    _runtime.SetRequestExitGame(true);
-                });
-                _overlimitCashoutProcessed = false;
+                    if (_bank.QueryBalance() == 0 && _gameState.Idle && !_gameHistory.IsRecoveryNeeded)
+                    {
+                        Logger.Debug("Cashed out after going over limit. Returning player to Lobby and changing Language to default.");
+                        MvvmHelper.ExecuteOnUI(() =>
+                        {
+                            IsPrimaryLanguageSelected = true;
+                            _runtime.SetRequestExitGame(_properties.GetValue(GamingConstants.RequestGameExitOnCashout, false));
+                        });
+                    }
+
+                    _overlimitCashoutProcessed = false;
+                }).HandleException(e => Logger.Error($"{e} Cashed out after going over limit failed."));
+
+                return;
             }
         }
 
