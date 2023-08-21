@@ -185,7 +185,7 @@
             set => SetProperty(ref _isError, value);
         }
 
-        public bool InitialConfigComplete => PropertiesManager.GetValue(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, false);
+        public bool InitialConfigComplete => PropertiesManager.GetValue(ApplicationConstants.GameConfigurationInitialConfigComplete, false);
 
         public override bool CanSave => HasNoErrors && InputEnabled && !Committed &&
                                         (HasChanges() || !InitialConfigComplete) && !IsEnabledGamesLimitExceeded;
