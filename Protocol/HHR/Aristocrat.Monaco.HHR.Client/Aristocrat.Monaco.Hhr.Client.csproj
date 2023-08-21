@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyTitle>Aristocrat.Monaco.Hhr.Client</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>full</DebugType>
+    <DocumentationFile>..\..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.Hhr.Client.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Retail|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS;RETAIL</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="Polly" Version="7.2.1" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.11.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
+  </ItemGroup>
+</Project>

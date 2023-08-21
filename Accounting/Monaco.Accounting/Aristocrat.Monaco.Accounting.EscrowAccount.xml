@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="Vgt.Client12.Accounting.EscrowAccount">
+  <Fields>
+    <Field DataType="Int64" FieldName="Cashable" />
+    <Field DataType="Int64" FieldName="Promo" />
+    <Field DataType="Int64" FieldName="NonCash" />
+    <Field DataType="Int64" FieldName="NontransferablePromo" />
+    <Field DataType="Guid" FieldName="TransactionGuid" />
+    <Field DataType="Int64" FieldName="AmountInProcessing" />
+    <Field DataType="Byte" FieldName="AccountInProcessing" />
+  </Fields>
+</BlockFormat>

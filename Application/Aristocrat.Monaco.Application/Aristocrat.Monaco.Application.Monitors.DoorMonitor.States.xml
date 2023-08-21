@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Application.Monitors.DoorMonitor.States">
+    <Fields>
+      <Field DataType="Int64" FieldName="MessageRedisplayBitMask" />
+      <Field DataType="Int64" FieldName="IsDoorOpenBitMask" />
+      <Field DataType="Int64" FieldName="IsMeteredBitMask" />
+      <Field DataType="Int64" FieldName="IsVerificationTicketQueuedBitMask" />
+      <Field DataType="Int64" FieldName="BellyDoorOpen" />
+      <Field DataType="Int64" FieldName="BellyDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="CashDoorOpen" />
+      <Field DataType="Int64" FieldName="CashDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="LogicDoorOpen" />
+      <Field DataType="Int64" FieldName="LogicDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="MainDoorOpen" />
+      <Field DataType="Int64" FieldName="MainDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="SecondaryCashDoorOpen" />
+      <Field DataType="Int64" FieldName="SecondaryCashDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="TopBoxDoorOpen" />
+      <Field DataType="Int64" FieldName="TopBoxDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="PizzaBoxDoorOpen" />
+      <Field DataType="Int64" FieldName="PizzaBoxDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="BaseDoorOpen" />
+      <Field DataType="Int64" FieldName="BaseDoorOpenPowerOff" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Application.Monitors.DoorMonitor.States">
+    <Fields>
+      <Field DataType="Int64" FieldName="MessageRedisplayBitMask" />
+      <Field DataType="Int64" FieldName="IsDoorOpenBitMask" />
+      <Field DataType="Int64" FieldName="IsMeteredBitMask" />
+      <Field DataType="Int64" FieldName="IsVerificationTicketQueuedBitMask" />
+      <Field DataType="Int64" FieldName="BellyDoorOpen" />
+      <Field DataType="Int64" FieldName="BellyDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="CashDoorOpen" />
+      <Field DataType="Int64" FieldName="CashDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="LogicDoorOpen" />
+      <Field DataType="Int64" FieldName="LogicDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="MainDoorOpen" />
+      <Field DataType="Int64" FieldName="MainDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="SecondaryCashDoorOpen"/>
+      <Field DataType="Int64" FieldName="SecondaryCashDoorOpenPowerOff"/>
+      <Field DataType="Int64" FieldName="TopBoxDoorOpen" />
+      <Field DataType="Int64" FieldName="TopBoxDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="DropDoorOpen" />
+      <Field DataType="Int64" FieldName="DropDoorOpenPowerOff" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="3" name="Aristocrat.Monaco.Application.Monitors.DoorMonitor.States">
+    <Fields>
+      <Field DataType="Int64" FieldName="MessageRedisplayBitMask" />
+      <Field DataType="Int64" FieldName="IsDoorOpenBitMask" />
+      <Field DataType="Int64" FieldName="IsMeteredBitMask" />
+      <Field DataType="Int64" FieldName="IsVerificationTicketQueuedBitMask" />
+      <Field DataType="Int64" FieldName="BellyDoorOpen" />
+      <Field DataType="Int64" FieldName="BellyDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="CashDoorOpen" />
+      <Field DataType="Int64" FieldName="CashDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="LogicDoorOpen" />
+      <Field DataType="Int64" FieldName="LogicDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="MainDoorOpen" />
+      <Field DataType="Int64" FieldName="MainDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="SecondaryCashDoorOpen"/>
+      <Field DataType="Int64" FieldName="SecondaryCashDoorOpenPowerOff"/>
+      <Field DataType="Int64" FieldName="TopBoxDoorOpen" />
+      <Field DataType="Int64" FieldName="TopBoxDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="DropDoorOpen" />
+      <Field DataType="Int64" FieldName="DropDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="MainOpticDoorOpen" />
+      <Field DataType="Int64" FieldName="MainOpticDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="TopBoxOpticDoorOpen" />
+      <Field DataType="Int64" FieldName="TopBoxOpticDoorOpenPowerOff" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="4" name="Aristocrat.Monaco.Application.Monitors.DoorMonitor.States">
+    <Fields>
+      <Field DataType="Int64" FieldName="MessageRedisplayBitMask" />
+      <Field DataType="Int64" FieldName="IsDoorOpenBitMask" />
+      <Field DataType="Int64" FieldName="IsMeteredBitMask" />
+      <Field DataType="Int64" FieldName="IsVerificationTicketQueuedBitMask" />
+      <Field DataType="Int64" FieldName="BellyDoorOpen" />
+      <Field DataType="Int64" FieldName="BellyDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="CashDoorOpen" />
+      <Field DataType="Int64" FieldName="CashDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="LogicDoorOpen" />
+      <Field DataType="Int64" FieldName="LogicDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="MainDoorOpen" />
+      <Field DataType="Int64" FieldName="MainDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="SecondaryCashDoorOpen"/>
+      <Field DataType="Int64" FieldName="SecondaryCashDoorOpenPowerOff"/>
+      <Field DataType="Int64" FieldName="TopBoxDoorOpen" />
+      <Field DataType="Int64" FieldName="TopBoxDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="DropDoorOpen" />
+      <Field DataType="Int64" FieldName="DropDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="MechanicalMeterDoorOpen" />
+      <Field DataType="Int64" FieldName="MechanicalMeterDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="MainOpticDoorOpen" />
+      <Field DataType="Int64" FieldName="MainOpticDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="TopBoxOpticDoorOpen" />
+      <Field DataType="Int64" FieldName="TopBoxOpticDoorOpenPowerOff" />
+    </Fields>
+  </BlockFormat>    
+  <BlockFormat version="5" name="Aristocrat.Monaco.Application.Monitors.DoorMonitor.States">
+    <Fields>
+      <Field DataType="Int64" FieldName="MessageRedisplayBitMask" />
+      <Field DataType="Int64" FieldName="IsDoorOpenBitMask" />
+      <Field DataType="Int64" FieldName="IsMeteredBitMask" />
+      <Field DataType="Int64" FieldName="IsVerificationTicketQueuedBitMask" />
+      <Field DataType="Int64" FieldName="BellyDoorOpen" />
+      <Field DataType="Int64" FieldName="BellyDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="CashDoorOpen" />
+      <Field DataType="Int64" FieldName="CashDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="LogicDoorOpen" />
+      <Field DataType="Int64" FieldName="LogicDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="MainDoorOpen" />
+      <Field DataType="Int64" FieldName="MainDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="SecondaryCashDoorOpen"/>
+      <Field DataType="Int64" FieldName="SecondaryCashDoorOpenPowerOff"/>
+      <Field DataType="Int64" FieldName="TopBoxDoorOpen" />
+      <Field DataType="Int64" FieldName="TopBoxDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="DropDoorOpen" />
+      <Field DataType="Int64" FieldName="DropDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="MechanicalMeterDoorOpen" />
+      <Field DataType="Int64" FieldName="MechanicalMeterDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="MainOpticDoorOpen" />
+      <Field DataType="Int64" FieldName="MainOpticDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="TopBoxOpticDoorOpen" />
+      <Field DataType="Int64" FieldName="TopBoxOpticDoorOpenPowerOff" />
+      <Field DataType="Int64" FieldName="UniversalInterfaceBoxDoorOpen" />
+      <Field DataType="Int64" FieldName="UniversalInterfaceBoxDoorOpenPowerOff" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

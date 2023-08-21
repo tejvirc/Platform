@@ -1,0 +1,6 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Aristocrat.Monaco.Application.IdProvider">
+  <Fields>
+    <Field DataType="Int64" FieldName="TransactionId" />
+  </Fields>
+</BlockFormat>

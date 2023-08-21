@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyTitle>Aristocrat.Monaco.Demonstration.UI</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Retail|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Aristocrat.Monaco.Demonstration.UI.OperatorMenu.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Application\Aristocrat.Monaco.Application.UI\Aristocrat.Monaco.Application.UI.csproj" />
+    <ProjectReference Include="..\..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.UI.Common\Aristocrat.Monaco.UI.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Demonstration\Aristocrat.Monaco.Demonstration.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
+  </ItemGroup>
+</Project>

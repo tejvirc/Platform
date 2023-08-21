@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Application.UI.Views.MechanicalReelsLightTestControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+             xmlns:loc="http://monaco.aristocrat.com/localization"
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance {x:Type viewModels:MechanicalReelsLightTestViewModel}}"
+             AutomationProperties.AutomationId="UserControl0_632C29A8">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                MinWidth="300"
+                Margin="20 0 20 0"
+                AutomationProperties.AutomationId="StackPanel1_632C29A8">
+        <Grid AutomationProperties.AutomationId="Grid2_632C29A8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition3_632C29A8" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition4_632C29A8" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition5_632C29A8" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition6_632C29A8" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition7_632C29A8" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{lex:Loc MechanicalReels_Light}"
+                   VerticalAlignment="Center"
+                   AutomationProperties.AutomationId="Label8_632C29A8" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Content="{lex:Loc ColorText}"
+                   VerticalAlignment="Center"
+                   Margin="0 10 0 0"
+                   AutomationProperties.AutomationId="Label9_632C29A8" />
+            <ComboBox Grid.Row="0"
+                      Grid.Column="1"
+                      Name="ReelLightNamesComboBox"
+                      IsEnabled="{Binding TestActive, Converter={StaticResource InverseBoolConverter}}"
+                      ItemsSource="{Binding ReelLightIdNames}"
+                      SelectedIndex="{Binding SelectedReelLightIdIndex}"
+                      Margin="10 0 0 0"
+                      Width="120"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Center"
+                      AutomationProperties.AutomationId="ComboBox10_632C29A8" />
+            <ComboBox Grid.Row="1"
+                      Grid.Column="1"
+                      Name="ReelLightColorsComboBox"
+                      IsEnabled="{Binding TestActive, Converter={StaticResource InverseBoolConverter}}"
+                      ItemsSource="{Binding ReelLightColors}"
+                      SelectedIndex="{Binding SelectedReelLightColorIndex}"
+                      Margin="10 10 0 0"
+                      Width="120"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Center"
+                      AutomationProperties.AutomationId="ComboBox11_632C29A8" />
+            <controls:ToggleSwitch Grid.Row="2"
+                                         Grid.Column="0"
+                                         Grid.ColumnSpan="2"
+                                         Name="LightToggleButton"
+                                         IsEnabled="{Binding Initialized}"
+                                         Margin="0 10 0 0"
+                                         IsOn ="{Binding TestActive, Mode=TwoWay}"/>
+
+        </Grid>
+    </StackPanel>
+</UserControl>

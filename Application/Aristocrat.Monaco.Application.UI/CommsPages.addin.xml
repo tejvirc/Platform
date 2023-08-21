@@ -1,0 +1,48 @@
+﻿<?xml version="1.0"?>
+
+<Addin id="CommsPages" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="Monaco.Application.UI.OperatorMenu" version="1.0" />
+    <Addin id="Monaco.G2S.UI.OperatorMenu" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+
+    <AddinConfigurationGroup name="CommsPages" description="Comms pages configuration">
+
+      <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/CommsMenu">
+        <NodeSpecification addinId="Client12Addins.SasConfigurationScreen"
+                           typeName="Aristocrat.Monaco.Sas.UI.Loaders.SasConfigurationPageLoader" order="0" />
+        <NodeSpecification addinId="Client12Addins.SasConfigurationScreen"
+                           typeName="Aristocrat.Monaco.Sas.UI.Loaders.SasFeaturesPageLoader" order="1" />
+        <NodeSpecification addinId="Client12Addins.Monaco.G2S.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.G2S.UI.Loaders.HostConfigurationViewLoader" order="2" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.ConfigWizard.IdentityConfigLoader" order="3" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.NetworkConfigPageLoader" order="4" />
+        <NodeSpecification addinId="Client12Addins.Monaco.G2S.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.G2S.UI.Loaders.SecurityConfigurationViewLoader" order="5" />
+        <NodeSpecification addinId="Client12Addins.Monaco.G2S.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.G2S.UI.Loaders.CertificatesViewLoader" order="6" />
+        <NodeSpecification addinId="Client12Addins.Monaco.G2S.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.G2S.UI.Loaders.DeviceManagerViewLoader" order="7" />
+        <NodeSpecification addinId="Client12Addins.MgamUIConfiguration"
+                           typeName="Aristocrat.Monaco.Mgam.UI.Loaders.HostConfigurationPageLoader" order="8" />
+        <NodeSpecification addinId="Client12Addins.HHRUIConfiguration"
+                           typeName="Aristocrat.Monaco.Hhr.UI.Loaders.ServerConfigurationPageViewLoader" order="9" />
+        <NodeSpecification addinId="Client12Addins.BingoOperatorMenu"
+                           typeName="Aristocrat.Monaco.Bingo.UI.Loaders.BingoServerSettingsLoader" order="11" />
+        <NodeSpecification addinId="Client12Addins.BingoOperatorMenu"
+                           typeName="Aristocrat.Monaco.Bingo.UI.Loaders.BingoHostConfigurationLoader" order="12" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.MultiProtocolConfigDisplayPageLoader" order="99" />
+      </ExtensionPointConfiguration>
+
+    </AddinConfigurationGroup>
+
+  </Extension>
+
+</Addin>

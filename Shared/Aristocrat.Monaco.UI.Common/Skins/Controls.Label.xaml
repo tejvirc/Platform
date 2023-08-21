@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="MonacoLabel"
+           TargetType="{x:Type Label}">
+        <Setter Property="Foreground"
+                Value="{DynamicResource Brush3}" />
+        <Setter Property="FontFamily"
+                Value="{DynamicResource MonacoFontFamily}" />
+        <Setter Property="FontSize"
+                Value="{DynamicResource LabelFontSize}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Label">
+                    <Border AutomationProperties.AutomationId="Border0_A21B512E">
+                        <ContentPresenter RecognizesAccessKey="False"
+                                          AutomationProperties.AutomationId="ContentPresenter1_A21B512E" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="MonacoWarningLabel"
+           TargetType="{x:Type Label}"
+           BasedOn="{StaticResource MonacoLabel}">
+        <Setter Property="Foreground"
+                Value="{DynamicResource YellowBrush}" />
+        <Setter Property="FontSize"
+                Value="{DynamicResource NormalFontSize}" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+    </Style>
+</ResourceDictionary>

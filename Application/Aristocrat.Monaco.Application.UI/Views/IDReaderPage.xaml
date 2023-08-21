@@ -1,0 +1,335 @@
+<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.IdReaderPage"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              xmlns:loc="http://monaco.aristocrat.com/localization"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                              mc:Ignorable="d" 
+                              d:DesignHeight="600" d:DesignWidth="900" 
+                              d:DataContext="{d:DesignInstance viewModels:IdReaderPageViewModel}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin"
+                        Value="0 0 10 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
+            <Style x:Key="TextBlockStyle"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="Margin"
+                        Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
+            <Style TargetType="Button"
+                   BasedOn="{StaticResource MonacoButton}">
+                <Setter Property="Width"
+                        Value="200" />
+            </Style>
+            <Style TargetType="{x:Type CheckBox}"
+                   BasedOn="{StaticResource MonacoCheckBoxGeneral}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_B32EFF41">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_B32EFF41" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition2_B32EFF41" />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0"
+                AutomationProperties.AutomationId="Border3_B32EFF41">
+            <Grid AutomationProperties.AutomationId="Grid4_B32EFF41">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"
+                                      AutomationProperties.AutomationId="ColumnDefinition5_B32EFF41" />
+                    <ColumnDefinition Width="*"
+                                      AutomationProperties.AutomationId="ColumnDefinition6_B32EFF41" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0"
+                      Grid.Column="0"
+                      AutomationProperties.AutomationId="Grid7_B32EFF41">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"
+                                          AutomationProperties.AutomationId="ColumnDefinition8_B32EFF41" />
+                        <ColumnDefinition Width="*"
+                                          AutomationProperties.AutomationId="ColumnDefinition9_B32EFF41" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition10_B32EFF41" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition11_B32EFF41" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition12_B32EFF41" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition13_B32EFF41" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition14_B32EFF41" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition15_B32EFF41" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition16_B32EFF41" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition17_B32EFF41" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition18_B32EFF41" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="{lex:Loc ManufacturerLabel}"
+                           AutomationProperties.AutomationId="Label19_B32EFF41" />
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel0_FB07E67B">
+                        <TextBlock Name="Manufacturer"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock20_B32EFF41"
+                                   Text="{Binding ManufacturerText}"
+                                   Visibility="{Binding ManufacturerText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+
+                        <TextBlock Name="ManufacturerNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock21_B32EFF41"
+                                   Text="{lex:Loc NotAvailable}"
+                                   Visibility="{Binding ManufacturerText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="{lex:Loc ModelLabel}"
+                           AutomationProperties.AutomationId="Label22_B32EFF41" />
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel1_FB07E67B">
+                        <TextBlock Name="Model"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock22_B32EFF41"
+                                   Text="{Binding ModelText}"
+                                   Visibility="{Binding ModelText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+
+                        <TextBlock Name="ModelNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock23_B32EFF41"
+                                   Text="{lex:Loc NotAvailable}"
+                                   Visibility="{Binding ModelText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Content="{lex:Loc ProtocolLabel}"
+                           AutomationProperties.AutomationId="Label25_B32EFF41" />
+                    <StackPanel Grid.Row="2"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel2_FB07E67B">
+                        <TextBlock Name="Protocol"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock24_B32EFF41"
+                                   Text="{Binding ProtocolText}"
+                                   Visibility="{Binding ProtocolText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+
+                        <TextBlock Name="ProtocolNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock25_B32EFF41"
+                                   Text="{lex:Loc NotAvailable}"
+                                   Visibility="{Binding ProtocolText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+
+                    </StackPanel>
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           Name="PortLabel"
+                           Content="{lex:Loc Port}"
+                           Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                           AutomationProperties.AutomationId="Label28_B32EFF41" />
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                AutomationProperties.AutomationId="StackPanel3_FB07E67B">
+                        <TextBlock Name="Port"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock26_B32EFF41"
+                                   Text="{Binding PortText}"
+                                   Visibility="{Binding PortText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+                        <TextBlock Name="PortNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock27_B32EFF41"
+                                   Text="{lex:Loc NotAvailable}"
+                                   Visibility="{Binding PortText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
+                    <Label Grid.Row="4"
+                           Grid.Column="0"
+                           Content="{lex:Loc SerialNumberLabel}"
+                           AutomationProperties.AutomationId="Label31_B32EFF41" />
+                    <StackPanel Grid.Row="4"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel4_FB07E67B">
+                        <TextBlock Name="SerialNumber"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock28_B32EFF41"
+                                   Text="{Binding SerialNumberText}"
+                                   Visibility="{Binding SerialNumberText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+                        <TextBlock Name="SerialNumberNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock29_B32EFF41"
+                                   Text="{lex:Loc NotAvailable}"
+                                   Visibility="{Binding SerialNumberText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
+                    <Label Grid.Row="5"
+                           Grid.Column="0"
+                           Content="{lex:Loc FirmwareVersionLabel}"
+                           AutomationProperties.AutomationId="Label34_B32EFF41" />
+                    <StackPanel Grid.Row="5"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel5_FB07E67B">
+                        <TextBlock Name="FirmwareVersion"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock30_B32EFF41"
+                                   Text="{Binding FirmwareVersionText}"
+                                   Visibility="{Binding FirmwareVersionText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+                        <TextBlock Name="FirmwareVersionNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock31_B32EFF41"
+                                   Text="{lex:Loc NotAvailable}"
+                                   Visibility="{Binding FirmwareVersionText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
+                    <Label Grid.Row="6"
+                           Grid.Column="0"
+                           Content="{lex:Loc FirmwareRevisionLabel}"
+                           AutomationProperties.AutomationId="Label37_B32EFF41" />
+                    <StackPanel Grid.Row="6"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel6_FB07E67B">
+                        <TextBlock Name="FirmwareRevision"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock32_B32EFF41"
+                                   Text="{Binding FirmwareRevisionText}"
+                                   Visibility="{Binding FirmwareRevisionText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+                        <TextBlock Name="FirmwareRevisionNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock33_B32EFF41"
+                                   Text="{lex:Loc NotAvailable}"
+                                   Visibility="{Binding FirmwareRevisionText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
+                    <Label Grid.Row="7"
+                           Grid.Column="0"
+                           Content="{lex:Loc FirmwareCRCLabel}"
+                           AutomationProperties.AutomationId="Label40_B32EFF41" />
+                    <StackPanel Grid.Row="7"
+                                Grid.Column="1"
+                                Orientation="Vertical"
+                                AutomationProperties.AutomationId="StackPanel7_FB07E67B">
+                        <TextBlock Name="FirmwareCrc"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock34_B32EFF41"
+                                   Text="{Binding FirmwareCrcText}"
+                                   Visibility="{Binding FirmwareCrcText, Converter={StaticResource EmptyStringIsCollapsedConverter}}"/>
+                        <TextBlock Name="FirmwareCrcNA"
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock35_B32EFF41"
+                                   Text="{lex:Loc NotAvailable}"
+                                   Visibility="{Binding FirmwareCrcText, Converter={StaticResource EmptyStringIsVisibleConverter}}"/>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="0"
+                      Grid.Column="1"
+                      AutomationProperties.AutomationId="Grid43_B32EFF41">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"
+                                          AutomationProperties.AutomationId="ColumnDefinition44_B32EFF41" />
+                        <ColumnDefinition Width="*"
+                                          AutomationProperties.AutomationId="ColumnDefinition45_B32EFF41" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition46_B32EFF41" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition47_B32EFF41" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition48_B32EFF41" />
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition49_B32EFF41" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           Name="IdCardReadLabel"
+                           Content="{lex:Loc DataFromIdCardLabel}"
+                           AutomationProperties.AutomationId="Label50_B32EFF41" />
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="1"
+                               Name="IdCardReadData"
+                               Text="{Binding IdCardReadData}"
+                               AutomationProperties.AutomationId="TextBlock51_B32EFF41" />
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="{lex:Loc StateLabel}"
+                           AutomationProperties.AutomationId="Label52_B32EFF41" />
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               Name="State"
+                               Text="{Binding StateTextLocalized}"
+                               AutomationProperties.AutomationId="TextBlock53_B32EFF41" />
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="{lex:Loc SelfTestLabel}"
+                           AutomationProperties.AutomationId="Label54_B32EFF41" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Name="SelfTestStatus"
+                               Text="{Binding SelfTestText}"
+                               AutomationProperties.AutomationId="TextBlock55_B32EFF41" />
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Content="{lex:Loc StatusLabel}"
+                           AutomationProperties.AutomationId="Label56_B32EFF41" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Name="Status"
+                               Text="{Binding StatusText}"
+                               AutomationProperties.AutomationId="TextBlock57_B32EFF41" />
+                </Grid>
+            </Grid>
+        </Border>
+        <Border Grid.Row="1"
+                Margin="0 10 0 0"
+                VerticalAlignment="Bottom"
+                AutomationProperties.AutomationId="Border58_B32EFF41">
+            <StackPanel Orientation="Horizontal"
+                        AutomationProperties.AutomationId="StackPanel59_B32EFF41">
+                <Button Name="SelfTestButton"
+                        Margin="0 0 20 0"
+                        Content="{lex:Loc SelfTestLabel}"
+                        Command="{Binding SelfTestButtonCommand}"
+                        Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        IsEnabled="{Binding SelfTestButtonEnabled}"
+                        AutomationProperties.AutomationId="Button60_B32EFF41" />
+                <Button Name="SelfTestClearNvmButton"
+                        Content="{lex:Loc SelfTestClearNVM}"
+                        Command="{Binding SelfTestClearButtonCommand}"
+                        Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        IsEnabled="{Binding SelfTestButtonEnabled}"
+                        AutomationProperties.AutomationId="Button61_B32EFF41" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

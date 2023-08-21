@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction">
+    <Fields>
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="String" Size="128" FieldName="BonusId" />
+      <Field DataType="Int32" FieldName="State" />
+      <Field DataType="Int64" FieldName="CashableAmount" />
+      <Field DataType="Int64" FieldName="NonCashAmount" />
+      <Field DataType="Int64" FieldName="PromoAmount" />
+      <Field DataType="Int32" FieldName="GameId" />
+      <Field DataType="Int64" FieldName="Denom" />
+      <Field DataType="Int32" FieldName="PayMethod" />
+      <Field DataType="Bool" FieldName="IdRequired" />
+      <Field DataType="String" Size="32" FieldName="IdNumber" />
+      <Field DataType="String" Size="16" FieldName="PlayerId" />
+      <Field DataType="Int64" FieldName="PaidAmount" />
+      <Field DataType="DateTime" FieldName="PaidDateTime" />
+      <Field DataType="DateTime" FieldName="LastUpdate" />
+      <Field DataType="Int32" FieldName="Exception" />
+      <Field DataType="Int32" FieldName="Mode" />
+      <Field DataType="Guid" FieldName="DisplayMessageId" />
+      <Field DataType="Guid" FieldName="BankTransactionId" />
+      <Field DataType="Guid" FieldName="ProcessorId" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction">
+    <Fields>
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="String" Size="128" FieldName="BonusId" />
+      <Field DataType="Int32" FieldName="State" />
+      <Field DataType="Int64" FieldName="CashableAmount" />
+      <Field DataType="Int64" FieldName="NonCashAmount" />
+      <Field DataType="Int64" FieldName="PromoAmount" />
+      <Field DataType="Int32" FieldName="GameId" />
+      <Field DataType="Int64" FieldName="Denom" />
+      <Field DataType="Int32" FieldName="PayMethod" />
+      <Field DataType="Bool" FieldName="IdRequired" />
+      <Field DataType="String" Size="32" FieldName="IdNumber" />
+      <Field DataType="String" Size="16" FieldName="PlayerId" />
+      <Field DataType="Int64" FieldName="PaidAmount" />
+      <Field DataType="DateTime" FieldName="PaidDateTime" />
+      <Field DataType="DateTime" FieldName="LastUpdate" />
+      <Field DataType="Int32" FieldName="Exception" />
+      <Field DataType="Int32" FieldName="Mode" />
+      <Field DataType="Guid" FieldName="DisplayMessageId" />
+      <Field DataType="Guid" FieldName="BankTransactionId" />
+      <Field DataType="Guid" FieldName="ProcessorId" />
+      <Field DataType="String" FieldName="Message" />
+      <Field DataType="Int32" FieldName="MjtNumberOfGames" />
+      <Field DataType="Int32" FieldName="MjtWinMultiplier" />
+      <Field DataType="Int64" FieldName="MjtMinimumWin" />
+      <Field DataType="Int64" FieldName="MjtMaximumWin" />
+      <Field DataType="Int32" FieldName="MjtWagerRestriction" />
+      <Field DataType="Int64" FieldName="MjtAmountWagered" />
+      <Field DataType="Int32" FieldName="MjtBonusGamesPlayed" />
+      <Field DataType="Int32" FieldName="MjtBonusGamesPaid" />
+      <Field DataType="String" FieldName="Request" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="4" name="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction">
+    <Fields>
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="String" Size="128" FieldName="BonusId" />
+      <Field DataType="Int32" FieldName="State" />
+      <Field DataType="Int64" FieldName="CashableAmount" />
+      <Field DataType="Int64" FieldName="NonCashAmount" />
+      <Field DataType="Int64" FieldName="PromoAmount" />
+      <Field DataType="Int32" FieldName="GameId" />
+      <Field DataType="Int64" FieldName="Denom" />
+      <Field DataType="Int32" FieldName="PayMethod" />
+      <Field DataType="Bool" FieldName="IdRequired" />
+      <Field DataType="String" Size="32" FieldName="IdNumber" />
+      <Field DataType="String" Size="16" FieldName="PlayerId" />
+      <Field DataType="Int64" FieldName="PaidCashableAmount" />
+      <Field DataType="Int64" FieldName="PaidNonCashAmount" />
+      <Field DataType="Int64" FieldName="PaidPromoAmount" />
+      <Field DataType="DateTime" FieldName="PaidDateTime" />
+      <Field DataType="DateTime" FieldName="LastUpdate" />
+      <Field DataType="Int32" FieldName="Exception" />
+      <Field DataType="Int32" FieldName="ExceptionInformation" />
+      <Field DataType="Int32" FieldName="Mode" />
+      <Field DataType="Guid" FieldName="DisplayMessageId" />
+      <Field DataType="String" FieldName="Message" />
+      <Field DataType="Int32" FieldName="MjtNumberOfGames" />
+      <Field DataType="Int32" FieldName="MjtWinMultiplier" />
+      <Field DataType="Int64" FieldName="MjtMinimumWin" />
+      <Field DataType="Int64" FieldName="MjtMaximumWin" />
+      <Field DataType="Int32" FieldName="MjtWagerRestriction" />
+      <Field DataType="Int64" FieldName="MjtRequiredWager" />
+      <Field DataType="Int64" FieldName="MjtAmountWagered" />
+      <Field DataType="Int32" FieldName="MjtBonusGamesPlayed" />
+      <Field DataType="Int32" FieldName="MjtBonusGamesPaid" />
+      <Field DataType="String" FieldName="Request" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+      <Field DataType="Int64" FieldName="MessageDuration" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="5" name="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction">
+    <Fields>
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="String" Size="128" FieldName="BonusId" />
+      <Field DataType="Int32" FieldName="State" />
+      <Field DataType="Int64" FieldName="CashableAmount" />
+      <Field DataType="Int64" FieldName="NonCashAmount" />
+      <Field DataType="Int64" FieldName="PromoAmount" />
+      <Field DataType="Int32" FieldName="GameId" />
+      <Field DataType="Int64" FieldName="Denom" />
+      <Field DataType="Int32" FieldName="PayMethod" />
+      <Field DataType="Bool" FieldName="IdRequired" />
+      <Field DataType="String" Size="32" FieldName="IdNumber" />
+      <Field DataType="String" Size="16" FieldName="PlayerId" />
+      <Field DataType="Int64" FieldName="PaidCashableAmount" />
+      <Field DataType="Int64" FieldName="PaidNonCashAmount" />
+      <Field DataType="Int64" FieldName="PaidPromoAmount" />
+      <Field DataType="DateTime" FieldName="PaidDateTime" />
+      <Field DataType="DateTime" FieldName="LastUpdate" />
+      <Field DataType="Int32" FieldName="Exception" />
+      <Field DataType="Int32" FieldName="ExceptionInformation" />
+      <Field DataType="Int32" FieldName="Mode" />
+      <Field DataType="Guid" FieldName="DisplayMessageId" />
+      <Field DataType="String" FieldName="Message" />
+      <Field DataType="Int32" FieldName="MjtNumberOfGames" />
+      <Field DataType="Int32" FieldName="MjtWinMultiplier" />
+      <Field DataType="Int64" FieldName="MjtMinimumWin" />
+      <Field DataType="Int64" FieldName="MjtMaximumWin" />
+      <Field DataType="Int32" FieldName="MjtWagerRestriction" />
+      <Field DataType="Int64" FieldName="MjtRequiredWager" />
+      <Field DataType="Int64" FieldName="MjtAmountWagered" />
+      <Field DataType="Int32" FieldName="MjtBonusGamesPlayed" />
+      <Field DataType="Int32" FieldName="MjtBonusGamesPaid" />
+      <Field DataType="String" FieldName="Request" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+      <Field DataType="Int64" FieldName="MessageDuration" />
+      <Field DataType="String" FieldName="SourceID" />
+      <Field DataType="Int32" FieldName="JackpotNumber" />
+      <Field DataType="Int32" FieldName="Protocol" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="6" name="Aristocrat.Monaco.Gaming.Contracts.Bonus.BonusTransaction">
+    <Fields>
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="Int32" FieldName="DeviceId" />
+      <Field DataType="DateTime" FieldName="TransactionDateTime" />
+      <Field DataType="String" Size="128" FieldName="BonusId" />
+      <Field DataType="Int32" FieldName="State" />
+      <Field DataType="Int64" FieldName="CashableAmount" />
+      <Field DataType="Int64" FieldName="NonCashAmount" />
+      <Field DataType="Int64" FieldName="PromoAmount" />
+      <Field DataType="Int32" FieldName="GameId" />
+      <Field DataType="Int64" FieldName="Denom" />
+      <Field DataType="Int32" FieldName="PayMethod" />
+      <Field DataType="Bool" FieldName="IdRequired" />
+      <Field DataType="String" Size="32" FieldName="IdNumber" />
+      <Field DataType="String" Size="16" FieldName="PlayerId" />
+      <Field DataType="Int64" FieldName="PaidCashableAmount" />
+      <Field DataType="Int64" FieldName="PaidNonCashAmount" />
+      <Field DataType="Int64" FieldName="PaidPromoAmount" />
+      <Field DataType="DateTime" FieldName="PaidDateTime" />
+      <Field DataType="DateTime" FieldName="LastUpdate" />
+      <Field DataType="Int32" FieldName="Exception" />
+      <Field DataType="Int32" FieldName="ExceptionInformation" />
+      <Field DataType="Int32" FieldName="Mode" />
+      <Field DataType="Guid" FieldName="DisplayMessageId" />
+      <Field DataType="String" FieldName="Message" />
+      <Field DataType="Int32" FieldName="MjtNumberOfGames" />
+      <Field DataType="Int32" FieldName="MjtWinMultiplier" />
+      <Field DataType="Int64" FieldName="MjtMinimumWin" />
+      <Field DataType="Int64" FieldName="MjtMaximumWin" />
+      <Field DataType="Int32" FieldName="MjtWagerRestriction" />
+      <Field DataType="Int64" FieldName="MjtRequiredWager" />
+      <Field DataType="Int64" FieldName="MjtAmountWagered" />
+      <Field DataType="Int32" FieldName="MjtBonusGamesPlayed" />
+      <Field DataType="Int32" FieldName="MjtBonusGamesPaid" />
+      <Field DataType="String" FieldName="Request" />
+      <Field DataType="String" FieldName="AssociatedTransactions" />
+      <Field DataType="Int64" FieldName="MessageDuration" />
+      <Field DataType="String" FieldName="SourceID" />
+      <Field DataType="Int32" FieldName="JackpotNumber" />
+      <Field DataType="Int32" FieldName="Protocol" />
+      <Field DataType="Int64" FieldName="LastAuthorizedCashableAmount" />
+      <Field DataType="Int64" FieldName="LastAuthorizedNonCashAmount" />
+      <Field DataType="Int64" FieldName="LastAuthorizedPromoAmount" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

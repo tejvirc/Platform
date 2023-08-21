@@ -1,0 +1,172 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.BarkeeperCashInReward"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+             xmlns:helpers="http://monaco.aristocrat.com/common"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+             xmlns:core="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+             xmlns:barkeeper="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Barkeeper;assembly=Aristocrat.Monaco.Gaming.Contracts"
+             xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
+             xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models"
+             d:DataContext="{d:DesignInstance {x:Type viewModels:BarkeeperConfigurationViewModel}}"
+             mc:Ignorable="d"
+             AutomationProperties.AutomationId="UserControl0_4A6C4BF0">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <ObjectDataProvider x:Key="ColorsExceptBlack"
+                                MethodName="GetColorOptionsExceptBlack"
+                                ObjectType="{x:Type local:ColorOptionsProvider}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type Type="barkeeper:ColorOptions" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            <ObjectDataProvider x:Key="AlertEnum"
+                                MethodName="GetValues"
+                                ObjectType="{x:Type core:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type Type="barkeeper:BarkeeperAlertOptions" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="MinWidth"
+                        Value="300" />
+            </Style>
+            <Style TargetType="TextBox"
+                   BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="MinWidth"
+                        Value="300" />
+            </Style>
+            <Style TargetType="ComboBox"
+                   BasedOn="{StaticResource MonacoComboBox}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="MinWidth"
+                        Value="300" />
+            </Style>
+            <Style TargetType="helpers:ExpirationTextBox"
+                   BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="MinWidth"
+                        Value="300" />
+            </Style>
+            <converters:CentsToDecimalConverter x:Key="CurrencyConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Margin="15 15 0 0"
+          AutomationProperties.AutomationId="Grid1_4A6C4BF0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_4A6C4BF0" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_4A6C4BF0" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_4A6C4BF0" />
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="1"
+                  Name="LevelsDataGrid"
+                  ItemsSource="{Binding CashInRewardLevels}"
+                  AutoGenerateColumns="False"
+                  RowStyle="{StaticResource MonacoUnselectableDataGridRow}"
+                  CellStyle="{StaticResource MonacoCompactDataGridCell}"
+                  IsEnabled="{Binding InputEnabledByRuleOverride}"
+                  VerticalAlignment="Stretch"
+                  ScrollViewer.CanContentScroll="True"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  EnableRowVirtualization="True"
+                  AutomationProperties.AutomationId="DataGrid5_4A6C4BF0">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="{lex:Loc Enable}"
+                                        HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn6_4A6C4BF0">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:CashInRewardLevel}">
+                            <CheckBox HorizontalContentAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      Margin="5"
+                                      IsChecked="{Binding Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      AutomationProperties.AutomationId="CheckBox7_4A6C4BF0"></CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{lex:Loc Level}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn8_4A6C4BF0">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:CashInRewardLevel}">
+                            <Label Content="{Binding Name}"
+                                   AutomationProperties.AutomationId="Label9_4A6C4BF0" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{lex:Loc Threshold}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn10_4A6C4BF0">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:CashInRewardLevel}">
+                            <helpers:CurrencyTextBox Margin="20 0 0 0"
+                                                     MinWidth="200"
+                                                     IsReadOnly="False"
+                                                     PreventNegatives="True"
+                                                     InputScope="Number"
+                                                     Number="{Binding ThresholdInCents, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource CurrencyConverter}, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                                     IsEnabled="{Binding Enabled}"></helpers:CurrencyTextBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{lex:Loc Color}"
+                                        IsReadOnly="False"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn11_4A6C4BF0">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:CashInRewardLevel}">
+                            <ComboBox FontSize="14"
+                                      IsEnabled="{Binding Enabled}"
+                                      ItemsSource="{Binding Source={StaticResource ColorsExceptBlack}}"
+                                      SelectedItem="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      AutomationProperties.AutomationId="ComboBox12_4A6C4BF0"></ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{lex:Loc Alert}"
+                                        IsReadOnly="False"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn13_4A6C4BF0">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:CashInRewardLevel}">
+                            <ComboBox FontSize="14"
+                                      IsEnabled="{Binding Enabled}"
+                                      ItemsSource="{Binding Source={StaticResource AlertEnum}}"
+                                      SelectedItem="{Binding Alert, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      AutomationProperties.AutomationId="ComboBox14_4A6C4BF0"></ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    Margin="0 15 0 0"
+                    AutomationProperties.AutomationId="StackPanel15_4A6C4BF0">
+            <Label Content="{lex:Loc BarkeeperCashInMeter}"
+                   Visibility="{Binding CashInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                   AutomationProperties.AutomationId="Label16_4A6C4BF0" />
+            <Label Content="{Binding CashInSessionMeter, UpdateSourceTrigger=PropertyChanged}"
+                   VerticalAlignment="Center"
+                   Visibility="{Binding CashInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                   AutomationProperties.AutomationId="Label17_4A6C4BF0" />
+            <Label Content="{lex:Loc BarkeeperCashInDisabled}"
+                   Visibility="{Binding CashInRewardLevelsExist, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                   AutomationProperties.AutomationId="Label18_4A6C4BF0" />
+        </StackPanel>
+    </Grid>
+</UserControl>

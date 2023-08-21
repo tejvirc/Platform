@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <AssemblyTitle>Aristocrat.Monaco.Bingo.Tests</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="www\bingo\ATI_TEST1234\VAR01\page_1.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="www\bingo\ATI_TEST1234\VAR01\page_1.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Protocol\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
+    <ProjectReference Include="..\..\Protocol\Bingo\Aristocrat.Monaco.Bingo.Common\Aristocrat.Monaco.Bingo.Common.csproj" />
+    <ProjectReference Include="..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\Protocol\Bingo\Aristocrat.Monaco.Bingo\Aristocrat.Monaco.Bingo.csproj" />
+    <ProjectReference Include="..\..\Protocol\SAS\Aristocrat.Sas.Client\Aristocrat.Sas.Client.csproj" />
+    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.4" />
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
+    <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
+  </ItemGroup>
+</Project>

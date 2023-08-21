@@ -1,0 +1,83 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyTitle>Aristocrat.Monaco.Asp</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <Platform>x64</Platform>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>TRACE;CODE_ANALYSIS;RETAIL</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Aristocrat.Monaco.Asp.Client.DataSources.CreditTransferDataSource.xml" />
+    <None Remove="Client\Definitions\Asp1000.xml" />
+    <None Remove="Client\Definitions\Asp2000.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming\Aristocrat.Monaco.Gaming.csproj" />
+    <ProjectReference Include="..\..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Aristocrat.Monaco.Asp.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Asp.Client.DataSources.CreditTransferDataSource.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Asp.Client.DataSources.DoorsDataSource.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Asp.Client.DataSources.EGMPropertyDataSource.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Asp.Client.DataSources.LogicSealDataSource.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Asp.Configuration.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Asp.Client.DataSources.MeterSnapshotProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Client\Definitions\Asp1000.xml" />
+    <EmbeddedResource Include="Client\Definitions\Asp2000.xml" />
+    <EmbeddedResource Include="Client\Definitions\DacomDevices.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Client\CommsClassDiagram.cd" />
+    <EmbeddedResource Include="Client\Definitions\Devices.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Client\DevicesClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Aristocrat.Monaco.Asp.Client.Comms.ReportableEventsManager.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

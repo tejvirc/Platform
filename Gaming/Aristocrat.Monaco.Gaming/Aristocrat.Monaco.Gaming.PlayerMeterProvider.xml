@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Gaming.PlayerMeterProvider.xml">
+  <Fields>
+    <Field DataType="Int64" FieldName="CardedWageredNonCashableAmountLifetime" />
+    <Field DataType="Int64" FieldName="CardedWageredNonCashableAmountPeriod" />
+    <Field DataType="Int64" FieldName="CardedWageredCashableAmountLifetime" />
+    <Field DataType="Int64" FieldName="CardedWageredCashableAmountPeriod" />
+    <Field DataType="Int64" FieldName="CardedWageredPromoAmountLifetime" />
+    <Field DataType="Int64" FieldName="CardedWageredPromoAmountPeriod" />
+    <Field DataType="Int64" FieldName="CardedGameWonAmountLifetime" />
+    <Field DataType="Int64" FieldName="CardedGameWonAmountPeriod" />
+    <Field DataType="Int64" FieldName="CardedProgressiveWonAmountLifetime" />
+    <Field DataType="Int64" FieldName="CardedProgressiveWonAmountPeriod" />
+    <Field DataType="Int64" FieldName="CardedBonusWonAmountLifetime" />
+    <Field DataType="Int64" FieldName="CardedBonusWonAmountPeriod" />
+    <Field DataType="Int64" FieldName="CardedPlayedCountLifetime" />
+    <Field DataType="Int64" FieldName="CardedPlayedCountPeriod" />
+  </Fields>
+</BlockFormat>

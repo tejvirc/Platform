@@ -1,0 +1,107 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyTitle>Aristocrat.G2S.Emdi.Host</AssemblyTitle>
+    <Product>Aristocrat.G2S.Emdi.Host</Product>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>full</DebugType>
+    <DocumentationFile>..\..\..\bin\$(Configuration)\Platform\bin\Aristocrat.G2S.Emdi.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <DocumentationFile>..\..\..\bin\$(Configuration)\Platform\bin\Aristocrat.G2S.Emdi.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <Target Name="XamlGeneratedCodeWarningRemoved" AfterTargets="XamlMarkupCompilePass1">
+    <Exec Command="for %%f in (@(XamlGeneratedCodeFiles)) do echo #pragma warning disable &gt; %%f.temp" />
+    <Exec Command="for %%f in (@(XamlGeneratedCodeFiles)) do type %%f &gt;&gt; %%f.temp" />
+    <Exec Command="for %%f in (@(XamlGeneratedCodeFiles)) do copy /y %%f.temp %%f" />
+    <Message Text="XamlGeneratedCodeWarningRemoved: @(XamlGeneratedCodeFiles)" />
+  </Target>
+  <ItemGroup>
+    <Compile Update="Protocol\v21ext1b1\mdMsg.cs">
+      <DependentUpon>mdMsg.xsd</DependentUpon>
+      <SubType>code</SubType>
+    </Compile>
+    <Compile Update="Protocol\v21ext1b1\mdMsg.generated.cs">
+      <SubType>code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Protocol\v21ext1b1\mdCabinet.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdCabinetExtCPC.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdCabinetExtHCI.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdCabinetExtPLC.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdComms.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdContentToContentExtCCI.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdEventHandler.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdEventHandlerExtRCL.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdHostExtHST.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdImportExtCCI.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdImportExtPLC.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdInclude.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdIncludeExtCCI.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdIncludeExtPLC.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdMeters.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\v21ext1b1\mdMsg.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.G2S.Client\Aristocrat.G2S.Client.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.G2S.Common\Aristocrat.Monaco.G2S.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.G2S" Version="5.0.0-beta0006" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
+    <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.11.0" />
+  </ItemGroup>
+</Project>

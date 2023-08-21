@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Asp.Client.DataSources.LogicSealDataSource">
+    <Fields>
+      <Field DataType="Int32" FieldName="LogicSealBrokenCountField" />
+      <Field DataType="Int32" FieldName="LogicSealStatusField" />
+      <Field DataType="String" FieldName="VerificationCodeField" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0"?>
+<Addin id="Monaco.Gaming.UI.OperatorMenu" namespace="Client12Addins" version="1.0">
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Gaming.UI.dll" />
+  </Runtime>
+  <Dependencies>
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="Monaco.Application.UI" version="1.0" />
+    <Addin id="Monaco.Accounting.UI.OperatorMenu" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Application/OperatorMenu/MainMenu">
+    <OperatorMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.GamesMainPageLoader"/>
+    <OperatorMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.EventLogFilterPageLoader"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/OptionsMenu">
+    <OptionsMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.IdleTextViewLoader"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/MetersMenu">
+    <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.GamesMetersPageLoader" order="110"/>
+    <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.DenomMetersPageLoader" order="120"/>
+    <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.ProgressiveMetersPageLoader" order="130"/>
+    <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.CustomSAPMetersPageLoader" order="140"/>
+    <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.BonusMetersPageLoader" order="150"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/GamesMenu">
+    <GamesMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.AdvancedGameSetupViewLoader" order="10"/>
+    <GamesMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.GamePreferencesViewLoader" order="20"/>
+    <GamesMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.GameHistoryViewLoader" order="30"/>
+    <GamesMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.CentralDeterminationLogLoader" order="40"/>
+    <GamesMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.GameStatisticsViewLoader" order="50"/>
+    <GamesMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.GameInfoViewLoader" order="60"/>
+    <GamesMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.GamePerformanceViewLoader" order="70"/>
+    <GamesMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.CombinationTestViewLoader" order="80"/>
+    <GamesMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.CustomSAPViewLoader" order="90"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/IdentificationMenu">
+    <IdentificationMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.JurisdictionSettingsPageLoader" order="20"/>
+    <IdentificationMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.GamesSummaryViewLoader" order="30"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/SystemMenu">
+    <SystemMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.LimitsPageLoader" order="20"/>
+    <SystemMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.ReserveMachinePageLoader" order="30"/>
+    <SystemMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.BarkeeperConfigurationViewLoader" order="60"/>
+  </Extension>
+</Addin>

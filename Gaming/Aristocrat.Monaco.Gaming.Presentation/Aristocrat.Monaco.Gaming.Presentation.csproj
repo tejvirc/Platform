@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyTitle>Aristocrat.Monaco.Gaming.Presentation</AssemblyTitle>
+    <Nullable>enable</Nullable>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;DESIGN</DefineConstants>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>TRACE;CODE_ANALYSIS;RETAIL</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.BinkWpf" Version="2.0.0-beta0019" />
+    <PackageReference Include="Aristocrat.Extensions.Prism" Version="0.1.6" />
+    <PackageReference Include="Aristocrat.Extensions.CommunityToolkit" Version="0.1.8" />
+    <!--<PackageReference Include="Aristocrat.Extensions.Fluxor" Version="0.1.6" />-->
+    <PackageReference Include="CefSharp.Common.NETCore" Version="110.0.250" />
+    <PackageReference Include="CefSharp.OffScreen.NETCore" Version="110.0.250" />
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="110.0.250" />
+    <!--<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />-->
+    <PackageReference Include="Fluxor" Version="5.9.0" />
+    <PackageReference Include="Fluxor.Blazor.Web.ReduxDevTools" Version="5.7.0" />
+    <!--<PackageReference Include="Log4Net.AspNetCore" Version="1.2.0-beta0004" />-->
+    <PackageReference Include="Log4Net.Extensions.Logging" Version="1.2.0-beta0004" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+    <!--<PackageReference Include="Microsoft.AspNetCore.Owin" Version="6.0.14" />-->
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.19" />
+    <!--<PackageReference Include="SimpleInjector.Integration.AspNetCore" Version="5.4.0" />-->
+    <PackageReference Include="SimpleInjector.Integration.ServiceCollection" Version="5.4.0" />
+    <!--<PackageReference Include="Prism.Microsoft.DependencyInjection.Extensions" Version="8.0.62" />
+    <PackageReference Include="Prism.Core" Version="9.0.179-pre" />
+    <PackageReference Include="Prism.Wpf" Version="9.0.179-pre" />-->
+    <PackageReference Include="SimpleInjector.Packaging" Version="5.0.0" />
+    <PackageReference Include="Stateless" Version="4.0.0" />
+    <PackageReference Include="System.Reactive" Version="6.0.0" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="CefSharp.BrowserSubprocess.deps.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
+    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.UI.Common\Aristocrat.Monaco.UI.Common.csproj" />
+    <ProjectReference Include="..\..\Application\Aristocrat.Monaco.Application.UI\Aristocrat.Monaco.Application.UI.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Gaming\Aristocrat.Monaco.Gaming.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Gaming.UI\Aristocrat.Monaco.Gaming.UI.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Styles\Default.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+</Project>

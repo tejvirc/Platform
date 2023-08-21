@@ -1,0 +1,6 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Hardware.Contracts.Bell.LogicalBell" >
+  <Fields>
+    <Field DataType="Int32" FieldName="Enabled" />
+  </Fields>
+</BlockFormat>

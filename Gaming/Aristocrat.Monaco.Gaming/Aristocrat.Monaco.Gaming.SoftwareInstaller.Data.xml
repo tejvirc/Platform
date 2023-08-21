@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Gaming.SoftwareInstaller.Data">
+  <Fields>
+    <Field DataType="String" Size="128" FieldName="FileName" />
+    <Field DataType="Bool"  FieldName="Active" />
+  </Fields>
+</BlockFormat>

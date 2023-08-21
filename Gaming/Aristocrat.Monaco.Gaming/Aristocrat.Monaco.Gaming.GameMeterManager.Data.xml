@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Gaming.GameMeterManager.Data" ElementSize="8">
+    <Fields>
+      <Field DataType="Int32" Count="0" FieldName="GameId" />
+      <Field DataType="Int32" Count="0" FieldName="BlockIndex" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Gaming.GameMeterManager.Data" ElementSize="8">
+    <Fields>
+      <Field DataType="Int32" Count="0" FieldName="GameId" />
+      <Field DataType="Int32" Count="0" FieldName="BlockIndex" />
+      <Field DataType="String" Count="0" FieldName="DenomMap" />
+      <Field DataType="String" Count="0" FieldName="WagerCategoryMap" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="3" name="Aristocrat.Monaco.Gaming.GameMeterManager.Data" ElementSize="8">
+    <Fields>
+      <Field DataType="Int32" Count="0" FieldName="GameId" />
+      <Field DataType="Int32" Count="0" FieldName="BlockIndex" />
+      <Field DataType="String" Count="0" FieldName="DenomMap" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

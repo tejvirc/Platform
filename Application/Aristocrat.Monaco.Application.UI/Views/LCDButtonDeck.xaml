@@ -1,0 +1,205 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Application.UI.Views.LCDButtonDeck"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             xmlns:loc="http://monaco.aristocrat.com/localization"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance viewModels:LCDButtonDeckViewModel}"
+             AutomationProperties.AutomationId="UserControl0_39FD1230">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin"
+                        Value="0 0 0 0" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center" />
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Center" />
+                <Setter Property="Background"
+                        Value="{DynamicResource LightBrush3}" />
+                <Setter Property="Foreground"
+                        Value="{DynamicResource DarkBrush2}" />
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled"
+                             Value="False"
+                             AutomationProperties.AutomationId="Trigger1_39FD1230">
+                        <Setter Property="Background"
+                                Value="{DynamicResource DarkBrush2}" />
+                        <Setter Property="Foreground"
+                                Value="{DynamicResource LightBrush3}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <system:Double x:Key="ButtonDeckHeight">320</system:Double>
+            <system:Double x:Key="ButtonDeckWidth">800</system:Double>
+            <system:Double x:Key="BetButtonScreenWidth">800</system:Double>
+            <system:Double x:Key="BetButtonScreenHeight">256</system:Double>
+            <GridLength x:Key="BetButtonHeight">256</GridLength>
+            <GridLength x:Key="BashButtonWidth">240</GridLength>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Height="{StaticResource ButtonDeckHeight}"
+          Margin="0 0 0 0"
+          Width="{StaticResource ButtonDeckWidth}"
+          loc:Localizer.For="Operator"
+          AutomationProperties.AutomationId="Grid2_39FD1230">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{StaticResource BetButtonHeight}"
+                           AutomationProperties.AutomationId="RowDefinition3_39FD1230" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition4_39FD1230" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{StaticResource BashButtonWidth}"
+                              AutomationProperties.AutomationId="ColumnDefinition5_39FD1230" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition6_39FD1230" />
+        </Grid.ColumnDefinitions>
+        <Grid Name="BetButtonGrid"
+              Grid.Row="0"
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Height="{StaticResource BetButtonScreenHeight}"
+              Margin="0 0 0 0"
+              Width="{StaticResource BetButtonScreenWidth}"
+              AutomationProperties.AutomationId="Grid7_39FD1230">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"
+                               AutomationProperties.AutomationId="RowDefinition8_39FD1230" />
+                <RowDefinition Height="100"
+                               AutomationProperties.AutomationId="RowDefinition9_39FD1230" />
+                <RowDefinition Height="46"
+                               AutomationProperties.AutomationId="RowDefinition10_39FD1230" />
+                <RowDefinition Height="100"
+                               AutomationProperties.AutomationId="RowDefinition11_39FD1230" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"
+                                  AutomationProperties.AutomationId="ColumnDefinition12_39FD1230" />
+                <ColumnDefinition Width="40"
+                                  AutomationProperties.AutomationId="ColumnDefinition13_39FD1230" />
+                <ColumnDefinition Width="100"
+                                  AutomationProperties.AutomationId="ColumnDefinition14_39FD1230" />
+                <ColumnDefinition Width="40"
+                                  AutomationProperties.AutomationId="ColumnDefinition15_39FD1230" />
+                <ColumnDefinition Width="100"
+                                  AutomationProperties.AutomationId="ColumnDefinition16_39FD1230" />
+                <ColumnDefinition Width="40"
+                                  AutomationProperties.AutomationId="ColumnDefinition17_39FD1230" />
+                <ColumnDefinition Width="100"
+                                  AutomationProperties.AutomationId="ColumnDefinition18_39FD1230" />
+                <ColumnDefinition Width="40"
+                                  AutomationProperties.AutomationId="ColumnDefinition19_39FD1230" />
+                <ColumnDefinition Width="100"
+                                  AutomationProperties.AutomationId="ColumnDefinition20_39FD1230" />
+                <ColumnDefinition Width="40"
+                                  AutomationProperties.AutomationId="ColumnDefinition21_39FD1230" />
+                <ColumnDefinition Width="100"
+                                  AutomationProperties.AutomationId="ColumnDefinition22_39FD1230" />
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="ButtonData0Label" 
+                   Grid.Row="1" 
+                   Grid.Column="0" 
+                   Content="{Binding ButtonData[0].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[0].Enabled}" 
+                   AutomationProperties.AutomationId="Label23_39FD1230">
+            </Label>
+
+            <Label x:Name="ButtonData1Label" 
+                   Grid.Row="1" 
+                   Grid.Column="2" 
+                   Content="{Binding ButtonData[1].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[1].Enabled}" 
+                   AutomationProperties.AutomationId="Label24_39FD1230" />
+
+            <Label x:Name="ButtonData2Label" 
+                   Grid.Row="1" 
+                   Grid.Column="4" 
+                   Content="{Binding ButtonData[2].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[2].Enabled}"
+                   AutomationProperties.AutomationId="Label25_39FD1230" />
+
+            <Label x:Name="ButtonData3Label" 
+                   Grid.Row="1" 
+                   Grid.Column="6" 
+                   Content="{Binding ButtonData[3].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[3].Enabled}"
+                   AutomationProperties.AutomationId="Label26_39FD1230" />
+
+            <Label x:Name="ButtonData4Label" 
+                   Grid.Row="1" 
+                   Grid.Column="8" 
+                   Content="{Binding ButtonData[4].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[4].Enabled}"
+                   AutomationProperties.AutomationId="Label27_39FD1230" />
+
+            <Label x:Name="ButtonData5Label" 
+                   Grid.Row="1" 
+                   Grid.Column="10" 
+                   Content="{Binding ButtonData[5].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[5].Enabled}"
+                   AutomationProperties.AutomationId="Label28_39FD1230" />
+
+            <Label x:Name="ButtonData6Label" 
+                   Grid.Row="3" 
+                   Grid.Column="0" 
+                   Content="{Binding ButtonData[6].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[6].Enabled}"
+                   AutomationProperties.AutomationId="Label29_39FD1230" />
+
+            <Label x:Name="ButtonData7Label" 
+                   Grid.Row="3" 
+                   Grid.Column="2" 
+                   Content="{Binding  ButtonData[7].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[7].Enabled}"
+                   AutomationProperties.AutomationId="Label30_39FD1230" />
+
+            <Label x:Name="ButtonData8Label" 
+                   Grid.Row="3" 
+                   Grid.Column="4" 
+                   Content="{Binding ButtonData[8].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[8].Enabled}"
+                   AutomationProperties.AutomationId="Label31_39FD1230" />
+
+            <Label x:Name="ButtonData9Label" 
+                   Grid.Row="3" 
+                   Grid.Column="6" 
+                   Content="{Binding ButtonData[9].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[9].Enabled}"
+                   AutomationProperties.AutomationId="Label32_39FD1230" />
+
+            <Label x:Name="ButtonData10Label" 
+                   Grid.Row="3" 
+                   Grid.Column="8" 
+                   Content="{Binding ButtonData[10].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[10].Enabled}"
+                   AutomationProperties.AutomationId="Label33_39FD1230" />
+
+            <Label x:Name="ButtonData11Label" 
+                   Grid.Row="3" 
+                   Grid.Column="10" 
+                   Content="{Binding ButtonData[11].ResourceKey}" 
+                   IsEnabled="{Binding ButtonData[11].Enabled}"
+                   AutomationProperties.AutomationId="Label34_39FD1230" />
+
+        </Grid>
+        <Label Name="BashButton"
+               Grid.Row="0"
+               Grid.Column="0"
+               Grid.RowSpan="2"
+               Content="{Binding ButtonData[12].ResourceKey}"
+               IsEnabled="{Binding ButtonData[12].Enabled}"
+               Margin="0 20 0 0"
+               FontSize="60"
+               AutomationProperties.AutomationId="Label35_39FD1230" />
+    </Grid>
+</UserControl>

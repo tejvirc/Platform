@@ -1,0 +1,99 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:helpers="clr-namespace:Aristocrat.Monaco.UI.Common.Controls.Helpers">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="MetroSkin.xaml" />
+        <ResourceDictionary Source="Monaco.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Style x:Key="TabButtonListBoxItemStyle"
+           TargetType="{x:Type ListBoxItem}">
+        <Setter Property="helpers:TabButtonListBoxHelper.Header"
+                Value="{x:Null}" />
+        <Setter Property="helpers:TabButtonListBoxHelper.HeaderTemplate"
+                Value="{x:Null}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Grid AutomationProperties.AutomationId="Grid0_91DA97E5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition1_91DA97E5" />
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition2_91DA97E5" />
+                        </Grid.ColumnDefinitions>
+                        <ToggleButton Grid.Column="0"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      MinWidth="{Binding DataContext.MinButtonWidth, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                      Margin="0 0 10 10"
+                                      IsChecked="{Binding IsSelected, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      Tag="{Binding}"
+                                      ContentTemplate="{Binding Path=(helpers:TabButtonListBoxHelper.HeaderTemplate), RelativeSource={RelativeSource TemplatedParent}}"
+                                      Content="{Binding Path=(helpers:TabButtonListBoxHelper.Header), RelativeSource={RelativeSource TemplatedParent}}"
+                                      Command="{Binding DataContext.PageButtonClickedCommand, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                      CommandParameter="{Binding}"
+                                      AutomationProperties.AutomationId="ToggleButton3_91DA97E5">
+                            <ToggleButton.Style>
+                                <Style TargetType="ToggleButton"
+                                       BasedOn="{StaticResource MonacoToggleButton2}">
+                                    <Setter Property="IsHitTestVisible"
+                                            Value="True" />
+                                    <Setter Property="IsEnabled"
+                                            Value="False" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsChecked"
+                                                 Value="True"
+                                                 AutomationProperties.AutomationId="Trigger4_91DA97E5">
+                                            <Setter Property="IsHitTestVisible"
+                                                    Value="False" />
+                                        </Trigger>
+                                        <Trigger Property="IsEnabled"
+                                                 Value="False"
+                                                 AutomationProperties.AutomationId="Trigger5_91DA97E5">
+                                            <Setter Property="IsHitTestVisible"
+                                                    Value="False" />
+                                        </Trigger>
+                                        <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger6_91DA97E5">
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition
+                                                        Binding="{Binding DataContext.ButtonsEnabled, Mode=OneWay, RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                                           Value="True" />
+                                                <Condition Binding="{Binding IsEnabled}"
+                                                           Value="True" />
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="IsEnabled"
+                                                    Value="True" />
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ToggleButton.Style>
+                        </ToggleButton>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="TabButtonListBoxStyle"
+           TargetType="{x:Type ListBox}">
+        <Setter Property="SelectionMode"
+                Value="Single" />
+        <Setter Property="Focusable"
+                Value="False" />
+        <Setter Property="Background"
+                Value="Transparent" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="ItemContainerStyle"
+                Value="{StaticResource TabButtonListBoxItemStyle}" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"
+                               AutomationProperties.AutomationId="WrapPanel7_91DA97E5" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                Value="Disabled" />
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,463 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Sas.UI.ConfigurationScreen.SasConfigurationPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Sas.UI.ViewModels"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                               xmlns:helpers="http://monaco.aristocrat.com/common"
+                               xmlns:cs="clr-namespace:Aristocrat.Monaco.Sas.UI.ConfigurationScreen"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:SasConfigurationViewModel}}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <helpers:CurrencyConverter x:Key="CurrencyConverter" />
+            <Style TargetType="{x:Type CheckBox}"
+                   BasedOn="{StaticResource MonacoCheckBoxGeneral}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        Value="10" />
+            </Style>
+            <Style TargetType="{x:Type cs:OptionalRadioButton}"
+                   BasedOn="{StaticResource MonacoRadioButton}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        Value="10" />
+            </Style>
+            <Style TargetType="{x:Type RadioButton}"
+                   BasedOn="{StaticResource MonacoRadioButton}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        Value="10" />
+            </Style>
+            <Style TargetType="{x:Type ComboBox}"
+                   BasedOn="{StaticResource MonacoComboBox}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+            </Style>
+            <Style TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center" />
+            </Style>
+            <Style TargetType="{x:Type helpers:AlphaNumericTextBox}"
+                   BasedOn="{StaticResource MonacoTextBox}">
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Center" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        Value="10 5" />
+                <Setter Property="MaxLength"
+                        Value="10" />
+                <Setter Property="MinWidth"
+                        Value="90" />
+                <Setter Property="Padding"
+                        Value="10 5" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_AA676FA5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_AA676FA5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_AA676FA5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_AA676FA5" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition4_AA676FA5" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition5_AA676FA5" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition6_AA676FA5" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition7_AA676FA5" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0"
+               Grid.Row="0"
+               Content="{lex:Loc DualHost}"
+               AutomationProperties.AutomationId="Label8_AA676FA5" />
+        <controls:ToggleSwitch Grid.Row="1"
+                                     Grid.Column="0"
+                                     IsEnabled="{Binding InputEnabled}"
+                                     IsOn="{Binding DualHostSetup}"
+                                     controls:ControlsHelper.CornerRadius="0"
+                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}" />
+        <GroupBox Grid.Column="0"
+                  Grid.Row="2"
+                  Header="{lex:BLoc PortAssignmentGroupHeader}"
+                  Margin="0 20 0 0"
+                  IsEnabled="{Binding InputEnabled}"
+                  AutomationProperties.AutomationId="GroupBox9_AA676FA5">
+            <Grid AutomationProperties.AutomationId="Grid10_AA676FA5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition11_AA676FA5" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition12_AA676FA5" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition13_AA676FA5" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition14_AA676FA5" />
+                    <RowDefinition AutomationProperties.AutomationId="RowDefinition15_AA676FA5">
+                        <RowDefinition.Style>
+                            <Style TargetType="RowDefinition">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SasProtocolConfiguration.IsValidationHandled}"
+                                                 Value="True"
+                                                 AutomationProperties.AutomationId="DataTrigger16_AA676FA5">
+                                        <Setter Property="Height"
+                                                Value="Auto" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SasProtocolConfiguration.IsValidationHandled}"
+                                                 Value="False"
+                                                 AutomationProperties.AutomationId="DataTrigger17_AA676FA5">
+                                        <Setter Property="Height"
+                                                Value="0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RowDefinition.Style>
+                    </RowDefinition>
+                    <RowDefinition AutomationProperties.AutomationId="RowDefinition18_AA676FA5">
+                        <RowDefinition.Style>
+                            <Style TargetType="RowDefinition">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SasProtocolConfiguration.IsFundTransferHandled}"
+                                                 Value="True"
+                                                 AutomationProperties.AutomationId="DataTrigger19_AA676FA5">
+                                        <Setter Property="Height"
+                                                Value="Auto" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SasProtocolConfiguration.IsFundTransferHandled}"
+                                                 Value="False"
+                                                 AutomationProperties.AutomationId="DataTrigger20_AA676FA5">
+                                        <Setter Property="Height"
+                                                Value="0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RowDefinition.Style>
+                    </RowDefinition>
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition21_AA676FA5" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition22_AA676FA5" />
+                    <RowDefinition AutomationProperties.AutomationId="RowDefinition23_AA676FA5">
+                        <RowDefinition.Style>
+                            <Style TargetType="RowDefinition">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SasProtocolConfiguration.IsProgressiveHandled}"
+                                                 Value="True"
+                                                 AutomationProperties.AutomationId="DataTrigger24_AA676FA5">
+                                        <Setter Property="Height"
+                                                Value="Auto" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SasProtocolConfiguration.IsProgressiveHandled}"
+                                                 Value="False"
+                                                 AutomationProperties.AutomationId="DataTrigger25_AA676FA5">
+                                        <Setter Property="Height"
+                                                Value="0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RowDefinition.Style>
+                    </RowDefinition>
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition26_AA676FA5" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition27_AA676FA5" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition28_AA676FA5" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition29_AA676FA5" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Content="{lex:BLoc Host1Label}"
+                       HorizontalContentAlignment="Center"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       AutomationProperties.AutomationId="Label30_AA676FA5" />
+                <Label Grid.Row="0"
+                       Grid.Column="2"
+                       Content="{lex:BLoc Host2Label}"
+                       HorizontalContentAlignment="Center"
+                       Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       AutomationProperties.AutomationId="Label31_AA676FA5" />
+                <Label x:Name="AddressLabel"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Content="{lex:BLoc AddressLabel}"
+                       AutomationProperties.AutomationId="Label32_AA676FA5" />
+                <helpers:AlphaNumericTextBox x:Name="Address1TextBox"
+                                             Grid.Row="1"
+                                             Grid.Column="1"
+                                             IsReadOnly="False"
+                                             IsAlphaNumeric="False"
+                                             CanBeEmpty="False"
+                                             CharacterCasing="Upper"
+                                             VerticalAlignment="Center"
+                                             TextChanged="SasAddressTextBox_OnTextChanged"
+                                             Text="{Binding CommunicationAddress1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                             ErrorText="{Binding CommunicationAddress1ErrorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             IsEnabled="{Binding AddressHost1Editable}"
+                                             MaxLength="{Binding CommunicationAddress1MaxLength, Mode=OneWay}" />
+                <helpers:AlphaNumericTextBox x:Name="Address2TextBox"
+                                             Grid.Row="1"
+                                             Grid.Column="2"
+                                             IsReadOnly="False"
+                                             IsAlphaNumeric="False"
+                                             CanBeEmpty="False"
+                                             CharacterCasing="Upper"
+                                             VerticalAlignment="Center"
+                                             TextChanged="SasAddressTextBox_OnTextChanged"
+                                             Text="{Binding CommunicationAddress2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                             ErrorText="{Binding CommunicationAddress2ErrorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             IsEnabled="{Binding AddressHost2Editable}"
+                                             MaxLength="{Binding CommunicationAddress2MaxLength, Mode=OneWay}"
+                                             Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}" />
+                <Label x:Name="GeneralControlPortLabel"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Content="{lex:BLoc GeneralControlPortLabel}"
+                       AutomationProperties.AutomationId="Label33_AA676FA5" />
+                <RadioButton x:Name="Host1GeneralControlCheck"
+                             Grid.Row="2"
+                             Grid.Column="1"
+                             GroupName="GeneralControlHost"
+                             VerticalAlignment="Center"
+                             IsEnabled="{Binding GeneralControlEditable}"
+                             IsChecked="{Binding GeneralControlOnHost1, Mode=TwoWay}"
+                             AutomationProperties.AutomationId="RadioButton34_AA676FA5" />
+                <RadioButton x:Name="Host2GeneralControlCheck"
+                             Grid.Row="2"
+                             Grid.Column="2"
+                             GroupName="GeneralControlHost"
+                             VerticalAlignment="Center"
+                             IsEnabled="{Binding GeneralControlEditable}"
+                             IsChecked="{Binding GeneralControlOnHost2, Mode=TwoWay}"
+                             Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
+                             AutomationProperties.AutomationId="RadioButton35_AA676FA5" />
+                <Label Grid.Row="3"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Content="{lex:BLoc AccountingDenom}"
+                       AutomationProperties.AutomationId="Label36_AA676FA5" />
+                <ComboBox Grid.Row="3"
+                          Grid.Column="1"
+                          Margin="10 5"
+                          ItemsSource="{Binding AccountingDenoms}"
+                          VerticalAlignment="Center"
+                          SelectedIndex="{Binding AccountingDenom1Index, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                          SelectedItem="{Binding AccountingDenom1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                          AutomationProperties.AutomationId="ComboBox37_AA676FA5">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                    Text="{Binding Converter={StaticResource CurrencyConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                       AutomationProperties.AutomationId="TextBlock38_AA676FA5" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Grid Grid.Row="3"
+                      Grid.Column="2"
+                      VerticalAlignment="Center"
+                      Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
+                      AutomationProperties.AutomationId="Grid39_AA676FA5">
+                    <ComboBox ItemsSource="{Binding AccountingDenoms}"
+                              SelectedIndex="{Binding AccountingDenom2Index, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                              SelectedItem="{Binding AccountingDenom2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                              Margin="10 5"
+                              AutomationProperties.AutomationId="ComboBox40_AA676FA5">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                        Text="{Binding Converter={StaticResource CurrencyConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                           AutomationProperties.AutomationId="TextBlock41_AA676FA5" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </Grid>
+                <Label x:Name="ValidationPortLabel"
+                       Grid.Row="4"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Content="{lex:BLoc ValidationPortLabel}"
+                       AutomationProperties.AutomationId="Label42_AA676FA5" />
+                <cs:OptionalRadioButton x:Name="Host1ValidationCheck"
+                                        Grid.Row="4"
+                                        Grid.Column="1"
+                                        GroupName="Validation"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding ValidationOnHost1, Mode=TwoWay}" />
+                <cs:OptionalRadioButton x:Name="Host2ValidationCheck"
+                                        Grid.Row="4"
+                                        Grid.Column="2"
+                                        GroupName="Validation"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding ValidationOnHost2, Mode=TwoWay}"
+                                        Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}" />
+                <Label x:Name="AftPortLabel"
+                       Grid.Row="5"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Content="{lex:BLoc AftPortLabel}"
+                       AutomationProperties.AutomationId="Label43_AA676FA5" />
+                <cs:OptionalRadioButton x:Name="Host1AftCheck"
+                                        Grid.Row="5"
+                                        Grid.Column="1"
+                                        GroupName="Aft"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding AftOnHost1, Mode=TwoWay}" />
+                <cs:OptionalRadioButton x:Name="Host2AftCheck"
+                                        Grid.Row="5"
+                                        Grid.Column="2"
+                                        GroupName="Aft"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding AftOnHost2, Mode=TwoWay}"
+                                        Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}" />
+                <Label x:Name="LegacyBonusingPortLabel"
+                       Grid.Row="6"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Content="{lex:BLoc LegacyBonusPortLabel}"
+                       AutomationProperties.AutomationId="Label44_AA676FA5" />
+                <cs:OptionalRadioButton x:Name="Host1LegacyBonusCheck"
+                                        Grid.Row="6"
+                                        Grid.Column="1"
+                                        GroupName="Bonus"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding LegacyBonusOnHost1, Mode=TwoWay}" />
+                <cs:OptionalRadioButton x:Name="Host2LegacyBonusCheck"
+                                        Grid.Row="6"
+                                        Grid.Column="2"
+                                        GroupName="Bonus"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding LegacyBonusOnHost2, Mode=TwoWay}"
+                                        Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}" />
+                <Label x:Name="GameStartEndPortLabel"
+                       Grid.Row="7"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Content="{lex:BLoc GameStartEndPortLabel}"
+                       AutomationProperties.AutomationId="Label45_AA676FA5" />
+                <CheckBox x:Name="Host1GameStartEndCheck"
+                          Grid.Row="7"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          IsChecked="{Binding GameStartEndOnHost1, Mode=TwoWay}"
+                          AutomationProperties.AutomationId="CheckBox46_AA676FA5" />
+                <CheckBox x:Name="Host2GameStartEndCheck"
+                          Grid.Row="7"
+                          Grid.Column="2"
+                          VerticalAlignment="Center"
+                          IsChecked="{Binding GameStartEndOnHost2, Mode=TwoWay}"
+                          Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
+                          AutomationProperties.AutomationId="CheckBox47_AA676FA5" />
+                <Label x:Name="ProgressivePortLabel"
+                       Grid.Row="8"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Content="{lex:BLoc ProgressivePortLabel}"
+                       AutomationProperties.AutomationId="Label48_AA676FA5" />
+                <cs:OptionalRadioButton x:Name="Host1ProgressiveCheck"
+                                        Grid.Row="8"
+                                        Grid.Column="1"
+                                        GroupName="ProgHost"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding ProgressiveOnHost1, Mode=TwoWay}" />
+                <cs:OptionalRadioButton x:Name="Host2ProgressiveCheck"
+                                        Grid.Row="8"
+                                        Grid.Column="2"
+                                        GroupName="ProgHost"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{Binding ProgressiveOnHost2, Mode=TwoWay}"
+                                        Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}" />
+                <Label x:Name="NonSasProgressiveHitReportingLabel"
+                       Grid.Row="9"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Content="{lex:BLoc NonSasProgressiveHitReportingLabel}"
+                       AutomationProperties.AutomationId="Label49_AA676FA5" />
+                <CheckBox x:Name="Host1NonSasProgressiveHitReporting"
+                          Grid.Row="9"
+                          Grid.Column="1"
+                          VerticalAlignment="Center"
+                          IsChecked="{Binding NonSasProgressiveHitReportingHost1, Mode=TwoWay}"
+                          AutomationProperties.AutomationId="CheckBox50_AA676FA5" />
+                <CheckBox x:Name="Host2NonSasProgressiveHitReporting"
+                          Grid.Row="9"
+                          Grid.Column="2"
+                          VerticalAlignment="Center"
+                          IsChecked="{Binding NonSasProgressiveHitReportingHost2, Mode=TwoWay}"
+                          Visibility="{Binding DualHostSetup, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
+                          AutomationProperties.AutomationId="CheckBox51_AA676FA5" />
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Column="2"
+              Grid.Row="2"
+              Margin="15 15 0 0"
+              AutomationProperties.AutomationId="Grid52_AA676FA5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition53_AA676FA5" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition54_AA676FA5" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition55_AA676FA5" />
+            </Grid.ColumnDefinitions>
+            <Label x:Name="ProgGroupId"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{lex:BLoc ProgGroupIdLabel}"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Left"
+                   Visibility="{Binding SasProtocolConfiguration.IsProgressiveHandled, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
+                   AutomationProperties.AutomationId="Label56_AA676FA5" />
+            <helpers:AlphaNumericTextBox x:Name="ProgGroupIdTextBox"
+                                         Grid.Row="1"
+                                         Grid.Column="0"
+                                         VerticalAlignment="Bottom"
+                                         HorizontalAlignment="Left"
+                                         HorizontalContentAlignment="Left"
+                                         Width="450"
+                                         Height="50"
+                                         IsReadOnly="False"
+                                         IsAlphaNumeric="False"
+                                         CanBeEmpty="False"
+                                         CharacterCasing="Upper"
+                                         Text="{Binding ProgressiveGroupId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                         ErrorText="{Binding ProgressiveGroupIdErrorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         IsEnabled="{Binding InputEnabled}"
+                                         MaxLength="{Binding ProgressiveGroupIdMaxLength, Mode=OneWay}"
+                                         Visibility="{Binding SasProtocolConfiguration.IsProgressiveHandled, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

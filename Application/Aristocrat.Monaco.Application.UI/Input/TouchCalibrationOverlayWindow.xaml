@@ -1,0 +1,17 @@
+﻿<common:BaseWindow x:Class="Aristocrat.Monaco.Application.UI.Input.TouchCalibrationOverlayWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:common="http://monaco.aristocrat.com/common"
+             xmlns:behaviors="clr-namespace:Aristocrat.Monaco.UI.Common.Behaviors;assembly=Aristocrat.Monaco.UI.Common"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             BorderThickness="0"
+             WindowStyle="None"
+             ResizeMode="NoResize"
+             Opacity="0.01">
+    <b:Interaction.Behaviors>
+        <behaviors:TouchWindowBehavior />
+    </b:Interaction.Behaviors>
+</common:BaseWindow>

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Hardware.HardwarePropertyProvider">
+    <Fields>
+      <Field DataType="String" Size="128" FieldName="Display1" />
+      <Field DataType="String" Size="128" FieldName="Display2" />
+      <Field DataType="String" Size="128" FieldName="Display3" />
+      <Field DataType="String" Size="128" FieldName="Display4" />
+      <Field DataType="String" Size="128" FieldName="Display5" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice1" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice2" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice3" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice4" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice5" />
+      <Field DataType="Bool" FieldName="Hardware.HardMetersEnabled" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Hardware.HardwarePropertyProvider">
+    <Fields>
+      <Field DataType="String" Size="128" FieldName="Display1" />
+      <Field DataType="String" Size="128" FieldName="Display2" />
+      <Field DataType="String" Size="128" FieldName="Display3" />
+      <Field DataType="String" Size="128" FieldName="Display4" />
+      <Field DataType="String" Size="128" FieldName="Display5" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice1" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice2" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice3" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice4" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice5" />
+      <Field DataType="Bool" FieldName="Hardware.HardMetersEnabled" />
+      <Field DataType="Bool" FieldName="Battery1Low" />
+      <Field DataType="Bool" FieldName="Battery2Low" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="3" name="Aristocrat.Monaco.Hardware.HardwarePropertyProvider">
+    <Fields>
+      <Field DataType="String" Size="128" FieldName="Display1" />
+      <Field DataType="String" Size="128" FieldName="Display2" />
+      <Field DataType="String" Size="128" FieldName="Display3" />
+      <Field DataType="String" Size="128" FieldName="Display4" />
+      <Field DataType="String" Size="128" FieldName="Display5" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice1" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice2" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice3" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice4" />
+      <Field DataType="String" Size="128" FieldName="TouchDevice5" />
+      <Field DataType="Bool" FieldName="Hardware.HardMetersEnabled" />
+      <Field DataType="Bool" FieldName="Battery1Low" />
+      <Field DataType="Bool" FieldName="Battery2Low" />
+      <Field DataType="Bool" FieldName="Hardware.BellEnabled" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

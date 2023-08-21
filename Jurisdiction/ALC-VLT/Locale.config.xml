@@ -1,0 +1,35 @@
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Application\Monaco.Application.Contracts
+2.  Enter "xsd LocaleConfiguration.xsd /c".  This will generate
+    the corresponding class definition in csharp (LocaleConfiguration.cs).
+--> 
+<LocaleConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PlayerTicket Locale="en-CA">
+    <Selectable>
+      <Entry Locale="en-CA" />
+      <Entry Locale="fr-CA" />
+    </Selectable>
+    <LanguageSetting Visible="true" OperatorOverride="false" ShowCheckBox="true" />
+  </PlayerTicket>
+  <OperatorTicket Locale="en-CA" />
+  <Operator Default="en-CA">
+    <Available>
+      <string>en-CA</string>
+    </Available>
+  </Operator>
+  <Player Primary="en-CA">
+    <Available>
+      <string>en-CA</string>
+      <string>fr-CA</string>
+    </Available>
+  </Player>
+  <Overrides>
+    <string>VLT</string>
+    <string>ALCVLT</string>
+  </Overrides>
+</LocaleConfiguration>

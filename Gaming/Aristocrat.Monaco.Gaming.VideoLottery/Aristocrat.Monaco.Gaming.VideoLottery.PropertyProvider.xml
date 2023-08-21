@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" Name="Aristocrat.Monaco.Gaming.VideoLottery.PropertyProvider">
+  <Fields>
+    <Field FieldName="Lobby.PlayTimeRemainingInSeconds" DataType="Int32"/>
+    <Field FieldName="Lobby.PlayTimeSessionCount" DataType="Int32"/>
+    <Field FieldName="Lobby.PlayTimeElapsedInSeconds" DataType="Int32"/>
+    <Field FieldName="Lobby.IsTimeLimitDlgVisible" DataType="Bool"/>
+    <Field FieldName="Lobby.ShowTimeLimitDlgPending" DataType="Bool"/>
+    <Field FieldName="Lobby.RGPlayBreakTimeoutInSeconds" DataType="Int32"/>
+    <Field FieldName="Lobby.RGPlayBreakHit" DataType="Bool"/>
+  </Fields>
+</BlockFormat>

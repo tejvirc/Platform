@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="HardMeterMappingConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element  maxOccurs="unbounded" name="HardMeterMapping">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="HardMeter">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element maxOccurs="unbounded" name="SoftMeter">
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="LogicalId" type="xs:int" use="required" />
+                  <xs:attribute name="Name" type="xs:string" use="required" />
+                  <xs:attribute name="TickValue" type="xs:long" use="optional" default="100"/>
+                  <xs:attribute name="TickValueConfigurable" type="xs:boolean" use="optional" default="true"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+			      <xs:attribute name="Name" type="xs:string" use="optional" default="Default"/>
+            <xs:attribute name="Default" type="xs:boolean" default="false"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+     </xs:complexType>
+    <xs:unique name="uniqueMappingName">
+      <xs:selector xpath="HardMeterMapping"/>
+      <xs:field xpath="@Name"/>
+    </xs:unique>
+  </xs:element>
+</xs:schema>

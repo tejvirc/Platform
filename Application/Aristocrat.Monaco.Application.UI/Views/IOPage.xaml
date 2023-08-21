@@ -1,0 +1,135 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.IOPage"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                              xmlns:loc="http://monaco.aristocrat.com/localization"
+                              Background="Transparent"
+                              mc:Ignorable="d" 
+                              d:DataContext="{d:DesignInstance {x:Type viewModels:IOPageViewModel}}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin"
+                        Value="0 0 10 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="Margin"
+                        Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_9C8A3C39">
+        <Grid.RowDefinitions>
+            <RowDefinition AutomationProperties.AutomationId="RowDefinition1_9C8A3C39" />
+            <RowDefinition AutomationProperties.AutomationId="RowDefinition2_9C8A3C39" />
+        </Grid.RowDefinitions>
+        <!-- Main grid row 0 consists of a 1x5 grid for stack panels of device and status information. -->
+        <Grid AutomationProperties.AutomationId="Grid3_9C8A3C39">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition4_9C8A3C39" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition5_9C8A3C39" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition6_9C8A3C39" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition7_9C8A3C39" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition8_9C8A3C39" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition9_9C8A3C39" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition10_9C8A3C39" />
+                <ColumnDefinition Width="100"
+                                  AutomationProperties.AutomationId="ColumnDefinition11_9C8A3C39" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition12_9C8A3C39" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition13_9C8A3C39" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{lex:Loc ManufacturerLabel}"
+                   AutomationProperties.AutomationId="Label14_9C8A3C39" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       Name="Manufacturer"
+                       Text="{Binding ManufacturerText}"
+                       AutomationProperties.AutomationId="TextBlock15_9C8A3C39" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Content="{lex:Loc ModelLabel}"
+                   AutomationProperties.AutomationId="Label16_9C8A3C39" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       Name="Model"
+                       Text="{Binding ModelText}"
+                       AutomationProperties.AutomationId="TextBlock17_9C8A3C39" />
+            <Label Grid.Row="0"
+                   Grid.Column="3"
+                   Content="{lex:Loc StateLabel}"
+                   AutomationProperties.AutomationId="Label18_9C8A3C39" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="4"
+                       Name="State"
+                       Text="{Binding StateText}"
+                       Foreground="{Binding StateForegroundBrush}"
+                       AutomationProperties.AutomationId="TextBlock19_9C8A3C39" />
+            <Label Grid.Row="1"
+                   Grid.Column="3"
+                   Content="{lex:Loc StatusLabel}"
+                   AutomationProperties.AutomationId="Label20_9C8A3C39" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="4"
+                       Name="Status"
+                       Text="{Binding FormattedStatus}"
+                       Foreground="{Binding StatusForegroundBrush}"
+                       AutomationProperties.AutomationId="TextBlock21_9C8A3C39" />
+            <Label Grid.Row="2"
+                   Grid.Column="3"
+                   Content="{lex:Loc InputsLabel}"
+                   AutomationProperties.AutomationId="Label22_9C8A3C39" />
+            <TextBlock Grid.Row="2"
+                       Grid.Column="4"
+                       Name="Inputs"
+                       Text="{Binding InputsText}"
+                       AutomationProperties.AutomationId="TextBlock23_9C8A3C39" />
+            <Label Grid.Row="3"
+                   Grid.Column="3"
+                   Content="{lex:Loc OutputsLabel}"
+                   AutomationProperties.AutomationId="Label24_9C8A3C39" />
+            <TextBlock Grid.Row="3"
+                       Grid.Column="4"
+                       Name="Outputs"
+                       Text="{Binding OutputsText}"
+                       AutomationProperties.AutomationId="TextBlock25_9C8A3C39" />
+            <Label Grid.Row="4"
+                   Grid.Column="3"
+                   Content="{lex:Loc IntrusionText}"
+                   AutomationProperties.AutomationId="Label26_9C8A3C39" />
+            <TextBlock Grid.Row="4"
+                       Grid.Column="4"
+                       Name="Intrusion"
+                       Text="{Binding IntrusionText}"
+                       AutomationProperties.AutomationId="TextBlock27_9C8A3C39" />
+        </Grid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

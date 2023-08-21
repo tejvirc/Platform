@@ -1,0 +1,245 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.GeneralSettingsPage"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                              xmlns:loc="http://monaco.aristocrat.com/localization"
+                              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                              mc:Ignorable="d"
+                              d:DataContext="{d:DesignInstance viewModels:GeneralSettingsPageViewModel}"
+                              FocusManager.FocusedElement="{Binding ElementName=MainMenu}"
+                              Background="Transparent">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin"
+                        Value="0 0 10 0" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="VisibilityChanged"
+                        AutomationProperties.AutomationId="EventTrigger0_5D6B2051">
+            <b:InvokeCommandAction Command="{Binding VisibilityChangedCommand}" />
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+    <Grid AutomationProperties.AutomationId="Grid1_5D6B2051">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition2_5D6B2051" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition3_5D6B2051" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1"
+              HorizontalAlignment="Right"
+              Visibility="{Binding RetailerInfoVisibility}"
+              AutomationProperties.AutomationId="Grid4_5D6B2051">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition5_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition6_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition7_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition8_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition9_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition10_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition11_5D6B2051" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition12_5D6B2051" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition13_5D6B2051" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{lex:Loc PropertyNameLabel}"
+                   AutomationProperties.AutomationId="Label14_5D6B2051" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       Text="{Binding PropertyName }"
+                       AutomationProperties.AutomationId="TextBlock15_5D6B2051" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Content="{lex:Loc AddressLine1Label}"
+                   AutomationProperties.AutomationId="Label16_5D6B2051" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding AddressLine1 }"
+                       AutomationProperties.AutomationId="TextBlock17_5D6B2051" />
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Content="{lex:Loc AddressLine2Label}"
+                   AutomationProperties.AutomationId="Label18_5D6B2051" />
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       Text="{Binding AddressLine2 }"
+                       AutomationProperties.AutomationId="TextBlock19_5D6B2051" />
+            <Label Grid.Row="3"
+                   Grid.Column="0"
+                   Content="{lex:Loc LicenseLabel}"
+                   AutomationProperties.AutomationId="Label20_5D6B2051" />
+            <TextBlock Grid.Row="3"
+                       Grid.Column="1"
+                       Text="{Binding LicenseNumber }"
+                       AutomationProperties.AutomationId="TextBlock21_5D6B2051" />
+            <Label Grid.Row="4"
+                   Grid.Column="0"
+                   Content="{lex:Loc TerminalNumber}"
+                   AutomationProperties.AutomationId="Label22_5D6B2051" />
+            <TextBlock Grid.Row="4"
+                       Grid.Column="1"
+                       Text="{Binding TerminalNumber }"
+                       AutomationProperties.AutomationId="TextBlock23_5D6B2051" />
+            <Label Grid.Row="5"
+                   Grid.Column="0"
+                   Content="{lex:Loc SerialNumberLabel}"
+                   AutomationProperties.AutomationId="Label24_5D6B2051" />
+            <TextBlock Grid.Row="5"
+                       Grid.Column="1"
+                       Text="{Binding SerialNumber }"
+                       AutomationProperties.AutomationId="TextBlock25_5D6B2051" />
+        </Grid>
+        <Grid Grid.Column="0"
+              HorizontalAlignment="Left"
+              AutomationProperties.AutomationId="Grid26_5D6B2051">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition27_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition28_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition29_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition30_5D6B2051" />
+                <RowDefinition Height="30"
+                               AutomationProperties.AutomationId="RowDefinition31_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition32_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition33_5D6B2051" />
+                <RowDefinition Height="30"
+                               AutomationProperties.AutomationId="RowDefinition34_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition35_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition36_5D6B2051" />
+                <RowDefinition Height="30"
+                               AutomationProperties.AutomationId="RowDefinition37_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition38_5D6B2051" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition39_5D6B2051" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition40_5D6B2051" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition41_5D6B2051" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{lex:Loc JurisdictionLabel}"
+                   AutomationProperties.AutomationId="Label42_5D6B2051" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       Text="{Binding Jurisdiction}"
+                       AutomationProperties.AutomationId="TextBlock43_5D6B2051" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Content="{lex:Loc WindowsVersionLabel}"
+                   AutomationProperties.AutomationId="Label44_5D6B2051" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding WindowsVersion}"
+                       AutomationProperties.AutomationId="TextBlock45_5D6B2051" />
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Content="{lex:Loc OSImageVersionLabel}"
+                   AutomationProperties.AutomationId="Label46_5D6B2051" />
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       Text="{Binding OsImageVersion}"
+                       AutomationProperties.AutomationId="TextBlock47_5D6B2051" />
+            <Label Grid.Row="3"
+                   Grid.Column="0"
+                   Content="{lex:Loc PlatformVersionLabel}"
+                   AutomationProperties.AutomationId="Label48_5D6B2051" />
+            <TextBlock Grid.Row="3"
+                       Grid.Column="1"
+                       Text="{Binding Version}"
+                       AutomationProperties.AutomationId="TextBlock49_5D6B2051" />
+            <Label Grid.Row="5"
+                   Grid.Column="0"
+                   Content="{lex:Loc TimeZoneLabel}"
+                   AutomationProperties.AutomationId="Label50_5D6B2051" />
+            <TextBlock Grid.Row="5"
+                       Grid.Column="1"
+                       Text="{Binding TimeZone , UpdateSourceTrigger=PropertyChanged}"
+                       AutomationProperties.AutomationId="TextBlock51_5D6B2051" />
+            <Label Grid.Row="6"
+                   Grid.Column="0"
+                   Content="{lex:Loc TimeZoneOffsetLabel}"
+                   AutomationProperties.AutomationId="Label52_5D6B2051" />
+            <TextBlock Grid.Row="6"
+                       Grid.Column="1"
+                       Text="{Binding TimeZoneOffset , UpdateSourceTrigger=PropertyChanged}"
+                       AutomationProperties.AutomationId="TextBlock53_5D6B2051" />
+            <Label Grid.Row="8"
+                   Grid.Column="0"
+                   Content="{lex:Loc IPAddressesLabel}"
+                   AutomationProperties.AutomationId="Label54_5D6B2051" />
+            <TextBlock Grid.Row="8"
+                       Grid.Column="1"
+                       Text="{Binding IPAddress}"
+                       AutomationProperties.AutomationId="TextBlock55_5D6B2051" />
+            <Label Grid.Row="9"
+                   Grid.Column="0"
+                   Content="{lex:Loc MacAddressLabel}"
+                   AutomationProperties.AutomationId="Label56_5D6B2051" />
+            <TextBlock Grid.Row="9"
+                       Grid.Column="1"
+                       Text="{Binding MacAddress}"
+                       AutomationProperties.AutomationId="TextBlock57_5D6B2051" />
+            <Label Grid.Row="11"
+                   Grid.Column="0"
+                   Content="{lex:Loc HardBootTimeLabel}"
+                   AutomationProperties.AutomationId="Label58_5D6B2051" />
+            <TextBlock Grid.Row="11"
+                       Grid.Column="1"
+                       Text="{Binding HardBootTime , UpdateSourceTrigger=PropertyChanged}"
+                       AutomationProperties.AutomationId="TextBlock59_5D6B2051" />
+            <Label Grid.Row="12"
+                   Grid.Column="0"
+                   Content="{lex:Loc SoftBootTimeLabel}"
+                   AutomationProperties.AutomationId="Label60_5D6B2051" />
+            <TextBlock Grid.Row="12"
+                       Grid.Column="1"
+                       Text="{Binding SoftBootTime , UpdateSourceTrigger=PropertyChanged}"
+                       AutomationProperties.AutomationId="TextBlock61_5D6B2051" />
+        </Grid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

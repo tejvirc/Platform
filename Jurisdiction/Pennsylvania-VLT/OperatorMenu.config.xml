@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Application\Monaco.Application.Contracts\OperatorMenu
+2.  Enter "xsd OperatorMenuConfiguration.xsd /c".  This will generate
+    the corresponding class definition in csharp (OperatorMenuConfiguration.cs).
+-->
+<OperatorMenuConfiguration>
+	<Setting Name="PrintCurrentPage" Value="true" />
+	<Setting Name="PrintLast15" Value="true" />
+	<Setting Name="PrintSelected" Value="true" />
+	<Setting Name="ShowTimeFormat" Value="false" />
+	<Setting Name="CreditBalanceVisible" Value="true" />
+	<Setting Name="HardwareDiagnosticsEnabled" Value="true" />
+	<Setting Name="ShowExitButton" Value="true" />
+  <Menu Type="StatusMainPageLoader">
+    <Page Type="StatusPageViewModel" Access="GameIdleZeroCredits" />
+	<Page Type="DoorPageViewModel">
+		<Setting Name="ShowUnconfiguredDoors" Value="false" />
+	</Page>
+  </Menu>
+	<Menu Type="IdentificationMainPageLoader">
+		<Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="true" Access="ZeroGamesPlayed" />
+		<Page TabType="SerialGatPageLoader" Visible="false" />
+	</Menu>
+	<Menu Type="LogsMainPageLoader">
+		<Page Type="EventLoggingPageViewModel" PrintButtonEnabled="true" />
+		<Page Type="VoucherOutLogViewModel" PrintButtonEnabled="true" />
+		<Page TabType="VoucherInLogLoader" Visible="false"/>
+		<Page Type="TransactionHistoryViewModel" PrintButtonEnabled="false" />
+		<Page Type="BillEventHistoryLogLoader" PrintButtonEnabled="true" />
+		<Page Type="HandpayLogViewModel" PrintButtonEnabled="true" />
+		<Page TabType="AlteredMediaPageLoader" Visible="false" />
+		<Page TabType="WatOnHistoryLogLoader" Visible="false" />
+		<Page TabType="WatOffHistoryLogLoader" Visible="false" />
+		<Page TabType="BonusLogLoader" Visible="false" />
+	</Menu>
+	<Menu Type="MetersMainPageLoader">
+		<Page Type="MainMetersPageViewModel" PrintButtonEnabled="true" />
+		<Page Type="VoucherMetersPageViewModel" PrintButtonEnabled="true"/>
+		<Page Type="GameMetersViewModel" PrintButtonEnabled="true">
+			<Setting Name="ShowWagerCategoryMeters" Value="false" />
+		</Page>
+		<Page Type="DenomMetersPageViewModel" PrintButtonEnabled="true"/>
+		<Page Type="ProgressiveMetersPageViewModel" TabType="ProgressiveMetersPageLoader" Visible="false"/>
+		<Page Type="CustomSAPMetersPageViewModel" PrintButtonEnabled="false" Visible="false"/>
+		<Page Type="BillsMetersPageViewModel" PrintButtonEnabled="true"/>
+		<Page Type="HardwareMetersPageViewModel" PrintButtonEnabled="true"/>
+		<Page Type="WatMetersPageViewModel" TabType="WatMetersPageLoader" Visible="false"/>
+		<Page Type="HandpayMetersPageViewModel" TabType="HandpayMetersPageLoader" Visible="false"/>
+    <Page Type="BonusMetersPageViewModel" PrintButtonEnabled="false"/>
+	</Menu>
+	<Menu Type="HardwareMainPageLoader">
+		<Page Type="PrinterViewModel" PrintButtonEnabled="true">
+			<Setting Name="ActivationTimeVisible" Value="true" />
+			<AccessRuleSet ID="TestMode" RuleSetName="GameIdle" />
+		</Page>
+		<Page Type="NoteAcceptorViewModel" PrintButtonEnabled="true" Access="MainLogicZeroCreditsGameIdle">
+			<Setting Name="ActivationTimeVisible" Value="true" />
+			<Setting Name="EgmCanEnableDenominations" Value="false" />
+		</Page>
+		<Page Type="LampsPageViewModel" PrintButtonEnabled="false" />
+		<Page Type="TowerLightsPageViewModel" PrintButtonEnabled="false" />
+		<Page Type="ButtonPageViewModel" PrintButtonEnabled="false" />
+		<Page Type="EdgeLightingPageViewModel" PrintButtonEnabled="false">
+			<Setting Name="EdgeLightingOverrideVisible" Value="false" />
+		</Page>
+		<Page Type="SoundConfigPageViewModel" PrintButtonEnabled="false" />
+		<Page Type="DisplaysPageViewModel" PrintButtonEnabled="false"/>
+		<Page Type="IdReaderPageViewModel" TabType="IDReaderPageLoader" Visible="false" PrintButtonEnabled="false"/>
+		<Page Type="KeyPageViewModel" PrintButtonEnabled="false" />
+		<Page Type="BatteryPageViewModel" PrintButtonEnabled="false"/>
+		<Page Type="HardwareManagerPageViewModel" TabType="HardwareManagerPageLoader" PrintButtonEnabled="false" Visible="true" />
+	</Menu>
+	<Menu Type="SystemMainPageLoader">
+		<Page Type="TimeConfigPageViewModel"/>
+		<Page Type="LimitsPageViewModel" Access="PageReadOnly"/>
+		<Page Type="VoucherSettingsPageViewModel" Access="PageReadOnly">
+			<Setting Name="ShowNonCashableVoucherOut" Value="false" />
+		</Page>
+		<Page Type="CustomSAPViewModel" Access="MainLogicZeroCreditsGameIdle" TabType="CustomSAPViewLoader" Visible="false"/>
+		<Page Type="AddSAPLevelViewModel" Access="MainLogicZeroCreditsGameIdle"/>
+		<Page Type="BarkeeperConfigurationViewModel" TabType="BarkeeperConfigurationPageLoader" Visible="false"/>
+        <Page Type="ReserveMachineViewModel" TabType="ReserveMachinePageLoader" Visible="false"/>
+	</Menu>
+	<Menu Type="GamesMainPageLoader">
+		<Page Type="AdvancedGameSetupViewModel" Access="GameIdleZeroCredits">
+			<Setting Name="AllowImportExport" Value="false" />
+			<Setting Name="ShowGlobalOptions" Value="false" />
+			<Setting Name="EnableAdvancedConfig" Value="true" />
+			<Setting Name="EnableQuickConfig" Value="false" />
+		</Page>
+		<Page Type="GameHistoryViewModel">
+			<Setting Name="ShowGameInfoButtons" Value="false" />
+			<Setting Name="PrintGameRoundInfo" Value="false" />
+		</Page>
+		<Page Type="GamePreferencesViewModel"  TabType="GamePreferencesViewLoader" Visible="false" />
+		<Page Type="GameInfoViewModel" Access="ZeroCredits" PrintButtonEnabled="true">
+			<Setting Name="SetGameOrderOnlyInShowMode" Value="true" />
+		</Page>
+		<Page TabType="CombinationTestViewLoader" Visible="false" />
+	</Menu>
+	<Menu Type="CommsMainPageLoader"> 
+		<Page Type="NetworkConfigPageViewModel" Access="ZeroCredits"/>
+		<Page Type="CertificatesViewModel" />
+	</Menu>
+	<Menu Type="DiagnosticMainPageLoader">
+		<Page Type="IOPageViewModel" PrintButtonEnabled="true" />
+	</Menu>
+	<Menu Type="OptionsMainPageLoader" Visible="false">
+		<Page Type="OptionsPageLoader">
+			<Setting Name="OperatorCanOverrideMaxCreditsIn" Value="true" />
+			<Setting Name="IdleTextVisible" Value="false" />
+		</Page>
+	</Menu>
+	<Menu Type="SystemResetPageLoader" Visible="false">
+		<Page Type="SystemResetPageLoader" />		
+	</Menu>
+	<AccessRules>
+		<AccessRuleSet Name="ZeroCredits">
+			<Rule Restriction="ZeroCredits" />
+		</AccessRuleSet>
+		<AccessRuleSet Name="GameIdleZeroCredits">
+			<Rule Restriction="GameIdle" />
+			<Rule Restriction="ZeroCredits" />
+		</AccessRuleSet>
+		<AccessRuleSet Name="GameIdle">
+			<Rule Restriction="GameIdle" />
+		</AccessRuleSet>
+	</AccessRules>
+</OperatorMenuConfiguration>

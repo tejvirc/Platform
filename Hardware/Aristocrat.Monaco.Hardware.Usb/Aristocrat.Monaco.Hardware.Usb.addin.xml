@@ -1,0 +1,24 @@
+﻿<Addin id="UsbCommunicatorDriver" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Hardware.Usb.dll" />
+    <Import assembly="Aristocrat.Monaco.Hardware.Contracts.dll"/>
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Hardware" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Hardware/CommunicatorDrivers">
+    <DeviceImplementation ProtocolName="USB"
+                          type="Aristocrat.Monaco.Hardware.Usb.UsbCommunicator"/>
+    <DeviceImplementation ProtocolName="RELM"
+                          type="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmUsbCommunicator"/>
+  </Extension>
+
+  <Extension path="/Hardware/ReelController/ReelControllerImplementations">
+    <DeviceImplementation ProtocolName="RELM" type="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController"/>
+    <DeviceImplementation ProtocolName="RelmSim" type="Aristocrat.Monaco.Hardware.Usb.ReelController.Relm.RelmReelController"/>
+  </Extension>
+
+</Addin>

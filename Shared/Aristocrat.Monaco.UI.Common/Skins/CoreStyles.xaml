@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
+    <!-- Global Settings. -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Fonts.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <ControlTemplate x:Key="tplFlatButton"
+                     TargetType="{x:Type Button}">
+        <Border Width="{TemplateBinding Width}"
+                Height="{TemplateBinding Height}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                AutomationProperties.AutomationId="Border0_602AE7E">
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                              TextElement.Foreground="{TemplateBinding Foreground}"
+                              TextElement.FontFamily="{TemplateBinding FontFamily}"
+                              TextElement.FontSize="{TemplateBinding FontSize}"
+                              TextElement.FontStretch="{TemplateBinding FontStretch}"
+                              TextElement.FontWeight="{TemplateBinding FontWeight}"
+                              AutomationProperties.AutomationId="ContentPresenter1_602AE7E" />
+        </Border>
+    </ControlTemplate>
+    <Style x:Key="stlFlatButton"
+           TargetType="{x:Type Button}">
+        <Setter Property="Background"
+                Value="{x:Null}" />
+        <Setter Property="BorderBrush"
+                Value="{x:Null}" />
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Template"
+                Value="{StaticResource tplFlatButton}" />
+        <Setter Property="ClickMode"
+                Value="Press" />
+    </Style>
+</ResourceDictionary>

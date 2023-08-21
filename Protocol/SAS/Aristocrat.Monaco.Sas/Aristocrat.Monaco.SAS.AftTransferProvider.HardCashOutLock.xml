@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" Name="Aristocrat.Monaco.Sas.AftTransferProvider.HardCashOutLock">
+  <Fields>
+    <Field FieldName="TransactionId" DataType="Guid"/>
+    <Field FieldName="KeyedOff" DataType="Bool"/>
+  </Fields>
+</BlockFormat>

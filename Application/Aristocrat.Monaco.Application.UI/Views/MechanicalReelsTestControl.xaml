@@ -1,0 +1,306 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Application.UI.Views.MechanicalReelsTestControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             xmlns:loc="http://monaco.aristocrat.com/localization"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+             xmlns:models="clr-namespace:Aristocrat.Monaco.Application.UI.Models"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             Loaded="ControlLoaded"
+             d:DataContext="{d:DesignInstance {x:Type viewModels:MechanicalReelsTestViewModel}}"
+             AutomationProperties.AutomationId="UserControl0_F9CA5B21">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                MinWidth="300"
+                Margin="0"
+                AutomationProperties.AutomationId="StackPanel1_F9CA5B21">
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Visibility="{Binding ReelsVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="StackPanel2_F9CA5B21">
+            <Border Name="ReelsWrapper"
+                    Width="800"
+                    Height="360"
+                    Margin="0,-20,0,5"
+                    AutomationProperties.AutomationId="Border3_F9CA5B21" />
+        </StackPanel>
+        <Border AutomationProperties.AutomationId="Border4_F9CA5B21">
+            <Grid AutomationProperties.AutomationId="Grid5_F9CA5B21">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"
+                                   AutomationProperties.AutomationId="RowDefinition6_F9CA5B21" />
+                    <RowDefinition Height="50"
+                                   AutomationProperties.AutomationId="RowDefinition7_F9CA5B21" />
+                    <RowDefinition Height="60"
+                                   AutomationProperties.AutomationId="RowDefinition8_F9CA5B21" />
+                    <RowDefinition Height="60"
+                                   AutomationProperties.AutomationId="RowDefinition9_F9CA5B21" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="175"
+                                      AutomationProperties.AutomationId="ColumnDefinition10_F9CA5B21" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition11_F9CA5B21" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       VerticalAlignment="Center"
+                       Content="{lex:Loc Enable}"
+                       AutomationProperties.AutomationId="Label12_F9CA5B21" />
+                <StackPanel Grid.Row="1"
+                            Grid.Column="0"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            AutomationProperties.AutomationId="StackPanel13_F9CA5B21">
+                    <Label Content="{lex:Loc State}"
+                           AutomationProperties.AutomationId="Label14_F9CA5B21" />
+                    <Label Content=" / "
+                           Margin="5 0 0 0"
+                           AutomationProperties.AutomationId="Label15_F9CA5B21" />
+                    <Label Content="{lex:Loc MechanicalReels_StepText}"
+                           Margin="5 0 0 0"
+                           AutomationProperties.AutomationId="Label16_F9CA5B21" />
+                </StackPanel>
+                <Button Grid.Row="2"
+                        Grid.Column="0"
+                        Name="SpinButton"
+                        Content="{lex:Loc SpinButton}"
+                        Command="{Binding SpinCommand}"
+                        IsEnabled="{Binding SpinEnabled}"
+                        Height="50"
+                        Width="150"
+                        AutomationProperties.AutomationId="Button17_F9CA5B21" />
+                <Button Grid.Row="3"
+                        Grid.Column="0"
+                        Name="NudgeButton"
+                        Content="{lex:Loc NudgeButton}"
+                        Command="{Binding NudgeCommand}"
+                        IsEnabled="{Binding NudgeEnabled}"
+                        Height="50"
+                        Width="150"
+                        AutomationProperties.AutomationId="Button18_F9CA5B21" />
+                <ItemsControl Grid.Row="0"
+                              Grid.RowSpan="4"
+                              Grid.Column="1"
+                              x:Name="ReelInfo"
+                              ItemsSource="{Binding ReelInfo}"
+                              AutomationProperties.AutomationId="ItemsControl19_F9CA5B21">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                        AutomationProperties.AutomationId="StackPanel20_F9CA5B21">
+                                <StackPanel.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                        <Binding Path="HomeEnabled" />
+                                        <Binding Path="SpinEnabled" />
+                                        <Binding Path="NudgeEnabled" />
+                                    </MultiBinding>
+                                </StackPanel.IsEnabled>
+                            </StackPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:ReelInfoItem}">
+                            <Grid AutomationProperties.AutomationId="Grid21_F9CA5B21">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"
+                                                   AutomationProperties.AutomationId="RowDefinition22_F9CA5B21" />
+                                    <RowDefinition Height="50"
+                                                   AutomationProperties.AutomationId="RowDefinition23_F9CA5B21" />
+                                    <RowDefinition Height="60"
+                                                   AutomationProperties.AutomationId="RowDefinition24_F9CA5B21" />
+                                    <RowDefinition Height="60"
+                                                   AutomationProperties.AutomationId="RowDefinition25_F9CA5B21" />
+                                </Grid.RowDefinitions>
+                                <Border Grid.Row="0"
+                                        Grid.RowSpan="4"
+                                        BorderThickness="1"
+                                        Margin="5 0 0 0"
+                                        BorderBrush="{StaticResource HighlightBrush1}"
+                                        AutomationProperties.AutomationId="Border26_F9CA5B21" />
+                                <!-- Enabled/Reel Name -->
+                                <StackPanel Grid.Row="0"
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            AutomationProperties.AutomationId="StackPanel27_F9CA5B21">
+                                    <CheckBox Name="ReelEnabled"
+                                              HorizontalAlignment="Center"
+                                              IsChecked="{Binding Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              IsEnabled="{Binding Connected}"
+                                              AutomationProperties.AutomationId="CheckBox28_F9CA5B21"></CheckBox>
+                                    <Label Content="{Binding Name}"
+                                           VerticalAlignment="Center"
+                                           Margin="5 0 0 0"
+                                           AutomationProperties.AutomationId="Label29_F9CA5B21" />
+                                </StackPanel>
+                                <!-- State/Step -->
+                                <StackPanel Grid.Row="1"
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            AutomationProperties.AutomationId="StackPanel30_F9CA5B21">
+                                    <TextBlock Foreground="White"
+                                               AutomationProperties.AutomationId="TextBlock31_F9CA5B21">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock"
+                                                   BasedOn="{StaticResource {x:Type TextBlock}}">
+                                                <Style.Triggers>
+                                                    <DataTrigger
+                                                            Binding="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                                                                 Value=""
+                                                                 AutomationProperties.AutomationId="DataTrigger32_F9CA5B21">
+                                                        <Setter Property="Text"
+                                                                Value="{lex:BLoc NotAvailable}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                                <Setter Property="Text"
+                                                        Value="{Binding State, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock Foreground="White"
+                                               Margin="5 0 0 0"
+                                               AutomationProperties.AutomationId="TextBlock33_F9CA5B21"> /
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock"
+                                                   BasedOn="{StaticResource {x:Type TextBlock}}" />
+                                        </TextBlock.Style></TextBlock>
+                                    <TextBlock Foreground="White"
+                                               Margin="5 0 0 0"
+                                               AutomationProperties.AutomationId="TextBlock34_F9CA5B21">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock"
+                                                   BasedOn="{StaticResource {x:Type TextBlock}}">
+                                                <Style.Triggers>
+                                                    <DataTrigger
+                                                            Binding="{Binding Step, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
+                                                                 Value=""
+                                                                 AutomationProperties.AutomationId="DataTrigger35_F9CA5B21">
+                                                        <Setter Property="Text"
+                                                                Value="{lex:BLoc NotAvailable}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                                <Setter Property="Text"
+                                                        Value="{Binding Step, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+                                <!-- Spin Steps/Direction -->
+                                <StackPanel Grid.Row="2"
+                                            Orientation="Horizontal"
+                                            VerticalAlignment="Center"
+                                            AutomationProperties.AutomationId="StackPanel36_F9CA5B21">
+                                    <StackPanel.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                            <Binding Path="Enabled" />
+                                            <Binding Path="Connected" />
+                                        </MultiBinding>
+                                    </StackPanel.IsEnabled>
+                                    <xctk:IntegerUpDown Style="{StaticResource MonacoIntegerUpDown}"
+                                                        VerticalAlignment="Center"
+                                                        Margin="10 0 0 0"
+                                                        Value="{Binding SpinStep}"
+                                                        Maximum="{Binding MaxReelStep}"
+                                                        Minimum="0"
+                                                        Increment="1"
+                                                        AllowSpin="True"
+                                                        FontSize="18"
+                                                        Width="125"
+                                                        Height="45"></xctk:IntegerUpDown>
+                                    <CheckBox VerticalAlignment="Center"
+                                              IsChecked="{Binding DirectionToSpin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              Margin="5 0 0 0"
+                                              AutomationProperties.AutomationId="CheckBox37_F9CA5B21" />
+                                    <iconPacks:PackIconMaterial Kind="ArrowDown"
+                                                                VerticalAlignment="Center"
+                                                                HorizontalAlignment="Center"
+                                                                Foreground="{StaticResource Brush3}"
+                                                                Width="32"
+                                                                Height="32"
+                                                                Margin="5 0 5 0"
+                                                                Visibility="{Binding DirectionToSpin, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                                    <iconPacks:PackIconMaterial Kind="ArrowUp"
+                                                                VerticalAlignment="Center"
+                                                                HorizontalAlignment="Center"
+                                                                Foreground="{StaticResource Brush3}"
+                                                                Width="32"
+                                                                Height="32"
+                                                                Margin="5 0 5 0"
+                                                                Visibility="{Binding DirectionToSpin, Converter={StaticResource TrueCollapsedFalseVisible}}" />
+                                </StackPanel>
+                                <!-- Nudge Steps/Direction -->
+                                <StackPanel Grid.Row="3"
+                                            Orientation="Horizontal"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            AutomationProperties.AutomationId="StackPanel38_F9CA5B21">
+                                    <StackPanel.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                            <Binding Path="Enabled" />
+                                            <Binding Path="Connected" />
+                                        </MultiBinding>
+                                    </StackPanel.IsEnabled>
+                                    <xctk:IntegerUpDown Style="{StaticResource MonacoIntegerUpDown}"
+                                                        VerticalAlignment="Center"
+                                                        Margin="10 0 0 0"
+                                                        Value="{Binding NudgeSteps}"
+                                                        Maximum="{Binding MaxReelStep}"
+                                                        Minimum="1"
+                                                        Increment="1"
+                                                        AllowSpin="True"
+                                                        FontSize="18"
+                                                        Width="125"
+                                                        Height="45"></xctk:IntegerUpDown>
+                                    <CheckBox VerticalAlignment="Center"
+                                              IsChecked="{Binding DirectionToNudge, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              Margin="5 0 0 0"
+                                              AutomationProperties.AutomationId="CheckBox39_F9CA5B21" />
+                                    <iconPacks:PackIconMaterial Kind="ArrowDown"
+                                                                VerticalAlignment="Center"
+                                                                HorizontalAlignment="Center"
+                                                                Foreground="{StaticResource Brush3}"
+                                                                Width="32"
+                                                                Height="32"
+                                                                Margin="5 0 5 0"
+                                                                Visibility="{Binding DirectionToNudge, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                                    <iconPacks:PackIconMaterial Kind="ArrowUp"
+                                                                VerticalAlignment="Center"
+                                                                HorizontalAlignment="Center"
+                                                                Foreground="{StaticResource Brush3}"
+                                                                Width="32"
+                                                                Height="32"
+                                                                Margin="5 0 5 0"
+                                                                Visibility="{Binding DirectionToNudge, Converter={StaticResource TrueCollapsedFalseVisible}}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Border>
+        <Button Content="{lex:Loc HomeButton}"
+                Command="{Binding HomeCommand}"
+                Name="HomeButton"
+                IsEnabled="{Binding HomeEnabled}"
+                HorizontalAlignment="Left"
+                Margin="5 10 0 0"
+                Height="50"
+                Width="150"
+                AutomationProperties.AutomationId="Button40_F9CA5B21" />
+    </StackPanel>
+</UserControl>

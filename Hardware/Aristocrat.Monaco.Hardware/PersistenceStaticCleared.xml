@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="PersistenceStaticCleared">
+  <Fields>
+    <Field DataType="DateTime" FieldName="LastClearTime" />
+  </Fields>
+</BlockFormat>

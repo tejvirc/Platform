@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" Name="Aristocrat.Monaco.Application.Media.MediaProvider.Id">
+  <Fields>
+    <Field FieldName="MediaPlayer.Id" DataType="Int32" />
+    <Field FieldName="MediaPlayer.LogCount" DataType="Int32" />
+  </Fields>
+</BlockFormat>

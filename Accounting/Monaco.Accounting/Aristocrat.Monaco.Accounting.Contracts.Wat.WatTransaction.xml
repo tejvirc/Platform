@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+	<BlockFormat version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Vgt.Client12.Accounting.Wat.WatTransaction">
+	  <Fields>
+	    <Field DataType="Int64" FieldName="TransactionId" />
+	    <Field DataType="Int64" FieldName="LogSequence" />
+	    <Field DataType="Int32" FieldName="DeviceId" />
+	    <Field DataType="DateTime" FieldName="TransactionDateTime" />
+	    <Field DataType="Int64" FieldName="CashableAmount" />
+	    <Field DataType="Int64" FieldName="PromoAmount" />
+	    <Field DataType="Int64" FieldName="NonCashAmount" />
+	    <Field DataType="Bool" FieldName="AllowReducedAmounts" />
+	    <Field DataType="Int32" FieldName="PayMethod" />
+	    <Field DataType="String" Size="20" FieldName="RequestId" />
+	    <Field DataType="Int64" FieldName="AuthorizedCashableAmount" />
+	    <Field DataType="Int64" FieldName="AuthorizedPromoAmount" />
+	    <Field DataType="Int64" FieldName="AuthorizedNonCashAmount" />
+	    <Field DataType="Int32" FieldName="HostException" />
+	    <Field DataType="Int64" FieldName="TransferredCashableAmount" />
+	    <Field DataType="Int64" FieldName="TransferredPromoAmount" />
+	    <Field DataType="Int64" FieldName="TransferredNonCashAmount" />
+	    <Field DataType="Int32" FieldName="EgmException" />
+	    <Field DataType="Int32" FieldName="Status" />
+	    <Field DataType="Guid" FieldName="BankTransactionId" />
+	    <Field DataType="Bool" FieldName="OwnsBankTransaction" />
+	    <Field DataType="String" FieldName="AssociatedTransactions" />
+	    <Field DataType="Guid" FieldName="TraceId" />
+	  </Fields>
+	</BlockFormat>
+	<BlockFormat version="2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Vgt.Client12.Accounting.Wat.WatTransaction">
+	  <Fields>
+	    <Field DataType="Int64" FieldName="TransactionId" />
+	    <Field DataType="Int64" FieldName="LogSequence" />
+	    <Field DataType="Int32" FieldName="DeviceId" />
+	    <Field DataType="DateTime" FieldName="TransactionDateTime" />
+	    <Field DataType="Int64" FieldName="CashableAmount" />
+	    <Field DataType="Int64" FieldName="PromoAmount" />
+	    <Field DataType="Int64" FieldName="NonCashAmount" />
+	    <Field DataType="Bool" FieldName="AllowReducedAmounts" />
+	    <Field DataType="Int32" FieldName="PayMethod" />
+	    <Field DataType="String" Size="20" FieldName="RequestId" />
+	    <Field DataType="Int64" FieldName="AuthorizedCashableAmount" />
+	    <Field DataType="Int64" FieldName="AuthorizedPromoAmount" />
+	    <Field DataType="Int64" FieldName="AuthorizedNonCashAmount" />
+	    <Field DataType="Int32" FieldName="HostException" />
+	    <Field DataType="Int64" FieldName="TransferredCashableAmount" />
+	    <Field DataType="Int64" FieldName="TransferredPromoAmount" />
+	    <Field DataType="Int64" FieldName="TransferredNonCashAmount" />
+	    <Field DataType="Int32" FieldName="EgmException" />
+	    <Field DataType="Int32" FieldName="Status" />
+	    <Field DataType="Guid" FieldName="BankTransactionId" />
+	    <Field DataType="Bool" FieldName="OwnsBankTransaction" />
+	    <Field DataType="String" FieldName="AssociatedTransactions" />
+	    <Field DataType="Guid" FieldName="TraceId" />
+	    <Field DataType="Int32" FieldName="Reason" />
+	  </Fields>
+	</BlockFormat>
+</ArrayOfBlockFormat>

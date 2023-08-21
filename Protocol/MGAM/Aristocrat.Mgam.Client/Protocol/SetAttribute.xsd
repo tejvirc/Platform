@@ -1,0 +1,48 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+  <xs:element name="SetAttribute">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="InstanceID">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:int">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="int" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="AttributeName">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="AttributeValue">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Scope">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+      <xs:attribute name="Dir" use="optional" fixed="in" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

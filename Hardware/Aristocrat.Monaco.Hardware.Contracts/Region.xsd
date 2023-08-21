@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- definition of types -->
+  <xs:simpleType name="idtype">
+    <xs:restriction base="xs:positiveInteger">
+		<xs:minInclusive value="100" />
+		<xs:maxInclusive value="999" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="typetype">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[FGB]=[0-9]{1,3}" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="inttype">
+    <xs:restriction base="xs:int">
+		<xs:minInclusive value="0" />
+		<xs:maxInclusive value="99999" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="rottype">
+    <xs:restriction base="xs:positiveInteger">
+		<xs:minInclusive value="1" />
+		<xs:maxInclusive value="4" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="jsttype">
+    <xs:restriction base="xs:positiveInteger">
+		<xs:minInclusive value="1" />
+		<xs:maxInclusive value="4" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="modifiertype">
+    <xs:restriction base="xs:int">
+		<xs:minInclusive value="0" />
+		<xs:maxInclusive value="24" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="attrtype">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9])+(\+([0-9])+)*" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- definition of attributes -->
+  <xs:attribute name="name" type="xs:string" />
+  <xs:attribute name="property" type="xs:string" />
+  <xs:attribute name="id" type="idtype" />
+  <xs:attribute name="x" type="inttype" />
+  <xs:attribute name="px" type="xs:string" />
+  <xs:attribute name="y" type="inttype" />
+  <xs:attribute name="py" type="xs:string" />
+  <xs:attribute name="dx" type="inttype" />
+  <xs:attribute name="pdx" type="xs:string" />
+  <xs:attribute name="dy" type="inttype" />
+  <xs:attribute name="pdy" type="xs:string" />
+  <xs:attribute name="rot" type="rottype" />
+  <xs:attribute name="jst" type="xs:int" />
+  <xs:attribute name="type" type="typetype" />
+  <xs:attribute name="m1" type="modifiertype" />
+  <xs:attribute name="m2" type="modifiertype" />
+  <xs:attribute name="attr" type="attrtype" />
+
+  <!-- definition of complex elements -->
+  <xs:complexType name="dprtype">
+    <xs:sequence>
+      <xs:element name="D" type="xs:string" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute ref="name" use="required" />
+    <xs:attribute ref="property" use="optional" />
+    <xs:attribute ref="id" use="required" />
+    <xs:attribute ref="x" use="required" />
+    <xs:attribute ref="px" use="required" />
+    <xs:attribute ref="y" use="required" />
+    <xs:attribute ref="py" use="required" />
+    <xs:attribute ref="dx" use="required" />
+    <xs:attribute ref="pdx" use="required" />
+    <xs:attribute ref="dy" use="required" />
+    <xs:attribute ref="pdy" use="required" />
+    <xs:attribute ref="rot" use="required" />
+    <xs:attribute ref="jst" use="required" />
+    <xs:attribute ref="type" use="required" />
+    <xs:attribute ref="m1" use="required" />
+    <xs:attribute ref="m2" use="required" />
+    <xs:attribute ref="attr" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="dprcollectiontype">
+    <xs:sequence>
+      <xs:element name="DPR" type="dprtype" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- definition of root element -->
+  <xs:element name="DPR_Collection" type="dprcollectiontype" />
+
+</xs:schema>

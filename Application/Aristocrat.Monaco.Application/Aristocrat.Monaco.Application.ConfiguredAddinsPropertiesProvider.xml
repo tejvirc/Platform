@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Aristocrat.Monaco.Application.ConfiguredAddinsPropertiesProvider">
+    <Fields>
+      <Field DataType="Int32" Count="5" FieldName="SelectableConfigurationHashCodes" />
+      <Field DataType="Int32" Count="5" FieldName="SelectedConfigurationHashCodes" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Aristocrat.Monaco.Application.ConfiguredAddinsPropertiesProvider">
+    <Fields>
+      <Field DataType="String" Count="5" FieldName="SelectableConfigurationName" />
+      <Field DataType="String" Count="5" FieldName="SelectedConfigurationValue" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

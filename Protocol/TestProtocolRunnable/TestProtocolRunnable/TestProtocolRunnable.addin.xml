@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Addin id="TestProtocolRunnable" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="TestProtocolRunnable.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Application" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Protocol/Runnables">
+    <ProtocolInterface type="Aristocrat.Monaco.TestProtocol.TestProtocolRunnable" protocolId="Test" serverProtocolId="127"/>
+  </Extension>
+
+</Addin>

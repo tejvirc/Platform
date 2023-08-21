@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!-- This Unit Test needs to provide the Addins root data normally provided by Bootstap -->
+<Addin id="DiscoveryUnitTest" namespace="Client12Addins" version="1.0" isroot="true">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Hardware.Tests.dll" />
+    <Import assembly="Aristocrat.Monaco.Hardware.Contracts.dll" />
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+  </Runtime>
+
+  <ExtensionPoint path = "/Platform/Discovery/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/Hardware/Discovery/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Hardware/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/IO/Configuration">
+    <ExtensionNode name="IOConfiguration" type="Aristocrat.Monaco.Hardware.Contracts.Discovery.IOConfigurationExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/Hardware/PrintableRegions">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/Hardware/PrintableTemplates">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+</Addin>

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Gaming\Aristocrat.Monaco.Gaming.Contracts\ErrorMessageConfiguration
+2.  Enter "xsd ErrorMessageConfiguration.xsd /c /n:Aristocrat.Monaco.Gaming.Contracts.ErrorMessageConfiguration".  This will generate the corresponding class definition in csharp (ErrorMessageConfiguration.cs).
+-->
+<ErrorMessageConfiguration>
+  <Message>
+    <Source>OUT OF SERVICE</Source>
+    <Mapped>1000 OUT OF SERVICE</Mapped>
+  </Message>
+  <Message>
+    <Source>LOTTERY CLOSED</Source>
+    <Mapped>1100 LOTTERY CLOSED</Mapped>
+  </Message>
+  <Message>
+    <Source>{A5210158-059B-4523-B6CA-F1145EEA1DF1}</Source>
+    <Mapped>1100 LOTTERY CLOSED</Mapped>
+  </Message>
+  <Message>
+    <Source>{446AB9B6-579E-4647-8BDA-799520B0134B}</Source>
+    <Mapped>1200 PAPER OUT</Mapped>
+  </Message>
+  <Message>
+    <Source>{CEA96AF8-A853-476c-A048-98F9AF88134F}</Source>
+    <Mapped>1300 MAIN DOOR OPEN</Mapped>
+  </Message>
+  <Message>
+    <Source>{FA5E990C-C069-4524-9F31-1AC35FABF840}</Source>
+    <Mapped>1305 BELLY or LOWER MARQUEE DOOR OPEN</Mapped>
+  </Message>
+  <Message>
+    <Source>{7CE7E032-75A9-46ae-9737-B2A86D65C719}</Source>
+    <Mapped>1310 TOP BOX or UPPER MARQUEE DOOR OPEN</Mapped>
+  </Message>
+  <Message>
+    <Source>{B81238B1-9575-4CAB-9482-B5A5288A1BB5}</Source>
+    <Mapped>1325 PRIMARY CASH DOOR OPEN</Mapped>
+  </Message>
+  <Message>
+    <Source>Stacker Box REMOVED</Source>
+    <Mapped>1330 Stacker Box REMOVED</Mapped>
+  </Message>
+  <Message>
+    <Source>{74FF1CDE-6C3A-4882-B6D8-028D90EC79E1}</Source>
+    <Mapped>1330 Stacker Box REMOVED</Mapped>
+  </Message>
+  <Message>
+    <Source>{537131AD-B401-4C1B-910A-0CC097A902C4}</Source>
+    <Mapped>1335 SECONDARY CASH DOOR OPEN</Mapped>
+  </Message>
+  <Message>
+    <Source>ACCESS #1 DOOR OPEN</Source>
+    <Mapped>1350 ACCESS #1 DOOR OPEN</Mapped>
+  </Message>
+  <Message>
+    <Source>ACCESS #2 DOOR OPEN</Source>
+    <Mapped>1360 ACCESS #2 DOOR OPEN</Mapped>
+  </Message>
+  <Message>
+    <Source>{D1469464-85D9-42FD-9A8A-20608AFBB782}</Source>
+    <Mapped>1400 PRINTER MALFUNCTION</Mapped>
+  </Message>
+  <Message>
+    <Source>{0AE8868C-822C-4483-8C2E-D042A40C4554}</Source>
+    <Mapped>1400 PRINTER MALFUNCTION</Mapped>
+  </Message> 
+  <Message>
+    <Source>{98FB7F58-32E3-4296-A68E-30B0FC2AD816}</Source>
+    <Mapped>1400 PRINTER MALFUNCTION</Mapped>
+  </Message>
+  <Message>
+    <Source>{A24FF07B-FF90-4085-A498-28CF4F2DC37E}</Source>
+    <Mapped>1410 PRINTER HEAD JAM</Mapped>
+  </Message>
+  <Message>
+    <Source>PRINTER CUTTER JAM</Source>
+    <Mapped>1420 PRINTER CUTTER JAM</Mapped>
+  </Message>
+  <Message>
+    <Source>Printer Disconnected</Source>
+    <Mapped>1423 PRINTER OFFLINE</Mapped>
+  </Message>
+  <Message>
+    <Source>{33ACE91D-9995-43D5-9709-6C45E5C9E92C}</Source>
+    <Mapped>1424 PRINTER PAPER LOW</Mapped>
+  </Message>
+  <Message>
+    <Source>{C236B48B-7ADD-4800-9DFC-0BBA1C52ED6D}</Source>
+    <Mapped>1424 PRINTER PAPER LOW</Mapped>
+  </Message>
+  <Message>
+    <Source>{1370CD5E-D6CA-40FB-9D3F-8288F140E286}</Source>
+    <Mapped>1425 PRINTER PAPER JAM</Mapped>
+  </Message>
+  <Message>
+    <Source>{75E28158-C9E0-46AE-90BA-14AA79FEE548}</Source>
+    <Mapped>1426 PRINTER PLATEN UP</Mapped>
+  </Message>
+  <Message>
+    <Source>{6A54EFED-C6C4-4A97-97BF-2686538F17EB}</Source>
+    <Mapped>1427 PRINTER OPEN</Mapped>
+  </Message>
+  <Message>
+    <Source>PRINTER MISALIGNED</Source>
+    <Mapped>1428 PRINTER MISALIGNED</Mapped>
+  </Message>
+  <Message>
+    <Source>PRINTER TIME OUT</Source>
+    <Mapped>1429 PRINTER TIME OUT</Mapped>
+  </Message>
+  <Message>
+    <Source>{AD3B592E-539C-4C8C-9E3E-658CC0617143}</Source>
+    <Mapped>1600 BILL JAM</Mapped>
+  </Message>
+  <Message>
+    <Source>Bill Stacker Error</Source>
+    <Mapped>1601 BILL STACKER ERROR</Mapped>
+  </Message>
+   <Message>
+    <Source>Note Acceptor Stacker Jammed</Source>
+    <Mapped>1601 BILL STACKER ERROR</Mapped>
+  </Message>
+  <Message>
+    <Source>Note Acceptor Error</Source>
+    <Mapped>1605</Mapped>
+  </Message>
+  <Message>
+    <Source>Bill Unexpected Error</Source>
+    <Mapped>1631 BILL UNEXPECTED ERROR</Mapped>
+  </Message>
+  <Message>
+    <Source>Bill Validator Fault</Source>
+    <Mapped>1632 BILL VALIDATOR FAULT</Mapped>
+  </Message>
+  <Message>
+    <Source>Note Acceptor Disconnected</Source>
+    <Mapped>1632 BILL VALIDATOR FAULT</Mapped>
+  </Message>
+  <Message>
+    <Source>Invalid Bill</Source>
+    <Mapped>1633 INVALID BILL</Mapped>
+  </Message>
+  <Message>
+    <Source>{1cdf0037-5490-44f3-8505-7ceadaec2dff}</Source>
+    <Mapped>2025</Mapped>
+  </Message>
+  <Message>
+    <Source>POWER SUPPLY FAILURE</Source>
+    <Mapped>2050</Mapped>
+  </Message>
+  <Message>
+    <Source>TERMINAL WAITING FOR INITIAL CONFIGURATION</Source>
+    <Mapped>2100</Mapped>
+  </Message>
+  <Message>
+    <Source>Disabled by the voucher[1] device</Source>
+    <Mapped>2100</Mapped>
+  </Message>
+  <Message>
+    <Source>CREDIT LIMIT FAULT</Source>
+    <Mapped>2125</Mapped>
+  </Message>
+  <Message>
+    <Source>PROGRAM CHANGE TERMINAL SHUTDOWN</Source>
+    <Mapped>2175</Mapped>
+  </Message>
+  <Message>
+    <Source>NON-COMMUNICATING OPERATIONAL LIMIT EXCEEDED</Source>
+    <Mapped>2202</Mapped>
+  </Message>
+  <Message>
+    <Source>CONFIGURATION IN PROGRESS</Source>
+    <Mapped>2205</Mapped>
+  </Message>
+    <Message>
+    <Source>Initializing</Source>
+    <Mapped>2205</Mapped>
+  </Message>
+  <Message>
+    <Source>TEMPORARY DISABLE</Source>
+    <Mapped>2211</Mapped>
+  </Message>
+  <Message>
+    <Source>Cabinet Disable Text</Source>
+    <Mapped>2211 Cabinet Disable Text</Mapped>
+  </Message>
+  <Message>
+    <Source>UNABLE TO RECEIVE CONFIRMATION OF CASH-OUT SLIP NOTIFICATION</Source>
+    <Mapped>2220</Mapped>
+  </Message>
+  <Message>
+    <Source>UNABLE TO RECEIVE POSITIVE ACKNOWLEDGMENT</Source>
+    <Mapped>2221</Mapped>
+  </Message>
+  <Message>
+    <Source>Disabled by Operator</Source>
+    <Mapped>2300</Mapped>
+  </Message>
+  <Message>
+    <Source>Disabled by the G2S host</Source>
+    <Mapped>2300</Mapped>
+  </Message>
+  <Message>
+    <Source>DISABLED BY THE HOST COMPUTER (ALL GAMES)</Source>
+    <Mapped>2305</Mapped>
+  </Message>
+  <Message>
+    <Source>No Games Enabled</Source>
+    <Mapped>2305</Mapped>
+  </Message>
+  <Message>
+    <Source>PROGRAM VALIDATION DISABLE (PVD)</Source>
+    <Mapped>2350</Mapped>
+  </Message>
+  <Message>
+    <Source>Printer NVM Fault</Source>
+    <Mapped>2475</Mapped>
+  </Message>
+  <Message>
+    <Source>{3ACE2A2C-2E01-4d67-8C96-D8330B54E1BE}</Source>
+    <Mapped>2500</Mapped>
+  </Message>
+  <Message>
+    <Source>Touch Display Disconnected</Source>
+    <Mapped>2550</Mapped>
+  </Message>
+  <Message>
+    <Source>CMOS DATA ERROR</Source>
+    <Mapped>2575</Mapped>
+  </Message>
+  <Message>
+    <Source>{4d2273eb-be3c-49c0-b5ab-3524badc6b03}</Source>
+    <Mapped>2600</Mapped>
+  </Message>
+  <Message>
+    <Source>{ed242487-9a76-4b8e-a41f-9d5c297cb50a}</Source>
+    <Mapped>2625</Mapped>
+  </Message>
+  <Message>
+    <Source>PROGRAM MEDIA DATA ERROR</Source>
+    <Mapped>2650</Mapped>
+  </Message>
+  <Message>
+    <Source>GAME TABLE CONFIGURATION FAULT</Source>
+    <Mapped>2700</Mapped>
+  </Message>
+  <Message>
+    <Source>PROGRAM MEDIA SIGNATURE FAIL</Source>
+    <Mapped>2725</Mapped>
+  </Message>
+  <Message>
+    <Source>LOW PROCESSOR BOARD BATTERY</Source>
+    <Mapped>2800</Mapped>
+  </Message>
+  <Message>
+    <Source>LOW ACCESS DETECTION BATTERY</Source>
+    <Mapped>2810</Mapped>
+  </Message>
+  <Message>
+    <Source>LOW BATTERY - OTHER</Source>
+    <Mapped>2820</Mapped>
+  </Message>
+  <Message>
+    <Source>SERIAL NO. MISMATCH</Source>
+    <Mapped>2850</Mapped>
+  </Message>
+  <Message>
+    <Source>Power Reset</Source>
+    <Mapped>Power Reset</Mapped>
+  </Message>
+  <Message>
+    <Source>Note Acceptor Disabled</Source>
+    <Mapped>Note Acceptor Disabled</Mapped>
+  </Message>
+  <Message>
+    <Source>Coupon Accepted</Source>
+    <Mapped>Coupon Accepted</Mapped>
+  </Message>
+  <Message>
+    <Source>Coupon Rejected</Source>
+    <Mapped>Coupon Rejected</Mapped>
+  </Message>
+  <Message>
+    <Source>Printer Disabled</Source>
+    <Mapped>Printer Disabled</Mapped>
+  </Message>
+  <Message>
+    <Source>Currency/Ticket Rejected</Source>
+    <Mapped>Currency/Ticket Rejected</Mapped>
+  </Message>
+</ErrorMessageConfiguration>

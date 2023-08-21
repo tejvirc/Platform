@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <AssemblyTitle>Aristocrat.Monaco.Hhr.Client.Tests</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Protocol\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
+    <ProjectReference Include="..\..\Protocol\HHR\Aristocrat.Monaco.HHR.Client\Aristocrat.Monaco.Hhr.Client.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="5.0.0" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\..\Build\shared.props" />	
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>Vgt.Client12.Testing.Tools</RootNamespace>
+    <AssemblyTitle>DebugCurrencyHandler</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <UseWPF>true</UseWPF>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="DebugCurrencyHandler.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Vgt.Client12.Testing.Tools.DebugCurrencyHandler.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.13" />
+  </ItemGroup>
+</Project>

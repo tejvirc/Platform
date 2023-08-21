@@ -1,0 +1,85 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Aristocrat.Monaco.Gaming.UI.Settings"
+                    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                    xmlns:loc="http://monaco.aristocrat.com/localization"
+                    xmlns:common="http://monaco.aristocrat.com/common">
+    <common:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+    <common:BoolToStringConverter x:Key="BoolToStringConverter" />
+    <DataTemplate DataType="{x:Type local:MachineSettings}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      AutomationProperties.AutomationId="ScrollViewer0_28204D57">
+            <Grid AutomationProperties.AutomationId="Grid1_28204D57">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition2_28204D57" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition3_28204D57" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition4_28204D57" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition5_28204D57" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition6_28204D57" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition7_28204D57" />
+                    <ColumnDefinition Width="*"
+                                      AutomationProperties.AutomationId="ColumnDefinition8_28204D57" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="0"
+                           Text="{lex:Loc ApplyGameCategorySettings}"
+                           AutomationProperties.AutomationId="TextBlock9_28204D57" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="0"
+                           Text="{Binding ApplyGameCategorySettings, Converter={StaticResource BoolToStringConverter}}"
+                           AutomationProperties.AutomationId="TextBlock10_28204D57" />
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="1"
+                           Text="{lex:Loc IdleTextTitle}"
+                           AutomationProperties.AutomationId="TextBlock11_28204D57" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="1"
+                           Text="{Binding IdleText}"
+                           AutomationProperties.AutomationId="TextBlock12_28204D57" />
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="2"
+                           Text="{lex:Loc IdleTimePeriod}"
+                           AutomationProperties.AutomationId="TextBlock13_28204D57" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="2"
+                           Text="{Binding IdleTimePeriod}"
+                           AutomationProperties.AutomationId="TextBlock14_28204D57" />
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="3"
+                           Text="{lex:Loc GameRoundDuration}"
+                           AutomationProperties.AutomationId="TextBlock15_28204D57" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="3"
+                           Text="{Binding GameRoundDurationMs}"
+                           AutomationProperties.AutomationId="TextBlock16_28204D57" />
+                <TextBlock Grid.Column="0"
+                           Style="{DynamicResource SettingNameStyle}"
+                           Grid.Row="4"
+                           Text="{lex:Loc ReelStopConfigured}"
+                           AutomationProperties.AutomationId="TextBlock17_28204D57" />
+                <TextBlock Grid.Column="1"
+                           Style="{DynamicResource SettingValueStyle}"
+                           Grid.Row="4"
+                           Text="{Binding ReelStopConfigured, Converter={StaticResource BoolToStringConverter}}"
+                           AutomationProperties.AutomationId="TextBlock18_28204D57" />
+            </Grid>
+        </ScrollViewer>
+    </DataTemplate>
+</ResourceDictionary>

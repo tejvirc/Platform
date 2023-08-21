@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Addin id="TestBadEventMessageDisplayMappings" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/MessageDisplayRemove">
+
+    <MessageDisplayReason
+      eventType="Aristocrat.Monaco.Kernel.Tests.MessageDisplay.TestDisplayEvent1, Aristocrat.Monaco.Kernel.Tests">
+      <MessageRemoveReason eventType="Aristocrat.Monaco.Kernel.Tests.Mocks.TestEvent, Aristocrat.Monaco.Kernel.Tests" />
+    </MessageDisplayReason>
+
+    <MessageDisplayReason>
+      <MessageRemoveReason eventType="Aristocrat.Monaco.Kernel.Tests.Mocks.TestEvent, Aristocrat.Monaco.Kernel.Tests" />
+      <MessageRemoveReason eventType="Aristocrat.Monaco.Kernel.Tests.Mocks.TestEvent2, Aristocrat.Monaco.Kernel.Tests" />
+    </MessageDisplayReason>
+
+    <MessageDisplayReason
+      eventType="Aristocrat.Monaco.Kernel.Tests.MessageDisplay.TestDisplayEvent3, Aristocrat.Monaco.Kernel.Tests">
+      <MessageRemoveReason eventType="Aristocrat.Monaco.Kernel.Tests.Mocks.TestEvent3, Aristocrat.Monaco.Kernel.Tests" />
+    </MessageDisplayReason>
+
+  </Extension>
+</Addin>

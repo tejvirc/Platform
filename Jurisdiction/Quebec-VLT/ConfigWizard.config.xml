@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Application\Monaco.Application.Contracts\ConfigWizard
+2.  Enter "xsd ConfigWizardConfiguration.xsd /classes".  This will generate
+    the corresponding class definition in csharp (ConfigWizardConfiguration.cs).
+-->
+<ConfigWizardConfiguration>
+  <MachineSetupConfig>
+    <EnterOutOfServiceWithCredits Enabled="false"/>
+  </MachineSetupConfig>
+  <IOConfigPage>
+    <UseSelection Enabled="false"/>
+  </IOConfigPage>
+  <LimitsPage>
+    <HandpayLimit Visible="false"/>
+  </LimitsPage>
+  <IdentityPage>
+    <PrintIdentity Visibility="Hidden"/>
+  </IdentityPage>
+  <HardMetersConfig CanReconfigure="true" Enable="true" />
+  <ProtocolConfiguration>
+    <ProtocolsAllowed>
+      <Protocol Name="G2S"/>
+      <Protocol Name="Test"/>
+    </ProtocolsAllowed>
+  </ProtocolConfiguration>
+</ConfigWizardConfiguration>

@@ -1,0 +1,120 @@
+﻿<common:BaseWindow x:Class="Aristocrat.Monaco.Application.UI.Input.SerialTouchCalibrationWindow"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:common="http://monaco.aristocrat.com/common"
+                   xmlns:input="clr-namespace:Aristocrat.Monaco.Application.UI.Input"
+                   mc:Ignorable="d"
+                   BorderThickness="0"
+                   WindowStyle="None"
+                   ResizeMode="NoResize"
+                   Background="White"
+                   d:DataContext="{d:DesignInstance input:SerialTouchCalibrationViewModel}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Visibility="{Binding Visibility, Converter={StaticResource TrueVisibleFalseHidden}}"
+          AutomationProperties.AutomationId="Grid0_B43927D6">
+        <Viewbox Stretch="None"
+                 AutomationProperties.AutomationId="Viewbox1_B43927D6">
+            <Grid VerticalAlignment="Center"
+                  AutomationProperties.AutomationId="Grid2_B43927D6">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"
+                                   AutomationProperties.AutomationId="RowDefinition3_B43927D6" />
+                    <RowDefinition Height="*"
+                                   AutomationProperties.AutomationId="RowDefinition4_B43927D6" />
+                </Grid.RowDefinitions>
+                <Label Content="{Binding Status}"
+                       Grid.Row="0"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="24"
+                       Margin="0,10,0,0"
+                       AutomationProperties.AutomationId="Label5_B43927D6" />
+                <Label Content="{Binding Error}"
+                       Grid.Row="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="24"
+                       Margin="0,10,0,0"
+                       AutomationProperties.AutomationId="Label6_B43927D6" />
+            </Grid>
+        </Viewbox>
+        <Grid HorizontalAlignment="Left"
+              VerticalAlignment="Bottom"
+              AutomationProperties.AutomationId="Grid7_B43927D6">
+            <Viewbox Width="50"
+                     Height="50"
+                     Margin="{Binding LeftCrossHairMargin}"
+                     AutomationProperties.AutomationId="Viewbox8_B43927D6">
+                <Grid AutomationProperties.AutomationId="Grid9_B43927D6">
+                    <Ellipse Width="50"
+                             Height="50"
+                             Stroke="{Binding LowerLeftOuterEllipseStroke}"
+                             StrokeThickness="4"
+                             AutomationProperties.AutomationId="Ellipse10_B43927D6" />
+                    <Ellipse Width="25"
+                             Height="25"
+                             Stroke="{Binding LowerLeftInnerEllipseStroke}"
+                             StrokeThickness="4"
+                             AutomationProperties.AutomationId="Ellipse11_B43927D6" />
+                    <Line X1="0"
+                          Y1="0"
+                          X2="50"
+                          Y2="50"
+                          Stroke="{Binding LowerLeftCrosshair1Stroke}"
+                          StrokeThickness="4"
+                          AutomationProperties.AutomationId="Line12_B43927D6" />
+                    <Line X1="0"
+                          Y1="50"
+                          X2="50"
+                          Y2="0"
+                          Stroke="{Binding LowerLeftCrosshair2Stroke}"
+                          StrokeThickness="4"
+                          AutomationProperties.AutomationId="Line13_B43927D6" />
+                </Grid>
+            </Viewbox>
+        </Grid>
+        <Grid HorizontalAlignment="Right"
+              VerticalAlignment="Top"
+              AutomationProperties.AutomationId="Grid14_B43927D6">
+            <Viewbox Width="50"
+                     Height="50"
+                     Margin="{Binding RightCrossHairMargin}"
+                     AutomationProperties.AutomationId="Viewbox15_B43927D6">
+                <Grid AutomationProperties.AutomationId="Grid16_B43927D6">
+                    <Ellipse Width="50"
+                             Height="50"
+                             Stroke="{Binding UpperRightOuterEllipseStroke}"
+                             StrokeThickness="4"
+                             AutomationProperties.AutomationId="Ellipse17_B43927D6" />
+                    <Ellipse Width="25"
+                             Height="25"
+                             Stroke="{Binding UpperRightInnerEllipseStroke}"
+                             StrokeThickness="4"
+                             AutomationProperties.AutomationId="Ellipse18_B43927D6" />
+                    <Line X1="0"
+                          Y1="0"
+                          X2="50"
+                          Y2="50"
+                          Stroke="{Binding UpperRightCrosshair1Stroke}"
+                          StrokeThickness="4"
+                          AutomationProperties.AutomationId="Line19_B43927D6" />
+                    <Line X1="0"
+                          Y1="50"
+                          X2="50"
+                          Y2="0"
+                          Stroke="{Binding UpperRightCrosshair2Stroke}"
+                          StrokeThickness="4"
+                          AutomationProperties.AutomationId="Line20_B43927D6" />
+                </Grid>
+            </Viewbox>
+        </Grid>
+    </Grid>
+</common:BaseWindow>

@@ -1,0 +1,406 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Bingo.UI.Views.OperatorMenu.BingoServerSettingsView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Bingo.UI.Converters"
+                               xmlns:common="http://monaco.aristocrat.com/common"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance viewModels:BingoServerSettingsViewModel}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <common:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+            <converters:ServerEnableDisableSettingsToCustomTextConverter x:Key="PreferredEnabledDisabled"
+                                                                         EnabledResourceKey="{x:Static loc:ResourceKeys.Enabled}"
+                                                                         DisabledResourceKey="{x:Static loc:ResourceKeys.Disabled}" />
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin"
+                        Value="0 0 10 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="Margin"
+                        Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_5897E720">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition1_5897E720" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition2_5897E720" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_5897E720" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_5897E720" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition5_5897E720" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              Grid.Column="0"
+              HorizontalAlignment="Left"
+              AutomationProperties.AutomationId="Grid6_5897E720">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition7_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition8_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition9_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition10_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition11_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition12_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition13_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition14_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition15_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition16_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition17_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition18_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition19_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition20_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition21_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition22_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition23_5897E720" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition24_5897E720" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition25_5897E720" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Content="{lex:Loc FloorConfigurationLabel}"
+                   AutomationProperties.AutomationId="Label26_5897E720" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Content="{lex:Loc VoucherInLimit}"
+                   AutomationProperties.AutomationId="Label27_5897E720" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding VoucherInLimit, Mode=OneWay}"
+                       AutomationProperties.AutomationId="TextBlock28_5897E720" />
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Content="{lex:Loc BillAcceptanceLimit}"
+                   AutomationProperties.AutomationId="Label29_5897E720" />
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       Text="{Binding BillAcceptanceLimit, Mode=OneWay}"
+                       AutomationProperties.AutomationId="TextBlock30_5897E720" />
+            <Label Grid.Row="3"
+                   Grid.Column="0"
+                   Content="{lex:Loc TicketReprintLabel}"
+                   AutomationProperties.AutomationId="Label31_5897E720" />
+            <TextBlock Grid.Row="3"
+                       Grid.Column="1"
+                       Text="{Binding TicketReprint, Mode=OneWay,Converter={StaticResource PreferredEnabledDisabled}}"
+                       AutomationProperties.AutomationId="TextBlock32_5897E720" />
+            <Label Grid.Row="4"
+                   Grid.Column="0"
+                   Content="{lex:Loc CaptureGameAnalyticsLabel}"
+                   AutomationProperties.AutomationId="Label33_5897E720" />
+            <TextBlock Grid.Row="4"
+                       Grid.Column="1"
+                       Text="{Binding CaptureGameAnalytics, Mode=OneWay,Converter={StaticResource PreferredEnabledDisabled}}"
+                       AutomationProperties.AutomationId="TextBlock34_5897E720" />
+            <Label Grid.Row="5"
+                   Grid.Column="0"
+                   Content="{lex:Loc AlarmConfigurationLabel}"
+                   AutomationProperties.AutomationId="Label35_5897E720" />
+            <TextBlock Grid.Row="5"
+                       Grid.Column="1"
+                       Text="{Binding AlarmConfiguration, Mode=OneWay,Converter={StaticResource PreferredEnabledDisabled}}"
+                       AutomationProperties.AutomationId="TextBlock36_5897E720" />
+            <Label Grid.Row="6"
+                   Grid.Column="0"
+                   Content="{lex:Loc PlayerMayHideBingoCardLabel}"
+                   Visibility="{Binding IsPlayerMayHideBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                   AutomationProperties.AutomationId="Label37_5897E720" />
+            <TextBlock Grid.Row="6"
+                       Grid.Column="1"
+                       Text="{Binding PlayerMayHideBingoCard, Mode=OneWay, Converter={StaticResource PreferredEnabledDisabled}}"
+                       Visibility="{Binding IsPlayerMayHideBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                       AutomationProperties.AutomationId="TextBlock38_5897E720" />
+            <Label Grid.Row="7"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Margin="0 20 10 10"
+                   Content="{lex:Loc BingoSettingsLabel}"
+                   AutomationProperties.AutomationId="Label39_5897E720" />
+            <Label Grid.Row="8"
+                   Grid.Column="0"
+                   Content="{lex:Loc GameEndingPrizeLabel}"
+                   AutomationProperties.AutomationId="Label40_5897E720" />
+            <TextBlock Grid.Row="8"
+                       Grid.Column="1"
+                       Text="{Binding GameEndingPrize, Mode=OneWay, Converter={StaticResource EnumDescriptionConverter}}"
+                       AutomationProperties.AutomationId="TextBlock41_5897E720" />
+            <Label Grid.Row="9"
+                   Grid.Column="0"
+                   Content="{lex:Loc PlayButtonBehaviorLabel}"
+                   AutomationProperties.AutomationId="Label42_5897E720" />
+            <TextBlock Grid.Row="9"
+                       Grid.Column="1"
+                       Text="{Binding PlayButtonBehavior, Mode=OneWay, Converter={StaticResource EnumDescriptionConverter}}"
+                       AutomationProperties.AutomationId="TextBlock43_5897E720" />
+            <Label Grid.Row="10"
+                   Grid.Column="0"
+                   Content="{lex:Loc DisplayBingoCardLabel}"
+                   Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                   AutomationProperties.AutomationId="Label44_5897E720" />
+            <TextBlock Grid.Row="10"
+                       Grid.Column="1"
+                       Text="{Binding DisplayBingoCard, Mode=OneWay}"
+                       Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                       AutomationProperties.AutomationId="TextBlock45_5897E720" />
+            <Label Grid.Row="11"
+                   Grid.Column="0"
+                   Content="{lex:Loc HideBingoCardWhenInactiveLabel}"
+                   Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                   AutomationProperties.AutomationId="Label46_5897E720" />
+            <TextBlock Grid.Row="11"
+                       Grid.Column="1"
+                       Text="{Binding HideBingoCardWhenInactive, Mode=OneWay}"
+                       Visibility="{Binding IsDisplayBingoCardSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                       AutomationProperties.AutomationId="TextBlock47_5897E720" />
+            <Label Grid.Row="12"
+                   Grid.Column="0"
+                   Content="{lex:Loc BingoCardPlacementLabel}"
+                   Visibility="{Binding IsBingoCardPlacementSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                   AutomationProperties.AutomationId="Label48_5897E720" />
+            <TextBlock Grid.Row="12"
+                       Grid.Column="1"
+                       Text="{Binding BingoCardPlacement, Mode=OneWay}"
+                       Visibility="{Binding IsBingoCardPlacementSettingVisible, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                       AutomationProperties.AutomationId="TextBlock49_5897E720" />
+            <Label Grid.Row="13"
+                   Grid.Column="0"
+                   Content="{lex:Loc WaitForPlayersLength}"
+                   AutomationProperties.AutomationId="Label50_5897E720" />
+            <TextBlock Grid.Row="13"
+                       Grid.Column="1"
+                       Text="{Binding WaitForPlayersDuration, Mode=OneWay}"
+                       AutomationProperties.AutomationId="TextBlock51_5897E720" />
+            <Label Grid.Row="14"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Margin="0 20 10 10"
+                   Content="{lex:Loc AFTTitleLabel}"
+                   AutomationProperties.AutomationId="Label52_5897E720" />
+            <Label Grid.Row="15"
+                   Grid.Column="0"
+                   Content="{lex:Loc LegacyBonusAllowed}"
+                   AutomationProperties.AutomationId="Label53_5897E720" />
+            <TextBlock Grid.Row="15"
+                       Grid.Column="1"
+                       Text="{Binding LegacyBonusAllowed, Mode=OneWay}"
+                       AutomationProperties.AutomationId="TextBlock54_5897E720" />
+            <Label Grid.Row="16"
+                   Grid.Column="0"
+                   Content="{lex:Loc AftBonusingEnabledLabel}"
+                   AutomationProperties.AutomationId="Label55_5897E720" />
+            <TextBlock Grid.Row="16"
+                       Grid.Column="1"
+                       Text="{Binding AftBonusingEnabled, Mode=OneWay,Converter={StaticResource PreferredEnabledDisabled}}"
+                       AutomationProperties.AutomationId="TextBlock56_5897E720" />
+        </Grid>
+        <Grid Grid.Row="0"
+              Grid.Column="1"
+              HorizontalAlignment="Left"
+              AutomationProperties.AutomationId="Grid57_5897E720">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition58_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition59_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition60_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition61_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition62_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition63_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition64_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition65_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition66_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition67_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition68_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition69_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition70_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition71_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition72_5897E720" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition73_5897E720" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition74_5897E720" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition75_5897E720" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Content="{lex:Loc JackpotConfigurationLabel}"
+                   AutomationProperties.AutomationId="Label76_5897E720" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Content="{lex:Loc MaximumVoucherValueLabel}"
+                   AutomationProperties.AutomationId="Label77_5897E720" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding MaximumVoucherValue, Mode=OneWay}"
+                       AutomationProperties.AutomationId="TextBlock78_5897E720" />
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Content="{lex:Loc MinimumJackpotValueLabel}"
+                   AutomationProperties.AutomationId="Label79_5897E720" />
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       Text="{Binding MinimumJackpotValue, Mode=OneWay}"
+                       AutomationProperties.AutomationId="TextBlock80_5897E720" />
+            <Label Grid.Row="3"
+                   Grid.Column="0"
+                   Content="{lex:Loc JackpotStrategyLabel}"
+                   AutomationProperties.AutomationId="Label81_5897E720" />
+            <TextBlock Grid.Row="3"
+                       Grid.Column="1"
+                       Text="{Binding JackpotStrategy, Mode=OneWay, Converter={StaticResource EnumDescriptionConverter}}"
+                       AutomationProperties.AutomationId="TextBlock82_5897E720" />
+            <Label Grid.Row="4"
+                   Grid.Column="0"
+                   Content="{lex:Loc JackpotAmountDeterminationLabel}"
+                   AutomationProperties.AutomationId="Label83_5897E720" />
+            <TextBlock Grid.Row="4"
+                       Grid.Column="1"
+                       Text="{Binding JackpotAmountDetermination, Mode=OneWay, Converter={StaticResource EnumDescriptionConverter}}"
+                       AutomationProperties.AutomationId="TextBlock84_5897E720" />
+            <Label Grid.Row="5"
+                   Grid.Column="0"
+                   Content="{lex:Loc PrintHandpayReceipt}"
+                   AutomationProperties.AutomationId="Label85_5897E720" />
+            <TextBlock Grid.Row="5"
+                       Grid.Column="1"
+                       Text="{Binding PrintHandpayReceipt, Mode=OneWay,Converter={StaticResource PreferredEnabledDisabled}}"
+                       AutomationProperties.AutomationId="TextBlock86_5897E720" />
+            <Label Grid.Row="6"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Margin="0 20 10 10"
+                   Content="{lex:Loc EGMSettingsLabel}"
+                   AutomationProperties.AutomationId="Label87_5897E720" />
+            <Label Grid.Row="7"
+                   Grid.Column="0"
+                   Content="{lex:Loc CreditsStrategyLabel}"
+                   AutomationProperties.AutomationId="Label88_5897E720" />
+            <TextBlock Grid.Row="7"
+                       Grid.Column="1"
+                       Text="{Binding CreditsStrategy, Mode=OneWay, Converter={StaticResource EnumDescriptionConverter}}"
+                       AutomationProperties.AutomationId="TextBlock89_5897E720" />
+            <Label Grid.Row="8"
+                   Grid.Column="0"
+                   Content="{lex:Loc ZoneId}"
+                   AutomationProperties.AutomationId="Label90_5897E720" />
+            <TextBlock Grid.Row="8"
+                       Grid.Column="1"
+                       Text="{Binding ZoneId, Mode=OneWay}"
+                       AutomationProperties.AutomationId="TextBlock91_5897E720" />
+            <Label Grid.Row="9"
+                   Grid.Column="0"
+                   Content="{lex:Loc BankId}"
+                   AutomationProperties.AutomationId="Label92_5897E720" />
+            <TextBlock Grid.Row="9"
+                       Grid.Column="1"
+                       Text="{Binding BankId, Mode=OneWay}"
+                       AutomationProperties.AutomationId="TextBlock93_5897E720" />
+            <Label Grid.Row="10"
+                   Grid.Column="0"
+                   Content="{lex:Loc PositionText}"
+                   AutomationProperties.AutomationId="Label94_5897E720" />
+            <TextBlock Grid.Row="10"
+                       Grid.Column="1"
+                       Text="{Binding Position, Mode=OneWay}"
+                       AutomationProperties.AutomationId="TextBlock95_5897E720" />
+            <Label Grid.Row="11"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Margin="0 20 10 10"
+                   Content="{lex:Loc LAPSettingsLabel}"
+                   AutomationProperties.AutomationId="Label96_5897E720" />
+            <Label Grid.Row="12"
+                   Grid.Column="0"
+                   Content="{lex:Loc BingoType}"
+                   AutomationProperties.AutomationId="Label97_5897E720" />
+            <TextBlock Grid.Row="12"
+                       Grid.Column="1"
+                       Text="{Binding BingoType, Mode=OneWay, Converter={StaticResource EnumDescriptionConverter}}"
+                       AutomationProperties.AutomationId="TextBlock98_5897E720" />
+            <Label Grid.Row="13"
+                   Grid.Column="0"
+                   Content="{lex:Loc LAPLevelIDsLabel}"
+                   AutomationProperties.AutomationId="Label99_5897E720" />
+            <TextBlock Grid.Row="13"
+                       Grid.Column="1"
+                       Text="{Binding LapLevelIDs, Mode=OneWay}"
+                       AutomationProperties.AutomationId="TextBlock100_5897E720" />
+            <Label Grid.Row="14"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Margin="0 20 10 10"
+                   Content="{lex:Loc BingoServerInformationTitle}"
+                   AutomationProperties.AutomationId="Label101_5897E720" />
+            <Label Grid.Row="15"
+                   Grid.Column="0"
+                   Content="{lex:Loc BingoServerVersionLabel}"
+                   AutomationProperties.AutomationId="Label102_5897E720" />
+            <TextBlock Grid.Row="15"
+                       Grid.Column="1"
+                       Text="{Binding ServerVersion, Mode=OneWay}"
+                       AutomationProperties.AutomationId="TextBlock103_5897E720" />
+        </Grid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

@@ -1,0 +1,308 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:contracts="clr-namespace:Aristocrat.Monaco.Gaming.Contracts.Models;assembly=Aristocrat.Monaco.Gaming.Contracts"
+                    xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
+                    xmlns:buttonDeck1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck"
+                    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+                    mc:Ignorable="d"
+                    d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../Skins/Styles.xaml" />
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+        <ResourceDictionary Source="VirtualButtonDeckButtonTemplate.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <buttonDeck1:VirtualButtonDeckButtonTemplateSelector x:Key="VbdButtonSelector" />
+    <Storyboard x:Key="DisabledFadeInStoryboard"
+                x:Shared="false"
+                AutomationProperties.AutomationId="Storyboard0_40BD8A0A">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0.0"
+                         To="0.5"
+                         Duration="0:0:0.1"
+                         BeginTime="0:0:0"
+                         AutoReverse="False"
+                         AutomationProperties.AutomationId="DoubleAnimation1_40BD8A0A" />
+    </Storyboard>
+    <Storyboard x:Key="DisabledFadeOutStoryboard"
+                x:Shared="false"
+                AutomationProperties.AutomationId="Storyboard2_40BD8A0A">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0.5"
+                         To="0.0"
+                         Duration="0:0:0.75"
+                         BeginTime="0:0:0"
+                         AutoReverse="False"
+                         AutomationProperties.AutomationId="DoubleAnimation3_40BD8A0A" />
+    </Storyboard>
+    <Storyboard x:Key="VbdFadeInStoryboard"
+                x:Shared="false"
+                AutomationProperties.AutomationId="Storyboard4_40BD8A0A">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0.0"
+                         To="1.0"
+                         Duration="0:0:0.35"
+                         BeginTime="0:0:0"
+                         AutoReverse="False"
+                         AutomationProperties.AutomationId="DoubleAnimation5_40BD8A0A" />
+    </Storyboard>
+    <Storyboard x:Key="VbdFadeOutStoryboard"
+                x:Shared="false"
+                AutomationProperties.AutomationId="Storyboard6_40BD8A0A">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="1.0"
+                         To="0.0"
+                         Duration="0:0:0.35"
+                         BeginTime="0:0:0"
+                         AutoReverse="False"
+                         AutomationProperties.AutomationId="DoubleAnimation7_40BD8A0A" />
+    </Storyboard>
+    <DataTemplate x:Key="VbdHelixXtTemplate">
+        <Grid Background="Black"
+              Visibility="{Binding IsLobbyVbdVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+              Width="1903"
+              Height="577"
+              VerticalAlignment="Top"
+              HorizontalAlignment="Left"
+              AutomationProperties.AutomationId="Grid8_40BD8A0A">
+            <!--Lobby Background Image Animation-->
+            <bink:BinkGpuControl x:Name="BinkControl"
+                                 LoopVideo="True"
+                                 Cache="True"
+                                 Width="1903"
+                                 Height="577"
+                                 VerticalAlignment="Top"
+                                 HorizontalAlignment="Left"
+                                 ShowFirstFrameOnLoad="True">
+                <bink:BinkGpuControl.RenderTransform>
+                    <TranslateTransform X="12"
+                                        Y="16"
+                                        AutomationProperties.AutomationId="TranslateTransform9_40BD8A0A" />
+                </bink:BinkGpuControl.RenderTransform>
+                <bink:BinkGpuControl.Style>
+                    <Style TargetType="bink:BinkGpuControl">
+                        <Setter Property="VideoState"
+                                Value="Playing" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding VbdVideoState}"
+                                         Value="{x:Static contracts:LobbyVbdVideoState.InsertMoney}"
+                                         AutomationProperties.AutomationId="DataTrigger10_40BD8A0A">
+                                <Setter Property="Filename"
+                                        Value="{DynamicResource VBD_Helix_InsertMoney}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding VbdVideoState}"
+                                         Value="{x:Static contracts:LobbyVbdVideoState.ChooseGame}"
+                                         AutomationProperties.AutomationId="DataTrigger11_40BD8A0A">
+                                <Setter Property="Filename"
+                                        Value="{DynamicResource VBD_Helix_ChooseGame}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding VbdVideoState}"
+                                         Value="{x:Static contracts:LobbyVbdVideoState.ChooseTime}"
+                                         AutomationProperties.AutomationId="DataTrigger12_40BD8A0A">
+                                <Setter Property="Filename"
+                                        Value="{DynamicResource VBD_ChooseTime}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsLobbyVbdVisible}"
+                                         Value="False"
+                                         AutomationProperties.AutomationId="DataTrigger13_40BD8A0A">
+                                <Setter Property="VideoState"
+                                        Value="Stopped" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </bink:BinkGpuControl.Style>
+            </bink:BinkGpuControl>
+            <!--Blank background if vbd is blank-->
+            <Viewbox Stretch="Fill"
+                     VerticalAlignment="Top"
+                     HorizontalAlignment="Left"
+                     Width="1903"
+                     Height="577"
+                     AutomationProperties.AutomationId="Viewbox14_40BD8A0A">
+                <Viewbox.RenderTransform>
+                    <TranslateTransform X="12"
+                                        Y="16"
+                                        AutomationProperties.AutomationId="TranslateTransform15_40BD8A0A" />
+                </Viewbox.RenderTransform>
+                <Image x:Name="ImageBlankBackground"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBD_Helix_Blank}"
+                       IsHitTestVisible="{Binding IsLobbyVbdBackgroundBlank}"
+                       AutomationProperties.AutomationId="Image16_40BD8A0A">
+                    <Image.Style>
+                        <Style TargetType="Image">
+                            <Setter Property="Opacity"
+                                    Value="0" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsLobbyVbdBackgroundBlank}"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="DataTrigger17_40BD8A0A">
+                                    <Setter Property="Visibility"
+                                            Value="Visible" />
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource VbdFadeInStoryboard}"
+                                                         AutomationProperties.AutomationId="BeginStoryboard18_40BD8A0A" />
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard Storyboard="{StaticResource VbdFadeOutStoryboard}"
+                                                         AutomationProperties.AutomationId="BeginStoryboard19_40BD8A0A" />
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                                <DataTrigger
+                                        Binding="{Binding RelativeSource={RelativeSource Self}, Path=(Image.Opacity)}"
+                                             Value="0"
+                                             AutomationProperties.AutomationId="DataTrigger20_40BD8A0A">
+                                    <Setter Property="Visibility"
+                                            Value="Hidden" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+            </Viewbox>
+            <Viewbox Stretch="Fill"
+                     VerticalAlignment="Top"
+                     HorizontalAlignment="Left"
+                     Width="1903"
+                     Height="577"
+                     AutomationProperties.AutomationId="Viewbox21_40BD8A0A">
+                <Viewbox.RenderTransform>
+                    <TranslateTransform X="12"
+                                        Y="16"
+                                        AutomationProperties.AutomationId="TranslateTransform22_40BD8A0A" />
+                </Viewbox.RenderTransform>
+                <Image x:Name="ImageGameLoadFlickerFix"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBD_Helix_Blank}"
+                       Visibility="{Binding IsGameLoading, Converter={StaticResource TrueVisibleFalseHidden}}"
+                       AutomationProperties.AutomationId="Image23_40BD8A0A" />
+            </Viewbox>
+            <!--ContentControl selects the buttons template.-->
+            <Viewbox Stretch="Uniform"
+                     VerticalAlignment="Top"
+                     HorizontalAlignment="Left"
+                     Width="1903"
+                     Height="577"
+                     AutomationProperties.AutomationId="Viewbox24_40BD8A0A">
+                <Viewbox.RenderTransform>
+                    <TranslateTransform X="16"
+                                        Y="-34"
+                                        AutomationProperties.AutomationId="TranslateTransform25_40BD8A0A" />
+                </Viewbox.RenderTransform>
+                <ContentControl x:Name="ButtonContentControl"
+                                Visibility="{Binding IsGameLoading, Converter={StaticResource TrueHiddenFalseVisible}}"
+                                Content="{Binding}"
+                                ContentTemplateSelector="{StaticResource VbdButtonSelector}"
+                                AutomationProperties.AutomationId="ContentControl26_40BD8A0A" />
+            </Viewbox>
+            <!--Displays the confirmation dialog for cash out. Confirmation for service occurs in VirtualButtonDeckOverlayView-->
+            <Viewbox VerticalAlignment="Top"
+                     HorizontalAlignment="Left"
+                     Stretch="Fill"
+                     Width="1903"
+                     Height="577"
+                     AutomationProperties.AutomationId="Viewbox27_40BD8A0A">
+                <Viewbox.RenderTransform>
+                    <TranslateTransform X="12"
+                                        Y="16"
+                                        AutomationProperties.AutomationId="TranslateTransform28_40BD8A0A" />
+                </Viewbox.RenderTransform>
+                <buttonDeck1:VbdCashOutDlg
+                        Visibility="{Binding IsVbdCashOutDialogVisible, Converter={StaticResource TrueVisibleFalseHidden}}" />
+            </Viewbox>
+            <!-- Rectangle to give screen a disabled look if message overlay is visible -->
+            <Rectangle Fill="Black"
+                       AutomationProperties.AutomationId="Rectangle29_40BD8A0A">
+                <Rectangle.Style>
+                    <Style TargetType="Rectangle">
+                        <Setter Property="Opacity"
+                                Value="0" />
+                        <Style.Triggers>
+                            <DataTrigger Value="True"
+                                         Binding="{Binding IsVirtualButtonDeckDisabled}"
+                                         AutomationProperties.AutomationId="DataTrigger30_40BD8A0A">
+                                <Setter Property="Visibility"
+                                        Value="Visible" />
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource DisabledFadeInStoryboard}"
+                                                     AutomationProperties.AutomationId="BeginStoryboard31_40BD8A0A" />
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource DisabledFadeOutStoryboard}"
+                                                     AutomationProperties.AutomationId="BeginStoryboard32_40BD8A0A" />
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                            <DataTrigger
+                                    Binding="{Binding RelativeSource={RelativeSource Self}, Path=(Rectangle.Opacity)}"
+                                         Value="0"
+                                         AutomationProperties.AutomationId="DataTrigger33_40BD8A0A">
+                                <Setter Property="Visibility"
+                                        Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+            </Rectangle>
+        </Grid>
+    </DataTemplate>
+    <!--overlay disable graphic-->
+    <DataTemplate x:Key="VbdHelixXtDisableTemplate">
+        <Grid AutomationProperties.AutomationId="Grid34_40BD8A0A">
+            <Image VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   Width="1903"
+                   Height="577"
+                   Stretch="Fill"
+                   Source="{DynamicResource VBD_Helix_Disabled}"
+                   AutomationProperties.AutomationId="Image35_40BD8A0A">
+                <Image.RenderTransform>
+                    <TranslateTransform X="12"
+                                        Y="16"
+                                        AutomationProperties.AutomationId="TranslateTransform36_40BD8A0A" />
+                </Image.RenderTransform>
+            </Image>
+        </Grid>
+    </DataTemplate>
+    <!--Overlay for service dlg and malfunction message-->
+    <DataTemplate x:Key="VbdHelixXtOverlayTemplate">
+        <Border AutomationProperties.AutomationId="Border37_40BD8A0A">
+            <Border.Background>
+                <SolidColorBrush Color="Transparent"
+                                 AutomationProperties.AutomationId="SolidColorBrush38_40BD8A0A" />
+            </Border.Background>
+            <Grid x:Name="VbdOverlayRoot"
+                  AutomationProperties.AutomationId="Grid39_40BD8A0A">
+                <Viewbox VerticalAlignment="Top"
+                         HorizontalAlignment="Left"
+                         Stretch="Fill"
+                         Width="1903"
+                         Height="577"
+                         AutomationProperties.AutomationId="Viewbox40_40BD8A0A">
+                    <Viewbox.RenderTransform>
+                        <TranslateTransform X="12"
+                                            Y="16"
+                                            AutomationProperties.AutomationId="TranslateTransform41_40BD8A0A" />
+                    </Viewbox.RenderTransform>
+                    <buttonDeck1:VbdServiceDlg
+                            Visibility="{Binding IsVbdServiceDialogVisible, Converter={StaticResource TrueVisibleFalseHidden}}" />
+                </Viewbox>
+                <Viewbox VerticalAlignment="Top"
+                         HorizontalAlignment="Left"
+                         Stretch="Fill"
+                         Width="1903"
+                         Height="577"
+                         AutomationProperties.AutomationId="Viewbox42_40BD8A0A">
+                    <Viewbox.RenderTransform>
+                        <TranslateTransform X="12"
+                                            Y="16"
+                                            AutomationProperties.AutomationId="TranslateTransform43_40BD8A0A" />
+                    </Viewbox.RenderTransform>
+                    <buttonDeck1:VbdMalfunctionOverlay Width="1903"
+                                                       Height="577"
+                                                       Visibility="{Binding IsVbdMalfunctionOverlayVisible, Converter={StaticResource TrueVisibleFalseHidden}}" />
+                </Viewbox>
+            </Grid>
+        </Border>
+    </DataTemplate>
+</ResourceDictionary>

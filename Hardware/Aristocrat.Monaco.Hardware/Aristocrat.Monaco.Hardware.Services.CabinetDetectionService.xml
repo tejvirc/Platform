@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Hardware.Services.CabinetDetectionService">
+    <Fields>
+      <Field DataType="String" Size="10000" FieldName="CabinetXML" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfBlockFormat>
+  <BlockFormat name="TiltLoggerFormat_Error" version="1">
+    <Fields>
+      <Field DataType="String" Size="256" Count="0" Offset="0" FieldName="Events" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat name="TiltLoggerFormat_Error" version="2">
+    <Fields>
+      <Field DataType="String" Size="512" Count="0" Offset="0" FieldName="Events" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>
+

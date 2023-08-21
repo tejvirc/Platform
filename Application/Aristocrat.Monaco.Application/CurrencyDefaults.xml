@@ -1,0 +1,971 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Gaming\Aristocrat.Monaco.Gaming.Contracts
+2.  Enter "xsd CurrencyDefaults.xsd /c /n:Aristocrat.Monaco.Application.Contracts"  This will generate
+    the corresponding class definition in csharp (CurrencyDefaults.cs).
+-->
+<CurrencyDefaults>
+  <CurrencyInfo>
+    <CurrencyCode>ANG</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <Symbol>ƒ</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>AOA</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <GroupSeparator>,</GroupSeparator>
+        <DecimalSeparator></DecimalSeparator>
+        <DecimalDigits>0</DecimalDigits>
+        <MinorUnits></MinorUnits>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>ARS</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <PositivePattern>0</PositivePattern>
+        <MinorUnits>Centavo</MinorUnits>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>AUD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <MinorUnits></MinorUnits>
+        <MinorUnitsPlural></MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>BGN</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>BGN</Symbol>
+        <MinorUnitSymbol>BGN</MinorUnitSymbol>
+        <MinorUnits>Stotinka</MinorUnits>
+        <MinorUnitsPlural>Stotinki</MinorUnitsPlural>
+      </Format>
+      <Format id="2">
+        <PositivePattern>0</PositivePattern>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+        <Symbol>BGN</Symbol>
+        <MinorUnitSymbol>BGN</MinorUnitSymbol>
+        <MinorUnits>Stotinka</MinorUnits>
+        <MinorUnitsPlural>Stotinki</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>BIF</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <DecimalDigits>2</DecimalDigits>
+        <GroupSeparator></GroupSeparator>
+        <MinorUnits>Centime</MinorUnits>
+        <MinorUnitsPlural>Centimes</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  
+  <CurrencyInfo>
+    <CurrencyCode>BOB</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>Cvs</MinorUnitSymbol>
+        <Symbol>Bs</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  
+  <CurrencyInfo>
+    <CurrencyCode>BRL</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <Symbol>R$</Symbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+
+  <CurrencyInfo>
+    <CurrencyCode>BSD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+        <Symbol>B$</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>BWP</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>t</MinorUnitSymbol>
+        <Symbol>P</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+
+  <CurrencyInfo>
+    <CurrencyCode>CAD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <Symbol>$</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>CDF</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>1</PositivePattern>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>&#032;</GroupSeparator>
+        <Symbol>CDF</Symbol>
+        <MinorUnits>CDF</MinorUnits>
+        <MinorUnitsPlural>Centimes</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>CHF</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>CHF</Symbol>
+        <MinorUnitSymbol>rp</MinorUnitSymbol>
+        <MinorUnits>Rappen</MinorUnits>
+        <MinorUnitsPlural>Rappen</MinorUnitsPlural>
+      </Format>
+      <Format id="2">
+        <PositivePattern>0</PositivePattern>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>SFr</Symbol>
+        <MinorUnitSymbol>ct</MinorUnitSymbol>
+        <MinorUnits>Centime</MinorUnits>
+        <MinorUnitsPlural>Centime</MinorUnitsPlural>
+      </Format>
+      <Format id="3">
+        <PositivePattern>0</PositivePattern>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>FrS</Symbol>
+        <MinorUnitSymbol>ct</MinorUnitSymbol>
+        <MinorUnits>Centime</MinorUnits>
+        <MinorUnitsPlural>Centime</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>CLP</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <DecimalDigits>2</DecimalDigits>
+        <MinorUnits>Centavo</MinorUnits>
+        <Symbol>$</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>COP</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>2</DecimalDigits>
+        <DecimalSeparator>,</DecimalSeparator>
+        <MinorUnits>Centavo</MinorUnits>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>CRC</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <GroupSeparator>.</GroupSeparator>
+        <Symbol>C</Symbol>
+        <MinorUnitSymbol>cts</MinorUnitSymbol>
+        <MinorUnits>Centimo</MinorUnits>
+        <MinorUnitsPlural></MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>CVE</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <Symbol>$</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>CZK</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <GroupSeparator>.</GroupSeparator>
+        <Symbol>CZK</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>DJF</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>1</PositivePattern>
+        <DecimalDigits>2</DecimalDigits>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>Fdj</Symbol>
+        <MinorUnitSymbol>Fdj</MinorUnitSymbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>DKK</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+        <Symbol>Kr</Symbol>
+        <MinorUnitSymbol>øre</MinorUnitSymbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>DOP</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+        <Symbol>RD$</Symbol>
+        <MinorUnits>Centavo</MinorUnits>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>DZD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <GroupSeparator></GroupSeparator>
+        <Symbol>DA</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+
+  <CurrencyInfo>
+    <CurrencyCode>EGP</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <GroupSeparator></GroupSeparator>
+        <Symbol>L.E.</Symbol>
+        <MinorUnits>Piastre</MinorUnits>
+        <MinorUnitsPlural>Piastres</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>ERN</CurrencyCode>
+    <Formats>
+      <Format id="1">
+       <Symbol>nafka</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>ETB</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol></MinorUnitSymbol>
+        <MinorUnits>Santim</MinorUnits>
+        <MinorUnitsPlural>Santim</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>EUR</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>2</DecimalDigits>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+      </Format>
+      <Format id="2">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <PositivePattern>1</PositivePattern>
+		    <DecimalDigits>2</DecimalDigits>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>GEL</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>GEL</Symbol>
+        <MinorUnitSymbol>TET</MinorUnitSymbol>
+        <MinorUnits>TET</MinorUnits>
+        <MinorUnitsPlural>TET</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>GHS</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <Symbol>GHS</Symbol>
+        <MinorUnitSymbol>Gp</MinorUnitSymbol>
+        <MinorUnits>Pesewa</MinorUnits>
+        <MinorUnitsPlural>Pesewas</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>GIP</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>p</MinorUnitSymbol>
+        <MinorUnits>Penny</MinorUnits>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>GMD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>b</MinorUnitSymbol>
+        <MinorUnits>Butut</MinorUnits>
+        <MinorUnitsPlural>Bututs</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>GNF</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <Symbol>GNF</Symbol>
+        <PositivePattern>0</PositivePattern>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>GTQ</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <Symbol>Q</Symbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <GroupSeparator>.</GroupSeparator>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>HKD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <Symbol>$</Symbol>
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>HNL</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <Symbol>L</Symbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <GroupSeparator>.</GroupSeparator>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>HRK</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>1</PositivePattern>
+        <Symbol>KN</Symbol>
+        <MinorUnitSymbol>L</MinorUnitSymbol>
+        <MinorUnits>Lipa</MinorUnits>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>KES</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <DecimalSeparator></DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <DecimalDigits>0</DecimalDigits>
+        <Symbol>KSh</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>KMF</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <GroupSeparator>&#032;</GroupSeparator>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>KRW</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <Symbol>₩</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>LRD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <Symbol>L$</Symbol>
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>LKR</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <Symbol>Rs</Symbol>
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+    </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>LTL</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>ct</MinorUnitSymbol>
+    <Symbol>Lt</Symbol>
+    </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>MAD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>2</DecimalDigits>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>MAD</Symbol>
+        <MinorUnitSymbol>s</MinorUnitSymbol>
+        <MinorUnits>santim</MinorUnits>
+        <MinorUnitsPlural>santimat</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>MGA</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>1</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <DecimalSeparator></DecimalSeparator>
+        <GroupSeparator></GroupSeparator>
+        <MinorUnits>iriambilanja</MinorUnits>
+        <MinorUnitsPlural>iriambilanja</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>MKD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>2</DecimalDigits>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+        <Symbol>MKD</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>MRU</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <GroupSeparator>&#032;</GroupSeparator>
+        <Symbol>UM</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>MUR</CurrencyCode>
+    <Formats>
+      <Format>
+        <GroupSeparator>,</GroupSeparator>
+        <MinorUnits>c</MinorUnits>
+        <MinorUnitsPlural>Cents</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>MWK</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <DecimalSeparator></DecimalSeparator>
+        <DecimalDigits>0</DecimalDigits>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>MXN</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+        <MinorUnitSymbol></MinorUnitSymbol>
+        <MinorUnits>Centavo</MinorUnits>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>MYR</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <MinorUnits>Sen</MinorUnits>
+        <MinorUnitsPlural>Sen</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>MZN</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>1</PositivePattern>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>MT</Symbol>
+        <MinorUnits>Centavo</MinorUnits>
+        <MinorUnitsPlural>Centavos</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>NAD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>N$</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>NGN</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <Symbol>NGN</Symbol>
+        <MinorUnitSymbol>K</MinorUnitSymbol>
+        <MinorUnits>Kobo</MinorUnits>
+        <MinorUnitsPlural>Kobo</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>NIO</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <Symbol>C$</Symbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>NZD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <Symbol>$</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>PEN</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+        <Symbol>S/.</Symbol>
+        <MinorUnits>Céntimo</MinorUnits>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>PHP</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <Symbol>₱</Symbol>
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>PLN</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>1</PositivePattern>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+        <MinorUnitSymbol>gr</MinorUnitSymbol>
+        <MinorUnits>Grosz</MinorUnits>
+        <MinorUnitsPlural>Groszy</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>PYG</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>2</DecimalDigits>
+        <Symbol>G</Symbol>
+        <MinorUnits>Centimo</MinorUnits>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>RON</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <MinorUnitSymbol>b</MinorUnitSymbol>
+        <MinorUnits>ban</MinorUnits>
+        <MinorUnitsPlural>bani</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>RMB</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>RSD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <Symbol>RSD</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>RWF</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>1</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>RWF</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>SCR</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <Symbol>SR</Symbol>
+        <GroupSeparator>,</GroupSeparator>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>SDG</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <GroupSeparator></GroupSeparator>
+        <Symbol>SD</Symbol>
+        <MinorUnits>Piastre</MinorUnits>
+        <MinorUnitsPlural>Piastres</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>SEK</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <MinorUnitSymbol>öre</MinorUnitSymbol>
+        <MinorUnits>öre</MinorUnits>
+        <MinorUnitsPlural>öre</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>SGD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <Symbol>$</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>SOS</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>2</DecimalDigits>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>SOS</Symbol>
+        <MinorUnits>Senti</MinorUnits>
+        <MinorUnitsPlural>Sentis</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>STN</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <DecimalSeparator></DecimalSeparator>
+        <GroupSeparator>&#032;</GroupSeparator>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>SVC</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <Symbol>C</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>SZL</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <DecimalSeparator>,</DecimalSeparator>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>THB</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <DecimalDigits>0</DecimalDigits>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>TND</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <GroupSeparator>.</GroupSeparator>
+        <Symbol>TD</Symbol>
+        <MinorUnits>Millime</MinorUnits>
+        <MinorUnitsPlural>Millimes</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>TRY</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>TRY</Symbol>
+        <MinorUnitSymbol>Kr</MinorUnitSymbol>
+        <MinorUnits>Kuruş</MinorUnits>
+        <MinorUnitsPlural>Kuruş</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>TZS</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <GroupSeparator></GroupSeparator>
+        <Symbol>Tsh</Symbol>
+        <MinorUnitsPlural>Cent</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>UAH</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>2</DecimalDigits>
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>UAH</Symbol>
+        <MinorUnitsSymbol>UAH</MinorUnitsSymbol>
+        <MinorUnits>Kopiyka</MinorUnits>
+        <MinorUnitsPlural>Kopiyky</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>UGX</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <DecimalDigits>2</DecimalDigits>
+        <GroupSeparator></GroupSeparator>
+        <Symbol>Ush</Symbol>
+        <MinorUnits>Cents</MinorUnits>
+        <MinorUnitsPlural>Cents</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>USD</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+      </Format>
+      <Format id="2">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <DecimalSeparator>,</DecimalSeparator>
+        <GroupSeparator>.</GroupSeparator>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>UYU</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>2</DecimalDigits>
+        <MinorUnits>Centésimo</MinorUnits>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>VEF</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <Symbol>BsF</Symbol>
+        <MinorUnitSymbol>C</MinorUnitSymbol>
+    </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>XAF</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>1</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <GroupSeparator>&#032;</GroupSeparator>
+        <Symbol>CFA</Symbol>
+      </Format>
+      <Format id="2">
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <GroupSeparator>&#032;</GroupSeparator>
+        <Symbol>CFA</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>XOF</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <PositivePattern>1</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <GroupSeparator>&#032;</GroupSeparator>
+        <Symbol>CFA</Symbol>
+      </Format>
+      <Format id="2">
+        <PositivePattern>0</PositivePattern>
+        <DecimalDigits>0</DecimalDigits>
+        <GroupSeparator>&#032;</GroupSeparator>
+        <Symbol>CFA</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>ZAR</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <DecimalSeparator>.</DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <MinorUnitSymbol>¢</MinorUnitSymbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
+    <CurrencyCode>ZMW</CurrencyCode>
+    <Formats>
+      <Format id="1">
+        <DecimalDigits>0</DecimalDigits>
+        <DecimalSeparator></DecimalSeparator>
+        <GroupSeparator>,</GroupSeparator>
+        <Symbol>ZK</Symbol>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+</CurrencyDefaults>

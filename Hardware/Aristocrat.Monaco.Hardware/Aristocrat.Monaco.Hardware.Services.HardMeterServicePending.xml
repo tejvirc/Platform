@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Hardware.Services.HardMeterServicePending">
+      <Fields>
+        <Field DataType="Int64" Size="32" FieldName="MeterValue" />
+      </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

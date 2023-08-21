@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <AssemblyTitle>Aristocrat.Mgam.Client.Tests</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+</Project>

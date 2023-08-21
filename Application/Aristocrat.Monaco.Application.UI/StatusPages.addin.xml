@@ -1,0 +1,29 @@
+﻿<?xml version="1.0"?>
+
+<Addin id="StatusPages" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="Monaco.Accounting.UI.OperatorMenu" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+
+    <AddinConfigurationGroup name="StatusPages" description="Status pages configuration">
+
+      <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/StatusMenu">
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.StatusPageLoader" order="0" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Accounting.UI.Loaders.CurrentCreditsPageLoader" order="1" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.DoorPageLoader" order="2" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.GeneralInformationPageLoader" order="3" />
+      </ExtensionPointConfiguration>
+
+    </AddinConfigurationGroup>
+
+  </Extension>
+
+</Addin>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Application.Localization.LocalizationPropertiesProvider">
+    <Fields>
+      <Field FieldName="Localization.State" DataType="String" Size="1024" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

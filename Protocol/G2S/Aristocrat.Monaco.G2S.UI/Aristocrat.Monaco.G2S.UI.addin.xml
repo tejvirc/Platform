@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Addin id="G2SConfigurationWizard" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.G2S.UI.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Application.UI" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Application/Config/Wizards">
+    <Wizard type="Aristocrat.Monaco.G2S.UI.G2SConfigurationWizard" order="5" />
+  </Extension>
+  
+</Addin>

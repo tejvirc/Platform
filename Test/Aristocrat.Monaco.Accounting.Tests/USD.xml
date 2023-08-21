@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Currency xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CurrencyCode>USD</CurrencyCode>
+  <Denominations>
+    <int>1</int>
+    <int>2</int>
+    <int>5</int>
+    <int>10</int>
+    <int>20</int>
+    <int>50</int>
+    <int>100</int>
+  </Denominations>
+  <Multiplier>100</Multiplier>
+</Currency>

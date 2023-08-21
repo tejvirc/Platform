@@ -1,0 +1,172 @@
+﻿<operatorMenu:OperatorMenuPage xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               xmlns:dialog="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                               xmlns:commonControls="clr-namespace:Aristocrat.Monaco.UI.Common.Controls;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:helpers="http://monaco.aristocrat.com/common"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.CustomSAPView"
+                               dialog:DialogParticipation.Register="{Binding}"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:CustomSAPViewModel}, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:PercentageTextValueConvert x:Key="PercentageTextValueConvert" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_EF8014A4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_EF8014A4" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_EF8014A4" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition3_EF8014A4" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_EF8014A4" />
+        </Grid.RowDefinitions>
+        <controls:ToggleSwitch Grid.Row="0"
+                                     Grid.Column="0"
+                                     Margin="0,-10,0,0"
+                                     IsEnabled="True"
+                                     IsOn="{Binding GameTypeSelect}"
+                                     controls:ControlsHelper.ContentCharacterCasing="Upper"
+                                     controls:ControlsHelper.CornerRadius="0"
+                                     helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Poker}"
+                                     helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc Keno}" />
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Margin="0,20,0,0"
+               Content="{lex:Loc CustomSAPConfigSetup}"
+               AutomationProperties.AutomationId="Label5_EF8014A4" />
+        <DataGrid ItemsSource="{Binding LevelDetails}"
+                  Grid.Row="2"
+                  Grid.Column="0"
+                  Margin="0 5 0 0"
+                  HorizontalAlignment="Left"
+                  AutoGenerateColumns="False"
+                  ScrollViewer.CanContentScroll="True"
+                  MinRowHeight="30"
+                  Height="{Binding ElementName=MainGrid, Path=Height}"
+                  Width="{Binding ElementName=MainGrid, Path=Width}"
+                  EnableRowVirtualization="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserSortColumns="False"
+                  AutomationProperties.AutomationId="DataGrid6_EF8014A4">
+            <DataGrid.Resources>
+                <dialog:BindingProxy x:Key="Proxy"
+                                     Data="{Binding}" />
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{lex:Loc LevelId}"
+                                    loc:Localizer.For="Operator"
+                                    MaxWidth="80"
+                                    Binding="{Binding LevelId , UpdateSourceTrigger=PropertyChanged}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn7_EF8014A4" />
+                <DataGridTemplateColumn Header="{lex:Loc LevelNameLabel}"
+                                        loc:Localizer.For="Operator"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn8_EF8014A4">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:CustomSAPViewModel+SharedLevelDisplay}">
+                            <commonControls:SmartLongNameTextBlock ContentText="{Binding Name}"
+                                                                   ContentMaxWidth="310" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="{lex:Loc CurrentValue}"
+                                    loc:Localizer.For="Operator"
+                                    MaxWidth="200"
+                                    Binding="{Binding CurrentValue, UpdateSourceTrigger=PropertyChanged}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn9_EF8014A4" />
+                <DataGridTextColumn Header="{lex:Loc InitialValue}"
+                                    loc:Localizer.For="Operator"
+                                    MaxWidth="200"
+                                    Binding="{Binding InitialValue, UpdateSourceTrigger=PropertyChanged}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn10_EF8014A4" />
+                <DataGridTextColumn Header="{lex:Loc BonusInfoOverflowColumn}"
+                                    loc:Localizer.For="Operator"
+                                    MaxWidth="200"
+                                    Binding="{Binding OverflowValue , UpdateSourceTrigger=PropertyChanged}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn11_EF8014A4" />
+                <DataGridTextColumn Header="{lex:Loc ResetValue}"
+                                    loc:Localizer.For="Operator"
+                                    MaxWidth="200"
+                                    Binding="{Binding ResetValue, UpdateSourceTrigger=PropertyChanged}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn12_EF8014A4" />
+                <DataGridTextColumn Header="{lex:Loc IncrementRate}"
+                                    loc:Localizer.For="Operator"
+                                    MaxWidth="200"
+                                    Binding="{Binding IncrementRate, StringFormat={}{0:#0.00'%'}, UpdateSourceTrigger=PropertyChanged}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn13_EF8014A4" />
+                <DataGridTextColumn Header="{lex:Loc MaxValue}"
+                                    loc:Localizer.For="Operator"
+                                    MaxWidth="200"
+                                    Binding="{Binding MaximumValue, UpdateSourceTrigger=PropertyChanged}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn14_EF8014A4" />
+                <DataGridTemplateColumn AutomationProperties.AutomationId="DataGridTemplateColumn15_EF8014A4">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:CustomSAPViewModel+SharedLevelDisplay}">
+                            <Button Margin="0,5,0,0"
+                                    Content="{lex:Loc EditLabel}"
+                                    CommandParameter="{Binding Path=Name}"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.EditSAPLevelCommand}"
+                                    AutomationProperties.AutomationId="Button16_EF8014A4">
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                        <Binding Path="IsEditable" />
+                                        <Binding Path="Data.InputEnabled"
+                                                 Source="{StaticResource Proxy}" />
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn AutomationProperties.AutomationId="DataGridTemplateColumn17_EF8014A4">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:CustomSAPViewModel+SharedLevelDisplay}">
+                            <Button Margin="0,5,0,0"
+                                    Content="{lex:Loc DeleteLabel}"
+                                    CommandParameter="{Binding Path=Name}"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteSAPLevelCommand}"
+                                    AutomationProperties.AutomationId="Button18_EF8014A4">
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                        <Binding Path="CanDelete" />
+                                        <Binding Path="Data.InputEnabled"
+                                                 Source="{StaticResource Proxy}" />
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    Margin="0"
+                    AutomationProperties.AutomationId="StackPanel19_EF8014A4">
+            <Button HorizontalAlignment="Left"
+                    Margin="0 10 10 5"
+                    IsEnabled="{Binding InputEnabled}"
+                    Content="{lex:Loc AddSAPLevel}"
+                    Command="{Binding AddSAPLevelCommand}"
+                    AutomationProperties.AutomationId="Button20_EF8014A4" />
+        </StackPanel>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

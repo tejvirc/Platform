@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Gaming.Barkeeper.BarkeeperPropertyProvider">
+    <Fields>
+      <Field DataType="String" Size="1024" FieldName="CoinInRewardLevels" />
+      <Field DataType="String" Size="1024" FieldName="CashInRewardLevel" />
+      <Field DataType="String" Size="1024" FieldName="CoinInRate" />
+      <Field DataType="String" Size="1024" FieldName="ActiveCoinInReward" />
+      <Field DataType="Int64" FieldName="CashIn" />
+      <Field DataType="Int64" FieldName="CoinIn" />
+      <Field DataType="Bool" FieldName="Enabled" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Gaming.Barkeeper.BarkeeperPropertyProvider">
+    <Fields>
+      <Field DataType="String" Size="4096" FieldName="BarkeeperRewardLevels" />
+      <Field DataType="String" Size="1024" FieldName="ActiveCoinInReward" />
+      <Field DataType="Int64" FieldName="CashIn" />
+      <Field DataType="Int64" FieldName="CoinIn" />
+      <Field DataType="Int64" FieldName="RateOfPlayElapsedMilliseconds" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

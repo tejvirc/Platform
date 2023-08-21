@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Application\Monaco.Application.Contracts\OperatorMenu
+2.  Enter "xsd OperatorMenuConfiguration.xsd /c".  This will generate
+    the corresponding class definition in csharp (OperatorMenuConfiguration.cs).
+-->
+<OperatorMenuConfiguration>
+    <Setting Name="PrintCurrentPage" Value="true" />
+    <Setting Name="PrintLast15" Value="true" />
+    <Setting Name="PrintSelected" Value="true" />
+    <Setting Name="ShowTimeFormat" Value="false" />
+    <Setting Name="CreditBalanceVisible" Value="true" />
+    <Setting Name="HardwareDiagnosticsEnabled" Value="true" />
+    <Setting Name="KeySwitchExitOverridesButton" Value="true" />
+    <Setting Name="ShowOperatorRole" Value="true" />
+    <Setting Name="EmployeeCardRequiredToEnterAudit" Value="true" />
+    <Menu Type="StatusMainPageLoader">
+        <Page Type="StatusPageViewModel" Access="GameIdleZeroCredits" />
+        <Page Type="CurrentCreditsPageViewModel">
+            <Setting Name="Cashable" Value="Cashable" />
+            <Setting Name="Promo" Value="Non-Cashable Coupon" />
+            <Setting Name="NonCash" Value="" /><!--Empty to indicate not used by NYL-->
+        </Page>
+        <Page Type="DoorPageViewModel">
+            <Setting Name="ShowUnconfiguredDoors" Value="false" />
+        </Page>
+    </Menu>
+    <Menu Type="IdentificationMainPageLoader">
+        <Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="true" />
+        <Page TabType="SerialGatPageLoader" Visible="false" />
+    </Menu>
+    <Menu Type="LogsMainPageLoader">
+        <Page Type="EventLoggingPageViewModel" PrintButtonEnabled="true" />
+        <Page Type="VoucherOutLogViewModel" PrintButtonEnabled="true">
+            <Setting Name="VoucherIDMask" Value="false" />			
+        </Page>
+        <Page TabType="VoucherInLogLoader" Visible="false"/>
+        <Page Type="TransactionHistoryViewModel" PrintButtonEnabled="false" />
+        <Page Type="BillEventHistoryLogLoader" PrintButtonEnabled="true" />
+        <Page Type="HandpayLogViewModel" PrintButtonEnabled="true" />
+        <Page TabType="AlteredMediaPageLoader" Visible="false" />
+        <Page TabType="WatOnHistoryLogLoader" Visible="false" />
+        <Page TabType="WatOffHistoryLogLoader" Visible="false" />
+        <Page TabType="BonusLogLoader" Visible="false" />
+    </Menu>
+    <Menu Type="MetersMainPageLoader">
+        <Page Type="MainMetersPageViewModel" PrintButtonEnabled="true" FieldAccess="CashBox" >
+            <Setting Name="ClearPeriodMetersButtonVisible" Value="false" />
+        </Page>
+        <Page Type="VoucherMetersPageViewModel" PrintButtonEnabled="true">
+            <Setting Name="ShowCategoryCounts" Value="false" />
+            <Setting Name="ShowCashablePromo" Value="false" />
+        </Page>
+        <Page Type="GameMetersViewModel" PrintButtonEnabled="true"/>
+        <Page Type="DenomMetersPageViewModel" PrintButtonEnabled="true"/>
+        <Page Type="ProgressiveMetersPageViewModel" TabType="ProgressiveMetersPageLoader" Visible="false"/>
+        <Page Type="CustomSAPMetersPageViewModel" TabType="CustomSAPMetersPageLoader" Visible="false"/>
+        <Page Type="BillsMetersPageViewModel" PrintButtonEnabled="true"/>
+        <Page Type="HardwareMetersPageViewModel" PrintButtonEnabled="true"/>
+        <Page Type="WatMetersPageViewModel" TabType="WatMetersPageLoader" Visible="false"/>
+        <Page Type="HandpayMetersPageViewModel" PrintButtonEnabled="true"/>
+        <Page Type="KeyedCreditsMetersPageViewModel" TabType="KeyedCreditsMetersPageLoader" Visible="false"/>
+        <Page Type="BonusMetersPageViewModel" TabType="BonusMetersPageLoader" Visible="false"/>
+  </Menu>
+    <Menu Type="HardwareMainPageLoader">
+        <Page Type="PrinterViewModel" PrintButtonEnabled="true">
+            <Setting Name="ActivationTimeVisible" Value="true" />
+            <AccessRuleSet ID="TestMode" RuleSetName="GameIdle" />
+        </Page>
+        <Page Type="NoteAcceptorViewModel" PrintButtonEnabled="true" Access="TechnicianZeroCredits">
+            <Setting Name="ActivationTimeVisible" Value="true" />
+            <Setting Name="EgmCanEnableDenominations" Value="false" />
+        </Page>
+        <Page Type="LampsPageViewModel" PrintButtonEnabled="false"/>	
+        <Page Type="TowerLightsPageViewModel" PrintButtonEnabled="false"/>	
+        <Page Type="ButtonPageViewModel" PrintButtonEnabled="false"/>
+        <Page Type="EdgeLightingPageViewModel" PrintButtonEnabled="false">
+            <Setting Name="EdgeLightingOverrideVisible" Value="false" />
+        </Page>
+        <Page Type="SoundConfigPageViewModel" PrintButtonEnabled="false"/>
+        <Page Type="DisplaysPageViewModel" PrintButtonEnabled="false"/>	
+        <Page Type="IdReaderPageViewModel" PrintButtonEnabled="false" />	
+        <Page Type="KeyPageViewModel" PrintButtonEnabled="false" />
+        <Page Type="BatteryPageViewModel" PrintButtonEnabled="false" />
+        <Page Type="HardwareManagerPageViewModel" TabType="HardwareManagerPageLoader" PrintButtonEnabled="false" Visible="true" Access="Technician"/>
+    </Menu>
+    <Menu Type="SystemMainPageLoader">
+        <Page Type="TimeConfigPageViewModel" Access="TechnicianZeroCredits"/>
+        <Page Type="LimitsPageViewModel" Access="PageAlwaysReadOnly"> <!-- TechnicianZeroCredits if any fields become editable -->
+            <Setting Name="AllowRemoteHandpayResetVisible" Value="false" />
+            <Setting Name="LargeWinHandpayResetMethodVisible" Value="false" />
+        </Page>
+        <Page Type="VoucherSettingsPageViewModel" Access="PageReadOnly">
+            <Setting Name="ShowCashableVoucherExpiration" Value="false" />
+            <Setting Name="ShowNonCashableVoucherOut" Value="false" />
+            <Setting Name="EnableAllowVoucherOut" Value="false" />
+            <Setting Name="EnablePropertyFields" Value="false" />
+        </Page>
+        <Page Type="CustomSAPViewModel" Access="MainLogicZeroCreditsGameIdle" TabType="CustomSAPViewLoader" Visible="false"/>
+        <Page Type="AddSAPLevelViewModel" Access="MainLogicZeroCreditsGameIdle"/>
+        <Page Type="BarkeeperConfigurationViewModel" TabType="BarkeeperConfigurationPageLoader" Visible="false"/>
+        <Page Type="ReserveMachineViewModel" TabType="ReserveMachinePageLoader" Visible="false"/>
+    </Menu>
+    <Menu Type="GamesMainPageLoader">
+        <Page Type="AdvancedGameSetupViewModel" Access="TechnicianZeroCredits">
+            <Setting Name="AllowImportExport" Value="false" />
+            <Setting Name="ShowGlobalOptions" Value="false" />
+            <Setting Name="EnableAdvancedConfig" Value="true" />
+            <Setting Name="EnableQuickConfig" Value="false" />
+            <Setting Name="EnableRtpScaling" Value="true" />
+        </Page>
+        <Page Type="GameHistoryViewModel">
+            <Setting Name="ShowGameInfoButtons" Value="false" />
+            <Setting Name="PrintGameRoundInfo" Value="true" />
+        </Page>
+        <Page Type="GamePreferencesViewModel" TabType="GamePreferencesViewLoader" Visible="false" />
+        <Page Type="GameStatisticsViewModel" TabType="GameStatisticsViewLoader" Visible="false" />
+        <Page Type="GameInfoViewModel" TabType="GameInfoViewLoader" Visible="false" />
+        <Page TabType="CombinationTestViewLoader" Visible="false" />
+    </Menu>
+    <Menu Type="CommsMainPageLoader"> 
+        <Page Type="NetworkConfigPageViewModel" Access="TechnicianZeroCredits" />
+        <Page Type="HostConfigurationViewModel" Access="TechnicianZeroCredits" />
+        <Page TabType="DeviceManagerViewLoader" Visible="false" />
+    </Menu>
+    <Menu Type="DiagnosticMainPageLoader">
+        <Page Type="IOPageViewModel" PrintButtonEnabled="true" />
+        <Page Type="DiagnosticResourcesViewModel" /> 
+        <Page Type="DiagnosticNetworkPageViewModel" />
+    </Menu>
+    <Menu Type="OptionsMainPageLoader" Visible="false" />
+
+    <Menu Type="SystemResetPageLoader" Visible="false">
+        <Page Type="SystemResetPageLoader" />		
+    </Menu>
+    <Menu Type="ToolsMainPageLoader" Visible="false">
+        <Page Type="ToolsMainPageLoader" />		
+    </Menu>
+    
+    <AccessRules>
+        <AccessRuleSet Name="PageReadOnly">
+            <Rule DeviceName="ReadOnly" />
+        </AccessRuleSet>
+        <AccessRuleSet Name="PageAlwaysReadOnly">
+            <Rule Restriction="ReadOnly" />
+        </AccessRuleSet>
+        <AccessRuleSet Name="Technician">
+            <Rule Restriction="HostTechnician" />
+            <Rule RuleSet="TechnicianDisabledCardReader" Operator="Or" ErrorMessagePriority="1" />
+            <Rule RuleSet="TechnicianOffline" Operator="Or" ErrorMessagePriority="2" />
+        </AccessRuleSet>
+        <AccessRuleSet Name="TechnicianDisabledCardReader">
+            <Rule Restriction="CardReaderDisabled" />
+            <Rule DeviceName="Logic" />
+        </AccessRuleSet>
+        <AccessRuleSet Name="TechnicianOffline">
+            <Rule Restriction="CommsOffline" />
+            <Rule DeviceName="Logic" />
+        </AccessRuleSet>
+        <AccessRuleSet Name="TechnicianZeroCredits">
+            <Rule Restriction="GameIdle" />
+            <Rule Restriction="ZeroCredits" />
+            <Rule RuleSet="Technician" />
+        </AccessRuleSet>
+        <AccessRuleSet Name="ZeroCredits">
+            <Rule Restriction="ZeroCredits" />
+        </AccessRuleSet>
+        <AccessRuleSet Name="GameIdleZeroCredits">
+            <Rule Restriction="GameIdle" />
+            <Rule Restriction="ZeroCredits" />
+        </AccessRuleSet>
+        <AccessRuleSet Name="GameIdle">
+            <Rule Restriction="GameIdle" />
+        </AccessRuleSet>
+        <AccessRuleSet Name="TestMode">
+            <Rule Restriction="GameIdle" />
+            <Rule RuleSet="Technician" />
+        </AccessRuleSet>
+        <AccessRuleSet Name="CashBox">
+            <Rule DeviceName="CashBox" />
+        </AccessRuleSet>
+    </AccessRules>
+</OperatorMenuConfiguration>

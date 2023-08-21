@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Addin  id="TestCommandLineArguments" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="BootstrapUnitTests.dll"/>
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+  </Dependencies>
+
+  <Extension path = "/Kernel/CommandLineArguments">
+    <CommandLineArgument Name="testlocale">
+      <ArgumentValue ValidValue="string" Description="Any locale code supported by System.Globalization.CultureInfo, ex. en-US for English (United States), the default." />
+    </CommandLineArgument>
+
+    <CommandLineArgument Name="testservice">
+      <ArgumentValue ValidValue="disabled" Description="The service is disabled" />
+      <ArgumentValue ValidValue="enabled" Description="The service is enabled" />
+    </CommandLineArgument>
+
+    <CommandLineArgument Name="othertestservice">
+      <ArgumentValue ValidValue="disabled" Description="The service is disabled" />
+      <ArgumentValue ValidValue="enabled" Description="The service is enabled but we also need to test an argument value description that spans multiple lines when it is not the first argument." />
+    </CommandLineArgument>
+    
+  </Extension>
+
+</Addin>

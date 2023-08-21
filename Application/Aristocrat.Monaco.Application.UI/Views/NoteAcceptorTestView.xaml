@@ -1,0 +1,57 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.NoteAcceptorTestView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d"
+                               Height="400"
+                               Width="400"
+                               d:DataContext="{d:DesignInstance {x:Type local:NoteAcceptorTestViewModel}}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_311D89E6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_311D89E6" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition2_311D89E6" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition3_311D89E6" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition4_311D89E6" />
+        </Grid.ColumnDefinitions>
+        <Label Content="{lex:Loc StatusLabel}"
+               AutomationProperties.AutomationId="Label5_311D89E6" />
+        <TextBlock Grid.Column="1"
+                   Grid.Row="0"
+                   Margin="10 0 0 0"
+                   VerticalAlignment="Center"
+                   Text="{Binding Status}"
+                   AutomationProperties.AutomationId="TextBlock6_311D89E6" />
+        <ListBox Grid.Column="0"
+                 Grid.Row="1"
+                 Grid.ColumnSpan="2"
+                 Margin="0 15 0 0"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 Style="{StaticResource MonacoListBox}"
+                 BorderThickness="1"
+                 BorderBrush="{StaticResource Brush3}"
+                 ItemsSource="{Binding TestEvents}"
+                 Tag="CollapseIfEmpty"
+                 AutomationProperties.AutomationId="ListBox7_311D89E6" />
+    </Grid>
+</operatorMenu:OperatorMenuPage>

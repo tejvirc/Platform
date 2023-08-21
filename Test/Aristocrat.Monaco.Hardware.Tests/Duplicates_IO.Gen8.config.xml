@@ -1,0 +1,398 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<IOConfigurations>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Boot" Name="Alt Door 1">
+    <LogicalIOId>25</LogicalIOId>
+    <PhysicalIOId>1016</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Boot" Name="Alt Door 2">
+    <LogicalIOId>25</LogicalIOId> <!-- Duplicate -->
+    <PhysicalIOId>1017</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Boot" Name="Alt Door 3">
+    <LogicalIOId>27</LogicalIOId>
+    <PhysicalIOId>1018</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Boot" Name="Alt Door 4">
+     <LogicalIOId>28</LogicalIOId>
+    <PhysicalIOId>1019</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Boot" Name="Alt Door 5">
+    <LogicalIOId>29</LogicalIOId>
+    <PhysicalIOId>1020</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Boot" Name="Alt Door 6">
+    <LogicalIOId>30</LogicalIOId>
+    <PhysicalIOId>1021</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Disabled" Type="Input" Logical="Door" Group="Boot" Name="Pizza Box Door">
+    <LogicalIOId>13</LogicalIOId>
+    <PhysicalIOId>1022</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Boot" Name="Alt Door 8">
+    <LogicalIOId>31</LogicalIOId>
+    <PhysicalIOId>1023</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Key Switch" Group="Boot" Name="Operator Switch">
+    <LogicalIOId>4</LogicalIOId>
+    <PhysicalIOId>1025</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Key Switch" Group="Boot" Name="White Key">
+    <LogicalIOId>32</LogicalIOId>
+    <PhysicalIOId>1026</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Key Switch" Group="Boot" Name="Green Key">
+    <LogicalIOId>33</LogicalIOId>
+    <PhysicalIOId>1027</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Boot" Name="Logic Door">
+    <LogicalIOId>7</LogicalIOId>
+    <PhysicalIOId>1</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Boot" Name="Main Door">
+    <LogicalIOId>5</LogicalIOId>
+    <PhysicalIOId>107</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Boot" Name="Belly Door">
+    <LogicalIOId>6</LogicalIOId>
+    <PhysicalIOId>1010</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Boot" Name="Cash Box Door">
+    <LogicalIOId>23</LogicalIOId>
+    <PhysicalIOId>1035</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Boot" Name="Secondary Cash Door">
+    <LogicalIOId>32</LogicalIOId>
+    <PhysicalIOId>1024</PhysicalIOId>
+  </IOConfiguration>
+<!--
+  <IOConfiguration State="Disabled" Type="Input" Logical="Door" Group="Boot" Name="Topper Door">
+    <LogicalIOId>12</LogicalIOId>
+    <PhysicalIOId>1012</PhysicalIOId>
+  </IOConfiguration>
+-->
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Boot" Name="Base Door">
+    <LogicalIOId>24</LogicalIOId>
+    <PhysicalIOId>1037</PhysicalIOId>
+  </IOConfiguration>
+<!--
+  <IOConfiguration State="Enabled" Type="Input" Logical="Jumper" Group="Boot" Name="Doors Jumper">
+    <LogicalIOId>15</LogicalIOId>
+    <PhysicalIOId>1015</PhysicalIOId>
+  </IOConfiguration>
+-->
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Boot" Name="Scroll Up Light">
+    <LogicalIOId>11</LogicalIOId>
+    <PhysicalIOId>1010</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Boot" Name="Previous Light">
+    <LogicalIOId>6</LogicalIOId>
+    <PhysicalIOId>109</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Boot" Name="Select Light">
+    <LogicalIOId>16</LogicalIOId>
+    <PhysicalIOId>1011</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Boot" Name="Scroll Down Light">
+    <LogicalIOId>17</LogicalIOId>
+    <PhysicalIOId>1012</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Boot" Name="Next Light">
+    <LogicalIOId>10</LogicalIOId>
+    <PhysicalIOId>1013</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Boot" Name="Scroll Left Light">
+    <LogicalIOId>7</LogicalIOId>
+    <PhysicalIOId>103</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Boot" Name="Scroll Right Light">
+     <LogicalIOId>4</LogicalIOId>
+    <PhysicalIOId>104</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Boot" Name="Next Button">
+    <LogicalIOId>8</LogicalIOId>
+    <PhysicalIOId>1013</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Boot" Name="Previous Button">
+    <LogicalIOId>3</LogicalIOId>
+    <PhysicalIOId>109</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Boot" Name="Select Button">
+    <LogicalIOId>10</LogicalIOId>
+    <PhysicalIOId>1011</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Boot" Name="Scroll Down Button">
+    <LogicalIOId>11</LogicalIOId>
+    <PhysicalIOId>1012</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Boot" Name="Scroll Up Button">
+    <LogicalIOId>9</LogicalIOId>
+    <PhysicalIOId>1010</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Boot" Name="Right Button">
+    <LogicalIOId>13</LogicalIOId>
+    <PhysicalIOId>1022</PhysicalIOId>
+   </IOConfiguration>
+   <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Boot" Name="Left Button">
+    <LogicalIOId>2</LogicalIOId>
+    <PhysicalIOId>108</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Cash Out Button">
+    <LogicalIOId>101</LogicalIOId>
+    <PhysicalIOId>29</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Call Attendant Button">
+    <LogicalIOId>107</LogicalIOId>
+    <PhysicalIOId>1028</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Play/Spin/Draw Button">
+    <LogicalIOId>113</LogicalIOId>
+    <PhysicalIOId>22</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Lobby/Exit">
+    <LogicalIOId>123</LogicalIOId>
+    <PhysicalIOId>28</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Bet Max Button">
+    <LogicalIOId>2</LogicalIOId>
+    <PhysicalIOId>1034</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Line A Button">
+    <LogicalIOId>102</LogicalIOId>
+    <PhysicalIOId>30</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Line B Button">
+    <LogicalIOId>103</LogicalIOId>
+    <PhysicalIOId>31</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Line C Button">
+    <LogicalIOId>104</LogicalIOId>
+    <PhysicalIOId>32</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Line D Button">
+    <LogicalIOId>105</LogicalIOId>
+    <PhysicalIOId>33</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Line E Button">
+    <LogicalIOId>106</LogicalIOId>
+    <PhysicalIOId>34</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Bet A/Bet 1 Button">
+    <LogicalIOId>108</LogicalIOId>
+    <PhysicalIOId>27</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Bet B Button">
+    <LogicalIOId>109</LogicalIOId>
+    <PhysicalIOId>26</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Bet C Button">
+    <LogicalIOId>110</LogicalIOId>
+    <PhysicalIOId>25</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Bet D Button">
+    <LogicalIOId>111</LogicalIOId>
+    <PhysicalIOId>24</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Bet E/Bet All Button">
+    <LogicalIOId>112</LogicalIOId>
+    <PhysicalIOId>23</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Button" Group="Default" Name="Bet Max Button">
+    <LogicalIOId>22</LogicalIOId>
+    <PhysicalIOId>1014</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Default" Name="Alt Door 1">
+    <LogicalIOId>25</LogicalIOId>
+    <PhysicalIOId>1016</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Default" Name="Alt Door 2">
+    <LogicalIOId>26</LogicalIOId>
+    <PhysicalIOId>1017</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Default" Name="Alt Door 3">
+    <LogicalIOId>27</LogicalIOId>
+    <PhysicalIOId>1018</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Default" Name="Alt Door 4">
+    <LogicalIOId>28</LogicalIOId>
+    <PhysicalIOId>1019</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Default" Name="Alt Door 5">
+    <LogicalIOId>29</LogicalIOId>
+    <PhysicalIOId>1020</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Default" Name="Alt Door 6">
+    <LogicalIOId>30</LogicalIOId>
+    <PhysicalIOId>1021</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Disabled" Type="Input" Logical="Door" Group="Default" Name="Pizza Box Door">
+    <LogicalIOId>13</LogicalIOId>
+    <PhysicalIOId>1013</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Default" Name="Alt Door 8">
+    <LogicalIOId>31</LogicalIOId>
+    <PhysicalIOId>1023</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Key Switch" Group="Default" Name="Operator Switch">
+    <LogicalIOId>4</LogicalIOId>
+    <PhysicalIOId>103</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Key Switch" Group="Default" Name="White Key">
+    <LogicalIOId>32</LogicalIOId>
+    <PhysicalIOId>1026</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Key Switch" Group="Default" Name="Green Key">
+    <LogicalIOId>33</LogicalIOId>
+    <PhysicalIOId>1027</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Default" Name="Logic Door">
+    <LogicalIOId>7</LogicalIOId>
+    <PhysicalIOId>1032</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Default" Name="Main Door">
+    <LogicalIOId>5</LogicalIOId>
+    <PhysicalIOId>1033</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Default" Name="Belly Door">
+    <LogicalIOId>6</LogicalIOId>
+    <PhysicalIOId>1034</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Default" Name="Cash Box Door">
+    <LogicalIOId>23</LogicalIOId>
+    <PhysicalIOId>1035</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Default" Name="Secondary Cash Door">
+    <Localization Culture="es-MX" Logical="Puerta" Group="Por defecto">???Efectivo puerta de la caja???</Localization>
+    <LogicalIOId>32</LogicalIOId>
+    <PhysicalIOId>1024</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Disabled" Type="Input" Logical="Door" Group="Default" Name="Topper Door">
+    <LogicalIOId>12</LogicalIOId>
+    <PhysicalIOId>1036</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Input" Logical="Door" Group="Default" Name="Base Door">
+    <LogicalIOId>24</LogicalIOId>
+    <PhysicalIOId>1037</PhysicalIOId>
+  </IOConfiguration>
+<!--
+  <IOConfiguration State="Enabled" Type="Input" Logical="Jumper" Group="Default" Name="Doors Jumper">
+    <LogicalIOId>15</LogicalIOId>
+    <PhysicalIOId>1015</PhysicalIOId>
+  </IOConfiguration>
+-->
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Cash Out Button Light">
+    <LogicalIOId>5</LogicalIOId>
+    <PhysicalIOId>105</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Call Attendant Button Light">
+    <LogicalIOId>14</LogicalIOId>
+    <PhysicalIOId>1014</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Play/Draw Button Light">
+    <LogicalIOId>4</LogicalIOId>
+    <PhysicalIOId>104</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Bet Max Button Light">
+    <LogicalIOId>7</LogicalIOId>
+    <PhysicalIOId>1011</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Line A Button Light">
+    <LogicalIOId>20</LogicalIOId>
+    <PhysicalIOId>104</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Line B Button Light">
+    <LogicalIOId>21</LogicalIOId>
+    <PhysicalIOId>105</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Line C Button Light">
+    <LogicalIOId>22</LogicalIOId>
+    <PhysicalIOId>106</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Line D Button Light">
+    <LogicalIOId>23</LogicalIOId>
+    <PhysicalIOId>107</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Line E Button Light">
+    <LogicalIOId>24</LogicalIOId>
+    <PhysicalIOId>108</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Bet A/Bet 1 Button Light">
+    <LogicalIOId>6</LogicalIOId>
+    <PhysicalIOId>1010</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Bet B Button Light">
+    <LogicalIOId>11</LogicalIOId>
+    <PhysicalIOId>1010</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Bet C Button Light">
+    <LogicalIOId>16</LogicalIOId>
+    <PhysicalIOId>1011</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Bet D Button Light">
+    <LogicalIOId>17</LogicalIOId>
+    <PhysicalIOId>1012</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Bet E/Bet All Button Light">
+    <LogicalIOId>10</LogicalIOId>
+    <PhysicalIOId>109</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Bet Max Button Light">
+    <LogicalIOId>18</LogicalIOId>
+    <PhysicalIOId>1014</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Play/Draw Button Light">
+    <LogicalIOId>34</LogicalIOId>
+    <PhysicalIOId>1015</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Tower 1/Strobe">
+    <LogicalIOId>9</LogicalIOId>
+    <PhysicalIOId>1016</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Tower 2">
+    <LogicalIOId>25</LogicalIOId>
+    <PhysicalIOId>1017</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Tower 3">
+    <LogicalIOId>26</LogicalIOId>
+    <PhysicalIOId>1018</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Bell" Group="Default" Name="Bell">
+    <LogicalIOId>8</LogicalIOId>
+    <PhysicalIOId>1019</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Hard Meter" Group="Default" Name="Cash In Meter">
+    <LogicalIOId>0</LogicalIOId>
+    <PhysicalIOId>1020</PhysicalIOId>
+    <TickValue>1</TickValue>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Hard Meter" Group="Default" Name="Cash Out Meter">
+    <LogicalIOId>1</LogicalIOId>
+    <PhysicalIOId>1021</PhysicalIOId>
+    <TickValue>1</TickValue>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Hard Meter" Group="Default" Name="Cash Played Meter">
+    <LogicalIOId>2</LogicalIOId>
+    <PhysicalIOId>1022</PhysicalIOId>
+    <TickValue>1</TickValue>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Hard Meter" Group="Default" Name="Cash Won Meter">
+    <LogicalIOId>3</LogicalIOId>
+    <PhysicalIOId>1023</PhysicalIOId>
+    <TickValue>1</TickValue>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Event 1/Idle Light">
+    <LogicalIOId>13</LogicalIOId>
+    <PhysicalIOId>1024</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Event 2/Free Spin Light">
+    <LogicalIOId>12</LogicalIOId>
+    <PhysicalIOId>1025</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Event 3 Light">
+    <LogicalIOId>15</LogicalIOId>
+    <PhysicalIOId>1026</PhysicalIOId>
+  </IOConfiguration>
+  <IOConfiguration State="Enabled" Type="Output" Logical="Light" Group="Default" Name="Event 4 Light">
+    <LogicalIOId>27</LogicalIOId>
+    <PhysicalIOId>1027</PhysicalIOId>
+  </IOConfiguration>
+</IOConfigurations>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Gaming.GameOrderSettings.Data">
+    <Fields>
+      <Field DataType="Byte" Count="2" FieldName="GameOrderBlob" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Gaming.GameOrderSettings.Data">
+    <Fields>
+      <Field DataType="Byte" Count="2" FieldName="GameOrderBlob" />
+      <Field DataType="Bool" FieldName="WasOperatorChanged" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

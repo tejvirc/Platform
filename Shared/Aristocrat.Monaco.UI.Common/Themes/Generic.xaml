@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Themes/AlphaNumericTextBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Themes/LengthErrorTextBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Themes/CurrencyTextBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Themes/ExpirationTextBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Themes/PercentageTextBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Themes/TouchTextBox.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
+</ResourceDictionary>

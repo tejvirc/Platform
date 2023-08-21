@@ -1,0 +1,207 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyTitle>Aristocrat.Monaco.UI.Common</AssemblyTitle>
+    <Configurations>Debug;Release;Retail;DebugInspection;ReleaseInspection;RetailInspection</Configurations>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.UI.Common.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.UI.Common.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Debug\Platform\bin\</OutputPath>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Release\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RetailInspection|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Retail\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Debug\Platform\bin\</OutputPath>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Release\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RetailInspection|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Retail\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Debug\Platform\bin\</OutputPath>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Release\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RetailInspection|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Retail\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Debug\Platform\bin\</OutputPath>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Release\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RetailInspection|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Retail\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Debug\Platform\bin\</OutputPath>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Release\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RetailInspection|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Retail\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Debug\Platform\bin\</OutputPath>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseInspection|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Release\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RetailInspection|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <PlatformStyle>Inspection</PlatformStyle>
+    <OutputPath>$(SolutionDir)bin\Retail\Platform\bin\</OutputPath>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="PlatformCommandLineArguments.addin.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="Skins\Originals\InspectionMetroSkin.xaml" />
+    <Page Remove="Skins\Originals\InspectionReskin.xaml" />
+    <Page Remove="Skins\Originals\MonacoMetroSkin.xaml" />
+    <Page Remove="Skins\Originals\MonacoReskin.xaml" />
+    <None Remove="PlatformCommandLineArguments.addin.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PlatformCommandLineArguments.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Translations.cs">
+      <DependentUpon>Translations.xsd</DependentUpon>
+    </Compile>
+    <None Include="Skins\Originals\InspectionMetroSkin.xaml" />
+    <None Include="Skins\Originals\InspectionReskin.xaml" />
+    <None Include="Skins\Originals\MonacoMetroSkin.xaml" />
+    <None Include="Skins\Originals\MonacoReskin.xaml" />
+    <None Include="Translations.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Resource Include="Resources\PageTopArrow.png" />
+    <Resource Include="Resources\PageBottomArrow.png" />
+    <Resource Include="Resources\TwoUpArrows.png" />
+    <Resource Include="Resources\TwoDownArrows.png" />
+    <Resource Include="Resources\DownArrow.png" />
+    <Resource Include="Resources\UpArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Runtime.Caching" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0046" />
+    <PackageReference Include="Aristocrat.MVVM" Version="3.0.0-beta0003" />
+    <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.103" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
+    <PackageReference Include="CefSharp.Common.NETCore" Version="110.0.250" />
+    <PackageReference Include="CefSharp.OffScreen.NETCore" Version="110.0.250" />
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="110.0.250" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Skins\Controls.FilterButton.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition=" '$(PlatformStyle)' == 'Inspection' ">
+    <Exec Command="copy /Y &quot;$(ProjectDir)Skins\Originals\InspectionMetroSkin.xaml&quot; &quot;$(ProjectDir)Skins\MetroSkin.xaml&quot;&#xD;&#xA;copy /Y &quot;$(ProjectDir)Skins\Originals\InspectionReskin.xaml&quot; &quot;$(ProjectDir)Skins\Reskin.xaml&quot;" />
+  </Target>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(PlatformStyle)' == 'Inspection' ">
+    <Exec Command="copy /Y &quot;$(ProjectDir)Skins\Originals\MonacoMetroSkin.xaml&quot; &quot;$(ProjectDir)Skins\MetroSkin.xaml&quot;&#xD;&#xA;copy /Y &quot;$(ProjectDir)Skins\Originals\MonacoReskin.xaml&quot; &quot;$(ProjectDir)Skins\Reskin.xaml&quot;" />
+  </Target>
+</Project>

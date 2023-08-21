@@ -1,0 +1,284 @@
+﻿namespace Aristocrat.Monaco.Hardware.StorageSystem
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Globalization;
+    using System.Reflection;
+    using Contracts.Persistence;
+    using log4net;
+    using Microsoft.Data.Sqlite;
+
+    /// <summary>
+    ///     Definition of the SqlPersistentStorageTransaction class
+    /// </summary>
+    public class SqlPersistentStorageTransaction : IPersistentStorageTransaction
+    {
+        private static readonly ILog Logger =
+            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        private readonly List<SqlPersistentStorageAccessor> _blocks = new List<SqlPersistentStorageAccessor>();
+
+        private readonly string _connectionString;
+
+        // Dictionary<Name of Block, Dictionary<Name of Field, Value of Field>>
+        private readonly Dictionary<string, Dictionary<string, object>> _fields =
+            new Dictionary<string, Dictionary<string, object>>();
+
+        // Dictionary<Name of Block, Dictionary<Tuple<Index of Field, Name of Field>, Value of Field at Index>>
+        private readonly Dictionary<string, Dictionary<Tuple<int, string>, object>> _indexedFields =
+            new Dictionary<string, Dictionary<Tuple<int, string>, object>>();
+
+        private int _currentIndex;
+
+        private bool _disposed;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="SqlPersistentStorageTransaction" /> class.
+        /// </summary>
+        /// <param name="connectionString">Block's connection string.</param>
+        public SqlPersistentStorageTransaction(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="SqlPersistentStorageTransaction" /> class.
+        /// </summary>
+        /// <param name="block">Accessor to use for transaction.</param>
+        /// <param name="connectionString">Block's connection string.</param>
+        public SqlPersistentStorageTransaction(IPersistentStorageAccessor block, string connectionString)
+        {
+            _connectionString = connectionString;
+            AddBlock(block); // This is the first and default block
+        }
+
+        /// <inheritdoc />
+        public event EventHandler<TransactionEventArgs> OnCompleted;
+
+        /// <inheritdoc />
+        public object this[string blockFieldName]
+        {
+            get => this[_blocks[_currentIndex].Name, blockFieldName];
+
+            set => this[_blocks[_currentIndex].Name, blockFieldName] = value;
+        }
+
+        /// <inheritdoc />
+        public object this[int arrayIndex, string blockFieldName]
+        {
+            get => this[_blocks[_currentIndex].Name, arrayIndex, blockFieldName];
+
+            set => this[_blocks[_currentIndex].Name, arrayIndex, blockFieldName] = value;
+        }
+
+        /// <inheritdoc />
+        public object this[string blockName, string blockFieldName]
+        {
+            get
+            {
+                if (_fields.ContainsKey(blockName) && _fields[blockName].ContainsKey(blockFieldName))
+                {
+                    return _fields[blockName][blockFieldName];
+                }
+
+                var block = _blocks.Find(b => b.Name == blockName);
+                return block[blockFieldName];
+            }
+
+            set
+            {
+                if (!_fields.ContainsKey(blockName))
+                {
+                    _fields[blockName] = new Dictionary<string, object>();
+                }
+
+                _fields[blockName][blockFieldName] = value;
+            }
+        }
+
+        /// <inheritdoc />
+        public object this[string blockName, int arrayIndex, string blockFieldName]
+        {
+            get
+            {
+                var key = new Tuple<int, string>(arrayIndex, blockFieldName);
+                if (_indexedFields.ContainsKey(blockName) && _indexedFields[blockName].ContainsKey(key))
+                {
+                    return _indexedFields[blockName][key];
+                }
+
+                var block = _blocks.Find(b => b.Name == blockName);
+                return block[arrayIndex, blockFieldName];
+            }
+
+            set
+            {
+                if (!_indexedFields.ContainsKey(blockName))
+                {
+                    _indexedFields[blockName] = new Dictionary<Tuple<int, string>, object>();
+                }
+
+                _indexedFields[blockName][new Tuple<int, string>(arrayIndex, blockFieldName)] = value;
+            }
+        }
+
+        /// <inheritdoc />
+        public void AddBlock(IPersistentStorageAccessor block)
+        {
+            var accessor = (SqlPersistentStorageAccessor)block;
+
+            _currentIndex = _blocks.IndexOf(accessor);
+            if (_currentIndex == -1)
+            {
+                _currentIndex = _blocks.Count;
+                _blocks.Add((SqlPersistentStorageAccessor)block);
+            }
+        }
+
+        /// <inheritdoc />
+        public void Commit()
+        {
+            if (PersistenceTransaction.Current != null && !PersistenceTransaction.Ready)
+            {
+                return;
+            }
+
+            try
+            {
+                using (var connection = new SqliteConnection(_connectionString))
+                {
+                    //connection.SetPassword(StorageConstants.DatabasePassword);
+                    connection.Open();
+
+                    using (var update = connection.CreateCommand())
+                    using (var transaction = connection.BeginTransaction(IsolationLevel.Serializable))
+                    {
+                        update.Transaction = transaction;
+
+                        foreach (var block in _blocks)
+                        {
+                            update.CommandText =
+                                "UPDATE StorageBlockField SET Data = @Data WHERE BlockName = @BlockName AND FieldName = @FieldName";
+
+
+                            if (_fields.ContainsKey(block.Name))
+                            {
+                                foreach (var field in _fields[block.Name])
+                                {
+                                    update.Parameters.Clear();
+
+                                    var fieldName = field.Key;
+                                    update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
+                                    update.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
+                                    update.Parameters.Add(new SqliteParameter("@Data", block.Format.ConvertTo(fieldName, field.Value)));
+
+                                    if (update.ExecuteNonQuery() == 0)
+                                    {
+                                        // This shouldn't happen
+                                        Logger.ErrorFormat(CultureInfo.InvariantCulture, $"{block.Name}: Failed to update {fieldName} - Zero rows affected");
+                                        throw new BlockFieldNotFoundException(
+                                            $"StorageBlockField not found in SQLite repository: {block.Name}.{fieldName}");
+                                    }
+                                }
+                            }
+
+                            if (_indexedFields.ContainsKey(block.Name))
+                            {
+                                foreach (var field in _indexedFields[block.Name])
+                                {
+                                    update.Parameters.Clear();
+
+                                    var fieldName = field.Key.Item2;
+                                    if (field.Key.Item1 >= 1)
+                                    {
+                                        fieldName = field.Key.Item2 + "@" + field.Key.Item1;
+                                    }
+                                    update.Parameters.Add(new SqliteParameter("@BlockName", block.Name));
+                                    update.Parameters.Add(new SqliteParameter("@FieldName", fieldName));
+                                    update.Parameters.Add(new SqliteParameter("@Data", block.Format.ConvertTo(field.Key.Item2, field.Value)));
+
+                                    if (update.ExecuteNonQuery() == 0)
+                                    {
+                                        // This shouldn't happen
+                                        Logger.ErrorFormat(CultureInfo.InvariantCulture, $"{block.Name}: Failed to update {fieldName} - Zero rows affected");
+                                        throw new BlockFieldNotFoundException(
+                                            $"StorageBlockField not found in SQLite repository: {block.Name}.{fieldName}");
+                                    }
+                                }
+                            }
+                        }
+
+                        transaction.Commit();
+                        NotifyComplete(true);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                SqlPersistentStorageExceptionHandler.Handle(e, StorageError.WriteFailure);
+            }
+        }
+
+        /// <inheritdoc />
+        public void Rollback()
+        {
+            if (PersistenceTransaction.Current != null && !PersistenceTransaction.Ready)
+            {
+                return;
+            }
+
+            foreach (var block in _blocks)
+            {
+                if (_fields.ContainsKey(block.Name))
+                {
+                    _fields[block.Name].Clear();
+                }
+
+                if (_indexedFields.ContainsKey(block.Name))
+                {
+                    _indexedFields[block.Name].Clear();
+                }
+            }
+
+            _fields.Clear();
+            _indexedFields.Clear();
+
+            NotifyComplete(false);
+        }
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        ///     Releases allocated resources.
+        /// </summary>
+        /// <param name="disposing">
+        ///     true to release both managed and unmanaged resources; false to release only unmanaged
+        ///     resources.
+        /// </param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                Rollback();
+            }
+
+            _disposed = true;
+        }
+
+        private void NotifyComplete(bool committed)
+        {
+            OnCompleted?.Invoke(this, new TransactionEventArgs(committed));
+        }
+    }
+}

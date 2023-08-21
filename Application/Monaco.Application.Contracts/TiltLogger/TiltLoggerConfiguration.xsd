@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="EventType">
+    <xs:attribute name="Type" type="xs:string" use="required" />
+    <xs:attribute name="Max" type="xs:int" use="optional" />
+    <xs:attribute name="Combined" type="xs:string" use="optional" />
+    <xs:attribute name="AppendSecurityLevel" type="xs:boolean" use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="ArrayOfEventTypes">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EventType" type="EventType" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EventDescription">
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="Level" type="xs:string" use="required" />
+    <xs:attribute name="Type" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="ArrayOfEventDescription">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EventDescription" type="EventDescription" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="TiltLoggerConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="ArrayOfEventTypes" type="ArrayOfEventTypes" />
+        <xs:element minOccurs="1" maxOccurs="1" name="ArrayOfEventDescription" type="ArrayOfEventDescription" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

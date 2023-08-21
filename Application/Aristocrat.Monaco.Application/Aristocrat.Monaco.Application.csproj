@@ -1,0 +1,288 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyTitle>Aristocrat.Monaco.Application</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>TRACE;CODE_ANALYSIS;RETAIL</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Aristocrat.Monaco.Application.InitialSetupPropertiesProvider.xml" />
+    <None Remove="TiltLoggerCurrent_BillIn.xml" />
+    <None Remove="TiltLoggerCurrent_Door.xml" />
+    <None Remove="TiltLoggerCurrent_Protocol.xml" />
+    <None Remove="TiltLoggerCurrent_VoucherIn.xml" />
+    <None Remove="TiltLoggerCurrent_VoucherOut.xml" />
+    <None Remove="TiltLoggerFormat_BillIn.xml" />
+    <None Remove="TiltLoggerFormat_Door.xml" />
+    <None Remove="TiltLoggerFormat_Protocol.xml" />
+    <None Remove="TiltLoggerFormat_VoucherIn.xml" />
+    <None Remove="TiltLoggerFormat_VoucherOut.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Management" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Localization\CurrencyDefaults.cs">
+      <DependentUpon>CurrencyDefaults.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Localization\CurrenciesConfiguration.cs">
+      <DependentUpon>CurrenciesConfiguration.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="SerialGat\gat4_0.cs">
+      <DependentUpon>gat4_0.XSD</DependentUpon>
+    </Compile>
+    <None Include="Localization\CurrenciesConfiguration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Localization\CurrencyDefaults.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SerialGat\gat4_0.XSD">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
+    <ProjectReference Include="..\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
+    <Content Include="Aristocrat.Monaco.Application.Monitors.FirmwareCrcMonitor.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.AlteredMediaLogger.Index.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.AlteredMediaLogger.Log.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.ApplicationRunnable.addin.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.CabinetFeaturesPropertiesProvider.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.ComponentMonitor.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.ConfigurationSettingsManager.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.ConfigWizardConfigurationPropertiesProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.IdProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.InitialSetupPropertiesProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="TiltLoggerCurrent_VoucherOut.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_VoucherIn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_BillIn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_Protocol.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_Door.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_BillIn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_VoucherOut.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_VoucherIn.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_Protocol.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_Door.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Aristocrat.Monaco.Application.Monitors.DoorMonitor.Index.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Aristocrat.Monaco.Application.LocalizationConfigurationPropertiesProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.Media.MediaProvider.Log.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.Media.MediaProvider.Data.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.Media.MediaProvider.Id.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.Meters.NoteAcceptorMeterProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.Monitors.DisplayMonitor.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.Monitors.PrinterMonitor.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.Monitors.NoteAcceptorMonitor.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.Monitors.LegitimacyLockUpMonitor.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.Monitors.AuditTicketMonitor.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.NetworkService.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.Protocol.MultiProtocolConfigurationProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.SerialGat.SerialGatSignature.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.SystemPropertiesProvider.OperatingHours.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.Meters.CabinetMetersProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.ConfiguredAddinsPropertiesProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.DisableByOperatorManager.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.Meters.MeterManager.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Aristocrat.Monaco.Application.Monitors.DoorMonitor.Log.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Aristocrat.Monaco.Application.Monitors.DoorMonitor.States.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Aristocrat.Monaco.Application.Time.Time.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.Localization.LocalizationPropertiesProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="CabinetFeatures.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CurrencyDefaults.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="SelectableJurisdiction.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_Comms.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_Hash.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_Error.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_Gameplay.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_GPU.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerCurrent_SoftwareChange.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_Comms.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_Hash.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_Error.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_Gameplay.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_GPU.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TiltLoggerFormat_SoftwareChange.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.Application.SystemPropertiesProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0046" />
+    <PackageReference Include="Aristocrat.Signing" Version="2.0.0-beta0004" />
+    <PackageReference Include="Aristocrat.SmartCard" Version="2.0.0-beta0001" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
+    <PackageReference Include="Mono.Addins" Version="1.4.1" />
+    <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
+    <PackageReference Include="System.IO.Ports" Version="6.0.0" />
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)'!='Retail'">
+    <Exec Command="xcopy &quot;$(MSBuildThisFileDirectory)Resources\$(Configuration)&quot; &quot;$(OutputPath)&quot; /sy" />
+  </Target>
+</Project>

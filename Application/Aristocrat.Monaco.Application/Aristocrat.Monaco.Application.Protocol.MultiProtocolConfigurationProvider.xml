@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" Name="Aristocrat.Monaco.Application.Protocol.MultiProtocolConfigurationProvider">
+    <Fields>
+      <Field FieldName="MultiProtocol.ProtocolId" DataType="String" Size="32" />
+      <Field FieldName="MultiProtocol.Validation" DataType="Bool" />
+      <Field FieldName="MultiProtocol.FundTransfer" DataType="Bool" />
+      <Field FieldName="MultiProtocol.Progressive" DataType="Bool" />
+      <Field FieldName="MultiProtocol.CentralDetermination" DataType="Bool" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

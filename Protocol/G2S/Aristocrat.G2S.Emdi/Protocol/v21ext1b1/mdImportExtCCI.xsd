@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:CCI="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-09-26 v1b2">
+	<!--Sub-Schemas-->
+	<xs:include schemaLocation="mdIncludeExtCCI.xsd"/>
+	<xs:include schemaLocation="mdContentToContentExtCCI.xsd"/>
+	<!--End of Extension.-->
+</xs:schema>

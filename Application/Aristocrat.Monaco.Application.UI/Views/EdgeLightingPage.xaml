@@ -1,0 +1,140 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.EdgeLightingPage"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                              xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.Views"
+                              xmlns:helpers="http://monaco.aristocrat.com/common"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                              lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                              lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                              xmlns:loc="http://monaco.aristocrat.com/localization"
+                              mc:Ignorable="d" 
+                              d:DesignWidth="1080" d:DesignHeight="720" 
+                              d:DataContext="{d:DesignInstance {x:Type viewModels:EdgeLightingPageViewModel}}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_AF71930F">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_AF71930F" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_AF71930F" />
+        </Grid.RowDefinitions>
+        <StackPanel AutomationProperties.AutomationId="StackPanel3_AF71930F">
+            <StackPanel Name="SettingsPanel"
+                        Visibility="{Binding Visibility, ElementName=EnterTestModeButton}"
+                        AutomationProperties.AutomationId="StackPanel4_AF71930F">
+                <StackPanel HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Visibility="{Binding ShowOverrideSetting, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                            AutomationProperties.AutomationId="StackPanel5_AF71930F">
+                    <Label Content="{lex:Loc LightingOverrideOnIdleAndZeroCreditsLabel}"
+                           HorizontalAlignment="Left"
+                           AutomationProperties.AutomationId="Label6_AF71930F" />
+                    <ComboBox HorizontalAlignment="Left"
+                              ItemsSource="{Binding LightingOverrideChoices}"
+                              SelectedValue="{Binding EdgeLightingAttractModeOverrideSelection}"
+                              SelectedValuePath="Key"
+                              DisplayMemberPath="Value"
+                              Margin="10"
+                              MinWidth="250"
+                              IsEnabled="{Binding EdgeLightingEnabled, UpdateSourceTrigger=PropertyChanged}"
+                              AutomationProperties.AutomationId="ComboBox7_AF71930F" />
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Margin="0 20 0 0"
+                            Visibility="{Binding IsCabinetThatAllowsEdgeLightBrightnessSetting, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                            AutomationProperties.AutomationId="StackPanel8_AF71930F">
+                    <Label Content="{lex:Loc LightingBrightnessLabel}"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Left"
+                           AutomationProperties.AutomationId="Label9_AF71930F" />
+                    <StackPanel Orientation="Horizontal"
+                                Margin="10 0 0 0"
+                                HorizontalAlignment="Left"
+                                AutomationProperties.AutomationId="StackPanel10_AF71930F">
+                        <Slider Name="BrightnessSlider"
+                                Style="{StaticResource MonacoSlider}"
+                                Value="{Binding MaximumAllowedBrightnessValue}"
+                                MinWidth="400"
+                                HorizontalAlignment="Left"
+                                Minimum="{Binding MinimumBrightnessSetting, Mode=OneWay}"
+                                Maximum="{Binding MaximumBrightnessSetting, Mode=OneWay}"
+                                TickFrequency="10"
+                                IsSnapToTickEnabled="True"
+                                IsEnabled="{Binding EdgeLightingEnabled, UpdateSourceTrigger=PropertyChanged}"
+                                AutomationProperties.AutomationId="Slider11_AF71930F" />
+                    </StackPanel>
+                    <StackPanel
+                            Visibility="{Binding IsCabinetThatAllowsBottomStripToggle, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                AutomationProperties.AutomationId="StackPanel12_AF71930F">
+                        <Label Content="{lex:Loc MainDisplayBottomLightingLabel}"
+                               HorizontalAlignment="Left"
+                               Margin="0 15 0 0"
+                               AutomationProperties.AutomationId="Label13_AF71930F" />
+                        <controls:ToggleSwitch IsOn="{Binding BottomEdgeLightingOn}"
+                                               controls:ControlsHelper.ContentCharacterCasing="Upper"
+                                               controls:ControlsHelper.CornerRadius="0"
+                                               helpers:ToggleSwitchButtonHelper.OffContent="{lex:Loc Off}"
+                                               helpers:ToggleSwitchButtonHelper.OnContent="{lex:Loc On}"
+                                               Margin="10 10 0 0"
+                                               IsEnabled="{Binding EdgeLightingEnabled, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Name="TestPanel"
+                        Visibility="{Binding Visibility, ElementName=ExitTestModeButton}"
+                        AutomationProperties.AutomationId="StackPanel14_AF71930F">
+                <local:EdgeLightingTestControl x:Name="TestControl"
+                                               DataContext="{Binding TestViewModel}" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Bottom"
+                    Orientation="Vertical"
+                    AutomationProperties.AutomationId="StackPanel15_AF71930F">
+            <StackPanel Orientation="Horizontal"
+                        Margin="0 10 0 0"
+                        HorizontalAlignment="Left"
+                        Visibility="{Binding IsWizardPage, Converter={StaticResource TrueHiddenFalseVisible}}"
+                        AutomationProperties.AutomationId="StackPanel16_AF71930F">
+                <Button Name="EnterTestModeButton"
+                        Content="{lex:Loc TestEdgeLightingLabel}"
+                        IsEnabled="{Binding TestButtonEnabled, UpdateSourceTrigger=PropertyChanged}"
+                        Visibility="{Binding InTestMode, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                        Command="{Binding ToggleTestModeCommand}"
+                        AutomationProperties.AutomationId="Button17_AF71930F" />
+                <Button Name="ExitTestModeButton"
+                        Visibility="{Binding InTestMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        Command="{Binding ToggleTestModeCommand}"
+                        Content="{lex:Loc ExitEdgeLightingTestLabel}"
+                        AutomationProperties.AutomationId="Button18_AF71930F" />
+                <Button x:Name="WarningButton"
+                        Style="{StaticResource MonacoWarningButton}"
+                        VerticalAlignment="Center"
+                        Command="{Binding ShowInfoPopupCommand}"
+                        Visibility="{Binding TestModeEnabled, Converter={StaticResource TrueHiddenFalseVisible}}"
+                        AutomationProperties.AutomationId="Button19_AF71930F">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                            <Binding ElementName="WarningButton" />
+                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type Control}, Mode=FindAncestor}"
+                                     Path="DataContext.TestWarningText" />
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

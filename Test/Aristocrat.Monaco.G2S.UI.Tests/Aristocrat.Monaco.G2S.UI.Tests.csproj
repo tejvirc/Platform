@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <AssemblyTitle>Aristocrat.Monaco.G2S.UI.Tests</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
+    <ProjectReference Include="..\..\Application\Aristocrat.Monaco.Application.UI\Aristocrat.Monaco.Application.UI.csproj" />
+    <ProjectReference Include="..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\..\Protocol\G2S\Aristocrat.Monaco.G2S.Common\Aristocrat.Monaco.G2S.Common.csproj" />
+    <ProjectReference Include="..\..\Protocol\G2S\Aristocrat.Monaco.G2S.UI\Aristocrat.Monaco.G2S.UI.csproj" />
+    <ProjectReference Include="..\..\Protocol\G2S\Aristocrat.Monaco.G2S\Aristocrat.Monaco.G2S.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+</Project>

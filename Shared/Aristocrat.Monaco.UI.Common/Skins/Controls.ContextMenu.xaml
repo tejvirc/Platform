@@ -1,0 +1,134 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style x:Key="MonacoContextMenu" TargetType="{x:Type ContextMenu}">
+        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ContextMenu.Background}" />
+        <Setter Property="Block.TextAlignment" Value="Left" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.ContextMenu.Border}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MenuFontFamilyKey}}" />
+        <Setter Property="FontSize" Value="{DynamicResource ContextMenuFontSize}" />
+        <Setter Property="FontStyle" Value="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}" />
+        <Setter Property="FontWeight" Value="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.MenuTextBrushKey}}" />
+        <Setter Property="Grid.IsSharedSizeScope" Value="True" />
+        <Setter Property="HasDropShadow" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                    <Grid AutomationProperties.AutomationId="Grid0_A649E113">
+                        <Rectangle x:Name="LayoutRoot"
+                                   Fill="{TemplateBinding Background}"
+                                   AutomationProperties.AutomationId="Rectangle1_A649E113" />
+                        <Border x:Name="Border"
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                AutomationProperties.AutomationId="Border2_A649E113">
+                            <ScrollViewer x:Name="SubMenuScrollViewer"
+                                          CanContentScroll="True"
+                                          Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}"
+                                          AutomationProperties.AutomationId="ScrollViewer3_A649E113">
+                                <ItemsPresenter x:Name="ItemsPresenter"
+                                                Margin="0"
+                                                Grid.IsSharedSizeScope="True"
+                                                KeyboardNavigation.DirectionalNavigation="Cycle"
+                                                KeyboardNavigation.TabNavigation="Cycle"
+                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                AutomationProperties.AutomationId="ItemsPresenter4_A649E113" />
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasDropShadow"
+                                 Value="True"
+                                 AutomationProperties.AutomationId="Trigger5_A649E113">
+                            <Setter TargetName="Border"
+                                    Property="Margin"
+                                    Value="0 0 6 6" />
+                            <Setter TargetName="LayoutRoot"
+                                    Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="4"
+                                                      Direction="315"
+                                                      Opacity="0.3"
+                                                      ShadowDepth="2"
+                                                      AutomationProperties.AutomationId="DropShadowEffect6_A649E113" 
+                                                      Color="{DynamicResource MahApps.Colors.MenuShadow}" />
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="LayoutRoot"
+                                    Property="Margin"
+                                    Value="0 0 6 6" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="TextOptions.TextFormattingMode"
+                Value="Ideal" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+    </Style>
+
+    <Style x:Key="MonacoMenuItem" TargetType="{x:Type MenuItem}">
+        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.MenuItem.Background}" />
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+        <Setter Property="ScrollViewer.PanningMode" Value="Both" />
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+        <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=SubmenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}" />
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Style.Triggers>
+            <Trigger Property="Role"
+                     Value="TopLevelHeader"
+                     AutomationProperties.AutomationId="Trigger7_A649E113">
+                <Setter Property="Padding"
+                        Value="7 5 8 6" />
+                <Setter Property="Template"
+                        Value="{DynamicResource {ComponentResourceKey ResourceId=TopLevelHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}" />
+            </Trigger>
+            <Trigger Property="Role"
+                     Value="TopLevelItem"
+                     AutomationProperties.AutomationId="Trigger8_A649E113">
+                <Setter Property="Padding"
+                        Value="7 5 8 6" />
+                <Setter Property="Template"
+                        Value="{DynamicResource {ComponentResourceKey ResourceId=TopLevelItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}" />
+            </Trigger>
+            <Trigger Property="Role"
+                     Value="SubmenuHeader"
+                     AutomationProperties.AutomationId="Trigger9_A649E113">
+                <Setter Property="Padding"
+                        Value="2 6 2 6" />
+                <Setter Property="Template"
+                        Value="{DynamicResource {ComponentResourceKey ResourceId=SubmenuHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}" />
+            </Trigger>
+            <Trigger Property="Role"
+                     Value="SubmenuItem"
+                     AutomationProperties.AutomationId="Trigger10_A649E113">
+                <Setter Property="Padding"
+                        Value="2 6 2 6" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <ContextMenu x:Key="MonacoTextBoxContextMenu"
+                 Style="{StaticResource MonacoContextMenu}"
+                 AutomationProperties.AutomationId="ContextMenu11_A649E113">
+        <MenuItem Command="ApplicationCommands.Cut"
+                  Style="{StaticResource MonacoMenuItem}"
+                  AutomationProperties.AutomationId="MenuItem12_A649E113" />
+        <MenuItem Command="ApplicationCommands.Copy"
+                  Style="{StaticResource MonacoMenuItem}"
+                  AutomationProperties.AutomationId="MenuItem13_A649E113" />
+        <MenuItem Command="ApplicationCommands.Paste"
+                  Style="{StaticResource MonacoMenuItem}"
+                  AutomationProperties.AutomationId="MenuItem14_A649E113" />
+    </ContextMenu>
+</ResourceDictionary>

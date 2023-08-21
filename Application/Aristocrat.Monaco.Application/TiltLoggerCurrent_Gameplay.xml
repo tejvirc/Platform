@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BlockFormat name="TiltLoggerCurrent_Gameplay" version="1">
+  <Fields>
+    <Field DataType="Int32" FieldName="Index" />
+  </Fields>
+</BlockFormat>
+

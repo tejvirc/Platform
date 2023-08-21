@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Addin id="Monaco.Application" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Application.dll" />
+    <Import assembly="Monaco.Application.Contracts.dll" />
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+    <Import assembly="Aristocrat.Monaco.Kernel.Contracts.dll" />
+    <Import assembly="Aristocrat.Monaco.UI.Common.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="ApplicationRunnable" version="1.0" />
+  </Dependencies>
+
+  <ExtensionPoint path="/Application/JurisdictionConfiguration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+	<Extension path="/Kernel/PathMapping">
+		<PathMapping platformPath="/Manifests" fileSystemPath="..\packages" createIfNotExists="true" absolutePathName="imagesPath" />
+		<PathMapping platformPath="/Jurisdictions" fileSystemPath="..\jurisdiction" createIfNotExists="true" />
+	</Extension>
+
+	<Extension path="/Application/TicketCreators">
+    <TicketCreator type="Aristocrat.Monaco.Application.Tickets.EventLogTicketCreator" />
+    <TicketCreator type="Aristocrat.Monaco.Application.Tickets.IdentityTicketCreator" />
+    <TicketCreator type="Aristocrat.Monaco.Application.Tickets.InformationTicketCreator" />
+    <TicketCreator type="Aristocrat.Monaco.Application.Tickets.MetersTicketCreator" />
+    <TicketCreator type="Aristocrat.Monaco.Application.Tickets.MachineInfoTicketCreator" />
+    <TicketCreator type="Aristocrat.Monaco.Application.Tickets.PeriodicResetTicketCreator" />    
+  </Extension>
+
+  <Extension path="/Application/Runnables">
+    <Runnable type="Aristocrat.Monaco.Application.Protocol.ProtocolLauncher" />
+  </Extension>
+
+  <Extension path="/Application/Services">
+    <Service type="Aristocrat.Monaco.Application.Tilt.TiltLogger" />
+    <Service type="Aristocrat.Monaco.Application.NoteAcceptor.NoteAcceptorCoordinator" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.HardMeterMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.NoteAcceptorMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.RamMonitor" />
+    <Service type="Aristocrat.Monaco.Application.EdgeLight.EdgeLightingStateManager" />
+    <Service type="Aristocrat.Monaco.Application.EdgeLight.EdgeLightHandlerRegistry" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.DoorMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.LegitimacyLockUpMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.PrinterMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.IdReaderMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.ReadOnlyMediaMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.SmartCardMonitor" />
+    <Service type="Aristocrat.Monaco.Application.OperatingHoursMonitor" />
+    <Service type="Aristocrat.Monaco.Application.IdProvider" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.DiskSpaceMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.MemoryMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.PeriodMetersClearMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Media.MediaPlayerResizeManager" />
+    <Service type="Aristocrat.Monaco.Application.Media.MediaProvider" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.DisplayMonitor" />
+    <Service type="Aristocrat.Monaco.Application.ConfigurationUtility" />
+    <Service type="Aristocrat.Monaco.Application.AlteredMediaLogger" />
+    <Service type="Aristocrat.Monaco.Application.HardMeterIncrementer" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.KeySwitchMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.BatteryMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.ComponentMonitor" />
+    <Service type="Aristocrat.Monaco.Application.OperatorLockupResetService" />
+    <Service type="Aristocrat.Monaco.Application.LogAdaptersService" />
+    <Service type="Aristocrat.Monaco.Application.Identification.IdentificationProvider" />
+    <Service type="Aristocrat.Monaco.Application.Identification.EmployeeLoginService" />
+    <Service type="Aristocrat.Monaco.Application.Monitors.SecondaryStorageMonitor" />
+    <!--<Service type="Aristocrat.Monaco.Application.PerformanceCounter.PerformanceCounterManager" />-->
+    <Service type="Aristocrat.Monaco.Application.Monitors.FirmwareCrcMonitor" />
+    <Service type="Aristocrat.Monaco.Application.Detection.DeviceDetection" />
+  </Extension>
+
+  <Extension path="/Kernel/CommandLineArguments">
+    <CommandLineArgument Name="maxmeters">
+      <ArgumentValue ValidValue="false" Description="The normal mode of operation. This is the default." />
+      <ArgumentValue ValidValue="true"
+                     Description="For meter rollover testing only. Sets atomic meters to maximum value before they rollover." />
+    </CommandLineArgument>
+    <CommandLineArgument Name="readonlymediaoptional">
+      <ArgumentValue ValidValue="false" Description="The media is required to be readonly if required for the jurisdiction. This is the default." />
+      <ArgumentValue ValidValue="true" Description="The media does not have to be readonly. Does not work in retail mode." />
+    </CommandLineArgument>
+  </Extension>
+
+  <Extension path="/Application/Network">
+    <Network type="Aristocrat.Monaco.Application.NetworkService" />
+  </Extension>
+
+  <ExtensionPoint path="/Currency/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+   <Extension path="/Kernel/Localizer">
+    <Localizer type="Aristocrat.Monaco.Application.Localization.LocalizationService" />
+  </Extension> 
+
+  <Extension path="/Application/Localization/Providers">
+    <CultureProvider type="Aristocrat.Monaco.Application.Localization.OperatorCultureProvider" />
+    <CultureProvider type="Aristocrat.Monaco.Application.Localization.OperatorTicketCultureProvider" />
+    <CultureProvider type="Aristocrat.Monaco.Application.Localization.PlayerCultureProvider" />
+    <CultureProvider type="Aristocrat.Monaco.Application.Localization.PlayerTicketCultureProvider" />
+    <CultureProvider type="Aristocrat.Monaco.Application.Localization.CurrencyCultureProvider" />
+  </Extension>
+
+  <Extension path="/Application/Time">
+    <Time type="Aristocrat.Monaco.Application.Time.Time" />
+  </Extension>
+
+  <Extension path="/Application/PropertyProviders">
+    <PropertyProvider type="Aristocrat.Monaco.Application.SystemPropertiesProvider" />
+    <PropertyProvider type="Aristocrat.Monaco.Application.InitialSetupPropertiesProvider" />
+    <PropertyProvider type="Aristocrat.Monaco.Application.ConfiguredAddinsPropertiesProvider" />
+    <PropertyProvider type="Aristocrat.Monaco.Application.CabinetFeaturesPropertiesProvider" />
+  </Extension>
+
+  <Extension path="/Application/PreConfiguration">
+    <PreConfiguration type="Aristocrat.Monaco.Application.ConfigWizardConfigurationPropertiesProvider" />
+    <PreConfiguration type="Aristocrat.Monaco.Application.LocalizationConfigurationPropertiesProvider" />
+  </Extension>
+
+  <Extension path="/Application/Configuration">
+    <Configuration type="Aristocrat.Monaco.Application.OperatorMenuConfigurationPropertiesProvider" />
+    <Configuration type="Aristocrat.Monaco.Application.ApplicationConfigurationPropertiesProvider" />
+  </Extension>
+
+  <Extension path="/Application/Metering/Providers">
+    <MeterProvider type="Aristocrat.Monaco.Application.Meters.CabinetMetersProvider" />
+    <MeterProvider type="Aristocrat.Monaco.Application.Meters.NoteAcceptorMeterProvider" />
+  </Extension>
+
+  <Extension path="/Application/DisableByOperatorManager">
+    <DisableByOperatorManager type="Aristocrat.Monaco.Application.DisableByOperatorManager" />
+  </Extension>
+
+  <Extension path="/Application/Protocol/MultiProtocolConfigurationProvider">
+    <MultiProtocolConfigurationProvider type="Aristocrat.Monaco.Application.Protocol.MultiProtocolConfigurationProvider" />
+  </Extension>
+
+  <Extension path="/Application/OperatorMenuLauncher">
+    <OperatorMenuLauncher type="Aristocrat.Monaco.Application.OperatorMenuLauncher" />
+  </Extension>
+
+  <Extension path="/Application/MeterManager">
+    <MeterManager type="Aristocrat.Monaco.Application.Meters.MeterManager" />
+  </Extension>
+
+  <Extension path="/Application/PersistenceClearArbiter">
+    <PersistenceClearArbiter type="Aristocrat.Monaco.Application.AddinRuleBasedPersistenceClearArbiter" />
+  </Extension>
+
+  <!-- Extensions must implement the IPersistenceClearRule interface -->
+  <ExtensionPoint path="/Application/PersistenceClearRules">
+    <ExtensionNode name="PersistenceClearRule" />
+  </ExtensionPoint>
+
+  <Extension path="/Application/PersistenceClearRules">
+    <PersistenceClearRule type="Aristocrat.Monaco.Application.LogicDoorOpenPersistenceClearRule" />
+  </Extension>
+
+  <!-- The extension point for all protocol runnables to be placed. -->
+  <ExtensionPoint path="/Protocol/Runnables">
+    <ExtensionNode name="ProtocolInterface" type="Aristocrat.Monaco.Application.Protocol.ProtocolTypeExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Protocol/Demonstration/Runnables">
+    <ExtensionNode name="Demonstration" type="Aristocrat.Monaco.Application.Protocol.ProtocolTypeExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Application/NoteAcceptorDisable">
+    <ExtensionNode name="NoteAcceptorDisable" type="Aristocrat.Monaco.Application.NoteAcceptor.NoteAcceptorDisableNode" />
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Application.Metering.IMeterProvider-->
+  <ExtensionPoint path="/Application/Metering/Providers">
+    <ExtensionNode name="MeterProvider" />
+  </ExtensionPoint>
+  
+  <ExtensionPoint path="/Application/Metering/CompositeMeters">
+    <ExtensionNode name="CompositeMeter" type="Aristocrat.Monaco.Application.Meters.CompositeMeterNode" />
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Application.OperatorMenu.IOperatorMenu-->
+  <ExtensionPoint path="/Application/IOperatorMenu">
+    <ExtensionNode name="IOperatorMenu" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/DoorMonitor/Configuration">
+    <ExtensionNode name="DoorMonitorConfiguration" type="Aristocrat.Monaco.Application.Contracts.DoorMonitorConfigurationExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/TiltLogger/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/ErrorMessage/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/AuditTicketMonitor/Configuration">
+    <ExtensionNode name="Triggers" type="Aristocrat.Monaco.Application.Contracts.AuditTicketMonitor.TriggersNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/HardMeterMapping/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Application.Settings.IConfigurationSettings-->
+  <ExtensionPoint path="/Application/Configuration/Settings">
+    <ExtensionNode name="Settings" type="Aristocrat.Monaco.Application.Settings.ConfigurationSettingsNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Market/Configuration">
+    <ExtensionNode name="MarketConfiguration" type="Aristocrat.Monaco.Application.Contracts.MarketConfigurationNode" />
+  </ExtensionPoint>
+
+</Addin>

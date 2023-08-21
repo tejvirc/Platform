@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="Int32" FieldName="SerialNumber" />
+      <Field DataType="String" Size="16" FieldName="MachineId" />
+      <Field DataType="String" Size="8" FieldName="Area" />
+      <Field DataType="String" Size="8" FieldName="Zone" />
+      <Field DataType="String" Size="8" FieldName="Bank" />
+      <Field DataType="String" Size="8" FieldName="Position" />
+      <Field DataType="String" Size="16" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+    </Fields>
+  </BlockFormat>
+
+  <BlockFormat version="2" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="Int32" FieldName="SerialNumber" />
+      <Field DataType="String" Size="16" FieldName="MachineId" />
+      <Field DataType="String" Size="8" FieldName="Area" />
+      <Field DataType="String" Size="8" FieldName="Zone" />
+      <Field DataType="String" Size="8" FieldName="Bank" />
+      <Field DataType="String" Size="8" FieldName="Position" />
+      <Field DataType="String" Size="16" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+    </Fields>
+  </BlockFormat>
+
+  <BlockFormat version="3" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="Int32" FieldName="SerialNumber" />
+      <Field DataType="String" Size="16" FieldName="MachineId" />
+      <Field DataType="String" Size="8" FieldName="Area" />
+      <Field DataType="String" Size="8" FieldName="Zone" />
+      <Field DataType="String" Size="8" FieldName="Bank" />
+      <Field DataType="String" Size="8" FieldName="Position" />
+      <Field DataType="String" Size="16" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+    </Fields>
+  </BlockFormat>
+
+  <BlockFormat version="4" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="Int32" FieldName="SerialNumber" />
+      <Field DataType="String" Size="40" FieldName="SerialNumberString" />
+      <Field DataType="String" Size="16" FieldName="MachineId" />
+      <Field DataType="String" Size="8" FieldName="Area" />
+      <Field DataType="String" Size="8" FieldName="Zone" />
+      <Field DataType="String" Size="8" FieldName="Bank" />
+      <Field DataType="String" Size="8" FieldName="Position" />
+      <Field DataType="String" Size="16" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="String" Size="32" FieldName="System.Protocol" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+    </Fields>
+  </BlockFormat>
+
+  <BlockFormat version="5" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="Int32" FieldName="SerialNumber" />
+      <Field DataType="String" Size="40" FieldName="SerialNumberString" />
+      <Field DataType="String" Size="16" FieldName="MachineId" />
+      <Field DataType="String" Size="8" FieldName="Area" />
+      <Field DataType="String" Size="8" FieldName="Zone" />
+      <Field DataType="String" Size="8" FieldName="Bank" />
+      <Field DataType="String" Size="8" FieldName="Position" />
+      <Field DataType="String" Size="28" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="String" Size="32" FieldName="System.Protocol" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+    </Fields>
+  </BlockFormat>
+
+  <BlockFormat version="6" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="String" Size="40" FieldName="SerialNumber2" />
+      <Field DataType="UInt32" FieldName="MachineId2" />
+      <Field DataType="String" Size="8" FieldName="Area" />
+      <Field DataType="String" Size="8" FieldName="Zone" />
+      <Field DataType="String" Size="8" FieldName="Bank" />
+      <Field DataType="String" Size="8" FieldName="Position" />
+      <Field DataType="String" Size="28" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="String" Size="32" FieldName="System.Protocol" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+    </Fields>
+  </BlockFormat>
+
+  <BlockFormat version="7" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="String" Size="40" FieldName="SerialNumber2" />
+      <Field DataType="UInt32" FieldName="MachineId2" />
+      <Field DataType="String" Size="8" FieldName="Area" />
+      <Field DataType="String" Size="8" FieldName="Zone" />
+      <Field DataType="String" Size="8" FieldName="Bank" />
+      <Field DataType="String" Size="8" FieldName="Position" />
+      <Field DataType="String" Size="28" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="String" Size="32" FieldName="System.Protocol" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+      <Field DataType="Bool" FieldName="ConfigWizard.MachineSetupConfig.EnterOutOfServiceWithCredits.Enabled" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="8" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="String" Size="40" FieldName="SerialNumber2" />
+      <Field DataType="UInt32" FieldName="MachineId2" />
+      <Field DataType="String" Size="8" FieldName="Area" />
+      <Field DataType="String" Size="8" FieldName="Zone" />
+      <Field DataType="String" Size="8" FieldName="Bank" />
+      <Field DataType="String" Size="8" FieldName="Position" />
+      <Field DataType="String" Size="28" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="128" FieldName="CurrencyDescription" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="String" Size="32" FieldName="System.Protocol" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+      <Field DataType="Bool" FieldName="ConfigWizard.MachineSetupConfig.EnterOutOfServiceWithCredits.Enabled" />
+      <Field DataType="String" Size="32" FieldName="System.CurrencyInMeterIso" />
+      <Field DataType="String" Size="32" FieldName="SecondaryProtocols" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="9" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="String" Size="40" FieldName="SerialNumber2" />
+      <Field DataType="UInt32" FieldName="MachineId2" />
+      <Field DataType="String" Size="8" FieldName="Area" />
+      <Field DataType="String" Size="8" FieldName="Zone" />
+      <Field DataType="String" Size="8" FieldName="Bank" />
+      <Field DataType="String" Size="8" FieldName="Position" />
+      <Field DataType="String" Size="28" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="128" FieldName="CurrencyDescription" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="String" Size="32" FieldName="System.Protocol" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+      <Field DataType="Bool" FieldName="ConfigWizard.MachineSetupConfig.EnterOutOfServiceWithCredits.Enabled" />
+      <Field DataType="String" Size="32" FieldName="System.CurrencyInMeterIso" />
+      <Field DataType="String" Size="32" FieldName="SecondaryProtocols" />
+      <Field DataType="String" Size="32" FieldName="HardMeterMapSelectionValue" />
+      <Field DataType="Bool" FieldName="IdReaderEnabled" />
+      <Field DataType="String" Size="32" FieldName="NoteAcceptorManufacturer" />
+      <Field DataType="String" Size="32" FieldName="PrinterManufacturer" />
+      <Field DataType="String" Size="32" FieldName="IdReaderManufacturer" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="10" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="String" Size="40" FieldName="SerialNumber2" />
+      <Field DataType="UInt32" FieldName="MachineId2" />
+      <Field DataType="String" Size="8" FieldName="Area" />
+      <Field DataType="String" Size="8" FieldName="Zone" />
+      <Field DataType="String" Size="8" FieldName="Bank" />
+      <Field DataType="String" Size="8" FieldName="Position" />
+      <Field DataType="String" Size="28" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="128" FieldName="CurrencyDescription" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="String" Size="32" FieldName="System.Protocol" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+      <Field DataType="Bool" FieldName="ConfigWizard.MachineSetupConfig.EnterOutOfServiceWithCredits.Enabled" />
+      <Field DataType="String" Size="32" FieldName="System.CurrencyInMeterIso" />
+      <Field DataType="String" Size="32" FieldName="SecondaryProtocols" />
+      <Field DataType="String" Size="128" FieldName="HardMeterMapSelectionValue" />
+      <Field DataType="Bool" FieldName="IdReaderEnabled" />
+      <Field DataType="String" Size="32" FieldName="NoteAcceptorManufacturer" />
+      <Field DataType="String" Size="32" FieldName="PrinterManufacturer" />
+      <Field DataType="String" Size="32" FieldName="IdReaderManufacturer" />
+      <Field DataType="Int32" FieldName="MachineSettings.Imported" />
+      <Field DataType="Bool" FieldName="MachineSettings.Reimport" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="11" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="String" Size="40" FieldName="SerialNumber2" />
+      <Field DataType="UInt32" FieldName="MachineId2" />
+      <Field DataType="String" Size="8" FieldName="Area" />
+      <Field DataType="String" Size="8" FieldName="Zone" />
+      <Field DataType="String" Size="8" FieldName="Bank" />
+      <Field DataType="String" Size="8" FieldName="Position" />
+      <Field DataType="String" Size="28" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="128" FieldName="CurrencyDescription" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="String" Size="32" FieldName="System.Protocol" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+      <Field DataType="Bool" FieldName="ConfigWizard.MachineSetupConfig.EnterOutOfServiceWithCredits.Enabled" />
+      <Field DataType="String" Size="32" FieldName="System.CurrencyInMeterIso" />
+      <Field DataType="String" Size="32" FieldName="SecondaryProtocols" />
+      <Field DataType="String" Size="128" FieldName="HardMeterMapSelectionValue" />
+      <Field DataType="Bool" FieldName="IdReaderEnabled" />
+      <Field DataType="String" Size="32" FieldName="NoteAcceptorManufacturer" />
+      <Field DataType="String" Size="32" FieldName="PrinterManufacturer" />
+      <Field DataType="String" Size="32" FieldName="IdReaderManufacturer" />
+      <Field DataType="Int32" FieldName="MachineSettings.Imported" />
+      <Field DataType="Bool" FieldName="MachineSettings.Reimport" />
+      <Field DataType="Bool" FieldName="LegalCopyright.Accepted" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="12" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="String" Size="40" FieldName="SerialNumber2" />
+      <Field DataType="UInt32" FieldName="MachineId2" />
+      <Field DataType="String" Size="8" FieldName="Area" />
+      <Field DataType="String" Size="8" FieldName="Zone" />
+      <Field DataType="String" Size="8" FieldName="Bank" />
+      <Field DataType="String" Size="8" FieldName="Position" />
+      <Field DataType="String" Size="28" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="128" FieldName="CurrencyDescription" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="String" Size="32" FieldName="System.Protocol" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+      <Field DataType="Bool" FieldName="ConfigWizard.MachineSetupConfig.EnterOutOfServiceWithCredits.Enabled" />
+      <Field DataType="String" Size="32" FieldName="System.CurrencyInMeterIso" />
+      <Field DataType="String" Size="32" FieldName="SecondaryProtocols" />
+      <Field DataType="String" Size="128" FieldName="HardMeterMapSelectionValue" />
+      <Field DataType="Bool" FieldName="IdReaderEnabled" />
+      <Field DataType="String" Size="32" FieldName="NoteAcceptorManufacturer" />
+      <Field DataType="String" Size="32" FieldName="PrinterManufacturer" />
+      <Field DataType="String" Size="32" FieldName="IdReaderManufacturer" />
+      <Field DataType="Int32" FieldName="MachineSettings.Imported" />
+      <Field DataType="Bool" FieldName="MachineSettings.Reimport" />
+      <Field DataType="Bool" FieldName="LegalCopyright.Accepted" />
+      <Field DataType="String" Size="128" FieldName="CalculatedDeviceName" />
+    </Fields>
+  </BlockFormat>  
+  <BlockFormat version="13" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="String" Size="40" FieldName="SerialNumber2" />
+      <Field DataType="UInt32" FieldName="MachineId2" />
+      <Field DataType="String" Size="16" FieldName="Area" />
+      <Field DataType="String" Size="16" FieldName="Zone" />
+      <Field DataType="String" Size="16" FieldName="Bank" />
+      <Field DataType="String" Size="16" FieldName="Position" />
+      <Field DataType="String" Size="28" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="128" FieldName="CurrencyDescription" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="String" Size="32" FieldName="System.Protocol" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+      <Field DataType="Bool" FieldName="ConfigWizard.MachineSetupConfig.EnterOutOfServiceWithCredits.Enabled" />
+      <Field DataType="String" Size="32" FieldName="System.CurrencyInMeterIso" />
+      <Field DataType="String" Size="32" FieldName="SecondaryProtocols" />
+      <Field DataType="String" Size="128" FieldName="HardMeterMapSelectionValue" />
+      <Field DataType="Bool" FieldName="IdReaderEnabled" />
+      <Field DataType="String" Size="32" FieldName="NoteAcceptorManufacturer" />
+      <Field DataType="String" Size="32" FieldName="PrinterManufacturer" />
+      <Field DataType="String" Size="32" FieldName="IdReaderManufacturer" />
+      <Field DataType="Bool" FieldName="ReelControllerEnabled" />
+      <Field DataType="String" Size="32" FieldName="ReelControllerManufacturer" />
+      <Field DataType="Int32" FieldName="MachineSettings.Imported" />
+      <Field DataType="Bool" FieldName="MachineSettings.Reimport" />
+      <Field DataType="Bool" FieldName="LegalCopyright.Accepted" />
+      <Field DataType="String" Size="128" FieldName="CalculatedDeviceName" />
+      <Field DataType="Int64" FieldName="Application.PreviousGameEndTotalBanknotesIn" />
+      <Field DataType="Int64" FieldName="Application.PreviousGameEndTotalCoinIn" />
+      <Field DataType="Bool" FieldName="Application.ExcessiveMeterIncrementLockedKey" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="14" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="String" Size="40" FieldName="SerialNumber2" />
+      <Field DataType="UInt32" FieldName="MachineId2" />
+      <Field DataType="String" Size="16" FieldName="Area" />
+      <Field DataType="String" Size="16" FieldName="Zone" />
+      <Field DataType="String" Size="16" FieldName="Bank" />
+      <Field DataType="String" Size="16" FieldName="Position" />
+      <Field DataType="String" Size="28" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="128" FieldName="CurrencyDescription" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="String" Size="32" FieldName="System.Protocol" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+      <Field DataType="Bool" FieldName="ConfigWizard.MachineSetupConfig.EnterOutOfServiceWithCredits.Enabled" />
+      <Field DataType="String" Size="32" FieldName="System.CurrencyInMeterIso" />
+      <Field DataType="String" Size="32" FieldName="SecondaryProtocols" />
+      <Field DataType="String" Size="128" FieldName="HardMeterMapSelectionValue" />
+      <Field DataType="Bool" FieldName="IdReaderEnabled" />
+      <Field DataType="String" Size="32" FieldName="NoteAcceptorManufacturer" />
+      <Field DataType="String" Size="32" FieldName="PrinterManufacturer" />
+      <Field DataType="String" Size="32" FieldName="IdReaderManufacturer" />
+      <Field DataType="Bool" FieldName="ReelControllerEnabled" />
+      <Field DataType="String" Size="32" FieldName="ReelControllerManufacturer" />
+      <Field DataType="Int32" FieldName="MachineSettings.Imported" />
+      <Field DataType="Bool" FieldName="MachineSettings.Reimport" />
+      <Field DataType="Bool" FieldName="LegalCopyright.Accepted" />
+      <Field DataType="String" Size="128" FieldName="CalculatedDeviceName" />
+      <Field DataType="Int64" FieldName="Application.PreviousGameEndTotalBanknotesIn" />
+      <Field DataType="Int64" FieldName="Application.PreviousGameEndTotalCoinIn" />
+      <Field DataType="Bool" FieldName="Application.ExcessiveMeterIncrementLockedKey" />
+      <Field DataType="Bool" FieldName="System.GameRules" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="15" name="Aristocrat.Monaco.Application.SystemPropertiesProvider">
+    <Fields>
+      <Field DataType="Bool" FieldName="IsInitialConfigurationComplete" />
+      <Field DataType="Bool" FieldName="NoteAcceptorEnabled" />
+      <Field DataType="Bool" FieldName="PrinterEnabled" />
+      <Field DataType="String" Size="40" FieldName="SerialNumber2" />
+      <Field DataType="UInt32" FieldName="MachineId2" />
+      <Field DataType="String" Size="16" FieldName="Area" />
+      <Field DataType="String" Size="16" FieldName="Zone" />
+      <Field DataType="String" Size="16" FieldName="Bank" />
+      <Field DataType="String" Size="16" FieldName="Position" />
+      <Field DataType="String" Size="28" FieldName="Location" />
+      <Field DataType="String" Size="3" FieldName="CurrencyId" />
+      <Field DataType="String" Size="128" FieldName="CurrencyDescription" />
+      <Field DataType="String" Size="32" FieldName="System.Jurisdiction" />
+      <Field DataType="String" Size="32" FieldName="System.Protocol" />
+      <Field DataType="Bool" FieldName="System.ShowMode" />
+      <Field DataType="Bool" FieldName="DemonstrationMode" />
+      <Field DataType="Bool" FieldName="ConfigWizard.MachineSetupConfig.EnterOutOfServiceWithCredits.Enabled" />
+      <Field DataType="String" Size="32" FieldName="System.CurrencyInMeterIso" />
+      <Field DataType="String" Size="32" FieldName="SecondaryProtocols" />
+      <Field DataType="String" Size="128" FieldName="HardMeterMapSelectionValue" />
+      <Field DataType="Bool" FieldName="IdReaderEnabled" />
+      <Field DataType="String" Size="32" FieldName="NoteAcceptorManufacturer" />
+      <Field DataType="String" Size="32" FieldName="PrinterManufacturer" />
+      <Field DataType="String" Size="32" FieldName="IdReaderManufacturer" />
+      <Field DataType="Bool" FieldName="ReelControllerEnabled" />
+      <Field DataType="String" Size="32" FieldName="ReelControllerManufacturer" />
+      <Field DataType="Int32" FieldName="MachineSettings.Imported" />
+      <Field DataType="Bool" FieldName="MachineSettings.Reimport" />
+      <Field DataType="Bool" FieldName="LegalCopyright.Accepted" />
+      <Field DataType="String" Size="128" FieldName="CalculatedDeviceName" />
+      <Field DataType="Int64" FieldName="Application.PreviousGameEndTotalBanknotesIn" />
+      <Field DataType="Int64" FieldName="Application.PreviousGameEndTotalCoinIn" />
+      <Field DataType="Bool" FieldName="Application.ExcessiveMeterIncrementLockedKey" />
+      <Field DataType="Bool" FieldName="System.GameRules" />
+      <Field DataType="String" FieldName="Protocol.HostAddresses" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

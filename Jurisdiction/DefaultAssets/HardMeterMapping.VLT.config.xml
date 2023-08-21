@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HardMeterMappingConfiguration>
+	<HardMeterMapping>
+		<HardMeter LogicalId="0" Name="Total In">
+			<SoftMeter Name="TotalIn" />
+		</HardMeter>
+		<HardMeter LogicalId="1" Name="Credits Won" >
+			<SoftMeter Name="TotalOutHard" />
+		</HardMeter>
+		<HardMeter LogicalId="2" Name="Credits Bet" >
+			<SoftMeter Name="WageredAmount" />
+		</HardMeter>
+		<HardMeter LogicalId="3" Name="Handpay">
+			<SoftMeter Name="EgmPaidGameWonAmt" />
+		</HardMeter>
+	</HardMeterMapping>
+</HardMeterMappingConfiguration>

@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Vgt.Client12.Accounting.HandpayMetersProvider">
+    <Fields>
+      <Field DataType="Int64" FieldName="HandpaidCancelReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidCancelReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidCancelNoReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidCancelNoReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidCancelReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidCancelReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidCancelNoReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidCancelNoReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidGameWinReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidGameWinReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidGameWinNoReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidGameWinNoReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidGameWinReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidGameWinReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidGameWinNoReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidGameWinNoReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidBonusPayReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidBonusPayReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidBonusPayNoReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidBonusPayNoReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidBonusPayReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidBonusPayReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidBonusPayNoReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidBonusPayNoReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidCashableAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidCashableAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidPromoAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidPromoAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNonCashableAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNonCashableAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidOutCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidOutCountLifetime" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Vgt.Client12.Accounting.HandpayMetersProvider">
+    <Fields>
+      <Field DataType="Int64" FieldName="HandpaidValidatedCancelReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedCancelReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedCancelNoReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedCancelNoReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedCancelReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedCancelReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedCancelNoReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedCancelNoReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedCancelReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedCancelReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedCancelNoReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedCancelNoReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedCancelReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedCancelReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedCancelNoReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedCancelNoReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedGameWinReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedGameWinReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedGameWinNoReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedGameWinNoReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedGameWinReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedGameWinReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedGameWinNoReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedGameWinNoReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedGameWinReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedGameWinReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedGameWinNoReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedGameWinNoReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedGameWinReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedGameWinReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedGameWinNoReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedGameWinNoReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedBonusPayReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedBonusPayReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedBonusPayNoReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedBonusPayNoReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedBonusPayReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedBonusPayReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedBonusPayNoReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidValidatedBonusPayNoReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedBonusPayReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedBonusPayReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedBonusPayNoReceiptAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedBonusPayNoReceiptAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedBonusPayReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedBonusPayReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedBonusPayNoReceiptCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNotValidatedBonusPayNoReceiptCountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidCashableAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidCashableAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidPromoAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidPromoAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidNonCashableAmountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidNonCashableAmountLifetime" />
+      <Field DataType="Int64" FieldName="HandpaidOutCountPeriod" />
+      <Field DataType="Int64" FieldName="HandpaidOutCountLifetime" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>
+  

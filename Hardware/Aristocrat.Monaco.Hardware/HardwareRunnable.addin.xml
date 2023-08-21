@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<Addin id="HardwareRunnable" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Kernel.Contracts.dll" />
+    <Import assembly="Aristocrat.Monaco.Hardware.dll" />
+    <Import assembly="Aristocrat.Monaco.Hardware.Contracts.dll"/>
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/BootExtender">
+    <BootExtender type="Aristocrat.Monaco.Hardware.HardwareRunnable" />
+  </Extension>
+
+  <!--Must implement Vgt.Client12.Kernel.IService-->
+  <ExtensionPoint path = "/Hardware/Services">
+    <ExtensionNode name="Service"/>
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Kernel.IRunnable-->
+  <ExtensionPoint path = "/Hardware/Runnables">
+    <ExtensionNode name="Runnable"/>
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Kernel.IRunnable-->
+  <ExtensionPoint path = "/Hardware/BootExtender">
+    <ExtensionNode name="BootExtender"/>
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Kernel.IPropertyProvider-->
+  <ExtensionPoint path = "/Hardware/PropertyProviders">
+    <ExtensionNode name="PropertyProvider"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Hardware/Service/StartupEventListener">
+    <ExtensionNode name="StartupEventListenerImpl"
+                   type="Aristocrat.Monaco.Kernel.Contracts.Events.StartupEventListenerImplementationExtensionNode" />
+  </ExtensionPoint>
+
+</Addin>

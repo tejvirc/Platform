@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://mediaDisplay.igt.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://mediaDisplay.igt.com" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-07-16 1b1">
+	<xs:include schemaLocation="mdInclude.xsd"/>
+	<!--Simple Data Types-->
+	<xs:simpleType name="t_meterTypes">
+		<xs:annotation>
+			<xs:documentation>Meter Types data type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IGT_count"/>
+			<xs:enumeration value="IGT_amount"/>
+			<xs:enumeration value="IGT_percent"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_meterName">
+		<xs:annotation>
+			<xs:documentation>Meter Name simple data type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="t_uniqueIdentifier64"/>
+	</xs:simpleType>
+	<xs:simpleType name="t_meterValue">
+		<xs:annotation>
+			<xs:documentation>Meter Value data type</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long">
+			<xs:minInclusive value="-1"/>
+			<xs:maxInclusive value="999999999999999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--Complex Data Types-->
+	<xs:complexType name="c_meterSubscription">
+		<xs:annotation>
+			<xs:documentation>Meter Subscription Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="meterName" type="t_meterName" use="required"/>
+		<xs:attribute name="meterType" type="t_meterTypes" use="required"/>
+		<xs:anyAttribute namespace="##other"/>
+	</xs:complexType>
+	<xs:complexType name="c_meterInfo">
+		<xs:annotation>
+			<xs:documentation>Meter Info Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="meterName" type="t_meterName" use="required"/>
+		<xs:attribute name="meterType" type="t_meterTypes" use="required"/>
+		<xs:attribute name="meterValue" type="t_meterValue" use="required"/>
+		<xs:anyAttribute namespace="##other"/>
+	</xs:complexType>
+	<!--Complex Data Types: commands-->
+	<xs:complexType name="c_clearMeterSub">
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element ref="meterSubscription" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Meter Subscription Item.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_meterReportAck">
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_getMeterSub">
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_getMeterInfo">
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element ref="meterSubscription" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_getSupportedMeterList">
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_meterReport">
+		<xs:annotation>
+			<xs:documentation>Meter Report Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element ref="meterInfo" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_supportedMeterList">
+		<xs:annotation>
+			<xs:documentation>Supported Meter List Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element ref="supportedMeter" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_meterSubList">
+		<xs:annotation>
+			<xs:documentation>Meter Subscription List Data Type</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element ref="meterSubscription" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="c_setMeterSub">
+		<xs:annotation>
+			<xs:documentation>Set Meter Subscription Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:sequence>
+					<xs:element ref="meterSubscription" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--Subscription Management Commands Sent by MediaDisplay Applications-->
+	<xs:element name="getSupportedMeterList">
+		<xs:annotation>
+			<xs:documentation>Get Meter List Request</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_getSupportedMeterList">
+					<xs:anyAttribute namespace="##other"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="supportedMeterList">
+		<xs:annotation>
+			<xs:documentation>Supported Meter List Response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_supportedMeterList">
+					<xs:anyAttribute namespace="##other"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getMeterInfo">
+		<xs:annotation>
+			<xs:documentation>Get Meter Info Request.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_getMeterInfo">
+					<xs:anyAttribute namespace="##other"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="getMeterSub">
+		<xs:annotation>
+			<xs:documentation>Get Meter Subscriptions Request.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_getMeterSub">
+					<xs:anyAttribute namespace="##other"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="meterSubList">
+		<xs:annotation>
+			<xs:documentation>Meter Subscription List Response.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_meterSubList">
+					<xs:anyAttribute namespace="##other"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="setMeterSub">
+		<xs:annotation>
+			<xs:documentation>Set Meter Subscription Request.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_setMeterSub">
+					<xs:anyAttribute namespace="##other"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="clearMeterSub">
+		<xs:annotation>
+			<xs:documentation>Clear Meter Subscriptions Request.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_clearMeterSub">
+					<xs:anyAttribute namespace="##other"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="meterReportAck">
+		<xs:annotation>
+			<xs:documentation>Meter Response</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_meterReportAck">
+					<xs:anyAttribute namespace="##other"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--EGM initiated Commands-->
+	<xs:element name="meterReport">
+		<xs:annotation>
+			<xs:documentation>Meter Reporting Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_meterReport">
+					<xs:anyAttribute namespace="##other"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--Meter Associated Data-->
+	<xs:element name="meterInfo" type="c_meterInfo"/>
+	<xs:element name="meterSubscription" type="c_meterSubscription">
+		<xs:annotation>
+			<xs:documentation>Meter Subscription Item.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="supportedMeter" type="c_meterSubscription">
+		<xs:annotation>
+			<xs:documentation>Supported Meter Item.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!--Functional Command Group Wrapper and Message Header-->
+	<xs:element name="mdMeters">
+		<xs:annotation>
+			<xs:documentation>MediaDisplay Meters Functional Group</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_baseClass">
+					<xs:choice minOccurs="0">
+						<xs:element ref="clearMeterSub"/>
+						<xs:element ref="getMeterSub"/>
+						<xs:element ref="getSupportedMeterList"/>
+						<xs:element ref="supportedMeterList"/>
+						<xs:element ref="meterReport"/>
+						<xs:element ref="meterReportAck"/>
+						<xs:element ref="meterSubList"/>
+						<xs:element ref="setMeterSub"/>
+						<xs:element ref="getMeterInfo"/>
+						<xs:any namespace="##other" processContents="lax"/>
+					</xs:choice>
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Application\Monaco.Application.Contracts\CabinetCapability
+2.  Enter "xsd CabinetFeatures.xsd /c /n:Aristocrat.Monaco.Application.Contracts"  This will generate
+    the corresponding class definition in csharp (CabinetFeatures.cs).
+-->
+<Features>
+    <ScreenBrightnessControl Enabled="true" Default="70" Min="50" Max="100" CabinetTypeRegex="^Bartop$"/>
+    <EdgeLightBrightnessControl Enabled="true" Default="90" Min="10" Max="100" CabinetTypeRegex="^Bartop$"/>
+    <EdgeLightBrightnessControl Enabled="true" Default="100" Min="50" Max="100" CabinetTypeRegex="^(?!Bartop$).*$"/>
+    <BottomStrip Enabled="true" CabinetTypeRegex="^Bartop$"/>
+    <EdgeLightAsTowerLight Enabled="true" CabinetTypeRegex="^Bartop$"/>
+    <Barkeeper Enabled="true" CabinetTypeRegex="^Bartop$"/>
+    <SoundChannel CabinetTypeRegex="^Bartop$">
+        <Channel>FrontLeft</Channel>
+        <Channel>FrontRight</Channel>
+    </SoundChannel>
+    <SoundChannel CabinetTypeRegex="^(?!Bartop$).*$">
+        <Channel>FrontLeft</Channel>
+        <Channel>FrontRight</Channel>
+        <Channel>SideLeft</Channel>
+        <Channel>SideRight</Channel>
+    </SoundChannel>
+    <MalfunctionMessage Enabled="true" CabinetTypeRegex="^((?!.*Bartop).*MarsX.*|.*Neptune.*)$"/>
+    <UniversalInterfaceBox Enabled="true" CabinetTypeRegex="^LS"/>
+    <HarkeyReelController Enabled="true" CabinetTypeRegex="^LS"/>
+    <BeagleBone Enabled="true" CabinetTypeRegex="^LS"/>
+    <DisplayElementsControl Enabled="true" CabinetTypeRegex="^LS" />
+    <DisplayLightingPage Enabled="true" CabinetTypeRegex="^(?!LS).*$"/>
+    <KeyboardProvider CabinetTypeRegex="^LS" KeyboardProviderType="Embedded" />
+</Features>

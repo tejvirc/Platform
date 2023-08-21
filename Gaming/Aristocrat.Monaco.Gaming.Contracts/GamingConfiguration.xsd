@@ -1,0 +1,684 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="GamingConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GameHistory">
+          <xs:complexType>
+            <xs:attribute name="KeepGameRoundEvents" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="KeepGameRoundMeterSnapshots" type="xs:boolean" use="optional" default="true" />
+           </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="1" name="GameEnd">
+          <xs:complexType>
+            <xs:attribute name="CashOutStrategy" type="CashOutStrategy" use="optional" default="None" />
+            <xs:attribute name="KeepFailedGameOutcomes" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="GameWin">
+          <xs:complexType>
+            <xs:attribute name="MaxCreditCashOutStrategy" type="MaxCreditCashOutStrategy" use="optional" default="Win" />
+            <xs:attribute name="LargeWinCashOutStrategy" type="LargeWinCashOutStrategy" use="optional"
+                          default="Handpay" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="MaximumGameRoundWin">
+          <xs:complexType>
+            <xs:attribute name="Amount" type="xs:long" use="required" />
+            <xs:attribute name="ResetWinAmount" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="InGamePlay">
+          <xs:complexType>
+            <xs:attribute name="AllowCashInDuringPlay" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="1" name="FreeGames">
+          <xs:complexType>
+            <xs:attribute name="MeterIndependently" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element maxOccurs="1" name="Messages">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="MinBetMessage">
+                <xs:complexType>
+                  <xs:attribute name="MustDisplay" type="xs:boolean" use="optional" default="false" />
+                  <xs:attribute name="Format" type="DisplayFormat" use="optional" default="Credit" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="VoucherIssued">
+                <xs:complexType>
+                  <xs:attribute name="Display" type="xs:boolean" use="optional" default="true" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="JackpotOdds">
+                <xs:complexType>
+                  <xs:attribute name="MustDisplay" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="PlayerNotification">
+                <xs:complexType>
+                  <xs:attribute name="NewReelSetSelected" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="ShowMessages" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="MessageClearStyle" type="MessageClearStyle" use="optional" default="GameStart" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="StateChangeOverride">
+          <xs:complexType>
+            <xs:attribute name="DisableStrategy" type="DisableStrategy" use="optional" default="None" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="OperatorMenu">
+          <xs:complexType>
+            <xs:attribute name="DisableDuringGame" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ReelStop">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ReelSpeed">
+          <xs:complexType>
+            <xs:attribute name="Value" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ReelStopInBaseGame">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="RetainLastRoundResult">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="WinMeterResetOnBetLineDenomChanged">
+          <xs:complexType>
+              <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="WinMeterResetOnBetLineChanged">
+          <xs:complexType>
+              <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="WinMeterResetOnDenomChanged">
+          <xs:complexType>
+              <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="LockupBehavior">
+          <xs:complexType>
+            <xs:attribute name="CashableLockupStrategy" type="CashableLockupStrategy" use="optional" default="Allowed" />
+            <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="GameCategory">
+          <xs:complexType>
+            <xs:attribute name="ApplyGameCategorySettings" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ExcessiveMeterIncrementTest">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="BanknoteLimit" type="xs:long" use="optional" default="9223372036854775807" />
+            <xs:attribute name="CoinLimit" type="xs:long" use="optional" default="9223372036854775807" />
+            <xs:attribute name="SoundFilePath" type="xs:string" default="" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="InGameDisplay">
+          <xs:complexType>
+            <xs:attribute name="DisplayFormat" type="DisplayFormat" use="optional" default="Any" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="Censorship">
+          <xs:complexType>
+            <xs:attribute name="Enforced" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="Editable" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ReplayPause">
+          <xs:complexType>
+            <xs:attribute name="Enable" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="Active" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="DefaultCreditDisplay">
+          <xs:complexType>
+            <xs:attribute name="Format" type="DisplayFormat" use="optional" default="Credit" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AutoHold">
+          <xs:complexType>
+            <xs:attribute name="Enable" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="GameLoad">
+          <xs:complexType>
+            <xs:attribute name="AllowGameInCharge" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ImmediateReelSpin">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="FudgePay">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AdditionalInfoButton">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="CycleMaxBet">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AlwaysCombineOutcomesByType">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" name="PlayOnFromGambleAvailable">
+              <xs:complexType>
+                  <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+              </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" name="PlayOnFromPresentWins">
+              <xs:complexType>
+                  <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+              </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" name="Gamble">
+          <xs:complexType>
+            <xs:attribute name="Allowed" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="WagerLimit" type="xs:long" use="optional" default="50000000" />
+            <xs:attribute name="WinLimit" type="xs:long" use="optional" default="9223372036854775807" />
+            <xs:attribute name="WagerLimitConfigurable" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="WinLimitConfigurable" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="UseWinLimit" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="ShowGambleDynamicHelp" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="SkipByJackpotHit" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="PlayLines">
+          <xs:complexType>
+            <xs:attribute name="Allowed" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="ShowLinesOnFeatureStart" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="Type" type="xs:string" use="optional" default="" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="LetItRide">
+          <xs:complexType>
+            <xs:attribute name="Allowed" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="DynamicHelpScreen">
+          <xs:complexType>
+            <xs:attribute default="false" name="JackpotCeiling" type="xs:boolean" use="optional" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ContinuousPlaySupport">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="AllowedButtons">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Button" type="ContinuousPlayButton"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Mode" type="PlayMode" use="optional" default="Toggle" />
+            <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="GameRestrictions">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="ReturnToPlayerLimits">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="ReturnToPlayer">
+                      <xs:complexType>
+                        <xs:attribute name="GameType" type="GameTypes" />
+                        <xs:attribute name="Minimum" type="xs:int" use="optional" />
+                        <xs:attribute name="Maximum" type="xs:int" use="optional" />
+                        <xs:attribute name="IncludeLinkProgressiveIncrementRTP" type="xs:boolean" use="optional"
+                                      default="false" />
+                        <xs:attribute name="IncludeStandaloneProgressiveIncrementRTP" type="xs:boolean" use="optional"
+                                      default="true" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="RestrictedGameTypes">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Type">
+                      <xs:complexType>
+                        <xs:attribute name="GameType" type="GameTypes" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="RestrictedProgressivesTypes">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="Type">
+                      <xs:complexType>
+                        <xs:attribute name="ProgressiveType" type="ProgressiveTypes" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="ServerControlledPaytables" type="xs:boolean" default="false" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AutoPlay">
+          <xs:complexType>
+            <xs:attribute name="Allowed" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ResetGamesPlayedSinceDoorClosed">
+          <xs:complexType>
+            <xs:attribute name="Belly" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="MainOptic" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="GameRoundDurationMs">
+          <xs:complexType>
+            <xs:attribute name="Minimum" type="xs:int" use="optional" default="100" />
+            <xs:attribute name="Maximum" type="xs:int" use="optional" default="10000" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AttendantServiceTimeoutSupport">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="TimeoutInMilliseconds" type="xs:int" use="optional" default="180000" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="PhysicalButtons">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="BetButtons">
+                <xs:complexType>
+                  <xs:attribute name="DisplayOnBottom" type="xs:boolean" use="optional" default="false" />
+                  <xs:attribute name="BetDown" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="BetUp" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="MaxBet" type="xs:string" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="LeftPlayButton">
+                <xs:complexType>
+                  <xs:attribute name="Required" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="Optional" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="CollectButton">
+                <xs:complexType>
+                  <xs:attribute name="Required" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="Optional" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="GambleButton">
+                <xs:complexType>
+                  <xs:attribute name="Required" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="Optional" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="ServiceButton">
+                <xs:complexType>
+                  <xs:attribute name="Required" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="Optional" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="TakeWinButton">
+                <xs:complexType>
+                  <xs:attribute name="Required" type="xs:string" use="optional" default="false" />
+                  <xs:attribute name="Optional" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="GameStartButtons">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="1" name="GameConfigurableButtons">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="Button" type="GameStartConfigurableMethod" />
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="SettingsVisible" type="xs:boolean" use="optional" default="true" />
+                  <xs:attribute name="Method" type="GameStartMethodOption" use="optional" default="Bet" />
+                  <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="CashOutButton">
+                <xs:complexType>
+                  <xs:attribute name="ReportToHostWithZeroCredit" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AttractModeOptions">
+          <xs:complexType>
+            <xs:attribute name="AttractEnabled" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="SlotAttractSelected" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="KenoAttractSelected" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="PokerAttractSelected" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="BlackjackAttractSelected" type="xs:boolean" use="optional" default="true" />
+            <xs:attribute name="RouletteAttractSelected" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="OverridenGameTypeText">
+          <xs:complexType>
+            <xs:attribute name="SlotGameTypeText" type="xs:string" use="optional" default="" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ProgressiveLobbyIndicator">
+          <xs:complexType>
+            <xs:attribute name="Indicator" type="ProgressiveLobbyIndicator" use="optional" default="ProgressiveValue" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="GameEditOptions">
+          <xs:complexType>
+            <xs:attribute name="AllowEditHostDisabled" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ProgressivePoolCreation">
+          <xs:complexType>
+            <xs:attribute name="Type" type="ProgressivePoolCreation" use="optional" default="Default" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="PlayerInformationDisplay">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="GameRulesScreen">
+                <xs:complexType>
+                  <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="PlayerInformationScreen">
+                <xs:complexType>
+                  <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional"  default="false" />
+            <xs:attribute name="RestrictedModeUse" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="RngCycling">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="DenomSelectionLobby">
+          <xs:complexType>
+            <xs:attribute name="Mode" type="DenomSelectionLobby" use="optional" default="Allowed" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ShowPlayerSpeedButton">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="BonusTransfer">
+          <xs:complexType>
+            <xs:attribute name="PlaySound" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="FreeSpin">
+          <xs:complexType>
+            <xs:attribute name="ClearWinMeter" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="Win">
+          <xs:complexType>
+            <xs:attribute name="Destination" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="DisplayGamePayMessage">
+          <xs:complexType>
+            <xs:attribute name="Use" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="Format" type="xs:string" use="optional" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="WagerLimits">
+          <xs:complexType>
+            <xs:attribute name="Use" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="MaxTotalWager" type="xs:long" use="optional" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="VolumeLevel">
+          <xs:complexType>
+            <xs:attribute name="ShowInHelpScreen" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="Service">
+          <xs:complexType>
+            <xs:attribute name="Use" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="Clock">
+          <xs:complexType>
+            <xs:attribute name="UseHInDisplay" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="KenoFreeGames">
+          <xs:complexType>
+            <xs:attribute name="SelectionChange" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="AutoPlay" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="InitialZeroWager">
+          <xs:complexType>
+            <xs:attribute name="Use" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ChangeLineSelectionAtZeroCredit">
+          <xs:complexType>
+            <xs:attribute name="Use" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="GameDuration">
+          <xs:complexType>
+            <xs:attribute name="UseMarketGameTime" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="GameLog">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="OutcomeDetails" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="Audio">
+          <xs:complexType>
+            <xs:attribute name="AudioChannels" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ButtonAnimation">
+          <xs:complexType>
+            <xs:attribute name="GoodLuck" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="WinIncrement">
+          <xs:complexType>
+            <xs:attribute name="WinTuneCapping" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="WinIncrementSpeed" type="WinIncrementSpeed" use="optional" default="WinAmountOnly" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AutoCompleteGameRound">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="ProgressiveView">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="InitialSetupView">
+                <xs:complexType>
+                  <xs:attribute name="Readonly" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="MaxWin">
+          <xs:complexType>
+            <xs:attribute name="OnMaxWinReached" type="xs:string" use="optional" default="endgame" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AutoEnableSimpleGames">
+          <xs:complexType>
+            <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>     
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="ProgressivePoolCreation">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Default" />
+      <xs:enumeration value="WagerBased" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ProgressiveLobbyIndicator">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Disabled" />
+      <xs:enumeration value="ProgressiveLabel" />
+      <xs:enumeration value="ProgressiveValue" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CashOutStrategy">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Partial" />
+      <xs:enumeration value="Full" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MaxCreditCashOutStrategy">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Win" />
+      <xs:enumeration value="CreditLimit" />
+      <xs:enumeration value="None" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LargeWinCashOutStrategy">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Handpay" />
+      <xs:enumeration value="Voucher" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DisableStrategy">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Immediate" />
+      <xs:enumeration value="ZeroCredits" />
+      <xs:enumeration value="Idle" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CashableLockupStrategy">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NotAllowed" />
+      <xs:enumeration value="Allowed" />
+      <xs:enumeration value="ForceCashout" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DisplayFormat">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Currency" />
+      <xs:enumeration value="Credit" />
+      <xs:enumeration value="CreditOrCurrency" />
+      <xs:enumeration value="CreditAndCurrency" />
+      <xs:enumeration value="Any" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PlayMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Continuous" />
+      <xs:enumeration value="Toggle" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="GameStartMethodOption">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Bet" />
+      <xs:enumeration value="BetOrMaxBet" />
+      <xs:enumeration value="LineOrReel" />
+      <xs:enumeration value="LineReelOrMaxBet" />
+      <xs:enumeration value="None" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="GameStartConfigurableMethod">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Bet" />
+      <xs:enumeration value="MaxBet" />
+      <xs:enumeration value="LineOrReel" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="GameTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Slot" />
+      <xs:enumeration value="Poker" />
+      <xs:enumeration value="Keno" />
+      <xs:enumeration value="Blackjack" />
+      <xs:enumeration value="Roulette" />
+      <xs:enumeration value="Any" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ProgressiveTypes">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SAP" />
+      <xs:enumeration value="LAP" />
+      <xs:enumeration value="Selectable" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MessageClearStyle">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GameStart" />
+      <xs:enumeration value="NextGameEnd" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ContinuousPlayButton">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Play" />
+      <xs:enumeration value="MaxBet" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="DenomSelectionLobby">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Required" />
+      <xs:enumeration value="Allowed" />
+      <xs:enumeration value="Disallowed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="WinIncrementSpeed">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="WinAmountOnly" />
+      <xs:enumeration value="WinAmountAndDenom" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

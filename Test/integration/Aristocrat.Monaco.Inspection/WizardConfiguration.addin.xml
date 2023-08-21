@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<Addin id="WizardConfiguration" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+
+    <AddinConfigurationGroup name="BaseConfigWizardPages"
+                             description="These are the base platform config wizard addins">
+
+      <AddinConfigurationGroupReference name="InspectionWizardPages" />
+
+      <AddinConfigurationGroupReference name="GameConfigWizardPages" optional="true" />
+
+      <ExtensionPointConfiguration extensionPath="/Application/Config/Wizards">
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.TimeConfigPageLoader" order="1" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.ConfigWizard.HardwareConfigLoader" order="2" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.ConfigWizard.IdentityConfigLoader" order="3" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.ConfigWizard.MachineConfigLoader" order="4" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+
+    <AddinConfigurationGroup name="InspectionWizardPages" description="Inspection-only wizard addins">
+      <ExtensionPointConfiguration extensionPath="/Application/Inspection/Wizards">
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.TimeConfigPageLoader" order="1" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.MachineSettingsPageLoader" order="3" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.PrinterPageLoader" order="5" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.NoteAcceptorPageLoader" order="10" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.IdReaderPageLoader" order="30" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.MechanicalReelsPageLoader" order="35" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.DisplaysPageLoader" order="40"/>
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.BellPageLoader" order="45"/>
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.BeagleBonePageLoader" order="50"/>
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.EdgeLightingPageLoader" order="60"/>
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.SoundConfigPageLoader" order="70"/>
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.LampsPageLoader" order="80"/>
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.ButtonPageLoader" order="85"/>
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.KeyPageLoader" order="90"/>
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.DoorPageLoader" order="95"/>
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.ConfigWizard"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.BatteryPageLoader" order="100"/>
+      </ExtensionPointConfiguration>
+
+    </AddinConfigurationGroup>
+
+  </Extension>
+
+</Addin>

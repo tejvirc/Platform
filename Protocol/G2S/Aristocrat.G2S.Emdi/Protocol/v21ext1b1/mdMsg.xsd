@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://mediaDisplay.igt.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:CCI="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" targetNamespace="http://mediaDisplay.igt.com" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-09-26 v1b2">
+	<xs:include schemaLocation="mdMeters.xsd"/>
+	<xs:include schemaLocation="mdComms.xsd"/>
+	<xs:include schemaLocation="mdEventHandler.xsd"/>
+	<xs:include schemaLocation="mdCabinet.xsd"/>
+	<xs:include schemaLocation="mdInclude.xsd"/>
+	<xs:import namespace="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" schemaLocation="mdContentToContentExtCCI.xsd"/>
+	<xs:complexType name="c_mdMsgBase">
+		<xs:choice minOccurs="0">
+			<xs:element ref="mdComms"/>
+			<xs:element ref="mdEventHandler"/>
+			<xs:element ref="mdCabinet"/>
+			<xs:element ref="mdMeters"/>
+			<xs:any namespace="##other" processContents="lax"/>
+		</xs:choice>
+	</xs:complexType>
+	<!--Local mediaDisplay interface root element-->
+	<xs:element name="mdMsg">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="c_mdMsgBase"/>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

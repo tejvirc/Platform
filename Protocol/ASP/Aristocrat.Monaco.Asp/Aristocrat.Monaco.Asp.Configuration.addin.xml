@@ -1,0 +1,38 @@
+<Addin id="DacomConfiguration" namespace="Client12Addins" version="1.0">
+
+    <Dependencies>
+        <Addin id="Monaco.Kernel" version="1.0" />
+        <Addin id="SelectableProtocol" version="1.0" />
+    </Dependencies>
+
+    <Extension path="/Kernel/SelectableAddinConfiguration/Protocol">
+        <SelectableProtocol name="DACOM" description="Platform Configuration for DACOM">
+            <AddinConfigurationGroupReference name="DacomProtocolRunnable" />
+        </SelectableProtocol>
+        <!--<SelectableProtocol name="Asp1000" description="Platform Configuration for Asp1000">
+	    <AddinConfigurationGroupReference name="Asp1000ProtocolRunnable" />
+	</SelectableProtocol>
+	<SelectableProtocol name="Asp2000" description="Platform Configuration for Asp2000">
+		<AddinConfigurationGroupReference name="Asp2000ProtocolRunnable" />
+	</SelectableProtocol>-->
+    </Extension>
+
+    <Extension path="/Kernel/AddinConfigurationGroup">
+        <AddinConfigurationGroup name="DacomProtocolRunnable" description="This is the protocol launcher for DACOM">
+            <ExtensionPointConfiguration extensionPath="/Protocol/Runnables">
+                <NodeSpecification addinId="Client12Addins.DacomHost" typeName="Aristocrat.Monaco.Asp.Hosts.DacomHost" />
+            </ExtensionPointConfiguration>
+        </AddinConfigurationGroup>
+        <!--<AddinConfigurationGroup name="Asp1000ProtocolRunnable" description="This is the protocol launcher for Asp1000">
+      <ExtensionPointConfiguration extensionPath="/Protocol/Runnables">
+        <NodeSpecification addinId="Client12Addins.AspHost" typeName="Aristocrat.Monaco.Asp.Hosts.Asp1000Host" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+    <AddinConfigurationGroup name="Asp2000ProtocolRunnable" description="This is the protocol launcher for Asp2000">
+      <ExtensionPointConfiguration extensionPath="/Protocol/Runnables">
+        <NodeSpecification addinId="Client12Addins.AspHost" typeName="Aristocrat.Monaco.Asp.Hosts.Asp2000Host" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>-->
+    </Extension>
+
+</Addin>

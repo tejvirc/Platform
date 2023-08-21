@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Addin  id="AccountingTest" namespace="Client12Addins" version="1.0" isroot="true">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Accounting.Tests.dll" />
+    <Import assembly="Monaco.Accounting.dll" />
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+  </Runtime>
+
+  <ExtensionPoint path="/Kernel/SelectableAddinConfiguration">
+    <ExtensionNode name="SelectableAddinConfiguration" type="Aristocrat.Monaco.Kernel.SelectableAddinConfigurationNode" />
+  </ExtensionPoint>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration">
+    <SelectableAddinConfiguration name="Jurisdiction" order="0"/>
+    <SelectableAddinConfiguration name="Protocol" order="1"/>
+  </Extension>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
+    <SelectableAddinConfiguration name="UnitTestGroup" description="Unit Test Group">
+      <ExtensionPointConfiguration extensionPath="/Accounting/TransactionHistories">
+        <NodeSpecification addinId="Client12Addins.AccountingTest" typeName="Aristocrat.Monaco.Accounting.Tests.TestTransaction" order="1"/>
+        <NodeSpecification addinId="Client12Addins.AccountingTest" typeName="Aristocrat.Monaco.Accounting.Tests.TestTransaction2" order="2"/>
+      </ExtensionPointConfiguration>
+    </SelectableAddinConfiguration>
+  </Extension>
+
+  <ExtensionPoint path = "/Accounting/TransactionHistories">
+    <ExtensionNode name="TransactionHistoryProvider" type="Aristocrat.Monaco.Accounting.TransactionHistoryProviderExtensionNode"/>
+  </ExtensionPoint>
+
+  <Extension path = "/Accounting/TransactionHistories">
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Tests.TestTransaction" maxTransactions="25" persistenceLevel="Critical" />
+    <TransactionHistoryProvider type="Aristocrat.Monaco.Accounting.Tests.TestTransaction2" maxTransactions="35" persistenceLevel="Critical" />
+  </Extension>
+
+</Addin>

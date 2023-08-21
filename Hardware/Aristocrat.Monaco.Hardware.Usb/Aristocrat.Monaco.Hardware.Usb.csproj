@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyTitle>Aristocrat.Monaco.Hardware.Usb</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <DebugType>full</DebugType>
+    <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.Hardware.Usb.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.Hardware.Usb.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Aristocrat.Monaco.Hardware.Usb.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="libusb-1.0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="devcon.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.RelmReels" Version="0.1.19" />
+    <PackageReference Include="HidSharp" Version="2.0.2" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ReelController\Relm\SampleShows\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="ReelController\Relm\SampleShows\AllWhite5Reels.lightshow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="ReelController\Relm\SampleAnimations\SampleStepperCurve.stepper">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ReelController\Relm\SampleAnimations\SampleLightShow.lightshow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

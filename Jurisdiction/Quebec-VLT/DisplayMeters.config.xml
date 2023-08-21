@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DisplayMetersConfiguration>
+  <MeterNodes>
+    <!-- commented out meters are for future releases -->
+    <!-- column 2. Order values over 100 indicate the meter should display in the 2nd column -->
+  
+    <MeterNode Page="MainPage" Name="TotalIn" DisplayName="Total In" DisplayNameKey="TotalInLabel" />
+    <MeterNode Page="MainPage" Name="TotalOut" DisplayName="Total Out" DisplayNameKey="TotalOutLabel" />
+    <MeterNode Page="MainPage" Name="WageredAmount" DisplayName="Cash Played" DisplayNameKey="CashPlayed" />
+    <MeterNode Page="MainPage" Name="EgmPaidGameWonAmt" DisplayName="Cash Won" DisplayNameKey="CashWonText" />
+    <MeterNode Page="MainPage" Name="PlayedCount" DisplayName="Games Played" DisplayNameKey="GamesPlayed" />
+    <MeterNode Page="MainPage" Name="WonCount" DisplayName="Games Won" DisplayNameKey="GamesWon" />
+  
+    <MeterNode Page="Hardware" Name="MainDoorOpen" DisplayName="Main Door Open" DisplayNameKey="MainDoorOpenLabel" />
+    <MeterNode Page="Hardware" Name="MainDoorOpenPowerOff" DisplayName="Main Door Open Power Off" DisplayNameKey="MainDoorOpenPowerOff" />
+    <MeterNode Page="Hardware" Name="CashDoorOpen" DisplayName="Cash Door Open" DisplayNameKey="CashDoorOpenLabel" />
+    <MeterNode Page="Hardware" Name="CashDoorOpenPowerOff" DisplayName="Cash Door Open Power Off" DisplayNameKey="CashDoorOpenPowerOffLabel" />
+    <MeterNode Page="Hardware" Name="LogicDoorOpen" DisplayName="Logic Door Open" DisplayNameKey="LogicDoorOpen" />
+    <MeterNode Page="Hardware" Name="LogicDoorOpenPowerOff" DisplayName="Logic Door Open Power Off" DisplayNameKey="LogicDoorOpenPowerOffLabel" />
+    <MeterNode Page="Hardware" Name="TopBoxDoorOpen" DisplayName="Top Box Door Open" DisplayNameKey="TopBoxDoorOpen" />
+    <MeterNode Page="Hardware" Name="TopBoxDoorOpenPowerOff" DisplayName="Top Box Door Open Power Off" DisplayNameKey="TopBoxDoorOpenPowerOffLabel" />
+    <MeterNode Page="Hardware" Name="StackerRemoved" DisplayName="Stacker Removed" DisplayNameKey="StackerRemoved" />
+    <MeterNode Page="Hardware" Name="PowerReset" DisplayName="Power Reset" DisplayNameKey="PowerResetText" />
+  
+    <MeterNode Page="Game" Name="WageredAmount" DisplayName="Cash Played" DisplayNameKey="CashPlayed" />
+    <MeterNode Page="Game" Name="EgmPaidGameWonAmt" DisplayName="Cash Won" DisplayNameKey="CashWonText" />
+    <MeterNode Page="Game" Name="PlayedCount" DisplayName="Games Played" DisplayNameKey="GamesPlayed" />
+    <MeterNode Page="Game" Name="WonCount" DisplayName="Games Won" DisplayNameKey="GamesWon" />
+
+    <MeterNode Page="Denom" Name="WageredAmount" DisplayName="Total Coin In (Turnover)" DisplayNameKey="TotalCoinInTurnoverLabel" />
+    <MeterNode Page="Denom" Name="TotalEgmPaidAmt" DisplayName="Total Coin Out (Machine Paid)" DisplayNameKey="TotalCoinOutMachinePaidLabel" />
+    <MeterNode Page="Denom" Name="EgmPaidGameWonAmt" DisplayName="  Machine Paid Paytable Win" DisplayNameKey="MachinePaidPaytableWinLabel" />
+    <MeterNode Page="Denom" Name="EgmPaidProgWonAmt" DisplayName="  Machine Paid Progressive Win" DisplayNameKey="MachinePaidProgressiveWinLabel" />
+    <MeterNode Page="Denom" Name="EgmPaidBonusAmount" DisplayName="  Machine Paid External Bonus Win" DisplayNameKey="MachinePaidExternalBonusWinLabel" />
+    <MeterNode Page="Denom" Name="TotalHandPaidAmt" DisplayName="Total Jackpot (Attendant Paid)" DisplayNameKey="TotalJackpotAttendantPaidLabel" />
+    <MeterNode Page="Denom" Name="HandPaidGameWonAmt" DisplayName="  Attendant Paid Paytable Win" DisplayNameKey="AttendantPaidPaytableWinLabel" />
+    <MeterNode Page="Denom" Name="HandPaidProgWonAmt" DisplayName="  Attendant Paid Progressive Win" DisplayNameKey="AttendantPaidProgressiveWinLabel" />
+    <MeterNode Page="Denom" Name="AttendantPaidBonusAmount" DisplayName="  Attendant Paid External Bonus Win" DisplayNameKey="AttendantPaidExternalBonusWinLabel" />
+    <MeterNode Page="Denom" Name="TotalPaidAmt" DisplayName="Total Wins" DisplayNameKey="TotalWins" />
+    <MeterNode Page="Denom" Name="PlayedCount" DisplayName="Games Played" DisplayNameKey="GamesPlayed" />
+    <MeterNode Page="Denom" Name="WonCount" DisplayName="Games Won" DisplayNameKey="GamesWon" />
+    <MeterNode Page="Denom" Name="LostCount" DisplayName="Games Lost" DisplayNameKey="GamesLost" />
+
+    <MeterNode Page="Progressives" Name="ProgressivePackName" DisplayName="Pack Name" Order="1" DisplayNameKey="PackName" />
+    <MeterNode Page="Progressives" Name="LevelName" DisplayName="Level" Order="2" DisplayNameKey="Level" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WageredAmount" DisplayName="Wagered" Order="3" DisplayNameKey="WagerCategoryWageredCaption" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinOccurrence" DisplayName="Hit" Order="4" DisplayNameKey="Hit" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinAccumulation" DisplayName="Won" Order="5" DisplayNameKey="CreditsWonText" />
+  </MeterNodes>
+</DisplayMetersConfiguration>

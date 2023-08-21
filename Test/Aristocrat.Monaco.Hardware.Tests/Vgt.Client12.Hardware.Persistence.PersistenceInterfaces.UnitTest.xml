@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Vgt.Client12.Hardware.Persistence.PersistenceInterface.UnitTest" ElementSize="54">
+    <Fields>
+      <Field FieldName="Guid" DataType="Byte" Count="16" />
+      <Field FieldName="OwnGuid" DataType="Bool" Count="0" />
+      <Field FieldName="CurrentAccount" DataType="Byte" Count="0" />
+      <Field FieldName="Cashable" DataType="Int64" Count="0" />
+      <Field FieldName="NonCash" DataType="Int64" Count="0" />
+      <Field FieldName="Promo" DataType="Int64" Count="0" />
+      <Field FieldName="NewAccountBalance" DataType="Int64" Count="0" />
+      <Field FieldName="WaitingForVoucherCompleteEvent" DataType="Bool" Count="0" />
+      <Field FieldName="WaitingForCanceledCreditsCompleteEvent" DataType="Bool" Count="0" />
+      <Field FieldName="WaitingForWatOffCompleteEvent" DataType="Bool" Count="0" />
+      <Field FieldName="FullWithdraw" DataType="Bool" Count="0" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Vgt.Client12.Hardware.Persistence.PersistenceInterface.UnitTest" ElementSize="54">
+    <Fields>
+      <Field FieldName="Guid" DataType="Byte" Count="16" />
+      <Field FieldName="OwnGuid" DataType="Bool" Count="0" />
+      <Field FieldName="CurrentAccount" DataType="Byte" Count="0" />
+      <Field FieldName="Cashable" DataType="Int64" Count="0" />
+      <Field FieldName="NonCash" DataType="Int64" Count="0" />
+      <Field FieldName="Promo" DataType="Int64" Count="0" />
+      <Field FieldName="FullWithdraw" DataType="Bool" Count="0" />
+      <Field FieldName="PartialWithdraw" DataType="Bool" Count="0" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

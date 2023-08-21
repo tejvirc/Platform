@@ -1,0 +1,60 @@
+﻿<?xml version="1.0"?>
+
+<Addin id="Bootstrap" namespace="Client12Addins" version="1.0" isroot="true">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Kernel.Tests.dll" />
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+  </Runtime>
+
+  <ExtensionPoint path="/Kernel/ServiceManager">
+    <ExtensionNode name="ServiceManager" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/EventBus">
+    <ExtensionNode name="EventBus" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/PropertiesManager">
+    <ExtensionNode name="PropertiesManager" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/SystemDisableManager">
+    <ExtensionNode name="SystemDisableManager" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/AddinHelper">
+    <ExtensionNode name="AddinHelper" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/MessageDisplay">
+    <ExtensionNode name="MessageDisplay" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/PathMapper">
+    <ExtensionNode name="PathMapper" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/AssemblyResolver">
+    <ExtensionNode name="AssemblyResolver" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/Services">
+    <ExtensionNode name="Service" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path="/Kernel/PropertySettings">
+    <ExtensionNode name="PropertySetting" type="Aristocrat.Monaco.Kernel.PropertyNode" />
+  </ExtensionPoint>
+
+  <!--Must implement IComponentRegistry-->
+  <ExtensionPoint path = "/Kernel/ComponentRegistry">
+    <ExtensionNode name="ComponentRegistry"/>
+  </ExtensionPoint>
+
+  <!--Must implement IInitializationProvider-->
+  <ExtensionPoint path = "/Kernel/InitializationProvider">
+    <ExtensionNode name="InitializationProvider"/>
+  </ExtensionPoint>
+
+</Addin>

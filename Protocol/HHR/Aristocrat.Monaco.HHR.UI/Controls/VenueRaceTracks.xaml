@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Hhr.UI.Controls.VenueRaceTracks"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Aristocrat.Monaco.Hhr.UI.Controls"
+             xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
+             x:Name="VenueRaceTracksTitle"
+             AutomationProperties.AutomationId="UserControl0_E0B949AA">
+    <UserControl.Resources>
+        <Style x:Key="VenueNameStyle"
+               TargetType="{x:Type Label}">
+            <Setter Property="FontSize"
+                    Value="18" />
+            <Setter Property="FontWeight"
+                    Value="Bold" />
+            <Setter Property="Foreground"
+                    Value="WhiteSmoke" />
+        </Style>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid1_E0B949AA">
+        <!-- Two grids with the same layout are needed because some the race track background must be trasparent, but the venue name
+             and the horses must not be. Making a grid transparent makes all its children transparent too. So one grid here as the 
+             transparent image backgrounds, and the other has the content -->
+        <Grid x:Name="TransparentImageOverlayGrid"
+              Background="Transparent"
+              Opacity="0.55"
+              AutomationProperties.AutomationId="Grid2_E0B949AA">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"
+                               AutomationProperties.AutomationId="RowDefinition3_E0B949AA" />
+                <RowDefinition Height="240"
+                               AutomationProperties.AutomationId="RowDefinition4_E0B949AA" />
+                <RowDefinition Height="20"
+                               AutomationProperties.AutomationId="RowDefinition5_E0B949AA" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="376"
+                                  AutomationProperties.AutomationId="ColumnDefinition6_E0B949AA" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0"
+                    x:Name="FieldTopBorder"
+                    AutomationProperties.AutomationId="Border7_E0B949AA" />
+            <Border Grid.Row="1"
+                    x:Name="FieldMiddleBorder"
+                    AutomationProperties.AutomationId="Border8_E0B949AA" />
+            <Border Grid.Row="2"
+                    x:Name="FieldBottomBorder"
+                    AutomationProperties.AutomationId="Border9_E0B949AA" />
+            <Rectangle x:Name="FinishLine"
+                       Grid.Row="1"
+                       HorizontalAlignment="Right"
+                       Width="8"
+                       Height="Auto"
+                       Margin="0 0 0 0"
+                       Fill="Black"
+                       AutomationProperties.AutomationId="Rectangle10_E0B949AA" />
+        </Grid>
+        <Grid x:Name="ContentGrid"
+              AutomationProperties.AutomationId="Grid11_E0B949AA">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"
+                               AutomationProperties.AutomationId="RowDefinition12_E0B949AA" />
+                <RowDefinition MinHeight="240"
+                               AutomationProperties.AutomationId="RowDefinition13_E0B949AA" />
+                <RowDefinition Height="20"
+                               AutomationProperties.AutomationId="RowDefinition14_E0B949AA" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition15_E0B949AA" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0"
+                    AutomationProperties.AutomationId="Border16_E0B949AA">
+                <Label Content="{Binding VenueName}"
+                       Style="{StaticResource VenueNameStyle}"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="0 -5 0 0"
+                       AutomationProperties.AutomationId="Label17_E0B949AA" />
+            </Border>
+            <Border Grid.Row="1"
+                    AutomationProperties.AutomationId="Border18_E0B949AA">
+                <local:CanvasAutoSize VerticalAlignment="Top"
+                                      HorizontalAlignment="Left"
+                                      ClipToBounds="False">
+                    <ItemsControl ItemsSource="{Binding Path=RacingLanes, ElementName=VenueRaceTracksTitle}"
+                                  Canvas.Left="0"
+                                  Canvas.Top="0"
+                                  AutomationProperties.AutomationId="ItemsControl19_E0B949AA">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:RaceTrackEntryModel}">
+                                <local:RaceTrackEntry
+                                        IsPaused="{Binding IsPaused, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}"
+                                                      HorseNumber="{Binding Position}"
+                                                      Place="{Binding FinishPosition}"
+                                                      Visibility="{Binding Visibility}"
+                                                      RaceStarted="{Binding RaceStarted}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </local:CanvasAutoSize>
+            </Border>
+            <Border Grid.Row="2"
+                    AutomationProperties.AutomationId="Border20_E0B949AA" />
+        </Grid>
+    </Grid>
+</UserControl>

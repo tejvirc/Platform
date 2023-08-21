@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Addin id="G2SBase" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.G2S.dll" />
+    <Import assembly="Aristocrat.Monaco.G2S.Common.dll" />
+    <Import assembly="Aristocrat.G2S.Emdi.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+    <Addin id="ApplicationRunnable" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="HardwareRunnable" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Protocol/Runnables">
+    <ProtocolInterface type="Aristocrat.Monaco.G2S.G2SBase" protocolId="G2S" serverProtocolId="7" />
+  </Extension>
+
+  <Extension path="/Application/PropertyProviders">
+    <PropertyProvider type="Aristocrat.Monaco.G2S.G2SPropertyProvider" />
+  </Extension>
+
+  <Extension path="/Kernel/Services">
+    <Service type="Aristocrat.Monaco.G2S.CompositionRoot.DbContextFactory" />
+    <Service type="Aristocrat.Monaco.G2S.G2SDataFactory" />
+    <Service type="Aristocrat.Monaco.G2S.Common.CertificateManager.CertificateFactory" />
+    <Service type="Aristocrat.Monaco.G2S.Common.DHCP.DhcpClient" />
+  </Extension>
+
+  <Extension path="/Hardware/Services">
+    <Service type="Aristocrat.Monaco.G2S.Services.StorageHandler" />
+  </Extension>
+
+  <Extension path="/Hardware/Service/StartupEventListener">
+    <StartupEventListenerImpl ProtocolName="G2S" type="Aristocrat.Monaco.G2S.Services.StartupEventListener" />
+  </Extension>
+
+</Addin>

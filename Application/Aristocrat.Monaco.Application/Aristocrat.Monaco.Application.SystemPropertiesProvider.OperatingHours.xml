@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<BlockFormat version="1" Name="Aristocrat.Monaco.Application.SystemPropertiesProvider.OperatingHours">
+  <Fields>
+    <Field FieldName="OperatingHours.Day" DataType="Int32" />
+    <Field FieldName="OperatingHours.Time" DataType="Int32" />
+    <Field FieldName="OperatingHours.Enabled" DataType="Bool" />
+  </Fields>
+</BlockFormat>

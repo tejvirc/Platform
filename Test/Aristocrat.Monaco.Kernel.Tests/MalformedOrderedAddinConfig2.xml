@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<AddinOrderConfiguration>
+  <AddinOrdering extensionPath="/ExtensionPathWithThreeExtensions" defaultBehavior="InsertAtEnd">
+    <OrderedAddinType type="TestExtension1.TestClass1" />
+    <OrderedAddinType wrongtype="TestExtension1.TestClass2" />
+  </AddinOrdering>
+</AddinOrderConfiguration>

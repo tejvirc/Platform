@@ -1,0 +1,273 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Gaming.Presentation.Views.ReplayNavView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters;assembly=Aristocrat.Monaco.Gaming.UI"
+             xmlns:commonConverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
+             xmlns:views="clr-namespace:Aristocrat.Monaco.Gaming.Presentation.Views"
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.Presentation.ViewModels"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=viewModels:ReplayNavViewModel, IsDesignTimeCreatable=False}"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Lobby.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <commonConverters:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <UserControl.Background>
+        <SolidColorBrush Color="Black"
+                         Opacity="{Binding Path=BackgroundOpacity}"
+                         AutomationProperties.AutomationId="SolidColorBrush1_41B007DA" />
+    </UserControl.Background>
+
+    <Grid AutomationProperties.AutomationId="Grid2_41B007DA">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition3_41B007DA" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_41B007DA" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0"
+               Margin="0 240 0 0"
+               FontSize="48"
+               Foreground="Gold"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Center"
+               Content="{Binding Path=MessageText}"
+               AutomationProperties.AutomationId="Label5_41B007DA" />
+        <Border Grid.Row="1"
+                Visibility="{Binding Path=IsReplayNavigationVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                AutomationProperties.AutomationId="Border6_41B007DA">
+            <Grid AutomationProperties.AutomationId="Grid7_41B007DA">
+                <Border Background="{StaticResource Brush2}"
+                        Opacity=".9"
+                        AutomationProperties.AutomationId="Border8_41B007DA" />
+                <Border Margin="5"
+                        AutomationProperties.AutomationId="Border9_41B007DA">
+                    <StackPanel Orientation="Horizontal"
+                                AutomationProperties.AutomationId="StackPanel10_41B007DA">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource {x:Type TextBlock}}">
+                                <Setter Property="VerticalAlignment"
+                                        Value="Center" />
+                                <Setter Property="Foreground"
+                                        Value="White" />
+                                <Setter Property="FontSize"
+                                        Value="24" />
+                                <Setter Property="FontWeight"
+                                        Value="Normal" />
+                                <Setter Property="Margin"
+                                        Value="30 0 0 0" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button Command="{Binding ExitCommand}"
+                                FontFamily="Arial"
+                                FontSize="30"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                VerticalAlignment="Center"
+                                Cursor="Hand"
+                                AutomationProperties.AutomationId="Button11_41B007DA">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Grid Margin="{TemplateBinding Margin}"
+                                                      AutomationProperties.AutomationId="Grid12_41B007DA">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="30"
+                                                                          AutomationProperties.AutomationId="ColumnDefinition13_41B007DA" />
+                                                        <ColumnDefinition Width="*"
+                                                                          AutomationProperties.AutomationId="ColumnDefinition14_41B007DA" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Border Name="Border"
+                                                            Background="Transparent"
+                                                            Grid.ColumnSpan="2"
+                                                            AutomationProperties.AutomationId="Border15_41B007DA" />
+                                                    <iconPacks:PackIconMaterial Name="Icon"
+                                                                                Grid.Column="0"
+                                                                                Kind="ExitToApp"
+                                                                                Flip="Horizontal"
+                                                                                Width="30"
+                                                                                Height="30"
+                                                                                VerticalAlignment="Center"
+                                                                                HorizontalAlignment="Center" />
+                                                    <controls:ContentControlEx Grid.Column="1"
+                                                                               Margin="3 0 0 0"
+                                                                               Content="{TemplateBinding Content}"
+                                                                               VerticalAlignment="Bottom"
+                                                                               RecognizesAccessKey="True"
+                                                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsPressed"
+                                                 Value="True"
+                                                 AutomationProperties.AutomationId="Trigger16_41B007DA">
+                                            <Setter Property="Foreground"
+                                                    Value="{StaticResource Brush3}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Content>
+                                <TextBlock Margin="0"
+                                           Text="{lex:Loc ExitText}"
+                                           TextDecorations="Underline"
+                                           AutomationProperties.AutomationId="TextBlock17_41B007DA" />
+                            </Button.Content>
+                        </Button>
+                        <TextBlock Text="{Binding Label}"
+                                   AutomationProperties.AutomationId="TextBlock18_41B007DA" />
+                        <TextBlock Text="{Binding ReplayGameName}"
+                                   AutomationProperties.AutomationId="TextBlock19_41B007DA" />
+                        <TextBlock
+                                Text="{Binding ReplayStartTime, Converter={StaticResource DateTimeFormatConverter}}"
+                                   AutomationProperties.AutomationId="TextBlock20_41B007DA" />
+                        <TextBlock Text="{Binding CashoutText}"
+                                   AutomationProperties.AutomationId="TextBlock21_41B007DA" />
+                    </StackPanel>
+                </Border>
+                <Border Margin="5"
+                        HorizontalAlignment="Right"
+                        AutomationProperties.AutomationId="Border22_41B007DA">
+                    <StackPanel Orientation="Horizontal"
+                                AutomationProperties.AutomationId="StackPanel23_41B007DA">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock"
+                                   BasedOn="{StaticResource {x:Type TextBlock}}">
+                                <Setter Property="VerticalAlignment"
+                                        Value="Center" />
+                                <Setter Property="Foreground"
+                                        Value="White" />
+                                <Setter Property="FontSize"
+                                        Value="24" />
+                                <Setter Property="FontWeight"
+                                        Value="Normal" />
+                                <Setter Property="Margin"
+                                        Value="30 0 0 0" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBlock VerticalAlignment="Center"
+                                   FontFamily="Arial"
+                                   FontSize="26"
+                                   FontWeight="Bold"
+                                   Foreground="Gold"
+                                   Margin="30 0 30 0"
+                                   Text="{lex:Loc {Binding ReplayPauseMessageKey}}"
+                                   AutomationProperties.AutomationId="TextBlock24_41B007DA">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Style.Resources>
+                                        <Storyboard x:Key="FlashAnimation"
+                                                    AutomationProperties.AutomationId="Storyboard25_41B007DA">
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                             From="0.25"
+                                                             To="1.0"
+                                                             AutoReverse="True"
+                                                             Duration="0:0:0.5"
+                                                             RepeatBehavior="Forever"
+                                                             AutomationProperties.AutomationId="DoubleAnimation26_41B007DA" />
+                                        </Storyboard>
+                                    </Style.Resources>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsReplayPauseMessageVisible}"
+                                                     Value="True"
+                                                     AutomationProperties.AutomationId="DataTrigger27_41B007DA">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard Name="flash"
+                                                                 Storyboard="{StaticResource FlashAnimation}"
+                                                                 AutomationProperties.AutomationId="BeginStoryboard28_41B007DA" />
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <StopStoryboard BeginStoryboardName="flash"
+                                                                AutomationProperties.AutomationId="StopStoryboard29_41B007DA" />
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <Button Command="{Binding ContinueCommand}"
+                                FontFamily="Arial"
+                                FontSize="30"
+                                FontWeight="Bold"
+                                Foreground="White"
+                                VerticalAlignment="Center"
+                                Visibility="{Binding Path=CanReplayContinue, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                Cursor="Hand"
+                                AutomationProperties.AutomationId="Button30_41B007DA">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Grid Margin="{TemplateBinding Margin}"
+                                                      AutomationProperties.AutomationId="Grid31_41B007DA">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"
+                                                                          AutomationProperties.AutomationId="ColumnDefinition32_41B007DA" />
+                                                        <ColumnDefinition Width="30"
+                                                                          AutomationProperties.AutomationId="ColumnDefinition33_41B007DA" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Border Name="Border"
+                                                            Background="Transparent"
+                                                            Grid.ColumnSpan="2"
+                                                            AutomationProperties.AutomationId="Border34_41B007DA" />
+                                                    <controls:ContentControlEx Grid.Column="0"
+                                                                               Margin="0 0 3 0"
+                                                                               Content="{TemplateBinding Content}"
+                                                                               VerticalAlignment="Bottom"
+                                                                               RecognizesAccessKey="True"
+                                                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                    <iconPacks:PackIconMaterial Name="Icon"
+                                                                                Grid.Column="1"
+                                                                                Kind="ExitToApp"
+                                                                                Width="30"
+                                                                                Height="30"
+                                                                                VerticalAlignment="Center"
+                                                                                HorizontalAlignment="Center" />
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsPressed"
+                                                 Value="True"
+                                                 AutomationProperties.AutomationId="Trigger35_41B007DA">
+                                            <Setter Property="Foreground"
+                                                    Value="{StaticResource Brush3}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Content>
+                                <TextBlock Margin="0"
+                                           Text="{lex:Loc ContinueText}"
+                                           TextDecorations="Underline"
+                                           AutomationProperties.AutomationId="TextBlock36_41B007DA" />
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+
+</UserControl>

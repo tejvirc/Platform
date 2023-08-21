@@ -1,0 +1,119 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.GameLayoutView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:GameLayoutViewModel}, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:ReorderButtonEnabledConverter x:Key="EnabledConverter" />
+            <Style TargetType="Button"
+                   BasedOn="{StaticResource MonacoGridNavButton}">
+                <Setter Property="Height"
+                        Value="40" />
+                <Setter Property="Width"
+                        Value="40" />
+                <Setter Property="Margin"
+                        Value="3" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Name="Grid"
+          AutomationProperties.AutomationId="Grid0_97D8616F">
+        <ScrollViewer MaxHeight="520"
+                      AutomationProperties.AutomationId="ScrollViewer1_97D8616F">
+            <ItemsControl ItemsSource="{Binding Games}"
+                          AutomationProperties.AutomationId="ItemsControl2_97D8616F">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4"
+                                     AutomationProperties.AutomationId="UniformGrid3_97D8616F" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="4"
+                              AutomationProperties.AutomationId="Grid4_97D8616F">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"
+                                               AutomationProperties.AutomationId="RowDefinition5_97D8616F" />
+                                <RowDefinition Height="Auto"
+                                               AutomationProperties.AutomationId="RowDefinition6_97D8616F" />
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0"
+                                   Source="{Binding IconPath}"
+                                   Height="200"
+                                   Width="200"
+                                   AutomationProperties.AutomationId="Image7_97D8616F" />
+                            <StackPanel Grid.Row="1"
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Center"
+                                        AutomationProperties.AutomationId="StackPanel8_97D8616F">
+                                <Button Command="{Binding ElementName=Grid, Path=DataContext.MoveToFirstCommand}"
+                                        CommandParameter="{Binding GameDetail}"
+                                        AutomationProperties.AutomationId="Button9_97D8616F">
+                                    <Button.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource EnabledConverter}"
+                                                      ConverterParameter="Left">
+                                            <Binding Path="GameDetail" />
+                                            <Binding Path="DataContext.Games"
+                                                     ElementName="Grid" />
+                                        </MultiBinding>
+                                    </Button.IsEnabled>
+                                    <iconPacks:PackIconMaterial Kind="PageFirst" />
+                                </Button>
+                                <Button Command="{Binding ElementName=Grid, Path=DataContext.MoveLeftCommand}"
+                                        CommandParameter="{Binding GameDetail}"
+                                        AutomationProperties.AutomationId="Button10_97D8616F">
+                                    <Button.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource EnabledConverter}"
+                                                      ConverterParameter="Left">
+                                            <Binding Path="GameDetail" />
+                                            <Binding Path="DataContext.Games"
+                                                     ElementName="Grid" />
+                                        </MultiBinding>
+                                    </Button.IsEnabled>
+                                    <iconPacks:PackIconMaterial Kind="ChevronLeft" />
+                                </Button>
+                                <Button Command="{Binding ElementName=Grid, Path=DataContext.MoveRightCommand}"
+                                        CommandParameter="{Binding GameDetail}"
+                                        AutomationProperties.AutomationId="Button11_97D8616F">
+                                    <Button.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource EnabledConverter}"
+                                                      ConverterParameter="Right">
+                                            <Binding Path="GameDetail" />
+                                            <Binding Path="DataContext.Games"
+                                                     ElementName="Grid" />
+                                        </MultiBinding>
+                                    </Button.IsEnabled>
+                                    <iconPacks:PackIconMaterial Kind="ChevronRight" />
+                                </Button>
+                                <Button Command="{Binding ElementName=Grid, Path=DataContext.MoveToLastCommand}"
+                                        CommandParameter="{Binding GameDetail}"
+                                        AutomationProperties.AutomationId="Button12_97D8616F">
+                                    <Button.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource EnabledConverter}"
+                                                      ConverterParameter="Right">
+                                            <Binding Path="GameDetail" />
+                                            <Binding Path="DataContext.Games"
+                                                     ElementName="Grid" />
+                                        </MultiBinding>
+                                    </Button.IsEnabled>
+                                    <iconPacks:PackIconMaterial Kind="PageLast" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

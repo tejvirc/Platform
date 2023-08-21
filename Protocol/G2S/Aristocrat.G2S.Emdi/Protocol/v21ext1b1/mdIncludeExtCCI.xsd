@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:CCI="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-09-21 v1b2">
+	<!--Simple Data Types-->
+	<xs:simpleType name="t_deviceId">
+		<xs:annotation>
+			<xs:documentation>deviceId Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="-1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="t_contentId">
+		<xs:annotation>
+			<xs:documentation>contentId Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:long">
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--End of Extension.-->
+</xs:schema>

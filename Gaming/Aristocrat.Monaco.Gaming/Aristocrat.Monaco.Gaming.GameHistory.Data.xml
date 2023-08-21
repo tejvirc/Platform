@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!--This file is no longer used, since game history storage has been refactored to use JSON serializer.-->
+<!--Kept for historical purposes.  Should be deleted at some point.-->
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Gaming.GameHistory.Data">
+    <Fields>
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="DateTime" FieldName="StartDateTime" />
+      <Field DataType="DateTime" FieldName="EndDateTime" />
+      <Field DataType="Int32" FieldName="GameId" />
+      <Field DataType="Int64" FieldName="DenomId" />
+      <Field DataType="Int64" FieldName="StartCredits" />
+      <Field DataType="Int64" FieldName="EndCredits" />
+      <Field DataType="Int32" FieldName="PlayState" />
+      <Field DataType="Int64" FieldName="InitialWager" />
+      <Field DataType="Int64" FieldName="FinalWager" />
+      <Field DataType="Int64" FieldName="InitialWin" />
+      <Field DataType="Int64" FieldName="SecondaryPlayed" />
+      <Field DataType="Int64" FieldName="SecondaryWager" />
+      <Field DataType="Int64" FieldName="SecondaryWin" />
+      <Field DataType="Int64" FieldName="FinalWin" />
+      <Field DataType="DateTime" FieldName="LastUpdate" />
+      <Field DataType="Int32" FieldName="LastIndex" />
+      <Field DataType="String" Size="8" FieldName="LocaleCode" />
+
+      <Field DataType="Byte" Count="2" FieldName="RecoveryBlob" />
+      <Field DataType="Byte" Count="2" FieldName="GameRoundDescriptionBlob" />
+      <Field DataType="Byte" Count="2" FieldName="JackpotInfoBlob" />
+      <Field DataType="Byte" Count="2" FieldName="FreeGameBlob" />
+      <Field DataType="Byte" Count="2" FieldName="JackpotSnapshot" />
+
+      <Field DataType="Int64" FieldName="AmountIn" />
+      <Field DataType="Int64" FieldName="AmountOut" />
+      <Field DataType="Int64" FieldName="PostAmountIn" />
+
+      <Field DataType="Int32" FieldName="ErrorCode" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Gaming.GameHistory.Data">
+    <Fields>
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="DateTime" FieldName="StartDateTime" />
+      <Field DataType="DateTime" FieldName="EndDateTime" />
+      <Field DataType="Int32" FieldName="GameId" />
+      <Field DataType="Int64" FieldName="DenomId" />
+      <Field DataType="Int64" FieldName="StartCredits" />
+      <Field DataType="Int64" FieldName="EndCredits" />
+      <Field DataType="Int32" FieldName="PlayState" />
+      <Field DataType="Int64" FieldName="InitialWager" />
+      <Field DataType="Int64" FieldName="FinalWager" />
+      <Field DataType="Int64" FieldName="InitialWin" />
+      <Field DataType="Int64" FieldName="SecondaryPlayed" />
+      <Field DataType="Int64" FieldName="SecondaryWager" />
+      <Field DataType="Int64" FieldName="SecondaryWin" />
+      <Field DataType="Int64" FieldName="FinalWin" />
+      <Field DataType="DateTime" FieldName="LastUpdate" />
+      <Field DataType="Int32" FieldName="LastIndex" />
+      <Field DataType="String" Size="8" FieldName="LocaleCode" />
+
+      <Field DataType="Byte" Count="2" FieldName="RecoveryBlob" />
+      <Field DataType="Byte" Count="2" FieldName="GameRoundDescriptionBlob" />
+      <Field DataType="Byte" Count="2" FieldName="JackpotInfoBlob" />
+      <Field DataType="Byte" Count="2" FieldName="FreeGameBlob" />
+      <Field DataType="Byte" Count="2" FieldName="CashOutBlob" />
+      <Field DataType="Byte" Count="2" FieldName="JackpotSnapshot" />
+
+      <Field DataType="Int64" FieldName="AmountOut" />
+
+      <Field DataType="Int32" FieldName="ErrorCode" />
+      <Field DataType="Byte" Count="2" FieldName="TransactionsBlob" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="3" name="Aristocrat.Monaco.Gaming.GameHistory.Data">
+    <Fields>
+      <Field DataType="Int64" FieldName="TransactionId" />
+      <Field DataType="Int64" FieldName="LogSequence" />
+      <Field DataType="DateTime" FieldName="StartDateTime" />
+      <Field DataType="DateTime" FieldName="EndDateTime" />
+      <Field DataType="Int32" FieldName="GameId" />
+      <Field DataType="Int64" FieldName="DenomId" />
+      <Field DataType="Int64" FieldName="StartCredits" />
+      <Field DataType="Int64" FieldName="EndCredits" />
+      <Field DataType="Int32" FieldName="PlayState" />
+      <Field DataType="Int64" FieldName="InitialWager" />
+      <Field DataType="Int64" FieldName="FinalWager" />
+      <Field DataType="Int64" FieldName="InitialWin" />
+      <Field DataType="Int64" FieldName="SecondaryPlayed" />
+      <Field DataType="Int64" FieldName="SecondaryWager" />
+      <Field DataType="Int64" FieldName="SecondaryWin" />
+      <Field DataType="Int64" FieldName="FinalWin" />
+      <Field DataType="DateTime" FieldName="LastUpdate" />
+      <Field DataType="Int32" FieldName="LastIndex" />
+      <Field DataType="String" Size="8" FieldName="LocaleCode" />
+
+      <Field DataType="Byte" Count="2" FieldName="RecoveryBlob" />
+      <Field DataType="Byte" Count="2" FieldName="GameRoundDescriptionBlob" />
+      <Field DataType="Byte" Count="2" FieldName="JackpotInfoBlob" />
+      <Field DataType="Byte" Count="2" FieldName="FreeGameBlob" />
+      <Field DataType="Byte" Count="2" FieldName="CashOutBlob" />
+      <Field DataType="Byte" Count="2" FieldName="JackpotSnapshot" />
+
+      <Field DataType="Int64" FieldName="AmountOut" />
+
+      <Field DataType="Int32" FieldName="ErrorCode" />
+      <Field DataType="Byte" Count="2" FieldName="TransactionsBlob" />
+      <Field DataType="Byte" Count="2" FieldName="EventsBlob" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Addin id="Monaco.Application.UI.ConfigWizard" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Application.UI.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="Monaco.Application.UI" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Application/Config/Wizards">
+    <Wizard type="Aristocrat.Monaco.Application.UI.Loaders.TimeConfigPageLoader" order="2" />
+    <Wizard type="Aristocrat.Monaco.Application.UI.ConfigWizard.HardwareConfigLoader" order="1"/>
+    <Wizard type="Aristocrat.Monaco.Application.UI.ConfigWizard.IdentityConfigLoader" order="3" />
+    <Wizard type="Aristocrat.Monaco.Application.UI.ConfigWizard.MachineConfigLoader" order="4"/>
+  </Extension>
+
+  <Extension path="/Application/Config/Jurisdiction">
+    <JurisdictionWizard type="Aristocrat.Monaco.Application.UI.ConfigWizard.JurisdictionConfigLoader" />
+  </Extension>
+
+  <Extension path="/Application/Config/Protocol">
+    <ProtocolWizard type="Aristocrat.Monaco.Application.UI.ConfigWizard.ProtocolConfigLoader" />
+    <ProtocolWizard type="Aristocrat.Monaco.Application.UI.ConfigWizard.MultiProtocolConfigLoader" />
+  </Extension>
+</Addin>

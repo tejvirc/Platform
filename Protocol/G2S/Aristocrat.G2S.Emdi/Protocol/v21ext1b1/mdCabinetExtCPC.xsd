@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:CPC="http://www.gamingstandards.com/emdi/schemas/v1b/CPC" xmlns="http://mediaDisplay.igt.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:CCI="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" targetNamespace="http://www.gamingstandards.com/emdi/schemas/v1b/CPC" elementFormDefault="qualified" attributeFormDefault="qualified" version="2012-09-21 v1b2">
+	<xs:import namespace="http://mediaDisplay.igt.com" schemaLocation="mdInclude.xsd"/>
+	<xs:import namespace="http://www.gamingstandards.com/emdi/schemas/v1b/CCI" schemaLocation="mdIncludeExtCCI.xsd"/>
+	<!--Simple Types-->
+	<xs:attributeGroup name="p_setCardRemoved">
+		<xs:annotation>
+			<xs:documentation>setCardRemoved Attributes.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="idReaderId" type="CCI:t_deviceId" use="required"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="p_cardStatusExtCPC">
+		<xs:annotation>
+			<xs:documentation>cardStatus Command Extension.</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="idReaderId" type="CCI:t_deviceId" use="optional" default="0"/>
+	</xs:attributeGroup>
+	<!--Complex Types-->
+	<xs:complexType name="c_setCardRemoved">
+		<xs:annotation>
+			<xs:documentation>setCardRemoved Data Type.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="c_baseCommand">
+				<xs:attributeGroup ref="CPC:p_setCardRemoved"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!--Elements-->
+	<xs:element name="setCardRemoved">
+		<xs:annotation>
+			<xs:documentation>setCardRemoved Command.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="CPC:c_setCardRemoved">
+					<xs:anyAttribute namespace="##other" processContents="lax"/>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<!--End of Extension.-->
+</xs:schema>

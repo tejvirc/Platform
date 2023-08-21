@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="PersistenceCriticalCleared">
+  <Fields>
+    <Field DataType="DateTime" FieldName="LastClearTime" />
+    <Field DataType="Bool" FieldName="JustExecuted" />
+  </Fields>
+</BlockFormat>

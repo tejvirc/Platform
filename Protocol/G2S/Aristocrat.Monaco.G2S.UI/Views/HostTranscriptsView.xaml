@@ -1,0 +1,252 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.G2S.UI.Views.HostTranscriptsView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance viewModels:HostTranscriptsViewModel, IsDesignTimeCreatable=False}"
+                               FocusManager.FocusedElement="{Binding ElementName=MainMenu}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:DateTimeFormatConverter x:Key="DateTimeFormat" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_66620A3A">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_66620A3A" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_66620A3A" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_66620A3A" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_66620A3A" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_66620A3A" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition6_66620A3A" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_66620A3A" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition8_66620A3A" />
+            <RowDefinition AutomationProperties.AutomationId="RowDefinition9_66620A3A" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              AutomationProperties.AutomationId="Grid10_66620A3A">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition11_66620A3A" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition12_66620A3A" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition13_66620A3A" />
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition14_66620A3A" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{lex:Loc CommsInfo_EgmId}"
+                   AutomationProperties.AutomationId="Label15_66620A3A" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       Margin="20 0 0 0"
+                       Text="{Binding EgmId}"
+                       VerticalAlignment="Center"
+                       AutomationProperties.AutomationId="TextBlock16_66620A3A" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Content="{lex:Loc CommsInfo_Address}"
+                   AutomationProperties.AutomationId="Label17_66620A3A" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       Margin="20 0 0 0"
+                       Text="{Binding EgmAddress}"
+                       VerticalAlignment="Center"
+                       AutomationProperties.AutomationId="TextBlock18_66620A3A" />
+        </Grid>
+        <Border Grid.Row="1"
+                Margin="0 20 0 0"
+                AutomationProperties.AutomationId="Border19_66620A3A">
+            <DataGrid x:Name="CommsDevice"
+                      ItemsSource="{Binding CommsInfoData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      AutomationProperties.AutomationId="DataGrid20_66620A3A"
+                      loc:Localizer.For="Operator">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_HostId}"
+                                        Width="Auto"
+                                        Binding="{Binding HostId}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn21_66620A3A" 
+                                        loc:Localizer.For="Operator"/>
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_Address}"
+                                        Width="Auto"
+                                        Binding="{Binding Address}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn22_66620A3A"
+                                        loc:Localizer.For="Operator" />
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_TransportState}"
+                                        Width="Auto"
+                                        Binding="{Binding TransportState}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn23_66620A3A" 
+                                        loc:Localizer.For="Operator"/>
+                    <DataGridTextColumn Header="{lex:Loc State}"
+                                        Width="Auto"
+                                        Binding="{Binding State}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn24_66620A3A"
+                                        loc:Localizer.For="Operator" />
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_OutboundOverflow}"
+                                        Width="Auto"
+                                        Binding="{Binding OutboundOverflow}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn25_66620A3A"
+                                        loc:Localizer.For="Operator" />
+                    <DataGridTextColumn Header="{lex:Loc CommsInfo_InboundOverflow}"
+                                        Width="Auto"
+                                        Binding="{Binding InboundOverflowText}"
+                                        AutomationProperties.AutomationId="DataGridTextColumn26_66620A3A"
+                                        loc:Localizer.For="Operator" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+        <Separator Grid.Row="2"
+                   AutomationProperties.AutomationId="Separator27_66620A3A" />
+        <Button x:Name="HostTranscriptsButton"
+                Grid.Row="3"
+                Visibility="Collapsed"
+                Content="{lex:Loc HostTranscriptsViewDetail}"
+                Command="{Binding ViewHostTranscriptsCommand, Mode=OneWay}"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Margin="5"
+                AutomationProperties.AutomationId="Button28_66620A3A" />
+        <Label x:Name="TranscriptsLabel"
+               Grid.Row="4"
+               Content="{lex:Loc Transcripts}"
+               Margin="0 0 0 20"
+               AutomationProperties.AutomationId="Label29_66620A3A" />
+        <DataGrid x:Name="HostTranscriptViewer"
+                  Grid.Row="5"
+                  Grid.RowSpan="4"
+                  Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+                  SelectedItem="{Binding SelectedHostTranscript, Mode=TwoWay}"
+                  ItemsSource="{Binding HostTranscriptsData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  ScrollViewer.CanContentScroll="True"
+                  AutomationProperties.AutomationId="DataGrid30_66620A3A"
+                  loc:Localizer.For="Operator">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsDateReceived}"
+                                    Width="Auto"
+                                    Binding="{Binding DateReceived, Converter={StaticResource DateTimeFormat}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn31_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsToLocation}"
+                                    Width="Auto"
+                                    Binding="{Binding ToLocation}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn32_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsSessionType}"
+                                    Width="Auto"
+                                    Binding="{Binding SessionType}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn33_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsSessionId}"
+                                    Width="Auto"
+                                    Binding="{Binding SessionId}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn34_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsCommandId}"
+                                    Width="Auto"
+                                    Binding="{Binding CommandId}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn35_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsDevice}"
+                                    Width="Auto"
+                                    Binding="{Binding Device}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn36_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsSummary}"
+                                    Width="Auto"
+                                    Binding="{Binding Summary}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn37_66620A3A" />
+                <DataGridTextColumn Header="{lex:Loc HostTranscriptsErrorCode}"
+                                    Width="Auto"
+                                    Binding="{Binding ErrorCode}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn38_66620A3A"
+                                    loc:Localizer.For="Operator" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <GroupBox x:Name="GroupBoxGameInfo"
+                  Grid.Row="6"
+                  Margin="0 10 0 0"
+                  Width="10"
+                  Height="10"
+                  Visibility="Hidden"
+                  IsEnabled="False"
+                  AutomationProperties.AutomationId="GroupBox39_66620A3A">
+            <GroupBox.Header>
+                <TextBlock x:Name="TextBlockGameRoundInfo"
+                           Visibility="Hidden"
+                           IsEnabled="False"
+                           Text="{lex:Loc HostTranscriptsViewTitle}"
+                           AutomationProperties.AutomationId="TextBlock40_66620A3A" />
+            </GroupBox.Header>
+            <ScrollViewer x:Name="ScrollGameInfo"
+                          Visibility="Hidden"
+                          IsEnabled="False"
+                          Width="5"
+                          Height="5"
+                          CanContentScroll="True"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled"
+                          AutomationProperties.AutomationId="ScrollViewer41_66620A3A">
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar">
+                        <Style.Triggers>
+                            <Trigger Property="Orientation"
+                                     Value="Vertical"
+                                     AutomationProperties.AutomationId="Trigger42_66620A3A">
+                                <Setter Property="Width"
+                                        Value="40" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ScrollViewer.Resources>
+                <TextBlock x:Name="TextBlockHostInfo"
+                           Visibility="Visible"
+                           IsEnabled="False"
+                           Text="{Binding SelectedHostTranscriptText}"
+                           AutomationProperties.AutomationId="TextBlock43_66620A3A" />
+            </ScrollViewer>
+        </GroupBox>
+        <Grid Grid.Row="7"
+              Visibility="{Binding Path=ShowHostTranscripts, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              AutomationProperties.AutomationId="Grid44_66620A3A">
+            <Border HorizontalAlignment="Stretch"
+                    VerticalAlignment="Bottom"
+                    AutomationProperties.AutomationId="Border45_66620A3A">
+                <DockPanel LastChildFill="True"
+                           AutomationProperties.AutomationId="DockPanel46_66620A3A">
+                    <Label Content="{lex:Loc HostTranscriptsDetailTitle}"
+                           DockPanel.Dock="Top"
+                           HorizontalAlignment="Left"
+                           AutomationProperties.AutomationId="Label47_66620A3A" />
+                    <Button DockPanel.Dock="Bottom"
+                            Content="{lex:Loc Close}"
+                            Command="{Binding CloseDetailCommand}"
+                            HorizontalAlignment="Right"
+                            AutomationProperties.AutomationId="Button48_66620A3A" />
+                    <Label Margin="10"
+                           DockPanel.Dock="Bottom"
+                           Content="{Binding SelectedHostTranscript.RawData}"
+                           HorizontalAlignment="Center"
+                           AutomationProperties.AutomationId="Label49_66620A3A" />
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

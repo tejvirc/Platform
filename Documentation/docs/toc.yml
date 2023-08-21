@@ -1,0 +1,28 @@
+- name: Overview
+  href: index.md
+- name: Getting Started
+  items:
+    - name: Building and Running the Monaco Platform
+      href: getting-started/building.md
+    - name: Command-Line Arguments
+      href: getting-started/command-line.md
+    - name: Keyboard Commands
+      href: getting-started/keyboard.md
+- name: Architecture
+  items:
+    - name: Platform System Architecture
+      href: architecture/platform.md
+- name: Design
+  items:
+    - name: Multi-Language Support
+      href: design/localization.md
+- name: Development
+  items:
+    - name: Principles & Practices
+      href: development/principles.md
+- name: How to?
+  items:
+    - name: Add Jurisdiction
+      href: howto/add-jurisdiction.md
+    - name: Add Resource String
+      href: howto/add-resource-string.md

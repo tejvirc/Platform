@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<Addin id="GamingConfigScreen" namespace="Client12Addins" version="1.0">
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Gaming.UI.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="Monaco.Application.UI" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Application/Config/Wizards">
+    <Wizard type="Aristocrat.Monaco.Gaming.UI.Config.GamingConfigWizard" order="5"/>
+  </Extension>
+
+</Addin>

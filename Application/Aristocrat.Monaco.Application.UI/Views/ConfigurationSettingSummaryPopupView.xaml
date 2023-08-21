@@ -1,0 +1,105 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.ConfigurationSettingSummaryPopupView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:local="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:common="http://monaco.aristocrat.com/common"
+                               xmlns:models="clr-namespace:Aristocrat.Monaco.Application.UI.Models"
+                               mc:Ignorable="d"
+                               d:DesignHeight="400"
+                               d:DesignWidth="400"
+                               d:DataContext="{d:DesignInstance {x:Type local:ConfigurationSettingSummaryPopupViewModel}}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <common:TextCaseConverter x:Key="TextCase" />
+            <Style x:Key="SettingNameStyle"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource {x:Type TextBlock}}">
+                <Setter Property="Margin"
+                        Value="0 0 20 10" />
+                <Setter Property="FontSize"
+                        Value="{DynamicResource Heading4FontSize}" />
+                <Setter Property="TextWrapping"
+                        Value="Wrap" />
+                <Setter Property="VerticalAlignment"
+                        Value="Top" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="Width"
+                        Value="600" />
+            </Style>
+            <Style x:Key="SettingValueStyle"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource {x:Type TextBlock}}">
+                <Setter Property="Foreground"
+                        Value="{StaticResource WhiteColorBrush}" />
+                <Setter Property="TextWrapping"
+                        Value="Wrap" />
+                <Setter Property="VerticalAlignment"
+                        Value="Top" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+            </Style>
+            <DataTemplate x:Key="SettingsViewer"
+                          DataType="models:ConfigurationSetting">
+                <Grid AutomationProperties.AutomationId="Grid0_595BAD01">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"
+                                       AutomationProperties.AutomationId="RowDefinition1_595BAD01" />
+                        <RowDefinition Height="*"
+                                       AutomationProperties.AutomationId="RowDefinition2_595BAD01" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Padding="0 5 0 5"
+                            AutomationProperties.AutomationId="Border3_595BAD01">
+                        <Label Content="{Binding Name}" Foreground="{DynamicResource MahApps.Brushes.ThemeBackground}" 
+                               AutomationProperties.AutomationId="Label4_595BAD01" />
+                    </Border>
+                    <Border Grid.Row="1"
+                            Padding="0 12 0 5"
+                            AutomationProperties.AutomationId="Border5_595BAD01">
+                        <ContentControl Content="{Binding Settings}"
+                                        AutomationProperties.AutomationId="ContentControl6_595BAD01" />
+                    </Border>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid7_595BAD01">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition8_595BAD01" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition9_595BAD01" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition10_595BAD01" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition11_595BAD01" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0"
+               Content="{Binding WindowText}"
+               HorizontalAlignment="Center"
+               Margin="20"
+               AutomationProperties.AutomationId="Label12_595BAD01" />
+        <Label Grid.Row="1"
+               Content="{Binding WindowInfoText}"
+               HorizontalAlignment="Center"
+               Style="{StaticResource MonacoWarningLabel}"
+               AutomationProperties.AutomationId="Label13_595BAD01" />
+        <ListBox Grid.Row="2"
+                 Visibility="Visible"
+                 IsEnabled="True"
+                 HorizontalAlignment="Stretch"
+                 Style="{StaticResource MonacoScrollButtonsListBox}"
+                 BorderBrush="{StaticResource Brush3}"
+                 ItemsSource="{Binding ConfigurationSettings}"
+                 ItemTemplate="{StaticResource SettingsViewer}"
+                 MaxHeight="500"
+                 AutomationProperties.AutomationId="ListBox14_595BAD01" />
+    </Grid>
+</operatorMenu:OperatorMenuPage>

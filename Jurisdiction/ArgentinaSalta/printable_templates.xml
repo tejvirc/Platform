@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DPT_Collection
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../bin/Template.xsd">
+  <DPT name="text" id="101" t_dim_da="500" t_dim_pa="2020">100 101 102 103</DPT>
+  <DPT name="cashout" id="102" t_dim_da="508" t_dim_pa="1240">107 121 123 106 117 124 125 126 114 115 118 119 120</DPT>
+  <DPT name="jackpot" id="103" t_dim_da="508" t_dim_pa="1240">107 121 123 106 130 128 125 127 129 131 132 118 119 120</DPT>
+  <DPT name="handpay receipt" id="104" t_dim_da="508" t_dim_pa="1240">107 121 123 106 130 128 125 127 129 131 132 118 119 120</DPT>
+  <DPT name="auditText" id="105" t_dim_da="500" t_dim_pa="2020">100 101 102 103</DPT>
+  <DPT name="jackpot no barcode" id="106" t_dim_da="508" t_dim_pa="1240">121 123 106 128 125 127 129 131 132 118</DPT>
+  <DPT name="handpay receipt no barcode" id="107" t_dim_da="508" t_dim_pa="1240">121 123 106 128 125 127 129 131 132 118</DPT>
+</DPT_Collection>
+

@@ -1,0 +1,113 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyName>Monaco.Application.Contracts</AssemblyName>
+    <AssemblyTitle>Monaco.Application.Contracts</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <OutputPath>..\..\bin\$(Configuration)\Platform\bin\</OutputPath>
+    <Platform>x64</Platform>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;CODE_ANALYSIS;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Monaco.Application.Contracts.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DocumentationFile>..\..\bin\$(Configuration)\Platform\bin\Monaco.Application.Contracts.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>CODE_ANALYSIS;TRACE;RETAIL</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="ApplicationConfiguration.cs">
+      <DependentUpon>ApplicationConfiguration.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="CabinetCapability\CabinetFeatures.cs">
+      <DependentUpon>CabinetFeatures.xsd</DependentUpon>
+      <SubType>code</SubType>
+    </Compile>
+    <Compile Update="ConfigWizard\ConfigWizardConfiguration.cs">
+      <DependentUpon>ConfigWizardConfiguration.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="ErrorMessage\ErrorMessageConfiguration.cs">
+      <DependentUpon>ErrorMessageConfiguration.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Media\BrowserConfiguration.cs">
+      <DependentUpon>BrowserConfiguration.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Metering\HardMeterMappingConfiguration.cs">
+      <DependentUpon>HardMeterMappingConfiguration.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="MeterPage\DisplayMetersConfiguration.cs">
+      <DependentUpon>DisplayMetersConfiguration.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="OperatorMenu\OperatorMenuConfiguration.cs">
+      <DependentUpon>OperatorMenuConfiguration.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="TiltLogger\TiltLoggerConfiguration.cs">
+      <DependentUpon>TiltLoggerConfiguration.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ApplicationConfiguration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CabinetCapability\CabinetFeatures.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ConfigWizard\ConfigWizardConfiguration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ErrorMessage\ErrorMessageConfiguration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="LocaleConfiguration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Media\BrowserConfiguration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Metering\HardMeterMappingConfiguration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MeterPage\DisplayMetersConfiguration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="OperatorMenu\OperatorMenuConfiguration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="TiltLogger\TiltLoggerConfiguration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="TowerLight\TowerLightConfiguration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Interop.NetFwTypeLib" Version="1.0.0" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Flee" Version="1.2.2" />
+    <PackageReference Include="Mono.Addins" Version="1.4.1" />
+    <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
+  </ItemGroup>
+</Project>

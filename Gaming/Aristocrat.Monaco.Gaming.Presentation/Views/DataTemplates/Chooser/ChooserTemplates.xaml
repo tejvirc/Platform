@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:models="clr-namespace:Aristocrat.Monaco.Gaming.UI.Models;assembly=Aristocrat.Monaco.Gaming.UI"
+                    xmlns:managedBink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
+                    xmlns:gif="http://wpfanimatedgif.codeplex.com">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Shared/SharedTemplates.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <DataTemplate x:Key="GameButtonIconVideoDataTemplate" DataType="{x:Type models:GameInfo}">
+        <Grid VerticalAlignment="Top">
+            <managedBink:BinkViewerControl Stretch="None"
+                                           Filename="{Binding ImagePath}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="GameButtonIconImageDataTemplate" DataType="{x:Type models:GameInfo}">
+        <Grid VerticalAlignment="Top">
+            <Image RenderOptions.BitmapScalingMode="HighQuality"
+                   gif:ImageBehavior.AnimatedSource="{Binding ImagePath}" />
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>

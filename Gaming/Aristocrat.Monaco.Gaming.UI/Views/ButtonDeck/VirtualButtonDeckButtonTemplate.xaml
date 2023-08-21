@@ -1,0 +1,196 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="http://monaco.aristocrat.com/common"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+                    mc:Ignorable="d">
+    <ResourceDictionary.MergedDictionaries>
+        <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+         <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
+        <!-- Accent and AppTheme setting -->
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+         <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
+
+        <ResourceDictionary Source="../../Skins/Styles.xaml" />
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+        <!-- Jurisdiction xaml dictionary is loaded dynamically; see SkinLoader -->
+    </ResourceDictionary.MergedDictionaries>
+    <converters:InverseBooleanConverter x:Key="InverseBool" />
+    <DataTemplate x:Key="StandardTemplate">
+        <Grid d:DataContext="{d:DesignInstance Type=viewModels:LobbyViewModel, IsDesignTimeCreatable=False}"
+              AutomationProperties.AutomationId="Grid0_6A439053">
+            <Button x:Name="btnCashOut"
+                    Margin="83 162 0 0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    IsEnabled="{Binding Path=CashOutEnabled}"
+                    Command="{Binding Path=CashOutCommand}"
+                    CommandParameter="vbd"
+                    Width="Auto"
+                    Height="Auto"
+                    Style="{StaticResource stlFlatButton}"
+                    AutomationProperties.AutomationId="Button1_6A439053">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Name="cashOutImage"
+                               Stretch="None"
+                               Source="{DynamicResource VBD_CashOutNormal}"
+                               AutomationProperties.AutomationId="Image2_6A439053" />
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=btnCashOut, Path=IsEnabled}"
+                                         Value="False"
+                                         AutomationProperties.AutomationId="DataTrigger3_6A439053">
+                                <Setter TargetName="cashOutImage"
+                                        Property="Source"
+                                        Value="{DynamicResource VBD_CashOutDisabled}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="btnMoney"
+                    Margin="0 130 30 0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    IsEnabled="{Binding IsDebugMoneyEnabled}"
+                    Command="{Binding Path=AddDebugCashCommand}"
+                    Width="Auto"
+                    Height="Auto"
+                    Style="{StaticResource stlFlatButton}"
+                    Visibility="{Binding IsDebugCurrencyButtonVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                    AutomationProperties.AutomationId="Button4_6A439053">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Name="cashImage"
+                               Stretch="None"
+                               Source="{DynamicResource VBD_MoneyNormal}"
+                               AutomationProperties.AutomationId="Image5_6A439053" />
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=btnMoney, Path=IsEnabled}"
+                                         Value="False"
+                                         AutomationProperties.AutomationId="DataTrigger6_6A439053">
+                                <Setter TargetName="cashImage"
+                                        Property="Source"
+                                        Value="{DynamicResource VBD_MoneyDisabled}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="ServiceButtonTemplate">
+        <Grid d:DataContext="{d:DesignInstance Type=viewModels:LobbyViewModel, IsDesignTimeCreatable=False}"
+              AutomationProperties.AutomationId="Grid7_6A439053">
+            <Grid Margin="83 0 0 0"
+                  AutomationProperties.AutomationId="Grid8_6A439053">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition9_6A439053" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition10_6A439053" />
+                </Grid.RowDefinitions>
+                <Button x:Name="btnCashOut"
+                        Grid.Row="0"
+                        Margin="0 180 0 0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        IsEnabled="{Binding Path=CashOutEnabled}"
+                        Command="{Binding Path=CashOutCommand}"
+                        CommandParameter="vbd"
+                        Width="Auto"
+                        Height="Auto"
+                        Style="{StaticResource stlFlatButton}"
+                        AutomationProperties.AutomationId="Button11_6A439053">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Image Name="cashOutImage"
+                                   Stretch="None"
+                                   Source="{DynamicResource VBD_CashOutNormal}"
+                                   AutomationProperties.AutomationId="Image12_6A439053" />
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=btnCashOut, Path=IsEnabled}"
+                                             Value="False"
+                                             AutomationProperties.AutomationId="DataTrigger13_6A439053">
+                                    <Setter TargetName="cashOutImage"
+                                            Property="Source"
+                                            Value="{DynamicResource VBD_CashOutDisabled}" />
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="btnService"
+                        Grid.Row="1"
+                        Margin="0 52 0 0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Command="{Binding Path=ServiceCommand}"
+                        CommandParameter="vbd"
+                        Visibility="Visible"
+                        Width="Auto"
+                        Height="Auto"
+                        IsEnabled="{Binding VbdServiceButtonDisabled, Converter={StaticResource InverseBool}}"
+                        Style="{StaticResource stlFlatButton}"
+                        AutomationProperties.AutomationId="Button14_6A439053">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Image Name="serviceImage"
+                                   Stretch="None"
+                                   Source="{DynamicResource VBD_ServiceNormal}"
+                                   AutomationProperties.AutomationId="Image15_6A439053" />
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=btnService, Path=IsEnabled}"
+                                             Value="False"
+                                             AutomationProperties.AutomationId="DataTrigger16_6A439053">
+                                    <Setter TargetName="serviceImage"
+                                            Property="Source"
+                                            Value="{DynamicResource VBD_ServiceDisabled}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsServiceRequested}"
+                                             Value="True"
+                                             AutomationProperties.AutomationId="DataTrigger17_6A439053">
+                                    <Setter TargetName="serviceImage"
+                                            Property="Source"
+                                            Value="{DynamicResource VBD_ServicePressed}" />
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+            <Button x:Name="btnMoney"
+                    Margin="0 130 30 0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    IsEnabled="{Binding IsDebugMoneyEnabled}"
+                    Command="{Binding Path=AddDebugCashCommand}"
+                    Width="Auto"
+                    Height="Auto"
+                    Style="{StaticResource stlFlatButton}"
+                    Visibility="{Binding IsDebugCurrencyButtonVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                    AutomationProperties.AutomationId="Button18_6A439053">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Name="cashImage"
+                               Stretch="None"
+                               Source="{DynamicResource VBD_MoneyNormal}"
+                               AutomationProperties.AutomationId="Image19_6A439053" />
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=btnMoney, Path=IsEnabled}"
+                                         Value="False"
+                                         AutomationProperties.AutomationId="DataTrigger20_6A439053">
+                                <Setter TargetName="cashImage"
+                                        Property="Source"
+                                        Value="{DynamicResource VBD_MoneyDisabled}" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

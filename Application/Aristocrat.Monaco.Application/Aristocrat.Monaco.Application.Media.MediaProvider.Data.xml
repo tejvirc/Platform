@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" Name="Aristocrat.Monaco.Application.Media.MediaProvider.Data">
+  <Fields>
+    <Field FieldName="MediaPlayer.Id" DataType="Int32" />
+    <Field FieldName="MediaPlayer.Description" DataType="String" Size="64" />
+    <Field FieldName="MediaPlayer.DisplayPosition" DataType="Int32" />
+    <Field FieldName="MediaPlayer.Priority" DataType="Int32" />
+    <Field FieldName="MediaPlayer.Status" DataType="Int32" />
+  </Fields>
+</BlockFormat>

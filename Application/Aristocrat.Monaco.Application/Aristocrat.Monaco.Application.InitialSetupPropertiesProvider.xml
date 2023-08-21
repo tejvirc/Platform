@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" ?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Application.InitialSetupPropertiesProvider">
+  <Fields>
+    <Field DataType="Int32" FieldName="LastPageViewedIndex" />
+    <Field DataType="Bool" FieldName="SelectionPagesDone" />
+  </Fields>
+</BlockFormat>

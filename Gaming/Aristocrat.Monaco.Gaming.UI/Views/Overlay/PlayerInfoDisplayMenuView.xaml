@@ -1,0 +1,129 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Gaming.UI.Views.Overlay.PlayerInfoDisplayMenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+             x:Name="PlayerInfoDisplayMenu"
+             mc:Ignorable="d"
+             Width="auto"
+             Height="auto"
+             d:DataContext="{d:DesignInstance {x:Type viewModels:PlayerInfoDisplayMenuViewModel}}"
+             AutomationProperties.AutomationId="UserControl0_5B7B9610">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="ExitButtonStyle"
+                   TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Image Name="ExitButtonImage"
+                                   Stretch="None"
+                                   Source="{Binding ExitButtonPath}"
+                                   AutomationProperties.AutomationId="Image1_5B7B9610" />
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger2_5B7B9610">
+                                    <Setter TargetName="ExitButtonImage"
+                                            Property="Source"
+                                            Value="{Binding ExitButtonPressedPath}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="GameInfoButtonStyle"
+                   TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Image Name="GameInfoButtonImage"
+                                   Stretch="None"
+                                   Source="{Binding GameInfoButtonPath}"
+                                   AutomationProperties.AutomationId="Image3_5B7B9610" />
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger4_5B7B9610">
+                                    <Setter TargetName="GameInfoButtonImage"
+                                            Property="Source"
+                                            Value="{Binding GameInfoButtonPressedPath}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="GameRulesButtonStyle"
+                   TargetType="Button">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Image Name="GameRulesButtonImage"
+                                   Stretch="None"
+                                   Source="{Binding GameRulesButtonPath}"
+                                   AutomationProperties.AutomationId="Image5_5B7B9610" />
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed"
+                                         Value="True"
+                                         AutomationProperties.AutomationId="Trigger6_5B7B9610">
+                                    <Setter TargetName="GameRulesButtonImage"
+                                            Property="Source"
+                                            Value="{Binding GameRulesButtonPressedPath}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="OuterGrid"
+          AutomationProperties.AutomationId="Grid7_5B7B9610">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition8_5B7B9610"></RowDefinition>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition9_5B7B9610"></RowDefinition>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition10_5B7B9610"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition11_5B7B9610"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition12_5B7B9610"></ColumnDefinition>
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition13_5B7B9610"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="1"
+                    Grid.Row="1"
+                    AutomationProperties.AutomationId="StackPanel14_5B7B9610">
+            <!-- Game Info button -->
+            <Button Click="HandleNonClosingPress"
+                    Visibility="{Binding IsGameInfoButtonVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                    Name="GameInfoButton"
+                    Style="{StaticResource GameInfoButtonStyle}"
+                    Command="{Binding GameInfoClickedCommand}"
+                    AutomationProperties.AutomationId="Button15_5B7B9610"></Button>
+            <!-- Game Rules button -->
+            <Button Click="HandleNonClosingPress"
+                    Visibility="{Binding IsGameRulesButtonVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                    Name="GameRulesButton"
+                    Style="{StaticResource GameRulesButtonStyle}"
+                    Command="{Binding GameRulesClickedCommand}"
+                    AutomationProperties.AutomationId="Button16_5B7B9610"></Button>
+            <!-- Exit button -->
+            <Button Click="HandleNonClosingPress"
+                    Name="ExitButton"
+                    Command="{Binding ExitClickedCommand}"
+                    Style="{StaticResource ExitButtonStyle}"
+                    AutomationProperties.AutomationId="Button17_5B7B9610"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

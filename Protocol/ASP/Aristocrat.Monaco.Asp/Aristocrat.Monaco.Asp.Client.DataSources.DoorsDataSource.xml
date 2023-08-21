@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Asp.Client.DataSources.DoorsDataSource">
+    <Fields>
+      <Field DataType="Int32" FieldName="IllegalMainDoorOpenedCountField" />
+      <Field DataType="Int32" FieldName="IllegalCashBoxOpenedCountField" />
+      <Field DataType="Int32" FieldName="IllegalBillStackerOpenedCountField" /> 
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat> 

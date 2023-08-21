@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="Vgt.Client12.Accounting.VoucherInMetersProvider.xml" ElementSize="128">
+  <Fields>
+    <Field DataType="Int64" Size="8" Count="0" Offset="0" FieldName="VoucherInCashableValueLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="8" FieldName="VoucherInCashableValuePeriod" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="16" FieldName="VoucherInCashableCountLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="24" FieldName="VoucherInCashableCountPeriod" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="32" FieldName="VoucherInCashablePromotionalValueLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="40" FieldName="VoucherInCashablePromotionalValuePeriod" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="48" FieldName="VoucherInCashablePromotionalCountLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="56" FieldName="VoucherInCashablePromotionalCountPeriod" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="64" FieldName="VoucherInNonCashablePromotionalValueLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="72" FieldName="VoucherInNonCashablePromotionalValuePeriod" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="80" FieldName="VoucherInNonCashablePromotionalCountLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="88" FieldName="VoucherInNonCashablePromotionalCountPeriod" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="96" FieldName="VoucherInNonTransferablePromotionalValueLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="104" FieldName="VoucherInNonTransferablePromotionalValuePeriod" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="112" FieldName="VoucherInNonTransferablePromotionalCountLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="120" FieldName="VoucherInNonTransferablePromotionalCountPeriod" />
+  </Fields>
+</BlockFormat>

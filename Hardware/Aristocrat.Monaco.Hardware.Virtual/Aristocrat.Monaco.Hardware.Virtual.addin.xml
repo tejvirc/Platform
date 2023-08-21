@@ -1,0 +1,17 @@
+﻿<Addin id="VirtualCommunicatorDrivers" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Hardware.Virtual.dll"/>
+    <Import assembly="Aristocrat.Monaco.Hardware.Contracts.dll"/>
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Hardware" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Hardware/CommunicatorDrivers">
+    <DeviceImplementation ProtocolName="Virtual" type="Aristocrat.Monaco.Hardware.Virtual.VirtualCommunicator"/>
+    <DeviceImplementation ProtocolName="Virtual2" type="Aristocrat.Monaco.Hardware.Virtual.EgmControlledIdReader"/>
+  </Extension>
+
+</Addin>

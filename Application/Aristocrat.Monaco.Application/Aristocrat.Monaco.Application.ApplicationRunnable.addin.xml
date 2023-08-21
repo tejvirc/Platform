@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+
+<Addin  id="ApplicationRunnable" namespace="Client12Addins" version="1.0">
+
+    <Runtime>
+        <Import assembly="Aristocrat.Monaco.Application.dll" />
+    </Runtime>
+
+    <Dependencies>
+        <Addin id="HardwareRunnable" version="1.0" />
+    </Dependencies>
+
+    <Extension path="/Hardware/BootExtender">
+        <BootExtender type="Aristocrat.Monaco.Application.ApplicationRunnable" />
+    </Extension>
+
+    <!--Must implement Vgt.Client12.Kernel.IPropertyProvider-->
+    <ExtensionPoint path = "/Application/PropertyProviders">
+        <ExtensionNode name="PropertyProvider"/>
+    </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Application.Localization.ICultureProvider-->
+  <ExtensionPoint path = "/Application/Localization/Providers">
+    <ExtensionNode name="CultureProvider" type="Aristocrat.Monaco.Application.Localization.CultureProviderNode"/>
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Application.ITime-->
+    <ExtensionPoint path = "/Application/Time">
+        <ExtensionNode name="Time"/>
+    </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Application.INetworkService-->
+  <ExtensionPoint path = "/Application/Network">
+    <ExtensionNode name="Network"/>
+  </ExtensionPoint>
+
+    <!--Must implement System.Object-->
+    <ExtensionPoint path = "/Application/PreConfiguration">
+      <ExtensionNode name="PreConfiguration"/>
+    </ExtensionPoint>  
+  
+    <!--Must implement System.Object-->
+    <ExtensionPoint path = "/Application/Configuration">
+        <ExtensionNode name="Configuration"/>
+    </ExtensionPoint>
+
+    <!--Must implement Vgt.Client12.Application.IDisableByOperatorManager-->
+    <ExtensionPoint path = "/Application/DisableByOperatorManager">
+        <ExtensionNode name="DisableByOperatorManager"/>
+    </ExtensionPoint>
+
+    <!--Must implement Vgt.Client12.Application.IMultiProtocolConfigurationProvider-->
+    <ExtensionPoint path = "/Application/Protocol/MultiProtocolConfigurationProvider">
+      <ExtensionNode name="MultiProtocolConfigurationProvider"/>
+    </ExtensionPoint>
+
+    <!--Must implement Vgt.Client12.Application.Metering.IMeterManager-->
+    <ExtensionPoint path = "/Application/MeterManager">
+        <ExtensionNode name="MeterManager"/>
+    </ExtensionPoint>
+
+    <!--Must implement Vgt.Client12.Application.IPersistenceClearArbiter-->
+    <ExtensionPoint path = "/Application/PersistenceClearArbiter">
+        <ExtensionNode name="PersistenceClearArbiter"/>
+    </ExtensionPoint>
+
+    <!--Must implement Vgt.Client12.Application.OperatorMenu.IOperatorMenuLauncher-->
+    <ExtensionPoint path = "/Application/OperatorMenuLauncher">
+        <ExtensionNode name="OperatorMenuLauncher"/>
+    </ExtensionPoint>
+
+    <!--Must implement Vgt.Client12.Kernel.IService-->
+    <ExtensionPoint path = "/Application/Services">
+        <ExtensionNode name="Service"/>
+    </ExtensionPoint>
+
+    <!--Must implement Vgt.Client12.Kernel.IRunnable-->
+    <ExtensionPoint path = "/Application/Runnables">
+        <ExtensionNode name="Runnable"/>
+    </ExtensionPoint>
+
+    <!--Must implement Vgt.Client12.Kernel.IRunnable-->
+    <ExtensionPoint path = "/Application/BootExtender">
+        <ExtensionNode name="BootExtender"/>
+    </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Kernel.IRunnable-->
+  <ExtensionPoint path = "/Application/ConfigurationWizard">
+    <ExtensionNode name="ConfigurationWizard"/>
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Kernel.IService-->
+  <!--Loaded after configuration wizard execution (filterable)-->
+  <ExtensionPoint path = "/Application/TicketCreators">
+    <ExtensionNode name="TicketCreator"/>
+  </ExtensionPoint>
+
+  <!--Must implement Vgt.Client12.Kernel.IService-->
+  <ExtensionPoint path = "/Application/Configuration/SettingsManager">
+    <ExtensionNode name="SettingsManager"/>
+  </ExtensionPoint>
+
+</Addin>

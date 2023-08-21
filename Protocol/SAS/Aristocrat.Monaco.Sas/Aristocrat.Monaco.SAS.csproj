@@ -1,0 +1,124 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyTitle>Aristocrat.Monaco.Sas</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <DebugType>full</DebugType>
+    <DocumentationFile>..\..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.Sas.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DocumentationFile>..\..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Monaco.Sas.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Retail|AnyCPU'">
+    <DefineConstants>TRACE;CODE_ANALYSIS;RETAIL</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Storage\Models\AftRegistration.Configuration.cs">
+      <DependentUpon>AftRegistration.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\AftTransferOptions.Configuration.cs">
+      <DependentUpon>AftTransferOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\TicketStorageData.Configuration.cs">
+      <DependentUpon>TicketStorageData.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\AftHistoryItem.Configuration.cs">
+      <DependentUpon>AftHistoryItem.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\ExceptionQueue.Configuration.cs">
+      <DependentUpon>ExceptionQueue.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\HandpayReportData.Configuration.cs">
+      <DependentUpon>HandpayReportData.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\SasFeatures.Configuration.cs">
+      <DependentUpon>SasFeatures.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\Host.Configuration.cs">
+      <DependentUpon>Host.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\PortAssignment.Configuration.cs">
+      <DependentUpon>PortAssignment.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\SasDisableInformation.Configuration.cs">
+      <DependentUpon>SasDisableInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\ValidationInformation.Configuration.cs">
+      <DependentUpon>ValidationInformation.cs</DependentUpon>
+    </Compile>
+    <ProjectReference Include="..\..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.PackageManifest\Aristocrat.Monaco.PackageManifest.csproj" />
+    <ProjectReference Include="..\..\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Sas.Contracts\Aristocrat.Monaco.Sas.Contracts.csproj" />
+    <ProjectReference Include="..\Aristocrat.Sas.Client\Aristocrat.Sas.Client.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Aristocrat.Monaco.Sas.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.SAS.Configuration.addin.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.SAS.AftTransferProvider.HardCashOutLock.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.SAS.PropertiesProvider.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.SAS.AftTransferProvider.AftTransferMetersProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Aristocrat.Monaco.SAS.SASBase.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Aristocrat.Monaco.SAS.BonusProvider.SasBonusProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.SQLitePCLRaw.bundle_e_sqlcipher" Version="2.1.4" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
+    <PackageReference Include="SQLite.CodeFirst" Version="1.6.0.30" />
+    <PackageReference Include="Stateless" Version="4.0.0" />
+    <PackageReference Include="Mono.Addins" Version="1.4.1" />
+    <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Aristocrat.Monaco.SAS.BonusProvider.addin.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Aristocrat.Monaco.SAS.Client.addin.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Aristocrat.Monaco.SAS.BonusProvider.addin.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Aristocrat.Monaco.SAS.Client.addin.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

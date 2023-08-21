@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Addin  id="ApplicationConfigurationSettingsManager" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Application.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="ApplicationRunnable" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Application/Configuration/SettingsManager">
+    <SettingsManager type="Aristocrat.Monaco.Application.Settings.ConfigurationSettingsManager" />
+  </Extension>
+
+</Addin>

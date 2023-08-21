@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<Addin id="TestOperatorMenu" namespace="Client12Addins" version="1.0">
+
+    <Runtime>
+      <Import assembly="Aristocrat.Monaco.Application.Tests.dll" />
+    </Runtime>
+
+    <Dependencies>
+      <Addin id="Bootstrap" version="1.0" />
+    </Dependencies>
+
+    <Extension path="/Application/IOperatorMenu">
+      <IOperatorMenu type="Aristocrat.Monaco.Application.Tests.TestOperatorMenu"/>
+    </Extension>
+</Addin>

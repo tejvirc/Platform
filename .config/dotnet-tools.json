@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "dotnet-reqube": {
+      "version": "1.2.6",
+      "commands": [
+        "dotnet-reqube"
+      ]
+    }
+  }
+}

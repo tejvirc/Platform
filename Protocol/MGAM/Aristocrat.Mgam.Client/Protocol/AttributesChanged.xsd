@@ -1,0 +1,67 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+  <xs:simpleType name="ScopeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="instance" />
+      <xs:enumeration value="application" />
+      <xs:enumeration value="installation" />
+      <xs:enumeration value="device" />
+      <xs:enumeration value="site" />
+      <xs:enumeration value="system" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AttributesChanged">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="Attributes">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="elem" maxOccurs="256">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Name">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Scope">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="ScopeType">
+                            <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="Value">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="count" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:int">
+                  <xs:minInclusive value="0" />
+                  <xs:maxInclusive value="256" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+      <xs:attribute name="Dir" use="optional" fixed="out" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

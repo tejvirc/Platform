@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<Addin id="OperatorMenuConfiguration" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="Monaco.Accounting.UI.OperatorMenu" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+
+    <!-- See https://confy.aristocrat.com/display/MON/Creating+an+Audit+Menu+page for information -->
+    <AddinConfigurationGroup name="BaseOperatorMenus" description="The set of common operator menu addins">
+      <ExtensionPointConfiguration extensionPath="/Application/OperatorMenu/MainMenu">
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.StatusMainPageLoader" order="0" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.IdentificationMainPageLoader" order="1" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.HardwareMainPageLoader" order="2" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.SystemMainPageLoader" order="3" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Gaming.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Gaming.UI.Loaders.GamesMainPageLoader" order="4" />
+        <NodeSpecification addinId="Client12Addins.Monaco.G2S.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.G2S.UI.Loaders.CommsMainPageLoader" order="5" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.MetersMainPageLoader" order="6" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Gaming.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Gaming.UI.Loaders.EventLogFilterPageLoader" order="7" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.DiagnosticMainPageLoader" order="8" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.SystemResetPageLoader" order="9" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.ToolsMainPageLoader" order="10" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.OptionsMainPageLoader" order="11" />
+        <!-- NOTE: The DemonstrationPageLoader should always be the last PageLoader -->
+        <NodeSpecification addinId="Client12Addins.Monaco.Demonstration.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Demonstration.UI.Loaders.DemonstrationPageLoader" order="99" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+
+  </Extension>
+
+</Addin>

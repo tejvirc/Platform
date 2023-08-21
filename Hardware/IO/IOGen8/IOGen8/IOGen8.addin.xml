@@ -1,0 +1,22 @@
+﻿<Addin id="IOGen8" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="IOGen8.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Hardware" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Hardware/IO/IOImplementations">
+    <DeviceImplementation ProtocolName="Unknown" type="Vgt.Client12.Hardware.IO.IOGen8"/>
+  </Extension>
+
+  <Extension path="/Hardware/IO/IOImplementations">
+    <DeviceImplementation ProtocolName="Gen8" type="Vgt.Client12.Hardware.IO.IOGen8"/>
+  </Extension>
+
+  <Extension path="/Hardware/IO/IOImplementations">
+    <DeviceImplementation ProtocolName="Gen9" type="Vgt.Client12.Hardware.IO.IOGen8"/>
+  </Extension>
+</Addin>

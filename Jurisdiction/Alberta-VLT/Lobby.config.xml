@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LobbyConfiguration>
+  <MultiLanguageEnabled>false</MultiLanguageEnabled>
+  <ResponsibleGamingTimeLimitEnabled>true</ResponsibleGamingTimeLimitEnabled>
+  <LargeGameIconsEnabled>true</LargeGameIconsEnabled>
+  <HasIdleAttractVideo>false</HasIdleAttractVideo>
+  <BottomAttractVideoEnabled>true</BottomAttractVideoEnabled>
+  <DaysAsNew>30.0</DaysAsNew>
+  <ResponsibleGamingTimeLimits>
+	<double>15</double>
+	<double>30</double>
+	<double>45</double>
+	<double>60</double>
+  </ResponsibleGamingTimeLimits>
+  <ResponsibleGamingPlayBreaks>
+    <double>0</double>
+	<double>0</double>
+	<double>0</double>
+	<double>0</double>
+  </ResponsibleGamingPlayBreaks>
+  <ResponsibleGamingSessionLimit>2</ResponsibleGamingSessionLimit>
+  <ResponsibleGamingInfo Pages="1" ExitStrategy="TouchScreen" PrintHelpline="false" Timeout="120" />
+  <LobbyUiDirectoryPath>../jurisdiction/Alberta-VLT/ui/</LobbyUiDirectoryPath>
+  <SkinFilenames>	
+	<string>AlbertaUI.xaml</string>
+  </SkinFilenames>
+  <LocaleCodes>	
+	<string>en-us</string>
+  </LocaleCodes>
+  <DefaultLoadingScreenFilename>../jurisdiction/Alberta-VLT/ui/Images/BS_LoadingScreen.png</DefaultLoadingScreenFilename>
+  <DefaultTopAttractVideoFilename>../jurisdiction/Alberta-VLT/ui/Videos/LobbyAttract.bk2</DefaultTopAttractVideoFilename>
+  <DefaultTopperAttractVideoFilename>../jurisdiction/Alberta-VLT/ui/Videos/LobbyAttract.bk2</DefaultTopperAttractVideoFilename>
+  <LcdInsertMoneyVideoLanguage1>../jurisdiction/Alberta-VLT/ui/Videos/LCD_InsertMoney_EN.bk2</LcdInsertMoneyVideoLanguage1>  
+  <LcdChooseVideoLanguage1>../jurisdiction/Alberta-VLT/ui/Videos/LCD_ChooseGame_EN.bk2</LcdChooseVideoLanguage1>
+  <AttractVideoNoBonusFilename>../jurisdiction/Alberta-VLT/ui/Videos/Attract_NoBonus.bk2</AttractVideoNoBonusFilename>
+  <AttractVideoWithBonusFilename>../jurisdiction/Alberta-VLT/ui/Videos/Attract_Bonus.bk2</AttractVideoWithBonusFilename>
+  <TopperLobbyVideoFilename>../jurisdiction/Alberta-VLT/ui/Videos/LobbyAttract.bk2</TopperLobbyVideoFilename>
+  <ClockMode>Locale</ClockMode>
+  <DisplayAgeWarning>false</DisplayAgeWarning>
+  <RotateTopImage>false</RotateTopImage>
+  <DefaultGameDisplayOrderByThemeId>
+        <string>ATI_SunsetTusk</string>
+        <string>ATI_WildLeprecoins</string>
+        <string>ATI_SizzlingPhoenix</string>
+        <string>ATI_Chili7s</string>
+        <string>ATI_PantherStrike</string>
+        <string>ATI_FortunesOfTheNile</string>
+        <string>ATI_StoneAge</string>
+        <string>ATI_WildYukon</string>  
+  </DefaultGameDisplayOrderByThemeId>
+  <UpiTemplate>AlbertaUpiTemplate</UpiTemplate>
+  <AgeWarningTemplate>AgeWarningAlbertaDialogTemplate</AgeWarningTemplate>
+  <TimeLimitDialogTemplate>TimeLimitAlbertaDialogTemplate</TimeLimitDialogTemplate>
+  <DisplayPaidMeter>false</DisplayPaidMeter>
+  <EdgeLightingOverrideUseGen8IdleMode>false</EdgeLightingOverrideUseGen8IdleMode>
+  <RemoveIdlePaidMessageOnSessionStart>true</RemoveIdlePaidMessageOnSessionStart>
+</LobbyConfiguration>  

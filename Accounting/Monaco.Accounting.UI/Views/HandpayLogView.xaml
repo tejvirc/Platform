@@ -1,0 +1,124 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Accounting.UI.Views.HandpayLogView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                               xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                               mc:Ignorable="d" >
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_E4F98A26">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_E4F98A26" />
+            <RowDefinition Height="10"
+                           AutomationProperties.AutomationId="RowDefinition2_E4F98A26" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_E4F98A26" />
+        </Grid.RowDefinitions>
+        <DataGrid RowHeight="45"
+                  Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+                  ItemsSource="{Binding Path=HandpayData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedRow}"
+                  ScrollViewer.CanContentScroll="True" SelectionMode="Single" 
+                  AutomationProperties.AutomationId="DataGrid4_E4F98A26">
+            <b:Interaction.Triggers>
+                <events:RoutedEventTrigger RoutedEvent="ScrollViewer.ScrollChanged">
+                    <events:EventToCommandAction Command="{Binding EventViewerScrolledCommand}" />
+                </events:RoutedEventTrigger>
+            </b:Interaction.Triggers>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{lex:Loc SequenceNumberHeader}"
+                                    IsReadOnly="True"
+                                    Visibility="Collapsed"
+                                    Binding="{Binding SequenceNumber}"
+                                    Width="200"
+                                    AutomationProperties.AutomationId="DataGridTextColumn5_E4F98A26" />
+                <DataGridTextColumn Header="{lex:Loc DateAndTimeHeader}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding TimeStamp}"
+                                    Width="220"
+                                    AutomationProperties.AutomationId="DataGridTextColumn6_E4F98A26" />
+                <DataGridTextColumn Header="{lex:Loc TransactionType}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding HandpayType}"
+                                    Width="220"
+                                    AutomationProperties.AutomationId="DataGridTextColumn7_E4F98A26" />
+                <DataGridTextColumn Header="{lex:Loc CashableHeader}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding CashableAmount}"
+                                    Width="190"
+                                    AutomationProperties.AutomationId="DataGridTextColumn8_E4F98A26" />
+                <DataGridTextColumn Header="{lex:Loc PromoHeader}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding PromoAmount}"
+                                    Width="190"
+                                    AutomationProperties.AutomationId="DataGridTextColumn9_E4F98A26" />
+                <DataGridTextColumn  Header="{lex:Loc NonCashableHeader}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding NonCashAmount}"
+                                    Width="190"
+                                    AutomationProperties.AutomationId="DataGridTextColumn10_E4F98A26" />
+                <DataGridTextColumn Header="{lex:Loc State}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding State}"
+                                    Width="140"
+                                    AutomationProperties.AutomationId="DataGridTextColumn11_E4F98A26" />
+                <!--<DataGridCheckBoxColumn Header="{x:Static loc:Resources.Printed}"
+                                        IsReadOnly="True"
+                                        Binding="{Binding Printed}"
+                                        Width="100"
+                                        ElementStyle="{StaticResource MonacoDataGridCheckBox}"/>-->
+                <!--<DataGridTextColumn Header="{x:Static loc:Resources.ValidationNumber}"
+                                        IsReadOnly="True"
+                                        Binding="{Binding ValidationId}"
+                                        Width="220"/>-->
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal"
+                    Margin="0,10,0,0"
+                    Grid.Row="2"
+                    HorizontalAlignment="Left"
+                    AutomationProperties.AutomationId="StackPanel12_E4F98A26">
+            <!--<Button Content="{x:Static loc:Resources.PrintSelectedButtonText}"
+                    IsEnabled="{Binding EnablePrintSelectedButton}" Width="200"
+                    Command="{Binding PrintSelectedCommand}"-->
+            <Button Content="{lex:Loc ReprintButtonText}"
+                    Command="{Binding ReprintButtonCommand}" 
+                    IsEnabled="{Binding CanReprint}"
+                    Visibility="{Binding IsReprintButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="Button13_E4F98A26" />
+            <Button Content="{lex:Loc PrintLast15RecordsButtonText}"
+                    IsEnabled="{Binding PrinterButtonsEnabled}"
+                    Width="200"
+                    Command="{Binding PrintLast15ButtonCommand}"
+                    Visibility="{Binding PrintLast15ButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="Button14_E4F98A26" />
+            <Button Content="{lex:Loc PrintCurrentPageButtonText}"
+                    IsEnabled="{Binding PrinterButtonsEnabled}"
+                    Width="200"
+                    Command="{Binding PrintCurrentPageButtonCommand}"
+                    Visibility="{Binding PrintCurrentPageButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="Button15_E4F98A26" />
+            <Label Content="{Binding DoorStatusText}"
+                   Style="{StaticResource MonacoWarningLabel}"
+                   Visibility="{Binding ReprintDisabledDueToDoor, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                   AutomationProperties.AutomationId="Label16_E4F98A26" />
+        </StackPanel>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

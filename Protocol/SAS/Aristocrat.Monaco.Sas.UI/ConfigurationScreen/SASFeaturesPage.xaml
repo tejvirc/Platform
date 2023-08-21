@@ -1,0 +1,345 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Sas.UI.ConfigurationScreen.SasFeaturesPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Sas.UI.ViewModels"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:controls="http://monaco.aristocrat.com/common"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:SasFeatureViewModel}}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Label"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin"
+                        Value="0 5" />
+            </Style>
+            <Style TargetType="ComboBox"
+                   BasedOn="{StaticResource MonacoComboBox}">
+                <Setter Property="Margin"
+                        Value="0 5" />
+                <Setter Property="MinWidth"
+                        Value="280" />
+            </Style>
+            <Style TargetType="CheckBox"
+                   BasedOn="{StaticResource MonacoCheckBox}">
+                <Setter Property="Margin"
+                        Value="0 5" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_B5E5742A">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition1_B5E5742A" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition2_B5E5742A" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition3_B5E5742A" />
+        </Grid.ColumnDefinitions>
+        <!-- Aft Section -->
+        <GroupBox x:Name="AftGroupBox"
+                  Header="{lex:Loc AFTTitleLabel}"
+                  IsEnabled="{Binding InputEnabled}"
+                  Visibility="{Binding SasProtocolConfiguration.IsFundTransferHandled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                  AutomationProperties.AutomationId="GroupBox4_B5E5742A">
+            <Grid x:Name="AftGrid"
+                  AutomationProperties.AutomationId="Grid5_B5E5742A">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition6_B5E5742A" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition7_B5E5742A" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition8_B5E5742A" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition9_B5E5742A" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition10_B5E5742A" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition11_B5E5742A" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"
+                                      MinWidth="300"
+                                      AutomationProperties.AutomationId="ColumnDefinition12_B5E5742A" />
+                    <ColumnDefinition Width="*"
+                                      MinWidth="150"
+                                      AutomationProperties.AutomationId="ColumnDefinition13_B5E5742A" />
+                </Grid.ColumnDefinitions>
+                <!-- Aft In Section -->
+                <Label x:Name="AftInLabel"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="0 0 0 5"
+                       Content="{lex:Loc AftInLabel}"
+                       AutomationProperties.AutomationId="Label14_B5E5742A" />
+                <CheckBox x:Name="AftInCheckBox"
+                          Grid.Row="0"
+                          Grid.Column="1"
+                          Margin="0 0 0 5"
+                          IsEnabled="{Binding IsAftSettingsConfigurable, Mode=OneWay}"
+                          IsChecked="{Binding IsAftInEnabled, Mode=TwoWay}"
+                          AutomationProperties.AutomationId="CheckBox15_B5E5742A" />
+                <!-- Aft Out Section -->
+                <Label x:Name="AftOutLabel"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Content="{lex:Loc AftOutLabel}"
+                       AutomationProperties.AutomationId="Label16_B5E5742A" />
+                <CheckBox x:Name="AftOutCheckBox"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          IsEnabled="{Binding IsAftSettingsConfigurable, Mode=OneWay}"
+                          IsChecked="{Binding IsAftOutEnabled, Mode=TwoWay}"
+                          AutomationProperties.AutomationId="CheckBox17_B5E5742A" />
+                <!-- Aft Partial Transfers Allowed Section -->
+                <Label x:Name="AftPartialTransfersAllowedLabel"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       Content="{lex:Loc AftPartialTransfersAllowedLabel}"
+                       AutomationProperties.AutomationId="Label18_B5E5742A" />
+                <CheckBox x:Name="AftPartialTransfersAllowedCheckbox"
+                          Grid.Row="2"
+                          Grid.Column="1"
+                          IsEnabled="{Binding AftPartialTransfersCheckboxEnabled, Mode=OneWay}"
+                          IsChecked="{Binding IsAftPartialTransfersEnabled, Mode=TwoWay}"
+                          AutomationProperties.AutomationId="CheckBox19_B5E5742A" />
+                <!-- Aft Bonusing Enabled Section -->
+                <Label x:Name="AftBonusingEnabledLabel"
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       Content="{lex:Loc AftBonusingEnabledLabel}"
+                       AutomationProperties.AutomationId="Label20_B5E5742A" />
+                <CheckBox x:Name="AftBonusingEnabledCheckBox"
+                          Grid.Row="3"
+                          Grid.Column="1"
+                          IsEnabled="{Binding AftBonusTransferStatus, Mode=OneWay}"
+                          IsChecked="{Binding IsAftBonusingEnabled, Mode=TwoWay}"
+                          AutomationProperties.AutomationId="CheckBox21_B5E5742A" />
+                <!-- Aft Win Amount To Host Transfers Enabled Section -->
+                <Label x:Name="AftWinAmountToHostTransfersEnabledLabel"
+                       Grid.Row="4"
+                       Grid.Column="0"
+                       Content="{lex:Loc AftWinAmountToHostTransfersEnabledLabel}"
+                       AutomationProperties.AutomationId="Label22_B5E5742A" />
+                <CheckBox x:Name="AftWinAmountToHostTransfersEnabledCheckBox"
+                          Grid.Row="4"
+                          Grid.Column="1"
+                          IsEnabled="{Binding IsAftOutEnabled, Mode=OneWay}"
+                          IsChecked="{Binding IsAftWinAmountToHostTransfersEnabled, Mode=TwoWay}"
+                          AutomationProperties.AutomationId="CheckBox23_B5E5742A" />
+                <!-- Aft Transfer Limit Section -->
+                <Label x:Name="AftTransferLimitLabel"
+                       Grid.Row="5"
+                       Grid.Column="0"
+                       Margin="0 5 0 0"
+                       Content="{lex:Loc AftTransferLimitLabel}"
+                       AutomationProperties.AutomationId="Label24_B5E5742A" />
+                <StackPanel x:Name="AftTransferLimitStackPanel"
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            Orientation="Horizontal"
+                            AutomationProperties.AutomationId="StackPanel25_B5E5742A">
+                    <Grid x:Name="AftLimitTransferGrid"
+                          AutomationProperties.AutomationId="Grid26_B5E5742A">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition27_B5E5742A" />
+                            <ColumnDefinition Width="Auto"
+                                              AutomationProperties.AutomationId="ColumnDefinition28_B5E5742A" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"
+                                           AutomationProperties.AutomationId="RowDefinition29_B5E5742A" />
+                        </Grid.RowDefinitions>
+                        <CheckBox x:Name="AftTransferLimitEnabledCheckbox"
+                                  Grid.Row="0"
+                                  Grid.Column="0"
+                                  Width="46"
+                                  IsEnabled="{Binding AftTransferLimitCheckboxEnabled, Mode=OneWay}"
+                                  IsChecked="{Binding AftTransferLimitEnabled, Mode=TwoWay}"
+                                  AutomationProperties.AutomationId="CheckBox30_B5E5742A" />
+                        <controls:CurrencyTextBox x:Name="AftTransferLimitCurrencyTextBox"
+                                                  Grid.Row="0"
+                                                  Grid.Column="1"
+                                                  Margin="20 0 0 0"
+                                                  MinWidth="200"
+                                                  IsReadOnly="False"
+                                                  PreventNegatives="True"
+                                                  Number="{Binding AftTransferLimit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                                                  Visibility="{Binding AftTransferLimitEnabled, Converter={StaticResource TrueVisibleFalseHidden}, 
+                                                               UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock x:Name="AftTransferLimitTextBlock"
+                                   Grid.Row="0"
+                                   Grid.Column="1"
+                                   Margin="20 14 0 0"
+                                   Text="{lex:BLoc NoLimit}"
+                                   Visibility="{Binding AftTransferLimitEnabled, Converter={StaticResource TrueHiddenFalseVisible}, UpdateSourceTrigger=PropertyChanged}"
+                                   AutomationProperties.AutomationId="TextBlock31_B5E5742A" />
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <!-- Miscellaneous Section -->
+        <GroupBox x:Name="MiscellaneousGroupBox"
+                  Header="{lex:Loc MiscellaneousGroupHeader}"
+                  Margin="15 0 0 0"
+                  Grid.Column="1"
+                  IsEnabled="{Binding InputEnabled}"
+                  AutomationProperties.AutomationId="GroupBox32_B5E5742A">
+            <Grid x:Name="MiscellaneousGrid"
+                  AutomationProperties.AutomationId="Grid33_B5E5742A">
+                <Grid.RowDefinitions>
+                    <RowDefinition AutomationProperties.AutomationId="RowDefinition34_B5E5742A">
+                        <RowDefinition.Style>
+                            <Style TargetType="RowDefinition">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SasProtocolConfiguration.IsValidationHandled}"
+                                                 Value="True"
+                                                 AutomationProperties.AutomationId="DataTrigger35_B5E5742A">
+                                        <Setter Property="Height"
+                                                Value="Auto" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding SasProtocolConfiguration.IsValidationHandled}"
+                                                 Value="False"
+                                                 AutomationProperties.AutomationId="DataTrigger36_B5E5742A">
+                                        <Setter Property="Height"
+                                                Value="0" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RowDefinition.Style>
+                    </RowDefinition>
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition37_B5E5742A" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition38_B5E5742A" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition39_B5E5742A" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition40_B5E5742A" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition41_B5E5742A" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition42_B5E5742A" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"
+                                      MinWidth="400"
+                                      AutomationProperties.AutomationId="ColumnDefinition43_B5E5742A" />
+                    <ColumnDefinition Width="*"
+                                      AutomationProperties.AutomationId="ColumnDefinition44_B5E5742A" />
+                </Grid.ColumnDefinitions>
+                <!-- Selected Validation Feature Section -->
+                <Label x:Name="SelectedValidationFeatureLabel"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="0 0 0 5"
+                       Content="{lex:Loc ValidationFeatureLabel}"
+                       AutomationProperties.AutomationId="Label45_B5E5742A" />
+                <ComboBox x:Name="SelectedValidationItemComboBox"
+                          Grid.Row="0"
+                          Grid.Column="1"
+                          Margin="0 0 0 5"
+                          ItemsSource="{Binding ValidationItems}"
+                          SelectedItem="{Binding SelectedValidationItem}"
+                          AutomationProperties.AutomationId="ComboBox46_B5E5742A" />
+                <!-- Selected Handpay Mode Section -->
+                <Label x:Name="SelectedHandpayModeLabel"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Content="{lex:Loc HandpayModeLabel}"
+                       AutomationProperties.AutomationId="Label47_B5E5742A" />
+                <ComboBox x:Name="SelectedHandpayModeComboBox"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          ItemsSource="{Binding HandpayModeItems}"
+                          SelectedItem="{Binding SelectedHandpayModeItem}"
+                          AutomationProperties.AutomationId="ComboBox48_B5E5742A" />
+                <!-- Host Disable Cashout Action Section -->
+                <Label x:Name="HostDisableCashoutActionLabel"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       Content="{lex:Loc HostDisableCashoutActionLabel}"
+                       Visibility="{Binding IsWizardPage, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                       AutomationProperties.AutomationId="Label49_B5E5742A" />
+                <ComboBox x:Name="HostDisableCashoutActionComboBox"
+                          Grid.Row="2"
+                          Grid.Column="1"
+                          ItemsSource="{Binding HostDisableCashoutActionItems}"
+                          SelectedItem="{Binding SelectedHostDisableCashoutActionItem}"
+                          IsEnabled="{Binding HostDisableCashoutActionConfigurable}"
+                          Visibility="{Binding IsWizardPage, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                          AutomationProperties.AutomationId="ComboBox50_B5E5742A" />
+                <Label x:Name="NotifySasConfigChange"
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       Content="{lex:BLoc ConfigChangeNotification}"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Label51_B5E5742A" />
+                <ComboBox Grid.Row="3"
+                          Grid.Column="1"
+                          HorizontalAlignment="Left"
+                          IsEnabled="{Binding InputEnabled}"
+                          ItemsSource="{Binding NotificationTypes}"
+                          SelectedIndex="{Binding ConfigChangeNotificationIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                          SelectedItem="{Binding ConfigChangeNotification, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                          AutomationProperties.AutomationId="ComboBox52_B5E5742A"></ComboBox>
+                <!-- Legacy Bonus Allowed Section -->
+                <Label x:Name="LegacyBonusAllowedLabel"
+                       Grid.Row="4"
+                       Grid.Column="0"
+                       Margin="0 5 0 0"
+                       Content="{lex:Loc LegacyBonusAllowed}"
+                       AutomationProperties.AutomationId="Label53_B5E5742A" />
+                <CheckBox x:Name="LegacyBonusAllowedCheckBox"
+                          Grid.Row="4"
+                          Grid.Column="1"
+                          Margin="0 5 0 0"
+                          IsEnabled="{Binding IsLegacyBonusConfigurable, Mode=OneWay}"
+                          IsChecked="{Binding IsLegacyBonusEnabled, Mode=TwoWay}"
+                          AutomationProperties.AutomationId="CheckBox54_B5E5742A" />
+                <!-- Require LP02 on Power-up Section -->
+                <Label x:Name="RequireLp02OnPowerUpLabel"
+                       Grid.Row="5"
+                       Grid.Column="0"
+                       Margin="0 10 0 0"
+                       Content="{lex:Loc RequireLP02OnPowerUp}"
+                       AutomationProperties.AutomationId="Label55_B5E5742A" />
+                <CheckBox x:Name="RequireLp02OnPowerUpCheckBox"
+                          Grid.Row="5"
+                          Grid.Column="1"
+                          Margin="0 10 0 0"
+                          IsEnabled="false"
+                          IsChecked="{Binding IsRequireLP02OnPowerUpEnabled, Mode=TwoWay}"
+                          AutomationProperties.AutomationId="CheckBox56_B5E5742A" />
+                <!-- EGM Disabled On Host Section -->
+                <Label x:Name="EgmDisabledOnHostOfflineLabel"
+                       Grid.Row="6"
+                       Grid.Column="0"
+                       Margin="0 10"
+                       Content="{lex:Loc EGMDisabledOnHostOfflineLabel}"
+                       AutomationProperties.AutomationId="Label57_B5E5742A" />
+                <CheckBox x:Name="EgmDisabledOnHostOfflineIdCheckBox"
+                          Grid.Row="6"
+                          Grid.Column="1"
+                          IsEnabled="{Binding EgmDisabledOnHostOfflineConfigurable, Mode=OneWay}"
+                          IsChecked="{Binding EgmDisabledOnHostOffline, Mode=TwoWay}"
+                          AutomationProperties.AutomationId="CheckBox58_B5E5742A" />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

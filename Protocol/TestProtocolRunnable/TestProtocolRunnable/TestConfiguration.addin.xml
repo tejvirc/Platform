@@ -1,0 +1,13 @@
+<Addin id="TestConfiguration" namespace="Client12Addins" version="1.0">
+
+	<Dependencies>
+		<Addin id="Monaco.Kernel" version="1.0" />
+	</Dependencies>
+
+	<Extension path="/Kernel/SelectableAddinConfiguration">
+		<SelectableAddinConfiguration name="Test" description="Platform Configuration for Testing">
+			<AddinConfigurationGroupReference name="AdvancedConfiguration" />
+			<AddinConfigurationGroupReference name="TestProtocolRunnable" />
+		</SelectableAddinConfiguration>
+	</Extension>
+</Addin>

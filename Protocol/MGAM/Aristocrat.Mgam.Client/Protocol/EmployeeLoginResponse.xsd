@@ -1,0 +1,92 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:element name="EmployeeLoginResponse">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="ResponseCode">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:int">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="int" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CardString">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="EmployeeName">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="EmployeeID">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:int">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="int" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Actions">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="elem" minOccurs="0" maxOccurs="32">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="ActionName">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ActionGUID">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="type" type="xs:string" use="required" fixed=" guid16" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ActionDescription">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Count" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:int">
+                  <xs:minInclusive value="0" />
+                  <xs:maxInclusive value="255" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+      <xs:attribute name="Dir" use="optional" fixed="out" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

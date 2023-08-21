@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Vgt.Client12.Accounting.CurrencyInMetersProvider" ElementSize="20">
+    <Fields>
+      <Field DataType="Int32" Size="4" Count="0" Offset="0" FieldName="Denomination" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="4" FieldName="Period" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="12" FieldName="Lifetime" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="1" name="Vgt.Client12.Accounting.CurrencyInMetersProvider" ElementSize="28">
+    <Fields>
+      <Field DataType="Int32" Size="4" Count="0" Offset="0" FieldName="Denomination" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="4" FieldName="Period" />
+      <Field DataType="Int64" Size="8" Count="0" Offset="12" FieldName="Lifetime" />
+      <Field DataType="DateTime" Size="8" Count="0" Offset="20" FieldName="LastPeriodClearTime" />
+    </Fields>
+  </BlockFormat>
+    <BlockFormat version="2" name="Vgt.Client12.Accounting.CurrencyInMetersProvider" ElementSize="60">
+        <Fields>
+            <Field DataType="Int32" Size="4" Count="0" Offset="0" FieldName="Denomination" />
+            <Field DataType="Int64" Size="8" Count="0" Offset="4" FieldName="Period" />
+            <Field DataType="Int64" Size="8" Count="0" Offset="12" FieldName="Lifetime" />
+            <Field DataType="DateTime" Size="8" Count="0" Offset="20" FieldName="LastPeriodClearTime" />
+            <Field DataType="Int64" Size="8" Count="0" Offset="28" FieldName="RejectCountLifetime" />
+            <Field DataType="Int64" Size="8" Count="0" Offset="36" FieldName="RejectCountPeriod" />
+            <Field DataType="Int64" Size="8" Count="0" Offset="44" FieldName="BillsRejectedCountLifetime" />
+            <Field DataType="Int64" Size="8" Count="0" Offset="52" FieldName="BillsRejectedCountPeriod" />
+        </Fields>
+    </BlockFormat>
+</ArrayOfBlockFormat>

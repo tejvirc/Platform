@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<Addin id="TiltLoggerTestExtension" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+  </Dependencies>
+
+  <Extension path = "/TiltLogger/Configuration">
+    <TiltLoggerConfiguration>
+      <FilePath FilePath=".\EventLogger.config.xml" />
+      <PropertySetting PropertyName="Log Size" PropertyValue="2500" />
+      <PropertySetting PropertyName="Screen Title Key" PropertyValue="EventLogTitle" />
+      <DoorOpenAlarm RepeatSeconds="20" OperatorCanCancel="true">
+        <FilePath FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" filterid="QuebecTiltLoggerConfig" />
+      </DoorOpenAlarm>
+    </TiltLoggerConfiguration>
+  </Extension>
+
+</Addin>

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Hardware.Services.PrinterService" ElementSize="88">
+    <Fields>
+      <Field DataType="Bool" FieldName="InProgress" />
+      <Field DataType="String" Size="32" FieldName="TicketTitle" />
+      <Field DataType="String" Size="22" FieldName="TicketValidationNumber" />
+      <Field DataType="String" Size="32" FieldName="TicketValue" />
+      <Field DataType="Bool" FieldName="DisableAfterReboot" />
+      <Field DataType="Bool" FieldName="MustPrintField" />
+    </Fields>
+  </BlockFormat>
+
+  <BlockFormat version="2" name="Aristocrat.Monaco.Hardware.Services.PrinterService" ElementSize="96">
+    <Fields>
+      <Field DataType="Bool" FieldName="InProgress" />
+      <Field DataType="String" Size="32" FieldName="TicketTitle" />
+      <Field DataType="String" Size="22" FieldName="TicketValidationNumber" />
+      <Field DataType="String" Size="32" FieldName="TicketValue" />
+      <Field DataType="Bool" FieldName="DisableAfterReboot" />
+      <Field DataType="Bool" FieldName="MustPrintField" />
+      <Field DataType="DateTime" Size="8" Count="0" Offset="8" FieldName="ActivationTime" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

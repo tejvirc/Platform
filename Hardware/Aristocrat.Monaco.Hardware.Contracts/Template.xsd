@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" 
+           elementFormDefault="qualified" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- definition of types -->
+  <xs:simpleType name="idtype">
+    <xs:restriction base="xs:int">
+      <xs:minExclusive value="99" />
+      <xs:maxInclusive value="999" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <!-- definition of attributes -->
+  <xs:attribute name="name" type="xs:string" />
+  <xs:attribute name="id" type="idtype" />
+  <xs:attribute name="t_dim_da" type="xs:int" default="500"/>
+  <xs:attribute name="t_dim_pa" type="xs:int" default="2020"/>
+
+  <!-- definition of complex elements -->
+  <xs:complexType name="dpttype">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute ref="name" use="required" />
+        <xs:attribute ref="id" use="required" />
+        <xs:attribute ref="t_dim_da" />
+        <xs:attribute ref="t_dim_pa" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="dptcollectiontype">
+    <xs:sequence>
+      <xs:element name="DPT" type="dpttype" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- definition of root element -->
+  <xs:element name="DPT_Collection" type="dptcollectiontype" />
+
+</xs:schema>

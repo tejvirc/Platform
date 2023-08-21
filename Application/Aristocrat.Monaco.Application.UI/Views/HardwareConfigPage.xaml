@@ -1,0 +1,499 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.HardwareConfigPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
+                               xmlns:common="http://monaco.aristocrat.com/common"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d"
+                               d:DesignHeight="400"
+                               d:DesignWidth="1420"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:HardwareManagerPageViewModel}, IsDesignTimeCreatable=True}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:DeviceStatusToBrushConverter x:Key="BrushConverter" />
+            <Style x:Key="CellStyle"
+                   TargetType="DataGridCell"
+                   BasedOn="{StaticResource MonacoDataGridCell}">
+                <Style.Triggers>
+                    <Trigger Property="IsSelected"
+                             Value="True"
+                             AutomationProperties.AutomationId="Trigger0_3A60546D">
+                        <Setter Property="Background" Value="{x:Null}" />
+                        <Setter Property="BorderBrush" Value="{x:Null}" />
+                        <Setter Property="Foreground"
+                                Value="{StaticResource LightBrush4}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="MakeCellStyle"
+                   TargetType="DataGridCell"
+                   BasedOn="{StaticResource CellStyle}"
+                   d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
+                <Setter Property="Visibility"
+                        Value="{Binding ManufacturerEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}" />
+            </Style>
+            <Style x:Key="ProtocolCellStyle"
+                   TargetType="DataGridCell"
+                   BasedOn="{StaticResource CellStyle}"
+                   d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource SmallLabelFontSize}" />
+                <Setter Property="Visibility"
+                        Value="{Binding ProtocolEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}" />
+            </Style>
+            <Style x:Key="PortCellStyle"
+                   TargetType="DataGridCell"
+                   BasedOn="{StaticResource CellStyle}"
+                   d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
+                <Setter Property="Visibility"
+                        Value="{Binding PortEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}" />
+            </Style>
+            <Style x:Key="StatusCellStyle"
+                   TargetType="DataGridCell"
+                   BasedOn="{StaticResource CellStyle}"
+                   d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource SmallLabelFontSize}" />
+                <Setter Property="Foreground"
+                        Value="{Binding Status, Converter={StaticResource BrushConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                <Setter Property="Visibility"
+                        Value="{Binding StatusEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}, UpdateSourceTrigger=PropertyChanged}" />
+                <Style.Triggers>
+                    <Trigger Property="IsSelected"
+                             Value="True"
+                             AutomationProperties.AutomationId="Trigger1_3A60546D">
+                        <Setter Property="Foreground"
+                                Value="{Binding Status, Converter={StaticResource BrushConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="RowStyle"
+                   TargetType="{x:Type DataGridRow}"
+                   BasedOn="{StaticResource MonacoDataGridRow}"
+                   d:DataContext="{d:DesignInstance viewModels:DeviceConfigViewModel}">
+                <Style.Triggers>
+                    <MultiTrigger AutomationProperties.AutomationId="MultiTrigger2_3A60546D">
+                        <MultiTrigger.Conditions>
+                            <Condition Property="controls:DataGridHelper.SelectionUnit" Value="FullRow" />
+                            <Condition Property="IsSelected" Value="True" />
+                        </MultiTrigger.Conditions>
+                        <Setter Property="Background"
+                                Value="Transparent" />
+                        <Setter Property="BorderBrush"
+                                Value="Transparent" />
+                    </MultiTrigger>
+                    <MultiTrigger AutomationProperties.AutomationId="MultiTrigger3_3A60546D">
+                        <MultiTrigger.Conditions>
+                            <Condition Property="controls:DataGridHelper.SelectionUnit" Value="FullRow" />
+                            <Condition Property="IsSelected" Value="True" />
+                            <Condition Property="Selector.IsSelectionActive" Value="False" />
+                        </MultiTrigger.Conditions>
+                        <Setter Property="Background"
+                                Value="Transparent" />
+                        <Setter Property="BorderBrush"
+                                Value="Transparent" />
+                    </MultiTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Foreground"
+                        Value="{StaticResource LightBrush4}" />
+                <Setter Property="Margin"
+                        Value="5" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled"
+                             Value="False"
+                             AutomationProperties.AutomationId="Trigger4_3A60546D">
+                        <Setter Property="Foreground"
+                                Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="CheckBoxStyle"
+                   TargetType="{x:Type CheckBox}"
+                   BasedOn="{StaticResource MonacoCheckBoxGeneral}">
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="Margin" Value="-10 5 0 5" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid5_3A60546D">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition6_3A60546D" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_3A60546D" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition8_3A60546D" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition9_3A60546D" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition10_3A60546D" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition11_3A60546D" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition12_3A60546D" />
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="0"
+                  x:Name="DeviceDataGrid"
+                  ItemsSource="{Binding Devices}"
+                  RowStyle="{StaticResource RowStyle}"
+                  CellStyle="{StaticResource MonacoCompactDataGridCell}"
+                  IsEnabled="{Binding InputEnabled}"
+                  AutomationProperties.AutomationId="DataGrid13_3A60546D"
+                  loc:Localizer.For="Operator">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{lex:Loc DeviceLabel}"
+                                    MinWidth="200" FontSize="{StaticResource LabelFontSize}"
+                                    Binding="{Binding DeviceName}"
+                                    CellStyle="{StaticResource CellStyle}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn14_3A60546D"
+                                    loc:Localizer.For="Operator"/>
+                <DataGridTemplateColumn Header="{lex:Loc EnabledLabel}"
+                                        IsReadOnly="False"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn15_3A60546D"
+                                        loc:Localizer.For="Operator">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox HorizontalContentAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      Margin="5"
+                                      IsChecked="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Enabled), RelativeSource={RelativeSource AncestorType=DataGridCell}, Mode=TwoWay}"
+                                      AutomationProperties.AutomationId="CheckBox16_3A60546D">
+                                <CheckBox.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                        <Binding Path="DataContext.IsValidating"
+                                                 RelativeSource="{RelativeSource AncestorType=DataGrid}"
+                                                 UpdateSourceTrigger="PropertyChanged"
+                                                 Converter="{StaticResource InverseBoolConverter}" />
+                                        <Binding Path="DataContext.IsDetecting"
+                                                 RelativeSource="{RelativeSource AncestorType=DataGrid}"
+                                                 UpdateSourceTrigger="PropertyChanged"
+                                                 Converter="{StaticResource InverseBoolConverter}" />
+                                        <Binding Path="DataContext.(viewModels:DeviceConfigViewModel.IsRequired)"
+                                                 RelativeSource="{RelativeSource Self}"
+                                                 Mode="OneWay"
+                                                 Converter="{StaticResource InverseBoolConverter}" />
+                                    </MultiBinding>
+                                </CheckBox.IsEnabled>
+                            </CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="{lex:Loc ManufacturerLabel}"
+                                        IsReadOnly="False"
+                                        MinWidth="300"
+                                        CellStyle="{StaticResource MakeCellStyle}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn17_3A60546D"
+                                        loc:Localizer.For="Operator">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:DeviceConfigViewModel}">
+                            <ComboBox
+                                ItemsSource="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturers), RelativeSource={RelativeSource AncestorType=DataGridCell}}"
+                                SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Manufacturer), RelativeSource={RelativeSource AncestorType=DataGridCell}, Mode=TwoWay}"
+                                IsSynchronizedWithCurrentItem="True"
+                                AutomationProperties.AutomationId="ComboBox18_3A60546D">
+                                <ComboBox.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                        <Binding Path="DataContext.IsValidating"
+                                                 RelativeSource="{RelativeSource AncestorType=DataGrid}"
+                                                 UpdateSourceTrigger="PropertyChanged"
+                                                 Converter="{StaticResource InverseBoolConverter}" />
+                                        <Binding Path="DataContext.IsDetecting"
+                                                 RelativeSource="{RelativeSource AncestorType=DataGrid}"
+                                                 UpdateSourceTrigger="PropertyChanged"
+                                                 Converter="{StaticResource InverseBoolConverter}" />
+                                        <Binding Path="DataContext.(viewModels:DeviceConfigViewModel.CanChange)"
+                                                 RelativeSource="{RelativeSource Self}"
+                                                 Mode="OneWay" />
+                                    </MultiBinding>
+                                </ComboBox.IsEnabled>
+                            </ComboBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="{lex:Loc ProtocolLabel}"
+                                    MinWidth="110"
+                                    CellStyle="{StaticResource ProtocolCellStyle}"
+                                    Binding="{Binding Protocol}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn19_3A60546D"
+                                    loc:Localizer.For="Operator" />
+                <DataGridTemplateColumn Header="{lex:Loc Port}"
+                                        IsReadOnly="False"
+                                        MinWidth="110"
+                                        CellStyle="{StaticResource PortCellStyle}"
+                                        AutomationProperties.AutomationId="DataGridTemplateColumn20_3A60546D"
+                                        loc:Localizer.For="Operator">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type viewModels:DeviceConfigViewModel}">
+                            <common:VariableItemsControl
+                                Items="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Ports), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding Path=DataContext.(viewModels:DeviceConfigViewModel.Port), RelativeSource={RelativeSource AncestorType=DataGridCell}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <common:VariableItemsControl.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                        <Binding Path="DataContext.IsValidating"
+                                                 RelativeSource="{RelativeSource AncestorType=DataGrid}"
+                                                 UpdateSourceTrigger="PropertyChanged"
+                                                 Converter="{StaticResource InverseBoolConverter}" />
+                                        <Binding Path="DataContext.IsDetecting"
+                                                 RelativeSource="{RelativeSource AncestorType=DataGrid}"
+                                                 UpdateSourceTrigger="PropertyChanged"
+                                                 Converter="{StaticResource InverseBoolConverter}" />
+                                    </MultiBinding>
+                                </common:VariableItemsControl.IsEnabled>
+                            </common:VariableItemsControl>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="{lex:Loc StatusLabel}"
+                                    FontSize="{StaticResource SmallLabelFontSize}"
+                                    Binding="{Binding Status}"
+                                    CellStyle="{StaticResource StatusCellStyle}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn21_3A60546D" 
+                                    loc:Localizer.For="Operator"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="1"
+              Visibility="{Binding ShowHardMeters, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              IsEnabled="{Binding InputEnabled}"
+              AutomationProperties.AutomationId="Grid22_3A60546D">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition23_3A60546D" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition24_3A60546D" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[0].ActualWidth}"
+                                  AutomationProperties.AutomationId="ColumnDefinition25_3A60546D" />
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[1].ActualWidth}"
+                                  AutomationProperties.AutomationId="ColumnDefinition26_3A60546D" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition27_3A60546D" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Width="{Binding ElementName=DeviceDataGrid, Path=Columns[0].ActualWidth}"
+                   Content="{lex:Loc HardMetersLabel}"
+                   AutomationProperties.AutomationId="Label31_3A60546D" />
+            <CheckBox Grid.Row="0" Grid.Column="1" Name="HardMeterEnabled"
+                      IsChecked="{Binding Path=HardMetersEnabled, Mode=TwoWay}"
+                      IsEnabled="{Binding ConfigurableHardMeters}"
+                      Style="{StaticResource CheckBoxStyle}"
+                      AutomationProperties.AutomationId="CheckBox32_3A60546D"/>
+            <StackPanel Grid.Row="0"
+                        Grid.Column="2"
+                        Orientation="Horizontal"
+                        Visibility="{Binding ElementName=HardMeterEnabled, Path=IsChecked, Converter={StaticResource TrueVisibleFalseHidden}}"
+                        AutomationProperties.AutomationId="StackPanel33_3A60546D">
+                <Label Content="{lex:Loc AvailableMeterMappings}"
+                       AutomationProperties.AutomationId="Label34_3A60546D" />
+                <ComboBox Style="{StaticResource MonacoComboBox}"
+                          SelectedValue="{Binding HardMeterMapSelection, Mode=TwoWay}"
+                          ItemsSource="{Binding HardMeterMapNames}"
+                          Margin="10 0"
+                          Width="Auto"
+                          HorizontalAlignment="Left"
+                          IsEnabled="{Binding ConfigurableHardMeters}"
+                          AutomationProperties.AutomationId="ComboBox35_3A60546D" />
+            </StackPanel>
+            <StackPanel Grid.Row="1"
+                        Grid.Column="2"
+                        Orientation="Horizontal"
+                        Visibility="{Binding TickValueVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        AutomationProperties.AutomationId="StackPanel36_3A60546D">
+                <Label Content="{lex:Loc HardMeterTickValue}"
+                       AutomationProperties.AutomationId="Label37_3A60546D" />
+                <ComboBox ItemsSource="{Binding TickValues}"
+                          DisplayMemberPath="Cents"
+                          SelectedItem="{Binding TickValue}"
+                          IsEditable="{Binding TickValueSelectable}"
+                          IsEnabled="{Binding ConfigurableHardMeters}"
+                          MaxHeight="40"
+                          HorizontalAlignment="Left"
+                          Margin="10"
+                          AutomationProperties.AutomationId="ComboBox38_3A60546D" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2"
+              Visibility="{Binding VisibleDoorOpticSensor, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              IsEnabled="{Binding InputEnabled}"
+              AutomationProperties.AutomationId="Grid39_3A60546D">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition40_3A60546D" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[0].ActualWidth}"
+                                  AutomationProperties.AutomationId="ColumnDefinition41_3A60546D" />
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[1].ActualWidth}"
+                                  AutomationProperties.AutomationId="ColumnDefinition42_3A60546D" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{lex:Loc DoorOpticSensor}"
+                   Margin="4 8 0 0"
+                   AutomationProperties.AutomationId="Label43_3A60546D" />
+            <CheckBox Grid.Row="0"
+                      Grid.Column="1"
+                      IsChecked="{Binding Path=EnabledDoorOpticSensor, Mode=TwoWay}"
+                      Style="{StaticResource CheckBoxStyle}"
+                      AutomationProperties.AutomationId="CheckBox44_3A60546D">
+                <CheckBox.IsEnabled>
+                    <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                        <Binding Path="ConfigurableDoorOpticSensor" />
+                        <Binding Path="FieldAccessEnabled" />
+                    </MultiBinding>
+                </CheckBox.IsEnabled>
+            </CheckBox>
+        </Grid>
+        <Grid Grid.Row="3"
+              Visibility="{Binding VisibleBellyPanelDoor, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              IsEnabled="{Binding InputEnabled}"
+              AutomationProperties.AutomationId="Grid45_3A60546D">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition46_3A60546D" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[0].ActualWidth}"
+                                  AutomationProperties.AutomationId="ColumnDefinition47_3A60546D" />
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[1].ActualWidth}"
+                                  AutomationProperties.AutomationId="ColumnDefinition48_3A60546D" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{lex:Loc BellyPanelDoor}"
+                   Margin="4 0 0 0"
+                   AutomationProperties.AutomationId="Label49_3A60546D" />
+            <CheckBox Grid.Row="0"
+                      Grid.Column="1"
+                      IsChecked="{Binding Path=BellyPanelDoorEnabled, Mode=TwoWay}"
+                      Style="{StaticResource CheckBoxStyle}"
+                      IsEnabled="{Binding ConfigurableBellyPanelDoor}"
+                      AutomationProperties.AutomationId="CheckBox50_3A60546D" />
+        </Grid>
+        <Grid Grid.Row="4"
+              Visibility="{Binding VisibleBell, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              IsEnabled="{Binding InputEnabled}"
+              AutomationProperties.AutomationId="Grid51_3A60546D">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition52_3A60546D" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[0].ActualWidth}"
+                                  AutomationProperties.AutomationId="ColumnDefinition53_3A60546D" />
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[1].ActualWidth}"
+                                  AutomationProperties.AutomationId="ColumnDefinition54_3A60546D" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{lex:Loc BellLabel}"
+                   Margin="4 8 0 0"
+                   AutomationProperties.AutomationId="Label55_3A60546D" />
+            <CheckBox Grid.Row="0"
+                      Grid.Column="1"
+                      IsChecked="{Binding Path=BellEnabled, Mode=TwoWay}"
+                      Style="{StaticResource CheckBoxStyle}"
+                      IsEnabled="{Binding ConfigurableBell}"
+                      AutomationProperties.AutomationId="CheckBox56_3A60546D" />
+        </Grid>
+        <Grid Grid.Row="5"
+              Visibility="{Binding VisibleTowerLightTierTypes, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+              IsEnabled="{Binding InputEnabled}"
+              AutomationProperties.AutomationId="Grid57_3A60546D">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition58_3A60546D" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding ElementName=DeviceDataGrid, Path=Columns[0].ActualWidth}"
+                                  AutomationProperties.AutomationId="ColumnDefinition59_3A60546D" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition60_3A60546D" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{lex:Loc TowerLightTierType}"
+                   AutomationProperties.AutomationId="Label61_3A60546D" />
+            <ComboBox Grid.Row="0"
+                      Grid.Column="1"
+                      Style="{StaticResource MonacoComboBox}"
+                      SelectedValue="{Binding TowerLightConfigSelection, Mode=TwoWay}"
+                      ItemsSource="{Binding AvailableTowerLightTierTypes, Mode=OneWay}"
+                      SelectedValuePath="Item1"
+                      DisplayMemberPath="Item2"
+                      MinWidth="80"
+                      Margin="8 4 0 10"
+                      Width="Auto"
+                      HorizontalAlignment="Left"
+                      IsEnabled="{Binding ConfigurableTowerLightTierTypes}"
+                      AutomationProperties.AutomationId="ComboBox62_3A60546D" />
+        </Grid>
+        <StackPanel Grid.Row="6"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal"
+                    Margin="5 20 0 0"
+                    AutomationProperties.AutomationId="StackPanel63_3A60546D">
+            <Button Content="{lex:Loc Validate}"
+                    Visibility="{Binding ShowValidateButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    Command="{Binding ValidateCommand}"
+                    AutomationProperties.AutomationId="Button64_3A60546D" />
+            <Button Content="{lex:Loc ApplyLabel}"
+                    Visibility="{Binding ShowApplyButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    IsEnabled="{Binding InputEnabled}"
+                    Command="{Binding ApplyHardwareSettingsCommand}"
+                    AutomationProperties.AutomationId="Button65_3A60546D" />
+            <Button Style="{StaticResource MonacoWarningButton}"
+                    Name="ApplyInfoButton"
+                    Command="{Binding ShowInfoPopupCommand}"
+                    Visibility="{Binding ShowApplyButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="Button66_3A60546D">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                        <Binding ElementName="ApplyInfoButton" />
+                        <Binding Source="{lex:Loc RebootWarningMessage}" />
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+            <Label Content="{Binding ValidationStatus}"
+                   Style="{StaticResource MonacoWarningLabel}"
+                   FontSize="{StaticResource LabelFontSize}"
+                   Foreground="{Binding ValidationStatus, Converter={StaticResource BrushConverter}}"
+                   AutomationProperties.AutomationId="Label67_3A60546D" />
+        </StackPanel>
+        <controls:ProgressRing Grid.Row="0"
+                               Grid.RowSpan="2"
+                               Foreground="{StaticResource LightBrush3}"
+                               VerticalAlignment="Center">
+            <controls:ProgressRing.IsActive>
+                <MultiBinding Converter="{StaticResource BoolOrConverter}">
+                    <Binding Path="DataContext.IsValidating"
+                             RelativeSource="{RelativeSource AncestorType=DataGrid}"
+                             UpdateSourceTrigger="PropertyChanged" />
+                    <Binding Path="DataContext.IsDetecting"
+                             RelativeSource="{RelativeSource AncestorType=DataGrid}"
+                             UpdateSourceTrigger="PropertyChanged" />
+                </MultiBinding>
+            </controls:ProgressRing.IsActive>
+        </controls:ProgressRing>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

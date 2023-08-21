@@ -1,0 +1,124 @@
+﻿<common:BaseWindow x:Class="Aristocrat.Monaco.Gaming.UI.Views.Lobby.InfoWindow"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+                   xmlns:common="http://monaco.aristocrat.com/common"
+                   mc:Ignorable="d"
+                   d:DataContext="{d:DesignInstance {x:Type viewModels:InfoOverlayViewModel}}"
+                   WindowStartupLocation="Manual"
+                   ResizeMode="NoResize"
+                   WindowStyle="None"
+                   Title="InfoWindow"
+                   ShowInTaskbar="False"
+                   Closed="OnClosed"
+                   Width="1920"
+                   Height="1080">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/MetroSkin.xaml" />
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
+
+                <ResourceDictionary Source="../../Skins/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.Background>
+        <SolidColorBrush Color="Transparent"
+                         AutomationProperties.AutomationId="SolidColorBrush0_6E7CC226" />
+    </Window.Background>
+    <Grid AutomationProperties.AutomationId="Grid1_6E7CC226">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"
+                              AutomationProperties.AutomationId="ColumnDefinition2_6E7CC226" />
+            <ColumnDefinition Width="500"
+                              AutomationProperties.AutomationId="ColumnDefinition3_6E7CC226" />
+            <ColumnDefinition Width="1*"
+                              AutomationProperties.AutomationId="ColumnDefinition4_6E7CC226" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"
+                           AutomationProperties.AutomationId="RowDefinition5_6E7CC226" />
+            <RowDefinition Height="600"
+                           AutomationProperties.AutomationId="RowDefinition6_6E7CC226" />
+            <RowDefinition Height="1*"
+                           AutomationProperties.AutomationId="RowDefinition7_6E7CC226" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0"
+                   Grid.Row="0"
+                   x:Name="tbTopLeft"
+                   Margin="10"
+                   FontSize="30"
+                   FontWeight="Bold"
+                   Text="{Binding TextsTopLeft}"
+                   TextAlignment="Left"
+                   AutomationProperties.AutomationId="TextBlock8_6E7CC226">
+            <TextBlock.Effect>
+                <DropShadowEffect Direction="1"
+                                  BlurRadius="10"
+                                  Color="White"
+                                  Opacity="1"
+                                  AutomationProperties.AutomationId="DropShadowEffect9_6E7CC226" />
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock Grid.Column="2"
+                   Grid.Row="0"
+                   x:Name="tbTopRight"
+                   Margin="10"
+                   FontSize="30"
+                   FontWeight="Bold"
+                   Text="{Binding TextsTopRight}"
+                   TextAlignment="Right"
+                   AutomationProperties.AutomationId="TextBlock10_6E7CC226">
+            <TextBlock.Effect>
+                <DropShadowEffect Direction="1"
+                                  BlurRadius="10"
+                                  Color="White"
+                                  Opacity="1"
+                                  AutomationProperties.AutomationId="DropShadowEffect11_6E7CC226" />
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock Grid.Column="0"
+                   Grid.Row="2"
+                   x:Name="tbBotLeft"
+                   Margin="10"
+                   FontSize="30"
+                   FontWeight="Bold"
+                   Text=""
+                   TextAlignment="Right"
+                   AutomationProperties.AutomationId="TextBlock12_6E7CC226">
+            <TextBlock.Effect>
+                <DropShadowEffect Direction="1"
+                                  BlurRadius="10"
+                                  Color="White"
+                                  Opacity="1"
+                                  AutomationProperties.AutomationId="DropShadowEffect13_6E7CC226" />
+            </TextBlock.Effect>
+        </TextBlock>
+        <TextBlock Grid.Column="2"
+                   Grid.Row="2"
+                   x:Name="tbBotRight"
+                   Margin="10"
+                   FontSize="30"
+                   FontWeight="Bold"
+                   Text=""
+                   TextAlignment="Right"
+                   AutomationProperties.AutomationId="TextBlock14_6E7CC226">
+            <TextBlock.Effect>
+                <DropShadowEffect Direction="1"
+                                  BlurRadius="10"
+                                  Color="White"
+                                  Opacity="1"
+                                  AutomationProperties.AutomationId="DropShadowEffect15_6E7CC226" />
+            </TextBlock.Effect>
+        </TextBlock>
+    </Grid>
+</common:BaseWindow>

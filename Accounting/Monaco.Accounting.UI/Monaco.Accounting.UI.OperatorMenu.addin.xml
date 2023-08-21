@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Addin id="Monaco.Accounting.UI.OperatorMenu" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Monaco.Accounting.UI.dll" />
+    <Import assembly="Aristocrat.Monaco.Application.UI.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Application.UI" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Application/OperatorMenu/MetersMenu">
+    <MetersMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.BillsMetersPageLoader" order="210"/>
+    <MetersMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.VoucherMetersPageLoader" order="220"/>
+    <MetersMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.WatMetersPageLoader" order="230"/>
+    <MetersMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.HandpayMetersPageLoader" order="240"/>
+    <MetersMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.KeyedCreditsMetersPageLoader" order="250"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/StatusMenu">
+    <StatusMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.CurrentCreditsPageLoader" order="20"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/SystemMenu">
+    <SystemMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.VoucherSettingsPageLoader" order="40"/>
+    <SystemMenu type="Aristocrat.Monaco.Accounting.UI.Loaders.KeyedCreditsPageLoader" order="50"/>
+  </Extension>
+</Addin>

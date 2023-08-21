@@ -1,0 +1,773 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyTitle>Aristocrat.Mgam.Client</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DocumentationFile>..\..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Mgam.Client.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>CODE_ANALYSIS;TRACE</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DocumentationFile>..\..\..\bin\$(Configuration)\Platform\bin\Aristocrat.Mgam.Client.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Retail|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS;RETAIL</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Protocol\ApplicationPackageDescription.cs">
+      <DependentUpon>ApplicationPackageDescription.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\ApplicationPackageDescription.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>ApplicationPackageDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\AttributesChanged.cs">
+      <DependentUpon>AttributesChanged.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\AttributesChanged.genrated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>AttributesChanged.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BeginSession.cs">
+      <DependentUpon>BeginSession.xsd</DependentUpon>
+      <SubType>code</SubType>
+    </Compile>
+    <Compile Update="Protocol\BeginSession.generated.cs">
+      <DependentUpon>BeginSession.cs</DependentUpon>
+      <SubType>code</SubType>
+    </Compile>
+    <Compile Update="Protocol\BeginSessionResponse.cs">
+      <DependentUpon>BeginSessionResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BeginSessionResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>BeginSessionResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BeginSessionWithCard.cs">
+      <DependentUpon>BeginSessionWithCard.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BeginSessionWithCard.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>BeginSessionWithCard.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BeginSessionWithCash.cs">
+      <DependentUpon>BeginSessionWithCash.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BeginSessionWithCash.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>BeginSessionWithCash.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BeginSessionWithSessionID.cs">
+      <DependentUpon>BeginSessionWithSessionID.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BeginSessionWithSessionID.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>BeginSessionWithSessionID.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BeginSessionWithVoucher.cs">
+      <DependentUpon>BeginSessionWithVoucher.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BeginSessionWithVoucher.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>BeginSessionWithVoucher.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BillAcceptorMeterReport.cs">
+      <DependentUpon>BillAcceptorMeterReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BillAcceptorMeterReport.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>BillAcceptorMeterReport.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BillAcceptorMeterReportResponse.cs">
+      <DependentUpon>BillAcceptorMeterReportResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\BillAcceptorMeterReportResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>BillAcceptorMeterReportResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\Checksum.cs">
+      <SubType>code</SubType>
+      <DependentUpon>Checksum.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\Checksum.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>Checksum.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\ChecksumResponse.cs">
+      <SubType>code</SubType>
+      <DependentUpon>ChecksumResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\ChecksumResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>ChecksumResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\CommandResponse.cs">
+      <DependentUpon>CommandResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\CommandResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>CommandResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\CreditCash.cs">
+      <DependentUpon>CreditCash.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\CreditCash.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>CreditCash.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\CreditResponse.cs">
+      <DependentUpon>CreditResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\CreditResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>CreditResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\CreditVoucher.cs">
+      <DependentUpon>CreditVoucher.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\CreditVoucher.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>CreditVoucher.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\EmployeeLogin.cs">
+      <DependentUpon>EmployeeLogin.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\EmployeeLogin.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>EmployeeLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\EmployeeLoginResponse.cs">
+      <DependentUpon>EmployeeLoginResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\EmployeeLoginResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>EmployeeLoginResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\EndSession.cs">
+      <SubType>code</SubType>
+      <DependentUpon>EndSession.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\EndSession.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>EndSession.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\EndSessionResponse.cs">
+      <SubType>code</SubType>
+      <DependentUpon>EndSessionResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\EndSessionResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>EndSessionResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\EscrowCash.cs">
+      <DependentUpon>EscrowCash.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\EscrowCash.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>EscrowCash.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\EscrowCashResponse.cs">
+      <DependentUpon>EscrowCashResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\EscrowCashResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>EscrowCashResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\GetAttributes.cs">
+      <DependentUpon>GetAttributes.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\GetAttributes.genrated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>GetAttributes.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\GetAttributesResponse.cs">
+      <DependentUpon>GetAttributesResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\GetAttributesResponse.genrated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>GetAttributesResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\GetCardType.cs">
+      <DependentUpon>GetCardType.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\GetCardType.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>GetCardType.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\GetCardTypeResponse.cs">
+      <DependentUpon>GetCardTypeResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\GetCardTypeResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>GetCardTypeResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\GetGameAssignments.cs">
+      <DependentUpon>GetGameAssignments.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\GetGameAssignments.generated.cs">
+      <DependentUpon>GetGameAssignments.cs</DependentUpon>
+      <SubType>code</SubType>
+    </Compile>
+    <Compile Update="Protocol\GetGameAssignmentsResponse.cs">
+      <DependentUpon>GetGameAssignmentsResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\GetGameAssignmentsResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>GetGameAssignmentsResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\KeepAlive.cs">
+      <DependentUpon>KeepAlive.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\KeepAlive.genrated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>KeepAlive.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\KeepAliveResponse.cs">
+      <DependentUpon>KeepAliveResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\KeepAliveResponse.genrated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>KeepAliveResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\PlayerTrackingLogin.cs">
+      <DependentUpon>PlayerTrackingLogin.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\PlayerTrackingLogin.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>PlayerTrackingLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\PlayerTrackingLoginResponse.cs">
+      <DependentUpon>PlayerTrackingLoginResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\PlayerTrackingLoginResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>PlayerTrackingLoginResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\PlayerTrackingLogoff.cs">
+      <DependentUpon>PlayerTrackingLogoff.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\PlayerTrackingLogoff.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>PlayerTrackingLogoff.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\PlayerTrackingLogoffResponse.cs">
+      <DependentUpon>PlayerTrackingLogoffResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\PlayerTrackingLogoffResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>PlayerTrackingLogoffResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\ReadyToPlay.cs">
+      <DependentUpon>ReadyToPlay.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\ReadyToPlay.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>ReadyToPlay.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\ReadyToPlayResponse.cs">
+      <DependentUpon>ReadyToPlayResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\ReadyToPlayResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>ReadyToPlayResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterAction.cs">
+      <DependentUpon>RegisterAction.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterAction.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterAction.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterActionResponse.cs">
+      <DependentUpon>RegisterActionResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterActionResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterActionResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterAttribute.cs">
+      <DependentUpon>RegisterAttribute.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterAttribute.genrated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterAttribute.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterAttributeResponse.cs">
+      <DependentUpon>RegisterAttributeResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterAttributeResponse.genrated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterAttributeResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterCommand.cs">
+      <DependentUpon>RegisterCommand.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterCommand.genrated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterCommand.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterCommandResponse.cs">
+      <DependentUpon>RegisterCommandResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterCommandResponse.genrated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterCommandResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterDenomination.cs">
+      <DependentUpon>RegisterDenomination.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterDenomination.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterDenomination.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterDenominationResponse.cs">
+      <DependentUpon>RegisterDenominationResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterDenominationResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterDenominationResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterGame.cs">
+      <DependentUpon>RegisterGame.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterGame.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterGame.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterGameResponse.cs">
+      <DependentUpon>RegisterGameResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterGameResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterGameResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterNotification.cs">
+      <DependentUpon>RegisterNotification.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterNotification.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterNotificationResponse.cs">
+      <DependentUpon>RegisterNotificationResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterNotificationResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterNotificationResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterProgressive.cs">
+      <DependentUpon>RegisterProgressive.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterProgressive.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterProgressive.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterProgressiveResponse.cs">
+      <DependentUpon>RegisterProgressiveResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterProgressiveResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterProgressiveResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestPlay.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestPlay.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestPlay.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestPlay.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestPlayResponse.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestPlayResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestPlayResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestPlayResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestPlayVoucherResponse.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestPlayVoucherResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestPlayVoucherResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestPlayVoucherResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestXADF.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestXADF.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestXADF.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestXADF.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestXADFResponse.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestXADFResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestXADFResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestXADFResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\SetAttribute.cs">
+      <DependentUpon>SetAttribute.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\SetAttribute.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>SetAttribute.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\SetAttributeResponse.cs">
+      <DependentUpon>SetAttributeResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\SetAttributeResponse.genrated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>SetAttributeResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\ValidateVoucher.cs">
+      <DependentUpon>ValidateVoucher.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\ValidateVoucher.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>ValidateVoucher.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\ValidateVoucherResponse.cs">
+      <DependentUpon>ValidateVoucherResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\ValidateVoucherResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>ValidateVoucherResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\VoucherPrinted.cs">
+      <DependentUpon>VoucherPrinted.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\VoucherPrinted.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>VoucherPrinted.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\VoucherPrintedResponse.cs">
+      <DependentUpon>VoucherPrintedResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\VoucherPrintedResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>VoucherPrintedResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\Command.cs">
+      <DependentUpon>Command.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\Command.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>Command.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\Notification.cs">
+      <DependentUpon>Notification.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\Notification.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>Notification.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\NotificationResponse.cs">
+      <DependentUpon>NotificationResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\NotificationResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>NotificationResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterInstance.cs">
+      <DependentUpon>RegisterInstance.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterInstance.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterInstance.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterInstanceResponse.cs">
+      <DependentUpon>RegisterInstanceResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RegisterInstanceResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RegisterInstanceResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestGUID.cs">
+      <DependentUpon>RequestGUID.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestGUID.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestGUID.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestGUIDResponse.cs">
+      <DependentUpon>RequestGUIDResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestGUIDResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestGUIDResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestService.cs">
+      <DependentUpon>RequestService.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestService.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestService.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestServiceResponse.cs">
+      <DependentUpon>RequestServiceResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\RequestServiceResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>RequestServiceResponse.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\UnregisterInstance.cs">
+      <DependentUpon>UnregisterInstance.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\UnregisterInstance.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>UnregisterInstance.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\UnregisterInstanceResponse.cs">
+      <DependentUpon>UnregisterInstanceResponse.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Protocol\UnregisterInstanceResponse.generated.cs">
+      <SubType>code</SubType>
+      <DependentUpon>UnregisterInstanceResponse.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="Polly" Version="7.2.1" />
+    <PackageReference Include="SharpZipLib" Version="1.2.0" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="System.Threading.Channels" Version="5.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.11.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Protocol\ApplicationPackageDescription.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\AttributesChanged.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\BeginSession.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\BeginSessionResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\BeginSessionWithCard.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\BeginSessionWithCash.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\BeginSessionWithSessionID.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\BeginSessionWithVoucher.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\BillAcceptorMeterReport.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\BillAcceptorMeterReportResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\Checksum.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\ChecksumResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\Command.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\CommandResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\CreditCash.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\CreditResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\CreditVoucher.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\EmployeeLogin.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\EmployeeLoginResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\EndSession.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\EndSessionResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\EscrowCash.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\EscrowCashResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\GetAttributes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\GetAttributesResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\GetCardType.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\GetCardTypeResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\GetGameAssignments.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\GetGameAssignmentsResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\KeepAlive.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\KeepAliveResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\Notification.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\NotificationResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\PlayerTrackingLogin.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\PlayerTrackingLoginResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\PlayerTrackingLogoff.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\PlayerTrackingLogoffResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\ReadyToPlay.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\ReadyToPlayResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterAction.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterActionResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterAttribute.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterAttributeResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterCommand.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterCommandResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterDenomination.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterDenominationResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterGame.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterGameResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterInstance.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterInstanceResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterNotification.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterNotificationResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterProgressive.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RegisterProgressiveResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RequestGUID.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RequestGUIDResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RequestPlay.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RequestPlayResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RequestPlayVoucherResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RequestService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RequestServiceResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RequestXADF.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\RequestXADFResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\SetAttribute.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\SetAttributeResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\UnregisterInstance.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\UnregisterInstanceResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\ValidateVoucher.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\ValidateVoucherResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\VoucherPrinted.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Protocol\VoucherPrintedResponse.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\..\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
+  </ItemGroup>
+</Project>

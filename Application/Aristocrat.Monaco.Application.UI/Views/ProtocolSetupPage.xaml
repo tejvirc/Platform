@@ -1,0 +1,124 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.ProtocolSetupPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:common="http://monaco.aristocrat.com/common"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance viewModels:ProtocolSetupPageViewModel, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <common:EqualityToBoolConverter x:Key="EqualityToBool" />
+            <converters:ProtocolNameToDisplayNameConverter x:Key="ProtocolNameToDisplayNameConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_8C42549B">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition1_8C42549B" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_8C42549B" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition3_8C42549B" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_8C42549B" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_8C42549B" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0"
+               Content="{lex:Loc AddinProtocolSelection}"
+               AutomationProperties.AutomationId="Label6_8C42549B" />
+        <ItemsControl Grid.Row="1"
+                      ItemsSource="{Binding ProtocolSelections}"
+                      Margin="0,20,0,0"
+                      AutomationProperties.AutomationId="ItemsControl7_8C42549B">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                Margin="0 0 0 15"
+                                AutomationProperties.AutomationId="StackPanel8_8C42549B">
+                        <CheckBox IsChecked="{Binding Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  IsEnabled="{Binding Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  AutomationProperties.AutomationId="CheckBox9_8C42549B" />
+                        <Label VerticalAlignment="Center"
+                               FontSize="20"
+                               Content="{Binding ProtocolName, Converter={StaticResource ProtocolNameToDisplayNameConverter}, Mode=OneWay}"
+                               AutomationProperties.AutomationId="Label10_8C42549B" />
+                        <Button Name="InfoButton"
+                                Margin="10 0 0 0"
+                                Style="{StaticResource MonacoInfoButton}"
+                                Command="{Binding DataContext.ShowInfoPopupCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                AutomationProperties.AutomationId="Button11_8C42549B">
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource MultiValueConverter}">
+                                    <Binding ElementName="InfoButton" />
+                                    <Binding Path="DataContext.ProtocolName"
+                                             RelativeSource="{RelativeSource Self}" />
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Popup Margin="10"
+                               Placement="Right"
+                               PlacementTarget="{Binding ElementName=InfoButton}"
+                               VerticalOffset="22"
+                               PopupAnimation="Slide"
+                               AllowsTransparency="True"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               StaysOpen="False"
+                               AutomationProperties.AutomationId="Popup12_8C42549B">
+                            <Popup.IsOpen>
+                                <MultiBinding Converter="{StaticResource EqualityToBool}">
+                                    <Binding Path="DataContext.PopupProtocol"
+                                             RelativeSource="{RelativeSource AncestorType=Control}" />
+                                    <Binding Path="ProtocolName" />
+                                </MultiBinding>
+                            </Popup.IsOpen>
+                            <Border BorderBrush="{StaticResource HighlightBrush1}"
+                                    BorderThickness="2"
+                                    Background="{StaticResource DarkBrush4}"
+                                    Name="PopupBorder"
+                                    AutomationProperties.AutomationId="Border13_8C42549B">
+                                <TextBlock Name="PopupTextBlock"
+                                           Text="{Binding DataContext.PopupProtocolInfo, RelativeSource={RelativeSource AncestorType=Control}}"
+                                           TextWrapping="Wrap"
+                                           Padding="10"
+                                           MaxWidth="400"
+                                           Foreground="{StaticResource HighlightBrush1}"
+                                           FontSize="16"
+                                           AutomationProperties.AutomationId="TextBlock14_8C42549B" />
+                            </Border>
+                        </Popup>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBlock Grid.Row="2"
+                   VerticalAlignment="Bottom"
+                   TextWrapping="Wrap"
+                   Style="{StaticResource MonacoWarningTextBlock}"
+                   Text="{lex:Loc ProtocolSetupWarningMessage}"
+                   Visibility="{Binding WarningMessageVisible, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
+                   AutomationProperties.AutomationId="TextBlock15_8C42549B" />
+        <TextBlock Grid.Row="3"
+                   VerticalAlignment="Bottom"
+                   TextWrapping="Wrap"
+                   Style="{StaticResource MonacoWarningTextBlock}"
+                   Text="{Binding  RequiredFunctionalityProtocolSelectionMessage}"
+                   Visibility="{Binding IsDisplayRequiredFunctionalityProtocolSelectionMessage, Converter={StaticResource TrueVisibleFalseHidden}, UpdateSourceTrigger=PropertyChanged}"
+                   AutomationProperties.AutomationId="TextBlock16_8C42549B" />
+    </Grid>
+</operatorMenu:OperatorMenuPage>

@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+  *NOTE* When adding or removing elements to this file, you will need to 
+  change the corresponding xsd schema file and generate a new class definition
+  as follows:
+
+  1.  Open a VS command prompt and change to the directory:
+      Hardware\Aristocrat.Monaco.Hardware.Contracts\Discovery
+  2.  Enter "xsd IOConfigurations.xsd /classes".  This will generate
+      the corresponding class definition in csharp (IOConfigurations.cs).
+-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="c_logicalDevice">
+    <xs:attribute name="PhysicalId" type="xs:int" use="required" />
+    <xs:attribute name="LogicalId" type="xs:int" use="required" />
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+  </xs:complexType>
+
+  <xs:element name="IOConfigurations">
+    <xs:complexType>
+      <xs:sequence>
+
+        <xs:element maxOccurs="1" name="Buttons">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="Button">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:extension base="c_logicalDevice">
+                      <xs:attribute name="LampBit" type="xs:int" default="-1" />
+                    </xs:extension>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element maxOccurs="1" name="KeySwitches">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="KeySwitch">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:extension base="c_logicalDevice">
+                    </xs:extension>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element maxOccurs="1" name="Doors">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="Door">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:extension base="c_logicalDevice">
+                    </xs:extension>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element maxOccurs="1" name="Lights">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="Light">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:extension base="c_logicalDevice">
+                    </xs:extension>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element maxOccurs="1" name="HardMeters">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="HardMeter">
+                <xs:complexType>
+                  <xs:complexContent>
+                    <xs:extension base="c_logicalDevice">
+                    </xs:extension>
+                  </xs:complexContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="DefaultTickValue" type="xs:long" use="optional" default="100" />
+          </xs:complexType>
+        </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

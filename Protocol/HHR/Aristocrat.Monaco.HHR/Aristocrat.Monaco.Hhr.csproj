@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <RootNamespace>Aristocrat.Monaco.HHR</RootNamespace>
+    <AssemblyName>Aristocrat.Monaco.HHR</AssemblyName>
+    <AssemblyTitle>Aristocrat.Monaco.Hhr</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Retail|AnyCPU' ">
+    <DefineConstants>TRACE;CODE_ANALYSIS;RETAIL</DefineConstants>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Storage\Models\PendingRequestEntity.Configuration.cs">
+      <DependentUpon>PendingRequestEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\PrizeInformationEntity.Configuration.cs">
+      <DependentUpon>PrizeInformationEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\GamePlayEntity.Configuration.cs">
+      <DependentUpon>GamePlayEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\ManualHandicapEntity.Configuration.cs">
+      <DependentUpon>ManualHandicapEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Storage\Models\ProgressiveUpdateEntity.Configuration.cs">
+      <DependentUpon>ProgressiveUpdateEntity.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
+    <ProjectReference Include="..\..\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.HHR.Client\Aristocrat.Monaco.HHR.Client.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Aristocrat.Monaco.HHR.HHRPropertyProvider.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.SQLitePCLRaw.bundle_e_sqlcipher" Version="2.1.4" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0046" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
+    <PackageReference Include="SQLite.CodeFirst" Version="1.6.0.30" />
+    <PackageReference Include="Stateless" Version="4.0.0" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+  </ItemGroup>
+</Project>

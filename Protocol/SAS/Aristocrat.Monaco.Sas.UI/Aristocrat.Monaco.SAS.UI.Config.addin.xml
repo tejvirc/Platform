@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+<Addin id="SasConfigurationScreen" namespace="Client12Addins" version="1.0">
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Sas.UI.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="ApplicationRunnable" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="Monaco.Hardware" version="1.0" />
+    <Addin id="Monaco.Application.UI" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Application/Config/Wizards">
+    <Wizard type="Aristocrat.Monaco.Sas.UI.ConfigurationScreen.SasConfigurationWizard" order="6"/>
+  </Extension>
+
+  <Extension path="/Application/OperatorMenu/CommsMenu">
+    <CommsMenu type="Aristocrat.Monaco.Sas.UI.Loaders.SasConfigurationPageLoader" order="110"/>
+    <CommsMenu type="Aristocrat.Monaco.Sas.UI.Loaders.SasFeaturesPageLoader" order="120"/>
+  </Extension>
+
+</Addin>

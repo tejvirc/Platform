@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Gaming.CurrencyInValidator">
+  <Fields>
+    <Field DataType="Int64" FieldName="CreditsIn" />
+  </Fields>
+</BlockFormat>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="Vgt.Client12.Accounting.VoucherOutMetersProvider.xml" ElementSize="96">
+  <Fields>
+    <Field DataType="Int64" Size="8" Count="0" Offset="0" FieldName="VoucherOutCashableValueLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="8" FieldName="VoucherOutCashableValuePeriod" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="16" FieldName="VoucherOutCashableCountLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="24" FieldName="VoucherOutCashableCountPeriod" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="32" FieldName="VoucherOutCashablePromotionalValueLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="40" FieldName="VoucherOutCashablePromotionalValuePeriod" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="48" FieldName="VoucherOutCashablePromotionalCountLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="56" FieldName="VoucherOutCashablePromotionalCountPeriod" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="64" FieldName="VoucherOutNonCashablePromotionalValueLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="72" FieldName="VoucherOutNonCashablePromotionalValuePeriod" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="80" FieldName="VoucherOutNonCashablePromotionalCountLifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="88" FieldName="VoucherOutNonCashablePromotionalCountPeriod" />
+  </Fields>
+</BlockFormat>

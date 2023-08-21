@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Application\Monaco.Application.Contracts\OperatorMenu
+2.  Enter "xsd OperatorMenuConfiguration.xsd /classes".  This will generate
+    the corresponding class definition in csharp (OperatorMenuConfiguration.cs).
+-->
+<OperatorMenuConfiguration>
+  <Printing ReportOption="AllOnly" />
+  <ShowTimeFormat State="Disabled"/>
+  <MenuSelectionWindow>
+    <CreditBalance Visibility="Visible"/>
+  </MenuSelectionWindow>
+  <MetersScreen>
+    <PrintButton Visibility="Hidden"/>
+    <VouchersButton Visibility="Hidden"/>
+    <WATButton Visibility="Hidden"/>
+    <GameButton Visibility="Hidden"/>
+  </MetersScreen>
+  <TransactionHistoryLog>
+    <CanceledCreditsButton Visibility="Hidden"/>
+    <DoorButton Visibility="Hidden"/>
+    <CreditTypes Visibility="Hidden"/>
+  </TransactionHistoryLog>   
+  <HardwarePage>
+    <MenuItemVisibility>
+      <MenuItem Name="Bell" Visibility="Hidden"/>
+      <MenuItem Name="IO" Visibility="Visible"/>
+      <MenuItem Name="PersistentStorage" Visibility="Hidden"/>
+      <MenuItem Name="NoteAcceptor" Visibility="Visible"/>
+      <MenuItem Name="Printer" Visibility="Visible"/>
+      <MenuItem Name="ReelController" Visibility="Hidden"/>
+      <MenuItem Name="TouchScreen" Visibility="Hidden"/>
+      <MenuItem Name="Batteries" Visibility="Hidden"/>
+    </MenuItemVisibility>
+    <PrintButton Visibility="Hidden" CanCancel="Disabled" DisplayStatus="Disabled"/>
+  </HardwarePage>
+  <IOPage>
+    <PrintButton Visibility="Visible" CanCancel="Disabled" DisplayStatus="Enabled"/>
+    <NavigateBackButton Visibility="Visible" Content="Hardware Menu"/>
+  </IOPage>  
+  <NoteAcceptorPage>
+    <PrintButton Visibility="Visible" CanCancel="Disabled" DisplayStatus="Enabled"/>
+    <NavigateBackButton Visibility="Visible" Content="Hardware Menu"/>
+  </NoteAcceptorPage>
+  <NVRamClear Visibility="Visible">
+    <PartialClearButton Visibility="Hidden"/>
+    <NVRamSnapshotButton Visibility="Hidden"/>
+  </NVRamClear>
+  <PrinterPage>
+    <PrintButton Visibility="Visible" CanCancel="Disabled" DisplayStatus="Enabled"/>
+    <NavigateBackButton Visibility="Visible" Content="Hardware Menu"/>
+  </PrinterPage>
+  <StatusPage>
+    <OperatorDisableWithCredits State="Yes"/>
+  </StatusPage>
+  <ConfigTimeZonePage>
+    <OperatorChangeWithCredits State="Yes"/>
+  </ConfigTimeZonePage>
+  <ConfigNetworkInfoPage>
+    <OperatorChangeWithCredits State="Yes"/>
+  </ConfigNetworkInfoPage>
+  <Diagnostics State="Enabled"/>
+  <BillEventLog MaxStoredLogMessages="100"/>
+</OperatorMenuConfiguration>  

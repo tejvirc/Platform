@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Currencies>
+	<CurrencyDefinitions>
+		<Currency>
+		  <CurrencyCode>USD</CurrencyCode>
+		  <ExcludedDenominations>
+				<int>2</int>
+		  </ExcludedDenominations>
+		  <!--default value not require <Multiplier>100000</Multiplier>-->
+		</Currency>
+	</CurrencyDefinitions>
+</Currencies>

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyTitle>Aristocrat.Monaco.Hardware.Usb.Tests</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Aristocrat.RelmReels" Version="0.1.19" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Usb\Aristocrat.Monaco.Hardware.Usb.csproj" />
+  </ItemGroup>
+</Project>

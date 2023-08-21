@@ -1,0 +1,34 @@
+﻿<Addin id="G2SConfiguration" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="SelectableProtocol" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration/Protocol">
+    <SelectableProtocol name="G2S" description="Platform Configuration for G2S">
+      <AddinConfigurationGroupReference name="BaseMeterPages" />
+      <AddinConfigurationGroupReference name="G2SProtocolRunnable" />
+      <AddinConfigurationGroupReference name="G2SConfigWizardPages" />
+      <AddinConfigurationGroupReference name="StatusPages" />
+      <AddinConfigurationGroupReference name="CommsPages" />
+      <AddinConfigurationGroupReference name="IdentificationPages" />
+    </SelectableProtocol>
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="G2SProtocolRunnable" description="This is the protocol launcher for G2S">
+      <ExtensionPointConfiguration extensionPath="/Protocol/Runnables">
+        <NodeSpecification addinId="Client12Addins.G2SBase" typeName="Aristocrat.Monaco.G2S.G2SBase" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+
+    <AddinConfigurationGroup name="G2SConfigWizardPages" description="These are the config wizard pages for G2S">
+      <ExtensionPointConfiguration extensionPath="/Application/Config/Wizards">
+        <NodeSpecification addinId="Client12Addins.G2SConfigurationWizard"
+                           typeName="Aristocrat.Monaco.G2S.UI.G2SConfigurationWizard" order="100" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+  </Extension>
+
+</Addin>

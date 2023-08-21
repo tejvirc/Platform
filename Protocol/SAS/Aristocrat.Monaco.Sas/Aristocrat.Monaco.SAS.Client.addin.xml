@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Addin id="SasquatchClient" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Sas.Client.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+    <Addin id="SasBase" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Protocol/Sasquatch/Services/Client">
+    <Type type="Aristocrat.Monaco.Sas.Client" />
+  </Extension>
+
+</Addin>

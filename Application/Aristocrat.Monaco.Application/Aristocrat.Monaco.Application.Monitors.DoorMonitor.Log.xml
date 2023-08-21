@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Application.Monitors.DoorMonitor.Log">
+  <Fields>
+    <Field DataType="DateTime" FieldName="Time" />
+    <Field DataType="Int32" FieldName="DoorId" />
+    <Field DataType="Bool" FieldName="IsOpen" />
+    <Field DataType="Bool" FieldName="ValidationPassed" />
+  </Fields>
+</BlockFormat>

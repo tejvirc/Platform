@@ -1,0 +1,48 @@
+﻿<common:BaseWindow x:Class="Aristocrat.Monaco.UI.Common.OperatorMenuDialogWindow"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   xmlns:behaviors="clr-namespace:Aristocrat.Monaco.UI.Common.Behaviors"
+                   xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                   mc:Ignorable="d"
+                   WindowStyle="None"
+                   WindowState="Normal"
+                   ResizeMode="NoResize"
+                   AllowsTransparency="True"
+                   BorderThickness="0"
+                   WindowStartupLocation="CenterOwner"
+                   Width="1920"
+                   Height="1080"
+                   Title="OperatorMenuDialogWindow">
+    <Window.Background>
+        <SolidColorBrush Color="Black"
+                         Opacity="0.01"
+                         AutomationProperties.AutomationId="SolidColorBrush0_1F1A283A" />
+    </Window.Background>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <b:Interaction.Behaviors>
+        <behaviors:HighDpiWindowBehavior />
+    </b:Interaction.Behaviors>
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center"
+          AutomationProperties.AutomationId="Grid1_1F1A283A">
+        <Border BorderBrush="{DynamicResource Brush3}"
+                BorderThickness="2"
+                Background="{DynamicResource DarkBrush1}"
+                AutomationProperties.AutomationId="Border2_1F1A283A">
+            <ContentControl x:Name="DialogContent"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            AutomationProperties.AutomationId="ContentControl3_1F1A283A" />
+        </Border>
+    </Grid>
+</common:BaseWindow>

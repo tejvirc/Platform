@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HardMeterMappingConfiguration>
+	<HardMeterMapping Name="(1)Turnover,(2)Total Game Win,(3)Cashbox,(4)SGP Cancel Credit,(5)Total Win,(6)Total Bills In,(7)Money In,(8)Money Out" Default="true">
+		<HardMeter LogicalId="0" Name="Total Bet">
+			<SoftMeter Name="WageredAmount" />
+		</HardMeter>
+		<HardMeter LogicalId="1" Name="Credit Won" >
+			<SoftMeter Name="TotalPaidAmt" />
+		</HardMeter>
+		<HardMeter LogicalId="2" Name="Total Coin Drop" >
+			<SoftMeter Name="CoinDrop" />
+		</HardMeter>
+		<HardMeter LogicalId="3" Name="Handpay Cancelled">
+			<SoftMeter Name="HandpaidCancelAmount" />
+		</HardMeter>
+		<HardMeter LogicalId="4" Name="Total EGM Paid">
+			<SoftMeter Name="TotalEgmPaidAmt" />
+		</HardMeter>
+		<HardMeter LogicalId="5" Name="Total Cash In">
+			<SoftMeter Name="TotalCashIn" />
+		</HardMeter>
+		<HardMeter LogicalId="6" Name="Total In">
+			<SoftMeter Name="TotalIn" />
+		</HardMeter>
+		<HardMeter LogicalId="7" Name="Total Out">
+			<SoftMeter Name="TotalOut" />
+		</HardMeter>
+	</HardMeterMapping>
+</HardMeterMappingConfiguration>

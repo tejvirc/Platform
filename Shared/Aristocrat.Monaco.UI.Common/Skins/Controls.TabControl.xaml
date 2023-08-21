@@ -1,0 +1,71 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.TabControl.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="MonacoTabControl" TargetType="{x:Type TabControl}" BasedOn="{StaticResource MahApps.Styles.TabControl}">
+        <Setter Property="Background" Value="{DynamicResource DarkBrush1}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush3}" />
+        <Setter Property="BorderThickness" Value="2" />
+    </Style>
+    <DataTemplate x:Key="MonacoTabItemHeaderTemplate">
+        <TextBlock Text="{Binding}" 
+                   Padding="30 5" 
+                   FontSize="{DynamicResource MahApps.Font.Size.TabItem}"
+                   AutomationProperties.AutomationId="TextBlock0_812675E6">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock"
+                       BasedOn="{x:Null}">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0"
+                                                 EndPoint="1,1"
+                                                 Opacity=".7"
+                                                 AutomationProperties.AutomationId="LinearGradientBrush1_812675E6">
+                                <GradientStop Color="{DynamicResource Color4}"
+                                              Offset="0"
+                                              AutomationProperties.AutomationId="GradientStop2_812675E6" />
+                                <GradientStop Color="{DynamicResource Color3}"
+                                              Offset=".07"
+                                              AutomationProperties.AutomationId="GradientStop3_812675E6" />
+                                <GradientStop Color="{DynamicResource Color2}"
+                                              Offset=".4"
+                                              AutomationProperties.AutomationId="GradientStop4_812675E6" />
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource LightBrush1}" />
+                    <Style.Triggers>
+                        <DataTrigger
+                                Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}"
+                                     Value="True"
+                                     AutomationProperties.AutomationId="DataTrigger5_812675E6">
+                            <Setter Property="Background"
+                                    Value="Transparent" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+    </DataTemplate>
+
+    <Style x:Key="MonacoTabItem" TargetType="{x:Type TabItem}" BasedOn="{StaticResource MahApps.Styles.TabItem}">
+        <Setter Property="Background" Value="{DynamicResource DarkBrush1}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Brush3}" />
+        <Setter Property="BorderThickness" Value="2 2 2 0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HeaderTemplate" Value="{StaticResource MonacoTabItemHeaderTemplate}" />
+        <Setter Property="controls:ControlsHelper.ContentCharacterCasing" Value="Upper" />
+        <Style.Triggers>
+            <Trigger Property="IsSelected"
+                     Value="False"
+                     AutomationProperties.AutomationId="Trigger6_812675E6">
+                <Setter Property="BorderThickness"
+                        Value="0" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

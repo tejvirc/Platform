@@ -1,0 +1,56 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.SerialGatPage"
+                              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                              mc:Ignorable="d"
+                              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                              xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                              xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:SerialGatPageViewModel}, IsDesignTimeCreatable=False}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_D6DAA136">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition1_D6DAA136" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_D6DAA136" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_D6DAA136" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_D6DAA136" />
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0"
+               Grid.Row="0"
+               VerticalAlignment="Bottom"
+               Style="{DynamicResource MonacoLabel}"
+               Content="{lex:Loc VersionText}"
+               AutomationProperties.AutomationId="Label5_D6DAA136" />
+        <ComboBox Grid.Column="0"
+                  Grid.Row="1"
+                  Name="VersionComboBox"
+                  Style="{DynamicResource MonacoComboBox}"
+                  MinWidth="200"
+                  Width="Auto"
+                  ItemsSource="{Binding Versions}"
+                  SelectedItem="{Binding GatVersion}"
+                  AutomationProperties.AutomationId="ComboBox6_D6DAA136" />
+        <Label Grid.Column="0"
+               Grid.Row="2"
+               VerticalAlignment="Bottom"
+               Style="{DynamicResource MonacoLabel}"
+               Content="{Binding Status, UpdateSourceTrigger=PropertyChanged}"
+               AutomationProperties.AutomationId="Label7_D6DAA136" />
+    </Grid>
+</operatorMenu:OperatorMenuPage>

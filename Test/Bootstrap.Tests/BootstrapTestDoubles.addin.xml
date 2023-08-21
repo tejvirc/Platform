@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<!-- This addin file lists all of the test double implementations for unit testing Bootstrap. -->
+<Addin  id="BootstrapTestDoubles" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="BootstrapUnitTests.dll"/>
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+  </Dependencies>
+
+  <Extension path = "/Kernel/PlatformDisplay">
+    <PlatformDisplay type="Aristocrat.Monaco.Kernel.DummyPlatformDisplay" />
+  </Extension>
+
+  <Extension path = "/Kernel/WindowLauncher">
+    <WindowLauncher type="Aristocrat.Monaco.Kernel.DummyService"/>
+  </Extension>
+
+  <Extension path = "/Kernel/Services">
+    <Service type="Aristocrat.Monaco.Kernel.DummyService" />
+  </Extension>
+
+  <Extension path = "/Kernel/Runnables">
+    <Runnable type="Aristocrat.Monaco.Kernel.FakeRunnable" />
+  </Extension>
+
+  <Extension path = "/Kernel/BootExtender">
+    <BootExtender type="Aristocrat.Monaco.Kernel.FakeRunnable" />
+  </Extension>
+
+  <Extension path = "/Kernel/Localizer">
+    <Localizer type="Aristocrat.Monaco.Kernel.DummyService" />
+  </Extension>
+
+</Addin>

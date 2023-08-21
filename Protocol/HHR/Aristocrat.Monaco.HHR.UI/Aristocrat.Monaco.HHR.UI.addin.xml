@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Addin id="HHRBase" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Hhr.dll" />
+    <Import assembly="Aristocrat.Monaco.Hhr.UI.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="ApplicationRunnable" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="HardwareRunnable" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Protocol/Runnables">
+    <ProtocolInterface type="Aristocrat.Monaco.Hhr.UI.HHRBase" protocolId="HHR" serverProtocolId="10" />
+  </Extension>
+
+  <Extension path="/Application/PropertyProviders">
+    <PropertyProvider type="Aristocrat.Monaco.Hhr.HHRPropertyProvider" />
+  </Extension>
+
+  <Extension path="/Application/Configuration/Settings">
+    <Settings type="Aristocrat.Monaco.Hhr.UI.Settings.HHRConfigurationSettings" />
+  </Extension>
+
+</Addin>

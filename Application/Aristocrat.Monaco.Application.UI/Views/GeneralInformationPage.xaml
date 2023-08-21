@@ -1,0 +1,295 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.GeneralInformationPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance viewModels:GeneralInformationPageViewModel}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Label" BasedOn="{StaticResource MonacoLabel}">
+                <Setter Property="Margin" Value="0 0 10 10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="Margin" Value="0 0 0 10" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style TargetType="ListView" BasedOn="{StaticResource MonacoListView}">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_E1D9C789">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition1_E1D9C789" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition2_E1D9C789" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition3_E1D9C789" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition4_E1D9C789" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition5_E1D9C789" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition6_E1D9C789" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition7_E1D9C789" />
+            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition8_E1D9C789" />
+        </Grid.RowDefinitions>
+        <!-- Accepted Bills -->
+        <Label Grid.Row="0"
+               Content="{lex:Loc EnabledDenominationsLabel}"
+               AutomationProperties.AutomationId="Label9_E1D9C789" />
+        <Grid Grid.Row="1"
+              Margin="10 0 0 20"
+              AutomationProperties.AutomationId="Grid10_E1D9C789">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition11_E1D9C789" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition12_E1D9C789" />
+                <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition13_E1D9C789" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       Text="{Binding AcceptedDenominations}"
+                       AutomationProperties.AutomationId="TextBlock14_E1D9C789" />
+        </Grid>
+        <!-- Internal Memory Information -->
+        <Label Grid.Row="2"
+               Content="{lex:Loc DiagnosticResourcesPageTitle}"
+               AutomationProperties.AutomationId="Label15_E1D9C789" />
+        <Grid Grid.Row="3"
+              Margin="10 0 0 20"
+              AutomationProperties.AutomationId="Grid16_E1D9C789">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition17_E1D9C789" />
+                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition18_E1D9C789" />
+                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition19_E1D9C789" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition20_E1D9C789" />
+                <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition21_E1D9C789" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Content="{Binding FreeMemoryLabel}"
+                   AutomationProperties.AutomationId="Label22_E1D9C789" />
+            <TextBlock Grid.Row="0"
+                       Grid.Column="1"
+                       Text="{Binding FreeMemory}"
+                       AutomationProperties.AutomationId="TextBlock23_E1D9C789" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Content="{Binding MonacoPrivateBytesLabel}"
+                   AutomationProperties.AutomationId="Label24_E1D9C789" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding MonacoPrivateBytes}"
+                       AutomationProperties.AutomationId="TextBlock25_E1D9C789" />
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Content="{Binding ClrBytesLabel}"
+                   AutomationProperties.AutomationId="Label26_E1D9C789" />
+            <TextBlock Grid.Row="2"
+                       Grid.Column="1"
+                       Text="{Binding ClrBytes}"
+                       AutomationProperties.AutomationId="TextBlock27_E1D9C789" />
+        </Grid>
+        <!-- G2S Hosts Configuration -->
+        <Label Grid.Row="4"
+               Content="{lex:Loc HostConfigurationPageTitle}"
+               AutomationProperties.AutomationId="Label28_E1D9C789" />
+        <ItemsControl Grid.Row="5"
+                      ItemsSource="{Binding Path=G2SHosts}"
+                      Margin="10 0 0 20"
+                      AutomationProperties.AutomationId="ItemsControl29_E1D9C789">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" AutomationProperties.AutomationId="StackPanel30_E1D9C789" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"
+                               Style="{DynamicResource MonacoTextBlock}"
+                               AutomationProperties.AutomationId="TextBlock31_E1D9C789" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <!-- GDS Devices -->
+        <Label Grid.Row="6"
+               Content="{lex:Loc HardwareLabel}"
+               AutomationProperties.AutomationId="Label32_E1D9C789" />
+        <Grid Grid.Row="7"
+              Margin="0 0 0 20"
+              AutomationProperties.AutomationId="Grid33_E1D9C789">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition34_E1D9C789" />
+                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition35_E1D9C789" />
+                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition36_E1D9C789" />
+                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition37_E1D9C789" />
+                <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition38_E1D9C789" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition39_E1D9C789" />
+                <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition40_E1D9C789" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="10 0 0 0"
+                        AutomationProperties.AutomationId="StackPanel41_E1D9C789">
+                <Label Content="{lex:Loc PrinterLabel}" AutomationProperties.AutomationId="Label42_E1D9C789" />
+                <Grid Margin="10 0 0 0" AutomationProperties.AutomationId="Grid43_E1D9C789">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition44_E1D9C789" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition45_E1D9C789" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition46_E1D9C789" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition47_E1D9C789" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition48_E1D9C789" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition49_E1D9C789" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition50_E1D9C789" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition51_E1D9C789" />
+                        <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition52_E1D9C789" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="{lex:Loc NameLabel}"
+                           AutomationProperties.AutomationId="Label53_E1D9C789" />
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               Text="{Binding PrinterName}"
+                               AutomationProperties.AutomationId="TextBlock54_E1D9C789" />
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="{lex:Loc ManufacturerLabel}"
+                           AutomationProperties.AutomationId="Label55_E1D9C789" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding PrinterManufacturer}"
+                               AutomationProperties.AutomationId="TextBlock56_E1D9C789" />
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Content="{lex:Loc ModelLabel}"
+                           AutomationProperties.AutomationId="Label57_E1D9C789" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Text="{Binding PrinterModel}"
+                               AutomationProperties.AutomationId="TextBlock58_E1D9C789" />
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           Content="{lex:Loc State}"
+                           AutomationProperties.AutomationId="Label59_E1D9C789" />
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="1"
+                               Text="{Binding PrinterState}"
+                               AutomationProperties.AutomationId="TextBlock60_E1D9C789" />
+                    <Label Grid.Row="4"
+                           Grid.Column="0"
+                           Content="{lex:Loc FirmwareVersionLabel}"
+                           AutomationProperties.AutomationId="Label61_E1D9C789" />
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="1"
+                               Text="{Binding PrinterFirmwareVersion}"
+                               AutomationProperties.AutomationId="TextBlock62_E1D9C789" />
+                    <Label Grid.Row="5"
+                           Grid.Column="0"
+                           Content="{lex:Loc FirmwareRevisionLabel}"
+                           AutomationProperties.AutomationId="Label63_E1D9C789" />
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="1"
+                               Text="{Binding PrinterFirmwareRevision}"
+                               AutomationProperties.AutomationId="TextBlock64_E1D9C789" />
+                    <Label Grid.Row="6"
+                           Grid.Column="0"
+                           Content="{lex:Loc SerialNumberLabel}"
+                           AutomationProperties.AutomationId="Label65_E1D9C789" />
+                    <TextBlock Grid.Row="6"
+                               Grid.Column="1"
+                               Text="{Binding PrinterSerialNumber}"
+                               AutomationProperties.AutomationId="TextBlock66_E1D9C789" />
+                </Grid>
+            </StackPanel>
+            <StackPanel Grid.Row="1"
+                        Grid.Column="1"
+                        AutomationProperties.AutomationId="StackPanel67_E1D9C789">
+                <Label Content="{lex:Loc NoteAcceptorLabel}" AutomationProperties.AutomationId="Label68_E1D9C789" />
+                <Grid Margin="10 0 0 0" AutomationProperties.AutomationId="Grid69_E1D9C789">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition70_E1D9C789" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition71_E1D9C789" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition72_E1D9C789" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition73_E1D9C789" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition74_E1D9C789" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition75_E1D9C789" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition76_E1D9C789" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition77_E1D9C789" />
+                        <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition78_E1D9C789" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Content="{lex:Loc NameLabel}"
+                           AutomationProperties.AutomationId="Label79_E1D9C789" />
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               Text="{Binding NoteAcceptorName}"
+                               AutomationProperties.AutomationId="TextBlock80_E1D9C789" />
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Content="{lex:Loc ManufacturerLabel}"
+                           AutomationProperties.AutomationId="Label81_E1D9C789" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Text="{Binding NoteAcceptorManufacturer}"
+                               AutomationProperties.AutomationId="TextBlock82_E1D9C789" />
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Content="{lex:Loc ModelLabel}"
+                           AutomationProperties.AutomationId="Label83_E1D9C789" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Text="{Binding NoteAcceptorModel}"
+                               AutomationProperties.AutomationId="TextBlock84_E1D9C789" />
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           Content="{lex:Loc State}"
+                           AutomationProperties.AutomationId="Label85_E1D9C789" />
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="1"
+                               Text="{Binding NoteAcceptorState}"
+                               AutomationProperties.AutomationId="TextBlock86_E1D9C789" />
+                    <Label Grid.Row="4"
+                           Grid.Column="0"
+                           Content="{lex:Loc FirmwareVersionLabel}"
+                           AutomationProperties.AutomationId="Label87_E1D9C789" />
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="1"
+                               Text="{Binding NoteAcceptorFirmwareVersion}"
+                               AutomationProperties.AutomationId="TextBlock88_E1D9C789" />
+                    <Label Grid.Row="5"
+                           Grid.Column="0"
+                           Content="{lex:Loc FirmwareRevisionLabe}"
+                           AutomationProperties.AutomationId="Label89_E1D9C789" />
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="1"
+                               Text="{Binding NoteAcceptorFirmwareRevision}"
+                               AutomationProperties.AutomationId="TextBlock90_E1D9C789" />
+                    <Label Grid.Row="6"
+                           Grid.Column="0"
+                           Content="{lex:Loc SerialNumberLabel}"
+                           AutomationProperties.AutomationId="Label91_E1D9C789" />
+                    <TextBlock Grid.Row="6"
+                               Grid.Column="1"
+                               Text="{Binding NoteAcceptorSerialNumber}"
+                               AutomationProperties.AutomationId="TextBlock92_E1D9C789" />
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

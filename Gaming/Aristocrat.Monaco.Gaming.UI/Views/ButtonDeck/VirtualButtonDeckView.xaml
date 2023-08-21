@@ -1,0 +1,71 @@
+﻿<controls:MetroWindow x:Class="Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck.VirtualButtonDeckView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+                      xmlns:buttonDeck1="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck"
+                      xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+                      xmlns:controls2="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
+                      mc:Ignorable="d"
+                      d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
+                      Title="{Binding VbdTitle}"
+                      ShowTitleBar="False"
+                      ShowIconOnTitleBar="False"
+                      ShowCloseButton="False"
+                      ShowMaxRestoreButton="False"
+                      ShowMinButton="False"
+                      ResizeMode="NoResize"
+                      Loaded="VirtualButtonDeckView_OnLoaded"
+                      Closed="VirtualButtonDeckView_OnClosed"
+                      BorderThickness="0">
+    <controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <!-- Apply MahApps.Metro styles to all controls -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Skins/Styles.xaml" />
+                <ResourceDictionary Source="VbdMarsXTemplate.xaml" />
+                <ResourceDictionary Source="VbdHelixTemplate.xaml" />
+                <ResourceDictionary Source="VbdHelixXtTemplate.xaml" />
+                <ResourceDictionary Source="VbdUnknownTemplate.xaml" />
+                <ResourceDictionary Source="VbdBartopTemplate.xaml" />
+                <ResourceDictionary Source="VirtualButtonDeckButtonTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <buttonDeck1:VbdViewTemplateSelector x:Key="VbdViewTemplateSelector" />
+            <buttonDeck1:VbdViewDisableSelector x:Key="VbdViewDisableSelector" />
+        </ResourceDictionary>
+    </controls:MetroWindow.Resources>
+    <Viewbox Stretch="None"
+             x:Name="RootScaling"
+             AutomationProperties.AutomationId="Viewbox0_ACD07E78">
+        <Grid x:Name="LayoutRoot"
+              Background="Black"
+              AutomationProperties.AutomationId="Grid1_ACD07E78">
+            <Grid AutomationProperties.AutomationId="Grid2_ACD07E78">
+                <ContentControl x:Name="VbdViewControl"
+                                Content="{Binding}"
+                                PreviewMouseDown="VbdContentControl_OnPreviewMouseDown"
+                                ContentTemplateSelector="{StaticResource VbdViewTemplateSelector}"
+                                AutomationProperties.AutomationId="ContentControl3_ACD07E78" />
+            </Grid>
+            <Grid x:Name="VbdGameRoot"
+                  Visibility="{Binding IsGameVbdVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                  AutomationProperties.AutomationId="Grid4_ACD07E78">
+                <controls2:ExtendedWindowsFormsHost Loaded="WinHostCtrl_OnLoaded">
+                    <forms:Control x:Name="GameVirtualButtonDeckWindowCtrl"
+                                   BackColor="Black"
+                                   Dock="Fill"
+                                   ></forms:Control>
+                </controls2:ExtendedWindowsFormsHost>
+            </Grid>
+            <Grid Visibility="{Binding IsVbdRenderingDisabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                  AutomationProperties.AutomationId="Grid6_ACD07E78">
+                <ContentControl x:Name="VbdViewDisableControl"
+                                Content="{Binding}"
+                                ContentTemplateSelector="{StaticResource VbdViewDisableSelector}"
+                                AutomationProperties.AutomationId="ContentControl7_ACD07E78" />
+            </Grid>
+        </Grid>
+    </Viewbox>
+</controls:MetroWindow>

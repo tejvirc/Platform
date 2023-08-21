@@ -1,0 +1,59 @@
+﻿<?xml version="1.0"?>
+
+<ArrayOfBlockFormat>
+	<BlockFormat version="1" name="Aristocrat.Monaco.Application.Monitors.DisplayMonitor">
+		<Fields>
+			<Field DataType="Bool" FieldName="TouchScreenDisconnect" />
+			<Field DataType="Bool" FieldName="VideoDisplayDisconnect" />
+			<Field DataType="Bool" FieldName="PlayerButtonError" />
+		</Fields>
+	</BlockFormat>
+	<BlockFormat version="2" name="Aristocrat.Monaco.Application.Monitors.DisplayMonitor">
+		<Fields>
+			<Field DataType="Bool" FieldName="TouchScreen1Disconnect" />
+			<Field DataType="Bool" FieldName="TouchScreen2Disconnect" />
+			<Field DataType="Bool" FieldName="TouchScreen3Disconnect" />
+			<Field DataType="Bool" FieldName="TouchScreen4Disconnect" />
+			<Field DataType="Bool" FieldName="TouchScreen5Disconnect" />
+			<Field DataType="Bool" FieldName="TouchScreen6Disconnect" />
+			<Field DataType="Bool" FieldName="VideoDisplay1Disconnect" />
+			<Field DataType="Bool" FieldName="VideoDisplay2Disconnect" />
+			<Field DataType="Bool" FieldName="VideoDisplay3Disconnect" />
+			<Field DataType="Bool" FieldName="VideoDisplay4Disconnect" />
+			<Field DataType="Bool" FieldName="VideoDisplay5Disconnect" />
+			<Field DataType="Bool" FieldName="VideoDisplay6Disconnect" />
+			<Field DataType="Bool" FieldName="PlayerButtonError" />
+		</Fields>
+	</BlockFormat>
+	<BlockFormat version="3" name="Aristocrat.Monaco.Application.Monitors.DisplayMonitor">
+		<Fields>
+			<Field DataType="Bool" FieldName="TouchScreen1Disconnect" />
+			<Field DataType="Bool" FieldName="TouchScreen2Disconnect" />
+			<Field DataType="Bool" FieldName="TouchScreen3Disconnect" />
+			<Field DataType="Bool" FieldName="TouchScreen4Disconnect" />
+			<Field DataType="Bool" FieldName="TouchScreen5Disconnect" />
+			<Field DataType="Bool" FieldName="TouchScreen6Disconnect" />
+			<Field DataType="Bool" FieldName="VideoDisplay1Disconnect" />
+			<Field DataType="Bool" FieldName="VideoDisplay2Disconnect" />
+			<Field DataType="Bool" FieldName="VideoDisplay3Disconnect" />
+			<Field DataType="Bool" FieldName="VideoDisplay4Disconnect" />
+			<Field DataType="Bool" FieldName="VideoDisplay5Disconnect" />
+			<Field DataType="Bool" FieldName="VideoDisplay6Disconnect" />
+			<Field DataType="Bool" FieldName="PlayerButtonError" />
+			<Field DataType="Bool" FieldName="LcdPlayerButtonExpected" />
+		</Fields>
+	</BlockFormat>
+	<BlockFormat version="4" name="Aristocrat.Monaco.Application.Monitors.DisplayMonitor">
+		<Fields>
+			<Field DataType="Bool" FieldName="TopTouchScreenDisconnect" />
+			<Field DataType="Bool" FieldName="MainTouchScreenDisconnect" />
+			<Field DataType="Bool" FieldName="VBDTouchScreenDisconnect" />
+			<Field DataType="Bool" FieldName="TopperVideoDisplayDisconnect" />
+			<Field DataType="Bool" FieldName="TopVideoDisplayDisconnect" />
+			<Field DataType="Bool" FieldName="MainVideoDisplayDisconnect" />
+			<Field DataType="Bool" FieldName="VBDVideoDisplayDisconnect" />
+			<Field DataType="Bool" FieldName="PlayerButtonError" />
+			<Field DataType="Bool" FieldName="LcdPlayerButtonExpected" />
+		</Fields>
+	</BlockFormat>
+</ArrayOfBlockFormat>

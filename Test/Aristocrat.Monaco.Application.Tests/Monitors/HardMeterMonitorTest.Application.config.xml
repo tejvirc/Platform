@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ApplicationConfiguration>
+  <Currency Id="CAD"/>
+  <ClockFormat Format="TwentyFourHour"/>
+  <HardMeterMonitor DisableOnError="true"/>
+</ApplicationConfiguration>

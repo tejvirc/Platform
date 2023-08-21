@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<Addin id="TestExtension1" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="RunnablesManagerUnitTest" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/UnitTest/Runnables1">
+    <Runnable type="TestExtension1.TestRunnableNoDispose" />
+  </Extension>
+
+  <Extension path="/UnitTest/Runnables2">
+    <Runnable type="TestExtension1.TestRunnableNoLoop" />
+    <Runnable type="TestExtension1.TestRunnableWithLoop" />
+  </Extension>
+
+</Addin>

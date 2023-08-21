@@ -1,0 +1,28 @@
+# Users referenced in this file will automatically be requested as reviewers for PRs that modify the given paths.
+# See https://help.github.com/articles/about-code-owners/
+
+*      @Aristocrat-Monaco-Platform/corecontributor
+
+# UI
+*.UI/   @Aristocrat-Monaco-Platform/user-interface
+
+# Hardware
+Hardware/  @Aristocrat-Monaco-Platform/hardware
+CabinetIdentification/  @Aristocrat-Monaco-Platform/hardware @Aristocrat-Monaco-Platform/os-contributors
+DiskTools/  @Aristocrat-Monaco-Platform/hardware
+
+# OS
+MonacoShell/    @Aristocrat-Monaco-Platform/os-contributors
+MonacoKey/  @Aristocrat-Monaco-Platform/os-contributors
+mkaudio/    @Aristocrat-Monaco-Platform/os-contributors
+PlatformLauncher/   @Aristocrat-Monaco-Platform/os-contributors
+TouchCoordConfig/   @Aristocrat-Monaco-Platform/os-contributors
+
+# Architects
+Aristocrat.GdkRuntime.Contract/ @Aristocrat-Monaco-Platform/architects
+Aristocrat.Monaco.Gaming/Runtime/Proto/ @Aristocrat-Monaco-Platform/architects
+Shared/PRNG/    @Aristocrat-Monaco-Platform/architects
+GamePlayState.cs    @Aristocrat-Monaco-Platform/architects
+Aristocrat.Monaco.Gaming/Commands/  @Aristocrat-Monaco-Platform/architects
+Aristocrat.Monaco.PackageManifest/  @Aristocrat-Monaco-Platform/architects
+.github/    @Aristocrat-Monaco-Platform/architects

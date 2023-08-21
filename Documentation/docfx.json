@@ -1,0 +1,255 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": ["**/*.csproj"],
+          "exclude": ["**/*Test*/**", "**/bin/**", "**/obj/**"],
+          "src": "../Accounting"
+        }
+      ],
+      "dest": "obj/accounting",
+      "filter": "filterConfig.yml",
+      "properties": {
+        "TargetFramework": "net472"
+      }
+    },
+    {
+      "src": [
+        {
+          "files": ["**/*.csproj"],
+          "exclude": ["**/*Test*/**", "**/bin/**", "**/obj/**"],
+          "src": "../Kernel"
+        }
+      ],
+      "dest": "obj/kernel",
+      "filter": "filterConfig.yml",
+      "properties": {
+        "TargetFramework": "net472"
+      }
+    },
+    {
+      "src": [
+        {
+          "files": ["**/*.csproj"],
+          "exclude": ["**/*Test*/**", "**/bin/**", "**/obj/**"],
+          "src": "../Hardware"
+        }
+      ],
+      "dest": "obj/hardware",
+      "filter": "filterConfig.yml",
+      "properties": {
+        "TargetFramework": "net472"
+      }
+    },
+    {
+      "src": [
+        {
+          "files": ["**/*.csproj", "**/*.xml"],
+          "exclude": ["**/*Test*/**", "**/bin/**", "**/obj/**"],
+          "src": "../Application"
+        }
+      ],
+      "dest": "obj/application",
+      "filter": "filterConfig.yml",
+      "properties": {
+        "TargetFramework": "net472"
+      }
+    },
+    {
+      "src": [
+        {
+          "files": ["**/*.csproj"],
+          "exclude": ["**/*Test*/**", "**/bin/**", "**/obj/**"],
+          "src": "../Shared/Aristocrat.Monaco.Localization"
+        },
+        {
+          "files": ["**/*.csproj"],
+          "exclude": ["**/*Test*/**", "**/bin/**", "**/obj/**"],
+          "src": "../Shared/Aristocrat.Monaco.Common"
+        },
+        {
+          "files": ["**/*.csproj"],
+          "exclude": ["**/*Test*/**", "**/bin/**", "**/obj/**"],
+          "src": "../Shared/Aristocrat.Monaco.UI.Common"
+        }
+      ],
+      "dest": "obj/common",
+      "filter": "filterConfig.yml",
+      "properties": {
+        "TargetFramework": "net472"
+      }
+    },
+    {
+      "src": [
+        {
+          "files": ["**/*.csproj"],
+          "exclude": ["**/*Test*/**", "**/bin/**", "**/obj/**"],
+          "src": "../Gaming"
+        }
+      ],
+      "dest": "obj/gaming",
+      "filter": "filterConfig.yml",
+      "properties": {
+        "TargetFramework": "net472"
+      }
+    },
+    {
+      "src": [
+        {
+          "files": ["**/*.csproj"],
+          "exclude": ["**/*Test*/**", "**/bin/**", "**/obj/**"],
+          "src": "../Protocol/G2S"
+        }
+      ],
+      "dest": "obj/g2s",
+      "filter": "filterConfig.yml",
+      "properties": {
+        "TargetFramework": "net472"
+      }
+    },
+    {
+      "src": [
+        {
+          "files": ["**/*.csproj"],
+          "exclude": ["**/*Test*/**", "**/bin/**", "**/obj/**"],
+          "src": "../Protocol/MGAM"
+        }
+      ],
+      "dest": "obj/mgam",
+      "filter": "filterConfig.yml",
+      "properties": {
+        "TargetFramework": "net472"
+      }
+    },
+    {
+      "src": [
+        {
+          "files": ["**/*.csproj"],
+          "exclude": ["**/*Test*/**", "**/bin/**", "**/obj/**"],
+          "src": "../Protocol/Bingo"
+        }
+      ],
+      "dest": "obj/bingo",
+      "filter": "filterConfig.yml",
+      "properties": {
+        "TargetFramework": "net472"
+      }
+    },
+    {
+      "src": [
+        {
+          "files": ["**/*.csproj"],
+          "exclude": ["**/*Test*/**", "**/bin/**", "**/obj/**"],
+          "src": "../Protocol/ASP"
+        }
+      ],
+      "dest": "obj/asp",
+      "filter": "filterConfig.yml",
+      "properties": {
+        "TargetFramework": "net472"
+      }
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": ["**/*.yml"],
+        "src": "obj/common",
+        "dest": "api/common"
+      },
+      {
+        "files": ["**/*.yml"],
+        "src": "obj/accounting",
+        "dest": "api/accounting"
+      },
+      {
+        "files": ["**/*.yml"],
+        "src": "obj/application",
+        "dest": "api/application"
+      },
+      {
+        "files": ["**/*.yml"],
+        "src": "obj/gaming",
+        "dest": "api/gaming"
+      },
+      {
+        "files": ["**/*.yml"],
+        "src": "obj/hardware",
+        "dest": "api/hardware"
+      },
+      {
+        "files": ["**/*.yml"],
+        "src": "obj/g2s",
+        "dest": "api/protocol/g2s"
+      },
+      {
+        "files": ["**/*.yml"],
+        "src": "obj/mgam",
+        "dest": "api/protocol/mgam"
+      },
+      {
+        "files": ["**/*.yml"],
+        "src": "obj/bingo",
+        "dest": "api/protocol/bingo"
+      },
+      {
+        "files": ["**/*.yml"],
+        "src": "obj/asp",
+        "dest": "api/protocol/asp"
+      },
+      {
+        "files": ["**/*.yml"],
+        "src": "obj/kernel",
+        "dest": "api/kernel"
+      },
+      {
+        "files": ["**/*.md", "**/toc.yml"],
+        "src": "docs",
+        "dest": "docs"
+      },
+      {
+        "files": ["**/*.md", "**/toc.yml"],
+        "src": "api",
+        "dest": "api"
+      },
+      {
+        "files": ["toc.yml", "index.md"]
+      }
+    ],
+    "resource": [
+      {
+        "files": ["**/*.png", "**/*.jpeg", "**/*.gif", "**/*.svg"],
+        "src": "images",
+        "dest": "images"
+      }
+    ],
+    "overwrite": [
+      {
+        "files": ["specs/**.md"],
+        "exclude": ["obj/**"]
+      }
+    ],
+    "dest": "_site",
+    "globalMetadataFiles": [],
+    "globalMetedata": {
+      "_appName": "Monaco",
+      "_appTitle": "Monaco Platform",
+      "_appFooter": "&copy; <a href=\"https://github.com/Aristocrat-Monaco-Platform/monaco\" target=\"_blank\">Monaco Platform</a>",
+      "_disableSideFilter": true,
+      "_enableSearch": true,
+      "_disableAffix": true,
+      "_gitUrlPattern": "github"
+    },
+    "template": ["default", "templates/monaco", "plugins/DocFx.Plugins.Monaco/template", "plugins/DocFx.Plugins.PlantUml/template"],
+    "markdownEngineProperties": {
+      "plantUml.outputFormat":"svg"
+    },
+    "postProcessors": ["ExtractSearchIndex"],
+    "xrefService": ["https://xref.docs.microsoft.com/query?uid={uid}"],
+    "noLangKeyword": false,
+    "keepFileLink": false,
+    "cleanupCacheHistory": false,
+    "disableGitFeatures": false
+  }
+}

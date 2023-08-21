@@ -1,0 +1,112 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.DenomMetersPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:DenomMetersPageViewModel}, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_AB8CD06C">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_AB8CD06C" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_AB8CD06C" />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0"
+                   AutomationProperties.AutomationId="DockPanel3_AB8CD06C">
+            <!-- This is the top half of the page, with the meters table -->
+            <Grid AutomationProperties.AutomationId="Grid4_AB8CD06C">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"
+                                   AutomationProperties.AutomationId="RowDefinition5_AB8CD06C" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition6_AB8CD06C" />
+                    <ColumnDefinition Width="Auto"
+                                      AutomationProperties.AutomationId="ColumnDefinition7_AB8CD06C" />
+                </Grid.ColumnDefinitions>
+                <DataGrid Grid.Row="0"
+                          Grid.Column="0"
+                          ItemsSource="{Binding MetersLeftColumn}"
+                          Margin="0 -20 0 0"
+                          AutomationProperties.AutomationId="DataGrid8_AB8CD06C">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{lex:Loc Meter}"
+                                            loc:Localizer.For="Operator"
+                                            Width="360"
+                                            Binding="{Binding Name}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn9_AB8CD06C" />
+                        <DataGridTextColumn Header="{lex:Loc Value}"
+                                            loc:Localizer.For="Operator"
+                                            Width="200"
+                                            Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                            HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
+                                            CellStyle="{StaticResource DataGridCellRight}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn10_AB8CD06C" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <DataGrid DockPanel.Dock="Top"
+                          Grid.Row="0"
+                          Grid.Column="1"
+                          ItemsSource="{Binding MetersRightColumn}"
+                          Margin="120 -20 0 0"
+                          Visibility="{Binding MetersRightColumnVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                          AutomationProperties.AutomationId="DataGrid11_AB8CD06C">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="{lex:Loc Meter}"
+                                            loc:Localizer.For="Operator"
+                                            Width="360"
+                                            Binding="{Binding Name}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn12_AB8CD06C" />
+                        <DataGridTextColumn Header="{lex:Loc Value}"
+                                            loc:Localizer.For="Operator"
+                                            Width="200"
+                                            Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                            HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
+                                            CellStyle="{StaticResource DataGridCellRight}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn13_AB8CD06C" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </DockPanel>
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Margin="0 30 0 0"
+                    AutomationProperties.AutomationId="StackPanel14_AB8CD06C">
+            <Button Style="{StaticResource MonacoPrevNextButton}"
+                    Command="{Binding PreviousDenomCommand}"
+                    IsEnabled="{Binding PreviousDenomIsEnabled}"
+                    Content="{lex:Loc PrevButton}"
+                    AutomationProperties.AutomationId="Button15_AB8CD06C" />
+            <ComboBox Style="{StaticResource MonacoMetersComboBox}"
+                      SelectedValuePath="Id"
+                      ScrollViewer.CanContentScroll="True"
+                      DisplayMemberPath="DisplayValue"
+                      ItemsSource="{Binding Denoms}"
+                      SelectedIndex="{Binding SelectedDenomIndex, Mode=TwoWay}"
+                      SelectedItem="{Binding SelectedDenom, Mode=TwoWay}"
+                      AutomationProperties.AutomationId="ComboBox16_AB8CD06C" />
+            <Button Style="{StaticResource MonacoPrevNextButton}"
+                    Command="{Binding NextDenomCommand}"
+                    IsEnabled="{Binding NextDenomIsEnabled}"
+                    Content="{lex:Loc NextButtonText}"
+                    AutomationProperties.AutomationId="Button17_AB8CD06C" />
+        </StackPanel>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

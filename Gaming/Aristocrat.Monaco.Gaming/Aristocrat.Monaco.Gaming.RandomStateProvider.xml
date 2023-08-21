@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<BlockFormat version="1" name="Aristocrat.Monaco.Gaming.RandomStateProvider" ElementSize="16">
+  <Fields>
+    <Field DataType="Byte" Count="16" Offset="0" FieldName="Key" />
+  </Fields>
+</BlockFormat>

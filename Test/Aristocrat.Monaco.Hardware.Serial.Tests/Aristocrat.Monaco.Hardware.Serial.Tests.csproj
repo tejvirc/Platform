@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyTitle>Aristocrat.Monaco.Hardware.Serial.Tests</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <DisableTransitiveProjectReferences>true</DisableTransitiveProjectReferences>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\Hardware\Aristocrat.Monaco.Hardware.Serial\Aristocrat.Monaco.Hardware.Serial.csproj" />
+    <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Printer\PrinterOverrides.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

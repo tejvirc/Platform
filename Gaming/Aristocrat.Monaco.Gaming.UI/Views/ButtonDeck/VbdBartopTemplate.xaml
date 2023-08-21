@@ -1,0 +1,393 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+                    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:events="clr-namespace:Aristocrat.Monaco.UI.Common.Events;assembly=Aristocrat.Monaco.UI.Common"
+                    mc:Ignorable="d">
+    <!-- Apply MahApps.Metro styles to all controls -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../../Skins/Styles.xaml" />
+        <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+        <ResourceDictionary Source="VirtualButtonDeckButtonTemplate.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Storyboard x:Key="DisabledFadeInStoryboard"
+                x:Shared="false"
+                AutomationProperties.AutomationId="Storyboard0_21563702">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0.0"
+                         To="0.5"
+                         Duration="0:0:0.1"
+                         BeginTime="0:0:0"
+                         AutoReverse="False"
+                         AutomationProperties.AutomationId="DoubleAnimation1_21563702"></DoubleAnimation>
+    </Storyboard>
+    <Storyboard x:Key="DisabledFadeOutStoryboard"
+                x:Shared="false"
+                AutomationProperties.AutomationId="Storyboard2_21563702">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0.5"
+                         To="0.0"
+                         Duration="0:0:0.75"
+                         BeginTime="0:0:0"
+                         AutoReverse="False"
+                         AutomationProperties.AutomationId="DoubleAnimation3_21563702"></DoubleAnimation>
+    </Storyboard>
+    <Storyboard x:Key="VbdFadeInStoryboard"
+                x:Shared="false"
+                AutomationProperties.AutomationId="Storyboard4_21563702">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="0.0"
+                         To="1.0"
+                         Duration="0:0:0.35"
+                         BeginTime="0:0:0"
+                         AutoReverse="False"
+                         AutomationProperties.AutomationId="DoubleAnimation5_21563702"></DoubleAnimation>
+    </Storyboard>
+    <Storyboard x:Key="VbdFadeOutStoryboard"
+                x:Shared="false"
+                AutomationProperties.AutomationId="Storyboard6_21563702">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         From="1.0"
+                         To="0.0"
+                         Duration="0:0:0.35"
+                         BeginTime="0:0:0"
+                         AutoReverse="False"
+                         AutomationProperties.AutomationId="DoubleAnimation7_21563702"></DoubleAnimation>
+    </Storyboard>
+    <DataTemplate x:Key="VbdBartopTemplate">
+        <Grid x:Name="VbdLobbyRoot"
+              Background="Black"
+              Width="1920"
+              Height="1080"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top"
+              d:DataContext="{d:DesignInstance Type=viewModels:LobbyViewModel, IsDesignTimeCreatable=False}"
+              Visibility="{Binding IsLobbyVbdVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+              AutomationProperties.AutomationId="Grid8_21563702">
+            <Canvas VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    AutomationProperties.AutomationId="Canvas9_21563702">
+                <!--cashout-->
+                <Image x:Name="VBDButton16"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton16}"
+                       Visibility="Visible"
+                       Canvas.Left="19"
+                       Canvas.Top="39"
+                       Width="55"
+                       Height="55"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image10_21563702" />
+                <!--cashout disable rect-->
+                <Rectangle x:Name="VBDButton16Mask"
+                           Fill="Black"
+                           Opacity=".75"
+                           Visibility="{Binding IsCashOutButtonLit, Converter={StaticResource TrueHiddenFalseVisible}}"
+                           Canvas.Left="19"
+                           Canvas.Top="39"
+                           Width="55"
+                           Height="55"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Left"
+                           AutomationProperties.AutomationId="Rectangle11_21563702"></Rectangle>
+                <!--blank-->
+                <Image x:Name="VBDButton3"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton3}"
+                       Visibility="Visible"
+                       Canvas.Left="210.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image12_21563702" />
+                <!--blank-->
+                <Image x:Name="VBDButton2"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton2}"
+                       Visibility="Visible"
+                       Canvas.Left="364.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image13_21563702" />
+                <!--prev game-->
+                <Image x:Name="VBDButton4Blank"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton2}"
+                       Visibility="Visible"
+                       Canvas.Left="594.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image14_21563702" />
+                <Image x:Name="VBDButton4Lit"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButtonBlankLit}"
+                       Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueVisibleFalseHidden}}"
+                       Canvas.Left="594.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image15_21563702" />
+                <Image x:Name="VBDButton4PrevGame"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton4}"
+                       Visibility="{Binding IsSingleGameDisplayed, Converter={StaticResource TrueHiddenFalseVisible}}"
+                       Canvas.Left="594.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image16_21563702">
+                    <b:Interaction.Triggers>
+                        <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
+                            <events:EventToCommandAction Command="{Binding PreviousGameCommand}" />
+                        </events:RoutedEventTrigger>
+                    </b:Interaction.Triggers>
+                </Image>
+                <!--prev tab-->
+                <Image x:Name="VBDButton5Blank"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton2}"
+                       Visibility="Visible"
+                       Canvas.Left="774.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image17_21563702" />
+                <Image x:Name="VBDButton5Lit"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButtonBlankLit}"
+                       Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueVisibleFalseHidden}}"
+                       Canvas.Left="774.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image18_21563702" />
+                <Image x:Name="VBDButton5PrevTab"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton5}"
+                       Visibility="{Binding IsSingleTabView, Converter={StaticResource TrueHiddenFalseVisible}}"
+                       Canvas.Left="774.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image19_21563702">
+                    <b:Interaction.Triggers>
+                        <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
+                            <events:EventToCommandAction Command="{Binding PreviousTabCommand}" />
+                        </events:RoutedEventTrigger>
+                    </b:Interaction.Triggers>
+                </Image>
+                <!--change denom-->
+                <Image x:Name="VBDButton6Blank"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton2}"
+                       Visibility="Visible"
+                       Canvas.Left="953.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image20_21563702" />
+                <Image x:Name="VBDButton6Lit"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButtonBlankLit}"
+                       Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueVisibleFalseHidden}}"
+                       Canvas.Left="953.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image21_21563702" />
+                <Image x:Name="VBDButton6DenomChange"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton6}"
+                       Visibility="{Binding IsSingleDenomDisplayed, Converter={StaticResource TrueHiddenFalseVisible}}"
+                       Canvas.Left="953.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image22_21563702">
+                    <b:Interaction.Triggers>
+                        <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
+                            <events:EventToCommandAction Command="{Binding ChangeDenomCommand}" />
+                        </events:RoutedEventTrigger>
+                    </b:Interaction.Triggers>
+                </Image>
+                <!--next tab-->
+                <Image x:Name="VBDButton11Blank"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton2}"
+                       Visibility="Visible"
+                       Canvas.Left="1132.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image23_21563702" />
+                <Image x:Name="VBDButton11Lit"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButtonBlankLit}"
+                       Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueVisibleFalseHidden}}"
+                       Canvas.Left="1132.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image24_21563702" />
+                <Image x:Name="VBDButton11NextTab"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton11}"
+                       Visibility="{Binding IsSingleTabView, Converter={StaticResource TrueHiddenFalseVisible}}"
+                       Canvas.Left="1132.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image25_21563702">
+                    <b:Interaction.Triggers>
+                        <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
+                            <events:EventToCommandAction Command="{Binding NextTabCommand}" />
+                        </events:RoutedEventTrigger>
+                    </b:Interaction.Triggers>
+                </Image>
+                <!--next game-->
+                <Image x:Name="VBDButton12"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton2}"
+                       Visibility="Visible"
+                       Canvas.Left="1311.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image26_21563702" />
+                <Image x:Name="VBDButton12Lit"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButtonBlankLit}"
+                       Visibility="{Binding IsAttractModePlaying, Converter={StaticResource TrueVisibleFalseHidden}}"
+                       Canvas.Left="1311.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image27_21563702" />
+                <Image x:Name="VBDButton12NextGame"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton12}"
+                       Visibility="{Binding IsSingleGameDisplayed, Converter={StaticResource TrueHiddenFalseVisible}}"
+                       Canvas.Left="1311.5"
+                       Canvas.Top="28.5"
+                       Width="77"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image28_21563702">
+                    <b:Interaction.Triggers>
+                        <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
+                            <events:EventToCommandAction Command="{Binding NextGameCommand}" />
+                        </events:RoutedEventTrigger>
+                    </b:Interaction.Triggers>
+                </Image>
+                <!--select game-->
+                <Image x:Name="VBDButton7"
+                       Stretch="Fill"
+                       Source="{DynamicResource VBDButton7}"
+                       Visibility="Visible"
+                       Canvas.Left="1532"
+                       Canvas.Top="28.5"
+                       Width="150"
+                       Height="77"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       AutomationProperties.AutomationId="Image29_21563702">
+                    <b:Interaction.Triggers>
+                        <events:RoutedEventTrigger RoutedEvent="{x:Static Image.MouseDownEvent}">
+                            <events:EventToCommandAction Command="{Binding SelectGameCommand}" />
+                        </events:RoutedEventTrigger>
+                    </b:Interaction.Triggers>
+                </Image>
+            </Canvas>
+            <!-- Rectangle to give screen a disabled look if message overlay is visible -->
+            <Rectangle Fill="Black"
+                       AutomationProperties.AutomationId="Rectangle30_21563702">
+                <Rectangle.Style>
+                    <Style TargetType="Rectangle">
+                        <Setter Property="Opacity"
+                                Value="0" />
+                        <Style.Triggers>
+                            <DataTrigger Value="True"
+                                         Binding="{Binding IsVirtualButtonDeckDisabled}"
+                                         AutomationProperties.AutomationId="DataTrigger31_21563702">
+                                <Setter Property="Visibility"
+                                        Value="Visible" />
+                                <DataTrigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource DisabledFadeInStoryboard}"
+                                                     AutomationProperties.AutomationId="BeginStoryboard32_21563702" />
+                                </DataTrigger.EnterActions>
+                                <DataTrigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource DisabledFadeOutStoryboard}"
+                                                     AutomationProperties.AutomationId="BeginStoryboard33_21563702" />
+                                </DataTrigger.ExitActions>
+                            </DataTrigger>
+                            <DataTrigger
+                                    Binding="{Binding RelativeSource={RelativeSource Self}, Path=(Rectangle.Opacity)}"
+                                         Value="0"
+                                         AutomationProperties.AutomationId="DataTrigger34_21563702">
+                                <Setter Property="Visibility"
+                                        Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+            </Rectangle>
+        </Grid>
+    </DataTemplate>
+    <!--overlay disable graphic-->
+    <DataTemplate x:Key="VbdBartopDisableTemplate">
+        <Grid AutomationProperties.AutomationId="Grid35_21563702">
+            <Rectangle Fill="Black"
+                       Width="1920"
+                       Height="1080"
+                       Stretch="Fill"
+                       AutomationProperties.AutomationId="Rectangle36_21563702" />
+        </Grid>
+    </DataTemplate>
+    <!--There should be no overlay for 9 button deck-->
+    <DataTemplate x:Key="VbdBartopOverlayTemplate">
+        <Border AutomationProperties.AutomationId="Border37_21563702">
+            <Border.Background>
+                <SolidColorBrush Color="Black"
+                                 AutomationProperties.AutomationId="SolidColorBrush38_21563702" />
+            </Border.Background>
+        </Border>
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a Visual Studio command prompt and change to the directory:
+    Hardware\Aristocrat.Monaco.Hardware.Serial\Printer
+2.  Enter "xsd PrinterOverrides.xsd /c /n:Aristocrat.Monaco.Hardware.Serial".  This will generate
+    the corresponding class definition in csharp (PrinterOverrides.cs).
+-->
+
+<!--
+This file allows you to override printer templates and/or printer template mapping defined
+in the printable_templates.xml and serial_printer_template_mappings.xml files based on 
+the printer protocol and firmware.
+The printer protocols are defined in Hardware\Aristocrat.Monaco.Hardware\SupportedDevices.xml for
+a given printer model.
+The printer firmware version is discovered by the platform at runtime.
+-->
+
+<!--
+Please see the following link for descriptions of the elements and atributes in this file:
+
+https://confy.aristocrat.com/display/MON/Printer+Override+XML+Element+and+Attribute+Description
+
+Please update the confluence page when new elements and attributes are added.
+ -->
+
+<Overrides>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../bin/Printer/PrinterOverrides.xsd">
+  <Override Protocol="JCM TCL" FirmwareBase="*" UsePrinterDefinedTemplates="true" >
+    <AuditTickets PlatformTemplateIds="101 105" />
+    <Replacements>
+      <ChangeRegionCase RegionId="125" Description="MachineId" />
+      <TextSplitForRegion>
+        <Split RegionId="110" NewRegionId="1" Description="Date" FormatString="dd/MM/yyyy" />
+        <Split RegionId="110" NewRegionId="2" Description="Time" FormatString="HH:mm:ss" />
+      </TextSplitForRegion>
+    </Replacements>
+
+    <PrinterTemplateMappings>
+      <Mapping Description="cashout" PlatformTemplateId="102" PrinterTemplateId="2" Regions="107 121 123 0 106 0 107 1 2 142 116 0 114 0 118 126 117" />
+      <Mapping Description="jackpot" PlatformTemplateId="103" PrinterTemplateId="1" Regions="107 121 123 0 0 114 116 0 1 2 142 0 107 0 118 126 117" />
+      <Mapping Description="handpay receipt" PlatformTemplateId="104" PrinterTemplateId="1" Regions="107 121 123 0 0 114 116 0 1 2 142 0 107 0 118 126 117" />
+      <Mapping Description="jackpot no barcode" PlatformTemplateId="106" PrinterTemplateId="1" Regions="0 121 123 0 0 114 116 0 1 2 142 0 107 0 118 126 117" />
+      <Mapping Description="handpay receipt no barcode" PlatformTemplateId="107" PrinterTemplateId="1" Regions="0 121 123 0 0 114 116 0 1 2 142 0 107 0 118 126 117" />
+    </PrinterTemplateMappings>
+  </Override>
+
+  <Override Protocol="EpicTTL" FirmwareBase="*" UsePrinterDefinedTemplates="true" >
+    <AuditTickets PlatformTemplateIds="101 105" />
+    <Replacements>
+      <TextSplitForRegion>
+        <Split RegionId="110" NewRegionId="1" Description="Date" FormatString="dd/MM/yyyy" />
+        <Split RegionId="110" NewRegionId="2" Description="Time" FormatString="HH:mm:ss" />
+      </TextSplitForRegion>
+    </Replacements>
+
+    <PrinterTemplateMappings>
+      <Mapping Description="cashout" PlatformTemplateId="102" PrinterTemplateId="0" Regions="107 121 125 123 106 0 0 1 2 142 0 0 114 0 132 0 117 0" />
+      <Mapping Description="jackpot" PlatformTemplateId="103" PrinterTemplateId="1" Regions="107 121 125 123 106 114 0 0 1 2 142 0 0 0 132 0 117 0" />
+      <Mapping Description="handpay receipt" PlatformTemplateId="104" PrinterTemplateId="1" Regions="107 121 125 123 106 114 0 0 1 2 142 0 0 0 132 0 117 0" />
+      <Mapping Description="jackpot no barcode" PlatformTemplateId="106" PrinterTemplateId="1" Regions="107 121 125 123 106 114 0 0 1 2 142 0 0 0 132 0 0 0" />
+      <Mapping Description="handpay receipt no barcode" PlatformTemplateId="107" PrinterTemplateId="1" Regions="107 121 125 123 106 114 0 0 1 2 142 0 0 0 132 0 0 0" />
+    </PrinterTemplateMappings>
+  </Override>
+</Overrides>

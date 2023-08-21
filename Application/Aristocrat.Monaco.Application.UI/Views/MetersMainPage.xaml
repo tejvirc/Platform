@@ -1,0 +1,134 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.MetersMainPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                               xmlns:common="http://monaco.aristocrat.com/common"
+                               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:operatorMenu1="clr-namespace:Aristocrat.Monaco.Application.Contracts.OperatorMenu;assembly=Monaco.Application.Contracts"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                               Background="Transparent"
+                               mc:Ignorable="d"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:MetersMainPageViewModel}}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="MetersToggleSwitchButton"
+                   TargetType="controls:ToggleSwitch"
+                   BasedOn="{StaticResource MonacoToggleSwitchButton}">
+                <Style.Triggers>
+                    <!--<Trigger Property="IsChecked"
+                             Value="False"
+                             AutomationProperties.AutomationId="Trigger0_38500696">
+                        <Setter Property="ThumbIndicatorBrush">
+                            <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,.5"
+                                                     EndPoint="1,.5"
+                                                     AutomationProperties.AutomationId="LinearGradientBrush1_38500696">
+                                    <GradientStop Color="{DynamicResource LightColor1}"
+                                                  Offset="0"
+                                                  AutomationProperties.AutomationId="GradientStop2_38500696" />
+                                    <GradientStop Color="{DynamicResource LightColor2}"
+                                                  Offset=".3"
+                                                  AutomationProperties.AutomationId="GradientStop3_38500696" />
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>-->
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <b:Interaction.Triggers>
+        <b:EventTrigger EventName="IsVisibleChanged"
+                        AutomationProperties.AutomationId="EventTrigger4_38500696">
+            <b:InvokeCommandAction Command="{Binding IsVisibleChangedCommand}"/>
+        </b:EventTrigger>
+    </b:Interaction.Triggers>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition6_38500696" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition7_38500696" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              AutomationProperties.AutomationId="Grid8_38500696">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"
+                                  AutomationProperties.AutomationId="ColumnDefinition9_38500696" />
+                <ColumnDefinition Width="Auto"
+                                  AutomationProperties.AutomationId="ColumnDefinition10_38500696" />
+            </Grid.ColumnDefinitions>
+            <common:TouchListBox Grid.Column="0"
+                                 Style="{StaticResource TabButtonListBoxStyle}"
+                                 ItemsSource="{Binding Pages}"
+                                 SelectedItem="{Binding SelectedPage}">
+                <common:TouchListBox.Resources>
+                    <DataTemplate x:Key="TabHeaderDataTemplateKey"
+                                  DataType="{x:Type operatorMenu1:IOperatorMenuPageLoader}">
+                        <ContentPresenter Content="{Binding PageName}"
+                                          loc:Localizer.LocalizationAware="True"
+                                          AutomationProperties.AutomationId="ContentPresenter11_38500696" />
+                    </DataTemplate>
+                </common:TouchListBox.Resources>
+                <common:TouchListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem"
+                           BasedOn="{StaticResource TabButtonListBoxItemStyle}">
+                        <Setter Property="common:TabButtonListBoxHelper.HeaderTemplate"
+                                Value="{StaticResource TabHeaderDataTemplateKey}" />
+                        <Setter Property="common:TabButtonListBoxHelper.Header"
+                                Value="{Binding}" />
+                    </Style>
+                </common:TouchListBox.ItemContainerStyle>
+            </common:TouchListBox>
+
+            <controls:ToggleSwitch Grid.Column="1" 
+                                         Name="PeriodMasterButton" 
+                                         HorizontalAlignment="Right"
+                                         Margin="0 0 0 10"
+                                         Style="{StaticResource MetersToggleSwitchButton}"
+                                         Command="{Binding PeriodMasterButtonClickedCommand}"
+                                         IsOn="{Binding IsPeriodMasterButtonChecked}"
+                                         controls:ControlsHelper.ContentCharacterCasing="Upper"
+                                         controls:ControlsHelper.CornerRadius="0"
+                                         common:ToggleSwitchButtonHelper.OffContent="{lex:Loc PeriodText}"
+                                         common:ToggleSwitchButtonHelper.OnContent="{lex:Loc MasterButtonText}" 
+                                         IsEnabled="{Binding ButtonsEnabled}"/>
+        </Grid>
+        <GroupBox Grid.Row="1"
+                  Margin="0"
+                  Header="{Binding CurrentPageHeader}"
+                  AutomationProperties.AutomationId="GroupBox12_38500696">
+            <Grid AutomationProperties.AutomationId="Grid13_38500696">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"
+                                   AutomationProperties.AutomationId="RowDefinition14_38500696" />
+                    <RowDefinition Height="Auto"
+                                   AutomationProperties.AutomationId="RowDefinition15_38500696" />
+                </Grid.RowDefinitions>
+                <ContentControl Grid.Row="0"
+                                Content="{Binding SelectedPage.Page}"
+                                AutomationProperties.AutomationId="ContentControl16_38500696" />
+                <TextBlock Grid.Row="1"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Bottom"
+                           TextWrapping="Wrap"
+                           Style="{StaticResource MonacoWarningTextBlock}"
+                           Text="{Binding WarningMessageText, UpdateSourceTrigger=PropertyChanged}"
+                           AutomationProperties.AutomationId="TextBlock17_38500696" />
+            </Grid>
+        </GroupBox>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

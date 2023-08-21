@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Aristocrat.Monaco.Application.Meters.NoteAcceptorMeterProvider">
+    <Fields>
+      <Field DataType="Int64" Count="0" FieldName="StackerRemovedLifetime" />
+      <Field DataType="Int64" Count="0" FieldName="StackerRemovedPeriod" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Aristocrat.Monaco.Application.Meters.NoteAcceptorMeterProvider">
+    <Fields>
+      <Field DataType="Int64" FieldName="StackerRemovedLifetime" />
+      <Field DataType="Int64" FieldName="StackerRemovedPeriod" />
+      <Field DataType="Int64" FieldName="NoteAcceptorDisconnectLifetime" />
+      <Field DataType="Int64" FieldName="NoteAcceptorDisconnectPeriod" />
+      <Field DataType="Int64" FieldName="NoteAcceptorErrorLifetime" />
+      <Field DataType="Int64" FieldName="NoteAcceptorErrorPeriod" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Gaming.GameMeterProvider.HandPaidProgPayout" ElementSize="16">
+  <Fields>
+    <Field DataType="Int64" Size="8" Count="0" Offset="0" FieldName="Lifetime" />
+    <Field DataType="Int64" Size="8" Count="0" Offset="8" FieldName="Period" />
+  </Fields>
+</BlockFormat>

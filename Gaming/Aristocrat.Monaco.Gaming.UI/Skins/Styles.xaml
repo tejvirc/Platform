@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTemplate x:Key="tplFlatButton"
+                     TargetType="{x:Type Button}">
+        <Border Width="{TemplateBinding Width}"
+                Height="{TemplateBinding Height}"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                AutomationProperties.AutomationId="Border0_56D3D2F0">
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                              TextElement.Foreground="{TemplateBinding Foreground}"
+                              TextElement.FontFamily="{TemplateBinding FontFamily}"
+                              TextElement.FontSize="{TemplateBinding FontSize}"
+                              TextElement.FontStretch="{TemplateBinding FontStretch}"
+                              TextElement.FontWeight="{TemplateBinding FontWeight}"
+                              AutomationProperties.AutomationId="ContentPresenter1_56D3D2F0" />
+        </Border>
+    </ControlTemplate>
+    <FontFamily x:Key="CountdownFont">./DSEG7Modern-Regular.ttf#DSEG7 Modern</FontFamily>
+    <!-- null FocusVisualStyle fixes the dotted line border around focused buttons -->
+    <Style x:Key="stlFlatButton"
+           TargetType="{x:Type Button}">
+        <Setter Property="Background"
+                Value="{x:Null}" />
+        <Setter Property="BorderBrush"
+                Value="{x:Null}" />
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Template"
+                Value="{StaticResource tplFlatButton}" />
+        <Setter Property="ClickMode"
+                Value="Press" />
+    </Style>
+    <!-- null FocusVisualStyle fixes the dotted line border around focused buttons -->
+    <Style x:Key="stlFlatToggleButton"
+           TargetType="{x:Type ToggleButton}">
+        <Setter Property="Background"
+                Value="{x:Null}" />
+        <Setter Property="BorderBrush"
+                Value="{x:Null}" />
+        <Setter Property="FocusVisualStyle"
+                Value="{x:Null}" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Template"
+                Value="{StaticResource tplFlatButton}" />
+        <Setter Property="ClickMode"
+                Value="Press" />
+    </Style>
+</ResourceDictionary>

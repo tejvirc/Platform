@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<BlockFormat version="1" name="Aristocrat.Monaco.TestProtocol.Vouchers.TestVoucherValidator" >
+  <Fields>
+    <Field FieldName="Barcode" DataType="Int64" />
+    <Field FieldName="Date" DataType="DateTime" />
+    <Field FieldName="TransactionId" DataType="Byte" Count="16" />
+  </Fields>
+</BlockFormat>

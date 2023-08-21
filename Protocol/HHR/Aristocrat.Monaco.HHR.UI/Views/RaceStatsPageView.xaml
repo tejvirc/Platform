@@ -1,0 +1,131 @@
+﻿<menu:HHRMenuPage x:Class="Aristocrat.Monaco.Hhr.UI.Views.RaceStatsPageView"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
+                  xmlns:converters="clr-namespace:Aristocrat.Monaco.Hhr.UI.Converters"
+                  xmlns:models="clr-namespace:Aristocrat.Monaco.Hhr.UI.Models"
+                  mc:Ignorable="d"
+                  d:DesignHeight="300"
+                  d:DesignWidth="808">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:HorseNumberToSmallImage x:Key="HorseNumberToSmallImage" />
+            <converters:WinningOddsToCollection x:Key="WinningOddsToCollection" />
+            <converters:WinningOddsToImage x:Key="WinningOddsToImage" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel Orientation="Vertical"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                AutomationProperties.AutomationId="StackPanel0_CF10C808">
+        <!-- Header - Race/Race Stats> -->
+        <Image Source="../Resources/RaceStats/RaceStatsHeader.png"
+               Height="30"
+               Margin="0 0 0 10"
+               AutomationProperties.AutomationId="Image1_CF10C808" />
+        <ItemsControl ItemsSource="{Binding RaceStatsCharts}"
+                      AutomationProperties.AutomationId="ItemsControl2_CF10C808">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal"
+                                AutomationProperties.AutomationId="StackPanel3_CF10C808"></StackPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="models:RaceStatsChartModel">
+                    <StackPanel AutomationProperties.AutomationId="StackPanel4_CF10C808">
+                        <ItemsControl ItemsSource="{Binding WinningOddsList}"
+                                      AutomationProperties.AutomationId="ItemsControl5_CF10C808">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel HorizontalAlignment="Center"
+                                                VerticalAlignment="Bottom"
+                                                Orientation="Horizontal"
+                                                Margin="10 0 0 0"
+                                                Height="521"
+                                                Width="521"
+                                                AutomationProperties.AutomationId="StackPanel6_CF10C808">
+                                        <StackPanel.Background>
+                                            <ImageBrush ImageSource="../Resources/RaceStats/RaceStatsBKGD.png"
+                                                        AutomationProperties.AutomationId="ImageBrush7_CF10C808" />
+                                        </StackPanel.Background>
+                                    </StackPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical"
+                                                VerticalAlignment="Bottom"
+                                                AutomationProperties.AutomationId="StackPanel8_CF10C808">
+                                        <StackPanel.LayoutTransform>
+                                            <TransformGroup AutomationProperties.AutomationId="TransformGroup9_CF10C808">
+                                                <RotateTransform Angle="180"
+                                                                 AutomationProperties.AutomationId="RotateTransform10_CF10C808" />
+                                            </TransformGroup>
+                                        </StackPanel.LayoutTransform>
+                                        <!--Horse no. image drawn horizontally in race stat chart-->
+                                        <Grid Height="43"
+                                              Width="43"
+                                              Margin="0 10 0 0"
+                                              AutomationProperties.AutomationId="Grid11_CF10C808">
+                                            <Image
+                                                    Source="{Binding HorseNo, Converter={StaticResource HorseNumberToSmallImage}}"
+                                                   AutomationProperties.AutomationId="Image12_CF10C808">
+                                                <Image.LayoutTransform>
+                                                    <RotateTransform Angle="180"
+                                                                     AutomationProperties.AutomationId="RotateTransform13_CF10C808" />
+                                                </Image.LayoutTransform>
+                                            </Image>
+                                        </Grid>
+                                        <!-- Stat increment image drawn vertically in race stat chart-->
+                                        <ItemsControl
+                                                ItemsSource="{Binding WinningOdds,Converter={StaticResource WinningOddsToCollection}}"
+                                                      AutomationProperties.AutomationId="ItemsControl14_CF10C808">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel HorizontalAlignment="Center"
+                                                                VerticalAlignment="Bottom"
+                                                                Orientation="Vertical"
+                                                                AutomationProperties.AutomationId="StackPanel15_CF10C808"></StackPanel>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid Height="28"
+                                                          Width="34"
+                                                          Margin="0 0 0 10"
+                                                          AutomationProperties.AutomationId="Grid16_CF10C808">
+                                                        <Image
+                                                                Source="{Binding  Converter={StaticResource WinningOddsToImage}}"
+                                                               AutomationProperties.AutomationId="Image17_CF10C808">
+                                                            <Image.LayoutTransform>
+                                                                <RotateTransform Angle="180"
+                                                                                 AutomationProperties.AutomationId="RotateTransform18_CF10C808" />
+                                                            </Image.LayoutTransform>
+                                                        </Image>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <!-- Information about the Chart -->
+                        <TextBlock FontSize="15"
+                                   Foreground="White"
+                                   Text="{Binding ChartInfo}"
+                                   FontWeight="Bold"
+                                   Margin="0 10 0 0"
+                                   HorizontalAlignment="Center"
+                                   AutomationProperties.AutomationId="TextBlock19_CF10C808" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</menu:HHRMenuPage>

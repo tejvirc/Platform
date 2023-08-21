@@ -1,0 +1,1831 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptedText" xml:space="preserve">
+    <value>??Accepted??</value>
+  </data>
+  <data name="AcceptedTimeHeader" xml:space="preserve">
+    <value>???ACCEPTED TIME???</value>
+  </data>
+  <data name="Acknowledged" xml:space="preserve">
+    <value>???Acknowledged???</value>
+  </data>
+  <data name="ActionLabel" xml:space="preserve">
+    <value>Acción</value>
+  </data>
+  <data name="AddressNotValid" xml:space="preserve">
+    <value>??Address not valid??</value>
+  </data>
+  <data name="AllLogsWindowTitle" xml:space="preserve">
+    <value>???Logs - All???</value>
+  </data>
+  <data name="AmountCreditedHeader" xml:space="preserve">
+    <value>???AMOUNT CREDITED???</value>
+  </data>
+  <data name="AmountHeader" xml:space="preserve">
+    <value>???AMOUNT???</value>
+  </data>
+  <data name="AmountInText" xml:space="preserve">
+    <value>???Amount In???</value>
+  </data>
+  <data name="AmountOutText" xml:space="preserve">
+    <value>???Amount Out???</value>
+  </data>
+  <data name="AuditSlipCurrentCreditsText" xml:space="preserve">
+    <value>??Current Credit Balance??</value>
+  </data>
+  <data name="AuditSlipCurrentCreditWagerText" xml:space="preserve">
+    <value>??Current Credit Wager??</value>
+  </data>
+  <data name="AuditSlipCurrentWagerText" xml:space="preserve">
+    <value>??Current Wager??</value>
+  </data>
+  <data name="AuditSlipMasterMetersText" xml:space="preserve">
+    <value>??Master Meter??</value>
+  </data>
+  <data name="AuditSlipNumberText" xml:space="preserve">
+    <value>??Audit Slip #??</value>
+  </data>
+  <data name="AuditSlipPeriodMetersText" xml:space="preserve">
+    <value>??Period Meter??</value>
+  </data>
+  <data name="AuditSlipTitleFormat" xml:space="preserve">
+    <value>{0} ??ACCESS??</value>
+  </data>
+  <data name="BackText" xml:space="preserve">
+    <value>Espalda</value>
+  </data>
+  <data name="BankText" xml:space="preserve">
+    <value>Banco:</value>
+  </data>
+  <data name="BellLabel" xml:space="preserve">
+    <value>Bell</value>
+  </data>
+  <data name="BellyDoorClosed" xml:space="preserve">
+    <value>???Puerta Vientre Abierta Closed???</value>
+  </data>
+  <data name="BillEventsLogsWindowTitle" xml:space="preserve">
+    <value>???Logs - Bill Events???</value>
+  </data>
+  <data name="Bills" xml:space="preserve">
+    <value>Billetes</value>
+  </data>
+  <data name="BillTransactionName" xml:space="preserve">
+    <value>?? Cash in ??</value>
+  </data>
+  <data name="BottomButton" xml:space="preserve">
+    <value>???Bottom???</value>
+  </data>
+  <data name="ButtonTest" xml:space="preserve">
+    <value>Button Test</value>
+  </data>
+  <data name="ButtonTestInstructions" xml:space="preserve">
+    <value>Press any button...</value>
+  </data>
+  <data name="CalculateSignatures" xml:space="preserve">
+    <value>???Calculate Signatures???</value>
+  </data>
+  <data name="CalibrationText" xml:space="preserve">
+    <value>Presione el botón JUGAR para calibrar las pantallas táctiles</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelación</value>
+  </data>
+  <data name="CanceledCreditsTransactionName" xml:space="preserve">
+    <value>?? Cancelled Credits ??</value>
+  </data>
+  <data name="Cashable" xml:space="preserve">
+    <value>Cashable</value>
+  </data>
+  <data name="CashablePromotion" xml:space="preserve">
+    <value>Promoción Cashable</value>
+  </data>
+  <data name="CashablePromoVoucherInLabelContent" xml:space="preserve">
+    <value>Canjeables promocional Vale de salida</value>
+  </data>
+  <data name="CashablePromoVoucherOutLabelContent" xml:space="preserve">
+    <value>Vale de promoción canjeables en</value>
+  </data>
+  <data name="CashablePromoWatOffLabelContent" xml:space="preserve">
+    <value>Vale de promoción canjeables en</value>
+  </data>
+  <data name="CashablePromoWatOnLabelContent" xml:space="preserve">
+    <value>Canjeables promocional Vale de salida</value>
+  </data>
+  <data name="CashableVoucherInLabelContent" xml:space="preserve">
+    <value>Canjeables de vales en la</value>
+  </data>
+  <data name="CashableVoucherOutLabelContent" xml:space="preserve">
+    <value>Canjeables de Vale de salida</value>
+  </data>
+  <data name="CashableWatOffLabelContent" xml:space="preserve">
+    <value>Canjeables de Vale de salida</value>
+  </data>
+  <data name="CashableWatOnLabelContent" xml:space="preserve">
+    <value>Canjeables de vales en la</value>
+  </data>
+  <data name="CashDoorClosed" xml:space="preserve">
+    <value>???Cash Door Closed???</value>
+  </data>
+  <data name="CashSlipEventLogTicketTitle" xml:space="preserve">
+    <value>??CASH SLIP EVENT LOG??</value>
+  </data>
+  <data name="CenterText" xml:space="preserve">
+    <value>Centrar</value>
+  </data>
+  <data name="CheatDetectedText" xml:space="preserve">
+    <value>Cheat detectado</value>
+  </data>
+  <data name="ClaimInterfaceText" xml:space="preserve">
+    <value>???Claiming interface.???</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>???Clear???</value>
+  </data>
+  <data name="ClearedText" xml:space="preserve">
+    <value>??? Cleared ???</value>
+  </data>
+  <data name="ClearPeriodButtonText" xml:space="preserve">
+    <value>Período Claro</value>
+  </data>
+  <data name="Clock12" xml:space="preserve">
+    <value>- Reloj 12 hr.</value>
+  </data>
+  <data name="Clock24" xml:space="preserve">
+    <value>- Reloj 24 hr.</value>
+  </data>
+  <data name="ClockFormat" xml:space="preserve">
+    <value>12/24 Hr.</value>
+  </data>
+  <data name="ClosedText" xml:space="preserve">
+    <value>Cerrada</value>
+  </data>
+  <data name="CoinInText" xml:space="preserve">
+    <value>???Coin In???</value>
+  </data>
+  <data name="CommunicationFailureText" xml:space="preserve">
+    <value>Falla de Comunicación</value>
+  </data>
+  <data name="CompleteTitle" xml:space="preserve">
+    <value>Configuración Completa</value>
+  </data>
+  <data name="ComponentId" xml:space="preserve">
+    <value>???Component ID and Version???</value>
+  </data>
+  <data name="ConfigComplete" xml:space="preserve">
+    <value>La configuración terminada, presiona por favor el 'Acabado' abotone para continuar.</value>
+  </data>
+  <data name="ConfigNetworkInfoScreen" xml:space="preserve">
+    <value>??Network Configuration??</value>
+  </data>
+  <data name="ConfirmClearPeriodMessage" xml:space="preserve">
+    <value>Confirmar Claro Período</value>
+  </data>
+  <data name="ControlTransferText" xml:space="preserve">
+    <value>???Performing control transfer.???</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Cuenta</value>
+  </data>
+  <data name="CreatingAddinHelper" xml:space="preserve">
+    <value>??? Creating Addin Helper Service ???</value>
+  </data>
+  <data name="CreatingEventBus" xml:space="preserve">
+    <value>Crear el evento Bus</value>
+  </data>
+  <data name="CreatingPathMapperService" xml:space="preserve">
+    <value>??? Creating PathMapper Service ???</value>
+  </data>
+  <data name="CreatingPropertiesManager" xml:space="preserve">
+    <value>Creación de la Gerente de Propiedades</value>
+  </data>
+  <data name="CreatingServiceManager" xml:space="preserve">
+    <value>Creación de la Gerente de Servicios</value>
+  </data>
+  <data name="CreatingSystemDisableManager" xml:space="preserve">
+    <value>Crear al encargado de la neutralización del sistema</value>
+  </data>
+  <data name="CreditBalance" xml:space="preserve">
+    <value>Saldo en efectivo</value>
+  </data>
+  <data name="CreditBalanceText" xml:space="preserve">
+    <value>Credit Balance</value>
+  </data>
+  <data name="CreditedText" xml:space="preserve">
+    <value>??Credited??</value>
+  </data>
+  <data name="CreditType" xml:space="preserve">
+    <value>Tipo del Crédito</value>
+  </data>
+  <data name="CreditTypeHeader" xml:space="preserve">
+    <value>???CREDIT TYPE???</value>
+  </data>
+  <data name="CurrentStatus" xml:space="preserve">
+    <value>???Current Status???</value>
+  </data>
+  <data name="DataUnavailable" xml:space="preserve">
+    <value>??Data Unavailable??</value>
+  </data>
+  <data name="DateAndTime" xml:space="preserve">
+    <value>Fecha y hora</value>
+  </data>
+  <data name="DateAndTimeHeader" xml:space="preserve">
+    <value>???DATE AND TIME???</value>
+  </data>
+  <data name="DateText" xml:space="preserve">
+    <value>??Date??</value>
+  </data>
+  <data name="DemoModeText" xml:space="preserve">
+    <value>???Demo Mode???</value>
+  </data>
+  <data name="Denomination" xml:space="preserve">
+    <value>Denominación</value>
+  </data>
+  <data name="DenominationFifty" xml:space="preserve">
+    <value>$50 </value>
+  </data>
+  <data name="DenominationFive" xml:space="preserve">
+    <value>$5 </value>
+  </data>
+  <data name="DenominationHeader" xml:space="preserve">
+    <value>???DENOMINATION???</value>
+  </data>
+  <data name="DenominationHundred" xml:space="preserve">
+    <value>$100 </value>
+  </data>
+  <data name="DenominationOne" xml:space="preserve">
+    <value>$1 </value>
+  </data>
+  <data name="DenominationTen" xml:space="preserve">
+    <value>$10 </value>
+  </data>
+  <data name="DenominationTwenty" xml:space="preserve">
+    <value>$20 </value>
+  </data>
+  <data name="DenominationTwo" xml:space="preserve">
+    <value>$2 </value>
+  </data>
+  <data name="DenominationVoucher" xml:space="preserve">
+    <value>Vale</value>
+  </data>
+  <data name="DenomText" xml:space="preserve">
+    <value>??Denom??</value>
+  </data>
+  <data name="DenomText2" xml:space="preserve">
+    <value>???Denom???</value>
+  </data>
+  <data name="DeviceLabel" xml:space="preserve">
+    <value>Dispositivo</value>
+  </data>
+  <data name="DfuErrorAddressText" xml:space="preserve">
+    <value>???Cannot program memory due to recieved address that is out of range???</value>
+  </data>
+  <data name="DfuErrorCheckErasedText" xml:space="preserve">
+    <value>???Memory erase check failed???</value>
+  </data>
+  <data name="DfuErrorEraseText" xml:space="preserve">
+    <value>???Memory erase function failed???</value>
+  </data>
+  <data name="DfuErrorFileText" xml:space="preserve">
+    <value>???File is for this device but fails some vendor-specific verification test???</value>
+  </data>
+  <data name="DfuErrorFirmwareText" xml:space="preserve">
+    <value>???Device firmware is corrupt and cannot return to normal operation???</value>
+  </data>
+  <data name="DfuErrorNotDoneText" xml:space="preserve">
+    <value>???Download incomplete???</value>
+  </data>
+  <data name="DfuErrorPowerText" xml:space="preserve">
+    <value>???Device detected unexpected power on reset???</value>
+  </data>
+  <data name="DfuErrorProgramText" xml:space="preserve">
+    <value>???Program memory function failed???</value>
+  </data>
+  <data name="DfuErrorStalledText" xml:space="preserve">
+    <value>???Device stalled an unexpected request???</value>
+  </data>
+  <data name="DfuErrorTargetText" xml:space="preserve">
+    <value>???File is not targeted for use by this device???</value>
+  </data>
+  <data name="DfuErrorUnknownText" xml:space="preserve">
+    <value>???Unknown error???</value>
+  </data>
+  <data name="DfuErrorUsbResetText" xml:space="preserve">
+    <value>???Device detected unexpected USB reset signaling???</value>
+  </data>
+  <data name="DfuErrorVendorText" xml:space="preserve">
+    <value>???Vendor specific error???</value>
+  </data>
+  <data name="DfuErrorVerifyText" xml:space="preserve">
+    <value>???Programmed memory failed verification???</value>
+  </data>
+  <data name="DfuErrorWriteText" xml:space="preserve">
+    <value>???Device is unable to write memory???</value>
+  </data>
+  <data name="DFUText" xml:space="preserve">
+    <value>???DFU???</value>
+  </data>
+  <data name="DisabledByText" xml:space="preserve">
+    <value>Dissabled por </value>
+  </data>
+  <data name="DisabledReasons" xml:space="preserve">
+    <value>Deshabilitar razones</value>
+  </data>
+  <data name="DiscoveryTimeoutWarning" xml:space="preserve">
+    <value>el descubrimiento de hardware el tiempo de espera después de</value>
+  </data>
+  <data name="DiskSpaceBelowThresholdMessage" xml:space="preserve">
+    <value>???Error: Diskspace Below Threshold.???</value>
+  </data>
+  <data name="DocumentEaten" xml:space="preserve">
+    <value>???Document Eaten???</value>
+  </data>
+  <data name="DocumentEatenText" xml:space="preserve">
+    <value>comido documento</value>
+  </data>
+  <data name="DollarsInText" xml:space="preserve">
+    <value>??Dollars In??</value>
+  </data>
+  <data name="DollarsOutText" xml:space="preserve">
+    <value>??Dollars Out??</value>
+  </data>
+  <data name="DollarsPlayedText" xml:space="preserve">
+    <value>??Dollars Played??</value>
+  </data>
+  <data name="DollarsWonText" xml:space="preserve">
+    <value>??Dollars Won??</value>
+  </data>
+  <data name="DoorHistoryLogsWindowTitle" xml:space="preserve">
+    <value>???Door Monitor History Log???</value>
+  </data>
+  <data name="DoorLabel" xml:space="preserve">
+    <value>Puertas</value>
+  </data>
+  <data name="DoorLoaderButtonText" xml:space="preserve">
+    <value>???Door???</value>
+  </data>
+  <data name="DoorText" xml:space="preserve">
+    <value>Puerta</value>
+  </data>
+  <data name="DownButton" xml:space="preserve">
+    <value>???Down???</value>
+  </data>
+  <data name="DownloadCompleteText" xml:space="preserve">
+    <value>???Download Complete???</value>
+  </data>
+  <data name="DownloadErrorText" xml:space="preserve">
+    <value>???Download Error???</value>
+  </data>
+  <data name="DownloadingText" xml:space="preserve">
+    <value>???Downloading???</value>
+  </data>
+  <data name="DownloadInProgressText" xml:space="preserve">
+    <value>???Download In Progress???</value>
+  </data>
+  <data name="DownText" xml:space="preserve">
+    <value>Abajo</value>
+  </data>
+  <data name="DrawerOpenText" xml:space="preserve">
+    <value>Abrir el cajón</value>
+  </data>
+  <data name="DropMessage" xml:space="preserve">
+    <value>&lt;spanish&gt;The period meters are cleared on stacker removal.&lt;/spanish&gt;</value>
+  </data>
+  <data name="EdgeLightingLabel" xml:space="preserve">
+    <value>Iluminación de borde</value>
+  </data>
+  <data name="EnabledByText" xml:space="preserve">
+    <value>Habilitado por </value>
+  </data>
+  <data name="EnabledDenominationsLabel" xml:space="preserve">
+    <value>Denominaciones habilitado:</value>
+  </data>
+  <data name="EnabledLabel" xml:space="preserve">
+    <value>Habilitado</value>
+  </data>
+  <data name="EndGameRoundBeforeDisableText" xml:space="preserve">
+    <value>???Please ensure not in game round before putting it into disabled mode.???</value>
+  </data>
+  <data name="EndGameRoundBeforeOutOfServiceText" xml:space="preserve">
+    <value>???Please ensure not in game round before entering Out-of-Service mode.???</value>
+  </data>
+  <data name="EndOffsetNegativeErrorMessage" xml:space="preserve">
+    <value>???End offset is negative???</value>
+  </data>
+  <data name="EnteringOutOfServiceModeRequiresZeroCreditsText" xml:space="preserve">
+    <value>???Entering Out-of-Service mode requires Zero credits.???</value>
+  </data>
+  <data name="ErrorEventBrownoutResetLampVoltageLowString" xml:space="preserve">
+    <value>???Reel Controller Brownout Reset Low Lamp Voltage???</value>
+  </data>
+  <data name="ErrorEventBrownoutResetMotorVoltageLowString" xml:space="preserve">
+    <value>???Reel Controller Brownout Reset Low Motor Voltage???</value>
+  </data>
+  <data name="ErrorEventBrownoutResetReelVoltageLowString" xml:space="preserve">
+    <value>???Reel Controller Reel Voltage Low???</value>
+  </data>
+  <data name="ErrorEventCommandFailedString" xml:space="preserve">
+    <value>???Reel Controller Command Failed???</value>
+  </data>
+  <data name="ErrorEventComReprogramCom1ResetString" xml:space="preserve">
+    <value>???Reel Controller Com. Reprogram Com Reset???</value>
+  </data>
+  <data name="ErrorEventComReprogramSerialPortString" xml:space="preserve">
+    <value>???Reel Controller Com. Reprogram Serial Port???</value>
+  </data>
+  <data name="ErrorEventFaultChecksumString" xml:space="preserve">
+    <value>???Reel Controller Fault Checksum???</value>
+  </data>
+  <data name="ErrorEventHomingString" xml:space="preserve">
+    <value>???Reel Controller Reel {0} Homing Error???</value>
+  </data>
+  <data name="ErrorEventInvalidCommandBadByteString" xml:space="preserve">
+    <value>???Reel Controller Invalid Command Bad Byte???</value>
+  </data>
+  <data name="ErrorEventInvalidCommandBadCommandString" xml:space="preserve">
+    <value>???Reel Controller Invalid Command Bad Command???</value>
+  </data>
+  <data name="ErrorEventInvalidCommandBadProtocolString" xml:space="preserve">
+    <value>???Reel Controller Invalid Command Bad Protocol???</value>
+  </data>
+  <data name="ErrorEventInvalidCommandBadStateString" xml:space="preserve">
+    <value>???Reel Controller Invalid Command Bad State???</value>
+  </data>
+  <data name="ErrorEventInvalidCommandBadValueString" xml:space="preserve">
+    <value>???Reel Controller Invalid Command Bad Value???</value>
+  </data>
+  <data name="ErrorEventInvalidCommandGameChecksumString" xml:space="preserve">
+    <value>???Reel Controller Invalid Command Game Checksum???</value>
+  </data>
+  <data name="ErrorEventInvalidCommandReelInErrorString" xml:space="preserve">
+    <value>???Reel Controller Invalid Command Reel In Error???</value>
+  </data>
+  <data name="ErrorEventInvalidDataBadChecksumString" xml:space="preserve">
+    <value>???Reel Controller Invalid Data Bad Checksum???</value>
+  </data>
+  <data name="ErrorEventPowerUpResetString" xml:space="preserve">
+    <value>???Reel Controller Power-Up Reset???</value>
+  </data>
+  <data name="ErrorEventProgrammingNeededString" xml:space="preserve">
+    <value>???Reel Controller Programming Needed???</value>
+  </data>
+  <data name="ErrorEventReelNotConnectedString" xml:space="preserve">
+    <value>???Reel Controller Reel {0} Not Connected???</value>
+  </data>
+  <data name="ErrorEventReelNotInSyncSpinString" xml:space="preserve">
+    <value>???Reel Controller Reel {0} Not in Sync Spin???</value>
+  </data>
+  <data name="ErrorEventReelSpinningString" xml:space="preserve">
+    <value>???Reel Controller Reel Spinning Error???</value>
+  </data>
+  <data name="ErrorEventReelStalledString" xml:space="preserve">
+    <value>???Reel Controller Reel {0} Stalled???</value>
+  </data>
+  <data name="ErrorEventRegReprogramFirmwareResetString" xml:space="preserve">
+    <value>???Reel Controller Reg. Reprogram Firmware Reset???</value>
+  </data>
+  <data name="ErrorEventRegReprogramPortResetString" xml:space="preserve">
+    <value>???Reel Controller Reg. Reprogram Port Reset???</value>
+  </data>
+  <data name="ErrorEventRegReprogramStackOverflowResetString" xml:space="preserve">
+    <value>???Reel Controller Reg. Reprogram Stack Overflow Reset???</value>
+  </data>
+  <data name="ErrorEventRegReprogramStackUnderflowResetString" xml:space="preserve">
+    <value>???Reel Controller Reg. Reprogram Stack Underflow Reset???</value>
+  </data>
+  <data name="ErrorEventRegReprogramUnknownResetString" xml:space="preserve">
+    <value>???Reel Controller Reg. Reprogram Unknown Reset???</value>
+  </data>
+  <data name="ErrorEventSkewedString" xml:space="preserve">
+    <value>???Reel Controller Reel {0} Skewed???</value>
+  </data>
+  <data name="ErrorEventTamperedString" xml:space="preserve">
+    <value>???Reel Controller Reel {0} Tampered???</value>
+  </data>
+  <data name="ErrorEventTimeOutString" xml:space="preserve">
+    <value>???Reel Controller Stopped Responding???</value>
+  </data>
+  <data name="ErrorEventWatchdogTimerResetString" xml:space="preserve">
+    <value>???Reel Controller Watchdog Timer Reset???</value>
+  </data>
+  <data name="ErrorText" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="EscrowedAmountText" xml:space="preserve">
+    <value>Depositados Monto </value>
+  </data>
+  <data name="EscrowedVoucherText" xml:space="preserve">
+    <value>Depositados Vale </value>
+  </data>
+  <data name="EventLogTicketTitle" xml:space="preserve">
+    <value>???EVENT LOG???</value>
+  </data>
+  <data name="EventLogTitle" xml:space="preserve">
+    <value>???Event Log???</value>
+  </data>
+  <data name="Failure" xml:space="preserve">
+    <value>???Failure???</value>
+  </data>
+  <data name="FileSizeText" xml:space="preserve">
+    <value>???Invalid file size.???</value>
+  </data>
+  <data name="FinishedButtonContent" xml:space="preserve">
+    <value>Acabado</value>
+  </data>
+  <data name="FirmwareCRCLabel" xml:space="preserve">
+    <value>Firmware CRC:</value>
+  </data>
+  <data name="FirmwareMayBeCorrupted" xml:space="preserve">
+    <value>???Firmware May Be Corrupted???</value>
+  </data>
+  <data name="FirmwareRevisionLabel" xml:space="preserve">
+    <value>Revisión de Firmware:</value>
+  </data>
+  <data name="FirmwareVersionLabel" xml:space="preserve">
+    <value>Versión de Firmware:</value>
+  </data>
+  <data name="FlashProgErrorText" xml:space="preserve">
+    <value>Flash prog error</value>
+  </data>
+  <data name="FormFeedButton" xml:space="preserve">
+    <value>La presentación del pienso</value>
+  </data>
+  <data name="FrontLeftText" xml:space="preserve">
+    <value>Delantero izquierdo</value>
+  </data>
+  <data name="FrontRightText" xml:space="preserve">
+    <value>Frente derecho</value>
+  </data>
+  <data name="Game" xml:space="preserve">
+    <value>???Game???</value>
+  </data>
+  <data name="GameHelpText_PaidByAttendant1" xml:space="preserve">
+    <value>Any wins greater than {0:C2}</value>
+  </data>
+  <data name="GameHelpText_PaidByAttendant2" xml:space="preserve">
+    <value>will be paid by the attendant.</value>
+  </data>
+  <data name="GameHelpText_PaidByVoucher" xml:space="preserve">
+    <value>All pays will be paid by a printed voucher.</value>
+  </data>
+  <data name="GatConnected" xml:space="preserve">
+    <value>???GAT is Connected???</value>
+  </data>
+  <data name="GatDisconnected" xml:space="preserve">
+    <value>???GAT is Disconnected???</value>
+  </data>
+  <data name="GatIdle" xml:space="preserve">
+    <value>???, Idle???</value>
+  </data>
+  <data name="GatVerifyingAll" xml:space="preserve">
+    <value>???, Verifying All Components???</value>
+  </data>
+  <data name="GatVerifyingSingleTemplate" xml:space="preserve">
+    <value>???, Verifying {0}???</value>
+  </data>
+  <data name="GeneralFailureText" xml:space="preserve">
+    <value>???Malfunction???</value>
+  </data>
+  <data name="HardErrors" xml:space="preserve">
+    <value>???Hard Errors???</value>
+  </data>
+  <data name="HardMeterLabel" xml:space="preserve">
+    <value>Duro Meter</value>
+  </data>
+  <data name="HardwareDiscoveryCompleteLabel" xml:space="preserve">
+    <value>Completa de hardware descubrimiento</value>
+  </data>
+  <data name="HardwareErrorText" xml:space="preserve">
+    <value>Error de Hardware </value>
+  </data>
+  <data name="HashResult" xml:space="preserve">
+    <value>???Hash Result???</value>
+  </data>
+  <data name="HeadErrorText" xml:space="preserve">
+    <value>la cabeza de error</value>
+  </data>
+  <data name="HelplineTicketTitle" xml:space="preserve">
+    <value>Problem Gamebling Helpline</value>
+  </data>
+  <data name="HelpText" xml:space="preserve">
+    <value>Seleccione Upgrade con el Asistente para confirmar los ajustes de configuración correctos.</value>
+  </data>
+  <data name="HostTransactionId" xml:space="preserve">
+    <value>ID de Transacción</value>
+  </data>
+  <data name="IdReaderDisconnected" xml:space="preserve">
+    <value>Lector de Tarjeta Desconectado</value>
+  </data>
+  <data name="IdReaderLabel" xml:space="preserve">
+    <value>Id Reader</value>
+  </data>
+  <data name="ImproperConfig" xml:space="preserve">
+    <value>  Improper configuration on {0} event descriptions.</value>
+  </data>
+  <data name="InitializationFailedEventString" xml:space="preserve">
+    <value>???Reel Controller Initialization Failed???</value>
+  </data>
+  <data name="InitializingAddinManager" xml:space="preserve">
+    <value>Encargado de diapositivo suplementario de incialización</value>
+  </data>
+  <data name="InputEventText" xml:space="preserve">
+    <value>Entrada de evento</value>
+  </data>
+  <data name="InputsLabel" xml:space="preserve">
+    <value>Entradas:</value>
+  </data>
+  <data name="InsertionText" xml:space="preserve">
+    <value>inserción</value>
+  </data>
+  <data name="InspectButton" xml:space="preserve">
+    <value>Inspeccione</value>
+  </data>
+  <data name="InspectedText" xml:space="preserve">
+    <value>Inspeccionados</value>
+  </data>
+  <data name="Inspecting" xml:space="preserve">
+    <value>???Inspecting???</value>
+  </data>
+  <data name="InspectionFailedText" xml:space="preserve">
+    <value>Inspección No se pudo</value>
+  </data>
+  <data name="IntrusionText" xml:space="preserve">
+    <value>Intrusión</value>
+  </data>
+  <data name="InvalidBarcodeText" xml:space="preserve">
+    <value>código de barras no válido</value>
+  </data>
+  <data name="InvalidReelHomeEventString" xml:space="preserve">
+    <value>???Reel Controller Invalid Reel Home???</value>
+  </data>
+  <data name="InvalidReelNumberEventString" xml:space="preserve">
+    <value>???Reel Controller Invalid Reel Number???</value>
+  </data>
+  <data name="InvalidStateEventString" xml:space="preserve">
+    <value>???Reel Controller Invalid State???</value>
+  </data>
+  <data name="IOLabel" xml:space="preserve">
+    <value>E / S</value>
+  </data>
+  <data name="IPAddressesLabel" xml:space="preserve">
+    <value>Direcciones IP</value>
+  </data>
+  <data name="Jackpot" xml:space="preserve">
+    <value>???jackpot???</value>
+  </data>
+  <data name="KeySwitchText" xml:space="preserve">
+    <value>Llave</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Spanish Language Version</value>
+  </data>
+  <data name="LanguageChangeAttempt" xml:space="preserve">
+    <value>Tratar de cambiar la configuración regional a {0}</value>
+  </data>
+  <data name="LanguageChangeFailed" xml:space="preserve">
+    <value>FRACASADO</value>
+  </data>
+  <data name="LastDocumentResultLabel" xml:space="preserve">
+    <value>Último documento de resultados:</value>
+  </data>
+  <data name="LastOpenedLabel" xml:space="preserve">
+    <value>Último abierto</value>
+  </data>
+  <data name="LastResetText" xml:space="preserve">
+    <value>??Last Reset??</value>
+  </data>
+  <data name="LastResetText2" xml:space="preserve">
+    <value>??Last Reset??</value>
+  </data>
+  <data name="LightText" xml:space="preserve">
+    <value>Luz</value>
+  </data>
+  <data name="LoaderButtonText" xml:space="preserve">
+    <value>???Load???</value>
+  </data>
+  <data name="LoadFileText" xml:space="preserve">
+    <value>???Failed to load file.???</value>
+  </data>
+  <data name="LoadingKernelRunnables" xml:space="preserve">
+    <value>Carga de núcleo Runnables</value>
+  </data>
+  <data name="LoadingKernelServices" xml:space="preserve">
+    <value>Carga de Servicios de núcleo</value>
+  </data>
+  <data name="ExportSaveTo" xml:space="preserve">
+    <value>Export will save to "{0}".</value>
+  </data>
+  <data name="LogicalText" xml:space="preserve">
+    <value>Lógico</value>
+  </data>
+  <data name="LogicDoorClosed" xml:space="preserve">
+    <value>???Puerta Lógica Abierta Closed???</value>
+  </data>
+  <data name="LogPageButtonLimitExceeded" xml:space="preserve">
+    <value>Límite del botón de la página del registro excedido. {0} Los botones permitieron. {1} Botones pedidos.</value>
+  </data>
+  <data name="LogsScreen" xml:space="preserve">
+    <value>Registros</value>
+  </data>
+  <data name="LowFrequencyText" xml:space="preserve">
+    <value>LFE</value>
+  </data>
+  <data name="MachineIdText" xml:space="preserve">
+    <value>Máquina de Identidad:</value>
+  </data>
+  <data name="MachineSerialText" xml:space="preserve">
+    <value>Número de serie de la máquina:</value>
+  </data>
+  <data name="MainDoorClosed" xml:space="preserve">
+    <value>???Puerta Principal Closed???</value>
+  </data>
+  <data name="MainDoorOpenLabel" xml:space="preserve">
+    <value>Puerta principal del Abierto</value>
+  </data>
+  <data name="MainMenu" xml:space="preserve">
+    <value>??Main Menu??</value>
+  </data>
+  <data name="MainMenuButtonText" xml:space="preserve">
+    <value>Menú Principal</value>
+  </data>
+  <data name="MakeLabel" xml:space="preserve">
+    <value>Marca</value>
+  </data>
+  <data name="Malfunction" xml:space="preserve">
+    <value>???Malfunction???</value>
+  </data>
+  <data name="ManufacturerLabel" xml:space="preserve">
+    <value>Fabricante:</value>
+  </data>
+  <data name="MasterButtonText" xml:space="preserve">
+    <value>Amo</value>
+  </data>
+  <data name="MasterMeters" xml:space="preserve">
+    <value>???Master Meters???</value>
+  </data>
+  <data name="MasterMetersTicketMetersHeaderText" xml:space="preserve">
+    <value>??Master Meter??</value>
+  </data>
+  <data name="MasterMetersTicketTitleText" xml:space="preserve">
+    <value>??Master Meter Log??</value>
+  </data>
+  <data name="MasterText" xml:space="preserve">
+    <value>???Master???</value>
+  </data>
+  <data name="MaxCreditsInInvalid" xml:space="preserve">
+    <value>???Cash In Limit must be a valid number???</value>
+  </data>
+  <data name="MaxCreditsInLabel" xml:space="preserve">
+    <value>???Cash In Limit???</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>???Messages???</value>
+  </data>
+  <data name="Meter" xml:space="preserve">
+    <value>Metro</value>
+  </data>
+  <data name="MetersBills" xml:space="preserve">
+    <value>Billetes</value>
+  </data>
+  <data name="MetersVouchers" xml:space="preserve">
+    <value>Vales</value>
+  </data>
+  <data name="MetersWat" xml:space="preserve">
+    <value>Vales</value>
+  </data>
+  <data name="MillisecondIntervalText" xml:space="preserve">
+    <value>ms Intervalo</value>
+  </data>
+  <data name="MissingSupplyIndexText" xml:space="preserve">
+    <value>falta de suministro índice</value>
+  </data>
+  <data name="ModelLabel" xml:space="preserve">
+    <value>Modelo:</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="NetAmountText" xml:space="preserve">
+    <value>???Net Amount???</value>
+  </data>
+  <data name="NetText" xml:space="preserve">
+    <value>??Net??</value>
+  </data>
+  <data name="NetworkInfoConfiguration" xml:space="preserve">
+    <value> ??Network??</value>
+  </data>
+  <data name="NextButtonText" xml:space="preserve">
+    <value>Después</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NonCashablePromoVoucherInLabelContent" xml:space="preserve">
+    <value>No vale promocional canjeables en</value>
+  </data>
+  <data name="NonCashablePromoVoucherOutLabelContent" xml:space="preserve">
+    <value>No canjeables promocional Vale de salida</value>
+  </data>
+  <data name="NonCashablePromoWatOffLabelContent" xml:space="preserve">
+    <value>No canjeables promocional Vale de salida</value>
+  </data>
+  <data name="NonCashablePromoWatOnLabelContent" xml:space="preserve">
+    <value>No vale promocional canjeables en</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>???None???</value>
+  </data>
+  <data name="NonTransferablePromotion" xml:space="preserve">
+    <value>Promoción Intransferible</value>
+  </data>
+  <data name="NoReprintFormat" xml:space="preserve">
+    <value>English to Spanish translation
+La reproducción de {0} operaciones no es compatible</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_ComponentFault" xml:space="preserve">
+    <value>???Note Acceptor Component Fault???</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_FirmwareFault" xml:space="preserve">
+    <value>???Note Acceptor Firmware Fault???</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_MechanicalFault" xml:space="preserve">
+    <value>???Note Acceptor Mechanical Fault???</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_NvmFault" xml:space="preserve">
+    <value>???Note Acceptor Non-Volatile Memory Fault???</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_OpticalFault" xml:space="preserve">
+    <value>???Note Acceptor Optical Fault???</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_OtherFault" xml:space="preserve">
+    <value>???Note Acceptor Unspecified Fault???</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerDisconnected" xml:space="preserve">
+    <value>???Note Acceptor Stacker Disconnected???</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerError" xml:space="preserve">
+    <value>???Note Acceptor Stacker Error???</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerFault" xml:space="preserve">
+    <value>???Note Acceptor Stacker Fault???</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerFull" xml:space="preserve">
+    <value>???Note Acceptor Stacker Full???</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_StackerJammed" xml:space="preserve">
+    <value>???Note Acceptor Stacker Jammed???</value>
+  </data>
+  <data name="NoteAcceptorLabel" xml:space="preserve">
+    <value>Note Acceptor</value>
+  </data>
+  <data name="NoteAcceptorText" xml:space="preserve">
+    <value>Nota Aceptador</value>
+  </data>
+  <data name="NoteAcceptorText2" xml:space="preserve">
+    <value>Nota Aceptador</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_CheatDetected" xml:space="preserve">
+    <value>Note Acceptor Cheat Detected</value>
+  </data>
+  <data name="NoteAcceptorFaultTypes_CheatDetected2" xml:space="preserve">
+    <value>???Note Acceptor Cheat Detected???</value>
+  </data>
+  <data name="NoteAcceptor_CurrencyReturned" xml:space="preserve">
+    <value>???Currency Returned???</value>
+  </data>
+  <data name="NoteAcceptor_CurrencyStacked" xml:space="preserve">
+    <value>???Currency Stacked???</value>
+  </data>
+  <data name="NoteAcceptor_DfuInprogress" xml:space="preserve">
+    <value>???Note Acceptor DFU Download In Progress: Please Do Not Power Off The Gaming Machine???</value>
+  </data>
+  <data name="NoteAcceptor_Disabled" xml:space="preserve">
+    <value>???Note Acceptor Disabled???</value>
+  </data>
+  <data name="NoteAcceptor_Disconnected" xml:space="preserve">
+    <value>???Note Acceptor Disconnected???</value>
+  </data>
+  <data name="NoteAcceptor_DocumentRejected" xml:space="preserve">
+    <value>???Currency/Ticket Rejected???</value>
+  </data>
+  <data name="NoteAcceptor_SelfTestFailed" xml:space="preserve">
+    <value>??Note Acceptor Self Test Failed??</value>
+  </data>
+  <data name="NoteAcceptor_TicketReturned" xml:space="preserve">
+    <value>???Ticket Returned???</value>
+  </data>
+  <data name="NoteAcceptor_TicketStacked" xml:space="preserve">
+    <value>???Ticket Stacked???</value>
+  </data>
+  <data name="NotProvidedText" xml:space="preserve">
+    <value>??Not Provided??</value>
+  </data>
+  <data name="NotSet" xml:space="preserve">
+    <value>??Not Set??</value>
+  </data>
+  <data name="NotSupportedAlgorithmTypeErrorMessageTemplate" xml:space="preserve">
+    <value>???Algorithm type {0} is not supported???</value>
+  </data>
+  <data name="NotValidAlgorithmErrorMessageTemplate" xml:space="preserve">
+    <value>???Algorithm Type {0} is not valid???</value>
+  </data>
+  <data name="NumBillsInText" xml:space="preserve">
+    <value>???Number of Bills Inserted???</value>
+  </data>
+  <data name="NumCoinsInText" xml:space="preserve">
+    <value>???Number of Coins Inserted???</value>
+  </data>
+  <data name="NVRamFailureText" xml:space="preserve">
+    <value>??NVRam Failure??</value>
+  </data>
+  <data name="NVRamLabel" xml:space="preserve">
+    <value>NVRAM/EEPROM</value>
+  </data>
+  <data name="OfflineText" xml:space="preserve">
+    <value>fuera de línea</value>
+  </data>
+  <data name="OfflineText2" xml:space="preserve">
+    <value>fuera de línea</value>
+  </data>
+  <data name="OfflineText3" xml:space="preserve">
+    <value>fuera de línea</value>
+  </data>
+  <data name="OffsetMoreThanFileLengthErrorMessage" xml:space="preserve">
+    <value>???Offset is greater than file length???</value>
+  </data>
+  <data name="OffText" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>???OK???</value>
+  </data>
+  <data name="OKText" xml:space="preserve">
+    <value>ACEPTAR</value>
+  </data>
+  <data name="OnText" xml:space="preserve">
+    <value>En</value>
+  </data>
+  <data name="OpenText" xml:space="preserve">
+    <value>abierto</value>
+  </data>
+  <data name="OperatorMenu" xml:space="preserve">
+    <value>Menú del Operador</value>
+  </data>
+  <data name="OptionsScreen" xml:space="preserve">
+    <value>???Options???</value>
+  </data>
+  <data name="OrClearCredits" xml:space="preserve">
+    <value>???Or Clear Credits???</value>
+  </data>
+  <data name="OutOfService" xml:space="preserve">
+    <value>???Out Of Service???</value>
+  </data>
+  <data name="OutputEventText" xml:space="preserve">
+    <value>Salida de eventos</value>
+  </data>
+  <data name="OutputsLabel" xml:space="preserve">
+    <value>Productos:</value>
+  </data>
+  <data name="PageNumber" xml:space="preserve">
+    <value>Página {0} de {1}</value>
+  </data>
+  <data name="PageText" xml:space="preserve">
+    <value>??Page??</value>
+  </data>
+  <data name="PaperJamText" xml:space="preserve">
+    <value>atascos de papel</value>
+  </data>
+  <data name="PaperLowText" xml:space="preserve">
+    <value>papel de baja</value>
+  </data>
+  <data name="PaperOutText" xml:space="preserve">
+    <value>el papel de</value>
+  </data>
+  <data name="PartialClearButtonContent" xml:space="preserve">
+    <value>??parcial nublado??</value>
+  </data>
+  <data name="PartialClearDetailsText1" xml:space="preserve">
+    <value>??- Borra los datos del estado y el medidor de la máquina??</value>
+  </data>
+  <data name="PartialClearDetailsText2" xml:space="preserve">
+    <value>??- La máquina se reiniciará??</value>
+  </data>
+  <data name="PartialClearDetailsText3" xml:space="preserve">
+    <value>??- No requiere la reconfiguración de la máquina??</value>
+  </data>
+  <data name="PartialClearSummeryText" xml:space="preserve">
+    <value>??Borrar datos críticos Sólo??</value>
+  </data>
+  <data name="PausedText" xml:space="preserve">
+    <value>hizo una pausa</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>???Pending???</value>
+  </data>
+  <data name="PendingText" xml:space="preserve">
+    <value>Pendientes</value>
+  </data>
+  <data name="PeriodButtonText" xml:space="preserve">
+    <value>Período</value>
+  </data>
+  <data name="PeriodicResetTicketTitle" xml:space="preserve">
+    <value>???PERIODIC RESET???</value>
+  </data>
+  <data name="PeriodMeters" xml:space="preserve">
+    <value>???Period Meters???</value>
+  </data>
+  <data name="PeriodMetersTicketMetersHeaderText" xml:space="preserve">
+    <value>??Period Meter??</value>
+  </data>
+  <data name="PeriodMetersTicketTitleText" xml:space="preserve">
+    <value>??Period Meter Log??</value>
+  </data>
+  <data name="PeriodText" xml:space="preserve">
+    <value>???Period???</value>
+  </data>
+  <data name="PhysicalText" xml:space="preserve">
+    <value>Física</value>
+  </data>
+  <data name="PleaseDoNotPowerOff" xml:space="preserve">
+    <value>???Please Do Not Power Off The Gaming Machine???</value>
+  </data>
+  <data name="PleaseWaitWhileDeviceResetsText" xml:space="preserve">
+    <value>???Please Wait While Device Resets...???</value>
+  </data>
+  <data name="PortLabel" xml:space="preserve">
+    <value>Oporto:</value>
+  </data>
+  <data name="PositionText" xml:space="preserve">
+    <value>Posición:</value>
+  </data>
+  <data name="PowerOffText" xml:space="preserve">
+    <value>???Power Off???</value>
+  </data>
+  <data name="PreparingToDownloadText" xml:space="preserve">
+    <value>???Preparing To Download???</value>
+  </data>
+  <data name="PreviousButtonText" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="PrintButtonText" xml:space="preserve">
+    <value>Impresión</value>
+  </data>
+  <data name="PrintCompletedText" xml:space="preserve">
+    <value>Imprimir Completo</value>
+  </data>
+  <data name="PrintDiagnosticButton" xml:space="preserve">
+    <value>Imprimir diagnóstico</value>
+  </data>
+  <data name="PrinterFaultTypes_ChassisOpen" xml:space="preserve">
+    <value>???Printer Chassis Open???</value>
+  </data>
+  <data name="PrinterFaultTypes_FirmwareFault" xml:space="preserve">
+    <value>???Printer Firmware Fault???</value>
+  </data>
+  <data name="PrinterFaultTypes_NvmFault" xml:space="preserve">
+    <value>???Printer NVM Fault???</value>
+  </data>
+  <data name="PrinterFaultTypes_OtherFault" xml:space="preserve">
+    <value>???Printer Miscellaneous Fault???</value>
+  </data>
+  <data name="PrinterFaultTypes_PaperEmpty" xml:space="preserve">
+    <value>???Printer Paper Empty???</value>
+  </data>
+  <data name="PrinterFaultTypes_PaperJam" xml:space="preserve">
+    <value>???Printer Paper Jam???</value>
+  </data>
+  <data name="PrinterFaultTypes_PaperNotTopOfForm" xml:space="preserve">
+    <value>???Printer Paper not at Top of Form???</value>
+  </data>
+  <data name="PrinterFaultTypes_PrintHeadDamaged" xml:space="preserve">
+    <value>???Printer Head Damaged???</value>
+  </data>
+  <data name="PrinterFaultTypes_PrintHeadOpen" xml:space="preserve">
+    <value>???Printer Head Open???</value>
+  </data>
+  <data name="PrinterFaultTypes_TemperatureFault" xml:space="preserve">
+    <value>???Printer Temperature Fault???</value>
+  </data>
+  <data name="PrinterLabel" xml:space="preserve">
+    <value>Impresora</value>
+  </data>
+  <data name="PrinterOpenText" xml:space="preserve">
+    <value>Impresora abierta</value>
+  </data>
+  <data name="PrinterWarningTypes_PaperInChute" xml:space="preserve">
+    <value>???Printer Paper in Chute???</value>
+  </data>
+  <data name="PrinterWarningTypes_PaperLow" xml:space="preserve">
+    <value>???Printer Paper Low???</value>
+  </data>
+  <data name="PrintIdentityTicketText" xml:space="preserve">
+    <value>??Enable Startup Identity Ticket Printout:??</value>
+  </data>
+  <data name="PrintingText" xml:space="preserve">
+    <value>Imprime</value>
+  </data>
+  <data name="PrintSelectedButtonText" xml:space="preserve">
+    <value>??Print Selected??</value>
+  </data>
+  <data name="PrintStartedText" xml:space="preserve">
+    <value>imprimir comenzó</value>
+  </data>
+  <data name="PrintText" xml:space="preserve">
+    <value>???Print???</value>
+  </data>
+  <data name="ProtocolLabel" xml:space="preserve">
+    <value>Protocolo:</value>
+  </data>
+  <data name="ReadErrorText" xml:space="preserve">
+    <value>Error de Lectura </value>
+  </data>
+  <data name="ReadErrorText2" xml:space="preserve">
+    <value>Error de Lectura </value>
+  </data>
+  <data name="RearLeftText" xml:space="preserve">
+    <value>Trasera izquierda</value>
+  </data>
+  <data name="RearRightText" xml:space="preserve">
+    <value>Abajo a la derecha</value>
+  </data>
+  <data name="RebootedWhileText" xml:space="preserve">
+    <value>???Rebooted While???</value>
+  </data>
+  <data name="RebootText" xml:space="preserve">
+    <value>Reiniciar</value>
+  </data>
+  <data name="ReelControllerLabel" xml:space="preserve">
+    <value>Reel Contralor</value>
+  </data>
+  <data name="ReleaseInterfaceText" xml:space="preserve">
+    <value>???Releasing interface.???</value>
+  </data>
+  <data name="RemoveAllCreditsBeforeDisableText" xml:space="preserve">
+    <value>???Please remove all credits from the machine before putting it into disabled mode.???</value>
+  </data>
+  <data name="ReprintButtonText" xml:space="preserve">
+    <value>Reimpresión</value>
+  </data>
+  <data name="ReprintLabel" xml:space="preserve">
+    <value>REIMPRIMIR</value>
+  </data>
+  <data name="Reset2" xml:space="preserve">
+    <value>Restablecer</value>
+  </data>
+  <data name="ResetDeviceText" xml:space="preserve">
+    <value>???Resetting device.???</value>
+  </data>
+  <data name="ResettingText" xml:space="preserve">
+    <value>???Resetting???</value>
+  </data>
+  <data name="ResolverErrorText" xml:space="preserve">
+    <value>resolución de error</value>
+  </data>
+  <data name="ResolveTheFollowingPrinterErrorsFirst" xml:space="preserve">
+    <value>???Resolve The Following Printer Errors First:???</value>
+  </data>
+  <data name="ResumeText" xml:space="preserve">
+    <value>Reanudar</value>
+  </data>
+  <data name="ReturnButton" xml:space="preserve">
+    <value>Volver</value>
+  </data>
+  <data name="ReturnedText" xml:space="preserve">
+    <value>Devuelto</value>
+  </data>
+  <data name="ScrollLabel" xml:space="preserve">
+    <value>???Scroll :???</value>
+  </data>
+  <data name="ScrollToLabel" xml:space="preserve">
+    <value>???Scroll To :???</value>
+  </data>
+  <data name="SecondaryCashDoorClosed" xml:space="preserve">
+    <value>???Secondary Cash Door Closed???</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>segundos</value>
+  </data>
+  <data name="SelectHashType" xml:space="preserve">
+    <value>???Hash Type:???</value>
+  </data>
+  <data name="SelfTestClearNVM" xml:space="preserve">
+    <value>???Self Test Clear NVM???</value>
+  </data>
+  <data name="SelfTestFailed" xml:space="preserve">
+    <value>???Self Test Failed???</value>
+  </data>
+  <data name="SelfTestInProgress" xml:space="preserve">
+    <value>???Self Test is in Progress???</value>
+  </data>
+  <data name="SelfTestPassed" xml:space="preserve">
+    <value>???Self Test Passed???</value>
+  </data>
+  <data name="SequenceNumber" xml:space="preserve">
+    <value>Número Del Vale</value>
+  </data>
+  <data name="SequenceNumberHeader" xml:space="preserve">
+    <value>???SEQUENCE NUMBER???</value>
+  </data>
+  <data name="SerialNumberLabel" xml:space="preserve">
+    <value>Número de serie:</value>
+  </data>
+  <data name="SerialNumberText" xml:space="preserve">
+    <value>??Serial Number??</value>
+  </data>
+  <data name="ServiceNotAvailableText" xml:space="preserve">
+    <value>El servicio no está disponible</value>
+  </data>
+  <data name="SetCurrency" xml:space="preserve">
+    <value>Configuración de moneda a {0}</value>
+  </data>
+  <data name="SetSpeedFailedEventInvalidReelString" xml:space="preserve">
+    <value>???Reel Controller Set Speed Invalid Reel???</value>
+  </data>
+  <data name="SetSpeedFailedEventOverSpeedLimitString" xml:space="preserve">
+    <value>???Reel Controller Set Speed Over Speed Limit???</value>
+  </data>
+  <data name="SetSpeedFailedEventTooSoonString" xml:space="preserve">
+    <value>???Reel Controller Set Speed Too Soon???</value>
+  </data>
+  <data name="SettingUnhandledExceptionHandler" xml:space="preserve">
+    <value>Tratante de la excepción de Unhandled del ajuste</value>
+  </data>
+  <data name="ShowingEvents" xml:space="preserve">
+    <value>???Showing {0} to {1} of {2} Current items.???</value>
+  </data>
+  <data name="ShuttingDownTheAddinManager" xml:space="preserve">
+    <value>Cerrando al encargado de diapositivo suplementario</value>
+  </data>
+  <data name="ShuttingDownTheServiceManager" xml:space="preserve">
+    <value>Cierre del encargado de servicio</value>
+  </data>
+  <data name="SideLeftText" xml:space="preserve">
+    <value>Lado Izquierdo</value>
+  </data>
+  <data name="SideRightText" xml:space="preserve">
+    <value>Lado Derecho</value>
+  </data>
+  <data name="Since" xml:space="preserve">
+    <value>Desde</value>
+  </data>
+  <data name="SoftErrors" xml:space="preserve">
+    <value>???Soft Errors???</value>
+  </data>
+  <data name="Software" xml:space="preserve">
+    <value>???Software???</value>
+  </data>
+  <data name="SoftwareVerification" xml:space="preserve">
+    <value>???Software Verification???</value>
+  </data>
+  <data name="SoftwareVersionText" xml:space="preserve">
+    <value>??Software Version??</value>
+  </data>
+  <data name="SoundIconLabel" xml:space="preserve">
+    <value>???Sound Configuration???</value>
+  </data>
+  <data name="SoundLevelLabel" xml:space="preserve">
+    <value>Nivel de sonido</value>
+  </data>
+  <data name="SoundsLabel" xml:space="preserve">
+    <value>Sonidos</value>
+  </data>
+  <data name="StackButton" xml:space="preserve">
+    <value>Pila de botón</value>
+  </data>
+  <data name="StackedText" xml:space="preserve">
+    <value>??Stacked??</value>
+  </data>
+  <data name="StackedTimeHeader" xml:space="preserve">
+    <value>???STACKED TIME???</value>
+  </data>
+  <data name="StackerLabel" xml:space="preserve">
+    <value>Stacker:</value>
+  </data>
+  <data name="StartingDownloadText" xml:space="preserve">
+    <value>???Starting Download???</value>
+  </data>
+  <data name="StartOffsetLessZeroErrorMessage" xml:space="preserve">
+    <value>???Start offset is less than zero???</value>
+  </data>
+  <data name="StartOffsetNotSpecifiedForStreamErrorMessage" xml:space="preserve">
+    <value>???Start offset not specified???</value>
+  </data>
+  <data name="StateLabel" xml:space="preserve">
+    <value>Estado:</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Estatus:</value>
+  </data>
+  <data name="StoppedRespondingText" xml:space="preserve">
+    <value>dejado de responder</value>
+  </data>
+  <data name="StreamNotSeekableErrorMessage" xml:space="preserve">
+    <value>???Stream is not seekable???
+</value>
+  </data>
+  <data name="StreamNotWritableErrorMessage" xml:space="preserve">
+    <value>???Stream is not writable???</value>
+  </data>
+  <data name="SupplierShortText" xml:space="preserve">
+    <value>??Aristocrat??</value>
+  </data>
+  <data name="SupplierText" xml:space="preserve">
+    <value>Aristocrat Technologies Australia PTY LTD</value>
+  </data>
+  <data name="SuspendText" xml:space="preserve">
+    <value>Suspender</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>???System???</value>
+  </data>
+  <data name="SystemErrorText" xml:space="preserve">
+    <value>Error del sistema</value>
+  </data>
+  <data name="TemperatureErrorText" xml:space="preserve">
+    <value>Temperatura error</value>
+  </data>
+  <data name="TestSpeakersTitle" xml:space="preserve">
+    <value>Altavoces de Prueba</value>
+  </data>
+  <data name="TicketTitle" xml:space="preserve">
+    <value>EFECTIVO *DUP*</value>
+  </data>
+  <data name="TimeAndZoneConfiguration" xml:space="preserve">
+    <value>??Time and Date??</value>
+  </data>
+  <data name="TimeDisplayFormat" xml:space="preserve">
+    <value>MM/dd/yyyy H:mm:ss</value>
+  </data>
+  <data name="TimeText" xml:space="preserve">
+    <value>??Time??</value>
+  </data>
+  <data name="TimeZoneLabel" xml:space="preserve">
+    <value>Huso Horario</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>???Status Display???</value>
+  </data>
+  <data name="TopBoxDoorClosed" xml:space="preserve">
+    <value>???Puerta Superior de la Caja Closed???</value>
+  </data>
+  <data name="TopButton" xml:space="preserve">
+    <value>???Top???</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Suma</value>
+  </data>
+  <data name="TotalBillsInText" xml:space="preserve">
+    <value>???Total Bill In???</value>
+  </data>
+  <data name="TotalCoinsAndBillsText" xml:space="preserve">
+    <value>???Total Coins and Bills???</value>
+  </data>
+  <data name="TransactionNotAvailable" xml:space="preserve">
+    <value>??Cannot reprint - full transaction data no longer persisted??</value>
+  </data>
+  <data name="TransactionSequenceNumber" xml:space="preserve">
+    <value>Número Récord</value>
+  </data>
+  <data name="TransactionsLoaderButtonText" xml:space="preserve">
+    <value>???All???</value>
+  </data>
+  <data name="TransactionType" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="TransactionTypeHeader" xml:space="preserve">
+    <value>???TYPE???</value>
+  </data>
+  <data name="TransferablePromotion" xml:space="preserve">
+    <value>Promoción Tranferible</value>
+  </data>
+  <data name="TransferStatusErrorText" xml:space="preserve">
+    <value>???Transfer Status Error???</value>
+  </data>
+  <data name="TurnText" xml:space="preserve">
+    <value>A su vez</value>
+  </data>
+  <data name="TypeLabel" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="UnexpectedEventText" xml:space="preserve">
+    <value>Acontecimiento inesperado</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Desconocida</value>
+  </data>
+  <data name="Unknown2" xml:space="preserve">
+    <value>Desconocido</value>
+  </data>
+  <data name="UnloadingEventBus" xml:space="preserve">
+    <value>Descarga del autobús del acontecimiento</value>
+  </data>
+  <data name="UnloadingKernelRunnables" xml:space="preserve">
+    <value>Descarga del núcleo Runnables</value>
+  </data>
+  <data name="UnloadingKernelServices" xml:space="preserve">
+    <value>Descarga de servicios del núcleo</value>
+  </data>
+  <data name="UnloadingPathMapperService" xml:space="preserve">
+    <value>??? Unloading PathMapper Service ???</value>
+  </data>
+  <data name="UnloadingPropertiesManager" xml:space="preserve">
+    <value>Descarga del encargado de características</value>
+  </data>
+  <data name="UnloadingSystemDisableManager" xml:space="preserve">
+    <value>Descarga del encargado de la neutralización del sistema</value>
+  </data>
+  <data name="UpButton" xml:space="preserve">
+    <value>???Up???</value>
+  </data>
+  <data name="UpText" xml:space="preserve">
+    <value>Hasta</value>
+  </data>
+  <data name="UseHmacKey" xml:space="preserve">
+    <value>???Use this HMAC signature key:???</value>
+  </data>
+  <data name="ValidationNumber" xml:space="preserve">
+    <value>Número de la Validación</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="VariantNameLabel" xml:space="preserve">
+    <value>Variante Nombre:</value>
+  </data>
+  <data name="VariantVersionLabel" xml:space="preserve">
+    <value>Variante Versión:</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Versión</value>
+  </data>
+  <data name="VideoLotteryText" xml:space="preserve">
+    <value>??Video Lottery??</value>
+  </data>
+  <data name="VignetteText" xml:space="preserve">
+    <value>???Vignette???</value>
+  </data>
+  <data name="VoidDemoTicket" xml:space="preserve">
+    <value>VACÍO VOID DEMO</value>
+  </data>
+  <data name="VoucherInLabelContent" xml:space="preserve">
+    <value>Total de vales en la</value>
+  </data>
+  <data name="VoucherInTransactionName" xml:space="preserve">
+    <value>?? Voucher In ??</value>
+  </data>
+  <data name="VoucherNumberText" xml:space="preserve">
+    <value>Número de Vale</value>
+  </data>
+  <data name="VoucherOutLabelContent" xml:space="preserve">
+    <value>Total de Vale de salida</value>
+  </data>
+  <data name="VoucherOutTransactionName" xml:space="preserve">
+    <value>?? Voucher Out ??</value>
+  </data>
+  <data name="VouchersButtonText" xml:space="preserve">
+    <value>Vales</value>
+  </data>
+  <data name="VoucherSequenceNumberHeader" xml:space="preserve">
+    <value>???VOUCHER NUMBER???</value>
+  </data>
+  <data name="VoucherText" xml:space="preserve">
+    <value>Vale</value>
+  </data>
+  <data name="WarningText" xml:space="preserve">
+    <value>ADVERTENCIA</value>
+  </data>
+  <data name="WatButtonText" xml:space="preserve">
+    <value>Vales</value>
+  </data>
+  <data name="WatchingEvents" xml:space="preserve">
+    <value>Watching {0} events.</value>
+  </data>
+  <data name="WatNumber" xml:space="preserve">
+    <value>??WAT Number??</value>
+  </data>
+  <data name="WatOffLabelContent" xml:space="preserve">
+    <value>Total de Vale de salida</value>
+  </data>
+  <data name="WatOffTransactionName" xml:space="preserve">
+    <value>WAT Off en Espanol</value>
+  </data>
+  <data name="WatOnLabelContent" xml:space="preserve">
+    <value>Total de vales en la</value>
+  </data>
+  <data name="WatOnTransactionName" xml:space="preserve">
+    <value>WAT On en Español</value>
+  </data>
+  <data name="WhilePrintingText" xml:space="preserve">
+    <value>Mientras Impresión</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+  <data name="ZoneText" xml:space="preserve">
+    <value>Zona:</value>
+  </data>
+  <data name="ZoneTooLong" xml:space="preserve">
+    <value>???Zone must be less than {0} characters???</value>
+  </data>
+  <data name="Backend" xml:space="preserve">
+    <value>???Backend???</value>
+  </data>
+  <data name="ReplayCompletedText" xml:space="preserve">
+    <value>???Done - Press Exit to quit Replay???</value>
+  </data>
+  <data name="NeverExpires" xml:space="preserve">
+    <value>Nunca Expira</value>
+  </data>
+  <data name="CashoutTicket" xml:space="preserve">
+    <value>VALE DE PAGO</value>
+  </data>
+  <data name="CashoutTicketReprint" xml:space="preserve">
+    <value>VALE DE PAGO REIMPRIMIR</value>
+  </data>
+  <data name="CashoutReceipt" xml:space="preserve">
+    <value>RECIBO DE COBRO</value>
+  </data>
+  <data name="PlayableOnly" xml:space="preserve">
+    <value>SÓLO PARA JUGAR</value>
+  </data>
+  <data name="ValidationTitle2" xml:space="preserve">
+    <value>VALIDACIÓN</value>
+  </data>
+  <data name="ValidationTitle" xml:space="preserve">
+    <value>Validación:</value>
+  </data>
+  <data name="ValidationTypeGroupHeader" xml:space="preserve">
+    <value>Validación</value>
+  </data>
+  <data name="Machine" xml:space="preserve">
+    <value>Máquina</value>
+  </data>
+  <data name="Ticket" xml:space="preserve">
+    <value>Vale</value>
+  </data>
+  <data name="TicketNumber" xml:space="preserve">
+    <value>Vale #</value>
+  </data>
+  <data name="TicketNumber2" xml:space="preserve">
+    <value>Vale Numero #</value>
+  </data>
+  <data name="VoucherNumberText2" xml:space="preserve">
+    <value>Vale</value>
+  </data>
+  <data name="VoucherTicketsCreatorRedemptionString1a" xml:space="preserve">
+    <value>Validéz</value>
+  </data>
+  <data name="VoucherTicketsCreatorRedemptionString1" xml:space="preserve">
+    <value>Validéz</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Día</value>
+  </data>
+  <data name="RedemptionString2" xml:space="preserve">
+    <value>DIAS</value>
+  </data>
+  <data name="ReceiptSequenceNumber" xml:space="preserve">
+    <value> Recibo #</value>
+  </data>
+  <data name="MachineNumber" xml:space="preserve">
+    <value>Máquina #</value>
+  </data>
+  <data name="MachineNumber2" xml:space="preserve">
+    <value>MÁQUINA</value>
+  </data>
+  <data name="VoucherSequenceNumber" xml:space="preserve">
+    <value>Número de Vale</value>
+  </data>
+  <data name="HandpayReceipt" xml:space="preserve">
+    <value>RECIBO DE COBRO</value>
+  </data>
+  <data name="CashTicket" xml:space="preserve">
+    <value>VALE DE PAGO</value>
+  </data>
+  <data name="CashWinTicket" xml:space="preserve">
+    <value>CUPÓN DE PAGO EN EFECTIVO</value>
+  </data>
+  <data name="CashWinTicketReprint" xml:space="preserve">
+    <value>CUPÓN DE PAGO EN EFECTIVO REIMPRIMIR</value>
+  </data>
+  <data name="DebitTicket" xml:space="preserve">
+    <value>VALE DE DÉBITO</value>
+  </data>
+  <data name="HandpayTicket" xml:space="preserve">
+    <value>RECIBO DE COBRO</value>
+  </data>
+  <data name="JackpotHandpayTicket" xml:space="preserve">
+    <value>VALE DE JACKPOT</value>
+  </data>
+  <data name="JackpotHandpayReprintTicket" xml:space="preserve">
+    <value>VALE DE JACKPOT REIMPRIMIR</value>
+  </data>
+  <data name="MaximumValueReachedCashOutText2" xml:space="preserve">
+    <value>
+Se está produciendo un vale de pago</value>
+  </data>
+  <data name="Expires" xml:space="preserve">
+    <value>Expira</value>
+  </data>
+  <data name="TicketVoidAfter" xml:space="preserve">
+    <value>Vale vacío después</value>
+  </data>
+  <data name="NoCashValue" xml:space="preserve">
+    <value>*** SIN VALOR EN EFECTIVO ***</value>
+  </data>
+  <data name="VoucherTicketsCreatorRedemptionString2" xml:space="preserve">
+    <value>días</value>
+  </data>
+  <data name="VoucherTicketsCreatorRedemptionString2a" xml:space="preserve">
+    <value>días</value>
+  </data>
+  <data name="VoucherTicketsCreatorNeverExpires" xml:space="preserve">
+    <value>NUNCA EXPIRA</value>
+  </data>
+  <data name="VoucherTicketsCreatorNeverExpires2" xml:space="preserve">
+    <value>NUNCA EXPIRA</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Días</value>
+  </data>
+  <data name="Backward" xml:space="preserve">
+    <value>Backward</value>
+  </data>
+  <data name="Forward" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="HomeButton" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="NudgeButton" xml:space="preserve">
+    <value>Nudge</value>
+  </data>
+  <data name="ReelLabel" xml:space="preserve">
+    <value>Reel {0}</value>
+  </data>
+  <data name="SetReelSpeedButton" xml:space="preserve">
+    <value>Set Reel Speed</value>
+  </data>
+  <data name="SpinButton" xml:space="preserve">
+    <value>Spin</value>
+  </data>
+  <data name="Homing" xml:space="preserve">
+    <value>??Homing??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Idle" xml:space="preserve">
+    <value>??Idle??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="LowVoltage" xml:space="preserve">
+    <value>??Low Voltage??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Spinning" xml:space="preserve">
+    <value>??Spinning??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Stalled" xml:space="preserve">
+    <value>??Stalled??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Tilted" xml:space="preserve">
+    <value>??Tilted??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Uninitialized" xml:space="preserve">
+    <value>??Uninitialized??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="NudgeDelay" xml:space="preserve">
+    <value>??NudgeDelay??</value>
+  </data>
+  <data name="Nudging" xml:space="preserve">
+    <value>??Nudging??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="SpinSpeed" xml:space="preserve">
+    <value>??Spin Speed??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="Tampered" xml:space="preserve">
+    <value>??Tampered??</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+</root>

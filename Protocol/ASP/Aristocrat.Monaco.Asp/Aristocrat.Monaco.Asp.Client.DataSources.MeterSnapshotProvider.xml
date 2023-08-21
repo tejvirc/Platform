@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<BlockFormat Name="Aristocrat.Monaco.Asp.Client.DataSources.MeterSnapshotProvider">
+  <Fields>
+    <Field FieldName="AuditUpdate.Status" DataType="Int32" />
+    <Field DataType="Byte" FieldName="AuditUpdate.InitialMeters" Count="2" />
+  </Fields>
+</BlockFormat>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" Name="Aristocrat.Monaco.Application.ComponentMonitor">
+    <Fields>
+      <Field DataType="Byte" Count="2" FieldName="Components" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

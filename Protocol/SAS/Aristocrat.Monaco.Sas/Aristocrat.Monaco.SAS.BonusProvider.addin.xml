@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Addin id="SasBonusProvider" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Sas.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="SasBase" version="1.0" />
+    <Addin id="Aristocrat.Monaco.Gaming" version="1.0" />    
+  </Dependencies>
+
+  <Extension path="/Protocol/Sas/Services/Bonusing">
+    <Type type="Aristocrat.Monaco.Sas.BonusProvider.SasBonusProvider" />
+  </Extension>
+
+  <Extension path = "/Gaming/Metering/GameMeterProvider">
+    <!-- 0x01 meter -->
+    <GameCompositeMeter name="CoinOut" expression="(CashWon + BonusTotalWinValue)" classification="Currency"/>
+  </Extension>
+
+</Addin>

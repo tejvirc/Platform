@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="Aristocrat.Monaco.Sas.UI.ConfigurationScreen.SasCommsStats"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:src="clr-namespace:Aristocrat.Monaco.Sas.UI"
+             xmlns:loc="http://monaco.aristocrat.com/localization"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com"
+             lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+             lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <src:CommsStatusToStringConverter x:Key="CommsStatusToStringConverter" />
+    </UserControl.Resources>
+    <Grid Margin="10 10"
+          AutomationProperties.AutomationId="Grid1_3AB56F25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_3AB56F25" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_3AB56F25" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_3AB56F25" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_3AB56F25" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition6_3AB56F25" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition AutomationProperties.AutomationId="ColumnDefinition7_3AB56F25" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition8_3AB56F25" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0"
+               Grid.Column="0"
+               Content="{lex:Loc ProtocolVersionLabel}"
+               AutomationProperties.AutomationId="Label9_3AB56F25" />
+        <Label Grid.Row="0"
+               Grid.Column="1"
+               Content="{Binding ProtocolVersion}"
+               AutomationProperties.AutomationId="Label10_3AB56F25" />
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Content="{lex:Loc SasHostCommsStatusLabel}"
+               AutomationProperties.AutomationId="Label11_3AB56F25" />
+        <Label Grid.Row="1"
+               Grid.Column="1"
+               Content="{Binding CommsStatus, Converter={StaticResource CommsStatusToStringConverter}}"
+               AutomationProperties.AutomationId="Label12_3AB56F25" />
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               Content="{lex:Loc LastLinkUpLabel}"
+               AutomationProperties.AutomationId="Label13_3AB56F25" />
+        <Label Grid.Row="2"
+               Grid.Column="1"
+               Content="{Binding LastLinkUp}"
+               AutomationProperties.AutomationId="Label14_3AB56F25" />
+        <Label Grid.Row="3"
+               Grid.Column="0"
+               Content="{lex:Loc LastLinkDownLabel}"
+               AutomationProperties.AutomationId="Label15_3AB56F25" />
+        <Label Grid.Row="3"
+               Grid.Column="1"
+               Content="{Binding LastLinkDown}"
+               AutomationProperties.AutomationId="Label16_3AB56F25" />
+    </Grid>
+</UserControl>

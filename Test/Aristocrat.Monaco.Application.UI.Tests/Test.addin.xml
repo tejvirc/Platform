@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Addin id="Application.UI.Test" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Application.dll" />
+    <Import assembly="Aristocrat.Monaco.Application.UI.dll" />
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration">
+    <SelectableAddinConfiguration name="Jurisdiction" order="0"/>
+    <SelectableAddinConfiguration name="Protocol" order="1"/>
+  </Extension>
+
+  <ExtensionPoint path = "/Application/Config/Wizards">
+    <ExtensionNode name="Wizard"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/Application/Config/Jurisdiction">
+    <ExtensionNode name="JurisdictionWizard"/>
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/Application/Config/Protocol">
+    <ExtensionNode name="ProtocolWizard"/>
+  </ExtensionPoint>
+
+  <Extension path="/Application/Config/Jurisdiction">
+    <JurisdictionWizard type="Aristocrat.Monaco.Application.UI.ConfigWizard.JurisdictionConfigLoader" />
+  </Extension>
+
+  <Extension path="/Application/Config/Protocol">
+    <ProtocolWizard type="Aristocrat.Monaco.Application.UI.ConfigWizard.ProtocolConfigLoader" order="1" />
+    <ProtocolWizard type="Aristocrat.Monaco.Application.UI.ConfigWizard.MultiProtocolConfigLoader" order="2" />
+  </Extension>
+
+  <Extension path="/Application/Config/Wizards">
+    <Wizard type="Aristocrat.Monaco.Application.UI.ConfigWizard.IdentityConfigLoader" />
+    <Wizard type="Aristocrat.Monaco.Application.UI.ConfigWizard.HardwareConfigLoader" />
+    <Wizard type="Aristocrat.Monaco.Application.UI.ConfigWizard.MachineConfigLoader" />
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="BaseConfigWizardPages" description="These are the base platform config wizard addins">
+      <ExtensionPointConfiguration extensionPath="/Application/Config/Wizards">
+        <NodeSpecification addinId="Client12Addins.Application.UI.Test"
+                           typeName="Aristocrat.Monaco.Application.UI.ConfigWizard.HardwareConfigLoader" order="1" />
+        <NodeSpecification addinId="Client12Addins.Application.UI.Test"
+                           typeName="Aristocrat.Monaco.Application.UI.ConfigWizard.IdentityConfigLoader" order="2" />
+        <NodeSpecification addinId="Client12Addins.Application.UI.Test"
+                           typeName="Aristocrat.Monaco.Application.UI.ConfigWizard.MachineConfigLoader" order="3" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+  </Extension>
+
+  <ExtensionPoint path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
+    <ExtensionNode name="SelectableJurisdiction" type="Aristocrat.Monaco.Kernel.AddinConfigurationGroupNode" />
+  </ExtensionPoint>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
+    <SelectableJurisdiction name="Quebec VLT" description="Test jurisdiction group">
+      <AddinConfigurationGroupReference name="BaseConfigWizardPages"/>
+      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.Application.UI.Test" filterid="QuebecOperatorMenuSoundConfig" />
+      </ExtensionPointConfiguration>
+    </SelectableJurisdiction>
+  </Extension>
+
+  <ExtensionPoint path="/Kernel/SelectableAddinConfiguration/Protocol">
+    <ExtensionNode name="SelectableProtocol" type="Aristocrat.Monaco.Kernel.AddinConfigurationGroupNode" />
+  </ExtensionPoint>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration/Protocol">
+    <SelectableProtocol name="SAS" description="Unit test protocol">
+      <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
+    </SelectableProtocol>
+    <SelectableProtocol name="G2S" description="Unit test protocol">
+      <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
+    </SelectableProtocol>
+    <SelectableProtocol name="MGAM" description="Unit test protocol">
+      <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
+    </SelectableProtocol>
+    <SelectableProtocol name="HHR" description="Unit test protocol">
+      <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
+    </SelectableProtocol>
+  </Extension>
+
+  <ExtensionPoint path = "/OperatorMenu/Sound/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <Extension path="/OperatorMenu/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" filterid="QuebecOperatorMenuSoundConfig" />
+  </Extension>
+  
+  <ExtensionPoint path = "/Application/OperatorMenu/MetersMenu">
+    <ExtensionNode name="MetersMenu"/>
+  </ExtensionPoint>
+
+  <Extension path="/Application/OperatorMenu/MetersMenu">
+    <MetersMenu type="Aristocrat.Monaco.Accounting.UI.Views.WatMetersPage" />
+    <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.Views.GamesMetersPage" />
+    <MetersMenu type="Aristocrat.Monaco.Accounting.UI.Views.VoucherMetersPage" />
+  </Extension>
+
+</Addin>

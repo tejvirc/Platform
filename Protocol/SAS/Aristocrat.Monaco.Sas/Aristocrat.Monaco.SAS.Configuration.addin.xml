@@ -1,0 +1,46 @@
+﻿<Addin id="SasConfiguration" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="SelectableProtocol" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration/Protocol">
+    <SelectableProtocol name="SAS" description="Platform Configuration for SAS">
+      <AddinConfigurationGroupReference name="BaseMeterPages" />
+      <AddinConfigurationGroupReference name="SasProtocolRunnable" />
+      <AddinConfigurationGroupReference name="SasServicesConfigurationGroup" />
+      <AddinConfigurationGroupReference name="SasConfigWizardPages" />
+      <AddinConfigurationGroupReference name="StatusPages" />
+      <AddinConfigurationGroupReference name="CommsPages" />
+      <AddinConfigurationGroupReference name="IdentificationPages" />
+    </SelectableProtocol>
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="SasServicesConfigurationGroup" description="This are the services provided by SAS">
+      <ExtensionPointConfiguration extensionPath="/Protocol/Sas/Services/Host">
+        <NodeSpecification addinId="Client12Addins.SasHost" typeName="Aristocrat.Monaco.Sas.SasHost" order="90"/>
+        <!--NodeSpecification addinId="Client12Addins.SASHandPay" typeName="Aristocrat.Monaco.Sas.SASHandPay" order="91"/-->
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+
+    <AddinConfigurationGroup name="SasProtocolRunnable" description="This is the protocol launcher for SAS">
+      <ExtensionPointConfiguration extensionPath="/Protocol/Runnables">
+        <NodeSpecification addinId="Client12Addins.SasBase" typeName="Aristocrat.Monaco.Sas.Base.SasBase" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+
+    <AddinConfigurationGroup name="SasConfigWizardPages" description="These are the config wizard pages for SAS">
+      <ExtensionPointConfiguration extensionPath="/Application/Config/Wizards">
+        <NodeSpecification addinId="Client12Addins.SasConfigurationScreen"
+                           typeName="Aristocrat.Monaco.Sas.UI.ConfigurationScreen.SasConfigurationWizard" order="100" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+  </Extension>
+
+  <ExtensionPoint path = "/SAS/DefaultConfiguration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+</Addin>

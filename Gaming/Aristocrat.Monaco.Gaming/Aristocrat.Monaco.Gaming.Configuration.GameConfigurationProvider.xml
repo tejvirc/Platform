@@ -1,0 +1,6 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" Name="Aristocrat.Monaco.Gaming.Configuration.GameConfigurationProvider">
+  <Fields>
+    <Field DataType="Byte" FieldName="RestrictionMap" Count="2" />
+  </Fields>
+</BlockFormat>

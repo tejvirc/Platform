@@ -1,0 +1,187 @@
+<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.AttractCustomizationView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:contracts="clr-namespace:Aristocrat.Monaco.Gaming.Contracts;assembly=Aristocrat.Monaco.Gaming.Contracts"
+                               xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+                               mc:Ignorable="d" 
+                               common:DialogParticipation.Register="{Binding}"
+                               d:DesignHeight="300"
+                               d:DesignWidth="300"
+                               Background="Transparent"
+                               d:DataContext="{d:DesignInstance viewModels:AttractCustomizationViewModel, IsDesignTimeCreatable=False}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_10458B8D">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition1_10458B8D" />
+            <ColumnDefinition Width="50"
+                              AutomationProperties.AutomationId="ColumnDefinition2_10458B8D" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition3_10458B8D" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0"
+              Width="250"
+              AutomationProperties.AutomationId="Grid4_10458B8D">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition5_10458B8D" />
+                <RowDefinition Height="Auto"
+                               AutomationProperties.AutomationId="RowDefinition6_10458B8D" />
+                <RowDefinition AutomationProperties.AutomationId="RowDefinition7_10458B8D" />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0"
+                    BorderThickness="1 1 1 1"
+                    BorderBrush="{StaticResource Brush3}"
+                    AutomationProperties.AutomationId="Border8_10458B8D">
+                <StackPanel Name="GameTypeEnabledPanel"
+                            Orientation="Vertical"
+                            Margin="20 20 20 20"
+                            AutomationProperties.AutomationId="StackPanel9_10458B8D">
+                    <TextBlock Text="{lex:Loc AttractModeEnableGameTypeCaption}"
+                               Margin="0 5 10 0"
+                               AutomationProperties.AutomationId="TextBlock10_10458B8D" />
+                    <CheckBox Content="{Binding SlotTextLabel}"
+                              Margin="5 10 0 0"
+                              IsChecked="{Binding SlotAttractSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Visibility="{Binding SlotAttractOptionEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                              AutomationProperties.AutomationId="CheckBox11_10458B8D" />
+                    <CheckBox Content="{lex:Loc Poker}"
+                              Margin="5 10 0 0"
+                              IsChecked="{Binding PokerAttractSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Visibility="{Binding PokerAttractOptionEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                              AutomationProperties.AutomationId="CheckBox12_10458B8D" />
+                    <CheckBox Content="{lex:Loc Keno}"
+                              Margin="5 10 0 0"
+                              IsChecked="{Binding KenoAttractSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Visibility="{Binding KenoAttractOptionEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                              AutomationProperties.AutomationId="CheckBox13_10458B8D" />
+                    <CheckBox Content="{lex:Loc Blackjack}"
+                              Margin="5 10 0 0"
+                              IsChecked="{Binding BlackjackAttractSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Visibility="{Binding BlackjackAttractOptionEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                              AutomationProperties.AutomationId="CheckBox14_10458B8D" />
+                    <CheckBox Content="{lex:Loc Roulette}"
+                              Margin="5 10 0 0"
+                              IsChecked="{Binding RouletteAttractSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Visibility="{Binding RouletteAttractOptionEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                              AutomationProperties.AutomationId="CheckBox15_10458B8D" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="1"
+                    BorderThickness="1 1 1 1"
+                    BorderBrush="{StaticResource Brush3}"
+                    Margin="0 20 0 0"
+                    AutomationProperties.AutomationId="Border16_10458B8D">
+                <StackPanel Orientation="Vertical"
+                            AutomationProperties.AutomationId="StackPanel17_10458B8D">
+                    <StackPanel Name="SequenceChangePanel"
+                                Orientation="Vertical"
+                                Margin="20 20 20 20"
+                                IsEnabled="{Binding ChangeOrderButtonsEnabled}"
+                                AutomationProperties.AutomationId="StackPanel18_10458B8D">
+                        <TextBlock Text="{lex:Loc AttractModeChangeGameOrderCaption}"
+                                   Margin="0 0 10 0"
+                                   AutomationProperties.AutomationId="TextBlock19_10458B8D" />
+                        <Button Content="{lex:Loc MoveUpButtonText}"
+                                Command="{Binding MoveUpCommand}"
+                                Margin="5 10 0 0"
+                                AutomationProperties.AutomationId="Button20_10458B8D" />
+                        <Button Content="{lex:Loc MoveDownButtonText}"
+                                Command="{Binding MoveDownCommand}"
+                                Margin="5 10 0 0"
+                                AutomationProperties.AutomationId="Button21_10458B8D" />
+                        <Button Content="{lex:Loc MoveToTopButtonText}"
+                                Command="{Binding MoveToTopCommand}"
+                                Margin="5 10 0 0"
+                                AutomationProperties.AutomationId="Button22_10458B8D" />
+                        <Button Content="{lex:Loc MoveToBottomButtonText}"
+                                Command="{Binding MoveToBottomCommand}"
+                                Margin="5 10 0 0"
+                                AutomationProperties.AutomationId="Button23_10458B8D" />
+                    </StackPanel>
+                    <Border BorderThickness="0 1 0 0"
+                            BorderBrush="{StaticResource Brush3}"
+                            Margin="20 0 20 0"
+                            AutomationProperties.AutomationId="Border24_10458B8D">
+                        <Button Content="{lex:Loc RestoreDefaultButtonText}"
+                                Command="{Binding RestoreDefaultCommand}"
+                                Margin="0 20 0 20"
+                                AutomationProperties.AutomationId="Button25_10458B8D" />
+                    </Border>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <Border Grid.Column="2"
+                BorderThickness="1 1 1 1"
+                BorderBrush="{StaticResource Brush3}"
+                Margin="20 0 0 0"
+                AutomationProperties.AutomationId="Border26_10458B8D">
+            <StackPanel Orientation="Vertical"
+                        AutomationProperties.AutomationId="StackPanel27_10458B8D">
+                <TextBlock Text="{lex:Loc AttractModeCustomizationListCaption}"
+                           Margin="10 25 0 0"
+                           AutomationProperties.AutomationId="TextBlock28_10458B8D" />
+                <DataGrid x:Name="GameListDataGrid"
+                          MaxWidth="800"
+                          MaxHeight="700"
+                          ItemsSource="{Binding ConfiguredAttractInfo}"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          SelectedItem="{Binding SelectedItem}"
+                          ScrollViewer.CanContentScroll="True"
+                          ColumnHeaderHeight="0"
+                          HeadersVisibility="None"
+                          Margin="10 0 0 0"
+                          AutomationProperties.AutomationId="DataGrid29_10458B8D">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn AutomationProperties.AutomationId="DataGridTemplateColumn30_10458B8D">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox
+                                            IsChecked="{Binding Path=DataContext.(contracts:IAttractInfo.IsSelected), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=DataGridCell}}"
+                                              AutomationProperties.AutomationId="CheckBox31_10458B8D" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn MinWidth="100"
+                                            Width="Auto"
+                                            FontSize="18"
+                                            Binding="{Binding Path=DataContext.(contracts:IAttractInfo.ThemeNameDisplayText), RelativeSource={RelativeSource AncestorType=DataGridCell}}"
+                                            AutomationProperties.AutomationId="DataGridTextColumn32_10458B8D">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment"
+                                            Value="Left" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                    <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="SelectionChanged" 
+                                        AutomationProperties.AutomationId="EventTrigger33_10458B8D">
+                            <b:InvokeCommandAction Command="{Binding AttractItemSelectedCommand}"
+                                                   CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" />
+                        </b:EventTrigger>
+                    </b:Interaction.Triggers>
+                </DataGrid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

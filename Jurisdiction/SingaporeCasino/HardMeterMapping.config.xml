@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HardMeterMappingConfiguration>
+	<HardMeterMapping Name="(1)Games Played,(2)Turnover,(3)Total Won,(4)Handpay,(5)Coins Out,(6)Coin Drop,(7)Total In,(8)Bills In" Default="true">
+		<HardMeter LogicalId="0" Name="Games Played" TickValue="1" TickValueConfigurable="false">
+			<SoftMeter Name="PlayedCount" />
+		</HardMeter>
+		<HardMeter LogicalId="1" Name="Turnover" >
+			<SoftMeter Name="WageredAmount" />
+		</HardMeter>
+		<HardMeter LogicalId="2" Name="Total Won">
+			<SoftMeter Name="EgmPaidGameWonAmt" />
+		</HardMeter>
+		<HardMeter LogicalId="3" Name="Handpay">
+			<SoftMeter Name="TotalHandpaidGameWonAmount" />
+			<SoftMeter Name="TotalHandpaidBonusPayAmount" />
+			<SoftMeter Name="HandpaidCancelAmount" />
+		</HardMeter>
+		<HardMeter LogicalId="4" Name="Coins Out">
+			<SoftMeter Name="TotalOutHard" />
+		</HardMeter>
+		<HardMeter LogicalId="5" Name="Coin Drop">
+               <SoftMeter Name="CoinDrop" />
+        </HardMeter>
+		<HardMeter LogicalId="6" Name="Coins In">
+			<SoftMeter Name="TotalIn" />
+		</HardMeter>
+		<HardMeter LogicalId="7" Name="Bills In">
+			<SoftMeter Name="TotalCashIn" />
+		</HardMeter>
+	</HardMeterMapping>
+</HardMeterMappingConfiguration>

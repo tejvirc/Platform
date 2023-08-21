@@ -1,0 +1,6 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" Name="Aristocrat.Monaco.G2S.Options.NoteAcceptorDeviceOptions">
+  <Fields>
+    <Field FieldName="Denominations" DataType="Byte" />
+  </Fields>
+</BlockFormat>

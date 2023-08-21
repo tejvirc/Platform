@@ -1,0 +1,170 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.SoftwareVerificationPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               mc:Ignorable="d"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:converters="clr-namespace:Aristocrat.Monaco.Application.UI.Converters"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:common="http://monaco.aristocrat.com/common"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:SoftwareVerificationPageViewModel}, IsDesignTimeCreatable=False}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:ShaConverter x:Key="ShaConverter" />
+            <Style BasedOn="{StaticResource {x:Type TextBlock}}"
+                   TargetType="TextBlock"
+                   x:Key="WrapText">
+                <Setter Property="TextWrapping"
+                        Value="Wrap" />
+                <Setter Property="Padding"
+                        Value="0,10,0,10" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_9BB4B1CA">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition1_9BB4B1CA" />
+            <ColumnDefinition Width="20"
+                              AutomationProperties.AutomationId="ColumnDefinition2_9BB4B1CA" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition3_9BB4B1CA" />
+            <ColumnDefinition Width="20"
+                              AutomationProperties.AutomationId="ColumnDefinition4_9BB4B1CA" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition5_9BB4B1CA" />
+            <ColumnDefinition Width="*"
+                              AutomationProperties.AutomationId="ColumnDefinition6_9BB4B1CA" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_9BB4B1CA" />
+            <RowDefinition Height="10"
+                           AutomationProperties.AutomationId="RowDefinition8_9BB4B1CA" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition9_9BB4B1CA" />
+            <RowDefinition Height="20"
+                           AutomationProperties.AutomationId="RowDefinition10_9BB4B1CA" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition11_9BB4B1CA" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition12_9BB4B1CA" />
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0"
+               Grid.Row="0"
+               VerticalAlignment="Bottom"
+               Style="{DynamicResource MonacoLabel}"
+               Content="{lex:Loc SelectHashType}"
+               AutomationProperties.AutomationId="Label13_9BB4B1CA" />
+        <ComboBox Grid.Column="0"
+                  Grid.Row="2"
+                  Name="AlgorithmComboBox"
+                  Style="{DynamicResource MonacoComboBox}"
+                  IsEnabled="{Binding Path=IsIdle, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding AlgorithmTypes, Mode=OneTime}"
+                  SelectedItem="{Binding SelectedAlgorithmType}"
+                  MinWidth="300"
+                  HorizontalAlignment="Left"
+                  AutomationProperties.AutomationId="ComboBox14_9BB4B1CA" />
+        <WrapPanel Grid.Column="2"
+                   Grid.Row="2"
+                   Margin="0"
+                   IsEnabled="{Binding Path=IsIdle, UpdateSourceTrigger=PropertyChanged}"
+                   AutomationProperties.AutomationId="WrapPanel15_9BB4B1CA">
+            <common:TouchTextBox x:Name="HmacTextBox"
+                                 Style="{DynamicResource MonacoTextBox}"
+                                 CommandManager.PreviewCanExecute="HandleCanExecute"
+                                 MaxWidth="830"
+                                 TextWrapping="Wrap"
+                                 Text="{Binding Path=FormattedHmacKey, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, Converter={StaticResource ShaConverter}}"
+                                 IsEnabled="{Binding Path=CanUseHmacKey}"
+                                 CharacterCasing="Upper"
+                                 PreviewTextInput="HmacTextBox_PreviewTextInput"
+                                 InputScope="AlphanumericFullWidth"
+                                 FontFamily="Consolas"
+                                 HorizontalAlignment="Right"
+                                 FontSize="18"
+                                 PreviewKeyDown="HmacTextBox_PreviewKeyDown"
+                                 IsUndoEnabled="False" />
+        </WrapPanel>
+        <Button Grid.Column="4"
+                Grid.Row="0"
+                Name="ResetButton"
+                Command="{Binding ResetCommand}"
+                Style="{DynamicResource MonacoButton}"
+                Width="200"
+                VerticalAlignment="Center"
+                IsEnabled="{Binding Path=IsValidResult, UpdateSourceTrigger=PropertyChanged}"
+                Content="{lex:Loc Reset}"
+                AutomationProperties.AutomationId="Button16_9BB4B1CA" />
+        <Button Grid.Column="4"
+                Grid.Row="2"
+                Name="GoButton"
+                Command="{Binding CalculateCommand}"
+                Style="{DynamicResource MonacoButton}"
+                Width="200"
+                VerticalAlignment="Center"
+                IsEnabled="{Binding Path=IsIdle, UpdateSourceTrigger=PropertyChanged}"
+                Content="{lex:Loc CalculateSignatures}"
+                AutomationProperties.AutomationId="Button17_9BB4B1CA" />
+        <DataGrid Grid.Column="0"
+                  Grid.Row="4"
+                  Grid.ColumnSpan="6"
+                  Margin="0 20 0 35"
+                  ItemsSource="{Binding ComponentSet}"
+                  Style="{DynamicResource MonacoScrollButtonDataGrid}"
+                  ColumnHeaderHeight="40"
+                  Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+                  ScrollViewer.CanContentScroll="True"
+                  VerticalContentAlignment="Top"
+                  VerticalAlignment="Top"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  AutomationProperties.AutomationId="DataGrid18_9BB4B1CA"
+                  loc:Localizer.For="Operator">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{lex:Loc ComponentIdVersion}"
+                                    Width="Auto"
+                                    MinWidth="320"
+                                    Binding="{Binding ComponentId}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn19_9BB4B1CA"
+                                    loc:Localizer.For="Operator" />
+                <DataGridTextColumn Header="{lex:Loc HashResult}"
+                                    FontFamily="Consolas"
+                                    MinWidth="600"
+                                    MaxWidth="800"
+                                    ElementStyle="{StaticResource WrapText}"
+                                    Binding="{Binding HashResult, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ShaConverter}}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn20_9BB4B1CA"
+                                    loc:Localizer.For="Operator" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Column="0"
+                    Grid.Row="5"
+                    Grid.ColumnSpan="6"
+                    Orientation="Horizontal"
+                    Visibility="{Binding ShowMasterResult, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="StackPanel21_9BB4B1CA">
+            <Label Width="Auto"
+                   MinWidth="200"
+                   Content="{lex:Loc MasterResultText}"
+                   AutomationProperties.AutomationId="Label22_9BB4B1CA" />
+            <Label AutomationProperties.AutomationId="Label23_9BB4B1CA">
+                <Label.Content>
+                    <AccessText TextWrapping="Wrap"
+                                MaxWidth="975"
+                                Text="{Binding MasterResult, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ShaConverter}}"
+                                AutomationProperties.AutomationId="AccessText24_9BB4B1CA" />
+                </Label.Content>
+            </Label>
+        </StackPanel>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

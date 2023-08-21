@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />	
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <AssemblyTitle>Aristocrat.Monaco.TestController</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <Platform>x64</Platform>
+  </PropertyGroup>	
+  <ItemGroup>
+    <Compile Remove="Models\Response\**" />
+    <EmbeddedResource Remove="Models\Response\**" />
+    <None Remove="Models\Response\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="TestController.addin.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestController.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Accounting\Monaco.Accounting.Contracts\Monaco.Accounting.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Accounting\Monaco.Accounting\Monaco.Accounting.csproj" />
+    <ProjectReference Include="..\..\..\Application\Monaco.Application.Contracts\Aristocrat.Monaco.Application.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming.UI\Aristocrat.Monaco.Gaming.UI.csproj" />
+    <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming\Aristocrat.Monaco.Gaming.csproj" />
+    <ProjectReference Include="..\..\..\Hardware\Aristocrat.Monaco.Hardware.Contracts\Aristocrat.Monaco.Hardware.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Hardware\Aristocrat.Monaco.Hardware.Gds\Aristocrat.Monaco.Hardware.Gds.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\..\Protocol\G2S\Aristocrat.Monaco.G2S.Common\Aristocrat.Monaco.G2S.Common.csproj" />
+    <ProjectReference Include="..\..\..\Protocol\G2S\Aristocrat.Monaco.G2S\Aristocrat.Monaco.G2S.csproj" />
+    <ProjectReference Include="..\..\..\Protocol\SAS\Aristocrat.Monaco.Sas.Contracts\Aristocrat.Monaco.Sas.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Protocol\SAS\Aristocrat.Monaco.Sas\Aristocrat.Monaco.Sas.csproj" />
+    <ProjectReference Include="..\..\..\Protocol\SAS\Aristocrat.Sas.Client\Aristocrat.Sas.Client.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.UI.Common\Aristocrat.Monaco.UI.Common.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.RobotController.Contracts\Aristocrat.Monaco.RobotController.Contracts.csproj" />
+    <ProjectReference Include="..\Aristocrat.Monaco.Test.Automation\Aristocrat.Monaco.Test.Automation.csproj" />
+    <ProjectReference Include="..\..\integration\DebugCurrencyHandler\DebugCurrencyHandler\DebugCurrencyHandler.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+</Project>

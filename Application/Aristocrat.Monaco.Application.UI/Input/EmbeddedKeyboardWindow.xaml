@@ -1,0 +1,32 @@
+﻿<common:BaseWindow x:Class="Aristocrat.Monaco.Application.UI.Input.EmbeddedKeyboardWindow"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:vk="http://mindfusion.eu/keyboard/wpf"
+                   xmlns:common="http://monaco.aristocrat.com/common"
+                   mc:Ignorable="d"
+                   Title=""
+                   BorderThickness="1,0,1,1"
+                   BorderBrush="Black"
+                   Background="{DynamicResource OperatorMenuMedium}"
+                   WindowStyle="ToolWindow"
+                   ResizeMode="NoResize"
+                   Focusable="False"
+                   ShowActivated="False"
+                   ShowInTaskbar="False"
+                   Width="800"
+                   Height="300">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_9DB94EA1">
+        <vk:VirtualKeyboard Name="Keyboard"
+                            IsStandAlone="True"
+                            PreventActivation="True" />
+    </Grid>
+</common:BaseWindow>

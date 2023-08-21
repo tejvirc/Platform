@@ -1,0 +1,38 @@
+﻿<Addin id="MgamConfiguration" namespace="Client12Addins" version="1.0">
+
+  <Dependencies>
+    <Addin id="Monaco.Kernel" version="1.0" />
+    <Addin id="SelectableProtocol" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration/Protocol">
+    <SelectableProtocol name="MGAM" description="Platform Configuration for MGAM">
+      <AddinConfigurationGroupReference name="BaseMeterPages" />
+      <AddinConfigurationGroupReference name="MgamProtocolRunnable" />
+      <AddinConfigurationGroupReference name="MgamConfigWizardPages" />
+      <AddinConfigurationGroupReference name="StatusPages" />
+      <AddinConfigurationGroupReference name="CommsPages" />
+      <AddinConfigurationGroupReference name="IdentificationPages" />
+    </SelectableProtocol>
+  </Extension>
+
+  <Extension path="/Kernel/AddinConfigurationGroup">
+    <AddinConfigurationGroup name="MgamProtocolRunnable" description="This is the protocol launcher for MGAM">
+      <ExtensionPointConfiguration extensionPath="/Protocol/Runnables">
+        <NodeSpecification addinId="Client12Addins.MgamBase" typeName="Aristocrat.Monaco.Mgam.MgamBase" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+
+    <AddinConfigurationGroup name="MgamConfigWizardPages" description="These are the config wizard pages for MGAM">
+      <ExtensionPointConfiguration extensionPath="/Application/Config/Wizards">
+        <NodeSpecification addinId="Client12Addins.MgamUIConfiguration"
+                           typeName="Aristocrat.Monaco.Mgam.UI.MgamConfigurationWizard" order="100" />
+      </ExtensionPointConfiguration>
+    </AddinConfigurationGroup>
+  </Extension>
+
+  <ExtensionPoint path="/MGAM/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+</Addin>

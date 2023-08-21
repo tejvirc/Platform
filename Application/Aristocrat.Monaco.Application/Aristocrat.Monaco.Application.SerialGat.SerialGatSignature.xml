@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" Name="Aristocrat.Monaco.Application.SerialGat.SerialGatSignature">
+  <Fields>
+    <Field FieldName="Signature.ComponentId" DataType="String" Size="128" />
+    <Field FieldName="Signature.IsXml" DataType="Bool" />
+    <Field FieldName="Signature.Result" DataType="String" Size="32768" />
+    <Field FieldName="Signature.SeedOrSalt" DataType="String" Size="40" />
+    <Field FieldName="Signature.Status" DataType="Int32" />
+    <Field FieldName="Signature.WhenBegun" DataType="DateTime" />
+    <Field FieldName="Signature.WhenCompleted" DataType="DateTime" />
+  </Fields>
+</BlockFormat>

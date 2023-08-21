@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DisplayMetersConfiguration>
+  <MeterNodes>
+    <!-- commented out meters are for future releases -->
+    <!-- column 2. Order values over 100 indicate the meter should display in the 2nd column -->
+  
+    <MeterNode Page="MainPage" Name="TotalIn" DisplayName="Total In" />
+    <MeterNode Page="MainPage" Name="TotalOut" DisplayName="Total Out" />
+    <MeterNode Page="MainPage" Name="WageredAmount" DisplayName="Cash Played" />
+    <MeterNode Page="MainPage" Name="EgmPaidGameWonAmt" DisplayName="Cash Won" />
+    <MeterNode Page="MainPage" Name="PlayedCount" DisplayName="Games Played" />
+    <MeterNode Page="MainPage" Name="GamesPlayedSinceDoorClosed" DisplayName="Games Played since Door Closed" Period="false" />
+    <MeterNode Page="MainPage" Name="GamesPlayedSinceReboot" DisplayName="Games Played since Reboot" Period="false" />
+    <MeterNode Page="MainPage" Name="WonCount" DisplayName="Games Won" />
+  
+    <MeterNode Page="Hardware" Name="MainDoorOpen" DisplayName="Main Door Open" />
+    <MeterNode Page="Hardware" Name="MainDoorOpenPowerOff" DisplayName="Main Door Open Power Off" />
+    <MeterNode Page="Hardware" Name="CashDoorOpen" DisplayName="Cash Door Open" />
+    <MeterNode Page="Hardware" Name="CashDoorOpenPowerOff" DisplayName="Cash Door Open Power Off" />
+    <MeterNode Page="Hardware" Name="LogicDoorOpen" DisplayName="Logic Door Open" />
+    <MeterNode Page="Hardware" Name="LogicDoorOpenPowerOff" DisplayName="Logic Door Open Power Off" />
+    <MeterNode Page="Hardware" Name="TopBoxDoorOpen" DisplayName="Top Box Door Open" />
+    <MeterNode Page="Hardware" Name="TopBoxDoorOpenPowerOff" DisplayName="Top Box Door Open Power Off" />
+    <MeterNode Page="Hardware" Name="StackerRemoved" DisplayName="Stacker Removed" />
+    <MeterNode Page="Hardware" Name="PowerReset" DisplayName="Power Reset" />
+  
+    <MeterNode Page="Game" Name="WageredAmount" DisplayName="Cash Played" />
+    <MeterNode Page="Game" Name="EgmPaidGameWonAmt" DisplayName="Cash Won" />
+    <MeterNode Page="Game" Name="PlayedCount" DisplayName="Games Played" />
+    <MeterNode Page="Game" Name="WonCount" DisplayName="Games Won" />
+
+    <MeterNode Page="Progressives" Name="ProgressivePackName" DisplayName="Pack Name" Order="1" />
+    <MeterNode Page="Progressives" Name="LevelName" DisplayName="Level" Order="2" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WageredAmount" DisplayName="Wagered" Order="3" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinOccurrence" DisplayName="Hit" Order="4" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinAccumulation" DisplayName="Won" Order="5" />
+  </MeterNodes>
+</DisplayMetersConfiguration>

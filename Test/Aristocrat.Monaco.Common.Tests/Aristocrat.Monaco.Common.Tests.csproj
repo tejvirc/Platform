@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)..\..\Build\shared.props" />
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <AssemblyTitle>Aristocrat.Monaco.Common.Tests</AssemblyTitle>
+    <Configurations>Debug;Release;Retail</Configurations>
+    <Platform>x64</Platform>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
+    <PackageReference Include="Aristocrat.Microsoft.EntityFrameworkCore" Version="6.0.18" />
+    <PackageReference Include="Aristocrat.Microsoft.EntityFrameworkCore.Relational" Version="6.0.18" />
+    <PackageReference Include="Aristocrat.Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.18" />
+    <PackageReference Include="FluentValidation" Version="7.4.0" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="Quartz" Version="3.0.7" />
+    <PackageReference Include="SimpleInjector" Version="5.4.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+  </ItemGroup>
+</Project>

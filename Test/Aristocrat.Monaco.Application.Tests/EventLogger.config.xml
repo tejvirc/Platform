@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfEventDescription>
+  <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.CashInExceedsVoucherInLimitEvent, Monaco.Accounting.Contracts" Level="error" />
+  <EventDescription Name="Aristocrat.Monaco.Application.Contracts.TiltLoggerEvent, Monaco.Application.Contracts" Level="info" />
+  <EventDescription Name="Aristocrat.Monaco.Gaming.Contracts.GameConfigurationMismatchEvent, Aristocrat.Monaco.Gaming.Contracts" Level="tilt" />
+  <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.HardwareFaultEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" />
+  <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.HardwareFaultClearEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" />
+  <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.SwallowedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="info" />
+</ArrayOfEventDescription>

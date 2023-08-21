@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="MeterNodePage">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MainPage" />
+      <xs:enumeration value="Hardware" />
+      <xs:enumeration value="Game" />
+      <xs:enumeration value="Denom" />
+      <xs:enumeration value="Handpay" />
+      <xs:enumeration value="Voucher" />
+      <xs:enumeration value="Progressives" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="MeterNode">
+    <xs:attribute name="Page" type="MeterNodePage" use="required" />
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="DisplayName" type="xs:string" use="required" />
+    <xs:attribute name="DisplayNameKey" type="xs:string"  />
+    <xs:attribute name="Order" type="xs:int" use="optional" />
+    <xs:attribute name="Period" type="xs:boolean" use="optional" default="true" />
+    <xs:attribute name="Lifetime" type="xs:boolean" use="optional" default="true" />
+    <xs:attribute name="ShowNotApplicable" type="xs:boolean" use="optional" default="false" />
+  </xs:complexType>
+
+  <xs:complexType name="ArrayOfMeterNode">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MeterNode" type="MeterNode" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="DisplayMetersConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="MeterNodes" type="ArrayOfMeterNode" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

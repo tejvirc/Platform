@@ -1,0 +1,11 @@
+apiRules:
+- exclude:
+    uidRegex: ^Resources$
+    type: Class
+- exclude:
+    uidRegex: ^ResourceKeys$
+    type: Class
+- exclude:
+    uidRegex: ^System\.
+    type: Namespace
+    

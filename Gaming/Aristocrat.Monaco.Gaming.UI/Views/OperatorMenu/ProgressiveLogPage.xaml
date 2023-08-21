@@ -1,0 +1,78 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.ProgressiveLogPage"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d"
+                               common:DialogParticipation.Register="{Binding}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="MainGrid"
+          AutomationProperties.AutomationId="Grid0_12852CC8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition1_12852CC8" />
+        </Grid.RowDefinitions>
+        <DataGrid ItemsSource="{Binding Path=ProgressiveData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  Width="{Binding ElementName=MainGrid, Path=ActualWidth}"
+                  RowHeight="26"
+                  ScrollViewer.CanContentScroll="True"
+                  AutomationProperties.AutomationId="DataGrid2_12852CC8">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{lex:Loc DateAndTimeHeader}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding TransactionDateTime}"
+                                    MinWidth="200"
+                                    AutomationProperties.AutomationId="DataGridTextColumn3_12852CC8" />
+                <DataGridTextColumn Header="{lex:Loc AmountHeader}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding Amount}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn4_12852CC8" />
+                <DataGridTextColumn Header="{lex:Loc LevelId}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding LevelId}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn5_12852CC8" />
+                <DataGridTextColumn Header="{lex:Loc ProgressiveId}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding ProgressiveId}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn6_12852CC8" />
+                <DataGridTextColumn Header="{lex:Loc GameName}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameName}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn7_12852CC8" />
+                <DataGridTextColumn Header="{lex:Loc GameId}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding GameId}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn8_12852CC8" />
+                <DataGridTextColumn Header="{lex:Loc DenomId}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding DenomId}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn9_12852CC8" />
+                <DataGridTextColumn Header="{lex:Loc IncrementRate}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding IncrementRate}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn10_12852CC8" />
+                <DataGridTextColumn Header="{lex:Loc ResetValue}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding ResetValue}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn11_12852CC8" />
+                <DataGridTextColumn Header="{lex:Loc MaxValue}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding MaxValue}"
+                                    AutomationProperties.AutomationId="DataGridTextColumn12_12852CC8" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

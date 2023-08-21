@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<ArrayOfBlockFormat>
+  <BlockFormat version="1" name="Aristocrat.Monaco.Gaming.CurrencyInContainer">
+    <Fields>
+      <Field DataType="Int64" FieldName="AmountIn" />
+    </Fields>
+  </BlockFormat>
+  <BlockFormat version="2" name="Aristocrat.Monaco.Gaming.CurrencyInContainer">
+    <Fields>
+      <Field DataType="Int64" FieldName="AmountIn" />
+      <Field DataType="Byte" Count="2" FieldName="TransactionsBlob" />
+    </Fields>
+  </BlockFormat>
+</ArrayOfBlockFormat>

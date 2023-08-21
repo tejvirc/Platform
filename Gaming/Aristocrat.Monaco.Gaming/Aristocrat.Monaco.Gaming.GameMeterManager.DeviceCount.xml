@@ -1,0 +1,6 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Gaming.GameMeterManager.DeviceCount" ElementSize="4">
+  <Fields>
+    <Field DataType="Int32" Count="0" FieldName="DeviceCount" />
+  </Fields>
+</BlockFormat>

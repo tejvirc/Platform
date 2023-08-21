@@ -1,0 +1,29 @@
+﻿<Addin id="GdsDevices" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Hardware.Gds.dll"/>
+    <Import assembly="Aristocrat.Monaco.Hardware.Contracts.dll"/>
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Monaco.Hardware" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Hardware/IdReader/IdReaderImplementations">
+    <DeviceImplementation ProtocolName="Any" type="Aristocrat.Monaco.Hardware.Gds.CardReader.CardReaderGds"/>
+  </Extension>
+
+  <Extension path="/Hardware/NoteAcceptor/NoteAcceptorImplementations">
+    <DeviceImplementation ProtocolName="Any" type="Aristocrat.Monaco.Hardware.Gds.NoteAcceptor.NoteAcceptorGds"/>
+  </Extension>
+
+  <Extension path="/Hardware/Printer/PrinterImplementations">
+    <DeviceImplementation ProtocolName="Any" type="Aristocrat.Monaco.Hardware.Gds.Printer.PrinterGds"/>
+  </Extension>
+
+  <Extension path="/Hardware/ReelController/ReelControllerImplementations">
+    <DeviceImplementation ProtocolName="Harkey" type="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds"/>
+    <DeviceImplementation ProtocolName="Fake" type="Aristocrat.Monaco.Hardware.Gds.Reel.ReelControllerGds"/>
+  </Extension>
+
+</Addin>

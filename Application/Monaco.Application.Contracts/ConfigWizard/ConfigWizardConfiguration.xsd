@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="ConfigWizardConfiguration">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="1" name="MachineSetupConfig">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="1" name="EnterOutOfServiceWithCredits">
+                                <xs:complexType>
+                                    <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+                                    <xs:attribute name="Editable" type="xs:boolean" use="optional" default="true" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Visibility" type="xs:string" use="optional" default="Hidden" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element maxOccurs="1" name="IOConfigPage">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="1" name="UseSelection">
+                                <xs:complexType>
+                                    <xs:attribute name="Enabled" type="xs:boolean" use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element maxOccurs="1" minOccurs="0" name="LimitsPage">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="1" name="CreditLimit">
+                                <xs:complexType>
+                                    <xs:attribute name="CheckboxEditable" type="xs:boolean" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" maxOccurs="1" name="HandpayLimit">
+                                <xs:complexType>
+                                    <xs:attribute name="Visible" type="xs:boolean" />
+                                    <xs:attribute name="CheckboxEditable" type="xs:boolean" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="IdentityPage">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="1" name="PrintIdentity">
+                                <xs:complexType>
+                                    <xs:attribute name="Visibility" type="xs:string" use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element maxOccurs="1" minOccurs="0" name="SerialNumber" type="IdentityFieldOverride" />
+                            <xs:element maxOccurs="1" minOccurs="0" name="AssetNumber" type="IdentityFieldOverride" />
+                            <xs:element maxOccurs="1" minOccurs="0" name="Area" type="IdentityFieldOverride" />
+                            <xs:element maxOccurs="1" minOccurs="0" name="Zone" type="IdentityFieldOverride" />
+                            <xs:element maxOccurs="1" minOccurs="0" name="Bank" type="IdentityFieldOverride" />
+                            <xs:element maxOccurs="1" minOccurs="0" name="Position" type="IdentityFieldOverride" />
+                            <xs:element maxOccurs="1" minOccurs="0" name="Location" type="IdentityFieldOverride" />
+                            <xs:element maxOccurs="1" minOccurs="0" name="DeviceName" type="IdentityFieldOverride" />
+                        </xs:sequence>
+                        <xs:attribute name="Visibility" type="xs:string" use="optional" default="Visible" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="CompletionPage">
+                    <xs:complexType>
+                        <xs:attribute name="ShowGameSetupMessage" type="xs:boolean" use="optional" default="false" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="TowerLightTierType">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="AvailableTowerLightTierType" minOccurs="0" maxOccurs="unbounded" />
+                        </xs:sequence>
+                        <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="CanReconfigure" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="Visible" type="xs:boolean" use="optional" default="false" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="HardMetersConfig">
+                    <xs:complexType>
+                        <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="true" />
+                        <xs:attribute name="Enable" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="TickValueConfigurable" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="CanReconfigure" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="Visible" type="xs:boolean" use="optional" default="true" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element maxOccurs="1" minOccurs="0" name="DoorOptics">
+                    <xs:complexType>
+                        <xs:attribute name="Visible" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="CanReconfigure" type="xs:boolean" use="optional" default="false" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element maxOccurs="1" minOccurs="0" name="Bell">
+                    <xs:complexType>
+                        <xs:attribute name="Visible" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="CanReconfigure" type="xs:boolean" use="optional" default="false" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" maxOccurs="1" name="HardwarePage">
+                    <xs:complexType>
+                        <xs:attribute name="RequirePrinter" type="xs:boolean" use="optional" default="false" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="1" maxOccurs="1" name="ProtocolConfiguration">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element minOccurs="0" maxOccurs="1" name="ProtocolsAllowed">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element ref="Protocol" minOccurs="0" maxOccurs="unbounded" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                                <xs:unique name="ProtocolsAllowedUniqueProtocolName">
+                                    <xs:selector xpath="Protocol" />
+                                    <xs:field xpath="@Name" />
+                                </xs:unique>
+                            </xs:element>
+                            <xs:element minOccurs="0" maxOccurs="1" name="ExclusiveProtocols">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element ref="ExclusiveProtocol" minOccurs="0" maxOccurs="unbounded" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                                <xs:unique name="ExclusiveProtocolsUniqueFunction">
+                                    <xs:selector xpath="ExclusiveProtocol" />
+                                    <xs:field xpath="@Function" />
+                                </xs:unique>
+                            </xs:element>
+                            <xs:element minOccurs="0" maxOccurs="1" name="RequiredFunctionality">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element ref="FunctionalityType" minOccurs="0" maxOccurs="unbounded" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                                <xs:unique name="RequiredFunctionalityUniqueType">
+                                    <xs:selector xpath="Functionality" />
+                                    <xs:field xpath="@Type" />
+                                </xs:unique>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+        <xs:element maxOccurs="1" minOccurs="0" name="BellyPanelDoor">
+                <xs:complexType>
+                  <xs:attribute name="Visible" type="xs:boolean" use="optional" default="false" />
+                  <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
+                  <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="true" />
+                  <xs:attribute name="CanReconfigure" type="xs:boolean" use="optional" default="false" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="IdentityFieldOverride">
+        <xs:attribute name="Visible" type="Presence" use="optional" default="Always" />
+        <xs:attribute name="ReadOnly" type="Presence" use="optional" default="Never" />
+        <xs:attribute name="MinLength" type="xs:int" use="optional" default="0" />
+        <xs:attribute name="MaxLength" type="xs:int" use="optional" default="0" />
+        <xs:attribute name="MinValue" type="xs:int" use="optional" default="0" />
+        <xs:attribute name="MaxValue" type="xs:int" use="optional" default="0" />
+        <xs:attribute name="DefaultValue" type="xs:string" use="optional" default="" />
+        <xs:attribute name="Formula" type="xs:string" use="optional" default="" />
+    </xs:complexType>
+    <xs:element name="Protocol">
+        <xs:complexType>
+            <xs:attribute name="Name" type="CommsProtocol" use="required" />
+            <xs:attribute name="IsMandatory" type="xs:boolean" default="false" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ExclusiveProtocol">
+        <xs:complexType>
+            <xs:attribute name="Name" type="CommsProtocol" use="required" />
+            <xs:attribute name="Function" type="Functionality" use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="FunctionalityType">
+        <xs:complexType>
+            <xs:attribute name="Type" type="Functionality" use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AvailableTowerLightTierType">
+        <xs:complexType>
+            <xs:attribute name="Type" type="TowerLightTierTypes" use="required" />
+            <xs:attribute name="IsDefault" type="xs:boolean" use="optional" default="false" />
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="Functionality">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FundsTransfer" />
+            <xs:enumeration value="Validation" />
+            <xs:enumeration value="Progressive" />
+            <xs:enumeration value="CentralDeterminationSystem" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CommsProtocol">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="None" />
+            <xs:enumeration value="ASP1000" />
+            <xs:enumeration value="ASP2000" />
+            <xs:enumeration value="Bingo" />
+            <xs:enumeration value="DACOM" />
+            <xs:enumeration value="DemonstrationMode" />
+            <xs:enumeration value="G2S" />
+            <xs:enumeration value="HHR" />
+            <xs:enumeration value="MGAM" />
+            <xs:enumeration value="SAS" />
+            <xs:enumeration value="Test" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Presence">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Always" />
+            <xs:enumeration value="Never" />
+            <xs:enumeration value="WizardOnly" />
+            <xs:enumeration value="MenuOnly" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="TowerLightTierTypes">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="TwoTier" />
+            <xs:enumeration value="FourTier" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

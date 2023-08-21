@@ -1,0 +1,44 @@
+﻿<?xml version="1.0"?>
+
+<Addin  id="Bootstrap" namespace="Client12Addins" version="1.0" isroot="true">
+
+  <Runtime>
+    <Import assembly="Monaco.Application.Contracts.dll" />
+    <Import assembly="Aristocrat.Monaco.Application.Tests.dll" />
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+  </Runtime>
+
+  <ExtensionPoint path="/Application/IOperatorMenu">
+    <ExtensionNode name="IOperatorMenu" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/TiltLogger/Configuration">
+    <ExtensionNode name="TiltLoggerConfiguration" type="Aristocrat.Monaco.Application.Contracts.TiltLoggerConfigurationExtensionNode" />
+  </ExtensionPoint>
+  
+  <ExtensionPoint path = "/Locale/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Application.Tests.TestFilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/OperatorMenu/Configuration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <ExtensionPoint path = "/Application/JurisdictionConfiguration">
+    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
+  </ExtensionPoint>
+
+  <Extension path="/Kernel/SelectableAddinConfiguration">
+    <SelectableAddinConfiguration name="Jurisdiction" order="0"/>
+    <SelectableAddinConfiguration name="Protocol" order="1"/>
+  </Extension>
+
+  <Extension path="/OperatorMenu/Configuration">
+    <FilePath FilePath=".\OperatorMenu.config.xml" filterid="QuebecOperatorMenuConfig" />
+  </Extension>
+
+  <Extension path="/Application/JurisdictionConfiguration">
+    <FilePath FilePath=".\Application.config.xml" filterid="QuebecApplicationConfig" />
+  </Extension>
+
+</Addin>

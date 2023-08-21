@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a Visual Studio command prompt and change to the directory:
+    Hardware\Aristocrat.Monaco.Hardware.Serial\Printer
+2.  Enter "xsd PrinterOverrides.xsd /c /n:Aristocrat.Monaco.Hardware.Serial".  This will generate
+    the corresponding class definition in csharp (PrinterOverrides.cs).
+-->
+
+<!--
+This file allows you to override printer templates and/or printer template mapping defined
+in the printable_templates.xml and serial_printer_template_mappings.xml files based on 
+the printer protocol and firmware.
+The printer protocols are defined in Hardware\Aristocrat.Monaco.Hardware\SupportedDevices.xml for
+a given printer model.
+The printer firmware version is discovered by the platform at runtime.
+-->
+
+<!--
+Please see the following link for descriptions of the elements and atributes in this file:
+
+https://confy.aristocrat.com/display/MON/Printer+Override+XML+Element+and+Attribute+Description
+
+Please update the confluence page when new elements and attributes are added.
+ -->
+
+<Overrides>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../bin/Printer/PrinterOverrides.xsd">
+  <Override Protocol="EpicTTL" FirmwareBase="*" UsePrinterDefinedTemplates="true" >
+    <AuditTickets PlatformTemplateIds="101 105" />
+
+    <Replacements>
+      <RegionTextReplace>
+        <TextReplace RegionId="125" Description="MachineId" Replace="#:" With="#" />
+        <TextReplace RegionId="106" Description="title" Replace="VOUCHER" With="TICKET" />
+        <TextReplace RegionId="115" Description="value in words" Replace="\n" With=" " />
+      </RegionTextReplace>
+      <TextSplitForRegion>
+        <Split RegionId="127" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" LeadingText=" " />
+        <Split RegionId="127" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
+        <Split RegionId="126" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" LeadingText=" " />
+        <Split RegionId="126" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
+      </TextSplitForRegion>
+    </Replacements>
+
+    <PrinterTemplateMappings>
+      <Mapping Description="cashout" PlatformTemplateId="102" PrinterTemplateId="0" Regions="107 121 122 135 106 0 120 119 1 2 124 115 114 118 0 125 117 0" />
+      <Mapping Description="jackpot" PlatformTemplateId="103" PrinterTemplateId="F" Regions="107 121 122 135 106 129 131 0 1 2 128 120 119 118 125 130 0" />
+      <Mapping Description="handpay receipt" PlatformTemplateId="104" PrinterTemplateId="F" Regions="107 121 122 135 106 129 131 0 1 2 128 120 119 118 125 130 0" />
+      <Mapping Description="jackpot no barcode" PlatformTemplateId="106" PrinterTemplateId="0" Regions="0 121 123 106 0 0 0 1 2 128 3 129 118 0 125 0" />
+      <Mapping Description="handpay receipt no barcode" PlatformTemplateId="107" PrinterTemplateId="0" Regions="0 121 123 106 0 0 0 1 2 128 3 129 118 0 125 0" />
+    </PrinterTemplateMappings>
+  </Override>
+
+  <Override Protocol="JCM TCL" FirmwareBase="5REURAA21" UsePrinterDefinedTemplates="true" >
+    <AuditTickets PlatformTemplateIds="101 105" />
+
+    <Replacements>
+      <RegionTextReplace>
+        <TextReplace RegionId="106" Description="title" Replace="VOUCHER" With="TICKET" />
+      </RegionTextReplace>
+      <TextSplitForRegion>
+        <Split RegionId="127" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" />
+        <Split RegionId="127" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
+        <Split RegionId="126" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" />
+        <Split RegionId="126" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
+      </TextSplitForRegion>
+    </Replacements>
+
+    <PrinterTemplateMappings>
+      <Mapping Description="cashout" PlatformTemplateId="102" PrinterTemplateId="0" Regions="107 121 122 135 106 120 107 1 2 124 115 0 114 0 118 125 117" />
+      <Mapping Description="jackpot" PlatformTemplateId="103" PrinterTemplateId="1" Regions="107 121 122 135 106 129 131 132 1 2 128 120 107 0 118 125 130" />
+      <Mapping Description="handpay receipt" PlatformTemplateId="104" PrinterTemplateId="1" Regions="107 121 122 135 106 129 131 132 1 2 128 120 107 0 118 125 130" />
+      <Mapping Description="jackpot no barcode" PlatformTemplateId="106" PrinterTemplateId="1" Regions="0 121 122 135 106 129 131 132 1 0 2 128 0 0 118 125 0" />
+      <Mapping Description="handpay receipt no barcode" PlatformTemplateId="107" PrinterTemplateId="1" Regions="0 121 122 135 106 129 131 132 1 0 2 128 0 0 118 125 0" />
+    </PrinterTemplateMappings>
+  </Override>
+
+  <Override Protocol="JCM TCL" FirmwareBase="*" UsePrinterDefinedTemplates="true" >
+    <AuditTickets PlatformTemplateIds="101 105" />
+
+    <Replacements>
+      <RegionTextReplace>
+        <TextReplace RegionId="106" Description="title" Replace="VOUCHER" With="TICKET" />
+      </RegionTextReplace>
+      <TextSplitForRegion>
+        <Split RegionId="127" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" />
+        <Split RegionId="127" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
+        <Split RegionId="126" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" />
+        <Split RegionId="126" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
+      </TextSplitForRegion>
+    </Replacements>
+
+    <PrinterTemplateMappings>
+      <Mapping Description="cashout" PlatformTemplateId="102" PrinterTemplateId="0" Regions="107 121 122 135 106 120 107 1 2 124 115 0 114 118 125 117" />
+      <Mapping Description="jackpot" PlatformTemplateId="103" PrinterTemplateId="1" Regions="107 121 122 135 106 129 131 132 1 2 128 120 107 0 118 125 130" />
+      <Mapping Description="handpay receipt" PlatformTemplateId="104" PrinterTemplateId="1" Regions="107 121 122 135 106 129 131 132 1 2 128 120 107 0 118 125 130" />
+      <Mapping Description="jackpot no barcode" PlatformTemplateId="106" PrinterTemplateId="1" Regions="0 121 122 135 106 129 131 132 1 0 2 128 0 0 118 125 0" />
+      <Mapping Description="handpay receipt no barcode" PlatformTemplateId="107" PrinterTemplateId="1" Regions="0 121 122 135 106 129 131 132 1 0 2 128 0 0 118 125 0" />
+    </PrinterTemplateMappings>
+  </Override>
+
+  <Override Protocol="Nanoptix TCL" FirmwareBase="*" UsePrinterDefinedTemplates="true" >
+    <AuditTickets PlatformTemplateIds="101 105" />
+
+    <Replacements>
+      <RegionTextReplace>
+        <TextReplace RegionId="106" Description="title" Replace="VOUCHER" With="TICKET" />
+        <TextReplace RegionId="128" Description="ticket number" Replace="Voucher" With="TICKET" />
+        <TextReplace RegionId="124" Description="ticket number" Replace="Ticket" With="TICKET" />
+        <TextReplace PlatformTemplateIds="104 107" RegionId="106" Description="title" Replace="CASHOUT" With="HAND PAY" />
+      </RegionTextReplace>
+      <TextSplitForRegion>
+        <Split RegionId="127" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" />
+        <Split RegionId="127" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
+        <Split RegionId="126" NewRegionId="1" Description="Date" RegEx="(.+)\s\d{2}:\d{2}:\d{2}" />
+        <Split RegionId="126" NewRegionId="2" Description="Time" RegEx=".+\s(\d{2}:\d{2}:\d{2})" />
+      </TextSplitForRegion>
+    </Replacements>
+
+    <PrinterTemplateMappings>
+      <Mapping Description="cashout" PlatformTemplateId="102" PrinterTemplateId="0" Regions="107 121 122 135 106 120 107 1 2 124 115 0 114 118 125 117" />
+      <Mapping Description="jackpot" PlatformTemplateId="103" PrinterTemplateId="1" Regions="107 121 122 135 106 129 131 132 1 2 128 120 107 0 118 125 130" />
+      <Mapping Description="handpay receipt" PlatformTemplateId="104" PrinterTemplateId="1" Regions="107 121 122 135 106 129 131 132 1 2 128 120 107 0 118 125 130" />
+      <Mapping Description="jackpot no barcode" PlatformTemplateId="106" PrinterTemplateId="1" Regions="0 121 122 135 106 129 131 132 1 0 2 128 0 0 118 125 0" />
+      <Mapping Description="handpay receipt no barcode" PlatformTemplateId="107" PrinterTemplateId="1" Regions="0 121 122 135 106 129 131 132 1 0 2 128 0 0 118 125 0" />
+    </PrinterTemplateMappings>
+  </Override>
+</Overrides>

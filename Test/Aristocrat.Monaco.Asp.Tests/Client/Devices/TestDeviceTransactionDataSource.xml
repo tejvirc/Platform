@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<Devices>
+  <DeviceClass ID="2" Name="ParameterProcessorTest" Version="1.0">
+    <DeviceType ID="1" Name="MCIAccess">
+      <Parameter EGMAccess="ReadWrite" ID="1" MCIAccess="ReadWrite" Name="ReadWrite">
+        <Field DataMemberName="Status" DataSourceName="TestStatus" ID="1" Name="Test" Size="1"
+               Type="BYTE" Value="0" />
+      </Parameter>
+    </DeviceType>
+  </DeviceClass>
+</Devices>

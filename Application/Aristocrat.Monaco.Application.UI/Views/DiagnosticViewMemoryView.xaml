@@ -1,0 +1,145 @@
+﻿<operatorMenu:OperatorMenuPage x:Class="Aristocrat.Monaco.Application.UI.Views.DiagnosticViewMemoryView"
+                               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                               xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
+                               xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
+                               xmlns:lex="http://wpflocalizeextension.codeplex.com"
+                               lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
+                               lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
+                               xmlns:loc="http://monaco.aristocrat.com/localization"
+                               mc:Ignorable="d"
+                               Width="600"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:DiagnosticViewMemoryViewModel}, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="TextBlock"
+                   BasedOn="{StaticResource MonacoTextBlock}">
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="Margin"
+                        Value="10 0 0 0" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid AutomationProperties.AutomationId="Grid0_9F96CDD5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition1_9F96CDD5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition2_9F96CDD5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition3_9F96CDD5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition4_9F96CDD5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition5_9F96CDD5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition6_9F96CDD5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition7_9F96CDD5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition8_9F96CDD5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition9_9F96CDD5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition10_9F96CDD5" />
+            <RowDefinition Height="Auto"
+                           AutomationProperties.AutomationId="RowDefinition11_9F96CDD5" />
+            <RowDefinition Height="0"
+                           AutomationProperties.AutomationId="RowDefinition12_9F96CDD5" />
+            <RowDefinition Height="*"
+                           AutomationProperties.AutomationId="RowDefinition13_9F96CDD5" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition14_9F96CDD5" />
+            <ColumnDefinition Width="Auto"
+                              AutomationProperties.AutomationId="ColumnDefinition15_9F96CDD5" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Content="{lex:Loc HeaderPagedMemory}"
+               AutomationProperties.AutomationId="Label16_9F96CDD5" />
+        <TextBlock Grid.Row="1"
+                   Grid.Column="1"
+                   Text="{Binding PagedMemorySize64}"
+                   AutomationProperties.AutomationId="TextBlock17_9F96CDD5" />
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               Content="{lex:Loc HeaderPeakPagedMemory}"
+               AutomationProperties.AutomationId="Label18_9F96CDD5" />
+        <TextBlock Grid.Row="2"
+                   Grid.Column="1"
+                   Text="{Binding PeakPagedMemorySize64}"
+                   AutomationProperties.AutomationId="TextBlock19_9F96CDD5" />
+        <Label Grid.Row="3"
+               Grid.Column="0"
+               Content="{lex:Loc HeaderVirtualMemorySize}"
+               AutomationProperties.AutomationId="Label20_9F96CDD5" />
+        <TextBlock Grid.Row="3"
+                   Grid.Column="1"
+                   Text="{Binding VirtualMemorySize64}"
+                   AutomationProperties.AutomationId="TextBlock21_9F96CDD5" />
+        <Label Grid.Row="4"
+               Grid.Column="0"
+               Content="{lex:Loc HeaderPrivateMemorySize}"
+               AutomationProperties.AutomationId="Label22_9F96CDD5" />
+        <TextBlock Grid.Row="4"
+                   Grid.Column="1"
+                   Text="{Binding PrivateMemorySize64}"
+                   AutomationProperties.AutomationId="TextBlock23_9F96CDD5" />
+        <Label Grid.Row="5"
+               Grid.Column="0"
+               Content="{lex:Loc HeaderWorkingSet}"
+               AutomationProperties.AutomationId="Label24_9F96CDD5" />
+        <TextBlock Grid.Row="5"
+                   Grid.Column="1"
+                   Text="{Binding WorkingSet64}"
+                   AutomationProperties.AutomationId="TextBlock25_9F96CDD5" />
+        <Label Grid.Row="6"
+               Grid.Column="0"
+               Content="{lex:Loc HeaderPeakWorkingSet}"
+               AutomationProperties.AutomationId="Label26_9F96CDD5" />
+        <TextBlock Grid.Row="6"
+                   Grid.Column="1"
+                   Text="{Binding PeakWorkingSet64}"
+                   AutomationProperties.AutomationId="TextBlock27_9F96CDD5" />
+        <Label Grid.Row="7"
+               Grid.Column="0"
+               Content="{lex:Loc HeaderPagedSystemMemorySize}"
+               AutomationProperties.AutomationId="Label28_9F96CDD5" />
+        <TextBlock Grid.Row="7"
+                   Grid.Column="1"
+                   Text="{Binding PagedSystemMemorySize64}"
+                   AutomationProperties.AutomationId="TextBlock29_9F96CDD5" />
+        <Label Grid.Row="8"
+               Grid.Column="0"
+               Content="{lex:Loc HeaderNonpagedSystemMemorySize}"
+               AutomationProperties.AutomationId="Label30_9F96CDD5" />
+        <TextBlock Grid.Row="8"
+                   Grid.Column="1"
+                   Text="{Binding NonPagedSystemMemorySize64}"
+                   AutomationProperties.AutomationId="TextBlock31_9F96CDD5" />
+        <Label Grid.Row="9"
+               Grid.Column="0"
+               Content="{lex:Loc HeaderThreadCount}"
+               AutomationProperties.AutomationId="Label32_9F96CDD5" />
+        <TextBlock Grid.Row="9"
+                   Grid.Column="1"
+                   Text="{Binding ThreadCount}"
+                   AutomationProperties.AutomationId="TextBlock33_9F96CDD5" />
+        <Label Grid.Row="10"
+               Grid.Column="0"
+               Content="{lex:Loc HeaderHandleCount}"
+               AutomationProperties.AutomationId="Label34_9F96CDD5" />
+        <TextBlock Grid.Row="10"
+                   Grid.Column="1"
+                   Text="{Binding HandleCount}"
+                   AutomationProperties.AutomationId="TextBlock35_9F96CDD5" />
+    </Grid>
+</operatorMenu:OperatorMenuPage>

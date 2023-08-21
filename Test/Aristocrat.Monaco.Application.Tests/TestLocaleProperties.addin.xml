@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<Addin id="TestLocaleProperties" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Application.Tests.dll" />
+    <Import assembly="Aristocrat.Monaco.Kernel.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+  </Dependencies>
+  
+  <Extension path="/Locale/Configuration">
+    <FilePath />
+  </Extension>
+</Addin>

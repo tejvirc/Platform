@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Addin id="DacomHost" namespace="Client12Addins" version="1.0">
+
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Asp.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="Bootstrap" version="1.0" />
+    <Addin id="ApplicationRunnable" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="HardwareRunnable" version="1.0" />
+    <Addin id="Aristocrat.Monaco.Gaming" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Protocol/Runnables">
+    <ProtocolInterface type="Aristocrat.Monaco.Asp.Hosts.DacomHost" protocolId="DACOM" serverProtocolId="8" />
+    <!--<ProtocolInterface type="Aristocrat.Monaco.Asp.Hosts.Asp1000Host" protocolId="Asp1000" serverProtocolId="1" />
+        <ProtocolInterface type="Aristocrat.Monaco.Asp.Hosts.Asp2000Host" protocolId="Asp2000" serverProtocolId="2" />-->
+  </Extension>
+	
+  <Extension path="/Hardware/Service/StartupEventListener">
+	<StartupEventListenerImpl ProtocolName="DACOM" type="Aristocrat.Monaco.Asp.Hosts.CompositionRoot.StartupEventListener" />
+  </Extension>
+
+</Addin>

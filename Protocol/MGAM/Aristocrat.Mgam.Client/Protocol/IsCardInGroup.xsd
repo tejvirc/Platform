@@ -1,0 +1,57 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+  <xs:element name="IsCardInGroup">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="InstanceID">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:int">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="int" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CardString">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Reason">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GroupName">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension
+base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PIN">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="type" type="xs:string" use="required" fixed="string" />
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+      <xs:attribute name="Dir" use="optional" fixed="in" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,19 @@
+﻿<menu:HHRMenuPage x:Class="Aristocrat.Monaco.Hhr.UI.Views.HelpPageView"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:menu="clr-namespace:Aristocrat.Monaco.Hhr.UI.Menu"
+                  mc:Ignorable="d">
+    <Grid HorizontalAlignment="Center"
+          Width="1080"
+          Height="380"
+          VerticalAlignment="Top"
+          AutomationProperties.AutomationId="Grid0_C1B65093">
+        <Grid.Background>
+            <ImageBrush ImageSource="../Resources/Help/HelpBKGD.png"
+                        Stretch="None"
+                        AutomationProperties.AutomationId="ImageBrush1_C1B65093" />
+        </Grid.Background>
+    </Grid>
+</menu:HHRMenuPage>

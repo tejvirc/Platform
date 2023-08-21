@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" ?>
+<BlockFormat name="TestSchema" ElementSize="132" version="1">
+  <Fields>
+    <Field DataType="Int32" Size="4" Count="0" Offset="0" FieldName="TestInt32" />
+    <Field DataType="Int16" Size="2" Count="0" Offset="4" FieldName="TestInt16" />
+    <Field DataType="Int32" Size="1" Count="0" Offset="6" FieldName="TestInt8" />
+    <Field DataType="String" Size="10" Count="0" Offset="8" FieldName="TestString" />
+    <Field DataType="Bool" Size="1" Count="0" Offset="18" FieldName="TestBool" />
+    <Field DataType="Byte" Size="1" Count="0" Offset="19" FieldName="TestByte" />
+    <Field DataType="String" Size="20" Count="5" Offset="20" FieldName="TestStringArray" />
+    <Field DataType="Byte" Size="1" Count="12" Offset="120" FieldName="TestByteArray" />
+  </Fields>
+</BlockFormat>

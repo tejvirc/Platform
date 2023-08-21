@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Addin id="Aristocrat.Monaco.Gaming.VideoLottery" namespace="Client12Addins" version="1.0">
+  <Runtime>
+    <Import assembly="Aristocrat.Monaco.Gaming.Contracts.dll" />
+    <Import assembly="Aristocrat.Monaco.Gaming.VideoLottery.dll" />
+  </Runtime>
+
+  <Dependencies>
+    <Addin id="ApplicationRunnable" version="1.0" />
+    <Addin id="Monaco.Application" version="1.0" />
+    <Addin id="Aristocrat.Monaco.Gaming" version="1.0" />
+  </Dependencies>
+
+  <Extension path="/Application/TicketCreators">
+    <TicketCreator type="Aristocrat.Monaco.Gaming.VideoLottery.Tickets.HelplineTicketCreator" />
+  </Extension>
+</Addin>
