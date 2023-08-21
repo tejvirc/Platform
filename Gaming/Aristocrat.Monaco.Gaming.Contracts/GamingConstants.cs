@@ -1414,6 +1414,11 @@
         public const string GameRulesInstructions = @"Instructions.GameRulesInstructions";
 
         /// <summary>
+        ///     The Press Start instructions message to display
+        /// </summary>
+        public const string PressStartInstructions = @"Instructions.PressStartInstructions";
+
+        /// <summary>
         ///     Flag will control the background cycling of the RNG by the platform
         /// </summary>
         public const string UseRngCycling = @"RngCycling.Enabled";

@@ -4169,8 +4169,11 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private string gameRulesInstructionsField;
         
+        private string pressStartField;
+        
         public GamingConfigurationInstructions() {
             this.gameRulesInstructionsField = "";
+            this.pressStartField = "";
         }
         
         /// <remarks/>
@@ -4182,6 +4185,18 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.gameRulesInstructionsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string PressStart {
+            get {
+                return this.pressStartField;
+            }
+            set {
+                this.pressStartField = value;
             }
         }
     }
@@ -4722,3 +4737,4 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         }
     }
 }
+#pragma warning restore CS1591

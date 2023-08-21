@@ -41,7 +41,7 @@ as follows:
   <FreeSpin ClearWinMeter="true"/>
   <Win Destination="winAndCredit"/>
   <DisplayGamePayMessage Use="true" Format="currency"/>
-  <Instructions GameRulesInstructions="GDK_GameRulesInstructions1.1" />
+  <Instructions GameRulesInstructions="GDK_GameRulesInstructions1.1" PressStart="GDK_PressStart" />
   <WagerLimits Use="true" MaxTotalWager="250" />
   <VolumeLevel ShowInHelpScreen="false" />
   <Service Use="false" />
