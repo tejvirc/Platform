@@ -11,6 +11,7 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                                xmlns:views="clr-namespace:Aristocrat.Monaco.G2S.UI.Views"
+                               xmlns:common="http://monaco.aristocrat.com/common"
                                d:DesignHeight="600"
                                d:DesignWidth="1500"
                                dialog:DialogParticipation.Register="{Binding}"
@@ -83,14 +84,14 @@
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.Port}}"
                VerticalAlignment="Center"
                AutomationProperties.AutomationId="Label14_303FCCD8" />
-        <TextBox Grid.Row="2"
-                 Grid.Column="2"
-                 Width="200"
-                 InputScope="Number"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Left"
-                 Text="{Binding                      Port,                      Mode=TwoWay,                      NotifyOnValidationError=True,                      UpdateSourceTrigger=PropertyChanged,                      ValidatesOnDataErrors=True}"
-                 AutomationProperties.AutomationId="TextBox15_303FCCD8" />
+        <common:TouchTextBox Grid.Row="2"
+                             Grid.Column="2"
+                             Width="200"
+                             InputScope="Number"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Left"
+                             Text="{Binding Port, Mode=TwoWay, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                             AutomationProperties.AutomationId="TextBox15_303FCCD8" />
         <Border Grid.Row="4"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
@@ -130,7 +131,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=(models:Host.RequiredForPlayDisplayText), Mode=OneWay}"
-                                                   Visibility="{Binding Path=Data.IsWizardPage,                                                         Source={StaticResource Proxy},                                                         Converter={StaticResource TrueCollapsedFalseVisible}}"
+                                                   Visibility="{Binding Path=Data.IsWizardPage, Source={StaticResource Proxy}, Converter={StaticResource TrueCollapsedFalseVisible}}"
                                                    AutomationProperties.AutomationId="TextBlock23_303FCCD8" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -138,10 +139,9 @@
                             <GridViewColumn AutomationProperties.AutomationId="GridViewColumn24_303FCCD8">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button
-                                                Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationButtonEdit}}"
+                                        <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationButtonEdit}}"
                                                 VerticalAlignment="Center"
-                                                Command="{Binding Path=DataContext.EditCommand,                                                                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                                Command="{Binding Path=DataContext.EditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
                                                 CommandParameter="{Binding}"
                                                 AutomationProperties.AutomationId="Button25_303FCCD8" />
                                     </DataTemplate>
@@ -151,10 +151,9 @@
                                             AutomationProperties.AutomationId="GridViewColumn26_303FCCD8">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button
-                                                Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationButtonDelete}}"
+                                        <Button Content="{lex:Loc Key={x:Static loc:ResourceKeys.HostConfigurationButtonDelete}}"
                                                 VerticalAlignment="Center"
-                                                Command="{Binding Path=DataContext.DeleteCommand,                                                                    RelativeSource={RelativeSource FindAncestor,                                                                    AncestorType={x:Type ItemsControl}}}"
+                                                Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
                                                 CommandParameter="{Binding}"
                                                 AutomationProperties.AutomationId="Button27_303FCCD8" />
                                     </DataTemplate>

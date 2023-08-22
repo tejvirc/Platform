@@ -35,11 +35,18 @@
                 }
 
                 var window = Window.GetWindow(target);
+                if (window?.Owner != null)
+                {
+                    // Use the owner window for popups
+                    window = window.Owner;
+                }
+
                 if (window != null && window != _keyboardWindow.Owner)
                 {
+                    // Center keyboard horizontally 10px above the bottom of the owner window
                     _keyboardWindow.Owner = window;
-                    _keyboardWindow.Left = (window.Width - window.Left - _keyboardWindow.Width) / 2;
-                    _keyboardWindow.Top = window.Height - window.Top - _keyboardWindow.Height;
+                    _keyboardWindow.Left = window.Left + (window.Width - _keyboardWindow.Width) / 2;
+                    _keyboardWindow.Top = window.Height + window.Top - _keyboardWindow.Height - 10;
                 }
 
                 if (_keyboardWindow.IsVisible && target.IsFocused)
