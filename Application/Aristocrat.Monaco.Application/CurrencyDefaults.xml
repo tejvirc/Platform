@@ -481,6 +481,24 @@ as follows:
     </Formats>
   </CurrencyInfo>
   <CurrencyInfo>
+    <CurrencyCode>LSL</CurrencyCode>
+    <Name>Lesotho Loti</Name>
+    <Formats>
+      <Format id="1">
+        <Symbol>M</Symbol>
+        <MinorUnitSymbol>s</MinorUnitSymbol>
+        <PositivePattern>0</PositivePattern>
+        <GroupSeparator>,</GroupSeparator>
+        <DecimalSeparator>.</DecimalSeparator>
+        <DecimalDigits>2</DecimalDigits>
+        <MajorUnits>Lote</MajorUnits>
+        <MajorUnitsPlural>Maloti</MajorUnitsPlural>
+        <MinorUnits>Sente</MinorUnits>
+        <MinorUnitsPlural>Lisente</MinorUnitsPlural>
+      </Format>
+    </Formats>
+  </CurrencyInfo>
+  <CurrencyInfo>
     <CurrencyCode>LTL</CurrencyCode>
     <Formats>
       <Format id="1">

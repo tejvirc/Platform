@@ -145,7 +145,7 @@
             string minorUnitSymbol = "c";
             RegionInfo region = new RegionInfo(CultureInfo.CurrentCulture.Name);
             CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, CultureInfo.CurrentCulture, minorUnitSymbol);
-            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, CultureInfo.CurrentCulture, null, null, true, true, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(null, null, true, true, minorUnitSymbol);
 
             // Mock properties
             string retailerName = "Test Retailer";

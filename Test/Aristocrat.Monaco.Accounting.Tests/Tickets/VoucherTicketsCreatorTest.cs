@@ -104,7 +104,7 @@
             _os = MoqServiceManager.CreateAndAddService<IOSService>(MockBehavior.Strict, true);
             _os.Setup(mock => mock.OsImageVersion).Returns(new Version());
 
-            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(null, null, true, true, minorUnitSymbol);
         }
 
         /// <summary>

@@ -39,8 +39,7 @@
         private readonly object _setCurrencyLock = new object();
 
         private INoteAcceptor _noteAcceptor;
-        private Currencies _currencies;
-
+        private Currencies _currenciesConfigs;
 
         public CurrencyCultureProvider()
             : this(
@@ -84,8 +83,8 @@
         {
             lock (_setCurrencyLock)
             {
-                SetTicketCurrency();
                 SetCurrency();
+                SetTicketCurrency();
             }
 
             _eventBus?.Publish(new CurrencyCultureChangedEvent());
@@ -141,15 +140,15 @@
                 lock (_setCurrencyLock)
                 {
                     // get the currencies from configurations
-                    _currencies = ConfigurationUtilities.GetConfiguration(
+                    _currenciesConfigs = ConfigurationUtilities.GetConfiguration(
                         ConfigurationExtensionPath,
                         () => default(Currencies));
 
-                    if (_currencies != null)
+                    if (_currenciesConfigs != null)
                     {
                         _noteDefinitions = new Collection<NoteDefinitions>();
 
-                        var currency = _currencies.CurrencyDefinitions.Currency;
+                        var currency = _currenciesConfigs.CurrencyDefinitions.Currency;
                         {
                             var excludedDenoms = new Collection<int>();
 
@@ -210,8 +209,8 @@
                     }
                 }
 
-                // Don't need to check currency mismatch if it is No Currency
-                if (!CurrencyCultureHelper.IsNoCurrency(currencyCode) &&
+                // Don't need to check currency mismatch if it is customized Currency
+                if (!CurrencyCultureHelper.IsCustomizedCurrency(currencyCode) &&
                    _noteAcceptor?.GetSupportedNotes(currencyCode).Count == 0)
                 {
                     var foundCurrencySymbol = GetNonNeutralCultureInfos()
@@ -249,9 +248,9 @@
                 CultureInfo cultureInfo = null;
                 double currencyMultiplier = Currency.DefaultCurrencyMultiplier;
 
-                if (CurrencyCultureHelper.IsNoCurrency(currencyCode))
+                if (CurrencyCultureHelper.IsCustomizedCurrency(currencyCode))
                 {
-                    cultureInfo = SetNoCurrencyFormat(currencyCode);
+                    cultureInfo = ConfigureCustomizedCurrency(currencyCode);
                 }
 
                 if (cultureInfo == null)
@@ -276,7 +275,6 @@
                     else
                     {
                         FindCultureInfo(currencyCode, ref cultureInfo);
-                        region = new RegionInfo(cultureInfo.Name);
                     }
 
                     UpdateNoteAcceptor(currencyCode);
@@ -290,17 +288,16 @@
                     var (minorUnits, minorUnitsPlural, pluralizeMajorUnits, pluralizeMinorUnits) =
                         GetOverrideInformation(cultureInfo, currencyCode, ref minorUnitSymbol);
 
+                    region = new RegionInfo(cultureInfo.Name);
                     ConfiguredCurrency = new Currency(currencyCode, region, cultureInfo, minorUnitSymbol);
                     CurrencyExtensions.Currency = ConfiguredCurrency;
 
                     var defaultMultiplier = CurrencyExtensions.SetCultureInfo(
-                        currencyCode,
-                        cultureInfo,
-                    minorUnits,
-                    minorUnitsPlural,
-                    pluralizeMajorUnits,
-                    pluralizeMinorUnits,
-                    minorUnitSymbol);
+                        minorUnits,
+                        minorUnitsPlural,
+                        pluralizeMajorUnits,
+                        pluralizeMinorUnits,
+                        minorUnitSymbol);
 
                     currencyMultiplier =
                             _noteDefinitions != null &&
@@ -374,7 +371,7 @@
                         ? _noteDefinitions.First(a => a.Code == currencyCode).MinorUnitSymbol
                         : GetDefaultMinorUnitSymbol(currencyCode);
 
-                var selectedOverride = GetOverrideSelectionFromCurrencyDefault(valueCultureInfo, currencyCode, ref minorUnitSymbol);
+                var selectedOverride = GetOverrideSelectionFromCurrencyDefaults(valueCultureInfo, currencyCode, ref minorUnitSymbol);
 
                 var (minorUnits, minorUnitsPlural, pluralizeMajorUnits, pluralizeMinorUnits) =
                     GetOverrideInformation(wordsCultureInfo, currencyCode, ref minorUnitSymbol, selectedOverride);
@@ -429,25 +426,25 @@
 
         private CultureInfo SetNoCurrencyFormat(string currencyCode)
         {
-            var noCurrencyCulture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
-
             var currencyDesc = _properties.GetValue(ApplicationConstants.CurrencyDescription, string.Empty);
 
             int id = CurrencyCultureHelper.GetNoCurrencyFormatId(currencyDesc);
 
-            if (id >= 0)
+            if (id < 0)
             {
-                CurrencyCultureHelper.ConfigureNoCurrencyCultureFormat(id, noCurrencyCulture);
+                Logger.Error("Invalid format for selected No Currency");
+                return CultureInfo.CurrentCulture;
+            }
 
-                CurrencyExtensions.SetCultureInfo(
-                    currencyCode,
-                    noCurrencyCulture,
+            ConfiguredCurrency = new NoCurrency(id);
+            CurrencyExtensions.Currency = ConfiguredCurrency;
+
+            CurrencyExtensions.SetCultureInfo(
                     null,
                     null,
                     false,
                     false,
                     null);
-            }
 
             // No Currency is not a valid ISO currency code, so we can't set it in the BNA
             var supportedCurrencies = _noteAcceptor?.GetSupportedCurrencies();
@@ -458,11 +455,7 @@
                 UpdateNoteAcceptor(supportedCurrencies[0].ToString());
             }
 
-
-            ConfiguredCurrency = new NoCurrency(id, noCurrencyCulture);
-            CurrencyExtensions.Currency = ConfiguredCurrency;
-
-            return noCurrencyCulture;
+            return ConfiguredCurrency.Culture;
         }
 
         private void UpdateNoteAcceptor(string currencyCode)
@@ -496,8 +489,6 @@
             }
 
             var configuredCurrency = GetConfiguredCurrency(currencyCode);
-
-
             var currencyDescription = _properties.GetValue(ApplicationConstants.CurrencyDescription, string.Empty);
             if (selectedOverride == null)
             {
@@ -543,7 +534,6 @@
             minorUnits = format?.MinorUnits;
             minorUnitsPlural = format?.MinorUnitsPlural;
 
-
             if (format?.MinorUnitSymbol != null)
             {
                 minorUnitSymbol = format.MinorUnitSymbol;
@@ -554,10 +544,8 @@
             return (minorUnits, minorUnitsPlural);
         }
 
-
         private static (string minorUnits, string minorUnitsPlural, bool pluralizeMajorUnits, bool pluralizeMinorUnits)
-           SetFormatOverrides(ICurrencyOverride selectedOverride, CultureInfo cultureInfo, ref string minorUnitSymbol)
-
+           SetFormatOverrides(ICurrencyFormatOverride selectedOverride, CultureInfo cultureInfo, ref string minorUnitSymbol)
         {
             var pluralizeMajorUnits = true;
             var pluralizeMinorUnits = true;
@@ -597,7 +585,7 @@
             }
         }
 
-        private CurrencyDefaultsCurrencyInfoFormat GetOverrideSelectionFromCurrencyDefault(CultureInfo cultureInfo, string currencyCode, ref string minorUnitSymbol)
+        private CurrencyDefaultsCurrencyInfoFormat GetOverrideSelectionFromCurrencyDefaults(CultureInfo cultureInfo, string currencyCode, ref string minorUnitSymbol)
         {
             if (!string.IsNullOrEmpty(currencyCode) && _currencyDefaults.ContainsKey(currencyCode) &&
                 _currencyDefaults[currencyCode] != null)
@@ -614,7 +602,7 @@
                     SetFormatOverrides(overrides, cultureInfo, ref minorUnitSymbol);
 
                     if (configuredCurrency?.Format?.id == overrides.id ||
-                        configuredCurrency?.Format == null && MatchCulture(currencyDescription, cultureInfo))
+                        configuredCurrency?.Format == null && MatchCulture(currencyDescription, cultureInfo, currencyCode))
                     {
                         return overrides;
                     }
@@ -642,6 +630,16 @@
 
         private bool MatchCulture(string description, CultureInfo culture, string currencyCode = null)
         {
+            if (culture == null)
+            {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(description))
+            {
+                return true;
+            }
+
             if (!string.IsNullOrEmpty(currencyCode) && !string.IsNullOrEmpty(culture.Name))
             {
                 var region = new RegionInfo(culture.Name);
@@ -652,16 +650,22 @@
                 }
             }
 
-            if (string.IsNullOrEmpty(description))
-            {
-                return true;
-            }
-
             var minorSymbol = string.Empty;
 
-            _ = GetOverrideInformation(culture, currencyCode, ref minorSymbol);
+            var tempCulture = culture.Clone() as CultureInfo;
+            if (tempCulture != null)
+            {
+                GetOverrideInformation(tempCulture, currencyCode, ref minorSymbol);
+                bool match = description.Equals(tempCulture.GetFormattedDescription(currencyCode), StringComparison.InvariantCultureIgnoreCase);
 
-            return description.Equals(culture.GetFormattedDescription(currencyCode), StringComparison.InvariantCultureIgnoreCase);
+                if (match)
+                {
+                    culture = tempCulture;
+                }
+
+                return match;
+            }
+            return false;
         }
 
         private string GetDefaultMinorUnitSymbol(string currencyCode)
@@ -673,7 +677,7 @@
 
         private CurrencyDefaultsCurrencyInfoFormat GetCurrencyOverrideFormat(string currencyCode)
         {
-            var currency = _currencies?.CurrencyDefinitions.Currency;
+            var currency = _currenciesConfigs?.CurrencyDefinitions.Currency;
             if (currency != null &&
                 !currencyCode.Equals(currency.CurrencyCode, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -716,6 +720,28 @@
             }
 
             return currencies.CurrencyDefinitions?.Currency;
+        }
+
+        private CultureInfo ConfigureCustomizedCurrency(string currencyCode)
+        {
+            if (CurrencyCultureHelper.IsNoCurrency(currencyCode))
+            {
+                return SetNoCurrencyFormat(currencyCode);
+            }
+
+            var format = GetCurrencyOverrideFormat(currencyCode);
+            var config = _currencyDefaults[currencyCode];
+            ConfiguredCurrency = new CustomCurrency(currencyCode, config.Name, format);
+            CurrencyExtensions.Currency = ConfiguredCurrency;
+
+            CurrencyExtensions.SetCultureInfo(
+                null,
+                null,
+                false,
+                false,
+                null);
+
+            return ConfiguredCurrency.Culture;
         }
     }
 }

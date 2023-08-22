@@ -112,7 +112,7 @@
             RegionInfo region = new RegionInfo(cultureName);
             CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
 
-            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(null, null, true, true, minorUnitSymbol);
 
             var monitor = MoqServiceManager.CreateAndAddService<IOperatorMenuGamePlayMonitor>(MockBehavior.Strict);
             monitor.Setup(m => m.InGameRound).Returns(false);

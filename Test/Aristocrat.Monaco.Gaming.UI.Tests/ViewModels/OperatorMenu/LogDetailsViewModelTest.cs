@@ -98,7 +98,7 @@
 
             RegionInfo region = new RegionInfo(CultureInfo.CurrentCulture.Name);
             CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, CultureInfo.CurrentCulture, "c");
-            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, CultureInfo.CurrentCulture);
+            CurrencyExtensions.SetCultureInfo();
         }
 
         [TestCleanup]

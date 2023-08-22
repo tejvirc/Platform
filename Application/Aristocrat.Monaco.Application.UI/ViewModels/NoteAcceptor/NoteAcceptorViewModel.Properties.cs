@@ -112,7 +112,7 @@
 
         public string VoucherInEnabledText
         {
-            get => Localizer.For(CultureFor.Operator).GetString(_voucherInEnabledText);
+            get => !string.IsNullOrEmpty(_voucherInEnabledText) ? Localizer.For(CultureFor.Operator).GetString(_voucherInEnabledText) : string.Empty;
             set
             {
                 if (_voucherInEnabledText != value)
@@ -127,6 +127,11 @@
         {
             get
             {
+                if (string.IsNullOrEmpty(_stateTextLocalized))
+                {
+                    return string.Empty;
+                }
+
                 string fullMessage = string.Empty;
                 var splitMessages = _stateTextLocalized.Split('|');
                 if (splitMessages.Length > 1)

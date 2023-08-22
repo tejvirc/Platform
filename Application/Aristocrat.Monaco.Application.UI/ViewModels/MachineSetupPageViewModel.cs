@@ -11,6 +11,7 @@
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
     using Contracts.Currency;
+    using Contracts.Extensions;
 
     using CurrencyDefaultsCurrencyInfo = Localization.CurrencyDefaultsCurrencyInfo;
 
@@ -32,7 +33,7 @@
         {
             _serviceManager = ServiceManager.GetInstance();
             _currencyCultureProvider = currencyCultureProvider ?? throw new ArgumentNullException(nameof(currencyCultureProvider));
-            _noteAcceptor = noteAcceptor ?? throw new ArgumentNullException(nameof(noteAcceptor));
+            _noteAcceptor = noteAcceptor;
 
             if (SerialNumber.EditedValue == "0")
             {
@@ -76,6 +77,7 @@
                 if (_selectedCurrency != value)
                 {
                     _selectedCurrency = value;
+                    CurrencyExtensions.Currency = _selectedCurrency;
                     RaisePropertyChanged(nameof(SelectedCurrency));
                 }
             }

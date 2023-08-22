@@ -16,13 +16,14 @@
     using Kernel;
     using Localization;
     using log4net;
-    using Contracts.Extensions;
 
     using CurrencyDefaultsCurrencyInfo = Localization.CurrencyDefaultsCurrencyInfo;
 
     public static class CurrencyCultureHelper
     {
         private const string CurrencyDefaultXml = @".\CurrencyDefaults.xml";
+
+        private static Dictionary<string, CultureInfo> _supportedCurrencies = null;
 
         public static IDictionary<string, CurrencyDefaultsCurrencyInfo> GetCurrencyDefaults()
         {
@@ -51,6 +52,15 @@
             return defaults;
         }
 
+        public static Dictionary<string, CultureInfo> GetSupportedCurrenciesFromWindows(ILog log)
+        {
+            if (_supportedCurrencies == null)
+            {
+                _supportedCurrencies = CurrencyLoader.GetCurrenciesFromWindows(log);
+            }
+            return _supportedCurrencies;
+        }
+
         public static List<Currency> GetSupportedCurrencies(string defaultCurrencyCode,
             IDictionary<string, CurrencyDefaultsCurrencyInfo> currencyDefaultFormats,
             ILog logger,
@@ -60,14 +70,15 @@
             Dictionary<string, List<int>> currencyFormats = new();
 
             var set = new List<Currency>();
-            
+
             // Get supported currencies from Windows system
-            var currencies = CurrencyLoader.GetCurrenciesFromWindows(logger);
-            foreach(var currencyInfo in currencies)
+            var currencies = GetSupportedCurrenciesFromWindows(logger);
+            foreach (var currencyInfo in currencies)
             {
-                if (!Enum.IsDefined(typeof(ISOCurrencyCode), currencyInfo.Key.ToUpper()))
+                if (!Enum.IsDefined(typeof(ISOCurrencyCode), currencyInfo.Key.ToUpper()) ||
+                    !IsValidCurrency(noteAcceptor, currencyInfo.Key))
                 {
-                    // not a supported currency code
+                    // not a Monaco supported currency code
                     continue;
                 }
 
@@ -127,11 +138,33 @@
                 set.Add(currency);
             }
 
-            
+            // Add the currencies configured in CurrencyDefaults.xml, but not specified in the window cultures
+            var nonSupportedCurrencies = currencyDefaultFormats.Where(c => !currencies.ContainsKey(c.Key));
+            foreach (var nonSupportedCurrency in nonSupportedCurrencies)
+            {
+                if (!IsValidCurrency(noteAcceptor, nonSupportedCurrency.Key))
+                {
+                    continue;
+                }
+
+                var currencyDef = nonSupportedCurrency.Value;
+                if (string.IsNullOrWhiteSpace(currencyDef.Name))
+                {
+                    logger.Debug($"The unsupported currency '{nonSupportedCurrency.Key}' doesn't have Name specified");
+                    continue;
+                }
+
+                var formats = currencyDef.Formats;
+                foreach (var format in formats)
+                {
+                    set.Add(new CustomCurrency(currencyDef.CurrencyCode, currencyDef.Name, format));
+                }
+            }
+
             return set;
         }
 
-        public static void OverrideCultureInfoProperties(ICurrencyOverride overrides, CultureInfo cultureInfo)
+        public static void OverrideCultureInfoProperties(ICurrencyFormatOverride overrides, CultureInfo cultureInfo)
         {
             if (overrides?.DecimalDigitsSpecified ?? false)
             {
@@ -181,25 +214,11 @@
             // go through No Currency format options and apply it to the culture info for each no currency
             foreach (var currencyDef in NoCurrencyOptions.Options)
             {
-                CultureInfo currencyCulture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
-                ConfigureNoCurrencyCultureFormat(currencyDef.Id, currencyCulture);
-
-                NoCurrency noSymbolCurrency = new NoCurrency(currencyDef.Id, currencyCulture);
+                NoCurrency noSymbolCurrency = new NoCurrency(currencyDef.Id);
                 noCurrencies.Add(noSymbolCurrency);
             }
 
             return noCurrencies;
-        }
-
-        /// <summary>
-        /// Configure the currency format in the culture info for No Currency
-        /// </summary>
-        /// <param name="id">format id</param>
-        /// <param name="currencyCulture">Currency culture</param>
-        public static void ConfigureNoCurrencyCultureFormat(int id, CultureInfo currencyCulture)
-        {
-            var format = NoCurrencyOptions.Get(id);
-            currencyCulture.ApplyNoCurrencyFormat(format);
         }
 
         /// <summary>
@@ -228,6 +247,27 @@
             }
 
             return currencyCode.Equals(NoCurrency.NoCurrencyCode, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public static bool IsCustomizedCurrency(string currencyCode)
+        {
+            if (string.IsNullOrWhiteSpace(currencyCode))
+            {
+                return false;
+            }
+
+            // If the currency is not specified in windows culture, then it must be specified in the CurrencyDefaults configurations
+            return !GetSupportedCurrenciesFromWindows(null).ContainsKey(currencyCode);
+        }
+
+        private static bool IsValidCurrency(INoteAcceptor noteAcceptor, string currencyCode)
+        {
+            if (noteAcceptor == null)
+            {
+                return true;
+            }
+
+            return noteAcceptor.GetSupportedNotes(currencyCode).Count > 0;
         }
     }
 }

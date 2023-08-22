@@ -7,20 +7,24 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CurrencyCode" type="xs:string" />
+              <xs:element name="Name" type="xs:string" />
+              <xs:element name="DisplayName" type="xs:string" />
               <xs:element name="Formats">
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element maxOccurs="unbounded" name="Format">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="PositivePattern" minOccurs="0"  type="xs:int" />
-                          <xs:element name="NegativePattern" minOccurs="0"  type="xs:int" />
+                          <xs:element name="PositivePattern" minOccurs="0" type="xs:int" />
+                          <xs:element name="NegativePattern" minOccurs="0" type="xs:int" />
                           <xs:element name="DecimalSeparator" type="xs:string" />
                           <xs:element name="GroupSeparator" type="xs:string" />
+                          <xs:element name="Symbol" type="xs:string" />
+                          <xs:element name="MajorUnits" minOccurs="0" type="xs:string" />
+                          <xs:element name="MajorUnitsPlural" minOccurs="0" type="xs:string" />
                           <xs:element name="MinorUnits" type="xs:string" />
                           <xs:element name="MinorUnitsPlural" type="xs:string" />
                           <xs:element name="MinorUnitSymbol" type="xs:string" />
-                          <xs:element name="Symbol" type="xs:string" />
                           <xs:element name="DecimalDigits" minOccurs="0"  type="xs:int" />
                           <xs:element minOccurs="0" name="Multiplier" type="xs:int" />
                         </xs:sequence>

@@ -23,7 +23,7 @@
             var region = new RegionInfo(cultureName);
             CurrencyExtensions.Currency = new Currency.Currency(currencyCode, region, culture, minorUnitSymbol);
 
-            CurrencyExtensions.SetCultureInfo(currencyCode, culture);
+            CurrencyExtensions.SetCultureInfo();
             Assert.AreEqual(Convert.ToDecimal(expectedResult), millicents.MillicentsToDollars());
         }
 
@@ -43,7 +43,7 @@
             var region = new RegionInfo(cultureName);
             CurrencyExtensions.Currency = new Currency.Currency(currencyCode, region, culture, minorUnitSymbol);
 
-            CurrencyExtensions.SetCultureInfo(currencyCode, culture);
+            CurrencyExtensions.SetCultureInfo();
             Assert.AreEqual(Convert.ToDecimal(expectedResult), millicents.CentsToDollars());
         }
 
@@ -63,7 +63,7 @@
             var region = new RegionInfo(cultureName);
             CurrencyExtensions.Currency = new Currency.Currency(currencyCode, region, culture, minorUnitSymbol);
 
-            CurrencyExtensions.SetCultureInfo(currencyCode, culture);
+            CurrencyExtensions.SetCultureInfo();
             Assert.AreEqual(expectedResult, millicents.MillicentsToCents());
         }
     }
