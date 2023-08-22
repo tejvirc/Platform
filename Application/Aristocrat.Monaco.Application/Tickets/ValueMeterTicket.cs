@@ -65,7 +65,7 @@
                 var meter = m.Item1;
                 var meterValue = UseMasterValues ? meter.Lifetime : meter.Period;
 
-                var valueString = meter.Classification.CreateValueString(meterValue);
+                var valueString = meter.Classification.CreateValueString(meterValue, TicketLocalizer.CurrentCulture);
                 valueString = Regex.Replace(valueString, @"[^\u0000-\u007F]+", " ");
 
                 AddLine(m.Item2, null, valueString);
