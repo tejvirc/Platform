@@ -33,7 +33,7 @@
                                 AutomationProperties.AutomationId="StackPanel2_904B58E1">
                         <TextBlock
                                 Text="{Binding Item1, Converter={StaticResource LocalizedTextCaseConverter}, ConverterParameter=Upper}"
-                                   Width="350"
+                                   Width="375"
                                    FontWeight="Bold"
                                    Foreground="{StaticResource Brush3}"
                                    Style="{StaticResource MonacoTextBlock}"
