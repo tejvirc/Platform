@@ -9,6 +9,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Contracts;
     using Contracts.Communicator;
     using Contracts.Gds;
     using Contracts.Gds.CardReader;
@@ -17,6 +18,8 @@
     using log4net;
 
     /// <summary>An USB communicator class</summary>
+    [HardwareDevice("GDS", DeviceType.NoteAcceptor)]
+    [HardwareDevice("GDS", DeviceType.Printer)]
     public class UsbCommunicator :
         IDfuDriver,
         IGdsCommunicator
