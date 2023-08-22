@@ -386,14 +386,14 @@
             if (fakeCardReaderEvent.Action)
             {
                 IdReaderTrack = IdReaderTracks.Track1;
-                OnIdPresented();
+                Inserted = true;
                 OnIdValidationRequested(
                     new ValidationEventArgs { TrackData = new TrackData { Track1 = fakeCardReaderEvent.CardValue } });
             }
             else
             {
                 IdReaderTrack = IdReaderTracks.None;
-                OnIdCleared();
+                Inserted = false;
             }
 
             Logger.Debug($"Fake Card Reader: {fakeCardData};");

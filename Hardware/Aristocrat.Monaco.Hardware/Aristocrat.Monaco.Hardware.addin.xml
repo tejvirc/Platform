@@ -49,10 +49,6 @@
     </IOConfiguration>
   </Extension>
 
-  <Extension path="/Hardware/Services">
-    <Service type="Aristocrat.Monaco.Hardware.Services.IdReaderProvider" />
-  </Extension>
-
   <Extension path="/Kernel/CommandLineArguments">
     <CommandLineArgument Name="audioDeviceOptional">
       <ArgumentValue ValidValue="false"
@@ -69,10 +65,6 @@
       <ArgumentValue ValidValue="true"
                      Description="The system is not required to have a serial touch device if expected by the cabinet configuration." />
     </CommandLineArgument>
-  </Extension>
-
-  <Extension path="/Hardware/IdReader">
-    <IdReaderProvider type="Aristocrat.Monaco.Hardware.Services.IdReaderProvider" />
   </Extension>
 
   <Extension path="/Hardware/ReelController">
@@ -97,11 +89,6 @@
   <!--Must implement IPrinter-->
   <ExtensionPoint path="/Hardware/Printer">
     <ExtensionNode name="PrinterService" />
-  </ExtensionPoint>
-
-  <!--Must implement IIdReaderProvider-->
-  <ExtensionPoint path="/Hardware/IdReader">
-    <ExtensionNode name="IdReaderProvider" />
   </ExtensionPoint>
 
   <ExtensionPoint path="/Hardware/ReelController">
