@@ -27,12 +27,11 @@
         private Currency _selectedCurrency;
         private List<Currency> _currencies;
 
-        public MachineSetupPageViewModel(CurrencyCultureProvider currencyCultureProvider, INoteAcceptor noteAcceptor)
+        public MachineSetupPageViewModel(CurrencyCultureProvider currencyCultureProvider)
             : base(true)
         {
             _serviceManager = ServiceManager.GetInstance();
             _currencyCultureProvider = currencyCultureProvider ?? throw new ArgumentNullException(nameof(currencyCultureProvider));
-            _noteAcceptor = noteAcceptor ?? throw new ArgumentNullException(nameof(noteAcceptor));
 
             if (SerialNumber.EditedValue == "0")
             {
@@ -99,7 +98,8 @@
         public bool CurrencyChangeAllowed { get; }
 
         protected override void Loaded()
-        { 
+        {
+            _noteAcceptor = _serviceManager.TryGetService<INoteAcceptor>();
             _currencies = new List<Currency>();
             var currencyCode = PropertiesManager.GetValue(
                 ApplicationConstants.CurrencyId,

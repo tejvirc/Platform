@@ -31,7 +31,7 @@
             var localization = serviceManager.GetService<ILocalization>();
             var currencyProvider = localization.GetProvider(CultureFor.Currency) as CurrencyCultureProvider;
             
-            return new MachineSetupPageViewModel(currencyProvider, serviceManager.TryGetService<INoteAcceptor>());
+            return new MachineSetupPageViewModel(currencyProvider);
         }
 
         public override bool GetVisible()
