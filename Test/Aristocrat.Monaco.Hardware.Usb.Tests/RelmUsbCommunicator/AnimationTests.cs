@@ -63,7 +63,7 @@
             SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
+                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
             var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object);
@@ -81,7 +81,7 @@
             SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
+                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
             var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object);
@@ -98,7 +98,7 @@
         {
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(new StoredFile(string.Empty, AnimationId, FileLength)));
+                .Returns(Task.FromResult(new StoredFile(string.Empty, AnimationId, FileLength, true)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
             var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object);
@@ -116,7 +116,7 @@
             SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(new StoredFile(string.Empty, AnimationId, FileLength)));
+                .Returns(Task.FromResult(new StoredFile(string.Empty, AnimationId, FileLength, true)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
             var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object);
@@ -134,7 +134,7 @@
         {
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
+                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<StopLightShowAnimation>(), default))
                 .Returns(Task.FromResult(controllerResult));
             var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object);
@@ -153,7 +153,7 @@
         {
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
+                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<StopAllAnimationTags>(), default))
                 .Returns(Task.FromResult(controllerResult));
             var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object);
@@ -181,7 +181,7 @@
             SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
+                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareLightShowAnimations>(), default))
                 .Returns(Task.FromResult(true));
 
@@ -202,7 +202,7 @@
             SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
+                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareLightShowAnimations>(), default))
                 .Returns(Task.FromResult(controllerResult));
 
@@ -220,7 +220,7 @@
             SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
+                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareStepperCurves>(), default))
                 .Returns(Task.FromResult(true));
 
@@ -241,7 +241,7 @@
             SetupMocks();
             var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
             driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength)));
+                .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
             driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareStepperCurves>(), default))
                 .Returns(Task.FromResult(controllerResult));
 
