@@ -129,7 +129,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.26" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.1.0" />
     <PackageReference Include="Aristocrat.Fmod" Version="1.1.3" />
     <PackageReference Include="Aristocrat.SmartCard" Version="1.1.2" />
     <PackageReference Include="Aristocrat.System.Data.SQLite.Core" Version="1.0.110" />

@@ -172,7 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.GdkRuntime.Snapp" Version="0.1.32" />
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.26" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.1.0" />
     <PackageReference Include="Google.Protobuf" Version="3.22.1" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Mono.Addins" Version="1.0.0" />
