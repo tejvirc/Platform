@@ -271,7 +271,9 @@
                 { GamingConstants.PlayerInformationDisplay.PlayerInformationScreenEnabled, (playerInformationDisplayOptions?.PlayerInformationScreen?.Enabled ?? false, false) },
                 { GamingConstants.UseRngCycling, (configuration.RngCycling?.Enabled ?? false, false) },
                 { GamingConstants.ShowPlayerSpeedButtonEnabled, (configuration.ShowPlayerSpeedButton?.Enabled ?? true, false) },
-                { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) }
+                { GamingConstants.LaunchGameAfterReboot, (InitFromStorage(GamingConstants.LaunchGameAfterReboot), true) },
+                { GamingConstants.SelectedGameInLobby, (0, false) },
+                { GamingConstants.SelecteDenomInLobby , (0L, false) },
             };
 
             if (!blockExists)

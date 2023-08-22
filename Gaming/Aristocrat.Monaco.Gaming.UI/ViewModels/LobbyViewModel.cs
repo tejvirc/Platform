@@ -3848,6 +3848,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 {
                     _selectedGame.IncrementSelectedDenomination();
                 }
+                _properties.SetProperty(GamingConstants.SelectedGameInLobby, _selectedGame.GameId);
+                _properties.SetProperty(GamingConstants.SelecteDenomInLobby, _selectedGame.Denomination);
             }
         }
 

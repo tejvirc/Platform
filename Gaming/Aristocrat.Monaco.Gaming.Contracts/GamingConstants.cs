@@ -1144,6 +1144,16 @@
         public const string LaunchGameAfterReboot = @"GamePlay.LaunchGameAfterReboot";
 
         /// <summary>
+        ///     The currently selected game in Lobby
+        /// </summary>
+        public const string SelectedGameInLobby = @"GamePlay.SelectedGameInLobby";
+
+        /// <summary>
+        ///     The currently selected denom in Lobby
+        /// </summary>
+        public const string SelecteDenomInLobby = @"GamePlay.SelecteDenomInLobby";
+
+        /// <summary>
         ///     encapsulate Player Information Display options
         /// </summary>
         public static class PlayerInformationDisplay

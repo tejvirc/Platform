@@ -80,9 +80,7 @@
                               x.Equals(ApplicationConstants.LiveAuthenticationDisableKey)));
                 }
 
-                var isGameRunning = (bool)_propertiesManager.GetProperty(GamingConstants.IsGameRunning, false);
-
-                if ((!_disableManager.IsDisabled || disableIsOnlyHandpay) && isGameRunning
+                if ((!_disableManager.IsDisabled || disableIsOnlyHandpay) 
                     && !_fundsTransferDisable.TransferOnDisabledOverlay)
                 {
                     Task.Run(() => _bonus.AwardLegacyBonus(data.BonusAmount.AccountingCreditsToCents(data.AccountingDenom), data.TaxStatus));

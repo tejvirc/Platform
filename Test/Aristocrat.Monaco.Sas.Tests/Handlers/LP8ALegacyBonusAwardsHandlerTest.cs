@@ -115,7 +115,7 @@
             var transactions = new List<HandpayTransaction>();
             _transactionHistory.Setup(m => m.RecallTransactions<HandpayTransaction>()).Returns(transactions);
 
-            var expected = new LongPollReadSingleValueResponse<byte>(RespondBusy);
+            var expected = new LongPollReadSingleValueResponse<byte>(RespondAck);
 
             var actual = _target.Handle(_data);
 

@@ -79,6 +79,12 @@
             var gameId = _properties.GetValue(GamingConstants.SelectedGameId, 0);
             var denom = _properties.GetValue(GamingConstants.SelectedDenom, 0L);
 
+            if (gameId == 0 || denom == 0L)
+            {
+                gameId = _properties.GetValue(GamingConstants.SelectedGameInLobby, 0);
+                denom = _properties.GetValue(GamingConstants.SelecteDenomInLobby, 0L);
+            }
+
             var bonus = new BonusTransaction(
                 deviceId,
                 DateTime.UtcNow,

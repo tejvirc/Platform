@@ -50,7 +50,8 @@ namespace Aristocrat.Monaco.Gaming.Tests.Bonus.Strategies
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.SelectedGameId, It.IsAny<object>())).Returns(0);
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.SelectedDenom, It.IsAny<object>())).Returns(0L);
-
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.SelectedGameInLobby, It.IsAny<object>())).Returns(1);
+            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.SelecteDenomInLobby, It.IsAny<object>())).Returns(1L);
             _gamePlayState = new Mock<IGamePlayState>(MockBehavior.Strict);
 
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
@@ -83,7 +84,7 @@ namespace Aristocrat.Monaco.Gaming.Tests.Bonus.Strategies
             var request = GetBonusRequest();
 
             var tx = CreateTransactionCore(request, _standard, false, false);
-            Assert.AreEqual(tx.Exception, (int)BonusException.Failed);
+            Assert.AreEqual(tx.Exception, (int)BonusException.None);
 
             tx = CreateTransactionCore(request, _standard, true, true);
             Assert.AreEqual(tx.Exception, (int)BonusException.None);
@@ -92,7 +93,7 @@ namespace Aristocrat.Monaco.Gaming.Tests.Bonus.Strategies
             Assert.AreEqual(tx.Exception, (int)BonusException.None);
 
             tx = CreateTransactionCore(request, _standard, true, false);
-            Assert.AreEqual(tx.Exception, (int)BonusException.Failed);
+            Assert.AreEqual(tx.Exception, (int)BonusException.None);
 
             StandardBonus GetBonusRequest() => new StandardBonus(string.Empty, 0, 0, 0, PayMethod.Any);
         }

@@ -55,7 +55,7 @@
             {
                 var transaction = ToTransaction(deviceId, request);
 
-                if (!_properties.GetValue(GamingConstants.IsGameRunning, false))
+                if (transaction.GameId == 0 || transaction.Denom == 0L)
                 {
                     Failed(transaction, BonusException.Failed);
                 }
