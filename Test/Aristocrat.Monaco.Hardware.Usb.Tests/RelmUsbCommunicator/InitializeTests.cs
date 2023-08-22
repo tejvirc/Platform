@@ -27,8 +27,8 @@
         {
             _driver.Setup(x => x.IsOpen).Returns(true);
             _driver.Setup(x => x.Configuration).Returns(new DeviceConfiguration());
-            _driver.Setup(x => x.SendQueryAsync<DeviceConfiguration>(default)).ReturnsAsync(new RelmResponse<DeviceConfiguration>(true, new DeviceConfiguration()));
-            _driver.Setup(x => x.SendQueryAsync<FirmwareSize>(default)).ReturnsAsync(new RelmResponse<FirmwareSize>(true, new FirmwareSize()));
+            _driver.Setup(x => x.SendQueryAsync<DeviceConfiguration>(default)).ReturnsAsync(new DeviceConfiguration());
+            _driver.Setup(x => x.SendQueryAsync<FirmwareSize>(default)).ReturnsAsync(new FirmwareSize());
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoNotResetRelmController, It.IsAny<bool>())).Returns(false);
@@ -49,26 +49,7 @@
             var usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object);
             usbCommunicator.LightStatusReceived += delegate { lightStatusesReceived = true; };
             usbCommunicator.ReelStatusReceived += delegate { reelStatusesReceived = true; };
-
-            _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(new RelmResponse<DeviceStatuses>(true, new DeviceStatuses()
-            {
-                LightStatuses = Enumerable
-                    .Range(0, 6)
-                    .Select(x => new DeviceStatus<LightStatus>()
-                    {
-                        Id = (byte)x,
-                        Status = LightStatus.Functioning
-                    })
-                    .ToArray(),
-                ReelStatuses = Enumerable
-                    .Range(0, 5)
-                    .Select(x => new DeviceStatus<ReelStatus>()
-                    {
-                        Id = (byte)x,
-                        Status = ReelStatus.Idle
-                    })
-                    .ToArray()
-            }));
+            _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(new DeviceStatuses());
 
             await usbCommunicator.Initialize();
 
@@ -97,7 +78,7 @@
 
             var usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object);
             usbCommunicator.LightStatusReceived += delegate (object _, LightEventArgs e) { actualLightStatuses = e.Statuses.ToList(); };
-            _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(new RelmResponse<DeviceStatuses>(true, expectedDeviceStatuses));
+            _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(expectedDeviceStatuses);
 
             await usbCommunicator.Initialize();
 
@@ -150,7 +131,7 @@
 
             var usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object);
             usbCommunicator.ReelStatusReceived += delegate(object _, ReelStatusReceivedEventArgs e) { actualReelStatuses = e.Statuses.ToList(); };
-            _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(new RelmResponse<DeviceStatuses>(true, expectedDeviceStatuses));
+            _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(expectedDeviceStatuses);
 
             await usbCommunicator.Initialize();
 

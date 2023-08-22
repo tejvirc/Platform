@@ -223,20 +223,15 @@
             _relmCommunicator.PingTimeoutCleared += OnPingTimeoutCleared;
 
             await _relmCommunicator?.SendQueryAsync<RelmVersionInfo>()!;
-            var (success, configuration) = await _relmCommunicator?.SendQueryAsync<DeviceConfiguration>()!;
-            if (success)
-            {
-                Logger.Debug($"Reel controller connected with {configuration!.NumReels} reel and {configuration.NumLights} lights. {configuration}");
-            }
+            var configuration = await _relmCommunicator?.SendQueryAsync<DeviceConfiguration>()!;
 
-            var (firmwareSuccess, firmwareSize) = await _relmCommunicator?.SendQueryAsync<FirmwareSize>()!;
-            if (firmwareSuccess)
-            {
-                _firmwareSize = firmwareSize!.Size;
-                Logger.Debug($"Reel controller firmware size is {_firmwareSize}");
-            }
+            Logger.Debug($"Reel controller connected with {configuration.NumReels} reel and {configuration.NumLights} lights. {configuration}");
 
-            await RequestDeviceStatuses();
+            var firmwareSize = await _relmCommunicator?.SendQueryAsync<FirmwareSize>()!;
+            _firmwareSize = firmwareSize.Size;
+            Logger.Debug($"Reel controller firmware size is {_firmwareSize}");
+
+            RequestDeviceStatuses().FireAndForget();
         }
 
         /// <inheritdoc />
@@ -700,25 +695,14 @@
                 return;
             }
 
-            var (success, deviceStatuses) = await _relmCommunicator.SendQueryAsync<DeviceStatuses>();
-            if (!success)
-            {
-                return;
-            }
+            var deviceStatuses = await _relmCommunicator.SendQueryAsync<DeviceStatuses>();
+            var reelStatuses = deviceStatuses.ReelStatuses.Select(x => x.ToReelStatus());
+            var lightStatuses = deviceStatuses.LightStatuses.Select(x => x.ToLightStatus());
 
-            if (deviceStatuses!.ReelStatuses.Any())
-            {
-                var reelStatuses = deviceStatuses!.ReelStatuses.Select(x => x.ToReelStatus());
-                ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(reelStatuses));
-            }
-
-            if (deviceStatuses.LightStatuses.Any())
-            {
-                var lightStatuses = deviceStatuses.LightStatuses.Select(x => x.ToLightStatus());
-                LightStatusReceived?.Invoke(this, new LightEventArgs(lightStatuses));
-            }
+            LightStatusReceived?.Invoke(this, new LightEventArgs(lightStatuses));
+            ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(reelStatuses));
         }
-
+        
         /// <inheritdoc/>
         public Task<bool> PrepareStepperRule(StepperRuleData ruleData, CancellationToken token = default)
         {

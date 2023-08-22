@@ -1,10 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.Tests.RelmUsbCommunicator
 {
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Aristocrat.Monaco.Test.Common;
-    using Aristocrat.RelmReels.Communicator;
     using Contracts;
     using Contracts.Reel;
     using Contracts.Reel.ControlData;
@@ -30,7 +28,7 @@
         private const string Tag = "ALL";
         private readonly Mock<RelmReels.Communicator.IRelmCommunicator> _driver = new();
         private readonly AnimationFile _testLightShowFile = new("anim.lightshow", AnimationType.PlatformLightShow, AnimationName);
-        private readonly StoredFile _storedFile = new("", 12345, 1, true);
+        private readonly StoredFile _storedFile = new("", 12345, 1);
         private readonly LightShowData _lightShowData = new(3, AnimationName, Tag, ReelConstants.RepeatOnce, -1);
         private readonly AnimationFile _testStepperCurveFile = new("anim.stepper", AnimationType.PlatformStepperCurve, AnimationName);
         private readonly ReelCurveData _curveData = new(3, AnimationName);
@@ -43,27 +41,9 @@
         {
             _driver.Setup(x => x.IsOpen).Returns(true);
             _driver.Setup(x => x.Configuration).Returns(new DeviceConfiguration());
-            _driver.Setup(x => x.SendQueryAsync<DeviceConfiguration>(default)).ReturnsAsync(new RelmResponse<DeviceConfiguration>(true, new DeviceConfiguration()));
-            _driver.Setup(x => x.SendQueryAsync<FirmwareSize>(default)).ReturnsAsync(new RelmResponse<FirmwareSize>(true, new FirmwareSize()));
-            _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(new RelmResponse<DeviceStatuses>(true, new DeviceStatuses()
-            {
-                LightStatuses = Enumerable
-                    .Range(0, 6)
-                    .Select(x => new DeviceStatus<RelmReels.Messages.LightStatus>()
-                    {
-                        Id = (byte)x,
-                        Status = RelmReels.Messages.LightStatus.Functioning
-                    })
-                    .ToArray(),
-                ReelStatuses = Enumerable
-                    .Range(0, 5)
-                    .Select(x => new DeviceStatus<RelmReels.Messages.ReelStatus>()
-                    {
-                        Id = (byte)x,
-                        Status = RelmReels.Messages.ReelStatus.Idle
-                    })
-                    .ToArray()
-            }));
+            _driver.Setup(x => x.SendQueryAsync<DeviceConfiguration>(default)).ReturnsAsync(new DeviceConfiguration());
+            _driver.Setup(x => x.SendQueryAsync<FirmwareSize>(default)).ReturnsAsync(new FirmwareSize());
+            _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(new DeviceStatuses());
             _driver.Setup(x => x.Download(_testStepperCurveFile.Path, BitmapVerification.CRC32, It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_storedFile));
             _driver.Setup(x => x.Download(_testLightShowFile.Path, BitmapVerification.CRC32, It.IsAny<CancellationToken>()))
