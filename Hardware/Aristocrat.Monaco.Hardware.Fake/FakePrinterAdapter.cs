@@ -192,7 +192,7 @@
         public Task<bool> Reconnect()
         {
             IsConnected = true;
-            Logger.Info("Enabled fake printer adapter");
+            Logger.Info("Reconnected fake printer adapter");
             OnEnabled(EventArgs.Empty);
             return Task.FromResult(true);
         }

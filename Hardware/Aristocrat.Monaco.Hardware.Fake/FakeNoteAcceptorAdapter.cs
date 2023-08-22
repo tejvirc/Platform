@@ -120,7 +120,10 @@
                 {
                     var note = new Note
                     {
-                        NoteId = noteId++, Value = value, ISOCurrencySymbol = currency.Key, Version = 1
+                        NoteId = noteId++,
+                        Value = value,
+                        ISOCurrencySymbol = currency.Key,
+                        Version = 1
                     };
 
                     _noteTable[note.NoteId] = note;
@@ -232,7 +235,7 @@
             Detach();
             Open();
             IsConnected = true;
-            Logger.Info("Enabled fake note acceptor adapter");
+            Logger.Info("Reconnected fake note acceptor adapter");
             OnConnected();
             return Task.FromResult(true);
         }

@@ -16,7 +16,6 @@
     public class FakeIdReaderAdapter : IIdReaderImplementation
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private static readonly TimeSpan LightingDelay = TimeSpan.FromMilliseconds(50);
         private readonly UnsupportedCommands _unsupported = UnsupportedCommands.None;
         private readonly IEventBus _eventBus;
         private readonly bool _isPhysical = true;
@@ -54,22 +53,23 @@
         public TrackData TrackData { get; set; }
 
         /// <inheritdoc />
-        public IdReaderTypes IdReaderType { get; set; }
+        public IdReaderTypes IdReaderType { get; set; } = IdReaderTypes.MagneticCard;
 
         /// <inheritdoc />
-        public IdReaderTypes SupportedTypes { get; }
-
+        public virtual IdReaderTypes SupportedTypes { get; protected set; } = IdReaderTypes.MagneticCard | IdReaderTypes.SmartCard;
         /// <inheritdoc />
         public IdReaderTracks IdReaderTrack { get; set; }
 
         /// <inheritdoc />
-        public IdReaderTracks SupportedTracks { get; }
+        public IdReaderTracks SupportedTracks =>
+            IdReaderTracks.Track1 | IdReaderTracks.Track2 |
+            IdReaderTracks.Track3 | IdReaderTracks.Icc;
 
         /// <inheritdoc />
         public IdValidationMethods ValidationMethod { get; set; }
 
         /// <inheritdoc />
-        public IdValidationMethods SupportedValidation { get; }
+        public IdValidationMethods SupportedValidation => IdValidationMethods.Host | IdValidationMethods.Self;
 
         /// <inheritdoc />
         /// <summary>Gets a value indicating whether a card is inserted.</summary>
@@ -261,7 +261,8 @@
         /// <inheritdoc />
         public Task<bool> Enable()
         {
-            Logger.Info("Enabled fake Id Reader adapter");
+            IsEnabled = true;
+            Logger.Info("Enabled Fake Id Reader adapter");
             OnEnabled(EventArgs.Empty);
             return Task.FromResult(true);
         }
@@ -269,6 +270,7 @@
         /// <inheritdoc />
         public Task<bool> Disable()
         {
+            IsEnabled = false;
             Logger.Warn("Disabled Fake Id Reader adapter.");
             OnDisable(EventArgs.Empty);
             return Task.FromResult(true);
@@ -330,7 +332,7 @@
         public Task<bool> Reconnect()
         {
             IsConnected = true;
-            Logger.Info("Enabled fake Id reader adapter");
+            Logger.Info("Connected fake Id reader adapter");
             OnEnabled(EventArgs.Empty);
             return Task.FromResult(true);
         }
