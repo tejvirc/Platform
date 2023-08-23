@@ -1,0 +1,668 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class TrackableObservableValidator
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class TrackableObservableValidator
+   ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator">
+  <h1 id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator">Class TrackableObservableValidator
+  </h1>
+  <div class="markdown level0 summary"><p>Base class for view models that maintain &quot;dirty&quot; state (commit) and/or require validation</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
+    <div class="level1"><a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject">ObservableObject</a></div>
+    <div class="level2"><a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html">ObservableValidator</a></div>
+    <div class="level3"><span class="xref">TrackableObservableValidator</span></div>
+  </div>
+  
+      <div class="level4"><a class="xref" href="../application/Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html">OperatorMenuPageViewModelBase</a></div>
+  
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_Error">ObservableValidator.Error</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_Item_System_String_">ObservableValidator.Item[String]</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_HasErrors">ObservableValidator.HasErrors</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_SetProperty__1___0____0_System_Boolean_System_String_">ObservableValidator.SetProperty&lt;T&gt;(T, T, Boolean, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_SetProperty__1___0____0_System_Collections_Generic_IEqualityComparer___0__System_Boolean_System_String_">ObservableValidator.SetProperty&lt;T&gt;(T, T, IEqualityComparer&lt;T&gt;, Boolean, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_SetProperty__1___0___0_System_Action___0__System_Boolean_System_String_">ObservableValidator.SetProperty&lt;T&gt;(T, T, Action&lt;T&gt;, Boolean, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_SetProperty__1___0___0_System_Collections_Generic_IEqualityComparer___0__System_Action___0__System_Boolean_System_String_">ObservableValidator.SetProperty&lt;T&gt;(T, T, IEqualityComparer&lt;T&gt;, Action&lt;T&gt;, Boolean, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_SetProperty__2___1___1___0_System_Action___0___1__System_Boolean_System_String_">ObservableValidator.SetProperty&lt;TModel, T&gt;(T, T, TModel, Action&lt;TModel, T&gt;, Boolean, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_SetProperty__2___1___1_System_Collections_Generic_IEqualityComparer___1____0_System_Action___0___1__System_Boolean_System_String_">ObservableValidator.SetProperty&lt;TModel, T&gt;(T, T, IEqualityComparer&lt;T&gt;, TModel, Action&lt;TModel, T&gt;, Boolean, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_TrySetProperty__1___0____0_System_Collections_Generic_IReadOnlyCollection_System_ComponentModel_DataAnnotations_ValidationResult___System_String_">ObservableValidator.TrySetProperty&lt;T&gt;(T, T, IReadOnlyCollection&lt;ValidationResult&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_TrySetProperty__1___0____0_System_Collections_Generic_IEqualityComparer___0__System_Collections_Generic_IReadOnlyCollection_System_ComponentModel_DataAnnotations_ValidationResult___System_String_">ObservableValidator.TrySetProperty&lt;T&gt;(T, T, IEqualityComparer&lt;T&gt;, IReadOnlyCollection&lt;ValidationResult&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_TrySetProperty__1___0___0_System_Action___0__System_Collections_Generic_IReadOnlyCollection_System_ComponentModel_DataAnnotations_ValidationResult___System_String_">ObservableValidator.TrySetProperty&lt;T&gt;(T, T, Action&lt;T&gt;, IReadOnlyCollection&lt;ValidationResult&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_TrySetProperty__1___0___0_System_Collections_Generic_IEqualityComparer___0__System_Action___0__System_Collections_Generic_IReadOnlyCollection_System_ComponentModel_DataAnnotations_ValidationResult___System_String_">ObservableValidator.TrySetProperty&lt;T&gt;(T, T, IEqualityComparer&lt;T&gt;, Action&lt;T&gt;, IReadOnlyCollection&lt;ValidationResult&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_TrySetProperty__2___1___1___0_System_Action___0___1__System_Collections_Generic_IReadOnlyCollection_System_ComponentModel_DataAnnotations_ValidationResult___System_String_">ObservableValidator.TrySetProperty&lt;TModel, T&gt;(T, T, TModel, Action&lt;TModel, T&gt;, IReadOnlyCollection&lt;ValidationResult&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_TrySetProperty__2___1___1_System_Collections_Generic_IEqualityComparer___1____0_System_Action___0___1__System_Collections_Generic_IReadOnlyCollection_System_ComponentModel_DataAnnotations_ValidationResult___System_String_">ObservableValidator.TrySetProperty&lt;TModel, T&gt;(T, T, IEqualityComparer&lt;T&gt;, TModel, Action&lt;TModel, T&gt;, IReadOnlyCollection&lt;ValidationResult&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_ClearErrors_System_String_">ObservableValidator.ClearErrors(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_GetErrors_System_String_">ObservableValidator.GetErrors(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_ValidateAllProperties">ObservableValidator.ValidateAllProperties()</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_ValidateProperty_System_Object_System_String_">ObservableValidator.ValidateProperty(Object, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.onpropertychanged#communitytoolkit-mvvm-componentmodel-observableobject-onpropertychanged(system-componentmodel-propertychangedeventargs)">ObservableObject.OnPropertyChanged(PropertyChangedEventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.onpropertychanging#communitytoolkit-mvvm-componentmodel-observableobject-onpropertychanging(system-componentmodel-propertychangingeventargs)">ObservableObject.OnPropertyChanging(PropertyChangingEventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.onpropertychanged#communitytoolkit-mvvm-componentmodel-observableobject-onpropertychanged(system-string)">ObservableObject.OnPropertyChanged(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.onpropertychanging#communitytoolkit-mvvm-componentmodel-observableobject-onpropertychanging(system-string)">ObservableObject.OnPropertyChanging(String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-1(-0@-0-system-string)">ObservableObject.SetProperty&lt;T&gt;(T, T, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-1(-0@-0-system-collections-generic-iequalitycomparer((-0))-system-string)">ObservableObject.SetProperty&lt;T&gt;(T, T, IEqualityComparer&lt;T&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-1(-0-0-system-action((-0))-system-string)">ObservableObject.SetProperty&lt;T&gt;(T, T, Action&lt;T&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-1(-0-0-system-collections-generic-iequalitycomparer((-0))-system-action((-0))-system-string)">ObservableObject.SetProperty&lt;T&gt;(T, T, IEqualityComparer&lt;T&gt;, Action&lt;T&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-2(-1-1-0-system-action((-0-1))-system-string)">ObservableObject.SetProperty&lt;TModel, T&gt;(T, T, TModel, Action&lt;TModel, T&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-2(-1-1-system-collections-generic-iequalitycomparer((-1))-0-system-action((-0-1))-system-string)">ObservableObject.SetProperty&lt;TModel, T&gt;(T, T, IEqualityComparer&lt;T&gt;, TModel, Action&lt;TModel, T&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setpropertyandnotifyoncompletion#communitytoolkit-mvvm-componentmodel-observableobject-setpropertyandnotifyoncompletion(communitytoolkit-mvvm-componentmodel-observableobject-tasknotifier@-system-threading-tasks-task-system-string)">ObservableObject.SetPropertyAndNotifyOnCompletion(ObservableObject.TaskNotifier, Task, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setpropertyandnotifyoncompletion#communitytoolkit-mvvm-componentmodel-observableobject-setpropertyandnotifyoncompletion(communitytoolkit-mvvm-componentmodel-observableobject-tasknotifier@-system-threading-tasks-task-system-action((system-threading-tasks-task))-system-string)">ObservableObject.SetPropertyAndNotifyOnCompletion(ObservableObject.TaskNotifier, Task, Action&lt;Task&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setpropertyandnotifyoncompletion#communitytoolkit-mvvm-componentmodel-observableobject-setpropertyandnotifyoncompletion-1(communitytoolkit-mvvm-componentmodel-observableobject-tasknotifier((-0))@-system-threading-tasks-task((-0))-system-string)">ObservableObject.SetPropertyAndNotifyOnCompletion&lt;T&gt;(ObservableObject.TaskNotifier&lt;T&gt;, Task&lt;T&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setpropertyandnotifyoncompletion#communitytoolkit-mvvm-componentmodel-observableobject-setpropertyandnotifyoncompletion-1(communitytoolkit-mvvm-componentmodel-observableobject-tasknotifier((-0))@-system-threading-tasks-task((-0))-system-action((system-threading-tasks-task((-0))))-system-string)">ObservableObject.SetPropertyAndNotifyOnCompletion&lt;T&gt;(ObservableObject.TaskNotifier&lt;T&gt;, Task&lt;T&gt;, Action&lt;Task&lt;T&gt;&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.propertychanged#communitytoolkit-mvvm-componentmodel-observableobject-propertychanged">ObservableObject.PropertyChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.propertychanging#communitytoolkit-mvvm-componentmodel-observableobject-propertychanging">ObservableObject.PropertyChanging</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">Object.Equals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals#system-object-referenceequals(system-object-system-object)">Object.ReferenceEquals(Object, Object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode#system-object-gethashcode">Object.GetHashCode()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype#system-object-gettype">Object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone#system-object-memberwiseclone">Object.MemberwiseClone()</a>
+    </div>
+  </div>
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.html">Aristocrat.Monaco.UI.Common.MVVM</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.UI.Common.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
+public abstract class TrackableObservableValidator : ObservableValidator, INotifyPropertyChanged, INotifyPropertyChanging, IDataErrorInfo</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>This provides an inverted &quot;is dirty&quot; model using the <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_IsCommitted">IsCommitted</a> flag. The entity
+starts out as &quot;non-committed&quot; and exposes a commit command. The command is allowed if the
+entity has non-committed changes and those changes pass validations, so you can bind your
+submit buttons to the command directly,.and only if everything passes
+will the command invoke <a class="xref" href="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnCommitted">OnCommitted()</a> for you to apply your changes.</p>
+</div>
+  
+  <h3 id="constructors">Constructors
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator__ctor.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.%23ctor%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/MVVM/TrackableObservableValidator.cs/#L50" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator__ctor_" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.#ctor*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator__ctor" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.#ctor"><a href="#collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator__ctor" class="expander" data-toggle="collapse">TrackableObservableValidator()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator__ctor" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected TrackableObservableValidator()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="properties">Properties
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_CommitCommand.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.CommitCommand%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/MVVM/TrackableObservableValidator.cs/#L47" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_CommitCommand_" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.CommitCommand*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_CommitCommand" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.CommitCommand"><a href="#collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_CommitCommand" class="expander" data-toggle="collapse">CommitCommand</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_CommitCommand" class="collapse in">
+  <div class="markdown level1 summary"><p>Commit changes</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RelayCommand&lt;object&gt; CommitCommand { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.input.relaycommand-1">RelayCommand</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_IsCommitted.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.IsCommitted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/MVVM/TrackableObservableValidator.cs/#L32" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_IsCommitted_" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.IsCommitted*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_IsCommitted" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.IsCommitted"><a href="#collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_IsCommitted" class="expander" data-toggle="collapse">IsCommitted</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_IsCommitted" class="collapse in">
+  <div class="markdown level1 summary"><p>This value will raise property changed when committed without errors</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsCommitted { get; protected set; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnCommitted.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.OnCommitted%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/MVVM/TrackableObservableValidator.cs/#L86" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnCommitted_" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.OnCommitted*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnCommitted" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.OnCommitted"><a href="#collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnCommitted" class="expander" data-toggle="collapse">OnCommitted()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnCommitted" class="collapse in">
+  <div class="markdown level1 summary"><p>Use this to perform whatever action is needed when committed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnCommitted()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnPropertyChanged_System_String___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.OnPropertyChanged(System.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/MVVM/TrackableObservableValidator.cs/#L124" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnPropertyChanged_" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.OnPropertyChanged*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnPropertyChanged_System_String___" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.OnPropertyChanged(System.String[])"><a href="#collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnPropertyChanged_System_String___" class="expander" data-toggle="collapse">OnPropertyChanged(String[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnPropertyChanged_System_String___" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises this object&apos;s PropertyChanged event for each of the properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void OnPropertyChanged(params string[] propertyNames)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>[]</span>
+        <span class="parametername">propertyNames</span>
+        <p><p>The properties that have a new value.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnPropertyChanging_System_String___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.OnPropertyChanging(System.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/MVVM/TrackableObservableValidator.cs/#L112" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnPropertyChanging_" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.OnPropertyChanging*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnPropertyChanging_System_String___" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.OnPropertyChanging(System.String[])"><a href="#collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnPropertyChanging_System_String___" class="expander" data-toggle="collapse">OnPropertyChanging(String[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnPropertyChanging_System_String___" class="collapse in">
+  <div class="markdown level1 summary"><p>Raises this object&apos;s PropertyChanged event for each of the properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void OnPropertyChanging(params string[] propertyNames)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>[]</span>
+        <span class="parametername">propertyNames</span>
+        <p><p>The properties that have a new value.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_PropertyHasErrors_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.PropertyHasErrors(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/MVVM/TrackableObservableValidator.cs/#L103" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_PropertyHasErrors_" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.PropertyHasErrors*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_PropertyHasErrors_System_String_" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.PropertyHasErrors(System.String)"><a href="#collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_PropertyHasErrors_System_String_" class="expander" data-toggle="collapse">PropertyHasErrors(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_PropertyHasErrors_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Determines if a given property has associated errors.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool PropertyHasErrors(string propertyName)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">propertyName</span>
+        <p><p>The name of the property.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>True if the specified property has errors.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_RunCustomValidation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.RunCustomValidation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/MVVM/TrackableObservableValidator.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_RunCustomValidation_" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.RunCustomValidation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_RunCustomValidation" data-uid="Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.RunCustomValidation"><a href="#collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_RunCustomValidation" class="expander" data-toggle="collapse">RunCustomValidation()</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_RunCustomValidation" class="collapse in">
+  <div class="markdown level1 summary"><p>Use this to perform custom validation logic on specific properties</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void RunCustomValidation()</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Common.EnumExtensions.html#Aristocrat_Monaco_Common_EnumExtensions_GetDescription_System_Object_System_Type_">EnumExtensions.GetDescription(Object, Type)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Common.ObjectExtensions.html#Aristocrat_Monaco_Common_ObjectExtensions_DeepClone__1___0_">ObjectExtensions.DeepClone&lt;T&gt;(T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Aristocrat.Monaco.Common.ObjectExtensions.html#Aristocrat_Monaco_Common_ObjectExtensions_AreEqualOrNull_System_Object_System_Object_">ObjectExtensions.AreEqualOrNull(Object, Object)</a>
+  </div>
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Shared/Aristocrat.Monaco.UI.Common/MVVM/TrackableObservableValidator.cs/#L19" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

@@ -88,9 +88,9 @@
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">Aristocrat.MVVM.Model.BaseNotify</span></div>
-    <div class="level2"><span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel</span></div>
-    <div class="level3"><span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel</span></div>
+    <div class="level1"><a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject">ObservableObject</a></div>
+    <div class="level2"><a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html">ObservableValidator</a></div>
+    <div class="level3"><a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.html">TrackableObservableValidator</a></div>
     <div class="level4"><a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html">OperatorMenuPageViewModelBase</a></div>
     <div class="level5"><a class="xref" href="Aristocrat.Monaco.Application.UI.ConfigWizard.ConfigWizardViewModelBase.html">ConfigWizardViewModelBase</a></div>
     <div class="level6"><a class="xref" href="Aristocrat.Monaco.Application.UI.ConfigWizard.InspectionWizardViewModelBase.html">InspectionWizardViewModelBase</a></div>
@@ -124,7 +124,7 @@
       <a class="xref" href="Aristocrat.Monaco.Application.UI.ViewModels.MachineSetupViewModelBase.html#Aristocrat_Monaco_Application_UI_ViewModels_MachineSetupViewModelBase_ValidateSerialNumber">MachineSetupViewModelBase.ValidateSerialNumber()</a>
     </div>
     <div>
-      <a class="xref" href="Aristocrat.Monaco.Application.UI.ViewModels.MachineSetupViewModelBase.html#Aristocrat_Monaco_Application_UI_ViewModels_MachineSetupViewModelBase_SetError_System_String_System_String_">MachineSetupViewModelBase.SetError(String, String)</a>
+      <a class="xref" href="Aristocrat.Monaco.Application.UI.ViewModels.MachineSetupViewModelBase.html#Aristocrat_Monaco_Application_UI_ViewModels_MachineSetupViewModelBase_ValidateAssetNumber_Aristocrat_Monaco_UI_Common_Models_LiveSetting_System_String__System_ComponentModel_DataAnnotations_ValidationContext_">MachineSetupViewModelBase.ValidateAssetNumber(LiveSetting&lt;String&gt;, ValidationContext)</a>
     </div>
     <div>
       <a class="xref" href="Aristocrat.Monaco.Application.UI.ConfigWizard.InspectionWizardViewModelBase.html#Aristocrat_Monaco_Application_UI_ConfigWizard_InspectionWizardViewModelBase_Inspection">InspectionWizardViewModelBase.Inspection</a>
@@ -391,103 +391,127 @@
       <a class="xref" href="Aristocrat.Monaco.Application.UI.OperatorMenu.OperatorMenuPageViewModelBase.html#Aristocrat_Monaco_Application_UI_OperatorMenu_OperatorMenuPageViewModelBase_IsInputEnabled">OperatorMenuPageViewModelBase.IsInputEnabled</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.OnCommitted()</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_IsCommitted">TrackableObservableValidator.IsCommitted</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.GetErrors(System.String)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_CommitCommand">TrackableObservableValidator.CommitCommand</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.ClearErrors(System.String)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnCommitted">TrackableObservableValidator.OnCommitted()</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.SetErrors(System.String, System.Collections.Generic.IEnumerable&lt;System.String&gt;)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_PropertyHasErrors_System_String_">TrackableObservableValidator.PropertyHasErrors(String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.RaiseErrorsChanged(System.String)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnPropertyChanging_System_String___">TrackableObservableValidator.OnPropertyChanging(String[])</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.PropertyHasErrors(System.String)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_OnPropertyChanged_System_String___">TrackableObservableValidator.OnPropertyChanged(String[])</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.IgnorePropertyForCommitted(System.String)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_Error">ObservableValidator.Error</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.IgnorePropertyForCommitted(System.Collections.Generic.List&lt;System.String&gt;)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_Item_System_String_">ObservableValidator.Item[String]</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.Error</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_HasErrors">ObservableValidator.HasErrors</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.Item[System.String]</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_SetProperty__1___0____0_System_Boolean_System_String_">ObservableValidator.SetProperty&lt;T&gt;(T, T, Boolean, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.HasErrors</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_SetProperty__1___0____0_System_Collections_Generic_IEqualityComparer___0__System_Boolean_System_String_">ObservableValidator.SetProperty&lt;T&gt;(T, T, IEqualityComparer&lt;T&gt;, Boolean, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.Committed</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_SetProperty__1___0___0_System_Action___0__System_Boolean_System_String_">ObservableValidator.SetProperty&lt;T&gt;(T, T, Action&lt;T&gt;, Boolean, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.CommitCommand</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_SetProperty__1___0___0_System_Collections_Generic_IEqualityComparer___0__System_Action___0__System_Boolean_System_String_">ObservableValidator.SetProperty&lt;T&gt;(T, T, IEqualityComparer&lt;T&gt;, Action&lt;T&gt;, Boolean, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.RegisterVisualState(System.String, System.Action&lt;System.String, System.Boolean&gt;)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_SetProperty__2___1___1___0_System_Action___0___1__System_Boolean_System_String_">ObservableValidator.SetProperty&lt;TModel, T&gt;(T, T, TModel, Action&lt;TModel, T&gt;, Boolean, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.GoToVisualStateForView(System.String, System.String, System.Boolean)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_SetProperty__2___1___1_System_Collections_Generic_IEqualityComparer___1____0_System_Action___0___1__System_Boolean_System_String_">ObservableValidator.SetProperty&lt;TModel, T&gt;(T, T, IEqualityComparer&lt;T&gt;, TModel, Action&lt;TModel, T&gt;, Boolean, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.Deactivate(System.String)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_TrySetProperty__1___0____0_System_Collections_Generic_IReadOnlyCollection_System_ComponentModel_DataAnnotations_ValidationResult___System_String_">ObservableValidator.TrySetProperty&lt;T&gt;(T, T, IReadOnlyCollection&lt;ValidationResult&gt;, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.SetTitle(System.String)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_TrySetProperty__1___0____0_System_Collections_Generic_IEqualityComparer___0__System_Collections_Generic_IReadOnlyCollection_System_ComponentModel_DataAnnotations_ValidationResult___System_String_">ObservableValidator.TrySetProperty&lt;T&gt;(T, T, IEqualityComparer&lt;T&gt;, IReadOnlyCollection&lt;ValidationResult&gt;, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.Initialize()</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_TrySetProperty__1___0___0_System_Action___0__System_Collections_Generic_IReadOnlyCollection_System_ComponentModel_DataAnnotations_ValidationResult___System_String_">ObservableValidator.TrySetProperty&lt;T&gt;(T, T, Action&lt;T&gt;, IReadOnlyCollection&lt;ValidationResult&gt;, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.Activate(System.String)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_TrySetProperty__1___0___0_System_Collections_Generic_IEqualityComparer___0__System_Action___0__System_Collections_Generic_IReadOnlyCollection_System_ComponentModel_DataAnnotations_ValidationResult___System_String_">ObservableValidator.TrySetProperty&lt;T&gt;(T, T, IEqualityComparer&lt;T&gt;, Action&lt;T&gt;, IReadOnlyCollection&lt;ValidationResult&gt;, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.Activate(System.String, System.Collections.Generic.IDictionary&lt;System.String, System.Object&gt;)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_TrySetProperty__2___1___1___0_System_Action___0___1__System_Collections_Generic_IReadOnlyCollection_System_ComponentModel_DataAnnotations_ValidationResult___System_String_">ObservableValidator.TrySetProperty&lt;TModel, T&gt;(T, T, TModel, Action&lt;TModel, T&gt;, IReadOnlyCollection&lt;ValidationResult&gt;, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.ToString()</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_TrySetProperty__2___1___1_System_Collections_Generic_IEqualityComparer___1____0_System_Action___0___1__System_Collections_Generic_IReadOnlyCollection_System_ComponentModel_DataAnnotations_ValidationResult___System_String_">ObservableValidator.TrySetProperty&lt;TModel, T&gt;(T, T, IEqualityComparer&lt;T&gt;, TModel, Action&lt;TModel, T&gt;, IReadOnlyCollection&lt;ValidationResult&gt;, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.InitializeVm()</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_ClearErrors_System_String_">ObservableValidator.ClearErrors(String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.ActivateView(System.String, System.Collections.Generic.IDictionary&lt;System.String, System.Object&gt;)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_GetErrors_System_String_">ObservableValidator.GetErrors(String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.DeactivateView(System.String)</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_ValidateAllProperties">ObservableValidator.ValidateAllProperties()</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.Router</span>
+      <a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.ObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_ObservableValidator_ValidateProperty_System_Object_System_String_">ObservableValidator.ValidateProperty(Object, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.EventAggregator</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.onpropertychanged#communitytoolkit-mvvm-componentmodel-observableobject-onpropertychanged(system-componentmodel-propertychangedeventargs)">ObservableObject.OnPropertyChanged(PropertyChangedEventArgs)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.InDesigner</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.onpropertychanging#communitytoolkit-mvvm-componentmodel-observableobject-onpropertychanging(system-componentmodel-propertychangingeventargs)">ObservableObject.OnPropertyChanging(PropertyChangingEventArgs)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.RegisteredViews</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.onpropertychanging#communitytoolkit-mvvm-componentmodel-observableobject-onpropertychanging(system-string)">ObservableObject.OnPropertyChanging(String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.ViewModel.BaseViewModel.GoToVisualState</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-1(-0@-0-system-string)">ObservableObject.SetProperty&lt;T&gt;(T, T, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.RaisePropertyChanged(System.String[])</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-1(-0@-0-system-collections-generic-iequalitycomparer((-0))-system-string)">ObservableObject.SetProperty&lt;T&gt;(T, T, IEqualityComparer&lt;T&gt;, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.SetProperty&lt;T&gt;(T, T, System.String)</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-1(-0-0-system-action((-0))-system-string)">ObservableObject.SetProperty&lt;T&gt;(T, T, Action&lt;T&gt;, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.SetProperty&lt;T&gt;(T, T, System.String[])</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-1(-0-0-system-collections-generic-iequalitycomparer((-0))-system-action((-0))-system-string)">ObservableObject.SetProperty&lt;T&gt;(T, T, IEqualityComparer&lt;T&gt;, Action&lt;T&gt;, String)</a>
     </div>
     <div>
-      <span class="xref">Aristocrat.MVVM.Model.BaseNotify.PropertyChanged</span>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-2(-1-1-0-system-action((-0-1))-system-string)">ObservableObject.SetProperty&lt;TModel, T&gt;(T, T, TModel, Action&lt;TModel, T&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setproperty#communitytoolkit-mvvm-componentmodel-observableobject-setproperty-2(-1-1-system-collections-generic-iequalitycomparer((-1))-0-system-action((-0-1))-system-string)">ObservableObject.SetProperty&lt;TModel, T&gt;(T, T, IEqualityComparer&lt;T&gt;, TModel, Action&lt;TModel, T&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setpropertyandnotifyoncompletion#communitytoolkit-mvvm-componentmodel-observableobject-setpropertyandnotifyoncompletion(communitytoolkit-mvvm-componentmodel-observableobject-tasknotifier@-system-threading-tasks-task-system-string)">ObservableObject.SetPropertyAndNotifyOnCompletion(ObservableObject.TaskNotifier, Task, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setpropertyandnotifyoncompletion#communitytoolkit-mvvm-componentmodel-observableobject-setpropertyandnotifyoncompletion(communitytoolkit-mvvm-componentmodel-observableobject-tasknotifier@-system-threading-tasks-task-system-action((system-threading-tasks-task))-system-string)">ObservableObject.SetPropertyAndNotifyOnCompletion(ObservableObject.TaskNotifier, Task, Action&lt;Task&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setpropertyandnotifyoncompletion#communitytoolkit-mvvm-componentmodel-observableobject-setpropertyandnotifyoncompletion-1(communitytoolkit-mvvm-componentmodel-observableobject-tasknotifier((-0))@-system-threading-tasks-task((-0))-system-string)">ObservableObject.SetPropertyAndNotifyOnCompletion&lt;T&gt;(ObservableObject.TaskNotifier&lt;T&gt;, Task&lt;T&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.setpropertyandnotifyoncompletion#communitytoolkit-mvvm-componentmodel-observableobject-setpropertyandnotifyoncompletion-1(communitytoolkit-mvvm-componentmodel-observableobject-tasknotifier((-0))@-system-threading-tasks-task((-0))-system-action((system-threading-tasks-task((-0))))-system-string)">ObservableObject.SetPropertyAndNotifyOnCompletion&lt;T&gt;(ObservableObject.TaskNotifier&lt;T&gt;, Task&lt;T&gt;, Action&lt;Task&lt;T&gt;&gt;, String)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.propertychanged#communitytoolkit-mvvm-componentmodel-observableobject-propertychanged">ObservableObject.PropertyChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/communitytoolkit.mvvm.componentmodel.observableobject.propertychanging#communitytoolkit-mvvm-componentmodel-observableobject-propertychanging">ObservableObject.PropertyChanging</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">Object.Equals(Object)</a>
@@ -515,7 +539,7 @@
   <h5 id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[CLSCompliant(false)]
-public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDataErrorInfo, IOperatorMenuPageViewModel, IDisposable, INotifyPropertyChanged, IOperatorMenuConfigObject, ILiveSettingParent, IConfigWizardViewModel</code></pre>
+public class IdentityPageViewModel : MachineSetupViewModelBase, INotifyPropertyChanging, IDataErrorInfo, IOperatorMenuPageViewModel, IDisposable, INotifyPropertyChanged, IOperatorMenuConfigObject, ILiveSettingParent, IConfigWizardViewModel</code></pre>
   </div>
   
   
@@ -530,7 +554,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel__ctor_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.%23ctor(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L32" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L36" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel__ctor_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.#ctor*"></a>
@@ -577,7 +601,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Area.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Area%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L92" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L81" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Area_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Area*"></a>
@@ -590,7 +614,8 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LiveStringSetting Area { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">[CustomValidation(typeof(IdentityPageViewModel), &quot;ValidateArea&quot;)]
+public LiveStringSetting Area { get; }</code></pre>
   </div>
   
   
@@ -620,7 +645,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Bank.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Bank%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L96" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L87" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Bank_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Bank*"></a>
@@ -633,7 +658,8 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LiveStringSetting Bank { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">[CustomValidation(typeof(IdentityPageViewModel), &quot;ValidateBank&quot;)]
+public LiveStringSetting Bank { get; }</code></pre>
   </div>
   
   
@@ -663,7 +689,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_DeviceName.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.DeviceName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L96" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_DeviceName_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.DeviceName*"></a>
@@ -676,7 +702,8 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LiveStringSetting DeviceName { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">[CustomValidation(typeof(IdentityPageViewModel), &quot;ValidateDeviceName&quot;)]
+public LiveStringSetting DeviceName { get; }</code></pre>
   </div>
   
   
@@ -706,7 +733,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Location.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Location%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L100" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L93" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Location_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Location*"></a>
@@ -719,7 +746,8 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LiveStringSetting Location { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">[CustomValidation(typeof(IdentityPageViewModel), &quot;ValidateLocation&quot;)]
+public LiveStringSetting Location { get; }</code></pre>
   </div>
   
   
@@ -749,7 +777,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Position.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Position%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L98" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L90" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Position_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Position*"></a>
@@ -762,7 +790,8 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LiveStringSetting Position { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">[CustomValidation(typeof(IdentityPageViewModel), &quot;ValidatePosition&quot;)]
+public LiveStringSetting Position { get; }</code></pre>
   </div>
   
   
@@ -792,7 +821,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_PrintIdentityTicket.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.PrintIdentityTicket%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L107" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_PrintIdentityTicket_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.PrintIdentityTicket*"></a>
@@ -836,7 +865,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_PrintTicketEnabled.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.PrintTicketEnabled%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L124" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L119" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_PrintTicketEnabled_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.PrintTicketEnabled*"></a>
@@ -880,7 +909,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Zone.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Zone%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L94" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L84" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Zone_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Zone*"></a>
@@ -893,7 +922,8 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public LiveStringSetting Zone { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">[CustomValidation(typeof(IdentityPageViewModel), &quot;ValidateZone&quot;)]
+public LiveStringSetting Zone { get; }</code></pre>
   </div>
   
   
@@ -925,7 +955,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_LoadAutoConfiguration.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.LoadAutoConfiguration%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L460" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L449" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_LoadAutoConfiguration_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.LoadAutoConfiguration*"></a>
@@ -961,7 +991,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Loaded.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Loaded%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L138" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L133" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Loaded_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Loaded*"></a>
@@ -997,7 +1027,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_LoadVariableData.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.LoadVariableData%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L294" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L279" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_LoadVariableData_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.LoadVariableData*"></a>
@@ -1028,10 +1058,54 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_OnPropertyChanged_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.OnPropertyChanged(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L437" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_OnPropertyChanged_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.OnPropertyChanged*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_OnPropertyChanged_System_String_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.OnPropertyChanged(System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_OnPropertyChanged_System_String_" class="expander" data-toggle="collapse">OnPropertyChanged(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_OnPropertyChanged_System_String_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void OnPropertyChanged(string propertyName)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">propertyName</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_OnUnloaded.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.OnUnloaded%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L156" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L151" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_OnUnloaded_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.OnUnloaded*"></a>
@@ -1064,35 +1138,25 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_RaisePropertyChanged_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.RaisePropertyChanged(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_RunCustomValidation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.RunCustomValidation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L448" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L259" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
-  <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_RaisePropertyChanged_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.RaisePropertyChanged*"></a>
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_RunCustomValidation_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.RunCustomValidation*"></a>
   
-  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_RaisePropertyChanged_System_String_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.RaisePropertyChanged(System.String)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_RaisePropertyChanged_System_String_" class="expander" data-toggle="collapse">RaisePropertyChanged(String)</a></h4>
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_RunCustomValidation" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.RunCustomValidation"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_RunCustomValidation" class="expander" data-toggle="collapse">RunCustomValidation()</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_RaisePropertyChanged_System_String_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_RunCustomValidation" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override void RaisePropertyChanged(string propertyName)</code></pre>
+    <pre><code class="lang-csharp hljs">protected override void RunCustomValidation()</code></pre>
   </div>
   
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
-        <span class="parametername">propertyName</span>
-        <p>
-      </td>
-    </tr>
-  </table>
   
   
   
@@ -1100,7 +1164,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
   
   
   <h5 class="overrides">Overrides</h5>
-  <div><span class="xref">Aristocrat.MVVM.Model.BaseNotify.RaisePropertyChanged(System.String)</span></div>
+  <div><a class="xref" href="../common/Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.html#Aristocrat_Monaco_UI_Common_MVVM_TrackableObservableValidator_RunCustomValidation">TrackableObservableValidator.RunCustomValidation()</a></div>
   
   
   
@@ -1113,7 +1177,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_SaveChanges.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.SaveChanges%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L244" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L238" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_SaveChanges_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.SaveChanges*"></a>
@@ -1150,7 +1214,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_SetupNavigation.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.SetupNavigation%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L285" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L270" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_SetupNavigation_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.SetupNavigation*"></a>
@@ -1186,7 +1250,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Subscribe.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Subscribe%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L166" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L160" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Subscribe_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Subscribe*"></a>
@@ -1221,7 +1285,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Unsubscribe.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Unsubscribe%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L176" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L170" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_Unsubscribe_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.Unsubscribe*"></a>
@@ -1256,7 +1320,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_UpdateLiveSetting_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.UpdateLiveSetting(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L209" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L203" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_UpdateLiveSetting_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.UpdateLiveSetting*"></a>
@@ -1298,33 +1362,57 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateAll.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateAll%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateArea_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateArea(Aristocrat.Monaco.UI.Common.Models.LiveStringSetting%2CSystem.ComponentModel.DataAnnotations.ValidationContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L266" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L368" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
-  <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateAll_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateAll*"></a>
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateArea_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateArea*"></a>
   
-  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateAll" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateAll"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateAll" class="expander" data-toggle="collapse">ValidateAll()</a></h4>
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateArea_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateArea(Aristocrat.Monaco.UI.Common.Models.LiveStringSetting,System.ComponentModel.DataAnnotations.ValidationContext)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateArea_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" class="expander" data-toggle="collapse">ValidateArea(LiveStringSetting, ValidationContext)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateAll" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateArea_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" class="collapse in">
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override void ValidateAll()</code></pre>
+    <pre><code class="lang-csharp hljs">public static ValidationResult ValidateArea(LiveStringSetting area, ValidationContext context)</code></pre>
   </div>
   
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../common/Aristocrat.Monaco.UI.Common.Models.LiveStringSetting.html">LiveStringSetting</a></span>
+        <span class="parametername">area</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.dataannotations.validationcontext">ValidationContext</a></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.dataannotations.validationresult">ValidationResult</a>
+        <p>
+      </td>
+    </tr>
+  </table>
   
   
   
   
   
-  
-  <h5 class="overrides">Overrides</h5>
-  <div><span class="xref">Aristocrat.MVVM.ViewModel.BaseEntityViewModel.ValidateAll()</span></div>
   
   
   
@@ -1334,37 +1422,292 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateAll_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateAll(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateBank_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateBank(Aristocrat.Monaco.UI.Common.Models.LiveStringSetting%2CSystem.ComponentModel.DataAnnotations.ValidationContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L275" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L382" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
-  <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateAll_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateAll*"></a>
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateBank_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateBank*"></a>
   
-  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateAll_System_Boolean_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateAll(System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateAll_System_Boolean_" class="expander" data-toggle="collapse">ValidateAll(Boolean)</a></h4>
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateBank_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateBank(Aristocrat.Monaco.UI.Common.Models.LiveStringSetting,System.ComponentModel.DataAnnotations.ValidationContext)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateBank_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" class="expander" data-toggle="collapse">ValidateBank(LiveStringSetting, ValidationContext)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateAll_System_Boolean_" class="collapse in">
-  <div class="markdown level1 summary"><p>Validate live settings. Circumvents &quot;sticky&quot; errors due to the vaildation system not properly tracking deep field paths.</p>
-</div>
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateBank_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected void ValidateAll(bool markFields)</code></pre>
+    <pre><code class="lang-csharp hljs">public static ValidationResult ValidateBank(LiveStringSetting bank, ValidationContext context)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
   <table>
     <tr>
       <td>
-        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a></span>
-        <span class="parametername">markFields</span>
+        <span class="pull-right"><a class="xref" href="../common/Aristocrat.Monaco.UI.Common.Models.LiveStringSetting.html">LiveStringSetting</a></span>
+        <span class="parametername">bank</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.dataannotations.validationcontext">ValidationContext</a></span>
+        <span class="parametername">context</span>
         <p>
       </td>
     </tr>
   </table>
   
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.dataannotations.validationresult">ValidationResult</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateDeviceName_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateDeviceName(Aristocrat.Monaco.UI.Common.Models.LiveStringSetting%2CSystem.ComponentModel.DataAnnotations.ValidationContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L403" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateDeviceName_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateDeviceName*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateDeviceName_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateDeviceName(Aristocrat.Monaco.UI.Common.Models.LiveStringSetting,System.ComponentModel.DataAnnotations.ValidationContext)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateDeviceName_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" class="expander" data-toggle="collapse">ValidateDeviceName(LiveStringSetting, ValidationContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateDeviceName_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ValidationResult ValidateDeviceName(LiveStringSetting deviceName, ValidationContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../common/Aristocrat.Monaco.UI.Common.Models.LiveStringSetting.html">LiveStringSetting</a></span>
+        <span class="parametername">deviceName</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.dataannotations.validationcontext">ValidationContext</a></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.dataannotations.validationresult">ValidationResult</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateLocation_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateLocation(Aristocrat.Monaco.UI.Common.Models.LiveStringSetting%2CSystem.ComponentModel.DataAnnotations.ValidationContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L396" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateLocation_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateLocation*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateLocation_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateLocation(Aristocrat.Monaco.UI.Common.Models.LiveStringSetting,System.ComponentModel.DataAnnotations.ValidationContext)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateLocation_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" class="expander" data-toggle="collapse">ValidateLocation(LiveStringSetting, ValidationContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateLocation_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ValidationResult ValidateLocation(LiveStringSetting location, ValidationContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../common/Aristocrat.Monaco.UI.Common.Models.LiveStringSetting.html">LiveStringSetting</a></span>
+        <span class="parametername">location</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.dataannotations.validationcontext">ValidationContext</a></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.dataannotations.validationresult">ValidationResult</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidatePosition_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidatePosition(Aristocrat.Monaco.UI.Common.Models.LiveStringSetting%2CSystem.ComponentModel.DataAnnotations.ValidationContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L389" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidatePosition_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidatePosition*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidatePosition_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidatePosition(Aristocrat.Monaco.UI.Common.Models.LiveStringSetting,System.ComponentModel.DataAnnotations.ValidationContext)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidatePosition_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" class="expander" data-toggle="collapse">ValidatePosition(LiveStringSetting, ValidationContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidatePosition_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ValidationResult ValidatePosition(LiveStringSetting position, ValidationContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../common/Aristocrat.Monaco.UI.Common.Models.LiveStringSetting.html">LiveStringSetting</a></span>
+        <span class="parametername">position</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.dataannotations.validationcontext">ValidationContext</a></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.dataannotations.validationresult">ValidationResult</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateZone_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateZone(Aristocrat.Monaco.UI.Common.Models.LiveStringSetting%2CSystem.ComponentModel.DataAnnotations.ValidationContext)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L375" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateZone_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateZone*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateZone_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" data-uid="Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel.ValidateZone(Aristocrat.Monaco.UI.Common.Models.LiveStringSetting,System.ComponentModel.DataAnnotations.ValidationContext)"><a href="#collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateZone_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" class="expander" data-toggle="collapse">ValidateZone(LiveStringSetting, ValidationContext)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel_ValidateZone_Aristocrat_Monaco_UI_Common_Models_LiveStringSetting_System_ComponentModel_DataAnnotations_ValidationContext_" class="collapse in">
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ValidationResult ValidateZone(LiveStringSetting zone, ValidationContext context)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="../common/Aristocrat.Monaco.UI.Common.Models.LiveStringSetting.html">LiveStringSetting</a></span>
+        <span class="parametername">zone</span>
+        <p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.dataannotations.validationcontext">ValidationContext</a></span>
+        <span class="parametername">context</span>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.componentmodel.dataannotations.validationresult">ValidationResult</a>
+        <p>
+      </td>
+    </tr>
+  </table>
   
   
   
@@ -1382,7 +1725,7 @@ public class IdentityPageViewModel : MachineSetupViewModelBase, IViewModel, IDat
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Application_UI_ViewModels_IdentityPageViewModel.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Application.UI.ViewModels.IdentityPageViewModel%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L16" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Application/Aristocrat.Monaco.Application.UI/ViewModels/IdentityPageViewModel.cs/#L20" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
