@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using Aristocrat.Monaco.Gaming.Contracts.Models;
+using Aristocrat.Monaco.Gaming.UI.ViewModels;
 //using Aristocrat.Monaco.Gaming.UI.ViewModels;
 using Contracts;
 using Contracts.Events;
@@ -299,7 +300,7 @@ public sealed class AttractService : IAttractService, IDisposable
         //For now we just duplicated the code from the SubTabInfoViewModel.cs class
         //That code is below and will need to be deleted but for now this works around the error.
         if (subset.DistinctBy(g => g.GameSubtype).Count() > 1)
-            subset = subset.OrderBy(g => g.GameType).ThenBy(g => /*SubTabInfoViewModel.*/ConvertToSubTab(g.GameSubtype));
+            subset = subset.OrderBy(g => g.GameType).ThenBy(g => SubTabInfoViewModel.ConvertToSubTab(g.GameSubtype));
 
         var attractSequence = _attractConfigurationProvider.GetAttractSequence().Where(ai => ai.IsSelected).ToList();
 
@@ -343,67 +344,4 @@ public sealed class AttractService : IAttractService, IDisposable
                 || _lobbyState.Value.LastUserInteractionTime != DateTime.MaxValue) &&
                 _lobbyState.Value.LastUserInteractionTime.AddSeconds(_attractState.Value.AttractModeIdleTimeoutInSeconds) <= DateTime.UtcNow;
     }
-
-
-    //TODO THIS WILL NOT STAY HERE
-    #region DELETE ME LATER DUPLICATED CODE
-    private const string SubTypeOneHand = "Single Hand";
-    private const string SubTypeThreeHand = "Three Hand";
-    private const string SubTypeFiveHand = "Five Hand";
-    private const string SubTypeTenHand = "Ten Hand";
-    private const string SubTypeSingleCard = "Single Card";
-    private const string SubTypeFourCard = "Four Card";
-    private const string SubTypeMultiCard = "Multi Card";
-    private const string SubTypeBlackJack = "BlackJack";
-    private const string SubTypeRoulette = "Roulette";
-
-    private GameSubCategory? ConvertToSubTab(string text)
-    {
-        if (string.IsNullOrEmpty(text))
-        {
-            return null;
-        }
-
-        GameSubCategory? type = null;
-
-        if (string.Compare(text, SubTypeOneHand, true, CultureInfo.InvariantCulture) == 0)
-        {
-            type = GameSubCategory.OneHand;
-        }
-        else if (string.Compare(text, SubTypeThreeHand, true, CultureInfo.InvariantCulture) == 0)
-        {
-            type = GameSubCategory.ThreeHand;
-        }
-        else if (string.Compare(text, SubTypeFiveHand, true, CultureInfo.InvariantCulture) == 0)
-        {
-            type = GameSubCategory.FiveHand;
-        }
-        else if (string.Compare(text, SubTypeTenHand, true, CultureInfo.InvariantCulture) == 0)
-        {
-            type = GameSubCategory.TenHand;
-        }
-        else if (string.Compare(text, SubTypeSingleCard, true, CultureInfo.InvariantCulture) == 0)
-        {
-            type = GameSubCategory.SingleCard;
-        }
-        else if (string.Compare(text, SubTypeFourCard, true, CultureInfo.InvariantCulture) == 0)
-        {
-            type = GameSubCategory.FourCard;
-        }
-        else if (string.Compare(text, SubTypeMultiCard, true, CultureInfo.InvariantCulture) == 0)
-        {
-            type = GameSubCategory.MultiCard;
-        }
-        else if (string.Compare(text, SubTypeBlackJack, true, CultureInfo.InvariantCulture) == 0)
-        {
-            type = GameSubCategory.BlackJack;
-        }
-        else if (string.Compare(text, SubTypeRoulette, true, CultureInfo.InvariantCulture) == 0)
-        {
-            type = GameSubCategory.Roulette;
-        }
-
-        return type;
-    }
-    #endregion
 }
