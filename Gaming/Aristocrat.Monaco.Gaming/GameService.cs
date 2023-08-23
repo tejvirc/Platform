@@ -157,6 +157,7 @@ namespace Aristocrat.Monaco.Gaming
         {
             if (!Running)
             {
+                _ipc.EndComms();
                 _eventBus.Publish(new GameShutdownCompletedEvent());
             }
         }
@@ -216,6 +217,8 @@ namespace Aristocrat.Monaco.Gaming
             {
                 _process.EndGameProcess(processId, notifyExited, terminateExpected);
             }
+
+            _ipc.EndComms();
 
             _processId = 0;
             Logger.Info("All game processes and IPC terminated.");
