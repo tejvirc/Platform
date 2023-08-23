@@ -5048,4 +5048,10 @@ Consulter le manuel pour plus de détails</value>
   <data name="EKeyDetected" xml:space="preserve">
     <value>??EKey Detected??</value>
   </data>
+  <data name="DenomMetersLifetime" xml:space="preserve">
+    <value>??Master Denomination Meters??</value>
+  </data>
+  <data name="DenomMetersPeriod" xml:space="preserve">
+    <value>??Period Denomination Meters??</value>
+  </data>
 </root>
