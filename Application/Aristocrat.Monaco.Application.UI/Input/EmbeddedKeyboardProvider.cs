@@ -1,10 +1,10 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Input
+namespace Aristocrat.Monaco.Application.UI.Input
 {
+    using Aristocrat.Extensions.CommunityToolkit;
     using System;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Controls;
-    using MVVM;
 
     public class EmbeddedKeyboardProvider : IVirtualKeyboardProvider
     {
@@ -12,7 +12,7 @@
 
         public void CloseKeyboard()
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 _keyboardWindow?.Close();
             });
@@ -20,7 +20,7 @@
 
         public void OpenKeyboard(object targetControl, CultureInfo culture)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 if (targetControl is not Control target)
                 {
@@ -54,7 +54,7 @@
 
         private void KeyboardWindowOnClosed(object sender, EventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 _keyboardWindow.Closed -= KeyboardWindowOnClosed;
                 _keyboardWindow = null;

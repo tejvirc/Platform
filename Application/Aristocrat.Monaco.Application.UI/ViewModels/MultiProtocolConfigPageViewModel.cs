@@ -257,7 +257,7 @@
                     });
             }
 
-            RaisePropertyChanged(nameof(IsValidationProtocolsEmpty), nameof(IsFundTransferProtocolsEmpty), nameof(IsProgressiveProtocolsEmpty), nameof(IsCentralDeterminationSystemsEmpty));
+            OnPropertyChanged(nameof(IsValidationProtocolsEmpty), nameof(IsFundTransferProtocolsEmpty), nameof(IsProgressiveProtocolsEmpty), nameof(IsCentralDeterminationSystemsEmpty));
         }
 
         private List<(CommsProtocol Protocol, ProtocolCapabilityAttribute Attribute)> GetProtocolDetails()

@@ -1,12 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using Application.Contracts.Extensions;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     The View Model used for binding lobby denom buttons
     /// </summary>
-    public class DenominationInfoViewModel : BaseNotify
+    public class DenominationInfoViewModel : ObservableObject
     {
         private bool _isSelected;
 
@@ -55,10 +55,10 @@
                 if (_isSelected != value)
                 {
                     _isSelected = value;
-                    RaisePropertyChanged(nameof(IsSelected));
-                    RaisePropertyChanged(nameof(DenomText));
-                    RaisePropertyChanged(nameof(DenomButtonSharedKey));
-                    RaisePropertyChanged(nameof(DenomButtonSingleKey));
+                    OnPropertyChanged(nameof(IsSelected));
+                    OnPropertyChanged(nameof(DenomText));
+                    OnPropertyChanged(nameof(DenomButtonSharedKey));
+                    OnPropertyChanged(nameof(DenomButtonSingleKey));
                 }
             }
         }

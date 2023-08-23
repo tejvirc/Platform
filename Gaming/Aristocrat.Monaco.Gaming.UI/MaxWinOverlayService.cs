@@ -7,7 +7,8 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Aristocrat.MVVM;
+    using CommunityToolkit.Mvvm;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Aristocrat.Monaco.Gaming.UI.Views.Overlay;
     using Aristocrat.Monaco.Gaming.UI.ViewModels;
     using System.Globalization;
@@ -68,7 +69,7 @@
 
         public void Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _maxWinDialogViewModel = new MaxWinDialogViewModel();
@@ -155,7 +156,7 @@
             var gameId = _properties.GetValue(GamingConstants.SelectedGameId, 0);
             var game = _properties.GetValues<IGameDetail>(GamingConstants.Games).SingleOrDefault(g => g.Id == gameId);
             var denomination = game.Denominations.Single(d => d.Value == _properties.GetValue(GamingConstants.SelectedDenom, 0L));
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
             () =>
             {
                 //MaxWin dialog visibility is set to Hidden and then to Visible once the dialog is added to the main view

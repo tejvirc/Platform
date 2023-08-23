@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,7 @@
     using System.Collections.Specialized;
     using System.Linq;
     using System.Reflection;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts.SerialPorts;
@@ -16,13 +17,12 @@
     using log4net;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
     using DeviceConfiguration = Models.DeviceConfiguration;
 
     [CLSCompliant(false)]
-    public class DeviceConfigViewModel : BaseViewModel
+    public class DeviceConfigViewModel : ObservableObject
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly ISerialPortsService SerialPortsService = ServiceManager.GetInstance().TryGetService<ISerialPortsService>();
 
         private readonly DeviceAddinHelper _addinHelper = new DeviceAddinHelper();
@@ -67,7 +67,7 @@
 
         private void Ports_OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(Ports));
+            OnPropertyChanged(nameof(Ports));
         }
 
         public DeviceType DeviceType { get; set; }
@@ -100,7 +100,7 @@
                 }
 
                 _config.Enabled = value;
-                RaisePropertyChanged(nameof(Enabled));
+                OnPropertyChanged(nameof(Enabled));
                 Status = string.Empty;
                 StatusType = DeviceState.None;
                 IsDetectionComplete = false;
@@ -108,10 +108,10 @@
 
                 var message = DeviceType + (value ? " enabled" : " disabled");
                 Logger.DebugFormat(message);
-                RaisePropertyChanged(nameof(ManufacturerEnabled));
-                RaisePropertyChanged(nameof(PortEnabled));
-                RaisePropertyChanged(nameof(ProtocolEnabled));
-                RaisePropertyChanged(nameof(StatusEnabled));
+                OnPropertyChanged(nameof(ManufacturerEnabled));
+                OnPropertyChanged(nameof(PortEnabled));
+                OnPropertyChanged(nameof(ProtocolEnabled));
+                OnPropertyChanged(nameof(StatusEnabled));
 
                 if (string.IsNullOrEmpty(Manufacturer))
                 {
@@ -134,11 +134,11 @@
                 }
 
                 _config.Manufacturer = value ?? string.Empty;
-                RaisePropertyChanged(nameof(Manufacturer));
+                OnPropertyChanged(nameof(Manufacturer));
 
                 Logger.DebugFormat($"{DeviceType} Manufacturer {value} selected");
-                RaisePropertyChanged(nameof(PortEnabled));
-                RaisePropertyChanged(nameof(ProtocolEnabled));
+                OnPropertyChanged(nameof(PortEnabled));
+                OnPropertyChanged(nameof(ProtocolEnabled));
                 IsDetectionFailure = false;
 
                 ResetProtocols();
@@ -164,7 +164,7 @@
                 _config.Protocol = value ?? string.Empty;
                 Status = string.Empty;
                 StatusType = DeviceState.None;
-                RaisePropertyChanged(nameof(Protocol));
+                OnPropertyChanged(nameof(Protocol));
                 Logger.DebugFormat($"{DeviceType} Protocol {Protocol} selected");
 
                 ResetPortSelections();
@@ -274,7 +274,7 @@
                 }
             }
 
-            RaisePropertyChanged(nameof(IsVisible));
+            OnPropertyChanged(nameof(IsVisible));
         }
 
         public void AddFakeConfiguration(SupportedDevicesDevice config)
@@ -316,14 +316,14 @@
 
         public void RefreshProps()
         {
-            RaisePropertyChanged(nameof(Manufacturer));
-            RaisePropertyChanged(nameof(Protocol));
-            RaisePropertyChanged(nameof(Port));
-            RaisePropertyChanged(nameof(Ports));
-            RaisePropertyChanged(nameof(Status));
-            RaisePropertyChanged(nameof(StatusType));
-            RaisePropertyChanged(nameof(DeviceName));
-            RaisePropertyChanged(nameof(StatusFromType));
+            OnPropertyChanged(nameof(Manufacturer));
+            OnPropertyChanged(nameof(Protocol));
+            OnPropertyChanged(nameof(Port));
+            OnPropertyChanged(nameof(Ports));
+            OnPropertyChanged(nameof(Status));
+            OnPropertyChanged(nameof(StatusType));
+            OnPropertyChanged(nameof(DeviceName));
+            OnPropertyChanged(nameof(StatusFromType));
         }
 
         private void AddManufacturer(string manufacturer)

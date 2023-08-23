@@ -1,13 +1,13 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay
+namespace Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay
 {
     using System.Windows.Input;
     using Application.Contracts.Media;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CefSharp;
     using Contracts.Events;
     using Handlers;
     using Kernel;
     using Monaco.UI.Common.CefHandlers;
-    using MVVM;
     using ViewModels;
 
     /// <summary>
@@ -43,7 +43,7 @@
 
         private void MuteAudioHandler(MediaPlayerSetAudioMutedEvent e)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (Browser.IsBrowserInitialized)

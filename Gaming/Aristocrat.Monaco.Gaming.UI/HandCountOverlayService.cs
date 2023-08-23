@@ -1,14 +1,14 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI
+namespace Aristocrat.Monaco.Gaming.UI
 {
     using Accounting.Contracts;
     using Accounting.Contracts.HandCount;
     using Application.Contracts.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Cabinet.Contracts;
     using Contracts;
     using Contracts.HandCount;
     using Kernel;
     using log4net;
-    using MVVM;
     using System;
     using System.Collections.Generic;
     using System.Reflection;
@@ -66,7 +66,7 @@
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _timerDialogViewModel = new HandCountTimerDialogViewModel();
@@ -130,7 +130,7 @@
 
         private void Handle(CashoutAmountAuthorizationRequestedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                () =>
                {
                    //Cashout dialog visibility is set to Hidden and then to Visible once the dialog is added to the main view

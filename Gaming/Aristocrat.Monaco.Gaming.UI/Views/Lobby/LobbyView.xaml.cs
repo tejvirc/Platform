@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views.Lobby
+namespace Aristocrat.Monaco.Gaming.UI.Views.Lobby
 {
     using System;
     using System.Collections.Generic;
@@ -15,6 +15,7 @@
     using Application.Contracts;
     using Application.Contracts.Media;
     using Application.UI.Views;
+    using Aristocrat.Extensions.CommunityToolkit;
     using ButtonDeck;
     using Cabinet.Contracts;
     using Common;
@@ -31,7 +32,6 @@
     using ManagedBink;
     using MediaDisplay;
     using Monaco.UI.Common;
-    using MVVM;
     using Overlay;
     using Utils;
     using ViewModels;
@@ -196,7 +196,7 @@
 
         private void HandleOverlayWindowVisibilityChanged(OverlayWindowVisibilityChangedEvent e)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 try
                 {

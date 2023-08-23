@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -10,6 +10,8 @@
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using System.Windows.Threading;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.ConfigWizard;
@@ -28,8 +30,6 @@
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using Mono.Addins;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
     using Views;
     using Xceed.Wpf.Toolkit.Primitives;
@@ -155,7 +155,7 @@
                 {
                     if (_calibrationPending)
                     {
-                        MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                        Execute.OnUIThread(InvokeCalibration);
                     }
                 });
 
@@ -165,8 +165,8 @@
             // We're forcing touch screen mapping.  After doing so, we're going to force a restart
             _restartWhenFinished = !_isInspection && !_cabinetDetectionService.TouchscreensMapped;
 
-            BackButtonClicked = new ActionCommand<object>(BackButton_Click, _ => CanNavigateBackward);
-            NextButtonClicked = new ActionCommand<object>(NextButton_Click, _ => CanNavigateForward);
+            BackButtonClicked = new RelayCommand<object>(BackButton_Click, _ => CanNavigateBackward);
+            NextButtonClicked = new RelayCommand<object>(NextButton_Click, _ => CanNavigateForward);
         }
 
         public ICommand BackButtonClicked { get; }
@@ -201,7 +201,10 @@
                     vm.Save();
                 }
 
-                SetProperty(ref _currentPageLoader, value, nameof(CurrentPage));
+                if (SetProperty(ref _currentPageLoader, value, nameof(CurrentPageLoader)))
+                {
+                    OnPropertyChanged(nameof(CurrentPage));
+                }
 
                 if (_currentPageLoader != null)
                 {
@@ -224,9 +227,9 @@
             set
             {
                 SetProperty(ref _canNavigateForward, value, nameof(CanNavigateForward));
-                if (NextButtonClicked is IActionCommand actionCommand)
+                if (NextButtonClicked is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -238,9 +241,9 @@
             set
             {
                 SetProperty(ref _canNavigateBackward, value, nameof(CanNavigateBackward));
-                if (BackButtonClicked is IActionCommand actionCommand)
+                if (BackButtonClicked is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -272,7 +275,7 @@
                 if (_popupText != value)
                 {
                     _popupText = value;
-                    RaisePropertyChanged(nameof(PopupText));
+                    OnPropertyChanged(nameof(PopupText));
                     PopupOpen = !string.IsNullOrEmpty(PopupText);
                 }
             }
@@ -286,7 +289,7 @@
                 if (_popupOpen != value)
                 {
                     _popupOpen = value;
-                    RaisePropertyChanged(nameof(PopupOpen));
+                    OnPropertyChanged(nameof(PopupOpen));
 
                     if (_popupOpen)
                     {
@@ -329,9 +332,9 @@
             set
             {
                 _popupPlacementTarget = value;
-                RaisePropertyChanged(nameof(PopupPlacement));
-                RaisePropertyChanged(nameof(PopupPlacementTarget));
-                RaisePropertyChanged(nameof(PopupFontSize));
+                OnPropertyChanged(nameof(PopupPlacement));
+                OnPropertyChanged(nameof(PopupPlacementTarget));
+                OnPropertyChanged(nameof(PopupFontSize));
             }
         }
 
@@ -648,7 +651,7 @@
             {
                 if (_errorViewModel != null)
                 {
-                    MvvmHelper.ExecuteOnUI(() => _errorViewModel?.Close());
+                    Execute.OnUIThread(() => _errorViewModel?.Close());
                 }
                 else
                 {
@@ -659,7 +662,7 @@
                     }
 
                     _serialTouchCalibrated = false;
-                    MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                    Execute.OnUIThread(InvokeCalibration);
                 }
             }
             else
@@ -745,7 +748,7 @@
                 var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
                 _errorViewModel = new TouchCalibrationErrorViewModel { IsInWizard = true };
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         dialogService.ShowDialog<TouchCalibrationErrorView>(
@@ -841,6 +844,10 @@
 
             var ticketCreator = ServiceManager.GetInstance().TryGetService<IIdentityTicketCreator>();
             return TicketToList(ticketCreator?.CreateIdentityTicket());
+        }
+
+        public void Initialize()
+        {
         }
     }
 }

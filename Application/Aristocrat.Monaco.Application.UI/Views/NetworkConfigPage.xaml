@@ -18,5 +18,6 @@
     </UserControl.Resources>
     <ContentControl Content="{Binding}"
                     ContentTemplate="{StaticResource NetworkEditorTemplate}"
+                    Validation.ErrorTemplate="{x:Null}"
                     AutomationProperties.AutomationId="ContentControl0_1A261B94" />
 </operatorMenu:OperatorMenuPage>

@@ -16,9 +16,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Localization.Properties;
     using Models;
     using Contracts.Rtp;
-    using MVVM.Command;
     using Views.OperatorMenu;
     using IDialogService = Application.Contracts.OperatorMenu.IDialogService;
+    using CommunityToolkit.Mvvm.Input;
 
     public class GamesSummaryViewModel : OperatorMenuPageViewModelBase
     {
@@ -40,7 +40,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             _rtpService = ServiceManager.GetInstance().GetService<IRtpService>();
 
-            ShowRtpBreakdownDialogCommand = new ActionCommand<ReadOnlyGameConfiguration>(ShowRtpBreakdownDialog);
+            ShowRtpBreakdownDialogCommand = new RelayCommand<ReadOnlyGameConfiguration>(ShowRtpBreakdownDialog);
 
             _enabledGamesList = new List<IGameDetail>();
             _filteredGamesList = new List<IGameDetail>();
@@ -67,7 +67,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             }
         }
 
-        public ActionCommand<ReadOnlyGameConfiguration> ShowRtpBreakdownDialogCommand { get; }
+        public RelayCommand<ReadOnlyGameConfiguration> ShowRtpBreakdownDialogCommand { get; }
 
         public string Range
         {
@@ -75,7 +75,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _range = value;
-                RaisePropertyChanged(nameof(Range));
+                OnPropertyChanged(nameof(Range));
             }
         }
 
@@ -85,7 +85,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _hashesComponentId = value;
-                RaisePropertyChanged(nameof(HashesComponentId));
+                OnPropertyChanged(nameof(HashesComponentId));
             }
         }
 
@@ -97,7 +97,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _enabledGamesCount = value;
-                RaisePropertyChanged(nameof(EnabledGamesCount));
+                OnPropertyChanged(nameof(EnabledGamesCount));
             }
         }
 
@@ -107,7 +107,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _enabledGames = value;
-                RaisePropertyChanged(nameof(EnabledGames));
+                OnPropertyChanged(nameof(EnabledGames));
                 EnabledGamesCount = _enabledGames.Count;
             }
         }
@@ -118,7 +118,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             set
             {
                 _maxBetLimit = value;
-                RaisePropertyChanged(nameof(MaxBetLimit));
+                OnPropertyChanged(nameof(MaxBetLimit));
             }
         }
 

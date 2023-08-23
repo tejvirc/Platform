@@ -79,7 +79,7 @@
             }
 
             _saved = false;
-            RaisePropertyChanged(nameof(InputEnabled));
+            OnPropertyChanged(nameof(InputEnabled));
             IsVisitedSinceRestart = true;
         }
 
@@ -94,7 +94,7 @@
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(InputEnabled));
+            OnPropertyChanged(nameof(InputEnabled));
         }
 
         protected virtual void SetupNavigation()

@@ -62,7 +62,7 @@
             set
             {
                 _keyedOnTotalCount = value;
-                RaisePropertyChanged(nameof(KeyedOnTotalCount));
+                OnPropertyChanged(nameof(KeyedOnTotalCount));
             }
         }
 
@@ -72,7 +72,7 @@
             set
             {
                 _keyedOnTotalValue = value;
-                RaisePropertyChanged(nameof(KeyedOnTotalValue));
+                OnPropertyChanged(nameof(KeyedOnTotalValue));
             }
         }
 
@@ -85,7 +85,7 @@
             set
             {
                 _keyedOffTotalCount = value;
-                RaisePropertyChanged(nameof(KeyedOffTotalCount));
+                OnPropertyChanged(nameof(KeyedOffTotalCount));
             }
         }
 
@@ -95,7 +95,7 @@
             set
             {
                 _keyedOffTotalValue = value;
-                RaisePropertyChanged(nameof(KeyedOffTotalValue));
+                OnPropertyChanged(nameof(KeyedOffTotalValue));
             }
         }
 

@@ -3,17 +3,17 @@ namespace Aristocrat.Monaco.Demonstration.UI.ViewModels
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
     using Kernel;
-    using MVVM.Command;
     using System.Windows.Input;
     using Application.Contracts.Localization;
     using Localization.Properties;
     using Vgt.Client12.Application.OperatorMenu;
+    using CommunityToolkit.Mvvm.Input;
 
     public sealed class DemonstrationPageViewModel : OperatorMenuPageViewModelBase
     {
         public DemonstrationPageViewModel()
         {
-            DemonstrationExitButtonClickCommand = new ActionCommand<object>(OnExitButtonClickCommand);
+            DemonstrationExitButtonClickCommand = new RelayCommand<object>(OnExitButtonClickCommand);
         }
 
         /// <summary>

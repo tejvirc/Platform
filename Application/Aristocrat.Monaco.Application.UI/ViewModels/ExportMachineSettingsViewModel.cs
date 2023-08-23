@@ -1,10 +1,12 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
@@ -14,8 +16,6 @@
     using Models;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
     using Views;
 
@@ -44,7 +44,7 @@
             : this(
                 ServiceManager.GetInstance().GetService<IConfigurationSettingsManager>())
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
@@ -62,13 +62,13 @@
             _settingsManager = settingsManager;
             _exportSettingsNoteText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExportSettingsNoteText);
 
-            ExportCommand = new ActionCommand<object>(_ => Export(), _ => IsEKeyVerified && IsEKeyDriveFound && !IsInProgress);
+            ExportCommand = new RelayCommand<object>(_ => Export(), _ => IsEKeyVerified && IsEKeyDriveFound && !IsInProgress);
         }
 
         /// <summary>
         ///     Gets the export command.
         /// </summary>
-        public ActionCommand<object> ExportCommand { get; }
+        public RelayCommand<object> ExportCommand { get; }
 
         /// <summary>
         ///     Gets a collection of configuration settings.
@@ -85,7 +85,7 @@
             set
             {
                 SetProperty(ref _isInProgress, value);
-                ExportCommand.RaiseCanExecuteChanged();
+                ExportCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -119,7 +119,7 @@
             set
             {
                 SetProperty(ref _isEKeyVerified, value);
-                ExportCommand.RaiseCanExecuteChanged();
+                ExportCommand.NotifyCanExecuteChanged();
                 UpdateStatusText();
             }
         }
@@ -134,7 +134,7 @@
             set
             {
                 SetProperty(ref _isEKeyDriveFound, value);
-                ExportCommand.RaiseCanExecuteChanged();
+                ExportCommand.NotifyCanExecuteChanged();
                 UpdateStatusText();
             }
         }
@@ -147,7 +147,7 @@
                 if (_exportSettingsNoteText != value)
                 {
                     _exportSettingsNoteText = value;
-                    RaisePropertyChanged(nameof(ExportSettingsNoteText));
+                    OnPropertyChanged(nameof(ExportSettingsNoteText));
                 }
             }
         }
@@ -215,7 +215,7 @@
 
         private void Handle(PropertyChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsEKeyVerified = PropertiesManager.GetValue(ApplicationConstants.EKeyVerified, false);
@@ -230,7 +230,7 @@
 
         private void Handle(ConfigurationSettingsExportedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     ConfigurationSettings.AddRange(
@@ -333,13 +333,13 @@
 
         private void Handle(ConfigurationSettingsSummaryEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                  () =>
                  {
                      ConfigurationSettings.AddRange(
                          evt.Settings.Select(x => new ConfigurationSetting { Name = x.Key, Settings = x.Value }));
                  });
-            RaisePropertyChanged(nameof(ConfigurationSettings));
+            OnPropertyChanged(nameof(ConfigurationSettings));
         }
     }
 }

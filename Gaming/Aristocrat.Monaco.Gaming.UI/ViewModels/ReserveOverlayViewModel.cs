@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Globalization;
@@ -12,9 +12,9 @@
     using Contracts;
     using Kernel;
     using log4net;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
+    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Reserve machine GUI states
@@ -46,9 +46,9 @@
     /// <summary>
     ///     Class to store data for the Message Overlay
     /// </summary>
-    public class ReserveOverlayViewModel : BaseEntityViewModel, IDisposable
+    public class ReserveOverlayViewModel : ObservableObject, IDisposable
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IPropertiesManager _propertiesManager;
         private readonly IReserveService _reserveService;
@@ -130,17 +130,17 @@
             _audioService = audioService ?? throw new ArgumentNullException(nameof(audioService));
             _touchSoundFile = _propertiesManager.GetValue(ApplicationConstants.TouchSoundKey, string.Empty);
 
-            DigitClickedCommand = new ActionCommand<object>(ConcatenateReservePin);
+            DigitClickedCommand = new RelayCommand<object>(ConcatenateReservePin);
 
-            BackspaceButtonClickedCommand = new ActionCommand<object>(_ => BackspaceButtonPressed());
+            BackspaceButtonClickedCommand = new RelayCommand<object>(_ => BackspaceButtonPressed());
 
-            ReserveButtonClickedCommand = new ActionCommand<object>(_ => ReserveTheMachine());
+            ReserveButtonClickedCommand = new RelayCommand<object>(_ => ReserveTheMachine());
 
-            CancelButtonClickedCommand = new ActionCommand<object>(_ => CancelButtonPressed());
+            CancelButtonClickedCommand = new RelayCommand<object>(_ => CancelButtonPressed());
 
-            UnlockButtonClickedCommand = new ActionCommand<object>(_ => UnlockReserve());
+            UnlockButtonClickedCommand = new RelayCommand<object>(_ => UnlockReserve());
 
-            ExitReserveButtonClickedCommand = new ActionCommand<object>(_ => ExitReserveButtonPressed());
+            ExitReserveButtonClickedCommand = new RelayCommand<object>(_ => ExitReserveButtonPressed());
 
             _incorrectPinWaitTimer = new Timer(
                 IncorrectPinWaitTimerCallback,
@@ -178,7 +178,7 @@
                 ? TimeSpan.FromSeconds(FullLockupTimeSeconds)
                 : TimeSpan.FromSeconds(remainingSeconds);
 
-            RaisePropertyChanged(nameof(CountdownTimerText));
+            OnPropertyChanged(nameof(CountdownTimerText));
         }
 
         private void ResetFields()
@@ -405,7 +405,7 @@
         {
             if (_incorrectPinWaitTimeSpan > TimeSpan.Zero)
             {
-                RaisePropertyChanged(nameof(IncorrectPinWaitTimeLeft));
+                OnPropertyChanged(nameof(IncorrectPinWaitTimeLeft));
                 _incorrectPinWaitTimeSpan = _incorrectPinWaitTimeSpan.Subtract(TimeSpan.FromSeconds(1));
                 _incorrectPinWaitTimer.Change(TimeSpan.FromSeconds(1), Timeout.InfiniteTimeSpan);
             }
@@ -468,7 +468,7 @@
                     break;
 
                 case ApplicationConstants.ReserveServiceTimeoutInSeconds:
-                    RaisePropertyChanged(nameof(TimeLengthMachineWillBeReserved));
+                    OnPropertyChanged(nameof(TimeLengthMachineWillBeReserved));
                     break;
 
                 case ApplicationConstants.ReserveServiceLockupRemainingSeconds:
@@ -585,7 +585,7 @@
                     // Start the incorrect PIN attempts timer of 1 minute
                     _incorrectPinWaitTimeSpan = TimeSpan.FromSeconds(GamingConstants.ReserveMachineIncorrectPinWaitTimeSeconds);
                     _incorrectPinWaitTimer.Change(TimeSpan.FromSeconds(1), Timeout.InfiniteTimeSpan);
-                    RaisePropertyChanged(nameof(IncorrectPinWaitTimeLeft));
+                    OnPropertyChanged(nameof(IncorrectPinWaitTimeLeft));
                 }
             }
 

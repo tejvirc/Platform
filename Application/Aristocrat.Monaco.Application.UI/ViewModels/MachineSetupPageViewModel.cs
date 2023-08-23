@@ -64,7 +64,7 @@
             set
             {
                 _currencies = value;
-                RaisePropertyChanged(nameof(Currencies));
+                OnPropertyChanged(nameof(Currencies));
             }
         }
 
@@ -76,7 +76,7 @@
                 if (_selectedCurrency != value)
                 {
                     _selectedCurrency = value;
-                    RaisePropertyChanged(nameof(SelectedCurrency));
+                    OnPropertyChanged(nameof(SelectedCurrency));
                 }
             }
         }
@@ -89,7 +89,7 @@
                 if (_requireZeroCredit != value)
                 {
                     _requireZeroCredit = value;
-                    RaisePropertyChanged(nameof(RequireZeroCredit));
+                    OnPropertyChanged(nameof(RequireZeroCredit));
                 }
             }
         }

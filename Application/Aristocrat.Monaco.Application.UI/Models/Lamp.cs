@@ -1,10 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
-    public class Lamp : BaseNotify
+    public class Lamp : ObservableObject
     {
         private uint _bit;
         private bool _state;
@@ -22,7 +22,7 @@
                 }
 
                 _title = value;
-                RaisePropertyChanged(nameof(Title));
+                OnPropertyChanged(nameof(Title));
             }
         }
 
@@ -38,7 +38,7 @@
                 }
 
                 _bit = value;
-                RaisePropertyChanged(nameof(Bit));
+                OnPropertyChanged(nameof(Bit));
             }
         }
 
@@ -54,7 +54,7 @@
                 }
 
                 _state = value;
-                RaisePropertyChanged(nameof(State));
+                OnPropertyChanged(nameof(State));
             }
         }
     }

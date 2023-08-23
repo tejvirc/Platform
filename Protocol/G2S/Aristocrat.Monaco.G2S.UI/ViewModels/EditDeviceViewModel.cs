@@ -1,14 +1,15 @@
-﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
+namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
     using Aristocrat.G2S.Client;
     using Kernel;
-    using MVVM;
     using System.Collections.Generic;
     using System.Linq;
     using Localization.Properties;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using System.ComponentModel.DataAnnotations;
 
     public class EditDeviceViewModel : OperatorMenuSaveViewModelBase
     {
@@ -43,7 +44,7 @@
                 if (_deviceName != value)
                 {
                     _deviceName = value;
-                    RaisePropertyChanged(nameof(DeviceName));
+                    OnPropertyChanged(nameof(DeviceName));
                 }
             }
         }
@@ -57,11 +58,12 @@
                 if (_deviceId != value)
                 {
                     _deviceId = value;
-                    RaisePropertyChanged(nameof(DeviceId));
+                    OnPropertyChanged(nameof(DeviceId));
                 }
             }
         }
 
+        [CustomValidation(typeof(EditDeviceViewModel), nameof(OwnerIdValidate))]
         public int OwnerId
         {
             get => _ownerId;
@@ -71,7 +73,7 @@
                 if (_ownerId != value)
                 {
                     _ownerId = value;
-                    RaisePropertyChanged(nameof(OwnerId));
+                    OnPropertyChanged(nameof(OwnerId));
                 }
             }
         }
@@ -85,7 +87,7 @@
                 if (_enabled != value)
                 {
                     _enabled = value;
-                    RaisePropertyChanged(nameof(Enabled));
+                    OnPropertyChanged(nameof(Enabled));
                 }
             }
         }
@@ -99,7 +101,7 @@
                 if (_hostEnabled != value)
                 {
                     _hostEnabled = value;
-                    RaisePropertyChanged(nameof(HostEnabled));
+                    OnPropertyChanged(nameof(HostEnabled));
                 }
             }
         }
@@ -113,7 +115,7 @@
                 if (_active != value)
                 {
                     _active = value;
-                    RaisePropertyChanged(nameof(Active));
+                    OnPropertyChanged(nameof(Active));
                 }
             }
         }
@@ -142,20 +144,21 @@
             DialogResult = true;
         }
 
-        /// <inheritdoc />
-        protected override void ValidateAll()
+        public static ValidationResult OwnerIdValidate(int ownerId, ValidationContext context)
         {
-            base.ValidateAll();
-            ValidateHostId(OwnerId);
-        }
-
-        private void ValidateHostId(int ownerId)
-        {
-            ClearErrors(nameof(OwnerId));
+            EditDeviceViewModel instance = (EditDeviceViewModel)context.ObjectInstance;
+            var errors = "";
+            instance.ClearErrors(nameof(ownerId));
             if (ownerId <= 0)
             {
-                SetError(nameof(OwnerId), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostIdGreaterThanZero));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostIdGreaterThanZero);
             }
+            if (errors == null)
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
         }
 
         private void HandleOperatorMenuEntered(IEvent theEvent)
@@ -163,7 +166,7 @@
             var operatorMenuEvent = (OperatorMenuEnteredEvent)theEvent;
             if (!operatorMenuEvent.IsTechnicianRole)
             {
-                MvvmHelper.ExecuteOnUI(Cancel);
+                Execute.OnUIThread(Cancel);
             }
         }
     }

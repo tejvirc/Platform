@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,9 @@
     using System.Text.RegularExpressions;
     using System.Windows;
     using System.Windows.Media;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts.IdReader;
@@ -16,8 +18,6 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -48,8 +48,8 @@
 
         public IdReaderPageViewModel(bool isWizard) : base(DeviceType.IdReader, isWizard)
         {
-            SelfTestButtonCommand = new ActionCommand<object>(OnSelfTestCmd);
-            SelfTestClearButtonCommand = new ActionCommand<object>(OnSelfTestClearNvmCmd);
+            SelfTestButtonCommand = new RelayCommand<object>(OnSelfTestCmd);
+            SelfTestClearButtonCommand = new RelayCommand<object>(OnSelfTestClearNvmCmd);
 
             SelfTestCurrentState = SelfTestState.None;
         }
@@ -72,8 +72,8 @@
                 if (_idCardReadData != value)
                 {
                     _idCardReadData = value;
-                    RaisePropertyChanged(nameof(IdCardReadData));
-                    RaisePropertyChanged(nameof(IdCardReadDataForeground));
+                    OnPropertyChanged(nameof(IdCardReadData));
+                    OnPropertyChanged(nameof(IdCardReadDataForeground));
                 }
             }
         }
@@ -99,7 +99,7 @@
                 if (_stateLocalized != value)
                 {
                     _stateLocalized = value;
-                    RaisePropertyChanged(nameof(StateTextLocalized));
+                    OnPropertyChanged(nameof(StateTextLocalized));
                 }
             }
         }
@@ -243,7 +243,7 @@
 
                 SetStateInformation(idReader);
 
-                RaisePropertyChanged("UninitializedVisibility");
+                OnPropertyChanged("UninitializedVisibility");
 
                 SelfTestButtonEnabled = IdReader.Enabled && SelfTestCurrentState != SelfTestState.Running;
             }
@@ -432,13 +432,13 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 SetIdCardReadData();
-                RaisePropertyChanged(nameof(IdCardReadData));
-                RaisePropertyChanged(nameof(StateTextLocalized));
-                RaisePropertyChanged(nameof(SelfTestText));
-                RaisePropertyChanged(nameof(StatusText));
+                OnPropertyChanged(nameof(IdCardReadData));
+                OnPropertyChanged(nameof(StateTextLocalized));
+                OnPropertyChanged(nameof(SelfTestText));
+                OnPropertyChanged(nameof(StatusText));
             });
 
             base.OnOperatorCultureChanged(evt);

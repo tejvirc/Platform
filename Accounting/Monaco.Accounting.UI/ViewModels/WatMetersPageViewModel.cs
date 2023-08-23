@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Accounting.UI.ViewModels
+namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 {
     using Application.Contracts;
     using Application.Contracts.Tickets;
@@ -13,7 +13,7 @@
     using Application.Contracts.Localization;
     using Application.UI.MeterPage;
     using Monaco.Localization.Properties;
-    using MVVM;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     [CLSCompliant(false)]
     public class WatMetersPageViewModel : MetersPageViewModelBase
@@ -36,7 +36,7 @@
             set
             {
                 _watOnTotalCount = value;
-                RaisePropertyChanged(nameof(WatOnTotalCount));
+                OnPropertyChanged(nameof(WatOnTotalCount));
             }
         }
 
@@ -46,7 +46,7 @@
             set
             {
                 _watOnTotalValue = value;
-                RaisePropertyChanged(nameof(WatOnTotalValue));
+                OnPropertyChanged(nameof(WatOnTotalValue));
             }
         }
 
@@ -59,7 +59,7 @@
             set
             {
                 _watOffTotalCount = value;
-                RaisePropertyChanged(nameof(WatOffTotalCount));
+                OnPropertyChanged(nameof(WatOffTotalCount));
             }
         }
 
@@ -69,7 +69,7 @@
             set
             {
                 _watOffTotalValue = value;
-                RaisePropertyChanged(nameof(WatOffTotalValue));
+                OnPropertyChanged(nameof(WatOffTotalValue));
             }
         }
 
@@ -123,13 +123,13 @@
 
         protected override void RefreshMeters()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RemoveMeters();
                     AddMeters();
-                    RaisePropertyChanged(nameof(WatOnMeters));
-                    RaisePropertyChanged(nameof(WatOffMeters));
+                    OnPropertyChanged(nameof(WatOnMeters));
+                    OnPropertyChanged(nameof(WatOffMeters));
                     UpdateMeterTotals();
                 });
         }

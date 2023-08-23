@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using Application.UI.OperatorMenu;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
@@ -7,7 +7,6 @@
     using Aristocrat.Monaco.Gaming.Contracts.Models;
     using Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu;
     using Kernel;
-    using MVVM.Command;
     using System;
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
@@ -18,6 +17,7 @@
     using Contracts.Progressives.SharedSap;
     using Localization.Properties;
     using Progressives;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Defines the CustomSAPViewModel class
@@ -41,9 +41,9 @@
             _sharedSapProvider = ServiceManager.GetInstance().GetService<ISharedSapProvider>();
             _configurationProvider = ServiceManager.GetInstance().GetService<IProgressiveConfigurationProvider>();
 
-            AddSAPLevelCommand = new ActionCommand<object>(AddLevelPressed);
-            DeleteSAPLevelCommand = new ActionCommand<string>(DeleteLevelPressed);
-            EditSAPLevelCommand = new ActionCommand<string>(EditLevelPressed);
+            AddSAPLevelCommand = new RelayCommand<object>(AddLevelPressed);
+            DeleteSAPLevelCommand = new RelayCommand<string>(DeleteLevelPressed);
+            EditSAPLevelCommand = new RelayCommand<string>(EditLevelPressed);
 
             RefreshLevelDetails();
         }
@@ -60,7 +60,7 @@
             set
             {
                 _gameType = value ? GameType.Keno : GameType.Poker;
-                RaisePropertyChanged(nameof(_gameType));
+                OnPropertyChanged(nameof(_gameType));
                 RefreshLevelDetails();
             }
         }
@@ -71,7 +71,7 @@
             set
             {
                 _localInputStatusText = value;
-                RaisePropertyChanged(nameof(LocalInputStatusText));
+                OnPropertyChanged(nameof(LocalInputStatusText));
             }
         }
 
@@ -162,7 +162,7 @@
                             x => x.AssignedProgressiveId.AssignedProgressiveKey == level.LevelAssignmentKey)));
             }
 
-            RaisePropertyChanged(nameof(InputEnabled));
+            OnPropertyChanged(nameof(InputEnabled));
         }
 
         private void SetInputStatusText()

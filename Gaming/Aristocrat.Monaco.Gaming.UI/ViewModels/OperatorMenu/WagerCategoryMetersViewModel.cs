@@ -58,7 +58,7 @@
                     }
                 ));
 
-            RaisePropertyChanged(nameof(Categories));
+            OnPropertyChanged(nameof(Categories));
             var totalAmountIn = Categories.Sum(d => d.WageredMillicents);
             if (totalAmountIn > 0)
             {
@@ -69,7 +69,7 @@
             {
                 TheoPayback = 0;
             }
-            RaisePropertyChanged(nameof(TheoPayback));
+            OnPropertyChanged(nameof(TheoPayback));
         }
     }
 

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.ViewModels
+namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
@@ -13,7 +13,7 @@
     using Menu;
     using Models;
     using System.Threading.Tasks;
-    using MVVM;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     public class CurrentProgressivePageViewModel : HhrMenuPageViewModelBase
     {
@@ -59,7 +59,7 @@
         public override void Reset()
         {
             base.Reset();
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     ProgressivePools.Clear();

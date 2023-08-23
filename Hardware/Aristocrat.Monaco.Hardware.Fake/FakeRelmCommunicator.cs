@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hardware.Fake
+namespace Aristocrat.Monaco.Hardware.Fake
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +15,9 @@
     using Contracts.SharedDevice;
     using Kernel;
     using log4net;
-    using MVVM;
+    using MonacoReelStatus = Contracts.Reel.ReelStatus;
+    using MonacoLightStatus = Contracts.Reel.LightStatus;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     public class FakeRelmCommunicator : IRelmCommunicator
     {
@@ -225,7 +227,7 @@
         public bool Close()
         {
             Logger.Debug($"Closing Simulator.");
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
             });
 
@@ -254,7 +256,7 @@
             usedIds.AddRange(usedTitles.ToList().Select(int.Parse).ToList());
             _id = 1 + usedIds.Max();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
             () =>
             {
                 Logger.Debug($"Game says: {ReelCount} reels");

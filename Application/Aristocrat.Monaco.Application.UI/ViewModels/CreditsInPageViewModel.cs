@@ -1,7 +1,9 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using Accounting.Contracts;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.Localization;
@@ -10,7 +12,6 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -24,8 +25,8 @@
 
         public CreditsInPageViewModel()
         {
-            ApplyCommand = new ActionCommand<object>(OnApply, OnCanApply);
-            ClearCommand = new ActionCommand<object>(OnClear, OnCanClear);
+            ApplyCommand = new RelayCommand<object>(OnApply, OnCanApply);
+            ClearCommand = new RelayCommand<object>(OnClear, OnCanClear);
 
             // Set whether the operator can override max credit in.
             _canOverrideMaxCreditsIn = GetConfigSetting(
@@ -37,12 +38,12 @@
         /// <summary>
         ///     Gets or sets action command that applies the options.
         /// </summary>
-        public ActionCommand<object> ApplyCommand { get; set; }
+        public RelayCommand<object> ApplyCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets action command that clears the Cash In Limit value.
         /// </summary>
-        public ActionCommand<object> ClearCommand { get; set; }
+        public RelayCommand<object> ClearCommand { get; set; }
 
         public bool IsDirty
         {
@@ -51,27 +52,25 @@
             set
             {
                 _isDirty = value;
-                RaisePropertyChanged(nameof(IsDirty));
-                ApplyCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(IsDirty));
+                ApplyCommand.NotifyCanExecuteChanged();
             }
         }
 
         /// <summary>
         ///     Gets or sets the MaxCreditsIn
         /// </summary>
+        [CustomValidation(typeof(CreditsInPageViewModel), nameof(ValidateMaxCreditsIn))]
         public decimal MaxCreditsIn
         {
             get => _maxCreditsIn;
-
             set
             {
-                if (_maxCreditsIn != value)
+                if (SetProperty(ref _maxCreditsIn, value, true))
                 {
-                    ValidateMaxCreditsIn(value);
-                    RaisePropertyChanged(nameof(MaxCreditsIn));
                     IsDirty = true;
-                    ApplyCommand.RaiseCanExecuteChanged();
-                    ClearCommand.RaiseCanExecuteChanged();
+                    ApplyCommand.NotifyCanExecuteChanged();
+                    ClearCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -86,7 +85,7 @@
             set
             {
                 _maxCreditsInEnabled = value;
-                RaisePropertyChanged(nameof(MaxCreditsInEnabled));
+                OnPropertyChanged(nameof(MaxCreditsInEnabled));
             }
         }
 
@@ -94,11 +93,11 @@
         {
             MaxCreditsIn = PropertiesManager.GetValue(PropertyKey.MaxCreditsIn, AccountingConstants.DefaultMaxTenderInLimit).MillicentsToDollars();
 
-            RaisePropertyChanged(nameof(MaxCreditsIn));
+            OnPropertyChanged(nameof(MaxCreditsIn));
 
             IsDirty = false;
 
-            ClearCommand.RaiseCanExecuteChanged();
+            ClearCommand.NotifyCanExecuteChanged();
 
             // Are we configured to override MaxCreditsIn?
             if (_canOverrideMaxCreditsIn)
@@ -140,21 +139,14 @@
             MaxCreditsIn = 0;
         }
 
-        private void ValidateMaxCreditsIn(decimal maxCreditsIn)
+        public static ValidationResult ValidateMaxCreditsIn(decimal maxCreditsIn, ValidationContext context)
         {
-            ClearErrors(nameof(MaxCreditsIn));
-
-            if (maxCreditsIn >= ApplicationConstants.MaxCreditsInMax)
+            return maxCreditsIn switch
             {
-                return;
-            }
-
-            if (maxCreditsIn < ApplicationConstants.MaxCreditsInMin)
-            {
-                SetError(nameof(MaxCreditsIn), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MaxCreditsInInvalid));
-            }
-
-            _maxCreditsIn = maxCreditsIn;
+                < ApplicationConstants.MaxCreditsInMin => new(Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaxCreditsInInvalid)),
+                > ApplicationConstants.MaxCreditsInMax => new(string.Format(Localizer.For(CultureFor.Player).GetString(ResourceKeys.LessThanOrEqualErrorMessage), ApplicationConstants.MaxCreditsInMax.FormattedCurrencyString())),
+                _ => ValidationResult.Success
+            };
         }
     }
 }

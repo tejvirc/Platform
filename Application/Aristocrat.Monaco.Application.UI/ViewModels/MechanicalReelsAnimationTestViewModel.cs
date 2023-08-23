@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -8,13 +8,13 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Aristocrat.Monaco.Application.Contracts.Localization;
+    using CommunityToolkit.Mvvm.Input;
     using Hardware.Contracts.Reel;
     using Hardware.Contracts.Reel.Capabilities;
     using Hardware.Contracts.Reel.ControlData;
     using Models;
     using Monaco.Common;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
 
     /// <summary>
     ///     The MechanicalReelsAnimationTestViewModel class
@@ -65,10 +65,10 @@
                 _animationCapabilities = _reelController.GetCapability<IReelAnimationCapabilities>();
             }
 
-            HomeCommand = new ActionCommand<object>(_ => ReelHomeTest().FireAndForget());
-            NudgeCommand = new ActionCommand<object>(_ => ReelNudgeTest().FireAndForget());
-            PlayStepperCurveCommand = new ActionCommand<object>(_ => StepperCurveTest().FireAndForget());
-            StopCommand = new ActionCommand<object>(_ => PrepareStopReels().FireAndForget());
+            HomeCommand = new RelayCommand<object>(_ => ReelHomeTest().FireAndForget());
+            NudgeCommand = new RelayCommand<object>(_ => ReelNudgeTest().FireAndForget());
+            PlayStepperCurveCommand = new RelayCommand<object>(_ => StepperCurveTest().FireAndForget());
+            StopCommand = new RelayCommand<object>(_ => PrepareStopReels().FireAndForget());
             _reelInfo = reelInfo;
             _updateScreenCallback = updateScreenCallback;
         }
@@ -103,7 +103,7 @@
             set
             {
                 _reelInfo = value;
-                RaisePropertyChanged(nameof(ReelInfo));
+                OnPropertyChanged(nameof(ReelInfo));
             }
         }
 
@@ -142,10 +142,10 @@
                 }
 
                 _testActive = value;
-                RaisePropertyChanged(nameof(TestActive));
-                RaisePropertyChanged(nameof(StopEnabled));
-                RaisePropertyChanged(nameof(NudgeEnabled));
-                RaisePropertyChanged(nameof(HomeEnabled));
+                OnPropertyChanged(nameof(TestActive));
+                OnPropertyChanged(nameof(StopEnabled));
+                OnPropertyChanged(nameof(NudgeEnabled));
+                OnPropertyChanged(nameof(HomeEnabled));
             }
         }
 
@@ -166,7 +166,7 @@
                 }
 
                 _homeEnabled = value;
-                RaisePropertyChanged(nameof(HomeEnabled));
+                OnPropertyChanged(nameof(HomeEnabled));
             }
         }
 
@@ -185,7 +185,7 @@
                 }
 
                 _nudgeEnabled = value;
-                RaisePropertyChanged(nameof(NudgeEnabled));
+                OnPropertyChanged(nameof(NudgeEnabled));
             }
         }
 
@@ -209,7 +209,7 @@
                 }
 
                 _spinEnabled = value;
-                RaisePropertyChanged(nameof(PlayCurveEnabled));
+                OnPropertyChanged(nameof(PlayCurveEnabled));
             }
         }
 
@@ -231,9 +231,9 @@
                 }
 
                 _allReelsIdle = value;
-                RaisePropertyChanged(nameof(NudgeEnabled));
-                RaisePropertyChanged(nameof(PlayCurveEnabled));
-                RaisePropertyChanged(nameof(HomeEnabled));
+                OnPropertyChanged(nameof(NudgeEnabled));
+                OnPropertyChanged(nameof(PlayCurveEnabled));
+                OnPropertyChanged(nameof(HomeEnabled));
             }
         }
 
@@ -248,7 +248,7 @@
                 }
 
                 _allReelsIdleUnknown = value;
-                RaisePropertyChanged(nameof(HomeEnabled));
+                OnPropertyChanged(nameof(HomeEnabled));
             }
         }
 
@@ -257,14 +257,14 @@
         /// </summary>
         public void UpdateScreen()
         {
-            RaisePropertyChanged(nameof(ReelInfo));
+            OnPropertyChanged(nameof(ReelInfo));
 
             AllReelsIdle = ReelInfo.All(x => x.State == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Idle));
             AllReelsIdleUnknown = ReelInfo.All(x => x.State == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReelController_IdleUnknown));
 
-            RaisePropertyChanged(nameof(HomeEnabled));
-            RaisePropertyChanged(nameof(NudgeEnabled));
-            RaisePropertyChanged(nameof(PlayCurveEnabled));
+            OnPropertyChanged(nameof(HomeEnabled));
+            OnPropertyChanged(nameof(NudgeEnabled));
+            OnPropertyChanged(nameof(PlayCurveEnabled));
         }
 
         private bool IsReelActive(int reel) => ReelInfo.Any(o => o.Id == reel);
@@ -511,7 +511,7 @@
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void RaisePropertyChanged(params string[] propertyNames)
+        private void OnPropertyChanged(params string[] propertyNames)
         {
             foreach (var propertyName in propertyNames)
             {
@@ -535,7 +535,7 @@
                 }
             }
 
-            RaisePropertyChanged(nameof(ReelInfo));
+            OnPropertyChanged(nameof(ReelInfo));
         }
     }
 }

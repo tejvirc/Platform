@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -9,6 +9,7 @@
     using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.ConfigWizard;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
@@ -19,7 +20,6 @@
     using log4net;
     using Models;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
     using Simulation.HarkeyReels;
 
     [CLSCompliant(false)]
@@ -67,9 +67,9 @@
                 _spinSpeed = _spinCapabilities.DefaultSpinSpeed;
             }
 
-            HomeCommand = new ActionCommand<object>(_ => HomeReels());
-            SpinCommand = new ActionCommand<object>(_ => SpinReels());
-            NudgeCommand = new ActionCommand<object>(_ => NudgeReels());
+            HomeCommand = new RelayCommand<object>(_ => HomeReels());
+            SpinCommand = new RelayCommand<object>(_ => SpinReels());
+            NudgeCommand = new RelayCommand<object>(_ => NudgeReels());
         }
 
         public IReelDisplayControl ReelsSimulation { get; set; }
@@ -94,7 +94,7 @@
                 }
 
                 _homeEnabled = value;
-                RaisePropertyChanged(nameof(HomeEnabled));
+                OnPropertyChanged(nameof(HomeEnabled));
             }
         }
 
@@ -112,7 +112,7 @@
                 }
 
                 _nudgeEnabled = value;
-                RaisePropertyChanged(nameof(NudgeEnabled));
+                OnPropertyChanged(nameof(NudgeEnabled));
             }
         }
 
@@ -123,7 +123,7 @@
             set
             {
                 _reelInfo = value;
-                RaisePropertyChanged(nameof(ReelInfo));
+                OnPropertyChanged(nameof(ReelInfo));
             }
         }
 
@@ -141,7 +141,7 @@
                 }
 
                 _spinEnabled = value;
-                RaisePropertyChanged(nameof(SpinEnabled));
+                OnPropertyChanged(nameof(SpinEnabled));
             }
         }
 
@@ -151,15 +151,15 @@
 
         public void UpdateScreen()
         {
-            RaisePropertyChanged(nameof(ReelInfo));
+            OnPropertyChanged(nameof(ReelInfo));
 
             AllReelsIdle = ReelInfo.All(x => x.State == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Idle));
             AllReelsIdleUnknown = ReelInfo.All(x => x.State == Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReelController_IdleUnknown));
             AnyReelEnabled = ReelInfo.Any(x => x.Enabled);
 
-            RaisePropertyChanged(nameof(HomeEnabled));
-            RaisePropertyChanged(nameof(NudgeEnabled));
-            RaisePropertyChanged(nameof(SpinEnabled));
+            OnPropertyChanged(nameof(HomeEnabled));
+            OnPropertyChanged(nameof(NudgeEnabled));
+            OnPropertyChanged(nameof(SpinEnabled));
         }
 
         private async void ExecuteSpinCommand(IEnumerable<ISpinData> spinData)
@@ -237,9 +237,9 @@
                 }
 
                 _allReelsIdle = value;
-                RaisePropertyChanged(nameof(NudgeEnabled));
-                RaisePropertyChanged(nameof(SpinEnabled));
-                RaisePropertyChanged(nameof(HomeEnabled));
+                OnPropertyChanged(nameof(NudgeEnabled));
+                OnPropertyChanged(nameof(SpinEnabled));
+                OnPropertyChanged(nameof(HomeEnabled));
             }
         }
 
@@ -254,7 +254,7 @@
                 }
 
                 _allReelsIdleUnknown = value;
-                RaisePropertyChanged(nameof(HomeEnabled));
+                OnPropertyChanged(nameof(HomeEnabled));
             }
         }
 
@@ -268,7 +268,7 @@
             _reporter?.SetTestName("Home reels");
             _eventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.MechanicalReels));
             ReelsVisible = true;
-            RaisePropertyChanged(nameof(ReelsVisible));
+            OnPropertyChanged(nameof(ReelsVisible));
 
             for (var i = 1; i <= _maxSupportedReels; ++i)
             {
@@ -365,7 +365,7 @@
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void RaisePropertyChanged(params string[] propertyNames)
+        private void OnPropertyChanged(params string[] propertyNames)
         {
             foreach (var propertyName in propertyNames)
             {
@@ -421,7 +421,7 @@
                 }
             }
 
-            RaisePropertyChanged(nameof(ReelInfo));
+            OnPropertyChanged(nameof(ReelInfo));
         }
     }
 }
