@@ -22,6 +22,7 @@
         private readonly IEventBus _bus;
         private readonly IPropertiesManager _properties;
         private readonly IPlayerBank _playerBank;
+        private readonly IGameProvider _gameProvider;
         private readonly IGamePlayState _gamePlay;
         private readonly IGameHistory _history;
         private readonly IGameMeterManager _meters;
@@ -30,6 +31,7 @@
 
         public MultipleJackpotTime(IPersistentStorageManager storage,
             ITransactionHistory transactions,
+            IGameProvider gameProvider,
             IGamePlayState gamePlay,
             IGameHistory history,
             IGameMeterManager meters,
@@ -51,6 +53,7 @@
 
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
             _transactions = transactions ?? throw new ArgumentNullException(nameof(transactions));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _gamePlay = gamePlay ?? throw new ArgumentNullException(nameof(gamePlay));
             _history = history ?? throw new ArgumentNullException(nameof(history));
             _meters = meters ?? throw new ArgumentNullException(nameof(meters));
@@ -390,7 +393,7 @@
 
             long GetCurrentMaxWager()
             {
-                var (game, denom) = _properties.GetActiveGame();
+                var (game, denom) = _gameProvider.GetActiveGame();
 
                 return game.MaximumWager(denom);
             }

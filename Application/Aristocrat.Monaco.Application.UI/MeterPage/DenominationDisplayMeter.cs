@@ -58,7 +58,7 @@
         protected override void OnMeterChangedEvent(object sender, MeterChangedEventArgs e)
         {
             base.OnMeterChangedEvent(sender, e);
-            RaisePropertyChanged(nameof(Count));
+            OnPropertyChanged(nameof(Count));
         }
 
         private static string GetFormattedDenominationString(int denomination, bool useOperatorCultureForCurrency)

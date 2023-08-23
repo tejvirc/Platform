@@ -8,7 +8,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts
     public interface IGameInfo
     {
         /// <summary>
-        ///     Theme ID of the game.  Not currently displayed anywhere so doesn't need RaisePropertyChanged
+        ///     Theme ID of the game.  Not currently displayed anywhere so doesn't need OnPropertyChanged
         /// </summary>
         string ThemeId { get; set; }
 

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.Consumers
+namespace Aristocrat.Monaco.Hhr.UI.Consumers
 {
     using System;
     using System.Linq;
@@ -15,10 +15,10 @@
     using Hardware.Contracts.Cabinet;
     using Kernel;
     using log4net;
-    using MVVM;
     using Storage.Helpers;
     using ViewModels;
     using Views;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     /// <summary>
     ///     Handler responsible for launching Horse Animation.
@@ -72,7 +72,7 @@
 
             _eventBus.Subscribe<DisplayConnectionChangedEvent>(this, HandleEvent);
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Logger.Debug($"Rendering capability tier: {RenderCapability.Tier >> 16}");
@@ -207,7 +207,7 @@
                 _gamePlayState,
                 _gamePlayEntity);
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _venueRaceCollection = new VenueRaceCollection(_venueRaceCollectionViewModel);

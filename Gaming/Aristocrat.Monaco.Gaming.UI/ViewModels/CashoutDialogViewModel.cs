@@ -1,16 +1,16 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Windows.Input;
     using Accounting.Contracts.HandCount;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Kernel;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using Runtime;
     using Runtime.Client;
 
-    public class CashoutDialogViewModel : BaseEntityViewModel
+    public class CashoutDialogViewModel : ObservableObject
     {
         private readonly IEventBus _eventBus;
         private long _handCountAmount;
@@ -26,7 +26,7 @@
             set
             {
                 _handCountAmount = value;
-                RaisePropertyChanged(nameof(HandCountAmount));
+                OnPropertyChanged(nameof(HandCountAmount));
             }
         }
 
@@ -38,7 +38,7 @@
         public CashoutDialogViewModel(IEventBus eventBus)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            CashoutDialogYesNoCommand = new ActionCommand<object>(CashoutDialogYesNoPressed);
+            CashoutDialogYesNoCommand = new RelayCommand<object>(CashoutDialogYesNoPressed);
         }
 
         private void CashoutDialogYesNoPressed(object obj)

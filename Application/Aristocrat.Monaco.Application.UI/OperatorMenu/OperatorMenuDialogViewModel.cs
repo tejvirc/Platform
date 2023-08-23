@@ -1,12 +1,12 @@
-﻿namespace Aristocrat.Monaco.Application.UI.OperatorMenu
+namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Windows.Input;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.OperatorMenu;
-    using MVVM;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class OperatorMenuDialogViewModel : OperatorMenuSaveViewModelBase
@@ -89,7 +89,7 @@
 
         private void Initialize(string windowText)
         {
-            HandleLoadedCommand = new ActionCommand<object>(HandleLoaded);
+            HandleLoadedCommand = new RelayCommand<object>(HandleLoaded);
             _windowText = windowText;
         }
 
@@ -100,18 +100,18 @@
 
         private void UpdateProperties()
         {
-            RaisePropertyChanged(nameof(WindowText));
-            RaisePropertyChanged(nameof(ShowTextOnly));
-            RaisePropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(WindowText));
+            OnPropertyChanged(nameof(ShowTextOnly));
+            OnPropertyChanged(nameof(CanSave));
         }
 
         private void ViewModel_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(() => RaisePropertyChanged(nameof(CanSave)));
+            Execute.OnUIThread(() => OnPropertyChanged(nameof(CanSave)));
 
             if (e.PropertyName == nameof(DialogResult))
             {
-                MvvmHelper.ExecuteOnUI(() => DialogResult = _viewModel.DialogResult);
+                Execute.OnUIThread(() => DialogResult = _viewModel.DialogResult);
             }
         }
 

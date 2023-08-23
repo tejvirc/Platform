@@ -30,7 +30,7 @@
 
         protected override void OnLoaded()
         {
-            RaisePropertyChanged(
+            OnPropertyChanged(
                         nameof(ValidationProtocol),
                         nameof(FundTransferProtocol),
                         nameof(ProgressiveProtocol),
@@ -39,7 +39,7 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            RaisePropertyChanged(
+            OnPropertyChanged(
                         nameof(ValidationProtocol),
                         nameof(FundTransferProtocol),
                         nameof(ProgressiveProtocol),

@@ -1,15 +1,15 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
-    using Application.Contracts.Media;
-    using MediaDisplay;
-    using Kernel;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows;
+    using Application.Contracts.Media;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using Kernel;
+    using MediaDisplay;
 
-    public class LayoutTemplateViewModel : BaseEntityViewModel, IDisposable
+    public class LayoutTemplateViewModel : ObservableObject, IDisposable
     {
         private readonly IMediaProvider _provider;
         private readonly DisplayType _displayType;
@@ -18,7 +18,7 @@
         private IEventBus _eventBus;
         private ScreenType? _screenType;
         private double _windowWidth;
-        private double _windowHeight; 
+        private double _windowHeight;
 
         public event EventHandler<int> BrowserProcessTerminated;
 
@@ -50,7 +50,8 @@
                 if (!_windowWidth.Equals(value))
                 {
                     _windowWidth = value;
-                    RaisePropertyChanged(nameof(WindowWidth));
+                    OnPropertyChanged(nameof(WindowWidth));
+                    SetContentSize();
                 }
             }
         }
@@ -64,7 +65,8 @@
                 if (!_windowHeight.Equals(value))
                 {
                     _windowHeight = value;
-                    RaisePropertyChanged(nameof(WindowHeight));
+                    OnPropertyChanged(nameof(WindowHeight));
+                    SetContentSize();
                 }
             }
         }
@@ -81,16 +83,6 @@
             ScreenType = screenType;
 
             _eventBus.Subscribe<BrowserProcessTerminatedEvent>(this, e => BrowserProcessTerminated?.Invoke(this, e.MediaPlayerId));
-        }
-
-        protected override void RaisePropertyChanged(string propertyName)
-        {
-            base.RaisePropertyChanged(propertyName);
-
-            if (propertyName == "WindowWidth" || propertyName == "WindowHeight")
-            {
-                SetContentSize();
-            }
         }
 
         private void LoadProvider()
@@ -168,7 +160,7 @@
 
             // Highest priority visible players should be scaled proportionately
             var visiblePlayers = MediaPlayers.Where(p => p.IsVisible).OrderBy(p => p.Priority).ToList();
-            
+
             // Scale all but the last in the list
             MediaPlayerViewModelBase lastVisible = null;
             if (visiblePlayers.Count > 1)

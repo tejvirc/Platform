@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
+namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,9 @@
     using System.Text;
     using System.Threading.Tasks;
     using Accounting.Contracts;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Extensions;
     using Contracts.Localization;
@@ -21,8 +23,6 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
 
 #pragma warning disable 2214
@@ -79,7 +79,7 @@
                 {
                     Denominations.Add(new ConfigurableDenomination(
                         denom,
-                        new ActionCommand<bool>(b => HandleDenominationChangeCommand(b, denom)),
+                        new RelayCommand<bool>(b => HandleDenominationChangeCommand(b, denom)),
                         DenominationIsSelected(denom)));
                 }
             }
@@ -136,7 +136,7 @@
 
                 VoucherInEnabledText = IsVoucherInEnabled && noteAcceptor.Enabled ? ResourceKeys.EnabledLabel : ResourceKeys.Disabled;
 
-                RaisePropertyChanged(nameof(TestModeEnabled));
+                OnPropertyChanged(nameof(TestModeEnabled));
 
                 ConfigureStackButton();
 
@@ -496,7 +496,7 @@
 
             ReturnButtonEnabled = enable;
             SetDenominationsEnabled(enable);
-            RaisePropertyChanged(nameof(TestModeEnabled));
+            OnPropertyChanged(nameof(TestModeEnabled));
         }
 
         private void SetDenominationsEnabled(bool enable)
@@ -914,7 +914,7 @@
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(CanEgmModifyDenominations));
+            OnPropertyChanged(nameof(CanEgmModifyDenominations));
         }
 
         /// <summary>This method will check whether any of the enabled denominations are currently selected or not</summary>
@@ -957,7 +957,7 @@
 
         private void UpdateCurrencyFields()
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 CurrencyExtensions.UpdateCurrencyCulture();
 
@@ -966,7 +966,7 @@
                     denom.UpdateProps(CurrentCurrencyFormat);
                 }
 
-                RaisePropertyChanged(
+                OnPropertyChanged(
                     nameof(BillAcceptanceLimit),
                     nameof(BillAcceptanceRate),
                     nameof(Denominations),

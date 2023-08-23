@@ -31,14 +31,14 @@
         private const string DefaultAttractPatternJsFile = "scripts/pattern.js";
         private const string HtmlPageEnding = ".html";
 
-        private readonly IPropertiesManager _propertiesManager;
+        private readonly IGameProvider _gameProvider;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
 
         public LegacyAttractProvider(
-            IPropertiesManager propertiesManager,
+            IGameProvider gameProvider,
             IUnitOfWorkFactory unitOfWorkFactory)
         {
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
         }
 
@@ -57,13 +57,13 @@
 
         private IDictionary<string, string> GetUrlParameters(BingoDisplayConfigurationBingoAttractSettings attractSettings)
         {
-            var (game, denomination) = _propertiesManager.GetActiveGame();
+            var (game, denomination) = _gameProvider.GetActiveGame();
             var serverSettings = _unitOfWorkFactory.Invoke(
                     x => x.Repository<BingoServerSettingsModel>().Queryable().SingleOrDefault())?.GamesConfigured
                 ?.FirstOrDefault(c => c.PlatformGameId == game.Id && c.Denomination == denomination.Value);
 
             var numberFormat = CurrencyExtensions.CurrencyCultureInfo.NumberFormat;
-            var helpUrl = _unitOfWorkFactory.GetHelpUri(_propertiesManager);
+            var helpUrl = _unitOfWorkFactory.GetHelpUri(_gameProvider);
             var helpUriBuilder = new UriBuilder(helpUrl);
 
             if (helpUriBuilder.Path.EndsWith(HtmlPageEnding))

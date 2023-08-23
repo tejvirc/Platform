@@ -1,13 +1,13 @@
-﻿namespace Aristocrat.Monaco.Accounting.UI.Settings
+namespace Aristocrat.Monaco.Accounting.UI.Settings
 {
     using System;
     using System.Threading.Tasks;
     using System.Windows;
     using Application.Contracts.Settings;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Contracts.Handpay;
     using Kernel;
-    using MVVM;
 
     /// <summary>
     ///     Implements <see cref="IConfigurationSettings"/> for Accounting settings.
@@ -53,7 +53,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary

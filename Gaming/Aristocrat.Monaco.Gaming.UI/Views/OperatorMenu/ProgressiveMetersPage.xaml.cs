@@ -1,11 +1,11 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu
 {
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Data;
     using Application.Contracts.Localization;
     using Application.Contracts.MeterPage;
-    using MVVM;
+    using Aristocrat.Extensions.CommunityToolkit;
     using ViewModels.OperatorMenu;
 
     /// <summary>
@@ -33,7 +33,7 @@
 
         private void ViewModel_OnCultureChange(object sender, System.EventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 SetupMeters(sender as ProgressiveMetersPageViewModel);
             });

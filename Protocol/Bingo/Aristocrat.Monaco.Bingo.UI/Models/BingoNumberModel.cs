@@ -3,12 +3,12 @@
     using System;
     using System.Windows.Media;
     using Common.GameOverlay;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Bingo number
     /// </summary>
-    public class BingoNumberModel : BaseNotify
+    public class BingoNumberModel : ObservableObject
     {
         private const string TransparentColor = "Transparent";
 
@@ -49,7 +49,7 @@
                 }
 
                 _fontSize = value;
-                RaisePropertyChanged(nameof(FontSize));
+                OnPropertyChanged(nameof(FontSize));
             }
         }
 

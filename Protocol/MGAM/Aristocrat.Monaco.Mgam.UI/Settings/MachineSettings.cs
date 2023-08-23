@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Mgam.UI.Settings
 {
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Machine settings.
     /// </summary>
-    public class MachineSettings : BaseNotify
+    public class MachineSettings : ObservableObject
     {
         private int _directoryPort;
         private string _serviceName;

@@ -3,6 +3,7 @@
     using System;
     using Accounting.Contracts;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Gaming.Contracts;
     using Common;
     using Kernel;
     using Protocol.Common.Storage.Entity;
@@ -18,7 +19,7 @@
         private readonly IReportTransactionQueueService _bingoServerTransactionReportHandler;
         private readonly IReportEventQueueService _bingoEventQueue;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
-        private readonly IPropertiesManager _propertiesManager;
+        private readonly IGameProvider _gameProvider;
 
         public CurrencyInCompletedConsumer(
             IEventBus eventBus,
@@ -26,13 +27,13 @@
             IReportTransactionQueueService handler,
             IReportEventQueueService bingoEventQueue,
             IUnitOfWorkFactory unitOfWorkFactory,
-            IPropertiesManager propertiesManager)
+            IGameProvider gameProvider)
             : base(eventBus, sharedConsumer)
         {
             _bingoServerTransactionReportHandler = handler ?? throw new ArgumentNullException(nameof(handler));
             _bingoEventQueue = bingoEventQueue ?? throw new ArgumentNullException(nameof(bingoEventQueue));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
         }
 
         public override void Consume(CurrencyInCompletedEvent theEvent)
@@ -42,7 +43,7 @@
                 return;
             }
 
-            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
+            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_gameProvider);
             _bingoServerTransactionReportHandler
                 .AddNewTransactionToQueue(
                     Common.TransactionType.CashIn,

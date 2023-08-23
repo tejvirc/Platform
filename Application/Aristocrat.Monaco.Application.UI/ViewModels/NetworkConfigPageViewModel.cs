@@ -1,14 +1,17 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Hardware.Contracts.Gds.NoteAcceptor;
+    using Aristocrat.Monaco.UI.Common.MVVM;
+    using Aristocrat.Extensions.CommunityToolkit;
     using ConfigWizard;
     using Contracts;
     using Contracts.Localization;
     using Kernel;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common;
-    using MVVM;
 
     /// <summary>
     ///     View model for network configuration
@@ -41,96 +44,77 @@
         {
             if (!isWizardPage)
             {
-                ValidateAll();
-                // Set whether the operator can change the time zone with credits on the machine.
+                RunCustomValidation();
             }
 
             _network = ServiceManager.GetInstance().GetService<INetworkService>();
 
             InputStatusText = string.Empty;
-            IgnorePropertyForCommitted(nameof(ShowStatus));
         }
 
-        public bool CanApplyChanges => InputEnabled && HasChanges();
+        public bool CanApplyChanges => !HasErrors && InputEnabled && HasChanges();
 
+        [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateIpAddressAllowEmpty))]
         public string DnsServer1
         {
             get => _dnsServer1;
-
             set
             {
-                if (value != _dnsServer1)
+                if (SetProperty(ref _dnsServer1, value, true))
                 {
-                    ValidateNetworkAddressAllowEmpty(value, nameof(DnsServer1));
-                    _dnsServer1 = value;
-                    RaisePropertyChanged(nameof(DnsServer1), nameof(CanApplyChanges));
+                    OnPropertyChanged(nameof(CanApplyChanges));
                 }
             }
         }
 
+        [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateIpAddressAllowEmpty))]
         public string DnsServer2
         {
             get => _dnsServer2;
-
             set
             {
-                if (value != _dnsServer2)
+                if (SetProperty(ref _dnsServer2, value, true))
                 {
-                    ValidateNetworkAddressAllowEmpty(value, nameof(DnsServer2));
-                    _dnsServer2 = value;
-                    RaisePropertyChanged(nameof(DnsServer2), nameof(CanApplyChanges));
+                    OnPropertyChanged(nameof(CanApplyChanges));
                 }
             }
         }
 
+        [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateIpAddress))]
         public string IpAddress
         {
             get => _ipAddress;
-
             set
             {
-                if (value != _ipAddress)
+                if (SetProperty(ref _ipAddress, value, true))
                 {
-                    ValidateNetworkAddress(value, nameof(IpAddress));
-                    _ipAddress = value;
-                    RaisePropertyChanged(nameof(IpAddress), nameof(CanApplyChanges));
+                    OnPropertyChanged(nameof(CanApplyChanges));
                 }
             }
         }
 
+        [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateSubnetMask))]
         public string SubnetMask
         {
             get => _subnetMask;
-
             set
             {
-                if (value != _subnetMask)
+                if (SetProperty(ref _subnetMask, value, true))
                 {
-                    ValidateSubnetAddress(value, nameof(SubnetMask));
-                    _subnetMask = value;
-                    RaisePropertyChanged(nameof(SubnetMask), nameof(CanApplyChanges));
+                    OnPropertyChanged(nameof(CanApplyChanges));
                 }
             }
         }
 
+        [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateIpAddressAllowEmptyIfStatic))]
         public string Gateway
         {
             get => _gateway;
-
             set
             {
-                if (value != _gateway)
+                if (SetProperty(ref _gateway, value, true))
                 {
-                    if (StaticIp)
-                    {
-                        ValidateNetworkAddressAllowEmpty(value, nameof(Gateway));
-                    }
-                    else
-                    {
-                        ValidateNetworkAddress(value, nameof(Gateway));
-                    }
-                    _gateway = value;
-                    RaisePropertyChanged(nameof(Gateway), nameof(CanApplyChanges));
+                    OnPropertyChanged(nameof(CanApplyChanges));
                 }
             }
         }
@@ -138,13 +122,11 @@
         public bool StaticIp
         {
             get => _staticIp;
-
             set
             {
-                if (_staticIp != value)
+                if (SetProperty(ref _staticIp, value, nameof(StaticIp)))
                 {
-                    _staticIp = value;
-                    RaisePropertyChanged(nameof(StaticIp), nameof(CanApplyChanges));
+                    OnPropertyChanged(nameof(CanApplyChanges));
                 }
             }
         }
@@ -160,8 +142,10 @@
                     return;
                 }
 
-                _dhcpEnabled = value;
-                RaisePropertyChanged(nameof(DhcpEnabled), nameof(CanApplyChanges));
+                if (SetProperty(ref _dhcpEnabled, value, nameof(DhcpEnabled)))
+                {
+                    OnPropertyChanged(nameof(CanApplyChanges));
+                }
 
                 if (_dhcpEnabled)
                 {
@@ -174,30 +158,23 @@
                 }
                 else
                 {
-                    ValidateAll();
+                    RunCustomValidation();
 
-                    RaisePropertyChanged(nameof(IpAddress));
-                    RaisePropertyChanged(nameof(SubnetMask));
-                    RaisePropertyChanged(nameof(Gateway));
-                    RaisePropertyChanged(nameof(DnsServer1));
-                    RaisePropertyChanged(nameof(DnsServer2));
+                    OnPropertyChanged(nameof(IpAddress));
+                    OnPropertyChanged(nameof(SubnetMask));
+                    OnPropertyChanged(nameof(Gateway));
+                    OnPropertyChanged(nameof(DnsServer1));
+                    OnPropertyChanged(nameof(DnsServer2));
                 }
 
             }
         }
 
+        [IgnoreTracking]
         public bool ShowStatus
         {
             get => _showStatus;
-
-            set
-            {
-                if (_showStatus != value)
-                {
-                    _showStatus = value;
-                    RaisePropertyChanged(nameof(ShowStatus));
-                }
-            }
+            set => SetProperty(ref _showStatus, value);
         }
 
         ~NetworkConfigPageViewModel()
@@ -225,35 +202,14 @@
                 () =>
                 {
                     _network.SetNetworkInfo(networkInfo);
-                    MvvmHelper.ExecuteOnUI(
+                    Execute.OnUIThread(
                         () =>
                         {
                             RefreshScreen();
                             ShowStatus = false;
-                            Committed = true;
+                            IsCommitted = true;
                         });
                 });
-        }
-
-        protected override void ValidateAll()
-        {
-            base.ValidateAll();
-
-            if (!DhcpEnabled)
-            {
-                ValidateNetworkAddress(IpAddress, nameof(IpAddress));
-                ValidateSubnetAddress(SubnetMask, nameof(SubnetMask));
-                if (StaticIp)
-                {
-                    ValidateNetworkAddressAllowEmpty(Gateway, nameof(Gateway));
-                }
-                else
-                {
-                    ValidateNetworkAddress(Gateway, nameof(Gateway));
-                }
-                ValidateNetworkAddressAllowEmpty(DnsServer1, nameof(DnsServer1));
-                ValidateNetworkAddressAllowEmpty(DnsServer2, nameof(DnsServer2));
-            }
         }
 
         private bool HasChanges()
@@ -275,12 +231,12 @@
         protected override void Loaded()
         {
             RefreshScreen();
-            Committed = true;
+            IsCommitted = true;
         }
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(CanApplyChanges));
+            OnPropertyChanged(nameof(CanApplyChanges));
         }
 
         private void RefreshScreen()
@@ -299,34 +255,67 @@
             _originalDhcpEnabled = DhcpEnabled = info.DhcpEnabled;
         }
 
-        private void ValidateSubnetAddress(string address, string propertyName)
+        protected override void RunCustomValidation()
         {
-            ClearErrors(propertyName);
-
-            if (!IpValidation.IsIpV4SubnetMaskValid(address))
+            if (!DhcpEnabled)
             {
-                SetError(propertyName, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid));
+                ValidateProperty(IpAddress, nameof(IpAddress));
+                ValidateProperty(SubnetMask, nameof(SubnetMask));
+                ValidateProperty(Gateway, nameof(Gateway));
+                ValidateProperty(DnsServer1, nameof(DnsServer1));
+                ValidateProperty(DnsServer2, nameof(DnsServer2));
             }
         }
 
-        private void ValidateNetworkAddress(string address, string propertyName)
+        public static ValidationResult ValidateIpAddress(string address, ValidationContext context)
         {
-            ClearErrors(propertyName);
+            if (!IpValidation.IsIpV4AddressValid(address))
+            {
+                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid));
+            }
+
+            return ValidationResult.Success;
+        }
+
+        public static ValidationResult ValidateSubnetMask(string address, ValidationContext context)
+        {
+            if (!IpValidation.IsIpV4SubnetMaskValid(address))
+            {
+                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid));
+            }
+
+            return ValidationResult.Success;
+        }
+
+        public static ValidationResult ValidateIpAddressAllowEmpty(string address, ValidationContext context)
+        {
+            if (!string.IsNullOrEmpty(address) && !IpValidation.IsIpV4AddressValid(address))
+            {
+                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid));
+            }
+
+            return ValidationResult.Success;
+        }
+
+        public static ValidationResult ValidateIpAddressAllowEmptyIfStatic(string address, ValidationContext context)
+        {
+            NetworkConfigPageViewModel instance = (NetworkConfigPageViewModel)context.ObjectInstance;
+            if (instance.StaticIp)
+            {
+                if (!string.IsNullOrEmpty(address) && !IpValidation.IsIpV4AddressValid(address))
+                {
+                    return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid));
+                }
+
+                return ValidationResult.Success;
+            }
 
             if (!IpValidation.IsIpV4AddressValid(address))
             {
-                SetError(propertyName, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid));
+                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid));
             }
-        }
 
-        private void ValidateNetworkAddressAllowEmpty(string address, string propertyName)
-        {
-            ClearErrors(propertyName);
-
-            if (!string.IsNullOrEmpty(address) && !IpValidation.IsIpV4AddressValid(address))
-            {
-                SetError(propertyName, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid));
-            }
+            return ValidationResult.Success;
         }
     }
 }

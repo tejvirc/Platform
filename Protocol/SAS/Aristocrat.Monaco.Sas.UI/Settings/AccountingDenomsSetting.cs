@@ -1,14 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Sas.UI.Settings
 {
     using Application.Contracts.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Client;
-    using MVVM.Model;
     using Newtonsoft.Json;
 
     /// <summary>
     ///     Contains the settings for accounting denoms.
     /// </summary>
-    public class AccountingDenomsSetting : BaseNotify
+    public class AccountingDenomsSetting : ObservableObject
     {
         private long _host0Denom;
         private long _host1Denom;
@@ -23,7 +23,7 @@
             set
             {
                 SetProperty(ref _host0Denom, value);
-                RaisePropertyChanged(nameof(Host0DenomDisplay));
+                OnPropertyChanged(nameof(Host0DenomDisplay));
             }
         }
 
@@ -43,7 +43,7 @@
             set
             {
                 SetProperty(ref _host1Denom, value);
-                RaisePropertyChanged(nameof(Host1DenomDisplay));
+                OnPropertyChanged(nameof(Host1DenomDisplay));
             }
         }
 

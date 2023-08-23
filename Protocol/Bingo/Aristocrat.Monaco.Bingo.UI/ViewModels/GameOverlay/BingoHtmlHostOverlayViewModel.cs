@@ -19,6 +19,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
     using Common.Events;
     using Common.GameOverlay;
     using Common.Storage.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Events;
     using Gaming.Contracts;
     using Gaming.Contracts.Events;
@@ -28,7 +29,6 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
     using Models;
     using Monaco.Common;
     using Monaco.UI.Common.Extensions;
-    using MVVM.Model;
     using OverlayServer;
     using OverlayServer.Attributes;
     using OverlayServer.Data.Bingo;
@@ -37,7 +37,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
     using BingoPattern = Common.GameOverlay.BingoPattern;
     using PresentationOverrideTypes = Gaming.Contracts.PresentationOverrideTypes;
 
-    public class BingoHtmlHostOverlayViewModel : BaseNotify, IDisposable
+    public class BingoHtmlHostOverlayViewModel : ObservableObject, IDisposable
     {
         private const string JavascriptCloseEventMessage = "Close";
         private const string JavascriptClickEventMessage = "Click";
@@ -57,7 +57,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
         private readonly BingoWindow _targetWindow;
 
         private Timer _helpTimer;
-        private readonly IDictionary<int, BingoInstanceModel> _bingoInstances = new Dictionary<int, BingoInstanceModel> { {0, new BingoInstanceModel()} };
+        private readonly IDictionary<int, BingoInstanceModel> _bingoInstances = new Dictionary<int, BingoInstanceModel> { { 0, new BingoInstanceModel() } };
         private IReadOnlyList<BingoNumber> _lastBallCall = new List<BingoNumber>();
         private IReadOnlyList<BallCallNumber> _ballCallNumbers = new List<BallCallNumber>();
         private BingoDisplayConfigurationBingoWindowSettings _currentBingoSettings;
@@ -326,7 +326,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
 
         private static void OverlayClientDisconnected(object sender, ClientDisconnectEventArgs args)
         {
-            Logger.Debug($"Overlay client disconnected: {args.Type}, Exception: {(args.Exception == null ? "No Exception": args.Exception)}");
+            Logger.Debug($"Overlay client disconnected: {args.Type}, Exception: {(args.Exception == null ? "No Exception" : args.Exception)}");
         }
 
         private static void ReloadBrowser(IWebBrowser browser)
@@ -554,7 +554,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                 Logger.Debug($"Adding artificial daub delay to the bingo card and ball call: {diff}ms");
                 await Task.Delay(TimeSpan.FromMilliseconds(Math.Min(BingoConstants.MaxPreDaubedTimeMs, diff)), token);
             }
-            
+
             await UpdateOverlay(
                 () =>
                 {
@@ -575,17 +575,17 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                     () =>
                     {
                         var card = _bingoInstances[gameIndex];
-                        var daubs = Convert.ToString(e.Daubs, 2).PadLeft(32, '0');
+                    var daubs = Convert.ToString(e.Daubs, 2).PadLeft(32, '0');
                         Logger.Debug($"Daubing bingo card for game {gameIndex} with {daubs}");
                         card.DaubBingoCard(e.Daubs);
-                        return new BingoLiveData
-                        {
+                    return new BingoLiveData
+                    {
                             ActiveCard = card.InstanceNumber,
                             BingoCardNumbers = card.BingoCardNumbers
-                        };
-                    },
-                    token);
-            }
+                    };
+                },
+                token);
+        }
         }
 
         private async Task Handle(BingoGameNewCardEvent card, CancellationToken token)
@@ -609,13 +609,13 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                     _ballCallNumbers = new List<BallCallNumber>();
                     Logger.Debug("Sending new bingo card numbers to overlay");
                     return new BingoLiveData
-                        {
-                            ActiveCard = cardInstance.InstanceNumber,
-                            ClearBingoCard = true,
-                            BingoCardNumbers = cardInstance.BingoCardNumbers,
-                            CardIsEnabled = cardInstance.Enabled,
-                            CardIsGolden = card.BingoCard.IsGolden
-                        };
+                    {
+                        ActiveCard = cardInstance.InstanceNumber,
+                        ClearBingoCard = true,
+                        BingoCardNumbers = cardInstance.BingoCardNumbers,
+                        CardIsEnabled = cardInstance.Enabled,
+                        CardIsGolden = card.BingoCard.IsGolden
+                    };
                 },
                 token);
 
@@ -768,18 +768,18 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                     Logger.Debug($"Sending single outcome for gameIndex {instance.GameIndex}");
                     var outcome = instance.BingoPatterns[0];
 
-                    Logger.Debug(
+                Logger.Debug(
                         $"Name={outcome.Name} daub bits={outcome.BitFlags} win={outcome.WinAmount} gew={outcome.IsGameEndWin} gameIndex={e.GameIndex}");
                     var daubs = GetCardPatternDaubs(outcome.BitFlags, instance.BingoCardNumbers);
                     var numbers = GetBallCallPatternDaubs(outcome.BitFlags, instance.BingoCardNumbers);
                     patternTasks.Add(_overlayServer.UpdateData(
-                        new BingoLiveData
-                        {
+                    new BingoLiveData
+                    {
                             ActiveCard = instance.InstanceNumber,
-                            BingoPatterns = new List<OverlayServer.Data.Bingo.BingoPattern>
-                            {
-                                new(outcome.Name, numbers, daubs)
-                            }
+                        BingoPatterns = new List<OverlayServer.Data.Bingo.BingoPattern>
+                        {
+                            new(outcome.Name, numbers, daubs)
+                        }
                         }, token));
                     instance.BingoPatterns = instance.BingoPatterns.Where(x => !Equals(x, outcome)).ToList();
                     instance.CyclingPatterns = new List<BingoPattern>(instance.CyclingPatterns.Append(outcome));
@@ -797,7 +797,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
 
         private async Task ShowAllPatterns(BingoInstanceModel instance, CancellationToken token)
         {
-            await _overlayServer.UpdateData(
+                await _overlayServer.UpdateData(
                 new BingoLiveData
                 {
                     ActiveCard = instance.InstanceNumber,
@@ -893,13 +893,8 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
 
         private async Task Handle(HostConnectedEvent e, CancellationToken token)
         {
-            var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
-            await _dispatcher.ExecuteAndWaitOnUIThread(
-                () =>
-                {
-                    BingoHelpAddress = helpAddress;
-                    ReloadBrowser(BingoHelpWebBrowser);
-                });
+            var helpAddress = _unitOfWorkFactory.GetHelpUri(_gameProvider).ToString();
+            await _dispatcher.ExecuteAndWaitOnUIThread(() => BingoHelpAddress = helpAddress);
         }
 
         private async Task Handle(BankBalanceChangedEvent e, CancellationToken token)
@@ -921,7 +916,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                 return;
             }
 
-            var (game, _) = _propertiesManager.GetActiveGame();
+            var (game, _) = _gameProvider.GetActiveGame();
             if (game != null)
             {
                 _lastSelectedGame = game;
@@ -977,8 +972,8 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                 {
                     foreach (var (instance, bingoCardList)
                              in from instance in _bingoInstances.Values.OrderBy(x => x.GameIndex)
-                              let bingoCardList = staticData.BingoCards.ToList()
-                              select (instance, bingoCardList))
+                                let bingoCardList = staticData.BingoCards.ToList()
+                                select (instance, bingoCardList))
                     {
                         bingoCardList[i].InitialBingoCardNumbers = instance.BingoCardNumbers;
                         bingoCardList[i].InitialEnabled = instance.Enabled;
@@ -1089,10 +1084,10 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
             {
                 UpdateOverlay(
                 () => new BingoLiveData
-                    {
-                        BingoCardNumbers = instance.BingoCardNumbers,
-                        BingoPatterns = GetBingoPatternForOverlay(instance.CyclingPatterns, instance.BingoCardNumbers)
-                    }).FireAndForget();
+                {
+                    BingoCardNumbers = instance.BingoCardNumbers,
+                    BingoPatterns = GetBingoPatternForOverlay(instance.CyclingPatterns, instance.BingoCardNumbers)
+                }).FireAndForget();
 #if !(RETAIL)
                 _eventBus.Publish(new BingoPatternsInfoEvent(GetBingoPatternForOverlay(instance.CyclingPatterns, instance.BingoCardNumbers), instance.GameIndex));
 #endif
@@ -1122,7 +1117,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
 
         private async Task SetHelpVisibility(bool visible)
         {
-            var helpAddress = _unitOfWorkFactory.GetHelpUri(_propertiesManager).ToString();
+            var helpAddress = _unitOfWorkFactory.GetHelpUri(_gameProvider).ToString();
             await _dispatcher.ExecuteAndWaitOnUIThread(
                 () =>
                 {

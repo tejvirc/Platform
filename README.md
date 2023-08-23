@@ -66,6 +66,7 @@ A slimmed-down, special-purpose version of Monaco for inspectors to validate the
 - Open the Monaco repo's `Inspection.sln` solution in Visual Studio as administrator.
     - Alternatively, run the `noanalysisInspection.bat` script as admin, which opens the solution in VS with code analysis disabled.
 - Rebuild the solution.
+- Build the `Aristocrat.Monaco.Inspection` project under the `/Test/Integration` folder of the solution. This is required to overwrite certain files such as the addins to allow the Inspection Tool to run.
 - Run the Bootstrap project just like running Monaco's Bootstrap.
 - The experience is similar to Monaco's Bootstrap launch, except the UI will be presented in a gold theme to indicate that it's running in Inspection mode.
 

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
@@ -97,8 +97,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.26" />
-    <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
     <PackageReference Include="BinkWpf" Version="1.1.14" />
+    <PackageReference Include="Aristocrat.Extensions.CommunityToolkit" Version="0.1.8" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
     <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />

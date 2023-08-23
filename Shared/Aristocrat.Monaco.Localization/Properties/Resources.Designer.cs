@@ -1912,6 +1912,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Base (Excluding Progressives).
+		/// </summary>
+		public static string BaseExcludingProgressives {
+			get {
+				return ResourceManager.GetString("BaseExcludingProgressives", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Base Game RTP.
 		/// </summary>
         /// <remarks>
@@ -18926,6 +18935,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Linked Progressive Verification.
+		/// </summary>
+		public static string LinkedProgressiveVerificationEnabledLabel {
+			get {
+				return ResourceManager.GetString("LinkedProgressiveVerificationEnabledLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Link Progressive History.
 		/// </summary>
         /// <remarks>
@@ -18934,6 +18952,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LinkProgHistoryLabel {
 			get {
 				return ResourceManager.GetString("LinkProgHistoryLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Link Progressive Increment.
+		/// </summary>
+		public static string LinkProgressiveIncrement {
+			get {
+				return ResourceManager.GetString("LinkProgressiveIncrement", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Link Progressive Reset.
+		/// </summary>
+		public static string LinkProgressiveReset {
+			get {
+				return ResourceManager.GetString("LinkProgressiveReset", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -20393,6 +20429,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to MAX.
+		/// </summary>
+		public static string Max {
+			get {
+				return ResourceManager.GetString("Max", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Max Bet.
 		/// </summary>
         /// <remarks>
@@ -21520,6 +21565,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string MillisecondLabel {
 			get {
 				return ResourceManager.GetString("MillisecondLabel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to MIN.
+		/// </summary>
+		public static string Min {
+			get {
+				return ResourceManager.GetString("Min", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -28547,6 +28601,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to RTP BREAKDOWN.
+		/// </summary>
+		public static string RtpBreakdown {
+			get {
+				return ResourceManager.GetString("RtpBreakdown", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Running Configuration Wizard.
 		/// </summary>
         /// <remarks>
@@ -31207,6 +31270,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string StandaloneProgressive {
 			get {
 				return ResourceManager.GetString("StandaloneProgressive", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Standalone Progressive Increment.
+		/// </summary>
+		public static string StandaloneProgressiveIncrement {
+			get {
+				return ResourceManager.GetString("StandaloneProgressiveIncrement", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Standalone Progressive Reset.
+		/// </summary>
+		public static string StandaloneProgressiveReset {
+			get {
+				return ResourceManager.GetString("StandaloneProgressiveReset", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -38532,6 +38613,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Bartop {
 			get {
 				return "Bartop";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Base (Excluding Progressives).
+		/// </summary>
+		public static string BaseExcludingProgressives {
+			get {
+				return "BaseExcludingProgressives";
 			}
 		}
 
@@ -55549,6 +55639,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Linked Progressive Verification.
+		/// </summary>
+		public static string LinkedProgressiveVerificationEnabledLabel {
+			get {
+				return "LinkedProgressiveVerificationEnabledLabel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Link Progressive History.
 		/// </summary>
         /// <remarks>
@@ -55557,6 +55656,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string LinkProgHistoryLabel {
 			get {
 				return "LinkProgHistoryLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Link Progressive Increment.
+		/// </summary>
+		public static string LinkProgressiveIncrement {
+			get {
+				return "LinkProgressiveIncrement";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Link Progressive Reset.
+		/// </summary>
+		public static string LinkProgressiveReset {
+			get {
+				return "LinkProgressiveReset";
 			}
 		}
 
@@ -57016,6 +57133,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to MAX.
+		/// </summary>
+		public static string Max {
+			get {
+				return "Max";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Max Bet.
 		/// </summary>
         /// <remarks>
@@ -58143,6 +58269,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string MillisecondLabel {
 			get {
 				return "MillisecondLabel";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to MIN.
+		/// </summary>
+		public static string Min {
+			get {
+				return "Min";
 			}
 		}
 
@@ -65170,6 +65305,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to RTP BREAKDOWN.
+		/// </summary>
+		public static string RtpBreakdown {
+			get {
+				return "RtpBreakdown";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Running Configuration Wizard.
 		/// </summary>
         /// <remarks>
@@ -67830,6 +67974,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string StandaloneProgressive {
 			get {
 				return "StandaloneProgressive";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Standalone Progressive Increment.
+		/// </summary>
+		public static string StandaloneProgressiveIncrement {
+			get {
+				return "StandaloneProgressiveIncrement";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Standalone Progressive Reset.
+		/// </summary>
+		public static string StandaloneProgressiveReset {
+			get {
+				return "StandaloneProgressiveReset";
 			}
 		}
 
@@ -74359,6 +74521,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		Bartop,
+		/// <summary>
+		///   Looks up a localized string similar to Base (Excluding Progressives).
+		/// </summary>
+		BaseExcludingProgressives,
 		/// <summary>
 		///   Looks up a localized string similar to Base Game RTP.
 		/// </summary>
@@ -84049,12 +84215,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		LinkedProgressive,
 		/// <summary>
+		///   Looks up a localized string similar to Linked Progressive Verification.
+		/// </summary>
+		LinkedProgressiveVerificationEnabledLabel,
+		/// <summary>
 		///   Looks up a localized string similar to Link Progressive History.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting
         /// </remarks>
 		LinkProgHistoryLabel,
+		/// <summary>
+		///   Looks up a localized string similar to Link Progressive Increment.
+		/// </summary>
+		LinkProgressiveIncrement,
+		/// <summary>
+		///   Looks up a localized string similar to Link Progressive Reset.
+		/// </summary>
+		LinkProgressiveReset,
 		/// <summary>
 		///   Looks up a localized string similar to The list contains a null element..
 		/// </summary>
@@ -84886,6 +85064,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		MatchCheckLabel,
 		/// <summary>
+		///   Looks up a localized string similar to MAX.
+		/// </summary>
+		Max,
+		/// <summary>
 		///   Looks up a localized string similar to Max Bet.
 		/// </summary>
         /// <remarks>
@@ -85526,6 +85708,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		MillisecondLabel,
+		/// <summary>
+		///   Looks up a localized string similar to MIN.
+		/// </summary>
+		Min,
 		/// <summary>
 		///   Looks up a localized string similar to Minimum Jackpot Value.
 		/// </summary>
@@ -89535,6 +89721,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		RTP,
 		/// <summary>
+		///   Looks up a localized string similar to RTP BREAKDOWN.
+		/// </summary>
+		RtpBreakdown,
+		/// <summary>
 		///   Looks up a localized string similar to Running Configuration Wizard.
 		/// </summary>
         /// <remarks>
@@ -91048,6 +91238,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		StandaloneProgressive,
+		/// <summary>
+		///   Looks up a localized string similar to Standalone Progressive Increment.
+		/// </summary>
+		StandaloneProgressiveIncrement,
+		/// <summary>
+		///   Looks up a localized string similar to Standalone Progressive Reset.
+		/// </summary>
+		StandaloneProgressiveReset,
 		/// <summary>
 		///   Looks up a localized string similar to Standard.
 		/// </summary>

@@ -23,7 +23,7 @@ as follows:
     <PrintIdentity Visibility="Hidden"/>
   </IdentityPage>
   <HardMetersConfig CanReconfigure="true" Enable="true" />
-  <Localization Currency="Operator" />
+  <Localization Currency="Operator" DefaultCulture="fr-CA" />
   <ProtocolConfiguration>
     <ProtocolsAllowed>
       <Protocol Name="G2S"/>

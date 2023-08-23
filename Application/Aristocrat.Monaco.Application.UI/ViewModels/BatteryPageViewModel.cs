@@ -43,7 +43,7 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            RaisePropertyChanged(nameof(Battery1Label), nameof(Battery2Label), nameof(Battery1StatusText), nameof(Battery2StatusText));
+            OnPropertyChanged(nameof(Battery1Label), nameof(Battery2Label), nameof(Battery1StatusText), nameof(Battery2StatusText));
             base.OnOperatorCultureChanged(evt);
         }
 
@@ -64,10 +64,10 @@
             var results = _battery.Test();
             _batteryStatus[0] = results.Item1;
             _batteryStatus[1] = results.Item2;
-            RaisePropertyChanged(nameof(Battery1StatusText));
-            RaisePropertyChanged(nameof(Battery2StatusText));
-            RaisePropertyChanged(nameof(Battery1Background));
-            RaisePropertyChanged(nameof(Battery2Background));
+            OnPropertyChanged(nameof(Battery1StatusText));
+            OnPropertyChanged(nameof(Battery2StatusText));
+            OnPropertyChanged(nameof(Battery1Background));
+            OnPropertyChanged(nameof(Battery2Background));
         }
 
         private string GetBatteryStatusText(int batteryIndex)

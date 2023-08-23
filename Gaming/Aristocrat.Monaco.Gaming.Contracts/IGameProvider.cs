@@ -1,6 +1,10 @@
-﻿namespace Aristocrat.Monaco.Gaming.Contracts
+namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using System.Collections.Generic;
+    using Aristocrat.PackageManifest.Extension.v100;
+    using Models;
+    using PackageManifest.Models;
+    using Rtp;
 
     /// <summary>
     ///     Provides a mechanism to retrieve and interact with the available games.
@@ -45,6 +49,12 @@
         /// </summary>
         /// <returns>A collection of game combos</returns>
         IReadOnlyCollection<IGameCombo> GetGameCombos();
+
+        /// <summary>
+        ///     Get the actively running game and denomination
+        /// </summary>
+        /// <returns>Active game and denomination</returns>
+        (IGameDetail game, IDenomination denomination) GetActiveGame();
 
         /// <summary>
         ///     Gets the collection of enabled sub games for the desired game

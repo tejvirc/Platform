@@ -1,8 +1,10 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Linq;
     using System.Windows.Input;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.HardwareDiagnostics;
@@ -13,8 +15,6 @@
     using Kernel;
     using Monaco.Kernel.Contracts;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class SoundConfigPageViewModel : InspectionWizardViewModelBase
@@ -46,7 +46,7 @@
             _disableManager = ServiceManager.GetInstance().TryGetService<ISystemDisableManager>();
             _propertiesManager = ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
             TestViewModel.SetTestReporter(Inspection);
-            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
+            ToggleTestModeCommand = new RelayCommand<object>(_ => InTestMode = !InTestMode);
             VolumeViewModel = new VolumeViewModel();
         }
 
@@ -57,7 +57,7 @@
             AlertMinimumVolume = showMode
                 ? ShowModeAlertVolumeMinimum
                 : PropertiesManager.GetValue(ApplicationConstants.SoundConfigurationAlertVolumeMinimum, ApplicationConstants.AlertVolumeMinimum);
-            RaisePropertyChanged(nameof(AlertMinimumVolume));
+            OnPropertyChanged(nameof(AlertMinimumVolume));
 
             _playTestAlertSound = PropertiesManager.GetValue(ApplicationConstants.SoundConfigurationPlayTestAlertSound, ApplicationConstants.DefaultPlayTestAlertSound);
             _soundFile = PropertiesManager.GetValue(ApplicationConstants.DingSoundKey, "");
@@ -71,13 +71,13 @@
                     : ShowModeAlertVolumeDefault
                 : alertVolume;
             Logger.DebugFormat("Initializing alert volume setting with value: {0}", alertVolume);
-            RaisePropertyChanged(nameof(AlertVolume));
+            OnPropertyChanged(nameof(AlertVolume));
 
             IsAlertConfigurable = showMode || PropertiesManager.GetValue(ApplicationConstants.SoundConfigurationAlertVolumeConfigurable, IsAlertConfigurableDefault);
-            RaisePropertyChanged(nameof(IsAlertConfigurable));
+            OnPropertyChanged(nameof(IsAlertConfigurable));
 
             SelectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
-            RaisePropertyChanged(nameof(SelectedVolumeLevel));
+            OnPropertyChanged(nameof(SelectedVolumeLevel));
         }
 
         private bool IsSystemDisabled =>
@@ -102,7 +102,7 @@
             set
             {
                 _infoText = value;
-                RaisePropertyChanged(nameof(InfoText));
+                OnPropertyChanged(nameof(InfoText));
                 UpdateStatusText();
             }
         }
@@ -153,7 +153,7 @@
                 if (_alertVolume != value && value >= _alertMinimumVolume)
                 {
                     _alertVolume = value;
-                    RaisePropertyChanged(nameof(AlertVolume));
+                    OnPropertyChanged(nameof(AlertVolume));
                     PropertiesManager.SetProperty(ApplicationConstants.AlertVolumeKey, scaledVolume);
                 }
                 if (_playTestAlertSound)
@@ -184,7 +184,7 @@
 
             if (IsSystemDisabled)
             {
-                RaisePropertyChanged(nameof(TestModeEnabled));
+                OnPropertyChanged(nameof(TestModeEnabled));
 
                 InfoText = Localizer.For(CultureFor.Operator).GetString(
                     _disableManager.CurrentDisableKeys.Contains(HardwareConstants.AudioReconnectedLockKey)
@@ -243,18 +243,18 @@
 
         private void OnEnabledEvent(EnabledEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
-                RaisePropertyChanged(nameof(TestModeEnabled));
+                OnPropertyChanged(nameof(TestModeEnabled));
                 InfoText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AudioConnected);
             });
         }
 
         private void OnDisabledEvent(DisabledEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
-                RaisePropertyChanged(nameof(TestModeEnabled));
+                OnPropertyChanged(nameof(TestModeEnabled));
                 InfoText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AudioDisconnect);
             });
         }

@@ -1,0 +1,187 @@
+<operatorMenu:OperatorMenuPage
+    x:Class="Aristocrat.Monaco.Gaming.UI.Views.OperatorMenu.GameRtpBreakdownView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    xmlns:loc="http://monaco.aristocrat.com/localization"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+    xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu"
+    d:DataContext="{d:DesignInstance {x:Type viewModels:GameRtpBreakdownViewModel}}"
+    loc:Localizer.For="Operator"
+    Background="Transparent"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style BasedOn="{StaticResource MonacoLabel}" TargetType="{x:Type Label}">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontWeight" Value="DemiBold" />
+                <Setter Property="Margin" Value="20,0,0,0" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style BasedOn="{StaticResource MonacoTextBlock}" TargetType="{x:Type TextBlock}">
+                <Setter Property="Margin" Value="20,0,0,0" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid
+        Width="600"
+        Height="480"
+        Margin="20,0,20,0"
+        AutomationProperties.AutomationId="Grid0_3B2E7361">
+        <Grid AutomationProperties.AutomationId="Grid1_3B2E7361">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition2_3B2E7361" />
+                <RowDefinition Height="0.25*" AutomationProperties.AutomationId="RowDefinition3_3B2E7361" />
+                <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition4_3B2E7361" />
+                <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition5_3B2E7361" />
+                <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition6_3B2E7361" />
+                <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition7_3B2E7361" />
+                <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition8_3B2E7361" />
+                <RowDefinition Height="0.25*" AutomationProperties.AutomationId="RowDefinition9_3B2E7361" />
+                <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition10_3B2E7361" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300*" AutomationProperties.AutomationId="ColumnDefinition11_3B2E7361" />
+                <ColumnDefinition Width="125*" AutomationProperties.AutomationId="ColumnDefinition12_3B2E7361" />
+                <ColumnDefinition Width="125*" AutomationProperties.AutomationId="ColumnDefinition13_3B2E7361" />
+            </Grid.ColumnDefinitions>
+            <!--  Header  -->
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="20,0,0,4"
+                AutomationProperties.AutomationId="Label14_3B2E7361"
+                Content="{lex:Loc Key={x:Static loc:ResourceKeys.RtpBreakdown}}" />
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="20,0,0,4"
+                AutomationProperties.AutomationId="Label15_3B2E7361"
+                Content="{lex:Loc Key={x:Static loc:ResourceKeys.Min}}" />
+            <Label
+                Grid.Row="0"
+                Grid.Column="2"
+                Margin="20,0,0,4"
+                AutomationProperties.AutomationId="Label16_3B2E7361"
+                Content="{lex:Loc Key={x:Static loc:ResourceKeys.Max}}" />
+            <Rectangle
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Height="2"
+                VerticalAlignment="Center"
+                AutomationProperties.AutomationId="Rectangle17_3B2E7361"
+                Fill="{DynamicResource AccentColorBrush}"
+                StrokeThickness="0" />
+            <!--  Rows  -->
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="0"
+                AutomationProperties.AutomationId="TextBlock18_3B2E7361"
+                Text="{lex:Loc Key={x:Static loc:ResourceKeys.BaseExcludingProgressives}}" />
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="0"
+                AutomationProperties.AutomationId="TextBlock19_3B2E7361"
+                Text="{lex:Loc Key={x:Static loc:ResourceKeys.StandaloneProgressiveReset}}" />
+            <TextBlock
+                Grid.Row="4"
+                Grid.Column="0"
+                AutomationProperties.AutomationId="TextBlock20_3B2E7361"
+                Text="{lex:Loc Key={x:Static loc:ResourceKeys.StandaloneProgressiveIncrement}}" />
+            <TextBlock
+                Grid.Row="5"
+                Grid.Column="0"
+                AutomationProperties.AutomationId="TextBlock21_3B2E7361"
+                Text="{lex:Loc Key={x:Static loc:ResourceKeys.LinkProgressiveReset}}" />
+            <TextBlock
+                Grid.Row="6"
+                Grid.Column="0"
+                AutomationProperties.AutomationId="TextBlock22_3B2E7361"
+                Text="{lex:Loc Key={x:Static loc:ResourceKeys.LinkProgressiveIncrement}}" />
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="1"
+                AutomationProperties.AutomationId="TextBlock23_3B2E7361"
+                Text="{Binding RtpValues.BaseGameRtpMin, Mode=OneTime}" />
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="1"
+                AutomationProperties.AutomationId="TextBlock24_3B2E7361"
+                Text="{Binding RtpValues.StandaloneProgressiveResetRtpMin, Mode=OneTime}" />
+            <TextBlock
+                Grid.Row="4"
+                Grid.Column="1"
+                AutomationProperties.AutomationId="TextBlock25_3B2E7361"
+                Text="{Binding RtpValues.StandaloneProgressiveIncrementRtpMin, Mode=OneTime}" />
+            <TextBlock
+                Grid.Row="5"
+                Grid.Column="1"
+                AutomationProperties.AutomationId="TextBlock26_3B2E7361"
+                Text="{Binding RtpValues.LinkedProgressiveResetRtpMin, Mode=OneTime}" />
+            <TextBlock
+                Grid.Row="6"
+                Grid.Column="1"
+                AutomationProperties.AutomationId="TextBlock27_3B2E7361"
+                Text="{Binding RtpValues.LinkedProgressiveIncrementRtpMin, Mode=OneTime}" />
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="2"
+                AutomationProperties.AutomationId="TextBlock28_3B2E7361"
+                Text="{Binding RtpValues.BaseGameRtpMax, Mode=OneTime}" />
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="2"
+                AutomationProperties.AutomationId="TextBlock29_3B2E7361"
+                Text="{Binding RtpValues.StandaloneProgressiveResetRtpMax, Mode=OneTime}" />
+            <TextBlock
+                Grid.Row="4"
+                Grid.Column="2"
+                AutomationProperties.AutomationId="TextBlock30_3B2E7361"
+                Text="{Binding RtpValues.StandaloneProgressiveIncrementRtpMax, Mode=OneTime}" />
+            <TextBlock
+                Grid.Row="5"
+                Grid.Column="2"
+                AutomationProperties.AutomationId="TextBlock31_3B2E7361"
+                Text="{Binding RtpValues.LinkedProgressiveResetRtpMax, Mode=OneTime}" />
+            <TextBlock
+                Grid.Row="6"
+                Grid.Column="2"
+                AutomationProperties.AutomationId="TextBlock32_3B2E7361"
+                Text="{Binding RtpValues.LinkedProgressiveIncrementRtpMax, Mode=OneTime}" />
+            <!--  Footer  -->
+            <Rectangle
+                Grid.Row="7"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Height="2"
+                VerticalAlignment="Center"
+                AutomationProperties.AutomationId="Rectangle33_3B2E7361"
+                Fill="{DynamicResource AccentColorBrush}"
+                StrokeThickness="0" />
+            <Label
+                Grid.Row="8"
+                Grid.Column="0"
+                Margin="20,4,0,0"
+                AutomationProperties.AutomationId="Label34_3B2E7361"
+                Content="{lex:Loc Key={x:Static loc:ResourceKeys.TotalGameRTP}}" />
+            <TextBlock
+                Grid.Row="8"
+                Grid.Column="1"
+                AutomationProperties.AutomationId="TextBlock35_3B2E7361"
+                Text="{Binding RtpValues.TotalRtpMin}" />
+            <TextBlock
+                Grid.Row="8"
+                Grid.Column="2"
+                AutomationProperties.AutomationId="TextBlock36_3B2E7361"
+                Text="{Binding RtpValues.TotalRtpMax}" />
+        </Grid>
+    </Grid>
+</operatorMenu:OperatorMenuPage>

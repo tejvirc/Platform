@@ -1,13 +1,13 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.ConfigWizard;
     using Hardware.Contracts.KeySwitch;
     using Kernel;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
-    public class KeyViewModel : BaseViewModel
+    public class KeyViewModel : ObservableObject
     {
         private readonly IKeySwitch _button;
         private readonly object _context = new object();
@@ -49,7 +49,7 @@
                 }
 
                 _name = value;
-                RaisePropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(Name));
             }
         }
 
@@ -65,8 +65,8 @@
                 }
 
                 _action = value;
-                RaisePropertyChanged(nameof(Action));
-                RaisePropertyChanged(nameof(IsPressed));
+                OnPropertyChanged(nameof(Action));
+                OnPropertyChanged(nameof(IsPressed));
             }
         }
 
@@ -82,7 +82,7 @@
                 }
 
                 _state = value;
-                RaisePropertyChanged(nameof(State));
+                OnPropertyChanged(nameof(State));
             }
         }
 
@@ -103,8 +103,8 @@
 
         public void UpdateProps()
         {
-            RaisePropertyChanged(nameof(Name));
-            RaisePropertyChanged(nameof(Action));
+            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(Action));
         }
 
         private void HandleEvent(OffEvent evt)

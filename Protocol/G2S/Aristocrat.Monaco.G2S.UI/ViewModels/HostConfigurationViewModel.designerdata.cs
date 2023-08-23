@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Models;
 
     /// <summary>
@@ -12,7 +13,7 @@
         [Conditional("DESIGN")]
         private void WireDesignerData()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 Hosts.Add(new Host { Index = 0, Id = 0, Registered = true });
                 Hosts.Add(

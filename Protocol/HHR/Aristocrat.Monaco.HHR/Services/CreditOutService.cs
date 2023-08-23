@@ -22,13 +22,14 @@
     /// </summary>
     public class CreditOutService : IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         private readonly IBank _bank;
         private readonly ICentralManager _centralManager;
         private readonly IEventBus _eventBus;
         private readonly ITransactionIdProvider _transactionIdProvider;
         private readonly IPlayerSessionService _playerSessionService;
         private readonly IPropertiesManager _propertiesManager;
+        private readonly IGameProvider _gameProvider;
         private readonly IGameDataService _gameDataService;
         private bool _disposed;
 
@@ -42,6 +43,7 @@
         /// <param name="transactionIdProvider">The transaction Id Provider Service</param>
         /// <param name="propertiesManager">The Properties Manager Service</param>
         /// <param name="bank">The Bank service</param>
+        /// <param name="gameProvider">The game provider service</param>
         /// <param name="gameDataService">The game data service</param>
         public CreditOutService(
             IEventBus eventBus,
@@ -50,6 +52,7 @@
             ITransactionIdProvider transactionIdProvider,
             IPropertiesManager propertiesManager,
             IBank bank,
+            IGameProvider gameProvider,
             IGameDataService gameDataService)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
@@ -58,6 +61,7 @@
             _transactionIdProvider = transactionIdProvider ?? throw new ArgumentNullException(nameof(transactionIdProvider));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _gameDataService = gameDataService ?? throw new ArgumentNullException(nameof(gameDataService));
 
             SubscribeEvents();

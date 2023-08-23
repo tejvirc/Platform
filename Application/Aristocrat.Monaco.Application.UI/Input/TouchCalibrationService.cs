@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Input
+namespace Aristocrat.Monaco.Application.UI.Input
 {
     using System;
     using System.Collections.Generic;
@@ -7,6 +7,7 @@
     using System.Runtime.InteropServices;
     using System.Windows.Input;
     using Cabinet.Contracts;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
@@ -16,7 +17,6 @@
     using log4net;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common;
-    using MVVM;
 
     public sealed class TouchCalibrationService : ITouchCalibration, IService
     {
@@ -90,7 +90,7 @@
 
             Logger.Debug("Progressing on to calibrate next touch Device.");
 
-            MvvmHelper.ExecuteOnUI(() => _activeWindow = _activeWindow?.NextCalibrationTest());
+            Execute.OnUIThread(() => _activeWindow = _activeWindow?.NextCalibrationTest());
         }
 
         public void AbortCalibration(string displayMessage = "")
@@ -107,7 +107,7 @@
 
         private void InitializeCalibration()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _prevWindow = null;
@@ -200,7 +200,7 @@
 
         private void FinalizeCalibration(bool aborted, string message = "", string displayMessage = "")
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Logger.Debug($"FinalizeCalibration - Finalizing calibration session - aborted {aborted}");
@@ -237,7 +237,7 @@
 
         private void RemoveOverlay()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_overlay == null)
@@ -301,7 +301,7 @@
 
         private void OnPreviewTouchDown(object sender, TouchEventArgs args)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_activeWindow != null)
@@ -328,7 +328,7 @@
         {
             Logger.Debug($"TouchCalibration Key Down({args.Key}) for monitor {_activeWindow?.Monitor.DeviceName}");
 
-            MvvmHelper.ExecuteOnUI(CalibrateNextDevice);
+            Execute.OnUIThread(CalibrateNextDevice);
         }
 
         private void OnCalibrationComplete(object o, EventArgs args)

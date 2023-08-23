@@ -1,8 +1,10 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using ConfigWizard;
     using Contracts.Identification;
     using Contracts.Localization;
@@ -10,8 +12,6 @@
     using Hardware.Contracts.IO;
     using Hardware.Contracts.KeySwitch;
     using Kernel;
-    using MVVM;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
     public class KeyPageViewModel : InspectionWizardViewModelBase
@@ -36,7 +36,7 @@
             _identificationValidator = ServiceManager.GetInstance().TryGetService<IIdentificationValidator>();
         }
 
-        public ObservableCollection<BaseViewModel> Keys { get; } = new ObservableCollection<BaseViewModel>();
+        public ObservableCollection<ObservableObject> Keys { get; } = new ObservableCollection<ObservableObject>();
 
         public KeyViewModel PlayKey
         {
@@ -50,7 +50,7 @@
                 }
 
                 _playKey = value;
-                RaisePropertyChanged(nameof(PlayKey));
+                OnPropertyChanged(nameof(PlayKey));
             }
         }
 
@@ -146,7 +146,7 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 foreach (var key in Keys)
                 {
@@ -159,7 +159,7 @@
                         bvm.UpdateProps();
                     }
                 }
-                RaisePropertyChanged(nameof(Keys));
+                OnPropertyChanged(nameof(Keys));
             });
 
             base.OnOperatorCultureChanged(evt);

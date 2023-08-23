@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -9,6 +9,7 @@
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Progressives;
     using Contracts.Progressives.Linked;
@@ -16,7 +17,6 @@
     using Kernel;
     using Localization.Properties;
     using Models;
-    using MVVM.Command;
     using PackageManifest.Models;
     using Progressives;
 
@@ -91,7 +91,7 @@
 
             IsSummaryView = isSummaryView;
             SelectedGameInfo = $"{_selectedGame.ThemeName} | {selectedGame.PaytableId} | {_selectedGame.Denomination}";
-            GenerateCSAPLevelsCommand = new ActionCommand<object>(GenerateCSAPLevelsPressed);
+            GenerateCSAPLevelsCommand = new RelayCommand<object>(GenerateCSAPLevelsPressed);
 
             var progressiveLevels = configProgressiveLevels.Any()
                 ? configProgressiveLevels
@@ -140,7 +140,7 @@
             set
             {
                 _progressiveGroupId = value;
-                RaisePropertyChanged(nameof(ProgressiveGroupId));
+                OnPropertyChanged(nameof(ProgressiveGroupId));
             }
         }
 
@@ -152,16 +152,16 @@
             set
             {
                 _isSummaryView = value;
-                RaisePropertyChanged(nameof(IsSummaryView));
-                RaisePropertyChanged(nameof(ProgressiveTypeEditable));
-                RaisePropertyChanged(nameof(ProgressiveTypeReadOnly));
-                RaisePropertyChanged(nameof(ProgressiveLevelEditable));
-                RaisePropertyChanged(nameof(ProgressiveLevelReadOnly));
-                RaisePropertyChanged(nameof(InitialValueEditable));
-                RaisePropertyChanged(nameof(InitialValueReadOnly));
-                RaisePropertyChanged(nameof(ShowAssociatedSap));
-                RaisePropertyChanged(nameof(OverflowValueEditable));
-                RaisePropertyChanged(nameof(OverflowValueReadOnly));
+                OnPropertyChanged(nameof(IsSummaryView));
+                OnPropertyChanged(nameof(ProgressiveTypeEditable));
+                OnPropertyChanged(nameof(ProgressiveTypeReadOnly));
+                OnPropertyChanged(nameof(ProgressiveLevelEditable));
+                OnPropertyChanged(nameof(ProgressiveLevelReadOnly));
+                OnPropertyChanged(nameof(InitialValueEditable));
+                OnPropertyChanged(nameof(InitialValueReadOnly));
+                OnPropertyChanged(nameof(ShowAssociatedSap));
+                OnPropertyChanged(nameof(OverflowValueEditable));
+                OnPropertyChanged(nameof(OverflowValueReadOnly));
             }
         }
 
@@ -171,13 +171,13 @@
             set
             {
                 _isSelectable = value;
-                RaisePropertyChanged(nameof(IsSelectable));
-                RaisePropertyChanged(nameof(IsSelectableOrLP));
-                RaisePropertyChanged(nameof(ProgressiveTypeEditable));
-                RaisePropertyChanged(nameof(ProgressiveTypeReadOnly));
-                RaisePropertyChanged(nameof(ProgressiveLevelEditable));
-                RaisePropertyChanged(nameof(ProgressiveLevelReadOnly));
-                RaisePropertyChanged(nameof(ShowAssociatedSap));
+                OnPropertyChanged(nameof(IsSelectable));
+                OnPropertyChanged(nameof(IsSelectableOrLP));
+                OnPropertyChanged(nameof(ProgressiveTypeEditable));
+                OnPropertyChanged(nameof(ProgressiveTypeReadOnly));
+                OnPropertyChanged(nameof(ProgressiveLevelEditable));
+                OnPropertyChanged(nameof(ProgressiveLevelReadOnly));
+                OnPropertyChanged(nameof(ShowAssociatedSap));
             }
         }
 
@@ -187,19 +187,19 @@
             set
             {
                 _isSap = value;
-                RaisePropertyChanged(nameof(IsSap));
-                RaisePropertyChanged(nameof(IsSapOrLP));
-                RaisePropertyChanged(nameof(IsSapAndLp));
-                RaisePropertyChanged(nameof(ProgressiveTypeEditable));
-                RaisePropertyChanged(nameof(ProgressiveTypeReadOnly));
-                RaisePropertyChanged(nameof(ProgressiveLevelEditable));
-                RaisePropertyChanged(nameof(ProgressiveLevelReadOnly));
-                RaisePropertyChanged(nameof(InitialValueEditable));
-                RaisePropertyChanged(nameof(InitialValueReadOnly));
-                RaisePropertyChanged(nameof(ShowAssociatedSap));
-                RaisePropertyChanged(nameof(ShowCurrentValueSapLp));
-                RaisePropertyChanged(nameof(OverflowValueEditable));
-                RaisePropertyChanged(nameof(OverflowValueReadOnly));
+                OnPropertyChanged(nameof(IsSap));
+                OnPropertyChanged(nameof(IsSapOrLP));
+                OnPropertyChanged(nameof(IsSapAndLp));
+                OnPropertyChanged(nameof(ProgressiveTypeEditable));
+                OnPropertyChanged(nameof(ProgressiveTypeReadOnly));
+                OnPropertyChanged(nameof(ProgressiveLevelEditable));
+                OnPropertyChanged(nameof(ProgressiveLevelReadOnly));
+                OnPropertyChanged(nameof(InitialValueEditable));
+                OnPropertyChanged(nameof(InitialValueReadOnly));
+                OnPropertyChanged(nameof(ShowAssociatedSap));
+                OnPropertyChanged(nameof(ShowCurrentValueSapLp));
+                OnPropertyChanged(nameof(OverflowValueEditable));
+                OnPropertyChanged(nameof(OverflowValueReadOnly));
             }
         }
 
@@ -209,13 +209,13 @@
             set
             {
                 _isLP = value;
-                RaisePropertyChanged(nameof(IsLP));
-                RaisePropertyChanged(nameof(IsSapOrLP));
-                RaisePropertyChanged(nameof(IsSapAndLp));
-                RaisePropertyChanged(nameof(IsSelectableOrLP));
-                RaisePropertyChanged(nameof(ProgressiveTypeReadOnly));
-                RaisePropertyChanged(nameof(ShowAssociatedSap));
-                RaisePropertyChanged(nameof(ShowCurrentValueSapLp));
+                OnPropertyChanged(nameof(IsLP));
+                OnPropertyChanged(nameof(IsSapOrLP));
+                OnPropertyChanged(nameof(IsSapAndLp));
+                OnPropertyChanged(nameof(IsSelectableOrLP));
+                OnPropertyChanged(nameof(ProgressiveTypeReadOnly));
+                OnPropertyChanged(nameof(ShowAssociatedSap));
+                OnPropertyChanged(nameof(ShowCurrentValueSapLp));
             }
         }
 
@@ -259,7 +259,7 @@
             set
             {
                 _selectedGameInfo = value;
-                RaisePropertyChanged(nameof(SelectedGameInfo));
+                OnPropertyChanged(nameof(SelectedGameInfo));
             }
         }
 
@@ -269,7 +269,7 @@
             set
             {
                 _levelModels = value;
-                RaisePropertyChanged(nameof(_levelModels));
+                OnPropertyChanged(nameof(_levelModels));
             }
         }
 
@@ -446,8 +446,8 @@
 
             UpdateValidSelectableLevels();
 
-            RaisePropertyChanged(nameof(ProgressiveLevels)); // required so the grid will update
-            RaisePropertyChanged(nameof(GenerateCSAPLevelsAllowed));
+            OnPropertyChanged(nameof(ProgressiveLevels)); // required so the grid will update
+            OnPropertyChanged(nameof(GenerateCSAPLevelsAllowed));
         }
 
         private LevelModel CreateProgressiveLevelModel(IViewableProgressiveLevel level)
@@ -583,13 +583,13 @@
                     UpdateValidSelectableLevels();
                     break;
                 case nameof(LevelModel.SelectableLevelType):
-                    RaisePropertyChanged(nameof(GenerateCSAPLevelsAllowed));
+                    OnPropertyChanged(nameof(GenerateCSAPLevelsAllowed));
                     break;
                 case nameof(LevelModel.CanSave):
-                    RaisePropertyChanged(nameof(CanSave));
+                    OnPropertyChanged(nameof(CanSave));
                     break;
             }
-            RaisePropertyChanged(nameof(InputStatusText));
+            OnPropertyChanged(nameof(InputStatusText));
         }
 
         private int NumberOfEnabledProgressives => ProgressiveLevels?.Where(

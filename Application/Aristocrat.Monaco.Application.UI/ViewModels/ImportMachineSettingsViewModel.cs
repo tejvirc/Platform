@@ -1,10 +1,12 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.Localization;
@@ -15,8 +17,6 @@
     using Models;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class ImportMachineSettingsViewModel : ConfigWizardViewModelBase
@@ -51,7 +51,7 @@
         {
             _settingsManager = settingsManager;
 
-            ImportCommand = new ActionCommand<object>(_ => Import(), _ => IsEKeyVerified && IsEKeyDriveFound && !IsInProgress);
+            ImportCommand = new RelayCommand<object>(_ => Import(), _ => IsEKeyVerified && IsEKeyDriveFound && !IsInProgress);
 
             _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
         }
@@ -59,7 +59,7 @@
         /// <summary>
         ///     Gets the import command.
         /// </summary>
-        public ActionCommand<object> ImportCommand { get; }
+        public RelayCommand<object> ImportCommand { get; }
 
         /// <summary>
         ///     Gets a collection of configuration settings.
@@ -76,7 +76,7 @@
             set
             {
                 SetProperty(ref _isInProgress, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -110,7 +110,7 @@
             set
             {
                 SetProperty(ref _isEKeyVerified, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
                 UpdateStatusText();
             }
         }
@@ -125,7 +125,7 @@
             set
             {
                 SetProperty(ref _isEKeyDriveFound, value);
-                ImportCommand.RaiseCanExecuteChanged();
+                ImportCommand.NotifyCanExecuteChanged();
                 UpdateStatusText();
             }
         }
@@ -193,7 +193,7 @@
 
         private void Handle(PropertyChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsEKeyVerified = PropertiesManager.GetValue(ApplicationConstants.EKeyVerified, false);
@@ -203,7 +203,7 @@
 
         private void Handle(ConfigurationSettingsImportedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsInProgress = false;

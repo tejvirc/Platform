@@ -1,17 +1,18 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Models
+namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Aristocrat.Monaco.UI.Common.MVVM;
     using Contracts.Configuration;
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
 
-    public class EditableGameProfile : BaseEntityViewModel, IDisposable
+    public class EditableGameProfile : TrackableObservableValidator, IDisposable
     {
         private readonly bool _enableRtpScaling;
         private IConfigurationRestriction _selectedRestriction;
@@ -56,10 +57,11 @@
 
         public IReadOnlyList<IConfigurationRestriction> ValidRestrictions { get; private set; }
 
+        [CustomValidation(typeof(EditableGameProfile), nameof(ValidateRestrictionWarningText))]
         public string RestrictionWarningText
         {
             get => _restrictionWarningText;
-            set => SetProperty(ref _restrictionWarningText, value);
+            set => SetProperty(ref _restrictionWarningText, value, nameof(RestrictionWarningText));
         }
 
         public bool Enabled => GameConfigurations.Any(c => c.Enabled);
@@ -68,14 +70,11 @@
 
         public ObservableCollection<EditableGameConfiguration> GameConfigurations { get; }
 
-        public new bool HasErrors => base.HasErrors;
-
         public void Dispose()
         {
             foreach (var config in GameConfigurations)
             {
                 config.PropertyChanged -= ConfigOnPropertyChanged;
-                config.Dispose();
             }
 
             GameConfigurations.Clear();
@@ -107,7 +106,7 @@
 
         public void Refresh()
         {
-            RaisePropertyChanged(nameof(GameConfigurations));
+            OnPropertyChanged(nameof(GameConfigurations));
         }
 
         public void Reset()
@@ -137,20 +136,6 @@
             }
         }
 
-        public void SetRestrictionError(bool hasError)
-        {
-            if (hasError)
-            {
-                RestrictionWarningText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PackagesMustMatch);
-                SetError(nameof(RestrictionWarningText), RestrictionWarningText);
-            }
-            else
-            {
-                RestrictionWarningText = string.Empty;
-                ClearErrors(nameof(RestrictionWarningText));
-            }
-        }
-
         private IEnumerable<IConfigurationRestriction> GetValidRestrictions()
         {
             return Restrictions
@@ -176,8 +161,18 @@
                 return;
             }
 
-            RaisePropertyChanged(nameof(Enabled));
-            RaisePropertyChanged(nameof(EnabledGameConfigurationsCount));
+            OnPropertyChanged(nameof(Enabled));
+            OnPropertyChanged(nameof(EnabledGameConfigurationsCount));
+        }
+
+        public static ValidationResult ValidateRestrictionWarningText(string restrictionWarningText, ValidationContext context)
+        {
+            if (string.IsNullOrEmpty(restrictionWarningText))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new ValidationResult(restrictionWarningText);
         }
     }
 }
