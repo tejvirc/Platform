@@ -130,7 +130,7 @@
     <comment>Jurisdiction override for Out of Service game idle text</comment>
   </data>
   <data name="EnteringOutOfServiceModeRequiresZeroCreditsText" xml:space="preserve">
-    <value>??Entering Offline mode requires Zero Credits??</value>
+    <value>Pour entrer en mode hors ligne, le compteur doit être à zéro crédit</value>
     <comment>Jurisdiction override for Out of Service requires Zero Credits text</comment>
   </data>
   <data name="EventLogTitle" xml:space="preserve">

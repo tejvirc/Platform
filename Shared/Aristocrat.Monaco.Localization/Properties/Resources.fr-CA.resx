@@ -4881,7 +4881,7 @@ Consulter le manuel pour plus de détails</value>
     <comment>Aristocrat.Monaco.Application</comment>
   </data>
   <data name="Disconnect" xml:space="preserve">
-    <value>???Disconnect???</value>
+    <value>Déconnecter</value>
   </data>
   <data name="DisplayDisconnected" xml:space="preserve">
     <value>Écran déconnecté</value>
@@ -4959,79 +4959,79 @@ Consulter le manuel pour plus de détails</value>
     <value>Téléchargement du programme utilitaire de fichier de données de l’imprimante en cours : veuillez ne pas éteindre l’appareil de jeu</value>
   </data>
   <data name="ReplayTicketPrinted" xml:space="preserve">
-    <value>??Printed Ticket for??</value>
+    <value>Ticket imprimé pour</value>
   </data>
   <data name="ReplayGameWinBonusAwarded" xml:space="preserve">
-    <value>??Game Win Bonus Awarded: {0}??</value>
+    <value>Gain de la partie – boni accordé : {0}</value>
   </data>
   <data name="ClosingProtocol" xml:space="preserve">
-    <value>??Closing G2S Protocol??</value>
+    <value>Fermeture du protocole G2S</value>
   </data>
   <data name="CreatingKeyboardService" xml:space="preserve">
-    <value>??Creating Keyboard Service??</value>
+    <value>Création d’un service de clavier</value>
   </data>
   <data name="LoadingProtocol" xml:space="preserve">
-    <value>??Loading G2S Protocol??</value>
+    <value>Chargement du protocole G2S</value>
   </data>
   <data name="StartingProtocol" xml:space="preserve">
-    <value>??Starting G2S Protocol??</value>
+    <value>Démarrage du protocole G2S</value>
   </data>
   <data name="UnloadingTransactionHandlers" xml:space="preserve">
-    <value>??Unloading Transaction Handlers??</value>
+    <value>Déchargement des pilotes de transaction</value>
   </data>
   <data name="ErrorInfoPrinterPaperLow" xml:space="preserve">
-    <value>??Open Main Door and Load More Paper Before Paper is Empty??</value>
+    <value>Ouvrez la porte principale et mettez plus de papier avant qu’il n’en reste plus</value>
   </data>
   <data name="PrinterWarningTypes_PaperLow" xml:space="preserve">
     <value>Papier d'imprimante bas</value>
   </data>
   <data name="RemoveAllCreditsBeforeChange" xml:space="preserve">
-    <value>??Please remove all credits from the machine before changing these settings.??</value>
+    <value>Veuillez retirer tous les crédits de l’appareil avant de modifier ces paramètres.</value>
   </data>
   <data name="PrintCompletedText" xml:space="preserve">
-    <value>??Print Completed??</value>
+    <value>Impression terminée</value>
   </data>
   <data name="PrintStartedText" xml:space="preserve">
-    <value>??Print Started??</value>
+    <value>Impression commencée</value>
   </data>
   <data name="BillInserted" xml:space="preserve">
-    <value>??Bill Inserted??</value>
+    <value>Billet inséré</value>
   </data>
   <data name="DisabledByText" xml:space="preserve">
-    <value>??Disabled By ??</value>
+    <value>Désactivé par</value>
   </data>
   <data name="EnabledByText" xml:space="preserve">
-    <value>??Enabled By ??</value>
+    <value>Activé par</value>
   </data>
   <data name="FirmwareUpdateText" xml:space="preserve">
-    <value>??Firmware Update??</value>
+    <value>Mise à jour du micrologiciel</value>
   </data>
   <data name="SelfTestFailed" xml:space="preserve">
-    <value>??Self Test Failed??</value>
+    <value>Échec de l’auto-test</value>
   </data>
   <data name="SelfTestInProgress" xml:space="preserve">
-    <value>??Self Test In Progress??</value>
+    <value>Auto-test en cours</value>
   </data>
   <data name="SelfTestPassed" xml:space="preserve">
-    <value>??Self Test Passed??</value>
+    <value>Réussite de l’auto-test</value>
   </data>
   <data name="Service" xml:space="preserve">
-    <value>??Service??</value>
+    <value>Préposé</value>
   </data>
   <data name="WarningText" xml:space="preserve">
-    <value>??WARNING??</value>
+    <value>AVERTISSEMENT</value>
   </data>
   <data name="WorkingText" xml:space="preserve">
-    <value>??Working??</value>
+    <value>Travail en cours...</value>
   </data>
   <data name="InvalidNoteAcceptorFirmware" xml:space="preserve">
-    <value>??Invalid Note Acceptor Firmware Detected ISO {0}??</value>
+    <value>Micrologiciel d’accepteur de billets non valide, ISO {0}</value>
   </data>
   <data name="AddinProtocolSelection" xml:space="preserve">
-    <value>??Select a Protocol Configuration??</value>
+    <value>Choisir une configuration de protocole</value>
   </data>
   <data name="ProtocolScreenTitle" xml:space="preserve">
-    <value>??Protocol Configuration Selection??</value>
+    <value>Sélection de la configuration de protocole</value>
   </data>
   <data name="LicenseFileValidationError" xml:space="preserve">
     <value>??Invalid License File??</value>
