@@ -5048,6 +5048,12 @@ Consulter le manuel pour plus de détails</value>
   <data name="EKeyDetected" xml:space="preserve">
     <value>??EKey Detected??</value>
   </data>
+  <data name="ComponentText" xml:space="preserve">
+    <value>??Component??</value>
+  </data>
+  <data name="GameInfoTicketTitle" xml:space="preserve">
+    <value>Info jeu</value>
+</data>
   <data name="DenomMetersLifetime" xml:space="preserve">
     <value>??Master Denomination Meters??</value>
   </data>
