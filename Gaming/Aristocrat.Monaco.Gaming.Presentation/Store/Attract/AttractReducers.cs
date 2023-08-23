@@ -56,4 +56,18 @@ public static class AttractReducers
         {
             IsAlternateTopperImageActive = !state.IsAlternateTopperImageActive,
         };
+
+
+    [ReducerMethod]
+    public static AttractState Reduce(AttractState state, AttractAddVideosAction action)
+    {
+        var newState = state;
+
+        if (action.AttractList != null)
+        {
+            newState.Videos.AddRange(action.AttractList);
+        }
+
+        return newState;
+    }
 }

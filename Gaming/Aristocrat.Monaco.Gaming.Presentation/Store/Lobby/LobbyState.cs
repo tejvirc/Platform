@@ -24,4 +24,6 @@ public record LobbyState
     public bool IsStartingUp { get; init; }
 
     public bool IsInitialized { get; init; }
+
+    public bool AllowSingleGameAutoLaunch { get; set; }
 }

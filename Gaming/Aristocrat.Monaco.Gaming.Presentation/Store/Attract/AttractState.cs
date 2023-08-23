@@ -42,4 +42,10 @@ public record AttractState
     public bool IsNextLanguagePrimary { get; init; }
 
     public bool IsLastInitialLanguagePrimary { get; init; }
+
+    public bool ResetAttractOnInterruption { get; set; }
+
+    public bool CanAttractModeStart { get; set; }
+
+    public int AttractModeIdleTimeoutInSeconds { get; set; } = 30;
 }
