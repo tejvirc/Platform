@@ -1,0 +1,608 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IRtpService
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IRtpService
+   ">
+    <meta name="generator" content="docfx 2.59.4.0">
+    
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService">
+  <h1 id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService">Interface IRtpService
+  </h1>
+  <div class="markdown level0 summary"><p>An interface by which all ReturnToPlayer (RTP) information for games can queried and validated in once centralized
+service.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  
+  
+  
+  
+  <h6><strong>Namespace</strong>: <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Rtp.html">Aristocrat.Monaco.Gaming.Contracts.Rtp</a></h6>
+  <h6><strong>Assembly</strong>: Aristocrat.Monaco.Gaming.Contracts.dll</h6>
+  
+  <h5 id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IRtpService</code></pre>
+  </div>
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+    This service does not cache any RTP values or game state. Instead it acts as a set of helper methods for
+    working with RTP information, while managing RTP calculation and RTP rules under the covers.
+</p>
+<p>
+    The major roles of this interface are to provide a means for:
+<ul><li>
+        Querying for information about how RTP values are broken down into fine-grain
+        contributions from various sources. For example: Base Game RTP, Progressive increment RTP, etc.
+</li><li>
+    Querying the currently loaded RTP rules.
+</li><li>
+    Calculating Total RTP over any set of games and WagerCategories
+</li><li>
+    ICalculating Average RTP over any set of games and WagerCategories.
+</li><li>
+    Automatically loading and utilizing RTP rules from jurisdictional configs to customize/restrict the RTP
+    contribution calculations.
+</li><li>
+    Validating that RTP information meets specific requirements set by regulators and business
+    management.
+</li></ul>
+</p>
+</div>
+  
+  <h3 id="methods">Methods
+  </h3>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetAverageRtp_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetAverageRtp(Aristocrat.Monaco.Gaming.Contracts.IGameDetail)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Rtp/IRtpService.cs/#L96" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetAverageRtp_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetAverageRtp*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetAverageRtp_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetAverageRtp(Aristocrat.Monaco.Gaming.Contracts.IGameDetail)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetAverageRtp_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_" class="expander" data-toggle="collapse">GetAverageRtp(IGameDetail)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetAverageRtp_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the average RTP percent over the given set of games (variations) and their WagerCategories.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">decimal GetAverageRtp(IGameDetail game)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameDetail.html">IGameDetail</a></span>
+        <span class="parametername">game</span>
+        <p><p>The game to calculate Average RTP.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">Decimal</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetAverageRtp_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_IGameDetail__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetAverageRtp(System.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Gaming.Contracts.IGameDetail%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Rtp/IRtpService.cs/#L102" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetAverageRtp_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetAverageRtp*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetAverageRtp_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_IGameDetail__" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetAverageRtp(System.Collections.Generic.IEnumerable{Aristocrat.Monaco.Gaming.Contracts.IGameDetail})"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetAverageRtp_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_IGameDetail__" class="expander" data-toggle="collapse">GetAverageRtp(IEnumerable&lt;IGameDetail&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetAverageRtp_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_IGameDetail__" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the average RTP percent over the given set of games (variations) and their WagerCategories.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">decimal GetAverageRtp(IEnumerable&lt;IGameDetail&gt; games)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameDetail.html">IGameDetail</a>&gt;</span>
+        <span class="parametername">games</span>
+        <p><p>The list of games to calculate Average RTP.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">Decimal</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetJurisdictionalRtpRules_Aristocrat_Monaco_Gaming_Contracts_Models_GameType_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetJurisdictionalRtpRules(Aristocrat.Monaco.Gaming.Contracts.Models.GameType)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Rtp/IRtpService.cs/#L108" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetJurisdictionalRtpRules_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetJurisdictionalRtpRules*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetJurisdictionalRtpRules_Aristocrat_Monaco_Gaming_Contracts_Models_GameType_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetJurisdictionalRtpRules(Aristocrat.Monaco.Gaming.Contracts.Models.GameType)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetJurisdictionalRtpRules_Aristocrat_Monaco_Gaming_Contracts_Models_GameType_" class="expander" data-toggle="collapse">GetJurisdictionalRtpRules(GameType)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetJurisdictionalRtpRules_Aristocrat_Monaco_Gaming_Contracts_Models_GameType_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the jurisdiction RTP rules for a specific GameType.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">RtpRules GetJurisdictionalRtpRules(GameType gameType)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Models.GameType.html">GameType</a></span>
+        <span class="parametername">gameType</span>
+        <p><p>The GameType to get the rules for</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Rtp.RtpRules.html">RtpRules</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetRtpBreakdownForWagerCategory_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetRtpBreakdownForWagerCategory(Aristocrat.Monaco.Gaming.Contracts.IGameDetail%2CSystem.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Rtp/IRtpService.cs/#L70" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetRtpBreakdownForWagerCategory_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetRtpBreakdownForWagerCategory*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetRtpBreakdownForWagerCategory_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_System_String_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetRtpBreakdownForWagerCategory(Aristocrat.Monaco.Gaming.Contracts.IGameDetail,System.String)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetRtpBreakdownForWagerCategory_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_System_String_" class="expander" data-toggle="collapse">GetRtpBreakdownForWagerCategory(IGameDetail, String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetRtpBreakdownForWagerCategory_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets an object containing a breakdown of the Total RTP of a game&apos;s WagerCategory, into its individual
+contributions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">RtpBreakdown GetRtpBreakdownForWagerCategory(IGameDetail game, string wagerCategoryId)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameDetail.html">IGameDetail</a></span>
+        <span class="parametername">game</span>
+        <p><p>The <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameDetail.html">IGameDetail</a> to retrieve the RTP breakdown from.</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">wagerCategoryId</span>
+        <p><p>The id of the wager category used to populate the <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Rtp.RtpBreakdown.html">RtpBreakdown</a> fields.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Rtp.RtpBreakdown.html">RtpBreakdown</a>
+        <p><p>A breakdown of the Total RTP for the given game, into its individual contributions.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  <h5 id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetRtpBreakdownForWagerCategory_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+    Important information about RTP validation:
+<ul><li>
+        This method validates all RTP contributions represented in the breakdown and verifies progressive RTP
+        with the progressive provider. Validation results can be reviewed by checking the
+<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Rtp.RtpBreakdown.html#Aristocrat_Monaco_Gaming_Contracts_Rtp_RtpBreakdown_IsValid">IsValid</a> and <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Rtp.RtpBreakdown.html#Aristocrat_Monaco_Gaming_Contracts_Rtp_RtpBreakdown_FailureFlags">FailureFlags</a> properties of the
+<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Rtp.RtpBreakdown.html">RtpBreakdown</a> object that&apos;s returned.
+</li><li>
+    This service does not disable games with invalid RTP or modify the game models in any way. Invalid
+    games will need to be handled externally, most likely disabled or taken out of play, according to the
+    business logic. The reason for this service not disabling games, is to help maintain a stateless
+    service with no destructive actions.
+</li></ul>
+</p>
+</div>
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtp_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetTotalRtp(Aristocrat.Monaco.Gaming.Contracts.IGameDetail)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Rtp/IRtpService.cs/#L83" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtp_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetTotalRtp*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtp_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetTotalRtp(Aristocrat.Monaco.Gaming.Contracts.IGameDetail)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtp_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_" class="expander" data-toggle="collapse">GetTotalRtp(IGameDetail)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtp_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the Total RTP across a set of game variations. Total RTP is an RTP Range composed of the lowest minimum and
+highest maximum RTP of all RTP values in the given games (variations).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">RtpRange GetTotalRtp(IGameDetail game)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameDetail.html">IGameDetail</a></span>
+        <span class="parametername">game</span>
+        <p><p>The game to calculate Total RTP.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Rtp.RtpRange.html">RtpRange</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtp_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_IGameDetail__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetTotalRtp(System.Collections.Generic.IEnumerable%7BAristocrat.Monaco.Gaming.Contracts.IGameDetail%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Rtp/IRtpService.cs/#L90" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtp_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetTotalRtp*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtp_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_IGameDetail__" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetTotalRtp(System.Collections.Generic.IEnumerable{Aristocrat.Monaco.Gaming.Contracts.IGameDetail})"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtp_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_IGameDetail__" class="expander" data-toggle="collapse">GetTotalRtp(IEnumerable&lt;IGameDetail&gt;)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtp_System_Collections_Generic_IEnumerable_Aristocrat_Monaco_Gaming_Contracts_IGameDetail__" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the Total RTP across a set of game variations. Total RTP is an RTP Range composed of the lowest minimum and
+highest maximum RTP of all RTP values in the given games (variations).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">RtpRange GetTotalRtp(IEnumerable&lt;IGameDetail&gt; games)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameDetail.html">IGameDetail</a>&gt;</span>
+        <span class="parametername">games</span>
+        <p><p>The games to calculate Total RTP over.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Rtp.RtpRange.html">RtpRange</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtpBreakdown_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetTotalRtpBreakdown(Aristocrat.Monaco.Gaming.Contracts.IGameDetail)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Rtp/IRtpService.cs/#L76" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtpBreakdown_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetTotalRtpBreakdown*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtpBreakdown_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_" data-uid="Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService.GetTotalRtpBreakdown(Aristocrat.Monaco.Gaming.Contracts.IGameDetail)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtpBreakdown_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_" class="expander" data-toggle="collapse">GetTotalRtpBreakdown(IGameDetail)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService_GetTotalRtpBreakdown_Aristocrat_Monaco_Gaming_Contracts_IGameDetail_" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets a Totaled RTP contribution breakdown for all Wager categories for the provided game (variation).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">RtpBreakdown GetTotalRtpBreakdown(IGameDetail game)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IGameDetail.html">IGameDetail</a></span>
+        <span class="parametername">game</span>
+        <p><p>The game (variations) for which to breakdown.</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Rtp.RtpBreakdown.html">RtpBreakdown</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  
+</article>
+          </div>
+          <div class="contribution-panel mobile-hide">
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_Rtp_IRtpService.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.Rtp.IRtpService%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/Rtp/IRtpService.cs/#L42" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script type="text/javascript" src="../../styles/jquery.twbsPagination.js"></script>
+    <script type="text/javascript" src="../../styles/url.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+    
+    <!-- mermaid support -->
+    <script src="https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'default'
+        });
+    
+        window.onload = function () {
+            const elements = document.getElementsByClassName("lang-mermaid");
+            let index = 0;
+    
+            while (elements.length != 0) {
+                let element = elements[0];
+                mermaid.render('graph'+index, element.innerText, (svgGraph) => {                    
+                    element.parentElement.outerHTML = "<div class='mermaid'>" + svgGraph + "</div>";
+                });
+                ++index;
+            }
+        }
+    </script>
+  </body>
+</html>

@@ -367,13 +367,6 @@ game play devices on the EGM.</p>
       </tr>
       <tr>
         <td>
-          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.GameConfigHelper.html">GameConfigHelper</a></p>
-          <p><p>Utility class for creating RTP strings</p>
-</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
           <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.GameConfiguration.html">GameConfiguration</a></p>
           <p><p>(Serializable) game configuration</p>
 </p>
@@ -1361,7 +1354,7 @@ EGM to add a package</p>
       <tr>
         <td>
           <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.GamingConstants.PlayerInformationDisplay.html">GamingConstants.PlayerInformationDisplay</a></p>
-          <p><p>encapsulate Player Information Display options</p>
+          <p><p>Encapsulate Player Information Display options</p>
 </p>
         </td>
       </tr>
@@ -1486,13 +1479,6 @@ state.</p>
       </tr>
       <tr>
         <td>
-          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.PropertiesManagerExtensions.html">PropertiesManagerExtensions</a></p>
-          <p><p>Extension methods for the <a class="xref" href="../kernel/Aristocrat.Monaco.Kernel.IPropertiesManager.html">IPropertiesManager</a> interface.</p>
-</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
           <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.RecoveryStartedEvent.html">RecoveryStartedEvent</a></p>
           <p><p>Raised when recovery starts.</p>
 </p>
@@ -1523,13 +1509,6 @@ state.</p>
         <td>
           <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.ResponsibleGamingSessionStateEventArgs.html">ResponsibleGamingSessionStateEventArgs</a></p>
           <p><p>Event Args</p>
-</p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.RtpExtensions.html">RtpExtensions</a></p>
-          <p><p>A set of utility methods to deal with Rtp (Return to Player) values</p>
 </p>
         </td>
       </tr>
@@ -1639,7 +1618,8 @@ round.</p>
       <tr>
         <td>
           <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.WagerCategory.html">WagerCategory</a></p>
-          <p><p>Some paytables vary the theoretical payback percentage of the game based upon wager.These variants are identified
+          <p><p>A wager category is a subset of a paytable with a specific payback percentage. A paytable may be made up of one or
+more wager categories. Wager categories may be based on the amount wagered and/or the type of wager. Some paytables vary the theoretical payback percentage of the game based upon wager. These variants are identified
 as wager categories.</p>
 </p>
         </td>
@@ -2183,7 +2163,9 @@ the game and provides information to the platform</p>
         <td>
           <p><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.html">IWagerCategory</a></p>
           <p><p>A wager category is a subset of a paytable with a specific payback percentage. A paytable may be made up of one or
-more wager categories.Wager categories may be based on the amount wagered and/or the type of wager.</p>
+more wager categories. Wager categories may be based on the amount wagered and/or the type of wager. Some paytables
+vary the theoretical payback percentage of the game based upon wager. These variants are identified
+as wager categories.</p>
 </p>
         </td>
       </tr>

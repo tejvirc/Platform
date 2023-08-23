@@ -82,7 +82,9 @@
   <h1 id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory">Interface IWagerCategory
   </h1>
   <div class="markdown level0 summary"><p>A wager category is a subset of a paytable with a specific payback percentage. A paytable may be made up of one or
-more wager categories.Wager categories may be based on the amount wagered and/or the type of wager.</p>
+more wager categories. Wager categories may be based on the amount wagered and/or the type of wager. Some paytables
+vary the theoretical payback percentage of the game based upon wager. These variants are identified
+as wager categories.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   
@@ -109,7 +111,7 @@ more wager categories.Wager categories may be based on the amount wagered and/or
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_Id.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.Id%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L15" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L14" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_Id_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.Id*"></a>
@@ -135,8 +137,183 @@ more wager categories.Wager categories may be based on the amount wagered and/or
     <tr>
       <td>
         <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>
-        <p><p>The identifier of the wager category.</p>
-</p>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_LinkIncrementRtpPercent.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.LinkIncrementRtpPercent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L74" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_LinkIncrementRtpPercent_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.LinkIncrementRtpPercent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_LinkIncrementRtpPercent" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.LinkIncrementRtpPercent"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_LinkIncrementRtpPercent" class="expander" data-toggle="collapse">LinkIncrementRtpPercent</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_LinkIncrementRtpPercent" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the Link progressive increment RTP in percent</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">decimal LinkIncrementRtpPercent { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">Decimal</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxBaseRtpPercent.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MaxBaseRtpPercent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L44" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxBaseRtpPercent_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MaxBaseRtpPercent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxBaseRtpPercent" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MaxBaseRtpPercent"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxBaseRtpPercent" class="expander" data-toggle="collapse">MaxBaseRtpPercent</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxBaseRtpPercent" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the maximum base RTP in percent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">decimal MaxBaseRtpPercent { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">Decimal</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxLinkStartupRtpPercent.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MaxLinkStartupRtpPercent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L69" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxLinkStartupRtpPercent_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MaxLinkStartupRtpPercent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxLinkStartupRtpPercent" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MaxLinkStartupRtpPercent"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxLinkStartupRtpPercent" class="expander" data-toggle="collapse">MaxLinkStartupRtpPercent</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxLinkStartupRtpPercent" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the maximum Link progressive startup RTP in percent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">decimal MaxLinkStartupRtpPercent { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">Decimal</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxSapStartupRtpPercent.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MaxSapStartupRtpPercent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxSapStartupRtpPercent_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MaxSapStartupRtpPercent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxSapStartupRtpPercent" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MaxSapStartupRtpPercent"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxSapStartupRtpPercent" class="expander" data-toggle="collapse">MaxSapStartupRtpPercent</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxSapStartupRtpPercent" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the maximum SAP startup RTP in percent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">decimal MaxSapStartupRtpPercent { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">Decimal</a>
+        <p>
       </td>
     </tr>
   </table>
@@ -154,7 +331,7 @@ more wager categories.Wager categories may be based on the amount wagered and/or
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxWagerCredits.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MaxWagerCredits%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L39" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L29" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxWagerCredits_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MaxWagerCredits*"></a>
@@ -180,8 +357,7 @@ more wager categories.Wager categories may be based on the amount wagered and/or
     <tr>
       <td>
         <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;
-        <p><p>The maximum wager credits.</p>
-</p>
+        <p>
       </td>
     </tr>
   </table>
@@ -199,7 +375,7 @@ more wager categories.Wager categories may be based on the amount wagered and/or
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxWinAmount.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MaxWinAmount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L47" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L34" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MaxWinAmount_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MaxWinAmount*"></a>
@@ -225,8 +401,139 @@ more wager categories.Wager categories may be based on the amount wagered and/or
     <tr>
       <td>
         <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a>
-        <p><p>The maximum win amount.</p>
-</p>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinBaseRtpPercent.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MinBaseRtpPercent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L39" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinBaseRtpPercent_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MinBaseRtpPercent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinBaseRtpPercent" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MinBaseRtpPercent"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinBaseRtpPercent" class="expander" data-toggle="collapse">MinBaseRtpPercent</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinBaseRtpPercent" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the minimum base RTP in percent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">decimal MinBaseRtpPercent { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">Decimal</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinLinkStartupRtpPercent.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MinLinkStartupRtpPercent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L64" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinLinkStartupRtpPercent_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MinLinkStartupRtpPercent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinLinkStartupRtpPercent" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MinLinkStartupRtpPercent"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinLinkStartupRtpPercent" class="expander" data-toggle="collapse">MinLinkStartupRtpPercent</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinLinkStartupRtpPercent" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the minimum Link progressive startup RTP in percent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">decimal MinLinkStartupRtpPercent { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">Decimal</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinSapStartupRtpPercent.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MinSapStartupRtpPercent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L49" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinSapStartupRtpPercent_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MinSapStartupRtpPercent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinSapStartupRtpPercent" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MinSapStartupRtpPercent"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinSapStartupRtpPercent" class="expander" data-toggle="collapse">MinSapStartupRtpPercent</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinSapStartupRtpPercent" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the minimum SAP startup RTP in percent.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">decimal MinSapStartupRtpPercent { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">Decimal</a>
+        <p>
       </td>
     </tr>
   </table>
@@ -244,7 +551,7 @@ more wager categories.Wager categories may be based on the amount wagered and/or
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinWagerCredits.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MinWagerCredits%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L31" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L24" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_MinWagerCredits_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.MinWagerCredits*"></a>
@@ -270,8 +577,51 @@ more wager categories.Wager categories may be based on the amount wagered and/or
     <tr>
       <td>
         <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;
-        <p><p>The minimum wager credits.</p>
-</p>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_SapIncrementRtpPercent.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.SapIncrementRtpPercent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L59" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_SapIncrementRtpPercent_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.SapIncrementRtpPercent*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_SapIncrementRtpPercent" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.SapIncrementRtpPercent"><a href="#collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_SapIncrementRtpPercent" class="expander" data-toggle="collapse">SapIncrementRtpPercent</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_SapIncrementRtpPercent" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the minimum SAP increment RTP in percent</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">decimal SapIncrementRtpPercent { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">Decimal</a>
+        <p>
       </td>
     </tr>
   </table>
@@ -289,7 +639,7 @@ more wager categories.Wager categories may be based on the amount wagered and/or
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_TheoPaybackPercent.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.TheoPaybackPercent%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L23" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L19" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Contracts_IWagerCategory_TheoPaybackPercent_" data-uid="Aristocrat.Monaco.Gaming.Contracts.IWagerCategory.TheoPaybackPercent*"></a>
@@ -315,8 +665,7 @@ more wager categories.Wager categories may be based on the amount wagered and/or
     <tr>
       <td>
         <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.decimal">Decimal</a>
-        <p><p>The theo payback pct.</p>
-</p>
+        <p>
       </td>
     </tr>
   </table>
@@ -334,7 +683,7 @@ more wager categories.Wager categories may be based on the amount wagered and/or
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Contracts_IWagerCategory.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Contracts.IWagerCategory%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L7" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming.Contracts/IWagerCategory.cs/#L9" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
