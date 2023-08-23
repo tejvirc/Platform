@@ -4987,4 +4987,10 @@ Do you really want to do partial reset????</value>
   <data name="PrinterWarningTypes_PaperLow" xml:space="preserve">
     <value>Papier d'imprimante bas</value>
   </data>
+  <data name="AddinProtocolSelection" xml:space="preserve">
+    <value>??Select a Protocol Configuration??</value>
+  </data>
+  <data name="ProtocolScreenTitle" xml:space="preserve">
+    <value>??Protocol Configuration Selection??</value>
+  </data>
 </root>
