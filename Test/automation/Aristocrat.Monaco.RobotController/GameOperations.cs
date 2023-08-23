@@ -88,7 +88,7 @@
             _loadGameTimer = new Timer(
                                (sender) =>
                                {
-                                   RequestGame();
+                                   //RequestGame();
                                },
                                null,
                                _robotController.Config.Active.IntervalLoadGame,
@@ -96,7 +96,7 @@
             _RgTimer = new Timer(
                                (sender) =>
                                {
-                                   RequestRg();
+                                   //RequestRg();
                                },
                                null,
                                _robotController.Config.Active.IntervalRgSet,
@@ -104,12 +104,12 @@
             _forceGameExitTimer = new Timer(
                                (sender) =>
                                {
-                                   RequestForceExitToLobby();
+                                   //RequestForceExitToLobby();
                                },
                                null,
                                _robotController.Config.Active.IntervalLobby,
                                _robotController.Config.Active.IntervalLobby);
-            LoadGameWithDelay(Constants.loadGameDelayDuration);
+            //LoadGameWithDelay(Constants.loadGameDelayDuration);
         }
 
         public void Reset()
@@ -307,18 +307,33 @@
                  this,
                  _ =>
                  {
-                     _logger.Info($"GameIdleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
-                     HandleExitToLobbyRequest();
+                     Console.WriteLine("\r\n Game Idle in RobotController ...");
+
+                     int x = 182;
+                     int y = 1341;
+
+                     Task.Delay(2000).ContinueWith(task => _automator.TouchMainScreen(x, y));
+
+                     //_logger.Info($"GameIdleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                     //BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
+                     //HandleExitToLobbyRequest();
                  });
 
             _eventBus.Subscribe<GameExitedNormalEvent>(
                 this,
-                _ => ReloadSameGame());
+                _ =>
+                {
+                    Console.WriteLine("\r\nGameExitedNormalEvent in RobotController ...");
+                    ReloadSameGame();
+                });
 
             _eventBus.Subscribe<GameProcessExitedEvent>(
                  this,
-                 TryLoadGameAfterGameExited
+                 @event =>
+                 {
+                     Console.WriteLine("\r\nGameProcessExitedEvent in RobotController ...");
+                     //TryLoadGameAfterGameExited(@event);
+                 }
             );
             _eventBus.Subscribe<GameFatalErrorEvent>(
                  this,
@@ -500,7 +515,7 @@
 
         private bool IsRegularRobots()
         {
-            return _robotController.InProgressRequests.Contains(RobotStateAndOperations.RegularMode);
+            return false; // _robotController.InProgressRequests.Contains(RobotStateAndOperations.RegularMode);
         }
 
         private bool GetRandomBoolean() => new Random((int)DateTime.Now.Ticks).Next() % 2 != 0;
@@ -532,6 +547,7 @@
 
         private void ReloadSameGame()
         {
+            _gameIsRunning = false;
             ForceGameExitIsInProgress = false;
             _goToNextGame = false;
             _exitWhenIdle = !IsRegularRobots();
