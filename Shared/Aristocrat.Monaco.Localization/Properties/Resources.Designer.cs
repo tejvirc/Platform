@@ -6872,7 +6872,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to CRÉDITS DE.
+		///   Looks up a localized string similar to CRï¿½DITS DE.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -15206,7 +15206,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Ligne D'aide Sur Le Jeu \r\n Problèmeatique.
+		///   Looks up a localized string similar to Ligne D'aide Sur Le Jeu \r\n Problï¿½meatique.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming
@@ -22243,6 +22243,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string NoKenoGames {
 			get {
 				return ResourceManager.GetString("NoKenoGames", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Game disabled due to all available paytables being....
+		/// </summary>
+		public static string NoLegalPaytablesAvailableWarning {
+			get {
+				return ResourceManager.GetString("NoLegalPaytablesAvailableWarning", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -43576,7 +43585,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to CRÉDITS DE.
+		///		Looks up a localized string similar to CRï¿½DITS DE.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -51910,7 +51919,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Ligne D'aide Sur Le Jeu \r\n Problèmeatique.
+		///		Looks up a localized string similar to Ligne D'aide Sur Le Jeu \r\n Problï¿½meatique.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming
@@ -58947,6 +58956,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string NoKenoGames {
 			get {
 				return "NoKenoGames";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Game disabled due to all available paytables being....
+		/// </summary>
+		public static string NoLegalPaytablesAvailableWarning {
+			get {
+				return "NoLegalPaytablesAvailableWarning";
 			}
 		}
 
@@ -77352,7 +77370,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		CreditOutCmdFailedMsg,
 		/// <summary>
-		///   Looks up a localized string similar to CRÉDITS DE.
+		///   Looks up a localized string similar to CRï¿½DITS DE.
 		/// </summary>
         /// <remarks>
         /// Monaco.Accounting.Contracts
@@ -82091,7 +82109,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		HelplineTicketTitle,
 		/// <summary>
-		///   Looks up a localized string similar to Ligne D'aide Sur Le Jeu \r\n Problèmeatique.
+		///   Looks up a localized string similar to Ligne D'aide Sur Le Jeu \r\n Problï¿½meatique.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming
@@ -86086,6 +86104,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		NoKenoGames,
+		/// <summary>
+		///   Looks up a localized string similar to Game disabled due to all available paytables being....
+		/// </summary>
+		NoLegalPaytablesAvailableWarning,
 		/// <summary>
 		///   Looks up a localized string similar to No Key-Off.
 		/// </summary>

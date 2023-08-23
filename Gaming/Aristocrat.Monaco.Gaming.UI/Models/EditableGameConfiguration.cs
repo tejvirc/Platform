@@ -760,6 +760,10 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
         public void SetWarningText()
         {
+            if (!AvailablePaytables.Any() && IllegalPaytables.Any())
+            {
+                WarningText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLegalPaytablesAvailableWarning);
+            }
             if (!EnabledByHost && !_allowEditHostDisabled)
             {
                 WarningText = string.Empty;
@@ -959,6 +963,11 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                             paytable.Rtp.Maximum > rules.MaximumRtp).ToList();
 
             AvailablePaytables = AvailablePaytables.Where(p => !IllegalPaytables.Contains(p)).ToList();
+
+            if (!AvailablePaytables.Any() && IllegalPaytables.Any())
+            {
+                Logger.Warn($@"No legal paytables exist for theme={Game?.ThemeName} game={Game?.VariationId} denom={BaseDenom.FormattedDenomString()}");
+            }
         }
     }
 }

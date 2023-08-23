@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming
+namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -684,10 +684,11 @@
             return success ? result : null;
         }
 
-        private bool ValidateGameRtp(GameDetail game)
+        private bool ValidateGameRtp(IGameDetail game)
         {
             var rtpBreakdown = _rtpService.GetTotalRtpBreakdown(game);
-            if (!rtpBreakdown.IsValid)
+            if (rtpBreakdown.FailureFlags.HasFlag(RtpValidationFailureFlags.InvalidRtpValue) ||
+                rtpBreakdown.FailureFlags.HasFlag(RtpValidationFailureFlags.InsufficientRtpPrecision))
             {
                 Logger.Error($@"Disabling game ({game.ThemeName}-{game.VariationId}) for invalid RTP values: {rtpBreakdown.FailureFlags}");
                 DisableGame(game.Id, GameStatus.DisabledBySystem);
