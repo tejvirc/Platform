@@ -7,6 +7,7 @@
     using System.Linq;
     using System.Windows.Input;
     using Application.Contracts;
+    using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
@@ -213,7 +214,7 @@
                         GameTags = new ObservableCollection<string>(game.GameTags ?? new List<string>()),
                         TheoPaybackPct = game.MaximumPaybackPercent.ToDecimal(),
                         TheoPaybackPctDisplay =
-                            $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TheoPaybackPctLabelText)}: {game.MaximumPaybackPercent.ToDecimal():p3}"
+                            $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TheoPaybackPctLabelText)}: {game.MaximumPaybackPercent.ToDecimal().ToPercentageFormattedString()}"
                     });
             }
 

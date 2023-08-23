@@ -491,6 +491,12 @@
             {
                 AutoEnableGames();
             }
+
+            foreach (var config in GameConfigurations)
+            {
+                config.UpdateCulture();
+            }
+
             UpdateSaveWarning();
         }
 
@@ -604,10 +610,11 @@
 
             RaisePropertyChanged(nameof(ThemePlusOptions));
             RaisePropertyChanged(nameof(SelectedDenoms));
+            RaisePropertyChanged(nameof(GameConfigurations));
 
             foreach (var config in GameConfigurations)
             {
-                config.UpdateCurrencyCulture();
+                config.UpdateCulture();
             }
 
             UpdateInputStatusText();

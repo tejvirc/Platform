@@ -26,5 +26,20 @@
             return value.ToString("F", cultureInfo);
         }
 
+        /// <summary>
+        /// Converts decimal to formatted percent
+        /// </summary>
+        /// <param name="value">decimal value to be passed in</param>
+        /// <param name="cultureInfo">Optional param to override culture</param>
+        /// <param name="format">The decimal formatting to be used, defaults to P3</param>
+        /// <returns>A localized Percentage String</returns>
+        public static string ToPercentageFormattedString(this decimal value, string format = "P3", CultureInfo cultureInfo = null)
+        {
+            if (cultureInfo == null)
+            {
+                cultureInfo = DisplayCulture;
+            }
+            return value.ToString(format, cultureInfo);
+        }
     }
 }

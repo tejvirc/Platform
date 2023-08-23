@@ -269,7 +269,7 @@
                                               AutomationProperties.AutomationId="ComboBox34_FA38938A">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding DisplayText}"
+                                                <TextBlock Text="{Binding DisplayText, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                                            AutomationProperties.AutomationId="TextBlock35_FA38938A" />
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>

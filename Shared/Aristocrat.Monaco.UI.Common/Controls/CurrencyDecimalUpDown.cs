@@ -20,7 +20,7 @@
         /// <inheritdoc />
         protected override string ConvertValueToText()
         {
-            return !Value.HasValue ? string.Empty : $"{Value.Value.FormattedCurrencyString()}";
+            return !Value.HasValue ? string.Empty : $"{Value.Value.FormattedCurrencyStringForOperator()}";
         }
     }
 }

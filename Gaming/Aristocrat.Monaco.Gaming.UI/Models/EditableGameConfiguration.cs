@@ -115,6 +115,8 @@
             {
                 if (!SetProperty(ref _selectedPaytable, value))
                 {
+                    //This is used to update the display text of the SelectedPaytable
+                    _selectedPaytable = value;
                     return;
                 }
 
@@ -637,8 +639,10 @@
             RaisePropertyChanged(nameof(CanEditAndEnableLetItRide));
         }
 
-        public void UpdateCurrencyCulture()
+        public void UpdateCulture()
         {
+            SetAvailableGamesAndDenom();
+            UpdateSelectedPaytableText();
             RaisePropertyChanged(nameof(DenomString), nameof(MaxBet));
         }
 
@@ -887,6 +891,13 @@
             AvailablePaytables = FilteredAvailableGames.OrderByDescending(g => g.VariationId == "99")
                 .ThenBy(g => Convert.ToInt32(g.VariationId))
                 .Select(g => new PaytableDisplay(g, BaseDenom, _showGameRtpAsRange)).ToList();
+        }
+
+        private void UpdateSelectedPaytableText()
+        {
+            var selectedPaytableId = SelectedPaytable.GameDetail.Id;
+            var paytableDisplay = AvailablePaytables.FirstOrDefault(x => x.GameDetail.Id == selectedPaytableId);
+            SelectedPaytable = paytableDisplay;
         }
 
         private static int GetBetWidth(decimal betAmount)

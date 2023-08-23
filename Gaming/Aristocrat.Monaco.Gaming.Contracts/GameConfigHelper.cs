@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using Application.Contracts.Localization;
+    using Application.Contracts.Extensions;
     using Localization.Properties;
     using Progressives;
 
@@ -81,7 +82,7 @@
         /// <returns></returns>
         public static string GetRtpString(this decimal value)
         {
-            return (value / 100).ToString("P3");
+            return (value / 100).ToPercentageFormattedString();
         }
 
         /// <summary>

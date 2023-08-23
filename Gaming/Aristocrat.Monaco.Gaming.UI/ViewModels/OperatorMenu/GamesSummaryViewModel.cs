@@ -139,7 +139,7 @@
             {
                 var minOverall = _filteredGamesList.Min(g => g.MinimumPaybackPercent);
                 var maxOverall = _filteredGamesList.Max(g => g.MaximumPaybackPercent);
-                Range = $"{minOverall:F3}% - {maxOverall:F3}%";
+                Range = GameConfigHelper.GetRtpRangeString(minOverall, maxOverall);
             }
             else
             {
@@ -166,6 +166,12 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
+            if (_filteredGamesList.Any())
+            {
+                var minOverall = _filteredGamesList.Min(g => g.MinimumPaybackPercent);
+                var maxOverall = _filteredGamesList.Max(g => g.MaximumPaybackPercent);
+                Range = GameConfigHelper.GetRtpRangeString(minOverall, maxOverall);
+            }
             RefreshGames();
             base.OnOperatorCultureChanged(evt);
         }

@@ -162,6 +162,8 @@
             RaisePropertyChanged(nameof(AverageBet));
             RaisePropertyChanged(nameof(AmountIn));
             RaisePropertyChanged(nameof(AmountOut));
+            RaisePropertyChanged(nameof(ActualRtp));
+            RaisePropertyChanged(nameof(TheoreticalRtp));
         }
     }
 }

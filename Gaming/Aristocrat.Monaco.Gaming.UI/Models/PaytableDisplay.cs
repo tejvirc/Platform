@@ -2,8 +2,9 @@
 {
     using Contracts;
     using Contracts.Progressives;
+    using MVVM.Model;
 
-    public class PaytableDisplay
+    public class PaytableDisplay : BaseNotify
     {
         public PaytableDisplay(IGameDetail gameDetail, long denom, bool displayRtpAsRange)
         {
@@ -25,9 +26,11 @@
         public override int GetHashCode()
         {
             return GameDetail?.Id.GetHashCode() ?? 0;
-        }
-
+        } 
+        
         public string DisplayText { get; }
+
+        public void UpdateDisplayText() => RaisePropertyChanged(nameof(DisplayText));
 
         protected bool Equals(PaytableDisplay other)
         {

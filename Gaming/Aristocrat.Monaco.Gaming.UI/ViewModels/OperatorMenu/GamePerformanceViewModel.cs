@@ -323,6 +323,8 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
+            RaisePropertyChanged(nameof(MachineActualPayback));
+            RaisePropertyChanged(nameof(MachineWeightedPayback));
             foreach (var item in GamePerformanceItems)
             {
                 item.UpdateCulture();
