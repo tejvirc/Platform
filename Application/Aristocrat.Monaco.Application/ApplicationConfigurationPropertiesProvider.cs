@@ -786,7 +786,7 @@
             {
                 _properties.Add(ApplicationConstants.LogTypesAllowedForDisplayKey,
                     Tuple.Create(
-                        (object)configuration.LogTypesAllowedForDisplay,
+                        (object)configuration.LogTypesAllowedForDisplay.ToArray(),
                         ApplicationConstants.LogTypesAllowedForDisplayKey,
                         false));
             }
