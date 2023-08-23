@@ -112,7 +112,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
                                         loc:Localizer.For="Operator"
-                                        Width="350"
+                                        Width="Auto"
                                         Binding="{Binding Name}"
                                         AutomationProperties.AutomationId="DataGridTextColumn20_D1FE7F80" />
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Count}}"
