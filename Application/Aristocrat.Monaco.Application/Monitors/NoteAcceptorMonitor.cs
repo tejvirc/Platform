@@ -60,7 +60,7 @@
             IMessageDisplay messageDisplay)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _noteAcceptor = noteAcceptor ?? throw new ArgumentNullException(nameof(noteAcceptor));
+            _noteAcceptor = noteAcceptor;
             _audioService = audioService ?? throw new ArgumentNullException(nameof(audioService));
             _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
@@ -76,22 +76,19 @@
         }
 
         public NoteAcceptorMonitor()
+            : this(
+            ServiceManager.GetInstance().GetService<IEventBus>(),
+            ServiceManager.GetInstance().TryGetService<INoteAcceptor>(),
+            ServiceManager.GetInstance().GetService<Audio.IAudio>(),
+            ServiceManager.GetInstance().GetService<IMeterManager>(),
+            ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
+            ServiceManager.GetInstance().GetService<ISystemDisableManager>(),
+            ServiceManager.GetInstance().GetService<IPropertiesManager>(),
+            ServiceManager.GetInstance().GetService<IMessageDisplay>()
+        )
         {
-            _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-            _noteAcceptor = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
-            _audioService = ServiceManager.GetInstance().GetService<Audio.IAudio>();
-            _meterManager = ServiceManager.GetInstance().GetService<IMeterManager>();
-            _persistentStorage = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
-            _disableManager = ServiceManager.GetInstance().GetService<ISystemDisableManager>();
-            _propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-            _messageDisplay = ServiceManager.GetInstance().GetService<IMessageDisplay>();
-
-            _disconnectedMessage = new DisplayableMessage(
-                DisconnectedMessageCallback,
-                DisplayableMessageClassification.SoftError,
-                DisplayableMessagePriority.Immediate,
-                ApplicationConstants.NoteAcceptorDisconnectedGuid);
         }
+
 
         /// <summary>
         ///     Gets the key used to disable the system when the document check occurs.
