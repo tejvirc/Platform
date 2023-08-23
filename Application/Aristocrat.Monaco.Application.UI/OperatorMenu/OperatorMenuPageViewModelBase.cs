@@ -1138,7 +1138,7 @@
                 return;
             }
 
-            Print(OperatorMenuPrintData.Main);
+            Print(OperatorMenuPrintData.Main);   
         }
 
         /// <summary>
@@ -1153,7 +1153,9 @@
 
         private void ShowInfoPopup(object o)
         {
-            if (o is object[] objects && objects.Length >= 2 && objects[0] is UIElement element &&
+            if (o is object[] objects &&
+                objects.Length >= 2 &&
+                objects[0] is UIElement element &&
                 objects[1] is string text)
             {
                 EventBus.Publish(new OperatorMenuPopupEvent(!PopupOpen, text, element, 0, true));

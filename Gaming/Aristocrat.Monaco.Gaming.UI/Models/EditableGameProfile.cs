@@ -75,7 +75,6 @@
             foreach (var config in GameConfigurations)
             {
                 config.PropertyChanged -= ConfigOnPropertyChanged;
-                config.Dispose();
             }
 
             GameConfigurations.Clear();

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- 
 *NOTE* When adding or removing elements to this file, you will need to 
 change the corresponding xsd schema file and generate a new class definition
@@ -97,7 +97,7 @@ as follows:
       <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
       <Parity>None</Parity>
       <StopBits>One</StopBits>
-      <FirmwareVersionRegex>^5R</FirmwareVersionRegex>
+      <FirmwareVersionRegex>^5RUSA</FirmwareVersionRegex>
     </Device>
     <Device Enabled="true" Type="Printer" Name="Nanoptix Inc. NextGen Serial TCL" Protocol="Nanoptix TCL" Port="COM6" Mode="RS232" InspectionTimeout="60000">
       <ExtensionPath>/Hardware/Printer</ExtensionPath>
@@ -107,7 +107,7 @@ as follows:
       <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
       <Parity>None</Parity>
       <StopBits>One</StopBits>
-      <FirmwareVersionRegex>^NGP-1</FirmwareVersionRegex>
+      <FirmwareVersionRegex>1.28C$</FirmwareVersionRegex>
     </Device>
     <Device Enabled="true" Type="Printer" Name="Nanoptix Inc. NextGen USB GDS" Protocol="GDS" Port="USB" Mode="USB" InspectionTimeout="60000">
       <ExtensionPath>/Hardware/Printer</ExtensionPath>
@@ -124,7 +124,7 @@ as follows:
       <!--<Handshake>XOnXOff</Handshake> The spec says this but some printers do not correctly handle flow control so disable it as we wait for responses before sending again -->
       <Parity>None</Parity>
       <StopBits>One</StopBits>
-      <FirmwareVersionRegex>^PAY-6</FirmwareVersionRegex>
+      <FirmwareVersionRegex>6.10D$</FirmwareVersionRegex>
     </Device>
     <Device Enabled="true" Type="Printer" Name="TransAct Epic Edge USB GDS" Protocol="GDS" Port="USB" Mode="USB" InspectionTimeout="60000">
       <ExtensionPath>/Hardware/Printer</ExtensionPath>

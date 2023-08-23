@@ -4,13 +4,12 @@
     using System.Linq;
     using Accounting.Contracts.TransferOut;
     using Contracts;
-    using Kernel;
     using Progressives;
 
     public class CheckResultCommandHandler : ICommandHandler<CheckResult>
     {
         private readonly IPlayerBank _bank;
-        private readonly IPropertiesManager _properties;
+        private readonly IGameProvider _gameProvider;
         private readonly IGameHistory _gameHistory;
         private readonly IProgressiveConfigurationProvider _progressiveProvider;
 
@@ -19,17 +18,17 @@
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when one or more required arguments are null.</exception>
         /// <param name="bank">The bank.</param>
-        /// <param name="properties">The properties.</param>
+        /// <param name="gameProvider">The game provider.</param>
         /// <param name="gameHistory">The game history.</param>
         /// <param name="progressiveProvider">The progressive provider.</param>
         public CheckResultCommandHandler(
             IPlayerBank bank,
-            IPropertiesManager properties,
+            IGameProvider gameProvider,
             IGameHistory gameHistory,
             IProgressiveConfigurationProvider progressiveProvider)
         {
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _progressiveProvider = progressiveProvider ?? throw new ArgumentNullException(nameof(progressiveProvider));
         }
@@ -37,7 +36,7 @@
         /// <inheritdoc/>
         public void Handle(CheckResult command)
         {
-            var (game, denomination) = _properties.GetActiveGame();
+            var (game, denomination) = _gameProvider.GetActiveGame();
 
             var result = command.Result * GamingConstants.Millicents;
             var checkMaxWin = true;

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -12,6 +12,7 @@
     using Application.UI.OperatorMenu;
     using Contracts;
     using Contracts.Models;
+    using Contracts.Rtp;
     using Contracts.Tickets;
     using Hardware.Contracts.Ticket;
     using Kernel;
@@ -27,14 +28,12 @@
     [CLSCompliant(false)]
     public class GameInfoViewModel : OperatorMenuPageViewModelBase
     {
-        private const double NumberToPercentageDivisor = 10000D;
-
         private readonly IDialogService _dialogService;
         private readonly IGameOrderSettings _gameOrderSettings;
 
         private bool _allowPrintGamingMachineInfo;
         private bool _downButtonEnabled;
-        private ObservableCollection<GameOrderData> _gameList = new ObservableCollection<GameOrderData>();
+        private ObservableCollection<GameOrderData> _gameList = new ();
         private int _selectedIndex = -1;
         private GameOrderData _selectedItem;
         private string _selectedTag;
@@ -211,9 +210,9 @@
                         ThemeId = game.ThemeId,
                         ThemeName = game.ThemeName,
                         GameTags = new ObservableCollection<string>(game.GameTags ?? new List<string>()),
-                        TheoPaybackPct = game.MaximumPaybackPercent.ToDecimal(),
+                        TheoPaybackPct = game.MaximumPaybackPercent,
                         TheoPaybackPctDisplay =
-                            $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TheoPaybackPctLabelText)}: {game.MaximumPaybackPercent.ToDecimal():p3}"
+                            $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TheoPaybackPctLabelText)}: {game.MaximumPaybackPercent:p2}"
                     });
             }
 

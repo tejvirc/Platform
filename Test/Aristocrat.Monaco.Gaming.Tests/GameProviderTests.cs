@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Tests
+namespace Aristocrat.Monaco.Gaming.Tests
 {
     using System;
     using System.Collections.Generic;
@@ -10,6 +10,7 @@
     using Aristocrat.Monaco.Gaming.Contracts.Meters;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using Aristocrat.Monaco.Gaming.Contracts.GameSpecificOptions;
+    using Aristocrat.Monaco.Gaming.Contracts.Rtp;
     using Aristocrat.Monaco.Hardware.Contracts.Cabinet;
     using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.PackageManifest;
@@ -47,6 +48,7 @@
         private Mock<IDigitalRights> _digitalRights;
         private Mock<IConfigurationProvider> _configurationProvider;
         private Mock<ICabinetDetectionService> _cabinetDetectionService;
+        private Mock<IRtpService> _rtpService;
         private Mock<IServiceManager> _serviceManager;
         private Mock<IManifest<GameSpecificOptionConfig>> _gameSpecificOptionManifest;
         private Mock<IGameSpecificOptionProvider> _gameSpecificOptionProvider;
@@ -60,6 +62,7 @@
             SetupFiles();
             SetupDetails();
             SetupServiceManager();
+            SetupRtpService();
         }
 
         [TestMethod]
@@ -72,21 +75,22 @@
 
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, false)]
-        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, true)]
+        [DataRow(true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false)]
+        [DataRow(false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true)]
         public void WhenArgumentIsNullExpectException(
             bool nullPath,
             bool nullStorage,
@@ -102,7 +106,8 @@
             bool nullId,
             bool nullDigitalRights,
             bool nullConfiguration,
-            bool nullCabinet)
+            bool nullCabinet,
+            bool nullRtp)
         {
             CreateTarget(
                 nullPath,
@@ -119,7 +124,8 @@
                 nullId,
                 nullDigitalRights,
                 nullConfiguration,
-                nullCabinet);
+                nullCabinet,
+                nullRtp);
         }
 
         private void CreateTarget(
@@ -139,7 +145,8 @@
             bool nullId = false,
             bool nullDigitalRights = false,
             bool nullConfiguration = false,
-            bool nullCabinet = false)
+            bool nullCabinet = false,
+            bool nullRtp = false)
         {
             _target = new GameProvider(
                 nullPath ? null : _pathMapper.Object,
@@ -158,7 +165,8 @@
                 nullId ? null : _idProvider.Object,
                 nullDigitalRights ? null : _digitalRights.Object,
                 nullConfiguration ? null : _configurationProvider.Object,
-                nullCabinet ? null : _cabinetDetectionService.Object);
+                nullCabinet ? null : _cabinetDetectionService.Object,
+                nullRtp ? null : _rtpService.Object);
 
             _target.Initialize();
         }
@@ -182,6 +190,7 @@
             _cabinetDetectionService = new Mock<ICabinetDetectionService>(MockBehavior.Default);
             _gameSpecificOptionManifest = new Mock<IManifest<GameSpecificOptionConfig>>(MockBehavior.Default);
             _gameSpecificOptionProvider = new Mock<IGameSpecificOptionProvider>(MockBehavior.Default);
+            _rtpService = new Mock<IRtpService>(MockBehavior.Default);
         }
 
         private void SetupProperties()
@@ -218,7 +227,7 @@
                     ["Game.ThemeName"] = "BuffaloGoldRevolution",
                     ["Game.Upgraded"] = true,
                     ["Game.Version"] = "1.01 - 67488",
-                    ["Game.WagerCategories"] = "[{ \"Id\":\"1\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":75,\"MaxWagerCredits\":75,\"MaxWinAmount\":0},{ \"Id\":\"2\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":150,\"MaxWagerCredits\":150,\"MaxWinAmount\":0},{ \"Id\":\"3\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":225,\"MaxWagerCredits\":225,\"MaxWinAmount\":0},{ \"Id\":\"4\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":300,\"MaxWagerCredits\":300,\"MaxWinAmount\":0},{ \"Id\":\"5\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":450,\"MaxWagerCredits\":450,\"MaxWinAmount\":0}]",
+ /*TODO*/                   ["Game.WagerCategories"] = "[{ \"Id\":\"1\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":75,\"MaxWagerCredits\":75,\"MaxWinAmount\":0},{ \"Id\":\"2\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":150,\"MaxWagerCredits\":150,\"MaxWinAmount\":0},{ \"Id\":\"3\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":225,\"MaxWagerCredits\":225,\"MaxWinAmount\":0},{ \"Id\":\"4\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":300,\"MaxWagerCredits\":300,\"MaxWinAmount\":0},{ \"Id\":\"5\",\"TheoPaybackPercent\":90.0,\"MinWagerCredits\":450,\"MaxWagerCredits\":450,\"MaxWinAmount\":0}]",
                     ["Game.Category"] = 0,
                     ["Game.SubCategory"] = 0,
                     ["Game.Features"] = "",
@@ -305,6 +314,28 @@
         {
             _serviceManager = MoqServiceManager.CreateInstance(MockBehavior.Default);
             _serviceManager.Setup(s => s.GetService<IEventBus>()).Returns(_bus.Object);
+        }
+
+        private void SetupRtpService()
+        {
+            var rtpBreakdown = new RtpBreakdown
+            {
+                Base = RtpRange.Zero,
+                StandaloneProgressiveReset = RtpRange.Zero,
+                StandaloneProgressiveIncrement = RtpRange.Zero ,
+                LinkedProgressiveReset = RtpRange.Zero,
+                LinkedProgressiveIncrement = RtpRange.Zero,
+                FailureFlags = RtpValidationFailureFlags.None,
+                ProgressiveVerificationState = new ProgressiveRtpVerificationState
+                {
+                    SapResetRtpState = RtpVerifiedState.Verified,
+                    SapIncrementRtpState = RtpVerifiedState.Verified,
+                    LpResetRtpState = RtpVerifiedState.NotUsed,
+                    LpIncrementRtpState = RtpVerifiedState.NotAvailable
+                }
+            };
+
+            _rtpService.Setup(r => r.GetTotalRtpBreakdown(It.IsAny<IGameDetail>())).Returns(rtpBreakdown);
         }
     }
 }

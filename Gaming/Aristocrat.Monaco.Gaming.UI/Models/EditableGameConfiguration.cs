@@ -13,6 +13,7 @@
     using Contracts.Configuration;
     using Contracts.Models;
     using Contracts.Progressives;
+    using Contracts.Rtp;
     using Kernel;
     using Localization.Properties;
     using log4net;
@@ -20,19 +21,20 @@
     using PackageManifest.Models;
     using Progressives;
 
-    public class EditableGameConfiguration : BaseViewModel, IDisposable
+    public class EditableGameConfiguration : BaseViewModel
     {
         private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly IProgressiveConfigurationProvider _progressives;
         private readonly IPropertiesManager _properties;
+        private readonly IRtpService _rtpService;
         private readonly List<IViewableProgressiveLevel> _assignedLevels = new List<IViewableProgressiveLevel>();
         private readonly IDictionary<int, IDenomination> _denominationMapping;
         private readonly decimal _denomMultiplier;
         private readonly bool _allowEditHostDisabled;
+        private readonly bool _showGameRtpAsRange;
 
         private bool _active = true;
-        private bool _disposed;
         private bool _enabled;
         private BetOption _selectedBetOption;
         private bool _betOptionAvailable;
@@ -64,14 +66,15 @@
         private decimal? _maxWinAmount;
         private bool _progressivesEditable;
         private bool _gameOptionsEnabled;
-        private bool _showGameRtpAsRange;
         private IReadOnlyList<PaytableDisplay> _availablePaytables;
         private PaytableDisplay _selectedPaytable;
+        private IReadOnlyList<PaytableDisplay> _illegalPaytables;
 
         public EditableGameConfiguration(long denom, IReadOnlyList<IGameDetail> games, bool showGameRtpAsRange)
         {
             var serviceManager = ServiceManager.GetInstance();
             _properties = serviceManager.GetService<IPropertiesManager>();
+            _rtpService = serviceManager.GetService<IRtpService>();
             _progressives = serviceManager.GetService<IProgressiveConfigurationProvider>();
 
             _denomMultiplier = (decimal)_properties.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
@@ -84,15 +87,17 @@
             _lowestAllowedMinimumRtp = LowestAvailableMinimumRtp = AvailableGames.Min(g => g.MinimumPaybackPercent);
             _highestAllowedMinimumRtp = HighestAvailableMinimumRtp = AvailableGames.Max(g => g.MinimumPaybackPercent);
 
-            _gamble = _properties.GetValue(GamingConstants.GambleAllowed, false) && _properties.GetValue(GamingConstants.GambleEnabled, false);
+            _gamble = _properties.GetValue(GamingConstants.GambleAllowed, false) &&
+                      _properties.GetValue(GamingConstants.GambleEnabled, false);
             _letItRide = _properties.GetValue(GamingConstants.LetItRideEnabled, false);
 
             _allowEditHostDisabled = _properties.GetValue(GamingConstants.AllowEditHostDisabled, false);
             _denominationMapping = AvailableGames.ToDictionary(
                 x => x.Id,
-                x => x.Denominations.FirstOrDefault(d => d.Value == denom));
+                x => x.Denominations.FirstOrDefault(d => d.Value == BaseDenom));
 
-            SetAvailableGamesAndDenom();
+            SetAvailablePaytablesAndDenom();
+            RemoveIllegalPaytables();
             SetWarningText();
             ResetChanges();
         }
@@ -146,6 +151,12 @@
         {
             get => _availablePaytables;
             private set => SetProperty(ref _availablePaytables, value);
+        }
+
+        public IReadOnlyList<PaytableDisplay> IllegalPaytables
+        {
+            get => _illegalPaytables;
+            private set => SetProperty(ref _illegalPaytables, value);
         }
 
         public decimal HighestAvailableMinimumRtp { get; }
@@ -551,12 +562,6 @@
             : _progressives.ViewProgressiveLevels(Game.Id, BaseDenom).Where(
                 p => string.IsNullOrEmpty(p.BetOption) || p.BetOption == SelectedBetOption?.Name);
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
         public void LoadConfiguredProgressiveLevels(IReadOnlyCollection<IViewableProgressiveLevel> levels)
         {
             _assignedLevels.Clear();
@@ -608,7 +613,7 @@
             ForcedMaxBet = denomination?.MaximumWagerCredits * Denom ?? BetMaximum;
             ForcedMaxBetOutside = denomination?.MaximumWagerOutsideCredits * Denom ?? BetMaximum;
 
-            if (Game.GameType == GameType.Roulette)
+            if (Game?.GameType == GameType.Roulette)
             {
                 MaximumInsideBet = Game?.MaximumWagerInsideCredits > 0 ?
                     Game.MaximumWagerInsideCredits * Denom :
@@ -621,10 +626,10 @@
 
             SelectedBetOption = string.IsNullOrEmpty(denomination?.BetOption)
                 ? null
-                : BetOptions?.FirstOrDefault(o => o.Name == denomination.BetOption) ?? BetOptions?.FirstOrDefault();
+                : BetOptions?.FirstOrDefault(o => o.Name == denomination?.BetOption) ?? BetOptions?.FirstOrDefault();
             SelectedLineOption = string.IsNullOrEmpty(denomination?.LineOption)
                 ? null
-                : LineOptions?.FirstOrDefault(o => o.Name == denomination.LineOption) ?? LineOptions?.FirstOrDefault();
+                : LineOptions?.FirstOrDefault(o => o.Name == denomination?.LineOption) ?? LineOptions?.FirstOrDefault();
             SelectedBonusBet = denomination?.BonusBet ?? BonusBets.FirstOrDefault();
         }
 
@@ -653,7 +658,9 @@
 
             _lowestAllowedMinimumRtp = lowest;
             _highestAllowedMinimumRtp = highest;
-            SetAvailableGamesAndDenom();
+
+            SetAvailablePaytablesAndDenom();
+
             if (!AvailablePaytables.Contains(SelectedPaytable))
             {
                 // Reset selected RTP if the one that was selected previously is no longer available
@@ -661,26 +668,12 @@
             }
 
             RaisePropertyChanged(nameof(CanToggleEnabled));
+
             Logger.Debug(
                 AvailablePaytables.Aggregate(
                     $"Denom {Denom} available minimum RTPs: ",
                     (current, rtp) => current + $"{rtp.GameDetail.MinimumPaybackPercent}  ")
                 + $" (Allowed Range: {_lowestAllowedMinimumRtp} - {_highestAllowedMinimumRtp})");
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                // Nothing to do here now.
-            }
-
-            _disposed = true;
         }
 
         private bool IsProgressivesEnabled()
@@ -849,7 +842,7 @@
                                  ?? Game?.ActiveLineOption
                                  ?? LineOptions?.FirstOrDefault();
 
-            LineOptionAvailable = LineOptions.Any();
+            LineOptionAvailable = LineOptions?.Any() ?? false;
         }
 
         private void LoadBonusBets(BetOption betOption)
@@ -882,11 +875,16 @@
             return Game?.TopAward(ResolveDenomination(), SelectedBetOption, SelectedLineOption) ?? 0;
         }
 
-        private void SetAvailableGamesAndDenom()
+        private void SetAvailablePaytablesAndDenom()
         {
             AvailablePaytables = FilteredAvailableGames.OrderByDescending(g => g.VariationId == "99")
                 .ThenBy(g => Convert.ToInt32(g.VariationId))
-                .Select(g => new PaytableDisplay(g, BaseDenom, _showGameRtpAsRange)).ToList();
+                .Select(g =>
+                {
+                    var rtp = _rtpService.GetTotalRtp(g);
+                    var paytableDisplay = new PaytableDisplay(g, rtp, _showGameRtpAsRange);
+                    return paytableDisplay;
+                }).ToList();
         }
 
         private static int GetBetWidth(decimal betAmount)
@@ -910,6 +908,23 @@
                 betAmount.FormattedCurrencyString().Length - padding;
 
             return defaultBetWidth + Math.Max(textLength, 1) * currencyDigitWidth;
+        }
+
+        private void RemoveIllegalPaytables()
+        {
+            var game = Game ?? AvailableGames.FirstOrDefault();
+            if (game is null)
+            {
+                return;
+            }
+
+            var rules = _rtpService.GetJurisdictionalRtpRules(game.GameType);
+
+            IllegalPaytables = AvailablePaytables.Where(
+                paytable => paytable.Rtp.Minimum < rules.MinimumRtp ||
+                            paytable.Rtp.Maximum > rules.MaximumRtp).ToList();
+
+            AvailablePaytables = AvailablePaytables.Where(p => !IllegalPaytables.Contains(p)).ToList();
         }
     }
 }

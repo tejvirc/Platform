@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -27,6 +27,7 @@
     using Contracts.Models;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
+    using Contracts.Rtp;
     using Kernel;
     using Localization.Properties;
     using Microsoft.Expression.Interactivity.Core;
@@ -48,6 +49,7 @@
         private readonly IConfigurationSettingsManager _settingsManager;
         private readonly IGameService _gameService;
         private readonly IDigitalRights _digitalRights;
+        private readonly IRtpService _rtpService;
 
         private readonly double _denomMultiplier;
         private readonly bool _enableRtpScaling;
@@ -133,6 +135,9 @@
             _restrictionProvider = ServiceManager.GetInstance().GetService<IConfigurationProvider>();
             _gameSpecificOptionProvider = ServiceManager.GetInstance().GetService<IGameSpecificOptionProvider>();
 
+            var container = ServiceManager.GetInstance().GetService<IContainerService>().Container;
+            _rtpService = container.GetInstance<IRtpService>();
+
             _digitalRights = ServiceManager.GetInstance().GetService<IDigitalRights>();
 
             _cachedConfigProgressiveLevels = new List<IViewableProgressiveLevel>();
@@ -160,13 +165,11 @@
 
         public ActionCommand<object> ExportCommand { get; }
 
+        public ICommand ExtraSettingsSetupCommand { get; } 
+
         public ICommand ProgressiveSetupCommand { get; }
 
         public ICommand ProgressiveViewCommand { get; }
-
-        // ReSharper disable once UnusedAutoPropertyAccessor.Global - used by xaml
-        // ReSharper disable once MemberCanBePrivate.Global - used by xaml
-        public ICommand ExtraSettingsSetupCommand { get; }
 
         public string ReadOnlyStatus
         {
@@ -1523,6 +1526,7 @@
             {
                 var enabledLowerDenoms = enabledConfigs.Where(g => g.Denom < config.Denom).ToList();
                 var closestEnabledLowerDenom = enabledLowerDenoms.FirstOrDefault(g => g.Denom == enabledLowerDenoms.Max(d => d.Denom));
+
                 var enabledHigherDenoms = enabledConfigs.Where(g => g.Denom > config.Denom).ToList();
                 var closestEnabledHigherDenom = enabledHigherDenoms.FirstOrDefault(g => g.Denom == enabledHigherDenoms.Min(d => d.Denom));
 
@@ -1532,11 +1536,11 @@
             }
         }
 
-        private void OnGameStatusChanged(GameStatusChangedEvent obj)
+        private void OnGameStatusChanged(GameStatusChangedEvent e)
         {
             foreach (var game in _editableGames.Values)
             {
-                var config = game.GameConfigurations.FirstOrDefault(g => g.Game?.Id == obj.GameId);
+                var config = game.GameConfigurations.FirstOrDefault(g => g.Game?.Id == e.GameId);
                 if (config == null)
                 {
                     continue;
@@ -1945,7 +1949,10 @@
                 return;
             }
 
+            var rtpBreakdown = _rtpService.GetTotalRtpBreakdown(gameConfig.Game);
+
             var readOnlyConfig = new ReadOnlyGameConfiguration(
+                rtpBreakdown,
                 gameConfig.Game,
                 gameConfig.ResolveDenomination().Value,
                 _denomMultiplier,
@@ -1991,7 +1998,10 @@
 
             var denomValue = gameConfig.ResolveDenomination().Value;
 
+            var rtpBreakdown = _rtpService.GetTotalRtpBreakdown(gameConfig.Game);
+
             var readOnlyConfig = new ReadOnlyGameConfiguration(
+                rtpBreakdown,
                 gameConfig.Game,
                 denomValue,
                 _denomMultiplier,

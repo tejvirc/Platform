@@ -11,6 +11,7 @@
     using Gaming.Contracts;
     using Gaming.Contracts.Events.OperatorMenu;
     using Gaming.Contracts.Meters;
+    using Gaming.Contracts.Rtp;
     using Kernel;
 
     // ReSharper disable once UnusedMember.Global
@@ -92,7 +93,7 @@
         private static string GetGameRtp((IGameDetail game, IDenomination denom)? gameProfile)
         {
             var theoreticalRtp = gameProfile?.game.MinimumPaybackPercent ?? 0;
-            return $"{theoreticalRtp.ToDecimal():0.0#%}";
+            return theoreticalRtp.ToRtpString();
         }
 
         private static object GetGameMaxBetInCents((IGameDetail game, IDenomination denom)? gameProfile)

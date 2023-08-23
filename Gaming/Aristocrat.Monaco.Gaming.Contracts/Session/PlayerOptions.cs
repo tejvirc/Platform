@@ -11,10 +11,10 @@
     {
         /// <summary>
         ///     Gets or sets the minimum allowable weighted theoretical hold percentage for player sessions.Used to calculate the
-        ///     RPN
+        ///     RPN.  It is stored in "meter" format, that is a whole number representing hundredths of percent.
         /// </summary>
         [Field]
-        public long MinimumTheoreticalHoldPercentage { get; set; }
+        public long MinimumTheoreticalHoldPercentageMeter { get; set; }
 
         /// <summary>
         ///     Gets or sets the Number of decimal places to use when displaying points to the player

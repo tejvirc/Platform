@@ -205,7 +205,10 @@
                         ShowOverlayWindow();
                     }
 
-                    SetOverlayWindowTransparent(!e.IsVisible);
+                    if (_overlayWindow is not null)
+                    {
+                        SetOverlayWindowTransparent(!e.IsVisible);
+                    }
                 }
                 catch (Exception ex)
                 {

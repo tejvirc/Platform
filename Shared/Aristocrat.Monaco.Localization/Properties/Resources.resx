@@ -11689,6 +11689,33 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Too many transaction requests are pending with the Server. This lockup will be removed when the Server acknowledges the requests.</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
+  <data name="RtpBreakdown" xml:space="preserve">
+    <value>RTP BREAKDOWN</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value>MIN</value>
+  </data>
+  <data name="Max" xml:space="preserve">
+    <value>MAX</value>
+  </data>
+  <data name="BaseExcludingProgressives" xml:space="preserve">
+    <value>Base (Excluding Progressives)</value>
+  </data>
+  <data name="StandaloneProgressiveReset" xml:space="preserve">
+    <value>Standalone Progressive Reset</value>
+  </data>
+  <data name="StandaloneProgressiveIncrement" xml:space="preserve">
+    <value>Standalone Progressive Increment</value>
+  </data>
+  <data name="LinkProgressiveReset" xml:space="preserve">
+    <value>Link Progressive Reset</value>
+  </data>
+  <data name="LinkProgressiveIncrement" xml:space="preserve">
+    <value>Link Progressive Increment</value>
+  </data>
+  <data name="LinkedProgressiveVerificationEnabledLabel" xml:space="preserve">
+    <value>Linked Progressive Verification</value>
+  </data>
   <data name="ProgressiveHostDisconnected" xml:space="preserve">
     <value>Progressive Host Disconnected</value>
     <comment>Aristocrat.Monaco.Bingo</comment>

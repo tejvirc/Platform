@@ -15,13 +15,13 @@
     [CounterDescription("Game Start", PerformanceCounterType.AverageTimer32)]
     public class BeginGameRoundCommandHandler : ICommandHandler<BeginGameRound>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         private readonly IGamePlayState _gamePlayState;
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
         private readonly IGameRecovery _recovery;
-        private readonly IGameDiagnostics _gameDiagnostics;
+        private readonly IGameProvider _gameProvider;
         private readonly IGameStartConditionProvider _gameStartConditions;
 
         /// <summary>
@@ -29,7 +29,7 @@
         /// </summary>
         public BeginGameRoundCommandHandler(
             IGameRecovery recovery,
-            IGameDiagnostics diagnostics,
+            IGameProvider gameProvider,
             IGamePlayState gamePlayState,
             IPropertiesManager properties,
             IEventBus eventBus,
@@ -39,8 +39,8 @@
                 ?? throw new ArgumentNullException(nameof(recovery));
             _gamePlayState = gamePlayState
                 ?? throw new ArgumentNullException(nameof(gamePlayState));
-            _gameDiagnostics = diagnostics
-                ?? throw new ArgumentNullException(nameof(diagnostics));
+            _gameProvider = gameProvider
+                ?? throw new ArgumentNullException(nameof(gameProvider));
             _properties = properties
                 ?? throw new ArgumentNullException(nameof(properties));
             _eventBus = eventBus
@@ -61,7 +61,7 @@
                 return;
             }
 
-            var (game, _) = _properties.GetActiveGame();
+            var (game, _) = _gameProvider.GetActiveGame();
 
             _properties.SetProperty(GamingConstants.SelectedWagerCategory, game.WagerCategories.FirstOrDefault());
 

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -15,22 +15,33 @@
     using Kernel.Contracts.Components;
     using Localization.Properties;
     using Models;
+    using Contracts.Rtp;
+    using MVVM.Command;
+    using Views.OperatorMenu;
+    using IDialogService = Application.Contracts.OperatorMenu.IDialogService;
 
     public class GamesSummaryViewModel : OperatorMenuPageViewModelBase
     {
-        private string _range;
-        private int _enabledGamesCount;
-        private readonly double _denomMultiplier;
         private readonly IGameProvider _gameProvider;
-        private ObservableCollection<ReadOnlyGameConfiguration> _enabledGames;
-        private string _maxBetLimit;
-        private IReadOnlyCollection<IGameDetail> _enabledGamesList;
+        private readonly IDialogService _dialogService;
+        private readonly double _denomMultiplier;
+        private readonly IRtpService _rtpService;
         private readonly List<IGameDetail> _filteredGamesList;
+        private IReadOnlyCollection<IGameDetail> _enabledGamesList;
+        private ObservableCollection<ReadOnlyGameConfiguration> _enabledGames;
+        private int _enabledGamesCount;
+        private string _range;
+        private string _maxBetLimit;
         private string _hashesComponentId;
         private const string HashesFileExtension = ".hashes";
 
         public GamesSummaryViewModel()
         {
+            _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
+            _rtpService = ServiceManager.GetInstance().GetService<IRtpService>();
+
+            ShowRtpBreakdownDialogCommand = new ActionCommand<ReadOnlyGameConfiguration>(ShowRtpBreakdownDialog);
+
             _enabledGamesList = new List<IGameDetail>();
             _filteredGamesList = new List<IGameDetail>();
 
@@ -42,6 +53,7 @@
             }
 
             _denomMultiplier = PropertiesManager.GetValue(ApplicationConstants.CurrencyMultiplierKey, 1d);
+
             ShowGameRtpAsRange = GetGlobalConfigSetting(OperatorMenuSetting.ShowGameRtpAsRange, true);
             ProgressiveRtpsVisible = Configuration.GetSetting(OperatorMenuSetting.ShowProgressiveRtps, true);
 
@@ -54,6 +66,8 @@
                 HashesComponentId = hashesFileName.Substring(0, hashesFileName.LastIndexOf(HashesFileExtension[0]));
             }
         }
+
+        public ActionCommand<ReadOnlyGameConfiguration> ShowRtpBreakdownDialogCommand { get; }
 
         public string Range
         {
@@ -112,10 +126,6 @@
 
         public bool ShowGameRtpAsRange { get; }
 
-        public bool ShowProgressiveRtpAsRange => ProgressiveRtpsVisible && ShowGameRtpAsRange;
-
-        public bool ShowProgressiveRtpSeparately => ProgressiveRtpsVisible && !ShowGameRtpAsRange;
-
         protected override void OnLoaded()
         {
             var maxBetLimitDollars = ((long)PropertiesManager.GetProperty(
@@ -137,9 +147,11 @@
 
             if (_filteredGamesList.Any())
             {
-                var minOverall = _filteredGamesList.Min(g => g.MinimumPaybackPercent);
-                var maxOverall = _filteredGamesList.Max(g => g.MaximumPaybackPercent);
-                Range = $"{minOverall:F3}% - {maxOverall:F3}%";
+                var rtpService = ServiceManager.GetInstance().GetService<IRtpService>();
+
+                var totalRtp = rtpService.GetTotalRtp(_filteredGamesList);
+
+                Range = $"{totalRtp.Minimum.ToRtpString()} - {totalRtp.Maximum.ToRtpString()}";
             }
             else
             {
@@ -155,11 +167,22 @@
             }
         }
 
+        private void ShowRtpBreakdownDialog(ReadOnlyGameConfiguration gameConfig)
+        {
+            var viewModel = new GameRtpBreakdownViewModel(gameConfig.RtpDisplayValues);
+
+            _dialogService.ShowInfoDialog<GameRtpBreakdownView>(this, viewModel, string.Empty);
+        }
+
         private void RefreshGames()
         {
-            var configs = _filteredGamesList.SelectMany(
+           var configs = _filteredGamesList.SelectMany(
                 g => g.ActiveDenominations,
-                (game, denom) => new ReadOnlyGameConfiguration(game, denom, _denomMultiplier));
+                (game, denom) =>
+                {
+                    var rtpBreakdown = _rtpService.GetTotalRtpBreakdown(game);
+                    return new ReadOnlyGameConfiguration(rtpBreakdown, game, denom, _denomMultiplier);
+                });
 
             EnabledGames = new ObservableCollection<ReadOnlyGameConfiguration>(configs);
         }

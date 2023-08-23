@@ -50,6 +50,7 @@
         private const long TitleId = 61;
 
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new(MockBehavior.Default);
+        private readonly Mock<IGameProvider> _gameProvider = new(MockBehavior.Default);
         private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
         private readonly Mock<IGameDetail> _gameDetail = new(MockBehavior.Default);
         private readonly Mock<IDenomination> _denomination = new(MockBehavior.Default);
@@ -78,17 +79,19 @@
             _unitOfWorkFactory
                 .Setup(x => x.Invoke(It.IsAny<Func<IUnitOfWork, BingoServerSettingsModel>>()))
                 .Returns(settingsModel);
-            _target = new LegacyAttractProvider(_propertiesManager.Object, _unitOfWorkFactory.Object);
+            _gameProvider.Setup(x => x.GetActiveGame()).Returns((_gameDetail.Object, _denomination.Object));
+
+            _target = new LegacyAttractProvider(_gameProvider.Object, _unitOfWorkFactory.Object);
         }
 
         [DataRow(true, false)]
         [DataRow(false, true)]
         [DataTestMethod]
-        public void NullConstructorArgumentsTest(bool nullProperties, bool nullUnitOfWork)
+        public void NullConstructorArgumentsTest(bool nullGameProvider, bool nullUnitOfWork)
         {
             Assert.ThrowsException<ArgumentNullException>(
                 () => _ = new LegacyAttractProvider(
-                    nullProperties ? null : _propertiesManager.Object,
+                    nullGameProvider ? null : _gameProvider.Object,
                     nullUnitOfWork ? null : _unitOfWorkFactory.Object));
         }
 
@@ -105,8 +108,7 @@
                 PayAmountFormattingText = "Paid {0}"
             };
 
-            var url = _target.GetLegacyAttractUri(
-                bingoAttractSettings);
+            var url = _target.GetLegacyAttractUri(bingoAttractSettings);
             var parameters = QueryHelpers.ParseQuery(url.Query);
             Assert.IsTrue(parameters.TryGetValue("baseUrl", out var baseUrl));
             Assert.IsTrue(parameters.TryGetValue("patternsUrlFormat", out var patternsUrlFormat));

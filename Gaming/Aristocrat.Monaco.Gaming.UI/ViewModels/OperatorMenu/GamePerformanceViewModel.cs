@@ -12,6 +12,7 @@
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Monaco.Gaming.Contracts.Rtp;
     using Contracts;
     using Contracts.Meters;
     using Contracts.Models;
@@ -437,12 +438,14 @@
                 decimal totalAmountOut = _gameData.AllGamePerformanceItems.Sum(g => g.AmountOutMillicents);
                 if (totalAmountIn > 0)
                 {
+                    var rtpService = ServiceManager.GetInstance().GetService<IRtpService>();
+
                     MachineActualPayback = 100 * totalAmountOut / totalAmountIn;
 
                     var weightedData = new List<decimal>(
                         allGames.SelectMany(
                             game => game.WagerCategories,
-                            (g, w) => w.TheoPaybackPercent * meterManager.GetMeter(
+                            (g, w) => rtpService.GetRtpBreakdownForWagerCategory(g, w.Id).TotalRtp.Minimum * meterManager.GetMeter(
                                 g.Id,
                                 w.Id,
                                 GamingMeters.WagerCategoryWageredAmount).Lifetime

@@ -265,7 +265,7 @@
             foreach (var wager in evt.Wagers)
             {
                 var gamesUsingProgressive = _progressiveContributionService.GetGamesUsingProgressive(levelId);
-                var activeGame = _propertiesManager.GetActiveGame();
+                var activeGame = _gameProvider.GetActiveGame();
                 foreach (var game in gamesUsingProgressive.Result)
                 {
                     var gameTitleId = game.Item1;
@@ -291,7 +291,7 @@
 
         private bool IsActiveGame(int gameTitleId, long denom)
         {
-            var activeGame = _propertiesManager.GetActiveGame();
+            var activeGame = _gameProvider.GetActiveGame();
 
             // Check if the active main game a match
             if (gameTitleId == Convert.ToInt32(activeGame.game.CdsTitleId) && denom == activeGame.denomination.Value)

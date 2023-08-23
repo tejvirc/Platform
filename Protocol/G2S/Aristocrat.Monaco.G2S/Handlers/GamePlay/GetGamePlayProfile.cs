@@ -9,6 +9,7 @@
     using Aristocrat.G2S.Protocol.v21;
     using Gaming.Contracts;
     using Gaming.Contracts.Progressives;
+    using Gaming.Contracts.Rtp;
 
     /// <summary>
     ///     Defines a new instance of an <see cref="ICommandHandler{TClass,TCommand}" />

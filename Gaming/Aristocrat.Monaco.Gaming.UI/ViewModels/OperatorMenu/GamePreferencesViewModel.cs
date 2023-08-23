@@ -78,6 +78,7 @@
         private string _kenoSoundFilePath;
         private string _cardSoundFilePath;
         private ProgressiveLobbyIndicator _progressiveIndicator;
+        private bool _linkedProgressiveVerificationEnabled;
 
         public GamePreferencesViewModel()
         {
@@ -168,6 +169,10 @@
             var lobbyStateManager = ServiceManager.GetInstance().GetService<IContainerService>().Container
                 ?.GetInstance<ILobbyStateManager>();
             IsShowProgramPinConfigurable = lobbyStateManager?.BaseState != LobbyState.Game;
+
+            GameExistsWithExtendedRtpInfo = gameProvider.GetAllGames().Any(game => game.HasExtendedRtpInformation);
+
+            LinkedProgressiveVerificationEnabled = PropertiesManager.GetValue(GamingConstants.LinkedProgressiveVerificationEnabled, true);
         }
 
         public IEnumerable<GameStartMethodInfo> GameStartMethods { get; } = new[]
@@ -999,6 +1004,24 @@
                 }
             }
         }
+
+        public bool LinkedProgressiveVerificationEnabled
+        {
+            get => _linkedProgressiveVerificationEnabled;
+            set
+            {
+                if (_linkedProgressiveVerificationEnabled == value)
+                {
+                    return;
+                }
+
+                _linkedProgressiveVerificationEnabled = value;
+                RaisePropertyChanged(nameof(LinkedProgressiveVerificationEnabled));
+                Save(GamingConstants.LinkedProgressiveVerificationEnabled, _linkedProgressiveVerificationEnabled);
+            }
+        }
+
+        public bool GameExistsWithExtendedRtpInfo { get; set; }
 
         protected override void OnFieldAccessRestrictionChange()
         {

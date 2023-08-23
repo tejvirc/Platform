@@ -4,6 +4,7 @@
     using System.Globalization;
     using System.Windows.Data;
     using Contracts;
+    using Contracts.Rtp;
 
     /// <summary>
     ///     ReturnToPlayerConverter
@@ -26,10 +27,10 @@
                     return string.Empty;
                 case Tuple<decimal, decimal> value1:
                     return value1.Item1 == value1.Item2
-                        ? value1.Item1.GetRtpString()
-                        : GameConfigHelper.GetRtpRangeString(value1.Item1, value1.Item2);
+                        ? value1.Item1.ToRtpString()
+                        : new RtpRange(value1.Item1, value1.Item2).ToString();
                 case decimal value2:
-                    return value2.GetRtpString();
+                    return value2.ToRtpString();
                 default:
                     return string.Empty;
             }
@@ -45,7 +46,7 @@
         /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            throw new NotImplementedException();
         }
     }
 }

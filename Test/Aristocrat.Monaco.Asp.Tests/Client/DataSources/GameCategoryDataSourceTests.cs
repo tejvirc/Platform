@@ -177,10 +177,10 @@
             Assert.AreEqual("92.99%", value);
 
             value = _source.GetMemberValue("Theoretical_Rtn_6");
-            Assert.AreEqual("92.0%", value);
+            Assert.AreEqual("92.00%", value);
 
             value = _source.GetMemberValue("Theoretical_Rtn_7");
-            Assert.AreEqual("0.0%", value);
+            Assert.AreEqual("0.00%", value);
         }
 
         [TestMethod]
