@@ -5048,16 +5048,31 @@ Consulter le manuel pour plus de détails</value>
   <data name="EKeyDetected" xml:space="preserve">
     <value>??EKey Detected??</value>
   </data>
+  <data name="MasterMetersTicketTitleText" xml:space="preserve">
+    <value>??Master Meter Log??</value>
+  </data>
+  <data name="SerialNumberText" xml:space="preserve">
+    <value>NUMÉRO DE SÉRIE</value>
+  </data>
   <data name="ComponentText" xml:space="preserve">
     <value>??Component??</value>
   </data>
   <data name="GameInfoTicketTitle" xml:space="preserve">
     <value>Info jeu</value>
-</data>
+  </data>
   <data name="DenomMetersLifetime" xml:space="preserve">
     <value>??Master Denomination Meters??</value>
   </data>
   <data name="DenomMetersPeriod" xml:space="preserve">
     <value>??Period Denomination Meters??</value>
+  </data>
+  <data name="LastResetText" xml:space="preserve">
+    <value>??LAST RESET??</value>
+  </data>
+  <data name="MasterMetersTicketMetersHeaderText" xml:space="preserve">
+    <value>Compteur maître</value>
+  </data>
+  <data name="PeriodMetersTicketMetersHeaderText" xml:space="preserve">
+    <value>Compteur de période</value>
   </data>
 </root>

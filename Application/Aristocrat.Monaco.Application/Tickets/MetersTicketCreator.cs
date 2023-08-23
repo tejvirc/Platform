@@ -15,13 +15,10 @@
     /// </summary>
     public class MetersTicketCreator : IMetersTicketCreator
     {
-        public readonly Dictionary<PaperStates, string> StateText = new Dictionary<PaperStates, string>
-        {
-            { PaperStates.Full, Localizer.For(CultureFor.Player).GetString(ResourceKeys.PaperFullText)},
-            { PaperStates.Low, Localizer.For(CultureFor.Player).GetString(ResourceKeys.PaperLowText)},
-            { PaperStates.Empty, Localizer.For(CultureFor.Player).GetString(ResourceKeys.PaperOutText)},
-            { PaperStates.Jammed, Localizer.For(CultureFor.Player).GetString(ResourceKeys.PaperJamText)}
-        };
+        private readonly ILocalizer _localizer = (ServiceManager.GetInstance().TryGetService<IPropertiesManager>()?.GetValue(
+            ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, false) ?? false)
+            ? Localizer.For(CultureFor.Operator)
+            : Localizer.For(CultureFor.OperatorTicket);
 
         /// <inheritdoc />
         public List<Ticket> CreateMetersTickets(IList<Tuple<IMeter, string>> meters, bool useMasterValues)
@@ -34,8 +31,8 @@
                     return new MainAccountingMetersTicket().CreateAuditTickets();
                 default:
                     var title = useMasterValues
-                        ? Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.MasterMetersTicketTitleText).ToUpper()
-                        : Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.PeriodMetersTicketTitleText).ToUpper();
+                        ? _localizer.GetString(ResourceKeys.MasterMetersTicketTitleText).ToUpper()
+                        : _localizer.GetString(ResourceKeys.PeriodMetersTicketTitleText).ToUpper();
                     return new ValueMeterTicket(title, useMasterValues, meters).CreateAuditTickets();
             }
         }
@@ -43,16 +40,16 @@
         public Ticket CreateEgmMetersTicket(IList<Tuple<IMeter, string>> meters, bool useMasterValues)
         {
             var title = useMasterValues
-                ? Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.MasterMetersTicketTitleText).ToUpper()
-                : Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.PeriodMetersTicketTitleText).ToUpper();
+                ? _localizer.GetString(ResourceKeys.MasterMetersTicketTitleText).ToUpper()
+                : _localizer.GetString(ResourceKeys.PeriodMetersTicketTitleText).ToUpper();
             return new ValueMeterTicket(title, useMasterValues, meters).CreateTextTicket();
         }
 
         public Ticket CreateEgmMetersTicket(IList<Tuple<Tuple<IMeter, IMeter>, string>> meters, bool useMasterValues)
         {
             var title = useMasterValues
-                ? Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.MasterMetersTicketTitleText).ToUpper()
-                : Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.PeriodMetersTicketTitleText).ToUpper();
+                ? _localizer.GetString(ResourceKeys.MasterMetersTicketTitleText).ToUpper()
+                : _localizer.GetString(ResourceKeys.PeriodMetersTicketTitleText).ToUpper();
             return new ValueCountMeterTicket(title, useMasterValues, meters).CreateTextTicket();
         }
 

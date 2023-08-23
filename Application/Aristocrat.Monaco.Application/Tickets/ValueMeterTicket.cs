@@ -35,20 +35,20 @@
 
             AddLine(null, (string)PropertiesManager.GetProperty(PropertyKey.TicketTextLine1, string.Empty), null);
             AddLine(null, (string)PropertiesManager.GetProperty(ApplicationConstants.Zone,
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.DataUnavailable)), null);
+                    TicketLocalizer.GetString(ResourceKeys.DataUnavailable)), null);
             AddLine(null, PropertiesManager.GetValue(ApplicationConstants.JurisdictionKey,
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.DataUnavailable)).ToUpper(), null);
+                    TicketLocalizer.GetString(ResourceKeys.DataUnavailable)).ToUpper(), null);
             var serialNumber = PropertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
             AddLine(null, string.Format(CultureInfo.CurrentCulture, "{0}: {1}",
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.SerialNumberText).ToUpper(), serialNumber), null);
+                    TicketLocalizer.GetString(ResourceKeys.SerialNumberText).ToUpper(), serialNumber), null);
             AddLine(null, (string)PropertiesManager.GetProperty(KernelConstants.SystemVersion,
-                    Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.NotSet)), null);
+                    TicketLocalizer.GetString(ResourceKeys.NotSet)), null);
 
             AddEmptyLines(4);
 
             var dateTimeNow = ServiceManager.GetService<ITime>().GetLocationTime(DateTime.UtcNow);
-            var dateText = Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.DateText).ToUpper() + ": {0}";
-            var timeText = Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.TimeText).ToUpper() + ": {0}";
+            var dateText = TicketLocalizer.GetString(ResourceKeys.DateText).ToUpper() + ": {0}";
+            var timeText = TicketLocalizer.GetString(ResourceKeys.TimeText).ToUpper() + ": {0}";
             AddLine(null, string.Format(CultureInfo.CurrentCulture, dateText, dateTimeNow.ToString(DateFormat)), null);
             AddLine(null, string.Format(CultureInfo.CurrentCulture, timeText, dateTimeNow.ToString(TimeFormat)), null);
 
@@ -76,22 +76,22 @@
         {
             var meterManager = ServiceManager.GetService<IMeterManager>();
 
-            var leftHeader = Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.Meter);
-            var rightHeader = Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.Value);
+            var leftHeader = TicketLocalizer.GetString(ResourceKeys.Meter);
+            var rightHeader = TicketLocalizer.GetString(ResourceKeys.Value);
 
             string meterHeader;
             string lastResetDate;
             string lastResetTime;
             if (UseMasterValues)
             {
-                meterHeader = Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.MasterMetersTicketMetersHeaderText).ToUpper();
+                meterHeader = TicketLocalizer.GetString(ResourceKeys.MasterMetersTicketMetersHeaderText).ToUpper();
                 var clearDateTime = Time.GetLocationTime(meterManager.LastMasterClear);
                 lastResetDate = clearDateTime.ToString(DateFormat);
                 lastResetTime = clearDateTime.ToString(TimeFormat);
             }
             else
             {
-                meterHeader = Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.PeriodMetersTicketMetersHeaderText).ToUpper();
+                meterHeader = TicketLocalizer.GetString(ResourceKeys.PeriodMetersTicketMetersHeaderText).ToUpper();
                 var clearDateTime = Time.GetLocationTime(meterManager.LastPeriodClear);
                 lastResetDate = clearDateTime.ToString(DateFormat);
                 lastResetTime = clearDateTime.ToString(TimeFormat);
@@ -102,7 +102,7 @@
             AddDashesLine();
 
             AddLine(null, meterHeader, null);
-            var lastResetText = Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.LastResetText).ToUpper() + ": {0}  {1}";
+            var lastResetText = TicketLocalizer.GetString(ResourceKeys.LastResetText).ToUpper() + ": {0}  {1}";
             AddLine(null, string.Format(CultureInfo.CurrentCulture, lastResetText, lastResetDate, lastResetTime), null);
 
             AddEmptyLines();
