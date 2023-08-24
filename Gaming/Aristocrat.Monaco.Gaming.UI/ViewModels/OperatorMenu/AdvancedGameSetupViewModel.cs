@@ -492,9 +492,12 @@
                 AutoEnableGames();
             }
 
-            foreach (var config in GameConfigurations)
+            if (GameConfigurations != null)
             {
-                config.UpdateCulture();
+                foreach (var config in GameConfigurations)
+                {
+                    config.UpdateCulture();
+                }
             }
 
             UpdateSaveWarning();
