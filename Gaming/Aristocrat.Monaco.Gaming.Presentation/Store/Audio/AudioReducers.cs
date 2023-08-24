@@ -11,8 +11,7 @@ public static class AudioReducers
     {
         return state with
         {
-            SoundFiles = action.SoundFiles,
-            CurrentSound = action.SoundFiles.FirstOrDefault()
+            SoundFiles = action.SoundFiles
         };
     }
 

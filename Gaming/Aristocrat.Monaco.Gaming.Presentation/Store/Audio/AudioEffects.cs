@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Extensions.Fluxor;
 using Fluxor;
 using Hardware.Contracts.Audio;
+using Models;
 using Services.Audio;
 
 public class AudioEffects
@@ -40,11 +41,6 @@ public class AudioEffects
 
         _audioService.SetVolume(playerVolumeScalar);
 
-        var sound = _audioState.Value.CurrentSound;
-
-        if (!string.IsNullOrWhiteSpace(sound?.Path))
-        {
-            await _audioService.PlaySoundAsync(sound);
-        }
+        await _audioService.PlaySoundAsync(SoundType.First);
     }
 }

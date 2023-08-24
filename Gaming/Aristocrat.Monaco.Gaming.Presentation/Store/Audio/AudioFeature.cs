@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Audio;
 
 using System.Collections.Immutable;
-using Application.UI.ViewModels;
 using Fluxor;
+using Models;
 
 public class AudioFeature : Feature<AudioState>
 {
@@ -12,7 +12,7 @@ public class AudioFeature : Feature<AudioState>
     {
         return new AudioState
         {
-            SoundFiles = ImmutableList<SoundFileViewModel>.Empty
+            SoundFiles = ImmutableList<SoundFile>.Empty
         };
     }
 }
