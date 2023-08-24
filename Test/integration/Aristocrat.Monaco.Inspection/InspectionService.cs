@@ -162,6 +162,14 @@
             RaiseChangeEvent();
         }
 
+        public void ClearTestFailure()
+        {
+            CurrentData.FailureMessages.Clear();
+            CurrentData.Status = InspectionPageStatus.Good;
+            Logger.Debug($"ClearTestFailure {CurrentData.Category}/{_currentTestCondition}.");
+            RaiseChangeEvent();
+        }
+
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method

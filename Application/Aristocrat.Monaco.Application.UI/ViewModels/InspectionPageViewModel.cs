@@ -41,6 +41,7 @@
         private bool _isBackButtonVisible;
         private bool _isClearConfigVisible;
         private bool _isReportFailureVisible;
+        private bool _isClearErrorVisible;
         private string _testNameText;
         private string _pageTitle;
         private string _nextButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NextButtonText);
@@ -73,6 +74,7 @@
             AutoTestButtonClicked = new ActionCommand<object>(AutoTestButton_Click, _ => CanStartAutoTest);
             BackButtonClicked = new ActionCommand<object>(BackButton_Click, _ => CanNavigateBackward);
             NextButtonClicked = new ActionCommand<object>(NextButton_Click, _ => CanNavigateForward);
+            ClearErrorButtonClicked = new ActionCommand<object>(ClearErrorButton_Click);
 
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(BeginConfigWizardPages));
         }
@@ -88,6 +90,8 @@
         public ICommand BackButtonClicked { get; }
 
         public ICommand NextButtonClicked { get; }
+
+        public ICommand ClearErrorButtonClicked { get; }
 
         public string PageTitle
         {
@@ -202,6 +206,12 @@
             set => SetProperty(ref _isReportFailureVisible, value, nameof(IsReportFailureVisible));
         }
 
+        public bool IsClearErrorVisible
+        {
+            get => _isClearErrorVisible;
+            set => SetProperty(ref _isClearErrorVisible, value, nameof(IsClearErrorVisible));
+        }
+
         /// <inheritdoc/>
         public string Name => "BasePage";
 
@@ -268,6 +278,7 @@
                         break;
                 }
 
+                IsClearErrorVisible = evt.InspectionResult.Status == InspectionPageStatus.Bad;
                 ReportStatus = evt.InspectionResult.Status;
             });
         }
@@ -357,6 +368,12 @@
             Inspection?.ReportTestFailure();
         }
 
+        private void ClearErrorButton_Click(object o)
+        {
+            Inspection?.ClearTestFailure();
+            IsClearErrorVisible = false;
+        }
+
         private void AutoTestButton_Click(object o)
         {
             Inspection?.ManuallyStartAutoTest();
@@ -414,6 +431,7 @@
             CanStartAutoTest = false;
             NextButtonFocused = true;
             IsReportFailureVisible = false;
+            IsClearErrorVisible = false;
             IsClearConfigVisible = true;
 
             Inspection.SetWizard(this);

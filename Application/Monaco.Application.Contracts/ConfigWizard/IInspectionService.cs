@@ -49,5 +49,10 @@
         ///     Report a test failure.
         /// </summary>
         void ReportTestFailure();
+
+        /// <summary>
+        ///     Clear reported test category failure/s.
+        /// </summary>
+        void ClearTestFailure();
     }
 }

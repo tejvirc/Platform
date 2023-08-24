@@ -11645,6 +11645,10 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Report Failure</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="ClearError" xml:space="preserve">
+    <value>Clear Error</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
   <data name="InspectionSummaryTitle" xml:space="preserve">
     <value>Inspection Summary</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>

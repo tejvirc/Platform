@@ -5150,6 +5150,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Clear Error.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ClearError {
+			get {
+				return ResourceManager.GetString("ClearError", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Reconnect Audio USB cable to clear this lockup..
 		/// </summary>
         /// <remarks>
@@ -11252,6 +11264,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Open Main Door and Load More Paper Before Paper is....
+		/// </summary>
+		public static string ErrorInfoPrinterPaperLow {
+			get {
+				return ResourceManager.GetString("ErrorInfoPrinterPaperLow", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Open Main Door, change firmware CRC seed from Hard....
 		/// </summary>
         /// <remarks>
@@ -16913,7 +16934,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Inspector initials field is required.
+		///   Looks up a localized string similar to Inspector initials is a required field.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -25523,7 +25544,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not&am....
+		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not Po....
 		/// </summary>
 		public static string Printer_DfuInProgress {
 			get {
@@ -41761,6 +41782,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Clear Error.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ClearError {
+			get {
+				return "ClearError";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Reconnect Audio USB cable to clear this lockup..
 		/// </summary>
         /// <remarks>
@@ -47863,6 +47896,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Open Main Door and Load More Paper Before Paper is....
+		/// </summary>
+		public static string ErrorInfoPrinterPaperLow {
+			get {
+				return "ErrorInfoPrinterPaperLow";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Open Main Door, change firmware CRC seed from Hard....
 		/// </summary>
         /// <remarks>
@@ -53524,7 +53566,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Inspector initials field is required.
+		///		Looks up a localized string similar to Inspector initials is a required field.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -62134,7 +62176,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not&am....
+		///		Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not Po....
 		/// </summary>
 		public static string Printer_DfuInProgress {
 			get {
@@ -76199,6 +76241,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ClearedText,
 		/// <summary>
+		///   Looks up a localized string similar to Clear Error.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		ClearError,
+		/// <summary>
 		///   Looks up a localized string similar to Reconnect Audio USB cable to clear this lockup..
 		/// </summary>
         /// <remarks>
@@ -79651,6 +79700,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ErrorInfoPrinterPaperEmpty,
 		/// <summary>
+		///   Looks up a localized string similar to Open Main Door and Load More Paper Before Paper is....
+		/// </summary>
+		ErrorInfoPrinterPaperLow,
+		/// <summary>
 		///   Looks up a localized string similar to Open Main Door, change firmware CRC seed from Hard....
 		/// </summary>
         /// <remarks>
@@ -82872,7 +82925,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		InspectionSummaryTitle,
 		/// <summary>
-		///   Looks up a localized string similar to Inspector initials field is required.
+		///   Looks up a localized string similar to Inspector initials is a required field.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -87792,7 +87845,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Printed,
 		/// <summary>
-		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not&am....
+		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not Po....
 		/// </summary>
 		Printer_DfuInProgress,
 		/// <summary>

@@ -131,7 +131,15 @@
                                                        Height="25" />
                     </Grid>
                 </Button>
-                <TextBlock Grid.Column="2"
+                <Button Grid.Column="2"
+                        Name="ClearErrorButton"
+                        Command="{Binding ClearErrorButtonClicked}"
+                        Content="{lex:Loc Key={x:Static loc:ResourceKeys.ClearError}}"
+                        Visibility="{Binding IsClearErrorVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                        Margin="5,0,15,0"
+                        controls:ControlsHelper.CornerRadius="3"
+                        AutomationProperties.AutomationId="" />
+                <TextBlock Grid.Column="3"
                            Text="{Binding TestNameText, UpdateSourceTrigger=PropertyChanged}"
                            Foreground="SkyBlue"
                            HorizontalAlignment="Left"
