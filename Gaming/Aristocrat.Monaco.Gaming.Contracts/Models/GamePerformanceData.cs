@@ -1,14 +1,14 @@
-﻿namespace Aristocrat.Monaco.Gaming.Contracts.Models
+namespace Aristocrat.Monaco.Gaming.Contracts.Models
 {
     using System;
     using Application.Contracts.Extensions;
-    using MVVM.ViewModel;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Model for game performance.
     /// </summary>
     [CLSCompliant(false)]
-    public class GamePerformanceData : BaseViewModel
+    public class GamePerformanceData : ObservableObject
     {
         private bool _isActive;
 
@@ -158,10 +158,10 @@
         /// </summary>
         public void UpdateCulture()
         {
-            RaisePropertyChanged(nameof(Denomination));
-            RaisePropertyChanged(nameof(AverageBet));
-            RaisePropertyChanged(nameof(AmountIn));
-            RaisePropertyChanged(nameof(AmountOut));
+            OnPropertyChanged(nameof(Denomination));
+            OnPropertyChanged(nameof(AverageBet));
+            OnPropertyChanged(nameof(AmountIn));
+            OnPropertyChanged(nameof(AmountOut));
         }
     }
 }

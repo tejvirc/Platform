@@ -8,7 +8,6 @@
     using System.Reflection;
     using System.Text;
     using System.Threading;
-    using System.Timers;
     using Cabinet.Contracts;
     using Common;
     using Contracts.Cabinet;
@@ -25,7 +24,6 @@
     using DisabledEvent = Contracts.IO.DisabledEvent;
     using EnabledEvent = Contracts.IO.EnabledEvent;
     using ErrorEventId = NativeOS.Services.IO.ErrorEventId;
-    using Timer = System.Timers.Timer;
 
     /// <summary>
     ///     The IO Service component is the serviceable component which manages a physical IO implementation such as Innocore,
@@ -38,13 +36,10 @@
     /// </summary>
     public class IOService : BaseRunnable, IDeviceService, IIO
     {
-        private const int IOPollTimeMs = 100;
+        private const int IOPollTimeMs = 50;
         private const ulong IntrusionMasks = 0X3F;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-
-        private static readonly Timer PollTimer = new();
-        private static readonly AutoResetEvent Poll = new(true);
 
         private static readonly object QueuedEventsLock = new();
 
@@ -497,13 +492,6 @@
                 Logger.Debug("Carrier board removal/change detected.");
             }
 
-            // Set poll timer to elapsed event.
-            PollTimer.Elapsed += OnPollTimeout;
-
-            // Set poll timer interval to implementation polling frequency and start.
-            PollTimer.Interval = IOPollTimeMs;
-            PollTimer.Start();
-
             // Set service initialized.
             Initialized = true;
 
@@ -520,6 +508,7 @@
 
         protected override void OnRun()
         {
+            const int spacer = 4;
             if (!CanProceed(false))
             {
                 return;
@@ -527,86 +516,74 @@
 
             Logger.Debug($"{Name} started");
 
+            var sb = new StringBuilder();
+            var stopWatch = new Stopwatch();
+            var defaultSleep = TimeSpan.FromMilliseconds(IOPollTimeMs);
             while (RunState == RunnableState.Running)
             {
-                // Do we have a pending inspected event?
-                if (_pendingInspectedEvent)
+                HandlePendingEvents();
+
+                var sleepTime = stopWatch.IsRunning
+                    ? defaultSleep - GetSleepTime(stopWatch.Elapsed, defaultSleep)
+                    : defaultSleep;
+                if (sleepTime > TimeSpan.Zero)
                 {
-                    _pendingInspectedEvent = false;
-
-                    // Disable the service for configuration.  This service should only be enabled by configuration after
-                    // all logical IO services have been started so that all physical input events are handled.
-                    Disable(DisabledReasons.Configuration);
-
-                    // Set last logical state to current disabled logical state so we transition to idle when enabled.
-                    LastEnabledLogicalState = LogicalState;
-                }
-                else if (_pendingInspectionFailedEvent)
-                {
-                    _postedInspectionFailedEvent = true;
-                    _pendingInspectionFailedEvent = false;
-
-                    // Disable service for error.
-                    Disable(DisabledReasons.Error);
+                    Thread.Sleep(sleepTime);
                 }
 
-                // Block the thread until it is time to poll.
-                Poll.WaitOne();
+                stopWatch.Restart();
+                if (RunState != RunnableState.Running)
+                {
+                    continue;
+                }
 
-                if (RunState != RunnableState.Running ||
-                    LogicalState != IOLogicalState.Idle &&
-                    (LogicalState != IOLogicalState.Disabled || !_hardMeterStoppedResponding))
+                if (LogicalState != IOLogicalState.Idle &&
+                    !(LogicalState == IOLogicalState.Disabled && _hardMeterStoppedResponding))
                 {
                     continue;
                 }
 
                 var inputs = _inputOutput.Inputs;
+
                 if (inputs == LastChangedInputs)
                 {
                     continue;
                 }
 
-                Logger.DebugFormat("Inputs {0}", FormatBits(_inputOutput.AvailableInputs, 4, inputs));
+                sb.Clear();
+                var changedBits = inputs ^ LastChangedInputs;
 
                 // Post an event for each changed input.
-                ulong testBit = 1;
-                for (var i = 0; i < _inputOutput.AvailableInputs; i++)
+                for (var bitPosition = 0; bitPosition < _inputOutput.AvailableInputs; bitPosition++)
                 {
-                    int physicalId;
-                    if ((inputs & testBit) != 0 && (LastChangedInputs & testBit) == 0)
+                    var currentBit = 1UL << bitPosition;
+                    if (bitPosition != 0 && bitPosition % spacer == 0)
                     {
-                        physicalId = i;
-                        Logger.Debug($"Queuing Input {physicalId} on. size is {_queuedEvents.Count}");
-                        var inputEvent = new InputEvent(physicalId, true);
-                        if (!_platformBooted)
-                        {
-                            lock (QueuedEventsLock)
-                            {
-                                _queuedEvents.Add(inputEvent);
-                            }
-                        }
-
-                        _eventBus.Publish(inputEvent);
-                    }
-                    else if ((inputs & testBit) == 0 && (LastChangedInputs & testBit) != 0)
-                    {
-                        physicalId = i;
-                        Logger.Debug($"Queuing Input {physicalId} off. size is {_queuedEvents.Count}");
-                        var inputEvent = new InputEvent(physicalId, false);
-                        if (!_platformBooted)
-                        {
-                            lock (QueuedEventsLock)
-                            {
-                                _queuedEvents.Add(inputEvent);
-                            }
-                        }
-
-                        _eventBus.Publish(inputEvent);
+                        sb.Append(' ');
                     }
 
-                    testBit <<= 1;
+                    sb.Append((inputs & currentBit) != 0 ? '1' : '0');
+                    if ((changedBits & currentBit) == 0)
+                    {
+                        continue;
+                    }
+
+                    var isOn = (inputs & currentBit) != 0;
+                    var inputEvent = new InputEvent(bitPosition, isOn);
+
+                    if (!_platformBooted)
+                    {
+                        lock (QueuedEventsLock)
+                        {
+                            Logger.Debug($"Queuing Input {bitPosition} {(isOn ? "on" : "off")}. size is {_queuedEvents.Count}");
+                            _queuedEvents.Add(inputEvent);
+                        }
+                    }
+
+                    _eventBus.Publish(inputEvent);
                 }
 
+                Logger.Debug($"Inputs {sb}");
                 // Set last changed inputs.
                 LastChangedInputs = inputs;
             }
@@ -625,38 +602,37 @@
 
             // Disable the logical service.
             Disable(DisabledReasons.Service);
-
-            // Set poll event to unblock the runnable in order to stop.
-            Poll.Set();
         }
 
-        private static string FormatBits(int max, int spacer, ulong value)
+        private static TimeSpan GetSleepTime(TimeSpan t1, TimeSpan t2) => t1 > t2 ? t2 : t1;
+
+        private void HandlePendingEvents()
         {
-            var formattedBits = new StringBuilder();
-            for (var i = 0; i < max; i++)
+            if (_pendingInspectedEvent)
             {
-                if (spacer > 0 && i % spacer == 0)
-                {
-                    formattedBits.Append(' ');
-                }
+                _pendingInspectedEvent = false;
 
-                formattedBits.Append((value & (1UL << i)) != 0 ? '1' : '0');
+                // Disable the service for configuration.  This service should only be enabled by configuration after
+                // all logical IO services have been started so that all physical input events are handled.
+                Disable(DisabledReasons.Configuration);
+
+                // Set last logical state to current disabled logical state so we transition to idle when enabled.
+                LastEnabledLogicalState = LogicalState;
             }
+            else if (_pendingInspectionFailedEvent)
+            {
+                _postedInspectionFailedEvent = true;
+                _pendingInspectionFailedEvent = false;
 
-            return formattedBits.ToString();
-        }
-
-        private static void OnPollTimeout(object sender, ElapsedEventArgs e)
-        {
-            // Set to poll.
-            Poll.Set();
+                Disable(DisabledReasons.Error);
+            }
         }
 
         private void RemoveDisabledReason(EnabledReasons reason)
         {
             if (((ReasonDisabled & DisabledReasons.Error) > 0 ||
                  (ReasonDisabled & DisabledReasons.FirmwareUpdate) > 0) &&
-                (reason == EnabledReasons.Reset || reason == EnabledReasons.Operator))
+                reason is EnabledReasons.Reset or EnabledReasons.Operator)
             {
                 if ((ReasonDisabled & DisabledReasons.Error) > 0)
                 {

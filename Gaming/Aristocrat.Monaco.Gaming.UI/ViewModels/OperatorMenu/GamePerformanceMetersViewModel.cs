@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -8,13 +8,13 @@
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.MeterPage;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Meters;
     using Kernel;
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
     public class GamePerformanceMetersViewModel : GameMetersViewModel, IModalDialogSaveViewModel
@@ -32,7 +32,7 @@
             GameNumber = gameNumber;
 
             EventBus.Subscribe<OperatorMenuExitingEvent>(this, HandleEvent);
-            CancelCommand = new ActionCommand<object>(_ => Cancel());
+            CancelCommand = new RelayCommand<object>(_ => Cancel());
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Close);
         }
 
@@ -67,7 +67,7 @@
                 if (_dialogResult != value)
                 {
                     _dialogResult = value;
-                    RaisePropertyChanged(nameof(DialogResult));
+                    OnPropertyChanged(nameof(DialogResult));
                 }
             }
         }
@@ -99,7 +99,7 @@
         {
             // For this popup dialog, we only want to show meters for the game selected on the Performance page  
             Games = new ObservableCollection<IGameDetail> { _game };
-            RaisePropertyChanged(nameof(Games));
+            OnPropertyChanged(nameof(Games));
             SelectedGameIndex = 0;
         }
 
@@ -118,7 +118,7 @@
             // This will occur each time a different game is selected
             var meterManager = ServiceManager.GetInstance().GetService<IGameMeterManager>();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     foreach (var meter in Meters)
@@ -192,7 +192,7 @@
                                     GamingMeters.WagerCategoryWageredAmount).Lifetime
                             }
                         ));
-                    RaisePropertyChanged(nameof(WagerCategoryMeters));
+                    OnPropertyChanged(nameof(WagerCategoryMeters));
 
                     var totalAmountIn = WagerCategoryMeters.Sum(d => d.WageredMillicents);
 
@@ -206,13 +206,13 @@
                         GameTheoreticalWeightedRTP = 0;
                     }
 
-                    RaisePropertyChanged(nameof(GameTheoreticalWeightedRTP));
+                    OnPropertyChanged(nameof(GameTheoreticalWeightedRTP));
                 });
         }
 
         private void HandleEvent(OperatorMenuExitingEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(Cancel);
+            Execute.OnUIThread(Cancel);
         }
     }
 

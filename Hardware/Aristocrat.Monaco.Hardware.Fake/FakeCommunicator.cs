@@ -7,6 +7,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts.Communicator;
     using Contracts.Gds;
     using Contracts.Gds.CardReader;
@@ -18,7 +19,6 @@
     using Contracts.SharedDevice;
     using Kernel;
     using log4net;
-    using MVVM;
     using Simulation.HarkeyReels;
     using Simulation.HarkeyReels.Controls;
     using Virtual;
@@ -114,8 +114,10 @@
 
             if (DeviceType == DeviceType.ReelController)
             {
-                MvvmHelper.ExecuteOnUI(
-                    () => { _simWindow?.Close(); }
+                Execute.OnUIThread(() =>
+                    {
+                        _simWindow?.Close();
+                    }
                 );
             }
 
@@ -502,7 +504,7 @@
             usedIds.AddRange(usedTitles.ToList().Select(int.Parse).ToList());
             _id = 1 + usedIds.Max();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Simulation.HarkeyReels.Logger.Log += SimulatorLog;

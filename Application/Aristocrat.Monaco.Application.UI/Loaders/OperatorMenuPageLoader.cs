@@ -9,7 +9,7 @@
     using Contracts.Protocol;
     using Kernel;
     using OperatorMenu;
-    
+
     public class OperatorMenuPageLoader : INotifyPropertyChanged, IOperatorMenuPageLoader
     {
         private IOperatorMenuPage _page;
@@ -29,7 +29,7 @@
             set
             {
                 _isEnabled = value;
-                RaisePropertyChanged(nameof(IsEnabled));
+                OnPropertyChanged(nameof(IsEnabled));
                 EnabledChanged();
             }
         }
@@ -70,7 +70,7 @@
         public void SetAccess(bool access, OperatorMenuAccessRestriction restriction)
         {
             _accessAllowed = access;
-            RaisePropertyChanged(nameof(IsEnabled));
+            OnPropertyChanged(nameof(IsEnabled));
             EnabledChanged();
         }
 
@@ -125,14 +125,14 @@
             {
                 _page?.Dispose();
                 _viewModel?.Dispose();
-                var access = ServiceManager.GetInstance().TryGetService<IOperatorMenuAccess>();       
+                var access = ServiceManager.GetInstance().TryGetService<IOperatorMenuAccess>();
                 access?.UnregisterAccessRules(this);
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

@@ -1,11 +1,11 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using Application.UI.OperatorMenu;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts.Central;
     using Kernel;
     using Models;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -33,7 +33,7 @@
                 if (_selectedRow != value)
                 {
                     _selectedRow = value;
-                    RaisePropertyChanged("SelectedRow");
+                    OnPropertyChanged("SelectedRow");
                 }
             }
         }
@@ -49,7 +49,7 @@
                 if (_transactionData != value)
                 {
                     _transactionData = value;
-                    RaisePropertyChanged(nameof(TransactionData));
+                    OnPropertyChanged(nameof(TransactionData));
                 }
             }
         }
@@ -61,7 +61,7 @@
             var provider = ServiceManager.GetInstance().GetService<ICentralProvider>();
             if (provider != null)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         TransactionData.Clear();

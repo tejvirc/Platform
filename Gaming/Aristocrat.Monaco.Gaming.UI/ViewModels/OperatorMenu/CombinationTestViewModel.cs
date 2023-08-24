@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -12,8 +12,8 @@
     using Kernel;
     using Localization.Properties;
     using Models;
-    using MVVM.Command;
     using Newtonsoft.Json;
+    using CommunityToolkit.Mvvm.Input;
 
     public class CombinationTestViewModel : OperatorMenuDiagnosticPageViewModelBase
     {
@@ -37,12 +37,12 @@
                 _gamePackConfigProvider = container.GetInstance<IGamePackConfigurationProvider>();
             }
 
-            ComboTestCommand = new ActionCommand<object>(_ => LaunchCombinationTest(), _ => SelectedGame != null && InputEnabled);
+            ComboTestCommand = new RelayCommand<object>(_ => LaunchCombinationTest(), _ => SelectedGame != null && InputEnabled);
 
             Games = new ObservableCollection<GameComboInfo>();
         }
 
-        public IActionCommand ComboTestCommand { get; }
+        public IRelayCommand ComboTestCommand { get; }
 
         public GameComboInfo SelectedGame
         {
@@ -52,8 +52,8 @@
                 if (_selectedGame != value)
                 {
                     _selectedGame = value;
-                    RaisePropertyChanged(nameof(SelectedGame));
-                    ComboTestCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(SelectedGame));
+                    ComboTestCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -64,18 +64,18 @@
             set
             {
                 _games = value;
-                RaisePropertyChanged(nameof(Games));
+                OnPropertyChanged(nameof(Games));
             }
         }
 
         protected override void OnInputStatusChanged()
         {
-            ComboTestCommand.RaiseCanExecuteChanged();
+            ComboTestCommand.NotifyCanExecuteChanged();
         }
 
         protected override void OnInputEnabledChanged()
         {
-            ComboTestCommand.RaiseCanExecuteChanged();
+            ComboTestCommand.NotifyCanExecuteChanged();
         }
 
         protected override void InitializeData()

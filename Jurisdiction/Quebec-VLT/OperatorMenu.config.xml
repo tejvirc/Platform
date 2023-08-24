@@ -13,7 +13,7 @@ as follows:
   <Setting Name="UseOperatorCultureForCurrencyFormatting" Value="true" />
   <Setting Name="ShowToggleLanguageButton" Value="true" />
   <Setting Name="ShowExitButton" Value="true" />
-  <Setting Name="PrintCurrentPage" Value="false" />
+  <Setting Name="PrintCurrentPage" Value="true" />
   <Setting Name="PrintLast15" Value="true" />
   <Setting Name="PrintSelected" Value="true" />
   <Setting Name="ShowTimeFormat" Value="false" />
@@ -117,13 +117,13 @@ as follows:
       <Setting Name="EnableAdvancedConfig" Value="true" />
       <Setting Name="EnableQuickConfig" Value="false" />
     </Page>
-    <Page Type="GameHistoryViewModel">
+    <Page Type="GameHistoryViewModel" PrintButtonEnabled="true">
       <Setting Name="ShowGameInfoButtons" Value="false" />
       <Setting Name="PrintGameRoundInfo" Value="false" />
       <Setting Name="ShowProgressiveDetails" Value="true" />
     </Page>
     <Page Type="GamePreferencesViewModel" TabType="GamePreferencesViewLoader" Visible="false" />
-    <Page Type="GameInfoViewModel" Access="TechnicianZeroCredits" />
+    <Page Type="GameInfoViewModel" Access="TechnicianZeroCredits" PrintButtonEnabled="true" />
     <Page TabType="CombinationTestViewLoader" Visible="false" />
   </Menu>
   <Menu Type="CommsMainPageLoader" Access="Technician">
@@ -168,5 +168,8 @@ as follows:
       <Rule Restriction="ZeroCredits" />
       <Rule Restriction="EKeyVerified" />
     </AccessRuleSet>
+    <AccessRuleSet Name="ZeroGamesPlayed">
+			<Rule Restriction="ZeroGamesPlayed" />
+		</AccessRuleSet>	
   </AccessRules>
 </OperatorMenuConfiguration>

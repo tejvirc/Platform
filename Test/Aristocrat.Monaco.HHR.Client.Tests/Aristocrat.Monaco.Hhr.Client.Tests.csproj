@@ -11,7 +11,6 @@
     <ProjectReference Include="..\..\Protocol\HHR\Aristocrat.Monaco.HHR.Client\Aristocrat.Monaco.Hhr.Client.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="1.0.0" />
     <PackageReference Include="SimpleInjector" Version="4.9.2" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.7.1" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />

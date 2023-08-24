@@ -197,6 +197,7 @@
             }
 
             var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels()
+                .Where(ll => ll.ProtocolName == ProtocolNames.G2S)
                 .GroupBy(ll => ll.ProgressiveGroupId)
                 .ToDictionary(ll => ll.Key, ll => ll.ToList());
 

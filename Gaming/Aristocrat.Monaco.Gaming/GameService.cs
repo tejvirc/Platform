@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming
+namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -36,6 +36,7 @@
         private int _processId;
         private bool _running;
         private GameInitRequest _lastRequest;
+        private readonly object _sync = new();
 
         public GameService(
             IEventBus eventBus,
@@ -155,6 +156,7 @@
         {
             if (!Running)
             {
+                _ipc.EndComms();
                 _eventBus.Publish(new GameShutdownCompletedEvent());
             }
         }
@@ -215,6 +217,8 @@
                 _process.EndGameProcess(processId, notifyExited, terminateExpected);
             }
 
+            _ipc.EndComms();
+
             _processId = 0;
             Logger.Info("All game processes and IPC terminated.");
         }
@@ -237,7 +241,13 @@
             // Store the validated selected game
             Logger.Info(
                 $"New game selected, replay={request.IsReplay}. Game Id: {request.GameId} with a denom of {request.Denomination}");
-            _propertiesManager.SetActiveGame(request.GameId, request.Denomination);
+
+            lock (_sync) // TXM-10879 Fixes a race-condition which causes a game to crash
+            {
+                _propertiesManager.SetProperty(GamingConstants.SelectedGameId, request.GameId);
+                _propertiesManager.SetProperty(GamingConstants.SelectedDenom, request.Denomination);
+            }
+            
             _propertiesManager.SetProperty(GamingConstants.SelectedBetOption, request.BetOption);
 
             if (request.IsReplay)

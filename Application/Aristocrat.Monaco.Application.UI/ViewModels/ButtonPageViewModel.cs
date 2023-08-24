@@ -5,6 +5,7 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using Application.Settings;
+    using Aristocrat.Extensions.CommunityToolkit;
     using ButtonTestDeck;
     using ConfigWizard;
     using Contracts.HardwareDiagnostics;
@@ -15,7 +16,6 @@
     using Kernel;
     using Models;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
 
     [CLSCompliant(false)]
     public class ButtonPageViewModel : InspectionWizardViewModelBase
@@ -81,7 +81,7 @@
             set
             {
                 _isLcdButtonDeckEnabled = value;
-                RaisePropertyChanged(nameof(IsLcdPanelEnabled));
+                OnPropertyChanged(nameof(IsLcdPanelEnabled));
             }
         }
 
@@ -96,7 +96,7 @@
                 }
 
                 _firmwareCrc = value;
-                RaisePropertyChanged(nameof(FirmwareCrc));
+                OnPropertyChanged(nameof(FirmwareCrc));
             }
         }
 
@@ -111,7 +111,7 @@
                 }
 
                 _crcSeed = value;
-                RaisePropertyChanged(nameof(CrcSeed));
+                OnPropertyChanged(nameof(CrcSeed));
             }
         }
 
@@ -222,7 +222,8 @@
                 _buttonService.GetLocalizedButtonName(evt.LogicalId, Localizer.For(CultureFor.Operator).GetString),
                 _buttonService.GetButtonName(evt.LogicalId));
 
-            MvvmHelper.ExecuteOnUI(() => PressedButtonsData.Insert(0, pressedData));
+            Execute.OnUIThread(() => PressedButtonsData.Insert(0, pressedData));
+
             Inspection?.SetTestName(_buttonService.GetButtonName(evt.LogicalId));
         }
 
@@ -233,7 +234,7 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 var coll = new ObservableCollection<PressedButtonData>();
                 foreach (var button in PressedButtonsData)
@@ -243,7 +244,7 @@
                 }
                 PressedButtonsData.Clear();
                 PressedButtonsData.AddRange(coll);
-                RaisePropertyChanged(nameof(PressedButtonsData));
+                OnPropertyChanged(nameof(PressedButtonsData));
             });
 
             base.OnOperatorCultureChanged(evt);

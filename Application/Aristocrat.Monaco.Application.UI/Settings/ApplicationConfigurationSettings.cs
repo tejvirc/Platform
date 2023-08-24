@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Settings
+namespace Aristocrat.Monaco.Application.UI.Settings
 {
     using System;
     using System.Collections.ObjectModel;
@@ -14,8 +14,8 @@
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
     using Kernel.Contracts;
-    using MVVM;
     using Application.Contracts.Localization;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     /// <summary>
     ///     Implements the <see cref="IConfigurationSettings"/> interface.
@@ -72,7 +72,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary

@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Configuration setting.
     /// </summary>
     [CLSCompliant(false)]
-    public class ConfigurationSetting : BaseNotify
+    public class ConfigurationSetting : ObservableObject
     {
         private string _name;
         private object _settings;

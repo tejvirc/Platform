@@ -3,12 +3,15 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Data;
     using System.Windows.Input;
+    using Newtonsoft.Json;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
@@ -19,16 +22,15 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Aristocrat.Monaco.Application.Contracts.Protocol;
     using Common.DHCP;
     using Common.Events;
+    using CommunityToolkit.Mvvm.Input;
     using Data.Profile;
     using Kernel;
     using Localization.Properties;
     using Models;
     using Monaco.Common;
-    using MVVM;
-    using MVVM.Command;
-    using Newtonsoft.Json;
     using Views;
     using Constants = Constants;
+    using Org.BouncyCastle.Utilities.Net;
 
     /// <summary>
     ///     A HostConfigurationViewModel contains the logic for configuring the host list for the G2S client.
@@ -40,6 +42,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         private readonly List<Host> _deletedHosts = new List<Host>();
         private readonly List<Host> _editedHosts = new List<Host>();
         private readonly List<Host> _originalHosts = new List<Host>();
+        private readonly Dictionary<int, List<ClientDeviceBase>> _editedDevices = new Dictionary<int, List<ClientDeviceBase>>();
         private readonly TimeSpan _defaultProgressiveHostOfflineInterval = new TimeSpan(0, 0, 0, 30);
 
         private IG2SEgm _egm;
@@ -60,7 +63,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// </summary>
         public HostConfigurationViewModel(bool isWizardPage) : base(isWizardPage)
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
@@ -76,9 +79,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
             ResetEditState();
 
-            NewCommand = new ActionCommand<object>(_ => NewHost());
-            EditCommand = new ActionCommand<Host>(EditHost);
-            DeleteCommand = new ActionCommand<Host>(DeleteHost);
+            NewCommand = new RelayCommand<object>(_ => NewHost());
+            EditCommand = new RelayCommand<Host>(EditHost);
+            DeleteCommand = new RelayCommand<Host>(DeleteHost);
 
             _port = PropertiesManager.GetValue(Constants.Port, Constants.DefaultPort);
 
@@ -120,8 +123,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _registeredHostsEnabled = value;
-                RaisePropertyChanged(nameof(RegisteredHostsEnabled));
-                RaisePropertyChanged(nameof(ProgressRingIsActive));
+                OnPropertyChanged(nameof(RegisteredHostsEnabled));
+                OnPropertyChanged(nameof(ProgressRingIsActive));
                 if (_registeredHostsEnabled && WizardNavigator != null)
                 {
                     SetupNavigation();
@@ -142,22 +145,18 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (_macAddress != value)
                 {
                     _macAddress = value;
-                    RaisePropertyChanged(nameof(MacAddress));
+                    OnPropertyChanged(nameof(MacAddress));
                 }
             }
         }
 
+        [CustomValidation(typeof(HostConfigurationViewModel), nameof(ValidatePort))]
         public int Port
         {
             get => _port;
             set
             {
-                if (_port != value)
-                {
-                    ValidatePort(value);
-                    _port = value;
-                    RaisePropertyChanged(nameof(Port));
-                }
+                SetProperty(ref _port, value, true);
             }
         }
 
@@ -167,7 +166,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 _configurableProgressiveHost = value;
-                RaisePropertyChanged(nameof(ConfigurableProgressiveHost));
+                OnPropertyChanged(nameof(ConfigurableProgressiveHost));
             }
         }
 
@@ -179,7 +178,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         protected override void Loaded()
         {
             _egm = GetEgm();
-            RaisePropertyChanged(nameof(EgmId));
+            OnPropertyChanged(nameof(EgmId));
 
             MacAddress = NetworkInterfaceInfo.DefaultPhysicalAddress;
 
@@ -195,7 +194,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(ResetOriginalHosts);
+            Execute.OnUIThread(ResetOriginalHosts);
             base.OnOperatorCultureChanged(evt);
         }
 
@@ -231,7 +230,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         /// </summary>
         protected override void OnCommitted()
         {
-            if (Committed)
+            if (IsCommitted)
             {
                 return;
             }
@@ -242,16 +241,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             var addresses = new { addresses = hosts.Select(x => x.Address).ToList() };
             PropertiesManager.SetProperty(ApplicationConstants.HostAddresses, JsonConvert.SerializeObject(addresses));
 
-            Committed = true;
+            IsCommitted = true;
 
             base.OnCommitted();
-        }
-
-        protected override void ValidateAll()
-        {
-            base.ValidateAll();
-
-            ValidatePort(_port);
         }
 
         private static void RegisteredFilter(object sender, FilterEventArgs e)
@@ -262,14 +254,23 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             }
         }
 
-        private void ValidatePort(int value)
+        public static ValidationResult ValidatePort(int value, ValidationContext context)
         {
-            ClearErrors(nameof(Port));
+
+            HostConfigurationViewModel instance = (HostConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(Port));
 
             if (value < 0 || value > ushort.MaxValue)
             {
-                SetError(nameof(Port), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange);
             }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private void ResetEditState()
@@ -315,7 +316,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         private void LoadHosts()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 return;
             }
@@ -404,7 +405,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     Registered = viewModel.Registered,
                     RequiredForPlay = viewModel.RequiredForPlay,
                     IsProgressiveHost = viewModel.IsProgressiveHost,
-                    ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerInterval)
+                    ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerIntervalSeconds)
                 };
 
                 Hosts.Add(host);
@@ -425,7 +426,10 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 host.Registered,
                 host.RequiredForPlay,
                 host.IsProgressiveHost,
-                host.ProgressiveHostOfflineTimerInterval.TotalSeconds);
+                host.ProgressiveHostOfflineTimerInterval.TotalSeconds > int.MaxValue
+                    ? throw new ArgumentException($"Progressive Host Offline Timer Interval must not exceed {int.MaxValue} seconds.", nameof(host.ProgressiveHostOfflineTimerInterval.TotalSeconds))
+                    : (int)host.ProgressiveHostOfflineTimerInterval.TotalSeconds
+            );
 
             var result = _dialogService.ShowDialog<EditHostView>(
                 this,
@@ -473,7 +477,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 host.Registered = viewModel.Registered;
                 host.RequiredForPlay = viewModel.RequiredForPlay;
                 host.IsProgressiveHost = viewModel.IsProgressiveHost;
-                host.ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerInterval);
+                host.ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerIntervalSeconds);
 
                 RefreshHosts();
 
@@ -600,7 +604,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         private void RefreshHosts()
         {
-            RaisePropertyChanged(nameof(Hosts));
+            OnPropertyChanged(nameof(Hosts));
             RegisteredHosts.View.Refresh();
 
             // VLT-9577 : enable Next button on wizard if enter a url in retail (default is empty in retail)
@@ -649,6 +653,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 Task.Run(() => hostFactory.Update(host)).FireAndForget(ex => Logger.Error($"Return: Exception occurred {ex}", ex));
             }
 
+            ResetDevicesAfterReaddingHost(containerService, host);
+
             return context;
         }
 
@@ -682,10 +688,42 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 // spin through all devices attached to this host and set owner to 0 and active to false
                 foreach (var device in devices.Where(device => device.IsMember(host.Id)))
                 {
+                    if(!_editedDevices.ContainsKey(host.Id))
+                    {
+                        _editedDevices[host.Id] = new List<ClientDeviceBase>();
+                    }
+
+                    _editedDevices[host.Id].Add(device);
                     Logger.Debug($"Host {host.Id} has been deleted resetting device '{device.DeviceClass}' ownership to 0 and deactivate");
                     device.HasOwner(0, device.Active);
                     profileService.Save(device);
                 }
+            }
+            else
+            {
+                Logger.Warn($"Profile Service unavailable - unable to reset Device ownership for deleted host {host.Id}.");
+            }
+        }
+
+        private void ResetDevicesAfterReaddingHost(IContainerService containerService, IHost host)
+        {
+            if (!_editedDevices.ContainsKey(host.Id))
+            {
+                return;
+            }
+
+            var profileService = containerService?.Container.GetInstance<IProfileService>();
+
+            if (profileService != null)
+            {
+                foreach (var device in _editedDevices[host.Id])
+                {
+                    Logger.Debug($"Host {host.Id} has been readded resetting device '{device.DeviceClass}' ownership to {host.Id} and activating");
+                    device.HasOwner(host.Id, device.Active);
+                    profileService.Save(device);
+                }
+
+                _editedDevices.Remove(host.Id);
             }
             else
             {
@@ -749,7 +787,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 }
             }
 
-            MvvmHelper.ExecuteOnUI(EnableRegisteredHosts);
+            Execute.OnUIThread(EnableRegisteredHosts);
         }
 
         private static IG2SEgm GetEgm()

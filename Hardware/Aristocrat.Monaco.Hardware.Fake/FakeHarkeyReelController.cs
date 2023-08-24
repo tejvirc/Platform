@@ -20,7 +20,6 @@
         IReelBrightnessImplementation,
         IReelLightingImplementation
     {
-        private const string DefaultBaseName = "Fake";
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static readonly Type[] SupportedCapabilities =
@@ -173,7 +172,7 @@
         public event EventHandler<ReelFaultedEventArgs> FaultCleared;
 
         /// <inheritdoc />
-        public event EventHandler<ReelEventArgs> ReelStopping;
+        public event EventHandler<ReelStoppingEventArgs> ReelStopping;
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelStopped;
@@ -472,7 +471,7 @@
         }
 
         /// <summary>Executes the <see cref="ReelStopping" /> action.</summary>
-        protected void OnReelStopping(ReelEventArgs e)
+        protected void OnReelStopping(ReelStoppingEventArgs e)
         {
             ReelStopping?.Invoke(this, e);
         }

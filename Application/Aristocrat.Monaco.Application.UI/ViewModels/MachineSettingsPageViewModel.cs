@@ -1,10 +1,12 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Windows.Input;
     using Application.Helpers;
     using Application.Settings;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.ConfigWizard;
     using Contracts.Localization;
@@ -21,7 +23,6 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
     using OperatorMenu;
 
     /// <summary>
@@ -32,6 +33,8 @@
     {
         private const string HardBootTimeKey = "System.HardBoot.Time";
         private const string SoftBootTimeKey = "System.SoftBoot.Time";
+
+        private bool _isVariableDataLoaded;
 
         private string _hardBootTime;
         private string _softBootTime;
@@ -65,7 +68,7 @@
         {
             DefaultPrintButtonEnabled = true;
 
-            VisibilityChangedCommand = new ActionCommand<object>(OnVisibilityChanged);
+            VisibilityChangedCommand = new RelayCommand<object>(OnVisibilityChanged);
         }
 
         /// <summary>
@@ -165,7 +168,7 @@
                 if (!_displays?.Equals(value) ?? true)
                 {
                     _displays = value;
-                    RaisePropertyChanged(nameof(Displays));
+                    OnPropertyChanged(nameof(Displays));
                 }
             }
         }
@@ -218,6 +221,13 @@
             set => SetProperty(ref _softBootTime, value, nameof(SoftBootTime));
         }
 
+        [CustomValidation(typeof(MachineSettingsPageViewModel), nameof(ValidateHardMeterIsOperational))]
+        public bool IsVariableDataLoaded
+        {
+            get => _isVariableDataLoaded;
+            set => SetProperty(ref _isVariableDataLoaded, value, true);
+        }
+
         protected override void Loaded()
         {
             base.Loaded();
@@ -232,7 +242,7 @@
             Unsubscribe();
             SaveData();
             ClearVariableErrors();
-            ValidateAll(false);
+            base.RunCustomValidation();
 
             base.OnUnloaded();
         }
@@ -251,8 +261,8 @@
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(SerialNumberWarningEnabled));
-            RaisePropertyChanged(nameof(AssetNumberWarningEnabled));
+            OnPropertyChanged(nameof(SerialNumberWarningEnabled));
+            OnPropertyChanged(nameof(AssetNumberWarningEnabled));
             SetWarningText();
         }
 
@@ -304,85 +314,82 @@
 
         protected override void LoadVariableData()
         {
-            // Left Side
-            base.LoadVariableData();
-
-            PhysicalAddress = NetworkInterfaceInfo.DefaultPhysicalAddress;
-            IpAddress = NetworkInterfaceInfo.DefaultIpAddress?.ToString();
-
-            // Right Side
-            var ioService = ServiceManager.GetInstance().GetService<IIO>();
-            Electronics = ioService.GetElectronics();
-
-            GraphicsCard = ServiceManager.GetInstance()
-                .GetService<IDisplayService>()
-                .GraphicsCard;
-
-            ButtonDeck = MachineSettingsUtilities.GetButtonDeckIdentification(Localizer.For(CultureFor.Operator));
-
-            Displays = MachineSettingsUtilities.GetDisplayIdentifications(Localizer.For(CultureFor.Operator));
-
-            TouchScreens = MachineSettingsUtilities.GetTouchScreenIdentificationWithoutVbd(Localizer.For(CultureFor.Operator));
-
-            Lighting = MachineSettingsUtilities.GetLightingIdentification(Localizer.For(CultureFor.Operator));
-
-            NoteAcceptorModel = ServiceManager.GetInstance()
-                .TryGetService<INoteAcceptor>()
-                ?.DeviceConfiguration
-                .GetDeviceStatus(false);
-
-            PrinterModel = ServiceManager.GetInstance()
-                .TryGetService<IPrinter>()
-                ?.DeviceConfiguration
-                .GetDeviceStatus(false);
-
-            ReelController = ServiceManager.GetInstance()
-                .TryGetService<IReelController>()
-                ?.DeviceConfiguration
-                .GetDeviceStatus(false);
-
-            BiosVersion = ioService.GetFirmwareVersion(FirmwareData.Bios);
-            if (string.IsNullOrEmpty(BiosVersion))
+            try
             {
-                BiosVersion = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
-            }
+                IsVariableDataLoaded = false;
 
-            FpgaVersion = ioService.GetFirmwareVersion(FirmwareData.Fpga);
-            if (string.IsNullOrEmpty(FpgaVersion))
-            {
-                FpgaVersion = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
-            }
+                // Left Side
+                base.LoadVariableData();
 
-            ModelText = ioService.DeviceConfiguration.Model;
+                PhysicalAddress = NetworkInterfaceInfo.DefaultPhysicalAddress;
+                IpAddress = NetworkInterfaceInfo.DefaultIpAddress?.ToString();
 
-            IsVisibleForInspection = PropertiesManager.GetValue(KernelConstants.IsInspectionOnly, false);
-            Jurisdiction = PropertiesManager.GetValue(ApplicationConstants.JurisdictionKey, string.Empty);
-            CurrencySample = PropertiesManager.GetValue(ApplicationConstants.CurrencyDescription, string.Empty);
+                // Right Side
+                var ioService = ServiceManager.GetInstance().GetService<IIO>();
+                Electronics = ioService.GetElectronics();
 
-            var osService = ServiceManager.GetInstance().GetService<IOSService>();
+                GraphicsCard = ServiceManager.GetInstance()
+                    .GetService<IDisplayService>()
+                    .GraphicsCard;
 
-            WindowsVersion = Environment.OSVersion.Version.ToString();
-            OsImageVersion = osService.OsImageVersion.ToString();
+                ButtonDeck = MachineSettingsUtilities.GetButtonDeckIdentification(Localizer.For(CultureFor.Operator));
 
-            PlatformVersion = PropertiesManager.GetValue(KernelConstants.SystemVersion, string.Empty);
+                Displays = MachineSettingsUtilities.GetDisplayIdentifications(Localizer.For(CultureFor.Operator));
 
-            ReportVersions();
+                TouchScreens = MachineSettingsUtilities.GetTouchScreenIdentificationWithoutVbd(Localizer.For(CultureFor.Operator));
 
-            if (IsVisibleForInspection)
-            {
-                EventBus.Publish(new InspectionResultsChangedEvent(null));
+                Lighting = MachineSettingsUtilities.GetLightingIdentification(Localizer.For(CultureFor.Operator));
 
-                if (PropertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false))
+                NoteAcceptorModel = ServiceManager.GetInstance()
+                    .TryGetService<INoteAcceptor>()
+                    ?.DeviceConfiguration
+                    .GetDeviceStatus(false);
+
+                PrinterModel = ServiceManager.GetInstance()
+                    .TryGetService<IPrinter>()
+                    ?.DeviceConfiguration
+                    .GetDeviceStatus(false);
+
+                ReelController = ServiceManager.GetInstance()
+                    .TryGetService<IReelController>()
+                    ?.DeviceConfiguration
+                    .GetDeviceStatus(false);
+
+                BiosVersion = ioService.GetFirmwareVersion(FirmwareData.Bios);
+                if (string.IsNullOrEmpty(BiosVersion))
                 {
-                    Inspection?.SetTestName(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterLabel));
-
-                    if (!ServiceManager.GetInstance().GetService<IHardMeter>().IsHardwareOperational)
-                    {
-                        Inspection?.ReportTestFailure();
-                        SetError(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterLabel),
-                            Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterError));
-                    }
+                    BiosVersion = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
                 }
+
+                FpgaVersion = ioService.GetFirmwareVersion(FirmwareData.Fpga);
+                if (string.IsNullOrEmpty(FpgaVersion))
+                {
+                    FpgaVersion = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+                }
+
+                ModelText = ioService.DeviceConfiguration.Model;
+
+                IsVisibleForInspection = PropertiesManager.GetValue(KernelConstants.IsInspectionOnly, false);
+                Jurisdiction = PropertiesManager.GetValue(ApplicationConstants.JurisdictionKey, string.Empty);
+                CurrencySample = PropertiesManager.GetValue(ApplicationConstants.CurrencyDescription, string.Empty);
+
+                var osService = ServiceManager.GetInstance().GetService<IOSService>();
+
+                WindowsVersion = Environment.OSVersion.Version.ToString();
+                OsImageVersion = osService.OsImageVersion.ToString();
+
+                PlatformVersion = PropertiesManager.GetValue(KernelConstants.SystemVersion, string.Empty);
+
+                ReportVersions();
+
+                if (IsVisibleForInspection)
+                {
+                    EventBus.Publish(new InspectionResultsChangedEvent(null));
+                }
+            }
+            finally
+            {
+                IsVariableDataLoaded = true;
             }
         }
 
@@ -461,16 +468,38 @@
             UpdateBootTimeInformation();
         }
 
-        protected override void SetError(string propertyName, string error)
+        public static ValidationResult ValidateHardMeterIsOperational(bool isLoadingCompleted, ValidationContext context)
         {
-            if (string.IsNullOrEmpty(error))
+            var viewModel = (MachineSettingsPageViewModel)context.ObjectInstance;
+
+            if (!isLoadingCompleted)
             {
-                ClearErrors(propertyName);
+                return ValidationResult.Success;
             }
-            else
+
+            if (!viewModel.IsVisibleForInspection)
             {
-                base.SetError(propertyName, error);
+                return ValidationResult.Success;
             }
+
+            if (!viewModel.PropertiesManager.GetValue(HardwareConstants.HardMetersEnabledKey, false))
+            {
+                return ValidationResult.Success;
+            }
+
+            viewModel.Inspection?.SetTestName(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterLabel));
+
+            if (ServiceManager.GetInstance().GetService<IHardMeter>().IsHardwareOperational)
+            {
+                return ValidationResult.Success;
+            }
+
+            viewModel.Inspection?.ReportTestFailure();
+
+            return new ValidationResult(
+                Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterError),
+                new[] { Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HardMeterLabel) }
+            );
         }
     }
 }

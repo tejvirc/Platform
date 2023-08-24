@@ -327,6 +327,12 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 parameters["/Runtime/Instructions/GameRulesInstructions1"] = gameRulesInstructions;
             }
 
+            var pressStartInstructions = _properties.GetValue(GamingConstants.PressStartInstructions, string.Empty);
+            if (!string.IsNullOrEmpty(pressStartInstructions))
+            {
+                parameters["/Runtime/Instructions/PressStart"] = pressStartInstructions;
+            }
+
             AddHandCountSettings(parameters);
             HandleGameHistoryData(parameters);
 

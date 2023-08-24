@@ -27,11 +27,11 @@
         private readonly IGamePlayState _gamePlayState;
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
+        private readonly IGameProvider _gameProvider;
         private readonly IGameDiagnostics _gameDiagnostics;
         private readonly IGameHistory _gameHistory;
         private readonly IRuntime _runtime;
         private readonly IGameRecovery _recovery;
-        private readonly IGameProvider _gameProvider;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
         private readonly IGameStartConditionProvider _gameStartConditions;
 
@@ -43,10 +43,10 @@
             IGameRecovery recovery,
             IGamePlayState gamePlayState,
             IPropertiesManager properties,
+            IGameProvider gameProvider,
             IGameDiagnostics diagnostics,
             IGameHistory gameHistory,
             IEventBus eventBus,
-            IGameProvider gameProvider,
             IProgressiveGameProvider progressiveGameProvider,
             IGameStartConditionProvider gameStartConditions)
         {
@@ -54,10 +54,10 @@
             _recovery = recovery ?? throw new ArgumentNullException(nameof(recovery));
             _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _gameDiagnostics = diagnostics ?? throw new ArgumentNullException(nameof(diagnostics));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _progressiveGameProvider = progressiveGameProvider ?? throw new ArgumentNullException(nameof(progressiveGameProvider));
             _gameStartConditions = gameStartConditions ?? throw new ArgumentNullException(nameof(gameStartConditions));
         }
@@ -79,14 +79,14 @@
                 }
             }
 
-            var (game, denomination) = _properties.GetActiveGame();
+            var (game, denomination) = _gameProvider.GetActiveGame();
             if (game == null || denomination == null)
             {
                 Failed("game is not running");
                 return;
             }
 
-            var wagerCategory = game.WagerCategories?.FirstOrDefault(x => x.Id == command.WagerCategoryId.ToString());
+            var wagerCategory = game?.WagerCategories?.FirstOrDefault(x => x.Id == command.WagerCategoryId.ToString());
             SetWagerCategory(wagerCategory);
 
             if (command.Request is not null)
@@ -103,10 +103,10 @@
                         continue;
                     }
 
-                    _gamePlayState.InitializationFailed();
-                    Failed($"wager category is null: {request.TemplateId}");
-                    return;
-                }
+                        _gamePlayState.InitializationFailed();
+                        Failed($"wager category is null: {request.TemplateId}");
+                        return;
+                    }
 
                 // Special case for recovery and replay
                 if (_gameDiagnostics.IsActive && _gameDiagnostics.Context is IDiagnosticContext<IGameHistoryLog> context)
@@ -185,6 +185,10 @@
                 var cdsInfo = currentSubGame.CdsGameInfos?.SingleOrDefault(
                     w =>
                         w.Id.Equals(request.TemplateId.ToString(), StringComparison.Ordinal));
+
+                var subGameList = new List<ISubGameDetails> { currentSubGame };
+                _gameProvider.SetActiveSubGames(game.Id, subGameList);
+                _gameProvider.SetSubGameActiveDenomination(game.Id, currentSubGame, gameInfo.Denomination);
 
                 return cdsInfo is not null;
             }

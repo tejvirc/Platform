@@ -6,7 +6,7 @@
     using Contracts.Reel.ControlData;
     using Contracts.Reel.ImplementationCapabilities;
 
-    internal class ReelLightingCapability : IReelLightingCapabilities
+    internal sealed class ReelLightingCapability : IReelLightingCapabilities
     {
         private readonly IReelLightingImplementation _implementation;
         private readonly ReelControllerStateManager _stateManager;
@@ -18,6 +18,10 @@
         }
 
         public Task<IList<int>> GetReelLightIdentifiers() => _implementation.GetReelLightIdentifiers();
+
+        public void Dispose()
+        {
+        }
 
         public Task<bool> SetLights(params ReelLampData[] lampData)
         {

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -8,13 +8,13 @@
     using System.Windows.Input;
     using Application.Contracts;
     using Application.UI.ViewModels;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Hardware.Contracts.Audio;
     using Kernel;
     using log4net;
-    using MVVM.Command;
-    using MVVM.ViewModel;
 
-    public class LobbyVolumeViewModel : BaseEntityViewModel
+    public class LobbyVolumeViewModel : ObservableObject
     {
         private const string SoundConfigurationExtensionPath = "/OperatorMenu/Sound/Configuration";
         private const string Volume0Key = "Volume0Normal";
@@ -23,7 +23,7 @@
         private const string Volume3Key = "Volume3Normal";
         private const string Volume4Key = "Volume4Normal";
         private const string Volume5Key = "Volume5Normal";
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IPropertiesManager _propertiesManager;
         private readonly IAudio _audio;
         private readonly Action _onUserInteraction;
@@ -40,7 +40,7 @@
                 ApplicationConstants.PlayerVolumeScalarKey,
                 ApplicationConstants.PlayerVolumeScalar);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", PlayerVolumeScalar);
-            VolumeCommand = new ActionCommand<object>(o => OnVolumeChange());
+            VolumeCommand = new RelayCommand<object>(o => OnVolumeChange());
             LoadSoundFile();
         }
 
@@ -55,8 +55,8 @@
                 {
                     _playerVolumeScalar = value;
                     SetVolumeAndPlaySound();
-                    RaisePropertyChanged(nameof(PlayerVolumeScalar));
-                    RaisePropertyChanged(nameof(VolumeValue));
+                    OnPropertyChanged(nameof(PlayerVolumeScalar));
+                    OnPropertyChanged(nameof(VolumeValue));
                 }
             }
         }

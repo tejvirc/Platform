@@ -9,6 +9,7 @@
     using Aristocrat.Sas.Client.Metering;
     using Gaming.Contracts;
     using Gaming.Contracts.Meters;
+    using Gaming.Contracts.Rtp;
 
     /// <summary>
     ///     The handler for LP B4 Send Wager Category Info

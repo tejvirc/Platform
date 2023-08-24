@@ -36,7 +36,7 @@
                     Logger.Debug($"GAT version changed from {_version} to {value}");
 
                     _version = value;
-                    RaisePropertyChanged(nameof(GatVersion));
+                    OnPropertyChanged(nameof(GatVersion));
 
                     EventBus.Publish(new SerialGatVersionChangedEvent(value));
                 }
@@ -51,8 +51,8 @@
                 if (value != _isGatConnected)
                 {
                     _isGatConnected = value;
-                    RaisePropertyChanged(nameof(IsGatConnected));
-                    RaisePropertyChanged(nameof(IsGatIdle));
+                    OnPropertyChanged(nameof(IsGatConnected));
+                    OnPropertyChanged(nameof(IsGatIdle));
                 }
             }
         }
@@ -67,7 +67,7 @@
                 if (value != _status)
                 {
                     _status = value;
-                    RaisePropertyChanged(nameof(Status));
+                    OnPropertyChanged(nameof(Status));
                 }
             }
         }

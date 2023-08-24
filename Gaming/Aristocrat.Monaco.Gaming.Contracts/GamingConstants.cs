@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Contracts
+namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using System;
     using Application.Contracts;
@@ -952,6 +952,31 @@
         public const string RestrictedProgressiveTypes = @"GameRestrictions.RestrictedProgressiveTypes";
 
         /// <summary>
+        ///     Flag to enable/disable the inclusion of the link progressive startup/reset RTP for in the RTP check for Slot games
+        /// </summary>
+        public const string SlotsIncludeLinkProgressiveStartUpRtp = @"GameRestrictions.IncludeLinkProgressiveStartUpRTP.Slots";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the link progressive startup/reset RTP for in the RTP check for Poker games
+        /// </summary>
+        public const string PokerIncludeLinkProgressiveStartUpRtp = @"GameRestrictions.IncludeLinkProgressiveStartUpRTP.Poker";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the link progressive startup/reset RTP for in the RTP check for Keno games
+        /// </summary>
+        public const string KenoIncludeLinkProgressiveStartUpRtp = @"GameRestrictions.IncludeLinkProgressiveStartUpRTP.Keno";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the link progressive startup/reset RTP for in the RTP check for Blackjack games
+        /// </summary>
+        public const string BlackjackIncludeLinkProgressiveStartUpRtp = @"GameRestrictions.IncludeLinkProgressiveStartUpRTP.Blackjack";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the link progressive startup/reset RTP for in the RTP check for Roulette games
+        /// </summary>
+        public const string RouletteIncludeLinkProgressiveStartUpRtp = @"GameRestrictions.IncludeLinkProgressiveStartUpRTP.Roulette";
+
+        /// <summary>
         ///     Flag to enable/disable the inclusion of the link progressive increment RTP for in the RTP check for Slot games
         /// </summary>
         public const string SlotsIncludeLinkProgressiveIncrementRtp = @"GameRestrictions.IncludeLinkProgressiveIncrementRTP.Slots";
@@ -977,6 +1002,31 @@
         public const string RouletteIncludeLinkProgressiveIncrementRtp = @"GameRestrictions.IncludeLinkProgressiveIncrementRTP.Roulette";
 
         /// <summary>
+        ///     Flag to enable/disable the inclusion of the standalone progressive startup/reset RTP for in the RTP check for Slot games
+        /// </summary>
+        public const string SlotsIncludeStandaloneProgressiveStartUpRtp = @"GameRestrictions.IncludeStandaloneProgressiveStartUpRTP.Slots";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the standalone progressive startup/reset RTP for in the RTP check for Poker games
+        /// </summary>
+        public const string PokerIncludeStandaloneProgressiveStartUpRtp = @"GameRestrictions.IncludeStandaloneProgressiveStartUpRTP.Poker";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the standalone progressive startup/reset RTP for in the RTP check for Keno games
+        /// </summary>
+        public const string KenoIncludeStandaloneProgressiveStartUpRtp = @"GameRestrictions.IncludeStandaloneProgressiveStartUpRTP.Keno";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the standalone progressive startup/reset RTP for in the RTP check for Blackjack games
+        /// </summary>
+        public const string BlackjackIncludeStandaloneProgressiveStartUpRtp = @"GameRestrictions.IncludeStandaloneProgressiveStartUpRTP.Blackjack";
+
+        /// <summary>
+        ///     Flag to enable/disable the inclusion of the standalone progressive startup/reset RTP for in the RTP check for Roulette games
+        /// </summary>
+        public const string RouletteIncludeStandaloneProgressiveStartUpRtp = @"GameRestrictions.IncludeStandaloneProgressiveStartUpRTP.Roulette";
+
+        /// <summary>
         ///     Flag to enable/disable the inclusion of the standalone progressive increment RTP for in the RTP check for Slot games
         /// </summary>
         public const string SlotsIncludeStandaloneProgressiveIncrementRtp = @"GameRestrictions.IncludeStandaloneProgressiveIncrementRTP.Slots";
@@ -1000,6 +1050,16 @@
         ///     Flag to enable/disable the inclusion of the standalone progressive increment RTP for in the RTP check for Roulette games
         /// </summary>
         public const string RouletteIncludeStandaloneProgressiveIncrementRtp = @"GameRestrictions.IncludeStandaloneProgressiveIncrementRTP.Roulette";
+
+        /// <summary>
+        ///     The required number of decimal places to display RTP. Values must be rounded up (away from zero).
+        /// </summary>
+        public const int NumberOfDecimalPlacesForRtpDisplay = 2;
+
+        /// <summary>
+        ///     The required number of decimal places for RTP calculations
+        /// </summary>
+        public const int NumberOfDecimalPlacesForRtpCalculations = 5;
 
         /// <summary>
         ///     Provides hand information for poker games
@@ -1362,7 +1422,6 @@
         /// </summary>
         public const string AdditionalInfoGameInProgress = @"AdditionalInfoGameInProgress";
 
-
         /// <summary>
         ///     Flag will indicate the value of AwaitingPlayerSelection sent to runtime
         /// </summary>
@@ -1412,6 +1471,11 @@
         ///     The Game Rules instructions message to display
         /// </summary>
         public const string GameRulesInstructions = @"Instructions.GameRulesInstructions";
+
+        /// <summary>
+        ///     The Press Start instructions message to display
+        /// </summary>
+        public const string PressStartInstructions = @"Instructions.PressStartInstructions";
 
         /// <summary>
         ///     Flag will control the background cycling of the RNG by the platform
@@ -1489,7 +1553,13 @@
         public const string GameSpecificOptions = "GameSpecificOptions";
 
         /// <summary>
-        ///     encapsulate Player Information Display options
+        ///     Key for the LinkedProgressiveVerificationEnabled property in Property Manager. If set to true, the platform will
+        ///     verify all Linked Progressive RTP values for all games that have Linked Progressives.
+        /// </summary>
+        public static string LinkedProgressiveVerificationEnabled = "LinkedProgressiveVerificationEnabled";
+        
+        /// <summary>
+        ///     Encapsulate Player Information Display options
         /// </summary>
         public static class PlayerInformationDisplay
         {

@@ -209,12 +209,25 @@
                          $"ViewModel={viewModel?.GetType().Name}, " +
                          $"View={internalView?.GetType().Name}");
 
-            Window dialog = new OperatorMenuDialogWindow(operatorMenuDialog)
+            Window dialog = null;
+            try
             {
-                Owner = owner,
-                SizeToContent = SizeToContent.WidthAndHeight,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner
-            };
+                dialog = new OperatorMenuDialogWindow(operatorMenuDialog)
+                {
+                    Owner = owner,
+                    SizeToContent = SizeToContent.WidthAndHeight,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                };
+            }
+            catch (InvalidOperationException)
+            {
+                Logger.Error("CreateAndShowDialog: Error initializing dialog. Owner window is likely already closed.");
+            }
+
+            if (dialog == null)
+            {
+                return null;
+            }
 
             dialog.SizeChanged += (_, _) => CenterDialogOnElement(owner, dialog);
             _eventBus.Publish(new DialogOpenedEvent());

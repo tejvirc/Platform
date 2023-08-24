@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Settings
+namespace Aristocrat.Monaco.Application.UI.Settings
 {
     using System;
     using System.Collections.Generic;
@@ -8,10 +8,10 @@
     using Application.Contracts.Localization;
     using Application.Contracts.Settings;
     using Aristocrat.Monaco.Localization.Properties;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
-    using MVVM;
 
     /// <summary>
     ///     Brightness configuration settings.
@@ -88,7 +88,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary

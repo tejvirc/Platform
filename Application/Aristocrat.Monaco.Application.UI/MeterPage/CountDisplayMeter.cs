@@ -71,10 +71,10 @@
         /// <inheritdoc />
         protected override void OnMeterChangedEvent(object sender, MeterChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(Count));
-            RaisePropertyChanged(nameof(MeterValue));
-            RaisePropertyChanged(nameof(Value));
-            RaisePropertyChanged(nameof(ShowLifetime));
+            OnPropertyChanged(nameof(Count));
+            OnPropertyChanged(nameof(MeterValue));
+            OnPropertyChanged(nameof(Value));
+            OnPropertyChanged(nameof(ShowLifetime));
         }
 
         /// <inheritdoc />

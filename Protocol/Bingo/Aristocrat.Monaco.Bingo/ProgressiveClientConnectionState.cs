@@ -206,7 +206,7 @@
             _systemDisable.Enable(BingoConstants.ProgressiveHostOfflineKey);
             ClientConnected?.Invoke(this, EventArgs.Empty);
 
-            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
+            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_gameProvider);
             var gameTitleId = (int)(gameConfiguration?.GameTitleId ?? 0);
             _progressiveCommandService.HandleCommands(
                 _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty),

@@ -30,7 +30,7 @@
             set
             {
                 _monitor = value;
-                var w = new WindowToScreenMapper(_monitor.Role, true);
+                var w = new WindowToScreenMapper(_monitor.Role, fullscreen: true);
                 w.MapWindow(this);
             }
         }

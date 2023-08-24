@@ -1,16 +1,16 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Windows.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
-    public class OutOfServiceViewModel : BaseViewModel
+    public class OutOfServiceViewModel : ObservableObject
     {
         private readonly IEventBus _eventBus;
         private readonly IDisableByOperatorManager _disableByOperatorManager;
@@ -24,7 +24,7 @@
             // Initially it should always be enabled until it's set by the rule access service.
             OutOfServiceModeButtonIsEnabled = true;
 
-            OutOfServiceModeButtonCommand = new ActionCommand<object>(OutOfServiceModeButtonCommandHandler);
+            OutOfServiceModeButtonCommand = new RelayCommand<object>(OutOfServiceModeButtonCommandHandler);
         }
 
         public string OutOfServiceButtonText => _disableByOperatorManager.DisabledByOperator
@@ -48,7 +48,7 @@
         public void OnLoaded()
         {
             _eventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
-            RaisePropertyChanged(nameof(OutOfServiceButtonText));
+            OnPropertyChanged(nameof(OutOfServiceButtonText));
         }
 
         public void OnUnloaded()
@@ -58,7 +58,7 @@
 
         private void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            RaisePropertyChanged(nameof(OutOfServiceButtonText));
+            OnPropertyChanged(nameof(OutOfServiceButtonText));
         }
 
         private void OutOfServiceModeButtonCommandHandler(object obj)
@@ -72,7 +72,7 @@
                 _disableByOperatorManager.Disable(() => Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfService));
             }
 
-            RaisePropertyChanged(nameof(OutOfServiceButtonText));
+            OnPropertyChanged(nameof(OutOfServiceButtonText));
         }
     }
 }

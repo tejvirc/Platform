@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Input
+namespace Aristocrat.Monaco.Application.UI.Input
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,8 @@
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Windows.Input;
+    using Cabinet.Contracts;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
@@ -15,7 +17,6 @@
     using log4net;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common;
-    using MVVM;
 
     public sealed class TouchCalibrationService : ITouchCalibration, IService
     {
@@ -26,7 +27,9 @@
         private readonly List<TouchCalibrationWindow> _calibrationWindows = new();
 
         private TouchCalibrationWindow _activeWindow;
+        private TouchCalibrationWindow _prevWindow;
         private TouchCalibrationOverlayWindow _overlay;
+        private List<long> _serialTouchDisplayIds = new List<long>();
 
         public TouchCalibrationService() : this(
             ServiceManager.GetInstance().GetService<IEventBus>(),
@@ -87,7 +90,7 @@
 
             Logger.Debug("Progressing on to calibrate next touch Device.");
 
-            MvvmHelper.ExecuteOnUI(() => _activeWindow = _activeWindow?.NextCalibrationTest());
+            Execute.OnUIThread(() => _activeWindow = _activeWindow?.NextCalibrationTest());
         }
 
         public void AbortCalibration(string displayMessage = "")
@@ -104,51 +107,41 @@
 
         private void InitializeCalibration()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
-                    TouchCalibrationWindow prevControl = null;
+                    _prevWindow = null;
+                    _serialTouchDisplayIds.Clear();
 
-                    List<long> serialTouchDisplayIds = new List<long>();
                     if (_cabinetDetection.ExpectedDisplayDevicesWithSerialTouch != null)
                     {
                         foreach (var display in _cabinetDetection.ExpectedDisplayDevicesWithSerialTouch)
                         {
-                            serialTouchDisplayIds.Add(display.DisplayId);
+                            _serialTouchDisplayIds.Add(display.DisplayId);
                         }
                     }
 
-                    // Create touch calibration control for each display
+                    // Do we have a designated primary display?
+                    var hasPrimaryDisplay = _cabinetDetection.ExpectedDisplayDevices.Any(d => d.IsPrimary);
+                    if (hasPrimaryDisplay)
+                    {
+                        // Yes, add the primary display to first.
+                        var primaryDisplay = _cabinetDetection.ExpectedDisplayDevices.FirstOrDefault(d => d.IsPrimary);
+                        if (primaryDisplay != null)
+                        {
+                            AddDisplayToCalibrationWindow(primaryDisplay);
+                        }
+                    }
+
+                    // Add touch calibration window for each display.
                     foreach (var display in _cabinetDetection.ExpectedDisplayDevices)
                     {
-                        if (!serialTouchDisplayIds.Contains(display.DisplayId))
+                        if (hasPrimaryDisplay && display.IsPrimary)
                         {
-                            Logger.Debug($"InitializeCalibration - Adding display {display.DeviceName} {display.DisplayId} to touch calibration test.");
-                            display.TouchProductId = display.TouchVendorId = 0;
-                            var calibrationWindow = new TouchCalibrationWindow { Monitor = display };
-
-                            if (prevControl != null)
-                            {
-                                prevControl.NextDevice = calibrationWindow;
-                            }
-
-                            // Set active window to first calibration window
-                            if (!_calibrationWindows.Any())
-                            {
-                                _activeWindow = calibrationWindow;
-                            }
-
-                            // Register to handle calibration completion
-                            calibrationWindow.CalibrationComplete += OnCalibrationComplete;
-
-                            calibrationWindow.Show();
-                            prevControl = calibrationWindow;
-                            _calibrationWindows.Add(calibrationWindow);
+                            continue;
                         }
-                        else
-                        {
-                           Logger.Debug($"InitializeCalibration - Skipping display {display.DeviceName} {display.DisplayId} mapped for serial touch");
-                        }
+
+                        AddDisplayToCalibrationWindow(display); 
                     }
 
                     // Do we have any calibration windows (IE. only serial touch)?
@@ -175,9 +168,39 @@
                 });
         }
 
+        private void AddDisplayToCalibrationWindow(IDisplayDevice display)
+        {
+            if (_serialTouchDisplayIds.Contains(display.DisplayId))
+            {
+                Logger.Debug($"AddDisplayToCalibrationWindow - Skipping display {display.Name} {display.Role} mapped for serial touch...");
+                return;
+            }
+
+            Logger.Debug($"AddDisplayToCalibrationWindow - Adding display {display.Name} {display.Role} for touch calibration test...");
+
+            display.TouchProductId = display.TouchVendorId = 0;
+
+            var calibrationWindow = new TouchCalibrationWindow { Monitor = display };
+
+            if (_prevWindow != null)
+            {
+                _prevWindow.NextDevice = calibrationWindow;
+            }
+
+            if (!_calibrationWindows.Any())
+            {
+                _activeWindow = calibrationWindow;
+            }
+
+            calibrationWindow.CalibrationComplete += OnCalibrationComplete;
+            calibrationWindow.Show();
+            _prevWindow = calibrationWindow;
+            _calibrationWindows.Add(calibrationWindow);
+        }
+
         private void FinalizeCalibration(bool aborted, string message = "", string displayMessage = "")
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Logger.Debug($"FinalizeCalibration - Finalizing calibration session - aborted {aborted}");
@@ -214,7 +237,7 @@
 
         private void RemoveOverlay()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_overlay == null)
@@ -278,7 +301,7 @@
 
         private void OnPreviewTouchDown(object sender, TouchEventArgs args)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_activeWindow != null)
@@ -305,7 +328,7 @@
         {
             Logger.Debug($"TouchCalibration Key Down({args.Key}) for monitor {_activeWindow?.Monitor.DeviceName}");
 
-            MvvmHelper.ExecuteOnUI(CalibrateNextDevice);
+            Execute.OnUIThread(CalibrateNextDevice);
         }
 
         private void OnCalibrationComplete(object o, EventArgs args)

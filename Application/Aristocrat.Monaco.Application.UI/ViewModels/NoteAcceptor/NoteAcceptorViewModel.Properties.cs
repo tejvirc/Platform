@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Windows.Media;
     using Common;
@@ -56,7 +57,7 @@
             set
             {
                 _changeFocus = value;
-                RaisePropertyChanged(nameof(ChangeFocus));
+                OnPropertyChanged(nameof(ChangeFocus));
             }
         }
 
@@ -68,8 +69,8 @@
                 if (_isDenomEditable != value)
                 {
                     _isDenomEditable = value;
-                    RaisePropertyChanged(nameof(IsDenomEditable));
-                    RaisePropertyChanged(nameof(CanEgmModifyDenominations));
+                    OnPropertyChanged(nameof(IsDenomEditable));
+                    OnPropertyChanged(nameof(CanEgmModifyDenominations));
                 }
             }
         }
@@ -92,7 +93,7 @@
                         PropertiesManager.SetProperty(ApplicationConstants.ExcessiveDocumentRejectCount, excessiveDocumentRejectCountDefault);
                     }
 
-                    RaisePropertyChanged(nameof(ExcessiveRejectDisable));
+                    OnPropertyChanged(nameof(ExcessiveRejectDisable));
                 }
             }
         }
@@ -105,7 +106,7 @@
                 if (_excessiveRejectDisableIsVisible != value)
                 {
                     _excessiveRejectDisableIsVisible = value;
-                    RaisePropertyChanged(nameof(ExcessiveRejectDisableIsVisible));
+                    OnPropertyChanged(nameof(ExcessiveRejectDisableIsVisible));
                 }
             }
         }
@@ -118,7 +119,7 @@
                 if (_voucherInEnabledText != value)
                 {
                     _voucherInEnabledText = value;
-                    RaisePropertyChanged(nameof(VoucherInEnabledText));
+                    OnPropertyChanged(nameof(VoucherInEnabledText));
                 }
             }
         }
@@ -153,7 +154,7 @@
                 {
                     _stateTextLocalized = value;
                 }
-                RaisePropertyChanged(nameof(StatusTextLocalized));
+                OnPropertyChanged(nameof(StatusTextLocalized));
             }
         }
 
@@ -176,7 +177,7 @@
                     denom.Selected = _allowBillIn;
                 }
 
-                RaisePropertyChanged(nameof(AllowBillIn));
+                OnPropertyChanged(nameof(AllowBillIn));
             }
         }
 
@@ -191,7 +192,7 @@
                 }
 
                 _allowBillInEnabled = value;
-                RaisePropertyChanged(nameof(AllowBillInEnabled));
+                OnPropertyChanged(nameof(AllowBillInEnabled));
             }
         }
 
@@ -202,21 +203,11 @@
             NoteAcceptor.LogicalState != NoteAcceptorLogicalState.Inspecting &&
             _noteAcceptorDiagnosticsEnabled;
 
+        [CustomValidation(typeof(NoteAcceptorViewModel), nameof(ValidateBillAcceptanceLimit))]
         public decimal BillAcceptanceLimit
         {
             get => _billAcceptanceLimit;
-            set
-            {
-                if (_billAcceptanceLimit == value)
-                {
-                    return;
-                }
-
-                if (SetProperty(ref _billAcceptanceLimit, value, nameof(BillAcceptanceLimit)))
-                {
-                    SetError(nameof(BillAcceptanceLimit), ValidateBillAcceptanceLimit(value));
-                }
-            }
+            set => SetProperty(ref _billAcceptanceLimit, value, true);
         }
 
         // Flag which specifies whether to show the Bill Acceptor Limit Field
@@ -225,11 +216,13 @@
         public bool CanEditBillAcceptanceLimit
         {
             get => _canEditBillAcceptanceLimit;
-            set => SetProperty(
-                ref _canEditBillAcceptanceLimit,
-                value,
-                nameof(CanEditBillAcceptanceLimit),
-                nameof(BillAcceptanceLimitCheckboxIsEnabled));
+            set
+            {
+                if (SetProperty(ref _canEditBillAcceptanceLimit, value, nameof(CanEditBillAcceptanceLimit)))
+                {
+                    OnPropertyChanged(nameof(BillAcceptanceLimitCheckboxIsEnabled));
+                }
+            }
         }
 
         public bool BillAcceptanceLimitIsChecked
@@ -260,7 +253,7 @@
             set
             {
                 _stackerStateText = value;
-                RaisePropertyChanged(nameof(StackerStateText));
+                OnPropertyChanged(nameof(StackerStateText));
             }
         }
 
@@ -271,7 +264,7 @@
             set
             {
                 _enabledDenominationsText = value;
-                RaisePropertyChanged(nameof(EnabledDenominationsText));
+                OnPropertyChanged(nameof(EnabledDenominationsText));
             }
         }
 
@@ -282,7 +275,7 @@
             set
             {
                 _lastDocumentResultText = value;
-                RaisePropertyChanged(nameof(LastDocumentResultText));
+                OnPropertyChanged(nameof(LastDocumentResultText));
             }
         }
 
@@ -296,7 +289,7 @@
             set
             {
                 _returnButtonEnabled = value;
-                RaisePropertyChanged(nameof(ReturnButtonEnabled));
+                OnPropertyChanged(nameof(ReturnButtonEnabled));
             }
         }
 
@@ -307,7 +300,7 @@
             set
             {
                 _stackButtonEnabled = value;
-                RaisePropertyChanged(nameof(StackButtonEnabled));
+                OnPropertyChanged(nameof(StackButtonEnabled));
             }
         }
 
@@ -318,7 +311,7 @@
             set
             {
                 _stackButtonVisible = value;
-                RaisePropertyChanged(nameof(StackButtonVisible));
+                OnPropertyChanged(nameof(StackButtonVisible));
             }
         }
 
@@ -329,7 +322,7 @@
             set
             {
                 _variantNameText = value;
-                RaisePropertyChanged(nameof(VariantNameText));
+                OnPropertyChanged(nameof(VariantNameText));
             }
         }
 
@@ -340,7 +333,7 @@
             set
             {
                 _variantVersionText = value;
-                RaisePropertyChanged(nameof(VariantVersionText));
+                OnPropertyChanged(nameof(VariantVersionText));
             }
         }
 
@@ -351,7 +344,7 @@
             set
             {
                 _selfTestButtonVisible = value;
-                RaisePropertyChanged(nameof(SelfTestButtonVisible));
+                OnPropertyChanged(nameof(SelfTestButtonVisible));
             }
         }
 
@@ -362,7 +355,7 @@
             set
             {
                 _selfTestClearNvmButtonVisible = value;
-                RaisePropertyChanged(nameof(SelfTestClearNvmButtonVisible));
+                OnPropertyChanged(nameof(SelfTestClearNvmButtonVisible));
             }
         }
 
@@ -373,7 +366,7 @@
             set
             {
                 _selfTestStatusVisible = value;
-                RaisePropertyChanged(nameof(SelfTestStatusVisible));
+                OnPropertyChanged(nameof(SelfTestStatusVisible));
             }
         }
 
@@ -384,7 +377,7 @@
             set
             {
                 _inspectButtonVisible = value;
-                RaisePropertyChanged(nameof(InspectButtonVisible));
+                OnPropertyChanged(nameof(InspectButtonVisible));
             }
         }
 
@@ -395,7 +388,7 @@
             set
             {
                 _returnButtonVisible = value;
-                RaisePropertyChanged(nameof(ReturnButtonVisible));
+                OnPropertyChanged(nameof(ReturnButtonVisible));
             }
         }
 
@@ -406,7 +399,7 @@
             set
             {
                 _setDenominationsButtonVisible = value;
-                RaisePropertyChanged(nameof(SetDenominationsButtonVisible));
+                OnPropertyChanged(nameof(SetDenominationsButtonVisible));
             }
         }
 
@@ -417,7 +410,7 @@
             set
             {
                 _inspectButtonFocused = value;
-                RaisePropertyChanged(nameof(InspectButtonFocused));
+                OnPropertyChanged(nameof(InspectButtonFocused));
             }
         }
 
@@ -427,38 +420,27 @@
 
         private bool HasDocumentCheckFault => NoteAcceptor?.WasStackingOnLastPowerUp ?? false;
 
-        public override bool TestModeEnabledSupplementary =>  (NoteAcceptor?.Connected ?? false) &&
+        public override bool TestModeEnabledSupplementary => (NoteAcceptor?.Connected ?? false) &&
             NoteAcceptor?.StackerState != NoteAcceptorStackerState.Removed;
 
 
         public bool TestModeToolTipDisabled => (NoteAcceptor?.ReasonDisabled.HasFlag(DisabledReasons.GamePlay) ?? false) || TestModeEnabled;
 
-        public string ValidateBillAcceptanceLimit(decimal billAcceptanceLimit)
+        public static ValidationResult ValidateBillAcceptanceLimit(decimal billAcceptanceLimit)
         {
-            string error = string.Empty;
+            var errorMessage = string.Empty;
             if (billAcceptanceLimit > ApplicationConstants.MaxCreditsInMax)
             {
-                error = string.Format(Localizer.For(CultureFor.Player).GetString(ResourceKeys.LessThanOrEqualErrorMessage), ApplicationConstants.MaxCreditsInMax.FormattedCurrencyString());
+                errorMessage = string.Format(
+                    Localizer.For(CultureFor.Player).GetString(ResourceKeys.LessThanOrEqualErrorMessage),
+                    ApplicationConstants.MaxCreditsInMax.FormattedCurrencyString()
+                );
             }
-
             if (billAcceptanceLimit < ApplicationConstants.MaxCreditsInMin)
             {
-                error = Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaxCreditsInInvalid);
+                errorMessage = Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaxCreditsInInvalid);
             }
-
-            return error;
-        }
-
-        protected override void SetError(string propertyName, string error)
-        {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
+            return string.IsNullOrEmpty(errorMessage) ? ValidationResult.Success : new(errorMessage);
         }
     }
 }

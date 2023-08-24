@@ -79,6 +79,10 @@
         public event EventHandler<EventArgs> ResetFailed;
 
         /// <inheritdoc />
+        public event EventHandler HardwareInitialized;
+#pragma warning restore 67
+
+        /// <inheritdoc />
         public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultOccurred;
 
         /// <inheritdoc />
@@ -91,7 +95,7 @@
         public event EventHandler<ReelFaultedEventArgs> FaultCleared;
 
         /// <inheritdoc />
-        public event EventHandler<ReelEventArgs> ReelStopping;
+        public event EventHandler<ReelStoppingEventArgs> ReelStopping;
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelStopped;
@@ -104,10 +108,6 @@
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelDisconnected;
-
-        /// <inheritdoc />
-        public event EventHandler HardwareInitialized;
-#pragma warning restore 67
 
         /// <inheritdoc />
         public int VendorId => _communicator?.VendorId ?? 0;
@@ -431,9 +431,13 @@
 
             if (disposing)
             {
+                _supportedCapabilities[typeof(IAnimationImplementation)].Dispose();
                 _supportedCapabilities[typeof(IAnimationImplementation)] = null;
+                _supportedCapabilities[typeof(IReelBrightnessImplementation)].Dispose();
                 _supportedCapabilities[typeof(IReelBrightnessImplementation)] = null;
+                _supportedCapabilities[typeof(ISynchronizationImplementation)].Dispose();
                 _supportedCapabilities[typeof(ISynchronizationImplementation)] = null;
+                _supportedCapabilities[typeof(IStepperRuleImplementation)].Dispose();
                 _supportedCapabilities[typeof(IStepperRuleImplementation)] = null;
                 _supportedCapabilities.Clear();
 
@@ -459,6 +463,7 @@
             _communicator.ControllerFaultOccurred += OnControllerFaultOccurred;
             _communicator.ControllerFaultCleared += OnControllerFaultCleared;
             _communicator.ReelSpinningStatusReceived += OnReelSpinningStatusReceived;
+            _communicator.ReelStopping += OnReelStoppingReceived;
         }
 
         private void UnregisterEventListeners()
@@ -473,6 +478,7 @@
             _communicator.ControllerFaultOccurred -= OnControllerFaultOccurred;
             _communicator.ControllerFaultCleared -= OnControllerFaultCleared;
             _communicator.ReelSpinningStatusReceived -= OnReelSpinningStatusReceived;
+            _communicator.ReelStopping -= OnReelStoppingReceived;
         }
 
         private async Task LoadPlatformSampleShowsAndCurves()
@@ -524,6 +530,11 @@
             {
                 ReelSpinning?.Invoke(this, new ReelSpinningEventArgs(evt.ReelId, evt.SpinVelocity));
             }
+        }
+
+        private void OnReelStoppingReceived(object sender, ReelStoppingEventArgs args)
+        {
+            ReelStopping?.Invoke(sender, args);
         }
 
         private void OnControllerFaultOccurred(object sender, ReelControllerFaultedEventArgs e)

@@ -14,17 +14,38 @@
         {
             _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
-
+        
+        /// <inheritdoc />
         public bool Connected => _serviceProvider.Client?.Connected ?? false;
-
+        
+        /// <inheritdoc />
         public void UpdateReelState(IDictionary<int, ReelLogicalState> updateData)
         {
             _serviceProvider.Client?.UpdateReelState(updateData);
         }
-
-        public void AnimationUpdated(AnimationUpdatedNotification updateData)
+        
+        /// <inheritdoc />
+        public void NotifyAnimationUpdated(AnimationUpdatedNotification updateData)
         {
-            _serviceProvider.Client?.AnimationUpdated(updateData);
+            _serviceProvider.Client?.NotifyAnimationUpdated(updateData);
+        }
+
+        /// <inheritdoc />
+        public void NotifyStepperRuleTriggered(int reelId, int eventId)
+        {
+            _serviceProvider.Client?.NotifyStepperRuleTriggered(reelId, eventId);
+        }
+
+        /// <inheritdoc />
+        public void NotifyReelSynchronizationStatus(int reelId, SynchronizeStatus status)
+        {
+            _serviceProvider.Client?.NotifyReelSynchronizationStatus(reelId, status);
+        }
+        
+        /// <inheritdoc />
+        public void NotifyReelStopping(int reelId, long timeToStop)
+        {
+            _serviceProvider.Client?.NotifyReelStopping(reelId, timeToStop);
         }
     }
 }

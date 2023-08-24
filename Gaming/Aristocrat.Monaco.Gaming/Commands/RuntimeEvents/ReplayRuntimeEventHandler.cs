@@ -8,15 +8,18 @@
     public class ReplayRuntimeEventHandler : IReplayRuntimeEventHandler
     {
         private readonly IPropertiesManager _properties;
+        private readonly IGameProvider _gameProvider;
         private readonly IEventBus _bus;
         private readonly IGameDiagnostics _gameDiagnostics;
 
         public ReplayRuntimeEventHandler(
             IPropertiesManager properties,
+            IGameProvider gameProvider,
             IEventBus bus,
             IGameDiagnostics gameDiagnostics)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _gameDiagnostics = gameDiagnostics ?? throw new ArgumentNullException(nameof(gameDiagnostics));
         }
@@ -31,7 +34,7 @@
             switch (replayGameRoundEvent.State)
             {
                 case GameRoundEventState.Present:
-                    var (game, denomination) = _properties.GetActiveGame();
+                    var (game, denomination) = _gameProvider.GetActiveGame();
                     var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
 
                     if (replayGameRoundEvent.Action == GameRoundEventAction.Begin)

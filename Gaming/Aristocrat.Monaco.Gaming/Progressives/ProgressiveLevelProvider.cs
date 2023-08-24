@@ -11,6 +11,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
     using Contracts.Meters;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
+    using Contracts.Rtp;
     using Kernel;
     using log4net;
     using PackageManifest.Models;
@@ -238,6 +239,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
                 LineGroup = level.LineGroup,
                 TriggerControl = (TriggerType)level.Trigger,
                 FundingType = (SapFundingType)level.SapFundingType,
+                FlavorType = (FlavorType)level.FlavorType,
                 Errors = ProgressiveErrors.None,
                 AssignedProgressiveId = GenerateAssignableId(current, progressive, denominationList.First(), level.Name),
                 Turnover = 0,

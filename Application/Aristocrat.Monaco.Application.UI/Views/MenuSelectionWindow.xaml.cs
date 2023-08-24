@@ -11,7 +11,7 @@
     [CLSCompliant(false)]
     public sealed partial class MenuSelectionWindow : IDisposable
     {
-        private readonly WindowToScreenMapper _screenMapper = new WindowToScreenMapper(DisplayRole.Main);
+        private readonly WindowToScreenMapper _screenMapper = new WindowToScreenMapper(DisplayRole.Main, swapRoles: true);
         private bool _disposed;
 
         /// <summary>

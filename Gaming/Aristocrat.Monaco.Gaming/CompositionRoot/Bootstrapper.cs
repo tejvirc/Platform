@@ -23,6 +23,7 @@
     using Contracts.Process;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
+    using Contracts.Rtp;
     using Contracts.Session;
     using GameRound;
     using GameSpecificOptions;
@@ -218,6 +219,7 @@
             container.Register<ExcessiveMeterIncrementMonitor>(Lifestyle.Singleton);
 
             container.Register<RngCyclingService>(Lifestyle.Singleton);
+            container.Register<IRtpService, RtpService>(Lifestyle.Singleton);
 
             container.Register<IGamePackConfigurationProvider, GamePackConfigurationProvider>(Lifestyle.Singleton);
 

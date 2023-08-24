@@ -1,12 +1,12 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Kernel;
     using Kernel.Contracts;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
-    public class InspectionIdViewModel : BaseViewModel
+    public class InspectionIdViewModel : ObservableObject
     {
         public InspectionIdViewModel()
             : this(ServiceManager.GetInstance().GetService<IPropertiesManager>())

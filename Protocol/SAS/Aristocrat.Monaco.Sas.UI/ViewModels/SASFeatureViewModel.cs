@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Accounting.Contracts;
     using Application.Contracts;
@@ -130,11 +131,13 @@
         public bool BonusTransferStatusEditable
         {
             get => _bonusTransferStatusEditable;
-            private set => SetProperty(
-                ref _bonusTransferStatusEditable,
-                value,
-                nameof(BonusTransferStatusEditable),
-                nameof(AftBonusTransferStatus));
+            private set
+            {
+                if (SetProperty(ref _bonusTransferStatusEditable, value, nameof(BonusTransferStatusEditable)))
+                {
+                    OnPropertyChanged(nameof(AftBonusTransferStatus));
+                }
+            }
         }
 
         /// <summary>
@@ -177,12 +180,10 @@
             {
                 _aftInOutInitialEnabled = GetAftInOutInitiallyEnabled(_isAftInEnabled, IsAftOutEnabled, value);
 
-                SetProperty(
-                    ref _isAftInEnabled,
-                    IsAftSettingsConfigurable && value,
-                    nameof(IsAftInEnabled),
-                    nameof(AftBonusTransferStatus),
-                    nameof(AftPartialTransfersCheckboxEnabled));
+                if (SetProperty(ref _isAftInEnabled, IsAftSettingsConfigurable && value, nameof(IsAftInEnabled)))
+                {
+                    OnPropertyChanged(nameof(AftBonusTransferStatus), nameof(AftPartialTransfersCheckboxEnabled));
+                }
 
                 SetAftTransferLimitState();
 
@@ -200,11 +201,10 @@
             {
                 _aftInOutInitialEnabled = GetAftInOutInitiallyEnabled(IsAftInEnabled, _isAftOutEnabled, value);
 
-                SetProperty(
-                    ref _isAftOutEnabled,
-                    IsAftSettingsConfigurable && value,
-                    nameof(IsAftOutEnabled),
-                    nameof(AftPartialTransfersCheckboxEnabled));
+                if (SetProperty(ref _isAftOutEnabled, IsAftSettingsConfigurable && value, nameof(IsAftOutEnabled)))
+                {
+                    OnPropertyChanged(nameof(AftPartialTransfersCheckboxEnabled));
+                }
 
                 SetAftTransferLimitState();
 
@@ -269,6 +269,7 @@
         /// <summary>
         ///     Gets or sets the AFT transfer limit amount.
         /// </summary>
+        [CustomValidation(typeof(SasFeatureViewModel), nameof(ValidateAftTransferLimit))]
         public decimal AftTransferLimit
         {
             get => _aftTransferLimit;
@@ -278,15 +279,7 @@
                 {
                     PreviousAftTransferLimit = _aftTransferLimit;
                 }
-
-                if (SetProperty(ref _aftTransferLimit, value, nameof(AftTransferLimit)))
-                {
-                    SetError(
-                        nameof(AftTransferLimit),
-                        _aftTransferLimit.Validate(true, MaxTransferLimit.DollarsToMillicents()));
-                }
-
-                RaisePropertyChanged(nameof(AftTransferLimit));
+                SetProperty(ref _aftTransferLimit, value, true);
             }
         }
 
@@ -304,7 +297,7 @@
             set
             {
                 _aftTransferLimitCheckboxEnabled = IsAftSettingsConfigurable && value;
-                RaisePropertyChanged(nameof(AftTransferLimitCheckboxEnabled));
+                OnPropertyChanged(nameof(AftTransferLimitCheckboxEnabled));
             }
         }
 
@@ -326,7 +319,7 @@
 
                 AftTransferLimit = _aftTransferLimitEnabled ? aftTransferLimit : MaxTransferLimit;
 
-                RaisePropertyChanged(nameof(AftTransferLimitEnabled));
+                OnPropertyChanged(nameof(AftTransferLimitEnabled));
             }
         }
 
@@ -433,7 +426,7 @@
 
             set
             {
-                RaisePropertyChanged(nameof(ConfigChangeNotification));
+                OnPropertyChanged(nameof(ConfigChangeNotification));
                 SetProperty(ref _configChangeNotification, value, nameof(ConfigChangeNotification));
             }
         }
@@ -447,7 +440,7 @@
             set
             {
                 _configChangeNotificationIndex = value;
-                RaisePropertyChanged(nameof(ConfigChangeNotificationIndex));
+                OnPropertyChanged(nameof(ConfigChangeNotificationIndex));
             }
         }
 
@@ -492,9 +485,10 @@
             // Assign difference values to trigger property update on UI
             // In a scenario where user decided to go back to Machine Setup page to change currency type, and
             // come back to SAS page, since the amount did not change and it wont trigger property update. We manually do it here.
-            AftTransferLimit = -1;
+            OnPropertyChanged(nameof(AftTransferLimit));
             AftTransferLimit = aftTransferLimit;
             PreviousAftTransferLimit = aftTransferLimit;
+
 
             BonusTransferStatusEditable = settings.BonusTransferStatusEditable;
 
@@ -508,7 +502,7 @@
                 PropertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None) == ImportMachineSettings.None)
             {
                 // Default values
-                Committed = false;
+                IsCommitted = false;
 
                 SelectedValidationItem = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecureEnhancedLabel);
                 SelectedHandpayModeItem = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecureHandpayReporting);
@@ -541,7 +535,7 @@
 
                 // allow the server to override SAS setting
                 _isLegacyBonusEnabled = settings.LegacyBonusAllowed;
-                RaisePropertyChanged(nameof(IsLegacyBonusEnabled));
+                OnPropertyChanged(nameof(IsLegacyBonusEnabled));
             }
 
             CheckNavigation();
@@ -576,7 +570,7 @@
         /// </summary>
         protected override void OnCommitted()
         {
-            if (Committed)
+            if (IsCommitted)
             {
                 return;
             }
@@ -618,7 +612,7 @@
                 GamingConstants.LockupBehavior,
                 reverseActionStrings[_selectedHostDisableCashoutActionItem]);
 
-            Committed = true;
+            IsCommitted = true;
             base.OnCommitted();
             if (restartProtocol)
             {
@@ -783,19 +777,24 @@
             return SasValidationType.None;
         }
 
-        /// <inheritdoc />
-        protected override void SetError(string propertyName, string error)
+        /// <summary>
+        /// Validates the AFT Transfer Limit.
+        /// </summary>
+        /// <param name="aftTransferLimit">The AFT Transfer Limit to validate</param>
+        /// <param name="context">The validation context.</param>
+        /// <returns>ValidationResult</returns>
+        public static ValidationResult ValidateAftTransferLimit(decimal aftTransferLimit, ValidationContext context)
         {
-            if (string.IsNullOrEmpty(error))
+            SasFeatureViewModel instance = (SasFeatureViewModel)context.ObjectInstance;
+            var errors = aftTransferLimit.Validate(true, instance.MaxTransferLimit.DollarsToMillicents());
+
+            if (string.IsNullOrEmpty(errors))
             {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
+                return ValidationResult.Success;
             }
 
-            CheckNavigation();
+            return new(errors);
+
         }
     }
 }

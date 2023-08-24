@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <Import Project="$(MSBuildThisFileDirectory)..\..\..\Build\shared.props" />
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
@@ -50,9 +50,9 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Bingo\Aristocrat.Monaco.Bingo.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.24" />
-    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="1.1.7" />
-    <PackageReference Include="Aristocrat.MVVM" Version="2.0.16" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.26" />
+    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="1.1.8" />
+    <PackageReference Include="Aristocrat.Extensions.CommunityToolkit" Version="0.1.8" />
     <PackageReference Include="CefSharp.Wpf" Version="93.1.140" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />

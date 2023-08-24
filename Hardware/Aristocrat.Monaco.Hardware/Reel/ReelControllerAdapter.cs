@@ -17,7 +17,6 @@
     using Contracts.Reel.Events;
     using Contracts.SerialPorts;
     using Contracts.SharedDevice;
-    using JetBrains.Annotations;
     using Kernel;
     using Kernel.Contracts.Components;
     using log4net;
@@ -26,7 +25,6 @@
         IReelController,
         IStorageAccessor<ReelControllerOptions>
     {
-        private readonly IPersistentStorageManager _storageManager;
         private const string DeviceImplementationsExtensionPath = "/Hardware/ReelController/ReelControllerImplementations";
         private const string OptionsBlock = "Aristocrat.Monaco.Hardware.MechanicalReels.ReelControllerAdapter.Options";
         private const string ReelOffsetsOption = "ReelOffsets";
@@ -37,6 +35,8 @@
 
         private readonly SemaphoreSlim _reelSpinningLock = new(1, 1);
         private readonly ConcurrentDictionary<int, int> _steps = new();
+        private readonly IEventBus _eventBus;
+        private readonly IPersistentStorageManager _storageManager;
 
         private IReelControllerImplementation _reelControllerImplementation;
         private Dictionary<Type, IReelControllerCapability> _supportedCapabilities = new();
@@ -62,6 +62,7 @@
             ISerialPortsService serialPortsService)
             : base(eventBus, componentRegistry, dfuProvider, serialPortsService)
         {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
             _stateManager = new ReelControllerStateManager(eventBus, ReelControllerId, () => Enabled);
         }
@@ -269,6 +270,7 @@
                     Implementation.ControllerFaultOccurred -= ReelControllerFaultOccurred;
                     Implementation.ControllerFaultCleared -= ReelControllerFaultCleared;
                     Implementation.ReelSlowSpinning -= ReelControllerSlowSpinning;
+                    Implementation.ReelStopping -= ReelControllerReelStopping;
                     Implementation.ReelStopped -= ReelControllerReelStopped;
                     Implementation.ReelSpinning -= ReelControllerSpinning;
                     Implementation.Connected -= ReelControllerConnected;
@@ -280,6 +282,14 @@
                     Implementation.HardwareInitialized -= HardwareInitialized;
                     Implementation.Dispose();
                     _reelControllerImplementation = null;
+
+                    foreach (var capability in _supportedCapabilities)
+                    {
+                        capability.Value.Dispose();
+                        _supportedCapabilities[capability.Key] = null;
+                    }
+
+                    _supportedCapabilities.Clear();
                 }
 
                 var stateManager = _stateManager;
@@ -310,6 +320,7 @@
             Implementation.ControllerFaultOccurred += ReelControllerFaultOccurred;
             Implementation.ControllerFaultCleared += ReelControllerFaultCleared;
             Implementation.ReelSlowSpinning += ReelControllerSlowSpinning;
+            Implementation.ReelStopping += ReelControllerReelStopping;
             Implementation.ReelStopped += ReelControllerReelStopped;
             Implementation.ReelSpinning += ReelControllerSpinning;
             Implementation.Connected += ReelControllerConnected;
@@ -412,6 +423,11 @@
             PostEvent(new ReelSpinningStatusUpdatedEvent(e.ReelId, e.SpinVelocity));
         }
 
+        private void ReelControllerReelStopping(object sender, ReelStoppingEventArgs e)
+        {
+            PostEvent(new ReelStoppingEvent(e.ReelId, e.TimeToStop));
+        }
+
         private void ReelControllerReelStopped(object sender, ReelEventArgs e)
         {
             _steps[e.ReelId] = e.Step;
@@ -447,7 +463,8 @@
             _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(
                     _reelControllerImplementation,
                     _stateManager,
-                    _storageManager)
+                    _storageManager,
+                    _eventBus)
                 .ToDictionary(x => x.Key, x => x.Value);
 
             InitializeReels().WaitForCompletion();

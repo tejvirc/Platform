@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -6,16 +6,16 @@
     using System.IO;
     using System.Linq;
     using System.Windows;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Models;
     using Models;
     using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     The View Model used for binding lobby game tabs
     /// </summary>
-    public class GameTabInfoViewModel : BaseViewModel
+    public class GameTabInfoViewModel : ObservableObject
     {
         private const double SubTabsTopMargin = 158;
         private readonly double[] _subTabsLeftMargin = { 350, 650, 950, 1250, 855, 1145 };
@@ -357,17 +357,17 @@
 
         private void UpdateTabInfo()
         {
-            RaisePropertyChanged(nameof(Tabs));
-            RaisePropertyChanged(nameof(TabCount));
-            RaisePropertyChanged(nameof(SelectedTabIndex));
-            RaisePropertyChanged(nameof(SubTabs));
-            RaisePropertyChanged(nameof(SubTabsMargin));
-            RaisePropertyChanged(nameof(SelectedCategory));
-            RaisePropertyChanged(nameof(GameTypes));
+            OnPropertyChanged(nameof(Tabs));
+            OnPropertyChanged(nameof(TabCount));
+            OnPropertyChanged(nameof(SelectedTabIndex));
+            OnPropertyChanged(nameof(SubTabs));
+            OnPropertyChanged(nameof(SubTabsMargin));
+            OnPropertyChanged(nameof(SelectedCategory));
+            OnPropertyChanged(nameof(GameTypes));
         }
     }
 
-    public class GameTabInfo : BaseViewModel
+    public class GameTabInfo : ObservableObject
     {
         private const string TabResourceKeyPrefix = "GameTab";
         private const string LabelResourceKeyPrefix = "Tab";
@@ -392,11 +392,11 @@
                 }
 
                 _enabled = value;
-                RaisePropertyChanged(nameof(Enabled));
-                RaisePropertyChanged(nameof(LabelResourceKey));
-                RaisePropertyChanged(nameof(LabelAnimatedResourcePath));
-                RaisePropertyChanged(nameof(HasAnimatedResource));
-                RaisePropertyChanged(nameof(TabResourceKey));
+                OnPropertyChanged(nameof(Enabled));
+                OnPropertyChanged(nameof(LabelResourceKey));
+                OnPropertyChanged(nameof(LabelAnimatedResourcePath));
+                OnPropertyChanged(nameof(HasAnimatedResource));
+                OnPropertyChanged(nameof(TabResourceKey));
             }
         }
 

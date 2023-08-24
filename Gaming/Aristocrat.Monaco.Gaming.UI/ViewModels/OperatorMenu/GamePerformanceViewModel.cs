@@ -1,4 +1,5 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+using CommunityToolkit.Mvvm.Input;
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -12,6 +13,9 @@
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Monaco.Gaming.Contracts.Rtp;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Meters;
     using Contracts.Models;
@@ -19,8 +23,6 @@
     using Localization.Properties;
     using Models;
     using Monaco.UI.Common.Services;
-    using MVVM;
-    using MVVM.Command;
     using Newtonsoft.Json;
     using Views.OperatorMenu;
 
@@ -60,7 +62,7 @@
         /// </summary>
         public GamePerformanceViewModel()
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
@@ -71,8 +73,8 @@
                 _gameProvider = container.Container.GetInstance<IGameProvider>();
             }
 
-            ShowMoreMetersCommand = new ActionCommand<object>(ShowMoreMetersPressed);
-            SortingCommand = new ActionCommand<DataGridSortingEventArgs>(SortDataGrid);
+            ShowMoreMetersCommand = new RelayCommand<object>(ShowMoreMetersPressed);
+            SortingCommand = new RelayCommand<DataGridSortingEventArgs>(SortDataGrid);
 
             _cache = ServiceManager.GetInstance().GetService<ICache>();
         }
@@ -85,7 +87,7 @@
             set
             {
                 _showGameRtpAsRange = value;
-                RaisePropertyChanged(nameof(ShowGameRtpAsRange));
+                OnPropertyChanged(nameof(ShowGameRtpAsRange));
             }
         }
 
@@ -150,7 +152,7 @@
                 if (_gameData != null)
                 {
                     _gameData.MachineWeightedPayback = value;
-                    RaisePropertyChanged(nameof(MachineWeightedPayback));
+                    OnPropertyChanged(nameof(MachineWeightedPayback));
                 }
             }
         }
@@ -166,7 +168,7 @@
                 if (_gameData != null)
                 {
                     _gameData.MachineActualPayback = value;
-                    RaisePropertyChanged(nameof(MachineActualPayback));
+                    OnPropertyChanged(nameof(MachineActualPayback));
                 }
             }
         }
@@ -182,7 +184,7 @@
                 if (_gameData != null)
                 {
                     _gameData.GamePerformanceItems = value;
-                    RaisePropertyChanged(nameof(GamePerformanceItems));
+                    OnPropertyChanged(nameof(GamePerformanceItems));
                 }
             }
         }
@@ -199,7 +201,7 @@
                 PropertiesManager.SetProperty(GamingConstants.OperatorMenuPerformancePageSelectedGameType, value);
                 UpdateGameThemes();
                 UpdateGamePerformanceItems();
-                RaisePropertyChanged(nameof(SelectedGameType));
+                OnPropertyChanged(nameof(SelectedGameType));
             }
         }
 
@@ -214,7 +216,7 @@
                 if (_gameData != null)
                 {
                     _gameData.GameTypes = value;
-                    RaisePropertyChanged(nameof(GameTypes));
+                    OnPropertyChanged(nameof(GameTypes));
                 }
             }
         }
@@ -247,7 +249,7 @@
                             gameTheme.PropertyChanged += OnThemeSelectionChanged;
                         }
 
-                        RaisePropertyChanged(nameof(GameThemes));
+                        OnPropertyChanged(nameof(GameThemes));
                     }
                 }
             }
@@ -437,12 +439,14 @@
                 decimal totalAmountOut = _gameData.AllGamePerformanceItems.Sum(g => g.AmountOutMillicents);
                 if (totalAmountIn > 0)
                 {
+                    var rtpService = ServiceManager.GetInstance().GetService<IRtpService>();
+
                     MachineActualPayback = 100 * totalAmountOut / totalAmountIn;
 
                     var weightedData = new List<decimal>(
                         allGames.SelectMany(
                             game => game.WagerCategories,
-                            (g, w) => w.TheoPaybackPercent * meterManager.GetMeter(
+                            (g, w) => rtpService.GetRtpBreakdownForWagerCategory(g, w.Id).TotalRtp.Minimum * meterManager.GetMeter(
                                 g.Id,
                                 w.Id,
                                 GamingMeters.WagerCategoryWageredAmount).Lifetime
@@ -457,18 +461,18 @@
                 }
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
-                    RaisePropertyChanged(nameof(GameTypes));
+                    OnPropertyChanged(nameof(GameTypes));
                     SelectedGameType = savedSelectedGameType;
                     UpdateGameThemes();
                     UpdateGamePerformanceItems();
 
-                    RaisePropertyChanged(nameof(HideNeverActive));
-                    RaisePropertyChanged(nameof(HidePreviouslyActive));
-                    RaisePropertyChanged(nameof(MachineWeightedPayback));
-                    RaisePropertyChanged(nameof(MachineActualPayback));
+                    OnPropertyChanged(nameof(HideNeverActive));
+                    OnPropertyChanged(nameof(HidePreviouslyActive));
+                    OnPropertyChanged(nameof(MachineWeightedPayback));
+                    OnPropertyChanged(nameof(MachineActualPayback));
                 });
         }
 

@@ -131,7 +131,7 @@
             </Grid.ColumnDefinitions>
             <TextBox Grid.Column="0"
                      IsReadOnly="False"
-                     Text="{Binding OfflineTimerInterval, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                     Text="{Binding OfflineTimerIntervalSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                      Visibility="{Binding IsProgressiveHost, Converter={StaticResource BooleanToVisibilityConverter}}"
                      Width="Auto"
                      InputScope="Number"

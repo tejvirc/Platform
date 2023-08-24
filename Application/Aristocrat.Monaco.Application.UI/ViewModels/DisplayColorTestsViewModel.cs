@@ -4,13 +4,13 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Media;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
-    using MVVM.Model;
 
     [CLSCompliant(false)]
-    public class DisplayColorTestsViewModel : BaseNotify
+    public class DisplayColorTestsViewModel : ObservableObject
     {
         private static readonly IReadOnlyCollection<Color> GrayScaleColors =
             Enumerable.Range(0, 32).Select(x => (byte)(x * 8)).Select(x => Color.FromArgb(255, x, x, x)).ToList();

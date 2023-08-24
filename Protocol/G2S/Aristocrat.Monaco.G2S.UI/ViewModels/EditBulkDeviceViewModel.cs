@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
+namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -11,7 +11,7 @@
     using G2S;
     using Kernel;
     using Localization.Properties;
-    using MVVM;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     public class EditBulkDeviceViewModel : OperatorMenuSaveViewModelBase
     {
@@ -32,9 +32,9 @@
                 if (_selectedField != value)
                 {
                     _selectedField = value;
-                    RaisePropertyChanged(nameof(SelectedField));
-                    RaisePropertyChanged(nameof(OwnerVisibility));
-                    RaisePropertyChanged(nameof(ActiveVisibility));
+                    OnPropertyChanged(nameof(SelectedField));
+                    OnPropertyChanged(nameof(OwnerVisibility));
+                    OnPropertyChanged(nameof(ActiveVisibility));
                 }
             }
         }
@@ -48,7 +48,7 @@
                 if (_selectedHostId != value)
                 {
                     _selectedHostId = value;
-                    RaisePropertyChanged(nameof(SelectedHostId));
+                    OnPropertyChanged(nameof(SelectedHostId));
                 }
             }
         }
@@ -62,7 +62,7 @@
                 if (_selectedActive != value)
                 {
                     _selectedActive = value;
-                    RaisePropertyChanged(nameof(SelectedActive));
+                    OnPropertyChanged(nameof(SelectedActive));
                 }
             }
         }
@@ -125,7 +125,7 @@
             var operatorMenuEvent = (OperatorMenuEnteredEvent)theEvent;
             if (!operatorMenuEvent.IsTechnicianRole)
             {
-                MvvmHelper.ExecuteOnUI(Cancel);
+                Execute.OnUIThread(Cancel);
             }
         }
     }

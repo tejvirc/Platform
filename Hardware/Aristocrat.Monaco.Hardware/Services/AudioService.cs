@@ -87,7 +87,12 @@
         {
             if (string.IsNullOrWhiteSpace(file))
             {
-                Logger.Error("Unable to load null audio file");
+                if (file is null)
+                {
+                    Logger.Error("Unable to load null audio file");
+                }
+
+                Logger.Debug("Audio file can't load; name not specified");
                 return false;
             }
 
@@ -166,6 +171,12 @@
         /// <inheritdoc />
         public void Stop(string soundFile)
         {
+            if (string.IsNullOrEmpty(soundFile))
+            {
+                Logger.Debug("Audio file can't stop; name not specified");
+                return;
+            }
+
             if (!string.Equals(_currentSoundFile, soundFile))
             {
                 return;
@@ -236,6 +247,12 @@
         /// <inheritdoc />
         public TimeSpan GetLength(string soundFile)
         {
+            if (string.IsNullOrEmpty(soundFile))
+            {
+                Logger.Debug("Audio file can't determine length; name not specified");
+                return TimeSpan.Zero;
+            }
+
             Load(soundFile);
 
             if (!_sounds.TryGetValue(soundFile, out var sound))
@@ -402,6 +419,12 @@
                 {
                     lock (_lock)
                     {
+                        if (string.IsNullOrEmpty(file))
+                        {
+                            Logger.Debug("Audio file can't play; name not specified");
+                            return;
+                        }
+
                         Stop();
 
                         if (!Load(file))

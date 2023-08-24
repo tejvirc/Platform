@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
@@ -9,6 +9,7 @@
     using System.Windows.Input;
     using Application.Settings;
     using Cabinet.Contracts;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.HardwareDiagnostics;
@@ -25,7 +26,6 @@
     using Models;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM.Command;
     using Views;
 
     [CLSCompliant(false)]
@@ -47,12 +47,12 @@
 
         public DisplaysPageViewModel(bool isWizard) : base(isWizard)
         {
-            EnterTouchScreenCommand = new ActionCommand<object>(OnEnterTouchScreenCommand);
-            EnterIdentifyScreenCommand = new ActionCommand<object>(
+            EnterTouchScreenCommand = new RelayCommand<object>(OnEnterTouchScreenCommand);
+            EnterIdentifyScreenCommand = new RelayCommand<object>(
                 OnEnterIdentifyScreenCommand);
-            EnterColorTestCommand = new ActionCommand<object>(
+            EnterColorTestCommand = new RelayCommand<object>(
                 OnEnterColorTestCommand);
-            EnterCalibrateTouchScreenCommand = new ActionCommand<object>(
+            EnterCalibrateTouchScreenCommand = new RelayCommand<object>(
                 OnEnterCalibrateTouchScreenCommand);
             CabinetService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
             SerialTouchService = ServiceManager.GetInstance().GetService<ISerialTouchService>();
@@ -84,7 +84,7 @@
             set
             {
                 SetProperty(ref _testEnabled, value, nameof(TestsEnabled));
-                RaisePropertyChanged(nameof(TouchScreenButtonsEnabled));
+                OnPropertyChanged(nameof(TouchScreenButtonsEnabled));
             }
         }
 
@@ -108,7 +108,7 @@
             set
             {
                 SetProperty(ref _minimumBrightness, value, nameof(MinimumBrightness));
-                RaisePropertyChanged(nameof(MinimumBrightness));
+                OnPropertyChanged(nameof(MinimumBrightness));
             }
         }
 
@@ -118,7 +118,7 @@
             set
             {
                 SetProperty(ref _maximumBrightness, value, nameof(MaximumBrightness));
-                RaisePropertyChanged(nameof(MaximumBrightness));
+                OnPropertyChanged(nameof(MaximumBrightness));
             }
         }
 
@@ -240,8 +240,8 @@
 
         protected override void OnTestModeEnabledChanged()
         {
-            RaisePropertyChanged(nameof(TestsEnabled));
-            RaisePropertyChanged(nameof(TouchScreenButtonsEnabled));
+            OnPropertyChanged(nameof(TestsEnabled));
+            OnPropertyChanged(nameof(TouchScreenButtonsEnabled));
         }
 
         protected override void OnInputStatusChanged()
@@ -437,7 +437,7 @@
                     }
 
                     var screenBounds = WindowToScreenMapper.GetScreenBounds(display.DisplayDevice);
-                    var windowToScreenMapper = new WindowToScreenMapper(display.DisplayDevice.Role, true);
+                    var windowToScreenMapper = new WindowToScreenMapper(display.DisplayDevice.Role, fullscreen: true);
                     var visibleArea = windowToScreenMapper.GetVisibleArea();
                     // Translate the origin of the Visible Area for the global Screen coordinate space to
                     // local relative space. This is needed for ScreenIdentifyWindow as it takes a

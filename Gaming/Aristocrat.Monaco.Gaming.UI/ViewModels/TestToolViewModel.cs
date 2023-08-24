@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -27,11 +27,11 @@
     using Hardware.Contracts.TowerLight;
     using Kernel;
     using Monaco.UI.Common.Controls;
-    using MVVM;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using DisabledEvent = Hardware.Contracts.NoteAcceptor.DisabledEvent;
     using EnabledEvent = Hardware.Contracts.NoteAcceptor.EnabledEvent;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 #if !(RETAIL)
     using Vgt.Client12.Testing.Tools;
 #endif
@@ -39,7 +39,7 @@
     /// <summary>
     ///     Defines the TestToolViewModel class
     /// </summary>
-    public class TestToolViewModel : BaseEntityViewModel
+    public class TestToolViewModel : ObservableObject
     {
         // List of supported currencies and their respective enums can be found here: https://svn.ali.global/WinnersWorldStudio/tools/CSU
         private enum LocationCode : uint
@@ -233,38 +233,38 @@
 
             TimeLimit5Visible = _responsibleGamingMode == ResponsibleGamingMode.Continuous;
 
-            InsertBillCommand = new ActionCommand<object>(InsertBill);
-            InsertVoucherCommand = new ActionCommand<object>(InsertVoucher);
-            CashOutCommand = new ActionCommand<object>(CashOut);
-            SetTimeLimitsCommand = new ActionCommand<object>(SetTimeLimits, CanSetTimeLimits);
-            CreateTimeIntervalCommand = new ActionCommand<object>(CreateTimeInterval, CanCreateTimeInterval);
-            SetElapsedTimeCommand = new ActionCommand<object>(SetElapsedTime, CanSetElapsedTime);
-            SetSessionCountCommand = new ActionCommand<object>(SetSessionCount, CanSetSessionCount);
-            SetResponsibleGamingDialogTimeoutCommand = new ActionCommand<object>(
+            InsertBillCommand = new RelayCommand<object>(InsertBill);
+            InsertVoucherCommand = new RelayCommand<object>(InsertVoucher);
+            CashOutCommand = new RelayCommand<object>(CashOut);
+            SetTimeLimitsCommand = new RelayCommand<object>(SetTimeLimits, CanSetTimeLimits);
+            CreateTimeIntervalCommand = new RelayCommand<object>(CreateTimeInterval, CanCreateTimeInterval);
+            SetElapsedTimeCommand = new RelayCommand<object>(SetElapsedTime, CanSetElapsedTime);
+            SetSessionCountCommand = new RelayCommand<object>(SetSessionCount, CanSetSessionCount);
+            SetResponsibleGamingDialogTimeoutCommand = new RelayCommand<object>(
                 SetResponsibleGamingDialogTimeout,
                 CanSetResponsibleGamingDialogTimeout);
-            FullClearCommand = new ActionCommand<object>(FullClear);
-            PartialClearCommand = new ActionCommand<object>(PartialClear);
-            ResetDefaultsCommand = new ActionCommand<object>(ResetDefaults);
-            TogglePlayerCommand = new ActionCommand<string>(x => TogglePlayer(int.Parse(x)));
+            FullClearCommand = new RelayCommand<object>(FullClear);
+            PartialClearCommand = new RelayCommand<object>(PartialClear);
+            ResetDefaultsCommand = new RelayCommand<object>(ResetDefaults);
+            TogglePlayerCommand = new RelayCommand<string>(x => TogglePlayer(int.Parse(x)));
 
-            AddPlatformMessageCommand = new ActionCommand<object>(AddPlatformMessage, CanUpdatePlatformMessage);
-            RemovePlatformMessageCommand = new ActionCommand<object>(RemovePlatformMessage, CanUpdatePlatformMessage);
-            ClearAllPlatformMessagesCommand = new ActionCommand<object>(ClearAllPlatformMessages, CanUpdatePlatformMessage);
+            AddPlatformMessageCommand = new RelayCommand<object>(AddPlatformMessage, CanUpdatePlatformMessage);
+            RemovePlatformMessageCommand = new RelayCommand<object>(RemovePlatformMessage, CanUpdatePlatformMessage);
+            ClearAllPlatformMessagesCommand = new RelayCommand<object>(ClearAllPlatformMessages, CanUpdatePlatformMessage);
 
-            SetLargeWinLimitCommand = new ActionCommand<object>(OverrideLargeWinLimit);
+            SetLargeWinLimitCommand = new RelayCommand<object>(OverrideLargeWinLimit);
 
-            SetTowerLightFlashStateCommand = new ActionCommand<object>(SetTowerLightFlashState);
+            SetTowerLightFlashStateCommand = new RelayCommand<object>(SetTowerLightFlashState);
 
             InitTowerLightComboBoxes();
 
             IsAuditMenuWindowSelected = true;
 
             // InfoBar Tab
-            DisplayInfoBarMessageCommand = new ActionCommand<object>(_ => DisplayInfoBarMessage());
-            DisplayInfoBarDoubleMessageCommand = new ActionCommand<object>(_ => DisplayInfoBarDoubleMessage());
-            DisplayInfoBarStaticMessageCommand = new ActionCommand<object>(_ => DisplayInfoBarStaticMessage());
-            CloseInfoBarCommand = new ActionCommand<object>(_ => CloseInfoBar());
+            DisplayInfoBarMessageCommand = new RelayCommand<object>(_ => DisplayInfoBarMessage());
+            DisplayInfoBarDoubleMessageCommand = new RelayCommand<object>(_ => DisplayInfoBarDoubleMessage());
+            DisplayInfoBarStaticMessageCommand = new RelayCommand<object>(_ => DisplayInfoBarStaticMessage());
+            CloseInfoBarCommand = new RelayCommand<object>(_ => CloseInfoBar());
             SelectedInfoBarFontColor = InfoBarColor.White.ToString();
             SelectedInfoBarBackgroundColor = InfoBarColor.Black.ToString();
             SelectedInfoBarRegion = InfoBarRegion.Center.ToString();
@@ -272,12 +272,12 @@
             InfoBarMessage = "This is a test message ABC 123...";
 
             // Card Reader
-            InsertCardCommand = new ActionCommand<object>(_ => InsertCard());
-            RemoveCardCommand = new ActionCommand<object>(_ => RemoveCard());
+            InsertCardCommand = new RelayCommand<object>(_ => InsertCard());
+            RemoveCardCommand = new RelayCommand<object>(_ => RemoveCard());
 
             // Currency
-            CurrencySwitchUsingCountryCommand = new ActionCommand<object>(_ => CurrencySwitchUsingCountry());
-            CurrencySwitchUsingEnumCommand = new ActionCommand<object>(_ => CurrencySwitchUsingEnum());
+            CurrencySwitchUsingCountryCommand = new RelayCommand<object>(_ => CurrencySwitchUsingCountry());
+            CurrencySwitchUsingEnumCommand = new RelayCommand<object>(_ => CurrencySwitchUsingEnum());
 
             SetDefaults();
 
@@ -314,17 +314,17 @@
                     RelmReelIndexes.Add(idx);
                 }
 
-                RelmReelTamperCommand = new ActionCommand<object>(_ => HandleRelmReelTest(new ReelStatus { ReelTampered = true, Connected = true }));
-                RelmReelStallCommand = new ActionCommand<object>(_ => HandleRelmReelTest(new ReelStatus { ReelStall = true, Connected = true }));
-                RelmReelIdleUnknownCommand = new ActionCommand<object>(_ => HandleRelmReelTest(new ReelStatus { IdleUnknown = true, Connected = true }));
-                RelmReelUnknownStopCommand = new ActionCommand<object>(_ => HandleRelmReelTest(new ReelStatus { UnknownStop = true, Connected = true }));
-                RelmReelOpticSequenceErrorCommand = new ActionCommand<object>(_ => HandleRelmReelTest(new ReelStatus { OpticSequenceError = true, Connected = true }));
-                RelmReelDisconnectReelCommand = new ActionCommand<object>(_ => HandleRelmReelTest(new ReelStatus { Connected = false }));
-                RelmReelEventQueueFullCommand = new ActionCommand<object>(_ => _eventBus.Publish(new TestToolRelmReelErrorEvent { IsEventQueueFull = true }));
-                RelmReelLightFailureCommand = new ActionCommand<object>(_ => _eventBus.Publish(new TestToolRelmReelErrorEvent { LightStatus = new LightStatus(1, true) }));
-                RelmReelPingTimeoutCommand = new ActionCommand<object>(_ => _eventBus.Publish(new TestToolRelmReelErrorEvent { PingTimeout = true }));
-                RelmReelClearPingTimeoutCommand = new ActionCommand<object>(_ => _eventBus.Publish(new TestToolRelmReelErrorEvent { ClearPingTimeout = true }));
-                RelmReelClearErrorsCommand = new ActionCommand<object>(_ =>
+                RelmReelTamperCommand = new RelayCommand<object>(_ => HandleRelmReelTest(new ReelStatus { ReelTampered = true, Connected = true }));
+                RelmReelStallCommand = new RelayCommand<object>(_ => HandleRelmReelTest(new ReelStatus { ReelStall = true, Connected = true }));
+                RelmReelIdleUnknownCommand = new RelayCommand<object>(_ => HandleRelmReelTest(new ReelStatus { IdleUnknown = true, Connected = true }));
+                RelmReelUnknownStopCommand = new RelayCommand<object>(_ => HandleRelmReelTest(new ReelStatus { UnknownStop = true, Connected = true }));
+                RelmReelOpticSequenceErrorCommand = new RelayCommand<object>(_ => HandleRelmReelTest(new ReelStatus { OpticSequenceError = true, Connected = true }));
+                RelmReelDisconnectReelCommand = new RelayCommand<object>(_ => HandleRelmReelTest(new ReelStatus { Connected = false }));
+                RelmReelEventQueueFullCommand = new RelayCommand<object>(_ => _eventBus.Publish(new TestToolRelmReelErrorEvent { IsEventQueueFull = true }));
+                RelmReelLightFailureCommand = new RelayCommand<object>(_ => _eventBus.Publish(new TestToolRelmReelErrorEvent { LightStatus = new LightStatus(1, true) }));
+                RelmReelPingTimeoutCommand = new RelayCommand<object>(_ => _eventBus.Publish(new TestToolRelmReelErrorEvent { PingTimeout = true }));
+                RelmReelClearPingTimeoutCommand = new RelayCommand<object>(_ => _eventBus.Publish(new TestToolRelmReelErrorEvent { ClearPingTimeout = true }));
+                RelmReelClearErrorsCommand = new RelayCommand<object>(_ =>
                 {
                     var evt = new TestToolRelmReelErrorEvent
                     {
@@ -346,7 +346,7 @@
             set
             {
                 _bellBrush = value;
-                RaisePropertyChanged(nameof(BellColor));
+                OnPropertyChanged(nameof(BellColor));
             }
         }
 
@@ -454,20 +454,20 @@
         /// </summary>
         public ICommand CashOutCommand { get; }
 
-        public ActionCommand<object> SetLargeWinLimitCommand { get; }
+        public RelayCommand<object> SetLargeWinLimitCommand { get; }
 
         /// <summary>
         ///     Gets the set time limits command
         /// </summary>
-        public ActionCommand<object> SetTimeLimitsCommand { get; }
+        public RelayCommand<object> SetTimeLimitsCommand { get; }
 
-        public ActionCommand<object> CreateTimeIntervalCommand { get; }
+        public RelayCommand<object> CreateTimeIntervalCommand { get; }
 
-        public ActionCommand<object> SetElapsedTimeCommand { get; }
+        public RelayCommand<object> SetElapsedTimeCommand { get; }
 
-        public ActionCommand<object> SetSessionCountCommand { get; }
+        public RelayCommand<object> SetSessionCountCommand { get; }
 
-        public ActionCommand<object> SetResponsibleGamingDialogTimeoutCommand { get; }
+        public RelayCommand<object> SetResponsibleGamingDialogTimeoutCommand { get; }
 
         public ICommand DisplayInfoBarMessageCommand { get; }
 
@@ -489,9 +489,9 @@
 
         public ICommand TogglePlayerCommand { get; set; }
 
-        public ActionCommand<object> AddPlatformMessageCommand { get; }
+        public RelayCommand<object> AddPlatformMessageCommand { get; }
 
-        public ActionCommand<object> RemovePlatformMessageCommand { get; }
+        public RelayCommand<object> RemovePlatformMessageCommand { get; }
 
         public ICommand ClearAllPlatformMessagesCommand { get; }
 
@@ -521,7 +521,7 @@
                 if (_largeWinLimit != value)
                 {
                     _largeWinLimit = value;
-                    RaisePropertyChanged((nameof(LargeWinLimit)));
+                    OnPropertyChanged((nameof(LargeWinLimit)));
                 }
             }
         }
@@ -535,8 +535,8 @@
                 if (_timeLimit1 != value)
                 {
                     _timeLimit1 = value;
-                    RaisePropertyChanged(nameof(TimeLimit1));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(TimeLimit1));
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -550,8 +550,8 @@
                 if (_timeLimit2 != value)
                 {
                     _timeLimit2 = value;
-                    RaisePropertyChanged(nameof(TimeLimit2));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(TimeLimit2));
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -565,8 +565,8 @@
                 if (_timeLimit3 != value)
                 {
                     _timeLimit3 = value;
-                    RaisePropertyChanged(nameof(TimeLimit3));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(TimeLimit3));
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -580,8 +580,8 @@
                 if (_timeLimit4 != value)
                 {
                     _timeLimit4 = value;
-                    RaisePropertyChanged(nameof(TimeLimit4));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(TimeLimit4));
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -595,8 +595,8 @@
                 if (_timeLimit5 != value)
                 {
                     _timeLimit5 = value;
-                    RaisePropertyChanged(nameof(TimeLimit5));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(TimeLimit5));
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -610,7 +610,7 @@
                 if (_timeLimit1Set != value)
                 {
                     _timeLimit1Set = value;
-                    RaisePropertyChanged(nameof(TimeLimit1Set));
+                    OnPropertyChanged(nameof(TimeLimit1Set));
                 }
             }
         }
@@ -624,7 +624,7 @@
                 if (_timeLimit2Set != value)
                 {
                     _timeLimit2Set = value;
-                    RaisePropertyChanged(nameof(TimeLimit2Set));
+                    OnPropertyChanged(nameof(TimeLimit2Set));
                 }
             }
         }
@@ -638,7 +638,7 @@
                 if (_timeLimit3Set != value)
                 {
                     _timeLimit3Set = value;
-                    RaisePropertyChanged(nameof(TimeLimit3Set));
+                    OnPropertyChanged(nameof(TimeLimit3Set));
                 }
             }
         }
@@ -652,7 +652,7 @@
                 if (_timeLimit4Set != value)
                 {
                     _timeLimit4Set = value;
-                    RaisePropertyChanged(nameof(TimeLimit4Set));
+                    OnPropertyChanged(nameof(TimeLimit4Set));
                 }
             }
         }
@@ -666,7 +666,7 @@
                 if (_timeLimit5Set != value)
                 {
                     _timeLimit5Set = value;
-                    RaisePropertyChanged(nameof(TimeLimit5Set));
+                    OnPropertyChanged(nameof(TimeLimit5Set));
                 }
             }
         }
@@ -680,8 +680,8 @@
                 if (_playBreak1 != value)
                 {
                     _playBreak1 = value;
-                    RaisePropertyChanged(nameof(PlayBreak1));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(PlayBreak1));
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -695,8 +695,8 @@
                 if (_playBreak2 != value)
                 {
                     _playBreak2 = value;
-                    RaisePropertyChanged(nameof(PlayBreak2));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(PlayBreak2));
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -710,8 +710,8 @@
                 if (_playBreak3 != value)
                 {
                     _playBreak3 = value;
-                    RaisePropertyChanged(nameof(PlayBreak3));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(PlayBreak3));
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -725,8 +725,8 @@
                 if (_playBreak4 != value)
                 {
                     _playBreak4 = value;
-                    RaisePropertyChanged(nameof(PlayBreak4));
-                    SetTimeLimitsCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(PlayBreak4));
+                    SetTimeLimitsCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -740,7 +740,7 @@
                 if (_playBreak1Set != value)
                 {
                     _playBreak1Set = value;
-                    RaisePropertyChanged(nameof(PlayBreak1Set));
+                    OnPropertyChanged(nameof(PlayBreak1Set));
                 }
             }
         }
@@ -754,7 +754,7 @@
                 if (_playBreak2Set != value)
                 {
                     _playBreak2Set = value;
-                    RaisePropertyChanged(nameof(PlayBreak2Set));
+                    OnPropertyChanged(nameof(PlayBreak2Set));
                 }
             }
         }
@@ -768,7 +768,7 @@
                 if (_playBreak3Set != value)
                 {
                     _playBreak3Set = value;
-                    RaisePropertyChanged(nameof(PlayBreak3Set));
+                    OnPropertyChanged(nameof(PlayBreak3Set));
                 }
             }
         }
@@ -782,7 +782,7 @@
                 if (_playBreak4Set != value)
                 {
                     _playBreak4Set = value;
-                    RaisePropertyChanged(nameof(PlayBreak4Set));
+                    OnPropertyChanged(nameof(PlayBreak4Set));
                 }
             }
         }
@@ -796,8 +796,8 @@
                 if (_timeLimitInterval != value)
                 {
                     _timeLimitInterval = value;
-                    RaisePropertyChanged(nameof(TimeLimitInterval));
-                    CreateTimeIntervalCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(TimeLimitInterval));
+                    CreateTimeIntervalCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -811,7 +811,7 @@
                 if (_timeLimit5Visible != value)
                 {
                     _timeLimit5Visible = value;
-                    RaisePropertyChanged(nameof(TimeLimit5Visible));
+                    OnPropertyChanged(nameof(TimeLimit5Visible));
                 }
             }
         }
@@ -825,7 +825,7 @@
                 if (_isTimeInSeconds != value)
                 {
                     _isTimeInSeconds = value;
-                    RaisePropertyChanged(nameof(IsTimeInSeconds));
+                    OnPropertyChanged(nameof(IsTimeInSeconds));
                     RecalculateTimes(!value);
                 }
             }
@@ -840,8 +840,8 @@
                 if (_elapsedTime != value)
                 {
                     _elapsedTime = value;
-                    RaisePropertyChanged(nameof(ElapsedTime));
-                    SetElapsedTimeCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(ElapsedTime));
+                    SetElapsedTimeCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -855,7 +855,7 @@
                 if (_elapsedTimeSet != value)
                 {
                     _elapsedTimeSet = value;
-                    RaisePropertyChanged(nameof(ElapsedTimeSet));
+                    OnPropertyChanged(nameof(ElapsedTimeSet));
                 }
             }
         }
@@ -869,8 +869,8 @@
                 if (_sessionCount != value)
                 {
                     _sessionCount = value;
-                    RaisePropertyChanged(nameof(SessionCount));
-                    SetSessionCountCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(SessionCount));
+                    SetSessionCountCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -884,7 +884,7 @@
                 if (_sessionCountSet != value)
                 {
                     _sessionCountSet = value;
-                    RaisePropertyChanged(nameof(SessionCountSet));
+                    OnPropertyChanged(nameof(SessionCountSet));
                 }
             }
         }
@@ -898,8 +898,8 @@
                 if (_responsibleGamingDialogTimeout != value)
                 {
                     _responsibleGamingDialogTimeout = value;
-                    RaisePropertyChanged(nameof(ResponsibleGamingDialogTimeout));
-                    SetResponsibleGamingDialogTimeoutCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(ResponsibleGamingDialogTimeout));
+                    SetResponsibleGamingDialogTimeoutCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -913,7 +913,7 @@
                 if (_responsibleGamingDialogTimeoutSet != value)
                 {
                     _responsibleGamingDialogTimeoutSet = value;
-                    RaisePropertyChanged(nameof(ResponsibleGamingDialogTimeoutSet));
+                    OnPropertyChanged(nameof(ResponsibleGamingDialogTimeoutSet));
                 }
             }
         }
@@ -927,8 +927,8 @@
                 if (_addPlatformMessage != value)
                 {
                     _addPlatformMessage = value;
-                    RaisePropertyChanged(nameof(AddPlatformMessageText));
-                    AddPlatformMessageCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(AddPlatformMessageText));
+                    AddPlatformMessageCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -942,8 +942,8 @@
                 if (_removePlatformMessage != value)
                 {
                     _removePlatformMessage = value;
-                    RaisePropertyChanged(nameof(RemovePlatformMessageText));
-                    RemovePlatformMessageCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(RemovePlatformMessageText));
+                    RemovePlatformMessageCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -957,7 +957,7 @@
                 if (_currencySwitchStatusText != value)
                 {
                     _currencySwitchStatusText = value;
-                    RaisePropertyChanged(nameof(CurrencySwitchStatusText));
+                    OnPropertyChanged(nameof(CurrencySwitchStatusText));
                 }
             }
         }
@@ -979,7 +979,7 @@
                 if (_isTowerLightOn1 != value)
                 {
                     _isTowerLightOn1 = value;
-                    RaisePropertyChanged(nameof(IsTowerLightOn1));
+                    OnPropertyChanged(nameof(IsTowerLightOn1));
                 }
             }
         }
@@ -993,7 +993,7 @@
                 if (_isTowerLightOn2 != value)
                 {
                     _isTowerLightOn2 = value;
-                    RaisePropertyChanged(nameof(IsTowerLightOn2));
+                    OnPropertyChanged(nameof(IsTowerLightOn2));
                 }
             }
         }
@@ -1007,7 +1007,7 @@
                 if (_isTowerLightOn3 != value)
                 {
                     _isTowerLightOn3 = value;
-                    RaisePropertyChanged(nameof(IsTowerLightOn3));
+                    OnPropertyChanged(nameof(IsTowerLightOn3));
                 }
             }
         }
@@ -1021,7 +1021,7 @@
                 if (_isTowerLightOn4 != value)
                 {
                     _isTowerLightOn4 = value;
-                    RaisePropertyChanged(nameof(IsTowerLightOn4));
+                    OnPropertyChanged(nameof(IsTowerLightOn4));
                 }
             }
         }
@@ -1035,7 +1035,7 @@
                 if (_towerLightFlashStatus1 != value)
                 {
                     _towerLightFlashStatus1 = value;
-                    RaisePropertyChanged(nameof(TowerLightFlashStatus1));
+                    OnPropertyChanged(nameof(TowerLightFlashStatus1));
                 }
             }
         }
@@ -1049,7 +1049,7 @@
                 if (_towerLightFlashStatus2 != value)
                 {
                     _towerLightFlashStatus2 = value;
-                    RaisePropertyChanged(nameof(TowerLightFlashStatus2));
+                    OnPropertyChanged(nameof(TowerLightFlashStatus2));
                 }
             }
         }
@@ -1063,7 +1063,7 @@
                 if (_towerLightFlashStatus3 != value)
                 {
                     _towerLightFlashStatus3 = value;
-                    RaisePropertyChanged(nameof(TowerLightFlashStatus3));
+                    OnPropertyChanged(nameof(TowerLightFlashStatus3));
                 }
             }
         }
@@ -1077,7 +1077,7 @@
                 if (_towerLightFlashStatus4 != value)
                 {
                     _towerLightFlashStatus4 = value;
-                    RaisePropertyChanged(nameof(TowerLightFlashStatus4));
+                    OnPropertyChanged(nameof(TowerLightFlashStatus4));
                 }
             }
         }
@@ -1094,7 +1094,7 @@
                 }
 
                 _infoBarMessage = value;
-                RaisePropertyChanged(nameof(InfoBarMessage));
+                OnPropertyChanged(nameof(InfoBarMessage));
             }
         }
 
@@ -1118,7 +1118,7 @@
                 }
 
                 _selectedCountry = value;
-                RaisePropertyChanged(nameof(SelectedCountry));
+                OnPropertyChanged(nameof(SelectedCountry));
             }
         }
 
@@ -1134,7 +1134,7 @@
                 }
 
                 _eNumValue = value;
-                RaisePropertyChanged(nameof(EnumValue));
+                OnPropertyChanged(nameof(EnumValue));
             }
         }
 
@@ -1150,7 +1150,7 @@
                 }
 
                 _selectedInfoBarFontColor = value;
-                RaisePropertyChanged(nameof(SelectedInfoBarFontColor));
+                OnPropertyChanged(nameof(SelectedInfoBarFontColor));
             }
         }
 
@@ -1166,7 +1166,7 @@
                 }
 
                 _selectedInfoBarBackgroundColor = value;
-                RaisePropertyChanged(nameof(SelectedInfoBarBackgroundColor));
+                OnPropertyChanged(nameof(SelectedInfoBarBackgroundColor));
             }
         }
 
@@ -1182,7 +1182,7 @@
                 }
 
                 _selectedInfoBarRegion = value;
-                RaisePropertyChanged(nameof(SelectedInfoBarRegion));
+                OnPropertyChanged(nameof(SelectedInfoBarRegion));
             }
         }
 
@@ -1198,7 +1198,7 @@
                 }
 
                 _selectedInfoBarLocation = value;
-                RaisePropertyChanged(nameof(SelectedInfoBarRegion));
+                OnPropertyChanged(nameof(SelectedInfoBarRegion));
             }
         }
 
@@ -1216,7 +1216,7 @@
                 }
 
                 _noteAcceptorEnabled = value;
-                RaisePropertyChanged(nameof(NoteAcceptorEnabled));
+                OnPropertyChanged(nameof(NoteAcceptorEnabled));
             }
         }
 
@@ -1232,7 +1232,7 @@
                 if (_isAuditMenuWindowSelected != value)
                 {
                     _isAuditMenuWindowSelected = value;
-                    RaisePropertyChanged(nameof(IsAuditMenuWindowSelected));
+                    OnPropertyChanged(nameof(IsAuditMenuWindowSelected));
                 }
             }
         }
@@ -1245,7 +1245,7 @@
                 if (_isLobbyWindowSelected != value)
                 {
                     _isLobbyWindowSelected = value;
-                    RaisePropertyChanged(nameof(IsLobbyWindowSelected));
+                    OnPropertyChanged(nameof(IsLobbyWindowSelected));
                 }
             }
         }
@@ -1258,7 +1258,7 @@
                 if (_isRgDialogSelected != value)
                 {
                     _isRgDialogSelected = value;
-                    RaisePropertyChanged(nameof(IsRgDialogSelected));
+                    OnPropertyChanged(nameof(IsRgDialogSelected));
                 }
             }
         }
@@ -1283,7 +1283,7 @@
                 }
 
                 _selectedMagneticCard = value;
-                RaisePropertyChanged(nameof(SelectedMagneticCard));
+                OnPropertyChanged(nameof(SelectedMagneticCard));
                 Track1Data = SelectedMagneticCard.Track1;
             }
         }
@@ -1300,7 +1300,7 @@
                 }
 
                 _track1Data = value;
-                RaisePropertyChanged(nameof(Track1Data));
+                OnPropertyChanged(nameof(Track1Data));
             }
         }
 
@@ -1310,7 +1310,7 @@
             set
             {
                 _cardStatusText = value;
-                RaisePropertyChanged(nameof(CardStatusText));
+                OnPropertyChanged(nameof(CardStatusText));
             }
         }
 
@@ -1320,7 +1320,7 @@
             set
             {
                 _relmTabVisible = value;
-                RaisePropertyChanged(nameof(RelmTabVisible));
+                OnPropertyChanged(nameof(RelmTabVisible));
             }
         }
 
@@ -1330,7 +1330,7 @@
             set
             {
                 _relmReelIndexes = value;
-                RaisePropertyChanged(nameof(RelmReelIndexes));
+                OnPropertyChanged(nameof(RelmReelIndexes));
             }
         }
 
@@ -1344,8 +1344,8 @@
                     return;
                 }
                 _selectedRelmReel = value;
-                RaisePropertyChanged(nameof(SelectedRelmReel));
-                RaisePropertyChanged(nameof(RelmReelControlsEnabled));
+                OnPropertyChanged(nameof(SelectedRelmReel));
+                OnPropertyChanged(nameof(RelmReelControlsEnabled));
             }
         }
 
@@ -1892,7 +1892,7 @@
             // Display message box with print data -- this can only come from the Fake printer
             if (_properties.GetValue("DisplayFakePrinterTickets", "false") == "true")
             {
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     if (evt.TicketText == null)
                     {

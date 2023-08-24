@@ -5,12 +5,12 @@
     using Kernel;
     using System;
     using System.Linq;
-    using System.Windows.Controls;
     using Contracts.Localization;
     using Contracts.Protocol;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
     using Monaco.UI.Common.Models;
+    using System.ComponentModel.DataAnnotations;
 
     [CLSCompliant(false)]
     public class MachineSetupViewModelBase : InspectionWizardViewModelBase
@@ -18,6 +18,7 @@
         protected bool ProtocolIsSAS;
         public LiveStringSetting SerialNumber { get; private set; }
 
+        [CustomValidation(typeof(MachineSetupViewModelBase), nameof(ValidateAssetNumber))]
         public LiveStringSetting AssetNumber { get; private set; }
 
         public MachineSetupViewModelBase(bool isWizardPage) : base(isWizardPage)
@@ -25,11 +26,11 @@
             SerialNumber = new LiveStringSetting(this, nameof(SerialNumber))
             {
                 IsQuiet = isWizardPage,
-                CharacterCasing = CharacterCasing.Upper,
+                CharacterCasing = System.Windows.Controls.CharacterCasing.Upper,
                 IsAlphaNumeric = true,
                 OnChanged = _ =>
                 {
-                    RaisePropertyChanged(nameof(SerialNumberWarningEnabled));
+                    OnPropertyChanged(nameof(SerialNumberWarningEnabled));
                     SetWarningText();
                     ValidateSerialNumber();
                 },
@@ -38,7 +39,7 @@
             AssetNumber = new LiveStringSetting(this, nameof(AssetNumber))
             {
                 IsQuiet = isWizardPage,
-                CharacterCasing = CharacterCasing.Upper,
+                CharacterCasing = System.Windows.Controls.CharacterCasing.Upper,
                 IsAlphaNumeric = false,
                 OnEditing = (setting, value) =>
                     !string.IsNullOrEmpty(value) && value[0] == '0' // forbid leading '0' (legacy)
@@ -46,9 +47,9 @@
                         : value,
                 OnChanged = _ =>
                 {
-                    RaisePropertyChanged(nameof(AssetNumberWarningEnabled));
+                    OnPropertyChanged(nameof(AssetNumberWarningEnabled));
                     SetWarningText();
-                    ValidateAssetNumber();
+                    ValidateProperty(AssetNumber, nameof(AssetNumber));
                 },
             };
 
@@ -92,18 +93,17 @@
             // require Serial Number to not be empty in the future
         }
 
-        private void ValidateAssetNumber()
+        public static ValidationResult ValidateAssetNumber(LiveSetting<string> assetNumber, ValidationContext context)
         {
-            var setting = AssetNumber;
+            var instance = (MachineSetupViewModelBase)context.ObjectInstance;
+            var setting = assetNumber;
             var name = setting.Name;
             var v = setting.EditedValue;
-            var error = ProtocolIsSAS && !v.IsEmpty() && !uint.TryParse(v, out _)
+            var error = instance.ProtocolIsSAS && !v.IsEmpty() && !uint.TryParse(v, out _)
                 ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ValueOutOfRangeForProtocolSas)
                 : null;
             setting.ValidationErrors = new[] { error };
-            ClearErrors(name);
-            SetError(name, error);
-            RaisePropertyChanged(name);
+            return string.IsNullOrEmpty(error) ? ValidationResult.Success : new(error);
         }
 
         protected override void SaveChanges()
@@ -164,18 +164,6 @@
             }
 
             base.LoadAutoConfiguration();
-        }
-
-        protected override void SetError(string propertyName, string error)
-        {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
         }
     }
 }

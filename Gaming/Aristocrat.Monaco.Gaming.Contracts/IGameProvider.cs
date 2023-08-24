@@ -1,6 +1,10 @@
-﻿namespace Aristocrat.Monaco.Gaming.Contracts
+namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using System.Collections.Generic;
+    using Aristocrat.PackageManifest.Extension.v100;
+    using Models;
+    using PackageManifest.Models;
+    using Rtp;
 
     /// <summary>
     ///     Provides a mechanism to retrieve and interact with the available games.
@@ -47,10 +51,39 @@
         IReadOnlyCollection<IGameCombo> GetGameCombos();
 
         /// <summary>
+        ///     Get the actively running game and denomination
+        /// </summary>
+        /// <returns>Active game and denomination</returns>
+        (IGameDetail game, IDenomination denomination) GetActiveGame();
+
+        /// <summary>
         ///     Gets the collection of enabled sub games for the desired game
         /// </summary>
+        /// <param name="currentGame">The game for which to return the enabled sub games</param>
         /// <returns>A collection of sub game details</returns>
         IReadOnlyCollection<ISubGameDetails> GetEnabledSubGames(IGameDetail currentGame);
+
+        /// <summary>
+        ///     Gets the collection of active sub games for the desired games
+        /// </summary>
+        /// <param name="currentGame">The game for which to return the active sub games</param>
+        /// <returns>A collection of sub game details</returns>
+        IReadOnlyCollection<ISubGameDetails> GetActiveSubGames(IGameDetail currentGame);
+
+        /// <summary>
+        ///     Sets the collection of active sub games for the specified game 
+        /// </summary>
+        /// <param name="primaryGameId">The identifier of the primary game</param>
+        /// <param name="subGames">A collection of sub games to declare active</param>
+        void SetActiveSubGames(int primaryGameId,  IEnumerable<ISubGameDetails> subGames);
+
+        /// <summary>
+        ///     Sets the active denomination for the specified game
+        /// </summary>
+        /// <param name="primaryGameId">The primary game used to find the sub game</param>
+        /// <param name="subGame">The game to set the denomination</param>
+        /// <param name="denomination">The active denomination</param>
+        void SetSubGameActiveDenomination(int primaryGameId, ISubGameDetails subGame, long denomination);
 
         /// <summary>
         ///     Gets the minimum number of mechanical reels needed to run a game

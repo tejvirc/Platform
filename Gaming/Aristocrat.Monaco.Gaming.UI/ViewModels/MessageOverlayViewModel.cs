@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Concurrent;
@@ -7,12 +7,15 @@
     using System.Reflection;
     using System.Text;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Accounting.Contracts.HandCount;
+    using Aristocrat.Cabinet.Contracts;
+    using Aristocrat.Monaco.Hardware.Contracts.Cabinet;
+    using Aristocrat.Monaco.Hardware.Services;
     using Contracts;
     using Contracts.Events;
     using Contracts.Lobby;
@@ -23,13 +26,13 @@
     using Kernel;
     using Localization.Properties;
     using log4net;
-    using MVVM;
-    using MVVM.ViewModel;
     using Utils;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class MessageOverlayViewModel : BaseEntityViewModel
+    public class MessageOverlayViewModel : ObservableObject
     {
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private const string HandPayDisplayKey = "HandPayImage";
         private const string CashoutDisplayKey = "CashOutImage";
@@ -45,12 +48,14 @@
         private readonly ILobbyStateManager _lobbyStateManager;
         private readonly PlayerMenuPopupViewModel _playerMenuPopup;
         private readonly IPlayerInfoDisplayManager _playerInfoDisplayManager;
+        private readonly ICabinetDetectionService _cabinetDetectionService;
 
         private MessageOverlayState _messageOverlayState;
         private bool _isLockupMessageVisible;
         private bool _isReplayRecoveryDlgVisible;
         private bool _isAgeWarningDlgVisible;
         private bool _isResponsibleGamingInfoOverlayDlgVisible;
+        private bool _isSafetyMessageVisible;
         private bool _isOverlayWindowVisible;
 
         /// <summary>
@@ -64,7 +69,8 @@
                 ServiceManager.GetInstance().TryGetService<IContainerService>(),
                 ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().TryGetService<ITransferOutHandler>(),
-                ServiceManager.GetInstance().TryGetService<ISystemDisableManager>())
+                ServiceManager.GetInstance().TryGetService<ISystemDisableManager>(),
+                ServiceManager.GetInstance().TryGetService<ICabinetDetectionService>())
         {
             _playerMenuPopup = playerMenuPopup;
             _playerInfoDisplayManager = playerInfoDisplayManager;
@@ -76,7 +82,8 @@
             IContainerService containerService,
             IPropertiesManager properties,
             ITransferOutHandler transferOutHandler,
-            ISystemDisableManager systemDisableManager)
+            ISystemDisableManager systemDisableManager,
+            ICabinetDetectionService cabinetDetectionService)
         {
             if (containerService == null)
             {
@@ -88,6 +95,7 @@
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _transferOutHandler = transferOutHandler ?? throw new ArgumentNullException(nameof(transferOutHandler));
             _systemDisableManager = systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
+            _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
 
             ReserveOverlayViewModel = new ReserveOverlayViewModel();
 
@@ -145,6 +153,15 @@
         }
 
         /// <summary>
+        ///     Determines if the safety message is visible
+        /// </summary>
+        public bool IsSafetyMessageVisible
+        {
+            get => _isSafetyMessageVisible;
+            set => SetProperty(ref _isSafetyMessageVisible, value);
+        }
+
+        /// <summary>
         ///     Gets a value indicating whether we are cashing out.
         /// </summary>
         public bool IsCashingOutDlgVisible
@@ -190,8 +207,6 @@
         /// </summary>
         public bool IsCashingInDlgVisible { get; set; }
 
-        public bool LastCashOutForcedByMaxBank;
-
         public bool ForceBuildLockupText { get; set; }
 
         public CashInType CashInType { get; set; }
@@ -211,7 +226,7 @@
 
         public void AddHardErrorMessage(DisplayableMessage displayableMessage)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (HardErrorMessages.ContainsKey(displayableMessage.Id))
@@ -228,7 +243,7 @@
 
         public void RemoveHardErrorMessage(DisplayableMessage displayableMessage)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (!HardErrorMessages.TryRemove(displayableMessage.Id, out _))
@@ -261,12 +276,12 @@
                     MessageOverlayData.Text = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherNotification).Replace("\\r\\n", Environment.NewLine);
                     break;
                 case MessageOverlayState.CashOut:
-                    if (LastCashOutForcedByMaxBank && _lobbyStateManager.CashOutState == LobbyCashOutState.Voucher)
+                    if (_lobbyStateManager.IsCashoutForcedByMaxBank && _lobbyStateManager.CashOutState == LobbyCashOutState.Voucher)
                     {
                         ShowPaidMeterForAutoCashout = true;
                     }
 
-                    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, LastCashOutForcedByMaxBank, _lobbyStateManager.CashOutState);
+                    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, _lobbyStateManager.IsCashoutForcedByMaxBank, _lobbyStateManager.CashOutState);
                     messageSent = true;
                     break;
                 case MessageOverlayState.PrintHelpline:
@@ -330,7 +345,7 @@
                         // Include the Printing text as well if we are disabled but still printing,
                         // otherwise the printing message may be delayed until after printing is finished
                         var cashOutData = new MessageOverlayData();
-                        _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, LastCashOutForcedByMaxBank, _lobbyStateManager.CashOutState);
+                        _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, _lobbyStateManager.IsCashoutForcedByMaxBank, _lobbyStateManager.CashOutState);
                         messageSent = true;
 
                         if (!MessageOverlayData.Text.Contains(cashOutData.Text))
@@ -372,12 +387,17 @@
             // Wait until after message data has been re-set instead of updating visibility immediately after clearing it
             // This will prevent message flickering
             HandleOverlayWindowDialogVisibility();
-            RaisePropertyChanged(nameof(MessageOverlayData));
+            OnPropertyChanged(nameof(MessageOverlayData));
         }
 
         public void HandleOverlayWindowDialogVisibility()
         {
             IsLockupMessageVisible = _lobbyStateManager.IsInState(LobbyState.Disabled);
+
+            IsSafetyMessageVisible =
+                IsLockupMessageVisible &&
+                HardErrorMessages.ContainsKey(ApplicationConstants.MainDoorGuid) &&
+                _cabinetDetectionService.Type == CabinetType.Marquis34;
 
             IsReplayRecoveryDlgVisible = _lobbyStateManager.CurrentState == LobbyState.GameLoadingForDiagnostics ||
                                          _lobbyStateManager.CurrentState == LobbyState.GameDiagnostics ||
@@ -424,6 +444,7 @@
                                      IsResponsibleGamingInfoOverlayDlgVisible ||
                                      MessageOverlayData.IsDialogVisible ||
                                      ReserveOverlayViewModel.IsDialogVisible ||
+                                     IsSafetyMessageVisible ||
                                      _playerMenuPopup.IsMenuVisible ||
                                      _playerInfoDisplayManager.IsActive() ||
                                      CustomMainViewElementVisible;
@@ -441,8 +462,9 @@
                          $"ShowProgressiveGameDisabledNotification={ShowProgressiveGameDisabledNotification}, " +
                          $"ShowVoucherNotification={ShowVoucherNotification}, " +
                          $"MessageOverlayData.IsDialogVisible={MessageOverlayData.IsDialogVisible}, " +
-                         $"IsPresentationOverridden={isPresentationOverridden}" +
-                         $"IsOverlayWindowVisible={IsOverlayWindowVisible}, ");
+                         $"IsPresentationOverridden={isPresentationOverridden}, " +
+                         $"IsSafetyMessageVisible={IsSafetyMessageVisible}, " +
+                         $"IsOverlayWindowVisible={IsOverlayWindowVisible}");
         }
 
         private string BuildLockupMessageText()
@@ -558,12 +580,12 @@
             var isCashoutOverridden = _overlayMessageStrategyController.RegisteredPresentations.Contains(
                                           PresentationOverrideTypes.PrintingCashoutTicket) &&
                                       IsCashingOutDlgVisible && _messageOverlayState == MessageOverlayState.CashOut &&
-                                      _lobbyStateManager.CashOutState == LobbyCashOutState.Voucher && !LastCashOutForcedByMaxBank;
+                                      _lobbyStateManager.CashOutState == LobbyCashOutState.Voucher && !_lobbyStateManager.IsCashoutForcedByMaxBank;
 
             var isCashWinOverridden = _overlayMessageStrategyController.RegisteredPresentations.Contains(
                                           PresentationOverrideTypes.PrintingCashwinTicket) &&
                                       IsCashingOutDlgVisible &&
-                                      _messageOverlayState == MessageOverlayState.CashOut && LastCashOutForcedByMaxBank;
+                                      _messageOverlayState == MessageOverlayState.CashOut && _lobbyStateManager.IsCashoutForcedByMaxBank;
 
             var isTransferOutOverridden = _overlayMessageStrategyController.RegisteredPresentations.Contains(
                                               PresentationOverrideTypes.TransferingOutCredits) &&

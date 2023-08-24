@@ -1,7 +1,8 @@
-﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
+namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Windows;
     using System.Windows.Controls.Primitives;
@@ -13,9 +14,9 @@
     using Aristocrat.G2S.Client.Communications;
     using Aristocrat.Monaco.Application.Contracts.Protocol;
     using Aristocrat.Monaco.G2S.Services;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Kernel;
     using Localization.Properties;
-    using MVVM;
     using Constants = Constants;
 
     /// <summary>
@@ -27,15 +28,15 @@
         private readonly string[] _commonVertexHosts = new string[] { };
         private readonly string _originalAddress;
         private readonly int _originalHostId;
-        private readonly TimeSpan _originalOfflineTimerInterval;
-        private readonly TimeSpan _recommendedOfflineTimerInterval;
+        private readonly int _originalOfflineTimerIntervalSeconds;
+        private readonly int _recommendedOfflineTimerIntervalSeconds;
         private readonly bool _originalRegistered;
         private readonly bool _originalRequiredForPlay;
         private readonly bool _originalIsProgressiveHost;
 
         private string _address;
         private int? _hostId;
-        private TimeSpan _offlineTimerInterval;
+        private int _offlineTimerIntervalSeconds;
         private bool _registered;
         private bool _requiredForPlay;
         private bool _isProgressiveHost;
@@ -61,7 +62,7 @@
             bool registered = false,
             bool requiredForPlay = false,
             bool isProgressiveHost = false,
-            double offlineTimerInterval = 30)
+            int offlineTimerIntervalSeconds = 30)
         {
             IsInWizard = isInWizard;
 
@@ -71,14 +72,14 @@
             _originalRegistered = _registered = registered;
             _originalRequiredForPlay = _requiredForPlay = requiredForPlay;
             _originalIsProgressiveHost = _isProgressiveHost = isProgressiveHost;
-            _originalOfflineTimerInterval = TimeSpan.FromSeconds(offlineTimerInterval);
-            _offlineTimerInterval = TimeSpan.FromSeconds(offlineTimerInterval);
-            _recommendedOfflineTimerInterval = TimeSpan.FromSeconds(30);
+            _originalOfflineTimerIntervalSeconds = offlineTimerIntervalSeconds;
+            _offlineTimerIntervalSeconds = offlineTimerIntervalSeconds;
+            _recommendedOfflineTimerIntervalSeconds = 30;
 
 
             IMultiProtocolConfigurationProvider MPCProvider = ServiceManager.GetInstance().TryGetService<IMultiProtocolConfigurationProvider>();
             var G2SConfig = MPCProvider.MultiProtocolConfiguration.FirstOrDefault(c => c.Protocol == CommsProtocol.G2S);
-            if(G2SConfig != null && G2SConfig.IsProgressiveHandled)
+            if (G2SConfig != null && G2SConfig.IsProgressiveHandled)
             {
                 _addressComboBoxVisibility = Visibility.Visible;
                 _specificProgressiveHostCheckboxVisibility = Visibility.Visible;
@@ -98,15 +99,15 @@
         /// <summary>
         ///     Gets or sets the host identifier
         /// </summary>
+        [CustomValidation(typeof(EditHostViewModel), nameof(ValidateHostId))]
         public int? HostId
         {
             get => _hostId;
             set
             {
-                if (SetProperty(ref _hostId, value, nameof(HostId)))
+                if (SetProperty(ref _hostId, value, true))
                 {
-                    ValidateHostId(_hostId);
-                    RaisePropertyChanged(nameof(CanSave));
+                    OnPropertyChanged(nameof(CanSave));
                 }
             }
         }
@@ -114,37 +115,37 @@
         /// <summary>
         ///     Gets or Sets the Progressive Host Offline Check Frequency
         /// </summary>
-        public double OfflineTimerInterval
+        [CustomValidation(typeof(EditHostViewModel), nameof(ValidateOfflineTimerInterval))]
+        public int OfflineTimerIntervalSeconds
         {
-            get => _offlineTimerInterval.TotalSeconds;
+            get => _offlineTimerIntervalSeconds;
             set
             {
-                if (SetProperty(ref _offlineTimerInterval, TimeSpan.FromSeconds(value), nameof(OfflineTimerInterval)))
+                if (SetProperty(ref _offlineTimerIntervalSeconds, value, true))
                 {
-                    ValidateOfflineTimerInterval(value);
-                    RaisePropertyChanged(nameof(CanSave));
+                    OnPropertyChanged(nameof(CanSave));
                 }
-                RaisePropertyChanged(nameof(IsOfflineTimerIntervalUnderRecommended));
+                OnPropertyChanged(nameof(IsOfflineTimerIntervalUnderRecommended));
             }
         }
 
         /// <summary>
         ///     Gets whether the current offline timer interval is under the default recommended 
         /// </summary>
-        public bool IsOfflineTimerIntervalUnderRecommended => _offlineTimerInterval.TotalSeconds < _recommendedOfflineTimerInterval.TotalSeconds;
+        public bool IsOfflineTimerIntervalUnderRecommended => _offlineTimerIntervalSeconds < _recommendedOfflineTimerIntervalSeconds;
 
         /// <summary>
         ///     Gets or sets the host address
         /// </summary>
+        [CustomValidation(typeof(EditHostViewModel), nameof(ValidateAddress))]
         public string Address
         {
             get => _address;
             set
             {
-                if (SetProperty(ref _address, value, nameof(Address)))
+                if (SetProperty(ref _address, value, true))
                 {
-                    ValidateAddress(_address);
-                    RaisePropertyChanged(nameof(CanSave));
+                    OnPropertyChanged(nameof(CanSave));
                 }
             }
         }
@@ -158,7 +159,7 @@
             set
             {
                 _commonAddresses = value;
-                RaisePropertyChanged(nameof(CommonAddresses));
+                OnPropertyChanged(nameof(CommonAddresses));
             }
         }
 
@@ -172,7 +173,7 @@
             {
                 _selectedCommonAddress = value;
                 Address = value.ToString();
-                RaisePropertyChanged(nameof(SelectedCommonAddress));
+                OnPropertyChanged(nameof(SelectedCommonAddress));
             }
         }
 
@@ -182,7 +183,7 @@
             set
             {
                 _addressComboBoxVisibility = value;
-                RaisePropertyChanged(nameof(AddressComboBoxVisibility));
+                OnPropertyChanged(nameof(AddressComboBoxVisibility));
             }
         }
 
@@ -192,7 +193,7 @@
             set
             {
                 _specificProgressiveHostCheckboxVisibility = value;
-                RaisePropertyChanged(nameof(SpecificProgressiveHostCheckboxVisibility));
+                OnPropertyChanged(nameof(SpecificProgressiveHostCheckboxVisibility));
             }
         }
 
@@ -202,7 +203,7 @@
             set
             {
                 _addressTextBoxColumnSpan = value;
-                RaisePropertyChanged(nameof(AddressTextBoxColumnSpan));
+                OnPropertyChanged(nameof(AddressTextBoxColumnSpan));
             }
         }
 
@@ -212,7 +213,13 @@
         public bool Registered
         {
             get => _registered;
-            set => SetProperty(ref _registered, value, nameof(Registered), nameof(CanSave));
+            set
+            {
+                if (SetProperty(ref _registered, value, nameof(Registered)))
+                {
+                    OnPropertyChanged(nameof(CanSave));
+                }
+            }
         }
 
         /// <summary>
@@ -222,7 +229,13 @@
         public bool RequiredForPlay
         {
             get => _requiredForPlay;
-            set => SetProperty(ref _requiredForPlay, value, nameof(RequiredForPlay), nameof(CanSave));
+            set
+            {
+                if (SetProperty(ref _requiredForPlay, value, nameof(RequiredForPlay)))
+                {
+                    OnPropertyChanged(nameof(CanSave));
+                }
+            }
         }
 
         /// <summary>
@@ -233,7 +246,10 @@
             get => _isProgressiveHost;
             set
             {
-                SetProperty(ref _isProgressiveHost, value, nameof(IsProgressiveHost), nameof(CanSave));
+                if (SetProperty(ref _isProgressiveHost, value, nameof(IsProgressiveHost)))
+                {
+                    OnPropertyChanged(nameof(CanSave));
+                }
             }
         }
 
@@ -247,7 +263,7 @@
                        || _originalRegistered != Registered
                        || _originalRequiredForPlay != RequiredForPlay
                        || _originalIsProgressiveHost != IsProgressiveHost
-                       || _originalOfflineTimerInterval.TotalSeconds != OfflineTimerInterval);
+                       || _originalOfflineTimerIntervalSeconds != OfflineTimerIntervalSeconds);
         }
 
         /// <summary>
@@ -262,27 +278,33 @@
         {
             if (!operatorMenuEvent.IsTechnicianRole)
             {
-                MvvmHelper.ExecuteOnUI(Cancel);
+                Execute.OnUIThread(Cancel);
             }
         }
 
-        private void ValidateHostId(int? hostId)
+        public static ValidationResult ValidateHostId(int? hostId, ValidationContext context)
         {
-            ClearErrors(nameof(HostId));
-
-            if (hostId.HasValue && _originalHostId == hostId.Value)
+            var instance = (EditHostViewModel)context.ObjectInstance;
+            instance.ClearErrors(nameof(HostId));
+            var errors = "";
+            if (hostId.HasValue && instance._originalHostId == hostId.Value)
             {
-                return;
+                return ValidationResult.Success;
             }
 
             if (!hostId.HasValue || hostId.Value <= 0)
             {
-                SetError(nameof(HostId), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostIdGreaterThanZero));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostIdGreaterThanZero);
             }
-            else if (HostIdExists(hostId.Value))
+            else if (instance.HostIdExists(hostId.Value))
             {
-                SetError(nameof(HostId), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostExists));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostExists);
             }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private bool HostIdExists(int hostId)
@@ -292,14 +314,21 @@
                 .Any(host => host.Id == hostId);
         }
 
-        private void ValidateAddress(string address)
+        public static ValidationResult ValidateAddress(string address, ValidationContext context)
         {
-            ClearErrors(nameof(Address));
+            var instance = (EditHostViewModel)context.ObjectInstance;
+            var errors = "";
+            instance.ClearErrors(nameof(Address));
 
             if (!IsAddressValid(address))
             {
-                SetError(nameof(Address), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostAddressNotValid));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.HostAddressNotValid);
             }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private static bool IsAddressValid(string address)
@@ -309,14 +338,17 @@
                    && EndpointUtilities.IsSchemeValid(uri);
         }
 
-        private void ValidateOfflineTimerInterval(double seconds)
+        public static ValidationResult ValidateOfflineTimerInterval(double seconds, ValidationContext context)
         {
-            ClearErrors(nameof(OfflineTimerInterval));
+            var instance = (EditHostViewModel)context.ObjectInstance;
+            instance.ClearErrors(nameof(OfflineTimerIntervalSeconds));
 
             if (seconds <= 0)
             {
-                SetError(nameof(OfflineTimerInterval), string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GreaterThanErrorMessage), 0));
+                return new(string.Format(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GreaterThanErrorMessage), 0));
             }
+
+            return ValidationResult.Success;
         }
     }
 }

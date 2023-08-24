@@ -7,6 +7,7 @@
     using Contracts.Reel;
     using Contracts.Reel.Capabilities;
     using Contracts.Reel.ImplementationCapabilities;
+    using Kernel;
 
     internal static class ReelCapabilitiesFactory
     {
@@ -14,7 +15,8 @@
             Type implementationType,
             IReelControllerImplementation controllerImplementation,
             ReelControllerStateManager stateManager,
-            IPersistentStorageManager storageManager)
+            IPersistentStorageManager storageManager,
+			IEventBus eventBus)
         {
             if (implementationType == typeof(IReelBrightnessImplementation))
             {
@@ -44,19 +46,19 @@
             if (implementationType == typeof(IAnimationImplementation))
             {
                 return (typeof(IReelAnimationCapabilities),
-                    new ReelAnimationCapability(controllerImplementation.GetCapability<IAnimationImplementation>(), stateManager));
+                    new ReelAnimationCapability(controllerImplementation.GetCapability<IAnimationImplementation>(), eventBus));
             }
 
             if (implementationType == typeof(ISynchronizationImplementation))
             {
                 return (typeof(IReelSynchronizationCapabilities),
-                    new ReelSynchronizationCapability(controllerImplementation.GetCapability<ISynchronizationImplementation>(), stateManager));
+                    new ReelSynchronizationCapability(controllerImplementation.GetCapability<ISynchronizationImplementation>(), eventBus));
             }
 
             if (implementationType == typeof(IStepperRuleImplementation))
             {
                 return (typeof(IStepperRuleCapabilities),
-                    new StepperRuleCapability(controllerImplementation.GetCapability<IStepperRuleImplementation>(), stateManager));
+                    new StepperRuleCapability(controllerImplementation.GetCapability<IStepperRuleImplementation>(), eventBus));
             }
 
             return (null, null);
@@ -65,7 +67,8 @@
         public static IEnumerable<KeyValuePair<Type, IReelControllerCapability>> CreateAll(
             IReelControllerImplementation implementation,
             ReelControllerStateManager stateManager,
-            IPersistentStorageManager storageManager)
+            IPersistentStorageManager storageManager,
+			IEventBus eventBus)
         {
             List<KeyValuePair<Type, IReelControllerCapability>> capabilities = new();
             foreach (var implementationCapability in implementation.GetCapabilities())
@@ -74,7 +77,8 @@
                     implementationCapability,
                     implementation,
                     stateManager,
-                    storageManager);
+                    storageManager,
+					eventBus);
                 if (capabilityType is not null)
                 {
                     capabilities.Add(new KeyValuePair<Type, IReelControllerCapability>(capabilityType, capability));

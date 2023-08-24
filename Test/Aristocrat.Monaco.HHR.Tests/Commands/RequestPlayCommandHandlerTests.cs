@@ -64,6 +64,8 @@
         private readonly Mock<IProtocolLinkedProgressiveAdapter> _protocolLinkedProgressiveAdapter =
             new Mock<IProtocolLinkedProgressiveAdapter>(MockBehavior.Default);
 
+        private readonly Mock<IGameProvider> _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
+
         private readonly Mock<IRequestTimeoutBehaviorService> _requestTimeoutBehaviorService = new Mock<IRequestTimeoutBehaviorService>(MockBehavior.Strict);
 
         private OutcomeException _outcomeException;
@@ -111,6 +113,8 @@
 
             _serviceManager.Setup(s => s.GetService<IProtocolLinkedProgressiveAdapter>())
                 .Returns(_protocolLinkedProgressiveAdapter.Object);
+            _serviceManager.Setup(s => s.GetService<IGameProvider>())
+                .Returns(_gameProvider.Object);
             _serviceManager.Setup(s => s.GetService<IPropertiesManager>())
                 .Returns(_propertiesManager.Object);
 
@@ -473,6 +477,7 @@
             _propertiesManager.Setup(p => p.GetProperty(GamingConstants.SelectedGameId, It.IsAny<int>())).Returns(1);
             _propertiesManager.Setup(p => p.GetProperty(GamingConstants.Games, It.IsAny<object>())).Returns(new List<IGameDetail> { gameDetail });
 
+            _gameProvider.Setup(p => p.GetActiveGame()).Returns((null, denomination.Object));
         }
     }
 }

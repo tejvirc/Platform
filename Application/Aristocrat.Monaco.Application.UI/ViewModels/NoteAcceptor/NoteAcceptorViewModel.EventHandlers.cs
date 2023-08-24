@@ -103,7 +103,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
                 }
             }
 
-            if (string.IsNullOrEmpty(ValidateBillAcceptanceLimit(BillAcceptanceLimit)))
+            if (!PropertyHasErrors(nameof(BillAcceptanceLimit)))
             {
                 if (PropertiesManager.GetValue(PropertyKey.MaxCreditsIn, ApplicationConstants.DefaultMaxCreditsIn).MillicentsToDollars() !=
                     BillAcceptanceLimit)

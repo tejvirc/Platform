@@ -302,7 +302,7 @@
             
             if (protocol.IsProgressiveHandled)
             {
-                _progressiveDeviceManager.AddProgressiveDevices(initialCreation: true);
+                _progressiveDeviceManager.AddProgressiveDevices();
             }
         }
 

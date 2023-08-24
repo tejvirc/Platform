@@ -13,9 +13,9 @@
     using Contracts.Reel.ControlData;
     using Contracts.Reel.Events;
     using Contracts.SharedDevice;
+    using Extensions.CommunityToolkit;
     using Kernel;
     using log4net;
-    using MVVM;
     using Simulation.HarkeyReels;
     using Simulation.HarkeyReels.Controls;
 
@@ -329,7 +329,7 @@
             Logger.Debug($"Closing Fake Harkey Simulator.");
             if (DeviceType == DeviceType.ReelController)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () => { ReelSimWindow?.Close(); }
                 );
             }
@@ -349,7 +349,7 @@
             usedIds.AddRange(usedTitles.ToList().Select(int.Parse).ToList());
             _id = 1 + usedIds.Max();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     ReelSimWindow = new ReelSetWindow(_id, GamesPath, 0, PackagesPath);

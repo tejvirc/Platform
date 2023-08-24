@@ -60,6 +60,7 @@ Please update the confluence page when new elements and attributes are added.
 
     <FontOverrides>
       <FontOverride RegionIds="107 108 109 110 111 112 134" OriginalFontNumber="008" NewFontNumber="006"/>
+      <FontOverride RegionIds="121 122" OriginalFontNumber="003" NewFontNumber="005" />
       <FontOverride RegionIds="116" OriginalFontNumber="007" NewFontNumber="006" />
       <FontOverride RegionIds="100 101 102" OriginalFontNumber="009" NewFontNumber="006" />
     </FontOverrides>
