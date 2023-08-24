@@ -145,6 +145,7 @@
                 { GamingConstants.WagerLimitsMaxTotalWagerKey, (InitFromStorage(GamingConstants.WagerLimitsMaxTotalWagerKey), true) },
                 { GamingConstants.WagerLimitsUseKey, (InitFromStorage(GamingConstants.WagerLimitsUseKey), true) },
                 { GamingConstants.MaximumGameRoundWinResetWinAmountKey, (InitFromStorage(GamingConstants.MaximumGameRoundWinResetWinAmountKey), true) },
+                { GamingConstants.MaximumGameRoundWinOnMaxWinReachKey, (InitFromStorage(GamingConstants.MaximumGameRoundWinOnMaxWinReachKey), true) },
                 { GamingConstants.VolumeLevelShowInHelpScreenKey, (InitFromStorage(GamingConstants.VolumeLevelShowInHelpScreenKey), true) },
                 { GamingConstants.ServiceUseKey, (InitFromStorage(GamingConstants.ServiceUseKey), true) },
                 { GamingConstants.ClockUseHInDisplayKey, (InitFromStorage(GamingConstants.ClockUseHInDisplayKey), true) },
@@ -347,6 +348,7 @@
                 SetProperty(GamingConstants.WagerLimitsMaxTotalWagerKey, configuration.WagerLimits?.MaxTotalWager ?? GamingConstants.WagerLimitsMaxTotalWager);
                 SetProperty(GamingConstants.WagerLimitsUseKey, configuration.WagerLimits?.Use ?? GamingConstants.WagerLimitsUse);
                 SetProperty(GamingConstants.MaximumGameRoundWinResetWinAmountKey, configuration.MaximumGameRoundWin?.ResetWinAmount ?? GamingConstants.MaximumGameRoundWinResetWinAmount);
+                SetProperty(GamingConstants.MaximumGameRoundWinOnMaxWinReachKey, configuration.MaximumGameRoundWin?.OnMaxWinReach ?? GamingConstants.MaximumGameRoundWinOnMaxWinReachDefault);
                 SetProperty(GamingConstants.VolumeLevelShowInHelpScreenKey, configuration.VolumeLevel?.ShowInHelpScreen ?? GamingConstants.VolumeLevelShowInHelpScreen);
                 SetProperty(GamingConstants.ServiceUseKey, configuration.Service?.Use ?? GamingConstants.ServiceUse);
                 SetProperty(GamingConstants.ClockUseHInDisplayKey, configuration.Clock?.UseHInDisplay ?? GamingConstants.ClockUseHInDisplay);

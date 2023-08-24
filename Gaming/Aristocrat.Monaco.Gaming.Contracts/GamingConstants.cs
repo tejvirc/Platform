@@ -136,6 +136,16 @@
         /// <summary>
         /// 
         /// </summary>
+        public const string MaximumGameRoundWinOnMaxWinReachKey = @"GamePlay.MaximumGameRoundWinOnMaxWinReach";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string MaximumGameRoundWinOnMaxWinReachDefault = @"endGameAfterPresentation";
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const string MaximumGameRoundWinResetWinAmount = "primary";
 
         /// <summary>

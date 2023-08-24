@@ -29,6 +29,7 @@
           <xs:complexType>
             <xs:attribute name="Amount" type="xs:long" use="required" />
             <xs:attribute name="ResetWinAmount" type="xs:string" use="required" />
+            <xs:attribute name="OnMaxWinReach" type="xs:string" use="optional" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="InGamePlay">
