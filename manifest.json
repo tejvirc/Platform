@@ -11880,7 +11880,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.Input.OnScreenKeyboardService.html",
-          "hash": "nKIt0iQKQdYNlRwgiUEL9vq1sLbMIkyu4kmQsTy5w6k="
+          "hash": "qUSIV7Pvu+opgkOTjAEeq26T7M1/clg9vFBJbRJ5aoA="
         }
       },
       "is_incremental": false,
@@ -15679,9 +15679,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -25858,6 +25855,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
