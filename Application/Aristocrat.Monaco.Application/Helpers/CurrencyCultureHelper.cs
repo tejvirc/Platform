@@ -97,7 +97,7 @@
                         foreach (var format in defaults.Formats)
                         {
                             // override the currency format in culture with configured format
-                            OverrideCultureInfoProperties(format, culture);
+                            OverrideCurrencyProperties(format, culture);
 
                             currency = new Currency(currencyInfo.Key, region, culture, format.MinorUnitSymbol);
                             bool hasOverride = false;
@@ -164,7 +164,7 @@
             return set;
         }
 
-        public static void OverrideCultureInfoProperties(ICurrencyFormatOverride overrides, CultureInfo cultureInfo)
+        public static void OverrideCurrencyProperties(ICurrencyFormatOverride overrides, CultureInfo cultureInfo)
         {
             if (overrides?.DecimalDigitsSpecified ?? false)
             {
@@ -196,6 +196,16 @@
             {
                 cultureInfo.NumberFormat.CurrencySymbol = overrides.Symbol;
             }
+        }
+
+        public static void OverrideCurrencyProperties(CultureInfo fromCulture, CultureInfo toCulture)
+        {
+            toCulture.NumberFormat.CurrencyDecimalDigits = fromCulture.NumberFormat.CurrencyDecimalDigits;
+            toCulture.NumberFormat.CurrencyPositivePattern = fromCulture.NumberFormat.CurrencyPositivePattern;
+            toCulture.NumberFormat.CurrencyNegativePattern = fromCulture.NumberFormat.CurrencyNegativePattern;
+            toCulture.NumberFormat.CurrencyDecimalSeparator = fromCulture.NumberFormat.CurrencyDecimalSeparator;
+            toCulture.NumberFormat.CurrencyGroupSeparator = fromCulture.NumberFormat.CurrencyGroupSeparator;
+            toCulture.NumberFormat.CurrencySymbol = fromCulture.NumberFormat.CurrencySymbol;
         }
 
         public static string GetDefaultCurrencyCode(string defaultValue = ApplicationConstants.DefaultCurrencyId)

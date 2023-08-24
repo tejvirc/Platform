@@ -58,13 +58,18 @@
         /// <returns>String of the currency name if found</returns>
         public static string GetCurrencyName(string locale)
         {
-            var region = new RegionInfo(locale);
-
-            var currencyNameArray = region.CurrencyEnglishName.Split(' ');
-
-            if (currencyNameArray.Length > 0)
+            if (string.IsNullOrEmpty(locale))
             {
-                return currencyNameArray[currencyNameArray.Length - 1];
+                return CurrencyExtensions.Currency != null ? CurrencyExtensions.Currency.CurrencyName : string.Empty;
+            }
+            else
+            {
+                var region = new RegionInfo(locale);
+                var currencyNameArray = region.CurrencyEnglishName.Split(' ');
+                if (currencyNameArray.Length > 0)
+                {
+                    return currencyNameArray[currencyNameArray.Length - 1];
+                }
             }
 
             return string.Empty;
@@ -123,22 +128,35 @@
         /// </summary>
         /// <param name="playerTicketLocale">ticket locale</param>
         /// <param name="cultureInfo">currency culture info</param>
+        /// <param name="minorUnits">Minor currency units.</param>
+        /// <param name="minorUnitsPlural">Minor currency units plural form.</param>
+        /// <param name="majorUnits">Major currency units.</param>
+        /// <param name="majorUnitsPlural">Major currency units plural form.</param>
         /// <param name="currencyName">Currency name</param>
         public static void SetCultureInfo(
             string playerTicketLocale,
             CultureInfo cultureInfo,
+            string minorUnits,
+            string minorUnitsPlural,
+            string majorUnits,
+            string majorUnitsPlural,
             string currencyName)
         {
             var cultureData = new CurrencyCultureData(
                 cultureInfo,
                 cultureInfo,
-                string.Empty,
-                String.Empty,
+                string.IsNullOrEmpty(minorUnits)
+                    ? Resources.Cent
+                    : minorUnits,
+                minorUnitsPlural,
                 currencyName,
-                false,
-                false,
+                !string.IsNullOrEmpty(majorUnits),
+                 !string.IsNullOrEmpty(majorUnitsPlural),
                 string.Empty,
                 currencyName);
+            cultureData.MajorUnitsSingular = majorUnits;
+            cultureData.MajorUnitsPlural = majorUnitsPlural;
+
             PlayerTicketToCurrencyCultureDataMap[playerTicketLocale] = cultureData;
         }
 
@@ -164,7 +182,7 @@
             var minorUnits = (int)((amount - majorUnits) * 100);
 
             var textualAmount = majorUnits == 1
-                ? $"{majorUnits.NumberToWords(PlayerTicketCurrencyCultureData.WordsCultureInfo)} {PlayerTicketCurrencyCultureData.CurrencyName}"
+                ? $"{majorUnits.NumberToWords(PlayerTicketCurrencyCultureData.WordsCultureInfo)} {PlayerTicketCurrencyCultureData.MajorUnitsSingular}"
                 : $"{majorUnits.NumberToWords(PlayerTicketCurrencyCultureData.WordsCultureInfo)} {PlayerTicketCurrencyCultureData.MajorUnitsPlural}";
 
             if (PlayerTicketCurrencyCultureData.WordsCultureInfo.NumberFormat.CurrencyDecimalDigits != 0)

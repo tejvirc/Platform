@@ -363,7 +363,7 @@
                 return;
             }
 
-            if (!CurrencyCultureHelper.IsNoCurrency(currencyCode))
+            if (!CurrencyCultureHelper.IsCustomizedCurrency(currencyCode))
             {
                 var minorUnitSymbol =
                     _noteDefinitions != null && _noteDefinitions.Any(
@@ -371,10 +371,9 @@
                         ? _noteDefinitions.First(a => a.Code == currencyCode).MinorUnitSymbol
                         : GetDefaultMinorUnitSymbol(currencyCode);
 
-                var selectedOverride = GetOverrideSelectionFromCurrencyDefaults(valueCultureInfo, currencyCode, ref minorUnitSymbol);
-
+                GetOverrideInformation(valueCultureInfo, currencyCode, ref minorUnitSymbol);
                 var (minorUnits, minorUnitsPlural, pluralizeMajorUnits, pluralizeMinorUnits) =
-                    GetOverrideInformation(wordsCultureInfo, currencyCode, ref minorUnitSymbol, selectedOverride);
+                    GetOverrideInformation(wordsCultureInfo, currencyCode, ref minorUnitSymbol);
 
                 TicketCurrencyExtensions.SetCultureInfo(
                     entry.Locale,
@@ -388,11 +387,26 @@
             }
             else
             {
-                // No currency is configured
+                if (CurrencyExtensions.Currency == null)
+                {
+                    return;
+                }
+
+                string minorUnitSymbol = string.Empty;
+                CurrencyDefaultsCurrencyInfoFormat selectedOverride = null;
+                if (_currencyDefaults.ContainsKey(currencyCode))
+                {
+                    selectedOverride = _currencyDefaults[currencyCode]?.Formats?[0];
+                }
+
                 TicketCurrencyExtensions.SetCultureInfo(
                     entry.Locale,
-                    valueCultureInfo,
-                    NoCurrency.NoCurrencyName);
+                    CurrencyExtensions.Currency.Culture,
+                    selectedOverride?.MinorUnits,
+                    selectedOverride?.MinorUnitsPlural,
+                    selectedOverride?.MajorUnits,
+                    selectedOverride?.MajorUnitsPlural,
+                    CurrencyExtensions.Currency.CurrencyName);
             }
         }
 
@@ -539,7 +553,7 @@
                 minorUnitSymbol = format.MinorUnitSymbol;
             }
 
-            CurrencyCultureHelper.OverrideCultureInfoProperties(format, cultureInfo);
+            CurrencyCultureHelper.OverrideCurrencyProperties(format, cultureInfo);
 
             return (minorUnits, minorUnitsPlural);
         }
@@ -562,7 +576,7 @@
                 ExcludePluralizeUnits(selectedOverride.ExcludePluralizeMinorUnits, ref pluralizeMinorUnits);
             }
 
-            CurrencyCultureHelper.OverrideCultureInfoProperties(selectedOverride, cultureInfo);
+            CurrencyCultureHelper.OverrideCurrencyProperties(selectedOverride, cultureInfo);
 
             if (selectedOverride?.MinorUnitSymbol != null)
             {
@@ -583,33 +597,6 @@
                     }
                 }
             }
-        }
-
-        private CurrencyDefaultsCurrencyInfoFormat GetOverrideSelectionFromCurrencyDefaults(CultureInfo cultureInfo, string currencyCode, ref string minorUnitSymbol)
-        {
-            if (!string.IsNullOrEmpty(currencyCode) && _currencyDefaults.ContainsKey(currencyCode) &&
-                _currencyDefaults[currencyCode] != null)
-            {
-                var currencyDescription = _properties.GetValue(ApplicationConstants.CurrencyDescription, string.Empty);
-
-                var configuredCurrency = GetConfiguredCurrency(currencyCode);
-
-                foreach (var overrides in _currencyDefaults[currencyCode].Formats)
-                {
-                    overrides.ExcludePluralizeMajorUnits = configuredCurrency?.Format?.ExcludePluralizeMajorUnits;
-                    overrides.ExcludePluralizeMinorUnits = configuredCurrency?.Format?.ExcludePluralizeMinorUnits;
-
-                    SetFormatOverrides(overrides, cultureInfo, ref minorUnitSymbol);
-
-                    if (configuredCurrency?.Format?.id == overrides.id ||
-                        configuredCurrency?.Format == null && MatchCulture(currencyDescription, cultureInfo, currencyCode))
-                    {
-                        return overrides;
-                    }
-                }
-            }
-
-            return null;
         }
 
         private void FindCultureInfo(string currencyCode, ref CultureInfo cultureInfo)

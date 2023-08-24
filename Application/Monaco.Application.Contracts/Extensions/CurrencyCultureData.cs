@@ -39,6 +39,7 @@
             PluralizeMinorUnits = pluralizeMinorUnits;
             MinorUnitSymbol = minorUnitSymbol;
             CurrencyName = currencyName;
+            MajorUnitsSingular = currencyName;
         }
 
         /// <summary>
@@ -65,6 +66,11 @@
         ///     Gets major units plural
         /// </summary>
         public string MajorUnitsPlural { get; set; }
+
+        /// <summary>
+        ///      Gets major units singular
+        /// </summary>
+        public string MajorUnitsSingular { get; set; }
 
         /// <summary>
         ///     Gets whether to pluralize major units

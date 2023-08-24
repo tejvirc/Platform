@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Application.Localization
 {
     using System.Globalization;
+    using Helpers;
     using Contracts;
+    using Contracts.Extensions;
     using Contracts.Localization;
     using Kernel;
 
@@ -55,9 +57,21 @@
 
             var selectedCulture = CultureInfo.GetCultureInfo(locale);
 
-            AddCultures(selectedCulture);
+            if (CurrencyExtensions.Currency != null)
+            {
+                // the selectedCulture is readonly, so we have clone it to update the currency format
+                var ticketCulture = selectedCulture.Clone() as CultureInfo;
+                CurrencyCultureHelper.OverrideCurrencyProperties(CurrencyExtensions.Currency.Culture, ticketCulture);
 
-            SetCurrentCulture(selectedCulture);
+                AddCultures(ticketCulture);
+                SetCurrentCulture(ticketCulture);
+            }
+            else
+            {
+                AddCultures(selectedCulture);
+
+                SetCurrentCulture(selectedCulture);
+            }
         }
     }
 }
