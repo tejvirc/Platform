@@ -270,7 +270,7 @@
             EventBus.Subscribe<PropertyChangedEvent>(this, HandleEvent);
             EventBus.Subscribe<SystemEnabledByOperatorEvent>(this, _ => HandleSystemDisabledByOperatorEvent(true));
             EventBus.Subscribe<SystemDisabledByOperatorEvent>(this, _ => HandleSystemDisabledByOperatorEvent(false));
-            EventBus.Subscribe<OperatorCultureChangedEvent>(this, HandleOperatorCultureChangedEvent);
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
 
             OutOfServiceViewModel.OnLoaded();
         }
@@ -358,12 +358,13 @@
             InputStatusText = enabled ? string.Empty : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OutOfService);
         }
 
-        private void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent evt)
+        protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             foreach (var message in DisableReasons)
             {
                 message.UpdateAdditionalInfo();
             }
+            base.OnOperatorCultureChanged(evt);
         }
     }
 }

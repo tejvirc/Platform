@@ -567,6 +567,8 @@
         protected virtual void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             SetInputStatus();
+            UpdateWarningMessage();
+            UpdateStatusText();
         }
 
         private void _UpdateStatusText()
