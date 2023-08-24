@@ -42,6 +42,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         private readonly List<Host> _deletedHosts = new List<Host>();
         private readonly List<Host> _editedHosts = new List<Host>();
         private readonly List<Host> _originalHosts = new List<Host>();
+        private readonly Dictionary<int, List<ClientDeviceBase>> _editedDevices = new Dictionary<int, List<ClientDeviceBase>>();
         private readonly TimeSpan _defaultProgressiveHostOfflineInterval = new TimeSpan(0, 0, 0, 30);
 
         private IG2SEgm _egm;
@@ -652,6 +653,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 Task.Run(() => hostFactory.Update(host)).FireAndForget(ex => Logger.Error($"Return: Exception occurred {ex}", ex));
             }
 
+            ResetDevicesAfterReaddingHost(containerService, host);
+
             return context;
         }
 
@@ -685,10 +688,42 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 // spin through all devices attached to this host and set owner to 0 and active to false
                 foreach (var device in devices.Where(device => device.IsMember(host.Id)))
                 {
+                    if(!_editedDevices.ContainsKey(host.Id))
+                    {
+                        _editedDevices[host.Id] = new List<ClientDeviceBase>();
+                    }
+
+                    _editedDevices[host.Id].Add(device);
                     Logger.Debug($"Host {host.Id} has been deleted resetting device '{device.DeviceClass}' ownership to 0 and deactivate");
                     device.HasOwner(0, device.Active);
                     profileService.Save(device);
                 }
+            }
+            else
+            {
+                Logger.Warn($"Profile Service unavailable - unable to reset Device ownership for deleted host {host.Id}.");
+            }
+        }
+
+        private void ResetDevicesAfterReaddingHost(IContainerService containerService, IHost host)
+        {
+            if (!_editedDevices.ContainsKey(host.Id))
+            {
+                return;
+            }
+
+            var profileService = containerService?.Container.GetInstance<IProfileService>();
+
+            if (profileService != null)
+            {
+                foreach (var device in _editedDevices[host.Id])
+                {
+                    Logger.Debug($"Host {host.Id} has been readded resetting device '{device.DeviceClass}' ownership to {host.Id} and activating");
+                    device.HasOwner(host.Id, device.Active);
+                    profileService.Save(device);
+                }
+
+                _editedDevices.Remove(host.Id);
             }
             else
             {
