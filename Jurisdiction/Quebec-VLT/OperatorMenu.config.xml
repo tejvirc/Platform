@@ -125,7 +125,9 @@ as follows:
       <Setting Name="ShowProgressiveDetails" Value="true" />
     </Page>
     <Page Type="GamePreferencesViewModel" TabType="GamePreferencesViewLoader" Visible="false" />
-    <Page Type="GameInfoViewModel" Access="TechnicianZeroCredits" PrintButtonEnabled="true" />
+    <Page Type="GameInfoViewModel" Access="Technician" PrintButtonEnabled="true">
+      <Setting Name="RequiredProtocol" Value="DemonstrationMode" />
+    </Page>
     <Page TabType="CombinationTestViewLoader" Visible="false" />
   </Menu>
   <Menu Type="CommsMainPageLoader" Access="Technician">
@@ -175,7 +177,7 @@ as follows:
       <Rule Restriction="EKeyVerified" />
     </AccessRuleSet>
     <AccessRuleSet Name="ZeroGamesPlayed">
-			<Rule Restriction="ZeroGamesPlayed" />
-		</AccessRuleSet>	
+      <Rule Restriction="ZeroGamesPlayed" />
+    </AccessRuleSet>	
   </AccessRules>
 </OperatorMenuConfiguration>

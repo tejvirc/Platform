@@ -9,7 +9,7 @@
     using Contracts.Protocol;
     using Kernel;
     using OperatorMenu;
-    
+
     public class OperatorMenuPageLoader : INotifyPropertyChanged, IOperatorMenuPageLoader
     {
         private IOperatorMenuPage _page;
@@ -18,6 +18,9 @@
         private bool _isEnabled = true;
         private bool _accessAllowed = true;
         private bool _visibleByConfig;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public event EventHandler OnEnabledChanged;
 
         // ReSharper disable once UnassignedGetOnlyAutoProperty
@@ -36,9 +39,13 @@
 
         public bool IsVisible { get; private set; }
 
-        public IOperatorMenuPage Page => _page ?? (_page = CreatePage());
+        public IOperatorMenuPage Page => _page ??= CreatePage();
 
-        public IOperatorMenuPageViewModel ViewModel => _viewModel ?? (_viewModel = CreateViewModel());
+        public IOperatorMenuPageViewModel ViewModel => _viewModel ??= CreateViewModel();
+
+        public bool IsMultiPage => ViewModel is OperatorMenuMultiPageViewModelBase;
+
+        public bool IsWizardPage { get; set; }
 
         public bool IsSubPage { get; set; }
 
@@ -48,7 +55,7 @@
 
         public virtual List<CommsProtocol> RequiredProtocols => new List<CommsProtocol>();
 
-        protected IOperatorMenuConfiguration Configuration => _configuration ?? (_configuration = ServiceManager.GetInstance().TryGetService<IOperatorMenuConfiguration>());
+        protected IOperatorMenuConfiguration Configuration => _configuration ??= ServiceManager.GetInstance().TryGetService<IOperatorMenuConfiguration>();
 
         public void Initialize()
         {
@@ -74,6 +81,17 @@
             EnabledChanged();
         }
 
+        public virtual bool GetVisible()
+        {
+            return true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         protected virtual IOperatorMenuPage CreatePage()
         {
             throw new NotImplementedException();
@@ -84,9 +102,33 @@
             throw new NotImplementedException();
         }
 
-        public bool IsMultiPage => ViewModel is OperatorMenuMultiPageViewModelBase;
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _page?.Dispose();
+                _viewModel?.Dispose();
+                var access = ServiceManager.GetInstance().TryGetService<IOperatorMenuAccess>();
+                access?.UnregisterAccessRules(this);
+            }
+        }
 
-        public bool IsWizardPage { get; set; }
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected CommsProtocol GetRequiredProtocolFromConfig()
+        {
+            var protocol = Configuration?.GetSetting(
+                ViewModel,
+                OperatorMenuSetting.RequiredProtocol,
+                CommsProtocol.None.ToString());
+
+            return Enum.TryParse(protocol, out CommsProtocol requiredProtocol)
+                ? requiredProtocol
+                : CommsProtocol.None;
+        }
 
         private void SetVisibility()
         {
@@ -103,38 +145,9 @@
             IsVisible = visibleByConfig && visibleByProtocol && GetVisible();
         }
 
-        public virtual bool GetVisible()
-        {
-            return true;
-        }
-
         private void EnabledChanged()
         {
-            OnEnabledChanged?.Invoke(this, new EventArgs());
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _page?.Dispose();
-                _viewModel?.Dispose();
-                var access = ServiceManager.GetInstance().TryGetService<IOperatorMenuAccess>();       
-                access?.UnregisterAccessRules(this);
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            OnEnabledChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

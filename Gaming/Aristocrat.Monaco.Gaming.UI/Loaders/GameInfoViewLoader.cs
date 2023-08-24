@@ -20,5 +20,7 @@
         {
             return new GameInfoViewModel();
         }
+
+        public override CommsProtocol RequiredProtocol => GetRequiredProtocolFromConfig();
     }
 }

@@ -141,5 +141,7 @@
         public const string UseOperatorCultureForCurrencyFormatting = "UseOperatorCultureForCurrencyFormatting";
         /// <summary/>
         public const string ShowGeneralInformationPage = "ShowGeneralInformationPage";
+        /// <summary/>
+        public const string RequiredProtocol = "RequiredProtocol";
     }
 }
