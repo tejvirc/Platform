@@ -12394,6 +12394,9 @@ LEVEL ID</value>
     <value>Animation files are being loaded to the reel controller.  This lockup will be removed once all animation files have been loaded.</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="TotalBulk" xml:space="preserve">
+    <value>Total Bulk</value>
+  </data>
   <data name="ConfigurableIdNotUsedForSapMessage" xml:space="preserve">
     <value>Linked level id is only needed for Linked levels</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
@@ -12401,5 +12404,5 @@ LEVEL ID</value>
   <data name="ColumnsNotAvailableForLpLevelsMessage" xml:space="preserve">
     <value>Certain Linked level parameters are Not Applicable in this screen as they are managed in the progressive controller.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
-  </data>
+ </data> 
 </root>

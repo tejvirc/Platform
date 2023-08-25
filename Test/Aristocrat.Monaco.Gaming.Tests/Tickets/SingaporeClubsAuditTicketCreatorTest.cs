@@ -326,6 +326,7 @@ namespace Aristocrat.Monaco.Gaming.Tests.Tickets
                         string.Empty,
                         PayMethod.Any,
                         0,
+                        0,
                         0)
                     {
                         TransactionId = index,

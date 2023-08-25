@@ -86,7 +86,12 @@
         ///     Gets or sets the accumulated overflow amount
         /// </summary>
         public long OverflowTotal { get; set; }
-        
+
+        /// <summary>
+        ///     Gets or sets the accumulated bulk amount
+        /// </summary>
+        public long BulkTotal { get; set; }
+
         /// <summary>
         ///     Gets or set the current error status
         /// </summary>
@@ -127,6 +132,7 @@
                    $"IncrementRate={IncrementRate}, " +
                    $"HiddenIncrementRate={HiddenIncrementRate}," +
                    $"HiddenTotal={HiddenTotal}" +
+                   $"BulkTotal={BulkTotal}" +
                    $"MaxValue={MaximumValue}, " +
                    $"CurrentErrorStatus={CurrentErrorStatus}, " +
                    $"CanEdit={CanEdit}, " +

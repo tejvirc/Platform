@@ -82,7 +82,7 @@
 
                 var game = gameProvider.GetGame(gameId);
                 var partNum = game.PaytableName;
-                string incrementRate, hiddenIncrementRate, hiddenTotal, resetVal, maxValue, overflow;
+                string incrementRate, hiddenIncrementRate, hiddenTotal, resetVal, maxValue, overflow, bulkTotal;
                 var sharedProvider = ServiceManager.GetInstance().GetService<ISharedSapProvider>();
                 if (level.CreationType != LevelCreationType.Default)
                 {
@@ -91,12 +91,13 @@
                     hiddenTotal = transaction.HiddenTotal.MillicentsToDollars().FormattedCurrencyString();
                     resetVal = (transaction.ResetValue / multiplier).FormattedCurrencyString();
                     maxValue = overflow = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
+                    bulkTotal = transaction.BulkTotal.MillicentsToDollars().FormattedCurrencyString();
                 }
                 else if (level.LevelType == ProgressiveLevelType.LP ||
                          level.LevelType == ProgressiveLevelType.Selectable &&
                          (AssignableProgressiveType)transaction.AssignableProgressiveType == AssignableProgressiveType.Linked)
                 {
-                    incrementRate = hiddenIncrementRate = hiddenTotal = maxValue = resetVal = overflow =
+                    incrementRate = hiddenIncrementRate = hiddenTotal = maxValue = resetVal = overflow = bulkTotal =
                         Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NotAvailable);
                 }
                 else if (((AssignableProgressiveType)transaction.AssignableProgressiveType == AssignableProgressiveType.CustomSap ||
@@ -109,6 +110,7 @@
                     resetVal = (transaction.ResetValue / multiplier).FormattedCurrencyString();
                     maxValue = (outLevel.MaximumValue / multiplier).FormattedCurrencyString();
                     overflow = (transaction.Overflow / multiplier).FormattedCurrencyString();
+                    bulkTotal = transaction.BulkTotal.MillicentsToDollars().FormattedCurrencyString();
                 }
                 else
                 {
@@ -118,6 +120,7 @@
                     resetVal = (transaction.ResetValue / multiplier).FormattedCurrencyString();
                     maxValue = (level.MaximumValue / multiplier).FormattedCurrencyString();
                     overflow = (transaction.Overflow / multiplier).FormattedCurrencyString();
+                    bulkTotal = transaction.BulkTotal.MillicentsToDollars().FormattedCurrencyString();
                 }
 
                 result.Add((ResourceKeys.ProgressiveLevel, $"{level.LevelName}"));
@@ -128,6 +131,7 @@
                 result.Add((ResourceKeys.MaxValue, maxValue));
                 result.Add((ResourceKeys.OverflowText, overflow));
                 result.Add((ResourceKeys.GameName, $"{gameProvider.GetGame(transaction.GameId).ThemeName} / {partNum} / {(denomId / multiplier).FormattedCurrencyString()}"));
+                result.Add((ResourceKeys.TotalBulk, bulkTotal));
 
                 return result.ToArray();
             }

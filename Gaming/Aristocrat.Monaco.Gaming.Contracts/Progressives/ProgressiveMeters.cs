@@ -26,6 +26,11 @@
         public const string ProgressiveLevelHiddenTotal = "ProgressiveLevel.HiddenTotal";
 
         /// <summary>
+        ///     Progressive bulk total (total accumulated value of hits for each level)
+        /// </summary>
+        public const string ProgressiveLevelBulkTotal = "ProgressiveLevel.BulkTotal";
+
+        /// <summary>
         ///     Shared Level Win Occurrence
         /// </summary>
         public const string SharedLevelWinOccurrence = "SharedLevel.WinOccurrence";

@@ -320,6 +320,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                     foreach (var progressiveLevel in progressiveLevels)
                     {
                         var sharedHiddenTotal = 0L;
+                        var sharedBulkTotal = 0L;
 
                         if (_sharedSap.ViewSharedSapLevel(
                             progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey,
@@ -332,12 +333,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                             progressiveLevel.HiddenIncrementRate = sharedLevel.HiddenIncrementRate;
                             progressiveLevel.HiddenValue = sharedLevel.HiddenValue;
                             sharedHiddenTotal = sharedLevel.HiddenTotal;
+                            sharedBulkTotal = sharedLevel.BulkTotal;
                         }
 
                         var collectionOfMeters = new ObservableCollection<DisplayMeter>();
                         foreach (var meterNode in MeterNodes)
                         {
-                            collectionOfMeters.Add(_progressiveMeterManager.Build(progressiveLevel, meterNode, ShowLifetime, SelectedDenom.Millicents, sharedHiddenTotal));
+                            collectionOfMeters.Add(_progressiveMeterManager.Build(progressiveLevel, meterNode, ShowLifetime, SelectedDenom.Millicents, sharedHiddenTotal, sharedBulkTotal));
                         }
                         ProgressiveDetailMeters.Add(new ProgressiveDisplayMeter(progressiveLevel.ProgressivePackName, ShowLifetime, collectionOfMeters));
                     }

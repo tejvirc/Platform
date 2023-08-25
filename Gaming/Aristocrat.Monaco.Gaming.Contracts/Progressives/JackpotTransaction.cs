@@ -48,6 +48,7 @@
         ///  <param name="assignedProgressiveKey">Progressive Key"</param>
         ///  <param name="hiddenTotal">Progressive level hidden total</param>
         ///  <param name="overflow">Progressive level overflow amount</param>
+        ///  <param name="bulkTotal">Progressive level bulk total</param>
         public JackpotTransaction(
             int deviceId,
             DateTime dateTime,
@@ -64,7 +65,8 @@
             string assignedProgressiveKey,
             PayMethod payMethod,
             long hiddenTotal,
-            long overflow)
+            long overflow,
+            long bulkTotal)
             : base(deviceId, dateTime)
         {
             ProgressiveId = progId;
@@ -86,6 +88,7 @@
 
             HiddenTotal = hiddenTotal;
             Overflow = overflow;
+            BulkTotal = bulkTotal;
         }
 
         /// <summary>
@@ -220,6 +223,11 @@
         public long Overflow { get; set; }
 
         /// <summary>
+        ///     The value of the bulk pool (in millicents) at the time of jackpot
+        /// </summary>
+        public long BulkTotal { get; set; }
+
+        /// <summary>
         ///     Checks two transactions to see if they are the same.
         /// </summary>
         /// <param name="jackpotTransaction1">The first transaction</param>
@@ -281,6 +289,7 @@
             AssignableProgressiveType = (int)values["AssignableProgressiveType"];
             HiddenTotal = (long)values["HiddenValue"];
             Overflow = (long)values["Overflow"];
+            BulkTotal = (long)values["BulkValue"];
 
             return true;
         }
@@ -314,6 +323,7 @@
                 transaction[element, "AssignableProgressiveType"] = AssignableProgressiveType;
                 transaction[element, "HiddenValue"] = HiddenTotal;
                 transaction[element, "Overflow"] = Overflow;
+                transaction[element, "BulkValue"] = BulkTotal;
 
                 transaction.Commit();
             }
@@ -383,7 +393,8 @@
                    AssignedProgressiveKey == jackpotTransaction.AssignedProgressiveKey &&
                    AssignableProgressiveType == jackpotTransaction.AssignableProgressiveType &&
                    HiddenTotal == jackpotTransaction.HiddenTotal &&
-                   Overflow == jackpotTransaction.Overflow;
+                   Overflow == jackpotTransaction.Overflow &&
+                   BulkTotal == jackpotTransaction.BulkTotal;
         }
     }
 }

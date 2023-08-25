@@ -121,6 +121,11 @@
         long HiddenTotal { get; }
 
         /// <summary>
+        ///     The value of the bulk pool (in millicents) at the time of jackpot
+        /// </summary>
+        long BulkTotal { get; }
+
+        /// <summary>
         ///     The overflow amount at the time of jackpot
         /// </summary>
         long Overflow { get; }
