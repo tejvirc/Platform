@@ -8,8 +8,6 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Aristocrat.Bingo.Client.Messages;
-    using Aristocrat.Sas.Client.LongPollDataClasses;
-    using Aristocrat.ServerApiGateway;
     using Common;
     using Common.Events;
     using Common.Storage.Model;
@@ -498,7 +496,7 @@
 
         private static string LevelName(ProgressiveInfo info)
         {
-            return $"{ProtocolNames.Bingo}, Level Id: {info.LevelId}, Progressive Group Id: {info.ProgId}";
+            return $"{ProtocolNames.Bingo}, LevelId: {info.LevelId}, ProgressiveGroupId: {info.ProgId}";
         }
     }
 }
