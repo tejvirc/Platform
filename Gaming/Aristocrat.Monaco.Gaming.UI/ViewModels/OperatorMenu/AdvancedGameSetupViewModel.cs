@@ -300,6 +300,14 @@
 
                 UpdateRestrictions();
                 ApplyGameOptionsEnabled();
+                if (SelectedGame.GameConfigurations != null)
+                {
+                    foreach (var config in SelectedGame.GameConfigurations)
+                    {
+                        config.UpdateCulture();
+                    }
+                }
+                
                 ResetScrollIntoView = true;
                 ResetScrollIntoView = false;
             }
@@ -615,11 +623,14 @@
             RaisePropertyChanged(nameof(SelectedDenoms));
             RaisePropertyChanged(nameof(GameConfigurations));
 
-            foreach (var config in GameConfigurations)
+            if (GameConfigurations != null)
             {
-                config.UpdateCulture();
+                foreach (var config in GameConfigurations)
+                {
+                    config.UpdateCulture();
+                }
             }
-
+            
             UpdateInputStatusText();
             base.OnOperatorCultureChanged(evt);
         }
