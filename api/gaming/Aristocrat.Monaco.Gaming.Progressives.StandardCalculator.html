@@ -81,18 +81,35 @@
             <article class="content wrap" id="_content" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator">
   <h1 id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator">Class StandardCalculator
   </h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Standard Calculator used for incrementing contributions to buld progressive levels.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">Object</a></div>
-    <div class="level1"><span class="xref">StandardCalculator</span></div>
+    <div class="level1"><a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.CalculatorBase.html">CalculatorBase</a></div>
+    <div class="level2"><span class="xref">StandardCalculator</span></div>
   </div>
   
   
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.CalculatorBase.html#Aristocrat_Monaco_Gaming_Progressives_CalculatorBase_Claim_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_">CalculatorBase.Claim(ProgressiveLevel)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.CalculatorBase.html#Aristocrat_Monaco_Gaming_Progressives_CalculatorBase_ApplyContribution_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevelUpdate_Aristocrat_Monaco_Application_Contracts_IMeter_Aristocrat_Monaco_Application_Contracts_IMeter_">CalculatorBase.ApplyContribution(ProgressiveLevel, ProgressiveLevelUpdate, IMeter, IMeter)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.CalculatorBase.html#Aristocrat_Monaco_Gaming_Progressives_CalculatorBase_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_">CalculatorBase.Reset(ProgressiveLevel)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.CalculatorBase.html#Aristocrat_Monaco_Gaming_Progressives_CalculatorBase_CheckOverflow_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_">CalculatorBase.CheckOverflow(ProgressiveLevel)</a>
+    </div>
+    <div>
+      <a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.CalculatorBase.html#Aristocrat_Monaco_Gaming_Progressives_CalculatorBase_MysteryClaim_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_">CalculatorBase.MysteryClaim(ProgressiveLevel, Int64)</a>
+    </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring#system-object-tostring">Object.ToString()</a>
     </div>
@@ -121,7 +138,7 @@
   
   <h5 id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public class StandardCalculator : ICalculatorStrategy</code></pre>
+    <pre><code class="lang-csharp hljs">public class StandardCalculator : CalculatorBase, ICalculatorStrategy</code></pre>
   </div>
   
   
@@ -136,7 +153,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_StandardCalculator__ctor_Aristocrat_Monaco_Gaming_Progressives_IMysteryProgressiveProvider_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.%23ctor(Aristocrat.Monaco.Gaming.Progressives.IMysteryProgressiveProvider)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/StandardCalculator.cs/#L16" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/StandardCalculator.cs/#L18" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator__ctor_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.#ctor*"></a>
@@ -144,7 +161,8 @@
   <h4 id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator__ctor_Aristocrat_Monaco_Gaming_Progressives_IMysteryProgressiveProvider_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.#ctor(Aristocrat.Monaco.Gaming.Progressives.IMysteryProgressiveProvider)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator__ctor_Aristocrat_Monaco_Gaming_Progressives_IMysteryProgressiveProvider_" class="expander" data-toggle="collapse">StandardCalculator(IMysteryProgressiveProvider)</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator__ctor_Aristocrat_Monaco_Gaming_Progressives_IMysteryProgressiveProvider_" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Default constructor</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
@@ -158,7 +176,8 @@
       <td>
         <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.IMysteryProgressiveProvider.html">IMysteryProgressiveProvider</a></span>
         <span class="parametername">mysteryProgressiveProvider</span>
-        <p>
+        <p><p>An isntance of IMysteryProgressiveProvider.</p>
+</p>
       </td>
     </tr>
   </table>
@@ -179,125 +198,10 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_ApplyContribution_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevelUpdate_Aristocrat_Monaco_Application_Contracts_IMeter_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.ApplyContribution(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel%2CAristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevelUpdate%2CAristocrat.Monaco.Application.Contracts.IMeter)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/StandardCalculator.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_ApplyContribution_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.ApplyContribution*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_ApplyContribution_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevelUpdate_Aristocrat_Monaco_Application_Contracts_IMeter_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.ApplyContribution(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel,Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevelUpdate,Aristocrat.Monaco.Application.Contracts.IMeter)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_ApplyContribution_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevelUpdate_Aristocrat_Monaco_Application_Contracts_IMeter_" class="expander" data-toggle="collapse">ApplyContribution(ProgressiveLevel, ProgressiveLevelUpdate, IMeter)</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_ApplyContribution_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevelUpdate_Aristocrat_Monaco_Application_Contracts_IMeter_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void ApplyContribution(ProgressiveLevel level, ProgressiveLevelUpdate levelUpdate, IMeter hiddenTotalMeter)</code></pre>
-  </div>
-  
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel.html">ProgressiveLevel</a></span>
-        <span class="parametername">level</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevelUpdate.html">ProgressiveLevelUpdate</a></span>
-        <span class="parametername">levelUpdate</span>
-        <p>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="../application/Aristocrat.Monaco.Application.Contracts.IMeter.html">IMeter</a></span>
-        <span class="parametername">hiddenTotalMeter</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ICalculatorStrategy.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_ICalculatorStrategy_ApplyContribution_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevelUpdate_Aristocrat_Monaco_Application_Contracts_IMeter_">ICalculatorStrategy.ApplyContribution(ProgressiveLevel, ProgressiveLevelUpdate, IMeter)</a></div>
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Claim_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Claim(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/StandardCalculator.cs/#L63" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Claim_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Claim*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Claim_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Claim(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Claim_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_" class="expander" data-toggle="collapse">Claim(ProgressiveLevel)</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Claim_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public long Claim(ProgressiveLevel level)</code></pre>
-  </div>
-  
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel.html">ProgressiveLevel</a></span>
-        <span class="parametername">level</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  <h5 class="returns">Returns</h5>
-  <table>
-    <tr>
-      <td>
-        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ICalculatorStrategy.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_ICalculatorStrategy_Claim_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_">ICalculatorStrategy.Claim(ProgressiveLevel)</a></div>
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Claim_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Claim(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/StandardCalculator.cs/#L105" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/StandardCalculator.cs/#L58" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Claim_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Claim*"></a>
@@ -305,12 +209,13 @@
   <h4 id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Claim_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Claim(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel,System.Int64)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Claim_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_" class="expander" data-toggle="collapse">Claim(ProgressiveLevel, Int64)</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Claim_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Claims the progressive level</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public long Claim(ProgressiveLevel level, long resetValue)</code></pre>
+    <pre><code class="lang-csharp hljs">public override long Claim(ProgressiveLevel level, long resetValue)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -319,14 +224,16 @@
       <td>
         <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel.html">ProgressiveLevel</a></span>
         <span class="parametername">level</span>
-        <p>
+        <p><p>The level that the contribution is being claimed</p>
+</p>
       </td>
     </tr>
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
         <span class="parametername">resetValue</span>
-        <p>
+        <p><p>The reset value to use</p>
+</p>
       </td>
     </tr>
   </table>
@@ -336,7 +243,8 @@
     <tr>
       <td>
         <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a>
-        <p>
+        <p><p>The won amount that was claimed</p>
+</p>
       </td>
     </tr>
   </table>
@@ -345,9 +253,9 @@
   
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.CalculatorBase.html#Aristocrat_Monaco_Gaming_Progressives_CalculatorBase_Claim_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_">CalculatorBase.Claim(ProgressiveLevel, Int64)</a></div>
   
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ICalculatorStrategy.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_ICalculatorStrategy_Claim_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_">ICalculatorStrategy.Claim(ProgressiveLevel, Int64)</a></div>
   
   
   
@@ -359,7 +267,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Increment_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_System_Int64_Aristocrat_Monaco_Application_Contracts_IMeter_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Increment(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel%2CSystem.Int64%2CSystem.Int64%2CAristocrat.Monaco.Application.Contracts.IMeter)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/StandardCalculator.cs/#L26" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/StandardCalculator.cs/#L24" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Increment_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Increment*"></a>
@@ -367,12 +275,13 @@
   <h4 id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Increment_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_System_Int64_Aristocrat_Monaco_Application_Contracts_IMeter_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Increment(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel,System.Int64,System.Int64,Aristocrat.Monaco.Application.Contracts.IMeter)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Increment_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_System_Int64_Aristocrat_Monaco_Application_Contracts_IMeter_" class="expander" data-toggle="collapse">Increment(ProgressiveLevel, Int64, Int64, IMeter)</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Increment_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_System_Int64_Aristocrat_Monaco_Application_Contracts_IMeter_" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Applies the provided increment to the specified game and denom</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Increment(ProgressiveLevel level, long wager, long ante, IMeter hiddenTotalMeter)</code></pre>
+    <pre><code class="lang-csharp hljs">public override void Increment(ProgressiveLevel level, long wager, long ante, IMeter hiddenTotalMeter)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -381,28 +290,32 @@
       <td>
         <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel.html">ProgressiveLevel</a></span>
         <span class="parametername">level</span>
-        <p>
+        <p><p>The level that the contribution is being applied to</p>
+</p>
       </td>
     </tr>
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
         <span class="parametername">wager</span>
-        <p>
+        <p><p>The wager amount</p>
+</p>
       </td>
     </tr>
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
         <span class="parametername">ante</span>
-        <p>
+        <p><p>The ante amount</p>
+</p>
       </td>
     </tr>
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="../application/Aristocrat.Monaco.Application.Contracts.IMeter.html">IMeter</a></span>
         <span class="parametername">hiddenTotalMeter</span>
-        <p>
+        <p><p>the hidden total meter.</p>
+</p>
       </td>
     </tr>
   </table>
@@ -412,55 +325,9 @@
   
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.CalculatorBase.html#Aristocrat_Monaco_Gaming_Progressives_CalculatorBase_Increment_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_System_Int64_Aristocrat_Monaco_Application_Contracts_IMeter_">CalculatorBase.Increment(ProgressiveLevel, Int64, Int64, IMeter)</a></div>
   
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ICalculatorStrategy.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_ICalculatorStrategy_Increment_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_System_Int64_Aristocrat_Monaco_Application_Contracts_IMeter_">ICalculatorStrategy.Increment(ProgressiveLevel, Int64, Int64, IMeter)</a></div>
-  
-  
-  
-  
-  </div>
-  
-  <span class="small pull-right mobile-hide">
-    <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Reset(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
-  </span>
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/StandardCalculator.cs/#L47" title="View Source"><i class="fa fa-code"></i></a>
-  </span>
-  
-  <a id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Reset_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Reset*"></a>
-  
-  <h4 id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Reset(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_" class="expander" data-toggle="collapse">Reset(ProgressiveLevel)</a></h4>
-  
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_" class="collapse in">
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Reset(ProgressiveLevel level)</code></pre>
-  </div>
-  
-  <h5 class="parameters">Parameters</h5>
-  <table>
-    <tr>
-      <td>
-        <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel.html">ProgressiveLevel</a></span>
-        <span class="parametername">level</span>
-        <p>
-      </td>
-    </tr>
-  </table>
-  
-  
-  
-  
-  
-  
-  
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ICalculatorStrategy.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_ICalculatorStrategy_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_">ICalculatorStrategy.Reset(ProgressiveLevel)</a></div>
   
   
   
@@ -472,7 +339,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Reset(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/StandardCalculator.cs/#L52" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/StandardCalculator.cs/#L46" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Reset_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Reset*"></a>
@@ -480,12 +347,13 @@
   <h4 id="Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_" data-uid="Aristocrat.Monaco.Gaming.Progressives.StandardCalculator.Reset(Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel,System.Int64)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_" class="expander" data-toggle="collapse">Reset(ProgressiveLevel, Int64)</a></h4>
   
   <div id="collapsible-Aristocrat_Monaco_Gaming_Progressives_StandardCalculator_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_" class="collapse in">
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Resets the progressive level</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Reset(ProgressiveLevel level, long resetValue)</code></pre>
+    <pre><code class="lang-csharp hljs">public override void Reset(ProgressiveLevel level, long resetValue)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -494,14 +362,16 @@
       <td>
         <span class="pull-right"><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ProgressiveLevel.html">ProgressiveLevel</a></span>
         <span class="parametername">level</span>
-        <p>
+        <p><p>The level that the contribution is being reset</p>
+</p>
       </td>
     </tr>
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
         <span class="parametername">resetValue</span>
-        <p>
+        <p><p>The reset value to use</p>
+</p>
       </td>
     </tr>
   </table>
@@ -511,9 +381,9 @@
   
   
   
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Aristocrat.Monaco.Gaming.Progressives.CalculatorBase.html#Aristocrat_Monaco_Gaming_Progressives_CalculatorBase_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_">CalculatorBase.Reset(ProgressiveLevel, Int64)</a></div>
   
-  <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Contracts.Progressives.ICalculatorStrategy.html#Aristocrat_Monaco_Gaming_Contracts_Progressives_ICalculatorStrategy_Reset_Aristocrat_Monaco_Gaming_Contracts_Progressives_ProgressiveLevel_System_Int64_">ICalculatorStrategy.Reset(ProgressiveLevel, Int64)</a></div>
   
   
   
@@ -525,7 +395,7 @@
           </div>
           <div class="contribution-panel mobile-hide">
               <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Progressives_StandardCalculator.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Progressives.StandardCalculator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc" class="fab btn-warning pull-right"><i class="glyphicon glyphicon-pencil"></i></a>
-              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/StandardCalculator.cs/#L11" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
+              <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Progressives/StandardCalculator.cs/#L12" title="View Source" class="fab btn-info pull-right"><i class="fa fa-code"></i></a>
           </div>
           
           <div class="hidden-sm col-md-2" role="complementary">
