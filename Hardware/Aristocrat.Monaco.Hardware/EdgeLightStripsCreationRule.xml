@@ -1,422 +1,236 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <EdgeLightMappings>
-    <EdgeLightMapping Name="Helix1">
-        <HardwareStrip BytesPerLed="3" Id="110000" LEDCount="24" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="110001" LEDCount="24" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="110002" LEDCount="32" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="110003" LEDCount="0" ResponseCommand="LedConfiguration"/>
-        <LogicalStrip Id="00">
-            <LEDSegment from="4" HardwareStripId="110000" Id="0" to="23"/>
-        </LogicalStrip>
-        <LogicalStrip Id="01">
-            <LEDSegment from="4" HardwareStripId="110001" Id="0" to="23"/>
-        </LogicalStrip>
-        <LogicalStrip Id="02">
-            <LEDSegment from="6" HardwareStripId="110002" Id="0" to="31"/>
-        </LogicalStrip>
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="Helix2">
-        <HardwareStrip Id="110000" LEDCount="48" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="110001" LEDCount="48" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="110002" LEDCount="32" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="110003" LEDCount="0" ResponseCommand="LedConfiguration"/>
-        <LogicalStrip Id="00">
-            <LEDSegment from="28" HardwareStripId="110000" Id="1" to="47"/>
-            <LEDSegment from="4" HardwareStripId="110000" Id="0" to="23"/>
-        </LogicalStrip>
-        <LogicalStrip Id="01">
-            <LEDSegment from="28" HardwareStripId="110001" Id="1" to="47"/>
-            <LEDSegment from="4" HardwareStripId="110001" Id="0" to="23"/>
-        </LogicalStrip>
-        <LogicalStrip Id="02">
-            <LEDSegment from="6" HardwareStripId="110002" Id="0" to="31"/>
-        </LogicalStrip>
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="Helix3">
-        <HardwareStrip Id="120000" LEDCount="40" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="120001" LEDCount="40" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="120002" LEDCount="0" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="120003" LEDCount="0" ResponseCommand="LedConfiguration"/>
-        <LogicalStrip Id="31">
-            <LEDSegment from="39" HardwareStripId="120000" Id="0" to="24"/>
-        </LogicalStrip>
-        <LogicalStrip Id="32">
-            <LEDSegment from="24" HardwareStripId="120001" Id="0" to="39"/>
-        </LogicalStrip>
-        <LogicalStrip Id="33">
-            <LEDSegment from="23" HardwareStripId="120000" Id="0" to="0"/>
-        </LogicalStrip>
-        <LogicalStrip Id="34">
-            <LEDSegment from="23" HardwareStripId="120001" Id="0" to="0"/>
-        </LogicalStrip>
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="Helix4">
-        <HardwareStrip Id="120000" LEDCount="24" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="120001" LEDCount="24" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="120002" LEDCount="0" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="120003" LEDCount="0" ResponseCommand="LedConfiguration"/>
-        <LogicalStrip Id="31">
-            <LEDSegment from="23" HardwareStripId="120000" Id="0" to="4"/>
-        </LogicalStrip>
-        <LogicalStrip Id="32">
-            <LEDSegment from="4" HardwareStripId="120001" Id="0" to="23"/>
-        </LogicalStrip>
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="Helix5">
-        <HardwareStrip Id="160000" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="160001" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="160002" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="160003" ResponseCommand="LedConfiguration"/>
-        <LogicalStrip Id="31">
-            <LEDSegment HardwareStripId="160000" Id="0"/>
-        </LogicalStrip>
-        <LogicalStrip Id="32">
-            <LEDSegment HardwareStripId="160001" Id="0"/>
-        </LogicalStrip>
-        <LogicalStrip Id="33">
-            <LEDSegment HardwareStripId="160002" Id="0"/>
-        </LogicalStrip>
-        <LogicalStrip Id="34">
-            <LEDSegment HardwareStripId="160003" Id="0"/>
-        </LogicalStrip>
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="Helix6">
-        <HardwareStrip Id="120000" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="120001" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="120002" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="120003" ResponseCommand="LedConfiguration"/>
-        <LogicalStrip Id="31">
-            <LEDSegment HardwareStripId="120000" Id="0"/>
-        </LogicalStrip>
-        <LogicalStrip Id="32">
-            <LEDSegment HardwareStripId="120001" Id="0"/>
-        </LogicalStrip>
-        <LogicalStrip Id="33">
-            <LEDSegment HardwareStripId="120002" Id="0"/>
-        </LogicalStrip>
-        <LogicalStrip Id="34">
-            <LEDSegment HardwareStripId="120003" Id="0"/>
-        </LogicalStrip>
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="HelixXTHalo">
-        <HardwareStrip Id="170000" LEDCount="2" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="170001" LEDCount="0" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="170002" LEDCount="0" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="170003" LEDCount="0" ResponseCommand="LedConfiguration"/>
-        <LogicalStrip Id="29">
-            />
-            <LEDSegment from="0" HardwareStripId="170000" Id="0" to="1"/>
-        </LogicalStrip>
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="HelixXT">
-        <HardwareStrip Id="131000" LEDCount="24" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131001" LEDCount="24" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131002" LEDCount="19" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131003" LEDCount="0" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131020" LEDCount="19" ResponseCommand="LedConfiguration"/>
-        <LogicalStrip Id="00">
-            <LEDSegment from="0" HardwareStripId="131000" Id="0" to="23"/>
-        </LogicalStrip>
-        <LogicalStrip Id="01">
-            <LEDSegment from="0" HardwareStripId="131001" Id="0" to="23"/>
-        </LogicalStrip>
-        <LogicalStrip Id="02">
-            <LEDSegment from="0" HardwareStripId="131002" Id="0" to="18"/>
-        </LogicalStrip>
-        <LogicalStrip Id="20">
-            <LEDSegment from="0" HardwareStripId="131020" Id="0" to="18"/>
-        </LogicalStrip>
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="MarsXFitChopTop">
-        <HardwareStrip Id="131000" LEDCount="16" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131001" LEDCount="16" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131003" LEDCount="17" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131008" LEDCount="1" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131020" LEDCount="18" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131026" LEDCount="13" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131027" LEDCount="13" ResponseCommand="LedConfiguration"/>
-        <LogicalStrip Id="00">
-            <LEDSegment from="0" HardwareStripId="131000" Id="0" to="15"/>
-        </LogicalStrip>
-        <LogicalStrip Id="01">
-            <LEDSegment from="0" HardwareStripId="131001" Id="0" to="15"/>
-        </LogicalStrip>
-        <LogicalStrip Id="03">
-            <LEDSegment from="0" HardwareStripId="131003" Id="0" to="16"/>
-        </LogicalStrip>
-        <LogicalStrip Id="08">
-            <LEDSegment from="0" HardwareStripId="131008" Id="0" to="0"/>
-        </LogicalStrip>
-        <LogicalStrip Id="20">
-            <LEDSegment from="0" HardwareStripId="131020" Id="0" to="17"/>
-        </LogicalStrip>
-        <LogicalStrip Id="26">
-            <LEDSegment from="0" HardwareStripId="131026" Id="0" to="12"/>
-        </LogicalStrip>
-        <LogicalStrip Id="27">
-            <LEDSegment from="0" HardwareStripId="131027" Id="0" to="12"/>
-        </LogicalStrip>
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="MarsXFitSlant">
-        <HardwareStrip Id="131000" LEDCount="21" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131001" LEDCount="21" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131003" LEDCount="17" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131008" LEDCount="1" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131020" LEDCount="18" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131026" LEDCount="13" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131027" LEDCount="13" ResponseCommand="LedConfiguration"/>
-        <LogicalStrip Id="00">
-            <LEDSegment from="0" HardwareStripId="131000" Id="0" to="20"/>
-        </LogicalStrip>
-        <LogicalStrip Id="01">
-            <LEDSegment from="0" HardwareStripId="131001" Id="0" to="20"/>
-        </LogicalStrip>
-        <LogicalStrip Id="03">
-            <LEDSegment from="0" HardwareStripId="131003" Id="0" to="16"/>
-        </LogicalStrip>
-        <LogicalStrip Id="08">
-            <LEDSegment from="0" HardwareStripId="131008" Id="0" to="0"/>
-        </LogicalStrip>
-        <LogicalStrip Id="20">
-            <LEDSegment from="0" HardwareStripId="131020" Id="0" to="17"/>
-        </LogicalStrip>
-        <LogicalStrip Id="26">
-            <LEDSegment from="0" HardwareStripId="131026" Id="0" to="12"/>
-        </LogicalStrip>
-        <LogicalStrip Id="27">
-            <LEDSegment from="0" HardwareStripId="131027" Id="0" to="12"/>
-        </LogicalStrip>
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="MarsXFitStretch">
-        <HardwareStrip Id="131000" LEDCount="46" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131001" LEDCount="46" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131003" LEDCount="20" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131008" LEDCount="1" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131020" LEDCount="18" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131026" LEDCount="13" ResponseCommand="LedConfiguration"/>
-        <HardwareStrip Id="131027" LEDCount="13" ResponseCommand="LedConfiguration"/>
-        <LogicalStrip Id="00">
-            <LEDSegment from="0" HardwareStripId="131000" Id="0" to="45"/>
-        </LogicalStrip>
-        <LogicalStrip Id="01">
-            <LEDSegment from="0" HardwareStripId="131001" Id="0" to="45"/>
-        </LogicalStrip>
-        <LogicalStrip Id="03">
-            <LEDSegment from="0" HardwareStripId="131003" Id="0" to="19"/>
-        </LogicalStrip>
-        <LogicalStrip Id="08">
-            <LEDSegment from="0" HardwareStripId="131008" Id="0" to="0"/>
-        </LogicalStrip>
-        <LogicalStrip Id="20">
-            <LEDSegment from="0" HardwareStripId="131020" Id="0" to="17"/>
-        </LogicalStrip>
-        <LogicalStrip Id="26">
-            <LEDSegment from="0" HardwareStripId="131026" Id="0" to="12"/>
-        </LogicalStrip>
-        <LogicalStrip Id="27">
-            <LEDSegment from="0" HardwareStripId="131027" Id="0" to="12"/>
-        </LogicalStrip>
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="Marquis23ArchedCrownOvalTopper">
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131000" LEDCount="31" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131001" LEDCount="31" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131003" LEDCount="36" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100C" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100D" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100E" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100F" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131029" LEDCount="2" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131039" LEDCount="48" />
-        <LogicalStrip Id="00">
-            <LEDSegment Id="0" HardwareStripId="131000" from="0" to="30" />
-        </LogicalStrip>
-        <LogicalStrip Id="01">
-            <LEDSegment Id="0" HardwareStripId="131001" from="0" to="30" />
-        </LogicalStrip>
-        <LogicalStrip Id="03">
-            <LEDSegment Id="0" HardwareStripId="131003" from="0" to="35" />
-        </LogicalStrip>
-        <LogicalStrip Id="12">
-            <LEDSegment Id="0" HardwareStripId="13100C" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="13">
-            <LEDSegment Id="0" HardwareStripId="13100D" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="14">
-            <LEDSegment Id="0" HardwareStripId="13100E" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="15">
-            <LEDSegment Id="0" HardwareStripId="13100F" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="29">
-            <LEDSegment Id="0" HardwareStripId="131029" from="0" to="1" />
-        </LogicalStrip>
-        <LogicalStrip Id="39">
-            <LEDSegment Id="0" HardwareStripId="131039" from="0" to="47" />
-        </LogicalStrip>    
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="Marquis23RectangularCrownOvalTopper">
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131000" LEDCount="42" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131001" LEDCount="42" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131003" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100C" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100D" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100E" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100F" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131029" LEDCount="2" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131039" LEDCount="48" />
-        <LogicalStrip Id="00">
-            <LEDSegment Id="0" HardwareStripId="131000" from="0" to="41" />
-        </LogicalStrip>
-        <LogicalStrip Id="01">
-            <LEDSegment Id="0" HardwareStripId="131001" from="0" to="41" />
-        </LogicalStrip>
-        <LogicalStrip Id="03">
-            <LEDSegment Id="0" HardwareStripId="131003" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="12">
-            <LEDSegment Id="0" HardwareStripId="13100C" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="13">
-            <LEDSegment Id="0" HardwareStripId="13100D" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="14">
-            <LEDSegment Id="0" HardwareStripId="13100E" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="15">
-            <LEDSegment Id="0" HardwareStripId="13100F" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="29">
-            <LEDSegment Id="0" HardwareStripId="131029" from="0" to="1" />
-        </LogicalStrip>
-        <LogicalStrip Id="39">
-            <LEDSegment Id="0" HardwareStripId="131039" from="0" to="47" />
-        </LogicalStrip>
-    </EdgeLightMapping>  
-    <EdgeLightMapping Name="Marquis34ArchedCrownOvalTopper">
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131000" LEDCount="47" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131001" LEDCount="47" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131003" LEDCount="36" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100C" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100D" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100E" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100F" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131029" LEDCount="2" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131039" LEDCount="48" />
-        <LogicalStrip Id="00">
-            <LEDSegment Id="0" HardwareStripId="131000" from="0" to="46" />
-        </LogicalStrip>
-        <LogicalStrip Id="01">
-            <LEDSegment Id="0" HardwareStripId="131001" from="0" to="46" />
-        </LogicalStrip>
-        <LogicalStrip Id="03">
-            <LEDSegment Id="0" HardwareStripId="131003" from="0" to="35" />
-        </LogicalStrip>
-        <LogicalStrip Id="12">
-            <LEDSegment Id="0" HardwareStripId="13100C" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="13">
-            <LEDSegment Id="0" HardwareStripId="13100D" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="14">
-            <LEDSegment Id="0" HardwareStripId="13100E" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="15">
-            <LEDSegment Id="0" HardwareStripId="13100F" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="29">
-            <LEDSegment Id="0" HardwareStripId="131029" from="0" to="1" />
-        </LogicalStrip>
-        <LogicalStrip Id="39">
-            <LEDSegment Id="0" HardwareStripId="131039" from="0" to="47" />
-        </LogicalStrip>
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="Marquis34RectangularCrownOvalTopper">
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131000" LEDCount="58" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131001" LEDCount="58" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131003" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100C" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100D" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100E" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100F" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131029" LEDCount="2" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131039" LEDCount="48" />
-        <LogicalStrip Id="00">
-            <LEDSegment Id="0" HardwareStripId="131000" from="0" to="57" />
-        </LogicalStrip>
-        <LogicalStrip Id="02">
-            <LEDSegment Id="0" HardwareStripId="131001" from="0" to="57" />
-        </LogicalStrip>
-        <LogicalStrip Id="03">
-            <LEDSegment Id="0" HardwareStripId="131003" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="12">
-            <LEDSegment Id="0" HardwareStripId="13100C" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="13">
-            <LEDSegment Id="0" HardwareStripId="13100D" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="14">
-            <LEDSegment Id="0" HardwareStripId="13100E" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="15">
-            <LEDSegment Id="0" HardwareStripId="13100F" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="29">
-            <LEDSegment Id="0" HardwareStripId="131029" from="0" to="1" />
-        </LogicalStrip>
-        <LogicalStrip Id="39">
-            <LEDSegment Id="0" HardwareStripId="131039" from="0" to="47" />
-        </LogicalStrip>
-    </EdgeLightMapping>
-    <EdgeLightMapping Name="Marquis34VideoWheelTopper">
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131000" LEDCount="47" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131001" LEDCount="47" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131003" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100C" LEDCount="23" />
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13100D" LEDCount="23" />    
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131029" LEDCount="2" />     
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131031" LEDCount="24" />    
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131032" LEDCount="24" />    
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131033" LEDCount="24" />    
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131034" LEDCount="26" />    
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="131039" LEDCount="102" /    >
-        <HardwareStrip ResponseCommand="LedConfiguration" Id="13103A" LEDCount="1" />     
-        <LogicalStrip Id="00">                                                            
-            <LEDSegment Id="0" HardwareStripId="131000" from="0" to="46" />
-        </LogicalStrip>
-        <LogicalStrip Id="01">
-            <LEDSegment Id="0" HardwareStripId="131001" from="0" to="46" />
-        </LogicalStrip>
-        <LogicalStrip Id="03">
-            <LEDSegment Id="0" HardwareStripId="131003" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="12">
-            <LEDSegment Id="0" HardwareStripId="13100C" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="13">
-            <LEDSegment Id="0" HardwareStripId="13100D" from="0" to="22" />
-        </LogicalStrip>
-        <LogicalStrip Id="29">
-            <LEDSegment Id="0" HardwareStripId="131029" from="0" to="1" />
-        </LogicalStrip>    
-        <LogicalStrip Id="31">
-            <LEDSegment Id="0" HardwareStripId="131031" from="0" to="23" />
-        </LogicalStrip>
-        <LogicalStrip Id="32">
-            <LEDSegment Id="0" HardwareStripId="131032" from="0" to="23" />
-        </LogicalStrip>
-        <LogicalStrip Id="33">
-            <LEDSegment Id="0" HardwareStripId="131033" from="0" to="23" />
-        </LogicalStrip>
-        <LogicalStrip Id="34">
-            <LEDSegment Id="0" HardwareStripId="131034" from="0" to="25" />
-        </LogicalStrip>
-        <LogicalStrip Id="39">
-            <LEDSegment Id="0" HardwareStripId="131039" from="0" to="101" />
-        </LogicalStrip>
-        <LogicalStrip Id="58">
-            <LEDSegment Id="0" HardwareStripId="13103A" from="0" to="1" />
-        </LogicalStrip>
-    </EdgeLightMapping>
+	<EdgeLightMapping Name="Helix1">
+		<HardwareStrip BytesPerLed="3" Id="110000" LEDCount="24" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="110001" LEDCount="24" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="110002" LEDCount="32" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="110003" LEDCount="0" ResponseCommand="LedConfiguration"/>
+		<LogicalStrip Id="00">
+			<LEDSegment from="4" HardwareStripId="110000" Id="0" to="23"/>
+		</LogicalStrip>
+		<LogicalStrip Id="01">
+			<LEDSegment from="4" HardwareStripId="110001" Id="0" to="23"/>
+		</LogicalStrip>
+		<LogicalStrip Id="02">
+			<LEDSegment from="6" HardwareStripId="110002" Id="0" to="31"/>
+		</LogicalStrip>
+	</EdgeLightMapping>
+	<EdgeLightMapping Name="Helix2">
+		<HardwareStrip Id="110000" LEDCount="48" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="110001" LEDCount="48" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="110002" LEDCount="32" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="110003" LEDCount="0" ResponseCommand="LedConfiguration"/>
+		<LogicalStrip Id="00">
+			<LEDSegment from="28" HardwareStripId="110000" Id="1" to="47"/>
+			<LEDSegment from="4" HardwareStripId="110000" Id="0" to="23"/>
+		</LogicalStrip>
+		<LogicalStrip Id="01">
+			<LEDSegment from="28" HardwareStripId="110001" Id="1" to="47"/>
+			<LEDSegment from="4" HardwareStripId="110001" Id="0" to="23"/>
+		</LogicalStrip>
+		<LogicalStrip Id="02">
+			<LEDSegment from="6" HardwareStripId="110002" Id="0" to="31"/>
+		</LogicalStrip>
+	</EdgeLightMapping>
+	<EdgeLightMapping Name="Helix3">
+		<HardwareStrip Id="120000" LEDCount="40" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="120001" LEDCount="40" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="120002" LEDCount="0" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="120003" LEDCount="0" ResponseCommand="LedConfiguration"/>
+		<LogicalStrip Id="31">
+			<LEDSegment from="39" HardwareStripId="120000" Id="0" to="24"/>
+		</LogicalStrip>
+		<LogicalStrip Id="32">
+			<LEDSegment from="24" HardwareStripId="120001" Id="0" to="39"/>
+		</LogicalStrip>
+		<LogicalStrip Id="33">
+			<LEDSegment from="23" HardwareStripId="120000" Id="0" to="0"/>
+		</LogicalStrip>
+		<LogicalStrip Id="34">
+			<LEDSegment from="23" HardwareStripId="120001" Id="0" to="0"/>
+		</LogicalStrip>
+	</EdgeLightMapping>
+	<EdgeLightMapping Name="Helix4">
+		<HardwareStrip Id="120000" LEDCount="24" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="120001" LEDCount="24" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="120002" LEDCount="0" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="120003" LEDCount="0" ResponseCommand="LedConfiguration"/>
+		<LogicalStrip Id="31">
+			<LEDSegment from="23" HardwareStripId="120000" Id="0" to="4"/>
+		</LogicalStrip>
+		<LogicalStrip Id="32">
+			<LEDSegment from="4" HardwareStripId="120001" Id="0" to="23"/>
+		</LogicalStrip>
+	</EdgeLightMapping>
+	<EdgeLightMapping Name="Helix5">
+		<HardwareStrip Id="160000" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="160001" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="160002" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="160003" ResponseCommand="LedConfiguration"/>
+		<LogicalStrip Id="31">
+			<LEDSegment HardwareStripId="160000" Id="0"/>
+		</LogicalStrip>
+		<LogicalStrip Id="32">
+			<LEDSegment HardwareStripId="160001" Id="0"/>
+		</LogicalStrip>
+		<LogicalStrip Id="33">
+			<LEDSegment HardwareStripId="160002" Id="0"/>
+		</LogicalStrip>
+		<LogicalStrip Id="34">
+			<LEDSegment HardwareStripId="160003" Id="0"/>
+		</LogicalStrip>
+	</EdgeLightMapping>
+	<EdgeLightMapping Name="Helix6">
+		<HardwareStrip Id="120000" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="120001" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="120002" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="120003" ResponseCommand="LedConfiguration"/>
+		<LogicalStrip Id="31">
+			<LEDSegment HardwareStripId="120000" Id="0"/>
+		</LogicalStrip>
+		<LogicalStrip Id="32">
+			<LEDSegment HardwareStripId="120001" Id="0"/>
+		</LogicalStrip>
+		<LogicalStrip Id="33">
+			<LEDSegment HardwareStripId="120002" Id="0"/>
+		</LogicalStrip>
+		<LogicalStrip Id="34">
+			<LEDSegment HardwareStripId="120003" Id="0"/>
+		</LogicalStrip>
+	</EdgeLightMapping>
+	<EdgeLightMapping Name="HelixXTHalo">
+		<HardwareStrip Id="170000" LEDCount="2" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="170001" LEDCount="0" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="170002" LEDCount="0" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="170003" LEDCount="0" ResponseCommand="LedConfiguration"/>
+		<LogicalStrip Id="29">
+			/>
+			<LEDSegment from="0" HardwareStripId="170000" Id="0" to="1"/>
+		</LogicalStrip>
+	</EdgeLightMapping>
+	<EdgeLightMapping Name="HelixXT">
+		<HardwareStrip Id="131000" LEDCount="24" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131001" LEDCount="24" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131002" LEDCount="19" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131003" LEDCount="0" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131020" LEDCount="19" ResponseCommand="LedConfiguration"/>
+		<LogicalStrip Id="00">
+			<LEDSegment from="0" HardwareStripId="131000" Id="0" to="23"/>
+		</LogicalStrip>
+		<LogicalStrip Id="01">
+			<LEDSegment from="0" HardwareStripId="131001" Id="0" to="23"/>
+		</LogicalStrip>
+		<LogicalStrip Id="02">
+			<LEDSegment from="0" HardwareStripId="131002" Id="0" to="18"/>
+		</LogicalStrip>
+		<LogicalStrip Id="20">
+			<LEDSegment from="0" HardwareStripId="131020" Id="0" to="18"/>
+		</LogicalStrip>
+	</EdgeLightMapping>
+	<EdgeLightMapping Name="Marquis">
+		<HardwareStrip Id="131000" LEDCount="106" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131001" LEDCount="57" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131002" LEDCount="0" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131003" LEDCount="0" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131029" LEDCount="2" ResponseCommand="LedConfiguration"/>
+		<LogicalStrip Id="00">
+			<LEDSegment from="0" HardwareStripId="131000" Id="0" to="105"/>
+		</LogicalStrip>
+		<LogicalStrip Id="01">
+			<LEDSegment from="0" HardwareStripId="131001" Id="0" to="56"/>
+		</LogicalStrip>
+		<LogicalStrip Id="29">
+			<LEDSegment from="0" HardwareStripId="131029" Id="0" to="1"/>
+		</LogicalStrip>
+	</EdgeLightMapping>
+	<EdgeLightMapping Name="MarsXFitChopTop">
+		<HardwareStrip Id="131000" LEDCount="16" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131001" LEDCount="16" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131003" LEDCount="17" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131008" LEDCount="1" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131020" LEDCount="18" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131026" LEDCount="13" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131027" LEDCount="13" ResponseCommand="LedConfiguration"/>
+		<LogicalStrip Id="00">
+			<LEDSegment from="0" HardwareStripId="131000" Id="0" to="15"/>
+		</LogicalStrip>
+		<LogicalStrip Id="01">
+			<LEDSegment from="0" HardwareStripId="131001" Id="0" to="15"/>
+		</LogicalStrip>
+		<LogicalStrip Id="03">
+			<LEDSegment from="0" HardwareStripId="131003" Id="0" to="16"/>
+		</LogicalStrip>
+		<LogicalStrip Id="08">
+			<LEDSegment from="0" HardwareStripId="131008" Id="0" to="0"/>
+		</LogicalStrip>
+		<LogicalStrip Id="20">
+			<LEDSegment from="0" HardwareStripId="131020" Id="0" to="17"/>
+		</LogicalStrip>
+		<LogicalStrip Id="26">
+			<LEDSegment from="0" HardwareStripId="131026" Id="0" to="12"/>
+		</LogicalStrip>
+		<LogicalStrip Id="27">
+			<LEDSegment from="0" HardwareStripId="131027" Id="0" to="12"/>
+		</LogicalStrip>
+	</EdgeLightMapping>
+	<EdgeLightMapping Name="MarsXFitSlant">
+		<HardwareStrip Id="131000" LEDCount="21" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131001" LEDCount="21" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131003" LEDCount="17" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131008" LEDCount="1" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131020" LEDCount="18" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131026" LEDCount="13" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131027" LEDCount="13" ResponseCommand="LedConfiguration"/>
+		<LogicalStrip Id="00">
+			<LEDSegment from="0" HardwareStripId="131000" Id="0" to="20"/>
+		</LogicalStrip>
+		<LogicalStrip Id="01">
+			<LEDSegment from="0" HardwareStripId="131001" Id="0" to="20"/>
+		</LogicalStrip>
+		<LogicalStrip Id="03">
+			<LEDSegment from="0" HardwareStripId="131003" Id="0" to="16"/>
+		</LogicalStrip>
+		<LogicalStrip Id="08">
+			<LEDSegment from="0" HardwareStripId="131008" Id="0" to="0"/>
+		</LogicalStrip>
+		<LogicalStrip Id="20">
+			<LEDSegment from="0" HardwareStripId="131020" Id="0" to="17"/>
+		</LogicalStrip>
+		<LogicalStrip Id="26">
+			<LEDSegment from="0" HardwareStripId="131026" Id="0" to="12"/>
+		</LogicalStrip>
+		<LogicalStrip Id="27">
+			<LEDSegment from="0" HardwareStripId="131027" Id="0" to="12"/>
+		</LogicalStrip>
+	</EdgeLightMapping>
+	<EdgeLightMapping Name="MarsXFitStretch">
+		<HardwareStrip Id="131000" LEDCount="46" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131001" LEDCount="46" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131003" LEDCount="20" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131008" LEDCount="1" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131020" LEDCount="18" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131026" LEDCount="13" ResponseCommand="LedConfiguration"/>
+		<HardwareStrip Id="131027" LEDCount="13" ResponseCommand="LedConfiguration"/>
+		<LogicalStrip Id="00">
+			<LEDSegment from="0" HardwareStripId="131000" Id="0" to="45"/>
+		</LogicalStrip>
+		<LogicalStrip Id="01">
+			<LEDSegment from="0" HardwareStripId="131001" Id="0" to="45"/>
+		</LogicalStrip>
+		<LogicalStrip Id="03">
+			<LEDSegment from="0" HardwareStripId="131003" Id="0" to="19"/>
+		</LogicalStrip>
+		<LogicalStrip Id="08">
+			<LEDSegment from="0" HardwareStripId="131008" Id="0" to="0"/>
+		</LogicalStrip>
+		<LogicalStrip Id="20">
+			<LEDSegment from="0" HardwareStripId="131020" Id="0" to="17"/>
+		</LogicalStrip>
+		<LogicalStrip Id="26">
+			<LEDSegment from="0" HardwareStripId="131026" Id="0" to="12"/>
+		</LogicalStrip>
+		<LogicalStrip Id="27">
+			<LEDSegment from="0" HardwareStripId="131027" Id="0" to="12"/>
+		</LogicalStrip>
+	</EdgeLightMapping>
 </EdgeLightMappings>

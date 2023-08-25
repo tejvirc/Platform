@@ -17,8 +17,6 @@
     public class EdgeLightingStateManager : IEdgeLightingStateManager, IService
     {
         private const int MaxChannelBrightness = 100;
-        private const int NonRetailOpenDoorBrightness = 25;
-
 
         private static readonly IReadOnlyList<int> NonMainCabinetStripIds = new List<int>
         {
@@ -91,12 +89,7 @@
                     {
                         var rendererId = edgeLightController.AddEdgeLightRenderer(
                             new SolidColorPatternParameters { Priority = StripPriority.DoorOpen, Color = Color.White });
-
-                        var brightness = MaxChannelBrightness;
-#if (!RETAIL)
-                        brightness = NonRetailOpenDoorBrightness; 
-#endif
-                        edgeLightController.SetBrightnessForPriority(brightness, StripPriority.DoorOpen);
+                        edgeLightController.SetBrightnessForPriority(MaxChannelBrightness, StripPriority.DoorOpen);
                         _rendererCleanupActions.Add(
                             rendererId,
                             x => { x.ClearBrightnessForPriority(StripPriority.DoorOpen); });

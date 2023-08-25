@@ -153,12 +153,8 @@
             _edgeLightingStateManager = new EdgeLightingStateManager(
                 _edgeLightController.Object,
                 _propertiesManager.Object);
-            var brightness = 100;
-#if (!RETAIL)
-            brightness = 25;
-#endif
             _edgeLightController.Setup(
-                x => x.SetBrightnessForPriority(brightness, StripPriority.DoorOpen)).Verifiable();
+                x => x.SetBrightnessForPriority(100, StripPriority.DoorOpen)).Verifiable();
             _edgeLightController.Setup(
                 x => x.AddEdgeLightRenderer(
                     It.IsAny<SolidColorPatternParameters>())).Callback<PatternParameters>(
@@ -172,11 +168,11 @@
             _edgeLightController.Setup(x => x.ClearBrightnessForPriority(StripPriority.DoorOpen)).Verifiable();
             var tokenDoorOpen = _edgeLightingStateManager.SetState(EdgeLightState.DoorOpen);
             Assert.IsTrue(tokenDoorOpen.Id == 60);
-            _edgeLightController.Verify(x => x.SetBrightnessForPriority(brightness, StripPriority.DoorOpen), Times.Once);
+            _edgeLightController.Verify(x => x.SetBrightnessForPriority(100, StripPriority.DoorOpen), Times.Once);
             _edgeLightController.Verify(x => x.ClearBrightnessForPriority(StripPriority.DoorOpen), Times.Never);
             _edgeLightController.Setup(x => x.RemoveEdgeLightRenderer(tokenDoorOpen));
             _edgeLightingStateManager.ClearState(tokenDoorOpen);
-            _edgeLightController.Verify(x => x.SetBrightnessForPriority(brightness, StripPriority.DoorOpen), Times.Once);
+            _edgeLightController.Verify(x => x.SetBrightnessForPriority(100, StripPriority.DoorOpen), Times.Once);
             _edgeLightController.Verify(x => x.ClearBrightnessForPriority(StripPriority.DoorOpen), Times.Once);
             _edgeLightController.VerifyAll();
         }
@@ -355,12 +351,8 @@
                 }).Returns(new EdgeLightToken(50)).Verifiable();
             var tokenCashOut = _edgeLightingStateManager.SetState(EdgeLightState.Cashout);
             Assert.IsTrue(tokenCashOut.Id == 50);
-            var brightness = 100;
-#if (!RETAIL)
-            brightness = 25;
-#endif
             _edgeLightController.Setup(
-                x => x.SetBrightnessForPriority(brightness, StripPriority.DoorOpen)).Verifiable();
+                x => x.SetBrightnessForPriority(100, StripPriority.DoorOpen)).Verifiable();
             _edgeLightController.Setup(
                 x => x.AddEdgeLightRenderer(
                     It.IsAny<SolidColorPatternParameters>())).Callback<PatternParameters>(
