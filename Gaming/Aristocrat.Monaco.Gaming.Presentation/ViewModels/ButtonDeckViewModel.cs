@@ -3,7 +3,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using Gaming.Contracts;
 
-public class ShellButtonDeckViewModel : ObservableObject
+public class ButtonDeckViewModel : ObservableObject
 {
     public string VbdTitle => GamingConstants.VbdWindowTitle;
 }

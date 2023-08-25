@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Aristocrat.Cabinet.Contracts;
 using Aristocrat.MVVM;
 using Common;
 using Extensions.Fluxor;
@@ -22,7 +23,7 @@ using static Store.Translate.TranslateSelectors;
 
 public sealed class LayoutManager : ILayoutManager, IDisposable
 {
-    private const string ShellWindowName = "ShellWindow";
+    private const string MainWindowName = "MainWindow";
     private const string StatusWindowName = "StatusWindow";
 
     private readonly ILogger<LayoutManager> _logger;
@@ -64,7 +65,7 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
             {
                 _activeSkinIndex = index;
 
-                var shell = _windowLauncher.GetWindow(ShellWindowName);
+                var shell = _windowLauncher.GetWindow(MainWindowName);
                 ChangeLanguageSkin(shell);
 
                 foreach (var window in _windows)
@@ -135,54 +136,35 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
 
         _windowLauncher.Hide(StatusWindowName);
 
-        _windowLauncher.CreateWindow<Shell>(ShellWindowName);
-        var shell = _windowLauncher.GetWindow(ShellWindowName);
+        _windowLauncher.CreateWindow<Main>(MainWindowName);
+        var mainWindow = _windowLauncher.GetWindow(MainWindowName);
 
-        ChangeLanguageSkin(shell);
+        ChangeLanguageSkin(mainWindow);
 
-        //var mainGameWindow = new GameMain { Owner = shellWindow }
-        //    .ShowWithTouch();
+        CreateGameWindow<GameMain>();
 
-        //_windows.Add(mainGameWindow);
+        CreateAndShowWindowWithTouch<ButtonDeck>();
+        CreateGameWindow<GameButtonDeck>();
 
-        //if (_cabinetDetection.Family == HardwareFamily.Unknown ||
-        //    _cabinetDetection.GetDisplayDeviceByItsRole(DisplayRole.Top) != null)
-        //{
-        //    Logger.Debug("Creating top windows");
-        //    var topWindow = new PlatformTop();
-        //    topWindow.ShowWithTouch();
-        //    var topGameWindow = new GameTop { Owner = topWindow };
-        //    topGameWindow.ShowWithTouch();
+        if (_cabinetDetection.Family == HardwareFamily.Unknown ||
+            _cabinetDetection.GetDisplayDeviceByItsRole(DisplayRole.Top) != null)
+        {
+            _logger.LogDebug("Creating top window");
+            CreateAndShowWindow<Top>();
+            CreateGameWindow<GameTop>();
+        }
 
-        //    _windows.Add(topWindow);
-        //    _windows.Add(topGameWindow);
-        //}
+        if (_cabinetDetection.Family == HardwareFamily.Unknown &&
+            _properties.GetValue("display", string.Empty) == "windowed" ||
+            _cabinetDetection.GetDisplayDeviceByItsRole(DisplayRole.Topper) != null)
+        {
+            _logger.LogDebug("Creating topper window");
+            CreateAndShowWindow<Topper>();
+            CreateGameWindow<GameTopper>();
+        }
 
-        //if (_cabinetDetection.Family == HardwareFamily.Unknown &&
-        //    _properties.GetValue("display", string.Empty) == "windowed" ||
-        //    _cabinetDetection.GetDisplayDeviceByItsRole(DisplayRole.Topper) != null)
-        //{
-        //    Logger.Debug("Creating topper windows");
-        //    var topperWindow = new PlatformTopper();
-        //    topperWindow.ShowWithTouch();
-        //    var topperGameWindow = new GameTopper { Owner = topperWindow };
-        //    topperGameWindow.ShowWithTouch();
-
-        //    _windows.Add(topperWindow);
-        //    _windows.Add(topperGameWindow);
-        //}
-
-        //Logger.Debug("Creating button deck windows");
-        //var buttonDeckWindow = new PlatformButtonDeck();
-        //buttonDeckWindow.ShowWithTouch();
-        //var buttonDeckGameWindow = new GameButtonDeck { Owner = buttonDeckWindow };
-        //buttonDeckGameWindow.ShowWithTouch();
-
-        //_windows.Add(buttonDeckWindow);
-        //_windows.Add(buttonDeckGameWindow);
-
-        //_regionManager.RequestNavigate(RegionNames.Shell, ViewNames.Main);
-        //_regionManager.RequestNavigate(RegionNames.Main, ViewNames.Lobby);
+        // _regionManager.RequestNavigate(RegionNames.Shell, ViewNames.Main);
+        // _regionManager.RequestNavigate(RegionNames.Main, ViewNames.Lobby);
 
         //_regionManager.NavigateToView(RegionNames.Main, ViewNames.Lobby);
         //_regionManager.NavigateToView(RegionNames.Chooser, ViewNames.Chooser);
@@ -192,6 +174,39 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
         //_regionManager.NavigateToView(RegionNames.InfoBar, ViewNames.InfoBar);
         //_regionManager.NavigateToView(RegionNames.Upi, ViewNames.StandardUpi);
         //_regionManager.NavigateToView(RegionNames.ReplayNav, ViewNames.ReplayNav);
+    }
+
+    private TWindow CreateWindow<TWindow>() where TWindow : Window
+    {
+        var window = ContainerLocator.Current.Resolve<TWindow>();
+
+        _windows.Add(window);
+
+        return window;
+    }
+
+    private void CreateGameWindow<TWindow>() where TWindow : Window
+    {
+        CreateWindow<TWindow>()
+            .Show();
+    }
+
+    private void CreateAndShowWindow<TWindow>() where TWindow : Window
+    {
+        var window = CreateWindow<TWindow>();
+
+        window.Loaded += OnLoaded;
+
+        window.Show();
+    }
+
+    private void CreateAndShowWindowWithTouch<TWindow>() where TWindow : Window
+    {
+        var window = CreateWindow<TWindow>();
+
+        window.Loaded += OnLoaded;
+
+        window.ShowWithTouch();
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
@@ -226,7 +241,7 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
                         window.Close();
                     }
 
-                    _windowLauncher.Close(ShellWindowName);
+                    _windowLauncher.Close(MainWindowName);
 
                     _windowLauncher.Show(StatusWindowName);
 

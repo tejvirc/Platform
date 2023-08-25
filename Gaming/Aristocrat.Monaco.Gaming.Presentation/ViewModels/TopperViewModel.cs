@@ -1,19 +1,21 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.ViewModels;
 
 using System;
+using System.Reactive.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Contracts;
 using Fluxor;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Options;
 using static Store.Attract.AttractSelectors;
 
-public class LobbyTopperViewModel : ObservableObject, IActivatableViewModel
+public class TopperViewModel : ObservableObject, IActivatableViewModel
 {
     private const string TopperImageDefaultResourceKey = "TopperBackground";
     private const string TopperImageAlternateResourceKey = "TopperBackgroundAlternate";
 
-    private readonly ILogger<LobbyTopperViewModel> _logger;
+    private readonly ILogger<TopperViewModel> _logger;
 
     private string? _topperImageResourceKey;
 
@@ -27,7 +29,7 @@ public class LobbyTopperViewModel : ObservableObject, IActivatableViewModel
         this.WhenActivated(disposables =>
         {
             store
-                .Select(SelectIsAlternateTopImageActive)
+                .Select(SelectIsAlternateTopperImageActive)
                 .Subscribe(active =>
                 {
                     TopperImageResourceKey = active ? TopperImageAlternateResourceKey : TopperImageDefaultResourceKey;
@@ -38,18 +40,23 @@ public class LobbyTopperViewModel : ObservableObject, IActivatableViewModel
                 .Select(SelectAttractModeTopperImageIndex)
                 .Subscribe(index =>
                 {
-                    _logger.LogDebug(
-                        "Setting Topper Image Index: {NewIndex} Resource ID: {ImageKey}",
-                        index,
-                        attractOptions.Value.TopperImageRotation[index]);
+                    if (attractOptions.Value.TopperImageRotation is { Count: > 0})
+                    {
+                        _logger.LogDebug(
+                            "Setting Topper Image Index: {NewIndex} Resource ID: {ImageKey}",
+                            index,
+                            configuration.RotateTopperImageAfterAttractVideo[index]);
 
-                    TopperImageResourceKey = attractOptions.Value.TopperImageRotation[index];
+                        TopperImageResourceKey = attractOptions.Value.TopperImageRotation[index];
+                    }
                 })
                 .DisposeWith(disposables);
         });
     }
 
     public ViewModelActivator Activator { get; } = new();
+
+    public string TopperTitle => GamingConstants.TopperWindowTitle;
 
     public string? TopperImageResourceKey
     {

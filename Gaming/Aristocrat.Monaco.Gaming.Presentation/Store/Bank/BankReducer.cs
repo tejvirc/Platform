@@ -7,7 +7,7 @@ using Fluxor;
 public static class BankReducer
 {
     [ReducerMethod]
-    public static BankState Reduce(BankState state, BankUpdateCreditsAction action) =>
+    public static BankState UpdateCredits(BankState state, BankUpdateCreditsAction action) =>
         state with
         {
             Credits = action.Credits

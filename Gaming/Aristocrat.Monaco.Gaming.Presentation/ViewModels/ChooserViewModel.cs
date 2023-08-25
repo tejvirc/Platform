@@ -8,9 +8,9 @@ using System.Windows;
 using Commands;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Extensions.Fluxor;
 using Fluxor;
 using Microsoft.Extensions.Logging;
+using Store;
 using UI.Converters;
 using UI.Models;
 using UI.ViewModels;
@@ -19,6 +19,7 @@ using static Store.Chooser.ChooserSelectors;
 public class ChooserViewModel : ObservableObject, IActivatableViewModel
 {
     private readonly ILogger<ChooserViewModel> _logger;
+    private readonly IDispatcher _dispatcher;
 
     private double _componentHeight;
     private double _componentWidth;
@@ -32,10 +33,10 @@ public class ChooserViewModel : ObservableObject, IActivatableViewModel
     private bool _isTabView;
     private bool _isResponsibleGamingInfoVisible;
 
-    public ChooserViewModel(IStore store, ILogger<ChooserViewModel> logger, IStoreSelector selector, IApplicationCommands commands)
+    public ChooserViewModel(ILogger<ChooserViewModel> logger, IStore store, IDispatcher dispatcher, IApplicationCommands commands)
     {
         _logger = logger;
-
+        _dispatcher = dispatcher;
         ProgressiveLabelDisplay = new ProgressiveLobbyIndicatorViewModel(GameList);
 
         LoadedCommand = new RelayCommand(OnLoaded);
@@ -231,7 +232,12 @@ public class ChooserViewModel : ObservableObject, IActivatableViewModel
 
     private void OnGameSelected(GameInfo? game)
     {
+        if (game == null)
+        {
+            return;
+        }
 
+        _dispatcher.Dispatch(new ChooserGameSelectedAction(game));
     }
 
     private void OnDenomSelected(DenominationInfoViewModel? denom)

@@ -2,9 +2,9 @@
 
 using System;
 
-public class GameBottomWindowLoadedAction
+public class GameMainWindowLoadedAction
 {
-    public GameBottomWindowLoadedAction(IntPtr windowHandle)
+    public GameMainWindowLoadedAction(IntPtr windowHandle)
     {
         WindowHandle = windowHandle;
     }

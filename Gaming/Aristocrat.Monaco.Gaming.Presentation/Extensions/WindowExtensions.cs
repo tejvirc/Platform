@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 public static class WindowExtensions
 {
-    public static Window ShowWithTouch(this Window window)
+    public static TWindow ShowWithTouch<TWindow>(this TWindow window) where TWindow : Window
     {
         window.Show();
         window.Activate();

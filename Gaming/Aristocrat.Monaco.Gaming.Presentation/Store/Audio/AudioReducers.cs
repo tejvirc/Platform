@@ -7,7 +7,7 @@ using System.Linq;
 public static class AudioReducers
 {
     [ReducerMethod()]
-    public static AudioState Reduce(AudioState state, AudioLoadedAction action)
+    public static AudioState Loaded(AudioState state, AudioLoadedAction action)
     {
         return state with
         {
@@ -16,7 +16,7 @@ public static class AudioReducers
     }
 
     [ReducerMethod(typeof(AudioChangeVolumeAction))]
-    public static AudioState Reduce(AudioState state)
+    public static AudioState ChangeVolume(AudioState state)
     {
         return state with
         {
@@ -25,7 +25,7 @@ public static class AudioReducers
     }
 
     [ReducerMethod]
-    public static AudioState Reduce(AudioState state, AudioUpdatePlayerVolumeScalarAction action)
+    public static AudioState UpdatePlayerVolumeScalar(AudioState state, AudioUpdatePlayerVolumeScalarAction action)
     {
         return state with
         {

@@ -10,13 +10,13 @@
     using Prism.Regions;
 
     /// <summary>
-    /// Interaction logic for Shell.xaml
+    /// Interaction logic for Main.xaml
     /// </summary>
-    public partial class Shell
+    public partial class Main
     {
         private readonly WindowToScreenMapper _windowToScreenMapper = new(DisplayRole.Main);
 
-        public Shell()
+        public Main()
         {
             InitializeComponent();
 
@@ -35,7 +35,7 @@
            = EventManager.RegisterRoutedEvent(nameof(RegionReady),
                                               RoutingStrategy.Bubble,
                                               typeof(RegionReadyEventHandler),
-                                              typeof(Shell));
+                                              typeof(Main));
 
         public event RegionReadyEventHandler RegionReady
         {

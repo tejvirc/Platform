@@ -1,0 +1,30 @@
+﻿<mah:MetroWindow x:Class="Aristocrat.Monaco.Gaming.Presentation.Views.Topper"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                 xmlns:prism="http://prismlibrary.com/"
+                 prism:ViewModelLocator.AutoWireViewModel="True"
+                 xmlns:views="clr-namespace:Aristocrat.Monaco.Gaming.Presentation.Views"
+                 xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.Presentation.ViewModels"
+                 mc:Ignorable="d"
+                 Title="{Binding TopperTitle}"
+                 Width="1440"
+                 Height="810"
+                 ShowTitleBar="False"
+                 ShowIconOnTitleBar="False"
+                 ShowCloseButton="False"
+                 ShowMaxRestoreButton="False"
+                 ShowMinButton="False"
+                 IgnoreTaskbarOnMaximize="True"
+                 BorderThickness="0"
+                 Name="Root"
+                 d:DataContext="{d:DesignInstance Type=viewModels:TopperViewModel, IsDesignTimeCreatable=False}">
+    
+    <Grid>
+        
+    </Grid>
+    
+</mah:MetroWindow>

@@ -3,67 +3,47 @@
 using System.Threading.Tasks;
 using Extensions.Fluxor;
 using Fluxor;
+using Microsoft.Extensions.Logging;
+using Models;
+using Services;
+using Services.Audio;
+using Store.Game;
 
 public class ChooserEffects
 {
+    private readonly ILogger<ChooserEffects> _logger;
     private readonly IState<ChooserState> _chooserState;
+    private readonly IState<GameState> _gameState;
+    private readonly IAudioService _audioService;
+    private readonly IGameLauncher _gameLauncher;
 
-    public ChooserEffects(IState<ChooserState> chooserState)
+    public ChooserEffects(
+        ILogger<ChooserEffects> logger,
+        IState<ChooserState> chooserState,
+        IState<GameState> gameState,
+        IAudioService audioService,
+        IGameLauncher gameLauncher)
     {
+        _logger = logger;
         _chooserState = chooserState;
+        _gameState = gameState;
+        _audioService = audioService;
+        _gameLauncher = gameLauncher;
     }
 
     [EffectMethod]
-    public async Task Effect(StartupAction _, IDispatcher dispatcher)
+    public async Task GameSelected(ChooserGameSelectedAction action, IDispatcher dispatcher)
     {
-        await dispatcher.DispatchAsync(new GameListRehydrateAction());
-    }
+        await _audioService.PlaySoundAsync(SoundType.First);
 
-    [EffectMethod]
-    public async Task Effect(GameListAddedAction _, IDispatcher dispatcher)
-    {
-        // OnUserInteraction
+        if (_gameState.Value.IsLoaded || _gameState.Value.IsLoading)
+        {
+            _logger.LogDebug("Rejecting Game Launch because runtime process has not yet exited.");
+            return;
+        }
 
-        await dispatcher.DispatchAsync(new GameListRehydrateAction());
-    }
+        _gameLauncher.LaunchGame(action.Game);
 
-    [EffectMethod]
-    public async Task Effect(GameUpgradedAction _, IDispatcher dispatcher)
-    {
-        // OnUserInteraction
-
-        await dispatcher.DispatchAsync(new GameListRehydrateAction());
-    }
-
-    [EffectMethod]
-    public async Task Effect(GameListRemovedAction _, IDispatcher dispatcher)
-    {
-        // OnUserInteraction
-
-        await dispatcher.DispatchAsync(new GameListRehydrateAction());
-    }
-
-    [EffectMethod]
-    public async Task Effect(GameListIconOrderChangedAction _, IDispatcher dispatcher)
-    {
-        // OnUserInteraction
-
-        await dispatcher.DispatchAsync(new GameListRehydrateAction());
-    }
-
-    [EffectMethod]
-    public async Task Effect(GameEnabledAction _, IDispatcher dispatcher)
-    {
-        await dispatcher.DispatchAsync(new GameListRehydrateAction());
-
-        // SetTabViewToDefault
-    }
-
-    [EffectMethod]
-    public async Task Effect(GameDisabledAction _, IDispatcher dispatcher)
-    {
-        await dispatcher.DispatchAsync(new GameListRehydrateAction());
-
-        // SetTabViewToDefault
+        await dispatcher.DispatchAsync(new GameLoadingAction(action.Game));
     }
 }

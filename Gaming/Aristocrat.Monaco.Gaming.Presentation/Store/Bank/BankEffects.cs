@@ -14,8 +14,8 @@ public class BankEffects
         _bankService = bankService;
     }
 
-    [EffectMethod]
-    public async Task Effect(StartupAction _, IDispatcher dispatcher)
+    [EffectMethod(typeof(StartupAction))]
+    public async Task Startup(IDispatcher dispatcher)
     {
         var credits = _bankService.GetBalance();
 

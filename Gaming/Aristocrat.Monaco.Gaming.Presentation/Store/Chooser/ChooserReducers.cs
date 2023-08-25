@@ -7,23 +7,14 @@ using System.Linq;
 public static class ChooserReducers
 {
     [ReducerMethod]
-    public static ChooserState Reduce(ChooserState state, GameListLoadedAction action)
-    {
-        return state with
-        {
-            Games = ImmutableList.CreateRange(action.Games)
-        };
-    }
-
-    [ReducerMethod]
-    public static ChooserState Reduce(ChooserState state, ChooserUpdateTabViewAction action) =>
+    public static ChooserState UpdateTabView(ChooserState state, ChooserUpdateTabViewAction action) =>
         state with
         {
             IsTabView = action.IsTabView
         };
 
     [ReducerMethod]
-    public static ChooserState Reduce(ChooserState state, ChooserUpdateDenomFilterAction action) =>
+    public static ChooserState UpdateDenomFilter(ChooserState state, ChooserUpdateDenomFilterAction action) =>
         state with
         {
             DenomFilter = action.DenomFilter

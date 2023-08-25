@@ -18,7 +18,7 @@ public class PresentationService : IPresentation, ILobby
     private readonly IStore _store;
     private readonly IDispatcher _dispatcher;
     private readonly IEventBus _eventBus;
-    private readonly IOperatorMenuLauncher _operatorMenuLauncher;
+    private readonly IOperatorMenu _operatorMenu;
     private readonly ILayoutManager _layoutManager;
     private readonly IApplicationCommands _commands;
 
@@ -27,7 +27,7 @@ public class PresentationService : IPresentation, ILobby
         IStore store,
         IDispatcher dispatcher,
         IEventBus eventBus,
-        IOperatorMenuLauncher operatorMenuLauncher,
+        IOperatorMenu operatorMenu,
         ILayoutManager layoutManager,
         IApplicationCommands commands)
     {
@@ -35,7 +35,7 @@ public class PresentationService : IPresentation, ILobby
         _store = store;
         _dispatcher = dispatcher;
         _eventBus = eventBus;
-        _operatorMenuLauncher = operatorMenuLauncher;
+        _operatorMenu = operatorMenu;
         _layoutManager = layoutManager;
         _commands = commands;
     }
@@ -66,7 +66,7 @@ public class PresentationService : IPresentation, ILobby
 
         await _layoutManager.InitializeAsync();
 
-        _operatorMenuLauncher.EnableKey(ApplicationConstants.OperatorMenuInitializationKey);
+        _operatorMenu.Initialize();
 
         _eventBus.Publish(new LobbyInitializedEvent());
     }

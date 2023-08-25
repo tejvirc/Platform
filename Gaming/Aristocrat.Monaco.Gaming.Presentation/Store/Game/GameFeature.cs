@@ -11,7 +11,7 @@ public class GameFeature : Feature<GameState>
     {
         return new GameState
         {
-            BottomWindowHandle = IntPtr.Zero,
+            MainWindowHandle = IntPtr.Zero,
             TopWindowHandle = IntPtr.Zero,
             TopperWindowHandle = IntPtr.Zero,
             ButtonDeckWindowHandle = IntPtr.Zero

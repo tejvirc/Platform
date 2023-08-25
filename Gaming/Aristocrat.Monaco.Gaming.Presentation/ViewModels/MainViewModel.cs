@@ -10,13 +10,14 @@ using Prism.Common;
 using Prism.Regions;
 using Views;
 
-public class ShellViewModel : ObservableObject
+public class MainViewModel : ObservableObject
 {
-    private readonly ILogger<ShellViewModel> _logger;
+    private readonly ILogger<MainViewModel> _logger;
 
+    private IRegionManager? _regionManager;
     private ObservableObject<IRegion>? _mainRegion;
 
-    public ShellViewModel(ILogger<ShellViewModel> logger)
+    public MainViewModel(ILogger<MainViewModel> logger)
     {
         _logger = logger;
 
@@ -47,6 +48,8 @@ public class ShellViewModel : ObservableObject
         {
             throw new ArgumentNullException(nameof(args));
         }
+
+        _regionManager ??= args.Region.RegionManager;
 
         if (args.Region.Name != RegionNames.Main)
         {

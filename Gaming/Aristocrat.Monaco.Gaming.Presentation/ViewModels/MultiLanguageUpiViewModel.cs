@@ -178,7 +178,7 @@ public class MultiLanguageUpiViewModel : ObservableObject, IActivatableViewModel
 
     private void OnToggleActiveLangauge()
     {
-        _dispatcher.Dispatch(new UpdateActiveLanguageAction(IsPrimaryLanguageSelected));
+        _dispatcher.Dispatch(new TranslateUpdateActiveLanguageAction(IsPrimaryLanguageSelected));
     }
 
     private void OnActiveLocaleChanged(string activeLocaleCode)

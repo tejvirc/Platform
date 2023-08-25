@@ -25,8 +25,8 @@ public class TranslateEffects
         _translateService = translateService;
     }
 
-    [EffectMethod()]
-    public async Task Effect(StartupAction _, IDispatcher dispatcher)
+    [EffectMethod(typeof(StartupAction))]
+    public async Task Startup(IDispatcher dispatcher)
     {
         await dispatcher.DispatchAsync(new TranslateUpdateMultiLanguageAction(_translateOptions.MultiLanguage));
         await dispatcher.DispatchAsync(new TranslateUpdateLocaleCodesAction(_translateOptions.LocaleCodes));
@@ -42,7 +42,7 @@ public class TranslateEffects
             }
             else
             {
-                await dispatcher.DispatchAsync(new UpdateActiveLanguageAction(false));
+                await dispatcher.DispatchAsync(new TranslateUpdateActiveLanguageAction(false));
             }
         }
         else
@@ -51,8 +51,8 @@ public class TranslateEffects
         }
     }
 
-    [EffectMethod()]
-    public Task Effect(UpdateActiveLanguageAction action, IDispatcher dispatcher)
+    [EffectMethod(typeof(TranslateUpdateActiveLanguageAction))]
+    public Task UpdateActiveLanguage(IDispatcher _)
     {
         if (_translateState.Value.IsMultiLangauge)
         {

@@ -21,7 +21,7 @@ public static class TranslateReducers
         };
 
     [ReducerMethod]
-    public static TranslateState Reduce(TranslateState state, UpdateActiveLanguageAction action) =>
+    public static TranslateState Reduce(TranslateState state, TranslateUpdateActiveLanguageAction action) =>
         state with
         {
             IsPrimaryLanguageActive = action.IsPrimaryLanguageActive

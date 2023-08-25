@@ -5,7 +5,7 @@ using Fluxor;
 public static class ReplayReducers
 {
     [ReducerMethod]
-    public static ReplayState Reduce(ReplayState state, ReplayStartedAction action) =>
+    public static ReplayState Started(ReplayState state, ReplayStartedAction action) =>
         state with
         {
             IsStarted = true,
@@ -24,22 +24,22 @@ public static class ReplayReducers
             CancelledCredits = action.CancelledCredits
         };
 
-    [ReducerMethod]
-    public static ReplayState Reduce(ReplayState state, ReplayPausedAction action) =>
+    [ReducerMethod(typeof(ReplayPausedAction))]
+    public static ReplayState Paused(ReplayState state) =>
         state with
         {
             IsPaused = true
         };
 
-    [ReducerMethod]
-    public static ReplayState Reduce(ReplayState state, ReplayContinueAction action) =>
+    [ReducerMethod(typeof(ReplayContinueAction))]
+    public static ReplayState Continue(ReplayState state) =>
         state with
         {
             IsPaused = false
         };
 
-    [ReducerMethod]
-    public static ReplayState Reduce(ReplayState state, ReplayCompletedAction action) =>
+    [ReducerMethod(typeof(ReplayCompletedAction))]
+    public static ReplayState Completed(ReplayState state) =>
         state with
         {
             IsStarted = false,

@@ -2,13 +2,26 @@
 
 public class SoundFile
 {
+    private SoundType _sound;
+    private string _path;
+
     public SoundFile(SoundType sound, string path)
     {
-        Sound = sound;
-        Path = path;
+        _sound = sound;
+        _path = path;
     }
 
-    public SoundType Sound { get; set; }
+    public SoundType Sound
+    {
+        get => _sound;
 
-    public string Path { get; set; }
+        set => SetProperty(ref _sound, value);
+    }
+
+    public string Path
+    {
+        get => _path;
+
+        set => SetProperty(ref _path, value);
+    }
 }

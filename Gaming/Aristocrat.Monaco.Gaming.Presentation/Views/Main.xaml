@@ -1,4 +1,4 @@
-﻿<mah:MetroWindow x:Class="Aristocrat.Monaco.Gaming.Presentation.Views.Shell"
+﻿<mah:MetroWindow x:Class="Aristocrat.Monaco.Gaming.Presentation.Views.Main"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,7 +9,6 @@
                  prism:ViewModelLocator.AutoWireViewModel="True"
                  xmlns:views="clr-namespace:Aristocrat.Monaco.Gaming.Presentation.Views"
                  xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.Presentation.ViewModels"
-                 xmlns:regions="clr-namespace:Aristocrat.Monaco.Gaming.Presentation.Regions"
                  xmlns:mediaDisplay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay;assembly=Aristocrat.Monaco.Gaming.UI"
                  mc:Ignorable="d" 
                  Title="{Binding MainTitle, Mode=OneWay}"
@@ -24,7 +23,7 @@
                  Background="Black"
                  BorderThickness="0"
                  Name="Root"
-                 d:DataContext="{d:DesignInstance Type=viewModels:ShellViewModel, IsDesignTimeCreatable=False}">
+                 d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel, IsDesignTimeCreatable=False}">
 
     <mah:MetroWindow.Resources>
         <ResourceDictionary>

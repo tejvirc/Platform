@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Views
 {
     /// <summary>
-    /// Interaction logic for ShellButtonDeck.xaml
+    /// Interaction logic for Top.xaml
     /// </summary>
-    public partial class ShellButtonDeck
+    public partial class Top
     {
-        public ShellButtonDeck()
+        public Top()
         {
             InitializeComponent();
         }
