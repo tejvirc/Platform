@@ -104,7 +104,7 @@
         private string _hardMeterMapSelection;
         private bool _configurableBellyPanelDoor;
         private bool _bellyPanelDoorEnabled;
-
+        
         protected Action UpdateChanges;
         protected bool InitialHardMeter;
         protected bool DoorOpticSensorEnabled;
@@ -125,7 +125,7 @@
             _configWizardConfiguration = _serviceManager.GetService<IConfigurationUtilitiesProvider>()
                 .GetConfigWizardConfiguration(() => new ConfigWizardConfiguration());
             _deviceDetection = _serviceManager.GetService<IDeviceDetection>();
-
+           
             ValidateCommand = new ActionCommand<object>(
                 _ => ValidateConfig(),
                 _ =>
@@ -791,6 +791,10 @@
                     case ReelInspectionFailedEvent _:
                         {
                             _deviceDiscoveryStatus[DeviceType.ReelController] = false;
+                            if (CheckDetectionStatus(DeviceType.ReelController))
+                            {
+                                return;
+                            }
                             SetDeviceStatusAndValidate(DeviceType.ReelController, errorText, DeviceState.ErrorText, false);
                             break;
                         }
@@ -830,18 +834,30 @@
 
                     case IdReaderInspectionFailedEvent _:
                         _deviceDiscoveryStatus[DeviceType.IdReader] = false;
+                        if (CheckDetectionStatus(DeviceType.IdReader))
+                        {
+                            return;
+                        }
                         SetDeviceStatusAndValidate(DeviceType.IdReader, errorText, DeviceState.ErrorText, false);
                         break;
 
                     case NoteAcceptorDisconnectedEvent _:
                     case NoteAcceptorInspectionFailedEvent _:
                         _deviceDiscoveryStatus[DeviceType.NoteAcceptor] = false;
+                        if (CheckDetectionStatus(DeviceType.NoteAcceptor))
+                        {
+                            return;
+                        }
                         SetDeviceStatusAndValidate(DeviceType.NoteAcceptor, errorText, DeviceState.ErrorText, false);
                         break;
 
                     case PrinterDisconnectedEvent _:
                     case PrinterInspectionFailedEvent _:
                         _deviceDiscoveryStatus[DeviceType.Printer] = false;
+                        if (CheckDetectionStatus(DeviceType.Printer))
+                        {
+                            return;
+                        }
                         SetDeviceStatusAndValidate(DeviceType.Printer, errorText, DeviceState.ErrorText, false);
                         break;
 
@@ -1542,6 +1558,20 @@
             _deviceDetection.CancelDetection();
         }
 
+        private bool CheckDetectionStatus(DeviceType deviceType)
+        {
+            var device = EnabledDevices.FirstOrDefault(d => d.DeviceType == deviceType);
+            if (device?.IsDetectionFailure ?? false)
+            {
+                var statusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoDeviceDetected);
+                SetDeviceStatusAndValidate(deviceType, statusText, DeviceState.NoDeviceDetected, false);
+                IsValidating = false;
+                return true;
+            }
+
+            return false;
+        }
+
         private void Handle(DeviceDetectedEvent evt)
         {
             var deviceType = (DeviceType)Enum.Parse(typeof(DeviceType), evt.Device.Type);
@@ -1588,6 +1618,7 @@
                     device.StatusType = DeviceState.NoDeviceDetected;
 #if RETAIL
                     device.IsDetectionFailure = true;
+                    SaveCurrentHardwareConfig();
 #else
                     // Nothing was found, so use the Fake
                     Logger.Debug($"Select Fake device for {evt.DeviceType}");

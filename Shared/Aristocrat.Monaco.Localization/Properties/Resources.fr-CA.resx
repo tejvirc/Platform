@@ -5066,6 +5066,9 @@ Consulter le manuel pour plus de détails</value>
   <data name="DenomMetersPeriod" xml:space="preserve">
     <value>??Period Denomination Meters??</value>
   </data>
+	<data name="NoDeviceDetected" xml:space="preserve">
+    <value>??No device detected??</value>
+</data>
   <data name="LastResetText" xml:space="preserve">
     <value>??LAST RESET??</value>
   </data>
