@@ -38,6 +38,8 @@
 
         private readonly int CashoutDialogDismiss = (int)TimeSpan.FromSeconds(3).TotalMilliseconds;
 
+        private AutoResetEvent _gameExitWaitHandle = new AutoResetEvent(false);
+
         public bool ForceGameExitIsInProgress
         {
             get
@@ -161,6 +163,7 @@
             _disposed = true;
         }
 
+        // RequestGame if _gameIsRunning
         private void RequestForceExitToLobby(bool skipTestRecovery = false)
         {
             if (!IsRequestForceExitToLobbyValid(skipTestRecovery))
@@ -284,6 +287,8 @@
                     _gameIsRunning = true;
                     _sanityCounter = 0;
                     _requestGameIsInProgress = false;
+                    _gameExitWaitHandle.Set();
+
                     _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
                     BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
                 });
@@ -316,7 +321,7 @@
 
                      //_logger.Info($"GameIdleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                      //BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
-                     //HandleExitToLobbyRequest();
+                     HandleExitToLobbyRequest();
                  });
 
             _eventBus.Subscribe<GameExitedNormalEvent>(
@@ -324,6 +329,12 @@
                 _ =>
                 {
                     Console.WriteLine("\r\nGameExitedNormalEvent in RobotController ...");
+                    
+                    var lobbyStateManager = ServiceManager.GetInstance().GetService<IContainerService>().Container.GetInstance<ILobbyStateManager>();
+                    var state = lobbyStateManager.CurrentState;
+
+                    Console.WriteLine($"GameExitedNormalEvent: GameState {state}");
+
                     ReloadSameGame();
                 });
 
@@ -331,7 +342,15 @@
                  this,
                  @event =>
                  {
+                     
                      Console.WriteLine("\r\nGameProcessExitedEvent in RobotController ...");
+
+                     //_gameExitWaitHandle.WaitOne();
+
+                     var lobbyStateManager = ServiceManager.GetInstance().GetService<IContainerService>().Container.GetInstance<ILobbyStateManager>();
+                     var state = lobbyStateManager.CurrentState;
+
+                     Console.WriteLine($"GameProcessExitedEvent: GameState {state}");
                      //TryLoadGameAfterGameExited(@event);
                  }
             );
@@ -522,34 +541,37 @@
 
         private void TryLoadGameAfterGameExited(IEvent @event)
         {
-                _gameIsRunning = false;
-                if (@event is GameProcessExitedEvent exitEvent && exitEvent.Unexpected)
+            _gameIsRunning = false;
+            if (@event is GameProcessExitedEvent exitEvent && exitEvent.Unexpected)
+            {
+                if (!ForceGameExitIsInProgress)
                 {
-                    if (!ForceGameExitIsInProgress)
-                    {
-                        _logger.Error($"GameProcessExitedEvent-Unexpected Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                        _robotController.Enabled = false;
-                        return;
-                    }
-                    _logger.Info($"GameProcessExitedEvent-Unexpected-ForceGameExit Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    ForceGameExitIsInProgress = false;
-                    _goToNextGame = false;
-                    _exitWhenIdle = !IsRegularRobots();
+                    _logger.Error($"GameProcessExitedEvent-Unexpected Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                    _robotController.Enabled = false;
+                    return;
                 }
-                else
-                {
-                    _logger.Info($"GameProcessExitedEvent-Normal Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    _goToNextGame = !IsRegularRobots();
-                }
+                _logger.Info($"GameProcessExitedEvent-Unexpected-ForceGameExit Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                ForceGameExitIsInProgress = false;
+                _goToNextGame = false;
+                _exitWhenIdle = !IsRegularRobots();
+            }
+            else
+            {
+                _logger.Info($"GameProcessExitedEvent-Normal Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                _goToNextGame = !IsRegularRobots();
+            }
 
-                LoadGameWithDelay(Constants.loadGameDelayDuration);
+            LoadGameWithDelay(Constants.loadGameDelayDuration);
         }
 
         private void ReloadSameGame()
         {
             _gameIsRunning = false;
+
             ForceGameExitIsInProgress = false;
+
             _goToNextGame = false;
+
             _exitWhenIdle = !IsRegularRobots();
 
             LoadGameWithDelay(Constants.loadGameDelayDuration);
