@@ -7,6 +7,7 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Threading.Tasks;
     using Client;
     using Contracts;
     using Contracts.Process;
@@ -22,10 +23,11 @@
 
         private readonly IEventBus _eventBus;
         private readonly IClientEndpointProvider<IRuntime> _serviceProvider;
-
+        
         private bool _notifyProcessExited;
 
-        private bool _expectProcessExit;
+        private volatile bool _expectProcessExit;
+        private short _waitCounter = 0;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameProcessManager" /> class.
@@ -46,6 +48,14 @@
             {
                 throw new ArgumentNullException(nameof(processInfo));
             }
+
+            while (_expectProcessExit && _waitCounter < 10)
+            {
+                Task.Delay(100);
+                _waitCounter++;
+            }
+
+            _waitCounter = 0;
 
             var process = Process.Start(processInfo);
 

@@ -153,6 +153,7 @@
         {
             if (!Running)
             {
+                // Here Issue end Comms hangs Game
                 _ipc.EndComms();
                 _eventBus.Publish(new GameShutdownCompletedEvent());
             }
