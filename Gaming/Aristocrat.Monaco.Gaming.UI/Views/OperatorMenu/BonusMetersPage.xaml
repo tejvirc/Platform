@@ -46,12 +46,12 @@
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.MachinePaidBonusAwardsLabel}}"
                                         loc:Localizer.For="Operator"
                                         Width="460"
-                                        Binding="{Binding Name}"
+                                        Binding="{Binding MeterName}"
                                         AutomationProperties.AutomationId="DataGridTextColumn7_7F68A5EA" />
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
                                         loc:Localizer.For="Operator"
                                         Width="200"
-                                        Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                        Binding="{Binding MeterValue, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                         CellStyle="{StaticResource DataGridCellRight}"
                                         AutomationProperties.AutomationId="DataGridTextColumn8_7F68A5EA" />
@@ -107,12 +107,12 @@
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.AttendantPaidBonusAwardsLabel}}"
                                         loc:Localizer.For="Operator"
                                         Width="460"
-                                        Binding="{Binding Name}"
+                                        Binding="{Binding MeterName}"
                                         AutomationProperties.AutomationId="DataGridTextColumn18_7F68A5EA" />
                     <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
                                         loc:Localizer.For="Operator"
                                         Width="200"
-                                        Binding="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                        Binding="{Binding MeterValue, UpdateSourceTrigger=PropertyChanged}"
                                         HeaderStyle="{StaticResource DataGridColumnHeaderRight}"
                                         CellStyle="{StaticResource DataGridCellRight}"
                                         AutomationProperties.AutomationId="DataGridTextColumn19_7F68A5EA" />

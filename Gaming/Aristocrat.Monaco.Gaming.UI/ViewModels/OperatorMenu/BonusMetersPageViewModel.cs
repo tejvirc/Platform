@@ -1,16 +1,18 @@
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Application.UI.MeterPage;
     using Application.UI.OperatorMenu;
     using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Contracts.Bonus;
+    using Gaming.Contracts.Tickets;
+    using Hardware.Contracts.Ticket;
     using Kernel;
     using Localization.Properties;
 
@@ -25,8 +27,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         {
         }
 
-        public ObservableCollection<ValueDisplayMeter> EgmPaidBonusAwardsMeters { get; } =
-            new ObservableCollection<ValueDisplayMeter>();
+        public ObservableCollection<BonusInfoMeter> EgmPaidBonusAwardsMeters { get; } =
+            new ObservableCollection<BonusInfoMeter>();
 
         public string EgmPaidBonusAwardsTotalAmountFormatted
         {
@@ -38,8 +40,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             }
         }
 
-        public ObservableCollection<ValueDisplayMeter> HandPaidBonusAwardsMeters { get; } =
-            new ObservableCollection<ValueDisplayMeter>();
+        public ObservableCollection<BonusInfoMeter> HandPaidBonusAwardsMeters { get; } =
+            new ObservableCollection<BonusInfoMeter>();
 
         public string HandPaidBonusAwardsTotalAmountFormatted
         {
@@ -105,8 +107,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             foreach (var egmPaidBonusAward in GetEGMPaidBonusAwardNames())
             {
                 var value = meterManager.GetMeter(egmPaidBonusAward.meterName);
-
-                var meter = new ValueDisplayMeter(egmPaidBonusAward.meterLabel, value, ShowLifetime, 0, UseOperatorCultureForCurrencyFormatting);
+                var meter = new BonusInfoMeter(egmPaidBonusAward.meterLabel, ShowLifetime, value);
 
                 EgmPaidBonusAwardsMeters.Add(meter);
             }
@@ -114,8 +115,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             foreach (var handPaidBonusAward in GetHandPaidBonusAwardNames())
             {
                 var value = meterManager.GetMeter(handPaidBonusAward.meterName);
-
-                var meter = new ValueDisplayMeter(handPaidBonusAward.meterLabel, value, ShowLifetime, 0, UseOperatorCultureForCurrencyFormatting);
+                var meter = new BonusInfoMeter(handPaidBonusAward.meterLabel, ShowLifetime, value);
 
                 HandPaidBonusAwardsMeters.Add(meter);
             }
@@ -123,19 +123,49 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         private void RemoveMeters()
         {
-            foreach (var meter in EgmPaidBonusAwardsMeters)
+            foreach(var meter in EgmPaidBonusAwardsMeters)
+            {
+                meter.Dispose();
+            }
+
+            foreach(var meter in HandPaidBonusAwardsMeters)
             {
                 meter.Dispose();
             }
 
             EgmPaidBonusAwardsMeters.Clear();
 
-            foreach (var meter in HandPaidBonusAwardsMeters)
+            HandPaidBonusAwardsMeters.Clear();
+        }
+
+        protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
+        {
+            IEnumerable<Ticket> tickets = null;
+            var serviceManager = ServiceManager.GetInstance();
+            var ticketCreator = serviceManager.TryGetService<IGameBonusInfoTicketCreator>();
+            if (ticketCreator == null)
             {
-                meter.Dispose();
+                return null;
             }
 
-            HandPaidBonusAwardsMeters.Clear();
+            switch (dataType)
+            {
+                case OperatorMenuPrintData.Main:
+                    tickets = GetGameBonusMeterTickets(ticketCreator);
+                    break;
+            }
+
+            return tickets;
+        }
+
+        private IEnumerable<Ticket> GetGameBonusMeterTickets(IGameBonusInfoTicketCreator ticketCreator)
+        {
+            var machinePaidTicketName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MachinePaidBonusAwardsLabel);
+            var handpayTicketName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AttendantPaidBonusAwardsLabel);
+            var ticketList = new List<Ticket>();
+            ticketList.Add(ticketCreator.Create(machinePaidTicketName, EgmPaidBonusAwardsMeters));
+            ticketList.Add(ticketCreator.Create(handpayTicketName, HandPaidBonusAwardsMeters));
+            return ticketList;
         }
 
         private (string meterLabel, string meterName)[] GetEGMPaidBonusAwardNames()

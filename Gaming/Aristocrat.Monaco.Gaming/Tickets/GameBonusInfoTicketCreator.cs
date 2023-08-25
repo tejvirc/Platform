@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using Contracts.Progressives;
+    using Contracts.Bonus;
     using Contracts.Tickets;
     using Hardware.Contracts.Ticket;
     using Kernel;
@@ -14,11 +14,10 @@
     {
         public Ticket Create(
             string bonusInfo,
-            string denomination,
-            IEnumerable<IViewableProgressiveLevel> items)
+            IEnumerable<BonusInfoMeter> items)
         {
-            var ticket = new GameBonusInfoTicket(bonusInfo, denomination, items);
-
+            var ticket = new GameBonusInfoTicket(bonusInfo, items);
+            
             return ticket.CreateTextTicket();
         }
 
