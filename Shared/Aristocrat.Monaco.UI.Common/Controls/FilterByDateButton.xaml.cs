@@ -3,7 +3,9 @@
     using Aristocrat.Monaco.Application.Contracts.Localization;
     using System;
     using System.Windows;
-
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Markup;
     /// <summary>
     ///     FilterByDateButton can be used in place of a DataGrid header to enable filtering of that column by date
     /// </summary>
@@ -15,7 +17,6 @@
         /// </summary>
         public FilterByDateButton()
         {
-            DateCulture = Localizer.For(CultureFor.Operator).CurrentCulture.IetfLanguageTag;
             InitializeComponent();
         }
 
@@ -112,6 +113,20 @@
         private void ClearSelectionButton_OnClick(object sender, RoutedEventArgs e)
         {
             SelectedDate = null;
+        }
+
+        private void DatePicker_CalendarOpened(object sender, RoutedEventArgs e)
+        {
+            const string TemplateChildName = "PART_Popup";
+
+            // get a reference to the date picker's calendar instance
+            var popup = datePicker.Template.FindName(TemplateChildName, datePicker) as Popup;
+            var calendar = (Calendar)popup?.Child;
+            if (calendar is not null)
+            {
+                calendar.Language = XmlLanguage.GetLanguage(Localizer.For(CultureFor.Operator).CurrentCulture.IetfLanguageTag);
+                calendar.OnApplyTemplate(); // trigger the internal Calendar::UpdateCellItems() call through OnApplyTemplate after language change
+            }
         }
     }
 }

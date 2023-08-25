@@ -36,7 +36,8 @@
             <Border Style="{StaticResource FilterPopupBorder}" AutomationProperties.AutomationId="Border5_CB1377F0">
                 <StackPanel Orientation="Vertical" AutomationProperties.AutomationId="StackPanel6_CB1377F0">
                     <DatePicker IsTodayHighlighted="False"
-                                Language="{Binding DateCulture, ConverterCulture=en-US, NotifyOnSourceUpdated=True}"
+                                x:Name="datePicker"
+                                CalendarOpened="DatePicker_CalendarOpened"
                                 DisplayDateStart="{Binding StartDate}"
                                 DisplayDateEnd="{Binding EndDate}"
                                 SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
