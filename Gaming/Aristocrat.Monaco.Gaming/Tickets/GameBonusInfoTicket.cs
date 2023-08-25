@@ -7,7 +7,7 @@
     using Application.Contracts.Localization;
     using Application.Contracts.Tickets;
     using Contracts;
-    using Contracts.Progressives;
+    using Contracts.Bonus;
     using Localization.Properties;
 
     /// <summary>
@@ -15,18 +15,15 @@
     public class GameBonusInfoTicket : TextTicket
     {
         private readonly string _bonusInfo;
-        private readonly string _denomination;
-        private readonly IEnumerable<IViewableProgressiveLevel> _items;
+        private readonly IEnumerable<BonusInfoMeter> _items;
 
         public GameBonusInfoTicket(
             string bonusInfo,
-            string denomination,
-            IEnumerable<IViewableProgressiveLevel> items)
+            IEnumerable<BonusInfoMeter> items)
             : base(Localizer.For(CultureFor.PlayerTicket))
         {
             _items = items;
             _bonusInfo = bonusInfo;
-            _denomination = denomination;
 
             Title = TicketLocalizer.GetString(ResourceKeys.GameBonusInfoTicketTitleText);
         }
@@ -42,25 +39,17 @@
             AddLine(null, _bonusInfo, null);
 
             AddLine(
-                TicketLocalizer.GetString(ResourceKeys.DenominationText),
-                _denomination,
-                null);
-
-            AddLine(
                 TicketLocalizer.GetString(ResourceKeys.NameLabel),
-                $"   {TicketLocalizer.GetString(ResourceKeys.ValueResidualText)}",
-                TicketLocalizer.GetString(ResourceKeys.OverflowText));
+                "",
+                TicketLocalizer.GetString(ResourceKeys.Value));
 
             foreach (var item in _items)
             {
-                var value = FormatCurrency(item.CurrentValue);
-                var length = value.Length;
-                var padLeft = length <= 10 ? 7 : 7 - (length - 7) / 2 < 0 ? 0 : 7 - (length - 7) / 2;
-                var midVal = $"{value} {item.Residual.ToString().PadLeft(padLeft)}";
+                var value = FormatCurrency(item.MeterValue);
                 AddLine(
-                    item.LevelName,
-                    midVal,
-                    item.Overflow.ToString());
+                    item.MeterName,
+                    null,
+                    value);
             }
 
             AddLine(null, Dashes, null);

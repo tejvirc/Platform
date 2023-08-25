@@ -64,7 +64,7 @@ as follows:
     <Page Type="WatMetersPageViewModel" TabType="WatMetersPageLoader" Visible="false"/>
     <Page Type="HandpayMetersPageViewModel" TabType="HandpayMetersPageLoader" Visible="false"/>
     <Page Type="KeyedCreditsMetersPageViewModel" TabType="KeyedCreditsMetersPageLoader" Visible="false"/>
-    <Page Type="BonusMetersPageViewModel" PrintButtonEnabled="false"/>
+    <Page Type="BonusMetersPageViewModel" PrintButtonEnabled="true"/>
   </Menu>
   <Menu Type="HardwareMainPageLoader" Access="Technician">
     <Page Type="PrinterViewModel" PrintButtonEnabled="true">
