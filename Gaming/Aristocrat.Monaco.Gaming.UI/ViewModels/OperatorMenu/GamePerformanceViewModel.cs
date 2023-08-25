@@ -338,6 +338,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             if (game != null)
             {
                 game.IsActive = enable;
+                if (!enable)
+                {
+                    game.PreviousActiveTime += DateTime.UtcNow - game.ActiveDateTime;
+                }
             }
 
             // Re-sort to have enabled at the top

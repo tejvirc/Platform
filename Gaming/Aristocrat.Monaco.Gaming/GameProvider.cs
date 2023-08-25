@@ -1757,7 +1757,8 @@
                     SecondaryEnabled = game.SecondaryEnabled, // default value
                     LetItRideAllowed = game.LetItRideAllowed || game.LetItRideEnabled,
                     LetItRideEnabled = game.LetItRideEnabled, // default value
-                    Active = denomination == activeDenom
+                    Active = denomination == activeDenom,
+                    ActiveDate = denomination == activeDenom ? DateTime.UtcNow : DateTime.MinValue
                 }).ToList();
 
             if (game.GameType != t_gameType.Poker || activeBetOption == null)
