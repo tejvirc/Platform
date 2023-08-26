@@ -64,6 +64,7 @@
         private bool? _technicianMode;
         private bool _hostTechnician;
         private bool _forceTechnicianMode;
+        private bool _technicianModeLocked;
 
         private bool _disposed;
 
@@ -127,6 +128,7 @@
                      x.PropertyName == ApplicationConstants.WaitForProgressiveInitialization);
 
             _maxMetersEnabled = _properties.GetValue(@"maxmeters", "false") == "true";
+            _technicianModeLocked = _properties.GetValue(ApplicationConstants.TechnicianModeLocked, false);
         }
 
         public void Dispose()
@@ -326,6 +328,11 @@
             AccessRuleSet ruleSet,
             IEnumerable<Action<bool, OperatorMenuAccessRestriction>> callbacks)
         {
+            if(TechnicianMode && _technicianModeLocked)
+            {
+                return (true, OperatorMenuAccessRestriction.None);
+            }
+
             var access = false;
             var orRestrictions = new List<(OperatorMenuAccessRestriction Restriction, int Priority)>();
             var andRestrictions = new List<(OperatorMenuAccessRestriction Restriction, int Priority)>();
