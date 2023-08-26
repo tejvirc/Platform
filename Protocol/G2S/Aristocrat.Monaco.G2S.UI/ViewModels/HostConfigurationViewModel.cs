@@ -406,7 +406,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 host.Id = viewModel.HostId.Value;
                 host.Address = new Uri(viewModel.Address);
                 host.Registered = viewModel.Registered;
+                host.RegisteredDisplayText = GetBooleanDisplayText(viewModel.Registered);
                 host.RequiredForPlay = viewModel.RequiredForPlay;
+                host.RegisteredDisplayText = GetBooleanDisplayText(viewModel.RequiredForPlay);
 
                 RefreshHosts();
 
