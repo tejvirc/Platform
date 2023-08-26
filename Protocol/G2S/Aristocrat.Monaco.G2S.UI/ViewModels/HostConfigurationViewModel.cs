@@ -448,9 +448,11 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 host.Id = viewModel.HostId.Value;
                 host.Address = new Uri(viewModel.Address);
                 host.Registered = viewModel.Registered;
+                host.RegisteredDisplayText = GetBooleanDisplayText(viewModel.Registered);
                 host.RequiredForPlay = viewModel.RequiredForPlay;
                 host.IsProgressiveHost = viewModel.IsProgressiveHost;
                 host.ProgressiveHostOfflineTimerInterval = TimeSpan.FromSeconds(viewModel.OfflineTimerIntervalSeconds);
+                host.RequiredForPlayDisplayText = GetBooleanDisplayText(viewModel.RequiredForPlay);
 
                 RefreshHosts();
 
