@@ -33155,6 +33155,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Total Bulk.
+		/// </summary>
+		public static string TotalBulk {
+			get {
+				return ResourceManager.GetString("TotalBulk", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Total Cashless In.
 		/// </summary>
         /// <remarks>
@@ -69859,6 +69868,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Total Bulk.
+		/// </summary>
+		public static string TotalBulk {
+			get {
+				return "TotalBulk";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Total Cashless In.
 		/// </summary>
         /// <remarks>
@@ -92294,6 +92312,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		TotalBillsInText,
+		/// <summary>
+		///   Looks up a localized string similar to Total Bulk.
+		/// </summary>
+		TotalBulk,
 		/// <summary>
 		///   Looks up a localized string similar to Total Cashless In.
 		/// </summary>

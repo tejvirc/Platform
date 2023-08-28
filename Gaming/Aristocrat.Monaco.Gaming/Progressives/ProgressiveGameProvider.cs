@@ -223,7 +223,8 @@
                 calculator?.ApplyContribution(
                     level,
                     update,
-                    _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelHiddenTotal));
+                    _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelHiddenTotal),
+                    _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelBulkTotal));
 
                 _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelBulkContribution)
                     .Increment(update.Amount);
@@ -505,7 +506,8 @@
                         level.AssignedProgressiveId?.AssignedProgressiveKey ?? string.Empty,
                         PayMethod.Any,
                         level.HiddenValue,
-                        level.Overflow)
+                        level.Overflow,
+                        _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelBulkTotal).Lifetime)
                     { BonusId = bonusId };
 
                     level.CurrentState = ProgressiveLevelState.Hit;

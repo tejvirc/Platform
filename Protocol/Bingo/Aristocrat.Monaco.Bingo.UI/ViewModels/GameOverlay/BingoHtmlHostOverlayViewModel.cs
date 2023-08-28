@@ -151,6 +151,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
             _eventBus.Subscribe<GameDiagnosticsStartedEvent>(this, Handle);
             _eventBus.Subscribe<GameDiagnosticsCompletedEvent>(this, Handle);
             _eventBus.Subscribe<GameControlSizeChangedEvent>(this, Handle);
+            _eventBus.Subscribe<SideBetChangedEvent>(this, Handle);
 
             // Bingo Help Events
             _eventBus.Subscribe<HostConnectedEvent>(this, Handle);
@@ -670,6 +671,12 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
             Logger.Debug($"Sending scene changed to '{scene.Scene}' to overlay");
             await UpdateOverlay(() => new BingoLiveData { SceneName = scene.Scene }, token);
             _lastGameScene = scene.Scene;
+        }
+
+        private async Task Handle(SideBetChangedEvent evt, CancellationToken token)
+        {
+            Logger.Debug($"Sending side bet '{evt.Active}' to overlay");
+            await UpdateOverlay(() => new BingoLiveData { ActiveSubgames = evt.Active ? 1 : 0 }, token);
         }
 
         private async Task Handle(GameDiagnosticsStartedEvent evt, CancellationToken token)

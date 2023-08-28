@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="1.0.26" />
-    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="1.1.8" />
+    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="1.1.10" />
     <PackageReference Include="Aristocrat.Extensions.CommunityToolkit" Version="0.1.8" />
     <PackageReference Include="CefSharp.Wpf" Version="93.1.140" />
     <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
