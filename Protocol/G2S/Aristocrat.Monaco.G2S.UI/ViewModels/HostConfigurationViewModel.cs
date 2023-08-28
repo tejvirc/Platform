@@ -408,7 +408,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 host.Registered = viewModel.Registered;
                 host.RegisteredDisplayText = GetBooleanDisplayText(viewModel.Registered);
                 host.RequiredForPlay = viewModel.RequiredForPlay;
-                host.RegisteredDisplayText = GetBooleanDisplayText(viewModel.RequiredForPlay);
+                host.RequiredForPlayDisplayText = GetBooleanDisplayText(viewModel.RequiredForPlay);
 
                 RefreshHosts();
 
