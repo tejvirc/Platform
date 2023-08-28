@@ -328,7 +328,7 @@
             AccessRuleSet ruleSet,
             IEnumerable<Action<bool, OperatorMenuAccessRestriction>> callbacks)
         {
-            if(TechnicianMode && _technicianModeLocked)
+            if(ruleSet.Name == Technician && TechnicianMode && _technicianModeLocked)
             {
                 return (true, OperatorMenuAccessRestriction.None);
             }
