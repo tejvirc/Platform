@@ -283,4 +283,13 @@
   <data name="TotalCoinInText" xml:space="preserve">
     <value>Total des pièces en</value>
   </data>
+  <data name="LicenseFileMissing" xml:space="preserve">
+    <value>??Missing Licence File??</value>
+  </data>
+  <data name="LicenseFileParsingError" xml:space="preserve">
+    <value>??Invalid Licence File??</value>
+  </data>
+  <data name="LicenseFileValidationError" xml:space="preserve">
+    <value>??Invalid LIcence File??</value>
+  </data>
 </root>
