@@ -2943,6 +2943,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 // VLT-4248:  Clear Cash-Out Dialog on VBD when we load a game.
                 // VLT-4169: Hide VBD Cash Out dialog if we are in a bill-in situation.
                 IsVbdCashOutDialogVisible = false;
+                IsResponsibleGamingCashoutDlgVisible = false;
                 ShowVbdServiceConfirmationDialog(false);
             }
 
