@@ -27,8 +27,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         {
         }
 
-        public ObservableCollection<BonusInfoMeter> EgmPaidBonusAwardsMeters { get; } =
-            new ObservableCollection<BonusInfoMeter>();
+        public ObservableCollection<BonusInfoMeter> EgmPaidBonusAwardsMeters { get; } = new();
 
         public string EgmPaidBonusAwardsTotalAmountFormatted
         {
@@ -40,8 +39,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             }
         }
 
-        public ObservableCollection<BonusInfoMeter> HandPaidBonusAwardsMeters { get; } =
-            new ObservableCollection<BonusInfoMeter>();
+        public ObservableCollection<BonusInfoMeter> HandPaidBonusAwardsMeters { get; } = new();
 
         public string HandPaidBonusAwardsTotalAmountFormatted
         {
@@ -123,12 +121,12 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         private void RemoveMeters()
         {
-            foreach(var meter in EgmPaidBonusAwardsMeters)
+            foreach (var meter in EgmPaidBonusAwardsMeters)
             {
                 meter.Dispose();
             }
 
-            foreach(var meter in HandPaidBonusAwardsMeters)
+            foreach (var meter in HandPaidBonusAwardsMeters)
             {
                 meter.Dispose();
             }
