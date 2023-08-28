@@ -11,6 +11,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
     using Contracts.Meters;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
+    using Contracts.Rtp;
     using Kernel;
     using log4net;
     using PackageManifest.Models;
@@ -238,6 +239,7 @@ namespace Aristocrat.Monaco.Gaming.Progressives
                 LineGroup = level.LineGroup,
                 TriggerControl = (TriggerType)level.Trigger,
                 FundingType = (SapFundingType)level.SapFundingType,
+                FlavorType = (FlavorType)level.FlavorType,
                 Errors = ProgressiveErrors.None,
                 AssignedProgressiveId = GenerateAssignableId(current, progressive, denominationList.First(), level.Name),
                 Turnover = 0,
@@ -269,13 +271,31 @@ namespace Aristocrat.Monaco.Gaming.Progressives
             LevelDetail levelDetail,
             IReadOnlyCollection<ProgressiveLevel> persistedLevels)
         {
-            var currentLevel = persistedLevels.FirstOrDefault(
-                l => l.LevelId == levelDetail.LevelId);
-
             var betOption = betOptions?.FirstOrDefault(
                 b => !string.IsNullOrEmpty(b.BetLinePreset) && b.BetLinePreset == progressive?.BetLinePreset);
 
-            yield return ToProgressiveLevel(gameId, denominations, betOption, progressive, levelDetail, currentLevel, 0);
+            IViewableProgressiveLevel currentLevel;
+
+            if (betOption is not null)
+            {
+                currentLevel = persistedLevels.FirstOrDefault(
+                    l => l.LevelId == levelDetail.LevelId &&
+                         l.BetOption.Equals(betOption.Name, StringComparison.InvariantCulture));
+            }
+            else
+            {
+                currentLevel = persistedLevels.FirstOrDefault(
+                    l => l.LevelId == levelDetail.LevelId);
+            }
+
+            yield return ToProgressiveLevel(
+                gameId,
+                denominations,
+                betOption,
+                progressive,
+                levelDetail,
+                currentLevel,
+                0);
         }
 
         private IEnumerable<ProgressiveLevel> GenerateProgressiveLevelsPerGamePerDenomPerBetOption(

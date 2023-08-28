@@ -38,9 +38,7 @@
         ///     Gets or the name of the level. This should always be unique as it is
         ///     a concatenation of ProtocolName, ProgressiveGroupId, and LevelId.
         /// </summary>
-        public string LevelName => $"{ProtocolName}, " +
-                                   $"Level Id: {LevelId}, "+
-                                   $"Progressive Group Id: {ProgressiveGroupId}";
+        public string LevelName => $"{ProtocolName}, LevelId: {LevelId}, ProgressiveGroupId: {ProgressiveGroupId}";
 
         /// <summary>
         ///     Gets or sets the amount for the linked progressive level
@@ -68,11 +66,9 @@
         /// <summary>
         ///     Gets the string value of the progressive level
         /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
-            return
-                $"LinkedProgressiveLevel: {LevelName} Amount={Amount} Expiration={Expiration} CurrentErrorStatus={CurrentErrorStatus} {ClaimStatus}{(WagerCredits != 0 ? " WagerCredits=" + WagerCredits : "")}";
+            return $"LinkedProgressiveLevel: {LevelName} Amount={Amount} Expiration={Expiration} CurrentErrorStatus={CurrentErrorStatus} {ClaimStatus}{(WagerCredits != 0 ? " WagerCredits=" + WagerCredits : "")}";
         }
     }
 }

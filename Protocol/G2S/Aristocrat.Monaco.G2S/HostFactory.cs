@@ -19,6 +19,7 @@
         private readonly IEventPersistenceManager _eventPersistenceManager;
         private readonly ITransportStateObserver _transportStateObserver;
         private readonly IEventLift _eventLift;
+        private readonly IEgmStateManager _egmStateManager;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="HostFactory" /> class.
@@ -30,6 +31,7 @@
         /// <param name="deviceStateObserver">The device state observer.</param>
         /// <param name="eventPersistenceManager">The event persistence manager.</param>
         /// <param name="eventLift">The event lift.</param>
+        /// <param name="egmStateManager">An instance of IEgmStateManager.</param>
         public HostFactory(
             IG2SEgm egm,
             IDeviceFactory deviceFactory,
@@ -37,7 +39,8 @@
             ICommunicationsStateObserver commsStateObserver,
             IDeviceObserver deviceStateObserver,
             IEventPersistenceManager eventPersistenceManager,
-            IEventLift eventLift)
+            IEventLift eventLift,
+            IEgmStateManager egmStateManager)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _transportStateObserver =
@@ -48,6 +51,7 @@
             _eventPersistenceManager =
                 eventPersistenceManager ?? throw new ArgumentNullException(nameof(eventPersistenceManager));
             _eventLift = eventLift ?? throw new ArgumentNullException(nameof(eventLift));
+            _egmStateManager = egmStateManager ?? throw new ArgumentNullException(nameof(egmStateManager));
         }
 
         /// <inheritdoc />
@@ -104,7 +108,7 @@
                 return;
             }
 
-            _egm.UnregisterHost(host.Id);
+            _egm.UnregisterHost(host.Id, _egmStateManager);
         }
 
         private void RegisterHostOrientedDevices(IHost host)

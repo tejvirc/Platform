@@ -1,12 +1,12 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts.Input;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Touch;
     using Kernel;
-    using MVVM;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -89,7 +89,7 @@
                 }
 
                 _serialTouchCalibrated = false;
-                MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                Execute.OnUIThread(InvokeCalibration);
             }
         }
     }

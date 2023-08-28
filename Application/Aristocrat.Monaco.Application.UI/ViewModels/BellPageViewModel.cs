@@ -1,14 +1,15 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Windows.Input;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.Extensions;
     using Hardware.Contracts.Bell;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class BellPageViewModel : InspectionWizardViewModelBase
@@ -32,7 +33,7 @@
             _bell = bell;
             _maxBellValue = PropertiesManager.GetValue(ApplicationConstants.MaxBellRing, 0L);
 
-            RingBellClicked = new ActionCommand<object>(RingBell_Click);
+            RingBellClicked = new RelayCommand<object>(RingBell_Click);
         }
 
         public bool ToggleBell
@@ -81,7 +82,7 @@
                 }
 
                 _status = value;
-                RaisePropertyChanged(nameof(Status));
+                OnPropertyChanged(nameof(Status));
             }
         }
 
@@ -91,41 +92,18 @@
             set => SetProperty(ref _testEnabled, value, nameof(TestEnabled));
         }
 
+        [CustomValidation(typeof(BellPageViewModel), nameof(ValidateBellValue))]
         public decimal InitialBellValue
         {
             get => _initialBellValue;
-
-            set
-            {
-                if (_initialBellValue == value)
-                {
-                    return;
-                }
-
-                if (SetProperty(ref _initialBellValue, value, nameof(InitialBellValue)))
-                {
-                    SetError(nameof(InitialBellValue), _initialBellValue.Validate(maximum: _maxBellValue));
-                }
-            }
+            set => SetProperty(ref _initialBellValue, value, true);
         }
 
+        [CustomValidation(typeof(BellPageViewModel), nameof(ValidateBellValue))]
         public decimal IntervalBellValue
         {
             get => _intervalBellValue;
-
-            set
-            {
-                if (_intervalBellValue == value)
-                {
-                    return;
-                }
-
-                if (SetProperty(ref _intervalBellValue, value, nameof(IntervalBellValue)))
-                {
-                    SetError(nameof(IntervalBellValue),
-                        _intervalBellValue.Validate(maximum: _maxBellValue));
-                }
-            }
+            set => SetProperty(ref _intervalBellValue, value, true);
         }
 
         public ICommand RingBellClicked { get; }
@@ -137,9 +115,6 @@
             EventBus.Subscribe<EnabledEvent>(this, _ => UpdateProperties());
             EventBus.Subscribe<DisabledEvent>(this, _ => UpdateProperties());
             EventBus.Subscribe<RingStoppedEvent>(this, _ => UpdateProperties());
-
-            InitialBellValue = -1;
-            IntervalBellValue = -1;
 
             InitialBellValue = _previousInitialBellValue = ((long)PropertiesManager.GetProperty(ApplicationConstants.InitialBellRing, 0))
                 .MillicentsToDollars();
@@ -173,19 +148,7 @@
 
         protected override void OnTestModeEnabledChanged()
         {
-            RaisePropertyChanged(nameof(TestEnabled));
-        }
-
-        protected override void SetError(string propertyName, string error)
-        {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
+            OnPropertyChanged(nameof(TestEnabled));
         }
 
         private void UpdateStatus()
@@ -226,12 +189,12 @@
 
         private void UpdateProperties()
         {
-            RaisePropertyChanged(nameof(Enabled));
-            RaisePropertyChanged(nameof(IsRinging));
-            RaisePropertyChanged(nameof(ToggleBell));
-            RaisePropertyChanged(nameof(ShowToggle));
-            RaisePropertyChanged(nameof(IsToggleEnabled));
-            RaisePropertyChanged(nameof(RingBellEnabled));
+            OnPropertyChanged(nameof(Enabled));
+            OnPropertyChanged(nameof(IsRinging));
+            OnPropertyChanged(nameof(ToggleBell));
+            OnPropertyChanged(nameof(ShowToggle));
+            OnPropertyChanged(nameof(IsToggleEnabled));
+            OnPropertyChanged(nameof(RingBellEnabled));
             UpdateStatus();
         }
 
@@ -270,6 +233,16 @@
             {
                 IntervalBellValue = _previousIntervalBellValue;
             }
+        }
+        public static ValidationResult ValidateBellValue(decimal bellValue, ValidationContext context)
+        {
+            var validationErrorMessage = bellValue.Validate(
+                maximum: ((BellPageViewModel)context.ObjectInstance)._maxBellValue
+            );
+
+            return validationErrorMessage == null
+                ? ValidationResult.Success
+                : new(validationErrorMessage);
         }
     }
 }

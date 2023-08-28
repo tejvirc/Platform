@@ -81,7 +81,7 @@
                 }
                 else
                 {
-                    RaisePropertyChanged(nameof(Address));
+                    OnPropertyChanged(nameof(Address));
                 }
             }
         }

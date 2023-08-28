@@ -29,7 +29,7 @@
             set
             {
                 SetProperty(ref _gameSpecificOptions, value, nameof(GameSpecificOptions));
-                RaisePropertyChanged(nameof(GameSpecificOptions));
+                OnPropertyChanged(nameof(GameSpecificOptions));
             }
         }
 

@@ -9,7 +9,7 @@
     using Contracts.Reel.ImplementationCapabilities;
     using log4net;
 
-    internal class ReelBrightnessCapability : IReelBrightnessCapabilities,
+    internal sealed class ReelBrightnessCapability : IReelBrightnessCapabilities,
         IStorageAccessor<ReelBrightnessCapabilityOptions>
     {
         private const string OptionsBlock = "Aristocrat.Monaco.Hardware.Reel.Capabilities.BrightnessCapability.Options";
@@ -57,6 +57,10 @@
                     },
                     _stateManager.ControllerId - 1);
             }
+        }
+
+        public void Dispose()
+        {
         }
 
         public Task<bool> SetBrightness(IReadOnlyDictionary<int, int> brightness)

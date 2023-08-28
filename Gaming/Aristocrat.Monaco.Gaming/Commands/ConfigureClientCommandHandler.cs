@@ -183,6 +183,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/Clock", _properties.GetValue(ApplicationConstants.ClockEnabled, false).ToString() },
                 { "/Runtime/Clock&format", _properties.GetValue(ApplicationConstants.ClockFormat, 12).ToString() },
                 { "/Runtime/DefaultBetInAttract", ApplicationConstants.DefaultBetInAttract.ToString() },
+                { "/Runtime/AllowZeroCreditCashout", _properties.GetValue(GamingConstants.AllowZeroCreditCashout, false).ToString()  },
                 { "/Runtime/DenomPatch", ApplicationConstants.DefaultAllowDenomPatch.ToString() },
                 { "/Runtime/Gamble&maxRounds", GamingConstants.MaxRounds.ToString() },
                 { "/Runtime/Gamble&skipByJackpotHit", _properties.GetValue(GamingConstants.GambleSkipByJackpotHit, false).ToString() },
@@ -324,6 +325,12 @@ namespace Aristocrat.Monaco.Gaming.Commands
             if (!string.IsNullOrEmpty(gameRulesInstructions))
             {
                 parameters["/Runtime/Instructions/GameRulesInstructions1"] = gameRulesInstructions;
+            }
+
+            var pressStartInstructions = _properties.GetValue(GamingConstants.PressStartInstructions, string.Empty);
+            if (!string.IsNullOrEmpty(pressStartInstructions))
+            {
+                parameters["/Runtime/Instructions/PressStart"] = pressStartInstructions;
             }
 
             AddHandCountSettings(parameters);

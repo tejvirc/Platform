@@ -31,7 +31,8 @@
         InOverlayLockup = 24,
         RequestExitGame = 25,
         GambleFeatureActive = 26,
-        InPlatformHelp = 27
+        InPlatformHelp = 27,
+        InSideBet = 28
     }
 
     public enum RuntimeRequestState

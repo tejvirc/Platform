@@ -19,6 +19,7 @@
     using Kernel;
     using Mono.Addins;
     using Moq;
+    using Newtonsoft.Json;
     using Storage.Helpers;
     using Test.Common;
     using AutoMapper.Internal;
@@ -62,6 +63,8 @@
 
         private readonly Mock<IProtocolLinkedProgressiveAdapter> _protocolLinkedProgressiveAdapter =
             new Mock<IProtocolLinkedProgressiveAdapter>(MockBehavior.Default);
+
+        private readonly Mock<IGameProvider> _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
 
         private readonly Mock<IRequestTimeoutBehaviorService> _requestTimeoutBehaviorService = new Mock<IRequestTimeoutBehaviorService>(MockBehavior.Strict);
 
@@ -110,6 +113,8 @@
 
             _serviceManager.Setup(s => s.GetService<IProtocolLinkedProgressiveAdapter>())
                 .Returns(_protocolLinkedProgressiveAdapter.Object);
+            _serviceManager.Setup(s => s.GetService<IGameProvider>())
+                .Returns(_gameProvider.Object);
             _serviceManager.Setup(s => s.GetService<IPropertiesManager>())
                 .Returns(_propertiesManager.Object);
 
@@ -278,6 +283,17 @@
             Assert.AreEqual(progressiveOutcomes, _outcomes.Count(x => x.Type == OutcomeType.Progressive));
 
             var progressiveInfo = progressiveString.ParseProgressiveHitInfo();
+
+            // convert _outcomes.LookupData back to the LookupData class and extract the
+            // Progressive information as the new lookupData value
+            var newOutcomes = new List<Outcome>();
+            foreach (var outcome in _outcomes)
+            {
+                var data = (LookupData)JsonConvert.DeserializeObject(outcome.LookupData, typeof(LookupData));
+                newOutcomes.Add(new Outcome(outcome.Id, outcome.GameSetId, outcome.SubsetId, outcome.Reference, outcome.Type, outcome.Value, outcome.WinLevelIndex, data?.Progressives ?? string.Empty, outcome.GameId, outcome.GameIndex)); 
+            }
+
+            _outcomes = newOutcomes;
             progressiveInfo.ForAll(
                 x =>
                     Assert.AreEqual(x.count, _outcomes.Count(y => y.LookupData == x.levels.ToString())));
@@ -461,6 +477,7 @@
             _propertiesManager.Setup(p => p.GetProperty(GamingConstants.SelectedGameId, It.IsAny<int>())).Returns(1);
             _propertiesManager.Setup(p => p.GetProperty(GamingConstants.Games, It.IsAny<object>())).Returns(new List<IGameDetail> { gameDetail });
 
+            _gameProvider.Setup(p => p.GetActiveGame()).Returns((null, denomination.Object));
         }
     }
 }

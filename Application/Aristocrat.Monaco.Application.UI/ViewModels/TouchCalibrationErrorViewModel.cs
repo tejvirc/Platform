@@ -1,7 +1,8 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Linq;
+    using Aristocrat.Extensions.CommunityToolkit;
     using ConfigWizard;
     using Contracts.Input;
     using Contracts.Localization;
@@ -9,7 +10,6 @@
     using Hardware.Contracts.Cabinet;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM;
     using OperatorMenu;
 
     [CLSCompliant(false)]
@@ -75,7 +75,7 @@
                  downEvent.LogicalId == (int)ButtonLogicalId.DualPlay) &&
                 downEvent.Enabled == false)
             {
-                MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                Execute.OnUIThread(InvokeCalibration);
             }
         }
     }

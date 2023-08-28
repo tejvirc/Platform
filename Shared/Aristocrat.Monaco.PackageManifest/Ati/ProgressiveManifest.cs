@@ -96,7 +96,7 @@
                         Probability = Convert.ToDecimal(level.probability, CultureInfo.InvariantCulture),
                         MaximumValue = new ProgressiveValue(level.ceiling),
                         StartupValue = new ProgressiveValue(level.startUp),
-                        AllowTruncation = level.allowTruncation,
+                        AllowTruncation = bool.TryParse(level.allowTruncation, out var result) && result,
                         BonusValues = level.Bonuses?.ToDictionary(
                             b => b.key,
                             b => Convert.ToInt64(b.value)),
@@ -104,6 +104,7 @@
                             level.sapFundingSpecified ? ToLevelType(level.sapFunding) : ToLevelType(level.flavor),
                         SapFundingType = GetSapFundingType(progressivePack, progressive, levelPack, level),
                         ProgressiveType = GetProgressiveType(progressivePack, progressive, levelPack, level),
+                        FlavorType = GetFlavorType(progressivePack, progressive, levelPack, level),
                         Trigger = level.triggerSpecified ? level.trigger : triggerType.GAME,
                         LineGroup = Convert.ToInt32(level.lineGroup),
                         Rtp = Convert.ToDecimal(level.rtp)
@@ -235,38 +236,57 @@
             return progressiveType;
         }
 
-        private LevelTypes ToLevelType(flavorType levelType)
+        private static flavorType GetFlavorType(
+            ProgressivePackType progressivePack,
+            ProgressiveType progressive,
+            LevelPackType levelPack,
+            LevelType level)
         {
-            switch (levelType)
+            var flavorType = Ati.flavorType.STANDARD;
+
+            if (level.flavorSpecified)
             {
-                case flavorType.STANDARD:
-                    return LevelTypes.Standard;
-                case flavorType.BULK_CONTRIBUTION:
-                    return LevelTypes.Bulk;
-                case flavorType.VERTEX_MYSTERY:
-                    return LevelTypes.Mystery;
-                case flavorType.HOSTCHOICE:
-                    return LevelTypes.HostChoice;
-                default:
-                    return LevelTypes.Standard;
+                flavorType = level.flavor;
             }
+            else if (levelPack.flavorSpecified)
+            {
+                flavorType = levelPack.flavor;
+            }
+            else if (progressive.flavorSpecified)
+            {
+                flavorType = progressive.flavor;
+            }
+            else if (progressivePack.flavorSpecified)
+            {
+                flavorType = progressivePack.flavor;
+            }
+
+            return flavorType;
         }
 
-        private LevelTypes ToLevelType(sapFundingType packType)
+        private static LevelTypes ToLevelType(flavorType levelType)
         {
-            switch (packType)
+            return levelType switch
             {
-                case sapFundingType.standard:
-                case sapFundingType.line_based:
-                    return LevelTypes.Standard;
-                case sapFundingType.ante:
-                case sapFundingType.line_based_ante:
-                    return LevelTypes.BulkWithAnteBet;
-                case sapFundingType.bulk_only:
-                    return LevelTypes.Bulk;
-                default:
-                    return LevelTypes.Standard;
-            }
+                flavorType.STANDARD => LevelTypes.Standard,
+                flavorType.BULK_CONTRIBUTION => LevelTypes.Bulk,
+                flavorType.VERTEX_MYSTERY => LevelTypes.Mystery,
+                flavorType.HOSTCHOICE => LevelTypes.HostChoice,
+                _ => LevelTypes.Standard
+            };
+        }
+
+        private static LevelTypes ToLevelType(sapFundingType packType)
+        {
+            return packType switch
+            {
+                sapFundingType.standard => LevelTypes.Standard,
+                sapFundingType.line_based => LevelTypes.Standard,
+                sapFundingType.ante => LevelTypes.BulkWithAnteBet,
+                sapFundingType.line_based_ante => LevelTypes.BulkWithAnteBet,
+                sapFundingType.bulk_only => LevelTypes.Bulk,
+                _ => LevelTypes.Standard
+            };
         }
     }
 }

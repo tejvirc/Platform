@@ -19,6 +19,16 @@
         protected ConfigWizardViewModelBase(bool isWizardPage = false)
         {
             IsWizardPage = isWizardPage;
+            if (isWizardPage)
+            {
+                var currencyLocalizationPreference = PropertiesManager.GetValue(ApplicationConstants.ConfigWizardLocalizationCurrency, Culture.Default);
+
+                if (currencyLocalizationPreference is not Culture.Default)
+                {
+                    UseOperatorCultureForCurrencyFormatting = currencyLocalizationPreference is Culture.Operator;
+                }
+            }
+
             _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
         }
 
@@ -69,7 +79,7 @@
             }
 
             _saved = false;
-            RaisePropertyChanged(nameof(InputEnabled));
+            OnPropertyChanged(nameof(InputEnabled));
             IsVisitedSinceRestart = true;
         }
 
@@ -84,7 +94,7 @@
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(InputEnabled));
+            OnPropertyChanged(nameof(InputEnabled));
         }
 
         protected virtual void SetupNavigation()

@@ -84,7 +84,7 @@
             set
             {
                 _activationTime = value;
-                RaisePropertyChanged(nameof(ActivationTime));
+                OnPropertyChanged(nameof(ActivationTime));
             }
         }
 
@@ -94,7 +94,7 @@
             set
             {
                 _activationVisible = value;
-                RaisePropertyChanged(nameof(ActivationVisible));
+                OnPropertyChanged(nameof(ActivationVisible));
             }
         }
 
@@ -104,7 +104,7 @@
             set
             {
                 _firmwareCrcText = value;
-                RaisePropertyChanged(nameof(FirmwareCrcText));
+                OnPropertyChanged(nameof(FirmwareCrcText));
             }
         }
 
@@ -114,7 +114,7 @@
             set
             {
                 _firmwareVersionText = value;
-                RaisePropertyChanged(nameof(FirmwareVersionText));
+                OnPropertyChanged(nameof(FirmwareVersionText));
             }
         }
 
@@ -124,7 +124,7 @@
             set
             {
                 _firmwareRevisionText = value;
-                RaisePropertyChanged(nameof(FirmwareRevisionText));
+                OnPropertyChanged(nameof(FirmwareRevisionText));
             }
         }
 
@@ -134,7 +134,7 @@
             set
             {
                 _manufacturerText = value;
-                RaisePropertyChanged(nameof(ManufacturerText));
+                OnPropertyChanged(nameof(ManufacturerText));
             }
         }
 
@@ -144,7 +144,7 @@
             set
             {
                 _modelText = value;
-                RaisePropertyChanged(nameof(ModelText));
+                OnPropertyChanged(nameof(ModelText));
             }
         }
 
@@ -154,7 +154,7 @@
             set
             {
                 _portText = value;
-                RaisePropertyChanged(nameof(PortText));
+                OnPropertyChanged(nameof(PortText));
             }
         }
 
@@ -166,7 +166,7 @@
             set
             {
                 _protocolText = value;
-                RaisePropertyChanged(nameof(ProtocolText));
+                OnPropertyChanged(nameof(ProtocolText));
             }
         }
 
@@ -176,7 +176,7 @@
             set
             {
                 _serialNumberText = value;
-                RaisePropertyChanged(nameof(SerialNumberText));
+                OnPropertyChanged(nameof(SerialNumberText));
             }
         }
 
@@ -192,8 +192,8 @@
                 }
 
                 _showingDiagnostics = value;
-                RaisePropertyChanged(nameof(ShowDiagnostics));
-                RaisePropertyChanged(nameof(IsSelfTestVisible));
+                OnPropertyChanged(nameof(ShowDiagnostics));
+                OnPropertyChanged(nameof(IsSelfTestVisible));
             }
         }
 
@@ -206,7 +206,7 @@
             set
             {
                 _selfTestButtonEnabled = value;
-                RaisePropertyChanged(nameof(SelfTestButtonEnabled));
+                OnPropertyChanged(nameof(SelfTestButtonEnabled));
             }
         }
 
@@ -217,9 +217,9 @@
             set
             {
                 _selfTestState = value;
-                RaisePropertyChanged(nameof(SelfTestButtonEnabled));
-                RaisePropertyChanged(nameof(SelfTestText));
-                RaisePropertyChanged(nameof(SelfTestForeground));
+                OnPropertyChanged(nameof(SelfTestButtonEnabled));
+                OnPropertyChanged(nameof(SelfTestText));
+                OnPropertyChanged(nameof(SelfTestForeground));
             }
         }
 
@@ -246,23 +246,13 @@
         public string StateText
         {
             get => _stateText;
-
-            set
-            {
-                _stateText = value;
-                RaisePropertyChanged(nameof(StateText));
-            }
+            set => SetProperty(ref _stateText, value);
         }
 
         public StateMode StateCurrentMode
         {
             get => _stateMode;
-
-            set
-            {
-                _stateMode = value;
-                RaisePropertyChanged(nameof(StateForeground));
-            }
+            set => SetProperty(ref _stateMode, value, nameof(StateForeground));
         }
 
         public Brush StateForeground =>
@@ -283,7 +273,7 @@
             set
             {
                 _statusText = value;
-                RaisePropertyChanged(nameof(StatusText));
+                OnPropertyChanged(nameof(StatusText));
             }
         }
 
@@ -294,7 +284,7 @@
             set
             {
                 _statusMode = value;
-                RaisePropertyChanged(nameof(StatusForeground));
+                OnPropertyChanged(nameof(StatusForeground));
             }
         }
 
@@ -350,7 +340,7 @@
 
         protected override void UpdatePrinterButtons()
         {
-            RaisePropertyChanged(nameof(SelfTestButtonEnabled));
+            OnPropertyChanged(nameof(SelfTestButtonEnabled));
         }
 
         protected virtual void SetDeviceInformation(IDevice device)

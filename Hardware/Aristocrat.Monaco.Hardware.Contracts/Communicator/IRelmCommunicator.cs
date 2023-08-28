@@ -4,7 +4,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Reel.Capabilities;
-    using Reel.ControlData;
     using Reel.Events;
 
     /// <summary>
@@ -15,8 +14,14 @@
         IDfuDriver,
         IReelAnimationCapabilities,
         IReelSynchronizationCapabilities,
-        IReelBrightnessCapabilities
+        IReelBrightnessCapabilities,
+        IStepperRuleCapabilities
     {
+        /// <summary>
+        ///     Gets the default home step.
+        /// </summary>
+        int DefaultHomeStep { get; }
+
         /// <summary>
         ///     Event that occurs when component statuses are received.
         /// </summary>
@@ -37,22 +42,75 @@
         /// </summary>
         event EventHandler<LightEventArgs> LightStatusReceived;
 
-        /// TODO: Future work will be needed to properly handle interrupts
         /// <summary>
         ///     Event occurs when a reel idle interrupt is received
         /// </summary>
-        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinningStatusReceived;
+        
+        /// <summary>
+        ///     The event that occurs when the reel begins to stop spinning and idle time is calculated
+        /// </summary>
+        public event EventHandler<ReelStoppingEventArgs> ReelStopping;
+
+        /// <summary>
+        ///     The event that occurs when all light animations are removed from the playing queue 
+        /// </summary>
+        event EventHandler AllLightAnimationsCleared;
+        
+        /// <summary>
+        ///     The event that occurs when a light animation is removed from the playing queue 
+        /// </summary>
+        public event EventHandler<LightAnimationEventArgs> LightAnimationRemoved;
+
+        /// <summary>
+        ///     The event that occurs when the reel controller starts a light animation
+        /// </summary>
+        event EventHandler<LightAnimationEventArgs> LightAnimationStarted;
+
+        /// <summary>
+        ///     The event that occurs when the reel controller stops a light animation
+        /// </summary>
+        event EventHandler<LightAnimationEventArgs> LightAnimationStopped;
+
+        /// <summary>
+        ///     The event that occurs when the reel controller prepares a light animation
+        /// </summary>
+        event EventHandler<LightAnimationEventArgs> LightAnimationPrepared;
+
+        /// <summary>
+        ///     The event that occurs when the reel controller starts a reel animation
+        /// </summary>
+        event EventHandler<ReelAnimationEventArgs> ReelAnimationStarted;
+
+        /// <summary>
+        ///     The event that occurs when the reel controller stops a reel animation
+        /// </summary>
+        event EventHandler<ReelAnimationEventArgs> ReelAnimationStopped;
+
+        /// <summary>
+        ///     The event that occurs when the reel controller prepares a reels animation
+        /// </summary>
+        event EventHandler<ReelAnimationEventArgs> ReelAnimationPrepared;
+
+        /// <summary>
+        ///     The event that occurs when the reel controller triggers a stepper rule (user event)
+        /// </summary>
+        event EventHandler<StepperRuleTriggeredEventArgs> StepperRuleTriggered;
+
+        /// <summary>
+        ///     The event that occurs when the reel controller starts reel synchronization
+        /// </summary>
+        event EventHandler<ReelSynchronizationEventArgs> SynchronizationStarted;
+        
+        /// <summary>
+        ///     The event that occurs when the reel controller completes reel synchronization
+        /// </summary>
+        event EventHandler<ReelSynchronizationEventArgs> SynchronizationCompleted;
 
         /// <summary>
         ///     Initializes the communicator.
         /// </summary>
         Task Initialize();
-
-        /// <summary>
-        ///     Homes the reels to the requested stop
-        /// </summary>
-        /// <returns>Whether or not the reels were homed</returns>
-        Task<bool> HomeReels();
 
         /// <summary>
         ///     Homes the reel to the requested stop

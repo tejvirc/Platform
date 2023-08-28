@@ -2,6 +2,7 @@
 {
     using System;
     using System.Reflection;
+    using Aristocrat.Monaco.Kernel;
     using Contracts;
     using log4net;
 
@@ -15,17 +16,21 @@
 
         private readonly IGamePlayState _gamePlayState;
         private readonly IPlayerBank _playerBank;
+        private readonly IPropertiesManager _properties;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="CashOutButtonPressedConsumer" /> class.
         /// </summary>
         /// <param name="playerBank">An <see cref="IPlayerBank" /> instance.</param>
         /// <param name="gamePlayState">An <see cref="IGamePlayState" /> instance.</param>
-        public CashOutButtonPressedConsumer(IPlayerBank playerBank, IGamePlayState gamePlayState)
+        public CashOutButtonPressedConsumer(IPlayerBank playerBank, IGamePlayState gamePlayState, IPropertiesManager propertiesManager)
         {
             _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
             _playerBank = playerBank ?? throw new ArgumentNullException(nameof(playerBank));
+            _properties = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
         }
+
+        private bool AllowZeroCreditCashout => _properties.GetValue(GamingConstants.AllowZeroCreditCashout, false);
 
         /// <inheritdoc />
         public override void Consume(CashOutButtonPressedEvent theEvent)
@@ -34,6 +39,13 @@
             if (!_gamePlayState.Idle && !_gamePlayState.InPresentationIdle)
             {
                 Logger.Warn($"Unable to cashout. The game play state is not idle. ({_gamePlayState.CurrentState})");
+                return;
+            }
+
+            if ( _playerBank.Balance == 0 && AllowZeroCreditCashout)
+            {
+                // Don't call _playerBank.CashOut()
+                Logger.Info("Zero credit cashout");
                 return;
             }
 

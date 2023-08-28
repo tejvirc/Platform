@@ -58,6 +58,11 @@
         SapFundingType FundingType { get; }
 
         /// <summary>
+        ///     Gets or sets the progressive flavor type associated with this level.
+        /// </summary>
+        public FlavorType FlavorType { get; }
+
+        /// <summary>
         ///     Gets the id for the progressive level. This should be unique within a progressive pack.
         /// </summary>
         int LevelId { get; }

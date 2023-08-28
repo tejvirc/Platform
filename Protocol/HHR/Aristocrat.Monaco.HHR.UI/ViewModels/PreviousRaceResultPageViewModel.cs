@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.ViewModels
+namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 {
     using System;
     using System.Windows;
@@ -12,7 +12,7 @@
     using Storage.Helpers;
     using Aristocrat.Monaco.Hhr.Services;
     using Client.Data;
-    using MVVM;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     public class PreviousRaceResultPageViewModel : HhrMenuPageViewModelBase
     {
@@ -49,7 +49,7 @@
         public override void Reset()
         {
             base.Reset();
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     PreviousResultCollection1.Clear();
@@ -161,8 +161,8 @@
                 HhrUiConstants.NumberOfRacesPerRaceSet,
                 HhrUiConstants.NumberOfRacesPerRaceSet * 2,
                 PreviousResultCollection2);
-            RaisePropertyChanged(nameof(WagerLabel1));
-            RaisePropertyChanged(nameof(WagerLabel2));
+            OnPropertyChanged(nameof(WagerLabel1));
+            OnPropertyChanged(nameof(WagerLabel2));
         }
     }
 }

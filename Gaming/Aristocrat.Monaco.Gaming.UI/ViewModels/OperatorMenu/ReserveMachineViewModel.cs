@@ -33,11 +33,10 @@
                     return;
                 }
 
-                SetProperty(
-                    ref _allowPlayerToReserveMachine,
-                    value,
-                    nameof(AllowPlayerToReserveMachine),
-                    nameof(IsReserveMachineDurationEnabled));
+                if (SetProperty(ref _allowPlayerToReserveMachine, value, nameof(AllowPlayerToReserveMachine)))
+                {
+                    OnPropertyChanged(nameof(IsReserveMachineDurationEnabled));
+                }
 
                 PropertiesManager.SetProperty(ApplicationConstants.ReserveServiceEnabled, _allowPlayerToReserveMachine);
 
@@ -59,11 +58,10 @@
                     return;
                 }
 
-                SetProperty(
-                    ref _isReserveMachineOptionEnabled,
-                    value,
-                    nameof(IsReserveMachineOptionEnabled),
-                    nameof(IsReserveMachineDurationEnabled));
+                if (SetProperty(ref _isReserveMachineOptionEnabled, value, nameof(IsReserveMachineOptionEnabled)))
+                {
+                    OnPropertyChanged(nameof(IsReserveMachineDurationEnabled));
+                }
             }
         }
 

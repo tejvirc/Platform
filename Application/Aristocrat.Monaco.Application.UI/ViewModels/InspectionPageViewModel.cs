@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -7,6 +7,8 @@
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Threading;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.ConfigWizard;
@@ -17,17 +19,15 @@
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Kernel.Contracts;
-    using OperatorMenu;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
+    using OperatorMenu;
 
     [CLSCompliant(false)]
     public class InspectionPageViewModel : InspectionWizardViewModelBase, IConfigWizardNavigator, IInspectionWizard, IService
     {
         private readonly string _inspectionWizardsGroupName = "InspectionWizardPages";
         private readonly string _wizardsExtensionPath = "/Application/Inspection/Wizards";
-        private readonly Collection<IOperatorMenuPageLoader> _wizardPages = new ();
+        private readonly Collection<IOperatorMenuPageLoader> _wizardPages = new();
         private readonly OperatorMenuPrintHandler _operatorMenuPrintHandler;
 
         private string _reportText;
@@ -66,12 +66,12 @@
             EventBus.Subscribe<OperatorMenuPrintJobEvent>(this, HandleOperatorMenuPrintJob);
             EventBus.Subscribe<InspectionResultsChangedEvent>(this, Handle);
 
-            PrintButtonCommand = new ActionCommand<object>(PrintButton_Click);
-            ClearConfigButtonClicked = new ActionCommand<object>(ClearConfigButton_Click);
-            ReportButtonClicked = new ActionCommand<object>(ReportButton_Click);
-            AutoTestButtonClicked = new ActionCommand<object>(AutoTestButton_Click, _ => CanStartAutoTest);
-            BackButtonClicked = new ActionCommand<object>(BackButton_Click, _ => CanNavigateBackward);
-            NextButtonClicked = new ActionCommand<object>(NextButton_Click, _ => CanNavigateForward);
+            PrintButtonCommand = new RelayCommand<object>(PrintButton_Click);
+            ClearConfigButtonClicked = new RelayCommand<object>(ClearConfigButton_Click);
+            ReportButtonClicked = new RelayCommand<object>(ReportButton_Click);
+            AutoTestButtonClicked = new RelayCommand<object>(AutoTestButton_Click, _ => CanStartAutoTest);
+            BackButtonClicked = new RelayCommand<object>(BackButton_Click, _ => CanNavigateBackward);
+            NextButtonClicked = new RelayCommand<object>(NextButton_Click, _ => CanNavigateForward);
 
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(BeginConfigWizardPages));
         }
@@ -116,7 +116,10 @@
                     vm.Save();
                 }
 
-                SetProperty(ref _currentPageLoader, value, nameof(CurrentPage));
+                if (SetProperty(ref _currentPageLoader, value, nameof(CurrentPageLoader)))
+                {
+                    OnPropertyChanged(nameof(CurrentPage));
+                }
 
                 if (_currentPageLoader != null)
                 {
@@ -142,9 +145,9 @@
             set
             {
                 SetProperty(ref _canNavigateForward, value, nameof(CanNavigateForward));
-                if (NextButtonClicked is IActionCommand actionCommand)
+                if (NextButtonClicked is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -156,9 +159,9 @@
             set
             {
                 SetProperty(ref _canNavigateBackward, value, nameof(CanNavigateBackward));
-                if (BackButtonClicked is IActionCommand actionCommand)
+                if (BackButtonClicked is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -169,9 +172,9 @@
             set
             {
                 SetProperty(ref _canStartAutoTest, value, nameof(CanStartAutoTest));
-                if (AutoTestButtonClicked is IActionCommand actionCommand)
+                if (AutoTestButtonClicked is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
 
             }
@@ -236,13 +239,17 @@
             set => SetProperty(ref _reportStatus, value, nameof(ReportStatus));
         }
 
+        public void Initialize()
+        {
+        }
+
         protected override void SaveChanges()
         {
         }
 
         private void Handle(InspectionResultsChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 if (evt.InspectionResult is null)
                 {
@@ -368,7 +375,7 @@
 
             var group = AddinConfigurationGroupNode.Get(_inspectionWizardsGroupName);
             var nodes = MonoAddinsHelper.GetConfiguredExtensionNodes<WizardConfigTypeExtensionNode>(
-                new List<AddinConfigurationGroupNode>{group}, extensionPath, false);
+                new List<AddinConfigurationGroupNode> { group }, extensionPath, false);
 
             // no need to continue if we don't have any wizards to configure
             if (nodes.Count == 0)

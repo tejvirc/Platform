@@ -45,12 +45,11 @@ namespace Aristocrat.Monaco.TestController
     using NoteAcceptorDisconnectedEvent = Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
     using PrinterDisconnectedEvent = Aristocrat.Monaco.Hardware.Contracts.Printer.DisconnectedEvent;
     using VirtualDeviceType = Hardware.Contracts.SharedDevice.DeviceType;
-    using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using System.Linq;
     using Newtonsoft.Json;
-    using RobotController.Contracts;
     using Aristocrat.Monaco.Gaming.Contracts.Lobby;
     using Aristocrat.Monaco.Gaming.Contracts.Models;
+    using Aristocrat.Monaco.Gaming.Contracts.Events;
 
     public partial class TestControllerEngine : ITestController
     {

@@ -78,7 +78,7 @@
             }
         }
 
-        public void AddProgressiveDevices(bool initialCreation = false)
+        public void AddProgressiveDevices()
         {
             var hosts = _propertiesManager.GetValues<IHost>(G2S.Constants.RegisteredHosts).ToList();
             var registeredGuests = hosts.Where(h => !h.IsEgm() && h.Registered).ToList();
@@ -100,15 +100,12 @@
 
             foreach (var deviceId in progressiveDeviceIdsToCreate)
             {
-                if (!initialCreation && _egm.GetDevice<IProgressiveDevice>(deviceId) != null) continue;
+                if (_egm.GetDevice<IProgressiveDevice>(deviceId) != null)
+                {
+                    continue;
+                }
                 var device = _deviceFactory.Create(progressiveHost ?? egmHost, registeredGuests,
                     () => new ProgressiveDevice(deviceId, _progressiveDeviceStateObserver, _eventLift, defaultNoProgInfoTimeout));
-            }
-
-            if (initialCreation && !_egm.GetDevices<IProgressiveDevice>().Any())
-            {
-                _deviceFactory.Create(progressiveHost ?? egmHost, registeredGuests,
-                    () => new ProgressiveDevice(0, _progressiveDeviceStateObserver, _eventLift, defaultNoProgInfoTimeout));
             }
         }
     }

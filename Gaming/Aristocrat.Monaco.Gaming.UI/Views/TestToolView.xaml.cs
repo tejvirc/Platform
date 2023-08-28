@@ -1,8 +1,8 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views
+namespace Aristocrat.Monaco.Gaming.UI.Views
 {
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Kernel;
-    using MVVM;
     using ViewModels;
 
     /// <summary>
@@ -22,7 +22,7 @@
             ServiceManager.GetInstance().GetService<IEventBus>()
                 .Subscribe<TestToolPluginEvent>(this, evt =>
                 {
-                    MvvmHelper.ExecuteOnUI(
+                    Execute.OnUIThread(
                         () => TabControl.Items.Insert(TabControl.Items.Count, evt.Tab));
                 });
         }

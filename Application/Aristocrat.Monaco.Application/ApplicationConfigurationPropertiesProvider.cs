@@ -599,6 +599,20 @@
                         false)
                 },
                 {
+                    ApplicationConstants.PaperInChuteBlocksCashout,
+                    Tuple.Create(
+                        (object)configuration.Cashout?.PaperInChuteBlocksCashout ?? true,
+                        ApplicationConstants.PaperInChuteBlocksCashout,
+                        false)
+                },
+                {
+                    ApplicationConstants.DisplayTopScreenWhenCashout,
+                    Tuple.Create(
+                        (object)configuration.DisplayTopScreen?.Enabled ?? true,
+                        ApplicationConstants.DisplayTopScreenWhenCashout,
+                        false)
+                },
+                {
                     ApplicationConstants.DefaultBetAfterSwitch,
                     Tuple.Create(
                         (object)configuration.MultiGame?.DefaultBetAfterSwitch ?? true,

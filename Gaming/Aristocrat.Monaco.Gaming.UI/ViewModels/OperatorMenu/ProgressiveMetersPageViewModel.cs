@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,9 @@
     using Application.UI.Events;
     using Application.UI.MeterPage;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Common;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Meters;
     using Contracts.Progressives;
@@ -22,8 +24,6 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
     using static DenomMetersPageViewModel;
 
     [CLSCompliant(false)]
@@ -56,14 +56,14 @@
 
             _progressiveMeterManager = serviceManager.GetService<IProgressiveMeterManager>();
 
-            PreviousGameCommand = new ActionCommand<object>(PreviousGame);
-            NextGameCommand = new ActionCommand<object>(NextGame);
+            PreviousGameCommand = new RelayCommand<object>(PreviousGame);
+            NextGameCommand = new RelayCommand<object>(NextGame);
 
-            PreviousDenomCommand = new ActionCommand<object>(PreviousDenom);
-            NextDenomCommand = new ActionCommand<object>(NextDenom);
+            PreviousDenomCommand = new RelayCommand<object>(PreviousDenom);
+            NextDenomCommand = new RelayCommand<object>(NextDenom);
 
-            PreviousBetOptionCommand = new ActionCommand<object>(PreviousBetOption);
-            NextBetOptionCommand = new ActionCommand<object>(NextBetOption);
+            PreviousBetOptionCommand = new RelayCommand<object>(PreviousBetOption);
+            NextBetOptionCommand = new RelayCommand<object>(NextBetOption);
 
             BetOptions = new ObservableCollection<string>();
             Denoms = new ObservableCollection<Denomination>();
@@ -93,7 +93,7 @@
             private set
             {
                 SetProperty(ref _hasEnabledProgressives, value, nameof(HasEnabledProgressives));
-                RaisePropertyChanged(nameof(HasProgressivesButNoneEnabled));
+                OnPropertyChanged(nameof(HasProgressivesButNoneEnabled));
             }
         }
 
@@ -103,7 +103,7 @@
             private set
             {
                 SetProperty(ref _hasProgressives, value, nameof(HasProgressives));
-                RaisePropertyChanged(nameof(HasProgressivesButNoneEnabled));
+                OnPropertyChanged(nameof(HasProgressivesButNoneEnabled));
             }
         }
 
@@ -139,10 +139,10 @@
 
                 UpdateBetOptions();
 
-                RaisePropertyChanged(nameof(Denoms));
+                OnPropertyChanged(nameof(Denoms));
                 SelectedDenomIndex = 0;
 
-                RaisePropertyChanged(nameof(SelectedGame));
+                OnPropertyChanged(nameof(SelectedGame));
                 InitializeMeters();
             }
         }
@@ -203,9 +203,9 @@
                 SelectedGame = Games[value];
                 _selectedGameIndex = value;
 
-                RaisePropertyChanged(nameof(SelectedGameIndex));
-                RaisePropertyChanged(nameof(PreviousGameIsEnabled));
-                RaisePropertyChanged(nameof(NextGameIsEnabled));
+                OnPropertyChanged(nameof(SelectedGameIndex));
+                OnPropertyChanged(nameof(PreviousGameIsEnabled));
+                OnPropertyChanged(nameof(NextGameIsEnabled));
             }
         }
 
@@ -225,7 +225,7 @@
             set
             {
                 _selectedDenom = value;
-                RaisePropertyChanged(nameof(SelectedDenom));
+                OnPropertyChanged(nameof(SelectedDenom));
                 InitializeMeters();
             }
         }
@@ -242,9 +242,9 @@
 
                 _selectedDenomIndex = value;
                 SelectedDenom = Denoms[value];
-                RaisePropertyChanged(nameof(SelectedDenomIndex));
-                RaisePropertyChanged(nameof(PreviousDenomIsEnabled));
-                RaisePropertyChanged(nameof(NextDenomIsEnabled));
+                OnPropertyChanged(nameof(SelectedDenomIndex));
+                OnPropertyChanged(nameof(PreviousDenomIsEnabled));
+                OnPropertyChanged(nameof(NextDenomIsEnabled));
             }
         }
 
@@ -270,9 +270,9 @@
 
                 _selectedBetOptionIndex = value;
                 SelectedBetOption = BetOptions[value];
-                RaisePropertyChanged(nameof(SelectedBetOptionIndex));
-                RaisePropertyChanged(nameof(PreviousBetOptionIsEnabled));
-                RaisePropertyChanged(nameof(NextBetOptionIsEnabled));
+                OnPropertyChanged(nameof(SelectedBetOptionIndex));
+                OnPropertyChanged(nameof(PreviousBetOptionIsEnabled));
+                OnPropertyChanged(nameof(NextBetOptionIsEnabled));
             }
         }
 
@@ -282,7 +282,7 @@
             set
             {
                 _selectedBetOption = value;
-                RaisePropertyChanged(nameof(SelectedBetOption));
+                OnPropertyChanged(nameof(SelectedBetOption));
                 InitializeMeters();
             }
         }
@@ -295,7 +295,7 @@
                 if (value != _viewBetOptionFilter)
                 {
                     _viewBetOptionFilter = value;
-                    RaisePropertyChanged(nameof(ViewBetOptionFilter));
+                    OnPropertyChanged(nameof(ViewBetOptionFilter));
                 }
             }
         }
@@ -310,7 +310,7 @@
             {
                 return;
             }
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     // Per each progressive level which:
@@ -320,6 +320,7 @@
                     foreach (var progressiveLevel in progressiveLevels)
                     {
                         var sharedHiddenTotal = 0L;
+                        var sharedBulkTotal = 0L;
 
                         if (_sharedSap.ViewSharedSapLevel(
                             progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey,
@@ -332,12 +333,13 @@
                             progressiveLevel.HiddenIncrementRate = sharedLevel.HiddenIncrementRate;
                             progressiveLevel.HiddenValue = sharedLevel.HiddenValue;
                             sharedHiddenTotal = sharedLevel.HiddenTotal;
+                            sharedBulkTotal = sharedLevel.BulkTotal;
                         }
 
                         var collectionOfMeters = new ObservableCollection<DisplayMeter>();
                         foreach (var meterNode in MeterNodes)
                         {
-                            collectionOfMeters.Add(_progressiveMeterManager.Build(progressiveLevel, meterNode, ShowLifetime, SelectedDenom.Millicents, sharedHiddenTotal));
+                            collectionOfMeters.Add(_progressiveMeterManager.Build(progressiveLevel, meterNode, ShowLifetime, SelectedDenom.Millicents, sharedHiddenTotal, sharedBulkTotal));
                         }
                         ProgressiveDetailMeters.Add(new ProgressiveDisplayMeter(progressiveLevel.ProgressivePackName, ShowLifetime, collectionOfMeters));
                     }
@@ -439,7 +441,7 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 if (Games.Any())
                 {

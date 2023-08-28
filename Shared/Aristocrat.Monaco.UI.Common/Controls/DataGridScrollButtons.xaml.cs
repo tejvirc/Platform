@@ -65,7 +65,7 @@
             UpdateProperties();
         }
 
-        private void RaisePropertyChanged(string propertyName = null)
+        private void OnPropertyChanged(string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -74,7 +74,7 @@
         {
             if ((ScrollGrid!=null && ScrollGrid.CanContentScroll)|| !_hasListBoxParent)
             {
-                RaisePropertyChanged(nameof(CanContentScroll));
+                OnPropertyChanged(nameof(CanContentScroll));
             }
         }
 

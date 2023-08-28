@@ -29,7 +29,7 @@
 
             if (optionConfigValues.HasValue(Params.MinimumTheoHoldPercentageParameterName))
             {
-                options.MinimumTheoreticalHoldPercentage = optionConfigValues.Int64Value(Params.MinimumTheoHoldPercentageParameterName);
+                options.MinimumTheoreticalHoldPercentageMeter = optionConfigValues.Int64Value(Params.MinimumTheoHoldPercentageParameterName);
             }
 
             if (optionConfigValues.HasValue(Params.DecimalPointsParameterName))

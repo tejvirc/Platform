@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -11,6 +11,9 @@
     using System.Windows.Input;
     using System.Windows.Media;
     using Application.Helpers;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Kernel;
@@ -19,9 +22,6 @@
     using LiveCharts.Wpf;
     using Monaco.Common;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using OperatorMenu;
     using PerformanceCounter;
     using Views;
@@ -51,7 +51,7 @@
 
         public DiagnosticResourcesViewModel()
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
@@ -60,8 +60,8 @@
 
             LoadAvailableMetrics();
 
-            ViewMemoryCommand = new ActionCommand<object>(ViewMemory);
-            ToggleDiagnosticChartViewModeCommand = new ActionCommand<object>(_ => InDiagnosticViewChartMode = !InDiagnosticViewChartMode);
+            ViewMemoryCommand = new RelayCommand<object>(ViewMemory);
+            ToggleDiagnosticChartViewModeCommand = new RelayCommand<object>(_ => InDiagnosticViewChartMode = !InDiagnosticViewChartMode);
         }
 
         private static Process GdkProcess => Process.GetProcessesByName(RuntimeInstanceName).FirstOrDefault();
@@ -115,6 +115,8 @@
 
             GetAllMetricsSnapShot();
 
+            Execute.OnUIThread(UpdateMetricLabels);
+
             SetXAxisScale(DateTime.Now);
 
             StartTimer();
@@ -153,9 +155,9 @@
                 AxisX = XAxes
             };
 
-            RaisePropertyChanged(nameof(MonacoChart));
+            OnPropertyChanged(nameof(MonacoChart));
             Charts.Add(MonacoChart);
-            RaisePropertyChanged(nameof(Charts));
+            OnPropertyChanged(nameof(Charts));
         }
 
         private void LoadAvailableMetrics()
@@ -207,16 +209,16 @@
             }
             SetXAxesTitles();
             SetYAxesTitles();
-            RaisePropertyChanged(nameof(Metrics));
-            RaisePropertyChanged(nameof(YAxes));
-            RaisePropertyChanged(nameof(XAxes));
-            RaisePropertyChanged(nameof(MonacoChart));
-            RaisePropertyChanged(nameof(Charts));
+            OnPropertyChanged(nameof(Metrics));
+            OnPropertyChanged(nameof(YAxes));
+            OnPropertyChanged(nameof(XAxes));
+            OnPropertyChanged(nameof(MonacoChart));
+            OnPropertyChanged(nameof(Charts));
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(UpdateMetricLabels);
+            Execute.OnUIThread(UpdateMetricLabels);
             base.OnOperatorCultureChanged(evt);
         }
 
@@ -238,7 +240,7 @@
                 axisNumber = seriesNumber;
             }
 
-            RaisePropertyChanged(nameof(YAxes));
+            OnPropertyChanged(nameof(YAxes));
         }
 
         private void CreateLineSeries(ChartValues<MeasureModel> source, Metric metric, int axisNumber)
@@ -265,7 +267,7 @@
             //lets set how to display the axis Labels
             DateTimeFormatter = value => new DateTime((long)value).ToString("hh:mm:ss");
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var axis = new Axis
@@ -281,7 +283,7 @@
 
         private void CreateYAxis(int axisNumber, Metric metric)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var axis = CreateYAxisFromMetric(axisNumber, metric);
@@ -311,7 +313,7 @@
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (XAxes.Count > 0)
@@ -335,7 +337,7 @@
 
             //AxisStep forces the distance between each separator in the X axis
             AxisXStep = TimeSpan.FromSeconds(1).Ticks;
-            RaisePropertyChanged(nameof(AxisXStep));
+            OnPropertyChanged(nameof(AxisXStep));
 
             SetXAxisScale(DateTime.Now);
         }
@@ -377,7 +379,7 @@
 
                 if (metric.CurrentValue > metric.MaxRange && metric.MaxRange > 0)
                 {
-                    MvvmHelper.ExecuteOnUI(
+                    Execute.OnUIThread(
                         () =>
                         {
                             var yAxis = YAxes.FirstOrDefault(y => y.Title.StartsWith(metric.MetricName));
@@ -391,9 +393,9 @@
                                 var newAxis = CreateYAxisFromMetric(index, metric);
                                 YAxes[index] = newAxis;
 
-                                RaisePropertyChanged(nameof(YAxes));
-                                RaisePropertyChanged(nameof(MonacoChart));
-                                RaisePropertyChanged(nameof(Charts));
+                                OnPropertyChanged(nameof(YAxes));
+                                OnPropertyChanged(nameof(MonacoChart));
+                                OnPropertyChanged(nameof(Charts));
                             }
                         });
                 }
@@ -419,7 +421,7 @@
                 }
             }
 
-            RaisePropertyChanged(nameof(Series));
+            OnPropertyChanged(nameof(Series));
         }
 
         protected override void OnUnloaded()
@@ -488,7 +490,7 @@
 
         private void OnMetricEnabledCheckedCommand(ChangeChartSeriesVisibilityEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var line = (LineSeries)Series[evt
@@ -515,7 +517,7 @@
                         axis.Title = Metrics[evt.SeriesIndex].Label + " " + Metrics[evt.SeriesIndex].Unit;
                     }
 
-                    RaisePropertyChanged(nameof(YAxes));
+                    OnPropertyChanged(nameof(YAxes));
 
                     MonacoChart.Update();
                 });
@@ -542,7 +544,7 @@
     }
 
     [CLSCompliant(false)]
-    public class Metric : BaseViewModel
+    public class Metric : ObservableObject
     {
         private string _metricName;
         private double _currentValue;
@@ -563,7 +565,7 @@
             set
             {
                 _metricName = value;
-                RaisePropertyChanged(nameof(MetricName));
+                OnPropertyChanged(nameof(MetricName));
             }
         }
 
@@ -573,7 +575,7 @@
             set
             {
                 _metricType = value;
-                RaisePropertyChanged(nameof(MetricType));
+                OnPropertyChanged(nameof(MetricType));
             }
         }
 
@@ -583,7 +585,7 @@
             set
             {
                 _instanceName = value;
-                RaisePropertyChanged(nameof(InstanceName));
+                OnPropertyChanged(nameof(InstanceName));
             }
         }
 
@@ -593,7 +595,7 @@
             set
             {
                 _category = value;
-                RaisePropertyChanged(nameof(Category));
+                OnPropertyChanged(nameof(Category));
             }
         }
 
@@ -603,7 +605,7 @@
             set
             {
                 _label = value;
-                RaisePropertyChanged(nameof(Label));
+                OnPropertyChanged(nameof(Label));
             }
         }
 
@@ -613,7 +615,7 @@
             set
             {
                 _unit = value;
-                RaisePropertyChanged(nameof(Unit));
+                OnPropertyChanged(nameof(Unit));
             }
         }
 
@@ -623,7 +625,7 @@
             set
             {
                 _maxRange = value;
-                RaisePropertyChanged(nameof(MaxRange));
+                OnPropertyChanged(nameof(MaxRange));
             }
         }
 
@@ -633,7 +635,7 @@
             set
             {
                 _counterType = value;
-                RaisePropertyChanged(nameof(CounterType));
+                OnPropertyChanged(nameof(CounterType));
             }
         }
 
@@ -643,7 +645,7 @@
             set
             {
                 _currentValue = value;
-                RaisePropertyChanged(nameof(CurrentValue));
+                OnPropertyChanged(nameof(CurrentValue));
             }
         }
 
@@ -653,7 +655,7 @@
             set
             {
                 _metricColor = value;
-                RaisePropertyChanged(nameof(MetricColor));
+                OnPropertyChanged(nameof(MetricColor));
             }
         }
 
@@ -663,7 +665,7 @@
             set
             {
                 _metricEnabled = value;
-                RaisePropertyChanged(nameof(MetricEnabled));
+                OnPropertyChanged(nameof(MetricEnabled));
                 ServiceManager.GetInstance().GetService<IEventBus>().Publish(new ChangeChartSeriesVisibilityEvent(Index));
             }
         }
@@ -675,7 +677,7 @@
             set
             {
                 _index = value;
-                RaisePropertyChanged(nameof(Index));
+                OnPropertyChanged(nameof(Index));
             }
         }
     }

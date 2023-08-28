@@ -29,7 +29,7 @@
             set
             {
                 _isEnabled = value;
-                RaisePropertyChanged(nameof(IsEnabled));
+                OnPropertyChanged(nameof(IsEnabled));
                 EnabledChanged();
             }
         }
@@ -70,7 +70,7 @@
         public void SetAccess(bool access, OperatorMenuAccessRestriction restriction)
         {
             _accessAllowed = access;
-            RaisePropertyChanged(nameof(IsEnabled));
+            OnPropertyChanged(nameof(IsEnabled));
             EnabledChanged();
         }
 
@@ -132,7 +132,7 @@
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

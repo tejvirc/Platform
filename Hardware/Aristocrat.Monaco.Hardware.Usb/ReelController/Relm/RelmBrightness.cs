@@ -5,13 +5,17 @@
     using Contracts.Communicator;
     using Contracts.Reel.ImplementationCapabilities;
 
-    internal class RelmBrightness : IReelBrightnessImplementation
+    internal sealed class RelmBrightness : IReelBrightnessImplementation
     {
         private readonly IRelmCommunicator _communicator;
 
         public RelmBrightness(IRelmCommunicator communicator)
         {
             _communicator = communicator;
+        }
+
+        public void Dispose()
+        {
         }
 
         public Task<bool> SetBrightness(IReadOnlyDictionary<int, int> brightness)

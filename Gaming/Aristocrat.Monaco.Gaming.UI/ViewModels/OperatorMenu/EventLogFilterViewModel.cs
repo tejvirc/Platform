@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -18,11 +18,11 @@
     using Application.UI.Models;
     using Application.UI.OperatorMenu;
     using Application.UI.Views;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public partial class EventLogFilterViewModel : OperatorMenuPageViewModelBase
@@ -48,8 +48,8 @@
 
         private bool _isAllFiltersSelected;
         private bool _settingFilterSelections;
-        public IActionCommand AllFiltersSelectedCommand { get; }
-        public IActionCommand FilterSelectedCommand { get; }
+        public IRelayCommand AllFiltersSelectedCommand { get; }
+        public IRelayCommand FilterSelectedCommand { get; }
 
         public EventLogFilterViewModel()
             : base(true)
@@ -59,11 +59,11 @@
             _loggerSubscriptions = _tiltLogger.GetEventsSubscribed(string.Empty);
             _loggerConfigurationCount = _tiltLogger.GetEventsToSubscribe(string.Empty);
 
-            ShowAdditionalInfoCommand = new ActionCommand<object>(ShowAdditionalInfo);
+            ShowAdditionalInfoCommand = new RelayCommand<object>(ShowAdditionalInfo);
 
             IsAllFiltersSelected = true;
-            AllFiltersSelectedCommand = new ActionCommand<object>(_ => AllFiltersSelected());
-            FilterSelectedCommand = new ActionCommand<object>(_ => FilterSelected());
+            AllFiltersSelectedCommand = new RelayCommand<object>(_ => AllFiltersSelected());
+            FilterSelectedCommand = new RelayCommand<object>(_ => FilterSelected());
 
             FilterMenuEnabled = false;
             _eventLogAdapters = GetLogAdapters();
@@ -78,10 +78,10 @@
             set
             {
                 _eventLogCollection = value;
-                RaisePropertyChanged(nameof(EventLogCollection));
-                RaisePropertyChanged(nameof(FilteredLogCollection));
-                RaisePropertyChanged(nameof(PrintSelectedButtonEnabled));
-                RaisePropertyChanged(nameof(DataEmpty));
+                OnPropertyChanged(nameof(EventLogCollection));
+                OnPropertyChanged(nameof(FilteredLogCollection));
+                OnPropertyChanged(nameof(PrintSelectedButtonEnabled));
+                OnPropertyChanged(nameof(DataEmpty));
             }
         }
 
@@ -95,7 +95,7 @@
                 if (_offset != value)
                 {
                     _offset = value;
-                    RaisePropertyChanged(nameof(Offset));
+                    OnPropertyChanged(nameof(Offset));
                 }
             }
         }
@@ -107,7 +107,7 @@
             set
             {
                 _subscriptionStatus = value;
-                RaisePropertyChanged(nameof(SubscriptionStatus));
+                OnPropertyChanged(nameof(SubscriptionStatus));
             }
         }
 
@@ -118,7 +118,7 @@
             set
             {
                 _eventCount = value;
-                RaisePropertyChanged(nameof(EventCount));
+                OnPropertyChanged(nameof(EventCount));
             }
         }
 
@@ -128,8 +128,8 @@
             set
             {
                 _selectedItem = value;
-                RaisePropertyChanged(nameof(SelectedItem));
-                RaisePropertyChanged(nameof(PrintSelectedButtonEnabled));
+                OnPropertyChanged(nameof(SelectedItem));
+                OnPropertyChanged(nameof(PrintSelectedButtonEnabled));
             }
         }
 
@@ -146,7 +146,7 @@
             set
             {
                 _subscriptionTextVisible = value;
-                RaisePropertyChanged(nameof(SubscriptionTextVisible));
+                OnPropertyChanged(nameof(SubscriptionTextVisible));
             }
         }
 
@@ -170,10 +170,10 @@
             set
             {
                 _eventFilterCollection = value;
-                RaisePropertyChanged(nameof(EventFilterCollection));
-                RaisePropertyChanged(nameof(FilteredLogCollection));
-                RaisePropertyChanged(nameof(PrintSelectedButtonEnabled));
-                RaisePropertyChanged(nameof(MainPrintButtonEnabled));
+                OnPropertyChanged(nameof(EventFilterCollection));
+                OnPropertyChanged(nameof(FilteredLogCollection));
+                OnPropertyChanged(nameof(PrintSelectedButtonEnabled));
+                OnPropertyChanged(nameof(MainPrintButtonEnabled));
             }
         }
 
@@ -188,7 +188,7 @@
                 }
 
                 _filterMenuEnabled = value;
-                RaisePropertyChanged(nameof(FilterMenuEnabled));
+                OnPropertyChanged(nameof(FilterMenuEnabled));
             }
         }
 
@@ -202,12 +202,12 @@
         private void EventLogCollection_OnCollectionChanged(object o, NotifyCollectionChangedEventArgs args)
         {
             UpdateEventCount();
-            RaisePropertyChanged(nameof(FilteredLogCollection));
+            OnPropertyChanged(nameof(FilteredLogCollection));
         }
 
         private void UpdateEventCount()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var count = FilteredLogCollection?.Count() ?? 0;
@@ -217,7 +217,7 @@
                             ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EventInLog)
                             : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EventsInLog)),
                         count);
-                    RaisePropertyChanged(nameof(DataEmpty), nameof(FilteredLogCollection));
+                    OnPropertyChanged(nameof(DataEmpty), nameof(FilteredLogCollection));
                 });
         }
 
@@ -300,7 +300,7 @@
         {
             FilterMenuEnabled = false;
 
-            MvvmHelper.ExecuteOnUI(() => { IsLoadingData = true; });
+            Execute.OnUIThread(() => { IsLoadingData = true; });
 
             Task.Run(InitializeData);
         }
@@ -325,7 +325,7 @@
 
         private void InsertEvent(EventLog message, bool deleteOldMessages = false)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (message != null)
@@ -396,6 +396,7 @@
 
         protected override void OnLoaded()
         {
+            UpdateEventFilters();
             UpdateEventCount();
 
             Offset = PropertiesManager.GetValue(ApplicationConstants.TimeZoneOffsetKey, TimeSpan.Zero);
@@ -407,23 +408,16 @@
             EventBus.Subscribe<TimeZoneUpdatedEvent>(this, HandleTimeZoneChangedEvent);
             SubscriptionTextVisible = GetConfigSetting(OperatorMenuSetting.ShowSubscriptionText, true);
             SelectedItem = null;
-            RaisePropertyChanged(nameof(PrintCurrentPageButtonVisible));
-            RaisePropertyChanged(nameof(PrintSelectedButtonVisible));
-            RaisePropertyChanged(nameof(PrintLast15ButtonVisible));
+            OnPropertyChanged(nameof(PrintCurrentPageButtonVisible));
+            OnPropertyChanged(nameof(PrintSelectedButtonVisible));
+            OnPropertyChanged(nameof(PrintLast15ButtonVisible));
             EventBus.Subscribe<OperatorMenuPrintJobStartedEvent>(this, o => FilterMenuEnabled = false);
             EventBus.Subscribe<OperatorMenuPrintJobCompletedEvent>(this, o => FilterMenuEnabled = true);
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            foreach (var eventFilter in EventFilterCollection)
-            {
-                string newDisplayText = Localizer.For(CultureFor.Operator).GetString(eventFilter.EventType);
-                if (!string.IsNullOrEmpty(newDisplayText))
-                {
-                    eventFilter.DisplayText = newDisplayText;
-                }
-            }
+            UpdateEventFilters();
 
             SetupTiltLogAppendedTilt(false);
             ReloadEventHistory();
@@ -439,8 +433,8 @@
 
         protected override void UpdatePrinterButtons()
         {
-            RaisePropertyChanged(nameof(PrintSelectedButtonEnabled));
-            RaisePropertyChanged(nameof(MainPrintButtonEnabled));
+            OnPropertyChanged(nameof(PrintSelectedButtonEnabled));
+            OnPropertyChanged(nameof(MainPrintButtonEnabled));
         }
 
         private void SetupTiltLogAppendedTilt(bool add)
@@ -464,6 +458,18 @@
                     {
                         ((ISubscribableEventLogAdapter)logAdapter).Appended -= EventLogAppended;
                     }
+                }
+            }
+        }
+
+        private void UpdateEventFilters()
+        {
+            foreach (var eventFilter in EventFilterCollection)
+            {
+                string newDisplayText = Localizer.For(CultureFor.Operator).GetString(eventFilter.EventType);
+                if (!string.IsNullOrEmpty(newDisplayText))
+                {
+                    eventFilter.DisplayText = newDisplayText;
                 }
             }
         }
@@ -535,7 +541,7 @@
 
         private void ClearEventLogCollection()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     EventLogCollection.CollectionChanged -= EventLogCollection_OnCollectionChanged;
@@ -587,7 +593,7 @@
         private void UpdateUI()
         {
             UpdateMaxEntries();
-            RaisePropertyChanged(nameof(FilteredLogCollection));
+            OnPropertyChanged(nameof(FilteredLogCollection));
             UpdateEventCount();
             UpdatePrinterButtons();
         }
@@ -600,7 +606,7 @@
                 if (_isAllFiltersSelected != value)
                 {
                     _isAllFiltersSelected = value;
-                    RaisePropertyChanged(nameof(IsAllFiltersSelected));
+                    OnPropertyChanged(nameof(IsAllFiltersSelected));
                 }
             }
         }

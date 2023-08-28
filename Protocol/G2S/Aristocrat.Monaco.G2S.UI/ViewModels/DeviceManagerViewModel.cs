@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
+namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -10,15 +10,15 @@
     using Application.UI.OperatorMenu;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Common.Events;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Data.Profile;
     using G2S;
     using Kernel;
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using Views;
 
     [CLSCompliant(false)]
@@ -46,7 +46,7 @@
             set
             {
                 _selectedDevice = value;
-                EditCommand.RaiseCanExecuteChanged();
+                EditCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -56,7 +56,7 @@
             set
             {
                 _devices = value;
-                RaisePropertyChanged(nameof(Devices));
+                OnPropertyChanged(nameof(Devices));
             }
         }
 
@@ -69,7 +69,7 @@
                 if (_deviceName != value)
                 {
                     _deviceName = value;
-                    RaisePropertyChanged(nameof(DeviceName));
+                    OnPropertyChanged(nameof(DeviceName));
                 }
 
             }
@@ -84,7 +84,7 @@
                 if (_deviceOwner != value)
                 {
                     _deviceOwner = value;
-                    RaisePropertyChanged(nameof(DeviceOwner));
+                    OnPropertyChanged(nameof(DeviceOwner));
                 }
             }
         }
@@ -98,7 +98,7 @@
                 if (_deviceChangeEnabled != value)
                 {
                     _deviceChangeEnabled = value;
-                    RaisePropertyChanged(nameof(DeviceChangeEnabled));
+                    OnPropertyChanged(nameof(DeviceChangeEnabled));
                 }
             }
         }
@@ -112,8 +112,8 @@
                 if (_isDirty != value)
                 {
                     _isDirty = value;
-                    SaveChangesCommand.RaiseCanExecuteChanged();
-                    CancelChangesCommand.RaiseCanExecuteChanged();
+                    SaveChangesCommand.NotifyCanExecuteChanged();
+                    CancelChangesCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -127,10 +127,10 @@
                 if (_saveInProgress != value)
                 {
                     _saveInProgress = value;
-                    SaveChangesCommand.RaiseCanExecuteChanged();
-                    CancelChangesCommand.RaiseCanExecuteChanged();
-                    BulkChangesCommand.RaiseCanExecuteChanged();
-                    EditCommand.RaiseCanExecuteChanged();
+                    SaveChangesCommand.NotifyCanExecuteChanged();
+                    CancelChangesCommand.NotifyCanExecuteChanged();
+                    BulkChangesCommand.NotifyCanExecuteChanged();
+                    EditCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -143,13 +143,13 @@
 
         private bool CanBulkChanges => GameIdle && !SaveInProgress;
 
-        public ActionCommand<object> EditCommand { get; }
+        public RelayCommand<object> EditCommand { get; }
 
-        public ActionCommand<object> CancelChangesCommand { get; }
+        public RelayCommand<object> CancelChangesCommand { get; }
 
-        public ActionCommand<object> SaveChangesCommand { get; }
+        public RelayCommand<object> SaveChangesCommand { get; }
 
-        public ActionCommand<object> BulkChangesCommand { get; }
+        public RelayCommand<object> BulkChangesCommand { get; }
 
 
         public DeviceManagerViewModel()
@@ -161,10 +161,10 @@
             _operatorLocalizer = Localizer.For(CultureFor.Operator);
             ActiveDevices = new ObservableCollection<EditableDevice>();
 
-            EditCommand = new ActionCommand<object>(EditDevice, _ => CanEditSelected);
-            CancelChangesCommand = new ActionCommand<object>(CancelChanges, _ => CanCancelChanges);
-            SaveChangesCommand = new ActionCommand<object>(SaveChanges, _ => CanSaveChanges);
-            BulkChangesCommand = new ActionCommand<object>(BulkChanges, _ => CanBulkChanges);
+            EditCommand = new RelayCommand<object>(EditDevice, _ => CanEditSelected);
+            CancelChangesCommand = new RelayCommand<object>(CancelChanges, _ => CanCancelChanges);
+            SaveChangesCommand = new RelayCommand<object>(SaveChanges, _ => CanSaveChanges);
+            BulkChangesCommand = new RelayCommand<object>(BulkChanges, _ => CanBulkChanges);
             EventBus.Subscribe<ProtocolsInitializedEvent>(this, HandleEvent);
         }
 
@@ -272,7 +272,7 @@
                 device.Edited = true;
             }
 
-            RaisePropertyChanged(nameof(ActiveDevices));
+            OnPropertyChanged(nameof(ActiveDevices));
 
             IsDirty = true;
             InputStatusText =
@@ -406,7 +406,7 @@
                     }
                 }
 
-                RaisePropertyChanged(nameof(ActiveDevices));
+                OnPropertyChanged(nameof(ActiveDevices));
 
                 EventBus.Publish(new OperatorMenuSettingsChangedEvent());
                 IsDirty = true;
@@ -422,17 +422,17 @@
 
         private void HandleEvent(ProtocolsInitializedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() => SaveInProgress = false);
+            Execute.OnUIThread(() => SaveInProgress = false);
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(ReloadEditableView);
+            Execute.OnUIThread(ReloadEditableView);
             base.OnOperatorCultureChanged(evt);
         }
     }
 
-    public class EditableDevice : BaseViewModel
+    public class EditableDevice : ObservableObject
     {
         private string _deviceClass;
         private int _id;
@@ -483,7 +483,7 @@
                     return;
 
                 _owner = value;
-                RaisePropertyChanged(nameof(Owner));
+                OnPropertyChanged(nameof(Owner));
             }
         }
 
@@ -496,8 +496,8 @@
                     return;
 
                 _active = value;
-                RaisePropertyChanged(nameof(Active));
-                RaisePropertyChanged(nameof(ActiveDisplayText));
+                OnPropertyChanged(nameof(Active));
+                OnPropertyChanged(nameof(ActiveDisplayText));
             }
         }
 
@@ -510,7 +510,7 @@
                     return;
 
                 _enabled = value;
-                RaisePropertyChanged(nameof(Enabled));
+                OnPropertyChanged(nameof(Enabled));
             }
         }
 
@@ -523,7 +523,7 @@
                     return;
 
                 _hostEnabled = value;
-                RaisePropertyChanged(nameof(HostEnabled));
+                OnPropertyChanged(nameof(HostEnabled));
             }
         }
 
@@ -538,7 +538,7 @@
                 }
 
                 _activeDisplayText = value;
-                RaisePropertyChanged(nameof(ActiveDisplayText));
+                OnPropertyChanged(nameof(ActiveDisplayText));
             }
         }
 
@@ -554,7 +554,7 @@
                 }
 
                 _enabledDisplayText = value;
-                RaisePropertyChanged(nameof(EnabledDisplayText));
+                OnPropertyChanged(nameof(EnabledDisplayText));
             }
         }
 

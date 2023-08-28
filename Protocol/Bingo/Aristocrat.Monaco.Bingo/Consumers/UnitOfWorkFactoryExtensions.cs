@@ -10,9 +10,9 @@
     {
         public static BingoGameConfiguration GetSelectedGameConfiguration(
             this IUnitOfWorkFactory unitOfWorkFactory,
-            IPropertiesManager propertiesManager)
+            IGameProvider gameProvider)
         {
-            var (game, denomination) = propertiesManager.GetActiveGame();
+            var (game, denomination) = gameProvider.GetActiveGame();
             if (game is null || denomination is null)
             {
                 return null;

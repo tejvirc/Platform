@@ -73,37 +73,39 @@
                 ? Array.Empty<int>()
                 : gamePlayResponse.BallCall.Split(BallCallDelimiter).Select(int.Parse).ToArray();
 
-            var joinBallNumber = gamePlayResponse.JoinBallNumber;
-            var gameEndWinEligibility = gamePlayResponse.GameEndWinEligibility;
+            var success = gamePlayOutcome.Status;
 
             var response = new List<GameOutcome>();
             foreach (var game in gamePlayOutcome.GamePlayResponses)
             {
                 var uniqueGameId = request.GameRequests.First(x => x.GameIndex == game.GameNumber).UniqueGameId;
-                AddResponseToOutcomes(game, ballCall, joinBallNumber, gameEndWinEligibility, response, uniqueGameId);
+                AddResponseToOutcomes(game, gamePlayResponse, ballCall, response, uniqueGameId, success);
             }
 
             return new GameOutcomes(ResponseCode.Ok, response);
         }
 
-        private static void AddResponseToOutcomes(SingleGamePlayResponse game, IReadOnlyCollection<int> ballCall, int joinBallNumber, int gameEndWinEligibility, ICollection<GameOutcome> outcomes, int uniqueGameId)
+        private static void AddResponseToOutcomes(SingleGamePlayResponse game, BingoMultiGamePlayResponseMeta gamePlayResponse, IReadOnlyCollection<int> ballCall, ICollection<GameOutcome> outcomes, int uniqueGameId, bool successful)
         {
-            Logger.Debug($"Processing game play outcome for game: gameNumber={game.GameNumber} gameSerial={game.GameSerial} titleId={game.GameTitleId} totalWin={game.TotalWinAmount} denom={game.Denomination} uniqueGameId={uniqueGameId}");
+            Logger.Debug($"Processing game play outcome for game: gameNumber={game.GameNumber} titleId={game.GameTitleId} totalWin={game.TotalWinAmount} denom={game.Denomination} uniqueGameId={uniqueGameId}");
 
-            var meta = game.GamePlayResponseMeta.Unpack<BingoSingleGamePlayResponseMeta>();
+            var joinBallNumber = gamePlayResponse.JoinBallNumber;
+            var gameEndWinEligibility = gamePlayResponse.GameEndWinEligibility;
+            var reportType = gamePlayResponse.ReportType;
+            var gamePlayResponseMeta = game.GamePlayResponseMeta.Unpack<BingoSingleGamePlayResponseMeta>();
 
-            Logger.Debug($"BingoSingleGamePlayResponseMeta = {meta}");
+            Logger.Debug($"BingoSingleGamePlayResponseMeta = {gamePlayResponseMeta}");
 
-            var cards = meta.Cards.Select(
+            var cards = gamePlayResponseMeta.Cards.Select(
                 cardMeta => new CardPlayed(cardMeta.Serial, cardMeta.DaubBitPattern, cardMeta.GewClaimable, cardMeta.CardType == CardType.Golden)).ToList();
 
-            var wins = meta.WinResults.Select(
+            var wins = gamePlayResponseMeta.WinResults.Select(
                     winMeta => new WinResult(
                         winMeta.PatternId,
                         winMeta.Payout,
                         winMeta.BallQuantity,
                         winMeta.BitPattern,
-                        winMeta.PaytableId,
+                        gamePlayResponseMeta.PaytableId,
                         winMeta.PatternName,
                         winMeta.CardSerial,
                         winMeta.IsGew,
@@ -117,7 +119,7 @@
             }
 
             Logger.Debug($"Outcome response GameNumber {game.GameNumber}: {cards.Count} cards, {ballCall} balls," +
-                         $" {wins.Count} wins, Status={game.Status} StatusMessage={game.StatusMessage} ReportType={game.ReportType}");
+                         $" {wins.Count} wins, Status={successful} ReportType={reportType}");
 
             var bingoDetails = new GameOutcomeBingoDetails(
                 gameEndWinEligibility,
@@ -130,8 +132,8 @@
                 game.GameTitleId,
                 ThemeId,
                 game.Denomination,
-                meta.Paytable,
-                game.GameSerial);
+                gamePlayResponseMeta.PaytableId.ToString(),
+                gamePlayResponse.GameSerial);
 
             var winDetails = new GameOutcomeWinDetails(
                 game.TotalWinAmount,
@@ -143,8 +145,8 @@
                 winDetails,
                 gameDetails,
                 bingoDetails,
-                game.Status,
-                game.ReportType == SingleGamePlayResponse.Types.ReportType.End,
+                successful,
+                reportType == BingoMultiGamePlayResponseMeta.Types.ReportType.End,
                 uniqueGameId,
                 game.GameNumber));
         }
@@ -153,6 +155,7 @@
         {
             Logger.Debug("ProcessRejectedResponse");
 
+            var gamePlayResponse = gamePlayOutcome.MultiGamePlayResponseMeta.Unpack<BingoMultiGamePlayResponseMeta>();
             var response = new List<GameOutcome>();
             foreach (var game in gamePlayOutcome.GamePlayResponses)
             {
@@ -164,12 +167,12 @@
                     ThemeId,
                     game.Denomination,
                     string.Empty,
-                    game.GameSerial);
+                    gamePlayResponse.GameSerial);
 
                 var winDetails = new GameOutcomeWinDetails(0, string.Empty, Array.Empty<WinResult>());
                 var uniqueGameId = request.GameRequests.First(x => x.GameIndex == game.GameNumber).UniqueGameId;
                 Logger.Debug($"Outcome response GameNumber {game.GameNumber}: {bingoDetails.CardsPlayed.Count} cards, {bingoDetails.BallCall.Count} balls," +
-                             $" {winDetails.WinResults.Count} wins, Status={game.Status} StatusMessage={game.StatusMessage} ReportType={game.ReportType}" +
+                             $" {winDetails.WinResults.Count} wins, Status={gamePlayOutcome.Status} ReportType={gamePlayResponse.ReportType}" +
                              $" UniqueGameId {uniqueGameId}");
 
                 response.Add(new GameOutcome(
@@ -177,8 +180,8 @@
                     winDetails,
                     gameDetails,
                     bingoDetails,
-                    game.Status,
-                    game.ReportType == SingleGamePlayResponse.Types.ReportType.End,
+                    gamePlayOutcome.Status,
+                    gamePlayResponse.ReportType == BingoMultiGamePlayResponseMeta.Types.ReportType.End,
                     uniqueGameId));
 
                 Logger.Warn($"Outcome response GameNumber {game.GameNumber} rejected");
@@ -256,11 +259,7 @@
 
             var status = true;
 
-            // This assumes if the first game play response has a Rejected status then
-            // all the responses should be rejected. We can't have a rejected and ok status in
-            // the same outcome.
-            var responseStatus = gamePlayOutcome.GamePlayResponses.First().Status;
-            var outcome = responseStatus
+            var outcome = gamePlayOutcome.Status
                 ? ProcessAcceptedResponse(gamePlayOutcome, request)
                 : ProcessRejectedResponse(gamePlayOutcome, request);
 
@@ -268,7 +267,7 @@
                 .Handle<GameOutcomeResponse, GameOutcomes>(outcome, token)
                 .ConfigureAwait(false);
 
-            if (!responseStatus || outcome.Outcomes.Any(g => g.IsFinal) && handlerResult.ResponseCode != ResponseCode.Ok)
+            if (!gamePlayOutcome.Status || outcome.Outcomes.Any(g => g.IsFinal) && handlerResult.ResponseCode != ResponseCode.Ok)
             {
                 status = false;
             }

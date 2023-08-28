@@ -40,6 +40,8 @@ public partial class ConfigWizardConfiguration {
     
     private ConfigWizardConfigurationDoorOptics doorOpticsField;
     
+    private ConfigWizardConfigurationLocalization localizationField;
+    
     private ConfigWizardConfigurationBell bellField;
     
     private ConfigWizardConfigurationHardwarePage hardwarePageField;
@@ -125,6 +127,16 @@ public partial class ConfigWizardConfiguration {
         }
         set {
             this.doorOpticsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public ConfigWizardConfigurationLocalization Localization {
+        get {
+            return this.localizationField;
+        }
+        set {
+            this.localizationField = value;
         }
     }
     
@@ -1216,6 +1228,63 @@ public partial class ConfigWizardConfigurationDoorOptics {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+public partial class ConfigWizardConfigurationLocalization {
+    
+    private Culture currencyField;
+    
+    private string defaultCultureField;
+    
+    public ConfigWizardConfigurationLocalization() {
+        this.currencyField = Culture.Default;
+        this.defaultCultureField = "";
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute(Culture.Default)]
+    public Culture Currency {
+        get {
+            return this.currencyField;
+        }
+        set {
+            this.currencyField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute("")]
+    public string DefaultCulture {
+        get {
+            return this.defaultCultureField;
+        }
+        set {
+            this.defaultCultureField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+public enum Culture {
+    
+    /// <remarks/>
+    Operator,
+    
+    /// <remarks/>
+    Player,
+    
+    /// <remarks/>
+    Default,
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class ConfigWizardConfigurationBell {
     
     private bool visibleField;
@@ -1428,4 +1497,3 @@ public partial class ConfigWizardConfigurationBellyPanelDoor {
         }
     }
 }
-#pragma warning restore 1591

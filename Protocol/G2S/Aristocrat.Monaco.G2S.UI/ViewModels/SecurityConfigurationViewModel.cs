@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Security.Cryptography.X509Certificates;
     using System.Threading;
@@ -11,16 +12,16 @@
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.UI.ConfigWizard;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Aristocrat.G2S.Client.Communications;
     using Common.CertificateManager;
     using Common.CertificateManager.Models;
     using Common.DHCP;
     using Common.Events;
+    using CommunityToolkit.Mvvm.Input;
     using Kernel;
     using Localization.Properties;
     using Monaco.UI.Common;
-    using MVVM;
-    using MVVM.Command;
     using Security;
     using Constants = G2S.Constants;
 
@@ -86,7 +87,7 @@
         /// </summary>
         public SecurityConfigurationViewModel(bool isWizardPage) : base(isWizardPage)
         {
-            GetThumbprintCommand = new ActionCommand<object>(
+            GetThumbprintCommand = new RelayCommand<object>(
                 _ =>
                 {
                     if (!PropertyHasErrors(nameof(CertificateManagerLocation)))
@@ -98,9 +99,9 @@
                 },
                 _ => CanSeeThumbPrint());
 
-            EnrollCertificateCommand = new ActionCommand<object>(Enroll, _ => CanEnroll());
+            EnrollCertificateCommand = new RelayCommand<object>(Enroll, _ => CanEnroll());
 
-            ClosePopupCommand = new ActionCommand<object>(
+            ClosePopupCommand = new RelayCommand<object>(
                 _ =>
                 {
                     ShowThumbprint = false;
@@ -108,7 +109,7 @@
                     TabsActive = true;
                     ShowInvalidCertStatusLocation = false;
                 });
-            CancelRequestCommand = new ActionCommand<object>(
+            CancelRequestCommand = new RelayCommand<object>(
                 _ =>
                 {
                     _countDownTimer?.Stop();
@@ -117,7 +118,7 @@
                 },
                 _ => !Enrolled);
 
-            TestCertificateStatusCommand = new ActionCommand<object>(TestOcsp, _ => CanTestOcsp());
+            TestCertificateStatusCommand = new RelayCommand<object>(TestOcsp, _ => CanTestOcsp());
 
             _countDownTimer = new DispatcherTimerAdapter(DispatcherPriority.Render)
             {
@@ -158,17 +159,17 @@
         /// <summary>
         ///     Gets or sets action command that displays CA Certificate Thumbprint.
         /// </summary>
-        public ActionCommand<object> GetThumbprintCommand { get; set; }
+        public RelayCommand<object> GetThumbprintCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets action command that start enrollment for new certificate.
         /// </summary>
-        public ActionCommand<object> EnrollCertificateCommand { get; set; }
+        public RelayCommand<object> EnrollCertificateCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets action command that start performing an OCSP status check.
         /// </summary>
-        public ActionCommand<object> TestCertificateStatusCommand { get; set; }
+        public RelayCommand<object> TestCertificateStatusCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets action command that should close popup.
@@ -178,7 +179,7 @@
         /// <summary>
         ///     Gets or sets a command that cancels the certificate request
         /// </summary>
-        public ActionCommand<object> CancelRequestCommand { get; set; }
+        public RelayCommand<object> CancelRequestCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets a value indicating whether SCEP is enabled.
@@ -190,11 +191,11 @@
             set
             {
                 _enrollmentEnabled = value;
-                RaisePropertyChanged(nameof(EnrollmentEnabled));
-                RaisePropertyChanged(nameof(EnrollmentEditEnabled));
+                OnPropertyChanged(nameof(EnrollmentEnabled));
+                OnPropertyChanged(nameof(EnrollmentEditEnabled));
                 if (_enrollmentEnabled)
                 {
-                    ValidateAll();
+                    RunCustomValidation();
                 }
                 else
                 {
@@ -209,8 +210,8 @@
                     ScepEnabled = !_certificateService.HasValidCertificate();
                 }
 
-                GetThumbprintCommand.RaiseCanExecuteChanged();
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                GetThumbprintCommand.NotifyCanExecuteChanged();
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -230,65 +231,65 @@
         /// <summary>
         ///     Gets or sets gets/sets Certificate Mgr Location
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateCertificateManagerLocation))]
         public string CertificateManagerLocation
         {
             get => _certificateManagerLocation;
 
             set
             {
-                ValidateCertificateManagerLocation(value);
-                _certificateManagerLocation = value;
-                RaisePropertyChanged(nameof(CertificateManagerLocation));
-                GetThumbprintCommand.RaiseCanExecuteChanged();
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                SetProperty(ref _certificateManagerLocation, value, true);
+                OnPropertyChanged(nameof(CertificateManagerLocation));
+                GetThumbprintCommand.NotifyCanExecuteChanged();
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
         /// <summary>
         ///     Gets or sets Pre-Shared Secret for SCEP protocol.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateTextBoxValue))]
         public string PreSharedSecret
         {
             get => _preSharedSecret;
 
             set
             {
-                ValidateTextBoxValue(nameof(PreSharedSecret), value);
-                _preSharedSecret = value;
-                RaisePropertyChanged(nameof(PreSharedSecret));
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                SetProperty(ref _preSharedSecret, value, true);
+                OnPropertyChanged(nameof(PreSharedSecret));
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
         /// <summary>
         ///     Gets or sets SCEP CA-IDENT.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateTextBoxValue))]
         public string Identity
         {
             get => _identity;
 
             set
             {
-                ValidateTextBoxValue(nameof(Identity), value);
-                _identity = value;
-                RaisePropertyChanged(nameof(Identity));
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                SetProperty(ref _identity, value, true);
+                OnPropertyChanged(nameof(Identity));
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
         /// <summary>
         ///     Gets or sets key size.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateTextBoxValue))]
         public string UserName
         {
             get => _userName;
 
             set
             {
-                ValidateTextBoxValue(nameof(UserName), value);
-                _userName = value;
-                RaisePropertyChanged(nameof(UserName));
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                SetProperty(ref _userName, value, true);
+                OnPropertyChanged(nameof(UserName));
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -302,28 +303,29 @@
             set
             {
                 _keySize = value;
-                RaisePropertyChanged(nameof(KeySize));
-                EnrollCertificateCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(KeySize));
+                EnrollCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
         /// <summary>
         ///     Gets or sets Manual Polling Interval in seconds for SCEP protocol.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateManualPollingInterval))]
         public int ManualPollingInterval
         {
             get => _manualPollingInterval;
 
             set
             {
-                ValidateManualPollingInterval(value);
-                _manualPollingInterval = value;
-                RaisePropertyChanged(nameof(ManualPollingInterval));
+                SetProperty(ref _manualPollingInterval, value, true);
+                OnPropertyChanged(nameof(ManualPollingInterval));
                 // if we do not have a valid cert enable Enroll command
                 if (!_certificateService.HasValidCertificate())
                 {
-                    EnrollCertificateCommand.RaiseCanExecuteChanged();
+                    EnrollCertificateCommand.NotifyCanExecuteChanged();
                 }
+
             }
         }
 
@@ -336,74 +338,74 @@
 
             set
             {
-                _renewalEnabled = value;
-                ValidateCertificateStatusLocation(CertificateStatusLocation);
-                RaisePropertyChanged(nameof(RenewalEnabled));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                SetProperty(ref _renewalEnabled, value);
+                ValidateProperty(CertificateStatusLocation, nameof(CertificateStatusLocation));
+                OnPropertyChanged(nameof(RenewalEnabled));
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
         /// <summary>
         ///     Gets or sets the Certificate Status Location
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateCertificateStatusLocation))]
         public string CertificateStatusLocation
         {
             get => _certificateStatusLocation;
 
             set
             {
-                ValidateCertificateStatusLocation(value);
-                _certificateStatusLocation = value;
-                RaisePropertyChanged(nameof(CertificateStatusLocation));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                SetProperty(ref _certificateStatusLocation, value, true);
+                OnPropertyChanged(nameof(CertificateStatusLocation));
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
         /// <summary>
         ///     Gets or sets Minimum Period For Offline in minutes.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateOfflinePeriod))]
         public short OfflinePeriod
         {
             get => _offlinePeriod;
 
             set
             {
-                ValidateOfflinePeriod(value);
-                _offlinePeriod = value;
-                RaisePropertyChanged(nameof(OfflinePeriod));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                SetProperty(ref _offlinePeriod, value, true);
+                OnPropertyChanged(nameof(OfflinePeriod));
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
         /// <summary>
         ///     Gets or sets Re-Authenticate Certificate Period in minutes.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateReAuthenticatedPeriod))]
         public short ReAuthenticatedPeriod
         {
             get => _reAuthenticatedPeriod;
 
             set
             {
-                ValidateReAuthenticatedPeriod(value);
-                _reAuthenticatedPeriod = value;
-                RaisePropertyChanged(nameof(ReAuthenticatedPeriod));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                SetProperty(ref _reAuthenticatedPeriod, value, true);
+                OnPropertyChanged(nameof(ReAuthenticatedPeriod));
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
         /// <summary>
         ///     Gets or sets Accept Previously Good Certificate Period in minutes.
         /// </summary>
+        [CustomValidation(typeof(SecurityConfigurationViewModel), nameof(ValidateAcceptPreviouslyGoodCertificatePeriod))]
         public short AcceptPreviouslyGoodCertificatePeriod
         {
             get => _acceptPreviouslyGoodCertificatePeriod;
 
             set
             {
-                ValidateAcceptPreviouslyGoodCertificatePeriod(value);
-                _acceptPreviouslyGoodCertificatePeriod = value;
-                RaisePropertyChanged(nameof(AcceptPreviouslyGoodCertificatePeriod));
-                TestCertificateStatusCommand.RaiseCanExecuteChanged();
+                SetProperty(ref _acceptPreviouslyGoodCertificatePeriod, value, true);
+                OnPropertyChanged(nameof(AcceptPreviouslyGoodCertificatePeriod));
+                TestCertificateStatusCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -417,7 +419,7 @@
             set
             {
                 _showInvalidServerResponse = value;
-                RaisePropertyChanged(nameof(ShowInvalidServerResponse));
+                OnPropertyChanged(nameof(ShowInvalidServerResponse));
             }
         }
 
@@ -431,7 +433,7 @@
             set
             {
                 _showThumbprint = value;
-                RaisePropertyChanged(nameof(ShowThumbprint));
+                OnPropertyChanged(nameof(ShowThumbprint));
             }
         }
 
@@ -446,7 +448,7 @@
                 if (_showInvalidCertStatusLocation != value)
                 {
                     _showInvalidCertStatusLocation = value;
-                    RaisePropertyChanged((nameof(ShowInvalidCertStatusLocation)));
+                    OnPropertyChanged((nameof(ShowInvalidCertStatusLocation)));
                 }
             }
         }
@@ -461,7 +463,7 @@
             set
             {
                 _thumbprint = value;
-                RaisePropertyChanged(nameof(Thumbprint));
+                OnPropertyChanged(nameof(Thumbprint));
             }
         }
 
@@ -475,9 +477,9 @@
             set
             {
                 _enrolled = value;
-                RaisePropertyChanged(nameof(Enrolled));
-                CancelRequestCommand.RaiseCanExecuteChanged();
-                RaisePropertyChanged(nameof(EnrollmentEditEnabled));
+                OnPropertyChanged(nameof(Enrolled));
+                CancelRequestCommand.NotifyCanExecuteChanged();
+                OnPropertyChanged(nameof(EnrollmentEditEnabled));
             }
         }
 
@@ -491,7 +493,7 @@
             set
             {
                 _showSCEPRequestStatus = value;
-                RaisePropertyChanged(nameof(ShowSCEPRequestStatus));
+                OnPropertyChanged(nameof(ShowSCEPRequestStatus));
             }
         }
 
@@ -502,7 +504,7 @@
             set
             {
                 _showOCSPRequestStatus = value;
-                RaisePropertyChanged(nameof(ShowOSCPRequestStatus));
+                OnPropertyChanged(nameof(ShowOSCPRequestStatus));
             }
         }
 
@@ -516,7 +518,7 @@
             set
             {
                 _tabsActive = value;
-                RaisePropertyChanged(nameof(TabsActive));
+                OnPropertyChanged(nameof(TabsActive));
             }
         }
 
@@ -530,7 +532,7 @@
             set
             {
                 _requestStatus = value;
-                RaisePropertyChanged(nameof(RequestStatus));
+                OnPropertyChanged(nameof(RequestStatus));
             }
         }
 
@@ -544,7 +546,7 @@
             set
             {
                 _noncesEnabled = value;
-                RaisePropertyChanged(nameof(NoncesEnabled));
+                OnPropertyChanged(nameof(NoncesEnabled));
             }
         }
 
@@ -558,7 +560,7 @@
             set
             {
                 _validateDomain = value;
-                RaisePropertyChanged(nameof(ValidateDomain));
+                OnPropertyChanged(nameof(ValidateDomain));
             }
         }
 
@@ -571,7 +573,7 @@
                 if (_requestButtonCaption != value)
                 {
                     _requestButtonCaption = value;
-                    RaisePropertyChanged(nameof(RequestButtonCaption));
+                    OnPropertyChanged(nameof(RequestButtonCaption));
                 }
             }
         }
@@ -585,10 +587,10 @@
                 if (_scepEnabled != value)
                 {
                     _scepEnabled = value;
-                    RaisePropertyChanged(nameof(ScepEnabled));
-                    EnrollCertificateCommand.RaiseCanExecuteChanged();
-                    GetThumbprintCommand.RaiseCanExecuteChanged();
-                    RaisePropertyChanged(nameof(EnrollmentEditEnabled));
+                    OnPropertyChanged(nameof(ScepEnabled));
+                    EnrollCertificateCommand.NotifyCanExecuteChanged();
+                    GetThumbprintCommand.NotifyCanExecuteChanged();
+                    OnPropertyChanged(nameof(EnrollmentEditEnabled));
                 }
             }
         }
@@ -602,7 +604,7 @@
                 if (_ocspTestPassed != value)
                 {
                     _ocspTestPassed = value;
-                    RaisePropertyChanged(nameof(OcspTestPassed));
+                    OnPropertyChanged(nameof(OcspTestPassed));
                 }
             }
         }
@@ -661,43 +663,41 @@
         /// </summary>
         protected override void OnCommitted()
         {
-            if (Committed)
+            if (IsCommitted)
             {
                 return;
             }
 
             UpdateConfiguration();
 
-            Committed = true;
+            IsCommitted = true;
 
             base.OnCommitted();
         }
 
-        /// <summary>
-        ///     Validates current instance.
-        /// </summary>
-        protected override void ValidateAll()
-        {
-            base.ValidateAll();
-
-            ValidateCertificateManagerLocation(CertificateManagerLocation);
-            ValidateCertificateStatusLocation(CertificateStatusLocation);
-
-            ValidateManualPollingInterval(ManualPollingInterval);
-            ValidateOfflinePeriod(OfflinePeriod);
-            ValidateReAuthenticatedPeriod(ReAuthenticatedPeriod);
-            ValidateAcceptPreviouslyGoodCertificatePeriod(AcceptPreviouslyGoodCertificatePeriod);
-        }
-
         /// <inheritdoc />
-        protected override void RaisePropertyChanged(string propertyName)
+        protected new void OnPropertyChanged(string propertyName)
         {
-            base.RaisePropertyChanged(propertyName);
+            base.OnPropertyChanged(propertyName);
 
-            if (propertyName != nameof(Committed))
+            if (propertyName != nameof(IsCommitted))
             {
                 UpdateNavigation();
             }
+        }
+
+        protected override void RunCustomValidation()
+        {
+            base.RunCustomValidation();
+
+            ValidateProperty(CertificateManagerLocation, nameof(CertificateManagerLocation));
+            ValidateProperty(CertificateStatusLocation, nameof(CertificateStatusLocation));
+            ValidateProperty(ManualPollingInterval, nameof(ManualPollingInterval));
+            ValidateProperty(OfflinePeriod, nameof(OfflinePeriod));
+            ValidateProperty(ReAuthenticatedPeriod, nameof(ReAuthenticatedPeriod));
+            ValidateProperty(AcceptPreviouslyGoodCertificatePeriod, nameof(AcceptPreviouslyGoodCertificatePeriod));
+
+
         }
 
         protected override void DisposeInternal()
@@ -737,7 +737,7 @@
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RequestStatus = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecurityConfiguration_CertificateRequestStatus_Requesting);
@@ -797,7 +797,7 @@
 
         private void TestOcsp(object parameter)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RequestStatus = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecurityConfiguration_OcspResponderTest_Contacting);
@@ -838,94 +838,148 @@
             return false;
         }
 
-        private void ValidateTextBoxValue(string textbox, string text)
+        public static ValidationResult ValidateTextBoxValue(string text, ValidationContext context)
         {
-            ClearErrors(textbox);
-
+            var errors = "";
             if (TooManyCharactersInTextBox(text)) // VLT-9004
             {
-                SetError(textbox, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StringTooLong));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.StringTooLong);
             }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
-        private void ValidateCertificateManagerLocation(string address)
+        public static ValidationResult ValidateCertificateManagerLocation(string address, ValidationContext context)
         {
-            ClearErrors(nameof(CertificateManagerLocation));
+            SecurityConfigurationViewModel instance = (SecurityConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(CertificateManagerLocation));
 
             if (TooManyCharactersInTextBox(address)) // VLT-9004 & VLT-9092
             {
-                SetError(nameof(CertificateManagerLocation), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressTooLong));
-                return;
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressTooLong);
             }
 
             if (!Uri.TryCreate(address, UriKind.Absolute, out var uri) || !EndpointUtilities.IsSchemeValid(uri))
             {
-                SetError(nameof(CertificateManagerLocation), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressNotValid));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressNotValid);
             }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
-        private void ValidateCertificateStatusLocation(string address)
+        public static ValidationResult ValidateCertificateStatusLocation(string address, ValidationContext context)
         {
-            ClearErrors(nameof(CertificateStatusLocation));
+            SecurityConfigurationViewModel instance = (SecurityConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(CertificateStatusLocation));
 
             if (TooManyCharactersInTextBox(address)) // VLT-9004
             {
-                SetError(nameof(CertificateStatusLocation), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressTooLong));
-                return;
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressTooLong);
             }
 
-            if (RenewalEnabled && (!Uri.TryCreate(address, UriKind.Absolute, out var uri) ||
+            if (instance.RenewalEnabled && (!Uri.TryCreate(address, UriKind.Absolute, out var uri) ||
                                    !EndpointUtilities.IsSchemeValid(uri)))
             {
-                SetError(nameof(CertificateStatusLocation), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressNotValid));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ServerAddressNotValid);
             }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
-        private void ValidateManualPollingInterval(int interval)
+        public static ValidationResult ValidateManualPollingInterval(int interval, ValidationContext context)
         {
-            ClearErrors(nameof(ManualPollingInterval));
+            SecurityConfigurationViewModel instance = (SecurityConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(ManualPollingInterval));
 
             if (interval <= 0)
             {
-                SetError(nameof(ManualPollingInterval), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ScepManualPollingInterval_GreaterThanZero));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ScepManualPollingInterval_GreaterThanZero);
             }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
-        private void ValidateOfflinePeriod(int period)
+        public static ValidationResult ValidateOfflinePeriod(int period, ValidationContext context)
         {
-            ClearErrors(nameof(OfflinePeriod));
+            SecurityConfigurationViewModel instance = (SecurityConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(OfflinePeriod));
 
             if (period < 0 || period > short.MaxValue)
             {
-                SetError(nameof(OfflinePeriod), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OfflinePeriod_NonNegative));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OfflinePeriod_NonNegative);
             }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
-        private void ValidateReAuthenticatedPeriod(int period)
+        public static ValidationResult ValidateReAuthenticatedPeriod(int period, ValidationContext context)
         {
-            ClearErrors(nameof(ReAuthenticatedPeriod));
+            SecurityConfigurationViewModel instance = (SecurityConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(ReAuthenticatedPeriod));
 
             if (period <= 0 || period > short.MaxValue)
             {
-                SetError(nameof(ReAuthenticatedPeriod), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReAuthenticatedPeriod_GreaterThanZero));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReAuthenticatedPeriod_GreaterThanZero);
             }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
-        private void ValidateAcceptPreviouslyGoodCertificatePeriod(int period)
+        public static ValidationResult ValidateAcceptPreviouslyGoodCertificatePeriod(int period, ValidationContext context)
         {
-            ClearErrors(nameof(AcceptPreviouslyGoodCertificatePeriod));
+            SecurityConfigurationViewModel instance = (SecurityConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            instance.ClearErrors(nameof(AcceptPreviouslyGoodCertificatePeriod));
 
             if (period <= 0 || period > short.MaxValue)
             {
-                SetError(
-                    nameof(AcceptPreviouslyGoodCertificatePeriod),
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AcceptPreviouslyGoodCertificatePeriod_GreaterThanZero));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AcceptPreviouslyGoodCertificatePeriod_GreaterThanZero);
             }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private void UpdateNavigation()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 return;
             }
@@ -1002,7 +1056,7 @@
                 }
             }
 
-            ValidateAll();
+            RunCustomValidation();
         }
 
         private void UpdateConfiguration()
@@ -1052,7 +1106,7 @@
 
             _countDownTimer?.Stop();
 
-            MvvmHelper.ExecuteOnUI(() => RequestStatus = ToRequestStatus(result.Status));
+            Execute.OnUIThread(() => RequestStatus = ToRequestStatus(result.Status));
             //RequestStatus = ToRequestStatus(result.Status);
 
             switch (result.Status)
@@ -1120,7 +1174,7 @@
                     break;
             }
 
-            EnrollCertificateCommand.RaiseCanExecuteChanged();
+            EnrollCertificateCommand.NotifyCanExecuteChanged();
 
             EventBus.Publish(new CertificateStatusUpdatedEvent(result.Status));
         }
@@ -1131,7 +1185,7 @@
             if (result.Result)
             {
                 Logger.Error("OCSP test successful.");
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         RequestStatus = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecurityConfiguration_OcspResponderTest_Success);
@@ -1142,7 +1196,7 @@
             else
             {
                 Logger.Error("OCSP test failed: " + result.StatusText);
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     RequestStatus = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.SecurityConfiguration_OcspResponderTest_Failure);
                     OcspTestPassed = false;
@@ -1183,7 +1237,7 @@
         {
             _timeRemaining -= _countDownTimer.Interval;
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => RequestStatus = Localizer.For(CultureFor.Operator)
                     .FormatString(ResourceKeys.SecurityConfiguration_PendingCountdown, _timeRemaining));
 
@@ -1192,7 +1246,7 @@
 
         private void UpdateStatusButton()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RequestButtonCaption = Localizer.For(CultureFor.Operator)

@@ -8,6 +8,8 @@
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Application.Contracts.Protocol;
+    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using Client;
     using Commands;
     using Contracts;
@@ -289,63 +291,10 @@
         {
             Logger.Debug($"BeginGameRoundAsync({request})");
 
-            OutcomeRequest outcomeRequest = null;
-            var gamePlayInfo = new List<AdditionalGamePlayInfo>();
-
-            if (request.OutcomeRequest?.Is(CentralOutcome.Descriptor) ?? false)
-            {
-                var central = request.OutcomeRequest.Unpack<CentralOutcome>();
-                gamePlayInfo.Add(
-                    new AdditionalGamePlayInfo(
-                        (int)central.GameIndex,
-                        (int)central.GameId,
-                        (long)request.Denomination,
-                        (long)request.BetAmount,
-                        (int)central.TemplateId));
-
-                outcomeRequest = new OutcomeRequest(
-                    (int)central.OutcomeCount,
-                    0,
-                    gamePlayInfo);
-            }
-            else if (request.OutcomeRequest?.Is(MultiGameCentralOutcome.Descriptor) ?? false)
-            {
-                var outcomes = request.OutcomeRequest.Unpack<MultiGameCentralOutcome>();
-                foreach (var outcome in outcomes.Outcomes)
-                {
-                    if (gamePlayInfo.IsNullOrEmpty())
-                    {
-                        gamePlayInfo.Add(
-                            new AdditionalGamePlayInfo(
-                                (int)outcome.GameIndex,
-                                (int)outcome.GameId,
-                                (long)request.Denomination,
-                                (long)request.BetAmount,
-                                (int)outcome.TemplateId));
-                    }
-                    else
-                    {
-                        if (!_subGameBetOptions.TryGetValue((int)outcome.GameId, out var subGameBetOptions))
-                        {
-                            throw new KeyNotFoundException($"No sub game bet options for game id {(int)outcome.GameId}");
-                        }
-
-                        gamePlayInfo.Add(
-                            new AdditionalGamePlayInfo(
-                                (int)outcome.GameIndex,
-                                (int)outcome.GameId,
-                                (long)subGameBetOptions.Denomination,
-                                (long)subGameBetOptions.Wager,
-                                (int)outcome.TemplateId));
-                    }
-                }
-
-                outcomeRequest = new OutcomeRequest(outcomes.Outcomes.Count, 0, gamePlayInfo);
-            }
+            var outcomeRequest = ProcessOutcomes(request);
 
             if (request.GameDetails.FirstOrDefault()?.Is(GameInfo.Descriptor) ?? false)
             {
-                // TODO: need to match up details with outcome request
                 var details = request.GameDetails.First().Unpack<GameInfo>();
 
                 var command = new BeginGameRoundAsync(
@@ -708,6 +657,13 @@
             {
                 _handlerFactory.Create<ProgressiveLevelWagers>()
                     .Handle(new ProgressiveLevelWagers(request.Wagers.Select(x => (long)x)));
+
+                var isBingoProgressiveEnabled = ServiceManager.GetInstance().GetService<IMultiProtocolConfigurationProvider>().MultiProtocolConfiguration
+                    .Any(x => x.IsProgressiveHandled && x.Protocol == CommsProtocol.Bingo);
+                if (isBingoProgressiveEnabled)
+                {
+                    _bus.Publish(new ProgressiveContributionEvent { Wagers = request.Wagers.Select(x => (long)x) });
+                }
             }
 
             return EmptyResult;
@@ -770,6 +726,82 @@
             response.Levels.Add(command.Results);
 
             return response;
+        }
+
+        private OutcomeRequest ProcessOutcomes(BeginGameRoundAsyncRequest request)
+        {
+            OutcomeRequest outcomeRequest = null;
+            var gamePlayInfo = new List<AdditionalGamePlayInfo>();
+
+            if (request.OutcomeRequest?.Is(CentralOutcome.Descriptor) ?? false)
+            {
+                var central = request.OutcomeRequest.Unpack<CentralOutcome>();
+                gamePlayInfo.Add(CreateGamePlayInfo(request, central));
+                outcomeRequest = new OutcomeRequest((int)central.OutcomeCount, 0, gamePlayInfo);
+            }
+            else if (request.OutcomeRequest?.Is(MultiGameCentralOutcome.Descriptor) ?? false)
+            {
+                var outcomes = request.OutcomeRequest.Unpack<MultiGameCentralOutcome>();
+                foreach (var outcome in outcomes.Outcomes)
+                {
+                    CreateMultiGamePlayInfo(request, outcome, gamePlayInfo);
+                }
+
+                outcomeRequest = new OutcomeRequest(outcomes.Outcomes.Count, 0, gamePlayInfo);
+            }
+            else
+            {
+                // Outcome request type not supported
+            }
+
+            return outcomeRequest;
+        }
+
+        private static AdditionalGamePlayInfo CreateGamePlayInfo(BeginGameRoundAsyncRequest request, CentralOutcome central)
+        {
+            return new AdditionalGamePlayInfo(
+                (int)central.GameIndex,
+                (int)central.GameId,
+                (long)request.Denomination,
+                (long)request.BetAmount,
+                (int)central.TemplateId);
+        }
+
+        private void CreateMultiGamePlayInfo(BeginGameRoundAsyncRequest request, CentralOutcome outcome, List<AdditionalGamePlayInfo> gamePlayInfo)
+        {
+            if (gamePlayInfo.IsNullOrEmpty())
+            {
+                gamePlayInfo.Add(CreateMultiGameMainGamePlayInfo(request, outcome));
+            }
+            else
+            {
+                gamePlayInfo.Add(CreateMultiGameSubGamePlayInfo(outcome));
+            }
+        }
+
+        private static AdditionalGamePlayInfo CreateMultiGameMainGamePlayInfo(BeginGameRoundAsyncRequest request, CentralOutcome outcome)
+        {
+            return new AdditionalGamePlayInfo(
+                (int)outcome.GameIndex,
+                (int)outcome.GameId,
+                (long)request.Denomination,
+                (long)request.BetAmount,
+                (int)outcome.TemplateId);
+        }
+
+        private AdditionalGamePlayInfo CreateMultiGameSubGamePlayInfo(CentralOutcome outcome)
+        {
+            if (!_subGameBetOptions.TryGetValue((int)outcome.GameId, out var subGameBetOptions))
+            {
+                throw new KeyNotFoundException($"No sub game bet options for game id {(int)outcome.GameId}");
+            }
+
+            return new AdditionalGamePlayInfo(
+                (int)outcome.GameIndex,
+                (int)outcome.GameId,
+                (long)subGameBetOptions.Denomination,
+                (long)subGameBetOptions.Wager,
+                (int)outcome.TemplateId);
         }
     }
 }

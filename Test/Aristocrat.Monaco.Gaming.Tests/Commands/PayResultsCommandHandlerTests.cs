@@ -14,7 +14,6 @@
     using Hardware.Contracts.Persistence;
     using Test.Common;
     using Aristocrat.Monaco.Gaming.Progressives;
-    using Google.Protobuf.WellKnownTypes;
 
     /// <summary>
     ///     PayGameResultsCommandHandler unit tests
@@ -34,6 +33,7 @@
         private Mock<IPersistentStorageManager> _persistence;
         private Mock<IGameHistory> _gameHistory;
         private Mock<IPropertiesManager> _properties;
+        private Mock<IGameProvider> _gameProvider;
         private Mock<ICommandHandlerFactory> _commands;
         private Mock<IProgressiveGameProvider> _progressiveGame;
         private Mock<IEventBus> _eventBus;
@@ -42,7 +42,6 @@
         private Mock<IOutcomeValidatorProvider> _outcomeValidation;
         private readonly Mock<IGameDetail> _gameDetail = new(MockBehavior.Default);
         private readonly Mock<IDenomination> _denomination = new(MockBehavior.Default);
-
 
         /// <summary>
         ///     Gets or sets the test context which provides
@@ -57,6 +56,7 @@
             _persistence = new Mock<IPersistentStorageManager>();
             _gameHistory = new Mock<IGameHistory>();
             _properties = new Mock<IPropertiesManager>();
+            _gameProvider = new Mock<IGameProvider>();
             _commands = new Mock<ICommandHandlerFactory>();
             _progressiveGame = new Mock<IProgressiveGameProvider>();
             _eventBus = new Mock<IEventBus>();
@@ -332,7 +332,7 @@
             _games.Setup(m => m.GetGame(1, Denomination)).Returns(Factory_CreateGame(Denomination));
             var scope = new Mock<IScopedTransaction>();
             _persistence.Setup(m => m.ScopedTransaction()).Returns(scope.Object);
-            _commands.Setup(m => m.Create<CheckResult>()).Returns(new CheckResultCommandHandler(_bank.Object, _properties.Object, _gameHistory.Object, (new Mock<IProgressiveConfigurationProvider>()).Object));
+            _commands.Setup(m => m.Create<CheckResult>()).Returns(new CheckResultCommandHandler(_bank.Object, _gameProvider.Object, _gameHistory.Object, (new Mock<IProgressiveConfigurationProvider>()).Object));
             var log = new Mock<IGameHistoryLog>();
             _gameHistory.SetupGet(m => m.CurrentLog).Returns(log.Object);
 

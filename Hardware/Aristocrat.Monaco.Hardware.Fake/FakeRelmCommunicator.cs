@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hardware.Fake
+namespace Aristocrat.Monaco.Hardware.Fake
 {
     using System;
     using System.Collections.Generic;
@@ -15,22 +15,23 @@
     using Contracts.SharedDevice;
     using Kernel;
     using log4net;
-    using MVVM;
     using MonacoReelStatus = Contracts.Reel.ReelStatus;
     using MonacoLightStatus = Contracts.Reel.LightStatus;
-
+    using Aristocrat.Extensions.CommunityToolkit;
 
     public class FakeRelmCommunicator : IRelmCommunicator
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IEventBus _eventBus;
         private readonly IPathMapper _pathMapper;
-        private int[] _reelOffsets;
+        private readonly string _baseName = "FakeRelm";
+
         private const string SimWindowNamePartial = "ReelLayout_";
         private const string GamesDirectory = "/Games";
         private const string PackagesDirectory = "/Packages";
-        private readonly string _baseName = "FakeRelm";
+        private const int DefaultHomeStepValue = 5;
 
+        private int[] _reelOffsets;
         private int _id;
         private bool _disposed;
 
@@ -68,11 +69,48 @@
 
         /// <inheritdoc/>
         public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultCleared;
-
+        
+        /// <inheritdoc />
         public event EventHandler<LightEventArgs> LightStatusReceived;
 
         /// <inheritdoc/>
-        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinningStatusReceived;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelStoppingEventArgs> ReelStopping;
+        
+        /// <inheritdoc />
+        public event EventHandler<StepperRuleTriggeredEventArgs> StepperRuleTriggered;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelSynchronizationEventArgs> SynchronizationStarted;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelSynchronizationEventArgs> SynchronizationCompleted;
+        
+        /// <inheritdoc />
+        public event EventHandler AllLightAnimationsCleared;
+        
+        /// <inheritdoc />
+        public event EventHandler<LightAnimationEventArgs> LightAnimationRemoved;
+        
+        /// <inheritdoc />
+        public event EventHandler<LightAnimationEventArgs> LightAnimationStarted;
+        
+        /// <inheritdoc />
+        public event EventHandler<LightAnimationEventArgs> LightAnimationStopped;
+        
+        /// <inheritdoc />
+        public event EventHandler<LightAnimationEventArgs> LightAnimationPrepared;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelAnimationEventArgs> ReelAnimationStarted;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelAnimationEventArgs> ReelAnimationStopped;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelAnimationEventArgs> ReelAnimationPrepared;
 #pragma warning restore 67
 
         /// <summary>
@@ -82,7 +120,10 @@
         
         /// <inheritdoc/>
         public int DefaultReelBrightness { get; set; }
-        
+
+        /// <inheritdoc />
+        public int DefaultHomeStep => DefaultHomeStepValue;
+
         /// <inheritdoc/>
         public string Manufacturer => _baseName + DeviceType;
         
@@ -186,7 +227,7 @@
         public bool Close()
         {
             Logger.Debug($"Closing Simulator.");
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
             });
 
@@ -215,7 +256,7 @@
             usedIds.AddRange(usedTitles.ToList().Select(int.Parse).ToList());
             _id = 1 + usedIds.Max();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
             () =>
             {
                 Logger.Debug($"Game says: {ReelCount} reels");
@@ -247,12 +288,6 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> HomeReels()
-        {
-            return Task.FromResult(true);
-        }
-
-        /// <inheritdoc/>
         public Task<bool> HomeReel(int reelId, int stop, bool resetStatus = true)
         {
             return Task.FromResult(true);
@@ -261,12 +296,14 @@
         /// <inheritdoc/>
         public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token)
         {
+            Thread.Sleep(500);
             return Task.FromResult(true);
         }
         
         /// <inheritdoc/>
-        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token)
+        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, IProgress<LoadingAnimationFileModel> progress, CancellationToken token)
         {
+            Thread.Sleep(500);
             return Task.FromResult(true);
         }
 
@@ -343,7 +380,7 @@
         }
 
         /// <inheritdoc/>
-        public Task<bool> Synchronize(ReelSynchronizationData data, CancellationToken token)
+        public Task<bool> Synchronize(ReelSynchronizationData syncData, CancellationToken token = default)
         {
             throw new NotImplementedException();
         }
@@ -387,6 +424,12 @@
         public Task<bool> TiltReels()
         {
             return Task.FromResult(true);
+        }
+        
+        /// <inheritdoc/>
+        public Task<bool> PrepareStepperRule(StepperRuleData ruleData, CancellationToken token = default)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc/>

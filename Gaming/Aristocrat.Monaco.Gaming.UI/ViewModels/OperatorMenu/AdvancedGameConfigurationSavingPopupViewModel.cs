@@ -1,9 +1,9 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
-    using MVVM;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     public class AdvancedGameConfigurationSavingPopupViewModel : OperatorMenuSaveViewModelBase
     {
@@ -22,7 +22,7 @@
             _loadedAction.BeginInvoke(
                 ar =>
                 {
-                    MvvmHelper.ExecuteOnUI(() => _dialogService.DismissOpenedDialog());
+                    Execute.OnUIThread(() => _dialogService.DismissOpenedDialog());
                 },
                 this);
         }

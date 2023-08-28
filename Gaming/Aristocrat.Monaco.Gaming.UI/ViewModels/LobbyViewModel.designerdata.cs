@@ -3,6 +3,7 @@
     using System.Diagnostics;
     using System.Globalization;
     using Application.Contracts.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts.Models;
     using Models;
 
@@ -14,7 +15,7 @@
         [Conditional("DESIGN")]
         private void WireDesignerData()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 GameList.Add(
                     new GameInfo

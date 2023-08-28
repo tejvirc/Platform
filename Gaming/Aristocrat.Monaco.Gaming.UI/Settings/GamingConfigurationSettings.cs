@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Settings
+namespace Aristocrat.Monaco.Gaming.UI.Settings
 {
     using System;
     using System.Collections.ObjectModel;
@@ -7,10 +7,10 @@
     using System.Windows;
     using Application.Contracts;
     using Application.Contracts.Settings;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
-    using MVVM;
 
     /// <summary>
     ///     Gaming configuration settings provider.
@@ -49,7 +49,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary
@@ -147,6 +147,7 @@
             {
                 Jurisdiction = _properties.GetValue(ApplicationConstants.JurisdictionKey, string.Empty),
                 AutoPlayAllowed = _properties.GetValue(GamingConstants.AutoPlayAllowed, true),
+                AllowZeroCreditCashout = _properties.GetValue(GamingConstants.AllowZeroCreditCashout, false),
                 VolumeControlLocation = (VolumeControlLocation)_properties.GetValue(
                     ApplicationConstants.VolumeControlLocationKey,
                     ApplicationConstants.VolumeControlLocationDefault),
@@ -293,6 +294,7 @@
             _properties.SetProperty(GamingConstants.ShowServiceButton, settings.ShowServiceButton);
             _properties.SetProperty(ApplicationConstants.LobbyVolumeScalarKey, settings.RelativeVolume);
             _properties.SetProperty(GamingConstants.ReelStopEnabled, settings.ReelStopEnabled);
+            _properties.SetProperty(GamingConstants.AllowZeroCreditCashout, settings.AllowZeroCreditCashout);
             _properties.SetProperty(GamingConstants.ReelSpeedKey, settings.ReelSpeed);
             _properties.SetProperty(GamingConstants.WagerLimitsMaxTotalWagerKey, settings.WagerLimitsMaxTotalWager);
             _properties.SetProperty(GamingConstants.WagerLimitsUseKey, settings.WagerLimitsUse);

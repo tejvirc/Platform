@@ -97,13 +97,14 @@
             _requestSent = false;
         }
 
-        [DataRow(true, false, false, false, false, false, false, DisplayName = "Null EventBus throws exception")]
-        [DataRow(false, true, false, false, false, false, false, DisplayName = "Null CentralManager throws exception")]
-        [DataRow(false, false, true, false, false, false, false, DisplayName = "Null PlayerSessionService throws exception")]
-        [DataRow(false, false, false, true, false, false, false, DisplayName = "Null IIdProvider throws exception")]
-        [DataRow(false, false, false, false, true, false, false, DisplayName = "Null Properties throws exception")]
-        [DataRow(false, false, false, false, false, true, false, DisplayName = "Null Bank throws exception")]
-        [DataRow(false, false, false, false, false, false, true, DisplayName = "Null game data service throws exception")]
+        [DataRow(true, false, false, false, false, false, false, false, DisplayName = "Null EventBus throws exception")]
+        [DataRow(false, true, false, false, false, false, false, false, DisplayName = "Null CentralManager throws exception")]
+        [DataRow(false, false, true, false, false, false, false, false, DisplayName = "Null PlayerSessionService throws exception")]
+        [DataRow(false, false, false, true, false, false, false, false, DisplayName = "Null IIdProvider throws exception")]
+        [DataRow(false, false, false, false, true, false, false, false, DisplayName = "Null Properties throws exception")]
+        [DataRow(false, false, false, false, false, true, false, false, DisplayName = "Null Bank throws exception")]
+        [DataRow(false, false, false, false, false, false, true, false, DisplayName = "Null GameProvider throws exception")]
+        [DataRow(false, false, false, false, false, false, false, true, DisplayName = "Null GameDataService throws exception")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctor_InvalidParam_ThrowsException(
@@ -113,11 +114,12 @@
             bool nullIdProvider,
             bool nullProperties,
             bool nullBank,
+            bool nullGameProvider,
             bool nullGameDataService)
         {
             _ = CreateCreditOutService(
                 nullEventBus, nullCentralManager, nullPlayerService, nullProperties, nullIdProvider, 
-                nullBank, nullGameDataService);
+                nullBank, nullGameProvider, nullGameDataService);
         }
 
         [DataTestMethod]
@@ -268,6 +270,7 @@
             bool nullProperties = false,
             bool nullIdProvider = false,
             bool nullBank = false,
+            bool nullGameProvider = false,
             bool nullGameDataService = false)
         {
             _sut = new CreditOutService(
@@ -277,6 +280,7 @@
                 nullIdProvider ? null : _idProvider.Object,
                 nullProperties ? null : _properties.Object,
                 nullBank ? null : _bank.Object,
+                nullGameProvider ? null : _gameProvider.Object,
                 nullGameDataService ? null : _gameDataService.Object);
 
             return _sut;

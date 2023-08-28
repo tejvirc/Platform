@@ -115,6 +115,30 @@
         public IEnumerable<IWagerCategory> WagerCategories { get; set; }
 
         /// <inheritdoc />>
+        public bool HasExtendedRtpInformation
+        {
+            get
+            {
+                return WagerCategories.Any(
+                    w =>
+                        w.MinBaseRtpPercent != default ||
+                        w.MaxBaseRtpPercent != default ||
+                        w.MinSapStartupRtpPercent != default ||
+                        w.MaxSapStartupRtpPercent != default ||
+                        w.SapIncrementRtpPercent != default ||
+                        w.MinLinkStartupRtpPercent != default ||
+                        w.MaxLinkStartupRtpPercent != default ||
+                        w.LinkIncrementRtpPercent != default);
+            }
+        }
+
+        /// <inheritdoc />>
+        public bool LinkedProgressiveVerificationComplete => LinkedProgressiveVerificationResult is not null;
+
+        /// <inheritdoc />>
+        public bool? LinkedProgressiveVerificationResult { get; set; }
+
+        /// <inheritdoc />>
         public IEnumerable<IWinLevel> WinLevels { get; set; }
 
         /// <inheritdoc />>
@@ -168,7 +192,7 @@
         public BetLinePresetList BetLinePresetList { get; set; }
 
         /// <inheritdoc />>
-        public long WinThreshold { get; set; }
+        public long? WinThreshold { get; set; }
 
         /// <inheritdoc />>
         public string Version { get; set; }
@@ -195,6 +219,9 @@
         public int[] MechanicalReelHomeSteps { get; set; }
 
         /// <inheritdoc />>
+        public IEnumerable<AnimationFile> PreloadedAnimationFiles { get; set; }
+
+        /// <inheritdoc />>
         public GameCategory Category { get; set; }
 
         /// <inheritdoc />>
@@ -211,6 +238,9 @@
 
         /// <inheritdoc />>
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
+
+        /// <inheritdoc />>
+        public int UniqueGameId { get; set; }
 
         /// <inheritdoc />>
         public IEnumerable<ISubGameDetails> SupportedSubGames { get; set; }

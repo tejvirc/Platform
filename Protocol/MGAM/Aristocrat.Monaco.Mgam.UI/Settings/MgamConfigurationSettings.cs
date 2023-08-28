@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Mgam.UI.Settings
+namespace Aristocrat.Monaco.Mgam.UI.Settings
 {
     using System;
     using System.Linq;
@@ -7,9 +7,9 @@
     using Application.Contracts;
     using Application.Contracts.Protocol;
     using Application.Contracts.Settings;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Common;
     using Kernel;
-    using MVVM;
 
     /// <summary>
     ///     Manages the import and export of settings.
@@ -44,7 +44,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary

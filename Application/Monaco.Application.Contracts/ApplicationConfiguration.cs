@@ -13,9 +13,7 @@
 // 
 namespace Aristocrat.Monaco.Application.Contracts {
     using System.Xml.Serialization;
-
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-
+#pragma warning disable CS1591
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
@@ -35,6 +33,8 @@ namespace Aristocrat.Monaco.Application.Contracts {
         private ApplicationConfigurationGatSerial gatSerialField;
         
         private ApplicationConfigurationHardMeterMonitor hardMeterMonitorField;
+        
+        private ApplicationConfigurationDisplayTopScreen displayTopScreenField;
         
         private ApplicationConfigurationNoteAcceptorMonitor noteAcceptorMonitorField;
         
@@ -198,6 +198,16 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
             set {
                 this.hardMeterMonitorField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public ApplicationConfigurationDisplayTopScreen DisplayTopScreen {
+            get {
+                return this.displayTopScreenField;
+            }
+            set {
+                this.displayTopScreenField = value;
             }
         }
         
@@ -744,7 +754,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -786,7 +796,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -843,7 +853,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -885,7 +895,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -912,7 +922,34 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class ApplicationConfigurationDisplayTopScreen {
+        
+        private bool enabledField;
+        
+        public ApplicationConfigurationDisplayTopScreen() {
+            this.enabledField = true;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool Enabled {
+            get {
+                return this.enabledField;
+            }
+            set {
+                this.enabledField = value;
+            }
+        }
+    }
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -999,7 +1036,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1011,7 +1048,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
         /// <remarks/>
         Queue,
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1053,7 +1090,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1095,7 +1132,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1122,7 +1159,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1149,7 +1186,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1161,7 +1198,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
         /// <remarks/>
         Inspection,
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1188,7 +1225,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1215,7 +1252,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1248,7 +1285,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1270,7 +1307,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1292,7 +1329,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1409,7 +1446,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1431,7 +1468,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1453,7 +1490,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1475,7 +1512,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1497,7 +1534,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1519,7 +1556,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1541,7 +1578,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1563,7 +1600,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1585,7 +1622,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1607,7 +1644,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1796,7 +1833,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1818,7 +1855,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1840,7 +1877,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1862,7 +1899,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1884,7 +1921,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1906,7 +1943,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1928,7 +1965,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1950,7 +1987,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1972,7 +2009,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -1994,7 +2031,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2016,7 +2053,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2038,7 +2075,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2060,7 +2097,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2082,7 +2119,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2104,7 +2141,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2126,7 +2163,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2159,7 +2196,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2216,7 +2253,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2251,7 +2288,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2284,7 +2321,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2401,7 +2438,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2504,7 +2541,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2591,7 +2628,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2618,7 +2655,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2633,7 +2670,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
         /// <remarks/>
         LobbyAndGame,
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2668,7 +2705,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2695,7 +2732,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2722,7 +2759,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2755,7 +2792,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2777,7 +2814,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2799,7 +2836,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2871,7 +2908,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2883,7 +2920,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
         /// <remarks/>
         Soft,
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2895,7 +2932,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
         /// <remarks/>
         JackpotKey,
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2922,7 +2959,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2949,7 +2986,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -2976,7 +3013,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3003,7 +3040,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3030,7 +3067,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3057,7 +3094,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3084,7 +3121,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3111,7 +3148,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3138,7 +3175,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3165,7 +3202,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3192,7 +3229,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3219,7 +3256,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3246,7 +3283,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3273,7 +3310,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3330,7 +3367,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3339,7 +3376,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
         /// <remarks/>
         Interleave2of5,
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3348,7 +3385,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
         /// <remarks/>
         System,
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3357,7 +3394,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
         /// <remarks/>
         ExtendedLayout,
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3384,7 +3421,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3426,7 +3463,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3439,9 +3476,12 @@ namespace Aristocrat.Monaco.Application.Contracts {
         
         private bool commitStorageAfterCashoutField;
         
+        private bool paperInChuteBlocksCashoutField;
+        
         public ApplicationConfigurationCashout() {
             this.clearWinsField = true;
             this.commitStorageAfterCashoutField = false;
+            this.paperInChuteBlocksCashoutField = true;
         }
         
         /// <remarks/>
@@ -3467,8 +3507,20 @@ namespace Aristocrat.Monaco.Application.Contracts {
                 this.commitStorageAfterCashoutField = value;
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool PaperInChuteBlocksCashout {
+            get {
+                return this.paperInChuteBlocksCashoutField;
+            }
+            set {
+                this.paperInChuteBlocksCashoutField = value;
+            }
+        }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3525,7 +3577,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3552,7 +3604,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3579,7 +3631,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3606,7 +3658,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3663,7 +3715,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3690,7 +3742,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3747,7 +3799,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3774,7 +3826,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3801,7 +3853,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3828,7 +3880,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -3856,3 +3908,4 @@ namespace Aristocrat.Monaco.Application.Contracts {
         }
     }
 }
+#pragma warning restore CS1591

@@ -25,8 +25,8 @@
             set
             {
                 _logEvents = value;
-                RaisePropertyChanged(nameof(LogEvents));
-                RaisePropertyChanged(nameof(DataEmpty));
+                OnPropertyChanged(nameof(LogEvents));
+                OnPropertyChanged(nameof(DataEmpty));
             }
         }
 

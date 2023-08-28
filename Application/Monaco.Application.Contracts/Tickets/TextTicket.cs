@@ -275,7 +275,7 @@
                         PropertiesManager.GetValue(ApplicationConstants.SerialNumber, scope.GetString(ResourceKeys.DataUnavailable))));
 
                 AddLine(
-                    $"{scope.GetString(ResourceKeys.OSImageVersionText)}:",
+                    $"{scope.GetString(ResourceKeys.OSImageVersionLabel)}:",
                     null,
                     string.Format(
                         TicketLocalizer.CurrentCulture,

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using Contracts;
     using Contracts.OperatorMenu;
@@ -8,7 +8,6 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Common;
-    using MVVM.Command;
     using OperatorMenu;
     using System;
     using System.Collections.Generic;
@@ -17,6 +16,7 @@
     using System.Windows.Input;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
+    using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
     ///     Contains logic for GeneralSettingsPageViewModel.
@@ -40,7 +40,7 @@
         /// </summary>
         public GeneralSettingsPageViewModel() : base(true)
         {
-            VisibilityChangedCommand = new ActionCommand<object>(OnVisibilityChanged);
+            VisibilityChangedCommand = new RelayCommand<object>(OnVisibilityChanged);
 
             Version = PropertiesManager.GetValue(KernelConstants.SystemVersion, string.Empty);
 
@@ -66,7 +66,7 @@
                 if (_timeZone != value)
                 {
                     _timeZone = value;
-                    RaisePropertyChanged(nameof(TimeZone));
+                    OnPropertyChanged(nameof(TimeZone));
                 }
             }
         }
@@ -83,7 +83,7 @@
                 if (_timeZoneOffset != value)
                 {
                     _timeZoneOffset = value;
-                    RaisePropertyChanged(nameof(TimeZoneOffset));
+                    OnPropertyChanged(nameof(TimeZoneOffset));
                 }
             }
         }
@@ -100,7 +100,7 @@
                 if (_ipAddress != value)
                 {
                     _ipAddress = value;
-                    RaisePropertyChanged(nameof(IPAddress));
+                    OnPropertyChanged(nameof(IPAddress));
                 }
             }
         }
@@ -117,7 +117,7 @@
                 if (_macAddress != value)
                 {
                     _macAddress = value;
-                    RaisePropertyChanged(nameof(MacAddress));
+                    OnPropertyChanged(nameof(MacAddress));
                 }
             }
         }
@@ -134,7 +134,7 @@
                 if (_hardBootTime != value)
                 {
                     _hardBootTime = value;
-                    RaisePropertyChanged(nameof(HardBootTime));
+                    OnPropertyChanged(nameof(HardBootTime));
                 }
             }
         }
@@ -151,7 +151,7 @@
                 if (_softBootTime != value)
                 {
                     _softBootTime = value;
-                    RaisePropertyChanged(nameof(SoftBootTime));
+                    OnPropertyChanged(nameof(SoftBootTime));
                 }
             }
         }

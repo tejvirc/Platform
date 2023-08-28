@@ -12,8 +12,7 @@
     /// </summary>
     public static class ManifestUtilities
     {
-        private static readonly ConcurrentDictionary<Type, XmlSerializer> Serializers =
-            new ConcurrentDictionary<Type, XmlSerializer>();
+        private static readonly ConcurrentDictionary<Type, XmlSerializer> Serializers = new ();
 
         /// <summary>
         ///     Parses the provided file

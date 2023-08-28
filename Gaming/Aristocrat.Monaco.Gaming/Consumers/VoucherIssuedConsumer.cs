@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Consumers
+namespace Aristocrat.Monaco.Gaming.Consumers
 {
     using Accounting.Contracts;
     using Application.Contracts.Extensions;
@@ -38,7 +38,7 @@
             {
                 _messageDisplay.DisplayMessage(
                     new DisplayableMessage(
-                        () => Localizer.For(CultureFor.PlayerTicket).GetString(ResourceKeys.VoucherIssued) + " " +
+                        () => Localizer.DynamicCulture().GetString(ResourceKeys.VoucherIssued) + " " +
                               theEvent.Transaction.Amount.MillicentsToDollars().FormattedCurrencyString(),
                         DisplayableMessageClassification.Informative,
                         DisplayableMessagePriority.Normal,

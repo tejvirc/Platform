@@ -48,6 +48,26 @@
         public const string DefaultUrl = @"localhost";
 
         /// <summary>
+        ///     The Vertex standard progressive type
+        /// </summary>
+        public const string VertexProgTypeStandard = ManufacturerPrefix + "_standard";
+
+        /// <summary>
+        ///     The Vertex mystery progressive type
+        /// </summary>
+        public const string VertexProgTypeMystery = ManufacturerPrefix + "_mystery";
+
+        /// <summary>
+        ///     The Vertex AnteBet Bulk progressive type
+        /// </summary>
+        public const string VertexProgTypeBulkContribution = ManufacturerPrefix + "_anteWithBulk";
+
+        /// <summary>
+        ///     The Vertex host choice progressive type
+        /// </summary>
+        public const string VertexProgTypeHostChoice = ManufacturerPrefix + "_hostChoice";
+
+        /// <summary>
         ///     The default retry count
         /// </summary>
         public const int DefaultRetryCount = 3;

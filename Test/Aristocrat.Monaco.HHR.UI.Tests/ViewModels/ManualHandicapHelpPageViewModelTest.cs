@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Windows;
     using Accounting.Contracts;
+    using Gaming.Contracts;
     using Hardware.Contracts.Button;
     using Kernel;
     using Test.Common;
@@ -19,6 +20,7 @@
 
         private Mock<IServiceManager> _serviceManager;
         private Mock<IPropertiesManager> _properties;
+        private Mock<IGameProvider> _gameProvider;
         private Mock<IBank> _bank;
         private Mock<IEventBus> _eventBus;
 
@@ -32,6 +34,7 @@
             _eventBus.Setup(m => m.Publish(It.IsAny<DownEvent>())).Callback((DownEvent ev) => { _buttonId = ev.LogicalId; });
 
             _properties = new Mock<IPropertiesManager>(MockBehavior.Default);
+            _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
             _bank = new Mock<IBank>(MockBehavior.Default);
 
             if (Application.Current == null)
@@ -42,6 +45,7 @@
             _target = new ManualHandicapHelpPageViewModel(
                 _eventBus.Object,
                 _bank.Object,
+                _gameProvider.Object,
                 _properties.Object);
 
             _target.Init(Command.ManualHandicapHelp);

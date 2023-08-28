@@ -2,13 +2,13 @@
 {
     using System.Collections.Generic;
     using Application.Contracts.Extensions;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Data to display within <see cref="ViewModels.OperatorMenu.BingoGameHistoryDetailsViewModel"/>;
     ///     contains the data for a single pattern.
     /// </summary>
-    public class BingoPatternModel : BaseNotify
+    public class BingoPatternModel : ObservableObject
     {
         /// <summary>
         ///     Constructor for <see cref="BingoPatternModel"/>.
@@ -37,9 +37,9 @@
             WinAmount = winAmount.CentsToDollars().FormattedCurrencyString();
             BitDaubs = bitDaubs;
         }
-        
+
         public string Id { get; }
-        
+
         public string Name { get; }
 
         public string BallQuantity { get; }

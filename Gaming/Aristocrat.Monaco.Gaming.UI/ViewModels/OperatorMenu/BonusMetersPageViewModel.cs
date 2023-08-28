@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.ObjectModel;
@@ -8,11 +8,11 @@
     using Application.Contracts.Localization;
     using Application.UI.MeterPage;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Contracts.Bonus;
     using Kernel;
     using Localization.Properties;
-    using MVVM;
 
     [CLSCompliant(false)]
     public class BonusMetersPageViewModel : MetersPageViewModelBase
@@ -34,7 +34,7 @@
             set
             {
                 _egmPaidBonusAwardsTotalAmountFormatted = value;
-                RaisePropertyChanged(nameof(EgmPaidBonusAwardsTotalAmountFormatted));
+                OnPropertyChanged(nameof(EgmPaidBonusAwardsTotalAmountFormatted));
             }
         }
 
@@ -47,7 +47,7 @@
             set
             {
                 _handPaidBonusAwardsTotalAmountFormatted = value;
-                RaisePropertyChanged(nameof(HandPaidBonusAwardsTotalAmountFormatted));
+                OnPropertyChanged(nameof(HandPaidBonusAwardsTotalAmountFormatted));
             }
         }
 
@@ -76,13 +76,13 @@
 
         protected override void RefreshMeters()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RemoveMeters();
                     AddMeters();
-                    RaisePropertyChanged(nameof(EgmPaidBonusAwardsMeters));
-                    RaisePropertyChanged(nameof(HandPaidBonusAwardsMeters));
+                    OnPropertyChanged(nameof(EgmPaidBonusAwardsMeters));
+                    OnPropertyChanged(nameof(HandPaidBonusAwardsMeters));
                     UpdateMeterTotals();
                 });
         }

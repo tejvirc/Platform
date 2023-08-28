@@ -97,5 +97,6 @@
     <MeterNode Page="Progressives" Name="Increment" DisplayName="Increment" Order="11" />
     <MeterNode Page="Progressives" Name="HiddenIncrement" DisplayName="Hidden Increment" Order="12" />
     <MeterNode Page="Progressives" Name="InitialValue" DisplayName="Initial Value" Order="13" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.BulkTotal" DisplayName="Total Bulk Pool" Order="14" />
   </MeterNodes>
 </DisplayMetersConfiguration>

@@ -12,6 +12,7 @@ as follows:
 <ApplicationConfiguration>
   <Currency Id="CAD"/>
   <HardMeterMonitor DisableOnError="true"/>
+  <DisplayTopScreen Enabled="false"/>
   <NoteAcceptorMonitor DisableOnError="Queue" LockupOnStackerFull="true" />
   <PrinterMonitor FormFeedAfterKeyOff="true"/>
   <GeneralMessages>
@@ -74,9 +75,10 @@ as follows:
     <string>Protocol</string>
   </LogTypesAllowedForDisplay>
   <Clock Enabled="true" Format="24" />
-  <Cashout ClearWins="false" />
+  <Cashout ClearWins="false" PaperInChuteBlocksCashout="false" />
   <MultiGame RestoreRebootStateAfterSwitch="false" StateStorageLocation="game" />
   <PlatformEnhancedDisplay Enabled="false" />
+  <AuditTicket LineLimit="37" PrinterProtocol="GDS" />
   <HandpayReceiptPrinting Enabled="true"/>
   <ReserveService Allowed="false"/>
 </ApplicationConfiguration>

@@ -138,5 +138,6 @@
         <MeterNode Page="Progressives" Name="OverflowTotal" DisplayName="Total Overflow" Order="8" />
         <MeterNode Page="Progressives" Name="HiddenIncrement" DisplayName="Hidden Increment" Order="9" />
         <MeterNode Page="Progressives" Name="ProgressiveLevel.HiddenTotal" DisplayName="Total Hidden Pool" Order="10" />
+        <MeterNode Page="Progressives" Name="ProgressiveLevel.BulkTotal" DisplayName="Total Bulk Pool" Order="11" />
     </MeterNodes>
 </DisplayMetersConfiguration>

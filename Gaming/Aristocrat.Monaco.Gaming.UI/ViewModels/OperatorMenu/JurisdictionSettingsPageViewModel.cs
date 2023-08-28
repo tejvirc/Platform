@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -8,6 +8,7 @@
     using Application.Localization;
     using Application.UI.OperatorMenu;
     using Contracts;
+    using Contracts.Rtp;
     using Contracts.Tickets;
     using Hardware.Contracts.HardMeter;
     using Hardware.Contracts.Ticket;
@@ -22,8 +23,8 @@
     {
         private const string ShowAllowedRtpSetting = "ShowAllowedRTP";
 
-        private readonly int _defaultAnyGameMinimum;
-        private readonly int _defaultAnyGameMaximum;
+        private readonly decimal _defaultAnyGameMinimum;
+        private readonly decimal _defaultAnyGameMaximum;
         private readonly HardMeterLogicalState _mechanicalMeter;
         private readonly bool _doorOpticSensor;
         private readonly bool _zeroCreditOnOos;
@@ -45,8 +46,8 @@
             var currencyProvider = localization.GetProvider(CultureFor.Currency) as CurrencyCultureProvider;
             Currency = currencyProvider?.ConfiguredCurrency.DisplayName;
 
-            _defaultAnyGameMinimum = PropertiesManager.GetValue(GamingConstants.AnyGameMinimumReturnToPlayer, int.MinValue);
-            _defaultAnyGameMaximum = PropertiesManager.GetValue(GamingConstants.AnyGameMaximumReturnToPlayer, int.MaxValue);
+            _defaultAnyGameMinimum = PropertiesManager.GetValue(GamingConstants.AnyGameMinimumReturnToPlayer, decimal.MinValue);
+            _defaultAnyGameMaximum = PropertiesManager.GetValue(GamingConstants.AnyGameMaximumReturnToPlayer, decimal.MaxValue);
 
             SetupRtpValuesAndVisibility();
 
@@ -126,12 +127,13 @@
         protected override void OnLoaded()
         {
             SetupRtpValuesAndVisibility();
+            OnPropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
             SetupRtpValuesAndVisibility();
-            RaisePropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
+            OnPropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
             base.OnOperatorCultureChanged(evt);
         }
 
@@ -153,8 +155,6 @@
 
         private void SetupRtpValuesAndVisibility()
         {
-            // TODO: Put check in to include progressive RTP if progressive increment RTP is allowed.
-
             var config = ServiceManager.GetInstance().GetService<IOperatorMenuConfiguration>();
             var showAllowedRtp = config.GetSetting(this, ShowAllowedRtpSetting, true);
 
@@ -206,13 +206,15 @@
 
         private bool GetAllowedRtpForGameType(string allowGameTypeKey, string minimumRtpKey, string maximumRtpKey, ref string allowedRtpRange)
         {
-            // TODO : Construct keys from game type, eg GamingConstants.GetAllowedGamesKey(GameType forGameType); then, loop through each game type for the sent-in values.
-
             if (PropertiesManager.GetValue(allowGameTypeKey, true))
             {
-                allowedRtpRange = GameConfigHelper.GetRtpRangeString(
-                    PropertiesManager.GetValue(minimumRtpKey, _defaultAnyGameMinimum),
-                    PropertiesManager.GetValue(maximumRtpKey, _defaultAnyGameMaximum));
+                var minimumRtp = PropertiesManager.GetValue(minimumRtpKey, _defaultAnyGameMinimum);
+                var maximumRtp = PropertiesManager.GetValue(maximumRtpKey, _defaultAnyGameMaximum);
+
+                var rtpRange = new RtpRange(minimumRtp, maximumRtp);
+
+                allowedRtpRange = rtpRange.ToString();
+
                 return true;
             }
 

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.Settings
+namespace Aristocrat.Monaco.Hhr.UI.Settings
 {
     using System;
     using System.Linq;
@@ -7,9 +7,9 @@
     using Application.Contracts;
     using Application.Contracts.Protocol;
     using Application.Contracts.Settings;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Client.Messages;
     using Kernel;
-    using MVVM;
 
     public class HHRConfigurationSettings : IConfigurationSettings
     {
@@ -41,7 +41,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary

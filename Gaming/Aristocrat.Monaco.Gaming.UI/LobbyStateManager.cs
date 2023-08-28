@@ -10,8 +10,8 @@ namespace Aristocrat.Monaco.Gaming.UI
     using Contracts.Models;
     using Hardware.Contracts.Bell;
     using Kernel;
-    using Models;
     using log4net;
+    using Models;
     using Stateless;
 
     /// <summary>
@@ -119,6 +119,8 @@ namespace Aristocrat.Monaco.Gaming.UI
         public bool IsTabView { get; set; }
 
         public bool ResetAttractOnInterruption { get; set; }
+
+        public bool IsCashoutForcedByMaxBank => ContainsAnyState(LobbyState.ForcedCashoutByMaxBank);
 
         public bool CanAttractModeStart => _bank.QueryBalance() == 0 ||
                                            (bool)_properties.GetProperty(ApplicationConstants.ShowMode, false);
@@ -290,6 +292,10 @@ namespace Aristocrat.Monaco.Gaming.UI
                     CashInFinished();
                     break;
                 case LobbyState.CashOut:
+                    if (IsCashoutForcedByMaxBank)
+                    {
+                        _lobbyStateQueue.RemoveFlagState(LobbyState.ForcedCashoutByMaxBank);
+                    }
                     if (param is bool success)
                     {
                         CashOutFinished(success);
@@ -408,7 +414,7 @@ namespace Aristocrat.Monaco.Gaming.UI
             _state.Configure(LobbyState.GameLoading)
                 .OnEntryFrom(_launchGameTrigger, CallStateEntry)
                 .Permit(LobbyTrigger.GameLoaded, LobbyState.Game)
-                .PermitIf(LobbyTrigger.Disable, LobbyState.Disabled, () => AllowSingleGameAutoLaunch || (_gameHistory.IsRecoveryNeeded && IsLoadingGameForRecovery))
+                .PermitIf(LobbyTrigger.Disable, LobbyState.Disabled, () => !AllowSingleGameAutoLaunch || (_gameHistory.IsRecoveryNeeded && IsLoadingGameForRecovery))
                 .PermitDynamic(
                     LobbyTrigger.GameNormalExit,
                     () => IsLoadingGameForRecovery ? LobbyState.Recovery : GetDefaultChooserState())

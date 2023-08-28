@@ -1,17 +1,17 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.Menu
+namespace Aristocrat.Monaco.Hhr.UI.Menu
 {
-    using MVVM.ViewModel;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using log4net;
 
     /// <summary>
     ///     All Hhr-HHR menu page ViewModels should inherit from this base class
     /// </summary>
-    public abstract class HhrMenuPageViewModelBase : BaseEntityViewModel, IHhrMenuPageViewModel
+    public abstract class HhrMenuPageViewModelBase : ObservableObject, IHhrMenuPageViewModel
     {
-        protected new readonly ILog Logger;
+        protected readonly ILog Logger;
 
         protected HhrMenuPageViewModelBase()
         {
@@ -25,7 +25,7 @@
         }
 
         public virtual Task Init(Command command) => Task.CompletedTask;
-        
+
         public virtual void Reset()
         {
             Logger.Debug($"Reset for viewModel{GetType()} is executed");

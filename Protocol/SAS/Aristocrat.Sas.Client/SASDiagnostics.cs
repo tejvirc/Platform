@@ -354,7 +354,7 @@
             CheckResponseTime();
 
             OnNewSasPoll(new NewSasPollDataEventArgs(LastPollSequence[sasPollData.Type]));
-            RaisePropertyChanged(sasPollData.SasPollType);
+            OnPropertyChanged(sasPollData.SasPollType);
 
             void CheckResponseTime()
             {
@@ -398,7 +398,7 @@
             }
         }
 
-        private void RaisePropertyChanged(SasPollData.PollType pollType)
+        private void OnPropertyChanged(SasPollData.PollType pollType)
         {
             switch (pollType)
             {

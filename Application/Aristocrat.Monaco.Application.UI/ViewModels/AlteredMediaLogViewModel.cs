@@ -36,7 +36,7 @@
             set
             {
                 _alteredMedialLogs = value;
-                RaisePropertyChanged(nameof(AlteredMediaLogData));
+                OnPropertyChanged(nameof(AlteredMediaLogData));
             }
         }
 
