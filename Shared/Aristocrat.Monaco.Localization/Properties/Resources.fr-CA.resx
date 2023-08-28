@@ -5078,4 +5078,10 @@ Consulter le manuel pour plus de détails</value>
   <data name="PeriodMetersTicketMetersHeaderText" xml:space="preserve">
     <value>Compteur de période</value>
   </data>
+  <data name="LicenseFileMissing" xml:space="preserve">
+    <value>??Missing License File??</value>
+  </data>
+  <data name="LicenseFileParsingError" xml:space="preserve">
+    <value>??Invalid License File??</value>
+  </data>
 </root>

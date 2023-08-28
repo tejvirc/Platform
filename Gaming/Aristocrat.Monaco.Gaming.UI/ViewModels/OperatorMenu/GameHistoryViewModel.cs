@@ -1132,7 +1132,7 @@
 
         private List<Ticket> GetLogTickets(OperatorMenuPrintData dataType)
         {
-            var logs = GameHistory.ToList();
+            var logs = FilteredGameHistory.ToList();
 
             logs = GetItemsToPrint(logs, dataType).ToList();
 
@@ -1327,7 +1327,7 @@
                     assignedProgressiveType == AssignableProgressiveType.Linked)
                 {
                     _protocolLinkedProgressiveAdapter?.ViewLinkedProgressiveLevel(
-                        level.AssignedProgressiveId?.AssignedProgressiveKey,
+                        level?.AssignedProgressiveId?.AssignedProgressiveKey,
                         out linkedLevel);
                 }
 

@@ -33,6 +33,15 @@
         private readonly ISystemDisableManager _disableManager;
         private readonly IPathMapper _pathMapper;
         private readonly IPropertiesManager _properties;
+        private readonly Dictionary<string, Func<string>> DigitalRightsLockupMessageCallbacks = new()
+        {
+            { ResourceKeys.LicenseFileValidationError, () => Localizer.ForLockup().GetString(ResourceKeys.LicenseFileValidationError) },
+            { ResourceKeys.LicenseFileParsingError, () => Localizer.ForLockup().GetString(ResourceKeys.LicenseFileParsingError) },
+            { ResourceKeys.LicenseFileMissing, () => Localizer.ForLockup().GetString(ResourceKeys.LicenseFileMissing) },
+            { ResourceKeys.SmartCardMissing, () => Localizer.ForLockup().GetString(ResourceKeys.SmartCardMissing)},
+            { ResourceKeys.SmartCardExpired, () => Localizer.ForLockup().GetString(ResourceKeys.SmartCardExpired)},
+            { ResourceKeys.SmartCardRemoved, () => Localizer.ForLockup().GetString(ResourceKeys.SmartCardRemoved)}
+        };
 
         private IProtectionModule _protectionModule;
         private Timer _connectedTimer;
@@ -140,9 +149,11 @@
                 {
                     Logger.Error($"Mismatch between the license file and the available tokens: {License.Id}");
 
-                    var message = Localizer.ForLockup().GetString(ResourceKeys.LicenseFileValidationError);
-
-                    HandleDigitalRightsError(new LicenseErrorEvent(message), () => message, ApplicationConstants.LicenseErrorDisableKey);
+                    var messageCallback = DigitalRightsLockupMessageCallbacks[ResourceKeys.LicenseFileValidationError];
+                    HandleDigitalRightsError(
+                        new LicenseErrorEvent(messageCallback()),
+                        messageCallback,
+                        ApplicationConstants.LicenseErrorDisableKey);
 
                     return;
                 }
@@ -154,10 +165,10 @@
             }
             catch (Exception e)
             {
-                var message = Localizer.ForLockup().GetString(ResourceKeys.SmartCardMissing);
+                var messageCallback = DigitalRightsLockupMessageCallbacks[ResourceKeys.SmartCardMissing];
                 HandleDigitalRightsError(
-                    new SoftwareProtectionModuleErrorEvent(message),
-                    () => Localizer.ForLockup().GetString(ResourceKeys.SmartCardMissing),
+                    new SoftwareProtectionModuleErrorEvent(messageCallback()),
+                    messageCallback,
                     ApplicationConstants.SmartCardNotPresentDisableKey);
 
                 Logger.Error("Failed to initialize the module", e);
@@ -234,10 +245,10 @@
             if (!file.Exists)
             {
 #if RETAIL
-                var message = Localizer.ForLockup().GetString(ResourceKeys.LicenseFileMissing);
+                var messageCallback = DigitalRightsLockupMessageCallbacks[ResourceKeys.LicenseFileMissing];
                 HandleDigitalRightsError(
-                    new LicenseErrorEvent(message),
-                    () => Localizer.ForLockup().GetString(ResourceKeys.LicenseFileMissing),
+                    new LicenseErrorEvent(messageCallback()),
+                    messageCallback,
                     ApplicationConstants.LicenseErrorDisableKey);
 #endif
 
@@ -272,10 +283,10 @@
             {
                 Logger.Error("Failed to authenticate license file", ex);
 
-                var message = Localizer.ForLockup().GetString(ResourceKeys.LicenseFileValidationError);
+                var messageCallback = DigitalRightsLockupMessageCallbacks[ResourceKeys.LicenseFileValidationError];
                 HandleDigitalRightsError(
-                    new LicenseErrorEvent(message),
-                    () => Localizer.ForLockup().GetString(ResourceKeys.LicenseFileValidationError),
+                    new LicenseErrorEvent(messageCallback()),
+                    messageCallback,
                     ApplicationConstants.LicenseErrorDisableKey);
 
                 return LicenseInfo.Invalid;
@@ -291,10 +302,10 @@
             }
             catch (Exception ex)
             {
-                var message = Localizer.ForLockup().GetString(ResourceKeys.LicenseFileParsingError);
+                var messageCallback = DigitalRightsLockupMessageCallbacks[ResourceKeys.LicenseFileParsingError];
                 HandleDigitalRightsError(
-                    new LicenseErrorEvent(message),
-                    () => Localizer.ForLockup().GetString(ResourceKeys.LicenseFileParsingError),
+                    new LicenseErrorEvent(messageCallback()),
+                    messageCallback,
                     ApplicationConstants.LicenseErrorDisableKey);
 
                 Logger.Error("Failed to read the license file", ex);
@@ -316,10 +327,10 @@
                     {
                         Logger.Error("Failed to decrement the license counter");
 
-                        var message = Localizer.ForLockup().GetString(ResourceKeys.SmartCardExpired);
+                        var messageCallback = DigitalRightsLockupMessageCallbacks[ResourceKeys.SmartCardExpired];
                         HandleDigitalRightsError(
-                            new SoftwareProtectionModuleErrorEvent(message),
-                            () => Localizer.ForLockup().GetString(ResourceKeys.SmartCardExpired),
+                            new SoftwareProtectionModuleErrorEvent(messageCallback()),
+                            messageCallback,
                             ApplicationConstants.SmartCardExpiredDisableKey);
                     }
                 }
@@ -329,10 +340,10 @@
                     {
                         Logger.Error("Failed to get the module state");
 
-                        var message = Localizer.ForLockup().GetString(ResourceKeys.SmartCardRemoved);
+                        var messageCallback = DigitalRightsLockupMessageCallbacks[ResourceKeys.SmartCardRemoved];
                         HandleDigitalRightsError(
-                            new SoftwareProtectionModuleDisconnectedEvent(message),
-                            () => Localizer.ForLockup().GetString(ResourceKeys.SmartCardRemoved),
+                            new SoftwareProtectionModuleDisconnectedEvent(messageCallback()),
+                            messageCallback,
                             ApplicationConstants.SmartCardRemovedDisableKey);
                     }
                 }
@@ -349,10 +360,10 @@
             catch (Exception e)
             {
                 Logger.Error("Failed to get the module state", e);
-                var message = Localizer.ForLockup().GetString(ResourceKeys.SmartCardRemoved);
+                var messageCallback = DigitalRightsLockupMessageCallbacks[ResourceKeys.SmartCardRemoved];
                 HandleDigitalRightsError(
-                    new SoftwareProtectionModuleErrorEvent(message),
-                    () => Localizer.ForLockup().GetString(ResourceKeys.SmartCardRemoved),
+                    new SoftwareProtectionModuleErrorEvent(messageCallback()),
+                    messageCallback,
                     ApplicationConstants.SmartCardRemovedDisableKey);
             }
 

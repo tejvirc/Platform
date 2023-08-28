@@ -205,6 +205,15 @@
   <data name="IdleTextDefault" xml:space="preserve">
     <value>INSERT MONEY TO PLAY</value>
   </data>
+  <data name="LicenseFileMissing" xml:space="preserve">
+    <value>Missing Licence File</value>
+  </data>
+  <data name="LicenseFileParsingError" xml:space="preserve">
+    <value>Invalid Licence File</value>
+  </data>
+  <data name="LicenseFileValidationError" xml:space="preserve">
+    <value>Invalid Licence File</value>
+  </data>
   <data name="MaximumValueReachedCashOutText2" xml:space="preserve">
     <value>A cash out ticket is being produced.</value>
   </data>

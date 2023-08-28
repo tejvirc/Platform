@@ -313,6 +313,33 @@ namespace Aristocrat.Monaco.Localization.Overrides {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing Licence File.
+        /// </summary>
+        internal static string LicenseFileMissing {
+            get {
+                return ResourceManager.GetString("LicenseFileMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Licence File.
+        /// </summary>
+        internal static string LicenseFileParsingError {
+            get {
+                return ResourceManager.GetString("LicenseFileParsingError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Licence File.
+        /// </summary>
+        internal static string LicenseFileValidationError {
+            get {
+                return ResourceManager.GetString("LicenseFileValidationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A cash out ticket is being produced..
         /// </summary>
         internal static string MaximumValueReachedCashOutText2 {

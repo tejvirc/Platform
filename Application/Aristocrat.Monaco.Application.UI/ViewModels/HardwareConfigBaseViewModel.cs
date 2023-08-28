@@ -413,7 +413,7 @@
 
             SubscribeToEvents();
 
-            if (IsWizardPage)
+            if (IsWizardPage && !(AutoConfigurator?.AutoConfigurationExists ?? false))
             {
                 StartDetection();
             }
