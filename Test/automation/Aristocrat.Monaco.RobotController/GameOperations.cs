@@ -226,7 +226,8 @@
 
         private void LoadGame()
         {
-            if (!IsTimeLimitDialogInProgress() && CheckSanity())
+
+            if (!IsTimeLimitDialogInProgress() && CheckSanity() && IsRequestGameValid())
             {
                 DismissTimeLimitDialog();
                 ExecuteGameLoad();
@@ -375,6 +376,18 @@
             CashoutBannerSupport();
 
             InitGameProcessHungEvent();
+
+            _eventBus.Subscribe<GameLoadRequestEvent>(
+                this,
+                _ =>
+                {
+                    if (!_stateChecker.IsChooser)
+                    {
+                        return;
+                    }
+                    SelectNextGame(true);
+                    LoadGame();
+                });
         }
 
         private void InitGameProcessHungEvent()

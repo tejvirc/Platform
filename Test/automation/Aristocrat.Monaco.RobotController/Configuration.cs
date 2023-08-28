@@ -331,7 +331,7 @@
             IntervalSoftReboot = 0;
             IntervalRgSet = 10000;
             RgElapsedTimeSeconds = 0;
-            TimeLimitButtons = new TimeLimitButtons { "btn60Min", "btnExpired60Min", "btnForcedCashOut" };
+            TimeLimitButtons = new TimeLimitButtons { "btn15Min", "btn60Min", "btnExpired60Min", "btnForcedCashOut" };
             IntervalSetOperatingHours = 0;
             OperatingHoursDisabledDuration = 0;
             IntervalRebootMachine = 0;
@@ -558,9 +558,9 @@
 
         public List<string> GetTimeLimitButtons()
         {
-            return Active != null
+            return Active?.TimeLimitButtons.Count > 0
                 ? Active.TimeLimitButtons
-                : new TimeLimitButtons { "btn60Min", "btnExpired60Min", "btnForcedCashOut" };
+                : new TimeLimitButtons { "btn15Min", "btn60Min", "btnExpired60Min", "btnForcedCashOut" };
         }
 
         public void Save(string path)
