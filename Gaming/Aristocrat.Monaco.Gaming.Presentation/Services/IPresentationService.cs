@@ -2,7 +2,7 @@
 
 using System.Threading.Tasks;
 
-public interface IPresentation
+public interface IPresentationService
 {
     public Task StartAsync();
 

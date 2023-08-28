@@ -21,7 +21,7 @@ public static class GameReducers
         state with { TopperWindowHandle = action.WindowHandle };
 
     [ReducerMethod]
-    public static GameState TopperWindowLoaded(GameState state, GameLoadingAction action) =>
+    public static GameState GameLoading(GameState state, GameLoadingAction action) =>
         state with
         {
             SelectedGame = action.Game,
@@ -29,7 +29,7 @@ public static class GameReducers
         };
 
     [ReducerMethod]
-    public static GameState TopperWindowLoaded(GameState state, GameLoadedAction action) =>
+    public static GameState GameLoaded(GameState state, GameLoadedAction action) =>
         state with
         {
             IsLoading = false,

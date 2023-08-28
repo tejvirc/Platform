@@ -47,14 +47,14 @@
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
                 ServiceManager.GetInstance().TryGetService<IHandCountService>(),
-                ServiceManager.GetInstance().TryGetService<IPropertiesManager>())
+                ServiceManager.GetInstance().GetService<IPropertiesManager>())
         {
         }
 
         public HandCountOverlayService(IEventBus eventBus, IHandCountService handCountService, IPropertiesManager properties)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _handCountService = handCountService ?? throw new ArgumentNullException(nameof(handCountService));
+            _handCountService = handCountService;
             _cashOutAmountPerHand = properties.GetValue(AccountingConstants.CashoutAmountPerHandCount, 0L);
         }
 
@@ -112,7 +112,7 @@
 
         private void Handle(CashoutAmountAuthorizationRequestedEvent evt)
         {
-            _cashoutDialogViewModel.HandCountAmount = (long)(_handCountService.HandCount * _cashOutAmountPerHand).MillicentsToDollars();
+            _cashoutDialogViewModel.HandCountAmount = (long)(_handCountService?.HandCount ?? 0 * _cashOutAmountPerHand).MillicentsToDollars();
             _eventBus.Publish(new ViewInjectionEvent(_cashoutDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));
         }
 
@@ -129,7 +129,7 @@
         private void Handle(HandCountResetTimerElapsedEvent e)
         {
             Logger.Debug("HandCountResetTimerElapsed");
-            _handCountService.ResetHandCount(e.ResidualAmount);
+            _handCountService?.ResetHandCount(e.ResidualAmount);
             ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Normal;
 
             _eventBus.Publish(new ViewInjectionEvent(_timerDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));

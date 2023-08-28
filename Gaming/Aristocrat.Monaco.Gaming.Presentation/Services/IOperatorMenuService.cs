@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Services;
 
-public interface IOperatorMenu
+public interface IOperatorMenuService
 {
     void Initialize();
 

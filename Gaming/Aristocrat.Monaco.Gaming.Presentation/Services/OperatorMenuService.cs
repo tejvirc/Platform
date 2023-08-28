@@ -4,11 +4,11 @@ using Aristocrat.Monaco.Application.Contracts;
 using Contracts;
 using Vgt.Client12.Application.OperatorMenu;
 
-public class OperatorMenu : IOperatorMenu
+public class OperatorMenuService : IOperatorMenuService
 {
     private readonly IOperatorMenuLauncher _operatorMenuLauncher;
 
-    public OperatorMenu(IOperatorMenuLauncher operatorMenuLauncher)
+    public OperatorMenuService(IOperatorMenuLauncher operatorMenuLauncher)
     {
         _operatorMenuLauncher = operatorMenuLauncher;
     }

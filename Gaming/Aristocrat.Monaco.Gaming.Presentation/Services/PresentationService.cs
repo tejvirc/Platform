@@ -1,8 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Services;
 
-using System;
 using System.Threading.Tasks;
-using Application.Contracts;
 using Commands;
 using Extensions.Fluxor;
 using Fluxor;
@@ -10,15 +8,14 @@ using Gaming.Contracts.Lobby;
 using Kernel;
 using Microsoft.Extensions.Logging;
 using Store;
-using Vgt.Client12.Application.OperatorMenu;
 
-public class PresentationService : IPresentation, ILobby
+public class PresentationService : IPresentationService
 {
     private readonly ILogger<PresentationService> _logger;
     private readonly IStore _store;
     private readonly IDispatcher _dispatcher;
     private readonly IEventBus _eventBus;
-    private readonly IOperatorMenu _operatorMenu;
+    private readonly IOperatorMenuService _operatorMenu;
     private readonly ILayoutManager _layoutManager;
     private readonly IApplicationCommands _commands;
 
@@ -27,7 +24,7 @@ public class PresentationService : IPresentation, ILobby
         IStore store,
         IDispatcher dispatcher,
         IEventBus eventBus,
-        IOperatorMenu operatorMenu,
+        IOperatorMenuService operatorMenu,
         ILayoutManager layoutManager,
         IApplicationCommands commands)
     {
@@ -38,24 +35,6 @@ public class PresentationService : IPresentation, ILobby
         _operatorMenu = operatorMenu;
         _layoutManager = layoutManager;
         _commands = commands;
-    }
-
-    // The ILobby service will eventually be removed for another service to boot up the
-    // presentation services for the platform. The lobby may not be owned by the platform
-    // in the future. However, the platform will continue to have overlays that need to
-    // display over the game and lobby windows.
-    public void CreateWindow()
-    {
-        StartAsync().Wait();
-    }
-
-    public void Show() => throw new NotSupportedException();
-
-    public void Hide() => throw new NotSupportedException();
-
-    public void Close()
-    {
-        StopAsync().Wait();
     }
 
     public async Task StartAsync()

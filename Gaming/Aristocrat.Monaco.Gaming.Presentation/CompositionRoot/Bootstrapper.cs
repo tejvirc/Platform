@@ -58,8 +58,6 @@ public sealed class Bootstrapper : PrismBootstrapperBase
             options.DisposeContainerWithServiceProvider = false;
         });
 
-        _containerExtension.Services.AddLogging(builder => builder.AddLog4Net());
-
         Run();
     }
 
@@ -118,7 +116,13 @@ public sealed class Bootstrapper : PrismBootstrapperBase
 
     private static void ConfigureServices(IServiceCollection services)
     {
-        services.AddSingleton<ILobby, PresentationService>();
+        services.AddLogging(builder => builder.AddLog4Net());
+
+        services.AddLobbyConfigurationOptions();
+
+        services.AddSingleton<ILobby, PresentationLauncher>();
+
+        services.AddSingleton<IPresentationService, PresentationService>();
 
         services.AddLobbyConfigurationOptions();
 
@@ -155,6 +159,8 @@ public sealed class Bootstrapper : PrismBootstrapperBase
         services.AddSingleton<Services.Attendant.IAttendantService, AttendantService>();
         services.AddSingleton<IBankService, BankService>();
         services.AddSingleton<IReplayService, ReplayService>();
+        services.AddSingleton<IOperatorMenuService, OperatorMenuService>();
+        services.AddSingleton<IGameLauncher, GameLauncher>();
 
         services.AddLocatedPlatformService<IWpfWindowLauncher>();
         services.AddPlatformService<IPropertiesManager>();
