@@ -31,6 +31,8 @@
                 return;
             }
 
+            Keyboard.ChangeLanguage(culture);
+
             // Each language code needs its own layout file without function keys and specific special keys
             // Download layout creator from https://mindfusion.eu/virtual-keyboard-wpf.html
             var xml = $"{LayoutFile}_{culture.IetfLanguageTag}.xml";
