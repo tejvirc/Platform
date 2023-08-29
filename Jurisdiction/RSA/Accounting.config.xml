@@ -30,7 +30,7 @@ as follows:
   <CreditLimits>
 	<MaxCreditMeter Default="119999000" MaxAllowed="999999999000"/>	
   </CreditLimits>
-  <VoucherIn State="Enabled" LimitDefault="100000000"/>
+  <VoucherIn State="Enabled" LimitDefault="100000000"  AllowLimitEdit="false"/>
 <!--
     VoucherOut Settings:
        State:
@@ -45,7 +45,7 @@ as follows:
            "Days" = Number of days by which ticket will expire. "0" means Never Expire.
            "Editable" = This value may be over-ridden by the technician in the audit menu settings, if set to true. Default is true, if not defined.
 -->
-  <VoucherOut State="Enabled" LimitDefault="119999000" AllowCashWinTicket="true">
+  <VoucherOut State="Enabled" LimitDefault="119999000" AllowCashWinTicket="true" AllowLimitEdit="false">
     <Expiration Days="0" /> 
   </VoucherOut>
 <!--
@@ -71,5 +71,8 @@ as follows:
        "n" = Where n is any logical door id or Aristocrat.Monaco.Hardware.Contracts.Door.DoorLogicalId, door is required for reprint to be enabled.
        "|" = Requiring multiple doors can be accomplished by combining, for example "Main|Logic" will require both Main and Logic door to be open.
 -->  
-  <ReprintLoggedVoucher Behavior="None" />
+  <ReprintLoggedVoucher Behavior="None" TitleOverride="true" DoorOpenRequirement="None"/>
+  <Handpay>
+    <PrintHandpayReceipt Enabled="true" Editable="false"/>
+  </Handpay>
 </AccountingConfiguration>  

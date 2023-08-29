@@ -93,8 +93,18 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.HardwareWarningClearEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.InspectionFailedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.ResolverErrorEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.DisconnectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.ConnectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.DisabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.EnabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="tilt" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.HardwareFaultEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.HardwareFaultClearEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.HardwareReelFaultEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.HardwareReelFaultClearEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Reel.InspectionFailedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Audio.EnabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="info" Type="General" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Audio.DisabledEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="General" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.TransferStatusEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.Printer.LoadingRegionsAndTemplatesEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Kernel.Contracts.ExitRequestedEvent, Aristocrat.Monaco.Kernel.Contracts" Level="tilt" Type="Power" />
     <EventDescription Name="Aristocrat.Monaco.Kernel.PlatformBootedEvent, Aristocrat.Monaco.Kernel.Contracts" Level="tilt" Type="Power" />
@@ -125,6 +135,11 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.Drm.SoftwareProtectionModuleErrorEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.Drm.LicenseErrorEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
 	<EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DocumentRejectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
-	<EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.ExcessiveDocumentRejectedEvent, Monaco.Accounting.Contracts" Level="tilt" Type="General" />
+	<EventDescription Name="Aristocrat.Monaco.Bingo.Common.Events.HostDisconnectedEvent, Aristocrat.Monaco.Bingo.Common" Level="error" Type="Comms" />
+	<EventDescription Name="Aristocrat.Monaco.Bingo.Common.Events.HostConnectedEvent, Aristocrat.Monaco.Bingo.Common" Level="error" Type="Comms" />
+    <EventDescription Name="Aristocrat.Monaco.Bingo.Common.Events.RegistrationFailedEvent, Aristocrat.Monaco.Bingo.Common" Level="error" Type="Comms" />
+    <EventDescription Name="Aristocrat.Monaco.Bingo.Common.Events.InvalidConfigurationReceivedEvent, Aristocrat.Monaco.Bingo.Common" Level="error" Type="Comms" />
+    <EventDescription Name="Aristocrat.Monaco.Bingo.Common.Events.ConfigurationMismatchReceivedEvent, Aristocrat.Monaco.Bingo.Common" Level="error" Type="Comms" />
+    <EventDescription Name="Aristocrat.Monaco.Accounting.Contracts.ExcessiveDocumentRejectedEvent, Monaco.Accounting.Contracts" Level="tilt" Type="General" />
   </ArrayOfEventDescription>
 </TiltLoggerConfiguration>

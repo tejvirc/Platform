@@ -10,24 +10,35 @@ as follows:
     the corresponding class definition in csharp (GamingConfiguration.cs).
 -->
 <GamingConfiguration>
-	<GameEnd CashOutStrategy="None" />
-	<InGamePlay AllowCashInDuringPlay="true" />
-	<FreeGames MeterIndependently="false" />
-	<Messages ShowMessages="true" >
-		<MinBetMessage MustDisplay="true" />
-	</Messages>
-	<StateChangeOverride DisableStrategy="None" />
-	<OperatorMenu DisableDuringGame="true" />
-	<RetainLastRoundResult Enabled="true" />
-	<WinMeterResetOnBetLineDenomChanged Enabled="false" />
-	<WinMeterResetOnBetLineChanged Enabled="false" />
-	<WinMeterResetOnDenomChanged Enabled="true" />
-	<LockupBehavior CashableLockupStrategy="Allowed" Configurable="true" />
-	<GameCategory ApplyGameCategorySettings="true" />
-	<AllowZeroCreditCashout Configurable="true" />
-	<Gamble SkipByJackpotHit="true" />
-	<ContinuousPlaySupport Mode="Toggle" Configurable="true" />
-<!--
+  <GameHistory KeepGameRoundEvents="false" />
+  <GameEnd CashOutStrategy="None" KeepFailedGameOutcomes="false" />
+  <InGamePlay AllowCashInDuringPlay="true" />
+  <FreeGames MeterIndependently="false" />
+  <Messages ShowMessages="true" >
+    <MinBetMessage MustDisplay="true" />
+  </Messages>
+  <StateChangeOverride DisableStrategy="None" />
+  <OperatorMenu DisableDuringGame="true" />
+  <RetainLastRoundResult Enabled="true" />
+  <WinMeterResetOnBetLineDenomChanged Enabled="false" />
+  <WinMeterResetOnBetLineChanged Enabled="false" />
+  <WinMeterResetOnDenomChanged Enabled="true" />
+  <LockupBehavior CashableLockupStrategy="Allowed" Configurable="true" />
+  <GameCategory ApplyGameCategorySettings="true" />
+  <Gamble SkipByJackpotHit="true" />
+  <GameLoad AllowGameInCharge="false" />
+  <FudgePay Enabled="true" />
+  <AdditionalInfoButton Enabled="true" />
+  <AlwaysCombineOutcomesByType Enabled="false" />
+  <Gamble Allowed="false" />
+  <LetItRide Allowed="false" />
+  <ContinuousPlaySupport Mode="Toggle" Configurable="true">
+    <AllowedButtons>
+      <Button>Play</Button >
+      <Button>MaxBet</Button >
+    </AllowedButtons>
+  </ContinuousPlaySupport>
+  <!--
 	GameRestrictions Settings:
 		ReturnToPlayerLimits:
 			ReturnToPlayer:
@@ -47,13 +58,14 @@ as follows:
 				GameType:
 					"Slot", "Keno", "Poker"... = Disable specific game type
 -->
-	<GameRestrictions>
-		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="85000" />
-		</ReturnToPlayerLimits>
-	</GameRestrictions>
-	<AttendantServiceTimeoutSupport Enabled="true" />
-	<PhysicalButtons>
-		<CashOutButton ReportToHostWithZeroCredit="true"/>
-	</PhysicalButtons>
+  <GameRestrictions>
+    <ReturnToPlayerLimits>
+      <ReturnToPlayer GameType="Any" />
+    </ReturnToPlayerLimits>
+    <ServerControlledPaytables>true</ServerControlledPaytables>
+  </GameRestrictions>
+  <AttendantServiceTimeoutSupport Enabled="true" />
+  <PhysicalButtons>
+    <CashOutButton ReportToHostWithZeroCredit="true"/>
+  </PhysicalButtons>
 </GamingConfiguration>

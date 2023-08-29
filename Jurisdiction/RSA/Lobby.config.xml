@@ -17,7 +17,7 @@
   <ResponsibleGamingSessionLimit>5</ResponsibleGamingSessionLimit>
   <LobbyUiDirectoryPath>../jurisdiction/DefaultAssets/ui/</LobbyUiDirectoryPath>
   <SkinFilenames>
-    <string>DefaultClass3UI.xaml</string>
+    <string>DefaultClass2UI.xaml</string>
   </SkinFilenames>
   <LocaleCodes>
     <string>en-us</string>
@@ -38,7 +38,8 @@
   <AlternateAttractModeLanguage>false</AlternateAttractModeLanguage>
   <DisplaySoftErrors>true</DisplaySoftErrors>
   <DisplayInformationMessages>true</DisplayInformationMessages>
-  <VbdDisplayServiceButton>true</VbdDisplayServiceButton>  
+  <VbdDisplayServiceButton>true</VbdDisplayServiceButton>
+  <DisplayVoucherNotification>true</DisplayVoucherNotification>
   <ResponsibleGamingMode>Continuous</ResponsibleGamingMode>
   <ClockMode>Locale</ClockMode>
   <DefaultGameDisplayOrderByThemeId>
