@@ -9372,7 +9372,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.EdgeLight.EdgeLightingStateManager.html",
-          "hash": "xF2LZU6QZDKP1UckEplCa3x2ERqnBPHPgRXhIeWhyuc="
+          "hash": "8EcO+3yxs+EjvNxxt8G1KV+XejF+vzab5cnzBM3Ytqc="
         }
       },
       "is_incremental": false,
@@ -15595,9 +15595,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -43585,6 +43582,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -62946,7 +62946,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Contracts.EdgeLighting.StripIDs.html",
-          "hash": "nzD9CBoibkkY3+egWxs+7opIwV/I26UQv612WwM8GQ4="
+          "hash": "MsnNAq6XJsoXw6+eQOdzovfRuk78E3QEdG/YeEHZD4M="
         }
       },
       "is_incremental": false,
