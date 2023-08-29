@@ -76,7 +76,7 @@
                         <Border Margin="0,-16,0,13" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" Height="46" AutomationProperties.AutomationId="Border1_C9E363F3">
                             <Grid AutomationProperties.AutomationId="Grid3_C9E363F3">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition1_C9E363F3"/>
+                                    <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition6_C9E363F3"/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="60" AutomationProperties.AutomationId="ColumnDefinition1_C9E363F3"/>
