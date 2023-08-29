@@ -26,6 +26,7 @@ as follows:
   </Menu>
   <Menu Type="IdentificationMainPageLoader">
     <Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="true" Access="ZeroGamesPlayed" />
+    <Page Type="JurisdictionSettingsPageViewModel" PrintButtonEnabled="true" />
     <Page TabType="SerialGatPageLoader" Visible="false" />
   </Menu>
   <Menu Type="LogsMainPageLoader">

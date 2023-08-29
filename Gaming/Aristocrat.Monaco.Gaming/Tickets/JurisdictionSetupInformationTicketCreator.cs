@@ -19,7 +19,7 @@
                 ApplicationConstants.TicketModeAuditKey,
                 TicketModeAuditBehavior.Audit);
 
-            return behavior == TicketModeAuditBehavior.Inspection ? new JurisdictionSetupInformationTicket().CreateAuditTickets() : null;
+            return behavior == TicketModeAuditBehavior.Audit ? new JurisdictionSetupInformationTicket().CreateAuditTickets() : null;
         }
 
         /// <inheritdoc />
