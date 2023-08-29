@@ -12408,6 +12408,7 @@ LEVEL ID</value>
   <data name="ProgressiveFaultTypes_LinkedProgressiveVerificationFailed" xml:space="preserve">
     <value>Linked Progressive Verification Failed</value>
     <comment>Aristocrat.Monaco.Gaming</comment>
+  </data>
   <data name="VertexGameId_NonNegative" xml:space="preserve">
     <value>Vertex Game Id must be a non-negative integer</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
