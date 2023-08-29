@@ -8,7 +8,9 @@
             <xs:sequence>
               <xs:element minOccurs="0" maxOccurs="unbounded" name="Action">
                 <xs:complexType>
-                  <xs:attribute name="waitMs" type="xs:int" use="required" />
+                  <xs:attribute name="waitMs" type="xs:int" use="optional" />
+                  <xs:attribute name="waitForEvent" type="xs:boolean" use="optional" default="false" />
+                  <xs:attribute name="eventType" type="xs:string" use="optional" />
                   <xs:attribute name="controlName" type="xs:string" use="optional" />
                   <xs:attribute name="final" type="xs:boolean" use="optional" default="false" />
                   <xs:attribute name="parameter" type="xs:string" use="optional" />

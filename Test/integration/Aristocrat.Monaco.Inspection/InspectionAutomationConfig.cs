@@ -82,7 +82,11 @@ namespace Aristocrat.Monaco.Inspection {
     public partial class InspectionAutomationConfigurationPageAutomationAction {
         
         private int waitMsField;
-        
+
+        private bool waitForEventField;
+
+        private string eventTypeField;
+
         private string controlNameField;
         
         private bool finalField;
@@ -122,6 +126,33 @@ namespace Aristocrat.Monaco.Inspection {
             }
         }
         
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool waitForEvent
+        {
+            get
+            {
+                return this.waitForEventField;
+            }
+            set
+            {
+                this.waitForEventField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string eventType
+        {
+            get
+            {
+                return this.eventTypeField;
+            }
+            set
+            {
+                this.eventTypeField = value;
+            }
+        }
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public string controlName {

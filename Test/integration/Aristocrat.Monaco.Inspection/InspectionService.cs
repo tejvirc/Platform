@@ -17,6 +17,7 @@
     using Application.Contracts.ConfigWizard;
     using Application.Contracts.HardwareDiagnostics;
     using Application.Contracts.OperatorMenu;
+    using Application.Contracts.Input;
     using Cabinet.Contracts;
     using Kernel;
     using Kernel.Contracts;
@@ -41,6 +42,7 @@
 
         private InspectionAutomationConfiguration _automationConfig;
         private InspectionAutomationConfigurationPageAutomation _currentAutomationPage;
+        private InspectionAutomationConfigurationPageAutomationAction _currentAction = new();
         private int _automationActionCounter;
         private Timer _automationTimer;
 
@@ -50,6 +52,12 @@
         private string _currentTestCondition;
         private bool _isDecoratedElementsListComplete;
         private bool _isDisposed;
+
+        private readonly Dictionary<string, Type> _eventTypeMap = new()
+        {
+            { "HardwareDiagnosticTestFinishedEvent", typeof(HardwareDiagnosticTestFinishedEvent) },
+            { "TouchCalibrationCompletedEvent", typeof(TouchCalibrationCompletedEvent) },
+        };
 
         public string Name => "InspectionSummaryService";
 
@@ -239,46 +247,86 @@
 
         private void TryNextAutomationAction(bool skipDelay)
         {
+            if (_currentAction.waitForEvent)
+            {
+                if (_eventTypeMap.TryGetValue(_currentAction.eventType, out var eventGenericType))
+                {
+                    _events.Unsubscribe(this, eventGenericType);
+                }
+                else
+                {
+                    throw new KeyNotFoundException($"EventType {_currentAction.eventType} not found!");
+                }
+            }
+
             if (_automationActionCounter >= _currentAutomationPage.Action.Length)
             {
                 FinishAutomationPage();
                 return;
             }
 
-            var delay = _currentAutomationPage.Action[_automationActionCounter].waitMs;
-            if (skipDelay || delay <= 0)
+            _currentAction = _currentAutomationPage.Action[_automationActionCounter];
+
+            if (_currentAction.waitForEvent)
             {
-                delay = 1;
+                if (_eventTypeMap.TryGetValue(_currentAction.eventType, out var eventGenericType))
+                {
+                    _events.Subscribe(this, eventGenericType, _ => TryNextAutomationAction(false));
+                }
+                else
+                {
+                    throw new KeyNotFoundException($"EventType {_currentAction.eventType} not found!");
+                }
+
+                StartCurrentAction();
+                return;
             }
 
-            _automationTimer.Interval = delay;
-            _automationTimer.Start();
+            if (skipDelay || !_currentAction.waitForEvent)
+            {
+                var delay = _currentAction.waitMs <= 0 ? 1 : _currentAction.waitMs;
+                _automationTimer.Interval = delay;
+                _automationTimer.Start();
+            }
         }
 
         private void StartCurrentAction()
         {
-            _automationTimer.Stop();
-
-            if (_currentAutomationPage is null)
+            if (_automationActionCounter < _currentAutomationPage.Action.Length)
             {
-                return;
-            }
+                _automationTimer.Stop();
 
-            PerformCurrentAction(_currentAutomationPage.Action[_automationActionCounter++]);
+                if (_currentAutomationPage is null)
+                {
+                    return;
+                }
+
+                _automationActionCounter++;
+                PerformCurrentAction();
+            }
         }
 
         private void FinishCurrentAction(bool performed)
         {
             Logger.Debug($"Action complete: {performed}");
-            TryNextAutomationAction(!performed);
+            if (!_currentAction.waitForEvent)
+            {
+                TryNextAutomationAction(!performed);
+            }
         }
 
-        private void PerformCurrentAction(InspectionAutomationConfigurationPageAutomationAction action)
+        private void PerformCurrentAction()
         {
+            if (string.IsNullOrEmpty(_currentAction.controlName) && !_currentAction.final)
+            {
+                FinishCurrentAction(true);
+                return;
+            }
+
             MvvmHelper.ExecuteOnUI(
                 () =>
                 {
-                    if (action.final)
+                    if (_currentAction.final)
                     {
                         Logger.Debug($"Automation final event after {_automationTimer.Interval}ms");
                         _isDecoratedElementsListComplete = true;
@@ -288,19 +336,19 @@
                         return;
                     }
 
-                    Logger.Debug($"Automation event after {_automationTimer.Interval}ms: {_currentCategory}...{action.controlName}({action.parameter}),"
-                                 + $" if {action.conditionViewModel}.{(!string.IsNullOrEmpty(action.conditionMethod) ? $"{action.conditionMethod}({action.conditionEnum})" : action.conditionProperty)}");
+                    Logger.Debug($"Automation event after {_automationTimer.Interval}ms: {_currentCategory}...{_currentAction.controlName}({_currentAction.parameter}),"
+                                 + $" if {_currentAction.conditionViewModel}.{(!string.IsNullOrEmpty(_currentAction.conditionMethod) ? $"{_currentAction.conditionMethod}({_currentAction.conditionEnum})" : _currentAction.conditionProperty)}");
 
                     // Check if there's a condition attached to the instruction
-                    if (_currentPageLoader.Page is UserControl pageControl && IsViewModelConditionMet(action))
+                    if (_currentPageLoader.Page is UserControl pageControl && IsViewModelConditionMet())
                     {
                         var searchControls = new List<DependencyObject>();
-                        if (action.useChildWindows)
+                        if (_currentAction.useChildWindows)
                         {
                             var window = Window.GetWindow(pageControl);
                             foreach (Window child in window?.OwnedWindows ?? new WindowCollection())
                             {
-                                if (IsWindowConditionMet(child, action))
+                                if (IsWindowConditionMet(child, _currentAction))
                                 {
                                     searchControls.Add(child);
                                 }
@@ -314,13 +362,13 @@
                         foreach (var searchControl in searchControls)
                         {
                             // Find the control and invoke it
-                            var button = WindowHelper.FindChild<Button>(searchControl, action.controlName);
+                            var button = WindowHelper.FindChild<Button>(searchControl, _currentAction.controlName);
                             if (button is not null)
                             {
-                                Logger.Debug($"Button invoke for {action.controlName}");
+                                Logger.Debug($"Button invoke for {_currentAction.controlName}");
                                 if (!button.IsEnabled)
                                 {
-                                    Logger.Debug($"But Button {action.controlName} is disabled");
+                                    Logger.Debug($"But Button {_currentAction.controlName} is disabled");
                                     continue;
                                 }
 
@@ -331,13 +379,13 @@
                                 continue;
                             }
 
-                            var toggle = WindowHelper.FindChild<ToggleButton>(searchControl, action.controlName);
+                            var toggle = WindowHelper.FindChild<ToggleButton>(searchControl, _currentAction.controlName);
                             if (toggle is not null)
                             {
-                                Logger.Debug($"ToggleButton invoke for {action.controlName}");
+                                Logger.Debug($"ToggleButton invoke for {_currentAction.controlName}");
                                 if (!toggle.IsEnabled)
                                 {
-                                    Logger.Debug($"But ToggleButton {action.controlName} is disabled");
+                                    Logger.Debug($"But ToggleButton {_currentAction.controlName} is disabled");
                                     continue;
                                 }
 
@@ -348,13 +396,13 @@
                                 continue;
                             }
 
-                            var comboBox = WindowHelper.FindChild<ComboBox>(searchControl, action.controlName);
+                            var comboBox = WindowHelper.FindChild<ComboBox>(searchControl, _currentAction.controlName);
                             if (comboBox is not null)
                             {
-                                Logger.Debug($"ComboBox select {action.controlName}|{action.parameter}");
+                                Logger.Debug($"ComboBox select {_currentAction.controlName}|{_currentAction.parameter}");
                                 if (!comboBox.IsEnabled)
                                 {
-                                    Logger.Debug($"But ComboBox {action.controlName} is disabled");
+                                    Logger.Debug($"But ComboBox {_currentAction.controlName} is disabled");
                                     continue;
                                 }
 
@@ -362,7 +410,7 @@
                                 var expander = peer.GetPattern(PatternInterface.ExpandCollapse) as IExpandCollapseProvider;
                                 expander?.Expand();
 
-                                if (!SelectorPeerSelect(peer, action))
+                                if (!SelectorPeerSelect(peer))
                                 {
                                     SelectorDeselect(comboBox);
                                 }
@@ -371,26 +419,26 @@
                                 continue;
                             }
 
-                            var listBox = WindowHelper.FindChild<ListBox>(searchControl, action.controlName);
+                            var listBox = WindowHelper.FindChild<ListBox>(searchControl, _currentAction.controlName);
                             if (listBox is not null)
                             {
-                                Logger.Debug($"ListBox select {action.controlName}|{action.parameter}");
+                                Logger.Debug($"ListBox select {_currentAction.controlName}|{_currentAction.parameter}");
                                 if (!listBox.IsEnabled)
                                 {
-                                    Logger.Debug($"But ListBox {action.controlName} is disabled");
+                                    Logger.Debug($"But ListBox {_currentAction.controlName} is disabled");
                                     continue;
                                 }
 
                                 var peer = new ListBoxAutomationPeer(listBox);
 
-                                if (!SelectorPeerSelect(peer, action))
+                                if (!SelectorPeerSelect(peer))
                                 {
                                     SelectorDeselect(listBox);
                                 }
                                 continue;
                             }
 
-                            Logger.Debug($"Control {action.controlName} not found, or not visible");
+                            Logger.Debug($"Control {_currentAction.controlName} not found, or not visible");
                         }
 
                         FinishCurrentAction(true);
@@ -434,15 +482,13 @@
             _isDecoratedElementsListComplete = false;
         }
 
-        private bool SelectorPeerSelect(
-            SelectorAutomationPeer peer,
-            InspectionAutomationConfigurationPageAutomationAction action)
+        private bool SelectorPeerSelect(SelectorAutomationPeer peer)
         {
             foreach (var child in peer.GetChildren() ?? new List<AutomationPeer>())
             {
                 if (child is ListBoxItemAutomationPeer item)
                 {
-                    if (!IsMatchingListBoxSelection(action, item))
+                    if (!IsMatchingListBoxSelection(item))
                     {
                         continue;
                     }
@@ -498,26 +544,26 @@
             return propertyVal == DisplayRole.Main;
         }
 
-        private bool IsViewModelConditionMet(InspectionAutomationConfigurationPageAutomationAction action)
+        private bool IsViewModelConditionMet()
         {
-            if (!string.IsNullOrEmpty(action.conditionProperty))
+            if (!string.IsNullOrEmpty(_currentAction.conditionProperty))
             {
-                var (vmType, targetObject) = GetConditionTarget(action);
+                var (vmType, targetObject) = GetConditionTarget();
                 if (targetObject is null)
                 {
                     return false;
                 }
 
-                var property = vmType.GetProperty(action.conditionProperty,
+                var property = vmType.GetProperty(_currentAction.conditionProperty,
                     BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
                 if (property is null)
                 {
-                    Logger.Error($"Couldn't find condition property descriptor {action.conditionProperty} from {vmType}");
+                    Logger.Error($"Couldn't find condition property descriptor {_currentAction.conditionProperty} from {vmType}");
                     return false;
                 }
 
                 var propertyVal = (bool)property.GetValue(targetObject);
-                Logger.Debug($"Property {action.conditionProperty} is {propertyVal}");
+                Logger.Debug($"Property {_currentAction.conditionProperty} is {propertyVal}");
                 if (!propertyVal)
                 {
                     FinishCurrentAction(false);
@@ -525,25 +571,25 @@
                     return false;
                 }
             }
-            else if (!string.IsNullOrEmpty(action.conditionMethod))
+            else if (!string.IsNullOrEmpty(_currentAction.conditionMethod))
             {
-                var (vmType, targetObject) = GetConditionTarget(action);
+                var (vmType, targetObject) = GetConditionTarget();
                 if (targetObject is null)
                 {
                     return false;
                 }
 
-                var method = vmType.GetMethod(action.conditionMethod,
+                var method = vmType.GetMethod(_currentAction.conditionMethod,
                     BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
-                    null, new [] { typeof(int) }, null);
+                    null, new[] { typeof(int) }, null);
                 if (method is null)
                 {
-                    Logger.Error($"Couldn't find condition method descriptor {action.conditionMethod}(int) from {vmType}");
+                    Logger.Error($"Couldn't find condition method descriptor {_currentAction.conditionMethod}(int) from {vmType}");
                     return false;
                 }
 
-                var methodVal = (bool)method.Invoke(targetObject, new object[] { action.conditionEnum });
-                Logger.Debug($"Method {action.conditionMethod}({action.conditionEnum}) returns {methodVal}");
+                var methodVal = (bool)method.Invoke(targetObject, new object[] { _currentAction.conditionEnum });
+                Logger.Debug($"Method {_currentAction.conditionMethod}({_currentAction.conditionEnum}) returns {methodVal}");
                 if (!methodVal)
                 {
                     FinishCurrentAction(false);
@@ -555,18 +601,18 @@
             return true;
         }
 
-        private (Type, object) GetConditionTarget(InspectionAutomationConfigurationPageAutomationAction action)
+        private (Type, object) GetConditionTarget()
         {
             var vmType = _currentPageLoader.ViewModel.GetType();
 
             object targetObject = _currentPageLoader.ViewModel;
-            if (!string.IsNullOrEmpty(action.conditionViewModel))
+            if (!string.IsNullOrEmpty(_currentAction.conditionViewModel))
             {
-                var subViewModelProperty = vmType.GetProperty(action.conditionViewModel,
+                var subViewModelProperty = vmType.GetProperty(_currentAction.conditionViewModel,
                     BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
                 if (subViewModelProperty is null)
                 {
-                    Logger.Error($"Couldn't find property descriptor {action.conditionViewModel} from {vmType}");
+                    Logger.Error($"Couldn't find property descriptor {_currentAction.conditionViewModel} from {vmType}");
                     return (null, null);
                 }
 
@@ -578,7 +624,7 @@
             return (vmType, targetObject);
         }
 
-        private bool IsMatchingListBoxSelection(InspectionAutomationConfigurationPageAutomationAction action, ListBoxItemAutomationPeer item)
+        private bool IsMatchingListBoxSelection(ListBoxItemAutomationPeer item)
         {
             var itemType = item.Item?.GetType();
             if (itemType is null)
@@ -587,21 +633,21 @@
                 return false;
             }
 
-            if (string.IsNullOrEmpty(action.parameterProperty))
+            if (string.IsNullOrEmpty(_currentAction.parameterProperty))
             {
-                return item.Item.ToString().Contains(action.parameter);
+                return item.Item.ToString().Contains(_currentAction.parameter);
             }
 
             var property = itemType.GetProperty(
-                action.parameterProperty,
+                _currentAction.parameterProperty,
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
             if (property is null)
             {
-                Logger.Debug($"Can't find propertyinfo {item.Item.GetType()}.{action.parameterProperty}");
+                Logger.Debug($"Can't find propertyinfo {item.Item.GetType()}.{_currentAction.parameterProperty}");
                 return false;
             }
 
-            return ((string)property.GetValue(item.Item)).Contains(action.parameter);
+            return ((string)property.GetValue(item.Item)).Contains(_currentAction.parameter);
         }
 
         private HardwareDiagnosticDeviceCategory DecipherHardwareDiagnosticDeviceCategory(Type type)

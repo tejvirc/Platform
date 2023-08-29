@@ -19,8 +19,12 @@
     <Action waitMs="1000" useChildWindows="true" childWindowMustBeMain="true" controlName="ColorTestsComboBox" parameter="White Purity" parameterProperty="Name" />
     <Action waitMs="1000" useChildWindows="true" childWindowMustBeMain="true" controlName="ColorTestsComboBox" parameter="Black Purity" parameterProperty="Name" />
     <Action waitMs="1000" useChildWindows="true" childWindowMustBeMain="true" controlName="ExitButton" />
-    <Action waitMs="1000" controlName="EnterIdentifyScreenBtn" />
-    <Action waitMs="4000" final="true" />
+    <Action waitForEvent="true" eventType="HardwareDiagnosticTestFinishedEvent" controlName="EnterIdentifyScreenBtn" />
+    <Action waitMs="1000" />
+    <Action waitForEvent="true" eventType="TouchCalibrationCompletedEvent" controlName="CalibrateTouchScreenButton" />
+    <Action waitMs="1000" />
+    <Action waitForEvent="true" eventType="HardwareDiagnosticTestFinishedEvent" controlName="EnterTouchScreenPixelBtn" />
+    <Action waitMs="1000" final="true" />
   </PageAutomation>
   <PageAutomation category="EdgeLighting">
     <Action waitMs="500"  controlName="ColorsComboBox" parameter="Purple" />
