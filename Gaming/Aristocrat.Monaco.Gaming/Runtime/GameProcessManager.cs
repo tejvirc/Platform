@@ -7,6 +7,7 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Threading;
     using System.Threading.Tasks;
     using Client;
     using Contracts;
@@ -26,8 +27,9 @@
         
         private bool _notifyProcessExited;
 
-        private volatile bool _expectProcessExit;
+        private bool _expectProcessExit;
         private short _waitCounter = 0;
+        private const int _iterationsToWait = 10;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameProcessManager" /> class.
@@ -49,9 +51,10 @@
                 throw new ArgumentNullException(nameof(processInfo));
             }
 
-            while (_expectProcessExit && _waitCounter < 10)
+            // If the last Process has not exited yet, wait for 1 second or until process has exited to continue.
+            while (_expectProcessExit && _waitCounter < _iterationsToWait)
             {
-                Task.Delay(100);
+                Thread.Sleep(100);
                 _waitCounter++;
             }
 
