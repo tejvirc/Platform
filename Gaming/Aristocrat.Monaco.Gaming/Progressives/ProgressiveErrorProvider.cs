@@ -38,6 +38,12 @@
             DisplayableMessagePriority.Immediate,
             ApplicationConstants.MinimumThresholdErrorGuid);
 
+        private static readonly DisplayableMessage LinkedProgressiveVerificationFailureMessage = new DisplayableMessage(
+            () => Localizer.ForLockup().GetString(ResourceKeys.ProgressiveFaultTypes_LinkedProgressiveVerificationFailed),
+            DisplayableMessageClassification.SoftError,
+            DisplayableMessagePriority.Immediate,
+            ApplicationConstants.LinkedProgressiveVerificationFailureGuid);
+
         private readonly IGamePlayState _gamePlayState;
         private readonly ISystemDisableManager _systemDisable;
         private readonly IMessageDisplay _messageDisplay;
@@ -46,6 +52,7 @@
         private readonly ILinkedProgressiveProvider _linkedProgressiveProvider;
         private readonly IGameHistory _gameHistory;
         private readonly IEventBus _eventBus;
+        private readonly IProgressiveLevelProvider _levelProvider;
 
         public ProgressiveErrorProvider(
             IGamePlayState gamePlayState,
@@ -55,7 +62,8 @@
             IProgressiveGameProvider progressiveGameProvider,
             ILinkedProgressiveProvider linkedProgressiveProvider,
             IGameHistory gameHistory,
-            IEventBus eventBus)
+            IEventBus eventBus,
+            IProgressiveLevelProvider levelProvider)
         {
             _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
             _systemDisable = systemDisable ?? throw new ArgumentNullException(nameof(systemDisable));
@@ -67,6 +75,7 @@
                                          throw new ArgumentNullException(nameof(linkedProgressiveProvider));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _levelProvider = levelProvider ?? throw new ArgumentNullException(nameof(levelProvider));
             RecoverErrors();
         }
 
@@ -129,6 +138,19 @@
         public void ClearProgressiveUpdateError(IEnumerable<IViewableLinkedProgressiveLevel> levels)
         {
             RemoveError(ProgressiveErrors.ProgressiveUpdateTimeout, UpdateTimeoutMessage, levels);
+        }
+
+
+        public void ReportLinkedProgressiveVerificationFailedError(IEnumerable<IViewableProgressiveLevel> levels)
+        {
+            _levelProvider.AddProgressiveLevelError(levels, ProgressiveErrors.LinkedProgressiveVerificationFailure);
+            AddError(LinkedProgressiveVerificationFailureMessage, levels);
+        }
+
+        public void ClearLinkedProgressiveVerificationFailedError(IEnumerable<IViewableProgressiveLevel> levels)
+        {
+            _levelProvider.RemoveProgressiveLevelError(levels, ProgressiveErrors.LinkedProgressiveVerificationFailure);
+            RemoveError(ProgressiveErrors.LinkedProgressiveVerificationFailure, LinkedProgressiveVerificationFailureMessage, levels);
         }
 
         public IEnumerable<int> ViewProgressiveUpdateTimeoutErrors()

@@ -63,6 +63,18 @@
         void ClearProgressiveUpdateError(IEnumerable<IViewableLinkedProgressiveLevel> levels);
 
         /// <summary>
+        ///     Reports a linked progressive verification failure error for a given progressive group id
+        /// </summary>
+        /// <param name="levels"></param>
+        void ReportLinkedProgressiveVerificationFailedError(IEnumerable<IViewableProgressiveLevel> levels);
+
+        /// <summary>
+        ///     Clears a linked progressive verification failure error for a given progressive group id
+        /// </summary>
+        /// <param name="levels"></param>
+        void ClearLinkedProgressiveVerificationFailedError(IEnumerable<IViewableProgressiveLevel> levels);
+
+        /// <summary>
         ///     Provides a view for active progressive disconnect errors
         /// </summary>
         /// <returns></returns>

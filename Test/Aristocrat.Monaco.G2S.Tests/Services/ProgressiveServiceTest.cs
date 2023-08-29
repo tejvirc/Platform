@@ -37,6 +37,7 @@
         private readonly Mock<IG2SDisableProvider> _disableProviderMock = new Mock<IG2SDisableProvider>();
         private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>();
         private readonly Mock<IProgressiveLevelManager> _progressiveLevelManager = new Mock<IProgressiveLevelManager>();
+        private readonly Mock<IProgressiveErrorProvider> _progressiveErrorProvider = new Mock<IProgressiveErrorProvider>();
         private readonly Mock<ICommandBuilder<IProgressiveDevice, progressiveHit>> _progressiveHitBuilderMock = new Mock<ICommandBuilder<IProgressiveDevice, progressiveHit>>();
         private readonly Mock<ICommandBuilder<IProgressiveDevice, progressiveCommit>> _progressiveCommitBuilderMock = new Mock<ICommandBuilder<IProgressiveDevice, progressiveCommit>>();
         private readonly Mock<IProtocolProgressiveEventsRegistry> _protocolProgressiveEventsRegistryMock = new Mock<IProtocolProgressiveEventsRegistry>();
@@ -65,6 +66,7 @@
                 _disableProviderMock.Object,
                 _propertiesManager.Object,
                 _progressiveLevelManager.Object,
+                _progressiveErrorProvider.Object,
                 _progressiveStatusBuilderMock.Object,
                 _progressiveHitBuilderMock.Object,
                 _progressiveCommitBuilderMock.Object

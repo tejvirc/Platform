@@ -114,6 +114,13 @@
         /// <inheritdoc />>
         public IEnumerable<IWagerCategory> WagerCategories { get; set; }
 
+
+        /// <inheritdoc />>
+        public bool LinkedProgressiveVerificationComplete => LinkedProgressiveVerificationResult is not null;
+
+        /// <inheritdoc />>
+        public bool? LinkedProgressiveVerificationResult { get; set; }
+
         /// <inheritdoc />>
         public bool HasExtendedRtpInformation
         {
@@ -131,12 +138,6 @@
                         w.LinkIncrementRtpPercent != default);
             }
         }
-
-        /// <inheritdoc />>
-        public bool LinkedProgressiveVerificationComplete => LinkedProgressiveVerificationResult is not null;
-
-        /// <inheritdoc />>
-        public bool? LinkedProgressiveVerificationResult { get; set; }
 
         /// <inheritdoc />>
         public IEnumerable<IWinLevel> WinLevels { get; set; }

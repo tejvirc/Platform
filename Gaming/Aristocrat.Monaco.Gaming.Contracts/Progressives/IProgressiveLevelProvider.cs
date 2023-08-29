@@ -62,5 +62,19 @@
             int gameId,
             long denomination,
             IEnumerable<ProgressiveLevel> levels);
+
+        /// <summary>
+        ///     Adds an error status to progressive levels
+        /// </summary>
+        /// <param name="levels">The collection of progressive levels to update</param>
+        /// <param name="error">The enum value of the error to be added</param>
+        void AddProgressiveLevelError(IEnumerable<IViewableProgressiveLevel> levels, ProgressiveErrors error);
+
+        /// <summary>
+        ///     Removes an error status from progressive levels
+        /// </summary>
+        /// <param name="levels">The collection of progressive levels to update</param>
+        /// <param name="error">The enum value of the error to be removed</param>
+        void RemoveProgressiveLevelError(IEnumerable<IViewableProgressiveLevel> levels, ProgressiveErrors error);
     }
 }

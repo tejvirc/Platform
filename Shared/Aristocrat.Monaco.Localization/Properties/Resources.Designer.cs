@@ -26261,6 +26261,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Linked Progressive Verification Failed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming
+        /// </remarks>
+		public static string ProgressiveFaultTypes_LinkedProgressiveVerificationFailed {
+			get {
+				return ResourceManager.GetString("ProgressiveFaultTypes_LinkedProgressiveVerificationFailed", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Progressive meter rollback.
 		/// </summary>
         /// <remarks>
@@ -63007,6 +63019,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Linked Progressive Verification Failed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming
+        /// </remarks>
+		public static string ProgressiveFaultTypes_LinkedProgressiveVerificationFailed {
+			get {
+				return "ProgressiveFaultTypes_LinkedProgressiveVerificationFailed";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Progressive meter rollback.
 		/// </summary>
         /// <remarks>
@@ -88479,6 +88503,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application
         /// </remarks>
 		ProgressiveFaultTypes_ExceedMaxRtpValue,
+		/// <summary>
+		///   Looks up a localized string similar to Linked Progressive Verification Failed.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming
+        /// </remarks>
+		ProgressiveFaultTypes_LinkedProgressiveVerificationFailed,
 		/// <summary>
 		///   Looks up a localized string similar to Progressive meter rollback.
 		/// </summary>

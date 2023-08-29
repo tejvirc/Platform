@@ -140,6 +140,28 @@ namespace Aristocrat.Monaco.Gaming.Progressives
             }
         }
 
+        /// <inheritdoc/>
+        public void AddProgressiveLevelError(IEnumerable<IViewableProgressiveLevel> levels, ProgressiveErrors error)
+        {
+            var deviceIds = levels.Select(l => l.DeviceId).ToList();
+            foreach (var level in _levels.Where(l => deviceIds.Contains(l.DeviceId)))
+            {
+                    level.Errors |= error;
+            }
+
+        }
+
+        /// <inheritdoc/>
+        public void RemoveProgressiveLevelError(IEnumerable<IViewableProgressiveLevel> levels, ProgressiveErrors error)
+        {
+            var deviceIds = levels.Select(l => l.DeviceId).ToList();
+            foreach (var level in _levels.Where(l => deviceIds.Contains(l.DeviceId)))
+            {
+                level.Errors &= ~error;
+            }
+
+        }
+
         public string Name => nameof(ProgressiveLevelProvider);
 
         public ICollection<Type> ServiceTypes => new[] { typeof(IProgressiveLevelProvider) };

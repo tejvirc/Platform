@@ -60,6 +60,12 @@
         ///     for a given jurisdiction
         /// </summary>
         [ErrorGuid("{e691139f-7555-41de-b356-54afe85c4b53}")]
-        ProgressiveRtpError = 0x0040
+        ProgressiveRtpError = 0x0040,
+
+        /// <summary>
+        ///     Indicates that the RTP values mismatch between Monaco and Vertex
+        /// </summary>
+        [ErrorGuid("{4f094e49-f456-4958-b559-7d4a68167904}")]
+        LinkedProgressiveVerificationFailure = 0x0080
     }
 }

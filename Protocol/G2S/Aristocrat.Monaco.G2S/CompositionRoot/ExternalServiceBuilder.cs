@@ -93,6 +93,7 @@
             @this.RegisterInstance(serviceManager.GetService<IPrinterFirmwareInstaller>());
             @this.RegisterInstance(serviceManager.GetService<INoteAcceptorFirmwareInstaller>());
             @this.RegisterInstance(serviceManager.GetService<IMultiProtocolConfigurationProvider>());
+            @this.RegisterInstance(serviceManager.GetService<IProgressiveErrorProvider>());
             @this.RegisterInstance<IInstallerFactory>(
                 new InstallerFactory
                 {

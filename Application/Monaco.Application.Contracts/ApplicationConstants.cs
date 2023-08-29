@@ -1256,6 +1256,11 @@
         public static readonly Guid MinimumThresholdErrorGuid = new Guid("{e1904c57-648d-4d8d-9cdc-f2ac7edd1ddd}");
 
         /// <summary>
+        ///     Linked progressive verification failure GUID
+        /// </summary>
+        public static readonly Guid LinkedProgressiveVerificationFailureGuid = new Guid("{4f094e49-f456-4958-b559-7d4a68167904}");
+
+        /// <summary>
         ///      Excessive Meter Increment lockup GUID
         /// </summary>
         public static readonly Guid ExcessiveMeterIncrementErrorGuid = new Guid("{444D0667-F0B1-4346-BB3D-C0AB5BA4763D}");

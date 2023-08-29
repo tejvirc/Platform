@@ -22,6 +22,7 @@
     using Aristocrat.Monaco.Gaming.Contracts.Events.OperatorMenu;
     using Aristocrat.Monaco.Gaming.Contracts.Meters;
     using Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked;
+    using Aristocrat.Monaco.Gaming.Progressives;
     using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
     using Common.Events;
@@ -52,6 +53,7 @@
         private readonly IPropertiesManager _propertiesManager;
         private readonly IProgressiveLevelManager _progressiveLevelManager;
         private readonly IProtocolProgressiveEventsRegistry _protocolProgressiveEventsRegistry;
+        private readonly IProgressiveErrorProvider _progressiveErrorProvider;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveHit> _progressiveHitBuilder;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveCommit> _progressiveCommitBuilder;
         private readonly ICommandBuilder<IProgressiveDevice, progressiveStatus> _progressiveStatusBuilder;
@@ -81,6 +83,7 @@
             IG2SDisableProvider disableProvider,
             IPropertiesManager propertiesManager,
             IProgressiveLevelManager progressiveLevelManager,
+            IProgressiveErrorProvider progressiveErrorProvider,
             ICommandBuilder<IProgressiveDevice, progressiveStatus> progressiveStatusBuilder,
             ICommandBuilder<IProgressiveDevice, progressiveHit> progressiveHitBuilder,
             ICommandBuilder<IProgressiveDevice, progressiveCommit> progressiveCommitBuilder
@@ -106,6 +109,7 @@
             _progressiveStatusBuilder = progressiveStatusBuilder ?? throw new ArgumentNullException(nameof(progressiveStatusBuilder));
             _progressiveHitBuilder = progressiveHitBuilder ?? throw new ArgumentNullException(nameof(progressiveHitBuilder));
             _progressiveCommitBuilder = progressiveCommitBuilder ?? throw new ArgumentNullException(nameof(progressiveCommitBuilder));
+            _progressiveErrorProvider = progressiveErrorProvider ?? throw new ArgumentNullException(nameof(progressiveErrorProvider));
 
             _g2sProgressivesEnabled = (bool)propertiesManager.GetProperty(G2S.Constants.G2SProgressivesEnabled, false);
 
@@ -206,60 +210,14 @@
                 .GroupBy(ll => ll.ProgressiveGroupId)
                 .ToDictionary(ll => ll.Key, ll => ll.ToList());
 
-
-            var linkedLevelNames = linkedLevels.Values.SelectMany(l => l).Select(ll => ll.LevelName).ToList();
-            var monacoLevelsByLevelName = _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
-                .Where(l => linkedLevelNames.Contains(l.AssignedProgressiveId?.AssignedProgressiveKey ?? string.Empty))
-                .GroupBy(l => l.AssignedProgressiveId.AssignedProgressiveKey)
-                .ToDictionary(group => group.Key, group => group.ToList());
-
-            foreach (var progressiveHostInfo in progressiveHostInfos)
+            if(!EnsureLevelsMatch(progressiveHostInfos, linkedLevels, devices))
             {
-                var progressiveDevice = devices.FirstOrDefault(d => d.ProgressiveId == progressiveHostInfo.progressiveLevel.FirstOrDefault().progId);
-                if (progressiveDevice == null)
-                {
-                    continue;
-                }
+                return;
+            }
 
-                var matchedProgressives = progressiveHostInfo.progressiveLevel
-                    .Where(progressiveLevel => progressiveLevel.progId.Equals(progressiveDevice.Id)).ToList();
-
-                if (!matchedProgressives.Any())
-                {
-                    progressiveDevice.Enabled = false;
-                    return;
-                }
-
-                var progLevels = linkedLevels[progressiveDevice.ProgressiveId];
-                var levelsMatched = true;
-                try
-                {
-                    levelsMatched = progLevels.Count() == matchedProgressives.Count() &&
-                        progLevels.Select(ll => ll.LevelId).OrderBy(n => n)
-                        .SequenceEqual(matchedProgressives.Select(l => l.levelId).OrderBy(n => n));
-                }
-                catch (KeyNotFoundException)
-                {
-                    levelsMatched = false;
-                }
-
-                if (!levelsMatched)
-                {
-                    _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveLevelsMismatch);
-                    return;
-                }
-
-                if (_propertiesManager.GetValue(GamingConstants.LinkedProgressiveVerificationEnabled, false))
-                {
-                    var x = from vertexLevel in matchedProgressives
-                        join progLevel in progLevels on vertexLevel.levelId equals progLevel.LevelId into
-                            monacoLinkedLevel
-                        select (vertexLevel, monacoLinkedLevel.Single());
-
-                    BoostCheck(monacoLevelsByLevelName, x);
-                }
-
-                _disableProvider.Enable(G2SDisableStates.ProgressiveLevelsMismatch);
+            if (_propertiesManager.GetValue(GamingConstants.LinkedProgressiveVerificationEnabled, true))
+            {
+                LinkedProgressiveVerification(progressiveHostInfos, linkedLevels, devices);
             }
         }
 
@@ -849,42 +807,151 @@
         }
 
         /// <summary>
-        ///     Ensure the RTP values from the Vertex progressive levels match the values from the Monaco progressive levels.
+        ///     Ensure the RTP values from the Monaco progressive levels match the values configured in the Vertex progressive levels.
         /// </summary>
-        /// <param name="monacoLevelsByLevelName">A dictionary of ProgressiveLevel objects by LevelName</param>
-        /// <param name="progLevels">A list of tuples for Vertex progressiveLevel and LinkedProgressiveLevel objects</param>
-        private void BoostCheck(IReadOnlyDictionary<string, List<IViewableProgressiveLevel>> monacoLevelsByLevelName, IEnumerable<(progressiveLevel, IViewableLinkedProgressiveLevel)> progLevels)
+        private void LinkedProgressiveVerification(
+            List<progressiveHostInfo> progressiveHostInfos,
+            Dictionary<int, List<IViewableLinkedProgressiveLevel>> linkedLevelsByProgId,
+            List<IProgressiveDevice> devices)
         {
-            HashSet<int> failedGameIds = new();
+            var linkedLevelNames = linkedLevelsByProgId.Values
+                .SelectMany(l => l).Select(ll => ll.LevelName).ToList();
 
-            foreach (var progLevel in progLevels)
+            var monacoLevelsByLevelName = _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
+                .Where(l => linkedLevelNames.Contains(l.AssignedProgressiveId?.AssignedProgressiveKey ?? string.Empty))
+                .GroupBy(l => l.AssignedProgressiveId.AssignedProgressiveKey)
+                .ToDictionary(group => group.Key, group => group.ToList());
+
+            List<IViewableProgressiveLevel> passedLevels = new List<IViewableProgressiveLevel>();
+            List<IViewableProgressiveLevel> failedLevels = new List<IViewableProgressiveLevel>();
+
+            foreach (var progressiveHostInfo in progressiveHostInfos)
             {
-                var matchedLevels = monacoLevelsByLevelName[progLevel.Item2.LevelName];
+                var progressiveDevice = devices.FirstOrDefault(d => d.ProgressiveId == progressiveHostInfo.progressiveLevel.FirstOrDefault().progId);
 
-                foreach(var matchedLevel in matchedLevels)
+                var vertexLevels = progressiveHostInfo.progressiveLevel
+                    .Where(progressiveLevel => progressiveLevel.progId.Equals(progressiveDevice.Id)).ToList();
+
+                var linkedLevels = linkedLevelsByProgId[progressiveDevice.ProgressiveId];
+
+                var levels = from vertexLevel in vertexLevels
+                    join progLevel in linkedLevels on vertexLevel.levelId equals progLevel.LevelId into monacoLinkedLevel
+                    select (vertexLevel, monacoLinkedLevel.Single());
+
+                ValidateLevels(monacoLevelsByLevelName, levels, passedLevels, failedLevels);
+            }
+
+
+            var gameIds = passedLevels.Select(l => l.GameId).ToList();
+            gameIds.AddRange(failedLevels.Select(l => l.GameId).ToList());
+
+            var passedGames = _gameProvider.GetAllGames().Where(l => gameIds.Contains(l.Id));
+
+            if (passedLevels.Any())
+            {
+                _progressiveErrorProvider.ClearLinkedProgressiveVerificationFailedError(passedLevels);
+            }
+
+            if (failedLevels.Any())
+            {   var failedGameIds = failedLevels.Select(l => l.GameId).ToList();
+                var failedGames = passedGames.Where(l => failedGameIds.Contains(l.Id));
+                passedGames = passedGames.Where(l => !failedGameIds.Contains(l.Id)).ToList();
+
+                foreach(var failedGame in failedGames)
                 {
-                    if ((progLevel.Item1.incrementRate != matchedLevel.IncrementRate) ||
-                        (progLevel.Item1.resetValue != matchedLevel.ResetValue))
+                    failedGame.LinkedProgressiveVerificationResult = false;
+                }
+
+                _progressiveErrorProvider.ReportLinkedProgressiveVerificationFailedError(failedLevels);
+            }
+
+            foreach(var passedGame in passedGames)
+            {
+                passedGame.LinkedProgressiveVerificationResult = true;
+            }
+        }
+
+        private static void ValidateLevels(
+            Dictionary<string, List<IViewableProgressiveLevel>> monacoLevelsByLevelName,
+            IEnumerable<(progressiveLevel vertexLevel, IViewableLinkedProgressiveLevel linkedLevel)> progLevels,
+            List<IViewableProgressiveLevel> passedLevels,
+            List<IViewableProgressiveLevel> failedLevels)
+        {
+            foreach (var (vertexLevel, linkedLevel) in progLevels)
+            {
+                var matchedLevels = monacoLevelsByLevelName[linkedLevel.LevelName];
+
+                foreach (var matchedLevel in matchedLevels)
+                {
+                    var failed = false;
+                    if ((vertexLevel.incrementRate != matchedLevel.IncrementRate) ||
+                        (vertexLevel.resetValue != matchedLevel.ResetValue))
                     {
-                        failedGameIds.Add(matchedLevel.GameId);
+                        failedLevels.Add(matchedLevel);
+                        failed = true;
                     }
 
-                    // May need to change mystery check to use the flavor type
-                    if (matchedLevel.TriggerControl == TriggerType.Mystery)
-                        if ((progLevel.Item1.mustBeWonByHigh != matchedLevel.MaximumValue) ||
-                            (progLevel.Item1.mustBeWonByLow != matchedLevel.ResetValue))
+                    if (matchedLevel.FlavorType == FlavorType.VertexMystery)
                     {
-                        failedGameIds.Add(matchedLevel.GameId);
+                        if ((vertexLevel.mustBeWonByHigh != matchedLevel.MaximumValue) ||
+                            (vertexLevel.mustBeWonByLow != matchedLevel.ResetValue))
+                        {
+                            failedLevels.Add(matchedLevel);
+                            failed = true;
+                        }
+                    }
+
+                    if (!failed)
+                    {
+                        passedLevels.Add(matchedLevel);
                     }
                 }
             }
+        }
 
-            foreach (var failedGameId in failedGameIds)
+        private bool EnsureLevelsMatch(
+            List<progressiveHostInfo> progressiveHostInfos,
+            Dictionary<int, List<IViewableLinkedProgressiveLevel>> linkedLevelsByProgId,
+            List<IProgressiveDevice> devices)
+        {
+            foreach (var progressiveHostInfo in progressiveHostInfos)
             {
-                // TODO: Field to be added with Casey's RTP changes
-                // gameDetail[failedGameId].LinkedProgressiveVerificationResult = false;
-                // TODO: Ensure setting a value triggers validation of gameDetail[failedGameId].LinkedProgressiveVerificationResult
+                var progressiveDevice = devices.FirstOrDefault(d => d.ProgressiveId == progressiveHostInfo.progressiveLevel.FirstOrDefault().progId);
+                if (progressiveDevice == null)
+                {
+                    continue;
+                }
+
+                var matchedProgressives = progressiveHostInfo.progressiveLevel
+                    .Where(progressiveLevel => progressiveLevel.progId.Equals(progressiveDevice.Id)).ToList();
+
+                if (!matchedProgressives.Any())
+                {
+                    progressiveDevice.Enabled = false;
+                    return false;
+                }
+
+                var progLevels = linkedLevelsByProgId[progressiveDevice.ProgressiveId];
+                var levelsMatched = true;
+                try
+                {
+                    levelsMatched = progLevels.Count() == matchedProgressives.Count() &&
+                        progLevels.Select(ll => ll.LevelId).OrderBy(n => n)
+                        .SequenceEqual(matchedProgressives.Select(l => l.levelId).OrderBy(n => n));
+                }
+                catch (KeyNotFoundException)
+                {
+                    levelsMatched = false;
+                }
+
+                if (!levelsMatched)
+                {
+                    _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveLevelsMismatch);
+                    return false;
+                }
             }
+
+            return true;
         }
     }
 }

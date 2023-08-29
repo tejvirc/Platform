@@ -12405,6 +12405,9 @@ LEVEL ID</value>
     <value>Certain Linked level parameters are Not Applicable in this screen as they are managed in the progressive controller.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
+  <data name="ProgressiveFaultTypes_LinkedProgressiveVerificationFailed" xml:space="preserve">
+    <value>Linked Progressive Verification Failed</value>
+    <comment>Aristocrat.Monaco.Gaming</comment>
   <data name="VertexGameId_NonNegative" xml:space="preserve">
     <value>Vertex Game Id must be a non-negative integer</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
