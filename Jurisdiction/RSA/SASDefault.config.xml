@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+*NOTE* When adding or removing elements to this file, you will need to 
+change the corresponding xsd schema file and generate a new class definition
+as follows:
+
+1.  Open a VS2015 command prompt and change to the directory:
+    Protocol\SAS\Aristocrat.Monaco.Sas.Contracts
+2.  Enter "xsd SASDefaultConfiguration.xsd /classes".  This will generate
+    the corresponding class definition in csharp (SASDefaultConfiguration.cs).
+-->
+<SASDefaultConfiguration>
+    <SASHostPage>
+		<!--
+		TransferLimit :
+			Default (Optional): The default max transfer limit (in cents).
+			MaxAllowed (Optional): The max transfer limit allowed as per jurisdiction (in cents).
+		-->
+		<TransferLimit Default="10000" />
+		<EGMDisabledOnHostOffline Enabled="true"/>
+	</SASHostPage>  
+</SASDefaultConfiguration>
