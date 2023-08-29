@@ -37,6 +37,7 @@
         private int _processId;
         private bool _running;
         private GameInitRequest _lastRequest;
+        private object _lock = new object();
 
         public GameService(
             IEventBus eventBus,
@@ -95,9 +96,12 @@
 
             StoreSelectedGame(request);
 
-            _ipc.StartComms();
+            lock (_lock)
+            {
+                _ipc.StartComms();
 
-            _processId = _process.StartGameProcess(request);
+                _processId = _process.StartGameProcess(request);
+            }
 
             Logger.Info("Game process Started.");
         }
@@ -153,8 +157,8 @@
         {
             if (!Running)
             {
-                _ipc.EndComms();
                 _eventBus.Publish(new GameShutdownCompletedEvent());
+                EndCommsSafe();
             }
         }
 
@@ -214,7 +218,7 @@
                 _process.EndGameProcess(processId, notifyExited, terminateExpected);
             }
 
-            _ipc.EndComms();
+            EndCommsSafe();
 
             _processId = 0;
             Logger.Info("All game processes and IPC terminated.");
@@ -277,6 +281,17 @@
                         })
                 },
                 Formatting.None);
+        }
+
+        private void EndCommsSafe()
+        {
+            lock (_lock)
+            {
+                if (!_process.IsRunning(_processId))
+                {
+                    _ipc.EndComms();
+                }
+            }
         }
     }
 }
