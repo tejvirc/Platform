@@ -89,6 +89,7 @@
         {
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ShowMasterResult, false))
                 .Returns(valueForShowMasterResult);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ShowMode, false)).Returns(false);
         }
 
         [TestCleanup]

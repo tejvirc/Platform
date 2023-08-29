@@ -220,6 +220,9 @@
             }
         }
 
+        public bool ShowModeEnabled => ServiceManager.GetInstance().TryGetService<IPropertiesManager>()
+            .GetValue(ApplicationConstants.ShowMode, false);
+
         public OperatorMenuAccessRestriction TestModeRestriction
         {
             get => _testModeRestriction;
@@ -1058,6 +1061,12 @@
 
         private void SetInputStatus()
         {
+            if (ShowModeEnabled)
+            {
+                TestModeEnabled = true;
+                SetInputStatus(true, OperatorMenuAccessRestriction.None);
+            }
+
             var wizardPage = this is ConfigWizardViewModelBase wizard && wizard.IsWizardPage
                              || this is IConfigWizardNavigator
                              || this is IConfigWizardDialog dialog && dialog.IsInWizard;

@@ -190,6 +190,8 @@
             }
         }
 
+        public bool ShowModeEnabled => _properties.GetValue(ApplicationConstants.ShowMode, false);
+
         public void RegisterAccessRule(
             IOperatorMenuConfigObject obj,
             string ruleSetName,
@@ -418,6 +420,12 @@
 
         private (bool Access, OperatorMenuAccessRestriction Restriction) GetRuleStatus(AccessRule rule)
         {
+            //If show mode is enabled there are no restrictions to operator menu access
+            if (ShowModeEnabled)
+            {
+                return (true, OperatorMenuAccessRestriction.None);
+            }
+
             Logger.Debug($"Getting status for {rule.Restriction}");
             var access = false;
             var restriction = rule.Restriction;

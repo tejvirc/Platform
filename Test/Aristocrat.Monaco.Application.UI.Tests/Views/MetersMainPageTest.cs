@@ -90,6 +90,7 @@
                 .Returns(false);
             _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.UsbButtonDeck, false))
                 .Returns(false);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ShowMode, false)).Returns(false);
 
             var monitor = MoqServiceManager.CreateAndAddService<IOperatorMenuGamePlayMonitor>(MockBehavior.Strict);
             monitor.Setup(m => m.InGameRound).Returns(false);
