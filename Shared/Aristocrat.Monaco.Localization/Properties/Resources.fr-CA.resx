@@ -5066,9 +5066,9 @@ Consulter le manuel pour plus de détails</value>
   <data name="DenomMetersPeriod" xml:space="preserve">
     <value>??Period Denomination Meters??</value>
   </data>
-	<data name="NoDeviceDetected" xml:space="preserve">
+  <data name="NoDeviceDetected" xml:space="preserve">
     <value>??No device detected??</value>
-</data>
+  </data>
   <data name="LastResetText" xml:space="preserve">
     <value>??LAST RESET??</value>
   </data>
@@ -5083,5 +5083,11 @@ Consulter le manuel pour plus de détails</value>
   </data>
   <data name="LicenseFileParsingError" xml:space="preserve">
     <value>??Invalid License File??</value>
+  </data>
+  <data name="GamesPlayedWarning" xml:space="preserve">
+    <value>??Settings cannot be changed after a game round has been played.??</value>
+  </data>
+  <data name="SomeGamesPlayedWarning" xml:space="preserve">
+    <value>??Some settings cannot be changed after a game round has been played.??</value>
   </data>
 </root>
