@@ -6,6 +6,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Application.Contracts.Localization;
     using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Progressives;
     using Contracts.Progressives.Linked;
@@ -34,7 +35,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         private LevelDefinition _selectableLevel;
         private bool _selectableLevelNameTooLong;
         private readonly bool _canEdit;
-        private int _configurableLinkedLevelId;
+        private string _configurableLinkedLevelId;
 
         public LevelModel(
             IViewableProgressiveLevel level,
@@ -82,7 +83,8 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             _selectableLevelType = DetermineSelectableLevelType();
             _canEdit = level.CanEdit;
             _selectableLevel = new LevelDefinition(LevelName, AssignedProgressiveInfo.AssignedProgressiveKey);
-            OriginalConfigurableLinkedLevelId = ConfigurableLinkedLevelId = configurableLinkedLevelLevelId;
+            OriginalConfigurableLinkedLevelId =  configurableLinkedLevelLevelId;
+            ConfigurableLinkedLevelId = configurableLinkedLevelLevelId.ToString();
 
             LoadSelectableTypes();
             LoadSelectableNames();
@@ -325,14 +327,27 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         /// <summary>
         /// Gets or sets the configurable linked level id for use with Vertex and G2S progressives
         /// </summary>
-        public int ConfigurableLinkedLevelId
+        [CustomValidation(typeof(LevelModel), nameof(ValidateLevelId))]
+        public string ConfigurableLinkedLevelId
         {
             get => _configurableLinkedLevelId;
             set
             {
-                _configurableLinkedLevelId = value;
-                OnPropertyChanged(nameof(ConfigurableLinkedLevelId));
+                if (SetProperty(ref _configurableLinkedLevelId, value, true))
+                {
+                    OnPropertyChanged(nameof(CanSave));
+                }
             }
+        }
+
+        public static ValidationResult ValidateLevelId(string value)
+        {
+            if (string.IsNullOrEmpty(value) || !int.TryParse(value, out var parsedValue) || parsedValue < 0)
+            {
+                return new ValidationResult(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VertexLevelId_NonNegative));
+            }
+
+            return ValidationResult.Success;
         }
 
         /// <summary>

@@ -12404,5 +12404,13 @@ LEVEL ID</value>
   <data name="ColumnsNotAvailableForLpLevelsMessage" xml:space="preserve">
     <value>Certain Linked level parameters are Not Applicable in this screen as they are managed in the progressive controller.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
- </data> 
+  </data>
+  <data name="VertexGameId_NonNegative" xml:space="preserve">
+    <value>Vertex Game Id must be a non-negative integer</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="VertexLevelId_NonNegative" xml:space="preserve">
+    <value>VERTEX ID must be a non-negative integer</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>

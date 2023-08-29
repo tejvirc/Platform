@@ -4,6 +4,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Windows.Input;
     using Application.Contracts.Extensions;
@@ -37,7 +38,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         private readonly IReadOnlyCollection<string> _configLinkedProgressiveNames;
         private readonly bool _isAssociatedSap;
 
-        private int _progressiveGroupId;
+        private string _progressiveGroupId;
         private int _originalProgressiveGroupId;
 
         private string _selectedGameInfo;
@@ -134,17 +135,30 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                                                      p => p.LevelType == ProgressiveLevelType.Selectable &&
                                                           p.SelectableLevelType.Equals(Resources.StandaloneProgressive));
 
-        public int ProgressiveGroupId
+        [CustomValidation(typeof(ProgressiveSetupViewModel), nameof(ValidateProgressiveGroupId))]
+        public string ProgressiveGroupId
         {
             get => _progressiveGroupId;
             set
             {
-                _progressiveGroupId = value;
-                OnPropertyChanged(nameof(ProgressiveGroupId));
+                if (SetProperty(ref _progressiveGroupId, value, true))
+                {
+                    OnPropertyChanged(nameof(CanSave));
+                }
             }
         }
 
-        public override bool CanSave => (ProgressiveLevels?.All(x => x.CanSave) ?? true) && !OverMaximumAllowableProgressives;
+        public static ValidationResult ValidateProgressiveGroupId(string value)
+        {
+            if (string.IsNullOrEmpty(value) || !int.TryParse(value, out var parsedValue) || parsedValue < 0)
+            {
+                return new ValidationResult(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VertexGameId_NonNegative));
+            }
+
+            return ValidationResult.Success;
+        }
+
+        public override bool CanSave => (ProgressiveLevels?.All(x => x.CanSave) ?? true) && !OverMaximumAllowableProgressives && base.CanSave;
 
         public bool IsSummaryView
         {
@@ -315,7 +329,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 var configuredLevelIds = _propertiesManager.GetValue(GamingConstants.ProgressiveConfiguredLinkedLevelIds, new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
                 foreach (var progLevel in ProgressiveLevels)
                 {
-                    (int linkedGroupId, int linkedLevelId) newConfig = (ProgressiveGroupId, progLevel.ConfigurableLinkedLevelId);
+                    (int linkedGroupId, int linkedLevelId) newConfig = (Convert.ToInt32(ProgressiveGroupId), Convert.ToInt32(progLevel.ConfigurableLinkedLevelId));
 
                     if (!configuredLevelIds.ContainsKey(progLevel.AssociatedProgressiveLevel.DeviceId))
                     {
@@ -359,13 +373,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         {
             var nonSapLevels = ProgressiveLevels.Where(l => l.LevelType != ProgressiveLevelType.Sap).ToList();
 
-            var configurableLevelIdsUnchanged = ProgressiveLevels.All(l => l.OriginalConfigurableLinkedLevelId == l.ConfigurableLinkedLevelId);
+            var configurableLevelIdsUnchanged = ProgressiveLevels.All(l => l.OriginalConfigurableLinkedLevelId == Convert.ToInt32(l.ConfigurableLinkedLevelId));
 
             return _selectedGame.ProgressiveSetupConfigured &&
                 nonSapLevels.Count != 0 &&
                 _originalNonSapProgressiveLevels.Count != 0 &&
                 nonSapLevels.Select(x => (x.SelectableLevel, x.SelectableLevelType)).SequenceEqual(_originalNonSapProgressiveLevels) &&
-                _progressiveGroupId == _originalProgressiveGroupId &&
+                Convert.ToInt32(_progressiveGroupId) == _originalProgressiveGroupId &&
                 configurableLevelIdsUnchanged;
         }
 
@@ -408,17 +422,17 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             var firstValidProgressive = _validProgressiveLevels.First();
             if (_configuredLinkedLevelIds.TryGetValue(firstValidProgressive.DeviceId, out (int configuredGroupId, int _) ret))
             {
-                ProgressiveGroupId = ret.configuredGroupId;
+                ProgressiveGroupId = ret.configuredGroupId.ToString();
             }
             else
             {
                 var maxConfiguredGroupId = _configuredLinkedLevelIds.Any()
                     ? _configuredLinkedLevelIds.Values.Select(val => val.linkedGroupId).Max()
                     : 0;
-                ProgressiveGroupId = maxConfiguredGroupId + 1;
+                ProgressiveGroupId = (maxConfiguredGroupId + 1).ToString();
             }
 
-            _originalProgressiveGroupId = ProgressiveGroupId;
+            _originalProgressiveGroupId = Convert.ToInt32(ProgressiveGroupId);
         }
 
         private void LoadData()

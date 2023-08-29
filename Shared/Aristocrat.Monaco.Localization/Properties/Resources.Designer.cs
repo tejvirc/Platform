@@ -11285,6 +11285,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Open Main Door and Load More Paper Before Paper is....
+		/// </summary>
+		public static string ErrorInfoPrinterPaperLow {
+			get {
+				return ResourceManager.GetString("ErrorInfoPrinterPaperLow", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Open Main Door, change firmware CRC seed from Hard....
 		/// </summary>
         /// <remarks>
@@ -18911,7 +18920,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to LINKED LEVEL ID.
+		///   Looks up a localized string similar to LINKED&amp;#13;&amp;#10;LEVEL ID.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -25613,7 +25622,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not&am....
+		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not Po....
 		/// </summary>
 		public static string Printer_DfuInProgress {
 			get {
@@ -35497,6 +35506,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string VersionText {
 			get {
 				return ResourceManager.GetString("VersionText", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Vertex Game Id must be a non-negative integer.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string VertexGameId_NonNegative {
+			get {
+				return ResourceManager.GetString("VertexGameId_NonNegative", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to VERTEX ID must be a non-negative integer.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string VertexLevelId_NonNegative {
+			get {
+				return ResourceManager.GetString("VertexLevelId_NonNegative", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -47998,6 +48031,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Open Main Door and Load More Paper Before Paper is....
+		/// </summary>
+		public static string ErrorInfoPrinterPaperLow {
+			get {
+				return "ErrorInfoPrinterPaperLow";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Open Main Door, change firmware CRC seed from Hard....
 		/// </summary>
         /// <remarks>
@@ -55624,7 +55666,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to LINKED LEVEL ID.
+		///		Looks up a localized string similar to LINKED&amp;#13;&amp;#10;LEVEL ID.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -62326,7 +62368,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not&am....
+		///		Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not Po....
 		/// </summary>
 		public static string Printer_DfuInProgress {
 			get {
@@ -72214,6 +72256,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Vertex Game Id must be a non-negative integer.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string VertexGameId_NonNegative {
+			get {
+				return "VertexGameId_NonNegative";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to VERTEX ID must be a non-negative integer.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string VertexLevelId_NonNegative {
+			get {
+				return "VertexLevelId_NonNegative";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Video.
 		/// </summary>
         /// <remarks>
@@ -79873,6 +79939,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ErrorInfoPrinterPaperEmpty,
 		/// <summary>
+		///   Looks up a localized string similar to Open Main Door and Load More Paper Before Paper is....
+		/// </summary>
+		ErrorInfoPrinterPaperLow,
+		/// <summary>
 		///   Looks up a localized string similar to Open Main Door, change firmware CRC seed from Hard....
 		/// </summary>
         /// <remarks>
@@ -84219,7 +84289,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		LinkedGameIdLabel,
 		/// <summary>
-		///   Looks up a localized string similar to LINKED LEVEL ID.
+		///   Looks up a localized string similar to LINKED&amp;#13;&amp;#10;LEVEL ID.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -88041,7 +88111,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Printed,
 		/// <summary>
-		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not&am....
+		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not Po....
 		/// </summary>
 		Printer_DfuInProgress,
 		/// <summary>
@@ -93648,6 +93718,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to Version.
 		/// </summary>
 		VersionText,
+		/// <summary>
+		///   Looks up a localized string similar to Vertex Game Id must be a non-negative integer.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		VertexGameId_NonNegative,
+		/// <summary>
+		///   Looks up a localized string similar to VERTEX ID must be a non-negative integer.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		VertexLevelId_NonNegative,
 		/// <summary>
 		///   Looks up a localized string similar to Video.
 		/// </summary>
