@@ -29,7 +29,7 @@
 
         private bool _expectProcessExit;
         private short _waitCounter = 0;
-        private const int _iterationsToWait = 10;
+        private const short _iterationsToWait = 10;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameProcessManager" /> class.
