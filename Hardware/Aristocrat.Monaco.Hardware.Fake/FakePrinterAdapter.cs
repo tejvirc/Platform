@@ -21,6 +21,8 @@
 
         private readonly IEventBus _eventBus;
         private bool _disposed;
+        private bool _isConnected;
+        private bool _isEnabled;
 
         /// <summary>
         ///     Construct a <see cref="FakePrinterAdapter" />
@@ -35,16 +37,46 @@
         public bool IsOpen { get; set; }
 
         /// <inheritdoc />
-        public bool IsConnected { get; set; }
+        public bool IsConnected
+        {
+            get => _isConnected;
+            set
+            {
+                _isConnected = value;
+                if (value)
+                {
+                    OnConnected();
+                }
+                else
+                {
+                    OnDisconnected();
+                }
+            }
+        }
 
         /// <inheritdoc />
         public bool IsInitialized { get; set; }
 
         /// <inheritdoc />
-        public bool IsEnabled { get; set; }
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
+            {
+                _isEnabled = value;
+                if (value)
+                {
+                    OnEnabled();
+                }
+                else
+                {
+                    OnDisable();
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public int Crc => 0;
+        public int Crc => 0xFFFF;
 
         /// <inheritdoc />
         public string Protocol { get; set; }
@@ -106,7 +138,6 @@
         {
             IsEnabled = true;
             Logger.Info("Enabled fake printer adapter");
-            OnEnabled(EventArgs.Empty);
             return Task.FromResult(true);
         }
 
@@ -115,7 +146,6 @@
         {
             IsEnabled = false;
             Logger.Warn("Disabled Fake printer adapter.");
-            OnDisable(EventArgs.Empty);
             return Task.FromResult(true);
         }
 
@@ -173,6 +203,7 @@
         public Task<bool> Initialize(ICommunicator communicator)
         {
             Open();
+            IsConnected = true;
             IsInitialized = true;
             Logger.Info("Initialized fake printer adapter");
             OnInitialized(EventArgs.Empty);
@@ -184,17 +215,18 @@
         {
             IsConnected = false;
             Logger.Info("Disconnected fake printer adapter");
-            OnEnabled(EventArgs.Empty);
             return Task.FromResult(true);
         }
 
         /// <inheritdoc />
-        public Task<bool> Reconnect()
+        public async Task<bool> Reconnect()
         {
+            const int reconnectionTimeMs = 100;
+            IsConnected = false;
+            await Task.Delay(reconnectionTimeMs).ConfigureAwait(false);
             IsConnected = true;
             Logger.Info("Reconnected fake printer adapter");
-            OnEnabled(EventArgs.Empty);
-            return Task.FromResult(true);
+            return true;
         }
 
         /// <inheritdoc />
@@ -291,7 +323,7 @@
         public async Task<bool> PrintTicket(string ticket)
         {
             Logger.Info("Printed ticket with fake printer adapter");
-            await Task.Delay(PrintingDelay);
+            await Task.Delay(PrintingDelay).ConfigureAwait(false);
             return true;
         }
 
@@ -299,9 +331,13 @@
         public async Task<bool> PrintTicket(string ticket, Func<Task> onFieldOfInterest)
         {
             Logger.Info("Printed ticket with fake printer adapter");
-            await Task.Delay(FieldOfInterestDelay);
-            await (onFieldOfInterest?.Invoke() ?? Task.CompletedTask);
-            await Task.Delay(PrintingDelay);
+            await Task.Delay(FieldOfInterestDelay).ConfigureAwait(false);
+            if (onFieldOfInterest is not null)
+            {
+                await onFieldOfInterest.Invoke().ConfigureAwait(false);
+            }
+
+            await Task.Delay(PrintingDelay).ConfigureAwait(false);
             return true;
         }
 
@@ -389,21 +425,21 @@
         }
 
         /// <summary>Executes the <see cref="Enabled" /> action.</summary>
-        protected void OnEnabled(EventArgs e)
+        protected void OnEnabled()
         {
-            Enabled?.Invoke(this, e);
+            Enabled?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>Executes the <see cref="Disable" /> action.</summary>
-        protected void OnDisable(EventArgs e)
+        protected void OnDisable()
         {
-            Disabled?.Invoke(this, e);
+            Disabled?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>Executes the <see cref="Connected" /> action.</summary>
-        protected void OnConnected(FieldOfInterestEventArgs e)
+        protected void OnConnected()
         {
-            Connected?.Invoke(this, e);
+            Connected?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>Executes the <see cref="Disconnected" /> action.</summary>
