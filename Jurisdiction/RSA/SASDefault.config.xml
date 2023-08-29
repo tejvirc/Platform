@@ -10,13 +10,13 @@ as follows:
     the corresponding class definition in csharp (SASDefaultConfiguration.cs).
 -->
 <SASDefaultConfiguration>
-    <SASHostPage>
-		<!--
+  <SASHostPage>
+    <!--
 		TransferLimit :
 			Default (Optional): The default max transfer limit (in cents).
 			MaxAllowed (Optional): The max transfer limit allowed as per jurisdiction (in cents).
 		-->
-		<TransferLimit Default="10000" />
-		<EGMDisabledOnHostOffline Enabled="true" Configurable="true"/>
-	</SASHostPage>  
+    <TransferLimit Default="10000" />
+    <EGMDisabledOnHostOffline Enabled="true" Configurable="true"/>
+  </SASHostPage>
 </SASDefaultConfiguration>

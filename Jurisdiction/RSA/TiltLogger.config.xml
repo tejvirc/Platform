@@ -134,9 +134,9 @@ as follows:
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.Drm.SoftwareProtectionModuleDisconnectedEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.Drm.SoftwareProtectionModuleErrorEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
     <EventDescription Name="Aristocrat.Monaco.Application.Contracts.Drm.LicenseErrorEvent, Monaco.Application.Contracts" Level="error" Type="Error" />
-	<EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DocumentRejectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
-	<EventDescription Name="Aristocrat.Monaco.Bingo.Common.Events.HostDisconnectedEvent, Aristocrat.Monaco.Bingo.Common" Level="error" Type="Comms" />
-	<EventDescription Name="Aristocrat.Monaco.Bingo.Common.Events.HostConnectedEvent, Aristocrat.Monaco.Bingo.Common" Level="error" Type="Comms" />
+    <EventDescription Name="Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor.DocumentRejectedEvent, Aristocrat.Monaco.Hardware.Contracts" Level="error" Type="Error" />
+    <EventDescription Name="Aristocrat.Monaco.Bingo.Common.Events.HostDisconnectedEvent, Aristocrat.Monaco.Bingo.Common" Level="error" Type="Comms" />
+    <EventDescription Name="Aristocrat.Monaco.Bingo.Common.Events.HostConnectedEvent, Aristocrat.Monaco.Bingo.Common" Level="error" Type="Comms" />
     <EventDescription Name="Aristocrat.Monaco.Bingo.Common.Events.RegistrationFailedEvent, Aristocrat.Monaco.Bingo.Common" Level="error" Type="Comms" />
     <EventDescription Name="Aristocrat.Monaco.Bingo.Common.Events.InvalidConfigurationReceivedEvent, Aristocrat.Monaco.Bingo.Common" Level="error" Type="Comms" />
     <EventDescription Name="Aristocrat.Monaco.Bingo.Common.Events.ConfigurationMismatchReceivedEvent, Aristocrat.Monaco.Bingo.Common" Level="error" Type="Comms" />

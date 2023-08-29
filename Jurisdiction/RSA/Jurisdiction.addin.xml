@@ -103,9 +103,9 @@
       <ExtensionPointConfiguration extensionPath="/Currency/Configuration">
         <NodeSpecification addinId="Client12Addins.RSAJurisdiction" filterid="RSACurrencyConfig" />
       </ExtensionPointConfiguration>
-	  <ExtensionPointConfiguration extensionPath="/RSA/Certificate/Configuration">
+      <ExtensionPointConfiguration extensionPath="/RSA/Certificate/Configuration">
         <NodeSpecification addinId="Client12Addins.RSAJurisdiction" filterid="RSACertificateConfig" />
-	  </ExtensionPointConfiguration>
+      </ExtensionPointConfiguration>
     </SelectableJurisdiction>
   </Extension>
   <Extension path="/Currency/Configuration">

@@ -54,14 +54,14 @@ as follows:
   <BellConfiguration InitialValue="1000000" IntervalValue="1000000" MaxBellValue="10000000000" />
   <StackerRemoveBehavior AutoClearPeriodMeters="false" />
   <AutoClearPeriodMetersBehavior>
-	<AutoClearPeriodMeters>false</AutoClearPeriodMeters>
-	<ClearClearPeriodOffsetHours>0</ClearClearPeriodOffsetHours>
+    <AutoClearPeriodMeters>false</AutoClearPeriodMeters>
+    <ClearClearPeriodOffsetHours>0</ClearClearPeriodOffsetHours>
   </AutoClearPeriodMetersBehavior>
   <SoundConfiguration>
     <DefaultVolumeLevel>2</DefaultVolumeLevel>
   </SoundConfiguration>
   <ReadOnlyMedia Required="true" />
-<!--
+  <!--
     ExcessiveDocumentReject Settings: Applicable to bills/vouchers rejection
     LockupType:
         "Soft"/"Hard" - Defaults to "Soft", if not defined.

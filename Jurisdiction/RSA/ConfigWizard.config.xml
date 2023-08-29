@@ -10,35 +10,35 @@ as follows:
     the corresponding class definition in csharp (ConfigWizardConfiguration.cs).
 -->
 <ConfigWizardConfiguration>
-    <MachineSetupConfig Visibility="Visible">
-        <EnterOutOfServiceWithCredits Enabled="true"/>
-    </MachineSetupConfig>
-    <IOConfigPage>
-        <UseSelection Enabled="false"/>
-    </IOConfigPage>
-	<IdentityPage>
-        <PrintIdentity Visibility="Hidden"/>
-        <Zone ReadOnly="Always" Visible="MenuOnly"/>
-        <Bank ReadOnly="Always" Visible="MenuOnly"/>
-        <Position ReadOnly="Always" Visible="MenuOnly"/>
-    </IdentityPage>
-    <CompletionPage ShowGameSetupMessage="true"/>
-    <HardMetersConfig Configurable="true" Enable="false" TickValueConfigurable="true" />
-    <DoorOptics Visible="true" Configurable="true" Enabled="true"/>
-	<Bell Visible="true" Configurable="true" Enabled="true" CanReconfigure="true" />
-	<HardwarePage RequirePrinter="false"/>
-    <ProtocolConfiguration>
-        <ProtocolsAllowed>
-          <Protocol Name="Bingo" IsMandatory="true"/>
-          <Protocol Name="G2S"/>
-          <Protocol Name="SAS"/>
-          <Protocol Name="Test"/>
-        </ProtocolsAllowed>
-        <ExclusiveProtocols>
-            <ExclusiveProtocol Name="SAS" Function="Validation" />
-        </ExclusiveProtocols>
-		<RequiredFunctionality>
-            <FunctionalityType Type="CentralDeterminationSystem"/>
-        </RequiredFunctionality>
-    </ProtocolConfiguration>
+  <MachineSetupConfig Visibility="Visible">
+    <EnterOutOfServiceWithCredits Enabled="true"/>
+  </MachineSetupConfig>
+  <IOConfigPage>
+    <UseSelection Enabled="false"/>
+  </IOConfigPage>
+  <IdentityPage>
+    <PrintIdentity Visibility="Hidden"/>
+    <Zone ReadOnly="Always" Visible="MenuOnly"/>
+    <Bank ReadOnly="Always" Visible="MenuOnly"/>
+    <Position ReadOnly="Always" Visible="MenuOnly"/>
+  </IdentityPage>
+  <CompletionPage ShowGameSetupMessage="true"/>
+  <HardMetersConfig Configurable="true" Enable="false" TickValueConfigurable="true" />
+  <DoorOptics Visible="true" Configurable="true" Enabled="true"/>
+  <Bell Visible="true" Configurable="true" Enabled="true" CanReconfigure="true" />
+  <HardwarePage RequirePrinter="false"/>
+  <ProtocolConfiguration>
+    <ProtocolsAllowed>
+      <Protocol Name="Bingo" IsMandatory="true"/>
+      <Protocol Name="G2S"/>
+      <Protocol Name="SAS"/>
+      <Protocol Name="Test"/>
+    </ProtocolsAllowed>
+    <ExclusiveProtocols>
+      <ExclusiveProtocol Name="SAS" Function="Validation" />
+    </ExclusiveProtocols>
+    <RequiredFunctionality>
+      <FunctionalityType Type="CentralDeterminationSystem"/>
+    </RequiredFunctionality>
+  </ProtocolConfiguration>
 </ConfigWizardConfiguration>
