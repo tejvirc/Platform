@@ -1,12 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Runtime
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.IO;
     using System.Linq;
     using System.Reflection;
+    using System.Threading;
     using Client;
     using Contracts;
     using Contracts.Process;
@@ -26,6 +25,8 @@
         private bool _notifyProcessExited;
 
         private bool _expectProcessExit;
+        private short _waitCounter = 0;
+        private const short _iterationsToWait = 10;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameProcessManager" /> class.
@@ -46,6 +47,15 @@
             {
                 throw new ArgumentNullException(nameof(processInfo));
             }
+
+            // If the last Process has not exited yet, wait for 1 second or until process has exited to continue.
+            while (_expectProcessExit && _waitCounter < _iterationsToWait)
+            {
+                Thread.Sleep(100);
+                _waitCounter++;
+            }
+
+            _waitCounter = 0;
 
             var process = Process.Start(processInfo);
 
