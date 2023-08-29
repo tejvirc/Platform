@@ -73,9 +73,16 @@
                         <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition5_C9E363F3"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.RowSpan="4" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AutomationId="StackPanel1_C9E363F3">
-                        <Border  HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" MaxHeight="35" AutomationProperties.AutomationId="Border1_C9E363F3">
-                            <StackPanel Margin="60,-5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" AutomationProperties.AutomationId="StackPanel2_C9E363F3">
-                                <controls:TextPath  x:Name="OpacityImage" Width="180" Margin="60,-10,60,0"
+                        <Border Margin="0,-16,0,13" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" Height="46" AutomationProperties.AutomationId="Border1_C9E363F3">
+                            <Grid AutomationProperties.AutomationId="Grid3_C9E363F3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition1_C9E363F3"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" AutomationProperties.AutomationId="ColumnDefinition1_C9E363F3"/>
+                                    <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition2_C9E363F3"/>
+                                </Grid.ColumnDefinitions>
+                                <controls:TextPath  x:Name="OpacityImage" Grid.Row="0" Grid.Column="0" Margin="-5,0,0,0"
                                            FontSize="46" FontFamily="{StaticResource CountdownFont}"
                                            Fill="Gold" FontWeight="ExtraBold" StrokeThickness="4"
                                            Text="{Binding TimeLeft,  StringFormat=ss, UpdateSourceTrigger=PropertyChanged, NotifyOnTargetUpdated=True}">
@@ -85,7 +92,7 @@
                                         </EventTrigger>
                                     </controls:TextPath.Triggers>
                                 </controls:TextPath>
-                                <controls:TextPath  x:Name="OpaImage" Width="34" Margin="8,-17,0,0"  
+                                <controls:TextPath  x:Name="OpaImage" Grid.Row="0" Grid.Column="1" Margin="16,29,0,0"
                                            FontSize="18" FontFamily="Arial" FontWeight="ExtraBold" 
                                            Fill="Gold" Stroke="Black" StrokeThickness="0.3"
                                            Text="{lex:Loc {x:Static loc:ResourceKeys.Secs}}">
@@ -95,7 +102,7 @@
                                         </EventTrigger>
                                     </controls:TextPath.Triggers>
                                 </controls:TextPath>
-                            </StackPanel>
+                            </Grid>
                         </Border>
                         <controls:TextPath Margin="50,25,0,12" HorizontalAlignment="Center" VerticalAlignment="Center"
                                FontSize="20" FontFamily="Arial" FontWeight="ExtraBold" 
