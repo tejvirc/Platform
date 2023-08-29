@@ -951,6 +951,8 @@
                 }
             }
 
+            _disableProvider.Enable(G2SDisableStates.ProgressiveLevelsMismatch);
+
             return true;
         }
     }
