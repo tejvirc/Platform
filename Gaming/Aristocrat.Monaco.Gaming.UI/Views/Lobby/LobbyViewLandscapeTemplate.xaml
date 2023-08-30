@@ -241,7 +241,9 @@
 
                     <!-- **** Responsible Gaming Info Button **** -->
                     <Button Grid.Row="0"
-                            Grid.Column="2"
+                            Grid.RowSpan="2"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Top"
                             Margin="0 40 40 0"

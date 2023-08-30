@@ -57,7 +57,7 @@
 
             LoadAllTimeoutBehaviors();
 
-            foreach(var item in _entityHelper.PendingRequests)
+            foreach (var item in _entityHelper.PendingRequests)
             {
                 _requestsPending[item.Key] = item.Value;
             }
@@ -70,10 +70,10 @@
             });
             _eventBus.Subscribe<DownEvent>(this, _ => ClearFailedRequests(), evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
             _eventBus.Subscribe<UnexpectedOrNoResponseEvent>(this, _ =>
-                {
-                    ProtoLog.Debug("Got unexpected response. Release game play request");
-                    ReleasePlayAllowed();
-                });
+            {
+                ProtoLog.Debug("Got unexpected response. Release game play request");
+                ReleasePlayAllowed();
+            });
             _disposables.Add(
                 _centralManager.RequestObservable.Subscribe(
                     OnRequestSent,
@@ -312,11 +312,11 @@
             {
                 _playAllowed.Release();
             }
-            catch(SemaphoreFullException ex)
+            catch (SemaphoreFullException ex)
             {
                 ProtoLog.Debug("Semaphore max count exceeded", ex);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ProtoLog.Debug("Exception : ", ex);
             }

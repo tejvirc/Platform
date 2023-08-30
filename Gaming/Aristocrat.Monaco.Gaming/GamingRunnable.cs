@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming
+namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Globalization;
@@ -23,6 +23,7 @@
     using Contracts.Payment;
     using Contracts.Progressives;
     using Contracts.Progressives.SharedSap;
+    using Contracts.Rtp;
     using Contracts.Session;
     using GameSpecificOptions;
     using Hardware.Contracts;
@@ -160,6 +161,7 @@
         {
             LoadPropertyProviders();
             LoadRuntime();
+            LoadRtpService();
             LoadGames();
 
             AddServices();
@@ -213,6 +215,25 @@
             provider?.Initialize();
             ServiceManager.GetInstance().AddService(provider);
             manager.AddPropertyProvider(provider as IPropertyProvider);
+        }
+
+        private void LoadRtpService()
+        {
+            if (_container.GetInstance<IRtpService>() is IService rtpService)
+            {
+                rtpService.Initialize();
+                ServiceManager.GetInstance().AddService(rtpService);
+            }
+        }
+
+        private void LoadMeterProviders()
+        {
+            var meterManager = ServiceManager.GetInstance().GetService<IMeterManager>();
+
+            foreach (var provider in _container.GetAllInstances<IMeterProvider>())
+            {
+                meterManager.AddProvider(provider);
+            }
         }
 
         private void AddServices()
@@ -318,6 +339,7 @@
             serviceManager.RemoveService(_container.GetInstance<IPaymentDeterminationProvider>());
             serviceManager.RemoveService(_container.GetInstance<IGameStartConditionProvider>());
             serviceManager.RemoveService(_container.GetInstance<IOutcomeValidatorProvider>());
+            serviceManager.RemoveService(_container.GetInstance<IRtpService>() as IService);
             serviceManager.RemoveService(_container.GetInstance<IHandCountResetService>());
             serviceManager.RemoveService(_container.GetInstance<IGameSpecificOptionProvider>() as IService);
         }

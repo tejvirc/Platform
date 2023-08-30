@@ -37,7 +37,7 @@
             {
                 return;
             }
-
+            
             _eventLift.Report(device, EventCode.G2S_CBE316, theEvent);
         }
     }

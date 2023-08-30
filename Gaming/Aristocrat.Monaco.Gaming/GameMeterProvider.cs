@@ -10,6 +10,7 @@
     using Application.Contracts.Metering;
     using Contracts;
     using Contracts.Meters;
+    using Contracts.Rtp;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using log4net;
@@ -608,7 +609,7 @@
                                     x.denom,
                                     x.wagerCategory,
                                     GamingMeters.WagerCategoryWageredAmount).GetValue(timeFrame) *
-                                x.theoPaybackPercent.ToDecimal())),
+                                x.theoPaybackPercent.ToFraction())),
                     gameInfo.Select(
                         x => _gamingMeterManager.GetMeterName(
                             x.gameId,

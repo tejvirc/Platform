@@ -1,19 +1,20 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI
+namespace Aristocrat.Monaco.Gaming.UI
 {
     using Accounting.Contracts;
     using Accounting.Contracts.HandCount;
     using Application.Contracts.Extensions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Cabinet.Contracts;
     using Contracts;
     using Contracts.HandCount;
     using Kernel;
     using log4net;
-    using MVVM;
     using System;
     using System.Collections.Generic;
     using System.Reflection;
     using ViewModels;
     using Views.Overlay;
+    using System.Windows;
 
     public class HandCountOverlayService : IHandCountOverlayService, IService, IDisposable
     {
@@ -39,7 +40,7 @@
             get
             {
                 return _buttonDeckFilter ??= ServiceManager.GetInstance()
-                    .GetService<IContainerService>().Container.GetInstance<IButtonDeckFilter>();
+                    .TryGetService<IContainerService>()?.Container.GetInstance<IButtonDeckFilter>();
             }
         }
 
@@ -65,7 +66,7 @@
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _timerDialogViewModel = new HandCountTimerDialogViewModel();
@@ -98,7 +99,7 @@
 
             if (disposing)
             {
-                _timerDialogViewModel.Dispose();
+                _timerDialogViewModel?.Dispose();
                 _eventBus.UnsubscribeAll(this);
             }
 
@@ -107,18 +108,44 @@
 
         private void Handle(CashoutAuthorizationCancelledEvent evt)
         {
+            if (ButtonDeckFilter is not null)
+            {
+                ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Normal;
+            }
+
             _eventBus.Publish(new ViewInjectionEvent(_cashoutDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
+            _cashoutDialogViewModel.HandCountAmount = 0;
         }
 
         private void Handle(CashoutAmountAuthorizationReceivedEvent evt)
         {
+            if (ButtonDeckFilter is not null)
+            {
+                ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Normal;
+            }
+
             _eventBus.Publish(new ViewInjectionEvent(_cashoutDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
+            _cashoutDialogViewModel.HandCountAmount = 0;
         }
 
         private void Handle(CashoutAmountAuthorizationRequestedEvent evt)
         {
-            _cashoutDialogViewModel.HandCountAmount = (long)(_handCountService.HandCount * _cashOutAmountPerHand).MillicentsToDollars();
-            _eventBus.Publish(new ViewInjectionEvent(_cashoutDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));
+            Execute.OnUIThread(
+               () =>
+               {
+                   //Cashout dialog visibility is set to Hidden and then to Visible once the dialog is added to the main view
+                   //as there is a delay in rendering the handcount amount value in the dialog
+                   //Please refer to https://jerry.aristocrat.com/browse/TXM-13436
+                   _cashoutDialog.Visibility = Visibility.Hidden;
+                   _cashoutDialogViewModel.HandCountAmount = (long)(_handCountService.HandCount * _cashOutAmountPerHand).MillicentsToDollars();
+                   if (ButtonDeckFilter is not null)
+                   {
+                       ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Lockup;
+                   }
+
+                   _eventBus.Publish(new ViewInjectionEvent(_cashoutDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Add));
+                   _cashoutDialog.Visibility = Visibility.Visible;
+               });
         }
 
         private void Handle(HandCountResetTimerCancelledEvent obj)
@@ -138,6 +165,7 @@
             ButtonDeckFilter.FilterMode = ButtonDeckFilterMode.Normal;
 
             _eventBus.Publish(new ViewInjectionEvent(_timerDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
+            _cashoutDialogViewModel.HandCountAmount = 0;
         }
 
         private void HandCountResetTimerCancelled()
@@ -147,6 +175,7 @@
 
             _timerDialogViewModel.OnHandCountTimerCancelled();
             _eventBus.Publish(new ViewInjectionEvent(_timerDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
+            _cashoutDialogViewModel.HandCountAmount = 0;
         }
 
         private void HandCountResetTimerStarted()

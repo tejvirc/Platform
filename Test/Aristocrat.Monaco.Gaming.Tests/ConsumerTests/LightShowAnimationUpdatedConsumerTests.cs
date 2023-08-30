@@ -49,7 +49,7 @@
         [DataRow(AnimationState.Prepared, GDKAnimationState.AnimationsPrepared)]
         public void ConsumeLightShowAnimationUpdatedEvent(AnimationState givenState, GDKAnimationState expectedState)
         {
-            var animationUpdatedEvent = new LightShowAnimationUpdatedEvent("animation", "all", givenState);
+            var animationUpdatedEvent = new LightAnimationUpdatedEvent("animation", "all", givenState);
             _reelService.Setup(s => s.Connected).Returns(true);
 
             _target.Consume(animationUpdatedEvent);
@@ -61,18 +61,18 @@
                 State = expectedState
             };
 
-            _reelService.Verify(s => s.AnimationUpdated(notification), Times.Once);
+            _reelService.Verify(s => s.NotifyAnimationUpdated(notification), Times.Once);
         }
 
         [TestMethod]
         public void ConsumeNotConnected()
         {
-            var animationUpdatedEvent = new LightShowAnimationUpdatedEvent("animation", "all", AnimationState.Started);
+            var animationUpdatedEvent = new LightAnimationUpdatedEvent("animation", "all", AnimationState.Started);
             _reelService.Setup(s => s.Connected).Returns(false);
 
             _target.Consume(animationUpdatedEvent);
 
-            _reelService.Verify(s => s.AnimationUpdated(It.IsAny<AnimationUpdatedNotification>()), Times.Never);
+            _reelService.Verify(s => s.NotifyAnimationUpdated(It.IsAny<AnimationUpdatedNotification>()), Times.Never);
         }
     }
 }

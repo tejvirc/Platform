@@ -44,6 +44,7 @@
                 container.RegisterSingleton<IProgressiveAuthorizationProvider, ProgressiveAuthorizationProvider>();
                 container.RegisterSingleton<ProgressiveClientAuthorizationInterceptor>();
                 container.RegisterSingleton<IProgressiveRegistrationService, ProgressiveRegistrationService>();
+                container.RegisterSingleton<IProgressiveContributionService, ProgressiveContributionService>();
                 container.RegisterSingleton<IProgressiveClaimService, ProgressiveClaimService>();
                 container.RegisterSingleton<IProgressiveAwardService, ProgressiveAwardService>();
                 var progressiveCommand = Lifestyle.Singleton.CreateRegistration<ProgressiveCommandService>(container);

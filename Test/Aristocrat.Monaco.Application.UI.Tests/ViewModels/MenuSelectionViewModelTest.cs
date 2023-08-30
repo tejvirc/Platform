@@ -6,6 +6,8 @@
     using System.Globalization;
     using System.IO;
     using System.Windows;
+    using Aristocrat.Monaco.Hardware.Contracts.Cabinet;
+    using Aristocrat.Monaco.Hardware.Services;
     using Contracts;
     using Contracts.Input;
     using Contracts.Localization;
@@ -51,6 +53,8 @@
         private Mock<IOperatorMenuGamePlayMonitor> _gamePlayMonitor;
         private Mock<ISerialTouchService> _serialTouchService;
         private Mock<ITouchCalibration> _touchCalibration;
+        private Mock<ISystemDisableManager> _systemDisableManager;
+        private Mock<ICabinetDetectionService> _cabinetDetectionService;
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -132,6 +136,10 @@
                 .Verifiable();
             _eventBus.Setup(m => m.Subscribe(It.IsAny<MenuSelectionViewModel>(), It.IsAny<Action<OperatorCultureChangedEvent>>()))
                 .Verifiable();
+            _eventBus.Setup(m => m.Subscribe(It.IsAny<MenuSelectionViewModel>(), It.IsAny<Action<SystemDisableAddedEvent>>()))
+                .Verifiable();
+            _eventBus.Setup(m => m.Subscribe(It.IsAny<MenuSelectionViewModel>(), It.IsAny<Action<SystemDisableRemovedEvent>>()))
+                .Verifiable();
 
             _printerService = new Mock<IDeviceService>(MockBehavior.Strict);
             _printerService.Setup(m => m.LastError).Returns(string.Empty);
@@ -168,6 +176,8 @@
             _serialTouchService = MoqServiceManager.CreateAndAddService<ISerialTouchService>(MockBehavior.Strict);
             _touchCalibration = MoqServiceManager.CreateAndAddService<ITouchCalibration>(MockBehavior.Strict);
             _touchCalibration.Setup(m => m.IsCalibrating).Returns(false);
+            _systemDisableManager = MoqServiceManager.CreateAndAddService<ISystemDisableManager>(MockBehavior.Strict);
+            _cabinetDetectionService = MoqServiceManager.CreateAndAddService<ICabinetDetectionService>(MockBehavior.Strict);
 
             _meterManager = MoqServiceManager.CreateAndAddService<IMeterManager>(MockBehavior.Strict);
 

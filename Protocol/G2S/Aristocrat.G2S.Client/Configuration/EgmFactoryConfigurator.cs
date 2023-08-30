@@ -81,7 +81,7 @@
                 idProvider,
                 messageConsumer);
 
-            return new G2SEgm(egm.Id, hostConnector, deviceConnector, handlerConnector, receiver);
+            return new G2SEgm(egm.Id, hostConnector, deviceConnector, handlerConnector, receiver, messageConsumer);
         }
 
         /// <inheritdoc />

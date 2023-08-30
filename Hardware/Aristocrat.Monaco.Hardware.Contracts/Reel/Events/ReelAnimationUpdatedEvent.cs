@@ -2,6 +2,7 @@
 {
     using System;
     using Kernel;
+    using static System.FormattableString;
 
     /// <summary>
     ///     The event for when a reel animation's status is updated
@@ -12,29 +13,52 @@
         /// <summary>
         /// Creates a new instance of <see cref="ReelAnimationUpdatedEvent">
         /// </summary>
+        /// <param name="reelId">The reel id</param>
         /// <param name="animationName">the animation identifier</param>
-        /// <param name="reelIndex">what reel this event is for</param>
         /// <param name="state">what state the animation is in</param>
-        public ReelAnimationUpdatedEvent(string animationName, uint reelIndex, AnimationState state)
+        public ReelAnimationUpdatedEvent(int reelId, string animationName, AnimationState state)
         {
+            ReelId = reelId;
             AnimationName = animationName;
-            ReelIndex = reelIndex;
             State = state;
         }
 
         /// <summary>
-        ///     the animation identifier
+        ///     Creates a new instance of <see cref="ReelAnimationUpdatedEvent"/>
+        /// </summary>
+        /// <param name="animationName">the animation identifier</param>
+        /// <param name="preparedStatus">The prepared status</param>
+        public ReelAnimationUpdatedEvent(string animationName, AnimationPreparedStatus preparedStatus)
+        {
+            AnimationName = animationName;
+            PreparedStatus = preparedStatus;
+            State = AnimationState.Prepared;
+        }
+
+        /// <summary>
+        ///     Gets the reel id
+        /// </summary>
+        public int ReelId { get; }
+
+        /// <summary>
+        ///     Gets the animation name
         /// </summary>
         public string AnimationName { get; }
 
         /// <summary>
-        ///     what reel this event is for
-        /// </summary>
-        public uint ReelIndex { get; }
-
-        /// <summary>
-        ///     what state the animation is in
+        ///     Gets the animation state
         /// </summary>
         public AnimationState State { get; }
+
+        /// <summary>
+        ///     Gets the animation prepared status
+        /// </summary>
+        public AnimationPreparedStatus PreparedStatus { get; }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return Invariant($"{base.ToString()} [ReelId={ReelId}] [AnimationName={AnimationName}] [State={State}] [PreparedStatus={PreparedStatus}]");
+        }
     }
 }

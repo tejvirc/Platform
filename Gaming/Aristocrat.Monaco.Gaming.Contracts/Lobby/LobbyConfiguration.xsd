@@ -37,7 +37,6 @@
       <xs:element minOccurs="0" maxOccurs="1" name="DisplayInformationMessages" type="xs:boolean" default="false" />
       <xs:element minOccurs="0" maxOccurs="1" name="HideIdleTextOnCashIn" type="xs:boolean" default="true" />
       <xs:element minOccurs="0" maxOccurs="1" name="VbdDisplayServiceButton" type="xs:boolean" default="false" />
-      <xs:element minOccurs="0" maxOccurs="1" name="DisplayVoucherNotification" type="xs:boolean" default="false" />
       <xs:element minOccurs="0" maxOccurs="1" name="ResponsibleGamingMode" type="ResponsibleGamingMode" default="Segmented" />
       <xs:element minOccurs="1" maxOccurs="1" name="ClockMode" type="ClockMode" default="Locale" />
       <xs:element minOccurs="0" maxOccurs="1" name="DisplaySessionTimeInClock" type="xs:boolean" default="false" />

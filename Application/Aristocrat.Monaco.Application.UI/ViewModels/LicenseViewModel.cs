@@ -7,6 +7,7 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts.Drm;
     using Contracts.Localization;
     using Kernel;
@@ -23,7 +24,7 @@
 
         public LicenseViewModel()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 return;
             }
@@ -81,9 +82,19 @@
             }
         }
 
+        protected override void OnLoaded()
+        {
+            OnPropertyChanged(
+                nameof(Id),
+                nameof(LicenseConfiguration),
+                nameof(TimeRemaining),
+                nameof(JurisdictionId),
+                nameof(EnabledGamesLimit));
+        }
+
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            RaisePropertyChanged(
+            OnPropertyChanged(
                 nameof(Id),
                 nameof(LicenseConfiguration),
                 nameof(TimeRemaining),

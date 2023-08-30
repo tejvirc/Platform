@@ -5,6 +5,7 @@
     using System.Linq;
     using Application.UI.OperatorMenu;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Gaming.Contracts.Rtp;
     using Contracts;
     using Contracts.Meters;
     using Kernel;
@@ -28,13 +29,14 @@
         private void LoadCategories(bool showLifetime)
         {
             var meterManager = ServiceManager.GetInstance().GetService<IGameMeterManager>();
+            var rtpService = ServiceManager.GetInstance().GetService<IRtpService>();
 
             Categories = new ObservableCollection<Category>(
                 _selectedGame.WagerCategories.Select(
                     w => new Category
                     {
                         WagerCategoryId = w.Id,
-                        Rtp = w.TheoPaybackPercent,
+                        Rtp = rtpService.GetRtpBreakdownForWagerCategory(_selectedGame, w.Id).TotalRtp.Minimum,
                         WageredMillicents = showLifetime
                             ? meterManager.GetMeter(
                                 _selectedGame.Id,
@@ -56,7 +58,7 @@
                     }
                 ));
 
-            RaisePropertyChanged(nameof(Categories));
+            OnPropertyChanged(nameof(Categories));
             var totalAmountIn = Categories.Sum(d => d.WageredMillicents);
             if (totalAmountIn > 0)
             {
@@ -67,7 +69,7 @@
             {
                 TheoPayback = 0;
             }
-            RaisePropertyChanged(nameof(TheoPayback));
+            OnPropertyChanged(nameof(TheoPayback));
         }
     }
 

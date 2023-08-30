@@ -1598,7 +1598,6 @@
         private class RecoveryCompletePlaceHolder
         {
         }
-    }
 
     public class DisplayableMessageComparer : IEqualityComparer<DisplayableMessage>
     {

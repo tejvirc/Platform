@@ -42,6 +42,9 @@
     <Compile Update="Storage\Model\BingoDaubsModelConfiguration.cs">
       <DependentUpon>BingoDaubsModel.cs</DependentUpon>
     </Compile>
+    <Compile Update="Storage\Model\PendingJackpotAwardConfiguration.cs">
+      <DependentUpon>PendingJackpotAward.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming.Contracts\Aristocrat.Monaco.Gaming.Contracts.csproj" />

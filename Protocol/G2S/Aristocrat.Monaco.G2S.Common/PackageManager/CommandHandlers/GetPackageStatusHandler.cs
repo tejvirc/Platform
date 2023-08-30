@@ -6,7 +6,7 @@
     using Monaco.Common.CommandHandlers;
     using Monaco.Common.Exceptions;
     using Monaco.Common.Storage;
-    using Data.Model;
+    using G2S.Data.Model;
     using Localization.Properties;
     using Storage;
 

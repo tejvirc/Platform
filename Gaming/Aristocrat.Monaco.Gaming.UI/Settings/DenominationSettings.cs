@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Settings
 {
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Denomination settings.
     /// </summary>
-    internal class DenominationSettings : BaseNotify
+    internal class DenominationSettings : ObservableObject
     {
         private long _id;
         private long _value;

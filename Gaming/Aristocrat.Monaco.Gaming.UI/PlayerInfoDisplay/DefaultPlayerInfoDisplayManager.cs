@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.PlayerInfoDisplay
+namespace Aristocrat.Monaco.Gaming.UI.PlayerInfoDisplay
 {
     using System;
     using System.Collections.Concurrent;
@@ -7,12 +7,12 @@
     using System.Reflection;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Contracts.Events;
     using Contracts.PlayerInfoDisplay;
     using Kernel;
     using log4net;
-    using MVVM;
     using Runtime;
     using Runtime.Client;
 
@@ -91,14 +91,14 @@
         {
             Logger.Debug($"PID screen {page.PageType} is showing");
             page.ButtonClicked += PlayerInfoDisplayViewModelOnButtonClicked;
-            MvvmHelper.ExecuteOnUI(page.Show);
+            Execute.OnUIThread(page.Show);
         }
 
         private void HidePage(IPlayerInfoDisplayViewModel page)
         {
             Logger.Debug($"PID screen {page.PageType} is hiding");
             page.ButtonClicked -= PlayerInfoDisplayViewModelOnButtonClicked;
-            MvvmHelper.ExecuteOnUI(page.Hide);
+            Execute.OnUIThread(page.Hide);
         }
 
         private void PlayerInfoDisplayViewModelOnButtonClicked(object sender, CommandArgs e)
@@ -217,7 +217,7 @@
         private void HandleEvent(GameSelectedEvent @event)
         {
             var model = _gameResourcesModelProvider.Find(@event.GameId);
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
                 {
                     foreach (var p in _pages.Values)
                     {

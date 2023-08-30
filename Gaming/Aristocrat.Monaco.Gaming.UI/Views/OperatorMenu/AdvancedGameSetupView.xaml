@@ -376,6 +376,7 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTextColumn Header="{lex:Loc MaxBet}" 
+                                            loc:Localizer.For="Operator"
                                             HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmall}"
                                             Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.MaxBetIsVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                             MaxWidth="120"

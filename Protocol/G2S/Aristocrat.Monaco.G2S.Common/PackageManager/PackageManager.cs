@@ -8,8 +8,8 @@
     using System.Threading;
     using System.Xml.Serialization;
     using Application.Contracts.Authentication;
-    using Data.Model;
-    using Data.Packages;
+    using G2S.Data.Model;
+    using G2S.Data.Packages;
     using CommandHandlers;
     using Kernel;
     using Kernel.Contracts.Components;

@@ -16,8 +16,8 @@
     using Contracts.Reel.ImplementationCapabilities;
     using Contracts.SharedDevice;
     using log4net;
-    using ReelStatus = Contracts.Reel.ReelStatus;
     using MonacoLightStatus = Contracts.Reel.LightStatus;
+    using ReelStatus = Contracts.Reel.ReelStatus;
 
     /// <summary>
     ///     The Relm Reel Controller control class
@@ -80,6 +80,10 @@
         public event EventHandler<EventArgs> ResetFailed;
 
         /// <inheritdoc />
+        public event EventHandler HardwareInitialized;
+#pragma warning restore 67
+
+        /// <inheritdoc />
         public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultOccurred;
 
         /// <inheritdoc />
@@ -92,13 +96,13 @@
         public event EventHandler<ReelFaultedEventArgs> FaultCleared;
 
         /// <inheritdoc />
-        public event EventHandler<ReelEventArgs> ReelStopping;
+        public event EventHandler<ReelStoppingEventArgs> ReelStopping;
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelStopped;
 
         /// <inheritdoc />
-        public event EventHandler<ReelEventArgs> ReelSpinning;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinning;
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelSlowSpinning;
@@ -106,10 +110,6 @@
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelDisconnected;
 
-
-        /// <inheritdoc />
-        public event EventHandler HardwareInitialized;
-#pragma warning restore 67
 
         /// <inheritdoc />
         public int VendorId => _communicator?.VendorId ?? 0;
@@ -143,6 +143,7 @@
             }
         }
 
+        // TODO: Wire this up
         /// <inheritdoc />
         public bool IsEnabled { get; }
 
@@ -161,6 +162,9 @@
 
         /// <inheritdoc />
         public IReadOnlyDictionary<int, ReelStatus> ReelStatuses => _reelStatuses;
+
+        /// <inheritdoc />
+        public int DefaultHomeStep => _communicator?.DefaultHomeStep ?? 0;
 
         /// <inheritdoc />
         public void Dispose()
@@ -190,11 +194,12 @@
                     _supportedCapabilities.Add(typeof(IAnimationImplementation), new RelmAnimation(_communicator));
                     _supportedCapabilities.Add(typeof(IReelBrightnessImplementation), new RelmBrightness(_communicator));
                     _supportedCapabilities.Add(typeof(ISynchronizationImplementation), new RelmSynchronization(_communicator));
+                    _supportedCapabilities.Add(typeof(IStepperRuleImplementation), new RelmStepperRule(_communicator));
                     await LoadPlatformSampleShowsAndCurves();
 
                     IsInitialized = true;
                 }
-                
+
                 return IsInitialized;
             }
             finally
@@ -278,12 +283,6 @@
         /// <inheritdoc />
         public void UpdateConfiguration(IDeviceConfiguration internalConfiguration)
         {
-        }
-
-        /// <inheritdoc />
-        public Task<bool> HomeReels()
-        {
-            return _communicator.HomeReels();
         }
 
         /// <inheritdoc />
@@ -414,9 +413,14 @@
 
             if (disposing)
             {
+                _supportedCapabilities[typeof(IAnimationImplementation)].Dispose();
                 _supportedCapabilities[typeof(IAnimationImplementation)] = null;
+                _supportedCapabilities[typeof(IReelBrightnessImplementation)].Dispose();
                 _supportedCapabilities[typeof(IReelBrightnessImplementation)] = null;
+                _supportedCapabilities[typeof(ISynchronizationImplementation)].Dispose();
                 _supportedCapabilities[typeof(ISynchronizationImplementation)] = null;
+                _supportedCapabilities[typeof(IStepperRuleImplementation)].Dispose();
+                _supportedCapabilities[typeof(IStepperRuleImplementation)] = null;
                 _supportedCapabilities.Clear();
 
                 UnregisterEventListeners();
@@ -440,7 +444,8 @@
             _communicator.LightStatusReceived += OnLightStatusReceived;
             _communicator.ControllerFaultOccurred += OnControllerFaultOccurred;
             _communicator.ControllerFaultCleared += OnControllerFaultCleared;
-            _communicator.ReelIdleInterruptReceived += OnReelStopped;
+            _communicator.ReelSpinningStatusReceived += OnReelSpinningStatusReceived;
+            _communicator.ReelStopping += OnReelStoppingReceived;
         }
 
         private void UnregisterEventListeners()
@@ -454,7 +459,8 @@
             _communicator.LightStatusReceived -= OnLightStatusReceived;
             _communicator.ControllerFaultOccurred -= OnControllerFaultOccurred;
             _communicator.ControllerFaultCleared -= OnControllerFaultCleared;
-            _communicator.ReelIdleInterruptReceived -= OnReelStopped;
+            _communicator.ReelSpinningStatusReceived -= OnReelSpinningStatusReceived;
+            _communicator.ReelStopping -= OnReelStoppingReceived;
         }
 
         private async Task LoadPlatformSampleShowsAndCurves()
@@ -465,19 +471,19 @@
             }
 
             var animationFiles = (from file in GetSampleAnimationFilePaths()
-                let extension = Path.GetExtension(file)
-                let type = extension == LightShowExtenstion
-                    ? AnimationType.PlatformLightShow
-                    : AnimationType.PlatformStepperCurve
-                select new AnimationFile(file, type)).ToList();
+                                  let extension = Path.GetExtension(file)
+                                  let type = extension == LightShowExtenstion
+                                      ? AnimationType.PlatformLightShow
+                                      : AnimationType.PlatformStepperCurve
+                                  select new AnimationFile(file, type)).ToList();
 
             await _communicator.RemoveAllControllerAnimations();
-            
+
             Logger.Debug($"Loading {animationFiles.Count} platform sample animations");
             if (animationFiles.Count > 0)
             {
                 Logger.Debug($"Loading {animationFiles.Select(x => x.FriendlyName)} platform sample animations");
-                await _communicator.LoadAnimationFiles(animationFiles);
+                await _communicator.LoadAnimationFiles(animationFiles, new Progress<LoadingAnimationFileModel>());
             }
         }
 
@@ -488,11 +494,29 @@
                 x.EndsWith(StepperCurveExtenstion, true, CultureInfo.InvariantCulture));
         }
 
-        private void OnReelStopped(object sender, ReelStopData stopData)
+        private void OnReelSpinningStatusReceived(object sender, ReelSpinningEventArgs evt)
         {
-            Logger.Debug($"Reel stopped [index: {stopData.ReelIndex + 1}, step:{stopData.Step}]");
-            ReelEventArgs args = new(stopData.ReelIndex + 1, stopData.Step);
-            ReelStopped.Invoke(sender, args);
+            if (evt.IdleAtStep)
+            {
+                ReelStopped?.Invoke(sender, new ReelEventArgs(evt.ReelId, evt.Step));
+                return;
+            }
+
+            if (evt.SlowSpinning)
+            {
+                ReelSlowSpinning?.Invoke(this, new ReelEventArgs(evt.ReelId));
+                return;
+            }
+
+            if(evt.SpinVelocity != SpinVelocity.None)
+            {
+                ReelSpinning?.Invoke(this, new ReelSpinningEventArgs(evt.ReelId, evt.SpinVelocity));
+            }
+        }
+
+        private void OnReelStoppingReceived(object sender, ReelStoppingEventArgs args)
+        {
+            ReelStopping?.Invoke(sender, args);
         }
 
         private void OnControllerFaultOccurred(object sender, ReelControllerFaultedEventArgs e)

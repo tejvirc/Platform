@@ -85,15 +85,18 @@
     <MeterNode Page="Denom" Name="LostCount" DisplayName="Games Lost" Order="103"  />
 
     <MeterNode Page="Progressives" Name="ProgressivePackName" DisplayName="Pack Name" Order="1" />
-	<MeterNode Page="Progressives" Name="LevelName" DisplayName="Level" Order="2" />
+    <MeterNode Page="Progressives" Name="LevelName" DisplayName="Level" Order="2" />
     <MeterNode Page="Progressives" Name="CurrentValue" DisplayName="Current Value" Order="3" />
     <MeterNode Page="Progressives" Name="Overflow" DisplayName="Overflow" Order="4" />
-    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinOccurrence" DisplayName="Hits" Order="5" />
-    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinAccumulation" DisplayName="Wins" Order="6" />
-    <MeterNode Page="Progressives" Name="Startup" DisplayName="Startup" Order="7" />
-    <MeterNode Page="Progressives" Name="Ceiling" DisplayName="Ceiling" Order="8" />
-    <MeterNode Page="Progressives" Name="Increment" DisplayName="Increment" Order="9" />
-    <MeterNode Page="Progressives" Name="HiddenIncrement" DisplayName="Hidden Increment" Order="10" />
-    <MeterNode Page="Progressives" Name="InitialValue" DisplayName="Initial Value" Order="11" />
+		<MeterNode Page="Progressives" Name="WageredAmount" DisplayName="Wagered" Order="5" />
+		<MeterNode Page="Progressives" Name="PlayedCount" DisplayName="Games Played" Order="6" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinOccurrence" DisplayName="Hits" Order="7" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.WinAccumulation" DisplayName="Wins" Order="8" />
+    <MeterNode Page="Progressives" Name="Startup" DisplayName="Startup" Order="9" />
+    <MeterNode Page="Progressives" Name="Ceiling" DisplayName="Ceiling" Order="10" />
+    <MeterNode Page="Progressives" Name="Increment" DisplayName="Increment" Order="11" />
+    <MeterNode Page="Progressives" Name="HiddenIncrement" DisplayName="Hidden Increment" Order="12" />
+    <MeterNode Page="Progressives" Name="InitialValue" DisplayName="Initial Value" Order="13" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.BulkTotal" DisplayName="Total Bulk Pool" Order="14" />
   </MeterNodes>
 </DisplayMetersConfiguration>

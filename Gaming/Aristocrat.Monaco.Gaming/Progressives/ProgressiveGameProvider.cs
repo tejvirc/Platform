@@ -192,7 +192,8 @@
             else
             {
                 ApplyWagerToActiveLevels(wager, ante);
-                ApplyMeterIncrements(wager, ante);
+                var levels = _levelProvider.GetProgressiveLevels(packName, _gameId, _denomination);
+                ApplyMeterIncrements(levels, wager, ante);
             }
 
             _levelProvider.UpdateProgressiveLevels(packName, _gameId, _denomination, _activeLevels);
@@ -222,7 +223,8 @@
                 calculator?.ApplyContribution(
                     level,
                     update,
-                    _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelHiddenTotal));
+                    _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelHiddenTotal),
+                    _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelBulkTotal));
 
                 _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelBulkContribution)
                     .Increment(update.Amount);
@@ -504,7 +506,8 @@
                         level.AssignedProgressiveId?.AssignedProgressiveKey ?? string.Empty,
                         PayMethod.Any,
                         level.HiddenValue,
-                        level.Overflow)
+                        level.Overflow,
+                        _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelBulkTotal).Lifetime)
                     { BonusId = bonusId };
 
                     level.CurrentState = ProgressiveLevelState.Hit;
@@ -535,11 +538,15 @@
             }
         }
 
-        private void ApplyMeterIncrements(long wager, long ante)
+        private void ApplyMeterIncrements(IReadOnlyCollection<ProgressiveLevel> levels, long wager, long ante)
         {
-            ApplyMeterIncrements(
-                GetUniqueLevelIDs().ToDictionary(x => x.LevelId, _ => wager),
-                ante);
+            foreach (var level in levels)
+            {
+                _meters.GetMeter(level.DeviceId, ProgressiveMeters.WageredAmount).Increment(wager);
+                _meters.GetMeter(level.DeviceId, ProgressiveMeters.PlayedCount).Increment(1);
+            }
+
+            _bus.Publish(new ProgressiveWagerCommittedEvent(levels, wager));
         }
 
         [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "This will be used when G2S progressive support is added")]
@@ -551,9 +558,6 @@
                 {
                     throw new InvalidOperationException($"Missing a wager for levelId {level.LevelId}");
                 }
-
-                _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelWageredAmount)
-                    .Increment(wager);
             }
         }
 

@@ -96,6 +96,7 @@
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<PropertyChangedEvent>>(), It.IsAny<Predicate<PropertyChangedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<ConfigurationSettingsImportedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<SystemDownEvent>>()));
+            _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<OperatorMenuPopupEvent>>()));
             _protocolProvider = MoqServiceManager.CreateAndAddService<IMultiProtocolConfigurationProvider>(MockBehavior.Default);
 
             var touchscreens = MoqServiceManager.CreateAndAddService<ICabinetDetectionService>(MockBehavior.Default);
@@ -287,6 +288,7 @@
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.EKeyVerified, false)).Returns(false);
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.EKeyDrive, null)).Returns(null);
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None)).Returns(ImportMachineSettings.None);
+            _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.ConfigWizardLocalizationCurrency, Culture.Default)).Returns(Culture.Default);
 
             // place page in _selectableConfigurationPages and update variable
             var configurationPages = new Collection<IOperatorMenuPageLoader>
@@ -314,6 +316,7 @@
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.EKeyVerified, false)).Returns(false);
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.EKeyDrive, null)).Returns(null);
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None)).Returns(ImportMachineSettings.None);
+            _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.ConfigWizardLocalizationCurrency, Culture.Default)).Returns(Culture.Default);
 
             // place page in _wizardPages and update variable
             var wizardPages = new Collection<IOperatorMenuPageLoader> { new TestLoader() };
@@ -345,6 +348,7 @@
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.EKeyVerified, false)).Returns(false);
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.EKeyDrive, null)).Returns(null);
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None)).Returns(ImportMachineSettings.None);
+            _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.ConfigWizardLocalizationCurrency, Culture.Default)).Returns(Culture.Default);
 
             // test moving between selection pages
             var configurationPages = new Collection<IOperatorMenuPageLoader>
@@ -397,6 +401,7 @@
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.JurisdictionKey, It.IsAny<object>())).Returns(string.Empty);
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.JurisdictionKey, It.IsAny<object>()));
             _propertiesManager.Setup(m => m.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, It.IsAny<bool>()));
+            _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.ConfigWizardLocalizationCurrency, Culture.Default)).Returns(Culture.Default);
 
             _target.NextButtonClicked.Execute(null);
 
@@ -416,6 +421,7 @@
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.EKeyVerified, false)).Returns(false);
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.EKeyDrive, null)).Returns(null);
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None)).Returns(ImportMachineSettings.None);
+            _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.ConfigWizardLocalizationCurrency, Culture.Default)).Returns(Culture.Default);
             _propertiesManager
                 .Setup(m => m.GetProperty(ApplicationConstants.ConfigWizardSelectionPagesDone, It.IsAny<bool>()))
                 .Returns(true);
@@ -454,6 +460,7 @@
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.EKeyVerified, false)).Returns(false);
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.EKeyDrive, null)).Returns(null);
             _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None)).Returns(ImportMachineSettings.None);
+            _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.ConfigWizardLocalizationCurrency, Culture.Default)).Returns(Culture.Default);
 
             // test that receiving the event causes the target to load wizard pages and navigate to the first one,
             // which will be the completion page
@@ -499,6 +506,7 @@
             _propertiesManager.Setup(mock => mock.SetProperty(ApplicationConstants.ConfigWizardLastPageViewedIndex, It.IsAny<int>()));
             _propertiesManager.Setup(m => m.SetProperty(ApplicationConstants.ConfigWizardSelectionPagesDone, It.IsAny<bool>()));
             _propertiesManager.Setup(m => m.SetProperty(ApplicationConstants.LegalCopyrightAcceptedKey, It.IsAny<bool>()));
+            _propertiesManager.Setup(mock => mock.GetProperty(ApplicationConstants.ConfigWizardLocalizationCurrency, Culture.Default)).Returns(Culture.Default);
 
             _eventBus.Setup(m => m.Publish(It.IsAny<ExitRequestedEvent>()));
 

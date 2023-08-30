@@ -29,14 +29,18 @@ as follows:
 				GameType:
 					"Any" = Overrides default Min/Max RTP for all game types, unless a game type sets it own Min/Max
 					"Slot", "Keno", "Poker"... = Override defaults for specific game type
-				Minimum:
+				Minimum (decimal):
 					Default is 0, unless specified
-				Maximum:
-					Default is int max, unless specified
-				IncludeLinkProgressiveIncrementRTP:
-					Default is false. If set to true, will include the link progressive increment RTP in the RTP check
-				IncludeStandaloneProgressiveIncrementRTP:
-					Default is true. If set to false, will not include the standalone progressive increment RTP in the RTP check
+				Maximum (decimal):
+					Default is decimal max, unless specified
+				IncludeLinkProgressiveIncrementRTP (bool):
+					Default is false. If set to true, will include the link progressive increment RTP in the RTP calculation
+				IncludeLinkProgressiveStartUpRTP (bool):
+					Default is true. If set to true, will include the link progressive startup/reset RTP in the RTP calculation
+				IncludeStandaloneProgressiveIncrementRTP (bool):
+					Default is true. If set to true, will include the standalone progressive increment RTP in the RTP calculation
+				IncludeStandaloneProgressiveStartUpRTP (bool):
+					Default is true. If set to true, will include the standalone progressive startup/reset RTP in the RTP calculation
 		RestrictedGameTypes:
 			Type:
 				GameType:
@@ -44,7 +48,7 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="75000" />
+			<ReturnToPlayer GameType="Any" Minimum="75.0" />
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 </GamingConfiguration>

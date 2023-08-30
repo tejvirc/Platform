@@ -127,7 +127,7 @@
                         AutomationProperties.AutomationId="Button15_26AF2323" />
                 <Button Content="{lex:Loc PrintLast15RecordsButtonText}"
                         Height="45"
-                        Width="200"
+                        Width="Auto"
                         Margin="0 0 20 0"
                         IsEnabled="{Binding MainPrintButtonEnabled}"
                         Command="{Binding PrintLast15ButtonCommand}"

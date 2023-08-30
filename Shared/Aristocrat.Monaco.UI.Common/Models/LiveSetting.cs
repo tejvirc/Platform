@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Monaco.Common;
-    using MVVM.Model;
     using Quartz.Util;
 
     /// <see cref="LiveSetting{TValue}"/>
@@ -190,7 +190,7 @@
             set
             {
                 _isVisible = value;
-                RaisePropertyChanged(nameof(IsVisible));
+                OnPropertyChanged(nameof(IsVisible));
             }
         }
 
@@ -203,13 +203,13 @@
             set
             {
                 _isReadOnly = value;
-                RaisePropertyChanged(nameof(IsReadOnly));
+                OnPropertyChanged(nameof(IsReadOnly));
             }
         }
 
         /// <summary>
         /// The error (if any) for this setting reported by the view
-        /// (legacy support for existing controls and BaseEntityViewModel-derived VMs).
+        /// (legacy support for existing controls and ObservableObject-derived VMs).
         /// </summary>
         public string ErrorFromView
         {
@@ -219,7 +219,8 @@
                 {
                     _errorFromView = value;
                     _error = null;
-                    RaisePropertyChanged(nameof(EditedValue), nameof(Error));
+                    OnPropertyChanged(nameof(EditedValue));
+                    OnPropertyChanged(nameof(Error));
                 }
             }
         }
@@ -234,7 +235,8 @@
                 // notify even if errors haven't changed, to workaround validation system
                 _validationErrors = value;
                 _error = null;
-                RaisePropertyChanged(nameof(EditedValue), nameof(Error));
+                OnPropertyChanged(nameof(EditedValue));
+                OnPropertyChanged(nameof(Error));
             }
         }
 
@@ -321,7 +323,10 @@
             // notify
             _error = null;
             OnChanged?.Invoke(this);
-            RaisePropertyChanged(nameof(LiveValue), nameof(EditedValue), nameof(Status), nameof(Error));
+            OnPropertyChanged(nameof(LiveValue));
+            OnPropertyChanged(nameof(EditedValue));
+            OnPropertyChanged(nameof(Status));
+            OnPropertyChanged(nameof(Error));
         }
     }
 }

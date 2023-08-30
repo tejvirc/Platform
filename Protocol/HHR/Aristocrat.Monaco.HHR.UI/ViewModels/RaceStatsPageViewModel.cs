@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.ViewModels
+namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -11,8 +11,8 @@
     using Kernel;
     using Menu;
     using Models;
-    using MVVM.Command;
     using Command = Menu.Command;
+    using CommunityToolkit.Mvvm.Input;
 
     public class RaceStatsPageViewModel : HhrMenuPageViewModelBase
     {
@@ -66,7 +66,7 @@
 
         private void UpdateView()
         {
-            RaisePropertyChanged(nameof(RaceStatsCharts));
+            OnPropertyChanged(nameof(RaceStatsCharts));
         }
 
         private void BackHandler(object obj)
@@ -126,7 +126,7 @@
             TimerInfo = new TimerInfo
             {
                 Timeout = Math.Min(UiProperties.ManualHandicapRemainingTime, ClientProperties.RaceStatTimeOut),
-                TimerElapsedCommand = new ActionCommand<object>(OnTimerElapsed),
+                TimerElapsedCommand = new RelayCommand<object>(OnTimerElapsed),
                 IsVisible = true,
                 IsQuickPickTextVisible = false,
                 IsAutoPickTextVisible = false,

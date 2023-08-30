@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.Diagnostics;
+    using System.Globalization;
     using System.Reflection;
     using log4net;
 
@@ -45,7 +46,7 @@
             }
         }
 
-        public void OpenKeyboard(object targetControl)
+        public void OpenKeyboard(object targetControl, CultureInfo culture)
         {
             CloseKeyboard();
 

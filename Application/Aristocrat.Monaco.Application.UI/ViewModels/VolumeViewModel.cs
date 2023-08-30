@@ -1,8 +1,10 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Localization;
     using Hardware.Contracts;
@@ -11,11 +13,9 @@
     using Kernel.Contracts;
     using log4net;
     using Models;
-    using MVVM;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
-    public class VolumeViewModel : BaseViewModel
+    public class VolumeViewModel : ObservableObject
     {
         protected readonly ILog Logger;
         private readonly IPropertiesManager _propertiesManager;
@@ -78,10 +78,10 @@
 
             if (IsSystemDisabled)
             {
-                RaisePropertyChanged(nameof(CanEditVolume));
+                OnPropertyChanged(nameof(CanEditVolume));
             }
 
-            RaisePropertyChanged(nameof(SelectedVolumeLevel));
+            OnPropertyChanged(nameof(SelectedVolumeLevel));
 
             _eventBus.Subscribe<EnabledEvent>(this, OnEnabledEvent);
             _eventBus.Subscribe<DisabledEvent>(this, OnDisabledEvent);
@@ -103,17 +103,17 @@
 
         private void OnEnabledEvent(EnabledEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
-                RaisePropertyChanged(nameof(CanEditVolume));
+                OnPropertyChanged(nameof(CanEditVolume));
             });
         }
 
         private void OnDisabledEvent(DisabledEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
-                RaisePropertyChanged(nameof(CanEditVolume));
+                OnPropertyChanged(nameof(CanEditVolume));
             });
         }
 

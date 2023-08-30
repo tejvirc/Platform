@@ -31,7 +31,7 @@
             var protocol = "RELM";
             var productId = 0x1234;
             var vendorId = 0x4321;
-            var expectedCapabilities = 3;
+            var expectedCapabilities = 4;
             var initializedEventRaised = false;
             var initializationFailedEventRaised = false;
             var communicator = new Mock<IRelmCommunicator>();
@@ -58,6 +58,7 @@
             Assert.IsTrue(controller.HasCapability<IAnimationImplementation>());
             Assert.IsTrue(controller.HasCapability<IReelBrightnessImplementation>());
             Assert.IsTrue(controller.HasCapability<ISynchronizationImplementation>());
+            Assert.IsTrue(controller.HasCapability<IStepperRuleImplementation>());
         }
 
         [TestMethod]

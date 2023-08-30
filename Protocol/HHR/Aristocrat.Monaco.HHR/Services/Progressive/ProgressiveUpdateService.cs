@@ -30,7 +30,7 @@
     /// </summary>
     public class ProgressiveUpdateService : IProgressiveUpdateService, IDisposable
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         private readonly IEventBus _eventBus;
 
         //This message contains which all progressives are hit and the number of times they are hit.
@@ -39,10 +39,11 @@
         // Since HHR has no concept of ProgressiveGroupID the server side unique progressive ID
         // is stored in ProgressiveGroupId
         private readonly Dictionary<long, ProgressiveUpdateEntity> _progressivesUpdatedValue =
-            new Dictionary<long, ProgressiveUpdateEntity>();
+            new ();
 
         private readonly IProgressiveUpdateEntityHelper _progressiveUpdateEntityHelper;
         private readonly IPropertiesManager _propertiesManager;
+        private readonly IGameProvider _gameProvider;
         private readonly IGameHistory _gameHistory;
 
         private readonly IProtocolLinkedProgressiveAdapter _protocolLinkedProgressiveAdapter;
@@ -60,6 +61,7 @@
             ITransactionHistory transactions,
             IProgressiveUpdateEntityHelper progressiveUpdateEntityHelper,
             IPropertiesManager propertiesManager,
+            IGameProvider gameProvider,
             IGameHistory gameHistory)
         {
             _protocolLinkedProgressiveAdapter = protocolLinkedProgressiveAdapter ??
@@ -67,6 +69,7 @@
                                                     nameof(protocolLinkedProgressiveAdapter));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             var tmpProgressiveBroadcastService = progressiveBroadcastService ??
                                                  throw new ArgumentNullException(nameof(progressiveBroadcastService));
@@ -140,7 +143,7 @@
 
                 var progressiveLevels = evt.PrizeInformation.GetActiveProgressiveLevelsForWager(
                     _protocolLinkedProgressiveAdapter,
-                    _propertiesManager);
+                    _gameProvider);
 
                 // TODO: Find the level instead of having nested loops.
                 foreach (var (levelId, count) in evt.PrizeInformation.ProgressiveLevelsHit)

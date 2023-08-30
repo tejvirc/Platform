@@ -549,6 +549,7 @@
                         AutomationProperties.AutomationId="Button104_BE4D994" />
                 <Button Grid.Row="0"
                         Grid.Column="1"
+                        Width="Auto"
                         Content="{lex:Loc SelfTestClearNVM}"
                         Visibility="{Binding SelfTestClearNvmButtonVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         IsEnabled="{Binding SelfTestButtonEnabled}"
@@ -582,6 +583,7 @@
                             AutomationProperties.AutomationId="StackPanel109_BE4D994">
                     <Button Content="{lex:Loc NoteAcceptorTest}"
                             Command="{Binding NoteAcceptorTestCommand}"
+                            Width="Auto"
                             IsEnabled="{Binding TestModeEnabled, UpdateSourceTrigger=PropertyChanged}"
                             AutomationProperties.AutomationId="Button110_BE4D994" />
                     <Button Margin="0 15 0 0"

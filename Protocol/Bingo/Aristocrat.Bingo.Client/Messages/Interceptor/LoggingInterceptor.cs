@@ -50,8 +50,8 @@
         {
             var call = continuation(context);
             return new AsyncDuplexStreamingCall<TRequest, TResponse>(
-                new ClientClientStreamingLogger<TRequest>(call.RequestStream),
-                new ClientServerStreamingLogger<TResponse>(call.ResponseStream, OnMessageReceived),
+                new ClientStreamingLogger<TRequest>(call.RequestStream),
+                new ServerStreamingLogger<TResponse>(call.ResponseStream, OnMessageReceived),
                 call.ResponseHeadersAsync,
                 call.GetStatus,
                 call.GetTrailers,
@@ -65,7 +65,7 @@
         {
             var call = continuation(request, context);
             return new AsyncServerStreamingCall<TResponse>(
-                new ClientServerStreamingLogger<TResponse>(call.ResponseStream, OnMessageReceived),
+                new ServerStreamingLogger<TResponse>(call.ResponseStream, OnMessageReceived),
                 call.ResponseHeadersAsync,
                 call.GetStatus,
                 call.GetTrailers,
@@ -78,7 +78,7 @@
         {
             var call = continuation(context);
             return new AsyncClientStreamingCall<TRequest, TResponse>(
-                new ClientClientStreamingLogger<TRequest>(call.RequestStream),
+                new ClientStreamingLogger<TRequest>(call.RequestStream),
                 LogResponse(call.ResponseAsync),
                 call.ResponseHeadersAsync,
                 call.GetStatus,

@@ -330,7 +330,7 @@
         private static string GetEKeyDrive()
         {
             return DriveInfo.GetDrives()
-                .Where(x => x.DriveType == DriveType.Removable && x.VolumeLabel == EKeyVolumeLabel)
+                .Where(x => x.IsReady && x.DriveType == DriveType.Removable && x.VolumeLabel == EKeyVolumeLabel)
                 .Select(x => x.Name)
                 .FirstOrDefault();
         }

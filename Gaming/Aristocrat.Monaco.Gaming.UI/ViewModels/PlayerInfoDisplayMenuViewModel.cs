@@ -1,7 +1,5 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.Generic;
     using System.Reflection;
@@ -11,11 +9,13 @@
     using Contracts.PlayerInfoDisplay;
     using Monaco.UI.Common;
     using PlayerInfoDisplay;
+    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Player Information Display Main Page (menu)
     /// </summary>
-    public sealed class PlayerInfoDisplayMenuViewModel : BaseViewModel, IPlayerInfoDisplayViewModel, IDisposable
+    public sealed class PlayerInfoDisplayMenuViewModel : ObservableObject, IPlayerInfoDisplayViewModel, IDisposable
     {
         private ITimer _closeTimer;
         private readonly IPlayerInfoDisplayFeatureProvider _playerInfoDisplayFeatureProvider;
@@ -46,16 +46,16 @@
                 return;
             }
 
-            ExitClickedCommand = new ActionCommand<object>(_ => ExitRequested());
+            ExitClickedCommand = new RelayCommand<object>(_ => ExitRequested());
 
             if (_playerInfoDisplayFeatureProvider.IsGameInfoSupported)
             {
-                GameInfoClickedCommand = new ActionCommand<object>(GameInfoRequested);
+                GameInfoClickedCommand = new RelayCommand<object>(GameInfoRequested);
             }
 
             if (_playerInfoDisplayFeatureProvider.IsGameRulesSupported)
             {
-                GameRulesClickedCommand = new ActionCommand<object>(GameRulesRequested);
+                GameRulesClickedCommand = new RelayCommand<object>(GameRulesRequested);
             }
 
             _closeTimer = timeoutTimer ?? new DispatcherTimerAdapter();
@@ -198,7 +198,7 @@
                 ExitButtonPressedPath = ExitButtonPressedDefaultPath;
             }
 
-            RaisePropertyChanged(ObservablePropertyNames.GameAsset);
+            OnPropertyChanged(ObservablePropertyNames.GameAsset);
         }
 
         private string _gameInfoButtonPath;
@@ -208,7 +208,7 @@
             set
             {
                 _gameInfoButtonPath = value;
-                RaisePropertyChanged(nameof(GameInfoButtonPath));
+                OnPropertyChanged(nameof(GameInfoButtonPath));
             }
         }
 
@@ -219,7 +219,7 @@
             set
             {
                 _gameRulesButtonPath = value;
-                RaisePropertyChanged(nameof(GameRulesButtonPath));
+                OnPropertyChanged(nameof(GameRulesButtonPath));
             }
         }
 
@@ -230,7 +230,7 @@
             set
             {
                 _exitButtonPath = value;
-                RaisePropertyChanged(nameof(ExitButtonPath));
+                OnPropertyChanged(nameof(ExitButtonPath));
             }
         }
 
@@ -241,7 +241,7 @@
             set
             {
                 _gameInfoButtonPressedPath = value;
-                RaisePropertyChanged(nameof(GameInfoButtonPressedPath));
+                OnPropertyChanged(nameof(GameInfoButtonPressedPath));
             }
         }
 
@@ -252,7 +252,7 @@
             set
             {
                 _gameRulesButtonPressedPath = value;
-                RaisePropertyChanged(nameof(GameRulesButtonPressedPath));
+                OnPropertyChanged(nameof(GameRulesButtonPressedPath));
             }
         }
 
@@ -263,7 +263,7 @@
             set
             {
                 _exitButtonPressedPath = value;
-                RaisePropertyChanged(nameof(ExitButtonPressedPath));
+                OnPropertyChanged(nameof(ExitButtonPressedPath));
             }
         }
 

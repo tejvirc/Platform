@@ -1,21 +1,22 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Models
+namespace Aristocrat.Monaco.Gaming.UI.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Application.Contracts.Extensions;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Progressives;
     using Contracts.Progressives.Linked;
     using Contracts.Progressives.SharedSap;
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     Level model class
     /// </summary>
-    public class LevelModel : BaseEntityViewModel
+    public class LevelModel : ObservableValidator
     {
         private decimal _maxValue;
         private decimal _initialValue;
@@ -33,13 +34,15 @@
         private LevelDefinition _selectableLevel;
         private bool _selectableLevelNameTooLong;
         private readonly bool _canEdit;
+        private int _configurableLinkedLevelId;
 
         public LevelModel(
             IViewableProgressiveLevel level,
             IReadOnlyCollection<IViewableSharedSapLevel> customSapLevels,
             IReadOnlyCollection<IViewableLinkedProgressiveLevel> linkedLevels,
             int gameCount,
-            IViewableSharedSapLevel sharedSapLevel)
+            IViewableSharedSapLevel sharedSapLevel,
+            int configurableLinkedLevelLevelId)
         {
             GameCount = gameCount;
 
@@ -79,6 +82,7 @@
             _selectableLevelType = DetermineSelectableLevelType();
             _canEdit = level.CanEdit;
             _selectableLevel = new LevelDefinition(LevelName, AssignedProgressiveInfo.AssignedProgressiveKey);
+            OriginalConfigurableLinkedLevelId = ConfigurableLinkedLevelId = configurableLinkedLevelLevelId;
 
             LoadSelectableTypes();
             LoadSelectableNames();
@@ -116,6 +120,21 @@
         /// </summary>
         public ProgressiveLevelType LevelType => AssociatedProgressiveLevel.LevelType;
 
+        /// <summary>
+        ///     Gets whether this level is SAP
+        /// </summary>
+        public bool IsSap => LevelType == ProgressiveLevelType.Sap;
+
+        /// <summary>
+        ///     Gets whether this level is LP
+        /// </summary>
+        public bool IsLP => LevelType == ProgressiveLevelType.LP;
+
+        /// <summary>
+        ///     Gets whether this level is LP
+        /// </summary>
+        public bool IsSelectable => LevelType == ProgressiveLevelType.Selectable;
+
         public void SetCSAPLevels(IReadOnlyCollection<IViewableSharedSapLevel> levels)
         {
             _sharedSapLevels = levels;
@@ -137,7 +156,7 @@
             set
             {
                 _selectableLevelNames = value;
-                RaisePropertyChanged(nameof(SelectableLevels));
+                OnPropertyChanged(nameof(SelectableLevels));
             }
         }
 
@@ -185,7 +204,8 @@
 
                 AssignedProgressiveInfo = new AssignableProgressiveId(assignableType, value?.AssignmentKey);
                 _selectableLevel = value;
-                RaisePropertyChanged(nameof(SelectableLevel), nameof(CanSave));
+                OnPropertyChanged(nameof(SelectableLevel));
+                OnPropertyChanged(nameof(CanSave));
             }
         }
 
@@ -198,7 +218,7 @@
             set
             {
                 _selectableLevelNameTooLong = value;
-                RaisePropertyChanged(nameof(SelectableLevelNameTooLong));
+                OnPropertyChanged(nameof(SelectableLevelNameTooLong));
             }
         }
 
@@ -213,7 +233,7 @@
             set
             {
                 _levelErrors = value;
-                RaisePropertyChanged(nameof(LevelErrors));
+                OnPropertyChanged(nameof(LevelErrors));
             }
         }
 
@@ -226,7 +246,7 @@
             set
             {
                 _incrementRate = value;
-                RaisePropertyChanged(nameof(IncrementRate));
+                OnPropertyChanged(nameof(IncrementRate));
             }
         }
 
@@ -239,28 +259,18 @@
             set
             {
                 _maxValue = value;
-                RaisePropertyChanged(nameof(MaxValue));
+                OnPropertyChanged(nameof(MaxValue));
             }
         }
 
         /// <summary>
         ///     Gets or sets the initial value.
         /// </summary>
+        [CustomValidation(typeof(LevelModel), nameof(ValidateCurrency))]
         public decimal InitialValue
         {
             get => _initialValue;
-            set
-            {
-                // Initial value should be >= reset value
-                _initialValue = value;
-                var errors = _initialValue.Validate(
-                    ResetValue <= 0M,
-                    MaxValue.DollarsToMillicents(),
-                    ResetValue.DollarsToMillicents());
-                ClearOrSetError(errors, nameof(InitialValue));
-
-                RaisePropertyChanged(nameof(InitialValue));
-            }
+            set => SetProperty(ref _initialValue, value, true);
         }
 
         public decimal ResetValue
@@ -269,7 +279,7 @@
             set
             {
                 _resetValue = value;
-                RaisePropertyChanged(nameof(ResetValue));
+                OnPropertyChanged(nameof(ResetValue));
             }
         }
 
@@ -282,7 +292,7 @@
             set
             {
                 _currentValue = value;
-                RaisePropertyChanged(nameof(CurrentValue));
+                OnPropertyChanged(nameof(CurrentValue));
             }
         }
 
@@ -295,7 +305,7 @@
             set
             {
                 _overflowValue = value;
-                RaisePropertyChanged(nameof(OverflowValue));
+                OnPropertyChanged(nameof(OverflowValue));
             }
         }
 
@@ -308,9 +318,27 @@
             set
             {
                 _minimumRequiredValue = value;
-                RaisePropertyChanged(nameof(MinimumRequiredValue));
+                OnPropertyChanged(nameof(MinimumRequiredValue));
             }
         }
+
+        /// <summary>
+        /// Gets or sets the configurable linked level id for use with Vertex and G2S progressives
+        /// </summary>
+        public int ConfigurableLinkedLevelId
+        {
+            get => _configurableLinkedLevelId;
+            set
+            {
+                _configurableLinkedLevelId = value;
+                OnPropertyChanged(nameof(ConfigurableLinkedLevelId));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the original configurable linked level id this model was constructed with (for change tracking)
+        /// </summary>
+        public int OriginalConfigurableLinkedLevelId { get; }
 
         public bool CanSetInitialValue => LevelType == ProgressiveLevelType.Sap && _canEdit;
 
@@ -327,7 +355,7 @@
             set
             {
                 _selectableLevelTypes = value;
-                RaisePropertyChanged(nameof(SelectableLevelTypes));
+                OnPropertyChanged(nameof(SelectableLevelTypes));
             }
         }
 
@@ -343,25 +371,13 @@
 
                 _selectableLevelType = value;
                 LoadSelectableNames();
-                RaisePropertyChanged(nameof(SelectableLevelType), nameof(LevelSelectionEnabled), nameof(CanSave));
+                OnPropertyChanged(nameof(SelectableLevelType));
+                OnPropertyChanged(nameof(LevelSelectionEnabled));
+                OnPropertyChanged(nameof(CanSave));
             }
         }
 
         public int GameCount { get; }
-        
-        private void ClearOrSetError(string errors, string propertyName)
-        {
-            if (string.IsNullOrEmpty(errors))
-            {
-                ClearErrors(propertyName);
-                RaisePropertyChanged(nameof(CanSave));
-            }
-            else
-            {
-                SetError(propertyName, errors);
-                RaisePropertyChanged(nameof(CanSave));
-            }
-        }
 
         private string DetermineSelectableLevelType()
         {
@@ -446,6 +462,22 @@
                 SelectableLevel = selectableLevels.FirstOrDefault(
                     x => x.AssignmentKey == AssignedProgressiveInfo.AssignedProgressiveKey);
             }
+        }
+
+        public static ValidationResult ValidateCurrency(decimal dollars, ValidationContext context)
+        {
+            LevelModel instance = (LevelModel)context.ObjectInstance;
+            var errors = dollars.Validate(
+                    instance.ResetValue <= 0M,
+                    instance.MaxValue.DollarsToMillicents(),
+                    instance.ResetValue.DollarsToMillicents());
+
+            if (errors == null)
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
         }
 
         public class LevelDefinition

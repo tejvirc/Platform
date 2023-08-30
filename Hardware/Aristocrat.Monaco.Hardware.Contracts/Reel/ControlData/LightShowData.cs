@@ -26,6 +26,17 @@
         }
 
         /// <summary>
+        ///     Initializes a new instance of the <see cref="LightShowData" /> class.
+        /// </summary>
+        /// <param name="animationName">The name of the animation</param>
+        /// <param name="tag">The tag to use</param>
+        public LightShowData(string animationName, string tag)
+        {
+            AnimationName = animationName;
+            Tag = tag;
+        }
+
+        /// <summary>
         ///     The animation name
         /// </summary>
         public string AnimationName { get; set; }

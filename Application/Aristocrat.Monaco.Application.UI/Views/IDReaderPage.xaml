@@ -328,6 +328,7 @@
                         Command="{Binding SelfTestClearButtonCommand}"
                         Visibility="{Binding PortVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         IsEnabled="{Binding SelfTestButtonEnabled}"
+                        Width="Auto"
                         AutomationProperties.AutomationId="Button61_B32EFF41" />
             </StackPanel>
         </Border>

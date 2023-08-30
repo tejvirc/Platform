@@ -32,7 +32,7 @@
     </CodeAnalysisDictionary>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.G2S" Version="5.0.0-beta0006" />
+    <PackageReference Include="Aristocrat.G2S" Version="5.0.0-beta0009" />
     <PackageReference Include="CoreWCF.NetTcp" Version="1.1.0" />
     <PackageReference Include="CoreWCF.ConfigurationManager" Version="1.1.0" />
     <PackageReference Include="CoreWCF.Http" Version="1.1.0" />
@@ -48,5 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Kernel\Aristocrat.Monaco.Kernel\Aristocrat.Monaco.Kernel.csproj" />
+    <ProjectReference Include="..\..\Aristocrat.Monaco.Protocol.Common\Aristocrat.Monaco.Protocol.Common.csproj" />
   </ItemGroup>
 </Project>

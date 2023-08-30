@@ -13,6 +13,12 @@ namespace Aristocrat.Monaco.G2S
         public const int DefaultPort = 53302;
 
         /// <summary>
+        ///     Default value for NoProgressiveInfo value for progressive devices.
+        ///     This is the time in milliseconds between required progressive value updates. 
+        /// </summary>
+        public const int DefaultNoProgInfoTimeout = 30_000;
+
+        /// <summary>
         ///     Property to get the configured port
         /// </summary>
         public const string Port = @"G2SClient.Port";
@@ -149,8 +155,38 @@ namespace Aristocrat.Monaco.G2S
         public static Guid ProtocolDisabledKey => new Guid("{282EBE50-7A70-42C8-979F-26C2CE438290}");
 
         /// <summary>
+        ///     Gets the ISystemDisableManager key used when the G2S protocol detects that the Vertex Progressive Host has gone offline
+        /// </summary>
+        public static Guid VertexOfflineKey => new Guid("{0596f5ad-9704-414c-bcd5-7806dfe8f8af}");
+
+        /// <summary>
+        ///     Gets the ISystemDisableManager key used when the G2S protocol disagrees with EGM progressive configuration 
+        /// </summary>
+        public static Guid VertexLevelMismatchKey => new Guid("{a2d68208-40bb-49a9-93d3-905c3d3bc072}");
+
+        /// <summary>
+        ///     Gets the ISystemDisableManager key used when the G2S protocol has disabled a progressive device
+        /// </summary>
+        public static Guid VertexStateDisabledKey => new Guid("{509B31C0-D4E7-490D-A60C-99B7CCFA6EF0}");
+
+        /// <summary>
+        ///     Gets the ISystemDisableManager key used when the EGM hasn't received a progressive value update within the configured time limit
+        /// </summary>
+        public static Guid VertexUpdateNotReceivedKey => new Guid("{54A8209A-C816-45DA-905F-1E83404BEDF2}");
+
+        /// <summary>
+        ///     Gets the ISystemDisableManager key used when the G2S protocol indicates the EGM meters have rolled back
+        /// </summary>
+        public static Guid VertexMeterRollbackKey => new Guid("{D07A5B23-0BE2-4E0B-AEAD-3F1FE2F9D023}");
+
+        /// <summary>
         ///     Default value for Handpay local key-off options.
         /// </summary>
         public const string DefaultLocalKeyoff = "G2S_anyKeyOff";
+
+        /// <summary>
+        ///     The key to the boolean value that represents whether or not G2S progressives are enabled.
+        /// </summary>
+        public const string G2SProgressivesEnabled = "G2S_progressivesEnabled";
     }
 }

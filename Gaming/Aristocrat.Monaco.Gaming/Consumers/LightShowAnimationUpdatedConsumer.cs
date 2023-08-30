@@ -9,9 +9,9 @@
     using GDKAnimationState = GdkRuntime.V1.AnimationState;
 
     /// <summary>
-    ///     Handles the <see cref="LightShowAnimationUpdatedEvent" /> and sends an event to the runtime.
+    ///     Handles the <see cref="LightAnimationUpdatedEvent" /> and sends an event to the runtime.
     /// </summary>
-    public class LightShowAnimationUpdatedConsumer : Consumes<LightShowAnimationUpdatedEvent>
+    public class LightShowAnimationUpdatedConsumer : Consumes<LightAnimationUpdatedEvent>
     {
         private readonly IReelService _reelService;
 
@@ -25,24 +25,24 @@
         }
 
         /// <inheritdoc />
-        public override void Consume(LightShowAnimationUpdatedEvent theEvent)
+        public override void Consume(LightAnimationUpdatedEvent theEvent)
         {
             if (!_reelService.Connected)
             {
                 return;
             }
 
-            var updateNotification = new AnimationUpdatedNotification()
+            var updateNotification = new AnimationUpdatedNotification
             {
                 AnimationId = theEvent.AnimationName,
                 AnimationData = Any.Pack(new LightshowAnimationData { Tag = theEvent.Tag }),
                 State = ToGdkAnimationState(theEvent.State)
             };
 
-            _reelService.AnimationUpdated(updateNotification);
+            _reelService.NotifyAnimationUpdated(updateNotification);
         }
 
-        private GDKAnimationState ToGdkAnimationState(AnimationState preparedState)
+        private static GDKAnimationState ToGdkAnimationState(AnimationState preparedState)
         {
             return preparedState switch
             {

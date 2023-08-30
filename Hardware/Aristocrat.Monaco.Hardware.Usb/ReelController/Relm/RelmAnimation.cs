@@ -5,110 +5,156 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Contracts.Communicator;
+    using Contracts.Reel;
     using Contracts.Reel.ControlData;
     using Contracts.Reel.Events;
     using Contracts.Reel.ImplementationCapabilities;
 
-    internal class RelmAnimation : IAnimationImplementation
+    internal sealed class RelmAnimation : IAnimationImplementation
     {
         private readonly IRelmCommunicator _communicator;
 
-        /// <summary>
-        ///     Instantiates a new instance of the RelmAnimation class
-        /// </summary>
-        /// <param name="communicator"></param>
         public RelmAnimation(IRelmCommunicator communicator)
         {
             _communicator = communicator;
+            _communicator.AllLightAnimationsCleared += HandleAllLightAnimationsCleared;
+            _communicator.LightAnimationRemoved += HandleLightAnimationRemoved;
+            _communicator.LightAnimationStarted += HandleLightAnimationStarted;
+            _communicator.LightAnimationStopped += HandleLightAnimationStopped;
+            _communicator.LightAnimationPrepared += HandleLightAnimationPrepared;
+            _communicator.ReelAnimationStarted += HandleReelAnimationStarted;
+            _communicator.ReelAnimationStopped += HandleReelAnimationStopped;
+            _communicator.ReelAnimationPrepared += HandleReelAnimationPrepared;
         }
 
-#pragma warning disable 67
-        /// <inheritdoc />
+        public event EventHandler AllLightAnimationsCleared;
+
+        public event EventHandler<LightAnimationEventArgs> LightAnimationRemoved;
+
         public event EventHandler<LightAnimationEventArgs> LightAnimationStarted;
 
-        /// <inheritdoc />
-        public event EventHandler<LightAnimationEventArgs> LightAnimationCompleted;
+        public event EventHandler<LightAnimationEventArgs> LightAnimationStopped;
 
-        /// <inheritdoc />
-        public event EventHandler<LightAnimationEventArgs> ReelAnimationStarted;
+        public event EventHandler<LightAnimationEventArgs> LightAnimationPrepared;
 
-        /// <inheritdoc />
-        public event EventHandler<LightAnimationEventArgs> ReelAnimationCompleted;
-#pragma warning restore 67
+        public event EventHandler<ReelAnimationEventArgs> ReelAnimationStarted;
 
-        /// <inheritdoc />
+        public event EventHandler<ReelAnimationEventArgs> ReelAnimationStopped;
+
+        public event EventHandler<ReelAnimationEventArgs> ReelAnimationPrepared;
+
         public IReadOnlyCollection<AnimationFile> AnimationFiles => _communicator.AnimationFiles;
 
-        /// <inheritdoc />
+        public void Dispose()
+        {
+            _communicator.AllLightAnimationsCleared -= HandleAllLightAnimationsCleared;
+            _communicator.LightAnimationRemoved -= HandleLightAnimationRemoved;
+            _communicator.LightAnimationStarted -= HandleLightAnimationStarted;
+            _communicator.LightAnimationStopped -= HandleLightAnimationStopped;
+            _communicator.LightAnimationPrepared -= HandleLightAnimationPrepared;
+            _communicator.ReelAnimationStarted -= HandleReelAnimationStarted;
+            _communicator.ReelAnimationStopped -= HandleReelAnimationStopped;
+            _communicator.ReelAnimationPrepared -= HandleReelAnimationPrepared;
+        }
+
         public Task<bool> LoadAnimationFile(AnimationFile file, CancellationToken token = default)
         {
             return _communicator.LoadAnimationFile(file, token);
         }
 
-        /// <inheritdoc />
-        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, CancellationToken token = default)
+        public Task<bool> LoadAnimationFiles(IEnumerable<AnimationFile> files, IProgress<LoadingAnimationFileModel> progress, CancellationToken token = default)
         {
-            return _communicator.LoadAnimationFiles(files, token);
+            return _communicator.LoadAnimationFiles(files, progress, token);
         }
 
-        /// <inheritdoc />
         public Task<bool> PrepareAnimation(LightShowData showData, CancellationToken token = default)
         {
             return _communicator.PrepareAnimation(showData, token);
         }
 
-        /// <inheritdoc />
-        public Task<bool> PrepareAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
-        {
-            return _communicator.PrepareAnimations(showData, token);
-        }
-
-        /// <inheritdoc />
         public Task<bool> PrepareAnimation(ReelCurveData curveData, CancellationToken token = default)
         {
             return _communicator.PrepareAnimation(curveData, token);
         }
 
-        /// <inheritdoc />
+        public Task<bool> PrepareAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
+        {
+            return _communicator.PrepareAnimations(showData, token);
+        }
+
         public Task<bool> PrepareAnimations(IEnumerable<ReelCurveData> curveData, CancellationToken token = default)
         {
             return _communicator.PrepareAnimations(curveData, token);
         }
 
-        /// <inheritdoc />
         public Task<bool> PlayAnimations(CancellationToken token = default)
         {
             return _communicator.PlayAnimations(token);
         }
 
-        /// <inheritdoc />
         public Task<bool> StopLightShowAnimations(IEnumerable<LightShowData> showData, CancellationToken token = default)
         {
             return _communicator.StopLightShowAnimations(showData, token);
         }
 
-        /// <inheritdoc />
         public Task<bool> StopAllLightShows(CancellationToken token = default)
         {
             return _communicator.StopAllLightShows(token);
         }
 
-        /// <inheritdoc />
         public Task<bool> StopAllAnimationTags(string animationName, CancellationToken token = default)
         {
             return _communicator.StopAllAnimationTags(animationName, token);
         }
 
-        /// <inheritdoc />
         public Task<bool> PrepareStopReels(IEnumerable<ReelStopData> stopData, CancellationToken token = default)
         {
             return _communicator.PrepareStopReels(stopData, token);
         }
 
-        /// <inheritdoc />
         public Task<bool> PrepareNudgeReels(IEnumerable<NudgeReelData> nudgeData, CancellationToken token = default)
         {
             return _communicator.PrepareNudgeReels(nudgeData, token);
+        }
+
+        private void HandleAllLightAnimationsCleared(object sender, EventArgs args)
+        {
+            AllLightAnimationsCleared?.Invoke(sender, args);
+        }
+
+        private void HandleLightAnimationRemoved(object sender, LightAnimationEventArgs args)
+        {
+            LightAnimationRemoved?.Invoke(sender, args);
+        }
+
+        private void HandleLightAnimationStarted(object sender, LightAnimationEventArgs args)
+        {
+            LightAnimationStarted?.Invoke(sender, args);
+        }
+
+        private void HandleLightAnimationStopped(object sender, LightAnimationEventArgs args)
+        {
+            LightAnimationStopped?.Invoke(sender, args);
+        }
+
+        private void HandleLightAnimationPrepared(object sender, LightAnimationEventArgs args)
+        {
+            LightAnimationPrepared?.Invoke(sender, args);
+        }
+
+        private void HandleReelAnimationStarted(object sender, ReelAnimationEventArgs args)
+        {
+            ReelAnimationStarted?.Invoke(sender, args);
+        }
+
+        private void HandleReelAnimationStopped(object sender, ReelAnimationEventArgs args)
+        {
+            ReelAnimationStopped?.Invoke(sender, args);
+        }
+
+        private void HandleReelAnimationPrepared(object sender, ReelAnimationEventArgs args)
+        {
+            ReelAnimationPrepared?.Invoke(sender, args);
         }
     }
 }

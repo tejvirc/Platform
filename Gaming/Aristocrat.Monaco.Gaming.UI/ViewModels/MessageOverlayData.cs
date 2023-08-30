@@ -1,16 +1,16 @@
-﻿using System.Text;
+using System.Text;
 
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Windows.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
-    using MVVM.ViewModel;
 
     /// <summary>
     /// Class to store data for the Message Overlay
     /// </summary>
-    public class MessageOverlayData : BaseEntityViewModel, IMessageOverlayData
+    public class MessageOverlayData : ObservableObject, IMessageOverlayData
     {
         private string _text = string.Empty;
         private string _subText = string.Empty;
@@ -77,7 +77,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set
             {
                 SetProperty(ref _displayImageResourceKey, value);
-                RaisePropertyChanged(nameof(IsScalingNeeded));
+                OnPropertyChanged(nameof(IsScalingNeeded));
             }
         }
 
@@ -105,7 +105,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set
             {
                 SetProperty(ref _displayForEvents, value);
-                RaisePropertyChanged(nameof(IsScalingNeeded));
+                OnPropertyChanged(nameof(IsScalingNeeded));
             }
         }
 
@@ -145,7 +145,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     // need to set this to preserve text on the Message Overlay Dialog
                     // during fadeout
                     IsDialogFadingOut = !value;
-                    RaisePropertyChanged(nameof(IsDialogVisible));
+                    OnPropertyChanged(nameof(IsDialogVisible));
                 }
             }
         }
@@ -165,7 +165,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 if (Math.Abs(_opacity - value) > 0.001)
                 {
                     _opacity = value;
-                    RaisePropertyChanged(nameof(Opacity));
+                    OnPropertyChanged(nameof(Opacity));
                 }
             }
         }

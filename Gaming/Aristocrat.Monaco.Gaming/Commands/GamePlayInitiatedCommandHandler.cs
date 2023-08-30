@@ -2,6 +2,7 @@
 {
     using System;
     using System.Diagnostics;
+    using Application.Contracts.Extensions;
     using Common.PerformanceCounters;
     using Contracts;
     using Hardware.Contracts.Persistence;
@@ -38,6 +39,13 @@
                     return;
                 }
 
+                if (command.WageredAmount.CentsToMillicents() > _bank.Balance)
+                {
+                    command.Success = false;
+                    _bank.Unlock();
+
+                    return;
+                }
                 scope.Complete();
             }
 

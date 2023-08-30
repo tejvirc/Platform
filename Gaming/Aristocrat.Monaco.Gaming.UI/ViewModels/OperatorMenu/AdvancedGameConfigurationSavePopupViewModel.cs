@@ -20,7 +20,7 @@
 
         private void _ownerViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            RaisePropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(CanSave));
         }
 
         public override bool CanSave => _canExecute.Invoke();

@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using Contracts;
     using Hardware.Contracts.Persistence;
-    using Kernel;
     using Progressives;
     using Runtime;
     using Runtime.Client;
@@ -19,7 +18,7 @@
         private readonly IPersistentStorageManager _storage;
         private readonly IOperatorMenuLauncher _operatorMenu;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
-        private readonly IPropertiesManager _properties;
+        private readonly IGameProvider _gameProvider;
 
         public PrimaryGameEscrowFailedCommandHandler(
             IGameHistory gameHistory,
@@ -29,7 +28,7 @@
             IPersistentStorageManager storage,
             IOperatorMenuLauncher operatorMenu,
             IProgressiveGameProvider progressiveGameProvider,
-            IPropertiesManager properties)
+            IGameProvider gameProvider)
         {
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
@@ -39,7 +38,7 @@
             _operatorMenu = operatorMenu ?? throw new ArgumentNullException(nameof(operatorMenu));
             _progressiveGameProvider = progressiveGameProvider ??
                                        throw new ArgumentNullException(nameof(progressiveGameProvider));
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
         }
 
         public void Handle(PrimaryGameEscrowFailed command)
@@ -58,7 +57,7 @@
             _progressiveGameProvider.SetProgressiveWagerAmounts(new List<long>());
             _operatorMenu.EnableKey(GamingConstants.OperatorMenuDisableKey);
 
-            var (game, _) = _properties.GetActiveGame();
+            var (game, _) = _gameProvider.GetActiveGame();
             if (game != null)
             {
                 _runtime.UpdateFlag(RuntimeCondition.AllowGameRound, true);

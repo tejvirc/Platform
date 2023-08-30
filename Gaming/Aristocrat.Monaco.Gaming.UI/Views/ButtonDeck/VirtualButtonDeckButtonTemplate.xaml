@@ -51,35 +51,6 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button x:Name="btnMoney"
-                    Margin="0 130 30 0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    IsEnabled="{Binding IsDebugMoneyEnabled}"
-                    Command="{Binding Path=AddDebugCashCommand}"
-                    Width="Auto"
-                    Height="Auto"
-                    Style="{StaticResource stlFlatButton}"
-                    Visibility="{Binding IsDebugCurrencyButtonVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
-                    AutomationProperties.AutomationId="Button4_6A439053">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Image Name="cashImage"
-                               Stretch="None"
-                               Source="{DynamicResource VBD_MoneyNormal}"
-                               AutomationProperties.AutomationId="Image5_6A439053" />
-                        <ControlTemplate.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=btnMoney, Path=IsEnabled}"
-                                         Value="False"
-                                         AutomationProperties.AutomationId="DataTrigger6_6A439053">
-                                <Setter TargetName="cashImage"
-                                        Property="Source"
-                                        Value="{DynamicResource VBD_MoneyDisabled}" />
-                            </DataTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
         </Grid>
     </DataTemplate>
     <DataTemplate x:Key="ServiceButtonTemplate">
@@ -162,35 +133,6 @@
                     </Button.Template>
                 </Button>
             </Grid>
-            <Button x:Name="btnMoney"
-                    Margin="0 130 30 0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Top"
-                    IsEnabled="{Binding IsDebugMoneyEnabled}"
-                    Command="{Binding Path=AddDebugCashCommand}"
-                    Width="Auto"
-                    Height="Auto"
-                    Style="{StaticResource stlFlatButton}"
-                    Visibility="{Binding IsDebugCurrencyButtonVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
-                    AutomationProperties.AutomationId="Button18_6A439053">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Image Name="cashImage"
-                               Stretch="None"
-                               Source="{DynamicResource VBD_MoneyNormal}"
-                               AutomationProperties.AutomationId="Image19_6A439053" />
-                        <ControlTemplate.Triggers>
-                            <DataTrigger Binding="{Binding ElementName=btnMoney, Path=IsEnabled}"
-                                         Value="False"
-                                         AutomationProperties.AutomationId="DataTrigger20_6A439053">
-                                <Setter TargetName="cashImage"
-                                        Property="Source"
-                                        Value="{DynamicResource VBD_MoneyDisabled}" />
-                            </DataTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

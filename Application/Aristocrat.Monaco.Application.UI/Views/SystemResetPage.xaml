@@ -93,7 +93,7 @@
                     Command="{Binding PartialResetButtonClickCommand}"
                     IsEnabled="{Binding InputEnabled}"
                     Margin="5 40 0 0"
-                    Width="180"
+                    Width="Auto"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"
                     AutomationProperties.AutomationId="Button13_ED0F5ED8" />
@@ -160,7 +160,7 @@
                     Command="{Binding FullResetButtonClickCommand}"
                     IsEnabled="{Binding InputEnabled}"
                     Margin="5 40 0 0"
-                    Width="180"
+                    Width="Auto"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"
                     AutomationProperties.AutomationId="Button16_983AE9B" />

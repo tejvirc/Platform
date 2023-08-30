@@ -1,10 +1,8 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using Contracts.Authentication;
     using Kernel;
     using Kernel.Contracts.Components;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
     using System;
     using System.Collections;
@@ -18,6 +16,8 @@
     using Contracts.Localization;
     using Monaco.Localization.Properties;
     using System.Security.Cryptography;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
 
     [CLSCompliant(false)]
     public sealed class SoftwareVerificationPageViewModel : OperatorMenuPageViewModelBase
@@ -41,8 +41,8 @@
         {
             _authenticationService = ServiceManager.GetInstance().GetService<IAuthenticationService>();
 
-            CalculateCommand = new ActionCommand<object>(OnCalculate);
-            ResetCommand = new ActionCommand<object>(OnReset);
+            CalculateCommand = new RelayCommand<object>(OnCalculate);
+            ResetCommand = new RelayCommand<object>(OnReset);
 
             _defaultAlgorithm = AlgorithmTypes.First();
             ShowMasterResult = (bool)PropertiesManager.GetProperty(
@@ -99,7 +99,7 @@
                 if (value != _hmacKey)
                 {
                     _hmacKey = value;
-                    RaisePropertyChanged(nameof(FormattedHmacKey));
+                    OnPropertyChanged(nameof(FormattedHmacKey));
                 }
             }
         }
@@ -113,7 +113,7 @@
                 if (value != _showMasterResult)
                 {
                     _showMasterResult = value;
-                    RaisePropertyChanged(nameof(ShowMasterResult));
+                    OnPropertyChanged(nameof(ShowMasterResult));
                 }
             }
         }
@@ -127,7 +127,7 @@
                 if (value != _isIdle)
                 {
                     _isIdle = value;
-                    RaisePropertyChanged(nameof(IsIdle));
+                    OnPropertyChanged(nameof(IsIdle));
                 }
             }
         }
@@ -141,7 +141,7 @@
                 if (value != _isValidResult)
                 {
                     _isValidResult = value;
-                    RaisePropertyChanged(nameof(IsValidResult));
+                    OnPropertyChanged(nameof(IsValidResult));
                 }
             }
         }
@@ -155,7 +155,7 @@
                 if (value != _masterResult)
                 {
                     _masterResult = value;
-                    RaisePropertyChanged(nameof(MasterResult));
+                    OnPropertyChanged(nameof(MasterResult));
                 }
             }
         }
@@ -169,8 +169,8 @@
                 if (value.Type != _selectedAlgorithmType.Type)
                 {
                     _selectedAlgorithmType = value;
-                    RaisePropertyChanged(nameof(SelectedAlgorithmType));
-                    RaisePropertyChanged(nameof(CanUseHmacKey));
+                    OnPropertyChanged(nameof(SelectedAlgorithmType));
+                    OnPropertyChanged(nameof(CanUseHmacKey));
                     Reset();
                 }
             }
@@ -312,7 +312,7 @@
             var compHashObj = ComponentSet.ToList().FirstOrDefault(c => c.ComponentId == evt.ComponentVerification.ComponentId);
             if (compHashObj != null)
             {
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     compHashObj.ChangeHashResult(
                             ConvertExtensions.ToPackedHexString(evt.ComponentVerification.Result));
@@ -333,7 +333,7 @@
 
             if (evt.Cancelled)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         var components = ComponentSet.ToList().Where(a => string.IsNullOrEmpty(a.HashResult) ||
@@ -345,7 +345,7 @@
             }
             else
             {
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     if (ShowMasterResult)
                     {
@@ -362,7 +362,7 @@
 
             if (component != default(ComponentHashViewModel))
             {
-                MvvmHelper.ExecuteOnUI(() => ComponentSet.Remove(component));
+                Execute.OnUIThread(() => ComponentSet.Remove(component));
             }
         }
 
@@ -379,7 +379,7 @@
                 ComponentId = aEvent.Component.ComponentId
             };
 
-            MvvmHelper.ExecuteOnUI(() => ComponentSet.Add(compHash));
+            Execute.OnUIThread(() => ComponentSet.Add(compHash));
         }
 
         private void OnCalculate(object parameter)

@@ -85,6 +85,11 @@
         long HiddenTotal { get; }
 
         /// <summary>
+        ///     The total accumulated value of the bulk amounts over the life of the machine (in millicents)
+        /// </summary>
+        long BulkTotal { get; }
+
+        /// <summary>
         ///     Gets the current error status
         /// </summary>
         ProgressiveErrors CurrentErrorStatus { get; }

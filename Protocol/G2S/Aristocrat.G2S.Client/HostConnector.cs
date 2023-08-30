@@ -52,7 +52,7 @@
         }
 
         /// <inheritdoc />
-        public IHostControl RegisterHost(int hostId, Uri hostUri, bool requiredForPlay, int index)
+        public IHostControl RegisterHost(int hostId, Uri hostUri, bool requiredForPlay, int index, bool isProgressiveHost = false, TimeSpan offlineTimerInterval = new TimeSpan())
         {
             return _hosts.GetOrAdd(
                 hostId,
@@ -60,7 +60,7 @@
                 {
                     var queue = new HostQueue(hostId, _egm, _endpointProvider, _dispatcher, _idProvider);
 
-                    var host = new RegisteredHost(hostId, hostUri, requiredForPlay, index, _endpointProvider, queue);
+                    var host = new RegisteredHost(hostId, hostUri, requiredForPlay, index, _endpointProvider, queue, isProgressiveHost, offlineTimerInterval);
 
                     _messageReceiverConnector.Connect(queue);
 
@@ -69,7 +69,7 @@
         }
 
         /// <inheritdoc />
-        public IHost UnregisterHost(int hostId)
+        public IHost UnregisterHost(int hostId, IEgmStateManager egmStateManager = null)
         {
             if (_hosts.TryRemove(hostId, out var host))
             {

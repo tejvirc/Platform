@@ -34,6 +34,7 @@
         private Mock<ICabinetDetectionService> _cabinetDetection;
         private Mock<ILocalizerFactory> _localizerFactory;
         private Mock<IMultiProtocolConfigurationProvider> _protocolProvider;
+        private Mock<IConfigurationUtilitiesProvider> _configurationUtilitiesProvider;
 
         /// <summary>
         ///     Initializes class members and prepares for execution of a TestMethod.
@@ -49,6 +50,7 @@
             _pathMapper = MoqServiceManager.CreateAndAddService<IPathMapper>(MockBehavior.Strict);
             _cabinetDetection = MoqServiceManager.CreateAndAddService<ICabinetDetectionService>(MockBehavior.Strict);
             _protocolProvider = MoqServiceManager.CreateAndAddService<IMultiProtocolConfigurationProvider>(MockBehavior.Default);
+            _configurationUtilitiesProvider = MoqServiceManager.CreateAndAddService<IConfigurationUtilitiesProvider>(MockBehavior.Default);
 
             _localizerFactory = MoqServiceManager.CreateAndAddService<ILocalizerFactory>(MockBehavior.Strict);
             _localizerFactory.Setup(m => m.For(It.IsAny<string>())).Returns<string>(
@@ -83,8 +85,11 @@
             _eventBus.Setup(a => a.Subscribe(It.IsAny<SelectionWindow>(), It.IsAny<Action<CloseConfigWindowEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<OperatorMenuPageLoadedEvent>>()));
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<SystemDownEvent>>()));
+            _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<OperatorMenuPopupEvent>>()));
 
             _cabinetDetection.Setup(mock => mock.GetDisplayDeviceByItsRole(It.IsAny<DisplayRole>())).Returns(new DisplayDevice());
+
+            _configurationUtilitiesProvider.Setup(mock => mock.GetConfigWizardConfiguration(It.IsAny<Func<ConfigWizardConfiguration>>())).Returns(new ConfigWizardConfiguration());
 
             MoqServiceManager.Instance.Setup(m => m.AddServiceAndInitialize(It.IsAny<AutoConfigurator>()));
 

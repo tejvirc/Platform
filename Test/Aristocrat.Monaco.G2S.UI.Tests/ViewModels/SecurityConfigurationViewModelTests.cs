@@ -164,7 +164,7 @@
             _target.CommitCommand.Execute(null);
             _target.Save();
 
-            Assert.IsTrue(_target.Committed);
+            Assert.IsTrue(_target.IsCommitted);
             _serviceMock.Verify(x => x.GetConfiguration(), Times.AtLeast(2));
             _serviceMock.Verify(x => x.SaveConfiguration(It.IsAny<PkiConfiguration>()), Times.AtLeast(1));
         }

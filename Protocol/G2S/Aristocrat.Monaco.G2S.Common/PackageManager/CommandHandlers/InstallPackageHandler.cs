@@ -2,7 +2,7 @@
 {
     using System;
     using System.Reflection;
-    using Data.Model;
+    using G2S.Data.Model;
     using log4net;
     using Monaco.Common.CommandHandlers;
     using Monaco.Common.Storage;

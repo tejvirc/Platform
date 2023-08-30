@@ -18,6 +18,11 @@
         void Save();
 
         /// <summary>
+        /// Cancel
+        /// </summary>
+        void Cancel();
+
+        /// <summary>
         /// CanSave
         /// </summary>
         bool CanSave { get; }

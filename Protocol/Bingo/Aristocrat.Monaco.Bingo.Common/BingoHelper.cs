@@ -7,7 +7,6 @@
     using System.Threading.Tasks;
     using System.Threading;
     using Gaming.Contracts;
-    using Kernel;
     using Protocol.Common.Storage.Entity;
     using Storage.Model;
 
@@ -15,9 +14,9 @@
     {
         private const int FallBackDynamicHelpPort = 7510;
 
-        public static Uri GetHelpUri(this IUnitOfWorkFactory unitOfWorkFactory, IPropertiesManager propertiesManager)
+        public static Uri GetHelpUri(this IUnitOfWorkFactory unitOfWorkFactory, IGameProvider gameProvider)
         {
-            var (gameDetail, denomination) = propertiesManager.GetActiveGame();
+            var (gameDetail, denomination) = gameProvider.GetActiveGame();
             var serverSettings = unitOfWorkFactory.Invoke(
                     x => x.Repository<BingoServerSettingsModel>().Queryable().SingleOrDefault())?.GamesConfigured
                 ?.FirstOrDefault(
@@ -45,9 +44,9 @@
 
         public static BingoGameConfiguration GetSelectedGameConfiguration(
             this IUnitOfWorkFactory unitOfWorkFactory,
-            IPropertiesManager propertiesManager)
+            IGameProvider gameProvider)
         {
-            var (game, denomination) = propertiesManager.GetActiveGame();
+            var (game, denomination) = gameProvider.GetActiveGame();
             if (game is null || denomination is null)
             {
                 return null;

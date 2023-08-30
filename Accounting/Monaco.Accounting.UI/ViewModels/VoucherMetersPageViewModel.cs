@@ -49,7 +49,7 @@
             set
             {
                 _isVoucherInVisible = value;
-                RaisePropertyChanged(nameof(IsVoucherInVisible));
+                OnPropertyChanged(nameof(IsVoucherInVisible));
             }
         }
 
@@ -59,7 +59,7 @@
             set
             {
                 _voucherInTotalCount = value;
-                RaisePropertyChanged(nameof(VoucherInTotalCount));
+                OnPropertyChanged(nameof(VoucherInTotalCount));
             }
         }
 
@@ -69,7 +69,7 @@
             set
             {
                 _voucherInTotalValue = value;
-                RaisePropertyChanged(nameof(VoucherInTotalValue));
+                OnPropertyChanged(nameof(VoucherInTotalValue));
             }
         }
 
@@ -82,7 +82,7 @@
             set
             {
                 _voucherOutTotalCount = value;
-                RaisePropertyChanged(nameof(VoucherOutTotalCount));
+                OnPropertyChanged(nameof(VoucherOutTotalCount));
             }
         }
 
@@ -92,7 +92,7 @@
             set
             {
                 _voucherOutTotalValue = value;
-                RaisePropertyChanged(nameof(VoucherOutTotalValue));
+                OnPropertyChanged(nameof(VoucherOutTotalValue));
             }
         }
 
@@ -102,7 +102,7 @@
             set
             {
                 _rejectedVoucherCount = value;
-                RaisePropertyChanged(nameof(RejectedVoucherCount));
+                OnPropertyChanged(nameof(RejectedVoucherCount));
             }
         }
 
@@ -112,7 +112,7 @@
             set
             {
                 _showCategoryCounts = value;
-                RaisePropertyChanged(nameof(ShowCategoryCounts));
+                OnPropertyChanged(nameof(ShowCategoryCounts));
             }
         }
 

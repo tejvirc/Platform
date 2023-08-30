@@ -14,6 +14,7 @@
     using Data.Meters;
     using Data.Model;
     using Gaming.Contracts;
+    using Gaming.Contracts.Rtp;
     using Hardware.Contracts;
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
@@ -1141,7 +1142,7 @@
 
         private int GetDeviceIdForMeter(string className, int deviceId)
         {
-            return className == "G2S_gamePlay" ? deviceId : 0;
+            return className == "G2S_gamePlay" || className == "G2S_progressive" ? deviceId : 0;
         }
 
         private IEnumerable<MeterSubscription> GetMeterSub(DbContext context, int hostId, MetersSubscriptionType type)

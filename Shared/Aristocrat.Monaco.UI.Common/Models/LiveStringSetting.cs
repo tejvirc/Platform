@@ -27,7 +27,7 @@
             set
             {
                 _minLength = value;
-                RaisePropertyChanged(nameof(MinLength));
+                OnPropertyChanged(nameof(MinLength));
             }
         }
 
@@ -40,7 +40,7 @@
             set
             {
                 _maxLength = value;
-                RaisePropertyChanged(nameof(MaxLength));
+                OnPropertyChanged(nameof(MaxLength));
             }
         }
 
@@ -53,7 +53,7 @@
             set
             {
                 _isAlphaNumeric = value;
-                RaisePropertyChanged(nameof(IsAlphaNumeric));
+                OnPropertyChanged(nameof(IsAlphaNumeric));
             }
         }
 
@@ -66,7 +66,7 @@
             set
             {
                 _characterCasing = value;
-                RaisePropertyChanged(nameof(CharacterCasing));
+                OnPropertyChanged(nameof(CharacterCasing));
             }
         }
     }

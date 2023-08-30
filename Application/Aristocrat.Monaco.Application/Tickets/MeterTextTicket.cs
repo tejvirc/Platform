@@ -54,7 +54,7 @@
                 foreach (var denomination in CoinDenominations)
                 {
                     CoinInMeterNames.Add(
-                        $"{TicketLocalizer.FormatString(ResourceKeys.CoinInFormat)} {denomination.FormattedCurrencyString("C0")}",
+                        $"{TicketLocalizer.FormatString(ResourceKeys.CoinInFormat)} {denomination.FormattedCurrencyString("C0", TicketLocalizer.CurrentCulture)}",
                         $"CoinCount{denomination}s"
                         );
                 }

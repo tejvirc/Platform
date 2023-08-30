@@ -12,15 +12,18 @@
     {
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
+        private readonly IGameProvider _gameProvider;
         private readonly IBank _bank;
 
         public ManualHandicapHelpPageViewModel(
             IEventBus eventBus,
             IBank bank,
+            IGameProvider gameProvider,
             IPropertiesManager properties)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
         }
 
@@ -75,7 +78,7 @@
 
         public bool SufficientCredits()
         {
-            var (currentGame, currentDenom) = _properties.GetActiveGame();
+            var (currentGame, currentDenom) = _gameProvider.GetActiveGame();
 
             if (currentGame != null && currentDenom != null)
             {

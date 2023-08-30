@@ -12,9 +12,9 @@
         /// <summary>
         ///     Instructs the reel controller to synchronize the reels
         /// </summary>
-        /// <param name="data">The synchronization data.</param>
+        /// <param name="syncData">The synchronization data.</param>
         /// <param name="token">The cancellation token</param>
         /// <returns></returns>
-        Task<bool> Synchronize(ReelSynchronizationData data, CancellationToken token);
+        Task<bool> Synchronize(ReelSynchronizationData syncData, CancellationToken token = default);
     }
 }

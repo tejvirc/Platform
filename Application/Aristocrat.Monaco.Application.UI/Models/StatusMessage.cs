@@ -1,12 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
     using Kernel;
-    using MVVM.Model;
 
     [CLSCompliant(false)]
-    public class StatusMessage : BaseNotify
+    public class StatusMessage : ObservableObject
     {
         private readonly DisplayableMessage _displayableMessage;
         private readonly string _resourceKey;
@@ -44,7 +44,7 @@
 
         public void UpdateAdditionalInfo()
         {
-            RaisePropertyChanged(nameof(AdditionalInfo));
+            OnPropertyChanged(nameof(AdditionalInfo));
         }
     }
 }

@@ -3,16 +3,19 @@
     using System;
     using Microsoft.EntityFrameworkCore;
     using System.Linq;
+    using System.Reflection;
     using Application.Contracts.Localization;
     using Common;
     using Common.Storage.Model;
     using Gaming.Contracts.Central;
     using Kernel;
     using Localization.Properties;
+    using log4net;
     using Protocol.Common.Storage.Entity;
 
     public class TotalWinValidator : ITotalWinValidator
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly ISystemDisableManager _systemDisableManager;
 
@@ -55,6 +58,8 @@
             {
                 return;
             }
+
+            Logger.Debug($"ValidateTotalWin failed, totalWin={totalWinInMillicents}, currentGameTotalWin={currentGameTotalWin}");
 
             WinMismatchError = true;
             WinResultMismatchDisable();

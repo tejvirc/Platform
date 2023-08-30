@@ -1,8 +1,9 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Drawing;
     using System.IO;
     using System.Linq;
@@ -11,6 +12,8 @@
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Lobby;
     using Contracts.Models;
@@ -21,7 +24,6 @@
     using Localization.Properties;
     using Models;
     using Monaco.UI.Common.Extensions;
-    using MVVM.Command;
     using Progressives;
     using Views.OperatorMenu;
 
@@ -69,6 +71,7 @@
         private bool _showProgramEnableResetCredits;
         private bool _attractOptionsEnabled;
         private bool _attractEnabled;
+        private bool _allowZeroCreditCashout;
         private bool _logicDoorEnabled;
         private OperatorMenuAccessRestriction _logicDoorAccessRestriction;
 
@@ -77,10 +80,11 @@
         private string _kenoSoundFilePath;
         private string _cardSoundFilePath;
         private ProgressiveLobbyIndicator _progressiveIndicator;
+        private bool _linkedProgressiveVerificationEnabled;
 
         public GamePreferencesViewModel()
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
             }
@@ -131,18 +135,20 @@
 
             IsButtonContinuousPlayConfigurable = true;
 
+            ShowZeroCreditCashoutCheckbox = PropertiesManager.GetValue(GamingConstants.ZeroCreditCashoutConfigurable, false);
             EditableCensorship = PropertiesManager.GetValue(GamingConstants.CensorshipEditable, false);
             CensorshipEnforced = PropertiesManager.GetValue(GamingConstants.CensorshipEnforced, false);
             DemoModeEnabled = PropertiesManager.GetValue(ApplicationConstants.ShowMode, false);
             AttractOptionsEnabled = gameProvider.GetEnabledGames().Any();
             AttractEnabled = PropertiesManager.GetValue(GamingConstants.AttractModeEnabled, true);
+            AllowZeroCreditCashout = PropertiesManager.GetValue(GamingConstants.AllowZeroCreditCashout, false);
 
             AutoHoldConfigurable = PokerOptionsEnabled &&
                                    PropertiesManager.GetValue(GamingConstants.AutoHoldConfigurable, true);
-            ChangeGameLobbyLayoutCommand = new ActionCommand<object>(ChangeGameLobbyLayout_Clicked);
-            AttractModeCustomizeCommand = new ActionCommand<object>(AttractModeCustomizeButton_Clicked);
-            AttractModePreviewCommand = new ActionCommand<object>(AttractModePreviewButton_Clicked);
-            PreviewBackgroundCommand = new ActionCommand<object>(BackgroundPreviewButton_Clicked);
+            ChangeGameLobbyLayoutCommand = new RelayCommand<object>(ChangeGameLobbyLayout_Clicked);
+            AttractModeCustomizeCommand = new RelayCommand<object>(AttractModeCustomizeButton_Clicked);
+            AttractModePreviewCommand = new RelayCommand<object>(AttractModePreviewButton_Clicked);
+            PreviewBackgroundCommand = new RelayCommand<object>(BackgroundPreviewButton_Clicked);
 
             IsGameStartMethodSettingVisible = PropertiesManager.GetValue(
                 GamingConstants.GameStartMethodSettingVisible,
@@ -165,6 +171,10 @@
             var lobbyStateManager = ServiceManager.GetInstance().GetService<IContainerService>().Container
                 ?.GetInstance<ILobbyStateManager>();
             IsShowProgramPinConfigurable = lobbyStateManager?.BaseState != LobbyState.Game;
+
+            GameExistsWithExtendedRtpInfo = gameProvider.GetAllGames().Any(game => game.HasExtendedRtpInformation);
+
+            LinkedProgressiveVerificationEnabled = PropertiesManager.GetValue(GamingConstants.LinkedProgressiveVerificationEnabled, true);
         }
 
         public IEnumerable<GameStartMethodInfo> GameStartMethods { get; } = new[]
@@ -250,7 +260,7 @@
                 }
 
                 _enableVideo = value;
-                RaisePropertyChanged(nameof(EnableVideo));
+                OnPropertyChanged(nameof(EnableVideo));
             }
         }
 
@@ -265,7 +275,7 @@
                 }
 
                 _enableAudio = value;
-                RaisePropertyChanged(nameof(EnableAudio));
+                OnPropertyChanged(nameof(EnableAudio));
             }
         }
 
@@ -280,7 +290,7 @@
                 }
 
                 _enableLighting = value;
-                RaisePropertyChanged(nameof(EnableLighting));
+                OnPropertyChanged(nameof(EnableLighting));
             }
         }
 
@@ -295,7 +305,7 @@
                 }
 
                 _attractOptionsEnabled = value;
-                RaisePropertyChanged(nameof(AttractOptionsEnabled));
+                OnPropertyChanged(nameof(AttractOptionsEnabled));
             }
         }
 
@@ -310,9 +320,32 @@
                 }
 
                 _attractEnabled = value;
-                RaisePropertyChanged(nameof(AttractEnabled));
+                OnPropertyChanged(nameof(AttractEnabled));
                 Save(GamingConstants.AttractModeEnabled, _attractEnabled);
                 EventBus.Publish(new AttractConfigurationChangedEvent());
+            }
+        }
+
+        public bool ShowZeroCreditCashoutCheckbox
+        {
+            get;
+            set;
+        }
+
+        public bool AllowZeroCreditCashout
+        {
+            get => _allowZeroCreditCashout;
+            set
+            {
+                if (_allowZeroCreditCashout == value)
+                {
+                    return;
+                }
+
+                _allowZeroCreditCashout = value;
+                OnPropertyChanged(nameof(AllowZeroCreditCashout));
+                Save(GamingConstants.AllowZeroCreditCashout, _allowZeroCreditCashout);
+                EventBus.Publish(new AllowZeroCreditCashoutChangedEvent());
             }
         }
 
@@ -327,25 +360,16 @@
                 }
 
                 _showProgramPinRequired = value;
-                RaisePropertyChanged(nameof(ShowProgramPinRequired));
+                OnPropertyChanged(nameof(ShowProgramPinRequired));
                 Save(GamingConstants.ShowProgramPinRequired, _showProgramPinRequired);
             }
         }
 
+        [CustomValidation(typeof(GamePreferencesViewModel), nameof(ValidateShowProgramPin))]
         public string ShowProgramPin
         {
             get => _showProgramPin;
-            set
-            {
-                if (_showProgramPin == value)
-                {
-                    return;
-                }
-
-                _showProgramPin = value;
-                RaisePropertyChanged(nameof(ShowProgramPin));
-                ValidateShowProgramPin();
-            }
+            set => SetProperty(ref _showProgramPin, value, true);
         }
 
         public bool ShowProgramEnableResetCredits
@@ -359,7 +383,7 @@
                 }
 
                 _showProgramEnableResetCredits = value;
-                RaisePropertyChanged(nameof(ShowProgramEnableResetCredits));
+                OnPropertyChanged(nameof(ShowProgramEnableResetCredits));
                 Save(GamingConstants.ShowProgramEnableResetCredits, _showProgramEnableResetCredits);
             }
         }
@@ -375,7 +399,7 @@
                 }
 
                 _showServiceButton = value;
-                RaisePropertyChanged(nameof(ShowServiceButton));
+                OnPropertyChanged(nameof(ShowServiceButton));
 
                 Save(GamingConstants.ShowServiceButton, _showServiceButton);
                 EventBus.Publish(new LobbySettingsChangedEvent(LobbySettingType.ServiceButtonVisible));
@@ -393,7 +417,7 @@
                 }
 
                 _showTopPickBanners = value;
-                RaisePropertyChanged(nameof(ShowTopPickBanners));
+                OnPropertyChanged(nameof(ShowTopPickBanners));
 
                 Save(GamingConstants.ShowTopPickBanners, _showTopPickBanners);
                 EventBus.Publish(new LobbySettingsChangedEvent(LobbySettingType.ShowTopPickBanners));
@@ -411,7 +435,7 @@
                 }
 
                 _showTopPickBannersVisible = value;
-                RaisePropertyChanged(nameof(ShowTopPickBannersVisible));
+                OnPropertyChanged(nameof(ShowTopPickBannersVisible));
             }
         }
 
@@ -426,7 +450,7 @@
                 }
 
                 _lobbyVolumeScalar = value;
-                RaisePropertyChanged(nameof(LobbyVolumeScalar));
+                OnPropertyChanged(nameof(LobbyVolumeScalar));
 
                 Save(ApplicationConstants.LobbyVolumeScalarKey, _lobbyVolumeScalar);
                 PlayVolumeChangeSound(_dingSoundFilePath, _audio.GetVolumeScalar(value));
@@ -444,7 +468,7 @@
                 }
 
                 _slotEnableAutoPlay = value;
-                RaisePropertyChanged(nameof(SlotEnableAutoPlay));
+                OnPropertyChanged(nameof(SlotEnableAutoPlay));
 
                 Save(
                     GameType.Slot,
@@ -467,7 +491,7 @@
                 }
 
                 _slotVolumeScalar = value;
-                RaisePropertyChanged(nameof(SlotVolumeScalar));
+                OnPropertyChanged(nameof(SlotVolumeScalar));
 
                 Save(
                     GameType.Slot,
@@ -491,7 +515,7 @@
                 }
 
                 _isButtonContinuousPlayChecked = value;
-                RaisePropertyChanged(nameof(IsButtonContinuousPlayChecked));
+                OnPropertyChanged(nameof(IsButtonContinuousPlayChecked));
 
                 var mode = _isButtonContinuousPlayChecked
                     ? PlayMode.Continuous
@@ -514,7 +538,7 @@
                 }
 
                 _isDoubleTapForceReelStopChecked = value;
-                RaisePropertyChanged(nameof(IsDoubleTapForceReelStopChecked));
+                OnPropertyChanged(nameof(IsDoubleTapForceReelStopChecked));
 
                 Save(GamingConstants.ReelStopEnabled, _isDoubleTapForceReelStopChecked);
             }
@@ -531,7 +555,7 @@
                 }
 
                 _kenoEnableAutoPlay = value;
-                RaisePropertyChanged(nameof(KenoEnableAutoPlay));
+                OnPropertyChanged(nameof(KenoEnableAutoPlay));
 
                 Save(
                     GameType.Keno,
@@ -554,7 +578,7 @@
                 }
 
                 _kenoShowPlayerSpeedButton = value;
-                RaisePropertyChanged(nameof(KenoShowPlayerSpeedButton));
+                OnPropertyChanged(nameof(KenoShowPlayerSpeedButton));
 
                 Save(
                     GameType.Keno,
@@ -577,7 +601,7 @@
                 }
 
                 _kenoSpeedLevel = value;
-                RaisePropertyChanged(nameof(KenoSpeedLevel));
+                OnPropertyChanged(nameof(KenoSpeedLevel));
 
                 Save(
                     GameType.Keno,
@@ -600,7 +624,7 @@
                 }
 
                 _kenoDefaultSpeedLevel = value;
-                RaisePropertyChanged(nameof(KenoDefaultSpeedLevel));
+                OnPropertyChanged(nameof(KenoDefaultSpeedLevel));
 
                 Save(
                     GameType.Keno,
@@ -623,7 +647,7 @@
                 }
 
                 _kenoVolumeScalar = value;
-                RaisePropertyChanged(nameof(KenoVolumeScalar));
+                OnPropertyChanged(nameof(KenoVolumeScalar));
 
                 Save(
                     GameType.Keno,
@@ -647,7 +671,7 @@
                 }
 
                 _pokerEnableAutoHold = value;
-                RaisePropertyChanged(nameof(PokerEnableAutoHold));
+                OnPropertyChanged(nameof(PokerEnableAutoHold));
 
                 Save(
                     GameType.Poker,
@@ -670,7 +694,7 @@
                 }
 
                 _pokerShowPlayerSpeedButton = value;
-                RaisePropertyChanged(nameof(PokerShowPlayerSpeedButton));
+                OnPropertyChanged(nameof(PokerShowPlayerSpeedButton));
 
                 Save(
                     GameType.Poker,
@@ -693,7 +717,7 @@
                 }
 
                 _pokerSpeedLevel = value;
-                RaisePropertyChanged(nameof(PokerSpeedLevel));
+                OnPropertyChanged(nameof(PokerSpeedLevel));
 
                 Save(
                     GameType.Poker,
@@ -716,7 +740,7 @@
                 }
 
                 _pokerDefaultSpeedLevel = value;
-                RaisePropertyChanged(nameof(PokerDefaultSpeedLevel));
+                OnPropertyChanged(nameof(PokerDefaultSpeedLevel));
 
                 Save(
                     GameType.Poker,
@@ -739,7 +763,7 @@
                 }
 
                 _pokerVolumeScalar = value;
-                RaisePropertyChanged(nameof(PokerVolumeScalar));
+                OnPropertyChanged(nameof(PokerVolumeScalar));
 
                 Save(
                     GameType.Poker,
@@ -763,7 +787,7 @@
                 }
 
                 _pokerBackgroundColor = value;
-                RaisePropertyChanged(nameof(PokerBackgroundColor), nameof(BackgroundPreviewAvailable));
+                OnPropertyChanged(nameof(PokerBackgroundColor), nameof(BackgroundPreviewAvailable));
 
                 Save(GameType.Poker, UpdateBackgroundColor);
                 Save(GameType.Slot, UpdateBackgroundColor);
@@ -787,7 +811,7 @@
                 }
 
                 _blackjackVolumeScalar = value;
-                RaisePropertyChanged(nameof(BlackjackVolumeScalar));
+                OnPropertyChanged(nameof(BlackjackVolumeScalar));
 
                 Save(
                     GameType.Blackjack,
@@ -811,7 +835,7 @@
                 }
 
                 _rouletteVolumeScalar = value;
-                RaisePropertyChanged(nameof(RouletteVolumeScalar));
+                OnPropertyChanged(nameof(RouletteVolumeScalar));
 
                 Save(
                     GameType.Roulette,
@@ -835,7 +859,7 @@
                 }
 
                 _censorViolentContent = value;
-                RaisePropertyChanged(nameof(CensorViolentContent));
+                OnPropertyChanged(nameof(CensorViolentContent));
 
                 // TODO save update this in the PropertiesManager
             }
@@ -852,7 +876,7 @@
                 }
 
                 _censorDrugUseContent = value;
-                RaisePropertyChanged(nameof(CensorDrugUseContent));
+                OnPropertyChanged(nameof(CensorDrugUseContent));
 
                 // TODO save update this in the PropertiesManager
             }
@@ -869,7 +893,7 @@
                 }
 
                 _censorSexualContent = value;
-                RaisePropertyChanged(nameof(CensorSexualContent));
+                OnPropertyChanged(nameof(CensorSexualContent));
 
                 // TODO save update this in the PropertiesManager
             }
@@ -886,7 +910,7 @@
                 }
 
                 _censorOffensiveContent = value;
-                RaisePropertyChanged(nameof(CensorOffensiveContent));
+                OnPropertyChanged(nameof(CensorOffensiveContent));
 
                 // TODO save update this in the PropertiesManager
             }
@@ -905,7 +929,7 @@
                 }
 
                 _gameStartMethod = value;
-                RaisePropertyChanged(nameof(GameStartMethod));
+                OnPropertyChanged(nameof(GameStartMethod));
                 Save(GamingConstants.GameStartMethod, value);
             }
         }
@@ -938,7 +962,7 @@
                 if (_logicDoorEnabled != value)
                 {
                     _logicDoorEnabled = value;
-                    RaisePropertyChanged(nameof(LogicDoorEnabled));
+                    OnPropertyChanged(nameof(LogicDoorEnabled));
                 }
             }
         }
@@ -951,7 +975,7 @@
                 if (_logicDoorAccessRestriction != value)
                 {
                     _logicDoorAccessRestriction = value;
-                    RaisePropertyChanged(nameof(LogicDoorAccessRestriction));
+                    OnPropertyChanged(nameof(LogicDoorAccessRestriction));
                     OnFieldAccessRestrictionChange();
                 }
             }
@@ -973,6 +997,24 @@
                 }
             }
         }
+
+        public bool LinkedProgressiveVerificationEnabled
+        {
+            get => _linkedProgressiveVerificationEnabled;
+            set
+            {
+                if (_linkedProgressiveVerificationEnabled == value)
+                {
+                    return;
+                }
+
+                _linkedProgressiveVerificationEnabled = value;
+                OnPropertyChanged(nameof(LinkedProgressiveVerificationEnabled));
+                Save(GamingConstants.LinkedProgressiveVerificationEnabled, _linkedProgressiveVerificationEnabled);
+            }
+        }
+
+        public bool GameExistsWithExtendedRtpInfo { get; set; }
 
         protected override void OnFieldAccessRestrictionChange()
         {
@@ -1054,6 +1096,7 @@
                 RouletteVolumeScalar = _gameCategory[GameType.Roulette].VolumeScalar;
             }
 
+            AllowZeroCreditCashout = PropertiesManager.GetValue(GamingConstants.AllowZeroCreditCashout, false);
             AttractEnabled = PropertiesManager.GetValue(GamingConstants.AttractModeEnabled, true);
             ProgressiveIndicator = PropertiesManager.GetValue(
                 GamingConstants.ProgressiveLobbyIndicatorType,
@@ -1086,18 +1129,17 @@
             base.DisposeInternal();
         }
 
-        private void ValidateShowProgramPin()
+        public static ValidationResult ValidateShowProgramPin(string showProgramPin, ValidationContext context)
         {
-            if (ShowProgramPin.Length < 4)
+            GamePreferencesViewModel instance = (GamePreferencesViewModel)context.ObjectInstance;
+            if (showProgramPin.Length < 4)
             {
-                SetError(
-                    nameof(ShowProgramPin),
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PinLengthLessThanFourErrorMessage));
+                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PinLengthLessThanFourErrorMessage));
             }
             else
             {
-                ClearErrors(nameof(ShowProgramPin));
-                Save(GamingConstants.ShowProgramPin, _showProgramPin);
+                instance.Save(GamingConstants.ShowProgramPin, instance._showProgramPin);
+                return ValidationResult.Success;
             }
         }
 

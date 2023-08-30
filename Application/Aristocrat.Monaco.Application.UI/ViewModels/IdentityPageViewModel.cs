@@ -1,7 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.Security.Policy;
     using System.Text.RegularExpressions;
+    using System.Web.UI;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Contracts.Localization;
     using Helpers;
@@ -9,6 +13,7 @@
     using Monaco.Common;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Models;
+    using static Humanizer.In;
 
     /// <summary>
     ///     The IdentityViewModel supports adding and editing a G2S host.
@@ -35,46 +40,31 @@
             Area = new LiveStringSetting(this, nameof(Area))
             {
                 IsQuiet = isWizardPage,
-                OnChanged = _ =>
-                {
-                    ValidateArea(true);
-                },
+                OnChanged = _ => ValidateProperty(Area, nameof(Area)),
             };
 
             Zone = new LiveStringSetting(this, nameof(Zone))
             {
                 IsQuiet = isWizardPage,
-                OnChanged = _ =>
-                {
-                    ValidateZone(true);
-                },
+                OnChanged = _ => ValidateProperty(Zone, nameof(Zone)),
             };
 
             Bank = new LiveStringSetting(this, nameof(Bank))
             {
                 IsQuiet = isWizardPage,
-                OnChanged = _ =>
-                {
-                    ValidateBank(true);
-                },
+                OnChanged = _ => ValidateProperty(Bank, nameof(Bank)),
             };
 
             Position = new LiveStringSetting(this, nameof(Position))
             {
                 IsQuiet = isWizardPage,
-                OnChanged = _ =>
-                {
-                    ValidatePosition(true);
-                },
+                OnChanged = _ => ValidateProperty(Position, nameof(Position)),
             };
 
             Location = new LiveStringSetting(this, nameof(Location))
             {
                 IsQuiet = isWizardPage,
-                OnChanged = _ =>
-                {
-                    ValidateLocation(true);
-                },
+                OnChanged = _ => ValidateProperty(Location, nameof(Location)),
             };
 
             DeviceName = new LiveStringSetting(this, nameof(DeviceName))
@@ -83,22 +73,28 @@
                 IsVisible = false,
                 OnChanged = setting =>
                 {
-                    ValidateDeviceName(true);
-                    RaisePropertyChanged(setting.Name);
+                    ValidateProperty(DeviceName, nameof(DeviceName));
+                    OnPropertyChanged(setting.Name);
                 }
             };
         }
 
+        [CustomValidation(typeof(IdentityPageViewModel), nameof(ValidateArea))]
         public LiveStringSetting Area { get; private set; }
 
+        [CustomValidation(typeof(IdentityPageViewModel), nameof(ValidateZone))]
         public LiveStringSetting Zone { get; private set; }
 
+        [CustomValidation(typeof(IdentityPageViewModel), nameof(ValidateBank))]
         public LiveStringSetting Bank { get; private set; }
 
+        [CustomValidation(typeof(IdentityPageViewModel), nameof(ValidatePosition))]
         public LiveStringSetting Position { get; private set; }
 
+        [CustomValidation(typeof(IdentityPageViewModel), nameof(ValidateLocation))]
         public LiveStringSetting Location { get; private set; }
 
+        [CustomValidation(typeof(IdentityPageViewModel), nameof(ValidateDeviceName))]
         public LiveStringSetting DeviceName { get; private set; }
 
         /// <summary>
@@ -113,7 +109,7 @@
                 if (_printIdentityTicket != value)
                 {
                     _printIdentityTicket = value;
-                    RaisePropertyChanged(nameof(PrintIdentityTicket));
+                    OnPropertyChanged(nameof(PrintIdentityTicket));
                 }
             }
         }
@@ -130,7 +126,7 @@
                 if (_printTicketEnabled != value)
                 {
                     _printTicketEnabled = value;
-                    RaisePropertyChanged(nameof(PrintTicketEnabled));
+                    OnPropertyChanged(nameof(PrintTicketEnabled));
                 }
             }
         }
@@ -150,14 +146,13 @@
             LoadVariableData();
             SetupNavigation();
 
-            ValidateAll(WizardNavigator == null); // unmark fields only in Config Wizard
+            RunCustomValidation();
         }
 
         protected override void OnUnloaded()
         {
             Unsubscribe();
             SaveChanges();
-            ValidateAll(false);
         }
 
         /// <summary>
@@ -243,7 +238,7 @@
         /// </summary>
         protected override void SaveChanges()
         {
-            if (Committed || HasErrors)
+            if (IsCommitted || HasErrors)
             {
                 return;
             }
@@ -257,29 +252,20 @@
 
             PropertiesManager.SetProperty(ApplicationConstants.CabinetPrintIdentity, _printIdentityTicket);
 
-            Committed = true;
+            IsCommitted = true;
 
             base.SaveChanges();
         }
 
-        /// <inheritdoc />
-        protected override void ValidateAll()
+        protected override void RunCustomValidation()
         {
-            base.ValidateAll();
-            ValidateAll(true);
-        }
-
-        /// <summary>
-        /// Validate live settings. Circumvents "sticky" errors due to the vaildation system not properly tracking deep field paths.
-        /// </summary>
-        protected void ValidateAll(bool markFields)
-        {
-            ValidateArea(markFields);
-            ValidateZone(markFields);
-            ValidateBank(markFields);
-            ValidatePosition(markFields);
-            ValidateLocation(markFields);
-            ValidateDeviceName(markFields);
+            base.RunCustomValidation();
+            ValidateProperty(Area, nameof(Area));
+            ValidateProperty(Zone, nameof(Zone));
+            ValidateProperty(Bank, nameof(Bank));
+            ValidateProperty(Position, nameof(Position));
+            ValidateProperty(Location, nameof(Location));
+            ValidateProperty(DeviceName, nameof(DeviceName));
         }
 
         protected override void SetupNavigation()
@@ -293,7 +279,7 @@
 
         protected virtual void LoadVariableData()
         {
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 UpdateLiveSetting(nameof(SerialNumber));
                 UpdateLiveSetting(nameof(AssetNumber));
@@ -380,74 +366,78 @@
             }
         }
 
-        private void ValidateArea(bool markField)
+        public static ValidationResult ValidateArea(LiveStringSetting area, ValidationContext context)
         {
-            ValidateField(Area, _areaOverride, ResourceKeys.SiteRange, null, markField);
+            var instance = (IdentityPageViewModel)context.ObjectInstance;
+            var errorMessage = instance.ValidateRange(area, instance._areaOverride, ResourceKeys.SiteRange);
+            return string.IsNullOrEmpty(errorMessage) ? ValidationResult.Success : new(errorMessage);
         }
 
-        private void ValidateZone(bool markField)
+        public static ValidationResult ValidateZone(LiveStringSetting zone, ValidationContext context)
         {
-            ValidateField(Zone, _zoneOverride, ResourceKeys.ZoneRange, null, markField);
+            var instance = (IdentityPageViewModel)context.ObjectInstance;
+            var errorMessage = instance.ValidateRange(zone, instance._zoneOverride, ResourceKeys.ZoneRange);
+            return string.IsNullOrEmpty(errorMessage) ? ValidationResult.Success : new(errorMessage);
         }
 
-        private void ValidateBank(bool markField)
+        public static ValidationResult ValidateBank(LiveStringSetting bank, ValidationContext context)
         {
-            ValidateField(Bank, _bankOverride, ResourceKeys.BankRange, null, markField);
+            var instance = (IdentityPageViewModel)context.ObjectInstance;
+            var errorMessage = instance.ValidateRange(bank, instance._bankOverride, ResourceKeys.BankRange);
+            return string.IsNullOrEmpty(errorMessage) ? ValidationResult.Success : new(errorMessage);
         }
 
-        private void ValidatePosition(bool markField)
+        public static ValidationResult ValidatePosition(LiveStringSetting position, ValidationContext context)
         {
-            ValidateField(Position, _positionOverride, ResourceKeys.PositionRange, null, markField);
+            var instance = (IdentityPageViewModel)context.ObjectInstance;
+            var errorMessage = instance.ValidateRange(position, instance._positionOverride, ResourceKeys.PositionRange);
+            return string.IsNullOrEmpty(errorMessage) ? ValidationResult.Success : new(errorMessage);
         }
 
-        private void ValidateLocation(bool markField)
+        public static ValidationResult ValidateLocation(LiveStringSetting location, ValidationContext context)
         {
-            ValidateField(Location, _locationOverride, ResourceKeys.LocationRange, null, markField);
+            var instance = (IdentityPageViewModel)context.ObjectInstance;
+            var errorMessage = instance.ValidateRange(location, instance._locationOverride, ResourceKeys.LocationRange);
+            return string.IsNullOrEmpty(errorMessage) ? ValidationResult.Success : new(errorMessage);
         }
 
-        private void ValidateDeviceName(bool markField)
+        public static ValidationResult ValidateDeviceName(LiveStringSetting deviceName, ValidationContext context)
         {
-            ValidateField(DeviceName, _deviceNameOverride, null, ResourceKeys.DeviceNameLength, markField);
+            var instance = (IdentityPageViewModel)context.ObjectInstance;
+            var errorMessage = instance.ValidateLength(deviceName, ResourceKeys.DeviceNameLength);
+            return string.IsNullOrEmpty(errorMessage) ? ValidationResult.Success : new(errorMessage);
         }
 
-        private void ValidateField(LiveStringSetting setting, IdentityFieldOverride over,
-            string rangeErrorText, string lengthErrorText, bool markField)
+        private string ValidateRange(
+            LiveStringSetting setting,
+            IdentityFieldOverride fieldOverride,
+            string errorMessageKey
+        )
         {
-            var name = setting.Name;
-
-            // validate range
-            string error = null;
-            if (rangeErrorText != null)
-            {
-                var min = over?.MinValue ?? 0;
-                var max = over?.MaxValue ?? 0;
-                error = (min != 0 || max != 0) && (!int.TryParse(setting.EditedValue, out var val) || val < min || val > max)
-                    ? string.Format(Localizer.For(CultureFor.Operator).GetString(rangeErrorText), min, max)
-                    : null;
-            }
-
-            // validate length
-            if (error == null && lengthErrorText != null)
-            {
-                var min = setting.MinLength;
-                var max = setting.MaxLength;
-                var val = setting.EditedValue;
-                var len = val?.Length ?? 0;
-                error = min != 0 && len < min || max != 0 && len > max
-                    ? string.Format(Localizer.For(CultureFor.Operator).GetString(lengthErrorText), min, max)
-                    : null;
-            }
-
-            // update error
-            setting.ValidationErrors = markField ? new[] { error } : null;
-            ClearErrors(name);
-            SetError(name, error);
-            RaisePropertyChanged(name);
+            var min = fieldOverride?.MinValue ?? 0;
+            var max = fieldOverride?.MaxValue ?? 0;
+            return (min != 0 || max != 0) && (!int.TryParse(setting.EditedValue, out var val) || val < min || val > max)
+                ? string.Format(Localizer.For(CultureFor.Operator).GetString(errorMessageKey), min, max)
+                : null;
         }
 
-        protected override void RaisePropertyChanged(string propertyName)
+        private string ValidateLength(
+            LiveStringSetting setting,
+            string errorMessageKey
+        )
         {
-            base.RaisePropertyChanged(propertyName);
+            var min = setting.MinLength;
+            var max = setting.MaxLength;
+            var val = setting.EditedValue;
+            var len = val?.Length ?? 0;
+            return min != 0 && len < min || max != 0 && len > max
+                ? string.Format(Localizer.For(CultureFor.Operator).GetString(errorMessageKey), min, max)
+                : null;
+        }
+
+        protected new void OnPropertyChanged(string propertyName)
+        {
+            base.OnPropertyChanged(propertyName);
 
             if (WizardNavigator != null)
             {

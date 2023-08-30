@@ -1,18 +1,17 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.EdgeLight
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Media;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.EdgeLight.Contracts;
     using Hardware.EdgeLight.Device;
     using Hardware.EdgeLight.Strips;
     using Kernel;
-    using MVVM.Model;
-    using MVVM.ViewModel;
 
-    public class EdgeLightSimulatorViewModel : BaseEntityViewModel
+    public class EdgeLightSimulatorViewModel : ObservableObject
     {
         private readonly SimEdgeLightDevice _device;
 
@@ -46,7 +45,7 @@
                 _selectedMapping = value;
                 _device.LoadEdgeLightStrips(value.Name);
                 MapStrips();
-                RaisePropertyChanged(nameof(SelectedMapping));
+                OnPropertyChanged(nameof(SelectedMapping));
             }
         }
 
@@ -57,7 +56,7 @@
             set
             {
                 _strips = value;
-                RaisePropertyChanged(nameof(Strips));
+                OnPropertyChanged(nameof(Strips));
             }
         }
 
@@ -67,7 +66,7 @@
             set
             {
                 _leftStrip = value;
-                RaisePropertyChanged(nameof(LeftStrip));
+                OnPropertyChanged(nameof(LeftStrip));
             }
         }
 
@@ -77,7 +76,7 @@
             set
             {
                 _rightStrip = value;
-                RaisePropertyChanged(nameof(RightStrip));
+                OnPropertyChanged(nameof(RightStrip));
             }
         }
         public DisplayStrip BottomStrip
@@ -86,7 +85,7 @@
             set
             {
                 _bottomStrip = value;
-                RaisePropertyChanged(nameof(BottomStrip));
+                OnPropertyChanged(nameof(BottomStrip));
             }
         }
 
@@ -96,7 +95,7 @@
             set
             {
                 _topStrip = value;
-                RaisePropertyChanged(nameof(TopStrip));
+                OnPropertyChanged(nameof(TopStrip));
             }
         }
 
@@ -106,7 +105,7 @@
             set
             {
                 _vbdStrip = value;
-                RaisePropertyChanged(nameof(VbdStrip));
+                OnPropertyChanged(nameof(VbdStrip));
             }
         }
 
@@ -220,7 +219,7 @@
             public List<Led> Leds { get; }
         }
 
-        public class Led : BaseNotify
+        public class Led : ObservableObject
         {
             private Color _color;
             internal Led(Color color)
@@ -234,7 +233,7 @@
                 set
                 {
                     _color = value;
-                    RaisePropertyChanged(nameof(Color));
+                    OnPropertyChanged(nameof(Color));
                 }
             }
         }

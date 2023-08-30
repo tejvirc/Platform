@@ -1,15 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Models
 {
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
     using Hardware.Contracts.Audio;
-    using MVVM.Model;
 
     /// <summary>
     ///     Volume Option that relates a <see cref="VolumeLevel"/> to a localized display string
     /// </summary>
     [CLSCompliant(false)]
-    public class VolumeOption : BaseNotify
+    public class VolumeOption : ObservableObject
     {
         public VolumeOption(VolumeLevel level)
         {
@@ -22,7 +22,7 @@
 
         public void UpdateDisplay()
         {
-            RaisePropertyChanged(nameof(DisplayString));
+            OnPropertyChanged(nameof(DisplayString));
         }
     }
 }

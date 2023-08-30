@@ -48,6 +48,26 @@
         public const string DefaultUrl = @"localhost";
 
         /// <summary>
+        ///     The Vertex standard progressive type
+        /// </summary>
+        public const string VertexProgTypeStandard = ManufacturerPrefix + "_standard";
+
+        /// <summary>
+        ///     The Vertex mystery progressive type
+        /// </summary>
+        public const string VertexProgTypeMystery = ManufacturerPrefix + "_mystery";
+
+        /// <summary>
+        ///     The Vertex AnteBet Bulk progressive type
+        /// </summary>
+        public const string VertexProgTypeBulkContribution = ManufacturerPrefix + "_anteWithBulk";
+
+        /// <summary>
+        ///     The Vertex host choice progressive type
+        /// </summary>
+        public const string VertexProgTypeHostChoice = ManufacturerPrefix + "_hostChoice";
+
+        /// <summary>
         ///     The default retry count
         /// </summary>
         public const int DefaultRetryCount = 3;
@@ -63,6 +83,11 @@
         public const int ExpirationNotSet = -1;
 
         /// <summary>
+        ///     DeviceId representing all devices within a class
+        /// </summary>
+        public const int ClassLevelDeviceId = 0;
+
+        /// <summary>
         ///     The default time to live behavior
         /// </summary>
         public const TimeToLiveBehavior DefaultTimeToLiveBehavior = TimeToLiveBehavior.Strict;
@@ -76,10 +101,5 @@
         ///     Default No Response Timer
         /// </summary>
         public static readonly TimeSpan NoResponseTimer = new TimeSpan(0, 5, 0);
-
-        /// <summary>
-        ///     A collection of configured hosts
-        /// </summary>
-        public const string RegisteredHosts = @"G2S.RegisteredHosts";
     }
 }

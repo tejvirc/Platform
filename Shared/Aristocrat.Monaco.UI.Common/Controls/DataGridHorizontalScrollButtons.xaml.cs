@@ -65,14 +65,14 @@
             UpdateProperties();
         }
 
-        private void RaisePropertyChanged(string propertyName = null)
+        private void OnPropertyChanged(string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void UpdateProperties()
         {
-            RaisePropertyChanged(nameof(CanContentScroll));
+            OnPropertyChanged(nameof(CanContentScroll));
         }
 
         private void PageLeftMostButton_OnClick(object sender, RoutedEventArgs e)

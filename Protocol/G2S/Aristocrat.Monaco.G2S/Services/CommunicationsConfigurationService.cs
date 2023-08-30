@@ -155,7 +155,40 @@
                 hosts.AddRange(current.Where(h => hosts.All(a => a.Index != h.Index)).ToList());
 
                 // Remove any hosts that were explicitly unregistered
-                var removed = DeleteHosts(request.SetHostItems);
+                var removed = new List<IHost>();
+
+                foreach (var hostItem in
+                    request.SetHostItems.Where(i => !i.HostRegistered && i.HostIndex != Aristocrat.G2S.Client.Constants.EgmHostIndex))
+                {
+                    var host = hosts.FirstOrDefault(h => h.Index == hostItem.HostIndex);
+
+                    if (host == null)
+                    {
+                        host = current.FirstOrDefault(h => h.Index == hostItem.HostIndex);
+
+                        if (host != null)
+                        {
+                            if (host.Registered && current.Count - hosts.Count >= 1)
+                            {
+                                hosts.Remove(host);
+                                current.Remove(host);
+
+                                _hostFactory.Delete(host);
+                                removed.Add(host);
+                            }
+                        }
+
+                        continue;
+                    }
+
+                    if (hostItem.HostRegistered || !host.Registered)
+                    {
+                        continue;
+                    }
+
+                    _hostFactory.Delete(host);
+                    removed.Add(host);
+                }
 
                 hosts.RemoveAll(h => removed.Any(r => r.Id == h.Id));
 
@@ -227,30 +260,6 @@
 
             transactionList = new transactionList { transactionInfo = new[] { info } };
             return log.TransactionId;
-        }
-
-        private IEnumerable<IHost> DeleteHosts(IEnumerable<SetHostItem> request)
-        {
-            var removed = new List<IHost>();
-
-            var hosts = _properties.GetValues<IHost>(Constants.RegisteredHosts).ToList();
-
-            foreach (var hostItem in
-                request.Where(i => !i.HostRegistered && i.HostIndex != Aristocrat.G2S.Client.Constants.EgmHostIndex))
-            {
-                var host = hosts.FirstOrDefault(h => h.Index == hostItem.HostIndex);
-
-                if (hostItem.HostRegistered || host == null || !host.Registered)
-                {
-                    continue;
-                }
-
-                _hostFactory.Delete(host);
-
-                removed.Add(host);
-            }
-
-            return removed;
         }
 
         private IEnumerable<IHost> RegisterHosts(

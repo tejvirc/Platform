@@ -2,12 +2,14 @@
 {
     using ProtoBuf;
     using System.Collections.Generic;
+    using System.Diagnostics;
 
     /// <summary>
     ///     The fundamental data structure for a progressive level defined by a game. <see cref="IProgressiveLevelProvider" />
     ///     will manage all progressive levels for all games.
     /// </summary>
     [ProtoContract]
+    [DebuggerDisplay("{nameof(ProgressiveLevel),nq} D:{DeviceId} T:{LevelType} P:{ProgressivePackName,nq} G:{GameId} L:{LevelId}-{LevelName,nq} V:{CurrentValue/100000.0}")]
     public class ProgressiveLevel : IViewableProgressiveLevel
     {
         /// <summary>
@@ -74,6 +76,11 @@
         /// </summary>
         [ProtoMember(10)]
         public SapFundingType FundingType { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the progressive flavor type associated with this level.
+        /// </summary>
+        public FlavorType FlavorType { get; set; }
 
         /// <summary>
         ///     Gets or sets the id for the progressive level. This should be unique within a progressive pack.
@@ -353,22 +360,22 @@
     public enum FlavorType
     {
         /// <summary>
-        ///     The default, for sane rational people who don't use Vertex, apparently.
+        ///     The default Vertex standard G2S style progressive.
         /// </summary>
         Standard,
 
         /// <summary>
-        ///     This is to support Vertex's AnteBet Bulk contribution feature. Not currently supported
+        ///     This is to support Vertex's AnteBet Bulk contribution feature.
         /// </summary>
         BulkContribution,
 
         /// <summary>
-        ///     This is to support Vertex's Mystery feature, which is different from mystery sap. Not currently supported.
+        ///     This is to support Vertex's Mystery feature, which is different from mystery SAP.
         /// </summary>
         VertexMystery,
 
         /// <summary>
-        ///     Vertex specific feature. Not currently supported.
+        ///     Vertex specific feature where the winner is determined by the host.
         /// </summary>
         HostChoice
     }

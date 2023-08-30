@@ -1,10 +1,10 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using MVVM.ViewModel;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
-    public class ComponentHashViewModel : BaseEntityViewModel
+    public class ComponentHashViewModel : ObservableObject
     {
         public string ComponentId { get; set; }
 
@@ -13,7 +13,7 @@
         public void ChangeHashResult(string value)
         {
             HashResult = value;
-            RaisePropertyChanged(nameof(HashResult));
+            OnPropertyChanged(nameof(HashResult));
         }
     }
 }

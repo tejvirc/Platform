@@ -7,9 +7,9 @@
     using Grpc.Net.Client;
     using log4net;
     using Messages.Interceptor;
-    using ClientApi = ServerApiGateway.ProgressiveApi.ProgressiveApiClient;
+    using ProgressiveClientApi = ServerApiGateway.ProgressiveApi.ProgressiveApiClient;
 
-    public class ProgressiveClient : BaseClient<ClientApi>, IClientEndpointProvider<ClientApi>
+    public class ProgressiveClient : BaseClient<ProgressiveClientApi>, IClientEndpointProvider<ProgressiveClientApi>
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
@@ -23,13 +23,7 @@
 
         public override string FirewallRuleName => "Platform.Bingo.ProgressiveServer";
 
-        public override GrpcChannel CreateChannel()
-        {
-            var configuration = ConfigurationProvider.CreateConfiguration();
-            return GrpcChannel.ForAddress(configuration.Address, new GrpcChannelOptions());
-        }
-
-        public override ClientApi CreateClient(CallInvoker callInvoker)
+        public override ProgressiveClientApi CreateClient(CallInvoker callInvoker)
         {
             return new (callInvoker);
         }

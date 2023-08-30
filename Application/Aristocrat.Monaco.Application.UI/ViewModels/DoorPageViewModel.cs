@@ -1,9 +1,10 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
+    using Aristocrat.Extensions.CommunityToolkit;
     using ConfigWizard;
     using Contracts;
     using Contracts.Localization;
@@ -11,7 +12,6 @@
     using Hardware.Contracts.Door;
     using Kernel;
     using Kernel.Contracts;
-    using MVVM;
 
     [CLSCompliant(false)]
     public class DoorPageViewModel : InspectionWizardViewModelBase
@@ -48,7 +48,7 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 ClearDoors();
                 LoadDoors();

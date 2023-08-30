@@ -79,6 +79,11 @@
                                     Width="Auto"
                                     loc:Localizer.For="Operator"
                                     AutomationProperties.AutomationId="DataGridTextColumn9_C13828E5" />
+                <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerHostEnabled}}"
+                                    IsReadOnly="True"
+                                    Binding="{Binding HostEnabled}"
+                                    Width="150"
+                                    AutomationProperties.AutomationId="DataGridTextColumn10_C13828E5" />
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Orientation="Horizontal"
@@ -86,26 +91,26 @@
                     Margin="0,20,0,0"
                     AutomationProperties.AutomationId="StackPanel10_C13828E5">
             <Button Content="{lex:Loc DeviceManagerMassChangeButton}"
-                    Width="170"
+                    Width="Auto"
                     IsEnabled="{Binding DeviceChangeEnabled}"
                     Command="{Binding BulkChangesCommand}"
                     ToolTip="{lex:Loc DeviceManagerMassChangeToolTip}"
                     AutomationProperties.AutomationId="Button11_C13828E5" />
             <Button Content="{lex:Loc EditSelected}"
-                    Width="170"
+                    Width="Auto"
                     HorizontalAlignment="Left"
                     IsEnabled="{Binding DeviceChangeEnabled}"
                     Command="{Binding EditCommand}"
                     ToolTip="{lex:Loc EditSelected}"
                     AutomationProperties.AutomationId="Button12_C13828E5" />
             <Button Content="{lex:Loc DeviceManagerSaveButton}"
-                    Width="170"
+                    Width="Auto"
                     IsEnabled="{Binding DeviceChangeEnabled}"
                     Command="{Binding SaveChangesCommand}"
                     ToolTip="{lex:Loc DeviceManagerSaveToolTip}"
                     AutomationProperties.AutomationId="Button13_C13828E5" />
             <Button Content="{lex:Loc DeviceManagerCancelButton}"
-                    Width="170"
+                    Width="Auto"
                     Margin="0"
                     IsEnabled="{Binding DeviceChangeEnabled}"
                     Command="{Binding CancelChangesCommand}"

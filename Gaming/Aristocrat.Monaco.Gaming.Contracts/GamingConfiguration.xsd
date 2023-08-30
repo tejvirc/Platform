@@ -162,6 +162,12 @@
             <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="true" />
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="AllowZeroCreditCashout">
+          <xs:complexType>
+            <xs:attribute name="Enable" type="xs:boolean" use="optional" default="false" />
+            <xs:attribute name="Configurable" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="GameLoad">
           <xs:complexType>
             <xs:attribute name="AllowGameInCharge" type="xs:boolean" use="optional" default="false" />
@@ -257,12 +263,12 @@
                     <xs:element minOccurs="0" maxOccurs="unbounded" name="ReturnToPlayer">
                       <xs:complexType>
                         <xs:attribute name="GameType" type="GameTypes" />
-                        <xs:attribute name="Minimum" type="xs:int" use="optional" />
-                        <xs:attribute name="Maximum" type="xs:int" use="optional" />
-                        <xs:attribute name="IncludeLinkProgressiveIncrementRTP" type="xs:boolean" use="optional"
-                                      default="false" />
-                        <xs:attribute name="IncludeStandaloneProgressiveIncrementRTP" type="xs:boolean" use="optional"
-                                      default="true" />
+                        <xs:attribute name="Minimum" type="xs:decimal" use="optional" />
+                        <xs:attribute name="Maximum" type="xs:decimal" use="optional" />
+                        <xs:attribute name="IncludeLinkProgressiveIncrementRTP" type="xs:boolean" use="optional" default="false" />
+                        <xs:attribute name="IncludeLinkProgressiveStartUpRTP" type="xs:boolean" use="optional" default="true" />
+                        <xs:attribute name="IncludeStandaloneProgressiveIncrementRTP" type="xs:boolean" use="optional" default="true" />
+                        <xs:attribute name="IncludeStandaloneProgressiveStartUpRTP" type="xs:boolean" use="optional" default="true" />
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
@@ -469,6 +475,7 @@
         <xs:element minOccurs="0" maxOccurs="1" name="Instructions">
           <xs:complexType>
             <xs:attribute name="GameRulesInstructions" type="xs:string" use="optional" default="" />
+            <xs:attribute name="PressStart" type="xs:string" use="optional" default="" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="WagerLimits">

@@ -283,7 +283,7 @@
         /// <summary>
         ///     Formats currency string.
         /// </summary>
-        /// <param name="amount">Amount.</param>
+        /// <param name="amount">Amount in dollars.</param>
         /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>
         /// <param name="culture">The optional culture used for formatting.  If none is provided, defaults to the current Currency culture.</param>
         /// <returns>Formatted currency string.</returns>
@@ -316,11 +316,13 @@
         ///     Formats currency string.
         /// </summary>
         /// <param name="amount">Amount.</param>
-        /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>
+        /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>\
+        /// <param name="culture">The optional CultureInfo to use for string formatting</param>
         /// <returns>Formatted currency string.</returns>
-        public static string FormattedCurrencyString(this string amount, bool withMillicents = false)
+        public static string FormattedCurrencyString(this string amount, bool withMillicents = false, CultureInfo culture = null)
         {
-            return double.TryParse(amount, out var result) ? result.FormattedCurrencyString(withMillicents) : amount;
+            culture ??= CurrencyCultureInfo;
+            return double.TryParse(amount, out var result) ? result.FormattedCurrencyString(withMillicents, culture) : amount;
         }
 
         /// <summary>

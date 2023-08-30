@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.PackageManifest.Gsa
+namespace Aristocrat.Monaco.PackageManifest.Gsa
 {
     using System;
     using System.Collections.Generic;
@@ -16,6 +16,8 @@
         private const string GameType = @"G2S_game";
 
         private const string DefaultVariationId = "99";
+
+        private const int DefaultUniqueGameId = 0;
 
         /// <inheritdoc />
         public GameContent Read(string file)
@@ -55,7 +57,8 @@
                 Configurations = product.configurationList?.configuration?.Select(Map).ToList(),
                 DefaultConfiguration = Map(product.configurationList?.configuration?.FirstOrDefault(c => c.name.Equals(product.configurationList?.@default))),
                 MechanicalReels = product.mechanicalReels,
-                MechanicalReelHomeSteps = GetMechanicalReelHomeSteps(product)
+                MechanicalReelHomeSteps = GetMechanicalReelHomeSteps(product),
+                PreloadedAnimationFiles = product.stepperAnimationFileList
             };
 
             foreach (var l in product.localization)
@@ -127,8 +130,8 @@
             {
                 ThemeId = gameInfo.themeId,
                 PaytableId = gameInfo.paytableId,
-                MaxPaybackPercent = gameInfo.maxPaybackPct,
-                MinPaybackPercent = gameInfo.minPaybackPct,
+                MaxPaybackPercent = ConvertToRtp(gameInfo.maxPaybackPct),
+                MinPaybackPercent = ConvertToRtp(gameInfo.minPaybackPct),
                 DisplayMeterName = gameInfo.displayMeterName,
                 AssociatedSapDisplayMeterName = gameInfo.associatedSapDisplayMeterName,
                 InitialValue = gameInfo.initialValue,
@@ -149,8 +152,8 @@
                 LineOptionList = lineOptionList,
                 ActiveLineOption = activeLineOption,
                 BetLinePresetList = betLinePresetList,
-                WinThreshold = gameInfo.winThreshold,
-                MaximumProgressivePerDenom = gameInfo.maxProgPerDenomSpecified ? gameInfo.maxProgPerDenom : (int?)null,
+                WinThreshold = gameInfo.winThresholdSpecified ? gameInfo.winThreshold : null,
+                MaximumProgressivePerDenom = gameInfo.maxProgPerDenomSpecified ? gameInfo.maxProgPerDenom : null,
                 ReferenceId = gameInfo.referenceId ?? string.Empty,
                 Category = gameInfo.categorySpecified ? gameInfo.category : (t_category?)null,
                 SubCategory = gameInfo.subCategorySpecified ? gameInfo.subCategory : (t_subCategory?)null,
@@ -165,7 +168,8 @@
                     }).ToList(),
                 MaxWagerInsideCredits = gameInfo.maxWagerInsideCredits,
                 MaxWagerOutsideCredits = gameInfo.maxWagerOutsideCredits,
-                NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier
+                NextToMaxBetTopAwardMultiplier = gameInfo.nextToMaxBetTopAwardMultiplier,
+                UniqueGameId = gameInfo.uniqueGameIdSpecified ? gameInfo.uniqueGameId : DefaultUniqueGameId
             };
         }
 
@@ -229,11 +233,19 @@
         {
             return new WagerCategory
             {
-                Id = wagerCategory.wagerCategory,
+                Id = wagerCategory.wagerCategory.ToString(),
                 MaxWagerCredits = wagerCategory.maxWagerCredits,
                 MinWagerCredits = wagerCategory.minWagerCredits,
                 MaxWinAmount = wagerCategory.maxWinAmount,
-                TheoPaybackPercent = wagerCategory.theoPaybackPct,
+                TheoPaybackPercent = ConvertToRtp(wagerCategory.theoPaybackPct),
+                MinBaseRtpPercent = ConvertToRtp(wagerCategory.minBaseRtpPct),
+                MaxBaseRtpPercent = ConvertToRtp(wagerCategory.maxBaseRtpPct),
+                MinSapStartupRtpPercent = ConvertToRtp(wagerCategory.minSapStartupRtpPct),
+                MaxSapStartupRtpPercent = ConvertToRtp(wagerCategory.maxSapStartupRtpPct),
+                SapIncrementRtpPercent = ConvertToRtp(wagerCategory.sapIncrementRtpPct),
+                MinLinkStartupRtpPercent = ConvertToRtp(wagerCategory.minLinkStartupRtpPct),
+                MaxLinkStartupRtpPercent = ConvertToRtp(wagerCategory.maxLinkStartupRtpPct),
+                LinkIncrementRtpPercent = ConvertToRtp(wagerCategory.linkIncrementRtpPct)
             };
         }
 
@@ -343,8 +355,8 @@
             {
                 Id = gameConfiguration.id,
                 Name = gameConfiguration.name,
-                MaxPaybackPercent = gameConfiguration.maxPaybackPct,
-                MinPaybackPercent = gameConfiguration.minPaybackPct,
+                MaxPaybackPercent = ConvertToRtp(gameConfiguration.maxPaybackPct),
+                MinPaybackPercent = ConvertToRtp(gameConfiguration.minPaybackPct),
                 MinDenomsEnabled = gameConfiguration.minDenomsEnabled,
                 MaxDenomsEnabled = gameConfiguration.maxDenomsEnabledSpecified ? gameConfiguration.maxDenomsEnabled : (int?)null,
                 Editable = gameConfiguration.editable,
@@ -392,6 +404,19 @@
             var index = paytableId.LastIndexOf(delimiter, StringComparison.InvariantCultureIgnoreCase);
 
             return index == -1 ? paytableId : paytableId.Substring(index + 1);
+        }
+
+        private static decimal ConvertToRtp(decimal value)
+        {
+            // Older versions of the manifest contained a truncated Rtp (precision of 2), represented as 9821 or 98.21%.
+            // Newer manifests have a precision of 3, represented as 98212 or 98.212%.
+            // Newest manifests have true percentages already.
+            if (value < 1000)
+            {
+                return value;
+            }
+
+            return value > 10000 ? value / 1000 : value / 100;
         }
     }
 }

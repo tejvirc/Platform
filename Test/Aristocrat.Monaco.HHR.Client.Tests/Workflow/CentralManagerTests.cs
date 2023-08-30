@@ -13,6 +13,7 @@
     using Messages;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+    using Aristocrat.Monaco.Protocol.Common;
 
     [TestClass]
     public class CentralManagerTests

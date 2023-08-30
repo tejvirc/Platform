@@ -17,7 +17,8 @@
             MeterNode meterNode,
             bool showLifetime,
             long denomMillicents,
-            long sharedHiddenTotal)
+            long sharedHiddenTotal,
+            long sharedBulkTotal)
         {
             string meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
                             meterNode.DisplayNameKey,
@@ -93,6 +94,21 @@
                         progressiveLevel,
                         meterNode,
                         showLifetime);
+                case ProgressiveMeters.ProgressiveLevelBulkTotal:
+                    if (sharedBulkTotal > 0)
+                    {
+                        return new ProxyDisplayMeter<long>(
+                            meterDisplayName,
+                            sharedBulkTotal,
+                            v => v.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
+                            meterNode.Order);
+                    }
+
+                    return CreateValueDisplayMeter(
+                        progressiveManager,
+                        progressiveLevel,
+                        meterNode,
+                        showLifetime);
                 case ProgressiveMeters.InitialValueDisplayMeter:
                     return new ProxyDisplayMeter<IViewableProgressiveLevel>(
                         meterDisplayName,
@@ -117,7 +133,7 @@
                         progressiveLevel.CreationType != LevelCreationType.Default ? progressiveLevel.WagerCredits * denomMillicents : 0,
                         val => val.MillicentsToDollars().FormattedCurrencyString(),
                         meterNode.Order);
-                case ProgressiveMeters.ProgressiveLevelWageredAmount:
+                case ProgressiveMeters.WageredAmount:
                 case ProgressiveMeters.ProgressiveLevelBulkContribution:
                 case ProgressiveMeters.ProgressiveLevelWinAccumulation:
                     return CreateValueDisplayMeter(
@@ -125,6 +141,7 @@
                         progressiveLevel,
                         meterNode,
                         showLifetime);
+                case ProgressiveMeters.PlayedCount:
                 case ProgressiveMeters.ProgressiveLevelWinOccurrence:
                     return CreateDisplayMeter(
                         progressiveManager,
@@ -139,9 +156,20 @@
 
         private static IMeter GetIMeter(IProgressiveMeterManager progressiveManager, int deviceId, int levelId, string meterName)
         {
-            return progressiveManager.IsMeterProvided(deviceId, levelId, meterName)
-                ? progressiveManager.GetMeter(deviceId, levelId, meterName)
-                : null;
+            switch (meterName)
+            {
+                //meters of group 'progressive' are named differently from meters of group 'progressiveLevel'
+                //as defined in Aristocrat.Monaco.Gaming.addin.xml
+                case ProgressiveMeters.WageredAmount:
+                case ProgressiveMeters.PlayedCount:
+                    return progressiveManager.IsMeterProvided(deviceId, meterName)
+                        ? progressiveManager.GetMeter(deviceId, meterName)
+                        : null;
+                default:
+                    return progressiveManager.IsMeterProvided(deviceId, levelId, meterName)
+                        ? progressiveManager.GetMeter(deviceId, levelId, meterName)
+                        : null;
+            }
         }
 
         private static DisplayMeter CreateValueDisplayMeter(

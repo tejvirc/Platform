@@ -432,6 +432,7 @@
                 <Button Content="{lex:Loc FormFeedButton}"
                         Command="{Binding FormFeedButtonCommand}"
                         IsEnabled="{Binding PrinterButtonsEnabled}"
+                        Width="Auto"
                         AutomationProperties.AutomationId="Button81_5E78AF2B" />
                 <Button Content="{lex:Loc PrintDiagnosticButton}"
                         Command="{Binding PrintDiagnosticButtonCommand}"
@@ -447,6 +448,7 @@
                         Command="{Binding SelfTestClearButtonCommand}"
                         Visibility="{Binding IsSelfTestVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                         IsEnabled="{Binding PrinterButtonsEnabled}"
+                        Width="Auto"
                         AutomationProperties.AutomationId="Button84_5E78AF2B" />
                 <Button Content="{lex:Loc PrintTestTicket}"
                         Name="PrintTestTicketButton"

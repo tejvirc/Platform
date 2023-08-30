@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.G2S
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Application.Contracts;
@@ -9,6 +10,7 @@
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Emdi;
+    using Aristocrat.Monaco.Application.Contracts.Protocol;
     using Common.CertificateManager;
     using Gaming.Contracts;
     using Hardware.Contracts;
@@ -33,6 +35,7 @@
         private readonly IDeviceFactory _deviceFactory;
         private readonly IDeviceRegistryService _deviceRegistryService;
         private readonly IDeviceObserver _deviceStateObserver;
+        private readonly IProgressiveDeviceManager _progressiveDeviceManager;
         private readonly IG2SEgm _egm;
         private readonly IEgmStateObserver _egmStateObserver;
         private readonly IEmdi _emdi;
@@ -48,6 +51,7 @@
         private readonly ISelfTest _selfTest;
         private readonly IVoucherDataService _voucherDataService;
         private readonly IEventLift _eventLift;
+        private readonly IMultiProtocolConfigurationProvider _multiProtocolConfigurationProvider;
 
         private bool _disposed;
 
@@ -59,6 +63,7 @@
             IScriptManager scriptManager,
             IPackageDownloadManager packageDownloadManager,
             IDeviceObserver deviceStateObserver,
+            IProgressiveDeviceManager progressiveDeviceManager,
             IEgmStateObserver egmStateObserver,
             IDeviceRegistryService deviceRegistryService,
             IGatComponentFactory gatComponentFactory,
@@ -71,7 +76,8 @@
             ICertificateMonitor certificateMonitor,
             IEmdi emdi,
             ICentralService central,
-            IEventLift eventLift)
+            IEventLift eventLift,
+            IMultiProtocolConfigurationProvider multiProtocolConfigurationProvider)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
@@ -81,9 +87,9 @@
             _packageDownloadManager = packageDownloadManager ??
                                       throw new ArgumentNullException(nameof(packageDownloadManager));
             _deviceStateObserver = deviceStateObserver ?? throw new ArgumentNullException(nameof(deviceStateObserver));
+            _progressiveDeviceManager = progressiveDeviceManager ?? throw new ArgumentNullException(nameof(progressiveDeviceManager));
             _egmStateObserver = egmStateObserver ?? throw new ArgumentNullException(nameof(egmStateObserver));
-            _deviceRegistryService =
-                deviceRegistryService ?? throw new ArgumentNullException(nameof(deviceRegistryService));
+            _deviceRegistryService = deviceRegistryService ?? throw new ArgumentNullException(nameof(deviceRegistryService));
             _gatComponentFactory = gatComponentFactory ?? throw new ArgumentNullException(nameof(gatComponentFactory));
             _metersSubscriptionManager = metersSubscriptionManager ??
                                          throw new ArgumentNullException(nameof(metersSubscriptionManager));
@@ -96,6 +102,7 @@
             _emdi = emdi ?? throw new ArgumentNullException(nameof(emdi));
             _central = central ?? throw new ArgumentNullException(nameof(central));
             _eventLift = eventLift ?? throw new ArgumentNullException(nameof(eventLift));
+            _multiProtocolConfigurationProvider = multiProtocolConfigurationProvider ?? throw new ArgumentNullException(nameof(multiProtocolConfigurationProvider));
         }
 
         /// <inheritdoc />
@@ -187,46 +194,43 @@
 
         private void LoadConfiguration()
         {
+            var protocol = _multiProtocolConfigurationProvider.MultiProtocolConfiguration
+                    .Single(c => c.Protocol == CommsProtocol.G2S);
+
+
             var hosts = _properties.GetValues<IHost>(Constants.RegisteredHosts).ToList();
             foreach (var host in hosts.Where(h => h.Registered))
             {
                 _hostFactory.Create(host);
             }
 
+            // assign appropriate hosts for each protocol capability scenario
+            var registeredGuests = hosts.Where(h => !h.IsEgm() && h.Registered).ToList();
+            var defaultHost = hosts.OrderBy(h => h.Index).FirstOrDefault(h => !h.IsEgm() && h.Registered && !h.IsProgressiveHost);
+            var validationHost = protocol.IsValidationHandled ? defaultHost : null;
+            var progressiveHost = protocol.IsProgressiveHandled ? hosts.FirstOrDefault(h => h.IsProgressiveHost) : null;
+            var egmHost = _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId) as IHost;
+
             // Create and register the non-host oriented devices
-            //  We're using the first host as the default if it exists otherwise the EGM.
-            var defaultHost = hosts.OrderBy(h => h.Index).FirstOrDefault(h => !h.IsEgm() && h.Registered);
-            _deviceFactory.Create(
-                defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                hosts.Where(h => !h.IsEgm() && h.Registered),
+            // The host that will own various devices will change
+            // based on the current multi-protocol configuration
+            _deviceFactory.Create(validationHost ?? progressiveHost ?? egmHost, registeredGuests,
                 () => new CabinetDevice(_deviceStateObserver, _egmStateObserver));
-            _deviceFactory.Create(
-                defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                hosts.Where(h => !h.IsEgm() && h.Registered),
+            _deviceFactory.Create(validationHost ?? progressiveHost ?? egmHost, registeredGuests,
                 () => new CommConfigDevice(_deviceStateObserver));
-            _deviceFactory.Create(
-                defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                hosts.Where(h => !h.IsEgm() && h.Registered),
-                () => new CoinAcceptorDevice(_deviceStateObserver));
-            _deviceFactory.Create(
-                defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                hosts.Where(h => !h.IsEgm() && h.Registered),
+            _deviceFactory.Create(validationHost ?? progressiveHost ?? egmHost, registeredGuests,
                 () => new DownloadDevice(
                     _deviceStateObserver,
                     !_properties.GetValue(ApplicationConstants.ReadOnlyMediaRequired, false)));
-            _deviceFactory.Create(
-                defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                () => new VoucherDevice(_deviceStateObserver, _eventLift));
-            _deviceFactory.Create(
-                defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
+            _deviceFactory.Create(defaultHost ?? egmHost, registeredGuests,
+                () => new CoinAcceptorDevice(_deviceStateObserver));
+            _deviceFactory.Create(defaultHost ?? egmHost,
                 () => new AuditMetersDevice(_deviceStateObserver));
 
             var printer = _deviceRegistryService.GetDevice<IPrinter>();
             if (printer != null)
             {
-                _deviceFactory.Create(
-                    defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                    hosts.Where(h => !h.IsEgm() && h.Registered),
+                _deviceFactory.Create(defaultHost ?? egmHost, registeredGuests,
                     () => new PrinterDevice(printer.PrinterId, _deviceStateObserver));
             }
 
@@ -234,8 +238,7 @@
             if (noteAcceptor != null)
             {
                 _deviceFactory.Create(
-                    defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                    hosts.Where(h => !h.IsEgm() && h.Registered),
+                    defaultHost ?? egmHost, registeredGuests,
                     () => new NoteAcceptorDevice(1, _deviceStateObserver));
             }
 
@@ -244,36 +247,25 @@
             {
                 foreach (var reader in idProvider.Adapters)
                 {
-                    _deviceFactory.Create(
-                        defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                        hosts.Where(h => !h.IsEgm() && h.Registered),
-                        () => new IdReaderDevice(
-                            reader.IdReaderId,
-                            _deviceStateObserver));
+                    _deviceFactory.Create(defaultHost ?? egmHost, registeredGuests,
+                        () => new IdReaderDevice(reader.IdReaderId, _deviceStateObserver));
                 }
             }
 
             var idReaders = _egm.GetDevices<IIdReaderDevice>().ToList();
             var player = _deviceFactory.Create(
-                defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                hosts.Where(h => !h.IsEgm() && h.Registered),
+                defaultHost ?? egmHost, registeredGuests,
                 () => new PlayerDevice(1, _deviceStateObserver, idReaders, _eventLift));
 
-            _deviceFactory.Create(
-                defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                hosts.Where(h => !h.IsEgm() && h.Registered),
+            _deviceFactory.Create(defaultHost ?? egmHost, registeredGuests,
                 () => new InformedPlayerDevice(1, _deviceStateObserver, _eventLift) { Player = player as IPlayerDevice });
 
-            _deviceFactory.Create(
-                defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                hosts.Where(h => !h.IsEgm() && h.Registered),
+            _deviceFactory.Create(defaultHost ?? egmHost, registeredGuests,
                 () => new ChooserDevice(1, _deviceStateObserver));
 
             foreach (var mediaPlayer in _properties.GetValues<IMediaPlayer>(ApplicationConstants.MediaPlayers))
             {
-                _deviceFactory.Create(
-                    defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                    hosts.Where(h => !h.IsEgm() && h.Registered),
+                _deviceFactory.Create(defaultHost ?? egmHost, registeredGuests,
                     () => new MediaDisplayDevice(mediaPlayer.Id, _deviceStateObserver));
 
                 _emdi.Start(mediaPlayer.Port);
@@ -283,34 +275,35 @@
 
             foreach (var game in games)
             {
-                _deviceFactory.Create(
-                    defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                    hosts.Where(h => !h.IsEgm() && h.Registered),
+                _deviceFactory.Create(validationHost ?? egmHost, registeredGuests,
                     () => new GamePlayDevice(game.Id, _deviceStateObserver));
             }
 
             if (games.Any(g => g.CentralAllowed))
             {
-                _deviceFactory.Create(
-                    defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                    hosts.Where(h => !h.IsEgm() && h.Registered),
+                _deviceFactory.Create(defaultHost ?? egmHost, registeredGuests,
                     () => new CentralDevice(_deviceStateObserver));
             }
 
-            _deviceFactory.Create(
-                defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                hosts.Where(h => !h.IsEgm() && h.Registered),
+            _deviceFactory.Create(defaultHost ?? egmHost, registeredGuests,
                 () => new HandpayDevice(1, _deviceStateObserver));
 
-            _deviceFactory.Create(
-                defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                hosts.Where(h => !h.IsEgm() && h.Registered),
+            _deviceFactory.Create(defaultHost ?? egmHost, registeredGuests,
                 () => new StorageDevice(_deviceStateObserver));
 
-            _deviceFactory.Create(
-                defaultHost ?? _egm.GetHostById(Aristocrat.G2S.Client.Constants.EgmHostId),
-                hosts.Where(h => !h.IsEgm() && h.Registered),
+            _deviceFactory.Create(defaultHost ?? egmHost, registeredGuests,
                 () => new BonusDevice(1, _deviceStateObserver));
+
+            if (protocol.IsValidationHandled)
+            {
+                _deviceFactory.Create(validationHost ?? egmHost,
+                    () => new VoucherDevice(_deviceStateObserver, _eventLift));
+            }
+            
+            if (protocol.IsProgressiveHandled)
+            {
+                _progressiveDeviceManager.AddProgressiveDevices();
+            }
         }
 
         private void SetHostEnabled()

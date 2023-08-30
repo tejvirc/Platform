@@ -46,6 +46,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Overlays.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <common:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
             <Style x:Key="CalibrationTextStyle"
@@ -56,17 +57,17 @@
                 <Setter Property="FontSize" Value="16" />
                 <Setter Property="FontFamily" Value="Helvetica" />
                 <Style.Triggers>
-                    <EventTrigger RoutedEvent="Loaded" AutomationProperties.AutomationId="EventTrigger3_746B68B4">
+                    <EventTrigger RoutedEvent="Loaded" AutomationProperties.AutomationId="EventTrigger3_F088786C">
                         <EventTrigger.Actions>
-                            <BeginStoryboard AutomationProperties.AutomationId="BeginStoryboard4_746B68B4">
-                                <Storyboard AutomationProperties.AutomationId="Storyboard5_746B68B4">
+                            <BeginStoryboard AutomationProperties.AutomationId="BeginStoryboard4_F088786C">
+                                <Storyboard AutomationProperties.AutomationId="Storyboard5_F088786C">
                                     <DoubleAnimation Storyboard.TargetProperty="(TextBlock.Opacity)"
                                                      From="1"
                                                      To="0"
                                                      Duration="00:00:02"
                                                      AutoReverse="True"
                                                      RepeatBehavior="Forever"
-                                                     AutomationProperties.AutomationId="DoubleAnimation6_746B68B4" />
+                                                     AutomationProperties.AutomationId="DoubleAnimation6_F088786C"/>
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger.Actions>
@@ -77,22 +78,22 @@
                 <GroupBox Header="{Binding DataContext.SelectedItem.PageName, ElementName=OperatorMenuWindow}"
                           Margin="20"
                           loc:Localizer.LocalizationAware="True"
-                          AutomationProperties.AutomationId="GroupBox7_746B68B4">
-                    <Grid AutomationProperties.AutomationId="Grid8_746B68B4">
+                          AutomationProperties.AutomationId="GroupBox7_F088786C">
+                    <Grid AutomationProperties.AutomationId="Grid8_F088786C">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition9_746B68B4" />
-                            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition10_746B68B4" />
+                            <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition9_F088786C" />
+                            <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition10_F088786C" />
                         </Grid.RowDefinitions>
                         <ContentControl Grid.Row="0"
                                         Content="{Binding DataContext.SelectedItem.Page, ElementName=OperatorMenuWindow}"
-                                        AutomationProperties.AutomationId="ContentControl11_746B68B4" />
+                                        AutomationProperties.AutomationId="ContentControl11_F088786C" />
                         <TextBlock Grid.Row="1"
                                    HorizontalAlignment="Right"
                                    VerticalAlignment="Bottom"
                                    TextWrapping="Wrap"
                                    Style="{StaticResource MonacoWarningTextBlock}"
                                    Text="{Binding DataContext.WarningMessageText, ElementName=OperatorMenuWindow, UpdateSourceTrigger=PropertyChanged}"
-                                   AutomationProperties.AutomationId="TextBlock12_746B68B4" />
+                                   AutomationProperties.AutomationId="TextBlock12_F088786C" />
                     </Grid>
                 </GroupBox>
             </DataTemplate>
@@ -106,8 +107,8 @@
 
     <Grid AutomationProperties.AutomationId="Grid13_746B68B4">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0" AutomationProperties.AutomationId="RowDefinition14_746B68B4" />
-            <RowDefinition Height="1*" AutomationProperties.AutomationId="RowDefinition15_746B68B4" />
+            <RowDefinition Height="0" AutomationProperties.AutomationId="RowDefinition14_F088786C" />
+            <RowDefinition Height="1*" AutomationProperties.AutomationId="RowDefinition15_F088786C" />
         </Grid.RowDefinitions>
 
         <b:Interaction.Triggers>
@@ -119,76 +120,114 @@
             </events:RoutedEventTrigger>
         </b:Interaction.Triggers>
         <Viewbox Grid.Row="0"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Center"
-                 Stretch="UniformToFill"
-                 AutomationProperties.AutomationId="Viewbox16_746B68B4">
-            <Image Source="../Resources/AristocratLogoPortrait.png" AutomationProperties.AutomationId="Image17_746B68B4" />
+                 AutomationProperties.AutomationId="Viewbox16_F088786C">
+            <Viewbox.Style>
+                <Style TargetType="{x:Type Viewbox}">
+                    <Style.Triggers>
+                        <DataTrigger
+                            AutomationProperties.AutomationId="DataTrigger17_F088786C"
+                            Binding="{Binding ShouldDisplaySafetyMessage}"
+                            Value="False">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Stretch" Value="UniformToFill" />
+                        </DataTrigger>
+                        <DataTrigger
+                            AutomationProperties.AutomationId="DataTrigger18_F088786C"
+                            Binding="{Binding ShouldDisplaySafetyMessage}"
+                            Value="True">
+                            <Setter Property="HorizontalAlignment" Value="Left" />
+                            <Setter Property="VerticalAlignment" Value="Top" />
+                            <Setter Property="Stretch" Value="UniformToFill" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Viewbox.Style>
+            <Image AutomationProperties.AutomationId="Image19_F088786C">
+                <Image.Style>
+                    <Style TargetType="{x:Type Image}">
+                        <Style.Triggers>
+                            <DataTrigger
+                                AutomationProperties.AutomationId="DataTrigger20_F088786C"
+                                Binding="{Binding ShouldDisplaySafetyMessage}"
+                                Value="False">
+                                <Setter Property="Source" Value="../Resources/AristocratLogoPortrait.png" />
+                            </DataTrigger>
+                            <DataTrigger
+                                AutomationProperties.AutomationId="DataTrigger21_F088786C"
+                                Binding="{Binding ShouldDisplaySafetyMessage}"
+                                Value="True">
+                                <Setter Property="Source" Value="{DynamicResource SafetyImage}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
         </Viewbox>
         <Border Grid.Row="1"
                 BorderThickness="0 2 0 0"
-                AutomationProperties.AutomationId="Border18_746B68B4">
+                AutomationProperties.AutomationId="Border22_F088786C">
             <Border.BorderBrush>
-                <SolidColorBrush Color="#FF234371" AutomationProperties.AutomationId="SolidColorBrush19_746B68B4" />
+                <SolidColorBrush Color="#FF234371" AutomationProperties.AutomationId="SolidColorBrush23_F088786C"/>
             </Border.BorderBrush>
             <!-- Name is used to center dialogs within this element -->
-            <Grid x:Name="AuditMenu" AutomationProperties.AutomationId="Grid20_746B68B4">
+            <Grid x:Name="AuditMenu" AutomationProperties.AutomationId="Grid24_F088786C">
                 <Grid.Resources>
                     <Image x:Key="StripImage"
                            Source="../Resources/Operator_Menu_Background_Strip.png"
-                           AutomationProperties.AutomationId="Image21_746B68B4">
+                           AutomationProperties.AutomationId="Image25_F088786C">
                         <Image.OpacityMask>
                             <LinearGradientBrush StartPoint=".5,0"
                                                  EndPoint=".5,1"
-                                                 AutomationProperties.AutomationId="LinearGradientBrush22_746B68B4">
+                                                 AutomationProperties.AutomationId="LinearGradientBrush26_F088786C">
                                 <GradientStop Offset="0.0"
                                               Color="#001C3053"
-                                              AutomationProperties.AutomationId="GradientStop23_746B68B4" />
+                                              AutomationProperties.AutomationId="GradientStop27_F088786C" />
                                 <GradientStop Offset="1"
                                               Color="#FF1C3053"
-                                              AutomationProperties.AutomationId="GradientStop24_746B68B4" />
+                                              AutomationProperties.AutomationId="GradientStop28_F088786C" />
                             </LinearGradientBrush>
                         </Image.OpacityMask>
                     </Image>
                     <VisualBrush x:Key="StripBrush"
                                  Visual="{StaticResource StripImage}"
-                                 AutomationProperties.AutomationId="VisualBrush25_746B68B4" />
+                                 AutomationProperties.AutomationId="VisualBrush29_F088786C" />
                 </Grid.Resources>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition26_746B68B4" />
-                    <RowDefinition Height="5" AutomationProperties.AutomationId="RowDefinition27_746B68B4" />
-                    <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition28_746B68B4" />
-                    <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition29_746B68B4" />
+                    <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition30_F088786C" />
+                    <RowDefinition Height="5" AutomationProperties.AutomationId="RowDefinition31_F088786C" />
+                    <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition32_F088786C" />
+                    <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition33_F088786C" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition30_746B68B4" />
-                    <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition31_746B68B4" />
+                    <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition34_F088786C" />
+                    <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition35_F088786C" />
                 </Grid.ColumnDefinitions>
                 <Border Grid.Row="0"
                         Grid.Column="0"
                         Background="{DynamicResource OperatorMenuMedium}"
                         BorderBrush="{DynamicResource OperatorMenuDark}"
                         Height="100"
-                        AutomationProperties.AutomationId="Border32_746B68B4">
-                    <Image Source="../Resources/Aristocrat_Logo_White_Large.png"
+                        AutomationProperties.AutomationId="Border36_F088786C">
+                    <Image Source="../Resources/Aristocrat_Logo_White.png"
                            Stretch="Uniform"
                            VerticalAlignment="Center"
-                           Margin="12"
-                           AutomationProperties.AutomationId="Image33_746B68B4" />
+                           Margin="0"
+                           AutomationProperties.AutomationId="Image37_F088786C" />
                 </Border>
                 <Border Grid.Row="1"
                         Grid.Column="0"
                         Background="{DynamicResource OperatorMenuDropShadowBrush}"
-                        AutomationProperties.AutomationId="Border34_746B68B4" />
+                        AutomationProperties.AutomationId="Border38_F088786C" />
                 <Grid Grid.Row="2"
                       Grid.Column="0"
-                      AutomationProperties.AutomationId="Grid35_746B68B4">
+                      AutomationProperties.AutomationId="Grid39_F088786C">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition36_746B68B4" />
-                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition37_746B68B4" />
-                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition38_746B68B4" />
-                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition39_746B68B4" />
-                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition40_746B68B4" />
+                        <RowDefinition Height="*" AutomationProperties.AutomationId="RowDefinition40_F088786C" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition41_F088786C" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition42_F088786C" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition43_F088786C" />
+                        <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition44_F088786C" />
                     </Grid.RowDefinitions>
                     <common:TouchListBox Name="Views"
                                          ItemsSource="{Binding MenuItems}"
@@ -205,7 +244,7 @@
                                 <Border BorderThickness="0,0,0,0"
                                         BorderBrush="{StaticResource MahApps.Brushes.Accent2}"
                                         Background="Transparent"
-                                        AutomationProperties.AutomationId="Border41_746B68B4">
+                                        AutomationProperties.AutomationId="Border45_F088786C">
                                     <TextBlock Text="{Binding PageName}"
                                                HorizontalAlignment="Left"
                                                VerticalAlignment="Center"
@@ -214,7 +253,7 @@
                                                Margin="50 0 0 0"
                                                Padding="0 13 0 13"
                                                loc:Localizer.LocalizationAware="True"
-                                               AutomationProperties.AutomationId="TextBlock42_746B68B4" />
+                                               AutomationProperties.AutomationId="TextBlock46_F088786C"/>
                                 </Border>
                             </DataTemplate>
                         </common:TouchListBox.ItemTemplate>
@@ -224,10 +263,10 @@
                                 <Style.Resources>
                                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
                                                      Color="{StaticResource HighlightColor}"
-                                                     AutomationProperties.AutomationId="SolidColorBrush43_746B68B4" />
+                                                     AutomationProperties.AutomationId="SolidColorBrush47_F088786C" />
                                     <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}"
                                                      Color="{StaticResource HighlightColor}"
-                                                     AutomationProperties.AutomationId="SolidColorBrush44_746B68B4" />
+                                                     AutomationProperties.AutomationId="SolidColorBrush48_F088786C" />
                                 </Style.Resources>
                                 <Setter Property="Padding" Value="0" />
                                 <Setter Property="Background" Value="Transparent" />
@@ -242,24 +281,24 @@
                                                     Background="{TemplateBinding Background}"
                                                     Padding="{TemplateBinding Padding}"
                                                     SnapsToDevicePixels="True"
-                                                    AutomationProperties.AutomationId="Border45_746B68B4">
+                                                    AutomationProperties.AutomationId="Border49_F088786C">
                                                 <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}"
                                                                   Content="{TemplateBinding Content}"
                                                                   ContentStringFormat="{TemplateBinding ContentStringFormat}"
                                                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                                  AutomationProperties.AutomationId="ContentPresenter46_746B68B4" />
+                                                                  AutomationProperties.AutomationId="ContentPresenter50_F088786C" />
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <DataTrigger Binding="{Binding IsEnabled}"
                                                              Value="True"
-                                                             AutomationProperties.AutomationId="DataTrigger47_746B68B4">
+                                                             AutomationProperties.AutomationId="DataTrigger51_F088786C">
                                                     <DataTrigger.Setters>
                                                         <Setter Property="IsEnabled" Value="True" />
                                                     </DataTrigger.Setters>
                                                 </DataTrigger>
-                                                <MultiTrigger AutomationProperties.AutomationId="MultiTrigger48_746B68B4">
+                                                <MultiTrigger AutomationProperties.AutomationId="MultiTrigger52_F088786C">
                                                     <MultiTrigger.Conditions>
                                                         <Condition Property="IsSelected" Value="False" />
                                                     </MultiTrigger.Conditions>
@@ -271,7 +310,7 @@
                                                             Value="{x:Null}" />
                                                     <Setter Property="Foreground" Value="{DynamicResource OperatorMenuLabelText}" />
                                                 </MultiTrigger>
-                                                <MultiTrigger AutomationProperties.AutomationId="MultiTrigger49_746B68B4">
+                                                <MultiTrigger AutomationProperties.AutomationId="MultiTrigger53_F088786C">
                                                     <MultiTrigger.Conditions>
                                                         <Condition Property="IsSelected" Value="True" />
                                                     </MultiTrigger.Conditions>
@@ -283,7 +322,7 @@
                                                             Value="{x:Null}" />
                                                     <Setter Property="Foreground" Value="{DynamicResource OperatorMenuDark}" />
                                                 </MultiTrigger>
-                                                <MultiTrigger AutomationProperties.AutomationId="MultiTrigger50_746B68B4">
+                                                <MultiTrigger AutomationProperties.AutomationId="MultiTrigger54_F088786C">
                                                     <MultiTrigger.Conditions>
                                                         <Condition Property="IsEnabled" Value="False" />
                                                     </MultiTrigger.Conditions>
@@ -313,14 +352,14 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Visibility="{Binding ShowToggleLanguageButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                            AutomationProperties.AutomationId="Grid52_746B68B4" />
+                            AutomationProperties.AutomationId="Button55_F088786C"/>
                     <Grid Grid.Row="2"
                           Margin="0 20 0 0"
-                          AutomationProperties.AutomationId="Grid51_746B68B4">
-                        <Grid Visibility="{Binding ShowExitButton, Converter={StaticResource TrueVisibleFalseCollapsed}}" AutomationProperties.AutomationId="Grid0_C39F692A">
+                          AutomationProperties.AutomationId="Grid56_F088786C">
+                        <Grid Visibility="{Binding ShowExitButton, Converter={StaticResource TrueVisibleFalseCollapsed}}" AutomationProperties.AutomationId="Grid57_F088786C">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition53_746B68B4" />
-                                <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition54_746B68B4" />
+                                <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition58_F088786C" />
+                                <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition59_F088786C" />
                             </Grid.ColumnDefinitions>
                             <Button Name="ExitButton"
                                     TabIndex="100"
@@ -331,8 +370,8 @@
                                     Command="{Binding ExitButtonCommand}"
                                     Margin="30 0 0 0"
                                     HorizontalAlignment="Center"
-                                    AutomationProperties.AutomationId="Button55_746B68B4">
-                                <Grid AutomationProperties.AutomationId="Grid56_746B68B4">
+                                    AutomationProperties.AutomationId="Button60_F088786C">
+                                <Grid AutomationProperties.AutomationId="Grid61_F088786C">
                                     <iconPacks:PackIconMaterial Kind="ExitToApp"
                                                                 Flip="Horizontal"
                                                                 Width="25"
@@ -364,17 +403,17 @@
                                     Command="{Binding PrintButtonCommand}"
                                     Style="{StaticResource MonacoButton1}"
                                     Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                                    AutomationProperties.AutomationId="Button59_746B68B4">
-                                <Grid AutomationProperties.AutomationId="Grid60_746B68B4">
+                                    AutomationProperties.AutomationId="Button64_F088786C">
+                                <Grid AutomationProperties.AutomationId="Grid65_F088786C">
                                     <iconPacks:PackIconModern Kind="Cancel"
                                                               Width="25"
                                                               Height="25" />
                                 </Grid>
                             </Button>
                         </Grid>
-                        <Grid Visibility="{Binding ShowExitButton, Converter={StaticResource TrueCollapsedFalseVisible}}" AutomationProperties.AutomationId="Grid61_746B68B4">
+                        <Grid Visibility="{Binding ShowExitButton, Converter={StaticResource TrueCollapsedFalseVisible}}" AutomationProperties.AutomationId="Grid66_F088786C">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition62_746B68B4" />
+                                <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition67_F088786C" />
                             </Grid.ColumnDefinitions>
                             <Button IsEnabled="{Binding PrintButtonEnabled}"
                                     Width="90"
@@ -397,8 +436,8 @@
                                     Command="{Binding PrintButtonCommand}"
                                     Style="{StaticResource MonacoButton1}"
                                     Visibility="{Binding ShowCancelPrintButton, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                                    AutomationProperties.AutomationId="Button65_746B68B4">
-                                <Grid AutomationProperties.AutomationId="Grid66_746B68B4">
+                                    AutomationProperties.AutomationId="Button70_F088786C">
+                                <Grid AutomationProperties.AutomationId="Grid71_F088786C">
                                     <iconPacks:PackIconModern Kind="Cancel"
                                                               Width="25"
                                                               Height="25" />
@@ -411,61 +450,67 @@
                             Background="{StaticResource MenuHighlightBrush}"
                             Margin="0 25 0 20"
                             Visibility="{Binding CreditBalanceVisible, Converter={StaticResource TrueVisibleFalseCollapsed}, FallbackValue=Hidden}"
-                            AutomationProperties.AutomationId="Border67_746B68B4">
+                            AutomationProperties.AutomationId="Border72_F088786C">
                         <Label Margin="10"
                                VerticalAlignment="Center"
                                Name="CreditBalance"
                                Content="{Binding CreditBalanceContent}"
                                Foreground="{StaticResource OperatorMenuDark}"
-                               AutomationProperties.AutomationId="Label68_746B68B4" />
+                               AutomationProperties.AutomationId="Label73_F088786C" />
                     </Border>
                 </Grid>
                 <Border Background="{DynamicResource OperatorMenuDark}"
                         Grid.Row="0"
                         Grid.Column="1"
-                        AutomationProperties.AutomationId="Border69_746B68B4">
-                    <Grid AutomationProperties.AutomationId="Grid70_746B68B4">
+                        AutomationProperties.AutomationId="Border74_F088786C">
+                    <Grid AutomationProperties.AutomationId="Grid75_F088786C">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition71_746B68B4" />
-                            <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition72_746B68B4" />
-                            <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition73_746B68B4" />
-                            <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition74_746B68B4" />
-                            <ColumnDefinition Width="55" AutomationProperties.AutomationId="ColumnDefinition75_746B68B4" />
+                            <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition76_F088786C" />
+                            <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition77_F088786C" />
+                            <ColumnDefinition Width="*" AutomationProperties.AutomationId="ColumnDefinition78_F088786C" />
+                            <ColumnDefinition Width="Auto" AutomationProperties.AutomationId="ColumnDefinition79_F088786C" />
+                            <ColumnDefinition Width="55" AutomationProperties.AutomationId="ColumnDefinition80_F088786C" />
                         </Grid.ColumnDefinitions>
                         <Image Source="../Resources/Audit.png"
                                Stretch="None"
                                Grid.Column="0"
                                Margin="30 0 20 0"
-                               AutomationProperties.AutomationId="Image76_746B68B4" />
+                               AutomationProperties.AutomationId="Image81_F088786C" />
                         <StackPanel Orientation="Horizontal"
                                     Grid.Column="1"
                                     Height="100"
                                     VerticalAlignment="Center"
                                     Visibility="{Binding IsPageTitleVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
-                                    AutomationProperties.AutomationId="StackPanel77_746B68B4">
+                                    AutomationProperties.AutomationId="StackPanel82_F088786C">
                             <Label Name="PageTitle"
                                    VerticalAlignment="Center"
                                    Content="{Binding PageTitleContent}"
                                    FontWeight="Bold"
                                    FontSize="{StaticResource Heading3FontSize}"
-                                   AutomationProperties.AutomationId="Label78_746B68B4" />
+                                   AutomationProperties.AutomationId="Label83_F088786C" />
                             <Label HorizontalAlignment="Center"
                                    VerticalAlignment="Center"
                                    Content="/"
                                    FontSize="{StaticResource Heading3FontSize}"
-                                   AutomationProperties.AutomationId="Label79_746B68B4" />
+                                   AutomationProperties.AutomationId="Label84_F088786C" />
                             <Label Name="OperatorMenuLabel"
                                    VerticalAlignment="Center"
                                    Content="{Binding OperatorMenuLabelContent}"
                                    FontWeight="Bold"
                                    FontSize="{StaticResource Heading3FontSize}"
-                                   AutomationProperties.AutomationId="Label80_746B68B4" />
+                                   AutomationProperties.AutomationId="Label85_F088786C" />
                         </StackPanel>
-                        <ComboBox Grid.Column="2" Name="LanguageComboBox" ItemsSource="{Binding SupportedLanguages}" Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,20,0"
-                                  AutomationProperties.AutomationId="ComboBox81_746B68B4">
+                        <ComboBox Grid.Column="2"
+                                  Name="LanguageComboBox"
+                                  ItemsSource="{Binding SupportedLanguages}"
+                                  Visibility="Hidden"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Margin="0 0 20 0"
+                                  AutomationProperties.AutomationId="ComboBox86_F088786C">
                             <b:Interaction.Triggers>
                                 <b:EventTrigger EventName="SelectionChanged"
-                                                AutomationProperties.AutomationId="EventTrigger82_746B68B4">
+                                                AutomationProperties.AutomationId="EventTrigger87_F088786C">
                                     <b:InvokeCommandAction Command="{Binding LanguageChangedCommand}"
                                                            CommandParameter="{Binding SelectedItem, ElementName=LanguageComboBox}" />
                                 </b:EventTrigger>
@@ -477,7 +522,7 @@
                                VerticalAlignment="Center"
                                FontSize="{StaticResource Heading4FontSize}"
                                Content="{Binding CurrentDateTime, Converter={StaticResource DateTimeFormatConverter}}"
-                               AutomationProperties.AutomationId="Label83_746B68B4" />
+                               AutomationProperties.AutomationId="Label88_F088786C"/>
                         <iconPacks:PackIconMaterial Grid.Column="4"
                                                     Kind="Clock"
                                                     Foreground="{DynamicResource OperatorMenuLabelText}"
@@ -490,40 +535,40 @@
                 <Border Grid.Row="1"
                         Grid.Column="1"
                         Background="{StaticResource StripBrush}"
-                        AutomationProperties.AutomationId="Border84_746B68B4" />
+                        AutomationProperties.AutomationId="Border89_F088786C" />
                 <Grid Grid.Row="2"
                       Grid.Column="1"
                       Margin="0 0 0 0"
-                      AutomationProperties.AutomationId="Grid85_746B68B4">
+                      AutomationProperties.AutomationId="Grid90_F088786C">
                     <Grid.Background>
                         <LinearGradientBrush StartPoint="0,.3"
                                              EndPoint="1,.7"
                                              AutomationProperties.AutomationId="LinearGradientBrush86_746B68B4">
                             <GradientStop Color="{StaticResource MahApps.Colors.ThemeForeground}"
                                           Offset="0"
-                                          AutomationProperties.AutomationId="GradientStop87_746B68B4" />
+                                          AutomationProperties.AutomationId="GradientStop92_F088786C" />
                             <GradientStop Color="{StaticResource DarkColor1}"
                                           Offset=".1"
-                                          AutomationProperties.AutomationId="GradientStop88_746B68B4" />
+                                          AutomationProperties.AutomationId="GradientStop93_F088786C" />
                             <GradientStop Color="{StaticResource DarkColor2}"
                                           Offset=".4"
-                                          AutomationProperties.AutomationId="GradientStop89_746B68B4" />
+                                          AutomationProperties.AutomationId="GradientStop94_F088786C" />
                             <GradientStop Color="{StaticResource Color1}"
                                           Offset=".9"
-                                          AutomationProperties.AutomationId="GradientStop90_746B68B4" />
+                                          AutomationProperties.AutomationId="GradientStop95_F088786C" />
                         </LinearGradientBrush>
                     </Grid.Background>
                     <ContentControl x:Name="MenuContentControl"
                                     Content="{Binding SelectedItem.Page}"
                                     Margin="5"
-                                    AutomationProperties.AutomationId="ContentControl91_746B68B4">
+                                    AutomationProperties.AutomationId="ContentControl96_F088786C">
                         <ContentControl.Style>
                             <Style TargetType="{x:Type ContentControl}">
                                 <Setter Property="ContentTemplate" Value="{x:Null}" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding SelectedItem.IsMultiPage}"
                                                  Value="False"
-                                                 AutomationProperties.AutomationId="DataTrigger92_746B68B4">
+                                                 AutomationProperties.AutomationId="DataTrigger97_F088786C">
                                         <Setter Property="ContentTemplate" Value="{StaticResource SinglePageTemplate}" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -546,8 +591,8 @@
                         Height="30"
                         BorderBrush="Black"
                         BorderThickness="0 1 0 0"
-                        AutomationProperties.AutomationId="Border93_746B68B4">
-                    <Grid AutomationProperties.AutomationId="Grid94_746B68B4">
+                        AutomationProperties.AutomationId="Border98_F088786C">
+                    <Grid AutomationProperties.AutomationId="Grid99_F088786C">
                         <Label Name="PrintStatus"
                                Content="{Binding PrintStatusText}"
                                Margin="20 0 0 0"
@@ -556,7 +601,7 @@
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
                                Foreground="{StaticResource HighlightBrush1}"
-                               AutomationProperties.AutomationId="Label95_746B68B4" />
+                               AutomationProperties.AutomationId="Label100_F088786C" />
                         <TextBlock Margin="0 0 20 0"
                                    Visibility="{Binding CanCalibrateTouchScreens,Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                    Text="{lex:Loc CalibrationText}"
@@ -564,7 +609,7 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Right"
                                    Foreground="{StaticResource HighlightBrush1}"
-                                   AutomationProperties.AutomationId="TextBlock96_746B68B4" />
+                                   AutomationProperties.AutomationId="TextBlock101_F088786C" />
                         <TextBlock Margin="0 0 20 0"
                                    Visibility="{Binding ShowMainDoorText,Mode=OneWay, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                    Text="{lex:Loc CalibrationAccess}"
@@ -572,7 +617,7 @@
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Right"
                                    Foreground="{StaticResource HighlightBrush1}"
-                                   AutomationProperties.AutomationId="TextBlock97_746B68B4" />
+                                   AutomationProperties.AutomationId="TextBlock102_F088786C" />
                     </Grid>
                 </Border>
             </Grid>

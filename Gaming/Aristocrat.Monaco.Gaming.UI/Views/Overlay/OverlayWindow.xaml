@@ -105,6 +105,8 @@
                 </Style>
             </overlay:ReserveOverlay.Style>
         </overlay:ReserveOverlay>
+        <overlay:SafetyDisplayOverlay
+            Visibility="{Binding MessageOverlayDisplay.IsSafetyMessageVisible, Converter={StaticResource TrueVisibleFalseHidden}}"/>
         <overlay:MessageOverlay Opacity="0"
                                 IsHitTestVisible="{Binding MessageOverlayDisplay.MessageOverlayData.IsDialogVisible}">
             <overlay:MessageOverlay.Style>

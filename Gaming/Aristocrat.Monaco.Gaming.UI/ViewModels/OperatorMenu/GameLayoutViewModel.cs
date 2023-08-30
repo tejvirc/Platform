@@ -1,9 +1,9 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using Application.UI.OperatorMenu;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Kernel;
-    using MVVM.Command;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;
@@ -14,10 +14,10 @@
 
         public GameLayoutViewModel()
         {
-            MoveToFirstCommand = new ActionCommand<IGameDetail>(MoveToFirst);
-            MoveLeftCommand = new ActionCommand<IGameDetail>(MoveLeft);
-            MoveRightCommand = new ActionCommand<IGameDetail>(MoveRight);
-            MoveToLastCommand = new ActionCommand<IGameDetail>(MoveToLast);
+            MoveToFirstCommand = new RelayCommand<IGameDetail>(MoveToFirst);
+            MoveLeftCommand = new RelayCommand<IGameDetail>(MoveLeft);
+            MoveRightCommand = new RelayCommand<IGameDetail>(MoveRight);
+            MoveToLastCommand = new RelayCommand<IGameDetail>(MoveToLast);
 
             _gameOrderSettings = ServiceManager.GetInstance().GetService<IGameOrderSettings>();
 
@@ -59,7 +59,7 @@
                 Games.Remove(layoutItem);
                 Games.Insert(0, layoutItem);
             }
-            RaisePropertyChanged(nameof(Games));
+            OnPropertyChanged(nameof(Games));
         }
 
         private void MoveLeft(IGameDetail game)
@@ -71,7 +71,7 @@
                 Games.Remove(layoutItem);
                 Games.Insert(index - 1, layoutItem);
             }
-            RaisePropertyChanged(nameof(Games));
+            OnPropertyChanged(nameof(Games));
         }
 
         private void MoveRight(IGameDetail game)
@@ -83,7 +83,7 @@
                 Games.Remove(layoutItem);
                 Games.Insert(index + 1, layoutItem);
             }
-            RaisePropertyChanged(nameof(Games));
+            OnPropertyChanged(nameof(Games));
         }
 
         private void MoveToLast(IGameDetail game)
@@ -95,7 +95,7 @@
                 Games.Remove(layoutItem);
                 Games.Add(layoutItem);
             }
-            RaisePropertyChanged(nameof(Games));
+            OnPropertyChanged(nameof(Games));
         }
 
         public class GameLayoutItem

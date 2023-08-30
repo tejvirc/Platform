@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.Gaming
     using Kernel;
     using log4net;
     using Runtime;
+    using Vgt.Client12.Application.OperatorMenu;
 
     /// <summary>
     ///     Implementation of IMessageDisplayHandler
@@ -28,6 +29,7 @@ namespace Aristocrat.Monaco.Gaming
         private readonly IGameDiagnostics _gameDiagnostics;
         private readonly IEventBus _eventBus;
         private readonly IMessageDisplay _messageDisplay;
+        private readonly List<DisplayableMessage> _displayMessages = new List<DisplayableMessage>();
         private readonly IPropertiesManager _properties;
         private readonly List<DisplayableMessage> _displayMessages = new();
         private readonly object _messageLock = new();
@@ -45,12 +47,14 @@ namespace Aristocrat.Monaco.Gaming
         /// <param name="messageDisplay">The message display</param>
         /// <param name="properties">The property manager.</param>
         /// <param name="gameDiagnostics">The game replay service.</param>
+        /// <param name="operatorMenu">The operator menu launch status</param>
         public GameMessageDisplayHandler(
             IRuntime runtimeService,
             IEventBus eventBus,
             IMessageDisplay messageDisplay,
             IPropertiesManager properties,
-            IGameDiagnostics gameDiagnostics)
+            IGameDiagnostics gameDiagnostics,
+            IOperatorMenuLauncher operatorMenu)
         {
             _runtime = runtimeService ?? throw new ArgumentNullException(nameof(runtimeService));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
@@ -58,6 +62,8 @@ namespace Aristocrat.Monaco.Gaming
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
 
             _gameDiagnostics = gameDiagnostics ?? throw new ArgumentNullException(nameof(gameDiagnostics));
+
+            _operatorMenu = operatorMenu ?? throw new ArgumentNullException(nameof(operatorMenu));
 
             _changePropagationTimer = new Timer(UpdateMessages, null, Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
 
@@ -208,7 +214,7 @@ namespace Aristocrat.Monaco.Gaming
 
         private void UpdateMessage(string message)
         {
-            if (string.IsNullOrEmpty(message) || _lastMessage.Equals(message))
+            if (string.IsNullOrEmpty(message) || _lastMessage.Equals(message) || _operatorMenu.IsShowing)
             {
                 return;
             }

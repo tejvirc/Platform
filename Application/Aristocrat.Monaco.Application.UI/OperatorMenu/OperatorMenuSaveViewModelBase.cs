@@ -1,15 +1,15 @@
-﻿namespace Aristocrat.Monaco.Application.UI.OperatorMenu
+namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Button;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
     [CLSCompliant(false)]
@@ -28,8 +28,8 @@
         {
             _operatorMenuLauncher = ServiceManager.GetInstance().TryGetService<IOperatorMenuLauncher>();
             EventBus.Subscribe<OperatorMenuExitingEvent>(this, HandleEvent);
-            SaveCommand = new ActionCommand<object>(_ => Save());
-            CancelCommand = new ActionCommand<object>(_ => Cancel());
+            SaveCommand = new RelayCommand<object>(_ => Save());
+            CancelCommand = new RelayCommand<object>(_ => Cancel());
 
             ShowSaveButton = (buttons & DialogButton.Save) == DialogButton.Save;
             ShowCancelButton = (buttons & DialogButton.Cancel) == DialogButton.Cancel;
@@ -68,7 +68,7 @@
                 if (_dialogResult != value)
                 {
                     _dialogResult = value;
-                    RaisePropertyChanged(nameof(DialogResult));
+                    OnPropertyChanged(nameof(DialogResult));
                 }
             }
         }
@@ -76,7 +76,7 @@
         // To refresh Save button status as CanSave is overrode in ExtraSettingsSetupViewModel
         public bool UpdateCanSave
         {
-            set => RaisePropertyChanged(nameof(CanSave));
+            set => OnPropertyChanged(nameof(CanSave));
         }
 
         public bool ShowSaveButton { get; set; }
@@ -135,7 +135,7 @@
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(CanSave));
+            OnPropertyChanged(nameof(CanSave));
         }
 
         protected override void OnLoaded()
@@ -150,7 +150,7 @@
             AllowOperatorMenuExit();
         }
 
-        protected virtual void Cancel()
+        public virtual void Cancel()
         {
             DialogResult = false;
         }
@@ -159,7 +159,7 @@
         {
             if (CloseOnRestrictedAccess && AccessRestriction != OperatorMenuAccessRestriction.None)
             {
-                MvvmHelper.ExecuteOnUI(() => DialogResult = false);
+                Execute.OnUIThread(() => DialogResult = false);
             }
         }
 
@@ -169,13 +169,13 @@
                  theEvent.LogicalId == (int)ButtonLogicalId.DualPlay) &&
                 theEvent.Enabled == false)
             {
-                MvvmHelper.ExecuteOnUI(Cancel);
+                Execute.OnUIThread(Cancel);
             }
         }
 
         private void HandleEvent(OperatorMenuExitingEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(Cancel);
+            Execute.OnUIThread(Cancel);
         }
     }
 }

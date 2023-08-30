@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -11,10 +11,10 @@
     using Contracts.InfoBar;
     using log4net;
     using Kernel;
-    using MVVM;
-    using MVVM.ViewModel;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class InfoBarViewModel : BaseViewModel, IDisposable
+    public class InfoBarViewModel : ObservableObject, IDisposable
     {
         private class InfoBarMessageData
         {
@@ -457,11 +457,11 @@
                 });
         }
 
-        private void Handler(InfoBarCloseEvent e) => MvvmHelper.ExecuteOnUI(() => IsOpen = false);
+        private void Handler(InfoBarCloseEvent e) => Execute.OnUIThread(() => IsOpen = false);
 
         private void Handler(InfoBarSetHeightEvent e)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 var scaleUp = e.Height / BarHeightMinimum;
 

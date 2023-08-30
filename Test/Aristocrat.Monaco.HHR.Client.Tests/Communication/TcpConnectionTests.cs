@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using Aristocrat.Monaco.Hhr.Client.Communication;
+using Aristocrat.Monaco.Protocol.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Aristocrat.Monaco.Hhr.Client.Tests.Communication

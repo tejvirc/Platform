@@ -1,10 +1,10 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using Application.Contracts.Media;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Kernel;
     using log4net;
     using Monaco.UI.Common;
-    using MVVM.ViewModel;
     using System;
     using System.ComponentModel;
     using System.Reflection;
@@ -12,7 +12,7 @@
     /// <summary>
     /// View model class to support the <see cref="IMediaPlayer"/>.
     /// </summary>
-    public abstract class MediaPlayerViewModelBase : BaseEntityViewModel, IDisposable, IMediaPlayerViewModel
+    public abstract class MediaPlayerViewModelBase : ObservableObject, IDisposable, IMediaPlayerViewModel
     {
         public event PropertyChangedEventHandler WidthChanged;
         public event PropertyChangedEventHandler HeightChanged;
@@ -94,7 +94,7 @@
                     _actualWidth = value;
 
                     RaiseWidthChanged(oldValue, _actualWidth);
-                    RaisePropertyChanged(nameof(ActualWidth));
+                    OnPropertyChanged(nameof(ActualWidth));
                 }
             }
         }
@@ -119,7 +119,7 @@
                     _actualHeight = value;
 
                     RaiseHeightChanged(oldValue, _actualHeight);
-                    RaisePropertyChanged(nameof(ActualHeight));
+                    OnPropertyChanged(nameof(ActualHeight));
                 }
             }
         }
@@ -159,7 +159,7 @@
             set
             {
                 _actualX = value;
-                RaisePropertyChanged(nameof(ActualX));
+                OnPropertyChanged(nameof(ActualX));
             }
         }
 
@@ -178,7 +178,7 @@
             set
             {
                 _actualY = value;
-                RaisePropertyChanged(nameof(ActualY));
+                OnPropertyChanged(nameof(ActualY));
             }
         }
 

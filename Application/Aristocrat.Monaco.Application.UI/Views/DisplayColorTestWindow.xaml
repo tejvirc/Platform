@@ -67,6 +67,7 @@
             <Button Padding="10 0 10 0"
                     Margin="10"
                     Name="ExitButton"
+                    loc:Localizer.For="Operator"
                     Content="{lex:Loc ExitText}"
                     Click="OnExitButtonPressed"
                     AutomationProperties.AutomationId="Button9_E1990149" />
