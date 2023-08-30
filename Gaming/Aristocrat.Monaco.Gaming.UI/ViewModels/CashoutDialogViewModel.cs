@@ -43,16 +43,15 @@
 
         private void CashoutDialogYesNoPressed(object obj)
         {
-            var runtime = ServiceManager.GetInstance().GetService<IContainerService>().Container.GetInstance<IRuntime>();
             if (obj.ToString().Equals("YES", StringComparison.InvariantCultureIgnoreCase))
             {
                 _eventBus.Publish(new CashoutAmountAuthorizationReceivedEvent(true));
-
             }
             else
             {
                 _eventBus.Publish(new CashoutAmountAuthorizationReceivedEvent(false));
-                runtime.UpdateFlag(RuntimeCondition.CashingOut, false);
+                var runtimeFlagHandler = ServiceManager.GetInstance().GetService<IContainerService>()?.Container.GetInstance<IRuntimeFlagHandler>();
+                runtimeFlagHandler?.SetCashingOut(false);
             }
         }
     }
