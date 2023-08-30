@@ -151,11 +151,11 @@
                Margin="0 20 0 0"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.SoundVolumeTest}}"
                AutomationProperties.AutomationId="Label13_9A0249AD" />
-        <ComboBox ItemsSource="{Binding VolumeOptions}"
+        <ComboBox ItemsSource="{Binding Path=SoundLevelConfigCollection}"
                   Name="SoundLevelComboBox"
                   SelectedIndex="0"
-                  DisplayMemberPath="DisplayString"
-                  SelectedValuePath="Level"
+                  DisplayMemberPath="Description"
+                  SelectedValuePath="Value"
                   SelectedValue="{Binding SoundLevel}"
                   Style="{StaticResource OptionComboStyle}"
                   AutomationProperties.AutomationId="ComboBox14_9A0249AD" />

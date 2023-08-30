@@ -2,20 +2,20 @@
 {
     using System;
     using System.Collections.ObjectModel;
-    using Contracts.Extensions;
+    using System.Reflection;
+    using Contracts;
     using Contracts.Localization;
     using Contracts.Protocol;
     using Hardware.Contracts.Audio;
-    using Monaco.Common;
-    using Monaco.Localization.Properties;
-    using MVVM.Model;
+    using Kernel;
+    using Localization;
     using Newtonsoft.Json;
-    using Contracts;
+    using log4net;
 
     /// <summary>
     ///     Application machine settings.
     /// </summary>
-    internal class MachineSettings : BaseNotify
+    internal class MachineSettings : SettingsBase
     {
         private bool _noteAcceptorEnabled;
         private string _noteAcceptorManufacturer;
@@ -53,6 +53,19 @@
         private ValidationLengthOptions _validationLength;
         private LayoutTypeOptions _layoutType;
         private VolumeControlLocation _volumeControlLocation;
+        private bool _bellEnabled;
+
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
+        public MachineSettings()
+        {
+            EventBus.Subscribe<OperatorCultureChangedEvent>(this, RefreshAllDisplayableSettings);
+        }
+
+        ~MachineSettings()
+        {
+            EventBus.UnsubscribeAll(this);
+        }
 
         /// <summary>
         ///     Gets or sets a value that indicates whether the note acceptor is enabled.
@@ -61,7 +74,7 @@
         {
             get => _noteAcceptorEnabled;
 
-            set => SetProperty(ref _noteAcceptorEnabled, value);
+            set => SetProperty(ref _noteAcceptorEnabled, value, nameof(NoteAcceptorEnabled));
         }
 
         /// <summary>
@@ -81,7 +94,7 @@
         {
             get => _printerEnabled;
 
-            set => SetProperty(ref _printerEnabled, value);
+            set => SetProperty(ref _printerEnabled, value, nameof(PrinterEnabled));
         }
 
         /// <summary>
@@ -112,6 +125,27 @@
             get => _currencyDescription;
 
             set => SetProperty(ref _currencyDescription, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets the currency display text.
+        /// </summary>
+        public string CurrencyDisplayText
+        {
+            get
+            {
+                string currencyDisplayText = CurrencyDescription;
+
+                var localization =
+                    ServiceManager.GetInstance().GetService<ILocalization>();
+                var currencyProvider = localization.GetProvider(CultureFor.Currency) as CurrencyCultureProvider;
+                if (currencyProvider?.ConfiguredCurrency != null)
+                {
+                    currencyDisplayText = currencyProvider.ConfiguredCurrency.DisplayName;
+                }
+
+                return currencyDisplayText;
+            }
         }
 
         /// <summary>
@@ -179,7 +213,7 @@
         /// </summary>
         public string HardMeterMapSelectionValue
         {
-            get => _hardMeterMapSelectionValue;
+            get => OperatorLocalizer.GetString(_hardMeterMapSelectionValue, x => Logger.Warn($"Resource not found for key: {_hardMeterMapSelectionValue}")) ?? _hardMeterMapSelectionValue;
 
             set => SetProperty(ref _hardMeterMapSelectionValue, value);
         }
@@ -194,15 +228,9 @@
             set
             {
                 SetProperty(ref _hardMeterTickValue, value);
-                RaisePropertyChanged(nameof(HardMeterTickValueDisplay));
+                OnPropertyChanged(nameof(HardMeterTickValue));
             }
         }
-
-        /// <summary>
-        ///     Gets the hard meter tick value to display.
-        /// </summary>
-        [JsonIgnore]
-        public string HardMeterTickValueDisplay => _hardMeterTickValue.CentsToDollars().FormattedCurrencyString();
 
         /// <summary>
         ///     Gets or sets a value that indicates whether hard meter values are visible.
@@ -290,17 +318,9 @@
             set
             {
                 SetProperty(ref _maxCreditsIn, value);
-                RaisePropertyChanged(nameof(MaxCreditsInDisplay));
+                OnPropertyChanged(nameof(MaxCreditsIn));
             }
         }
-
-        /// <summary>
-        ///     Gets the max credits in to display.
-        /// </summary>
-        [JsonIgnore]
-        public string MaxCreditsInDisplay => _maxCreditsIn == 0
-                    ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoLimit)
-                    : _maxCreditsIn.MillicentsToDollars().FormattedCurrencyString();
 
         /// <summary>
         ///     Gets or sets the platform default volume level.
@@ -312,7 +332,7 @@
             set
             {
                 SetProperty(ref _defaultVolumeLevel, value);
-                RaisePropertyChanged(nameof(DefaultVolumeLevelDisplay));
+                OnPropertyChanged(nameof(DefaultVolumeLevelDisplay));
             }
         }
 
@@ -333,7 +353,7 @@
             set
             {
                 SetProperty(ref _volumeControlLocation, value);
-                RaisePropertyChanged(nameof(VolumeControlLocation));
+                OnPropertyChanged(nameof(VolumeControlLocation));
             }
         }
 
@@ -385,6 +405,15 @@
             get => _reelControllerManufacturer;
 
             set => SetProperty(ref _reelControllerManufacturer, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets the bell enabled or not
+        /// </summary>
+        public bool BellEnabled
+        {
+            get => _bellEnabled;
+            set => SetProperty(ref _bellEnabled, value);
         }
 
         /// <summary>
@@ -491,5 +520,15 @@
         ///     Gets a comma separated value of currently configured protocols.
         /// </summary>
         public string Protocols { get; set; }
+
+        protected override void RefreshAllDisplayableSettings(OperatorCultureChangedEvent evt)
+        {
+            base.RefreshAllDisplayableSettings(evt);
+            foreach (var setting in OperatingHours)
+            {
+                setting.RefreshAllSettings();
+            }
+        }
     }
 }
+

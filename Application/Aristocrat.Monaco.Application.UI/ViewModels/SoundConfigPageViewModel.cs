@@ -36,14 +36,13 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private readonly ISystemDisableManager _disableManager;
         private readonly IPropertiesManager _propertiesManager;
 
-        private byte _soundLevel;
         private byte _alertVolume;
         private byte _alertMinimumVolume;
         private string _infoText;
         private bool _playTestAlertSound;
         private string _soundFile;
         private bool _inTestMode;
-        private VolumeLevel _selectedVolumeLevel;
+        private byte _selectedVolumeLevel;
 
         public SoundConfigPageViewModel(bool isWizard) : base(isWizard)
         {
@@ -53,7 +52,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             TestViewModel.SetTestReporter(Inspection);
             ToggleTestModeCommand = new RelayCommand<object>(_ => InTestMode = !InTestMode);
             VolumeViewModel = new VolumeViewModel();
-            SoundTestCommand = new ActionCommand<object>(SoundTestClicked);
+            //SoundTestCommand = new ActionCommand<object>(SoundTestClicked);
             SoundLevelConfigurationParser(_audio.SoundLevelCollection);
         }
 
@@ -83,12 +82,12 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             IsAlertConfigurable = showMode || PropertiesManager.GetValue(ApplicationConstants.SoundConfigurationAlertVolumeConfigurable, IsAlertConfigurableDefault);
             OnPropertyChanged(nameof(IsAlertConfigurable));
 
-            SelectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            SelectedVolumeLevel = _propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             OnPropertyChanged(nameof(SelectedVolumeLevel));
-            // Load default volume level
-            _soundLevel = PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
-            Logger.DebugFormat("Initializing default volume setting with value: {0}", _soundLevel);
-            RaisePropertyChanged(nameof(SoundLevel));
+            //// Load default volume level
+            //_soundLevel = PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            //Logger.DebugFormat("Initializing default volume setting with value: {0}", _soundLevel);
+            //RaisePropertyChanged(nameof(SoundLevel));
         }
 
         public ObservableCollection<EnumerationExtension.EnumerationMember> SoundLevelConfigCollection { get; } = new();
@@ -188,7 +187,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
             }
         }
-        public VolumeLevel SelectedVolumeLevel
+        public byte SelectedVolumeLevel
         {
             get => _selectedVolumeLevel;
 
