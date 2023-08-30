@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Attract;
 
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using Fluxor;
 using UI.Models;
@@ -12,7 +13,7 @@ public class AttractFeature : Feature<AttractState>
     {
         return new AttractState
         {
-            Videos = ImmutableList<AttractVideoDetails>.Empty,
+            Videos = new List<IAttractDetails>(),
             ModeTopperImageIndex = -1,
             ModeTopImageIndex = -1
 

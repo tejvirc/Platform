@@ -11,6 +11,6 @@
 
     public record AttractAddVideosAction
     {
-        public IImmutableList<AttractVideoDetails>? AttractList { get; init; }
+        public List<IAttractDetails>? AttractList { get; init; }
     }
 }

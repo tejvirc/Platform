@@ -15,6 +15,7 @@ public class ShellViewModel : ObservableObject
     private readonly ILogger<ShellViewModel> _logger;
 
     private ObservableObject<IRegion>? _mainRegion;
+    private IRegionManager? _regionManager;
 
     public ShellViewModel(ILogger<ShellViewModel> logger)
     {
@@ -52,6 +53,8 @@ public class ShellViewModel : ObservableObject
         {
             return;
         }
+
+        _regionManager ??= args.Region.RegionManager;   
 
         args.Handled = true;
 

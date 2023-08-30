@@ -3,9 +3,17 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Design;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Timers;
+using Aristocrat.Extensions.Fluxor;
+using Aristocrat.Monaco.Accounting.Contracts;
+using Aristocrat.Monaco.Application.Contracts.Extensions;
 using Aristocrat.Monaco.Gaming.Contracts.Models;
+using Aristocrat.Monaco.Gaming.Contracts.Progressives;
+using Aristocrat.Monaco.Gaming.Progressives;
 using Aristocrat.Monaco.Gaming.UI.ViewModels;
 //using Aristocrat.Monaco.Gaming.UI.ViewModels;
 using Contracts;
@@ -33,11 +41,17 @@ public sealed class AttractService : IAttractService, IDisposable
     private readonly LobbyConfiguration _configuration;
     private readonly IEventBus _eventBus;
     private readonly IPropertiesManager _properties;
+    private readonly IBank _bank;
     private readonly IAttractConfigurationProvider _attractConfigurationProvider;
 
-    private readonly ITimer _attractTimer;
-    private readonly ITimer _rotateTopImageTimer;
-    private readonly ITimer _rotateTopperImageTimer;
+    //private ObservableCollection<GameInfo> _gameList = new ObservableCollection<GameInfo>();
+
+    private readonly Timer _attractTimer;
+    private readonly Timer _rotateTopImageTimer;
+    private readonly Timer _rotateTopperImageTimer;
+
+    //TODO this will not be here long, for now it is to provide a backend test of the videos 'playing' to make sure it works properly
+    private readonly Timer _pseudoVideoTimer;
 
     private readonly object _attractLock = new object();
 
@@ -53,7 +67,8 @@ public sealed class AttractService : IAttractService, IDisposable
         LobbyConfiguration configuration,
         IEventBus eventBus,
         IPropertiesManager properties,
-        IAttractConfigurationProvider attractConfigurationProvider)
+        IAttractConfigurationProvider attractConfigurationProvider,
+        IBank bank)
     {
         _logger = logger;
         _attractState = attractState;
@@ -62,17 +77,26 @@ public sealed class AttractService : IAttractService, IDisposable
         _configuration = configuration;
         _eventBus = eventBus;
         _properties = properties;
+        _bank = bank;
         _attractConfigurationProvider = attractConfigurationProvider;
 
-        _attractTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(_configuration.AttractTimerIntervalInSeconds) };
-        _attractTimer.Tick += AttractTimer_Tick;
+        _attractTimer = new Timer { Interval = TimeSpan.FromSeconds(_configuration.AttractTimerIntervalInSeconds).TotalMilliseconds};
+        _attractTimer.Elapsed += AttractTimer_Tick;
 
-        _rotateTopImageTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(RotateTopImageIntervalInSeconds) };
-        _rotateTopImageTimer.Tick += RotateTopImageTimerTick;
+        _rotateTopImageTimer = new Timer { Interval = TimeSpan.FromSeconds(RotateTopImageIntervalInSeconds).TotalMilliseconds};
+        _rotateTopImageTimer.Elapsed += RotateTopImageTimerTick;
 
-        _rotateTopperImageTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(RotateTopperImageIntervalInSeconds) };
-        _rotateTopperImageTimer.Tick += RotateTopperImageTimerTick;
+        _rotateTopperImageTimer = new Timer { Interval = TimeSpan.FromSeconds(RotateTopperImageIntervalInSeconds).TotalMilliseconds};
+        _rotateTopperImageTimer.Elapsed += RotateTopperImageTimerTick;
+
+        _pseudoVideoTimer = new Timer { Interval = TimeSpan.FromSeconds(30).TotalMilliseconds };
+        _pseudoVideoTimer.Elapsed += EndVIdeoTick;
+
+        _dispatcher.DispatchAsync(new AttractSetCanModeStartAction { Bank = bank, Properties = properties });
     }
+
+
+    public string ActiveLocaleCode => _attractState.Value.IsPrimaryLanguageSelected ? _configuration.LocaleCodes[0] : _configuration.LocaleCodes[1];
 
     public void NotifyEntered()
     {
@@ -93,7 +117,7 @@ public sealed class AttractService : IAttractService, IDisposable
 
     public void SetAttractVideoPaths(int currAttractIndex)
     {
-        AttractVideoDetails? attract = null;
+        IAttractDetails? attract = null;
 
         if (_attractState.Value.Videos.Count > 0)
         {
@@ -196,6 +220,8 @@ public sealed class AttractService : IAttractService, IDisposable
 
     private void AttractTimer_Tick(object? sender, EventArgs e)
     {
+        _logger.LogDebug($"Attract Timer has Ticked at {DateTime.Now.TimeOfDay}");
+        Console.WriteLine($"Attract Timer has Ticked at {DateTime.Now.TimeOfDay}");
         //if (!_attractConfigurationProvider.IsAttractEnabled ||
         //    !_attractState.Value.HasZeroCredits() ||
         //    _attractState.Value.IsIdleTextScrolling ||
@@ -206,17 +232,28 @@ public sealed class AttractService : IAttractService, IDisposable
         //    return;
         //}
 
-        _dispatcher.Dispatch(new AttractEnterAction());
+        _dispatcher.DispatchAsync(new AttractEnterAction());
     }
 
     private void RotateTopImageTimerTick(object? sender, EventArgs e)
     {
-        _dispatcher.Dispatch(new AttractRotateTopImageAction());
+        if (_attractState.Value.IsPlaying)
+        {
+            _dispatcher.Dispatch(new AttractRotateTopImageAction());
+        }
     }
 
     private void RotateTopperImageTimerTick(object? sender, EventArgs e)
     {
-        _dispatcher.Dispatch(new AttractRotateTopperImageAction());
+        if (_attractState.Value.IsPlaying)
+        {
+            _dispatcher.Dispatch(new AttractRotateTopperImageAction());
+        }
+    }
+
+    private void EndVIdeoTick(object? sender, EventArgs e)
+    {
+        OnGameAttractVideoCompleted();
     }
 
     public void StartAttractTimer()
@@ -240,8 +277,12 @@ public sealed class AttractService : IAttractService, IDisposable
                     ? _configuration.AttractSecondaryTimerIntervalInSeconds
                     : _configuration.AttractTimerIntervalInSeconds;
 
-                _attractTimer.Interval = TimeSpan.FromSeconds(interval);
+                _attractTimer.Interval = TimeSpan.FromSeconds(interval).TotalMilliseconds;
                 _attractTimer.Start();
+
+                _rotateTopImageTimer.Start();
+                _rotateTopperImageTimer.Start();
+                _pseudoVideoTimer.Start();
             }
         }
     }
@@ -249,14 +290,12 @@ public sealed class AttractService : IAttractService, IDisposable
     public void ExitAndResetAttractMode(/*AgeWarningTimer AgeWarningTimer (May add this in place of using the configuration so that it works exactly how it would in the LobbyViewModel)*/)
     {
         _dispatcher.Dispatch(new AttractExitAction());
-        if (_attractTimer != null && _attractTimer.IsEnabled)
+        if (_attractTimer != null && _attractTimer.Enabled)
         {
             StartAttractTimer();
         }
 
         // Don't display Age Warning while the inserting cash dialog is up.
-        //if (_ageWarningTimer.CheckForAgeWarning() == AgeWarningCheckResult.False && CurrentState == LobbyState.Attract)
-        //TODO double check to make sure these fields correlate with the above if statement.
         if(!_configuration.DisplayAgeWarning && _attractState.Value.IsPlaying)
         {
             _dispatcher.Dispatch(new AttractExitedAction());
@@ -296,9 +335,6 @@ public sealed class AttractService : IAttractService, IDisposable
             .Where(g => g.Enabled)
             .DistinctBy(g => g.ThemeId).ToList();
 
-        //TODO figure out a fix for this ConvertToSubTab issue
-        //For now we just duplicated the code from the SubTabInfoViewModel.cs class
-        //That code is below and will need to be deleted but for now this works around the error.
         if (subset.DistinctBy(g => g.GameSubtype).Count() > 1)
             subset = subset.OrderBy(g => g.GameType).ThenBy(g => SubTabInfoViewModel.ConvertToSubTab(g.GameSubtype));
 
@@ -312,9 +348,14 @@ public sealed class AttractService : IAttractService, IDisposable
         return configuredAttractGameInfo;
     }
 
+    /// <summary>
+    ///     This is called after the game list has been updated
+    /// </summary>
+    /// <param name="gameList">The updated game list</param>
+    //TODO Figure out a way to pseudo this so we can test the back end portion.
     public void RefreshAttractGameList(ObservableCollection<GameInfo> gameList)
     {
-        List<AttractVideoDetails> attractList = new List<AttractVideoDetails>();
+        List<IAttractDetails> attractList = new List<IAttractDetails>();
 
         if (_configuration.HasAttractIntroVideo)
         {
@@ -327,21 +368,187 @@ public sealed class AttractService : IAttractService, IDisposable
         }
 
         //TODO do something to add the collection of attract game info to the attract list
-        attractList.AddRange((List <AttractVideoDetails>)GetAttractGameInfoList(gameList));
-        _dispatcher.Dispatch(
-            new AttractAddVideosAction
-                {
-                    AttractList = attractList as System.Collections.Immutable.IImmutableList<AttractVideoDetails>
-                });
+        var listToAdd = GetAttractGameInfoList(gameList);
+        attractList.AddRange(listToAdd);
+        _dispatcher.Dispatch( new AttractAddVideosAction { AttractList = attractList });
 
         CheckAndResetAttractIndex();
     }
 
     //TODO had to rework the initial check on this value but this seems correct
+    //TODO Look more into this, I cannot remember where I grabbed it from but I need to figure out when it gets called
     private bool IsAttractModeIdleTimeout()
     {
         return (_lobbyState.Value.LastUserInteractionTime != DateTime.MinValue
                 || _lobbyState.Value.LastUserInteractionTime != DateTime.MaxValue) &&
                 _lobbyState.Value.LastUserInteractionTime.AddSeconds(_attractState.Value.AttractModeIdleTimeoutInSeconds) <= DateTime.UtcNow;
     }
+
+    private void OnGameAttractVideoCompleted()
+    {
+        // Have to run this on a separate thread because we are triggering off an event from the video
+        // and we end up making changes to the video control (loading new video).  The Bink Video Control gets very upset
+        // if we try to do that on the same thread.
+
+        if (!PlayAdditionalConsecutiveAttractVideo())
+        {
+            RotateTopImage();
+            RotateTopperImage();
+            //TODO Send action for attract video completed
+            //Task.Run(
+            //    () => { MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.AttractVideoComplete)); });
+        }
+    }
+
+    private bool PlayAdditionalConsecutiveAttractVideo() //May have been made redundant in new _attractService TODO look into this
+    {
+        if (!_configuration.HasAttractIntroVideo || _attractState.Value.CurrentAttractIndex != 0 || _attractState.Value.Videos.Count <= 1)
+        {
+            _dispatcher.Dispatch(new AttractUpdateConsecutiveCount
+            {
+                ConsecutiveAttractCount = _attractState.Value.ConsecutiveAttractCount  + 1
+            });
+
+            _logger.LogDebug($"Consecutive Attract Video count: {_attractState.Value.ConsecutiveAttractCount}");
+
+            if (_attractState.Value.ConsecutiveAttractCount >= _configuration.ConsecutiveAttractVideos ||
+                _attractState.Value.ConsecutiveAttractCount >= _lobbyState.Value.GameCount)
+            {
+                _logger.LogDebug("Stopping attract video sequence");
+                return false;
+            }
+
+            _logger.LogDebug("Starting another attract video");
+        }
+
+        Task.Run(
+            () =>
+            {
+                if (_attractState.Value.Videos.Count <= 1)
+                {
+                    _dispatcher.Dispatch(new AttractExitAction());
+                }
+
+                AdvanceAttractIndex();
+                SetAttractVideoPaths(_attractState.Value.CurrentAttractIndex);
+            });
+
+        return true;
+    }
+
+    public void UserInteracted()
+    {
+        ExitAndResetAttractMode();
+    }
+
+    #region Some Game Relation Stuff (This may be better suited in another service that we call here when needed)
+    public ObservableCollection<GameInfo> LoadGameInfo()
+    {
+        var games = _properties.GetValues<IGameDetail>(GamingConstants.Games).ToList();
+
+        foreach (var game in games)
+        {
+            if (!game.LocaleGraphics.ContainsKey(ActiveLocaleCode))
+            {
+                game.LocaleGraphics.Add(ActiveLocaleCode, new LocaleGameGraphics());
+            }
+        }
+
+        var gameList = GetOrderedGames(games);
+
+        return(gameList);
+    }
+
+    private ObservableCollection<GameInfo> GetOrderedGames(IReadOnlyCollection<IGameDetail> games)
+    {
+        var _gameOrderSettings = ServiceManager.GetInstance().TryGetService<IContainerService>().Container.GetInstance<IGameOrderSettings>();
+
+        bool UseSmallIcons = false;
+        var ChooseGameOffsetY = UseSmallIcons ? 25.0 : 50.0;
+
+        var gameCombos = (from game in games
+                          from denom in game.ActiveDenominations
+                          where game.Enabled
+                          select new GameInfo
+                          {
+                              GameId = game.Id,
+                              Name = game.ThemeName,
+                              InstallDateTime = game.InstallDate,
+                              DllPath = game.GameDll,
+                              ImagePath = UseSmallIcons ? game.LocaleGraphics[ActiveLocaleCode].SmallIcon : game.LocaleGraphics[ActiveLocaleCode].LargeIcon,
+                              TopPickImagePath = UseSmallIcons ? game.LocaleGraphics[ActiveLocaleCode].SmallTopPickIcon : game.LocaleGraphics[ActiveLocaleCode].LargeTopPickIcon,
+                              TopAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].TopAttractVideo,
+                              TopperAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].TopperAttractVideo,
+                              BottomAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].BottomAttractVideo,
+                              LoadingScreenPath = game.LocaleGraphics[ActiveLocaleCode].LoadingScreen,
+                              ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denom, game.Denominations.Single(d => d.Value == denom).BetOption),
+                              ProgressiveIndicator = ProgressiveLobbyIndicator.Disabled,
+                              Denomination = denom,
+                              BetOption = game.Denominations.Single(d => d.Value == denom).BetOption,
+                              FilteredDenomination = _configuration.MinimumWagerCreditsAsFilter ? game.MinimumWagerCredits * denom : denom,
+                              GameType = game.GameType,
+                              GameSubtype = game.GameSubtype,
+                              PlatinumSeries = false,
+                              Enabled = game.Enabled,
+                              AttractHighlightVideoPath = !string.IsNullOrEmpty(game.DisplayMeterName) ? _configuration.AttractVideoWithBonusFilename : _configuration.AttractVideoNoBonusFilename,
+                              UseSmallIcons = UseSmallIcons,
+                              LocaleGraphics = game.LocaleGraphics,
+                              ThemeId = game.ThemeId,
+                              IsNew = GameIsNew(game.GameTags),
+                              Category = game.Category,
+                              SubCategory = game.SubCategory,
+                              RequiresMechanicalReels = game.MechanicalReels > 0
+                          }).ToList();
+
+        return new ObservableCollection<GameInfo>(
+            gameCombos.OrderBy(game => _gameOrderSettings.GetIconPositionPriority(game.ThemeId))
+                .ThenBy(g => g.Denomination));
+    }
+
+    private bool GameIsNew(IEnumerable<string> gameTags)
+    {
+        // NewGame is the string that should be used to tag a game as new
+        return gameTags != null && gameTags.Any(t => t != null && t.ToLower().Equals(GameTag.NewGame.ToString().ToLower()));
+    }
+
+    private string GetProgressiveOrBonusValue(int gameId, long denomId, string betOption = null)
+    {
+        var _progressiveProvider = ServiceManager.GetInstance().TryGetService<IProgressiveConfigurationProvider>();
+        var _gameStorage = ServiceManager.GetInstance().TryGetService<IContainerService>().Container.GetInstance<IGameStorage>();
+
+        _logger.LogDebug($"GetProgressiveOrBonusValue(gameId={gameId}, denomId={denomId}, betOption={betOption}");
+        var game = _properties.GetValues<IGameDetail>(GamingConstants.Games).SingleOrDefault(g => g.Id == gameId);
+        if (!string.IsNullOrEmpty(game?.DisplayMeterName))
+        {
+            var currentValue = game.InitialValue;
+
+            var meter =
+                _gameStorage.GetValues<InGameMeter>(gameId, denomId, GamingConstants.InGameMeters)
+                    .FirstOrDefault(m => m.MeterName == game.DisplayMeterName);
+            if (meter != null)
+            {
+                currentValue = meter.Value;
+            }
+
+            _logger.LogDebug($"DisplayMeterName={game.DisplayMeterName}, JackpotValue={currentValue}");
+            return (currentValue / CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit).FormattedCurrencyString();
+        }
+
+        var levels = _progressiveProvider.ViewProgressiveLevels(gameId, denomId).ToList();
+        if (levels.Any() && !string.IsNullOrWhiteSpace(betOption))
+        {
+            var match = levels.FirstOrDefault(
+                p => string.IsNullOrEmpty(p.BetOption) || p.BetOption == betOption);
+
+            if (match != null)
+            {
+                _logger.LogDebug($"Found {levels.Count} levels, returning first JackpotValue={match.CurrentValue}");
+                return match.CurrentValue.MillicentsToDollarsNoFraction().FormattedCurrencyString();
+            }
+        }
+
+        _logger.LogDebug("Returning empty progressive value");
+        return string.Empty;
+    }
+    #endregion
 }

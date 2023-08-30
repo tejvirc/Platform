@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Attract;
 
+using Aristocrat.Monaco.Application.Contracts;
 using Fluxor;
 
 public static class AttractReducers
@@ -59,15 +60,25 @@ public static class AttractReducers
 
 
     [ReducerMethod]
-    public static AttractState Reduce(AttractState state, AttractAddVideosAction action)
-    {
-        var newState = state;
-
-        if (action.AttractList != null)
+    public static AttractState Reduce(AttractState state, AttractAddVideosAction action) =>
+        state with
         {
-            newState.Videos.AddRange(action.AttractList);
-        }
+            Videos = action.AttractList ?? state.Videos
+        };
 
-        return newState;
-    }
+    [ReducerMethod]
+    public static AttractState Reduce(AttractState state, AttractSetCanModeStartAction action) =>
+        state with
+        {
+            CanAttractModeStart = action.Bank.QueryBalance() == 0 ||
+                                  (bool)action.Properties.GetProperty(ApplicationConstants.ShowMode, false)
+
+        };
+
+    [ReducerMethod]
+    public static AttractState Reduce(AttractState state, AttractSetResetOnInterruptionAction action) =>
+        state with
+        {
+            ResetAttractOnInterruption = action.ResetOnInteraction
+        };
 }

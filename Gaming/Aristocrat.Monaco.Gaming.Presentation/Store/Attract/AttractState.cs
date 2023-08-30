@@ -1,11 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Attract;
 
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using UI.Models;
 
 public record AttractState
 {
-    public IImmutableList<AttractVideoDetails> Videos { get; init; }
+    public List<IAttractDetails> Videos { get; init; }
 
     public int CurrentAttractIndex { get; init; }
 
