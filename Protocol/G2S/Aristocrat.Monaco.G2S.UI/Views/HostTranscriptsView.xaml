@@ -8,6 +8,7 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:g2SConverters="clr-namespace:Aristocrat.Monaco.G2S.UI.Converters"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:HostTranscriptsViewModel, IsDesignTimeCreatable=False}"
                                FocusManager.FocusedElement="{Binding ElementName=MainMenu}">
@@ -18,6 +19,7 @@
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:DateTimeFormatConverter x:Key="DateTimeFormat" />
+            <g2SConverters:LoggingLevelsToLocalizedStringConverter x:Key="LoggingLevelsToLocalizedStringConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid x:Name="MainGrid"
@@ -52,32 +54,67 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"
                                   AutomationProperties.AutomationId="ColumnDefinition13_66620A3A" />
-                <ColumnDefinition Width="*"
+                <ColumnDefinition Width="Auto"
                                   AutomationProperties.AutomationId="ColumnDefinition14_66620A3A" />
+                <ColumnDefinition Width="*" 
+                                  AutomationProperties.AutomationId="ColumnDefinition50_66620A3A"/>
+                <ColumnDefinition Width="Auto" 
+                                  AutomationProperties.AutomationId="ColumnDefinition51_66620A3A"/>
+                <ColumnDefinition Width="Auto" 
+                                  AutomationProperties.AutomationId="ColumnDefinition52_66620A3A"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0"
                    Grid.Column="0"
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_EgmId}}"
+                   VerticalAlignment="Center"
                    AutomationProperties.AutomationId="Label15_66620A3A" />
             <TextBlock Grid.Row="0"
                        Grid.Column="1"
-                       Margin="20 0 0 0"
+                       Margin="20, 0, 0, 0"
                        Text="{Binding EgmId}"
                        VerticalAlignment="Center"
                        AutomationProperties.AutomationId="TextBlock16_66620A3A" />
             <Label Grid.Row="1"
                    Grid.Column="0"
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_Address}}"
+                   VerticalAlignment="Center"
                    AutomationProperties.AutomationId="Label17_66620A3A" />
             <TextBlock Grid.Row="1"
                        Grid.Column="1"
-                       Margin="20 0 0 0"
+                       Margin="20, 0, 0, 0"
                        Text="{Binding EgmAddress}"
                        VerticalAlignment="Center"
                        AutomationProperties.AutomationId="TextBlock18_66620A3A" />
+            <Label Grid.Row="0"
+                   Grid.Column="3"
+                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_G2SLoggingLevel}}"
+                   VerticalAlignment="Center"
+                   Margin="0, 0, 20, 0"
+                   AutomationProperties.AutomationId="Label53_66620A3A"/>
+            <ComboBox Grid.Row="0"
+                      Grid.Column="4"
+                      Margin="0, 0, 20, 10"
+                      VerticalAlignment="Center"
+                      ItemsSource="{Binding LoggingLevels}" 
+                      SelectedItem="{Binding SelectedLoggingLevel}"
+                      AutomationProperties.AutomationId="ComboBox54_66620A3A">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource LoggingLevelsToLocalizedStringConverter}}"
+                                   AutomationProperties.AutomationId="TextBlock55_66620A3A"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Grid.Row="1"
+                    Grid.Column="4"
+                    Margin="0, 0, 20, 0"
+                    Command="{Binding RestartG2SProtocolCommand}"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_RestartG2SProtocol}}"
+                    VerticalAlignment="Center"
+                    AutomationProperties.AutomationId="Button56_66620A3A"/>
         </Grid>
         <Border Grid.Row="1"
-                Margin="0 20 0 0"
+                Margin="0, 20, 0, 0"
                 AutomationProperties.AutomationId="Border19_66620A3A">
             <DataGrid x:Name="CommsDevice"
                       ItemsSource="{Binding CommsInfoData, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -132,7 +169,7 @@
         <Label x:Name="TranscriptsLabel"
                Grid.Row="4"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.Transcripts}}"
-               Margin="0 0 0 20"
+               Margin="0, 0, 0, 20"
                AutomationProperties.AutomationId="Label29_66620A3A" />
         <DataGrid x:Name="HostTranscriptViewer"
                   Grid.Row="5"
@@ -188,7 +225,7 @@
         </DataGrid>
         <GroupBox x:Name="GroupBoxGameInfo"
                   Grid.Row="6"
-                  Margin="0 10 0 0"
+                  Margin="0, 10, 0, 0"
                   Width="10"
                   Height="10"
                   Visibility="Hidden"

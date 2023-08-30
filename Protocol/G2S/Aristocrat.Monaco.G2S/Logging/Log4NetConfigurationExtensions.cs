@@ -21,6 +21,8 @@
             const string listenerName = @"Log4Net";
             const string traceLevelName = @"G2STraceLevel";
 
+            SourceTrace.SetSwitch(sourceName, new SourceSwitch(traceLevelName, defaultSwitchValue));
+
             // The G2S Lib uses TraceSource (actually it's SourceTrace, so it requires special handling)
             var source = SourceTrace.GetListeners(sourceName);
             if (source.Cast<object>().Any(listener => listener.GetType() == typeof(Log4NetTraceListener)))
@@ -28,7 +30,6 @@
                 return;
             }
 
-            SourceTrace.SetSwitch(sourceName, new SourceSwitch(traceLevelName, defaultSwitchValue));
             var netListener = new Log4NetTraceListener(@this) { Name = listenerName };
             source.Add(netListener);
             Trace.Listeners.Add(netListener);

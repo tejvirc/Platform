@@ -1,9 +1,12 @@
 namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Xml.Serialization;
     using Application.Contracts;
     using Application.Contracts.Localization;
@@ -13,9 +16,11 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
     using Aristocrat.Extensions.CommunityToolkit;
+    using Common.Events;
     using CommunityToolkit.Mvvm.Input;
     using Kernel;
     using Models;
+    using Monaco.Common;
     using Monaco.UI.Common;
     using ICommand = System.Windows.Input.ICommand;
 
@@ -28,6 +33,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         private readonly ITimer _pollConnectionTimer;
         private readonly ITime _time;
+        private readonly IPropertiesManager _propertiesManager;
 
         private IG2SEgm _egm;
         private IDisposable _observer;
@@ -43,15 +49,21 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
         private string _selectedText;
 
+        private SourceLevels _loggingLevel;
+        private bool _protocolIsRestarting = false;
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="HostTranscriptsViewModel" /> class.
         /// </summary>
         public HostTranscriptsViewModel()
         {
             _time = ServiceManager.GetInstance().GetService<ITime>();
+            _propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
             ViewHostTranscriptsCommand = new RelayCommand<object>(ViewHostTranscript, _ => CanViewDetail());
             CloseDetailCommand = new RelayCommand<object>(CloseHostTranscriptDetail);
+            RestartG2SProtocolCommand = new RelayCommand<object>(RestartG2SProtocol, RestartCanExecute);
+
 
             _enableViewHostTranscripts = false;
 
@@ -84,6 +96,11 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         ///     Gets the command that fires when page unloaded.
         /// </summary>
         public ICommand CloseDetailCommand { get; }
+
+        /// <summary>
+        ///     
+        /// </summary>
+        public RelayCommand<object> RestartG2SProtocolCommand { get; set; }
 
         /// <summary>
         ///     Gets the selected transcription text.
@@ -164,7 +181,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             get => _commInfoData;
             set
             {
-                if (_commInfoData != value)
+                if (value?.Count != 0 && _commInfoData != value)
                 {
                     _commInfoData = value;
                     OnPropertyChanged(nameof(CommsInfoData));
@@ -197,6 +214,30 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         ///     Gets the Egm address.
         /// </summary>
         public string EgmAddress => _egm?.Address.ToString() ?? string.Empty;
+
+        /// <summary>
+        ///     Gets the enumerable list of source logging levels
+        /// </summary>
+        public IEnumerable<SourceLevels> LoggingLevels =>
+            Enum.GetValues(typeof(SourceLevels)).Cast<SourceLevels>()
+                .Where(s => s != SourceLevels.ActivityTracing).Reverse();
+
+        /// <summary>
+        ///     Gets or sets a value indicating the current source logging level
+        /// </summary>
+        public SourceLevels SelectedLoggingLevel
+        {
+            get => _loggingLevel;
+            set
+            {
+                if (_loggingLevel != value)
+                {
+                    _loggingLevel = value;
+                    _propertiesManager.SetProperty(G2S.Constants.LoggingLevel, value.ToString());
+                    OnPropertyChanged(nameof(SelectedLoggingLevel));
+                }
+            }
+        }
 
         public void OnNext(ClassCommand value)
         {
@@ -263,6 +304,9 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             EventBus.Subscribe<ProtocolLoadedEvent>(this, _ => SetEgm());
 
             _pollConnectionTimer.Start();
+
+            _loggingLevel = (SourceLevels)Enum.Parse(typeof(SourceLevels), (string)_propertiesManager.GetProperty(G2S.Constants.LoggingLevel, G2S.Constants.G2SDefaultLoggingLevel));
+            OnPropertyChanged(nameof(SelectedLoggingLevel));
         }
 
         protected override void OnUnloaded()
@@ -319,6 +363,27 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         private void CloseHostTranscriptDetail(object obj)
         {
             ShowHostTranscripts = false;
+        }
+
+        private void RestartG2SProtocol(object obj)
+        {
+            EventBus.Subscribe<ProtocolsInitializedEvent>(this, HandleEvent);
+            _protocolIsRestarting = true;
+            Execute.OnUIThread(() => RestartG2SProtocolCommand.NotifyCanExecuteChanged());
+            _messages.Clear();
+            EventBus.Publish(new RestartProtocolEvent());
+        }
+
+        private void HandleEvent (ProtocolsInitializedEvent theEvent)
+        {
+            EventBus.Unsubscribe<ProtocolsInitializedEvent>(this);
+            _protocolIsRestarting = false;
+            Execute.OnUIThread(() => RestartG2SProtocolCommand.NotifyCanExecuteChanged());
+        }
+
+        private bool RestartCanExecute(object arg)
+        {
+            return !_protocolIsRestarting;
         }
 
         private static string ToXml<T>(T @class) where T : class

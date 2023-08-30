@@ -5,7 +5,7 @@
     using Kernel;
 
     /// <summary>
-    ///     The <see cref="ProtocolLoadedEvent" /> is published after the configured protocols are intialized
+    ///     The <see cref="ProtocolLoadedEvent" /> is published after the configured protocols are initialized
     /// </summary>
     public class ProtocolLoadedEvent : BaseEvent
     {

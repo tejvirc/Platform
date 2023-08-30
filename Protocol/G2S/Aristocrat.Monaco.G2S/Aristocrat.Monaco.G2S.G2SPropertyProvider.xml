@@ -11,4 +11,11 @@
       <Field FieldName="G2SClient.Port" DataType="Int32" />
     </Fields>
   </BlockFormat>
+  <BlockFormat version="3" Name="Aristocrat.Monaco.G2S.G2SPropertyProvider">
+    <Fields>
+      <Field FieldName="G2S.StartupContext" DataType="String" Size="256"/>
+      <Field FieldName="G2SClient.Port" DataType="Int32" />
+      <Field FieldName="G2S.LoggingLevel" DataType="String" Size="16"/>
+    </Fields>
+  </BlockFormat>
 </ArrayOfBlockFormat>

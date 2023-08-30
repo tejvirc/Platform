@@ -5930,6 +5930,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to G2S Logging Level.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string CommsInfo_G2SLoggingLevel {
+			get {
+				return ResourceManager.GetString("CommsInfo_G2SLoggingLevel", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Host Id.
 		/// </summary>
         /// <remarks>
@@ -5962,6 +5974,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CommsInfo_OutboundOverflow {
 			get {
 				return ResourceManager.GetString("CommsInfo_OutboundOverflow", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Restart G2S Protocol.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string CommsInfo_RestartG2SProtocol {
+			get {
+				return ResourceManager.GetString("CommsInfo_RestartG2SProtocol", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -12763,6 +12787,102 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string G2SEventCodeDescription {
 			get {
 				return ResourceManager.GetString("G2SEventCodeDescription", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Activity Tracing.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_ActivityTracing {
+			get {
+				return ResourceManager.GetString("G2SLoggingLevel_ActivityTracing", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to All.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_All {
+			get {
+				return ResourceManager.GetString("G2SLoggingLevel_All", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Critical.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_Critical {
+			get {
+				return ResourceManager.GetString("G2SLoggingLevel_Critical", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Error.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_Error {
+			get {
+				return ResourceManager.GetString("G2SLoggingLevel_Error", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Information.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_Information {
+			get {
+				return ResourceManager.GetString("G2SLoggingLevel_Information", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_Off {
+			get {
+				return ResourceManager.GetString("G2SLoggingLevel_Off", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Verbose.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_Verbose {
+			get {
+				return ResourceManager.GetString("G2SLoggingLevel_Verbose", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Warning.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_Warning {
+			get {
+				return ResourceManager.GetString("G2SLoggingLevel_Warning", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -42688,6 +42808,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to G2S Logging Level.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string CommsInfo_G2SLoggingLevel {
+			get {
+				return "CommsInfo_G2SLoggingLevel";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Host Id.
 		/// </summary>
         /// <remarks>
@@ -42720,6 +42852,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string CommsInfo_OutboundOverflow {
 			get {
 				return "CommsInfo_OutboundOverflow";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Restart G2S Protocol.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string CommsInfo_RestartG2SProtocol {
+			get {
+				return "CommsInfo_RestartG2SProtocol";
 			}
 		}
 
@@ -49521,6 +49665,102 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string G2SEventCodeDescription {
 			get {
 				return "G2SEventCodeDescription";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Activity Tracing.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_ActivityTracing {
+			get {
+				return "G2SLoggingLevel_ActivityTracing";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to All.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_All {
+			get {
+				return "G2SLoggingLevel_All";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Critical.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_Critical {
+			get {
+				return "G2SLoggingLevel_Critical";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Error.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_Error {
+			get {
+				return "G2SLoggingLevel_Error";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Information.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_Information {
+			get {
+				return "G2SLoggingLevel_Information";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_Off {
+			get {
+				return "G2SLoggingLevel_Off";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Verbose.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_Verbose {
+			get {
+				return "G2SLoggingLevel_Verbose";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Warning.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		public static string G2SLoggingLevel_Warning {
+			get {
+				return "G2SLoggingLevel_Warning";
 			}
 		}
 
@@ -76923,6 +77163,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		CommsInfo_EgmId,
 		/// <summary>
+		///   Looks up a localized string similar to G2S Logging Level.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		CommsInfo_G2SLoggingLevel,
+		/// <summary>
 		///   Looks up a localized string similar to Host Id.
 		/// </summary>
         /// <remarks>
@@ -76943,6 +77190,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.G2S.UI
         /// </remarks>
 		CommsInfo_OutboundOverflow,
+		/// <summary>
+		///   Looks up a localized string similar to Restart G2S Protocol.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		CommsInfo_RestartG2SProtocol,
 		/// <summary>
 		///   Looks up a localized string similar to State.
 		/// </summary>
@@ -80799,6 +81053,62 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.G2S.Common
         /// </remarks>
 		G2SEventCodeDescription,
+		/// <summary>
+		///   Looks up a localized string similar to Activity Tracing.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		G2SLoggingLevel_ActivityTracing,
+		/// <summary>
+		///   Looks up a localized string similar to All.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		G2SLoggingLevel_All,
+		/// <summary>
+		///   Looks up a localized string similar to Critical.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		G2SLoggingLevel_Critical,
+		/// <summary>
+		///   Looks up a localized string similar to Error.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		G2SLoggingLevel_Error,
+		/// <summary>
+		///   Looks up a localized string similar to Information.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		G2SLoggingLevel_Information,
+		/// <summary>
+		///   Looks up a localized string similar to Off.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		G2SLoggingLevel_Off,
+		/// <summary>
+		///   Looks up a localized string similar to Verbose.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		G2SLoggingLevel_Verbose,
+		/// <summary>
+		///   Looks up a localized string similar to Warning.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.G2S.UI
+        /// </remarks>
+		G2SLoggingLevel_Warning,
 		/// <summary>
 		///   Looks up a localized string similar to Double Up.
 		/// </summary>

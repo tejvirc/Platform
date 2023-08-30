@@ -12417,4 +12417,44 @@ LEVEL ID</value>
     <value>VERTEX ID must be a non-negative integer</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
+  <data name="CommsInfo_G2SLoggingLevel" xml:space="preserve">
+    <value>G2S Logging Level</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="CommsInfo_RestartG2SProtocol" xml:space="preserve">
+    <value>Restart G2S Protocol</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="G2SLoggingLevel_All" xml:space="preserve">
+    <value>All</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="G2SLoggingLevel_Critical" xml:space="preserve">
+    <value>Critical</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="G2SLoggingLevel_Error" xml:space="preserve">
+    <value>Error</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="G2SLoggingLevel_Information" xml:space="preserve">
+    <value>Information</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="G2SLoggingLevel_Off" xml:space="preserve">
+    <value>Off</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="G2SLoggingLevel_Verbose" xml:space="preserve">
+    <value>Verbose</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="G2SLoggingLevel_Warning" xml:space="preserve">
+    <value>Warning</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
+  <data name="G2SLoggingLevel_ActivityTracing" xml:space="preserve">
+    <value>Activity Tracing</value>
+    <comment>Aristocrat.Monaco.G2S.UI</comment>
+  </data>
 </root>

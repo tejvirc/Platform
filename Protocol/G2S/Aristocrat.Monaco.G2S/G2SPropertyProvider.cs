@@ -38,6 +38,7 @@
                 .GetAccessor(PersistenceLevel.Critical, GetType().ToString());
 
             var port = (int)InitFromStorage(Constants.Port);
+            var loggingLevel = (string)InitFromStorage(Constants.LoggingLevel);
 
             _properties = new Dictionary<string, object>
             {
@@ -45,7 +46,8 @@
                 { Constants.RegisteredHosts, InitHostsFromStorage() },
                 { Constants.StartupContext, InitStartupContext() },
                 { Constants.Port, port != 0 ? port : Constants.DefaultPort },
-                { Constants.G2SProgressivesEnabled, false }
+                { Constants.G2SProgressivesEnabled, false },
+                { Constants.LoggingLevel, loggingLevel != string.Empty ? loggingLevel : Constants.G2SDefaultLoggingLevel }
             };
         }
 
@@ -124,7 +126,8 @@
                     break;
 
                 case Constants.Port:
-                    _persistentStorageAccessor[Constants.Port] = propertyValue;
+                case Constants.LoggingLevel:
+                    _persistentStorageAccessor[propertyName] = propertyValue;
                     break;
             }
 

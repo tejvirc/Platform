@@ -82,7 +82,7 @@
             propertyProvider.SetProperty(Constants.G2SProgressivesEnabled, _g2sProgressivesEnabled);
 
             // The G2S Lib uses TraceSource...
-            Logger.AddAsTraceSource();
+            Logger.AddAsTraceSource((string)propertyProvider.GetProperty(Constants.LoggingLevel, Constants.G2SDefaultLoggingLevel));
             RegisterLogAdapters();
 
             _serviceWaiter.AddServiceToWaitFor<ITransactionCoordinator>();

@@ -188,5 +188,17 @@ namespace Aristocrat.Monaco.G2S
         ///     The key to the boolean value that represents whether or not G2S progressives are enabled.
         /// </summary>
         public const string G2SProgressivesEnabled = "G2S_progressivesEnabled";
+
+        /// <summary>
+        ///     The logging level for the G2S
+        /// </summary>
+        public const string LoggingLevel = @"G2S.LoggingLevel";
+
+
+        /// <summary>
+        ///     The G2S default logging level, verbose
+        /// </summary>
+        public const string G2SDefaultLoggingLevel = "Verbose";
+
     }
 }
