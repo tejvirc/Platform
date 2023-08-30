@@ -492,6 +492,24 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 }
 
                 SaveChanges();
+
+                var containerService = ServiceManager.GetInstance().TryGetService<IContainerService>();
+                var profileService = containerService?.Container.GetInstance<IProfileService>();
+
+                if (profileService != null)
+                {
+                    var communications = _egm.GetDevice<ICommunicationsDevice>(host.Id);
+                    communications.Configure(
+                        -1,
+                        communications.UseDefaultConfig,
+                        host.RequiredForPlay,
+                        communications.TimeToLive,
+                        (int)communications.NoResponseTimer.TotalMilliseconds,
+                        communications.DisplayFault);
+                    profileService.Save(communications);
+
+                    communications.NotifyConfigurationChanged();
+                }
             }
         }
 
