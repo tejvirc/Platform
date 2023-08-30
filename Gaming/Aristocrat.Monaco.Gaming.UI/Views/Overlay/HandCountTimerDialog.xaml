@@ -73,7 +73,7 @@
                         <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition5_C9E363F3"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.RowSpan="4" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" AutomationProperties.AutomationId="StackPanel1_C9E363F3">
-                        <Border Margin="0,-16,0,13" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" Height="46" AutomationProperties.AutomationId="Border1_C9E363F3">
+                        <Border Margin="0,-16,0,13" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0" Height="49" AutomationProperties.AutomationId="Border1_C9E363F3">
                             <Grid AutomationProperties.AutomationId="Grid3_C9E363F3">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition6_C9E363F3"/>
