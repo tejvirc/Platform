@@ -148,6 +148,36 @@
         /// <summary>
         ///     EdgeXRightSoundLed Strip ID
         /// </summary>
-        EdgeXRightSoundLed = 0x15
+        EdgeXRightSoundLed = 0x15,
+
+        /// <summary>
+        ///     HorizontalReelTop Strip ID
+        /// </summary>
+        HorizontalReelTop = 0x0C,
+
+        /// <summary>
+        ///     HorizontalDisplayBottom Strip ID
+        /// </summary>
+        HorizontalDisplayBottom = 0x0D,
+
+        /// <summary>
+        ///     HorizontalDisplayTop Strip ID
+        /// </summary>
+        HorizontalDisplayTop = 0x0E,
+
+        /// <summary>
+        ///     HorizontalCrownBottom Strip ID
+        /// </summary>
+        HorizontalCrownBottom = 0x0F,
+
+        /// <summary>
+        ///     RingVideoWheelOrOvalTopper Strip ID
+        /// </summary>
+        RingVideoWheelOrOvalTopper = 0x39,
+
+        /// <summary>
+        ///     PointerVideoWheelTopper Strip ID
+        /// </summary>
+        PointerVideoWheelTopper = 0x3A
     }
 }

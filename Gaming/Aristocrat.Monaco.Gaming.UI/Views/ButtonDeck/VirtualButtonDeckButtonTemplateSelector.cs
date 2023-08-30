@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck
 {
+    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
+    using log4net;
     using ViewModels;
 
     /// <summary>
@@ -9,6 +11,7 @@
     /// </summary>
     public class VirtualButtonDeckButtonTemplateSelector : DataTemplateSelector
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private const string StandardTemplate = "StandardTemplate";
         private const string ServiceButtonTemplate = "ServiceButtonTemplate";
 
@@ -21,6 +24,8 @@
             }
 
             var templateKey = viewModel.DisplayVbdServiceButton ? ServiceButtonTemplate : StandardTemplate;
+
+            Logger.Debug($"Vbd Button Template Selector: {templateKey}");
 
             var element = container as FrameworkElement;
 

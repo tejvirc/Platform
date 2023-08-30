@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Progressives
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
@@ -9,6 +8,7 @@
     using System.Timers;
     using Application.Contracts.Extensions;
     using Contracts;
+    using Contracts.Meters;
     using Contracts.Progressives;
     using Contracts.Progressives.Linked;
     using Hardware.Contracts.Persistence;
@@ -20,27 +20,30 @@
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly ConcurrentDictionary<string, LinkedProgressiveLevel> _linkedProgressiveIndex;
+        private readonly Dictionary<string, LinkedProgressiveLevel> _linkedProgressiveIndex;
 
         private readonly IEventBus _eventBus;
         private readonly IProgressiveBroadcastTimer _broadcastTimer;
+        private readonly IProgressiveMeterManager _meters;
         private readonly IPropertiesManager _propertiesManager;
         private readonly IPersistentBlock _saveBlock;
         private readonly IPersistentStorageManager _storage;
         private readonly string _saveKey;
-        private readonly object _syncLock = new object();
+        private readonly object _syncLock = new();
 
         private bool _disposed;
 
         public LinkedProgressiveProvider(
             IEventBus bus,
             IProgressiveBroadcastTimer broadcastTimer,
+            IProgressiveMeterManager meters,
             IPersistenceProvider persistenceProvider,
             IPropertiesManager propertiesManager,
             IPersistentStorageManager storage)
         {
             _eventBus = bus ?? throw new ArgumentNullException(nameof(bus));
             _broadcastTimer = broadcastTimer ?? throw new ArgumentNullException(nameof(broadcastTimer));
+            _meters = meters ?? throw new ArgumentNullException(nameof(meters));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _storage = storage ?? throw new ArgumentNullException(nameof(storage));
 
@@ -50,7 +53,7 @@
                          throw new NullReferenceException(nameof(_saveBlock));
 
             _linkedProgressiveIndex =
-                _saveBlock.GetOrCreateValue<ConcurrentDictionary<string, LinkedProgressiveLevel>>(_saveKey) ??
+                _saveBlock.GetOrCreateValue<Dictionary<string, LinkedProgressiveLevel>>(_saveKey) ??
                 throw new NullReferenceException(nameof(_linkedProgressiveIndex));
 
             _broadcastTimer.Timer.Elapsed += CheckLevelExpiration;
@@ -77,7 +80,87 @@
         public void AddLinkedProgressiveLevels(IReadOnlyCollection<IViewableLinkedProgressiveLevel> linkedProgressiveLevels)
         {
             CheckForNull(linkedProgressiveLevels);
+            lock (_syncLock)
+            {
+                using var transaction = _storage.ScopedTransaction();
+                InternalAddLinkedProgressiveLevels(linkedProgressiveLevels);
+                Save();
+                transaction.Complete();
+            }
+        }
 
+        /// <inheritdoc />
+        public void RemoveLinkedProgressiveLevels(IReadOnlyCollection<IViewableLinkedProgressiveLevel> linkedProgressiveLevels)
+        {
+            CheckForNull(linkedProgressiveLevels);
+
+            lock (_syncLock)
+            {
+                using var transaction = _storage.ScopedTransaction();
+                var removedLevels = new List<IViewableLinkedProgressiveLevel>();
+
+                foreach (var level in linkedProgressiveLevels)
+                {
+                    if (LockedTryGetLinkedLevel(level.LevelName, out var removedLevel))
+                    {
+                        _linkedProgressiveIndex.Remove(level.LevelName);
+                        removedLevels.Add(removedLevel);
+                        Logger.Debug($"Linked Level Removed: {removedLevel}");
+                    }
+                }
+
+                PostEventIfAny(
+                    removedLevels,
+                    () =>
+                        _eventBus.Publish(new LinkedProgressiveRemovedEvent(removedLevels)));
+
+                Save();
+                transaction.Complete();
+            }
+        }
+
+        /// <inheritdoc />
+        public void UpdateLinkedProgressiveLevels(IReadOnlyCollection<IViewableLinkedProgressiveLevel> levelUpdates)
+        {
+            CheckForNull(levelUpdates);
+
+            var levelsToAdd = new List<IViewableLinkedProgressiveLevel>();
+            var levelsToUpdate = new List<IViewableLinkedProgressiveLevel>();
+
+
+            lock (_syncLock)
+            {
+                using var transaction = _storage.ScopedTransaction();
+                //split up levels that haven't been initially added
+                foreach (var level in levelUpdates)
+                {
+                    if (_linkedProgressiveIndex.ContainsKey(level.LevelName))
+                    {
+                        levelsToUpdate.Add(level);
+                    }
+                    else
+                    {
+                        levelsToAdd.Add(level);
+                    }
+                }
+
+                if (levelsToAdd.Any())
+                {
+                    InternalAddLinkedProgressiveLevels(levelsToAdd);
+                }
+
+                if (levelsToUpdate.Any())
+                {
+                    InternalUpdateLinkedProgressiveLevels(levelsToUpdate);
+                }
+
+                Save();
+                transaction.Complete();
+            }
+        }
+
+        private void InternalAddLinkedProgressiveLevels(IEnumerable<IViewableLinkedProgressiveLevel> linkedProgressiveLevels)
+        {
             var addedLevels = new List<IViewableLinkedProgressiveLevel>();
 
             foreach (var level in linkedProgressiveLevels)
@@ -95,14 +178,13 @@
                     ProgressiveValueText = level.ProgressiveValueText
                 };
 
-                if (_linkedProgressiveIndex.TryAdd(level.LevelName, levelToAdd))
-                {
-                    addedLevels.Add(levelToAdd);
-                    Logger.Debug($"Linked Level Added: {levelToAdd}");
-                }
+                _linkedProgressiveIndex.Add(level.LevelName, levelToAdd);
+                addedLevels.Add(levelToAdd);
+                Logger.Debug($"Linked Level Added: {levelToAdd}");
+                
             }
 
-            Save();
+            _meters.AddLinkedProgressives(addedLevels);
 
             PostEventIfAny(
                 addedLevels,
@@ -110,85 +192,35 @@
                     _eventBus.Publish(new LinkedProgressiveAddedEvent(addedLevels)));
         }
 
-        /// <inheritdoc />
-        public void RemoveLinkedProgressiveLevels(IReadOnlyCollection<IViewableLinkedProgressiveLevel> linkedProgressiveLevels)
+        private void InternalUpdateLinkedProgressiveLevels(IEnumerable<IViewableLinkedProgressiveLevel> levelsToUpdate)
         {
-            CheckForNull(linkedProgressiveLevels);
-
-            var removedLevels = new List<IViewableLinkedProgressiveLevel>();
-
-            foreach (var level in linkedProgressiveLevels)
-            {
-                if (_linkedProgressiveIndex.TryRemove(level.LevelName, out var removedLevel))
-                {
-                    removedLevels.Add(removedLevel);
-                    Logger.Debug($"Linked Level Removed: {removedLevel}");
-                }
-            }
-
-            Save();
-
-            PostEventIfAny(
-                removedLevels,
-                () =>
-                    _eventBus.Publish(new LinkedProgressiveRemovedEvent(removedLevels)));
-        }
-
-        /// <inheritdoc />
-        public void UpdateLinkedProgressiveLevels(IReadOnlyCollection<IViewableLinkedProgressiveLevel> levelUpdates)
-        {
-            CheckForNull(levelUpdates);
-
             var updatedLevels = new List<IViewableLinkedProgressiveLevel>();
 
-            foreach (var linkedLevel in levelUpdates)
+            foreach (var linkedLevel in levelsToUpdate)
             {
-                var updatedLevel = _linkedProgressiveIndex.AddOrUpdate(
-                    linkedLevel.LevelName,
-                    new LinkedProgressiveLevel
-                    {
-                        ProtocolName = linkedLevel.ProtocolName,
-                        ProgressiveGroupId = linkedLevel.ProgressiveGroupId,
-                        LevelId = linkedLevel.LevelId,
-                        Amount = linkedLevel.Amount,
-                        Expiration = linkedLevel.Expiration.ToUniversalTime(),
-                        CurrentErrorStatus = ProgressiveErrors.None,
-                        ClaimStatus = new LinkedProgressiveClaimStatus(),
-                        WagerCredits = linkedLevel.WagerCredits,
-                        ProgressiveValueSequence = linkedLevel.ProgressiveValueSequence,
-                        ProgressiveValueText = linkedLevel.ProgressiveValueText
-                    },
-                    (linkedKey, level) =>
-                    {
-                        if (level.ClaimStatus == null)
-                        {
-                            // Persisted level with no claim status only occurs if
-                            // an existing level is persisted with no claim status.
-                            // This can only happen when upgrading in development... once.
-                            level.ClaimStatus = new LinkedProgressiveClaimStatus();
-                        }
+                var level = _linkedProgressiveIndex[linkedLevel.LevelName];
 
-                        // Freeze level updates until the claim is processed.
-                        if (level.ClaimStatus.Status == LinkedClaimState.None)
-                        {
-                            level.Amount = linkedLevel.Amount;
-                        }
+                // Persisted level with no claim status only occurs if
+                // an existing level is persisted with no claim status.
+                // This can only happen when upgrading in development... once.
+                level.ClaimStatus ??= new LinkedProgressiveClaimStatus();
 
-                        level.WagerCredits = linkedLevel.WagerCredits;
+                // Freeze level updates until the claim is processed.
+                if (level.ClaimStatus.Status == LinkedClaimState.None)
+                {
+                    level.Amount = linkedLevel.Amount;
+                }
 
-                        level.Expiration = linkedLevel.Expiration.ToUniversalTime();
+                level.WagerCredits = linkedLevel.WagerCredits;
 
-                        level.ProgressiveValueSequence = linkedLevel.ProgressiveValueSequence;
-                        level.ProgressiveValueText = linkedLevel.ProgressiveValueText;
+                level.Expiration = linkedLevel.Expiration.ToUniversalTime();
 
-                        return level;
-                    });
+                level.ProgressiveValueSequence = linkedLevel.ProgressiveValueSequence;
+                level.ProgressiveValueText = linkedLevel.ProgressiveValueText;
 
-                updatedLevels.Add(updatedLevel);
-                Logger.Debug($"Linked Level Updated: {updatedLevel}");
+                updatedLevels.Add(level);
+                Logger.Debug($"Linked Level Updated: {level}");
             }
-
-            Save();
 
             PostEventIfAny(
                 updatedLevels,
@@ -238,7 +270,7 @@
         /// <inheritdoc />
         public void ClaimLinkedProgressiveLevel(string levelName)
         {
-            if (!_linkedProgressiveIndex.TryGetValue(levelName, out var hitLevel))
+            if (!LockedTryGetLinkedLevel(levelName, out var hitLevel))
             {
                 throw new InvalidOperationException($"Unable to find progressive level to claim: {levelName}");
             }
@@ -256,7 +288,7 @@
         /// <inheritdoc />
         public void AwardLinkedProgressiveLevel(string levelName, long winAmount = -1)
         {
-            if (!_linkedProgressiveIndex.TryGetValue(levelName, out var claimedLevel))
+            if (!LockedTryGetLinkedLevel(levelName, out var claimedLevel))
             {
                 // TODO convert to lockup
                 throw new InvalidOperationException($"Unable to find progressive to award: {levelName}"); 
@@ -293,7 +325,7 @@
         {
             lock (_syncLock)
             {
-                if (!_linkedProgressiveIndex.TryGetValue(levelName, out var level))
+                if (!LockedTryGetLinkedLevel(levelName, out var level))
                 {
                     throw new InvalidOperationException($"Cannot find level to resolve: {levelName}");
                 }
@@ -314,15 +346,12 @@
         }
 
         /// <inheritdoc />
-        public IReadOnlyCollection<IViewableLinkedProgressiveLevel> ViewLinkedProgressiveLevels()
-        {
-            return _linkedProgressiveIndex.Values.ToList();
-        }
+        public IReadOnlyCollection<IViewableLinkedProgressiveLevel> ViewLinkedProgressiveLevels() => LockedGetLinkedLevels();
 
         /// <inheritdoc />
         public bool ViewLinkedProgressiveLevel(string levelName, out IViewableLinkedProgressiveLevel levelOut)
         {
-            var lookupResult = _linkedProgressiveIndex.TryGetValue(levelName, out var level);
+            var lookupResult = LockedTryGetLinkedLevel(levelName, out var level);
             levelOut = level;
             return lookupResult;
         }
@@ -438,18 +467,22 @@
         private void CheckLevelExpiration(object sender, ElapsedEventArgs e)
         {
             var currentTime = DateTime.UtcNow;
+            var allLevels = LockedGetLinkedLevels();
             var expiredLevels = new List<IViewableLinkedProgressiveLevel>();
             var refreshedLevels = new List<IViewableLinkedProgressiveLevel>();
             var expiredClaims = new List<IViewableLinkedProgressiveLevel>();
             var refreshedClaims = new List<IViewableLinkedProgressiveLevel>();
+            var existingExpiredLevels = new List<IViewableLinkedProgressiveLevel>();
 
-            var existingExpiredLevels = _linkedProgressiveIndex.Values.Where(
-                x => x.CurrentErrorStatus.HasFlag(ProgressiveErrors.ProgressiveUpdateTimeout)).ToList();
-
-            foreach (var level in _linkedProgressiveIndex.Values)
+            foreach (var level in allLevels)
             {
                 EvaluateExpiration(currentTime, level, expiredLevels, refreshedLevels);
                 EvaluateClaimExpiration(currentTime, level, expiredClaims, refreshedClaims);
+
+                if (level.CurrentErrorStatus.HasFlag(ProgressiveErrors.ProgressiveUpdateTimeout))
+                {
+                    existingExpiredLevels.Add(level);
+                }
             }
 
             PostEventIfAny(
@@ -473,8 +506,9 @@
 
         private void Save()
         {
-            using (var transaction = _saveBlock.Transaction())
+            lock (_syncLock)
             {
+                using var transaction = _saveBlock.Transaction();
                 transaction.SetValue(_saveKey, _linkedProgressiveIndex);
                 transaction.Commit();
             }
@@ -483,8 +517,9 @@
         private void ReportLinkDownBy(Func<LinkedProgressiveLevel, bool> filter)
         {
             var linkDownLevels = new List<IViewableLinkedProgressiveLevel>();
+            var linkedLevels = LockedGetLinkedLevels();
 
-            foreach (var linkedProgressiveLevel in _linkedProgressiveIndex.Values.Where(filter))
+            foreach (var linkedProgressiveLevel in linkedLevels.Where(filter))
             {
                 linkedProgressiveLevel.CurrentErrorStatus |= ProgressiveErrors.ProgressiveDisconnected;
                 linkDownLevels.Add(linkedProgressiveLevel);
@@ -500,8 +535,9 @@
         private void ReportLinkUpBy(Func<LinkedProgressiveLevel, bool> filter)
         {
             var linkUpLevels = new List<IViewableLinkedProgressiveLevel>();
+            var linkedLevels = LockedGetLinkedLevels();
 
-            foreach (var linkedLevel in _linkedProgressiveIndex.Values.Where(filter))
+            foreach (var linkedLevel in linkedLevels.Where(filter))
             {
                 linkedLevel.CurrentErrorStatus &= ~ProgressiveErrors.ProgressiveDisconnected;
                 linkUpLevels.Add(linkedLevel);
@@ -533,7 +569,7 @@
         {
             var levelName = progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey;
 
-            if (!_linkedProgressiveIndex.TryGetValue(levelName, out var level))
+            if (!LockedTryGetLinkedLevel(levelName, out var level))
             {
                 throw new InvalidOperationException($"Unable to find progressive level to process hit: {levelName}");
             }
@@ -582,13 +618,29 @@
         {
             var levelName = progressiveLevel.AssignedProgressiveId.AssignedProgressiveKey;
 
-            if (!_linkedProgressiveIndex.TryGetValue(levelName, out var level))
+            if (!LockedTryGetLinkedLevel(levelName, out var level))
             {
                 throw new InvalidOperationException($"Unable to find progressive level to process commit: {levelName}");
             }
 
             _eventBus.Publish(new LinkedProgressiveCommitEvent(
                 progressiveLevel, new List<IViewableLinkedProgressiveLevel> { level }, transaction));
+        }
+
+        private List<LinkedProgressiveLevel> LockedGetLinkedLevels()
+        {
+            lock (_syncLock)
+            {
+                return _linkedProgressiveIndex.Values.ToList();
+            }
+        }
+
+        private bool LockedTryGetLinkedLevel(string levelName, out LinkedProgressiveLevel level)
+        {
+            lock (_syncLock)
+            {
+                return _linkedProgressiveIndex.TryGetValue(levelName, out level);
+            }
         }
     }
 }

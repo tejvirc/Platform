@@ -7,10 +7,9 @@
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
-    using Aristocrat.Monaco.G2S.Services;
-    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
-    using Aristocrat.Monaco.Kernel;
     using G2S.Meters;
+    using Gaming.Contracts.Progressives;
+    using Services;
 
     /// <summary>
     ///     Handles the v21.getMeterInfo G2S message
@@ -20,7 +19,6 @@
         private readonly IG2SEgm _egm;
         private readonly IMetersSubscriptionManager _metersSubscriptionManager;
         private readonly IProgressiveLevelManager _progressiveLevelManager;
-        private readonly IProgressiveDeviceManager _progressiveDeviceManager;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GetMeterInfo" /> class.
@@ -31,14 +29,12 @@
         public GetMeterInfo(
             IG2SEgm egm,
             IMetersSubscriptionManager metersSubscriptionManager,
-            IProgressiveLevelManager progressiveLevelManager,
-            IProgressiveDeviceManager progressiveDeviceManager)
+            IProgressiveLevelManager progressiveLevelManager)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _metersSubscriptionManager = metersSubscriptionManager ??
                                          throw new ArgumentNullException(nameof(metersSubscriptionManager));
             _progressiveLevelManager = progressiveLevelManager ?? throw new ArgumentNullException(nameof(progressiveLevelManager));
-            _progressiveDeviceManager = progressiveDeviceManager ?? throw new ArgumentNullException(nameof(progressiveDeviceManager));
         }
 
         /// <inheritdoc />
@@ -95,9 +91,10 @@
                             {
                                 deviceClass = DeviceClass.G2S_progressive,
                                 deviceId = progDeviceId,
-                                simpleMeter = _progressiveLevelManager.GetProgressiveLevelMeters(
-                                    _progressiveDeviceManager.VertexDeviceIds.FirstOrDefault(x => x.Value == progDeviceId).Key,
-                                    ProgressiveMeters.WageredAmount, ProgressiveMeters.PlayedCount).ToArray()
+                                simpleMeter = _progressiveLevelManager.GetProgressiveDeviceMeters(
+                                    progDeviceId,
+                                    ProgressiveMeters.LinkedProgressiveWageredAmount,
+                                    ProgressiveMeters.LinkedProgressivePlayedCount).ToArray()
                             }
                         };
         }

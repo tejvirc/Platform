@@ -8,6 +8,7 @@
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
+                               xmlns:common="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d"
                                Width="600"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:EditHostViewModel}, IsDesignTimeCreatable=True}">
@@ -44,20 +45,19 @@
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_HostId}}"
                d:Content="Host Id"
                AutomationProperties.AutomationId="Label7_A7144911" />
-        <TextBox Grid.Row="1"
-                 IsReadOnly="False"
-                 Text="{Binding HostId,
-                        Mode=TwoWay,
-                        ValidatesOnDataErrors=true,
-                        NotifyOnValidationError=true,
-                        UpdateSourceTrigger=PropertyChanged,
-                        TargetNullValue=''}"
-                 Width="Auto"
-                 InputScope="Number"
-                 AutomationProperties.AutomationId="TextBox8_A7144911" />
-
-        <Label Grid.Row="2" 
-               Margin="0 15 0 0" 
+        <common:TouchTextBox Grid.Row="1"
+                             IsReadOnly="False"
+                             Text="{Binding HostId,
+                                    Mode=TwoWay,
+                                    ValidatesOnDataErrors=true,
+                                    NotifyOnValidationError=true,
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    TargetNullValue=''}"
+                             Width="Auto"
+                             InputScope="Number"
+                             AutomationProperties.AutomationId="TextBox8_A7144911" />
+        <Label Grid.Row="2"
+               Margin="0 15 0 0"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.CommsInfo_Address}}"
                d:Content="Address"
                AutomationProperties.AutomationId="Label9_A7144911" />
@@ -77,16 +77,16 @@
                       Visibility="{Binding AddressComboBoxVisibility}"
                       AutomationProperties.AutomationId="ComboBox1_A7144911" />
             
-            <TextBox TextWrapping="Wrap" 
-                    Text="{Binding Address, 
-                    Mode=TwoWay, 
-                    NotifyOnValidationError=True, 
-                    UpdateSourceTrigger=PropertyChanged, 
-                    ValidatesOnDataErrors=True}" 
-                    Width="auto" 
-                    Grid.ColumnSpan="{Binding AddressTextBoxColumnSpan}"
-                    InputScope="Url"
-                    AutomationProperties.AutomationId="TextBox10_A7144911" />
+            <common:TouchTextBox TextWrapping="Wrap" 
+                                 Text="{Binding Address, 
+                                     Mode=TwoWay, 
+                                     NotifyOnValidationError=True, 
+                                     UpdateSourceTrigger=PropertyChanged, 
+                                     ValidatesOnDataErrors=True}" 
+                                 Width="auto" 
+                                 Grid.ColumnSpan="{Binding AddressTextBoxColumnSpan}"
+                                 InputScope="Url"
+                                 AutomationProperties.AutomationId="TextBox10_A7144911" />
         </Grid>
         
 
