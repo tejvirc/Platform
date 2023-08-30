@@ -1552,6 +1552,18 @@
 
             if (_playerCashoutProcessed && !MessageOverlayDisplay.IsOverlayWindowVisible)
             {
+                if (_properties.GetValue(ApplicationConstants.ShowMode, false))
+                {
+                    //Handles case in show mode where credits are added automatically on cashout and a new responsible gaming session doesn't get initialized
+                    if (!_gameHistory.IsRecoveryNeeded && _bank.QueryBalance() != 0 &&
+                        ResponsibleGamingSessionState == ResponsibleGamingSessionState.Stopped && _gameState.Idle)
+                    {
+                        _responsibleGaming?.OnInitialCurrencyIn();
+                    }
+
+                    return;
+                }
+
                 Logger.Debug("Player cashed out. Returning player to Lobby and changing Language to default.");
                 MvvmHelper.ExecuteOnUI(() =>
                 {
