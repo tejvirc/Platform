@@ -29,7 +29,15 @@
             _updateTimer = new Timer(FlushPendingUpdates, null, Timeout.Infinite, Timeout.Infinite);
         }
 
-        public IEnumerable<simpleMeter> GetProgressiveLevelMeters(int levelDeviceId, params string[] includedMeters)
+        public IEnumerable<simpleMeter> GetProgressiveDeviceMeters(int deviceId, params string[] includedMeters)
+        {
+            var linkedLevel = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels()
+                .First(ll => ll.ProgressiveGroupId == deviceId && ll.ProtocolName == ProtocolNames.G2S);
+
+            return GetProgressiveLevelMeters(linkedLevel.LevelName, includedMeters);
+        }
+
+        public IEnumerable<simpleMeter> GetProgressiveLevelMeters(string linkedLevelName, params string[] includedMeters)
         {
             return MeterMap.ProgressiveMeters
                 .Where(m => includedMeters != null && includedMeters.Any(i => i == m.Value))
@@ -39,8 +47,8 @@
                         meterName = meter.Key.StartsWith("G2S_", StringComparison.InvariantCultureIgnoreCase)
                             ? meter.Key
                             : $"G2S_{meter.Key}",
-                        meterValue = _progressiveMeters.IsMeterProvided(levelDeviceId, meter.Value)
-                            ? _progressiveMeters.GetMeter(levelDeviceId, meter.Value).Lifetime
+                        meterValue = _progressiveMeters.IsMeterProvided(linkedLevelName, meter.Value)
+                            ? _progressiveMeters.GetMeter(linkedLevelName, meter.Value).Lifetime
                             : 0
                     });
         }

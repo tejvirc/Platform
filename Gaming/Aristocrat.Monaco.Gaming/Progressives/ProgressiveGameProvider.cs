@@ -544,6 +544,12 @@
             {
                 _meters.GetMeter(level.DeviceId, ProgressiveMeters.WageredAmount).Increment(wager);
                 _meters.GetMeter(level.DeviceId, ProgressiveMeters.PlayedCount).Increment(1);
+
+                if (GetLinkedLevel(level.AssignedProgressiveId, out var linkedLevel))
+                {
+                    _meters.GetMeter(linkedLevel.LevelName, ProgressiveMeters.LinkedProgressiveWageredAmount).Increment(wager);
+                    _meters.GetMeter(linkedLevel.LevelName, ProgressiveMeters.LinkedProgressivePlayedCount).Increment(1);
+                }
             }
 
             _bus.Publish(new ProgressiveWagerCommittedEvent(levels, wager));

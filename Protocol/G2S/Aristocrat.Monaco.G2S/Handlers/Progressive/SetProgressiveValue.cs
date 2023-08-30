@@ -70,15 +70,19 @@
                 {
                     foreach (var hostLevel in command.Command.setLevelValue)
                     {
-                        var linkedLevel = linkedLevels.Single(ll => ll.LevelId == hostLevel.levelId && ll.ProgressiveGroupId == hostLevel.progId);
-                        var progLevel = levels.Single(l => l.AssignedProgressiveId.AssignedProgressiveKey == linkedLevel?.LevelName);
-                        if (linkedLevel == null || progLevel == null)
+                        var linkedLevel = linkedLevels.Single(
+                            ll => ll.LevelId == hostLevel.levelId && ll.ProgressiveGroupId == hostLevel.progId);
+                        if (linkedLevel == null)
                         {
                             error = new Error(ErrorCode.G2S_PGX003);
                             break;
                         }
 
-                        if (hostLevel.progValueAmt > progLevel.MaximumValue || hostLevel.progValueAmt < progLevel.ResetValue)
+                        var progLevels = levels.Where(
+                            l => l.AssignedProgressiveId.AssignedProgressiveKey == linkedLevel?.LevelName
+                                 && (hostLevel.progValueAmt > l.MaximumValue ||
+                                     hostLevel.progValueAmt < l.ResetValue));
+                        if (progLevels.Any())
                         {
                             error = new Error(ErrorCode.G2S_PGX004);
                             break;

@@ -46,6 +46,16 @@
         public const string LinkedProgressiveWinOccurrence = "LinkedProgressive.WinOccurrence";
 
         /// <summary>
+        ///     The wagered amount per linked progressive level
+        /// </summary>
+        public const string LinkedProgressiveWageredAmount = "LinkedProgressive.WageredAmount";
+
+        /// <summary>
+        ///     The total accumulated plays per linked progressive level
+        /// </summary>
+        public const string LinkedProgressivePlayedCount = "LinkedProgressive.PlayedCount";
+
+        /// <summary>
         ///   	Pack name of what the progressive level belongs to. Used to identify DisplayMeter node.
         /// </summary>
         public const string ProgressivePackNameDisplayMeter = "ProgressivePackName";
@@ -107,12 +117,12 @@
         public const string WagerBetLevelsDisplayMeter = @"WagerBetLevels";
 
         /// <summary>
-        ///     The wagered amount per progressive device
+        ///     The wagered amount per level
         /// </summary>
         public const string WageredAmount = "WageredAmount";
 
         /// <summary>
-        ///     The total accumulated plays per progressive device
+        ///     The total accumulated plays per level
         /// </summary>
         public const string PlayedCount = "PlayedCount";
     }

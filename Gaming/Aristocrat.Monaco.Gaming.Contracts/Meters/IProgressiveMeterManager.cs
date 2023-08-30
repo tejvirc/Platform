@@ -5,6 +5,7 @@
     using Application.Contracts;
     using Kernel;
     using Progressives;
+    using Progressives.Linked;
     using Progressives.SharedSap;
 
     /// <summary>
@@ -23,6 +24,11 @@
         int LevelCount { get; }
 
         /// <summary>
+        ///     Gets the number of total number of linked levels.
+        /// </summary>
+        int LinkedLevelCount { get; }
+
+        /// <summary>
         ///     Gets the number of total number of shared levels.
         /// </summary>
         int SharedLevelCount { get; }
@@ -31,6 +37,11 @@
         ///     Registers a <see cref="ProgressiveAdded" /> event handler.
         /// </summary>
         event EventHandler<ProgressiveAddedEventArgs> ProgressiveAdded;
+
+        /// <summary>
+        ///     Registers a <see cref="LinkedProgressiveAdded" /> event handler.
+        /// </summary>
+        event EventHandler<LinkedProgressiveAddedEventArgs> LinkedProgressiveAdded;
 
         /// <summary>
         ///     Registers a <see cref="LPCompositeMetersCanUpdate" /> event handler.
@@ -45,16 +56,20 @@
         /// <summary>
         ///     Adds a new progressive meter to the progressive meter manager.
         /// </summary>
-        /// <param name="progressives">A single progressive to add.</param>
-        /// <returns>True if successful, otherwise false.</returns>
+        /// <param name="progressives">A collection of progressives to add.</param>
         void AddProgressives(IEnumerable<IViewableProgressiveLevel> progressives);
 
         /// <summary>
         ///     Adds a new progressive meter to the progressive meter manager.
         /// </summary>
-        /// <param name="progressives">A single progressive to add.</param>
-        /// <returns>True if successful, otherwise false.</returns>
+        /// <param name="progressives">A collection of progressives to add.</param>
         void AddProgressives(IEnumerable<IViewableSharedSapLevel> progressives);
+
+        /// <summary>
+        ///     Adds a new linked progressive meter to the progressive meter manager.
+        /// </summary>
+        /// <param name="progressives">A collection of progressives to add.</param>
+        void AddLinkedProgressives(IEnumerable<IViewableLinkedProgressiveLevel> progressives);
 
         /// <summary>
         ///     Gets block the progressive devices and the associated block index
@@ -67,6 +82,12 @@
         /// </summary>
         /// <returns>A collection of device and level Ids with the associated block index</returns>
         IEnumerable<(int deviceId, int levelId, int blockIndex)> GetProgressiveLevelBlocks();
+
+        /// <summary>
+        ///     Gets progressive levels and their associated block index
+        /// </summary>
+        /// <returns>A collection of level Ids with the associated block index</returns>
+        IEnumerable<(string linkedLevelName, int blockIndex)> GetLinkedLevelBlocks();
 
         /// <summary>
         ///     Gets progressive levels and their associated block index
@@ -90,6 +111,14 @@
         /// <param name="meterName">The name of the meter. </param>
         /// <returns>An IMeter object representing that meter. </returns>
         IMeter GetMeter(int deviceId, int levelId, string meterName);
+
+        /// <summary>
+        ///     Gets the meter for the share level.
+        /// </summary>
+        /// <param name="linkedLevelName">The linked level key.</param>
+        /// <param name="meterName">The name of the meter. </param>
+        /// <returns>An IMeter object representing that meter. </returns>
+        IMeter GetMeter(string linkedLevelName, string meterName);
 
         /// <summary>
         ///     Gets the meter for the share level.
@@ -126,6 +155,14 @@
         /// <summary>
         ///     Gets the named meter for the share level.
         /// </summary>
+        /// <param name="linkedLevelName">The linked level key.</param>
+        /// <param name="meterName">The name of the meter. </param>
+        /// <returns>An IMeter object representing that meter. </returns>
+        string GetMeterName(string linkedLevelName, string meterName);
+
+        /// <summary>
+        ///     Gets the named meter for the share level.
+        /// </summary>
         /// <param name="sharedLevelId">The shared level Id.</param>
         /// <param name="meterName">The name of the meter. </param>
         /// <returns>An IMeter object representing that meter. </returns>
@@ -154,6 +191,14 @@
         /// <param name="meterName">The name of the meter. </param>
         /// <returns>An IMeter object representing that meter. </returns>
         bool IsMeterProvided(int deviceId, int levelId, string meterName);
+
+        /// <summary>
+        ///     Returns whether or not a meter with the given name is provided.
+        /// </summary>
+        /// <param name="linkedLevelName">The linked level key. </param>
+        /// <param name="meterName">The name of the meter. </param>
+        /// <returns>An IMeter object representing that meter. </returns>
+        bool IsMeterProvided(string linkedLevelName, string meterName);
 
         /// <summary>
         ///     Returns whether or not a meter with the given name is provided.
