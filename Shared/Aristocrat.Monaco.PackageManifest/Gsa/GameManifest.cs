@@ -130,8 +130,8 @@ namespace Aristocrat.Monaco.PackageManifest.Gsa
             {
                 ThemeId = gameInfo.themeId,
                 PaytableId = gameInfo.paytableId,
-                MaxPaybackPercent = ConvertToRtp(gameInfo.maxPaybackPct),
-                MinPaybackPercent = ConvertToRtp(gameInfo.minPaybackPct),
+                MaxPaybackPercent = GsaRtpHelper.NormalizeRtp(gameInfo.maxPaybackPct),
+                MinPaybackPercent = GsaRtpHelper.NormalizeRtp(gameInfo.minPaybackPct),
                 DisplayMeterName = gameInfo.displayMeterName,
                 AssociatedSapDisplayMeterName = gameInfo.associatedSapDisplayMeterName,
                 InitialValue = gameInfo.initialValue,
@@ -236,15 +236,15 @@ namespace Aristocrat.Monaco.PackageManifest.Gsa
                 MaxWagerCredits = wagerCategory.maxWagerCredits,
                 MinWagerCredits = wagerCategory.minWagerCredits,
                 MaxWinAmount = wagerCategory.maxWinAmount,
-                TheoPaybackPercent = ConvertToRtp(wagerCategory.theoPaybackPct),
-                MinBaseRtpPercent = ConvertToRtp(wagerCategory.minBaseRtpPct),
-                MaxBaseRtpPercent = ConvertToRtp(wagerCategory.maxBaseRtpPct),
-                MinSapStartupRtpPercent = ConvertToRtp(wagerCategory.minSapStartupRtpPct),
-                MaxSapStartupRtpPercent = ConvertToRtp(wagerCategory.maxSapStartupRtpPct),
-                SapIncrementRtpPercent = ConvertToRtp(wagerCategory.sapIncrementRtpPct),
-                MinLinkStartupRtpPercent = ConvertToRtp(wagerCategory.minLinkStartupRtpPct),
-                MaxLinkStartupRtpPercent = ConvertToRtp(wagerCategory.maxLinkStartupRtpPct),
-                LinkIncrementRtpPercent = ConvertToRtp(wagerCategory.linkIncrementRtpPct)
+                TheoPaybackPercent = GsaRtpHelper.NormalizeRtp(wagerCategory.theoPaybackPct),
+                MinBaseRtpPercent = GsaRtpHelper.NormalizeRtp(wagerCategory.minBaseRtpPct),
+                MaxBaseRtpPercent = GsaRtpHelper.NormalizeRtp(wagerCategory.maxBaseRtpPct),
+                MinSapStartupRtpPercent = GsaRtpHelper.NormalizeRtp(wagerCategory.minSapStartupRtpPct),
+                MaxSapStartupRtpPercent = GsaRtpHelper.NormalizeRtp(wagerCategory.maxSapStartupRtpPct),
+                SapIncrementRtpPercent = GsaRtpHelper.NormalizeRtp(wagerCategory.sapIncrementRtpPct),
+                MinLinkStartupRtpPercent = GsaRtpHelper.NormalizeRtp(wagerCategory.minLinkStartupRtpPct),
+                MaxLinkStartupRtpPercent = GsaRtpHelper.NormalizeRtp(wagerCategory.maxLinkStartupRtpPct),
+                LinkIncrementRtpPercent = GsaRtpHelper.NormalizeRtp(wagerCategory.linkIncrementRtpPct)
             };
         }
 
@@ -354,8 +354,8 @@ namespace Aristocrat.Monaco.PackageManifest.Gsa
             {
                 Id = gameConfiguration.id,
                 Name = gameConfiguration.name,
-                MaxPaybackPercent = ConvertToRtp(gameConfiguration.maxPaybackPct),
-                MinPaybackPercent = ConvertToRtp(gameConfiguration.minPaybackPct),
+                MaxPaybackPercent = GsaRtpHelper.NormalizeRtp(gameConfiguration.maxPaybackPct),
+                MinPaybackPercent = GsaRtpHelper.NormalizeRtp(gameConfiguration.minPaybackPct),
                 MinDenomsEnabled = gameConfiguration.minDenomsEnabled,
                 MaxDenomsEnabled = gameConfiguration.maxDenomsEnabledSpecified ? gameConfiguration.maxDenomsEnabled : (int?)null,
                 Editable = gameConfiguration.editable,
@@ -403,19 +403,6 @@ namespace Aristocrat.Monaco.PackageManifest.Gsa
             var index = paytableId.LastIndexOf(delimiter, StringComparison.InvariantCultureIgnoreCase);
 
             return index == -1 ? paytableId : paytableId.Substring(index + 1);
-        }
-
-        private static decimal ConvertToRtp(decimal value)
-        {
-            // Older versions of the manifest contained a truncated Rtp (precision of 2), represented as 9821 or 98.21%.
-            // Newer manifests have a precision of 3, represented as 98212 or 98.212%.
-            // Newest manifests have true percentages already.
-            if (value < 1000)
-            {
-                return value;
-            }
-
-            return value > 10000 ? value / 1000 : value / 100;
         }
     }
 }

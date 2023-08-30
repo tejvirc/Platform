@@ -21,4 +21,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aristocrat.Monaco.Common\Aristocrat.Monaco.Common.csproj" />
+  </ItemGroup>
 </Project>

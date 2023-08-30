@@ -2,17 +2,15 @@ namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
-    using Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
-    using Common;
+    using Contracts.Progressives;
     using Progressives;
     using Contracts;
     using Contracts.Models;
     using Contracts.Rtp;
     using Kernel;
     using ProgressiveRtp = Contracts.Progressives.ProgressiveRtp;
+    using Common.Helpers;
 
     public class RtpService : IRtpService, IService
     {
@@ -404,16 +402,16 @@ namespace Aristocrat.Monaco.Gaming
 
         private void ValidatePrecision(RtpBreakdown rtpBreakdown, int numOfDecimalPlaces)
         {
-            if (rtpBreakdown.Base.Minimum.CheckPrecision(numOfDecimalPlaces) &&
-               rtpBreakdown.Base.Maximum.CheckPrecision(numOfDecimalPlaces) &&
-               rtpBreakdown.StandaloneProgressiveReset.Minimum.CheckPrecision(numOfDecimalPlaces) &&
-               rtpBreakdown.StandaloneProgressiveReset.Maximum.CheckPrecision(numOfDecimalPlaces) &&
-               rtpBreakdown.StandaloneProgressiveIncrement.Minimum.CheckPrecision(numOfDecimalPlaces) &&
-               rtpBreakdown.StandaloneProgressiveIncrement.Maximum.CheckPrecision(numOfDecimalPlaces) &&
-               rtpBreakdown.LinkedProgressiveReset.Minimum.CheckPrecision(numOfDecimalPlaces) &&
-               rtpBreakdown.LinkedProgressiveReset.Maximum.CheckPrecision(numOfDecimalPlaces) &&
-               rtpBreakdown.LinkedProgressiveIncrement.Minimum.CheckPrecision(numOfDecimalPlaces) &&
-               rtpBreakdown.LinkedProgressiveIncrement.Maximum.CheckPrecision(numOfDecimalPlaces))
+            if (MathHelper.CheckPrecision(rtpBreakdown.Base.Minimum, numOfDecimalPlaces) &&
+                MathHelper.CheckPrecision(rtpBreakdown.Base.Maximum, numOfDecimalPlaces) &&
+                MathHelper.CheckPrecision(rtpBreakdown.StandaloneProgressiveReset.Minimum, numOfDecimalPlaces) &&
+                MathHelper.CheckPrecision(rtpBreakdown.StandaloneProgressiveReset.Maximum, numOfDecimalPlaces) &&
+                MathHelper.CheckPrecision(rtpBreakdown.StandaloneProgressiveIncrement.Minimum, numOfDecimalPlaces) &&
+                MathHelper.CheckPrecision(rtpBreakdown.StandaloneProgressiveIncrement.Maximum, numOfDecimalPlaces) &&
+                MathHelper.CheckPrecision(rtpBreakdown.LinkedProgressiveReset.Minimum, numOfDecimalPlaces) &&
+                MathHelper.CheckPrecision(rtpBreakdown.LinkedProgressiveReset.Maximum, numOfDecimalPlaces) &&
+                MathHelper.CheckPrecision(rtpBreakdown.LinkedProgressiveIncrement.Minimum, numOfDecimalPlaces) &&
+                MathHelper.CheckPrecision(rtpBreakdown.LinkedProgressiveIncrement.Maximum, numOfDecimalPlaces))
             {
                 return;
             }
