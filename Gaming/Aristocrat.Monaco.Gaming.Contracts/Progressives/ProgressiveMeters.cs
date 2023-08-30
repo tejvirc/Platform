@@ -41,14 +41,29 @@
         public const string SharedLevelWinAccumulation = "SharedLevel.WinAccumulation";
 
         /// <summary>
+        ///     The total accumulated bulk contribution amount to the linked level
+        /// </summary>
+        public const string LinkedProgressiveBulkContribution = "LinkedProgressive.BulkContribution";
+
+        /// <summary>
         ///     linked Progressive Win Occurrence
         /// </summary>
         public const string LinkedProgressiveWinOccurrence = "LinkedProgressive.WinOccurrence";
 
         /// <summary>
+        ///     linked Progressive Win Accumulation
+        /// </summary>
+        public const string LinkedProgressiveWinAccumulation = "LinkedProgressive.WinAccumulation";
+
+        /// <summary>
         ///     The wagered amount per linked progressive level
         /// </summary>
         public const string LinkedProgressiveWageredAmount = "LinkedProgressive.WageredAmount";
+
+        /// <summary>
+        ///     The wagered amount per linked progressive level when using an ante bet
+        /// </summary>
+        public const string LinkedProgressiveWageredAmountWithAnte = "LinkedProgressive.WageredAmountWithAnte";
 
         /// <summary>
         ///     The total accumulated plays per linked progressive level
