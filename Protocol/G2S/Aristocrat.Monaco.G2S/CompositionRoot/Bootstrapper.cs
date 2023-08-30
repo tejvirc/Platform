@@ -199,16 +199,7 @@
                     void MapInterfacedService<I, T>() where I : class where T : class, I => r.AddSingleton<I>(@this.GetInstance<T>());
                 });
             });
-            var egm = EgmFactory.Create(
-                e =>
-                {
-                    e.UsesNamespace("Aristocrat.G2S.Protocol.v21");
-                    e.ListenOn(ConfigureBinding);
-                    e.WithEgmId(
-                        ServiceManager.GetInstance().GetService<IPropertiesManager>()
-                            .GetValue<string>(Constants.EgmId, null));
-                });
-            
+
             @this.Register<IDeviceFactory, DeviceFactory>(Lifestyle.Singleton);
             @this.Register<IGatComponentFactory, GatComponentFactory>(Lifestyle.Singleton);
             @this.Register<IHostFactory, HostFactory>(Lifestyle.Singleton);

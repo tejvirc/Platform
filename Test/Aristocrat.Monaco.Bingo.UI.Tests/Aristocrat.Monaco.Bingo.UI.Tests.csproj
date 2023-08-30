@@ -34,7 +34,7 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.UI.Common\Aristocrat.Monaco.UI.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="2.0.0-beta0012" />
+    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="2.0.0-beta0025" />
     <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>

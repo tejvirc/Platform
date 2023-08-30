@@ -5,6 +5,7 @@
     using Grpc.Net.Client;
     using log4net;
     using Messages.Interceptor;
+    using System.Reflection;
     using BingoClientApi = ServerApiGateway.ClientApi.ClientApiClient;
 
     public class BingoClient : BaseClient<BingoClientApi>, IClientEndpointProvider<BingoClientApi>

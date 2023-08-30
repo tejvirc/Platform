@@ -4,7 +4,6 @@ namespace Aristocrat.Monaco.Gaming
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.Remoting.Contexts;
     using Application.Contracts;
     using Contracts;
     using Contracts.Progressives;

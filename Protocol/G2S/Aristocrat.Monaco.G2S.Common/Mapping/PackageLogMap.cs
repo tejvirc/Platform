@@ -2,7 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Data.Model;
+    using Aristocrat.Monaco.G2S.Data.Model;
 
     /// <summary>
     ///     Configuration for the <see cref="PackageLog" /> entity

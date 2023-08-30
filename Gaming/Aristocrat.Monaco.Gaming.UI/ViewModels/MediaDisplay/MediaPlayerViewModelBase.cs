@@ -44,7 +44,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 {
                     _isVisible = value;
                     Logger.Debug($"MediaPlayer {Id} IsVisible={value}");
-                    RaisePropertyChanged(nameof(IsVisible));
+                    OnPropertyChanged(nameof(IsVisible));
                 }
             }
         }

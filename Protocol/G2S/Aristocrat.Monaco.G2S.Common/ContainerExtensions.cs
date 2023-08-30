@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common
 {
-    using System.Data.Entity;
     using Aristocrat.Monaco.Protocol.Common.Storage;
     using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
     using Aristocrat.Monaco.Protocol.Common.Storage.Repositories;
     using Data;
     using Data.Models;
+    using Microsoft.EntityFrameworkCore;
     using SimpleInjector;
     using SimpleInjector.Diagnostics;
 

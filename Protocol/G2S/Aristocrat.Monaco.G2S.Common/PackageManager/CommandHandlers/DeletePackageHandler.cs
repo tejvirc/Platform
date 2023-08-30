@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common.PackageManager.CommandHandlers
 {
     using System;
+    using Aristocrat.Monaco.G2S.Data.Packages;
+    using Aristocrat.Monaco.G2S.Data.Model;
     using Monaco.Common.CommandHandlers;
     using Monaco.Common.Exceptions;
     using Monaco.Common.Storage;
     using Protocol.Common.Installer;
     using Storage;
-    using Data.Model;
-    using Data.Packages;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>

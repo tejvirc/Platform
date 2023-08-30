@@ -148,12 +148,10 @@
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource MultiValueConverter}">
                         <Binding ElementName="ImportInfoButton" />
-                        <Binding ElementName="ProgressiveHostOfflineIntervalWarning"
+                        <Binding Source="{lex:Loc ProgressiveHostOfflinEIntervalWarning}"
                                  Path="Result" />
                     </MultiBinding>
                 </Button.CommandParameter>
-                <lex:LocProxy x:Name="ProgressiveHostOfflineIntervalWarning"
-                              Source="{x:Static loc:ResourceKeys.ProgressiveHostOfflineIntervalWarning}" />
             </Button>
         </Grid>
 

@@ -15,8 +15,7 @@
                                xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:GamePreferencesViewModel}}"
-                               common:DialogParticipation.Register="{Binding}"
-                               mc:Ignorable="d">
+                               common:DialogParticipation.Register="{Binding}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

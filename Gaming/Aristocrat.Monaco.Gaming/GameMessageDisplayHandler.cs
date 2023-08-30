@@ -29,10 +29,11 @@ namespace Aristocrat.Monaco.Gaming
         private readonly IGameDiagnostics _gameDiagnostics;
         private readonly IEventBus _eventBus;
         private readonly IMessageDisplay _messageDisplay;
+        private readonly IOperatorMenuLauncher _operatorMenu;
         private readonly List<DisplayableMessage> _displayMessages = new List<DisplayableMessage>();
         private readonly IPropertiesManager _properties;
-        private readonly List<DisplayableMessage> _displayMessages = new();
         private readonly object _messageLock = new();
+        
 
         private Timer _changePropagationTimer;
         private string _lastMessage = string.Empty;

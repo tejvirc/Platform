@@ -674,7 +674,7 @@
             }
 
             using var scope = _storageManager.ScopedTransaction();
-            var result = InstallNewGame(game, paytableConfiguration);
+            var result = InstallNewGame(game, progressiveDetails, paytableConfiguration);
             _bus.Publish(new GameAddedEvent(result.Id, result.ThemeId));
             _progressiveProvider.LoadProgressiveLevels(result, progressiveDetails);
             scope.Complete();
@@ -1323,7 +1323,7 @@
                     }
                     else if (!serverControlledPaytables)
                     {
-                        InstallNewGame(gameDetail);
+                        InstallNewGame(gameDetail, progressiveDetails);
                         _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
                         _bus.Publish(new GameAddedEvent(gameDetail.Id, gameDetail.ThemeId));
                     }
