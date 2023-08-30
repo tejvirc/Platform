@@ -37,7 +37,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Hardware.Contracts.Button;
     using Hardware.Contracts.ButtonDeck;
     using Hardware.Contracts.Cabinet;
-    using Hardware.Contracts.Button;
     using Hardware.Contracts.EdgeLighting;
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.Touch;
@@ -48,7 +47,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
     using Progressives;
-    using Hardware.Contracts.Button;
     using Kernel.Contracts;
     using Timers;
     using Utils;
