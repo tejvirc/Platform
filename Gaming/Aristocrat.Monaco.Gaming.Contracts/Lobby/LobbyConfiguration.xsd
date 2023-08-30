@@ -11,6 +11,7 @@
       <xs:element minOccurs="0" maxOccurs="1" name="HasAttractIntroVideo" type="xs:boolean" default="false" />
       <xs:element minOccurs="1" maxOccurs="1" name="BottomAttractVideoEnabled" type="xs:boolean" default="false" />
       <xs:element minOccurs="1" maxOccurs="1" name="DaysAsNew" type="xs:double" default="0" />
+      <xs:element minOccurs="0" maxOccurs="1" name="ButtonDeckNavigationEnabled" type="xs:boolean" default="true" />
       <xs:element minOccurs="0" maxOccurs="1" name="ResponsibleGamingTimeLimits" type="ArrayOfDouble" />
       <xs:element minOccurs="0" maxOccurs="1" name="ResponsibleGamingPlayBreaks" type="ArrayOfDouble" />
       <xs:element minOccurs="1" maxOccurs="1" name="ResponsibleGamingSessionLimit" type="xs:int" />
