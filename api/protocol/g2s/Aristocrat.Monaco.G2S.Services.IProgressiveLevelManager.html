@@ -104,24 +104,24 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveLevelMeters_System_Int32_System_String___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.IProgressiveLevelManager.GetProgressiveLevelMeters(System.Int32%2CSystem.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveDeviceMeters_System_Int32_System_String___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.IProgressiveLevelManager.GetProgressiveDeviceMeters(System.Int32%2CSystem.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/IProgressiveLevelManager.cs/#L18" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
-  <a id="Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveLevelMeters_" data-uid="Aristocrat.Monaco.G2S.Services.IProgressiveLevelManager.GetProgressiveLevelMeters*"></a>
+  <a id="Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveDeviceMeters_" data-uid="Aristocrat.Monaco.G2S.Services.IProgressiveLevelManager.GetProgressiveDeviceMeters*"></a>
   
-  <h4 id="Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveLevelMeters_System_Int32_System_String___" data-uid="Aristocrat.Monaco.G2S.Services.IProgressiveLevelManager.GetProgressiveLevelMeters(System.Int32,System.String[])"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveLevelMeters_System_Int32_System_String___" class="expander" data-toggle="collapse">GetProgressiveLevelMeters(Int32, String[])</a></h4>
+  <h4 id="Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveDeviceMeters_System_Int32_System_String___" data-uid="Aristocrat.Monaco.G2S.Services.IProgressiveLevelManager.GetProgressiveDeviceMeters(System.Int32,System.String[])"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveDeviceMeters_System_Int32_System_String___" class="expander" data-toggle="collapse">GetProgressiveDeviceMeters(Int32, String[])</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveLevelMeters_System_Int32_System_String___" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveDeviceMeters_System_Int32_System_String___" class="collapse in">
   <div class="markdown level1 summary"><p>Gets the specified simple meters for the specified progressive device</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">IEnumerable&lt;simpleMeter&gt; GetProgressiveLevelMeters(int levelDeviceId, params string[] includedMeters)</code></pre>
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;simpleMeter&gt; GetProgressiveDeviceMeters(int deviceId, params string[] includedMeters)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -129,8 +129,71 @@
     <tr>
       <td>
         <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a></span>
-        <span class="parametername">levelDeviceId</span>
-        <p><p>The identifier of the progressive level</p>
+        <span class="parametername">deviceId</span>
+        <p><p>The identifier of the progressive device</p>
+</p>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a>[]</span>
+        <span class="parametername">includedMeters</span>
+        <p><p>The array of meter names</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<span class="xref">Aristocrat.G2S.Protocol.v21.simpleMeter</span>&gt;
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveLevelMeters_System_String_System_String___.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.IProgressiveLevelManager.GetProgressiveLevelMeters(System.String%2CSystem.String%5B%5D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/IProgressiveLevelManager.cs/#L29" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveLevelMeters_" data-uid="Aristocrat.Monaco.G2S.Services.IProgressiveLevelManager.GetProgressiveLevelMeters*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveLevelMeters_System_String_System_String___" data-uid="Aristocrat.Monaco.G2S.Services.IProgressiveLevelManager.GetProgressiveLevelMeters(System.String,System.String[])"><a href="#collapsible-Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveLevelMeters_System_String_System_String___" class="expander" data-toggle="collapse">GetProgressiveLevelMeters(String, String[])</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_GetProgressiveLevelMeters_System_String_System_String___" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the specified simple meters for the specified progressive device</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;simpleMeter&gt; GetProgressiveLevelMeters(string linkedLevelName, params string[] includedMeters)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">linkedLevelName</span>
+        <p><p>The identifier of the linked progressive level</p>
 </p>
       </td>
     </tr>
@@ -170,7 +233,7 @@
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_UpdateLinkedProgressiveLevels_System_Int32_System_Int32_System_Int64_System_Int64_System_String_System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Services.IProgressiveLevelManager.UpdateLinkedProgressiveLevels(System.Int32%2CSystem.Int32%2CSystem.Int64%2CSystem.Int64%2CSystem.String%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/IProgressiveLevelManager.cs/#L30" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S/Services/IProgressiveLevelManager.cs/#L41" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_G2S_Services_IProgressiveLevelManager_UpdateLinkedProgressiveLevels_" data-uid="Aristocrat.Monaco.G2S.Services.IProgressiveLevelManager.UpdateLinkedProgressiveLevels*"></a>
