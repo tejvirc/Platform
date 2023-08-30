@@ -15,6 +15,7 @@ namespace Aristocrat.Monaco.Application.Contracts {
     using System.Xml.Serialization;
 #pragma warning disable CS1591
 
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -23,6 +24,10 @@ namespace Aristocrat.Monaco.Application.Contracts {
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class ApplicationConfiguration {
+        
+        private ApplicationConfigurationVolumeNode[] masterVolumeSettingsField;
+        
+        private ApplicationConfigurationScalar[] volumeScalarSettingsField;
         
         private string[] allowedLocalesField;
         
@@ -150,6 +155,28 @@ namespace Aristocrat.Monaco.Application.Contracts {
             this.barcodeTypeField = BarcodeTypeOptions.Interleave2of5;
             this.validationLengthField = ValidationLengthOptions.System;
             this.layoutTypeField = LayoutTypeOptions.ExtendedLayout;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("VolumeNode", IsNullable=false)]
+        public ApplicationConfigurationVolumeNode[] MasterVolumeSettings {
+            get {
+                return this.masterVolumeSettingsField;
+            }
+            set {
+                this.masterVolumeSettingsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("Scalar", IsNullable=false)]
+        public ApplicationConfigurationScalar[] VolumeScalarSettings {
+            get {
+                return this.volumeScalarSettingsField;
+            }
+            set {
+                this.volumeScalarSettingsField = value;
+            }
         }
         
         /// <remarks/>
@@ -766,6 +793,84 @@ namespace Aristocrat.Monaco.Application.Contracts {
             set
             {
                 this.technicianModeLockedField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class ApplicationConfigurationVolumeNode : VolumeLevel {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class VolumeLevel {
+        
+        private byte keyField;
+        
+        private string descriptionField;
+        
+        private float valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte Key {
+            get {
+                return this.keyField;
+            }
+            set {
+                this.keyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public float Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class ApplicationConfigurationScalar {
+        
+        private float valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public float Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
             }
         }
     }

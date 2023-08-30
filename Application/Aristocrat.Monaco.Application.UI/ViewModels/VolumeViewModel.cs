@@ -35,13 +35,13 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
             _audioService = ServiceManager.GetInstance().GetService<IAudio>();
 
-            foreach (VolumeLevel volumeLevel in Enum.GetValues(typeof(VolumeLevel)))
+            foreach (var volumeLevel in _audioService.SoundLevelCollection.Select(l => l.Item1))
             {
                 VolumeOptions.Add(new VolumeOption(volumeLevel));
             }
 
             // Load default volume level
-            var selectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            var selectedVolumeLevel = _propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             _selectedVolumeLevel = VolumeOptions.FirstOrDefault(v => v.Level == selectedVolumeLevel);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", _selectedVolumeLevel);
         }
@@ -92,7 +92,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private void LoadVolumeSettings()
         {
             // Load volume level
-            var selectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            var selectedVolumeLevel = _propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             SelectedVolumeLevel = VolumeOptions.FirstOrDefault(v => v.Level == selectedVolumeLevel);
         }
 

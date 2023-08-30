@@ -3,20 +3,19 @@
     using System;
     using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts.Localization;
-    using Hardware.Contracts.Audio;
 
     /// <summary>
-    ///     Volume Option that relates a <see cref="VolumeLevel"/> to a localized display string
+    ///     Volume Option that relates a <see cref="byte"/> to a localized display string
     /// </summary>
     [CLSCompliant(false)]
     public class VolumeOption : ObservableObject
     {
-        public VolumeOption(VolumeLevel level)
+        public VolumeOption(byte level)
         {
             Level = level;
         }
 
-        public VolumeLevel Level { get; }
+        public byte Level { get; }
 
         public string DisplayString => Localizer.For(CultureFor.Operator).GetString(Level.ToString());
 
