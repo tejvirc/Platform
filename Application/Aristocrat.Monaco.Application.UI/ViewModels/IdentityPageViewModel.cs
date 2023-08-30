@@ -4,7 +4,6 @@
     using System.ComponentModel.DataAnnotations;
     using System.Security.Policy;
     using System.Text.RegularExpressions;
-    using System.Web.UI;
     using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Contracts.Localization;

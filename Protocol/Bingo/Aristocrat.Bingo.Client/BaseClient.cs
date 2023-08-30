@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Reflection;
+    using System.Threading;
     using System.Threading.Tasks;
     using Configuration;
     using Grpc.Core;
@@ -16,6 +17,7 @@
         private readonly ILog _logger;
         private readonly BaseClientAuthorizationInterceptor _clientAuthorizationInterceptor;
         private readonly LoggingInterceptor _loggingInterceptor;
+        private readonly IClientConfigurationProvider ConfigurationProvider;
 
         private readonly object _clientLock = new();
         private GrpcChannel _channel;
@@ -67,17 +69,15 @@
 
 		public bool IsConnected => StateIsConnected(_channel?.State);
 		
-        public virtual Channel CreateChannel()
+        public virtual GrpcChannel CreateChannel()
         {
             var configuration = ConfigurationProvider.CreateConfiguration();
             var credentials = configuration.Certificates.Any()
                 ? new SslCredentials(
                     string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))
                 : ChannelCredentials.Insecure;
-            return new Channel(configuration.Address.Host, configuration.Address.Port, credentials);
+            return GrpcChannel.ForAddress(configuration.Address, new GrpcChannelOptions() { Credentials = credentials });
         }
-
-        public abstract GrpcChannel CreateChannel();
 
         public abstract TClientApi CreateClient(CallInvoker callInvoker);
 

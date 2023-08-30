@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.UI.Common.Models
 {
     using System;
+    using System.ComponentModel;
     using CommunityToolkit.Mvvm.ComponentModel;
+
 
     /// <summary>
     ///     An string object used to filter a DataGrid column

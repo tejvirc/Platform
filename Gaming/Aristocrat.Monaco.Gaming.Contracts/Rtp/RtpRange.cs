@@ -3,11 +3,12 @@
     using System;
     using System.Linq;
     using Localization.Properties;
+    using ProtoBuf;
 
     /// <summary>
     ///     Definition of Rtp Range, expressed in actual percentages (e.g. 91.23945)
     /// </summary>
-    [Serializable]
+    [ProtoContract]
     public class RtpRange
     {
         /// <summary>
@@ -27,11 +28,13 @@
         /// <summary>
         ///     Gets or sets the minimum RTP, in percent
         /// </summary>
+        [ProtoMember(1)]
         public decimal Minimum { get; } 
 
         /// <summary>
         ///     Gets or sets the maximum RTP, in percent
         /// </summary>
+        [ProtoMember(2)]
         public decimal Maximum { get; }
 
         /// <summary>

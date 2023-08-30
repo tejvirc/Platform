@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.Hardware.Fake
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Aristocrat.Monaco.Hardware.Contracts.Reel;
     using Aristocrat.Simulation.HarkeyReels.Controls;
     using Contracts.Communicator;
@@ -18,7 +19,6 @@ namespace Aristocrat.Monaco.Hardware.Fake
     using log4net;
     using MonacoReelStatus = Contracts.Reel.ReelStatus;
     using MonacoLightStatus = Contracts.Reel.LightStatus;
-    using Aristocrat.Extensions.CommunityToolkit;
 
     public class FakeRelmCommunicator : IRelmCommunicator
     {

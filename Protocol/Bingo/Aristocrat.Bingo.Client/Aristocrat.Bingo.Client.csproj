@@ -29,4 +29,7 @@
 		<PackageReference Include="SimpleInjector" Version="5.4.0" />
 		<PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.11.0" />
 	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\Gaming\Aristocrat.Monaco.Gaming\Aristocrat.Monaco.Gaming.csproj" />
+	</ItemGroup>
 </Project>

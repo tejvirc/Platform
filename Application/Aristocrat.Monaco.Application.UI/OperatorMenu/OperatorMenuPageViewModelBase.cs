@@ -1206,42 +1206,6 @@ namespace Aristocrat.Monaco.Application.UI.OperatorMenu
             IsLoaded = false;
         }
 
-        private void SetIgnoreProperties()
-        {
-            IgnorePropertyForCommitted(
-                new List<string>
-                {
-                    nameof(InputEnabled),
-                    nameof(DataEmpty),
-                    nameof(InputStatusText),
-                    nameof(FieldAccessStatusText),
-                    nameof(PrintButtonStatusText),
-                    nameof(TestModeEnabled),
-                    nameof(TestModeRestriction),
-                    nameof(FieldAccessEnabled),
-                    nameof(FieldAccessRestriction),
-                    nameof(PrintButtonAccessEnabled),
-                    nameof(TestModeEnabledSupplementary),
-                    nameof(GameIdle),
-                    nameof(NoGamesPlayed),
-                    nameof(PrinterButtonsEnabled),
-                    nameof(PrintCurrentPageButtonVisible),
-                    nameof(PrintSelectedButtonVisible),
-                    nameof(PrintLast15ButtonVisible),
-                    nameof(FirstVisibleElement),
-                    nameof(RecordsToBePrinted),
-                    nameof(TestWarningText),
-                    nameof(IsLoadingData),
-                    nameof(IsLoaded),
-                    nameof(MainPrintButtonEnabled),
-                    nameof(PageSupportsMainPrintButton),
-                    nameof(PopupOpen),
-                    nameof(IsContainerPage),
-                    nameof(AccessRestriction),
-                    nameof(ClearValidationOnUnload)
-                });
-        }
-
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed)

@@ -6,9 +6,7 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Application.Contracts.Localization;
-    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using Aristocrat.Monaco.Kernel;
     using Diagnostics;
     using Monaco.Localization.Properties;

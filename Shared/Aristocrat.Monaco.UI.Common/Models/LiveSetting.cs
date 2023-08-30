@@ -9,7 +9,7 @@
     using Quartz.Util;
 
     /// <see cref="LiveSetting{TValue}"/>
-    public abstract class LiveSetting : BaseNotify
+    public abstract class LiveSetting : ObservableObject
     {
         /// <summary>
         /// Modes for echoing a setting's live value to its edited value.

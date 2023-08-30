@@ -17,18 +17,15 @@
             _connectionString = connectionStringResolver.Resolve();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Configurations.Add(new BingoServerSettingsModelConfiguration());
-            modelBuilder.Configurations.Add(new HostConfiguration());
-            modelBuilder.Configurations.Add(new ReportTransactionModelConfiguration());
-            modelBuilder.Configurations.Add(new ReportEventModelConfiguration());
-            modelBuilder.Configurations.Add(new WinResultModelConfiguration());
-            modelBuilder.Configurations.Add(new CertificateConfiguration());
-            modelBuilder.Configurations.Add(new BingoDaubsModelConfiguration());
-            modelBuilder.Configurations.Add(new PendingJackpotAwardsConfiguration());
-            Database.SetInitializer(new BingoContextInitializer(modelBuilder));
+            modelBuilder.ApplyConfiguration(new BingoServerSettingsModelConfiguration());
+            modelBuilder.ApplyConfiguration(new HostConfiguration());
+            modelBuilder.ApplyConfiguration(new ReportTransactionModelConfiguration());
+            modelBuilder.ApplyConfiguration(new ReportEventModelConfiguration());
+            modelBuilder.ApplyConfiguration(new WinResultModelConfiguration());
+            modelBuilder.ApplyConfiguration(new CertificateConfiguration());
+            modelBuilder.ApplyConfiguration(new BingoDaubsModelConfiguration());
         }
     }
 }
