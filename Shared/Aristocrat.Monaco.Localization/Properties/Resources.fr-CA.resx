@@ -5090,4 +5090,13 @@ Consulter le manuel pour plus de détails</value>
   <data name="SomeGamesPlayedWarning" xml:space="preserve">
     <value>??Some settings cannot be changed after a game round has been played.??</value>
   </data>
+  <data name="GameMetersTicketGameIdText" xml:space="preserve">
+    <value>??GAME ID??</value>
+  </data>
+  <data name="MasterGameMetersTicketTitleText" xml:space="preserve">
+    <value>??Master Game Meters??</value>
+  </data>
+  <data name="PeriodGameMetersTicketTitleText" xml:space="preserve">
+    <value>??Period Game Meters??</value>
+  </data>
 </root>
