@@ -126,8 +126,8 @@ as follows:
       <Setting Name="ShowProgressiveDetails" Value="true" />
     </Page>
     <Page Type="GamePreferencesViewModel" TabType="GamePreferencesViewLoader" Visible="false" />
-    <Page Type="GameInfoViewModel" Access="Technician" PrintButtonEnabled="true">
-      <Setting Name="RequiredProtocol" Value="DemonstrationMode" />
+    <Page Type="GameInfoViewModel" PrintButtonEnabled="true">
+      <Setting Name="SetGameOrderOnlyInShowMode" Value="true" />
     </Page>
     <Page TabType="CombinationTestViewLoader" Visible="false" />
   </Menu>
