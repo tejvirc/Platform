@@ -38,11 +38,6 @@
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new PendingJackpotAwardsConfiguration());
-
-            modelBuilder.Entity<PendingJackpotAwards>().ToTable(nameof(PendingJackpotAwards));
-            modelBuilder.Entity<PendingJackpotAwards>().HasKey(t => t.Id);
-            modelBuilder.Entity<PendingJackpotAwards>().Property(t => t.Awards).IsRequired();
-            //modelBuilder.Configurations.Add(new PendingJackpotAwardsConfiguration());
         }
     }
 }
