@@ -50,6 +50,7 @@
             else
             {
                 _eventBus.Publish(new CashoutAmountAuthorizationReceivedEvent(false));
+
                 var runtimeFlagHandler = ServiceManager.GetInstance().GetService<IContainerService>()?.Container.GetInstance<IRuntimeFlagHandler>();
                 runtimeFlagHandler?.SetCashingOut(false);
             }
