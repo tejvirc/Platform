@@ -35,9 +35,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
             _audioService = ServiceManager.GetInstance().GetService<IAudio>();
 
-            foreach (var volumeLevel in _audioService.SoundLevelCollection.Select(l => l.Item1))
+            foreach (var volumeLevel in _audioService.SoundLevelCollection)
             {
-                VolumeOptions.Add(new VolumeOption(volumeLevel));
+                VolumeOptions.Add(new VolumeOption(volumeLevel.Item1, volumeLevel.Item2));
             }
 
             // Load default volume level
