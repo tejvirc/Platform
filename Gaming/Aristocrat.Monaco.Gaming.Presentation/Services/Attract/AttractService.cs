@@ -359,7 +359,7 @@ public sealed class AttractService : IAttractService, IDisposable
 
         var listToAdd = GetAttractGameInfoList();
         attractList.AddRange(listToAdd);
-        _dispatcher.Dispatch( new AttractAddVideosAction { AttractList = attractList });
+        _dispatcher.Dispatch( new AttractSetVideosAction { AttractList = attractList });
 
         CheckAndResetAttractIndex();
     }

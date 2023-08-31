@@ -1,7 +1,9 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Attract;
 
 using Aristocrat.Monaco.Application.Contracts;
+using Aristocrat.Monaco.Gaming.UI.Models;
 using Fluxor;
+using System.Collections.Immutable;
 
 public static class AttractReducers
 {
@@ -60,11 +62,28 @@ public static class AttractReducers
 
 
     [ReducerMethod]
-    public static AttractState Reduce(AttractState state, AttractAddVideosAction action) =>
+    public static AttractState Reduce(AttractState state, AttractSetVideosAction action) =>
         state with
         {
-            Videos = action.AttractList ?? state.Videos
+            Videos = action.AttractList != null ? ImmutableList<IAttractDetails>.Empty.AddRange(action.AttractList) : state.Videos
         };
+    //{
+    //    var newState = state;
+
+    //    var newList = ImmutableList<UI.Models.IAttractDetails>.Empty;
+    //    if (action.AttractList != null)
+    //    {
+    //        newState.Videos.Clear();
+
+    //        foreach (var v in action.AttractList)
+    //        {
+    //            newList = newState.Videos.Add(v);
+    //        }
+    //    }
+
+    //    return newState;
+    //}
+
 
     [ReducerMethod]
     public static AttractState Reduce(AttractState state, AttractSetCanModeStartAction action) =>

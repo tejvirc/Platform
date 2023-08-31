@@ -9,7 +9,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public record AttractAddVideosAction
+    public record AttractSetVideosAction
     {
         public List<IAttractDetails>? AttractList { get; init; }
     }
