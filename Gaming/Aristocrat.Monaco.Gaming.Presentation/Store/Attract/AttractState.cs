@@ -5,7 +5,7 @@ using UI.Models;
 
 public record AttractState
 {
-    public ImmutableList<IAttractDetails> Videos { get; init; }
+    public ImmutableList<AttractVideoDetails> Videos { get; init; }
 
     public int CurrentAttractIndex { get; init; }
 

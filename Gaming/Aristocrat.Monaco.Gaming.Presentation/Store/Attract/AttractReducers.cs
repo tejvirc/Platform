@@ -65,7 +65,7 @@ public static class AttractReducers
     public static AttractState Reduce(AttractState state, AttractSetVideosAction action) =>
         state with
         {
-            Videos = action.AttractList != null ? ImmutableList<IAttractDetails>.Empty.AddRange(action.AttractList) : state.Videos
+            Videos = action.AttractList != null ? ImmutableList<AttractVideoDetails>.Empty.AddRange(action.AttractList) : state.Videos
         };
     //{
     //    var newState = state;

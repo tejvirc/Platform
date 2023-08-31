@@ -12,7 +12,7 @@ public class AttractFeature : Feature<AttractState>
     {
         return new AttractState
         {
-            Videos = ImmutableList<IAttractDetails>.Empty,
+            Videos = ImmutableList<AttractVideoDetails>.Empty,
             ModeTopperImageIndex = -1,
             ModeTopImageIndex = -1
 

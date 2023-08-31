@@ -345,7 +345,7 @@ public sealed class AttractService : IAttractService, IDisposable
     /// <param name="gameList">The updated game list</param>
     public void RefreshAttractGameList()
     {
-        List<IAttractDetails> attractList = new List<IAttractDetails>();
+        List<AttractVideoDetails> attractList = new List<AttractVideoDetails>();
 
         if (_configuration.HasAttractIntroVideo)
         {
@@ -357,7 +357,18 @@ public sealed class AttractService : IAttractService, IDisposable
             });
         }
 
-        var listToAdd = GetAttractGameInfoList();
+        var listAsInfo = GetAttractGameInfoList();
+        var listToAdd = new List<AttractVideoDetails>();
+        foreach(var v in listAsInfo)
+        {
+            if(v != null)
+            {
+                //TODO look into the LocaleAttractGraphics field on the AttractVideoDetails object.
+                AttractVideoDetails details = new AttractVideoDetails { BottomAttractVideoPath = v.BottomAttractVideoPath,
+                    TopAttractVideoPath = v.TopAttractVideoPath, TopperAttractVideoPath = v.TopperAttractVideoPath};
+                listToAdd.Add(details);
+            }
+        }
         attractList.AddRange(listToAdd);
         _dispatcher.Dispatch( new AttractSetVideosAction { AttractList = attractList });
 

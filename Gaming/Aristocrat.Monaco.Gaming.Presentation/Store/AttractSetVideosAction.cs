@@ -11,6 +11,6 @@
 
     public record AttractSetVideosAction
     {
-        public List<IAttractDetails>? AttractList { get; init; }
+        public List<AttractVideoDetails>? AttractList { get; init; }
     }
 }
