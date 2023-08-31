@@ -13,6 +13,7 @@ using Aristocrat.Monaco.Accounting.Contracts;
 using Aristocrat.Monaco.Application.Contracts.Extensions;
 using Aristocrat.Monaco.Gaming.Contracts.Models;
 using Aristocrat.Monaco.Gaming.Contracts.Progressives;
+using Aristocrat.Monaco.Gaming.Presentation.Store.Chooser;
 using Aristocrat.Monaco.Gaming.Progressives;
 using Aristocrat.Monaco.Gaming.UI.ViewModels;
 //using Aristocrat.Monaco.Gaming.UI.ViewModels;
@@ -37,6 +38,7 @@ public sealed class AttractService : IAttractService, IDisposable
     private readonly ILogger<AttractService> _logger;
     private readonly IState<AttractState> _attractState;
     private readonly IState<LobbyState> _lobbyState;
+    private readonly IState<ChooserState> _chooserState;
     private readonly IDispatcher _dispatcher;
     private readonly LobbyConfiguration _configuration;
     private readonly IEventBus _eventBus;
@@ -63,6 +65,7 @@ public sealed class AttractService : IAttractService, IDisposable
         ILogger<AttractService> logger,
         IState<AttractState> attractState,
         IState<LobbyState> lobbyState,
+        IState<ChooserState> chooserState,
         IDispatcher dispatcher,
         LobbyConfiguration configuration,
         IEventBus eventBus,
@@ -73,6 +76,7 @@ public sealed class AttractService : IAttractService, IDisposable
         _logger = logger;
         _attractState = attractState;
         _lobbyState = lobbyState;
+        _chooserState = chooserState;
         _dispatcher = dispatcher;
         _configuration = configuration;
         _eventBus = eventBus;
@@ -324,14 +328,14 @@ public sealed class AttractService : IAttractService, IDisposable
         }
     }
 
-    public IEnumerable<GameInfo> GetAttractGameInfoList(ObservableCollection<GameInfo> gameList)
+    public IEnumerable<GameInfo> GetAttractGameInfoList()
     {
         if (!_attractConfigurationProvider.IsAttractEnabled)
         {
             return new List<GameInfo>();
         }
 
-        IEnumerable<GameInfo> subset = gameList
+        IEnumerable<GameInfo> subset = _chooserState.Value.Games
             .Where(g => g.Enabled)
             .DistinctBy(g => g.ThemeId).ToList();
 
@@ -353,7 +357,7 @@ public sealed class AttractService : IAttractService, IDisposable
     /// </summary>
     /// <param name="gameList">The updated game list</param>
     //TODO Figure out a way to pseudo this so we can test the back end portion.
-    public void RefreshAttractGameList(ObservableCollection<GameInfo> gameList)
+    public void RefreshAttractGameList()
     {
         List<IAttractDetails> attractList = new List<IAttractDetails>();
 
@@ -368,7 +372,7 @@ public sealed class AttractService : IAttractService, IDisposable
         }
 
         //TODO do something to add the collection of attract game info to the attract list
-        var listToAdd = GetAttractGameInfoList(gameList);
+        var listToAdd = GetAttractGameInfoList();
         attractList.AddRange(listToAdd);
         _dispatcher.Dispatch( new AttractAddVideosAction { AttractList = attractList });
 
@@ -412,7 +416,7 @@ public sealed class AttractService : IAttractService, IDisposable
             _logger.LogDebug($"Consecutive Attract Video count: {_attractState.Value.ConsecutiveAttractCount}");
 
             if (_attractState.Value.ConsecutiveAttractCount >= _configuration.ConsecutiveAttractVideos ||
-                _attractState.Value.ConsecutiveAttractCount >= _lobbyState.Value.GameCount)
+                _attractState.Value.ConsecutiveAttractCount >= _chooserState.Value.Games.Count)
             {
                 _logger.LogDebug("Stopping attract video sequence");
                 return false;
@@ -440,115 +444,4 @@ public sealed class AttractService : IAttractService, IDisposable
     {
         ExitAndResetAttractMode();
     }
-
-    #region Some Game Relation Stuff (This may be better suited in another service that we call here when needed)
-    public ObservableCollection<GameInfo> LoadGameInfo()
-    {
-        var games = _properties.GetValues<IGameDetail>(GamingConstants.Games).ToList();
-
-        foreach (var game in games)
-        {
-            if (!game.LocaleGraphics.ContainsKey(ActiveLocaleCode))
-            {
-                game.LocaleGraphics.Add(ActiveLocaleCode, new LocaleGameGraphics());
-            }
-        }
-
-        var gameList = GetOrderedGames(games);
-
-        return(gameList);
-    }
-
-    private ObservableCollection<GameInfo> GetOrderedGames(IReadOnlyCollection<IGameDetail> games)
-    {
-        var _gameOrderSettings = ServiceManager.GetInstance().TryGetService<IContainerService>().Container.GetInstance<IGameOrderSettings>();
-
-        bool UseSmallIcons = false;
-        var ChooseGameOffsetY = UseSmallIcons ? 25.0 : 50.0;
-
-        var gameCombos = (from game in games
-                          from denom in game.ActiveDenominations
-                          where game.Enabled
-                          select new GameInfo
-                          {
-                              GameId = game.Id,
-                              Name = game.ThemeName,
-                              InstallDateTime = game.InstallDate,
-                              DllPath = game.GameDll,
-                              ImagePath = UseSmallIcons ? game.LocaleGraphics[ActiveLocaleCode].SmallIcon : game.LocaleGraphics[ActiveLocaleCode].LargeIcon,
-                              TopPickImagePath = UseSmallIcons ? game.LocaleGraphics[ActiveLocaleCode].SmallTopPickIcon : game.LocaleGraphics[ActiveLocaleCode].LargeTopPickIcon,
-                              TopAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].TopAttractVideo,
-                              TopperAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].TopperAttractVideo,
-                              BottomAttractVideoPath = game.LocaleGraphics[ActiveLocaleCode].BottomAttractVideo,
-                              LoadingScreenPath = game.LocaleGraphics[ActiveLocaleCode].LoadingScreen,
-                              ProgressiveOrBonusValue = GetProgressiveOrBonusValue(game.Id, denom, game.Denominations.Single(d => d.Value == denom).BetOption),
-                              ProgressiveIndicator = ProgressiveLobbyIndicator.Disabled,
-                              Denomination = denom,
-                              BetOption = game.Denominations.Single(d => d.Value == denom).BetOption,
-                              FilteredDenomination = _configuration.MinimumWagerCreditsAsFilter ? game.MinimumWagerCredits * denom : denom,
-                              GameType = game.GameType,
-                              GameSubtype = game.GameSubtype,
-                              PlatinumSeries = false,
-                              Enabled = game.Enabled,
-                              AttractHighlightVideoPath = !string.IsNullOrEmpty(game.DisplayMeterName) ? _configuration.AttractVideoWithBonusFilename : _configuration.AttractVideoNoBonusFilename,
-                              UseSmallIcons = UseSmallIcons,
-                              LocaleGraphics = game.LocaleGraphics,
-                              ThemeId = game.ThemeId,
-                              IsNew = GameIsNew(game.GameTags),
-                              Category = game.Category,
-                              SubCategory = game.SubCategory,
-                              RequiresMechanicalReels = game.MechanicalReels > 0
-                          }).ToList();
-
-        return new ObservableCollection<GameInfo>(
-            gameCombos.OrderBy(game => _gameOrderSettings.GetIconPositionPriority(game.ThemeId))
-                .ThenBy(g => g.Denomination));
-    }
-
-    private bool GameIsNew(IEnumerable<string> gameTags)
-    {
-        // NewGame is the string that should be used to tag a game as new
-        return gameTags != null && gameTags.Any(t => t != null && t.ToLower().Equals(GameTag.NewGame.ToString().ToLower()));
-    }
-
-    private string GetProgressiveOrBonusValue(int gameId, long denomId, string betOption = null)
-    {
-        var _progressiveProvider = ServiceManager.GetInstance().TryGetService<IProgressiveConfigurationProvider>();
-        var _gameStorage = ServiceManager.GetInstance().TryGetService<IContainerService>().Container.GetInstance<IGameStorage>();
-
-        _logger.LogDebug($"GetProgressiveOrBonusValue(gameId={gameId}, denomId={denomId}, betOption={betOption}");
-        var game = _properties.GetValues<IGameDetail>(GamingConstants.Games).SingleOrDefault(g => g.Id == gameId);
-        if (!string.IsNullOrEmpty(game?.DisplayMeterName))
-        {
-            var currentValue = game.InitialValue;
-
-            var meter =
-                _gameStorage.GetValues<InGameMeter>(gameId, denomId, GamingConstants.InGameMeters)
-                    .FirstOrDefault(m => m.MeterName == game.DisplayMeterName);
-            if (meter != null)
-            {
-                currentValue = meter.Value;
-            }
-
-            _logger.LogDebug($"DisplayMeterName={game.DisplayMeterName}, JackpotValue={currentValue}");
-            return (currentValue / CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit).FormattedCurrencyString();
-        }
-
-        var levels = _progressiveProvider.ViewProgressiveLevels(gameId, denomId).ToList();
-        if (levels.Any() && !string.IsNullOrWhiteSpace(betOption))
-        {
-            var match = levels.FirstOrDefault(
-                p => string.IsNullOrEmpty(p.BetOption) || p.BetOption == betOption);
-
-            if (match != null)
-            {
-                _logger.LogDebug($"Found {levels.Count} levels, returning first JackpotValue={match.CurrentValue}");
-                return match.CurrentValue.MillicentsToDollarsNoFraction().FormattedCurrencyString();
-            }
-        }
-
-        _logger.LogDebug("Returning empty progressive value");
-        return string.Empty;
-    }
-    #endregion
 }
