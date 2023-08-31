@@ -135,36 +135,36 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Hopper Disconnected.
         /// </summary>
-        public static string HopperFaultTypes_Disconnected {
+        public static string HopperFaultTypes_HopperDisconnected {
             get {
-                return ResourceManager.GetString("HopperFaultTypes_Disconnected", resourceCulture);
+                return ResourceManager.GetString("HopperFaultTypes_HopperDisconnected", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Hopper Empty.
         /// </summary>
-        public static string HopperFaultTypes_Empty {
+        public static string HopperFaultTypes_HopperEmpty {
             get {
-                return ResourceManager.GetString("HopperFaultTypes_Empty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Coin Out Error - Excess Payout.
-        /// </summary>
-        public static string HopperFaultTypes_IllegalCoin {
-            get {
-                return ResourceManager.GetString("HopperFaultTypes_IllegalCoin", resourceCulture);
+                return ResourceManager.GetString("HopperFaultTypes_HopperEmpty", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Hopper Jam.
         /// </summary>
-        public static string HopperFaultTypes_Jam {
+        public static string HopperFaultTypes_HopperJam {
             get {
-                return ResourceManager.GetString("HopperFaultTypes_Jam", resourceCulture);
+                return ResourceManager.GetString("HopperFaultTypes_HopperJam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coin Out Error - Excess Payout.
+        /// </summary>
+        public static string HopperFaultTypes_IllegalCoinOut {
+            get {
+                return ResourceManager.GetString("HopperFaultTypes_IllegalCoinOut", resourceCulture);
             }
         }
         

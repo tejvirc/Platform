@@ -25,7 +25,6 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
         private ICoinAcceptorImplementation _coinAcceptor;
         private readonly IEventBus _bus;
         private readonly long _tokenValue;
-        private readonly IHopper _hopper;
 
         /// <summary>
         ///     Initializes a new instance of the Aristocrat.Monaco.Hardware.CoinAcceptor.CoinAcceptorAdapter class.
@@ -35,7 +34,6 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
             _bus = ServiceManager.GetInstance().GetService<IEventBus>();
             var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
             _tokenValue = properties.GetValue(HardwareConstants.CoinValue, DefaultTokenValue);
-            _hopper = ServiceManager.GetInstance().TryGetService<IHopper>();
         }
 
         /// <inheritdoc />
@@ -115,7 +113,8 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
         /// <inheritdoc />
         public void DivertMechanismOnOff()
         {
-            if (_hopper != null && !_hopper.IsHopperFull)
+            var hopper = ServiceManager.GetInstance().TryGetService<IHopper>();
+            if (hopper != null && !hopper.IsHopperFull)
             {
                 DivertToHopper();
             }
@@ -173,7 +172,7 @@ namespace Aristocrat.Monaco.Hardware.CoinAcceptor
                 Logger.Fatal(errorMessage);
                 throw new ServiceException(errorMessage);
             }
-
+            DiverterDirection = DivertorState.DivertToHopper;
             Implementation.Initialized += ImplementationInitialized;
             Implementation.InitializationFailed += ImplementationInitializationFailed;
             Implementation.FaultOccurred += ImplementationStatusFaultOccurred;

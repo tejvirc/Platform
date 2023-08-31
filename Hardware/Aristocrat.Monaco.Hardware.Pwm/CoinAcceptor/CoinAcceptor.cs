@@ -26,7 +26,7 @@
                 WaitPeriod = WaitPeriod,//ms
                 DeviceType = NativeConstants.CoinAcceptorDeviceType
             };
-            Model = "CC-62";
+            Model = "Generic Coin Acceptor";
             Manufacturer = "CC-62";
             return true;
         }

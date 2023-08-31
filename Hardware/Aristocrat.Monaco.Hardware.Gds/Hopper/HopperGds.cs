@@ -106,7 +106,7 @@
         {
             Logger.Debug($"FailureStatus: {report}");
             PublishReport(report);
-            FaultOccurred(this, report.FaultType);
+            SetFault(report.FaultType, true);
         }
 
         /// <summary>Called when a hopper bowl state is requested.</summary>
@@ -116,6 +116,32 @@
             Logger.Debug($"FailureStatus: {report}");
             PublishReport(report);
             isHopperFull = report.IsFull;
+        }
+
+        /// <summary> Updates the fault flags for this device.</summary>
+        /// <param name="fault">The fault.</param>
+        /// <param name="set">True to set; otherwise fault will be cleared.</param>
+        protected virtual void SetFault(HopperFaultTypes fault, bool set)
+        {
+            if (!set)
+            {
+                //No bit by bit clearance of fault.
+                //They will be removed together on reset key and they will be genrated again if still exists.
+                //All will be done in monitor class.
+            }
+            else
+            {
+                var toggle = Faults ^ fault;
+                if (toggle == HopperFaultTypes.None)
+                {
+                    // no updates
+                    return;
+                }
+
+                Faults |= fault;
+                Logger.Warn($"SetFault: fault set {toggle}");
+                FaultOccurred(this, fault);
+            }
         }
     }
 }

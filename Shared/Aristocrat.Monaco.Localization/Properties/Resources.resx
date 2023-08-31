@@ -12611,4 +12611,20 @@ Perform Hopper Refill</value>
     <value>Hopper</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
+  <data name="HopperFaultTypes_HopperDisconnected" xml:space="preserve">
+    <value>Hopper Disconnected</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="HopperFaultTypes_HopperEmpty" xml:space="preserve">
+    <value>Hopper Empty</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="HopperFaultTypes_HopperJam" xml:space="preserve">
+    <value>Hopper Jam</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
+  <data name="HopperFaultTypes_IllegalCoinOut" xml:space="preserve">
+    <value>Coin Out Error - Excess Payout</value>
+    <comment>Aristocrat.Monaco.Hardware.Contracts</comment>
+  </data>
 </root>

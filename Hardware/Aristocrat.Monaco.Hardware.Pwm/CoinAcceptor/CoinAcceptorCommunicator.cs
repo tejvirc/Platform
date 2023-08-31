@@ -76,11 +76,11 @@
                     {
                         if (mode.DivertorOnOff)
                         {
-                            DivertToHopper();
+                            DivertToCashbox();
                         }
                         else
                         {
-                            DivertToCashbox();
+                            DivertToHopper();
                         }
                         break;
                     }
@@ -150,12 +150,12 @@
                         {
                             if (AcceptorState.PendingDiverterAction == DivertorAction.DivertToHopper)
                             {
-                                DivertorMechanishOnOff(true);
+                                DivertorMechanishOnOff(false);
                                 AcceptorState.DivertTo = DivertorState.DivertToHopper;
                             }
                             else
                             {
-                                DivertorMechanishOnOff(false);
+                                DivertorMechanishOnOff(true);
                                 AcceptorState.DivertTo = DivertorState.DivertToCashbox;
                             }
 
@@ -188,8 +188,8 @@
 
             CoinEntryState.CurrentState = Cc62Signals.SolenoidSignal;
             CoinEntryState.DivertingTo = ((record.NewValue & (int)Cc62Signals.SolenoidSignal) != 0)
-                                            ? DivertorState.DivertToCashbox
-                                            : DivertorState.DivertToHopper;
+                                            ? DivertorState.DivertToHopper
+                                            : DivertorState.DivertToCashbox;
         }
 
         /// <summary>Process sense signal</summary>

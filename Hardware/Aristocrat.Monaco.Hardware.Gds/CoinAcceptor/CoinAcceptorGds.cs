@@ -49,13 +49,13 @@
         /// <inheritdoc />
         public void DivertToCashbox()
         {
-            SendCommand(new DivertorMode { DivertorOnOff = false });
+            SendCommand(new DivertorMode { DivertorOnOff = true });
         }
 
         /// <inheritdoc />
         public void DivertToHopper()
         {
-            SendCommand(new DivertorMode { DivertorOnOff = true });
+            SendCommand(new DivertorMode { DivertorOnOff = false });
         }
 
         /// <inheritdoc />

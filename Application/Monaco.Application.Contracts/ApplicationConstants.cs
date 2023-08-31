@@ -1019,6 +1019,9 @@
         /// <summary> USB </summary>
         public const string USB = "USB";
 
+        /// <summary> Not Applicable </summary>
+        public const string NA = "NA";
+
         /// <summary> DeviceType </summary>
         public const string DeviceType = "DeviceType";
 

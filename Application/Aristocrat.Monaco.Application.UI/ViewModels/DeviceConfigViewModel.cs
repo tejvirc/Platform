@@ -183,7 +183,7 @@
             get => _port;
             set
             {
-                if (Protocol == ApplicationConstants.GDS && value != ApplicationConstants.USB)
+                if ((Protocol == ApplicationConstants.GDS && value != ApplicationConstants.USB) || value == ApplicationConstants.NA)
                 {
                     _config.Port = 0;
                 }
@@ -420,6 +420,11 @@
                         Ports.Add(ApplicationConstants.USB);
                         Port = ApplicationConstants.USB;
                     }
+                }
+                else if (selectedDevice?.Port == ApplicationConstants.NA)
+                {
+                    Ports.Add(ApplicationConstants.NA);
+                    Port = ApplicationConstants.NA;
                 }
                 else
                 {

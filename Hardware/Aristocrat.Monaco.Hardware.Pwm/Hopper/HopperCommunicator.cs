@@ -379,7 +379,7 @@
         private byte GetCurrentHopperRegisterValue()
         {
             byte value = 0;
-            Ioctl(HopperCommands.HopperGetRegisterValue, value);
+            Ioctl(HopperCommands.HopperGetRegisterValue, 0, ref value);
             return value;
         }
 

@@ -15908,6 +15908,54 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Hopper Disconnected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware.Contracts
+        /// </remarks>
+		public static string HopperFaultTypes_HopperDisconnected {
+			get {
+				return ResourceManager.GetString("HopperFaultTypes_HopperDisconnected", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Empty.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware.Contracts
+        /// </remarks>
+		public static string HopperFaultTypes_HopperEmpty {
+			get {
+				return ResourceManager.GetString("HopperFaultTypes_HopperEmpty", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Jam.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware.Contracts
+        /// </remarks>
+		public static string HopperFaultTypes_HopperJam {
+			get {
+				return ResourceManager.GetString("HopperFaultTypes_HopperJam", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Coin Out Error - Excess Payout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware.Contracts
+        /// </remarks>
+		public static string HopperFaultTypes_IllegalCoinOut {
+			get {
+				return ResourceManager.GetString("HopperFaultTypes_IllegalCoinOut", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Hopper.
 		/// </summary>
         /// <remarks>
@@ -53236,6 +53284,54 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Hopper Disconnected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware.Contracts
+        /// </remarks>
+		public static string HopperFaultTypes_HopperDisconnected {
+			get {
+				return "HopperFaultTypes_HopperDisconnected";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper Empty.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware.Contracts
+        /// </remarks>
+		public static string HopperFaultTypes_HopperEmpty {
+			get {
+				return "HopperFaultTypes_HopperEmpty";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Hopper Jam.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware.Contracts
+        /// </remarks>
+		public static string HopperFaultTypes_HopperJam {
+			get {
+				return "HopperFaultTypes_HopperJam";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Coin Out Error - Excess Payout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware.Contracts
+        /// </remarks>
+		public static string HopperFaultTypes_IllegalCoinOut {
+			get {
+				return "HopperFaultTypes_IllegalCoinOut";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Hopper.
 		/// </summary>
         /// <remarks>
@@ -83750,6 +83846,34 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		HopperFault,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Disconnected.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware.Contracts
+        /// </remarks>
+		HopperFaultTypes_HopperDisconnected,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Empty.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware.Contracts
+        /// </remarks>
+		HopperFaultTypes_HopperEmpty,
+		/// <summary>
+		///   Looks up a localized string similar to Hopper Jam.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware.Contracts
+        /// </remarks>
+		HopperFaultTypes_HopperJam,
+		/// <summary>
+		///   Looks up a localized string similar to Coin Out Error - Excess Payout.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Hardware.Contracts
+        /// </remarks>
+		HopperFaultTypes_IllegalCoinOut,
 		/// <summary>
 		///   Looks up a localized string similar to Hopper.
 		/// </summary>

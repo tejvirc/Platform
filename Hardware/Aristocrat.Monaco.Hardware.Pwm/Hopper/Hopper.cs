@@ -27,7 +27,7 @@
                 WaitPeriod = WaitPeriod,//ms
                 DeviceType = NativeConstants.HopperDeviceType
             };
-            Model = "Aristocrat";
+            Model = "Generic Hopper";
             Manufacturer = "Aristocrat";
             return true;
         }

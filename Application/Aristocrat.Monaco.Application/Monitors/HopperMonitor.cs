@@ -15,7 +15,7 @@
     /// <summary>
     ///     Handle Lockup events from Hopper.
     /// </summary>
-    public sealed class HopperMonitor : IService, IDisposable
+    public sealed class HopperMonitor : GenericBaseMonitor, IService, IDisposable
     {
         private readonly ISystemDisableManager _disableManager;
         private readonly IEventBus _bus;
@@ -31,7 +31,7 @@
 
         public HopperMonitor()
             : this(
-                ServiceManager.GetInstance().GetService<IHopper>(),
+                ServiceManager.GetInstance().TryGetService<IHopper>(),
                 ServiceManager.GetInstance().GetService<ISystemDisableManager>(),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().GetService<IEventBus>())
@@ -45,19 +45,46 @@
             IPropertiesManager propertiesManager,
             IEventBus eventBus)
         {
-            _hopperService = hopperService ?? throw new ArgumentNullException(nameof(hopperService));
+            _hopperService = hopperService;
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _properties = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _bus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
         }
 
+        /// <inheritdoc />
+        public override string DeviceName => "Hopper";
+
         public void Initialize()
         {
+            if (_hopperService == null) return;
+            // These are the sets of errors and states that this class monitors uniquely.
+            ManageErrorEnum<HopperFaultTypes>(
+                DisplayableMessageClassification.HardError,
+                DisplayableMessagePriority.Immediate,
+                true);
             SubscribeEvents();
             _alarm = new Alarm();
             _alarm.LoadAlarm();
             _tokenValue = _properties.GetValue(HardwareConstants.CoinValue, DefaultTokenValue);
-            CheckLockUp();
+            var existingFaults = _properties.GetValue(HardwareConstants.HopperFaults, HopperFaultTypes.None);
+
+            //Check the lockups which occured before coming to this point.
+            CheckDeviceStatus();
+
+            //Check the lockups which were there before the power cycle.
+            CheckSaveDeviceStatus(existingFaults);
+
+            //Checking if Hopper test lockup exist.
+            CheckHopperTestLockup();
+        }
+
+        /// <inheritdoc />
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _bus.UnsubscribeAll(this);
+            }
         }
 
         private void SubscribeEvents()
@@ -70,13 +97,8 @@
             _bus.Subscribe<HardwareFaultEvent>(this, Handle);
         }
 
-        private void CheckLockUp()
+        private void CheckSaveDeviceStatus(HopperFaultTypes existingFaults)
         {
-            //Checking if Hopper test lockup exist.
-            CheckHopperTestLockup();
-
-            var existingFaults = _properties.GetValue(HardwareConstants.HopperFaults, HopperFaultTypes.None);
-
             foreach (HopperFaultTypes fault in Enum.GetValues(typeof(HopperFaultTypes)))
             {
                 if (FaultTexts.ContainsKey(fault) &&
@@ -89,56 +111,37 @@
 
         private void Handle(HardwareFaultEvent evt)
         {
-            if (FaultTexts.ContainsKey(evt.Fault) &&
-                !_hopperService.Faults.HasFlag(evt.Fault))
-            {
-                HandleLockUp(evt.Fault);
-            }
+
+            HandleLockUp(evt.Fault);
+            PersistLockups();
         }
 
         private void HandleLockUp(HopperFaultTypes coinFault)
         {
-            var descriptor = FaultTexts[coinFault];
-
-            _hopperService.Faults |= coinFault;
-
-            if (coinFault == HopperFaultTypes.IllegalCoinOut)
-            {
-                descriptor.LockUpMessage += $" {_tokenValue.MillicentsToDollars().FormattedCurrencyString()}";
-            }
-
-            _disableManager.Disable(
-                coinFault.GetAttribute<ErrorGuidAttribute>().Id,
-                SystemDisablePriority.Immediate,
-                () => descriptor.LockUpMessage,
-                true,
-                () => descriptor.LockUpHelpMessage);
-
             _alarm.PlayAlarm();
-            _properties.SetProperty(HardwareConstants.HopperFaults, _hopperService.Faults);
+            AddFault(coinFault);
+
         }
 
         private void HardwareFaultClear()
         {
-            if (_hopperService.Faults != HopperFaultTypes.None)
+            if(_hopperService != null)
             {
-                _hopperService.Faults = HopperFaultTypes.None;
-
-                // Reset hopper.
-                _hopperService.Reset();
-
-                foreach (HopperFaultTypes fault in Enum.GetValues(typeof(HopperFaultTypes)))
+                if (_hopperService.Faults != HopperFaultTypes.None)
                 {
-                    if (FaultTexts.ContainsKey(fault))
+                    _hopperService.Faults = HopperFaultTypes.None;
+
+                    // Reset hopper.
+                    _hopperService.Reset();
+
+                    foreach (HopperFaultTypes fault in Enum.GetValues(typeof(HopperFaultTypes)))
                     {
-                        _disableManager.Enable(fault.GetAttribute<ErrorGuidAttribute>().Id);
-                        _bus.Publish(new HardwareFaultClearEvent(fault));
+                        ClearFault(fault);
                     }
+                    _properties.SetProperty(HardwareConstants.HopperFaults, HopperFaultTypes.None);
                 }
-
-                _properties.SetProperty(HardwareConstants.HopperFaults, HopperFaultTypes.None);
-
             }
+
         }
         private void CheckHopperTestLockup()
         {
@@ -151,9 +154,28 @@
                     () => Hardware.Contracts.Properties.Resources.HopperTestFaultHelp);
             }
         }
-        public void Dispose()
+
+        private void CheckDeviceStatus()
         {
-            _bus.UnsubscribeAll(this);
+            if (_hopperService != null)
+            {
+                if (_hopperService.Faults != HopperFaultTypes.None)
+                {
+                    foreach (HopperFaultTypes fault in Enum.GetValues(typeof(HopperFaultTypes)))
+                    {
+                        if (_hopperService.Faults.HasFlag(fault))
+                        {
+                            HandleLockUp(fault);
+                        }
+                    }
+                    PersistLockups();
+                }
+            }
+        }
+
+        private void PersistLockups()
+        {
+            _properties.SetProperty(HardwareConstants.HopperFaults, _hopperService.Faults);
         }
     }
 }

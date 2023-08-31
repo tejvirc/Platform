@@ -15,14 +15,14 @@
         internal void Reset()
         {
             State = AcceptorState.Reject;
-            DivertTo = DivertorState.DivertToCashbox;
-            PendingDiverterAction = DivertorAction.None;
+            DivertTo = DivertorState.DivertToHopper;
+            PendingDiverterAction = DivertorAction.DivertToHopper;
             CoinTransmitTimer = 0;
         }
 
-        internal DivertorState DivertTo { get; set; } = DivertorState.DivertToCashbox;
+        internal DivertorState DivertTo { get; set; } = DivertorState.DivertToHopper;
         internal AcceptorState State { get; set; } = AcceptorState.Reject;
-        internal DivertorAction PendingDiverterAction { get; set; } = DivertorAction.None;
+        internal DivertorAction PendingDiverterAction { get; set; } = DivertorAction.DivertToHopper;
         internal Int64 CoinTransmitTimer { get; set; } = 0;
     }
 }

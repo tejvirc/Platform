@@ -202,7 +202,7 @@ as follows:
       <Parity>None</Parity>
       <StopBits>One</StopBits>
     </Device>
-    <Device Enabled="true" Type="CoinAcceptor" Name="Fake" Protocol="Fake" Port="Fake" Mode="Fake">
+    <Device Enabled="true" Type="CoinAcceptor" Name="Fake" Protocol="Fake" Mode="Fake">
       <ExtensionPath>/Hardware/CoinAcceptor</ExtensionPath>
       <USBVendorId></USBVendorId>
       <USBProductId></USBProductId>
@@ -216,7 +216,7 @@ as follows:
       <Parity>None</Parity>
       <StopBits>One</StopBits>
     </Device>
-    <Device Enabled="true" Type="Hopper" Name="Fake" Protocol="Fake" Port="Fake" Mode="Fake">
+    <Device Enabled="true" Type="Hopper" Name="Fake" Protocol="Fake" Mode="Fake">
       <ExtensionPath>/Hardware/Hopper</ExtensionPath>
       <USBVendorId></USBVendorId>
       <USBProductId></USBProductId>

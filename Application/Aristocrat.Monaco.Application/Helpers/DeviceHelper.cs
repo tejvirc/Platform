@@ -67,6 +67,11 @@
             string variantName,
             string variantVersion)
         {
+            if(port.Contains(ApplicationConstants.NA))
+            {
+                return $"{model} {manufacturer} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ConnectedText)}";
+            }
+
             var sb = new StringBuilder()
                 .AppendWithSpace(manufacturer)
                 .AppendWithSpace(model)

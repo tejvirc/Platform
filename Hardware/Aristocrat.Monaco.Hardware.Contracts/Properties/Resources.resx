@@ -237,16 +237,16 @@
   <data name="CoinFaultTypes_YoYo" xml:space="preserve">
     <value>Coin-in Error: YoYo Fault</value>
   </data>
-  <data name="HopperFaultTypes_Disconnected" xml:space="preserve">
+  <data name="HopperFaultTypes_HopperDisconnected" xml:space="preserve">
     <value>Hopper Disconnected</value>
   </data>
-  <data name="HopperFaultTypes_Empty" xml:space="preserve">
+  <data name="HopperFaultTypes_HopperEmpty" xml:space="preserve">
     <value>Hopper Empty</value>
   </data>
-  <data name="HopperFaultTypes_IllegalCoin" xml:space="preserve">
+  <data name="HopperFaultTypes_IllegalCoinOut" xml:space="preserve">
     <value>Coin Out Error - Excess Payout</value>
   </data>
-  <data name="HopperFaultTypes_Jam" xml:space="preserve">
+  <data name="HopperFaultTypes_HopperJam" xml:space="preserve">
     <value>Hopper Jam</value>
   </data>
   <data name="HopperTestFault" xml:space="preserve">

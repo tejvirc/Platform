@@ -231,6 +231,7 @@
             {
                 CanHopperTestClose = false;
                 CanActivatePayout = false;
+                PropertiesManager.SetProperty(HardwareConstants.CoinAcceptorDiagnosticMode, true);
                 _disableManager.Enable(HardwareConstants.HopperTestLockKey);
                 UpdateInputStatus();
                 _coinAcceptorService.DivertToHopper();

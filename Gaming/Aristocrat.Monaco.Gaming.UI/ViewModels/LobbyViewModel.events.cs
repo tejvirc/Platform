@@ -521,7 +521,7 @@
             Logger.Debug("Detected CoinInStartedEvent");
             if (CurrentState != LobbyState.Disabled)
             {
-                CashInStarted(CashInType.Currency);
+                CashInStarted(CashInType.Coin);
             }
         }
 

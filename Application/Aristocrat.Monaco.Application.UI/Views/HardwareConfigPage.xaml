@@ -147,10 +147,8 @@
                            AutomationProperties.AutomationId="RowDefinition10_3A60546D" />
             <RowDefinition Height="Auto"
                            AutomationProperties.AutomationId="RowDefinition11_3A60546D" />
-            <RowDefinition Height="Auto"
-                           AutomationProperties.AutomationId="RowDefinition12_3A60546D" />
             <RowDefinition Height="*"
-                           AutomationProperties.AutomationId="RowDefinition13_3A60546D" />
+                           AutomationProperties.AutomationId="RowDefinition12_3A60546D" />
         </Grid.RowDefinitions>
         <DataGrid Grid.Row="0"
                   x:Name="DeviceDataGrid"
@@ -452,7 +450,7 @@
                       AutomationProperties.AutomationId="ComboBox62_3A60546D" />
         </Grid>
 
-        <StackPanel Grid.Row="7"
+        <StackPanel Grid.Row="6"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Orientation="Horizontal"

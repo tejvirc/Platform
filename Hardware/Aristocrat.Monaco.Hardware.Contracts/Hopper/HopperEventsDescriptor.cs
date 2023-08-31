@@ -43,22 +43,22 @@
             {
                 {
                     HopperFaultTypes.HopperDisconnected,
-                    new(Properties.Resources.HopperFaultTypes_Disconnected)
+                    new(Properties.Resources.HopperFaultTypes_HopperDisconnected)
                 },
 
                 {
                     HopperFaultTypes.HopperEmpty,
-                    new(Properties.Resources.HopperFaultTypes_Empty)
+                    new(Properties.Resources.HopperFaultTypes_HopperEmpty)
                 },
 
                 {
                     HopperFaultTypes.HopperJam,
-                    new(Properties.Resources.HopperFaultTypes_Jam)
+                    new(Properties.Resources.HopperFaultTypes_HopperJam)
                 },
 
                 {
                     HopperFaultTypes.IllegalCoinOut,
-                    new(Properties.Resources.HopperFaultTypes_IllegalCoin, Properties.Resources.HopperFaultTypes_IllegalCoin)
+                    new(Properties.Resources.HopperFaultTypes_IllegalCoinOut, Properties.Resources.HopperFaultTypes_IllegalCoinOut)
                 },
             };
     }

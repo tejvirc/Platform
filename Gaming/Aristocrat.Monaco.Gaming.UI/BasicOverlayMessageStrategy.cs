@@ -72,6 +72,9 @@
                         data.Text = Resources.WatOnText;
                     }
                     break;
+                case CashInType.Coin:
+                    data.SubText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.CoinIn);
+                    break;
             }
 
             return data;

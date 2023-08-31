@@ -192,7 +192,10 @@
         Voucher,
 
         /// <summary> Wat </summary>
-        Wat
+        Wat,
+
+        /// <summary> Coin In </summary>
+        Coin
     }
 
     /// <summary> Defines the game type enum </summary>
