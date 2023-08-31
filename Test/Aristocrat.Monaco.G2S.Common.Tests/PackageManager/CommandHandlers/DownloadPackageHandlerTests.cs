@@ -200,8 +200,9 @@
             helper.ConfigureAndRegisterMocks();
 
             var dbContextOptions = new Mock<DbContextOptions>();
-
-            helper.ContextFactoryMock.Setup(x => x.CreateDbContext()).Returns(new MonacoContext("test"));
+            var dbConnectionResolveMock = new Mock<IConnectionStringResolver>();
+            dbConnectionResolveMock.Setup(a => a.Resolve()).Returns("testingconnectionstring");
+            helper.ContextFactoryMock.Setup(x => x.CreateDbContext()).Returns(new MonacoContext(dbConnectionResolveMock.Object));
             helper.PackageRepositoryMock
                 .Setup(x => x.GetPackageByPackageId(It.IsAny<DbContext>(), It.IsAny<string>()))
                 .Returns((Package)null)

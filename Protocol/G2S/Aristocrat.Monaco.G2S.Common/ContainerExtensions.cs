@@ -1,10 +1,9 @@
 ﻿namespace Aristocrat.Monaco.G2S.Common
 {
-    using Aristocrat.Monaco.Protocol.Common.Storage;
-    using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
-    using Aristocrat.Monaco.Protocol.Common.Storage.Repositories;
     using Data;
-    using Data.Models;
+    using Protocol.Common.Storage;
+    using Protocol.Common.Storage.Entity;
+    using Protocol.Common.Storage.Repositories;
     using Microsoft.EntityFrameworkCore;
     using SimpleInjector;
     using SimpleInjector.Diagnostics;
@@ -21,18 +20,12 @@
         /// <returns><see cref="Container"/></returns>
         public static Container AddDbContext(this Container container)
         {
-            container.RegisterSingleton<IConnectionStringResolver, DefaultConnectionStringResolver>();
-
-            container.Register<DbContext, G2SContext>(Lifestyle.Scoped);
-
             container.RegisterConditional(typeof(IRepository<>), typeof(Repository<>), Lifestyle.Scoped, _ => true);
 
             var registration = Lifestyle.Transient.CreateRegistration<UnitOfWork>(container);
             registration.SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "ignore");
             container.AddRegistration(typeof(IUnitOfWork), registration);
-
             container.RegisterSingleton<IUnitOfWorkFactory, UnitOfWorkFactory>();
-
             return container;
         }
     }

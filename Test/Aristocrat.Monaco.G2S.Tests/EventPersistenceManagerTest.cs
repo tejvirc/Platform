@@ -12,6 +12,7 @@
     using Data.Model;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Monaco.Common.Storage;
+    using Monaco.Protocol.Common.Storage;
     using Moq;
 
     [TestClass]
@@ -67,7 +68,9 @@
             var supportedEvents = new List<SupportedEvent> { supportedEvent };
             var eventSubscriptions = new List<EventSubscription> { eventSubscription, forcedSubscription };
 
-            _contextFactoryMock.Setup(a => a.CreateDbContext()).Returns(new MonacoContext("TestConnection"));
+            var dbConnectionResolveMock = new Mock<IConnectionStringResolver>();
+            dbConnectionResolveMock.Setup(a => a.Resolve()).Returns("TestConnection");
+            _contextFactoryMock.Setup(a => a.CreateDbContext()).Returns(new MonacoContext(dbConnectionResolveMock.Object));
             _eventHandlerLogRepoMock.Setup(a => a.Get(It.IsAny<DbContext>(), 1, 1))
                 .Returns(log);
             _supportedEventsRepoMock.Setup(a => a.Get(It.IsAny<DbContext>(), EventCode.G2S_APE001, 1))

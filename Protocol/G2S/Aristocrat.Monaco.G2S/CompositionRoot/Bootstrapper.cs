@@ -21,8 +21,9 @@
     using Aristocrat.G2S.Communicator.ServiceModel;
     using Aristocrat.G2S.Emdi;
     using Aristocrat.Monaco.G2S.Common;
-    using Aristocrat.Monaco.G2S.Common.Data.Models;
+    using Aristocrat.Monaco.G2S.Common.Data;
     using Aristocrat.Monaco.G2S.Services;
+    using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
     using Common.CertificateManager;
     using CoreWCF.Description;
     using Data.Hosts;
@@ -39,6 +40,7 @@
     using Meters;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using Microsoft.EntityFrameworkCore;
     using Monaco.Common.Container;
     using Monaco.Common.Scheduler;
     using Monaco.Common.Storage;
@@ -51,6 +53,7 @@
     using SimpleInjector;
     using SimpleInjector.Lifestyles;
     using Constants = G2S.Constants;
+    using Aristocrat.Monaco.Protocol.Common.Storage;
 
     /// <summary>
     ///     Aristocrat.Monaco.G2S.CompositionRoot.Bootstrapper
@@ -73,7 +76,6 @@
         {
             var container = new Container();
             container.AddResolveUnregisteredType(typeof(Bootstrapper).FullName, Logger);
-
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             container.Register<IEngine, G2SEngine>(Lifestyle.Singleton);
             container.Register<IG2SDisableProvider, G2SDisableProvider>(Lifestyle.Singleton);
@@ -81,8 +83,10 @@
             container.RegisterPackageManager(ConnectionString());
             container.RegisterCertificateManager(ConnectionString());
             container.RegisterData(ConnectionString());
-            container.AddDbContext();
 
+            container.RegisterSingleton<IConnectionStringResolver, DefaultConnectionStringResolver>();
+            container.Register<DbContext, MonacoContext>(Lifestyle.Scoped);
+            container.AddDbContext();
             // Register the handlers
             container.ConfigureHandlers();
 

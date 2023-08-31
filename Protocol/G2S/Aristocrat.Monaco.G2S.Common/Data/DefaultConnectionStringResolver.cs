@@ -19,9 +19,7 @@
         public DefaultConnectionStringResolver(IPathMapper pathMapper)
         {
             var dir = pathMapper.GetDirectory(Constants.DataPath);
-
             var path = Path.GetFullPath(dir.FullName);
-
             var sqlBuilder = new SqlConnectionStringBuilder
             {
                 DataSource = Path.Combine(path, Constants.DatabaseFileName),

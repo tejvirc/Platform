@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using Aristocrat.Monaco.Protocol.Common.Storage;
     using CompositionRoot;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -101,7 +102,7 @@
 
             Logger.Info("Preparing to clear persistent storage on the G2S database");
 
-            var factory = new DbContextFactory();
+            var factory = new DbContextFactory(ServiceManager.GetInstance().GetService<IConnectionStringResolver>());
             try
             {
                 using (var context = factory.Lock())

@@ -3,6 +3,7 @@
     using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
+    using Aristocrat.Monaco.Protocol.Common.Storage;
     using Monaco.Common.Storage;
     using Moq;
 
@@ -16,7 +17,9 @@
         public static IMonacoContextFactory CreateMonacoContextFactory()
         {
             var contextFactory = new Mock<IMonacoContextFactory>();
-            var context = new MonacoContext("fake");
+            var dbConnectionResolveMock = new Mock<IConnectionStringResolver>();
+            dbConnectionResolveMock.Setup(a => a.Resolve()).Returns("fake");
+            var context = new MonacoContext(dbConnectionResolveMock.Object);
             contextFactory.Setup(a => a.CreateDbContext()).Returns(context);
 
             return contextFactory.Object;

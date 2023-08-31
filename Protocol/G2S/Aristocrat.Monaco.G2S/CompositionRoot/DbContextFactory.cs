@@ -2,44 +2,38 @@
 {
     using System;
     using System.Collections.Generic;
-    using Microsoft.EntityFrameworkCore;
     using System.Data.SqlClient;
     using System.IO;
     using System.Threading;
+    using Microsoft.EntityFrameworkCore;
     using Kernel;
     using Monaco.Common.Storage;
+    using Protocol.Common.Storage;
+    using G2S.Common.Data;
 
     /// <summary>
     ///     An implementation of <see cref="IMonacoContextFactory" />
     /// </summary>
     public class DbContextFactory : IMonacoContextFactory, IService, IDisposable
     {
-        private readonly string _connectionString;
+        private readonly IConnectionStringResolver _connectionStringResolver;
         private readonly ManualResetEventSlim _exclusiveLock = new(true);
 
         private bool _disposed;
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="DbContextFactory" /> class.
-        /// </summary>
         public DbContextFactory()
-            : this(ServiceManager.GetInstance().GetService<IPathMapper>())
+            : this(new DefaultConnectionStringResolver(ServiceManager.GetInstance().GetService<IPathMapper>()))
         {
         }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="DbContextFactory" /> class.
         /// </summary>
-        /// <param name="pathMapper">An <see cref="IPathMapper" /> instance.</param>
-        public DbContextFactory(IPathMapper pathMapper)
+        public DbContextFactory(IConnectionStringResolver connectionStringResolver)
         {
-            if (pathMapper == null)
-            {
-                throw new ArgumentNullException(nameof(pathMapper));
-            }
-
-            _connectionString = ConnectionString(pathMapper, Constants.DatabasePassword);
-            using var context = new MonacoContext(_connectionString);
+            _connectionStringResolver = connectionStringResolver ??
+                                        throw new ArgumentNullException(nameof(connectionStringResolver));
+            using var context = new MonacoContext(_connectionStringResolver);
             context.Database.EnsureCreated();
         }
 
@@ -103,23 +97,9 @@
             _disposed = true;
         }
 
-        private static string ConnectionString(IPathMapper pathMapper, string password)
-        {
-            var dir = pathMapper.GetDirectory(Constants.DataPath);
-            var path = Path.GetFullPath(dir.FullName);
-
-            var sqlBuilder = new SqlConnectionStringBuilder
-            {
-                DataSource = Path.Combine(path, Constants.DatabaseFileName),
-                Password = password
-            };
-
-            return sqlBuilder.ConnectionString;
-        }
-
         private DbContext CreateContext()
         {
-            var context = new MonacoContext(_connectionString);
+            var context = new MonacoContext(_connectionStringResolver);
             try
             {
                 return context;

@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using CompositionRoot;
+    using G2S.Common.Data;
+    using Protocol.Common.Storage;
     using Data.Hosts;
     using Kernel;
 
@@ -19,7 +21,7 @@
         public IHostService GetHostService()
         {
             return new HostService(
-                new DbContextFactory(ServiceManager.GetInstance().GetService<IPathMapper>()),
+                new DbContextFactory(new DefaultConnectionStringResolver(ServiceManager.GetInstance().GetService<IPathMapper>())),
                 new HostRepository());
         }
 

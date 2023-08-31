@@ -17,6 +17,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Monaco.Common.Scheduler;
     using Monaco.Common.Storage;
+    using Monaco.Protocol.Common.Storage;
     using Moq;
 
     [TestClass]
@@ -37,7 +38,9 @@
         [TestInitialize]
         public void TestInitialization()
         {
-            _contextFactoryMock.Setup(a => a.CreateDbContext()).Returns(new MonacoContext("TestConnection"));
+            var dbConnectionResolveMock = new Mock<IConnectionStringResolver>();
+            dbConnectionResolveMock.Setup(a => a.Resolve()).Returns("TestConnection");
+            _contextFactoryMock.Setup(a => a.CreateDbContext()).Returns(new MonacoContext(dbConnectionResolveMock.Object));
         }
 
         [TestMethod]

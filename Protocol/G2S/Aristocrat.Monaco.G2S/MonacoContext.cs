@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using Aristocrat.Monaco.Protocol.Common.Storage;
     using Common.CertificateManager.Mapping;
     using Common.CertificateManager.Models;
     using Common.GAT.Storage;
@@ -13,6 +14,7 @@
     using Data.OptionConfig;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+    using System.IO;
 
     /// <summary>
     ///     A Monaco specific DbContext implementation
@@ -21,9 +23,9 @@
     {
         private readonly string _connectionString;
 
-        public MonacoContext(string connectionString)
+        public MonacoContext(IConnectionStringResolver connectionStringResolver)
         {
-            _connectionString = connectionString;
+            _connectionString = connectionStringResolver.Resolve();
         }
 
         public DbSet<Data.Model.Host> Host { get; set; }
@@ -56,6 +58,7 @@
         public DbSet<VoucherData> VoucherData { get; set; }
         public DbSet<IdReaderData> IdReaderData { get; set; }
         public DbSet<PackageLog> PackageLog { get; set; }
+        public DbSet<PendingJackpotAwards> PendingJackpotAwards { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -99,6 +102,7 @@
             modelBuilder.ApplyConfiguration(new VoucherDataMap());
             modelBuilder.ApplyConfiguration(new IdReaderDataMap());
             modelBuilder.ApplyConfiguration(new PackageLogMap());
+            modelBuilder.ApplyConfiguration(new PendingJackpotAwardsConfiguration());
 
             var entityTypes = modelBuilder.Model.GetEntityTypes();
 
