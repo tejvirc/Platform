@@ -20,6 +20,7 @@
         UberMode,
         LobbyOperation_GameExit,
         OperatingHoursOperation,
-        CashoutBannerSupport
+        CashoutBannerSupport,
+        GameExitingNoramlly
     }
 }

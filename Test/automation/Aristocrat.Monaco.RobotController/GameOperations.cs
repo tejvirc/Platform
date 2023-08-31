@@ -285,6 +285,7 @@
                     _sanityCounter = 0;
                     _requestGameIsInProgress = false;
                     _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
+                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExitingNoramlly);
                     BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
                 });
 
@@ -421,10 +422,10 @@
         {
             if (_exitWhenIdle)
             {
-                _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
+                _robotController.BlockOtherOperations(RobotStateAndOperations.GameExitingNoramlly);
                 if (!IsExitToLobbyWhenIdleValid())
                 {
-                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
+                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExitingNoramlly);
                     return;
                 }
                 _logger.Info($"ExitToLobby Request Is Received! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
