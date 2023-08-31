@@ -54,39 +54,5 @@
             // e.g. "1.5", "1.0", "0.5", 10.0" RTPs like these are usually progressive contributions.
             return rawRtp;
         }
-
-        /// <summary>
-        ///     Serializes a previously normalized RTP decimal percent, back to a long.
-        /// </summary>
-        /// <remarks>
-        ///     Legacy warning: This method is a compatibility helper for RTP values stored in the Platform and
-        ///     GSA Manifest that are serialized into a long value. This is the legacy way of serializing RTP.
-        /// </remarks>
-        /// <param name="rtpPercent">The RTP percent.</param>
-        /// <returns>The decimal RTP value serialized to a long.</returns>
-        public static long SerializeRtpToLong(decimal rtpPercent)
-        {
-            // Check that the decimal RTP supports being serialized to long. It must be a total of 4 or 5 digits.
-            // Essentially, we should not be converting an RTP value to long unless it previously was a long
-            // from the original source, before it got normalized into a decimal percent. Otherwise there will
-            // be loss of precision.
-            var decimalPlaces = MathHelper.CountDecimalPlaces(rtpPercent);
-            var totalDigits =
-                decimalPlaces + 2; // These older long serializations always have 2 digits to left of decimal
-
-            if (totalDigits == 4)
-            {
-                // Move decimal over 2 digits to the right
-                return Convert.ToInt64(rtpPercent * 100);
-            }
-
-            if (totalDigits == 5)
-            {
-                // Move decimal over 2 digits to the right
-                return Convert.ToInt64(rtpPercent * 1000);
-            }
-
-            throw new Exception("Attempting to serialize an unsupported RTP decimal value to a long.");
-        }
     }
 }
