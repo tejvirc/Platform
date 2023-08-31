@@ -1054,7 +1054,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         private List<Ticket> GetLogTickets(OperatorMenuPrintData dataType)
         {
-            var logs = GameHistory.ToList();
+            var logs = FilteredGameHistory.ToList();
 
             if (dataType == OperatorMenuPrintData.Last15)
             {
