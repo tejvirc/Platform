@@ -262,24 +262,6 @@
                                             </Grid>
                                         </Grid>
                                     </Button>
-
-                                    <Image x:Name="SelectedImage"
-                                           Source="{DynamicResource GameSelectedOverlay}"
-                                           Stretch="None"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Top"
-                                           Margin="-22"
-                                           IsHitTestVisible="False"
-                                           AutomationProperties.AutomationId="Image6_D2D47EC3">
-                                        <Image.Visibility>
-                                            <MultiBinding Converter="{StaticResource LogicalAndTrueVisibleFalseCollapsed}">
-                                                <Binding Path="IsSelected"/>
-                                                <Binding Path="DataContext.IsExtraLargeGameIconTabActive"
-                                                         RelativeSource="{RelativeSource AncestorType=ItemsControl}"
-                                                         Converter="{StaticResource InverseBoolConverter}"/>
-                                            </MultiBinding>
-                                        </Image.Visibility>
-                                    </Image>
                                 </Grid>
                             </Viewbox>
                         </DataTemplate>

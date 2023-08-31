@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages
 {
     using System;
-    using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -15,24 +14,21 @@
         IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private readonly IEnumerable<IClient> _clients;
+        private readonly IClient<ClientApi.ClientApiClient> _bingoClient;
         private readonly IBingoAuthorizationProvider _authorization;
 
         private bool _disposed;
 
         public RegistrationService(
             IClientEndpointProvider<ClientApi.ClientApiClient> endpointProvider,
-            IEnumerable<IClient> clients,
+            IClient<ClientApi.ClientApiClient> bingoClient,
             IBingoAuthorizationProvider authorization)
             : base(endpointProvider)
         {
-            _clients = clients ?? throw new ArgumentNullException(nameof(clients));
+            _bingoClient = bingoClient ?? throw new ArgumentNullException(nameof(bingoClient));
             _authorization = authorization ?? throw new ArgumentNullException(nameof(authorization));
 
-            foreach (var client in _clients)
-            {
-                client.Disconnected += OnClientDisconnected;
-            }
+            _bingoClient.Disconnected += OnClientDisconnected;
         }
 
         public Task<RegistrationResults> RegisterClient(
@@ -61,11 +57,7 @@
 
             if (disposing)
             {
-                foreach (var client in _clients)
-                {
-                    client.Disconnected -= OnClientDisconnected;
-                }
-
+                _bingoClient.Disconnected -= OnClientDisconnected;
                 _authorization.AuthorizationData = null;
             }
 
@@ -86,7 +78,8 @@
             };
 
             var result = await Invoke(
-                async (x, c) => await x.RequestRegisterAsync(request, cancellationToken: c),
+                async (x, r, c) => await x.RequestRegisterAsync(r, cancellationToken: c),
+                request,
                 token).ConfigureAwait(false);
             if (result.ResultType is RegistrationResponse.Types.ResultType.Accepted &&
                 !string.IsNullOrEmpty(result.AuthToken))

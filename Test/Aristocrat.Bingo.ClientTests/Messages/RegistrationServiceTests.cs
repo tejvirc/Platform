@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages.Tests
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Aristocrat.ServerApiGateway;
@@ -13,11 +12,11 @@
     [TestClass]
     public class RegistrationServiceTests
     {
-        private readonly Mock<IClient> _client = new Mock<IClient>(MockBehavior.Default);
         private readonly Mock<IClientEndpointProvider<ClientApi.ClientApiClient>> _clientEnpointProvider =
             new Mock<IClientEndpointProvider<ClientApi.ClientApiClient>>(MockBehavior.Default);
         private readonly Mock<IBingoAuthorizationProvider> _authorizationProvider = new Mock<IBingoAuthorizationProvider>(MockBehavior.Default);
-
+        private Mock<IClient<ClientApi.ClientApiClient>> _bingoClient =
+            new Mock<IClient<ClientApi.ClientApiClient>>(MockBehavior.Default);
         private RegistrationService _target;
 
         [TestInitialize]
@@ -76,7 +75,7 @@
         [TestMethod]
         public void ClientDisconnectedTest()
         {
-            _client.Raise(x => x.Disconnected += null, this, new DisconnectedEventArgs());
+            _bingoClient.Raise(x => x.Disconnected += null, this, new DisconnectedEventArgs());
             _authorizationProvider.VerifySet(x => x.AuthorizationData = null, Times.Once);
         }
 
@@ -108,7 +107,7 @@
         {
             return new RegistrationService(
                 nullEnpoint ? null : _clientEnpointProvider.Object,
-                nullClient ? null : new List<IClient> { _client.Object },
+                nullClient ? null : _bingoClient.Object,
                 nullAuthorize ? null : _authorizationProvider.Object);
         }
     }

@@ -44,6 +44,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         private bool _bonusBetAvailable;
         private bool _gamble;
         private bool _letItRide;
+        private bool _betKeeper;
         private bool _progressivesEnabled;
         private string _warningText;
         private decimal _forcedMinBet;
@@ -90,6 +91,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             _gamble = _properties.GetValue(GamingConstants.GambleAllowed, false) &&
                       _properties.GetValue(GamingConstants.GambleEnabled, false);
             _letItRide = _properties.GetValue(GamingConstants.LetItRideEnabled, false);
+            _betKeeper = false;
 
             _allowEditHostDisabled = _properties.GetValue(GamingConstants.AllowEditHostDisabled, false);
             _denominationMapping = AvailableGames.ToDictionary(
@@ -307,6 +309,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 OnPropertyChanged(nameof(CanEditAndEnabled));
                 OnPropertyChanged(nameof(CanEditAndEnableGamble));
                 OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
+                OnPropertyChanged(nameof(CanEditBetKeeper));
                 OnPropertyChanged(nameof(ProgressivesAllowed));
                 OnPropertyChanged(nameof(ProgressivesEnabled));
                 OnPropertyChanged(nameof(ProgressiveSetupEnabled));
@@ -363,6 +366,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 OnPropertyChanged(nameof(CanEditAndEnabled));
                 OnPropertyChanged(nameof(CanEditAndEnableGamble));
                 OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
+                OnPropertyChanged(nameof(CanEditBetKeeper));
                 OnPropertyChanged(nameof(BetOptionEnabled));
                 OnPropertyChanged(nameof(LineOptionEnabled));
                 OnPropertyChanged(nameof(BonusBetEnabled));
@@ -406,6 +410,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 OnPropertyChanged(nameof(CanEditAndEnabled));
                 OnPropertyChanged(nameof(CanEditAndEnableGamble));
                 OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
+                OnPropertyChanged(nameof(CanEditBetKeeper));
                 OnPropertyChanged(nameof(CanEdit));
                 SetWarningText();
             }
@@ -431,6 +436,9 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         public bool CanEditAndEnableLetItRide =>
             CanEdit && Enabled && !RestrictedToReadOnly && (_properties.GetValue(GamingConstants.LetItRideAllowed, true));
 
+        public bool CanEditBetKeeper => CanEdit && Enabled && !RestrictedToReadOnly
+            && (Game?.Features?.Where(x => x.FeatureName.Equals(GamingConstants.BetKeeper, StringComparison.Ordinal))?.FirstOrDefault()?.Editable ?? false);
+
         /// <summary>
         ///     Some games provide "MultiGame Packages" which are pre-defined configuration templates. The Platform equivalent for
         ///     a Package is <see cref="IConfigurationRestriction" />. If the value of this property is <c>true</c>, then the
@@ -450,6 +458,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                     OnPropertyChanged(nameof(CanToggleEnabled));
                     OnPropertyChanged(nameof(CanEditAndEnableGamble));
                     OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
+                    OnPropertyChanged(nameof(CanEditBetKeeper));
                     OnPropertyChanged(nameof(CanEditAndEnabled));
                     OnPropertyChanged(nameof(BetOptionEnabled));
                     OnPropertyChanged(nameof(LineOptionEnabled));
@@ -488,6 +497,18 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                 }
 
                 _properties.SetProperty(GamingConstants.LetItRideEnabled, _letItRide);
+            }
+        }
+
+        public bool BetKeeper
+        {
+            get => _betKeeper;
+            set
+            {
+                if (!SetProperty(ref _betKeeper, value))
+                {
+                    return;
+                }
             }
         }
 
@@ -624,7 +645,8 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
                    denomination.LineOption != SelectedLineOption?.Name ||
                    denomination.BonusBet != SelectedBonusBet ||
                    denomination.SecondaryAllowed != Gamble ||
-                   denomination.LetItRideAllowed != LetItRide;
+                   denomination.LetItRideAllowed != LetItRide ||
+                   denomination.BetKeeperAllowed != BetKeeper;
         }
 
         public void ResetChanges()
@@ -640,6 +662,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             Enabled = denomination?.Active ?? false;
             Gamble = _properties.GetValue(GamingConstants.GambleAllowed, false) && (denomination?.SecondaryAllowed ?? false);
             LetItRide = denomination?.LetItRideAllowed ?? false;
+            BetKeeper = denomination?.BetKeeperAllowed ?? false;
             ForcedMinBet = denomination?.MinimumWagerCredits * Denom ?? BetMinimum;
             ForcedMaxBet = denomination?.MaximumWagerCredits * Denom ?? BetMaximum;
             ForcedMaxBetOutside = denomination?.MaximumWagerOutsideCredits * Denom ?? BetMaximum;
@@ -671,6 +694,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
             OnPropertyChanged(nameof(CanEditAndEnabled));
             OnPropertyChanged(nameof(CanEditAndEnableGamble));
             OnPropertyChanged(nameof(CanEditAndEnableLetItRide));
+            OnPropertyChanged(nameof(CanEditBetKeeper));
         }
 
         public void UpdateCurrencyCulture()

@@ -2,7 +2,14 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Configuration;
+
+    /// <summary>
+    ///     The client interfaces
+    /// </summary>
+    /// <typeparam name="TApiClient">The api client for this interface</typeparam>
+    public interface IClient<TApiClient> : IClient
+    {
+    }
 
     /// <summary>
     ///     The client interface

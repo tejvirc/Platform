@@ -1694,7 +1694,9 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
     public partial class c_Feature {
         
         private c_StatInfo[] statInfoField;
-        
+
+        private string featureNameField;
+
         private string nameField;
         
         private bool enabledField;
@@ -1711,7 +1713,21 @@ namespace Aristocrat.PackageManifest.Extension.v100 {
                 this.statInfoField = value;
             }
         }
-        
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified)]
+        public string FeatureName
+        {
+            get
+            {
+                return this.featureNameField;
+            }
+            set
+            {
+                this.featureNameField = value;
+            }
+        }
+
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute(Form=System.Xml.Schema.XmlSchemaForm.Qualified)]
         public string Name {

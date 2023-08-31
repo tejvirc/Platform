@@ -22,7 +22,8 @@
             new Mock<IProgressiveAuthorizationProvider>(MockBehavior.Default);
         private readonly Mock<IProgressiveLevelInfoProvider> _progressiveLevelInfoProvider =
             new Mock<IProgressiveLevelInfoProvider>(MockBehavior.Default);
-        private IEnumerable<IClient> _clients = new List<IClient>();
+        private Mock<IClient<ProgressiveApi.ProgressiveApiClient>> _progressiveClient =
+            new Mock<IClient<ProgressiveApi.ProgressiveApiClient>>(MockBehavior.Default);
         private ProgressiveRegistrationService _target;
 
         [TestInitialize]
@@ -107,7 +108,7 @@
         {
             return new ProgressiveRegistrationService(
                 nullEnpoint ? null : _clientEnpointProvider.Object,
-                nullClients ? null : _clients,
+                nullClients ? null : _progressiveClient.Object,
                 nullMessage ? null : _messageHandler.Object,
                 nullAuthorization ? null : _authorizationProvider.Object,
                 nullLevelInfoProvider ? null : _progressiveLevelInfoProvider.Object);

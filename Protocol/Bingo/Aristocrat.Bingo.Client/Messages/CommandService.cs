@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages
 {
     using System;
-    using System.Collections.Generic;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -20,7 +19,7 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICommandProcessorFactory _processorFactory;
-        private readonly IEnumerable<IClient> _clients;
+        private readonly IClient<ClientApi.ClientApiClient> _bingoClient;
         private readonly SemaphoreSlim _locker = new(1);
         private readonly IAsyncPolicy _commandRetryPolicy;
 
@@ -33,17 +32,14 @@
         public CommandService(
             IClientEndpointProvider<ClientApi.ClientApiClient> endpointProvider,
             ICommandProcessorFactory processorFactory,
-            IEnumerable<IClient> clients)
+            IClient<ClientApi.ClientApiClient> bingoClient)
             : base(endpointProvider)
         {
             _processorFactory = processorFactory ?? throw new ArgumentNullException(nameof(processorFactory));
-            _clients = clients ?? throw new ArgumentNullException(nameof(clients));
+            _bingoClient = bingoClient ?? throw new ArgumentNullException(nameof(bingoClient));
             _commandRetryPolicy = CreatePolicy();
 
-            foreach (var client in _clients)
-            {
-                client.ConnectionStateChanged += HandleConnectionStateChanges;
-            }
+            _bingoClient.ConnectionStateChanged += HandleConnectionStateChanges;
         }
 
         public async Task<bool> HandleCommands(string machineSerial, CancellationToken cancellationToken)
@@ -60,10 +56,10 @@
                         using var shared = CancellationTokenSource.CreateLinkedTokenSource(
                             source.Token,
                             cancellationToken);
-                        await ProcessCommands(machineSerial, shared.Token);
+                        await ProcessCommands(machineSerial, shared.Token).ConfigureAwait(false);
                         Logger.Debug(
                             $"Command service exited.  IsCancelled={cancellationToken.IsCancellationRequested}");
-                        await Task.Delay(BackOffTime, cancellationToken);
+                        await Task.Delay(BackOffTime, cancellationToken).ConfigureAwait(false);
                     }
                     finally
                     {
@@ -85,7 +81,7 @@
             IAsyncStreamReader<Command> input;
             IClientStreamWriter<CommandResponse> output;
 
-            await _locker.WaitAsync(cancellationToken);
+            await _locker.WaitAsync(cancellationToken).ConfigureAwait(false);
             try
             {
                 _commandHandler = Invoke(
@@ -101,14 +97,14 @@
 
             try
             {
-                await Respond(new OpenConnection(), output, machineSerial, cancellationToken);
-                while (await input.MoveNext(cancellationToken))
+                await Respond(new OpenConnection(), output, machineSerial, cancellationToken).ConfigureAwait(false);
+                while (await input.MoveNext(cancellationToken).ConfigureAwait(false))
                 {
                     var command = input.Current;
-                    await ProcessCommand(command, cancellationToken, output, machineSerial);
+                    await ProcessCommand(command, output, machineSerial, cancellationToken).ConfigureAwait(false);
                 }
 
-                await output.CompleteAsync();
+                await output.CompleteAsync().ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -127,10 +123,7 @@
                 return;
             }
 
-            foreach (var client in _clients)
-            {
-                client.ConnectionStateChanged -= HandleConnectionStateChanges;
-            }
+            _bingoClient.ConnectionStateChanged -= HandleConnectionStateChanges;
 
             _tokenSource?.Cancel();
             _tokenSource?.Dispose();
@@ -181,7 +174,7 @@
             string machineSerial,
             CancellationToken token)
         {
-            await _locker.WaitAsync(token);
+            await _locker.WaitAsync(token).ConfigureAwait(false);
             try
             {
                 token.ThrowIfCancellationRequested();
@@ -191,7 +184,7 @@
                     Response = Any.Pack(internalResponse)
                 };
 
-                await output.WriteAsync(response);
+                await output.WriteAsync(response).ConfigureAwait(false);
             }
             finally
             {
@@ -201,19 +194,19 @@
 
         private async Task ProcessCommand(
             Command command,
-            CancellationToken token,
             IAsyncStreamWriter<CommandResponse> output,
-            string machineSerial)
+            string machineSerial,
+            CancellationToken token)
         {
             if (command?.Command_ is null)
             {
                 return;
             }
 
-            var result = await _processorFactory.ProcessCommand(command, token);
+            var result = await _processorFactory.ProcessCommand(command, token).ConfigureAwait(false);
             if (result is not null)
             {
-                await _commandRetryPolicy.ExecuteAsync(t => Respond(result, output, machineSerial, t), token);
+                await _commandRetryPolicy.ExecuteAsync(t => Respond(result, output, machineSerial, t), token).ConfigureAwait(false);
             }
         }
     }

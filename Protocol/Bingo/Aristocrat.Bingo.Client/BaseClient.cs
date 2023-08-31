@@ -10,7 +10,7 @@
     using log4net;
     using Messages.Interceptor;
 
-    public abstract class BaseClient<TClientApi> : IClient
+    public abstract class BaseClient<TClientApi> : IClient<TClientApi>
     {
         protected readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 		protected static readonly TimeSpan StateChangeTimeOut = TimeSpan.FromSeconds(3);
