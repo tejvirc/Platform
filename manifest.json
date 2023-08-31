@@ -15595,9 +15595,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -43585,6 +43582,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -51078,7 +51078,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.GamingConstants.PlayerInformationDisplay.html",
-          "hash": "hQAy5Y4jvdksxhZA3nnBtFHIG+U0WlK3sH2ZbGuClCQ="
+          "hash": "vYV/cpQVyn084ss4zgqH0+CyrXUozmqIpdNF63Xh6Io="
         }
       },
       "is_incremental": false,
@@ -51090,7 +51090,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.GamingConstants.html",
-          "hash": "qFoEjZXfWJ9pr4KNbxsIsBDOEd0738H7m0tk/ipEWBk="
+          "hash": "emsCuzNDtPzCQvcBbyMEaab3PP6781gZHYJGHb71Yp8="
         }
       },
       "is_incremental": false,
@@ -51390,7 +51390,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Contracts.IDenomination.html",
-          "hash": "X+s1L+6c83Z87i56mT97XMXD91QCcqaMAdxlNbWI75g="
+          "hash": "tNj1AJRjAWNfFCkzKNiUnxLkmruUmPsDgkobsjadwzg="
         }
       },
       "is_incremental": false,
@@ -55302,7 +55302,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Denomination.html",
-          "hash": "1xidE0piivPFfOKE3ifE1WGXxCWmTu5MOPdzx1emY+8="
+          "hash": "fhmhg7d56QfoQGVa1cE9a29pQ1XUo6EDjhHB/TFJLiA="
         }
       },
       "is_incremental": false,
@@ -55518,7 +55518,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.GameProvider.html",
-          "hash": "TQu2tg2m7HJKpUiFuz4EzQIyJ8qrnv5fVdqtlFD++mI="
+          "hash": "xahihbGUlASoGf+vT8ZE3g8ciGCz2drktMMGDnjGQOo="
         }
       },
       "is_incremental": false,
@@ -58230,7 +58230,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.Models.EditableGameConfiguration.html",
-          "hash": "2MXzKHL7jgEYf4qA8ajt618KQbqfphaSbqp9vV/23IA="
+          "hash": "S598g8+a+D+vSNiltUlJmpzrUzopOH+0dxU2qfo+RAA="
         }
       },
       "is_incremental": false,
@@ -59046,7 +59046,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu.AdvancedGameSetupViewModel.html",
-          "hash": "xT0K5XAu4NS4p/4pPwXItJQsT1SFJ+BWDnMH0X72UJg="
+          "hash": "8P/UR2DT7uBIDv/azAP1da2u9EL4nKYKCizWPHof/7g="
         }
       },
       "is_incremental": false,
