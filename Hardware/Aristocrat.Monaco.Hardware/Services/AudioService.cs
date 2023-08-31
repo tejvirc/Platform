@@ -237,7 +237,7 @@
         public float GetVolume(byte preset)
         {
             var volumePresets = _properties.GetValue(HardwareConstants.VolumePreset, _volumePresets);
-            return volumePresets.TryGetValue(preset, out var volume) ? volume.Item2 : 1.0f;
+            return volumePresets.TryGetValue(preset, out var volume) ? volume.Item2 / 100f : 1.0f;
         }
 
         /// <inheritdoc />
@@ -260,12 +260,12 @@
         }
 
         /// <inheritdoc />
-        public IEnumerable<Tuple<byte,string>> SoundLevelCollection
+        public IEnumerable<Tuple<byte, string>> SoundLevelCollection
         {
             get
             {
                 var volumePresets = _properties.GetValue(HardwareConstants.VolumePreset, _volumePresets);
-                return volumePresets.Select(v=>new Tuple<byte,string>(v.Key,v.Value.Item1)).ToList();
+                return volumePresets.Select(v => new Tuple<byte, string>(v.Key, v.Value.Item1)).ToList();
             }
         }
 
@@ -460,7 +460,7 @@
 
                         if (!Load(file))
                         {
-                            return; 
+                            return;
                         }
 
                         if (!_sounds.TryGetValue(file, out var sound))
