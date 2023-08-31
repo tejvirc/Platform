@@ -157,12 +157,14 @@ namespace Aristocrat.Monaco.PackageManifest.Gsa
                 ReferenceId = gameInfo.referenceId ?? string.Empty,
                 Category = gameInfo.categorySpecified ? gameInfo.category : (t_category?)null,
                 SubCategory = gameInfo.subCategorySpecified ? gameInfo.subCategory : (t_subCategory?)null,
-                //BonusGames = gameInfo.bonusGameList,
+                //BonusGames = gameInfo.bonusGameList
                 SubGames = GetSubGames(gameInfo.subGameList),
                 Features = gameInfo.FeatureList?.Where(feature => feature.StatInfo != null)
                     .Select(feature => new Feature
                     {
+                        FeatureName = feature.FeatureName,
                         Name = feature.Name,
+                        Editable = feature.Editable,
                         Enable = feature.Enabled,
                         StatInfo = feature.StatInfo?.Select(statInfo => new StatInfo { Name = statInfo.Name, DisplayName = statInfo.DisplayName }).ToList()
                     }).ToList(),

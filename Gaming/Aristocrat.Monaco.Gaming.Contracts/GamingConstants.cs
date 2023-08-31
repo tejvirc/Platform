@@ -1468,6 +1468,11 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         public const string ShowPlayerMenuPopup = @"GamePlay.ShowPlayerMenuPopup";
 
         /// <summary>
+        ///     Set Bet Keeper
+        /// </summary>
+        public const string BetKeeper = "BetKeeper";
+
+        /// <summary>
         ///     The Game Rules instructions message to display
         /// </summary>
         public const string GameRulesInstructions = @"Instructions.GameRulesInstructions";

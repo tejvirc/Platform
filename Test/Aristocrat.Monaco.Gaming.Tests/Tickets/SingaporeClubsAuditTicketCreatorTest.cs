@@ -220,6 +220,8 @@ namespace Aristocrat.Monaco.Gaming.Tests.Tickets
 
         public bool LetItRideEnabled { get; set; }
 
+        public bool BetKeeperAllowed { get; set; }
+
         public long DisplayedValue { get; }
     }
 

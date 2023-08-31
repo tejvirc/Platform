@@ -67,6 +67,9 @@
         /// <inheritdoc />>
         public bool LetItRideEnabled { get; set; }
 
+        /// <inheritdoc />>
+        public bool BetKeeperAllowed { get; set; }
+
         /// <summary>
         ///     Perform a shallow copy of the class
         /// </summary>
