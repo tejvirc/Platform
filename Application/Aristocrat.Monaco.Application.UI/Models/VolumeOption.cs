@@ -10,14 +10,16 @@
     [CLSCompliant(false)]
     public class VolumeOption : ObservableObject
     {
-        public VolumeOption(byte level)
+        public VolumeOption(byte level,string description)
         {
             Level = level;
+            Description = description;
         }
 
         public byte Level { get; }
+        public string Description { get; }
 
-        public string DisplayString => Localizer.For(CultureFor.Operator).GetString(Level.ToString());
+        public string DisplayString => Localizer.For(CultureFor.Operator).GetString(Description);
 
         public void UpdateDisplay()
         {
