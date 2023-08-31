@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="2.0.0-beta0014"/>
-    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="2.0.0-beta0025" />
+    <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="2.0.0-beta0041" />
     <PackageReference Include="Aristocrat.Extensions.CommunityToolkit" Version="0.1.8" />
     <PackageReference Include="CefSharp.Common.NETCore" Version="110.0.250" />
     <PackageReference Include="CefSharp.OffScreen.NETCore" Version="110.0.250" />
