@@ -2,6 +2,7 @@
 {
     using System;
     using System.Globalization;
+    using System.Linq;
 
     /// <summary>
     ///     Various helper functions to aid in working with numbers.
@@ -40,14 +41,11 @@
         /// <returns>The number of decimal places</returns>
         public static int CountDecimalPlaces(decimal value)
         {
-            var precision = 0;
+            var decimalAsString = value.ToString(CultureInfo.InvariantCulture);
 
-            while (value * (decimal)Math.Pow(10, precision) != Math.Round(value * (decimal)Math.Pow(10, precision)))
-            {
-                precision++;
-            }
+            var digitsToRightOfDecimal = decimalAsString.SkipWhile(c => c != '.').Skip(1);
 
-            return precision;
+            return digitsToRightOfDecimal.Count();
         }
 
         /// <summary>
