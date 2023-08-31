@@ -237,7 +237,7 @@
         public float GetVolume(byte preset)
         {
             var volumePresets = _properties.GetValue(HardwareConstants.VolumePreset, _volumePresets);
-            return volumePresets.TryGetValue(preset, out var volume) ? volume.Item2 / 100f : 1.0f;
+            return volumePresets.TryGetValue(preset, out var volume) ? volume.Item2 : 1.0f;
         }
 
         /// <inheritdoc />
