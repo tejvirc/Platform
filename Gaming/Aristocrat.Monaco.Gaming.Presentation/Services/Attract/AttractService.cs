@@ -14,6 +14,7 @@ using Aristocrat.Monaco.Application.Contracts.Extensions;
 using Aristocrat.Monaco.Gaming.Contracts.Models;
 using Aristocrat.Monaco.Gaming.Contracts.Progressives;
 using Aristocrat.Monaco.Gaming.Presentation.Store.Chooser;
+using Aristocrat.Monaco.Gaming.Presentation.Store.IdleText;
 using Aristocrat.Monaco.Gaming.Progressives;
 using Aristocrat.Monaco.Gaming.UI.ViewModels;
 //using Aristocrat.Monaco.Gaming.UI.ViewModels;
@@ -39,6 +40,7 @@ public sealed class AttractService : IAttractService, IDisposable
     private readonly IState<AttractState> _attractState;
     private readonly IState<LobbyState> _lobbyState;
     private readonly IState<ChooserState> _chooserState;
+    private readonly IState<IdleTextState> _idleTextState;
     private readonly IDispatcher _dispatcher;
     private readonly LobbyConfiguration _configuration;
     private readonly IEventBus _eventBus;
@@ -46,14 +48,9 @@ public sealed class AttractService : IAttractService, IDisposable
     private readonly IBank _bank;
     private readonly IAttractConfigurationProvider _attractConfigurationProvider;
 
-    //private ObservableCollection<GameInfo> _gameList = new ObservableCollection<GameInfo>();
-
     private readonly Timer _attractTimer;
     private readonly Timer _rotateTopImageTimer;
     private readonly Timer _rotateTopperImageTimer;
-
-    //TODO this will not be here long, for now it is to provide a backend test of the videos 'playing' to make sure it works properly
-    private readonly Timer _pseudoVideoTimer;
 
     private readonly object _attractLock = new object();
 
@@ -66,6 +63,7 @@ public sealed class AttractService : IAttractService, IDisposable
         IState<AttractState> attractState,
         IState<LobbyState> lobbyState,
         IState<ChooserState> chooserState,
+        IState<IdleTextState> idleTextState,
         IDispatcher dispatcher,
         LobbyConfiguration configuration,
         IEventBus eventBus,
@@ -77,6 +75,7 @@ public sealed class AttractService : IAttractService, IDisposable
         _attractState = attractState;
         _lobbyState = lobbyState;
         _chooserState = chooserState;
+        _idleTextState = idleTextState;
         _dispatcher = dispatcher;
         _configuration = configuration;
         _eventBus = eventBus;
@@ -92,9 +91,6 @@ public sealed class AttractService : IAttractService, IDisposable
 
         _rotateTopperImageTimer = new Timer { Interval = TimeSpan.FromSeconds(RotateTopperImageIntervalInSeconds).TotalMilliseconds};
         _rotateTopperImageTimer.Elapsed += RotateTopperImageTimerTick;
-
-        _pseudoVideoTimer = new Timer { Interval = TimeSpan.FromSeconds(30).TotalMilliseconds };
-        _pseudoVideoTimer.Elapsed += EndVIdeoTick;
 
         _dispatcher.DispatchAsync(new AttractSetCanModeStartAction { Bank = bank, Properties = properties });
     }
@@ -224,17 +220,15 @@ public sealed class AttractService : IAttractService, IDisposable
 
     private void AttractTimer_Tick(object? sender, EventArgs e)
     {
-        _logger.LogDebug($"Attract Timer has Ticked at {DateTime.Now.TimeOfDay}");
-        Console.WriteLine($"Attract Timer has Ticked at {DateTime.Now.TimeOfDay}");
-        //if (!_attractConfigurationProvider.IsAttractEnabled ||
-        //    !_attractState.Value.HasZeroCredits() ||
-        //    _attractState.Value.IsIdleTextScrolling ||
+        if(!_attractState.Value.CanAttractModeStart ||
+            _idleTextState.Value.IsScrolling )
+        //TODO (Future Task) figure out which state should have these fields and implement them
         //    _attractState.Value.IsVoucherNotificationActive ||
         //    _attractState.Value.IsProgressiveGameDisabledNotificationActive ||
         //    _attractState.Value.IsPlayerInfoRequestActive)
-        //{
-        //    return;
-        //}
+        {
+            return;
+        }
 
         _dispatcher.DispatchAsync(new AttractEnterAction());
     }
@@ -255,11 +249,6 @@ public sealed class AttractService : IAttractService, IDisposable
         }
     }
 
-    private void EndVIdeoTick(object? sender, EventArgs e)
-    {
-        OnGameAttractVideoCompleted();
-    }
-
     public void StartAttractTimer()
     {
         if (_attractTimer != null)
@@ -267,15 +256,14 @@ public sealed class AttractService : IAttractService, IDisposable
             _attractTimer.Stop();
 
             // When in single game mode, the game is in charge of display attract sequences, not the platform
-            //TODO look to see if there is a better place to put this property
             if (_lobbyState.Value.AllowSingleGameAutoLaunch)
             {
                 return;
             }
 
-            //TODO look into idle text scrolling since we will want to make sure that we dont allow attract while it should be disabled.
-            //There is a chance this check may not be needed at all since this is all in the backend and that is a frontend thing
-            if (/*!IsIdleTextScrolling &&*/ _attractState.Value.CanAttractModeStart)
+            //TODO (Future Task) take a look back into this while implementing the UI incase the idle text scrolling check is unnecessary
+            //                   for now just keep it functioning as it was previously in the LobbyViewModel.
+            if (_idleTextState.Value.IsScrolling && _attractState.Value.CanAttractModeStart)
             {
                 var interval = _attractState.Value.IsActive
                     ? _configuration.AttractSecondaryTimerIntervalInSeconds
@@ -286,12 +274,11 @@ public sealed class AttractService : IAttractService, IDisposable
 
                 _rotateTopImageTimer.Start();
                 _rotateTopperImageTimer.Start();
-                _pseudoVideoTimer.Start();
             }
         }
     }
 
-    public void ExitAndResetAttractMode(/*AgeWarningTimer AgeWarningTimer (May add this in place of using the configuration so that it works exactly how it would in the LobbyViewModel)*/)
+    public void ExitAndResetAttractMode()
     {
         _dispatcher.Dispatch(new AttractExitAction());
         if (_attractTimer != null && _attractTimer.Enabled)
@@ -300,6 +287,8 @@ public sealed class AttractService : IAttractService, IDisposable
         }
 
         // Don't display Age Warning while the inserting cash dialog is up.
+        // TODO (Future Task) When we have a set way to determine if the current state matches with the old LobbyState.CashIn
+        // we can add an && check for that after the config.DisplayAgeWarning check to make it match directly with the old functionality.
         if(!_configuration.DisplayAgeWarning && _attractState.Value.IsPlaying)
         {
             _dispatcher.Dispatch(new AttractExitedAction());
@@ -307,8 +296,7 @@ public sealed class AttractService : IAttractService, IDisposable
 
         if (_attractState.Value.ResetAttractOnInterruption && _attractState.Value.CurrentAttractIndex != 0)
         {
-            //TODO Not certain if this is the expected solution
-            _dispatcher.Dispatch(new GameUninstalledAction());
+            _dispatcher.Dispatch(new AttractUpdateIndexAction { AttractIndex = 0 });
             SetAttractVideoPaths(_attractState.Value.CurrentAttractIndex);
         }
     }
@@ -319,8 +307,7 @@ public sealed class AttractService : IAttractService, IDisposable
         {
             if (_attractState.Value.CurrentAttractIndex >= _attractState.Value.Videos.Count)
             {
-                //TODO Not certain if this is the expected solution
-                _dispatcher.Dispatch(new GameUninstalledAction());
+                _dispatcher.Dispatch(new AttractUpdateIndexAction { AttractIndex = 0 });
                 return true;
             }
 
@@ -356,7 +343,6 @@ public sealed class AttractService : IAttractService, IDisposable
     ///     This is called after the game list has been updated
     /// </summary>
     /// <param name="gameList">The updated game list</param>
-    //TODO Figure out a way to pseudo this so we can test the back end portion.
     public void RefreshAttractGameList()
     {
         List<IAttractDetails> attractList = new List<IAttractDetails>();
@@ -371,7 +357,6 @@ public sealed class AttractService : IAttractService, IDisposable
             });
         }
 
-        //TODO do something to add the collection of attract game info to the attract list
         var listToAdd = GetAttractGameInfoList();
         attractList.AddRange(listToAdd);
         _dispatcher.Dispatch( new AttractAddVideosAction { AttractList = attractList });
@@ -379,8 +364,9 @@ public sealed class AttractService : IAttractService, IDisposable
         CheckAndResetAttractIndex();
     }
 
-    //TODO had to rework the initial check on this value but this seems correct
-    //TODO Look more into this, I cannot remember where I grabbed it from but I need to figure out when it gets called
+    //TODO (Future Task) See Below:
+    //This was pulled from the LobbyStateManager and works in tandem with ChooserIdleText as a check for a permitted state change to attract.
+    //As a result this may not be needed but until its implementation is determined as necessary or not it should stay here.
     private bool IsAttractModeIdleTimeout()
     {
         return (_lobbyState.Value.LastUserInteractionTime != DateTime.MinValue
@@ -398,13 +384,13 @@ public sealed class AttractService : IAttractService, IDisposable
         {
             RotateTopImage();
             RotateTopperImage();
-            //TODO Send action for attract video completed
+            //TODO (Future Task) - Implement this functionality when the Attract View Model is being implemented
             //Task.Run(
             //    () => { MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.AttractVideoComplete)); });
         }
     }
 
-    private bool PlayAdditionalConsecutiveAttractVideo() //May have been made redundant in new _attractService TODO look into this
+    private bool PlayAdditionalConsecutiveAttractVideo()
     {
         if (!_configuration.HasAttractIntroVideo || _attractState.Value.CurrentAttractIndex != 0 || _attractState.Value.Videos.Count <= 1)
         {
