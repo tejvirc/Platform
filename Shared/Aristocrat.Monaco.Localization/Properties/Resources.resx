@@ -12457,4 +12457,8 @@ LEVEL ID</value>
     <value>Activity Tracing</value>
     <comment>Aristocrat.Monaco.G2S.UI</comment>
   </data>
+  <data name="MysteryLinked" xml:space="preserve">
+    <value>Mystery Linked</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>

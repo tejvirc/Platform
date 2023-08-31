@@ -22001,6 +22001,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Mystery Linked.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string MysteryLinked {
+			get {
+				return ResourceManager.GetString("MysteryLinked", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Mystery Shared Standalone.
 		/// </summary>
 		public static string MysterySharedStandalone {
@@ -58879,6 +58891,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Mystery Linked.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string MysteryLinked {
+			get {
+				return "MysteryLinked";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Mystery Shared Standalone.
 		/// </summary>
 		public static string MysterySharedStandalone {
@@ -86298,6 +86322,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		///   Looks up a localized string similar to Must be less than {0} characters..
 		/// </summary>
 		MustBeLessThan,
+		/// <summary>
+		///   Looks up a localized string similar to Mystery Linked.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		MysteryLinked,
 		/// <summary>
 		///   Looks up a localized string similar to Mystery Shared Standalone.
 		/// </summary>

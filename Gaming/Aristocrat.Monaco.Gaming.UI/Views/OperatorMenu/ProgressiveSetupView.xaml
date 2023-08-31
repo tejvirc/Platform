@@ -73,18 +73,23 @@
                Visibility="{Binding IsConfigurableLinkedLevelId, Converter={StaticResource BoolToVisConverter}}"
                AutomationProperties.AutomationId="Label9_6FC827A3" />
 
-        <commonControls:AlphaNumericTextBox Grid.Row="3"
-                                            Grid.ColumnSpan="2"  
-                                            Width="400"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Left"
+        <commonControls:AlphaNumericTextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                            MinWidth="165"
+                                            VerticalAlignment="Center" HorizontalAlignment="Left"
                                             IsReadOnly="{Binding IsSummaryView}"
                                             Text="{Binding ProgressiveGroupId, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
                                             IsAlphaNumeric="False" AllowNegatives="False" CanBeEmpty="False"
-                                            Visibility="{Binding IsConfigurableLinkedLevelId, Converter={StaticResource BoolToVisConverter}}"
+                                            Visibility="{Binding Path=IsConfigurableAndNotSummary, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                                             AutomationProperties.AutomationId="TextBox10_6FC827A3" />
 
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="{Binding ProgressiveGroupId}"
+                   Visibility="{Binding Path=IsConfigurableAndSummary, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                   AutomationProperties.AutomationId="TextBlock52_6FC827A3"/>
+
         <DataGrid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                  x:Name="LevelsList"
                   Margin="0 10"
                   ItemsSource="{Binding ProgressiveLevels}"
                   ScrollViewer.CanContentScroll="True"
@@ -94,6 +99,7 @@
                   EnableRowVirtualization="False"
                   AutoGenerateColumns="False"
                   Height="Auto"
+                  SelectionChanged="LevelsList_OnSelectionChanged"
                   AutomationProperties.AutomationId="DataGrid9_6FC827A3">
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader"
@@ -126,10 +132,9 @@
                                                                         IsAlphaNumeric="False" AllowNegatives="False" CanBeEmpty="False"
                                                                         Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSummaryView), Converter={StaticResource TrueCollapsedFalseVisible}, Source={StaticResource Proxy}}"
                                                                         AutomationProperties.AutomationId="TextBox36_6FC827A3"/>
-                                    <commonControls:AlphaNumericTextBox Text ="{Binding ConfigurableLinkedLevelId, UpdateSourceTrigger=PropertyChanged}"
-                                                                        IsAlphaNumeric="False" AllowNegatives="False" CanBeEmpty="False"
-                                                                        Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSummaryView), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
-                                                                        AutomationProperties.AutomationId="TextBlock37_6FC827A3"/>
+                                    <TextBlock Text ="{Binding ConfigurableLinkedLevelId}"
+                                               Visibility="{Binding Path=Data.(viewModels:ProgressiveSetupViewModel.IsSummaryView), Converter={StaticResource TrueVisibleFalseCollapsed}, Source={StaticResource Proxy}}"
+                                               AutomationProperties.AutomationId="TextBlock37_6FC827A3"/>
                                 </StackPanel>
                                 <!-- Non-linked Levels show N/A (or language equivalent)-->
                                 <StackPanel Orientation="Horizontal"

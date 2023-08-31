@@ -414,7 +414,11 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
 
             if (LevelType == ProgressiveLevelType.LP ||
                 AssignedProgressiveInfo.AssignedProgressiveType == AssignableProgressiveType.Linked)
-                return Resources.LinkedProgressive;
+            {
+                return AssociatedProgressiveLevel.FlavorType == FlavorType.VertexMystery
+                    ? Resources.MysteryLinked
+                    : Resources.LinkedProgressive;
+            }
 
             return Resources.NoProgressive;
         }

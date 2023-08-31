@@ -47,6 +47,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         private bool _isSelectable;
         private bool _isSap;
         private bool _isLP;
+        private bool _isConfigurableLinkedLevelId;
 
         private Dictionary<int, (int linkedGroupId, int linkedLevelId)> _configuredLinkedLevelIds;
 
@@ -176,6 +177,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 OnPropertyChanged(nameof(ShowAssociatedSap));
                 OnPropertyChanged(nameof(OverflowValueEditable));
                 OnPropertyChanged(nameof(OverflowValueReadOnly));
+                OnPropertyChanged(nameof(IsConfigurableAndSummary));
+                OnPropertyChanged(nameof(IsConfigurableAndNotSummary));
             }
         }
 
@@ -244,7 +247,20 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         ///    This results in needing this UI to allows editing fields to configured the Progressive Group for all these levels to link to
         ///    and the specific vertex level id for each individual level. This property controls the logic related to these configurable ids
         /// </summary>
-        public bool IsConfigurableLinkedLevelId { get; set; }
+        public bool IsConfigurableLinkedLevelId
+        {
+            get => _isConfigurableLinkedLevelId;
+            set
+            {
+                _isConfigurableLinkedLevelId = value;
+                OnPropertyChanged(nameof(IsConfigurableAndSummary));
+                OnPropertyChanged(nameof(IsConfigurableAndNotSummary));
+            }
+        }
+
+        public bool IsConfigurableAndSummary => IsConfigurableLinkedLevelId && IsSummaryView;
+
+        public bool IsConfigurableAndNotSummary => IsConfigurableLinkedLevelId && !IsSummaryView;
 
         public bool ProgressiveTypeEditable => !IsSummaryView && IsSelectable;
 

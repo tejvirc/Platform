@@ -33,6 +33,11 @@
             UpdateSelectableLevelNameTooLong(sender as ComboBox);
         }
 
+        private void LevelsList_OnSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            LevelsList.SelectedItem = null;
+        }
+
         private static void UpdateSelectableLevelNameTooLong(ComboBox comboBox)
         {
             if (comboBox?.DataContext is not LevelModel context)
