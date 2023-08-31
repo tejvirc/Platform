@@ -3,18 +3,20 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Application.Contracts;
-using Application.UI.ViewModels;
 using Fluxor;
 using Hardware.Contracts.Audio;
 using Kernel;
 using Microsoft.Extensions.Logging;
+using Models;
 using Store.Audio;
 
 public class AudioService : IAudioService
 {
     private const string SoundConfigurationExtensionPath = "/OperatorMenu/Sound/Configuration";
+
     private readonly ILogger<AudioService> _logger;
     private readonly IState<AudioState> _audioState;
     private readonly IPropertiesManager _properties;
@@ -28,28 +30,36 @@ public class AudioService : IAudioService
         _audio = audio;
     }
 
-    public IEnumerable<SoundFileViewModel> GetSoundFiles()
+    public IEnumerable<SoundFile> GetSoundFiles()
     {
-        var files = new List<SoundFileViewModel>();
-
-        var nodes =
-            MonoAddinsHelper.GetSelectedNodes<FilePathExtensionNode>(
-                SoundConfigurationExtensionPath);
-
-        foreach (var node in nodes)
+        var files = new Dictionary<SoundType, string?>
         {
-            var path = node.FilePath;
-            var name = !string.IsNullOrWhiteSpace(node.Name)
-                ? node.Name
-                : Path.GetFileNameWithoutExtension(path);
+            {
+                SoundType.First,
+                MonoAddinsHelper
+                    .GetSelectedNodes<FilePathExtensionNode>(SoundConfigurationExtensionPath)
+                    .Take(1)
+                    .Select(node => node.FilePath)
+                    .First()
+            },
+            { SoundType.Touch, _properties.GetValue(ApplicationConstants.TouchSoundKey, string.Empty) },
+            { SoundType.CoinIn, _properties.GetValue(ApplicationConstants.CoinInSoundKey, string.Empty) },
+            { SoundType.CoinOut, _properties.GetValue(ApplicationConstants.CoinOutSoundKey, string.Empty) },
+            { SoundType.FeatureBell, _properties.GetValue(ApplicationConstants.FeatureBellSoundKey, string.Empty) },
+            { SoundType.Collect, _properties.GetValue(ApplicationConstants.CollectSoundKey, string.Empty) },
+            { SoundType.PaperInChute, _properties.GetValue(ApplicationConstants.PaperInChuteSoundKey, string.Empty) }
+        };
 
-            _logger.LogDebug(
-                "Found {SoundConfigurationExtensionPath} node: {SoundFilePath}", SoundConfigurationExtensionPath, node.FilePath);
+        var sounds = files
+            .Where(x => !string.IsNullOrEmpty(x.Value))
+            .Select(x => new SoundFile(x.Key, x.Value!));
 
-            files.Add(new SoundFileViewModel(name, path));
+        foreach (var sound in sounds)
+        {
+            _audio.Load(Path.GetFullPath(sound.Path));
         }
 
-        return files;
+        return sounds;
     }
 
     public VolumeScalar GetPlayerVolumeScalar() =>
@@ -62,18 +72,16 @@ public class AudioService : IAudioService
         _properties.SetProperty(ApplicationConstants.PlayerVolumeScalarKey, volume);
     }
 
-    public Task PlaySoundAsync(SoundFileViewModel sound)
+    public Task PlaySoundAsync(SoundType sound)
     {
         var tcs = new TaskCompletionSource<bool>();
 
-        if (string.IsNullOrWhiteSpace(sound?.Path))
-        {
-            throw new ArgumentNullException(nameof(sound), "Either object is null or path is null or empty");
-        }
+        var soundFile = _audioState.Value.SoundFiles.FirstOrDefault(x => x.Sound == sound) ??
+            throw new ArgumentException("Sound not found", nameof(sound));
 
         var volume = GetVolume();
 
-        _audio.Play(sound.Path, volume, callback: OnCompleted);
+        _audio.Play(soundFile.Path, volume, callback: OnCompleted);
 
         return tcs.Task;
 
@@ -89,7 +97,8 @@ public class AudioService : IAudioService
             ApplicationConstants.LobbyVolumeScalarKey,
             ApplicationConstants.LobbyVolumeScalar);
 
-        return _audio.GetDefaultVolume() * _audio.GetVolumeScalar(_audioState.Value.PlayerVolumeScalar) *
-                    _audio.GetVolumeScalar(volumeScalar);
+        return _audio.GetDefaultVolume() *
+            _audio.GetVolumeScalar(_audioState.Value.PlayerVolumeScalar) *
+            _audio.GetVolumeScalar(volumeScalar);
     }
 }

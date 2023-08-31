@@ -2,16 +2,16 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Application.UI.ViewModels;
 using Hardware.Contracts.Audio;
+using Models;
 
 public interface IAudioService
 {
-    IEnumerable<SoundFileViewModel> GetSoundFiles();
+    IEnumerable<SoundFile> GetSoundFiles();
 
     VolumeScalar GetPlayerVolumeScalar();
 
     void SetVolume(VolumeScalar volume);
 
-    Task PlaySoundAsync(SoundFileViewModel sound);
+    Task PlaySoundAsync(SoundType sound);
 }
