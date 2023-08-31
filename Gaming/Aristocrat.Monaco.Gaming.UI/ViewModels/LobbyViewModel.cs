@@ -3890,7 +3890,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 UpdateDisplayedGames();
             }
 
-            if (_lobbyStateManager?.IsTabView ?? false)
+            if (IsTabView)
             {
                 var gameToSelect = DisplayedGameList.FirstOrDefault(game => game.GameId == _selectedGame?.GameId);
                 if (gameToSelect is null)
@@ -4826,7 +4826,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
             else
             {
-                state = true;
+                state = Config.ButtonDeckNavigationEnabled;
             }
 
             buttonsLampState.Add(SetLampState(LampName.Bash, state));
@@ -4859,33 +4859,31 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void DetermineNavLampStates(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state;
-            bool? gameTabState;
+            bool? navigationEnabled;
 
             if (BaseState == LobbyState.GameLoading)
             {
-                state = gameTabState = null;
+                state = navigationEnabled = null;
             }
             else if (ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
             {
-                state = gameTabState = false;
+                state = navigationEnabled = false;
             }
             else if (BaseState == LobbyState.Game)
             {
-                state = gameTabState = _justCashedOut ? CashOutEnabled : null;
+                state = navigationEnabled = _justCashedOut ? CashOutEnabled : null;
             }
             else
             {
                 state = true;
-
-                //For GA-COAM jurisdiction there will no game tab and when in Lobby need to unlit the Bet4(MaxBet) button and Playline5 button
-                gameTabState = IsTabView;
+                navigationEnabled = Config.ButtonDeckNavigationEnabled;
             }
 
-            buttonsLampState.Add(SetLampState(LampName.Bet3, state)); // prev game
-            buttonsLampState.Add(SetLampState(LampName.Bet4, gameTabState)); // prev tab
+            buttonsLampState.Add(SetLampState(LampName.Bet3, navigationEnabled)); // prev game
+            buttonsLampState.Add(SetLampState(LampName.Bet4, navigationEnabled)); // prev tab
             buttonsLampState.Add(SetLampState(LampName.Bet5, state)); // inc denom
-            buttonsLampState.Add(SetLampState(LampName.Playline5, gameTabState)); //next tab
-            buttonsLampState.Add(SetLampState(LampName.Playline4, state)); //next game
+            buttonsLampState.Add(SetLampState(LampName.Playline5, navigationEnabled)); //next tab
+            buttonsLampState.Add(SetLampState(LampName.Playline4, navigationEnabled)); //next game
         }
 
         private void DetermineUnusedLampStates(ref IList<ButtonLampState> buttonsLampState)
@@ -5376,11 +5374,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             {
                 case LcdButtonDeckLobby.PreviousGame:
                     NavigateSelectionTo(SelectionNavigation.PreviousGame);
-                    PlayAudioFile(Sound.Touch);
+                    if (Config.ButtonDeckNavigationEnabled)
+                    {
+                        PlayAudioFile(Sound.Touch);
+                    }
                     break;
                 case LcdButtonDeckLobby.PreviousTab:
                     GameTabInfo.NextPreviousTab(false);
-                    if (IsTabView)
+                    if (Config.ButtonDeckNavigationEnabled)
                     {
                         PlayAudioFile(Sound.Touch);
                     }  
@@ -5398,7 +5399,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     break;
                 case LcdButtonDeckLobby.NextTab:
                     GameTabInfo.NextPreviousTab(true);
-                    if (IsTabView)
+                    if (Config.ButtonDeckNavigationEnabled)
                     {
                         PlayAudioFile(Sound.Touch);
                     }
