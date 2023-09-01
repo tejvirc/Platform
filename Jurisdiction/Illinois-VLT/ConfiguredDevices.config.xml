@@ -20,7 +20,7 @@ as follows:
     <Device Name="JCM IVizion USB GDS" />
 	<Device Name="FutureLogic Gen2 USB GDS" />
     <Device Name="JCM Gen5 USB GDS" />
-    <Device Name="Nanoptix NextGen USB GDS" />
+    <Device Name="Nanoptix Inc. NextGen USB GDS" />
     <Device Name="Transact Serial Epic Edge" />
 	  <!--<Device Name="Transact Epic Edge USB GDS" />-->
   </Included>
