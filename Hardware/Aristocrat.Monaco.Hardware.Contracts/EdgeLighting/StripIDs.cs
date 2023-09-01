@@ -148,6 +148,21 @@
         /// <summary>
         ///     EdgeXRightSoundLed Strip ID
         /// </summary>
-        EdgeXRightSoundLed = 0x15
+        EdgeXRightSoundLed = 0x15,
+
+        /// <summary>
+        ///  Vbd Left Runway
+        /// </summary>
+        VbdLeftRunway = 0x2c,
+
+        /// <summary>
+        /// Vbd Right Runway
+        /// </summary>
+        VbdRightRunway = 0x2d,
+
+        /// <summary>
+        /// Artistocrat Logo (Single Only)
+        /// </summary>
+        AriLogo = 0x0b
     }
 }
