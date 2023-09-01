@@ -1237,6 +1237,8 @@
             RaisePropertyChanged(nameof(HandpayLimitCheckboxEnabled));
             RaisePropertyChanged(nameof(GambleWagerLimit));
             RaisePropertyChanged(nameof(GambleWinLimit));
+
+            CreditLimitEditable = HandCountPayoutLimitVisible ? PageEnabled && CreditLimitCheckboxEnabled : PageEnabled;
         }
 
         protected override void OnInputEnabledChanged()
