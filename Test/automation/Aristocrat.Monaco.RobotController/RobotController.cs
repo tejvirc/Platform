@@ -411,7 +411,7 @@
             container.Register<Automation>(Lifestyle.Singleton);
             container.Register<StateChecker>(Lifestyle.Singleton);
             container.Register<CashoutOperations>(Lifestyle.Singleton);
-            container.Register<GameOperations>(Lifestyle.Singleton);
+            container.Register<GameExecutionOperations>(Lifestyle.Singleton);
             container.Register<PlayerOperations>(Lifestyle.Singleton);
             container.Register<TouchOperations>(Lifestyle.Singleton);
             container.Register<LockUpOperations>(Lifestyle.Singleton);

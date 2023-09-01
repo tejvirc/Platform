@@ -21,7 +21,7 @@
                     container.GetInstance<TouchOperations>(),
                     container.GetInstance<BalanceOperations>(),
                     container.GetInstance<ServiceRequestOperations>(),
-                    container.GetInstance<GameOperations>(),
+                    container.GetInstance<GameExecutionOperations>(),
                     container.GetInstance<GameHelpOperations>()
                 },
 
@@ -32,7 +32,7 @@
                     container.GetInstance<TouchOperations>(),
                     container.GetInstance<AuditMenuOperations>(),
                     container.GetInstance<BalanceOperations>(),
-                    container.GetInstance<GameOperations>(),
+                    container.GetInstance<GameExecutionOperations>(),
                     container.GetInstance<ServiceRequestOperations>(),
                     container.GetInstance<LockUpOperations>(),
                     container.GetInstance<OperatingHoursOperations>(),
@@ -47,7 +47,7 @@
                     container.GetInstance<TouchOperations>(),
                     container.GetInstance<AuditMenuOperations>(),
                     container.GetInstance<BalanceOperations>(),
-                    container.GetInstance<GameOperations>(),
+                    container.GetInstance<GameExecutionOperations>(),
                     container.GetInstance<ServiceRequestOperations>(),
                     container.GetInstance<LockUpOperations>(),
                     container.GetInstance<OperatingHoursOperations>(),

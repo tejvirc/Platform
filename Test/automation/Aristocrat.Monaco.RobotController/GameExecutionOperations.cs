@@ -14,7 +14,7 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    internal class GameOperations : IRobotOperations
+    internal class GameExecutionOperations : IRobotOperations
     {
         private readonly IEventBus _eventBus;
         private readonly Automation _automator;
@@ -56,25 +56,7 @@
             }
         }
 
-        public bool ExitWhenIdle
-        {
-            get
-            {
-                lock (_lock)
-                {
-                    return _exitWhenIdle;
-                }
-            }
-            set
-            {
-                lock (_lock)
-                {
-                    _exitWhenIdle = value;
-                }
-            }
-        }
-
-        public GameOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, IPropertiesManager pm, RobotController robotController, IGameService gameService)
+        public GameExecutionOperations(IEventBus eventBus, RobotLogger logger, Automation automator, StateChecker sc, IPropertiesManager pm, RobotController robotController, IGameService gameService)
         {
             _stateChecker = sc;
             _automator = automator;
@@ -85,7 +67,7 @@
             _gameService = gameService;
         }
 
-        ~GameOperations() => Dispose(false);
+        ~GameExecutionOperations() => Dispose(false);
 
         public void Dispose()
         {
@@ -95,7 +77,7 @@
 
         public void Execute()
         {
-            _logger.Info("GameOperations Has Been Initiated!", GetType().Name);
+            _logger.Info("GameExecutionOperations Has Been Initiated!", GetType().Name);
             SubscribeToEvents();
 
             if (IsRegularRobots())
@@ -103,14 +85,6 @@
                 return;
             }
 
-            _loadGameTimer = new Timer(
-                               (sender) =>
-                               {
-                                   RequestGame();
-                               },
-                               null,
-                               _robotController.Config.Active.IntervalLoadGame,
-                               _robotController.Config.Active.IntervalLoadGame);
             _RgTimer = new Timer(
                                (sender) =>
                                {
@@ -134,7 +108,7 @@
         {
             _disposed = false;
             _sanityCounter = 0;
-            ExitWhenIdle = false;
+            _exitWhenIdle = false;
             _requestGameIsInProgress = false;
             _gameIsRunning = _gameService.Running;
             _goToNextGame = false;
@@ -187,15 +161,15 @@
             }
             _logger.Info("ForceGameExit Requested Received!", GetType().Name);
             ForceGameExitIsInProgress = true;
-            ExitWhenIdle = false;
+            _exitWhenIdle = false;
             _automator.ForceGameExit(Constants.GdkRuntimeHostName);
             _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
         }
 
         private bool IsRequestForceExitToLobbyValid(bool skipTestRecovery)
         {
-            var isBlocked = _robotController.IsBlockedByOtherOperation( new List<RobotStateAndOperations>() { RobotStateAndOperations.GameExiting});
-            var isGeneralRule = (_gameIsRunning && !_stateChecker.IsGameLoading && !ForceGameExitIsInProgress && !ExitWhenIdle && (_robotController.Config.Active.TestRecovery || skipTestRecovery));
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>() { RobotStateAndOperations.GameExiting });
+            var isGeneralRule = (_gameIsRunning && !_stateChecker.IsGameLoading && !ForceGameExitIsInProgress && !_exitWhenIdle && (_robotController.Config.Active.TestRecovery || skipTestRecovery));
             return !isBlocked && isGeneralRule;
         }
 
@@ -227,7 +201,7 @@
             if (_stateChecker.IsGame && _gameIsRunning)
             {
                 _logger.Info($"Exit To Lobby When Idle Requested Received! Sanity Counter = {_sanityCounter}, Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                ExitWhenIdle = !IsRegularRobots();
+                _exitWhenIdle = !IsRegularRobots();
             }
             else if (_gameIsRunning)
             {
@@ -273,7 +247,7 @@
                      DismissTimeLimitDialog();
                      if (evt.IsLastPrompt)
                      {
-                         ExitWhenIdle = !IsRegularRobots();
+                         _exitWhenIdle = !IsRegularRobots();
                      }
                  });
             _eventBus.Subscribe<TimeLimitDialogHiddenEvent>(
@@ -303,7 +277,6 @@
                     _sanityCounter = 0;
                     _requestGameIsInProgress = false;
                     _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
-                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExitingNoramlly);
                     BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
                 });
 
@@ -346,7 +319,7 @@
                          _logger.Info($"GameProcessExitedEvent-Unexpected-ForceGameExit Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                          ForceGameExitIsInProgress = false;
                          _goToNextGame = false;
-                         ExitWhenIdle = !IsRegularRobots();
+                         _exitWhenIdle = !IsRegularRobots();
                      }
                      else
                      {
@@ -419,7 +392,7 @@
                     Task.Delay(CashoutDialogDismiss).ContinueWith(task =>
                     {
                         var cashOut = GetRandomBoolean();
-                            
+
                         _eventBus.Publish(new CashoutAmountAuthorizationReceivedEvent(cashOut));
                         _robotController.UnBlockOtherOperations(RobotStateAndOperations.CashoutBannerSupport);
                     });
@@ -438,25 +411,24 @@
 
         private void HandleExitToLobbyRequest()
         {
-            if (ExitWhenIdle)
+            if (_exitWhenIdle)
             {
-                _robotController.BlockOtherOperations(RobotStateAndOperations.GameExitingNoramlly);
+                _robotController.BlockOtherOperations(RobotStateAndOperations.GameExiting);
                 if (!IsExitToLobbyWhenIdleValid())
                 {
-                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExitingNoramlly);
-                    ExitWhenIdle = false;
+                    _robotController.UnBlockOtherOperations(RobotStateAndOperations.GameExiting);
                     return;
                 }
                 _logger.Info($"ExitToLobby Request Is Received! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 _automator.RequestGameExit();
-                ExitWhenIdle = false;
-                //GameProcessExitedEvent gets trigered
+                _exitWhenIdle = false;
+                //GameProcessExitedEvent gets triggered
             }
         }
 
         private bool IsExitToLobbyWhenIdleValid()
         {
-            return _gameIsRunning && (_stateChecker.IsIdle || _stateChecker.IsPresentationIdle) && ExitWhenIdle && !ForceGameExitIsInProgress;
+            return _gameIsRunning && (_stateChecker.IsIdle || _stateChecker.IsPresentationIdle) && _exitWhenIdle && !ForceGameExitIsInProgress;
         }
 
         private void BalanceCheckWithDelay(int milliseconds)
@@ -490,7 +462,7 @@
 
         private bool IsRequestGameValid()
         {
-            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>() { RobotStateAndOperations.GameExitingNoramlly, RobotStateAndOperations.GameExiting });
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>() { RobotStateAndOperations.GameExiting });
             var isGeneralRule = _stateChecker.IsChooser || (_gameIsRunning && !_stateChecker.IsGameLoading);
             return !isBlocked && isGeneralRule && !_requestGameIsInProgress;
         }
@@ -540,6 +512,6 @@
         }
 
         private bool GetRandomBoolean() => new Random((int)DateTime.Now.Ticks).Next() % 2 != 0;
-        
+
     }
 }
