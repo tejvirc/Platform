@@ -12,7 +12,7 @@
     using log4net;
     using Messages.Interceptor;
 
-    public abstract class BaseClient<TClientApi> : IClient
+    public abstract class BaseClient<TClientApi> : IClient<TClientApi>
     {
         private readonly ILog _logger;
         private readonly BaseClientAuthorizationInterceptor _clientAuthorizationInterceptor;

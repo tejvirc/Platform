@@ -21,13 +21,14 @@
         {
             var result = new List<Ticket>();
             var pages = games.Count / ItemsPerPage + 1;
+            var multiPage = pages > 1;
             var index = 0;
             for (var i = 1; i <= pages; ++i)
             {
                 var count = index + ItemsPerPage > games.Count ? games.Count % ItemsPerPage : ItemsPerPage;
                 var items = games.GetRange(index, count);
-                index = index + count;
-                var ticket = new GameInfoTicket(items, i);
+                index += count;
+                var ticket = new GameInfoTicket(items, i, multiPage);
                 result.Add(ticket.CreateTextTicket());
             }
 

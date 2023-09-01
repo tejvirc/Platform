@@ -11,6 +11,7 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                                xmlns:common="clr-namespace:Aristocrat.Monaco.UI.Common;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:controls="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance viewModels:CertificatesViewModel, IsDesignTimeCreatable=False}"
                                FocusManager.FocusedElement="{Binding ElementName=MainMenu}"
@@ -122,20 +123,20 @@
                            Grid.Column="0"
                            Content="{lex:Loc CertificatePreSharedSecretTitle}"
                            VerticalAlignment="Center"
-                           Margin="10,5,0,0"
+                           Margin="10 5 0 0"
                            AutomationProperties.AutomationId="Label25_2F3D0D04" />
-                    <TextBox Grid.Row="0"
-                             Grid.Column="1"
-                             Name="PreSharedSecret"
-                             Width="200"
-                             Margin="5 0 0 0"
-                             IsEnabled="{Binding IsScepEnabled, Mode=OneWay}"
-                             AutomationProperties.AutomationId="TextBox26_2F3D0D04">
+                    <controls:TouchTextBox Grid.Row="0"
+                                           Grid.Column="1"
+                                           Name="PreSharedSecret"
+                                           Width="200"
+                                           Margin="5 0 0 0"
+                                           IsEnabled="{Binding IsScepEnabled, Mode=OneWay}"
+                                           AutomationProperties.AutomationId="TextBox26_2F3D0D04">
                         <TextBox.Text>
                             <Binding Path="PreSharedSecret"
                                      UpdateSourceTrigger="PropertyChanged" />
                         </TextBox.Text>
-                    </TextBox>
+                    </controls:TouchTextBox>
                     <Button Grid.Row="0"
                             Grid.Column="3"
                             Content="{lex:Loc CertificateEnrollButtonTitle}"
@@ -152,8 +153,7 @@
                                 <Style.Triggers>
                                     <MultiDataTrigger AutomationProperties.AutomationId="MultiDataTrigger28_2F3D0D04">
                                         <MultiDataTrigger.Conditions>
-                                            <Condition
-                                                    Binding="{Binding ElementName=PreSharedSecret, Path=(Validation.HasError)}"
+                                            <Condition Binding="{Binding ElementName=PreSharedSecret, Path=(Validation.HasError)}"
                                                        Value="false" />
                                         </MultiDataTrigger.Conditions>
                                         <Setter Property="IsEnabled"

@@ -448,8 +448,20 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-
-
+                        <DataGridTemplateColumn Header="Bet Keeper"
+                                                loc:Localizer.For="Operator"
+                                                HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"
+                                                Visibility="{Binding Path=Data.(viewModels:AdvancedGameSetupViewModel.BetKeeperOptionVisible), Source={StaticResource PageModel}, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                                                AutomationProperties.AutomationId="DataGridTemplateColumn54_FA38938A">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="{x:Type models:EditableGameConfiguration}">
+                                    <CheckBox HorizontalAlignment="Center"
+                                              IsChecked="{Binding BetKeeper, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              IsEnabled="{Binding CanEditBetKeeper}"
+                                              AutomationProperties.AutomationId="CheckBox55_FA38938A"></CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="{lex:Loc ForcedMinBet}"
                                                 loc:Localizer.For="Operator"
                                                 HeaderStyle="{StaticResource MonacoDataGridColumnHeaderSmallCentered}"

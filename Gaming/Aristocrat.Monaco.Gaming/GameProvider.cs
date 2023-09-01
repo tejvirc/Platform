@@ -428,6 +428,7 @@
                         denomination.MaximumWagerOutsideCredits = active.MaximumWagerOutsideCredits;
                         denomination.SecondaryAllowed = active.SecondaryAllowed;
                         denomination.LetItRideAllowed = active.LetItRideAllowed;
+                        denomination.BetKeeperAllowed = active.BetKeeperAllowed;
                         if (!denomination.Active)
                         {
                             denomination.ActiveDate = DateTime.UtcNow;
@@ -1108,6 +1109,7 @@
             var features = game?.Features?.Select(
                 x => new Feature
                 {
+                    FeatureName = x.FeatureName,
                     Name = x.Name,
                     Enable = x.Enable,
                     Editable = x.Editable,
@@ -1266,6 +1268,7 @@
                     BonusBet = x.BonusBet,
                     LetItRideAllowed = x.LetItRideAllowed,
                     LetItRideEnabled = x.LetItRideEnabled,
+                    BetKeeperAllowed = x.BetKeeperAllowed,
                     LineOption = x.LineOption,
                     MaximumWagerCredits = x.MaximumWagerCredits,
                     MaximumWagerOutsideCredits = x.MaximumWagerOutsideCredits,
@@ -1767,6 +1770,7 @@
                     SecondaryEnabled = game.SecondaryEnabled, // default value
                     LetItRideAllowed = game.LetItRideAllowed || game.LetItRideEnabled,
                     LetItRideEnabled = game.LetItRideEnabled, // default value
+                    BetKeeperAllowed = game.Features?.FirstOrDefault()?.Enable ?? false,
                     Active = denomination == activeDenom,
                     ActiveDate = denomination == activeDenom ? DateTime.UtcNow : DateTime.MinValue
                 }).ToList();

@@ -475,7 +475,7 @@
                 {
                     ApplicationConstants.PrinterWarningSoundKey,
                     Tuple.Create(
-                        (object)configuration?.PrinterWarningSound?.FilePath,
+                        (object)configuration.PrinterWarningSound?.FilePath,
                         ApplicationConstants.PrinterWarningSoundKey,
                         false)
                 },
@@ -503,7 +503,7 @@
                 {
                     ApplicationConstants.LiveAuthenticationFailedSoundKey,
                     Tuple.Create(
-                        (object)configuration?.LiveAuthenticationFailedSound?.FilePath,
+                        (object)configuration.LiveAuthenticationFailedSound?.FilePath,
                         ApplicationConstants.LiveAuthenticationFailedSoundKey,
                         false)
                 },
@@ -819,7 +819,7 @@
                 _properties.Add(
                     ApplicationConstants.DetailedAuditTickets,
                     Tuple.Create(
-                        (object)(configuration?.DetailedAuditTickets.Enabled ?? false),
+                        (object)configuration.DetailedAuditTickets.Enabled,
                         ApplicationConstants.DetailedAuditTickets,
                         true));
             }
@@ -930,16 +930,16 @@
 
         private void SetPrinterLineLimits(ApplicationConfigurationAuditTicket auditTicket)
         {
-            int eventsPerPage = 6;
-            int lineLimit = 36;
+            var eventsPerPage = 6;
+            var lineLimit = 36;
 
-            if (auditTicket?.PrinterProtocol != null)
+            // Fake printer uses the same limits as the real printer would
+            var serviceProtocol = ServiceManager.GetInstance().TryGetService<IPrinter>()?.ServiceProtocol;
+            if (auditTicket?.PrinterProtocol != null &&
+                (serviceProtocol == auditTicket.PrinterProtocol || serviceProtocol == ApplicationConstants.Fake))
             {
-                if (auditTicket.PrinterProtocol == ServiceManager.GetInstance().TryGetService<IPrinter>()?.ServiceProtocol)
-                {
-                    lineLimit = auditTicket.LineLimit;
-                    eventsPerPage = auditTicket.EventsPerPage;
-                }
+                lineLimit = auditTicket.LineLimit;
+                eventsPerPage = auditTicket.EventsPerPage;
             }
 
             _properties.Add(ApplicationConstants.AuditTicketLineLimit, Tuple.Create((object)lineLimit, ApplicationConstants.AuditTicketLineLimit, false));

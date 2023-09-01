@@ -7,6 +7,8 @@
     /// </summary
     public class Feature
     {
+        /// <summary>Name of the feature like BetKeeper </summary>
+        public string FeatureName { get; set; }
         /// <summary>Gets or sets the Name of the feature for example Lucky Chance Spin</summary>
         public string Name { get; set; }
 

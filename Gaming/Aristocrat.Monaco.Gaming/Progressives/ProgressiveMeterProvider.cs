@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
+    using System.IO;
     using System.Linq;
     using Application.Contracts;
     using Contracts.Meters;
@@ -19,11 +21,17 @@
         private const PersistenceLevel ProviderPersistenceLevel = PersistenceLevel.Critical;
 
         private const string ProgressiveMeterProviderExtensionPoint = "/Gaming/Metering/ProgressiveMeterProvider";
+        private const string MeterGroupNameProgressive = "progressive";
+        private const string MeterGroupNameProgressiveLevel = "progressiveLevel";
+        private const string MeterGroupNameLinkedProgressive = "linkedProgressive";
+        private const string MeterGroupNameSharedLevel = "sharedLevel";
 
         private readonly object _lock = new();
         private readonly IProgressiveMeterManager _progressiveMeterManager;
         private readonly IProgressiveLevelProvider _levelProvider;
         private readonly IPersistentStorageManager _persistentStorage;
+        private readonly Dictionary<string, Action<ProgressiveAtomicMeterNode, IPersistentStorageAccessor>>
+            _meterBuilders;
 
         private bool _disposed;
 
@@ -49,6 +57,18 @@
             _levelProvider = levelProvider ?? throw new ArgumentNullException(nameof(levelProvider));
 
             RolloverTest = PropertiesManager.GetValue(@"maxmeters", "false") == "true";
+
+            _meterManager.ProgressiveAdded += OnProgressiveAdded;
+            _meterManager.LinkedProgressiveAdded += OnLinkedProgressiveAdded;
+            _meterManager.LPCompositeMetersCanUpdate += UpdateLPCompositeMeters;
+
+            _meterBuilders = new Dictionary<string, Action<ProgressiveAtomicMeterNode, IPersistentStorageAccessor>>()
+            {
+                {MeterGroupNameProgressive, AddAtomicProgressiveMeter},
+                {MeterGroupNameProgressiveLevel, AddAtomicProgressiveLevelMeter},
+                {MeterGroupNameLinkedProgressive, AddAtomicLinkedLevelMeter},
+                {MeterGroupNameSharedLevel, AddAtomicSharedLevelMeter},
+            };
 
             Initialize();
             meterManager.AddProvider(this);
@@ -101,6 +121,16 @@
             Invalidate();
         }
 
+        private void OnLinkedProgressiveAdded(
+            object sender,
+            LinkedProgressiveAddedEventArgs linkedProgressiveAddedEventArgs)
+        {
+            Initialize();
+
+            // Refresh the published meters
+            Invalidate();
+        }
+
         private void Initialize()
         {
             var atomicMeters =
@@ -123,20 +153,15 @@
             foreach (var meter in meters)
             {
                 var meterBlockName = $"{blockName}.{meter.Name}";
-                var blockSize = 0;
 
-                if (meter.Group.Equals("progressive", StringComparison.InvariantCultureIgnoreCase))
+                var blockSize = meter.Group switch
                 {
-                    blockSize = _progressiveMeterManager.ProgressiveCount;
-                }
-                else if (meter.Group.Equals("progressiveLevel", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    blockSize = _progressiveMeterManager.LevelCount;
-                }
-                else if (meter.Group.Equals("sharedLevel", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    blockSize = _progressiveMeterManager.SharedLevelCount;
-                }
+                    MeterGroupNameProgressive => _meterManager.ProgressiveCount,
+                    MeterGroupNameProgressiveLevel => _meterManager.LevelCount,
+                    MeterGroupNameLinkedProgressive => _meterManager.LinkedLevelCount,
+                    MeterGroupNameSharedLevel => _meterManager.SharedLevelCount,
+                    _ => throw new ArgumentException($"Unknown Progressive meter group type: {meter.Group}")
+                };
 
                 if (_persistentStorage.BlockExists(meterBlockName))
                 {
@@ -168,22 +193,14 @@
 
             foreach (var meter in meters)
             {
+                if (!_meterBuilders.TryGetValue(meter.Group, out var meterBuilder))
+                {
+                    throw new ArgumentException($"Unknown Progressive meter group type: {meter.Group}");
+                }
+
                 var meterBlockName = $"{blockName}.{meter.Name}";
-
                 var block = _persistentStorage.GetBlock(meterBlockName);
-
-                if (meter.Group.Equals("progressive", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    AddAtomicProgressiveMeter(meter, block);
-                }
-                else if (meter.Group.Equals("progressiveLevel", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    AddAtomicLevelMeter(meter, block);
-                }
-                else if (meter.Group.Equals("sharedLevel", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    AddAtomicSharedLevelMeter(meter, block);
-                }
+                meterBuilder(meter, block);
             }
         }
 
@@ -244,13 +261,29 @@
             }
         }
 
-        private void AddAtomicLevelMeter(ProgressiveAtomicMeterNode meter, IPersistentStorageAccessor block)
+        private void AddAtomicProgressiveLevelMeter(ProgressiveAtomicMeterNode meter, IPersistentStorageAccessor block)
         {
             var currentValues = block.GetAll();
 
             foreach (var (deviceId, levelId, blockIndex) in _progressiveMeterManager.GetProgressiveLevelBlocks())
             {
                 var meterName = _progressiveMeterManager.GetMeterName(deviceId, levelId, meter.Name);
+                if (Contains(meterName))
+                {
+                    continue;
+                }
+
+                AddAtomicMeter(ref currentValues, blockIndex, meterName, block, meter);
+            }
+        }
+
+        private void AddAtomicLinkedLevelMeter(ProgressiveAtomicMeterNode meter, IPersistentStorageAccessor block)
+        {
+            var currentValues = block.GetAll();
+
+            foreach (var (level, blockIndex) in _meterManager.GetLinkedLevelBlocks())
+            {
+                var meterName = _meterManager.GetMeterName(level, meter.Name);
                 if (Contains(meterName))
                 {
                     continue;

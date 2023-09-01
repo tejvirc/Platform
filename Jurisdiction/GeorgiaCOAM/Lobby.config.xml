@@ -8,6 +8,7 @@
     <HasAttractIntroVideo>true</HasAttractIntroVideo>
     <BottomAttractVideoEnabled>true</BottomAttractVideoEnabled>
     <DaysAsNew>0</DaysAsNew>
+    <ButtonDeckNavigationEnabled>false</ButtonDeckNavigationEnabled>
     <ResponsibleGamingTimeLimits>
         <double>60</double>
         <double>90</double>

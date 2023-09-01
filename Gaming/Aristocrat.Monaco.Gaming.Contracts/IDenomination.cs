@@ -45,6 +45,11 @@
         bool LetItRideAllowed { get; set; }
 
         /// <summary>
+        ///     Gets whether or not the Bet Keeper feature is allowed or not
+        /// </summary>
+        bool BetKeeperAllowed { get; set; }
+
+        /// <summary>
         ///     Gets the value in millicents of each credit for the game's display
         /// </summary>
         long DisplayedValue { get; }

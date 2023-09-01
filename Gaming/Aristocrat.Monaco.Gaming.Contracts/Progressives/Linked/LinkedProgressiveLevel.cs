@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked
 {
     using System;
+    using Newtonsoft.Json;
 
     /// <summary>
     ///     Defines data associated with linked progressive levels defined by an external host
@@ -38,7 +39,8 @@
         ///     Gets or the name of the level. This should always be unique as it is
         ///     a concatenation of ProtocolName, ProgressiveGroupId, and LevelId.
         /// </summary>
-        public string LevelName => $"{ProtocolName}, LevelId: {LevelId}, ProgressiveGroupId: {ProgressiveGroupId}";
+        [JsonIgnore]
+        public string LevelName => $"{ProtocolName}, Level Id: {LevelId}, Progressive Group Id: {ProgressiveGroupId}";
 
         /// <summary>
         ///     Gets or sets the amount for the linked progressive level

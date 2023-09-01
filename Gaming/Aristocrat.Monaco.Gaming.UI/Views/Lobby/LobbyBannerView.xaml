@@ -21,8 +21,8 @@
             <Storyboard x:Key="IdleTextPulseStoryboard"
                         AutomationProperties.AutomationId="Storyboard1_10DA6753">
                 <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
-                                 From="0.9"
-                                 To="1.1"
+                                 From="1.0"
+                                 To="1.2"
                                  Duration="0:0:1.5"
                                  BeginTime="0:0:0"
                                  AutoReverse="True"
@@ -34,8 +34,8 @@
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
                 <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
-                                 From="0.9"
-                                 To="1.1"
+                                 From="1.0"
+                                 To="1.2"
                                  Duration="0:0:1.5"
                                  BeginTime="0:0:0"
                                  AutoReverse="True"

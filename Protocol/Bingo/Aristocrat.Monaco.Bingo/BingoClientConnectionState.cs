@@ -1,8 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Bingo
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -18,51 +16,39 @@
     using Localization.Properties;
     using log4net;
     using Monaco.Common;
-    using Protocol.Common.Storage.Entity;
+    using ServerApiGateway;
     using Stateless;
     using Timer = System.Threading.Timer;
 
-    public class BingoClientConnectionState : IBingoClientConnectionState, IDisposable
+    public sealed class BingoClientConnectionState : IBingoClientConnectionState, IDisposable
     {
         private static readonly TimeSpan NoMessagesTimeout = TimeSpan.FromMilliseconds(40_000);
         private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private readonly IPropertiesManager _propertiesManager;
-        private readonly IUnitOfWorkFactory _unitOfWorkFactory;
         private readonly ICommandHandlerFactory _commandFactory;
         private readonly IEventBus _eventBus;
+        private readonly IClient<ClientApi.ClientApiClient> _bingoClient;
         private readonly ISystemDisableManager _systemDisable;
         private CancellationTokenSource _tokenSource;
         private StateMachine<State, Trigger> _registrationState;
         private StateMachine<State, Trigger>.TriggerWithParameters<RegistrationFailureReason> _failedRegistrationTrigger;
         private StateMachine<State, Trigger>.TriggerWithParameters<ConfigurationFailureReason> _failedConfigurationTrigger;
-        private IEnumerable<IClient> _clients;
         private readonly IClientConfigurationProvider _configurationProvider;
         private Timer _timeoutTimer;
         private bool _disposed;
 
         public BingoClientConnectionState(
             IEventBus eventBus,
-            IEnumerable<IClient> clients,
+            IClient<ClientApi.ClientApiClient> bingoClient,
             IClientConfigurationProvider configurationProvider,
-            IPropertiesManager propertiesManager,
             ISystemDisableManager systemDisable,
-            IUnitOfWorkFactory unitOfWorkFactory,
             ICommandHandlerFactory commandFactory)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _bingoClient = bingoClient ?? throw new ArgumentNullException(nameof(bingoClient));
             _systemDisable = systemDisable ?? throw new ArgumentNullException(nameof(systemDisable));
             _configurationProvider =
                 configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
-            _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
             _commandFactory = commandFactory ?? throw new ArgumentNullException(nameof(commandFactory));
-
-            if (clients is null)
-            {
-                throw new ArgumentNullException(nameof(clients));
-            }
-
-            Clients = clients.AsEnumerable().Where(x => x is BingoClient);
 
             Initialize();
 
@@ -83,12 +69,9 @@
 
             _eventBus.UnsubscribeAll(this);
             _registrationState.Deactivate();
-            foreach (var client in Clients)
-            {
-                client.Disconnected -= OnClientDisconnected;
-                client.Connected -= OnClientConnected;
-                client.MessageReceived -= OnMessageReceived;
-            }
+            _bingoClient.Disconnected -= OnClientDisconnected;
+            _bingoClient.Connected -= OnClientConnected;
+            _bingoClient.MessageReceived -= OnMessageReceived;
 
             _timeoutTimer.Dispose();
             var tokenSource = _tokenSource;
@@ -112,21 +95,12 @@
             await _registrationState.FireAsync(Trigger.Shutdown).ConfigureAwait(false);
         }
 
-        // Exposing this for unit testing
-        protected IEnumerable<IClient> Clients
-        {
-            get => _clients;
-            set
-            {
-                _clients = value;
-                RegisterEventListeners();
-            }
-        }
-
         private void Initialize()
         {
             CreateStateMachine();
             RegisterEventListeners();
+
+            _bingoClient.Stop().ConfigureAwait(false);
             _timeoutTimer = new Timer(TimeoutOccurred);
         }
 
@@ -211,22 +185,15 @@
             _tokenSource?.Cancel();
             _tokenSource?.Dispose();
             _tokenSource = null;
-
-            foreach (var client in Clients)
-            {
-                await client.Stop().ConfigureAwait(false);
-            }
+            await _bingoClient.Stop().ConfigureAwait(false);
         }
 
         private async Task ConnectClient(CancellationToken token)
         {
             SetupFirewallRule();
-            foreach (var client in Clients)
+            while (!await _bingoClient.Start().ConfigureAwait(false) && !token.IsCancellationRequested)
             {
-                while (!await client.Start().ConfigureAwait(false) && !token.IsCancellationRequested)
-                {
-                    _logger.Info($"Client failed to connect retrying.  IsCancelled={token.IsCancellationRequested}");
-                }
+                _logger.Info($"Client failed to connect retrying.  IsCancelled={token.IsCancellationRequested}");
             }
 
             _timeoutTimer.Change(NoMessagesConnectionTimeout, Timeout.InfiniteTimeSpan);
@@ -235,10 +202,7 @@
         private void SetupFirewallRule()
         {
             using var configuration = _configurationProvider.CreateConfiguration();
-            foreach (var client in Clients)
-            {
-                Firewall.AddRule(client.FirewallRuleName, (ushort)configuration.Address.Port, Firewall.Direction.Out);
-            }
+            Firewall.AddRule(_bingoClient.FirewallRuleName, (ushort)configuration.Address.Port, Firewall.Direction.Out);
         }
 
         private void RegisterEventListeners()
@@ -250,12 +214,9 @@
                     string.Equals(ApplicationConstants.MachineId, evt.PropertyName, StringComparison.Ordinal) ||
                     string.Equals(ApplicationConstants.SerialNumber, evt.PropertyName, StringComparison.Ordinal));
             _eventBus.Subscribe<ForceReconnectionEvent>(this, HandleRestartingEvent);
-            foreach (var client in Clients)
-            {
-                client.Connected += OnClientConnected;
-                client.Disconnected += OnClientDisconnected;
-                client.MessageReceived += OnMessageReceived;
-            }
+            _bingoClient.Connected += OnClientConnected;
+            _bingoClient.Disconnected += OnClientDisconnected;
+            _bingoClient.MessageReceived += OnMessageReceived;
         }
 
         private static State HandleConfigurationFailure(ConfigurationFailureReason reason)

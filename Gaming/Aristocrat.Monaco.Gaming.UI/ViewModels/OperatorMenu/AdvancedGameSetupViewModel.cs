@@ -255,6 +255,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         public bool LetItRideOptionVisible => GlobalOptionsVisible &&
                                               SelectedGameType == GameType.Blackjack;
 
+        public bool BetKeeperOptionVisible =>
+                    SelectedGame?.GameConfigurations?.FirstOrDefault()?.Game?.Features?.Any(x => x.FeatureName.Equals(GamingConstants.BetKeeper, StringComparison.Ordinal)) ?? false;
+
         public bool CanExecuteImportCommand => CanExecuteExportCommand && _settingsManager.IsConfigurationImportFilePresent(ConfigurationGroup.Game);
 
         public bool CanExecuteExportCommand => !IsInProgress && FieldAccessEnabled && (FieldAccessRestriction == OperatorMenuAccessRestriction.None);
@@ -362,7 +365,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
                 _selectedGame = value;
                 UpdateInputStatusText();
-                OnPropertyChanged(nameof(SelectedGame), nameof(GameConfigurations), nameof(ThemePlusOptions), nameof(SelectedDenoms), nameof(MaxWinColumnVisible));
+                OnPropertyChanged(nameof(SelectedGame), nameof(GameConfigurations), nameof(ThemePlusOptions), nameof(SelectedDenoms), nameof(MaxWinColumnVisible), nameof(BetKeeperOptionVisible));
                 if (_selectedGame == null)
                 {
                     return;
@@ -1344,6 +1347,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                     BonusBet = configuration.SelectedBonusBet,
                     SecondaryAllowed = configuration.Gamble,
                     LetItRideAllowed = configuration.LetItRide,
+                    BetKeeperAllowed = configuration.BetKeeper,
                     MinimumWagerCredits = configuration.MinimumWagerCredits,
                     MaximumWagerCredits = configuration.MaximumWagerCredits,
                     MaximumWagerOutsideCredits = configuration.MaximumWagerOutsideCredits
@@ -1612,7 +1616,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             ApplyGameOptionsEnabled();
 
             OnPropertyChanged(nameof(LetItRideOptionVisible), nameof(GambleOptionVisible),
-                nameof(OptionColumnVisible), nameof(IsRouletteGameSelected),
+                nameof(OptionColumnVisible), nameof(IsRouletteGameSelected), nameof(BetKeeperOptionVisible),
                 nameof(IsPokerGameSelected), nameof(MaxBetIsVisible));
         }
 

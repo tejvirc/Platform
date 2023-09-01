@@ -21,6 +21,16 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aristocrat.GdkRuntime.Contract">
+      <HintPath>..\Aristocrat.GdkRuntime.Contract\bin\$(Configuration)\Aristocrat.GdkRuntime.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Aristocrat.Monaco.Gaming.Progressives.ProgressiveMeterManager.LinkedLevels.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Aristocrat.Monaco.Gaming.BonusMeterProvider.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
