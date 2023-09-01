@@ -37,6 +37,12 @@
         /// <inheritdoc/>
         public void Handle(CheckResult command)
         {
+            var strategy = _properties.GetValue(GamingConstants.GameEndCashOutStrategy, CashOutStrategy.None);
+            if (strategy == CashOutStrategy.Full)
+            {
+                return;
+            }
+
             var (game, denomination) = _properties.GetActiveGame();
 
             var result = command.Result * GamingConstants.Millicents;
