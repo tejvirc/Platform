@@ -442,7 +442,7 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_ReelServiceProxy_UpdateReelState_System_Collections_Generic_IDictionary_System_Int32_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLogicalState__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.ReelServiceProxy.UpdateReelState(System.Collections.Generic.IDictionary%7BSystem.Int32%2CAristocrat.Monaco.Hardware.Contracts.Reel.ReelLogicalState%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Runtime_ReelServiceProxy_UpdateReelState_System_Collections_Generic_IDictionary_System_Int32_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLogicalState__System_Nullable_System_Int32__.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Runtime.ReelServiceProxy.UpdateReelState(System.Collections.Generic.IDictionary%7BSystem.Int32%2CAristocrat.Monaco.Hardware.Contracts.Reel.ReelLogicalState%7D%2CSystem.Nullable%7BSystem.Int32%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Runtime/ReelServiceProxy.cs/#L22" title="View Source"><i class="fa fa-code"></i></a>
@@ -450,16 +450,16 @@
   
   <a id="Aristocrat_Monaco_Gaming_Runtime_ReelServiceProxy_UpdateReelState_" data-uid="Aristocrat.Monaco.Gaming.Runtime.ReelServiceProxy.UpdateReelState*"></a>
   
-  <h4 id="Aristocrat_Monaco_Gaming_Runtime_ReelServiceProxy_UpdateReelState_System_Collections_Generic_IDictionary_System_Int32_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLogicalState__" data-uid="Aristocrat.Monaco.Gaming.Runtime.ReelServiceProxy.UpdateReelState(System.Collections.Generic.IDictionary{System.Int32,Aristocrat.Monaco.Hardware.Contracts.Reel.ReelLogicalState})"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_ReelServiceProxy_UpdateReelState_System_Collections_Generic_IDictionary_System_Int32_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLogicalState__" class="expander" data-toggle="collapse">UpdateReelState(IDictionary&lt;Int32, ReelLogicalState&gt;)</a></h4>
+  <h4 id="Aristocrat_Monaco_Gaming_Runtime_ReelServiceProxy_UpdateReelState_System_Collections_Generic_IDictionary_System_Int32_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLogicalState__System_Nullable_System_Int32__" data-uid="Aristocrat.Monaco.Gaming.Runtime.ReelServiceProxy.UpdateReelState(System.Collections.Generic.IDictionary{System.Int32,Aristocrat.Monaco.Hardware.Contracts.Reel.ReelLogicalState},System.Nullable{System.Int32})"><a href="#collapsible-Aristocrat_Monaco_Gaming_Runtime_ReelServiceProxy_UpdateReelState_System_Collections_Generic_IDictionary_System_Int32_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLogicalState__System_Nullable_System_Int32__" class="expander" data-toggle="collapse">UpdateReelState(IDictionary&lt;Int32, ReelLogicalState&gt;, Nullable&lt;Int32&gt;)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_ReelServiceProxy_UpdateReelState_System_Collections_Generic_IDictionary_System_Int32_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLogicalState__" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Runtime_ReelServiceProxy_UpdateReelState_System_Collections_Generic_IDictionary_System_Int32_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLogicalState__System_Nullable_System_Int32__" class="collapse in">
   <div class="markdown level1 summary"><p>Updates the reel state</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void UpdateReelState(IDictionary&lt;int, ReelLogicalState&gt; updateData)</code></pre>
+    <pre><code class="lang-csharp hljs">public void UpdateReelState(IDictionary&lt;int, ReelLogicalState&gt; updateData, int? step)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -472,6 +472,14 @@
 </p>
       </td>
     </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.nullable-1">Nullable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">Int32</a>&gt;</span>
+        <span class="parametername">step</span>
+        <p><p>The step the reel is at</p>
+</p>
+      </td>
+    </tr>
   </table>
   
   
@@ -481,7 +489,7 @@
   
   
   <h5 class="implements">Implements</h5>
-      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Runtime.IReelService.html#Aristocrat_Monaco_Gaming_Runtime_IReelService_UpdateReelState_System_Collections_Generic_IDictionary_System_Int32_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLogicalState__">IReelService.UpdateReelState(IDictionary&lt;Int32, ReelLogicalState&gt;)</a></div>
+      <div><a class="xref" href="Aristocrat.Monaco.Gaming.Runtime.IReelService.html#Aristocrat_Monaco_Gaming_Runtime_IReelService_UpdateReelState_System_Collections_Generic_IDictionary_System_Int32_Aristocrat_Monaco_Hardware_Contracts_Reel_ReelLogicalState__System_Nullable_System_Int32__">IReelService.UpdateReelState(IDictionary&lt;Int32, ReelLogicalState&gt;, Nullable&lt;Int32&gt;)</a></div>
   
   
   

@@ -15595,6 +15595,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -15679,9 +15682,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -25870,6 +25870,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -43594,9 +43597,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -56598,7 +56598,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Runtime.Client.SnappClient.html",
-          "hash": "nsrEYHiwko/Uy8D/hTfsdzyuwovOFMdMaKTxH1rN0DA="
+          "hash": "rlVosZ7jtZQ6KBUtNqIwNJ5KkZyGcaa9WvJEsoad1DI="
         }
       },
       "is_incremental": false,
@@ -56706,7 +56706,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Runtime.IReelService.html",
-          "hash": "3JYTVxZ8J6zWvp2q1Smp4KcTlUMxgakO4avVYJRvMds="
+          "hash": "baOg55Ded/rC55x80tY5amcE5XvnSBL+xRW0WWiX8sE="
         }
       },
       "is_incremental": false,
@@ -56778,7 +56778,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Runtime.ReelServiceProxy.html",
-          "hash": "6mWCrVygQqy4pVIz6I5y55IimjdWbTIqDdiVbQPRveU="
+          "hash": "MKHqLXYHhZL6x35qRUJkfCDc2CZNlhZCVf0n/J9cUaU="
         }
       },
       "is_incremental": false,
