@@ -27,7 +27,7 @@
         private const string MeterGroupNameSharedLevel = "sharedLevel";
 
         private readonly object _lock = new();
-        private readonly IProgressiveMeterManager _progressiveMeterManager;
+        private readonly IProgressiveMeterManager _meterManager;
         private readonly IProgressiveLevelProvider _levelProvider;
         private readonly IPersistentStorageManager _persistentStorage;
         private readonly Dictionary<string, Action<ProgressiveAtomicMeterNode, IPersistentStorageAccessor>>
@@ -53,7 +53,7 @@
             : base(ProviderName, properties)
         {
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
-            _progressiveMeterManager = progressiveMeterManager ?? throw new ArgumentNullException(nameof(progressiveMeterManager));
+            _meterManager = progressiveMeterManager ?? throw new ArgumentNullException(nameof(progressiveMeterManager));
             _levelProvider = levelProvider ?? throw new ArgumentNullException(nameof(levelProvider));
 
             RolloverTest = PropertiesManager.GetValue(@"maxmeters", "false") == "true";
@@ -72,8 +72,6 @@
 
             Initialize();
             meterManager.AddProvider(this);
-            _progressiveMeterManager.ProgressiveAdded += OnProgressiveAdded;
-            _progressiveMeterManager.LPCompositeMetersCanUpdate += UpdateLPCompositeProgressiveMeters;
         }
 
         /// <summary>
@@ -107,7 +105,7 @@
 
             if (disposing)
             {
-                _progressiveMeterManager.ProgressiveAdded -= OnProgressiveAdded;
+                _meterManager.ProgressiveAdded -= OnProgressiveAdded;
             }
 
             _disposed = true;
@@ -204,11 +202,11 @@
             }
         }
 
-        private void UpdateLPCompositeProgressiveMeters(object sender, LPCompositeMetersCanUpdateEventArgs eventArgs)
+        private void UpdateLPCompositeMeters(object sender, LPCompositeMetersCanUpdateEventArgs eventArgs)
         {
             var activeLinkedLevels = _levelProvider.GetProgressiveLevels().Where(
                 level => level.LevelType == ProgressiveLevelType.LP
-                         && _progressiveMeterManager.IsMeterProvided(
+                         && _meterManager.IsMeterProvided(
                              level.DeviceId,
                              level.LevelId,
                              ProgressiveMeters.ProgressiveLevelWinOccurrence)).ToList();
@@ -227,7 +225,7 @@
                                 activeLinkedLevels.Where(level => level.LevelId == activeLevelId).ToList();
                             foreach (var level in sameLevelIdActiveLevels)
                             {
-                                sum += _progressiveMeterManager.GetMeter(
+                                sum += _meterManager.GetMeter(
                                     level.DeviceId,
                                     level.LevelId,
                                     ProgressiveMeters.ProgressiveLevelWinOccurrence).Lifetime;
@@ -249,9 +247,9 @@
         {
             var currentValues = block.GetAll();
 
-            foreach (var (deviceId, blockIndex) in _progressiveMeterManager.GetProgressiveBlocks())
+            foreach (var (deviceId, blockIndex) in _meterManager.GetProgressiveBlocks())
             {
-                var meterName = _progressiveMeterManager.GetMeterName(deviceId, meter.Name);
+                var meterName = _meterManager.GetMeterName(deviceId, meter.Name);
                 if (Contains(meterName))
                 {
                     continue;
@@ -265,9 +263,9 @@
         {
             var currentValues = block.GetAll();
 
-            foreach (var (deviceId, levelId, blockIndex) in _progressiveMeterManager.GetProgressiveLevelBlocks())
+            foreach (var (deviceId, levelId, blockIndex) in _meterManager.GetProgressiveLevelBlocks())
             {
-                var meterName = _progressiveMeterManager.GetMeterName(deviceId, levelId, meter.Name);
+                var meterName = _meterManager.GetMeterName(deviceId, levelId, meter.Name);
                 if (Contains(meterName))
                 {
                     continue;
@@ -297,9 +295,9 @@
         {
             var currentValues = block.GetAll();
 
-            foreach (var (level, blockIndex) in _progressiveMeterManager.GetSharedLevelBlocks())
+            foreach (var (level, blockIndex) in _meterManager.GetSharedLevelBlocks())
             {
-                var meterName = _progressiveMeterManager.GetMeterName(level, meter.Name);
+                var meterName = _meterManager.GetMeterName(level, meter.Name);
                 if (Contains(meterName))
                 {
                     continue;
