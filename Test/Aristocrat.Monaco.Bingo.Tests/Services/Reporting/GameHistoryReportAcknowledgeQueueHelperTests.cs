@@ -6,6 +6,7 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Aristocrat.Bingo.Client.Messages.GamePlay;
+    using Aristocrat.ServerApiGateway;
     using Bingo.Services.Reporting;
     using Common;
     using Common.GameOverlay;
@@ -75,6 +76,9 @@
             log.Setup(x => x.StartDateTime).Returns(startTime);
             log.Setup(x => x.TransactionId).Returns(gameTransactionId);
 
+            var outcome = new Outcome(1, 321, 456, OutcomeReference.Direct, OutcomeType.Standard, winAmount, 0, string.Empty, 123 ,0);
+            log.Setup(x => x.Outcomes).Returns(new List<Outcome> { outcome });
+
             var bingoCard = new BingoCard(123456) { DaubedBits = 562, IsGameEndWin = false };
             var bingoPattern = new BingoPattern("Test Pattern1", 563, 123456, winAmount, 25, 222, false, 562, 1);
             var description = new BingoGameDescription
@@ -91,7 +95,7 @@
                 GameSerial = 1234,
                 JoinTime = joinTime,
                 Patterns = new[] { bingoPattern },
-                Paytable = "Test Paytable",
+                Paytable = "0",
                 ProgressiveLevels = Array.Empty<long>(),
                 ThemeId = 123
             };
@@ -113,42 +117,45 @@
                 .Returns(machineSerial);
             var gameOutcomeMessages = _target.ReadPersistence();
             Assert.AreEqual(1, gameOutcomeMessages.Count);
-            var outcomeMessage = gameOutcomeMessages.First();
+            var outcomeMessage = gameOutcomeMessages.First().Message;
+            var singleOutcome = outcomeMessage.GameOutcomes.First();
+            var bingoMultiMeta = outcomeMessage.MultiGameOutcomeMeta.Unpack<MultiBingoGameOutcomeMeta>();
+            var bingoSingleMeta = singleOutcome.GameOutcomeMeta.Unpack<BingoSingleGameOutcomeMeta>();
 
-            Assert.AreEqual(description.Paytable, outcomeMessage.Paytable);
-            CollectionAssert.AreEquivalent(Enumerable.Range(1, 58).ToList(), outcomeMessage.BallCall.ToList());
-            Assert.AreEqual(wagerAmount, outcomeMessage.BetAmount);
-            Assert.AreEqual(startCredits, outcomeMessage.StartingBalance);
-            Assert.AreEqual(endCredits, outcomeMessage.FinalBalance);
-            Assert.AreEqual(description.DenominationId, outcomeMessage.DenominationId);
-            Assert.AreEqual(description.FacadeKey, outcomeMessage.FacadeKey);
-            Assert.AreEqual(description.GameSerial, outcomeMessage.GameSerial);
-            Assert.AreEqual(40, outcomeMessage.JoinBall);
-            Assert.AreEqual(joinTime, outcomeMessage.JoinTime);
+            Assert.AreEqual(description.Paytable, bingoSingleMeta.PaytableId.ToString());
+            Assert.AreEqual(string.Join(",", Enumerable.Range(1, 58)), bingoMultiMeta.BallCall);
+            Assert.AreEqual(wagerAmount, singleOutcome.BetAmount);
+            Assert.AreEqual(startCredits, singleOutcome.InitialBalance);
+            Assert.AreEqual(endCredits, singleOutcome.FinalBalance);
+            Assert.AreEqual(description.DenominationId, singleOutcome.Denomination);
+            Assert.AreEqual(description.FacadeKey.ToString(), singleOutcome.FacadeKey);
+            Assert.AreEqual(description.GameSerial, bingoMultiMeta.GameSerial);
+            Assert.AreEqual(40, bingoMultiMeta.JoinBallNumber);
+            Assert.AreEqual(joinTime, singleOutcome.JoinTime.ToDateTime());
             Assert.AreEqual(machineSerial, outcomeMessage.MachineSerial);
-            Assert.AreEqual(winAmount, outcomeMessage.PaidAmount);
-            Assert.AreEqual(startTime, outcomeMessage.StartTime);
-            Assert.AreEqual(description.ThemeId, outcomeMessage.ThemeId);
-            Assert.AreEqual(winAmount, outcomeMessage.TotalWin);
-            Assert.AreEqual(centralTransaction.TransactionId, outcomeMessage.TransactionId);
-            Assert.AreEqual(description.GameTitleId, outcomeMessage.GameTitleId);
-            Assert.AreEqual(description.GameEndWinEligibility, outcomeMessage.GameEndWinEligibility);
-            Assert.AreEqual(1, outcomeMessage.CardsPlayed.Count());
-            Assert.AreEqual(1, outcomeMessage.WinResults.Count());
+            Assert.AreEqual(winAmount, singleOutcome.PaidAmount);
+            Assert.AreEqual(startTime, singleOutcome.StartTime.ToDateTime());
+            Assert.AreEqual(description.ThemeId, singleOutcome.ThemeId);
+            Assert.AreEqual(winAmount, singleOutcome.TotalWinAmount);
+            Assert.AreEqual(centralTransaction.TransactionId, gameOutcomeMessages.First().TransactionId);
+            Assert.AreEqual(description.GameTitleId, singleOutcome.GameTitleId);
+            Assert.AreEqual(description.GameEndWinEligibility, bingoMultiMeta.GameEndWinEligibility); 
+            Assert.AreEqual(1, bingoSingleMeta.Cards.Count());
+            Assert.AreEqual(1, bingoSingleMeta.WinResults.Count());
 
-            var playedCard = outcomeMessage.CardsPlayed.First();
-            Assert.AreEqual(bingoCard.DaubedBits, playedCard.BitPattern);
-            Assert.AreEqual(bingoCard.SerialNumber, playedCard.SerialNumber);
-            Assert.AreEqual(bingoCard.IsGameEndWin, playedCard.IsGameEndWin);
+            var playedCard = bingoSingleMeta.Cards.First();
+            Assert.AreEqual(bingoCard.DaubedBits, playedCard.DaubBitPattern);
+            Assert.AreEqual(bingoCard.SerialNumber, playedCard.Serial);
+            Assert.AreEqual(bingoCard.IsGameEndWin, playedCard.GewClaimable);
 
-            var winResult = outcomeMessage.WinResults.First();
+            var winResult = bingoSingleMeta.WinResults.First();
             Assert.AreEqual(bingoPattern.WinAmount, winResult.Payout);
             Assert.AreEqual(bingoPattern.BallQuantity, winResult.BallQuantity);
             Assert.AreEqual(bingoPattern.BitFlags, winResult.BitPattern);
             Assert.AreEqual(bingoPattern.CardSerial, winResult.CardSerial);
             Assert.AreEqual(bingoPattern.PatternId, winResult.PatternId);
             Assert.AreEqual(bingoPattern.Name, winResult.PatternName);
-            Assert.AreEqual(bingoPattern.IsGameEndWin, winResult.IsGameEndWin);
+            Assert.AreEqual(bingoPattern.IsGameEndWin, winResult.IsGew);
         }
 
         [TestMethod]
