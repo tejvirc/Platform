@@ -88,7 +88,7 @@
             _loadGameTimer = new Timer(
                                (sender) =>
                                {
-                                   RequestGame();
+                                   //RequestGame();
                                },
                                null,
                                _robotController.Config.Active.IntervalLoadGame,
