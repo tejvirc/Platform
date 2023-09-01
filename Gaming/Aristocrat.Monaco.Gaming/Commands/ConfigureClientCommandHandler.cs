@@ -229,7 +229,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/GameSpecificOptions", _properties.GetValue(GamingConstants.GameSpecificOptions, _gameSpecificOptionProvider.GetCurrentOptionsForGDK(currentGame.ThemeId)) }
             };
 
-            if (currentGame?.Features?.Any(x => x.FeatureName.Equals(GamingConstants.BetKeeper, StringComparison.Ordinal)) ?? false)
+            if (currentGame?.Features?.Any(x => x?.FeatureName?.Equals(GamingConstants.BetKeeper, StringComparison.Ordinal) ?? false) ?? false)
             {
                 parameters.Add("/Runtime/BetKeeper&enabled", denomination.BetKeeperAllowed ? "true" : "false");
             }
