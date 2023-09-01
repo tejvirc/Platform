@@ -14,9 +14,10 @@
     {
         public Ticket Create(
             string bonusInfo,
-            IEnumerable<BonusInfoMeter> items)
+            IEnumerable<BonusInfoMeter> items,
+            string totalMeterLabelKey)
         {
-            var ticket = new GameBonusInfoTicket(bonusInfo, items);
+            var ticket = new GameBonusInfoTicket(bonusInfo, items, totalMeterLabelKey);
             
             return ticket.CreateTextTicket();
         }

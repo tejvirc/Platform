@@ -8,6 +8,7 @@
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
+    using Application.UI.MeterPage;
     using Contracts;
     using Contracts.Bonus;
     using Gaming.Contracts.Tickets;
@@ -163,8 +164,8 @@
             var machinePaidTicketName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MachinePaidBonusAwardsLabel);
             var handpayTicketName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AttendantPaidBonusAwardsLabel);
             var ticketList = new List<Ticket>();
-            ticketList.Add(ticketCreator.Create(machinePaidTicketName, EgmPaidBonusAwardsMeters));
-            ticketList.Add(ticketCreator.Create(handpayTicketName, HandPaidBonusAwardsMeters));
+            ticketList.Add(ticketCreator.Create(machinePaidTicketName, EgmPaidBonusAwardsMeters, ResourceKeys.MachinePaidBonusTotalLabel));
+            ticketList.Add(ticketCreator.Create(handpayTicketName, HandPaidBonusAwardsMeters, ResourceKeys.AttendantPaidBonusTotalLabel));
             return ticketList;
         }
 

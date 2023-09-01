@@ -12284,4 +12284,10 @@ Do you really want to do full reset?</value>
   <data name="WorkingText" xml:space="preserve">
     <value>Working</value>
   </data>
+  <data name="TotalBillInCount" xml:space="preserve">
+    <value>Total Bill In - Count</value>
+  </data>
+  <data name="TotalBillInValue" xml:space="preserve">
+    <value>Total Bill In - Value</value>
+  </data>
 </root>

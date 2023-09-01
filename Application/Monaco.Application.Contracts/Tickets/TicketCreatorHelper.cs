@@ -82,6 +82,9 @@
                 leftField?.AppendLine(left);
                 leftField?.AppendLine();
 
+                centerField?.AppendLine();
+                centerField?.AppendLine();
+
                 rightField?.AppendLine();
                 rightField?.AppendLine(right);
             }

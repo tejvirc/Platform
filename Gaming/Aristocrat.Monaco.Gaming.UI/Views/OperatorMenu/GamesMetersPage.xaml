@@ -170,10 +170,6 @@
                     IsEnabled="{Binding NextGameIsEnabled}"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.NextButtonText}}"
                     AutomationProperties.AutomationId="Button23_C3C105D5" />
-            <!--<Button Margin="0 0 10 0" HorizontalAlignment="Center" 
-                    Command="{Binding PrintSelectedButtonCommand}" 
-                    IsEnabled="{Binding PrintSelectedButtonEnabled}"
-                    Content="Print Selected"/>-->
             <Button Style="{StaticResource MonacoAuditButton}"
                     Command="{Binding DisplayCategoriesCommand}"
                     IsEnabled="{Binding DisplayCategoriesButtonEnabled}"

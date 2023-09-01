@@ -5099,4 +5099,13 @@ Consulter le manuel pour plus de détails</value>
   <data name="PeriodGameMetersTicketTitleText" xml:space="preserve">
     <value>??Period Game Meters??</value>
   </data>
+  <data name="GameBonusInfoTicketTitleText" xml:space="preserve">
+    <value>??Game Bonus Info??</value>
+  </data>
+  <data name="TotalBillInCount" xml:space="preserve">
+    <value>Total des billets en - Nombre</value>
+  </data>
+  <data name="TotalBillInValue" xml:space="preserve">
+    <value>Total des billets en - Valeur</value>
+  </data>
 </root>

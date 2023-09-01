@@ -2,189 +2,47 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Text;
-    using System.Text.RegularExpressions;
-    using System.Windows.Markup.Localizer;
     using Application.Contracts;
     using Application.Contracts.Localization;
-    using Application.Contracts.MeterPage;
-    using Application.Contracts.Tickets;
     using Contracts;
-    using Contracts.Meters;
     using Contracts.Tickets;
     using Hardware.Contracts.Ticket;
     using Kernel;
-    using Kernel.Contracts;
     using Localization.Properties;
+    using Loc = Application.Contracts.Localization.Localizer;
 
     /// <summary>
     ///     This class creates game meters ticket objects
     /// </summary>
-    public class GameMetersTicketCreator : IGameMetersTicketCreator, IService
+    public class GameMetersTicketCreator : IGameMetersTicketCreator
     {
         private IServiceManager _serviceManager;
         private IPropertiesManager _propertiesManager;
+        private ILocalizer _localizer;
 
-        // Ticket type
-        private const string TicketType = "text";
+        private ILocalizer Localizer => _localizer ??= (_propertiesManager?
+            .GetValue(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, false) ?? false)
+            ? Loc.For(CultureFor.Operator)
+            : Loc.For(CultureFor.OperatorTicket);
 
         /// <inheritdoc />
-        public List<Ticket> CreateGameMetersTicket(
-            int gameId,
-            IList<MeterNode> meterNodes,
-            bool useMasterValues,
-            bool onlySelected)
-        {
-            var games = _propertiesManager.GetValues<IGameDetail>(GamingConstants.AllGames).ToList();
-
-            if (_propertiesManager?.GetValue(ApplicationConstants.TicketModeAuditKey, TicketModeAuditBehavior.Audit) ==
-                TicketModeAuditBehavior.Inspection)
-            {
-                var game = games.FirstOrDefault(g => g.Id == gameId);
-                return game == null ? null : new GamePerformanceMetersTicket(game).CreateAuditTickets();
-            }
-            else if (onlySelected)
-            {
-                var tickets = new List<Ticket>();
-
-                foreach (var game in games)
-                {
-                    tickets.Add(CreateSingleGameMetersTicket(game, meterNodes, useMasterValues));
-                }
-
-                return tickets;
-            }
-            else
-            {
-                var game = games.FirstOrDefault(g => g.Id == gameId);
-                return game == null
-                    ? null
-                    : new List<Ticket> { CreateSingleGameMetersTicket(game, meterNodes, useMasterValues) };
-            }
-        }
-
-        private Ticket CreateSingleGameMetersTicket(
+        public List<Ticket> Create(
             IGameDetail game,
-            IList<MeterNode> meterNodes,
+            IList<Tuple<IMeter, string>> meters,
             bool useMasterValues)
         {
-            var meterManager = _serviceManager.GetService<IGameMeterManager>();
-            var meters = new List<Tuple<IMeter, string>>();
-
-            var localizer = _propertiesManager.GetValue(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, false) ?
-                Localizer.For(CultureFor.Operator) :
-                Localizer.For(CultureFor.OperatorTicket);
-            var dateFormat = localizer.CurrentCulture.DateTimeFormat.ShortDatePattern;
-
-            foreach (var meter in meterNodes)
+            switch (ServiceManager.GetInstance().TryGetService<IPropertiesManager>()?.GetValue(
+               ApplicationConstants.TicketModeAuditKey,
+               TicketModeAuditBehavior.Audit))
             {
-                AddMeter(meterManager, meters, game.Id, meter.Name, meter.DisplayNameKey);
+                case TicketModeAuditBehavior.Inspection:
+                    return new GamePerformanceMetersTicket(game).CreateAuditTickets();
+                default:
+                    var title = useMasterValues
+                        ? Localizer.GetString(ResourceKeys.MasterGameMetersTicketTitleText).ToUpper(Localizer.CurrentCulture)
+                        : Localizer.GetString(ResourceKeys.PeriodGameMetersTicketTitleText).ToUpper(Localizer.CurrentCulture);
+                    return new GameValueMeterTicket(title, meters, useMasterValues, game).CreateAuditTickets();
             }
-
-            // print region string builders
-            var leftBuilder = new StringBuilder();
-            var centerBuilder = new StringBuilder();
-            var rightBuilder = new StringBuilder();
-
-            // Header data
-            var title = useMasterValues
-                ? localizer.GetString(ResourceKeys.MasterGameMetersTicketTitleText)
-                : localizer.GetString(ResourceKeys.PeriodGameMetersTicketTitleText);
-            var dateTimeNow = _serviceManager.GetService<ITime>().GetLocationTime(DateTime.UtcNow);
-            var retailerName =
-                (string)_propertiesManager.GetProperty(PropertyKey.TicketTextLine1, string.Empty);
-            var retailerId = (string)_propertiesManager.GetProperty(ApplicationConstants.Zone, localizer.GetString(ResourceKeys.DataUnavailable));
-            var jurisdiction = (string)_propertiesManager.GetProperty(
-                ApplicationConstants.JurisdictionKey,
-                localizer.GetString(ResourceKeys.DataUnavailable));
-            var serialNumber = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
-            var version = (string)_propertiesManager.GetProperty(KernelConstants.SystemVersion, localizer.GetString(ResourceKeys.NotSet));
-
-            // Theme
-            var gameName = game.ThemeName;
-
-            string leftHeader = localizer.GetString(ResourceKeys.Meter);
-            string rightHeader = localizer.GetString(ResourceKeys.Value);
-
-            leftBuilder.AppendLine(leftHeader + "\n\n\n");
-            rightBuilder.AppendLine(rightHeader + "\n\n\n");
-
-            // Meter values and name strings
-            var meterValues = new List<string>();
-            var meterNames = new List<string>();
-            foreach (var m in meters)
-            {
-                var meter = m.Item1;
-                var meterValue = useMasterValues ? meter.Lifetime : meter.Period;
-                var meterValueText = meter.Classification.CreateValueString(meterValue, localizer.CurrentCulture);
-                meterValueText = Regex.Replace(meterValueText, @"[^\u0000-\u007F]+", " ");
-                var meterName = localizer.GetString(m.Item2);
-                meterValues.Add(meterValueText);
-                meterNames.Add(meterName);
-
-                // build text for left and right regions
-                leftBuilder.AppendLine(meterName);
-                if (meterName.Length + meterValueText.Length + 1 > TicketCreatorHelper.MaxCharPerLine)
-                {
-                    // Move Value to lower line if combined is too long
-                    leftBuilder.AppendLine();
-                    rightBuilder.AppendLine();
-                }
-                rightBuilder.AppendLine(meterValueText);
-            }
-
-            // Fill in the ticket
-            var ticket = new Ticket
-            {
-                ["ticket type"] = TicketType,
-                ["title"] = title.ToUpper(localizer.CurrentCulture),
-                ["retailer_name"] = retailerName.ToUpper(localizer.CurrentCulture),
-                ["retailer_id"] = retailerId.ToUpper(localizer.CurrentCulture),
-                ["jurisdiction"] = jurisdiction.ToUpper(localizer.CurrentCulture),
-                ["serial_number_header"] = localizer.GetString(ResourceKeys.SerialNumberText) + ":",
-                ["serial_number"] = serialNumber,
-                ["version"] = version,  
-                ["date_header"] = localizer.GetString(ResourceKeys.DateText) + ":",
-                ["date"] = dateTimeNow.ToString(dateFormat),
-                ["time_header"] = localizer.GetString(ResourceKeys.TimeText) + ":",
-                ["time"] = dateTimeNow.ToString(ApplicationConstants.DefaultTimeFormat),
-                ["game_name"] = gameName,
-                ["game_id_header"] = localizer.GetString(ResourceKeys.GameMetersTicketGameIdText) + ":",
-                ["game_id"] = game.Id.ToString(localizer.CurrentCulture)
-            };
-
-            ticket.AddFields("meter_name", meterNames);
-            ticket.AddFields("meter_value", meterValues);
-
-            // build header text for center region
-            centerBuilder.AppendLine("\n\n");
-            centerBuilder.AppendLine(ticket["retailer_name"]);
-            centerBuilder.AppendLine(ticket["retailer_id"]);
-            centerBuilder.AppendLine(ticket["jurisdiction"]);
-            centerBuilder.AppendLine($"{ticket["serial_number_header"]} {ticket["serial_number"]}");
-            centerBuilder.AppendLine(ticket["version"]);
-            centerBuilder.AppendLine("\n\n");
-            centerBuilder.AppendLine(ticket["date"]);
-            centerBuilder.AppendLine(ticket["time"]);
-
-            centerBuilder.AppendLine("\n");
-            centerBuilder.AppendLine(new string('-', 87));
-            centerBuilder.AppendLine(ticket["game_name"]);
-            centerBuilder.AppendLine($"{ticket["game_id_header"]} {ticket["game_id"]}");
-
-            var newlines = centerBuilder.ToString().Count(s => s == '\n') - 4;
-            var lines = new string('\n', newlines);
-            leftBuilder.Insert(0, lines);
-            rightBuilder.Insert(0, lines);
-
-            // fill fields needed by the printable template
-            ticket["left"] = leftBuilder.ToString();
-            ticket["right"] = rightBuilder.ToString();
-            ticket["center"] = centerBuilder.ToString();
-
-            return ticket;
         }
 
         /// <inheritdoc />
@@ -198,19 +56,6 @@
         {
             _serviceManager = ServiceManager.GetInstance();
             _propertiesManager = _serviceManager.GetService<IPropertiesManager>();
-        }
-
-        private void AddMeter(
-            IGameMeterManager meterManager,
-            List<Tuple<IMeter, string>> meters,
-            int gameId,
-            string meterName,
-            string displayName)
-        {
-            if (meterManager.IsMeterProvided(gameId, meterName))
-            {
-                meters.Add(new Tuple<IMeter, string>(meterManager.GetMeter(gameId, meterName), displayName));
-            }
         }
     }
 }

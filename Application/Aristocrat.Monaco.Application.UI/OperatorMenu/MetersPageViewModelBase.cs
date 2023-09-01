@@ -29,6 +29,7 @@
 
         private const string MetersExtensionPath = "/Application/OperatorMenu/DisplayMeters";
         private readonly MeterNodePage? _meterNodePage;
+        private IMeterManager _meterManager;
         private bool _showLifetime = true;
 
         /// <summary>
@@ -75,6 +76,8 @@
         /// </summary>
         public bool ShowRightColumn => MetersRightColumn.Count > 0;
 
+        protected IMeterManager MeterManager => _meterManager ??= ServiceManager.GetInstance().TryGetService<IMeterManager>();
+
         private void LoadMetersToDisplay()
         {
             if (_meterNodePage.HasValue)
@@ -116,12 +119,11 @@
         protected virtual void InitializeMeters()
         {
             // This should only occur the first time the view model is created
-            var meterManager = ServiceManager.GetInstance().GetService<IMeterManager>();
             foreach (var meterNode in MeterNodes)
             {
-                if (meterManager.IsMeterProvided(meterNode.Name))
+                if (MeterManager.IsMeterProvided(meterNode.Name))
                 {
-                    var meter = meterManager.GetMeter(meterNode.Name);
+                    var meter = MeterManager.GetMeter(meterNode.Name);
                     string meterDisplayName = GetDisplayNameFromMeterNode(meterNode);
 
                     Meters.Add(

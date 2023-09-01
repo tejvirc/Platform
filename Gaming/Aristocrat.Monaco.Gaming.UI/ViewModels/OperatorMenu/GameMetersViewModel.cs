@@ -1,5 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
+    using System;
+    using System.Linq;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Windows.Input;
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
@@ -16,10 +21,6 @@
     using Monaco.UI.Common.Extensions;
     using MVVM;
     using MVVM.Command;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Windows.Input;
     using Common;
     using Views.OperatorMenu;
     using static DenomMetersPageViewModel;
@@ -36,7 +37,6 @@
         private readonly IDialogService _dialogService;
 
         private bool _gameButtonsEnabled = true;
-        private bool _printSelectedButtonEnabled = true;
         private IGameDetail _selectedGame;
         private Denomination _selectedDenom;
         private ObservableCollection<IGameDetail> _allGames;
@@ -87,7 +87,7 @@
 
         public bool GameButtonsEnabled
         {
-            get => _gameButtonsEnabled && PrintSelectedButtonEnabled;
+            get => _gameButtonsEnabled;
             set
             {
                 _gameButtonsEnabled = value;
@@ -98,19 +98,6 @@
         }
 
         public bool DisplayCategoriesButtonEnabled => _selectedGame != null;
-
-        public bool PrintSelectedButtonEnabled
-        {
-            get => _printSelectedButtonEnabled && PrinterButtonsEnabled;
-            set
-            {
-                _printSelectedButtonEnabled = value;
-                RaisePropertyChanged(nameof(PrintSelectedButtonEnabled));
-                RaisePropertyChanged(nameof(GameButtonsEnabled));
-                RaisePropertyChanged(nameof(PreviousGameIsEnabled));
-                RaisePropertyChanged(nameof(NextGameIsEnabled));
-            }
-        }
 
         public override bool DataEmpty => (Games?.Count ?? 0) == 0;
 
@@ -275,7 +262,6 @@
 
         protected override void UpdatePrinterButtons()
         {
-            RaisePropertyChanged(nameof(PrintSelectedButtonEnabled));
             RaisePropertyChanged(nameof(GameButtonsEnabled));
             RaisePropertyChanged(nameof(PreviousGameIsEnabled));
             RaisePropertyChanged(nameof(NextGameIsEnabled));
@@ -285,14 +271,9 @@
         {
             IEnumerable<Ticket> tickets = null;
 
-            switch (dataType)
+            if (dataType == OperatorMenuPrintData.Main)
             {
-                case OperatorMenuPrintData.Main:
-                    tickets = GetGameMeterTicket(false);
-                    break;
-                case OperatorMenuPrintData.SelectedItem:
-                    tickets = GetGameMeterTicket(true);
-                    break;
+                tickets = GetGameMeterTicket();
             }
 
             return tickets;
@@ -301,36 +282,24 @@
         protected override void OnLoaded()
         {
             LoadGameList();
-            PrintSelectedButtonEnabled = true;
             GameButtonsEnabled = true;
             base.OnLoaded();
         }
 
-        private List<Ticket> GetGameMeterTicket(bool onlySelected)
+        private List<Ticket> GetGameMeterTicket()
         {
-            var serviceManager = ServiceManager.GetInstance();
-            var ticketCreator = serviceManager.TryGetService<IGameMetersTicketCreator>();
-
-            if (ticketCreator == null)
+            var ticketCreator = ServiceManager.GetInstance().TryGetService<IGameMetersTicketCreator>();
+            List<Ticket> tickets = null;
+            if (ticketCreator is null || SelectedGame is null)
             {
-                return null;
+                return tickets;
             }
 
-            var gameId = 0;
+            var printMeters = Meters.Where(m => m.Meter != null && (ShowLifetime || m.DisplayPeriod))
+                .Select(m => new Tuple<IMeter, string>(m.Meter, m.Name)).ToList();
 
-            if (SelectedGame == null)
-            {
-                if (onlySelected)
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                gameId = SelectedGame.Id;
-            }
-
-            return ticketCreator.CreateGameMetersTicket(gameId, MeterNodes, ShowLifetime, onlySelected);
+            tickets = ticketCreator.Create(SelectedGame, printMeters, ShowLifetime);
+            return tickets;
         }
 
         private void NextGame(object sender)

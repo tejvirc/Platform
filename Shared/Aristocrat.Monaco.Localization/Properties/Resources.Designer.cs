@@ -32813,6 +32813,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Total Bill In - Count.
+		/// </summary>
+		public static string TotalBillInCount {
+			get {
+				return ResourceManager.GetString("TotalBillInCount", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Total Bill In - Value.
+		/// </summary>
+		public static string TotalBillInValue {
+			get {
+				return ResourceManager.GetString("TotalBillInValue", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Total Bill In.
 		/// </summary>
         /// <remarks>
@@ -68821,7 +68839,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET..
+		///		Looks up a localized string similar to TIME BEFORE CREDITS/HAND COUNT IS RESET..
 		/// </summary>
         /// <remarks>
         /// Monaco.Gaming.UI
@@ -69171,6 +69189,24 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string Total {
 			get {
 				return "Total";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Total Bill In - Count.
+		/// </summary>
+		public static string TotalBillInCount {
+			get {
+				return "TotalBillInCount";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Total Bill In - Value.
+		/// </summary>
+		public static string TotalBillInValue {
+			get {
+				return "TotalBillInValue";
 			}
 		}
 
@@ -91225,7 +91261,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TimeAndZoneConfiguration,
 		/// <summary>
-		///   Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET..
+		///   Looks up a localized string similar to TIME BEFORE CREDITS/HAND COUNT IS RESET..
 		/// </summary>
         /// <remarks>
         /// Monaco.Gaming.UI
@@ -91423,6 +91459,14 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting.UI
         /// </remarks>
 		Total,
+		/// <summary>
+		///   Looks up a localized string similar to Total Bill In - Count.
+		/// </summary>
+		TotalBillInCount,
+		/// <summary>
+		///   Looks up a localized string similar to Total Bill In - Value.
+		/// </summary>
+		TotalBillInValue,
 		/// <summary>
 		///   Looks up a localized string similar to Total Bill In.
 		/// </summary>

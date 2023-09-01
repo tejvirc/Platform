@@ -29,6 +29,8 @@
 
         private long _totalCount;
         private string _totalValue;
+        private IMeter _billInCountMeter;
+        private IMeter _billInValueMeter;
         private bool _billClearanceButtonEnabled;
         private readonly string _pageName;
 
@@ -100,11 +102,10 @@
             }
 
             var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-            var meterManager = ServiceManager.GetInstance().GetService<IMeterManager>();
             eventBus.Publish(
                 new PeriodMetersDateTimeChangeRequestEvent(
                     _pageName,
-                    meterManager.GetPeriodMetersClearanceDate(CurrencyInMeterProviderTypename)));
+                    MeterManager.GetPeriodMetersClearanceDate(CurrencyInMeterProviderTypename)));
         }
 
         protected override void InitializeMeters()
@@ -115,24 +116,25 @@
             }
 
             var noteAcceptor = ServiceManager.GetInstance().TryGetService<INoteAcceptor>();
-            var meterManager = ServiceManager.GetInstance().GetService<IMeterManager>();
 
             ClearMeters();
             foreach (var denomination in noteAcceptor.GetSupportedNotes())
             {
-                var meter = meterManager.GetMeter(
+                var meter = MeterManager.GetMeter(
                     BillCountMeterNamePrefix + denomination.ToString(CultureInfo.InvariantCulture) + "s");
 
                 meter.MeterChangedEvent += OnMeterChangedEvent;
 
                 Meters.Add(new DenominationDisplayMeter(denomination, meter, ShowLifetime, UseOperatorCultureForCurrencyFormatting));
             }
+            _billInCountMeter = MeterManager.GetMeter(AccountingMeters.CurrencyInCount);
+            _billInValueMeter = MeterManager.GetMeter(AccountingMeters.CurrencyInAmount);
 
             RejectionMeters.Clear();
 
             foreach (var rejectMeter in GetRejectionMetersNames())
             {
-                var count = meterManager.GetMeter(rejectMeter.Item2);
+                var count = MeterManager.GetMeter(rejectMeter.Item2);
 
                 var meter = new DisplayMeter(rejectMeter.Item1, count, ShowLifetime, 0, true, false, UseOperatorCultureForCurrencyFormatting);
                 RejectionMeters.Add(meter);
@@ -166,7 +168,19 @@
             var printMeters = Meters.Where(m => m.Meter != null).Select(m => new Tuple<IMeter, string>(m.Meter, m.Name))
                 .ToList();
 
+            var totalCurrencyMeters = new List<Tuple<IMeter, string>>
+            {
+                new Tuple<IMeter, string>(
+                    _billInCountMeter,
+                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TotalBillInCount)),
+
+                new Tuple<IMeter, string>(
+                    _billInValueMeter,
+                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TotalBillInValue))
+            };
+
             printMeters.AddRange(RejectionMeters.Select(m => new Tuple<IMeter, string>(m.Meter, m.Name)).ToList());
+            printMeters.AddRange(totalCurrencyMeters);
 
             return TicketToList(ticketCreator?.CreateEgmMetersTicket(printMeters, ShowLifetime));
         }
@@ -196,8 +210,7 @@
 
         private void ClearBillCountPeriodMeters()
         {
-            var meterManager = ServiceManager.GetInstance().GetService<IMeterManager>();
-            meterManager.ClearPeriodMeters(CurrencyInMeterProviderTypename);
+            MeterManager.ClearPeriodMeters(CurrencyInMeterProviderTypename);
         }
 
         private void OnMeterChangedEvent(object sender, MeterChangedEventArgs e)
@@ -211,8 +224,8 @@
                 Localizer.For(CultureFor.Operator).CurrentCulture :
                 CurrencyExtensions.CurrencyCultureInfo;
 
-            TotalCount = Meters.ToList().Sum(m => ((DenominationDisplayMeter)m).Count);
-            TotalValue = Meters.ToList().Sum(m => ((DenominationDisplayMeter)m).Total).FormattedCurrencyString(false, culture);
+            TotalCount = ShowLifetime ? _billInCountMeter.Lifetime : _billInCountMeter.Period;
+            TotalValue = (ShowLifetime ? _billInValueMeter.Lifetime : _billInValueMeter.Period).MillicentsToDollars().FormattedCurrencyString(false, culture); ;
         }
 
         private void ClearMeters()
@@ -235,7 +248,7 @@
         private Tuple<string, string>[] GetRejectionMetersNames()
         {
             return new Tuple<string, string>[]
-                {
+            {
                     Tuple.Create(
                         Localizer.For(CultureFor.Operator)
                             .GetString(ResourceKeys.BillsRejectedLabel),
@@ -244,7 +257,7 @@
                         Localizer.For(CultureFor.Operator)
                             .GetString(ResourceKeys.DocumentsRejectedLabel),
                         AccountingMeters.DocumentsRejectedCount)
-                };
+            };
         }
     }
 }

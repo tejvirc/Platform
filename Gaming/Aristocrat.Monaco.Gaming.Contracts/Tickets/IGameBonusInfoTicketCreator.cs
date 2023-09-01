@@ -14,7 +14,8 @@
         /// </summary>
         /// <param name="bonusInfo"></param>
         /// <param name="items"></param>
+        /// <param name="totalMeterLabelKey"></param>
         /// <returns>A Ticket object with fields required for an EGM game bonus info ticket.</returns>
-        Ticket Create(string bonusInfo, IEnumerable<BonusInfoMeter> items);
+        Ticket Create(string bonusInfo, IEnumerable<BonusInfoMeter> items, string totalMeterLabelKey);
     }
 }

@@ -384,6 +384,16 @@
         }
 
         /// <summary>
+        ///     Clears the ticket fields
+        /// </summary>
+        protected void ClearFields()
+        {
+            _leftField.Clear();
+            _centerField.Clear();
+            _rightField.Clear();
+        }
+
+        /// <summary>
         ///     Format Mac address like "xx:xx:xx:xx:xx:xx"
         /// </summary>
         /// <param name="address"></param>
@@ -404,16 +414,6 @@
             }
 
             return sb.ToString();
-        }
-
-        /// <summary>
-        ///     Clears the ticket fields
-        /// </summary>
-        protected void ClearFields()
-        {
-            _leftField.Clear();
-            _centerField.Clear();
-            _rightField.Clear();
         }
     }
 }

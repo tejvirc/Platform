@@ -122,9 +122,10 @@
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.TicketModeAuditKey, It.IsAny<TicketModeAuditBehavior>()))
                 .Returns(TicketModeAuditBehavior.Audit);
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, It.IsAny<bool>())).Returns(false);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketDateFormat, It.IsAny<string>())).Returns(ApplicationConstants.DefaultDateFormat);
 
             // Mock meters
-            var meterNodes = new List<MeterNode>();
+            var meters = new List<Tuple<IMeter, string>>();
 
             // Expected Ticket fields where the field value is checkable.
             var verifiableFields = new Dictionary<string, string>
@@ -138,7 +139,7 @@
 
             _target.Initialize();
 
-            var ticket = _target.CreateGameMetersTicket(gameId, meterNodes, true, false);
+            var ticket = _target.Create(games.First(), meters, true);
 
             // Test fields for which the specific value can be known
             foreach (var entry in verifiableFields)
@@ -187,10 +188,11 @@
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.TicketModeAuditKey, It.IsAny<TicketModeAuditBehavior>()))
                 .Returns(TicketModeAuditBehavior.Audit);
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, It.IsAny<bool>())).Returns(false);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketDateFormat, It.IsAny<string>())).Returns(ApplicationConstants.DefaultDateFormat);
 
 
             // Mock meters
-            var meterNodes = new List<MeterNode>();
+            var meters = new List<Tuple<IMeter, string>>();
 
             // Expected Ticket fields where the field value is checkable.
             var verifiableFields = new Dictionary<string, string>
@@ -204,7 +206,7 @@
 
             _target.Initialize();
 
-            var ticket = _target.CreateGameMetersTicket(gameId, meterNodes, false, false);
+            var ticket = _target.Create(games.First(), meters, false);
 
             // Test fields for which the specific value can be known
             foreach (var entry in verifiableFields)

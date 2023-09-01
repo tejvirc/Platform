@@ -6,7 +6,6 @@
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.Tickets;
-    using Contracts;
     using Contracts.Bonus;
     using Localization.Properties;
 
@@ -16,52 +15,57 @@
     {
         private readonly string _bonusInfo;
         private readonly IEnumerable<BonusInfoMeter> _items;
+        private readonly string _totalMeterLabelKey;
 
         public GameBonusInfoTicket(
             string bonusInfo,
-            IEnumerable<BonusInfoMeter> items)
+            IEnumerable<BonusInfoMeter> items,
+            string totalMeterLabelKey)
             : base(Localizer.For(CultureFor.PlayerTicket))
         {
             _items = items;
             _bonusInfo = bonusInfo;
+            _totalMeterLabelKey = totalMeterLabelKey;
 
-            Title = TicketLocalizer.GetString(ResourceKeys.GameBonusInfoTicketTitleText);
+            Title = TicketLocalizer.GetString(ResourceKeys.GameBonusInfoTicketTitleText).ToUpper(TicketLocalizer.CurrentCulture);
         }
 
         public override void AddTicketContent()
         {
-            if (_items == null || !_items.Any())
+            if (_items is null || !_items.Any())
             {
                 return;
             }
 
-            AddLine(null, Dashes, null);
+            AddDashesLine();
             AddLine(null, _bonusInfo, null);
 
             AddLine(
                 TicketLocalizer.GetString(ResourceKeys.NameLabel),
-                "",
+                string.Empty,
                 TicketLocalizer.GetString(ResourceKeys.Value));
 
+            var totalValue = 0L;
             foreach (var item in _items)
             {
-                var value = FormatCurrency(item.MeterValue);
+                var value = item.MeterValue;
+                var valueString = value.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture);
                 AddLine(
                     item.MeterName,
                     null,
-                    value);
+                    valueString);
+                totalValue += value;
             }
 
-            AddLine(null, Dashes, null);
+            var totalLabel = TicketLocalizer.GetString(_totalMeterLabelKey);
+            AddLine(
+                totalLabel,
+                null,
+                totalValue.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
 
+
+            AddDashesLine();
             AddTicketFooter();
-        }
-
-        private static string FormatCurrency(long value)
-        {
-            var dec = Convert.ToDecimal(value / (100.00 * GamingConstants.Millicents));
-            var val = dec.FormattedCurrencyString();
-            return val.PadLeft(val.Length == 0 ? 10 : 9);
         }
     }
 }

@@ -15,18 +15,22 @@
     /// </summary>
     public class ValueMeterTicket : AuditTicket
     {
-        protected readonly bool UseMasterValues;
+        private readonly bool _useMasterValues;
         private readonly IList<Tuple<IMeter, string>> _meters;
 
         public ValueMeterTicket(string titleOverride, bool useMasterValues, IList<Tuple<IMeter, string>> meters)
             : base(titleOverride)
         {
-            UseMasterValues = useMasterValues;
+            _useMasterValues = useMasterValues;
             _meters = meters;
         }
 
         /// <inheritdoc />
         public override int TicketHeaderLineCount => 8;
+
+        protected bool UseMasterValues => _useMasterValues;
+
+        protected IList<Tuple<IMeter, string>> Meters => _meters;
 
         /// <inheritdoc />
         public override void AddTicketHeader()
@@ -60,7 +64,7 @@
         {
             AddTicketContentHeader();
 
-            foreach (var m in _meters)
+            foreach (var m in Meters)
             {
                 var meter = m.Item1;
                 var meterValue = UseMasterValues ? meter.Lifetime : meter.Period;
@@ -72,7 +76,7 @@
             }
         }
 
-        protected void AddTicketContentHeader()
+        protected virtual void AddTicketContentHeader()
         {
             var meterManager = ServiceManager.GetService<IMeterManager>();
 
