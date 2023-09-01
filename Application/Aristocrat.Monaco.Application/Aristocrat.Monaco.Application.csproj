@@ -272,6 +272,13 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'!='Retail'">
+    <Content Include="dev_pub.pem" CopyToOutputDirectory="PreserveNewest"/>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)'=='Retail'">
+    <None Remove="dev_pub.pem"/>
+    <Content Remove="dev_pub.pem"/>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aristocrat.Cabinet" Version="2.0.1-beta0046" />
     <PackageReference Include="Aristocrat.Signing" Version="2.0.0-beta0004" />
@@ -282,7 +289,4 @@
     <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
     <PackageReference Include="System.IO.Ports" Version="6.0.0" />
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)'!='Retail'">
-    <Exec Command="xcopy &quot;$(MSBuildThisFileDirectory)Resources\$(Configuration)&quot; &quot;$(OutputPath)&quot; /sy" />
-  </Target>
 </Project>
