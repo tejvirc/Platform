@@ -280,6 +280,10 @@
             get => _selectedBarcodeType;
             set
             {
+                if (value == null)
+                {
+                    return;
+                }
                 if (SetProperty(ref _selectedBarcodeType, value))
                 {
                     PropertiesManager.SetProperty(ApplicationConstants.BarCodeType, value.Value);
@@ -395,7 +399,6 @@
 
         protected override void OnLoaded()
         {
-            UpdateUI();
             ClearValidationOnUnload = true;
 
             MaxCreditMeterMaxAllowed = (long)PropertiesManager.GetProperty(AccountingConstants.MaxCreditMeterMaxAllowed, long.MaxValue);
@@ -449,6 +452,8 @@
             PrinterEnabled = PropertiesManager.GetValue(ApplicationConstants.PrinterEnabled, false);
 
             EventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
+
+            UpdateUI();
         }
 
         protected override void OnUnloaded()

@@ -330,8 +330,13 @@
             AccessRuleSet ruleSet,
             IEnumerable<Action<bool, OperatorMenuAccessRestriction>> callbacks)
         {
-            if(ruleSet.Name == Technician && TechnicianMode && _technicianModeLocked)
+            if (ruleSet.Name == Technician && TechnicianMode && _technicianModeLocked)
             {
+                foreach (var callback in callbacks)
+                {
+                    callback?.Invoke(true, OperatorMenuAccessRestriction.None);
+                }
+
                 return (true, OperatorMenuAccessRestriction.None);
             }
 

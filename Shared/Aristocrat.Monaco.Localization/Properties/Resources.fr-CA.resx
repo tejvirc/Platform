@@ -5099,6 +5099,12 @@ Consulter le manuel pour plus de détails</value>
   <data name="PeriodGameMetersTicketTitleText" xml:space="preserve">
     <value>??Period Game Meters??</value>
   </data>
+  <data name="OpenLogicDoor" xml:space="preserve">
+    <value>??Logic door must be open to change these settings.??</value>
+  </data>
+  <data name="OpenMainDoor" xml:space="preserve">
+    <value>??Main door must be open to change these settings.??</value>
+</data>
   <data name="GameBonusInfoTicketTitleText" xml:space="preserve">
     <value>??Game Bonus Info??</value>
   </data>
