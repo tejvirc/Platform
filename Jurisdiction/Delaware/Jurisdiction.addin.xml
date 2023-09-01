@@ -156,7 +156,7 @@
     <FilePath FilePath="..\jurisdiction\Delaware\printable_templates.xml" filterid="DelawarePrintableTemplatesConfig" />
   </Extension>
   <Extension path="/Hardware/PrinterOverrides">
-    <FilePath FilePath="..\jurisdiction\Deleware\PrinterOverrides.xml" filterid="DelewarePrinterOverridesConfig" />
+    <FilePath FilePath="..\jurisdiction\Delaware\PrinterOverrides.xml" filterid="DelawarePrinterOverridesConfig" />
   </Extension>
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\Delaware\ErrorMessage.config.xml" filterid="DelawareErrorMessageConfig" />

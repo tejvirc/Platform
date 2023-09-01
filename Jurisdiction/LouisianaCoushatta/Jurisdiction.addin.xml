@@ -156,7 +156,7 @@
     <FilePath FilePath="..\jurisdiction\LouisianaCoushatta\printable_templates.xml" filterid="LouisianaCoushattaPrintableTemplatesConfig" />
   </Extension>
   <Extension path="/Hardware/PrinterOverrides">
-    <FilePath FilePath="..\jurisdiction\LouisianaCouchatta\PrinterOverrides.xml" filterid="LouisianaChoushattaPrinterOverridesConfig" />
+    <FilePath FilePath="..\jurisdiction\LouisianaCoushatta\PrinterOverrides.xml" filterid="LouisianaChoushattaPrinterOverridesConfig" />
   </Extension>
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\LouisianaCoushatta\ErrorMessage.config.xml" filterid="LouisianaCoushattaErrorMessageConfig" />

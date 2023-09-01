@@ -156,7 +156,7 @@
     <FilePath FilePath="..\jurisdiction\PrinceEdwardIslands\printable_templates.xml" filterid="PrinceEdwardIslandsPrintableTemplatesConfig" />
   </Extension>
   <Extension path="/Hardware/PrinterOverrides">
-    <FilePath FilePath="..\jurisdiction\PrinceEdwardsIslands\PrinterOverrides.xml" filterid="PrinceEdwardsIslandsPrinterOverridesConfig" />
+    <FilePath FilePath="..\jurisdiction\PrinceEdwardIslands\PrinterOverrides.xml" filterid="PrinceEdwardIslandsPrinterOverridesConfig" />
   </Extension>
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\PrinceEdwardIslands\ErrorMessage.config.xml" filterid="PrinceEdwardIslandsErrorMessageConfig" />
