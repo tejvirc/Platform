@@ -210,12 +210,17 @@
         }
         
         /// <inheritdoc />
-        public void UpdateReelState(IDictionary<int, ReelLogicalState> updateData)
+        public void UpdateReelState(IDictionary<int, ReelLogicalState> updateData, int? step = null)
         {
             var stateRequest = new UpdateReelStateNotification
             {
                 States = { updateData.ToDictionary(x => x.Key, x => HardwareReelExtensions.GetReelState(x.Value)) }
             };
+
+            if (step != null)
+            {
+                stateRequest.ReelStateData = Any.Pack(new ReelIdleData { Step = (uint)step });
+            }
 
             Invoke(x => x.UpdateReelState(stateRequest));
         }
