@@ -404,7 +404,7 @@
                 },
                 {
                     AccountingConstants.TicketTitleBonusCash,
-                    Tuple.Create(InitFromStorage(AccountingConstants.TicketTitleBonusNonCash), true)
+                    Tuple.Create(InitFromStorage(AccountingConstants.TicketTitleBonusCash), true)
                 },
                 {
                     AccountingConstants.TicketTitleBonusPromo,
