@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using Aristocrat.Monaco.Application.UI.OperatorMenu;
 using Aristocrat.Monaco.Gaming.Contracts;
@@ -11,13 +12,18 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     public class SetGameOrderViewModel : OperatorMenuSaveViewModelBase
     {
+        public delegate bool CanSaveDelegate();
+
         private ObservableCollection<GameOrderData> _gameList = new ObservableCollection<GameOrderData>();
         private GameOrderData _selectedItem;
         private readonly IGameOrderSettings _gameOrderSettings;
         private bool _isDirty;
+        private readonly CanSaveDelegate _canSave;
 
-        public SetGameOrderViewModel()
+        public SetGameOrderViewModel(INotifyPropertyChanged ownerViewModel, CanSaveDelegate canSave)
         {
+            ownerViewModel.PropertyChanged += OwnerViewModelPropertyChanged;
+            _canSave = canSave;
             var container = ServiceManager.GetInstance().GetService<IContainerService>();
             if (container != null)
             {
@@ -57,6 +63,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 }
             }
         }
+
+        public override bool CanSave => _canSave.Invoke() && HasChanges();
 
         protected override void OnLoaded()
         {
@@ -129,6 +137,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             IsDirty = true;
             UpCommand.RaiseCanExecuteChanged();
             DownCommand.RaiseCanExecuteChanged();
+        }
+
+        private void OwnerViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            RaisePropertyChanged(nameof(CanSave));
         }
 
         public override bool HasChanges()
