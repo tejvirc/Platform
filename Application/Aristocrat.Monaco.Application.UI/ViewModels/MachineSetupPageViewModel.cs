@@ -19,20 +19,16 @@
     {
         private IDictionary<string, CurrencyDefaultsCurrencyInfo> _currencyDefaults = new ConcurrentDictionary<string, CurrencyDefaultsCurrencyInfo>();
 
-        private readonly IServiceManager _serviceManager;
         private readonly CurrencyCultureProvider _currencyCultureProvider;
 
-        private INoteAcceptor _noteAcceptor;
         private bool _requireZeroCredit;
         private Currency _selectedCurrency;
-        private List<Currency> _currencies;
+        private IReadOnlyCollection<Currency> _currencies;
 
-        public MachineSetupPageViewModel(CurrencyCultureProvider currencyCultureProvider, INoteAcceptor noteAcceptor)
+        public MachineSetupPageViewModel(CurrencyCultureProvider currencyCultureProvider)
             : base(true)
         {
-            _serviceManager = ServiceManager.GetInstance();
             _currencyCultureProvider = currencyCultureProvider ?? throw new ArgumentNullException(nameof(currencyCultureProvider));
-            _noteAcceptor = noteAcceptor ?? throw new ArgumentNullException(nameof(noteAcceptor));
 
             if (SerialNumber.EditedValue == "0")
             {
@@ -58,7 +54,7 @@
             CurrencyChangeAllowed = configuration.Currency.Configurable;
         }
 
-        public List<Currency> Currencies
+        public IReadOnlyCollection<Currency> Currencies
         {
             get => _currencies;
             set
@@ -71,27 +67,13 @@
         public Currency SelectedCurrency
         {
             get => _selectedCurrency;
-            set
-            {
-                if (_selectedCurrency != value)
-                {
-                    _selectedCurrency = value;
-                    OnPropertyChanged(nameof(SelectedCurrency));
-                }
-            }
+            set => SetProperty(ref _selectedCurrency, value);
         }
 
         public bool RequireZeroCredit
         {
             get => _requireZeroCredit;
-            set
-            {
-                if (_requireZeroCredit != value)
-                {
-                    _requireZeroCredit = value;
-                    OnPropertyChanged(nameof(RequireZeroCredit));
-                }
-            }
+            set => SetProperty(ref _requireZeroCredit, value);
         }
 
         public bool RequireZeroCreditChangeAllowed { get; }
@@ -99,8 +81,7 @@
         public bool CurrencyChangeAllowed { get; }
 
         protected override void Loaded()
-        { 
-            _currencies = new List<Currency>();
+        {
             var currencyCode = PropertiesManager.GetValue(
                 ApplicationConstants.CurrencyId,
                 string.Empty);
@@ -115,13 +96,12 @@
             var currencyDescription = (string)PropertiesManager.GetProperty(
                 ApplicationConstants.CurrencyDescription,
                 string.Empty);
-            _currencies = GetSupportedCurrencies(currencyCode).ToList<Currency>();
+            var currencies = GetSupportedCurrencies(currencyCode).ToList();
+            var currency = currencies.FirstOrDefault(c => c.Description == currencyDescription) ??
+                           currencies.FirstOrDefault(c => c.IsoCode == currencyCode) ??
+                           currencies.FirstOrDefault();
 
-            Currencies = _currencies;
-
-            var currency = Currencies.FirstOrDefault(c => c.Description == currencyDescription) ??
-                           Currencies.FirstOrDefault(c => c.IsoCode == currencyCode) ??
-                           Currencies.FirstOrDefault();
+            Currencies = currencies;
             SelectedCurrency = currency;
         }
 
@@ -131,6 +111,8 @@
 
             if (SelectedCurrency == null)
             {
+                Logger.Warn("No selected currency found when trying to save");
+
                 // A change made for inspection tool to Save on Next button click broke auto config on this page
                 // It doesn't get loaded before calling save, so none of the currency info is setup correctly
                 Loaded();
@@ -176,7 +158,7 @@
                 currencyCode,
                 _currencyDefaults,
                 Logger,
-                _noteAcceptor,
+                ServiceManager.GetInstance().TryGetService<INoteAcceptor>(),
                 CurrencyChangeAllowed);
 
             var orderedSet = currencies.OrderBy(a => a.DisplayName).ToList();
