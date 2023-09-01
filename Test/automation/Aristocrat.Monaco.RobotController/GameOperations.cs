@@ -471,7 +471,7 @@
 
         private bool IsRequestGameValid()
         {
-            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>() { RobotStateAndOperations.GameExiting});
+            var isBlocked = _robotController.IsBlockedByOtherOperation(new List<RobotStateAndOperations>() { RobotStateAndOperations.GameExiting, RobotStateAndOperations.GameExitingNoramlly});
             var isGeneralRule = _stateChecker.IsChooser || (_gameIsRunning && !_stateChecker.IsGameLoading);
             return !isBlocked && isGeneralRule && !_requestGameIsInProgress;
         }
