@@ -42,8 +42,6 @@
 
         protected override void LoadUi(Container container)
         {
-            var properties = container.GetInstance<IPropertiesManager>();
-
             // var lobbyStateManager = container.GetInstance<ILobbyStateManager>();
             // lobbyStateManager.IsTabView = true;
             // lobbyStateManager.ResetAttractOnInterruption = true;

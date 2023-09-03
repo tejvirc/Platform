@@ -1249,11 +1249,6 @@
         public const string AllowSingleGameAutoLaunch = @"AllowSingleGameAutoLaunch";
 
         /// <summary>
-        ///     Property key for market type. 
-        /// </summary>
-        public const string MarketType = @"MarketType";
-
-        /// <summary>
         ///     Indicates if reels start spinning immediately after play button press.
         ///     This is needed for games where outcome comes from server.
         /// </summary>
