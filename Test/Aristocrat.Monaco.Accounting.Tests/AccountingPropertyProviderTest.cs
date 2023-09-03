@@ -76,6 +76,7 @@
             _block.SetupGet(m => m[AccountingConstants.TicketTitleNonCash])
                 .Returns(AccountingConstants.DefaultNonCashTicketTitle);
             _block.SetupGet(m => m[AccountingConstants.TicketTitleLargeWin]).Returns(AccountingConstants.DefaultLargeWinLimit);
+            _block.SetupGet(m => m[AccountingConstants.TicketTitleBonusCash]).Returns(string.Empty);
             _block.SetupGet(m => m[AccountingConstants.TicketTitleBonusNonCash]).Returns(string.Empty);
             _block.SetupGet(m => m[AccountingConstants.TicketTitleBonusPromo]).Returns(string.Empty);
             _block.SetupGet(m => m[AccountingConstants.TicketTitleWatCash]).Returns(string.Empty);
