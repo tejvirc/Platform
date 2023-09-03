@@ -4,25 +4,16 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
     <Configurations>Debug;Release;Retail</Configurations>
-    <OutputPath>..\bin\$(Configuration)\Platform\bin\jurisdiction\</OutputPath>
+    <OutputPath>..\bin\$(Configuration)\Platform\bin\</OutputPath>
     <EnableDefaultItems>true</EnableDefaultItems>
     <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
     <EnableDefaultEmbeddedResourceItems>true</EnableDefaultEmbeddedResourceItems>
+    <PublishReadyToRun>false</PublishReadyToRun>
   </PropertyGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <ItemGroup>
-      <JurisdictionFiles Include="**/*" Exclude="*.*;obj/**;bin/**"></JurisdictionFiles>
-    </ItemGroup>
-    <RemoveDir Directories="$(OutputPath)" />
-    <Copy SourceFiles="@(JurisdictionFiles)" DestinationFiles="@(JurisdictionFiles->'$(OutputPath)%(RecursiveDir)%(FileName)%(Extension)')" SkipUnchangedFiles="true" />
-  </Target>
-  <Target Name="Cleanup" AfterTargets="Clean">
-    <RemoveDir Directories="$(OutputPath)" />
-  </Target>
-  <Target Name="Rebuild" DependsOnTargets="Clean;Build" />
   <ItemGroup>
-    <None Update="**/Jurisdiction.addin.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
+    <Content Include="**\*" TargetPath="jurisdiction\%(RecursiveDir)\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Remove="obj\**" />
+    <Content Remove="bin\**" />
+    <Content Remove="*.csproj" />
   </ItemGroup>
 </Project>
