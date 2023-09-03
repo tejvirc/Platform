@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Services;
 
 using System;
-using Contracts;
 using Fluxor;
+using Gaming.Contracts;
 using Kernel;
 using Microsoft.Extensions.Logging;
 using Store.Game;

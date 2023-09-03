@@ -2,9 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using Gaming.Contracts;
 using Extensions.Fluxor;
 using Fluxor;
+using Gaming.Contracts;
 using Store;
 
 public class GameReplayCompletedConsumer : Consumes<GameReplayCompletedEvent>

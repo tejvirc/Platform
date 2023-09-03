@@ -12,8 +12,6 @@ public class LobbyOptions
 
     public string? DefaultLoadingScreenFilename { get; set; }
 
-    public string? TopperVideoFilename { get; set; }
-
     public string? DefaultTopIntroVideoFilename { get; set; }
 
     public bool DisplaySoftErrors { get; set; }

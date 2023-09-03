@@ -14,7 +14,7 @@ public class IdleTextViewModel : ObservableObject, IActivatableViewModel
         this.WhenActivated(disposables =>
         {
             store
-                .Select(IdleTextSelector)
+                .Select(SelectIdleText)
                 .Subscribe(text =>
                 {
                     IdleText = text;

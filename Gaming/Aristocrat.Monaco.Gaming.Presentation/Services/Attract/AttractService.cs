@@ -2,7 +2,6 @@
 
 using System;
 using System.Linq;
-using Aristocrat.Monaco.Gaming.Presentation.Options;
 using Fluxor;
 using Gaming.Contracts;
 using Gaming.Contracts.Events;

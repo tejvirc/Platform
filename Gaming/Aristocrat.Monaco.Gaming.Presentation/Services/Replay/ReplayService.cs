@@ -2,8 +2,8 @@
 
 using System;
 using System.Threading.Tasks;
-using Gaming.Contracts;
 using Gaming.Commands;
+using Gaming.Contracts;
 using Hardware.Contracts.Button;
 using Kernel;
 using Microsoft.Extensions.Logging;

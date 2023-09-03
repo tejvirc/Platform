@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Bank;
 
-using Contracts.Models;
+using Gaming.Contracts.Models;
 
 public record BankState
 {

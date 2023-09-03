@@ -1,11 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Chooser;
 
 using System.Threading.Tasks;
-using Aristocrat.Monaco.Gaming.Presentation.Contracts.Audio;
+using Contracts.Audio;
 using Extensions.Fluxor;
 using Fluxor;
 using Microsoft.Extensions.Logging;
-using Models;
 using Services;
 using Services.Audio;
 using Store.Game;
