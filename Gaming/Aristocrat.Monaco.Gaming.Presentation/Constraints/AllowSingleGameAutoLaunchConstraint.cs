@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Constraints;
 
-using Gaming.Contracts;
+using System;
+using Contracts;
+using Contracts.Constraints;
 using Kernel;
 
 /// <summary>
@@ -25,8 +27,19 @@ public sealed class AllowSingleGameAutoLaunchConstraint : IConstraint
     /// <inheritdoc />
     public bool Validate<T>(T? parameter = default) where T : ConstraintParameters
     {
-        var allowGameInCharge = _properties.GetValue(GamingConstants.AllowGameInCharge, false);
+        var allowGameInCharge = _properties.GetValue(GamingConstants.AllowGameInCharge, GetDefaultValue());
+        return false;
+    }
 
-        return allowGameInCharge;
+    public bool GetDefaultValue()
+    {
+        var marketTpe = _properties.GetValue(GamingConstants.MarketType, MarketType.Unknown);
+
+        if (marketTpe == MarketType.Unknown)
+        {
+            throw new InvalidOperationException($"Market type was not set");
+        }
+
+        return marketTpe == MarketType.Class2;
     }
 }

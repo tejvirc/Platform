@@ -44,6 +44,8 @@
         {
             var properties = container.GetInstance<IPropertiesManager>();
 
+            properties.SetProperty(GamingConstants.MarketType, MarketType.Class3);
+
             //var lobbyStateManager = container.GetInstance<ILobbyStateManager>();
             //lobbyStateManager.AllowGameInCharge = (bool)properties.GetProperty(GamingConstants.AllowGameInCharge, true);
             var allowGameInCharge = (bool)properties.GetProperty(GamingConstants.AllowGameInCharge, true);
