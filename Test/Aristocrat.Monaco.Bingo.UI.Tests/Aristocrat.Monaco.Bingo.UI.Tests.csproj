@@ -9,7 +9,6 @@
     <Configurations>Debug;Release;Retail</Configurations>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <DisableTransitiveProjectReferences>true</DisableTransitiveProjectReferences>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="www\bingo\ATI_TEST1234\VAR01\page_1.html" />
