@@ -13,6 +13,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
     using Aristocrat.Extensions.CommunityToolkit;
+    using Aristocrat.Monaco.Application.Contracts.Protocol;
     using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Lobby;
@@ -135,7 +136,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             IsButtonContinuousPlayConfigurable = true;
 
-            ShowZeroCreditCashoutCheckbox = PropertiesManager.GetValue(GamingConstants.ZeroCreditCashoutConfigurable, false);
             EditableCensorship = PropertiesManager.GetValue(GamingConstants.CensorshipEditable, false);
             CensorshipEnforced = PropertiesManager.GetValue(GamingConstants.CensorshipEnforced, false);
             DemoModeEnabled = PropertiesManager.GetValue(ApplicationConstants.ShowMode, false);
@@ -326,11 +326,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             }
         }
 
-        public bool ShowZeroCreditCashoutCheckbox
-        {
-            get;
-            set;
-        }
+        public bool ShowZeroCreditCashoutCheckbox => GetZeroCreditCashoutCheckboxVisibility();
 
         public bool AllowZeroCreditCashout
         {
@@ -1176,6 +1172,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                     _audio.Load(_cardSoundFilePath);
                 }
             }
+        }
+
+        private bool GetZeroCreditCashoutCheckboxVisibility()
+        {
+            var protocols = ServiceManager.GetInstance().GetService<IMultiProtocolConfigurationProvider>()
+                .MultiProtocolConfiguration.Select(x => x.Protocol).ToList();
+
+            return protocols.Contains(CommsProtocol.SAS) && PropertiesManager.GetValue(GamingConstants.ZeroCreditCashoutConfigurable, false);
         }
 
         private void PlayVolumeChangeSound(string soundFilePath, float fVolumeScale)
