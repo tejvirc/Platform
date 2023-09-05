@@ -19,9 +19,9 @@
         public bool Connected => _serviceProvider.Client?.Connected ?? false;
         
         /// <inheritdoc />
-        public void UpdateReelState(IDictionary<int, ReelLogicalState> updateData)
+        public void UpdateReelState(IDictionary<int, ReelLogicalState> updateData, int? step)
         {
-            _serviceProvider.Client?.UpdateReelState(updateData);
+            _serviceProvider.Client?.UpdateReelState(updateData, step);
         }
         
         /// <inheritdoc />

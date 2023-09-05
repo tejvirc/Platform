@@ -256,7 +256,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                                               SelectedGameType == GameType.Blackjack;
 
         public bool BetKeeperOptionVisible =>
-                    SelectedGame?.GameConfigurations?.FirstOrDefault()?.Game?.Features?.Any(x => x.FeatureName.Equals(GamingConstants.BetKeeper, StringComparison.Ordinal)) ?? false;
+                    SelectedGame?.GameConfigurations?.FirstOrDefault()?.Game?.Features?.Any(x => x?.FeatureName?.Equals(GamingConstants.BetKeeper, StringComparison.Ordinal) ?? false) ?? false;
 
         public bool CanExecuteImportCommand => CanExecuteExportCommand && _settingsManager.IsConfigurationImportFilePresent(ConfigurationGroup.Game);
 

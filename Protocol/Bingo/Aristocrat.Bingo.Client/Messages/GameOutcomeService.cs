@@ -56,12 +56,13 @@
         }
 
         /// <inheritdoc/>
-        public Task<ReportMultiGameOutcomeResponse> ReportMultiGameOutcome(ReportMultiGameOutcomeMessage message, CancellationToken token)
+        public async Task<GameOutcomeAck> ReportMultiGameOutcome(ReportMultiGameOutcomeMessage message, CancellationToken token)
         {
-            // TODO: fill this in as part of the report game outcomes story
-            //var result = await Invoke(async x => await x.ReportMultiGameOutcomeAsync(message.ToGameOutcome()))
-            //    .ConfigureAwait(false);
-            return Task.FromResult(new ReportMultiGameOutcomeResponse(ResponseCode.Rejected));
+            Logger.Debug($"ReportMultiGameOutcome with message {message.Message} for serial {message.Message.MachineSerial} titleId {message.Message.GameOutcomes.First().GameTitleId}");
+            var result = await Invoke(async x => await x.ReportMultiGameOutcomeAsync(message.Message))
+                .ConfigureAwait(false);
+            Logger.Debug($"ReportMultiGameOutcome result is '{result}'");
+            return result;
         }
 
         private static GameOutcomes ProcessAcceptedResponse(MultiGamePlayResponse gamePlayOutcome, RequestMultipleGameOutcomeMessage request)

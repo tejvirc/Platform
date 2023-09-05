@@ -607,7 +607,8 @@
                 request.PoolName,
                 request.Levels.Select(i => (int)i).ToList(),
                 request.TransactionIds.Select(i => (long)i).ToList(),
-                request.Mode == GameRoundPlayMode.ModeRecovery || request.Mode == GameRoundPlayMode.ModeReplay);
+                request.Mode == GameRoundPlayMode.ModeRecovery || request.Mode == GameRoundPlayMode.ModeReplay,
+                (long)request.ExistingWinInCents);
 
             _handlerFactory.Create<TriggerJackpot>()
                 .Handle(trigger);

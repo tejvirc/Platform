@@ -14,7 +14,8 @@
         ///     Updates the reel state
         /// </summary>
         /// <param name="updateData">The update data</param>
-        void UpdateReelState(IDictionary<int, ReelLogicalState> updateData);
+        /// <param name="step">The step the reel is at</param>
+        void UpdateReelState(IDictionary<int, ReelLogicalState> updateData, int? step = null);
 
         /// <summary>
         ///     Notifies of an animation update

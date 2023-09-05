@@ -30,6 +30,9 @@
         {
             _currencyCultureProvider = currencyCultureProvider ?? throw new ArgumentNullException(nameof(currencyCultureProvider));
 
+            // This param is expected to be null when note acceptor is unchecked from Hardware Configuration page
+            _noteAcceptor = noteAcceptor;
+
             if (SerialNumber.EditedValue == "0")
             {
                 // Don't need to default to 0 for this page

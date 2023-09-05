@@ -57,7 +57,7 @@
                 { 0, expectedState}
             };
 
-            _reelService.Verify(s => s.UpdateReelState(reelState), Times.Once);
+            _reelService.Verify(s => s.UpdateReelState(reelState, null), Times.Once);
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@
 
             _target.Consume(reelSpinStatusEvent);
 
-            _reelService.Verify(s => s.UpdateReelState(It.IsAny<Dictionary<int, ReelLogicalState>>()), Times.Never);
+            _reelService.Verify(s => s.UpdateReelState(It.IsAny<Dictionary<int, ReelLogicalState>>(), null), Times.Never);
         }
 
         [TestMethod]
@@ -79,7 +79,7 @@
 
             _target.Consume(reelSpinStatusEvent);
 
-            _reelService.Verify(s => s.UpdateReelState(It.IsAny<Dictionary<int, ReelLogicalState>>()), Times.Never);
+            _reelService.Verify(s => s.UpdateReelState(It.IsAny<Dictionary<int, ReelLogicalState>>(), null), Times.Never);
         }
     }
 }
