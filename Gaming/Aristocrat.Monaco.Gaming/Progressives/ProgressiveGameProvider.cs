@@ -8,6 +8,7 @@
     using Accounting.Contracts;
     using Accounting.Contracts.Transactions;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Gaming.Commands;
     using Contracts;
     using Contracts.Meters;
     using Contracts.Models;
@@ -228,6 +229,12 @@
 
                 _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelBulkContribution)
                     .Increment(update.Amount);
+
+                if (GetLinkedLevel(level.AssignedProgressiveId, out var linkedLevel))
+                {
+                    _meters.GetMeter(linkedLevel.LevelName, ProgressiveMeters.LinkedProgressiveBulkContribution)
+                        .Increment(update.Amount);
+                }
             }
 
             _levelProvider.UpdateProgressiveLevels(packName, _gameId, _denomination, _activeLevels);
@@ -450,6 +457,12 @@
                     _meters.GetMeter(sharedLevel.Id, ProgressiveMeters.SharedLevelWinOccurrence).Increment(1);
                     _meters.GetMeter(sharedLevel.Id, ProgressiveMeters.SharedLevelWinAccumulation).Increment(progressive.PaidAmount);
                 }
+
+                if (GetLinkedLevel(level.AssignedProgressiveId, out var linkedLevel))
+                {
+                    _meters.GetMeter(linkedLevel.LevelName, ProgressiveMeters.LinkedProgressiveWinOccurrence).Increment(1);
+                    _meters.GetMeter(linkedLevel.LevelName, ProgressiveMeters.LinkedProgressiveWinAccumulation).Increment(progressive.PaidAmount);
+                }
             }
         }
 
@@ -549,6 +562,11 @@
                 {
                     _meters.GetMeter(linkedLevel.LevelName, ProgressiveMeters.LinkedProgressiveWageredAmount).Increment(wager);
                     _meters.GetMeter(linkedLevel.LevelName, ProgressiveMeters.LinkedProgressivePlayedCount).Increment(1);
+
+                    if (ante != 0)
+                    {
+                        _meters.GetMeter(linkedLevel.LevelName, ProgressiveMeters.LinkedProgressiveWageredAmountWithAnte).Increment(wager);
+                    }
                 }
             }
 
