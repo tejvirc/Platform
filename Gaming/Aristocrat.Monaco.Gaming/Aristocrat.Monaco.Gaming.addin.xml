@@ -215,6 +215,11 @@
         <ProgressiveAtomicMeter name="ProgressiveLevel.BulkTotal" classification="Currency" group="progressiveLevel" />
         <ProgressiveAtomicMeter name="LinkedProgressive.WageredAmount" classification="Currency" group="linkedProgressive" />
         <ProgressiveAtomicMeter name="LinkedProgressive.PlayedCount" classification="Occurrence" group="linkedProgressive" />
+        <ProgressiveAtomicMeter name="LinkedProgressive.BulkContribution" classification="Currency" group="linkedProgressive" />
+        <ProgressiveAtomicMeter name="LinkedProgressive.WinOccurrence" classification="Occurrence" group="linkedProgressive" />
+        <ProgressiveAtomicMeter name="LinkedProgressive.WinAccumulation" classification="Currency" group="linkedProgressive" />
+        <ProgressiveAtomicMeter name="LinkedProgressive.WageredAmount" classification="Currency" group="linkedProgressive" />
+        <ProgressiveAtomicMeter name="LinkedProgressive.WageredAmountWithAnte" classification="Currency" group="linkedProgressive" />
      </Extension>
 
     <ExtensionPoint path="/Gaming/Metering/GameMeterProvider">
