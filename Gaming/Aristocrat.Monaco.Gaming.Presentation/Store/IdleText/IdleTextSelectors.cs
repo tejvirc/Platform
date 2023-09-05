@@ -5,6 +5,6 @@ using static Extensions.Fluxor.Selectors;
 
 public static class IdleTextSelectors
 {
-    public static readonly ISelector<IdleTextState, string?> IdleTextSelector = CreateSelector(
+    public static readonly ISelector<IdleTextState, string?> SelectIdleText = CreateSelector(
         (IdleTextState s) => s.IdleText);
 }
