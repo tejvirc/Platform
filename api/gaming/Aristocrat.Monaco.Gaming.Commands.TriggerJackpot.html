@@ -134,7 +134,7 @@
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Commands_TriggerJackpot__ctor_System_String_System_Collections_Generic_IList_System_Int32__System_Collections_Generic_IList_System_Int64__System_Boolean_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.%23ctor(System.String%2CSystem.Collections.Generic.IList%7BSystem.Int32%7D%2CSystem.Collections.Generic.IList%7BSystem.Int64%7D%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Commands_TriggerJackpot__ctor_System_String_System_Collections_Generic_IList_System_Int32__System_Collections_Generic_IList_System_Int64__System_Boolean_System_Int64_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.%23ctor(System.String%2CSystem.Collections.Generic.IList%7BSystem.Int32%7D%2CSystem.Collections.Generic.IList%7BSystem.Int64%7D%2CSystem.Boolean%2CSystem.Int64)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Commands/TriggerJackpot.cs/#L21" title="View Source"><i class="fa fa-code"></i></a>
@@ -142,16 +142,16 @@
   
   <a id="Aristocrat_Monaco_Gaming_Commands_TriggerJackpot__ctor_" data-uid="Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.#ctor*"></a>
   
-  <h4 id="Aristocrat_Monaco_Gaming_Commands_TriggerJackpot__ctor_System_String_System_Collections_Generic_IList_System_Int32__System_Collections_Generic_IList_System_Int64__System_Boolean_" data-uid="Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.#ctor(System.String,System.Collections.Generic.IList{System.Int32},System.Collections.Generic.IList{System.Int64},System.Boolean)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Commands_TriggerJackpot__ctor_System_String_System_Collections_Generic_IList_System_Int32__System_Collections_Generic_IList_System_Int64__System_Boolean_" class="expander" data-toggle="collapse">TriggerJackpot(String, IList&lt;Int32&gt;, IList&lt;Int64&gt;, Boolean)</a></h4>
+  <h4 id="Aristocrat_Monaco_Gaming_Commands_TriggerJackpot__ctor_System_String_System_Collections_Generic_IList_System_Int32__System_Collections_Generic_IList_System_Int64__System_Boolean_System_Int64_" data-uid="Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.#ctor(System.String,System.Collections.Generic.IList{System.Int32},System.Collections.Generic.IList{System.Int64},System.Boolean,System.Int64)"><a href="#collapsible-Aristocrat_Monaco_Gaming_Commands_TriggerJackpot__ctor_System_String_System_Collections_Generic_IList_System_Int32__System_Collections_Generic_IList_System_Int64__System_Boolean_System_Int64_" class="expander" data-toggle="collapse">TriggerJackpot(String, IList&lt;Int32&gt;, IList&lt;Int64&gt;, Boolean, Int64)</a></h4>
   
-  <div id="collapsible-Aristocrat_Monaco_Gaming_Commands_TriggerJackpot__ctor_System_String_System_Collections_Generic_IList_System_Int32__System_Collections_Generic_IList_System_Int64__System_Boolean_" class="collapse in">
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Commands_TriggerJackpot__ctor_System_String_System_Collections_Generic_IList_System_Int32__System_Collections_Generic_IList_System_Int64__System_Boolean_System_Int64_" class="collapse in">
   <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.html">TriggerJackpot</a> class.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public TriggerJackpot(string poolName, IList&lt;int&gt; levelIds, IList&lt;long&gt; transactionIds, bool recovering)</code></pre>
+    <pre><code class="lang-csharp hljs">public TriggerJackpot(string poolName, IList&lt;int&gt; levelIds, IList&lt;long&gt; transactionIds, bool recovering, long existingWinInCents)</code></pre>
   </div>
   
   <h5 class="parameters">Parameters</h5>
@@ -189,6 +189,13 @@ transactions previously created and provided to the game.</p>
 </p>
       </td>
     </tr>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a></span>
+        <span class="parametername">existingWinInCents</span>
+        <p>
+      </td>
+    </tr>
   </table>
   
   
@@ -207,10 +214,54 @@ transactions previously created and provided to the game.</p>
   
   <span class="small pull-right mobile-hide">
     <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_ExistingWinInCents.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.ExistingWinInCents%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Commands/TriggerJackpot.cs/#L59" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_ExistingWinInCents_" data-uid="Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.ExistingWinInCents*"></a>
+  
+  <h4 id="Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_ExistingWinInCents" data-uid="Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.ExistingWinInCents"><a href="#collapsible-Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_ExistingWinInCents" class="expander" data-toggle="collapse">ExistingWinInCents</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_ExistingWinInCents" class="collapse in">
+  <div class="markdown level1 summary"><p>Gets the amount that was already awarded before this jackpot</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long ExistingWinInCents { get; }</code></pre>
+  </div>
+  
+  
+  
+  
+  
+  <h5 class="propertyValue">Property Value</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">Int64</a>
+        <p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  </div>
+  
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_LevelIds.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.LevelIds%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Commands/TriggerJackpot.cs/#L37" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Commands/TriggerJackpot.cs/#L38" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_LevelIds_" data-uid="Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.LevelIds*"></a>
@@ -254,7 +305,7 @@ transactions previously created and provided to the game.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_PoolName.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.PoolName%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Commands/TriggerJackpot.cs/#L32" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Commands/TriggerJackpot.cs/#L33" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_PoolName_" data-uid="Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.PoolName*"></a>
@@ -298,7 +349,7 @@ transactions previously created and provided to the game.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_Recovering.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.Recovering%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Commands/TriggerJackpot.cs/#L48" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Commands/TriggerJackpot.cs/#L49" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_Recovering_" data-uid="Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.Recovering*"></a>
@@ -343,7 +394,7 @@ transactions previously created and provided to the game.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_Results.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.Results%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Commands/TriggerJackpot.cs/#L53" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Commands/TriggerJackpot.cs/#L54" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_Results_" data-uid="Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.Results*"></a>
@@ -387,7 +438,7 @@ transactions previously created and provided to the game.</p>
     <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_TransactionIds.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.TransactionIds%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
   </span>
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Commands/TriggerJackpot.cs/#L42" title="View Source"><i class="fa fa-code"></i></a>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Gaming/Aristocrat.Monaco.Gaming/Commands/TriggerJackpot.cs/#L43" title="View Source"><i class="fa fa-code"></i></a>
   </span>
   
   <a id="Aristocrat_Monaco_Gaming_Commands_TriggerJackpot_TransactionIds_" data-uid="Aristocrat.Monaco.Gaming.Commands.TriggerJackpot.TransactionIds*"></a>
