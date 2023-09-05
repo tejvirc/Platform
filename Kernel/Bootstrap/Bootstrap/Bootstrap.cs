@@ -89,7 +89,6 @@
 
             ConfigureLogging();
 
-            SetUnhandledExceptionHandler();
             SetUnobservedTaskExceptionHandler();
             NativeMethods.SetErrorMode(
                 NativeMethods.ErrorModes.SemFailCriticalErrors | NativeMethods.ErrorModes.SemNoGpFaultErrorBox);
@@ -283,11 +282,6 @@
             Logger.Info(message);
         }
 
-        private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs args)
-        {
-            Crash(args.ExceptionObject);
-        }
-
         private static void Crash(object exception)
         {
             Logger.Fatal("UNHANDLED EXCEPTION CAUGHT");
@@ -325,14 +319,6 @@
             ServiceManager.GetInstance().AddServiceAndInitialize(service);
             _requiredServices.Push(service);
 
-            Logger.Info("Done.");
-        }
-
-        private void SetUnhandledExceptionHandler()
-        {
-            Logger.Info("Setting Unhandled Exception Handler...");
-            var currentDomain = AppDomain.CurrentDomain;
-            currentDomain.UnhandledException += UnhandledExceptionHandler;
             Logger.Info("Done.");
         }
 

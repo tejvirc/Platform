@@ -17,7 +17,7 @@
         {
             services.AddControllers();// local controller was loaded here
 
-            var controllerPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LoadControllers");
+            var controllerPath = Path.Combine(AppContext.BaseDirectory, "LoadControllers");
             if (!Directory.Exists(controllerPath))
             {
                 return;

@@ -406,7 +406,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         public string LabelResourceKey => $"{LabelResourceKeyPrefix}{Category}{DisabledText}";
 
-        public string LabelAnimatedResourcePath => $"{AppDomain.CurrentDomain.BaseDirectory}{ImagesPath}{LabelResourceKey}.gif";
+        public string LabelAnimatedResourcePath => $"{AppContext.BaseDirectory}{ImagesPath}{LabelResourceKey}.gif";
 
         public bool HasAnimatedResource => File.Exists(LabelAnimatedResourcePath);
 

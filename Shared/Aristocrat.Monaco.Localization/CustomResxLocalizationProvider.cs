@@ -267,13 +267,13 @@
             try
             {
                 var loadedAssemblies = AssemblyLoadContext.Default.Assemblies;
-                foreach (var assemblyInAppDomain in loadedAssemblies)
+                foreach (var assemblyLoaded in loadedAssemblies)
                 {
-                    var assemblyName = new AssemblyName(assemblyInAppDomain.FullName);
+                    var assemblyName = new AssemblyName(assemblyLoaded.FullName);
 
                     if (assemblyName.Name == resourceAssembly)
                     {
-                        assembly = assemblyInAppDomain;
+                        assembly = assemblyLoaded;
                         break;
                     }
                 }
