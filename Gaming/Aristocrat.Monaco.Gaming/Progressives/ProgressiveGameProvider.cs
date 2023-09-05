@@ -221,11 +221,27 @@
                 var level = GetUniqueLevelIDs().First(l => l.LevelId == update.Id);
                 var calculator = _calculatorFactory.Create(level.FundingType);
 
-                calculator?.ApplyContribution(
-                    level,
-                    update,
-                    _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelHiddenTotal),
-                    _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelBulkTotal));
+                switch (level.LevelType)
+                {
+                    case ProgressiveLevelType.LP:
+                    case ProgressiveLevelType.Selectable when level.AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.Linked:
+                        // do nothing, increments come from server
+                        break;
+
+                    default:
+                        calculator?.ApplyContribution(
+                            level,
+                            update,
+                            _meters.GetMeter(
+                                level.DeviceId,
+                                level.LevelId,
+                                ProgressiveMeters.ProgressiveLevelHiddenTotal),
+                            _meters.GetMeter(
+                                level.DeviceId,
+                                level.LevelId,
+                                ProgressiveMeters.ProgressiveLevelBulkTotal));
+                        break;
+                }
 
                 _meters.GetMeter(level.DeviceId, level.LevelId, ProgressiveMeters.ProgressiveLevelBulkContribution)
                     .Increment(update.Amount);
@@ -624,10 +640,6 @@
                             break;
                         }
                     case ProgressiveLevelType.LP:
-                        {
-                            // do nothing, increments come from server
-                            break;
-                        }
                     case ProgressiveLevelType.Selectable when assignedIdType == AssignableProgressiveType.Linked:
                         {
                             // do nothing, increments come from server
