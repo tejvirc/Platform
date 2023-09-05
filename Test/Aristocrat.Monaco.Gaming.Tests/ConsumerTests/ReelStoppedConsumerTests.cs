@@ -45,7 +45,8 @@
         [TestMethod]
         public void Consume()
         {
-            var reelStoppedEvent = new ReelStoppedEvent(10, 180, false);
+            const int stopStep = 180;
+            var reelStoppedEvent = new ReelStoppedEvent(10, stopStep, false);
             _reelService.Setup(s => s.Connected).Returns(true);
 
             _target.Consume(reelStoppedEvent);
@@ -55,18 +56,19 @@
                 { reelStoppedEvent.ReelId, ReelLogicalState.IdleAtStop }
             };
 
-            _reelService.Verify(s => s.UpdateReelState(reelState), Times.Once);
+            _reelService.Verify(s => s.UpdateReelState(reelState, stopStep), Times.Once);
         }
 
         [TestMethod]
         public void ConsumeHomeReelStop()
         {
-            var reelStoppedEvent = new ReelStoppedEvent(10, 180, true);
+            const int stopStep = 180;
+            var reelStoppedEvent = new ReelStoppedEvent(10, stopStep, true);
             _reelService.Setup(s => s.Connected).Returns(true);
 
             _target.Consume(reelStoppedEvent);
 
-            _reelService.Verify(s => s.UpdateReelState(It.IsAny<Dictionary<int, ReelLogicalState>>()), Times.Never);
+            _reelService.Verify(s => s.UpdateReelState(It.IsAny<Dictionary<int, ReelLogicalState>>(), stopStep), Times.Never);
         }
 
         [TestMethod]
@@ -82,7 +84,7 @@
                 { reelStoppedEvent.ReelId, ReelLogicalState.IdleAtStop }
             };
 
-            _reelService.Verify(s => s.UpdateReelState(It.IsAny<Dictionary<int, ReelLogicalState>>()), Times.Never);
+            _reelService.Verify(s => s.UpdateReelState(It.IsAny<Dictionary<int, ReelLogicalState>>(), It.IsAny<int>()), Times.Never);
         }
     }
 }

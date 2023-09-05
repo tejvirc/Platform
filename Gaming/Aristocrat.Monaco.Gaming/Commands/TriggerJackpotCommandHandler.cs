@@ -68,7 +68,8 @@
                 command.PoolName,
                 command.LevelIds,
                 command.TransactionIds,
-                command.Recovering);
+                command.Recovering,
+                command.ExistingWinInCents);
         }
 
         private void NotifyGameWinAsync(string poolName, IEnumerable<JackpotInfo> jackpots)

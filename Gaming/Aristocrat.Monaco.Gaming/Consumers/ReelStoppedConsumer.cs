@@ -36,7 +36,7 @@
                 { theEvent.ReelId, ReelLogicalState.IdleAtStop }
             };
 
-            _reelService.UpdateReelState(reelState);
+            _reelService.UpdateReelState(reelState, theEvent.Step);
         }
     }
 }

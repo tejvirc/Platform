@@ -436,8 +436,14 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
         public bool CanEditAndEnableLetItRide =>
             CanEdit && Enabled && !RestrictedToReadOnly && (_properties.GetValue(GamingConstants.LetItRideAllowed, true));
 
-        public bool CanEditBetKeeper => CanEdit && Enabled && !RestrictedToReadOnly
-            && (Game?.Features?.Where(x => x.FeatureName.Equals(GamingConstants.BetKeeper, StringComparison.Ordinal))?.FirstOrDefault()?.Editable ?? false);
+        public bool CanEditBetKeeper
+        {
+            get
+            {
+                bool gameAllowEdit = Game?.Features?.Where(x => x?.FeatureName?.Equals(GamingConstants.BetKeeper, StringComparison.Ordinal) ?? false)?.FirstOrDefault()?.Editable ?? false;
+                return gameAllowEdit && CanEdit && Enabled && !RestrictedToReadOnly;
+            }
+        }
 
         /// <summary>
         ///     Some games provide "MultiGame Packages" which are pre-defined configuration templates. The Platform equivalent for

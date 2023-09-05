@@ -18,12 +18,13 @@
         ///     transactions previously created and provided to the game.
         /// </param>
         /// <param name="recovering">true if recovering</param>
-        public TriggerJackpot(string poolName, IList<int> levelIds, IList<long> transactionIds, bool recovering)
+        public TriggerJackpot(string poolName, IList<int> levelIds, IList<long> transactionIds, bool recovering, long existingWinInCents)
         {
             PoolName = poolName;
             LevelIds = levelIds;
             TransactionIds = transactionIds;
             Recovering = recovering;
+            ExistingWinInCents = existingWinInCents;
         }
 
         /// <summary>
@@ -51,5 +52,10 @@
         ///     Gets or sets the result of the command
         /// </summary>
         public IEnumerable<ProgressiveTriggerResult> Results { get; set; }
+
+        /// <summary>
+        ///     Gets the amount that was already awarded before this jackpot
+        /// </summary>
+        public long ExistingWinInCents { get; }
     }
 }

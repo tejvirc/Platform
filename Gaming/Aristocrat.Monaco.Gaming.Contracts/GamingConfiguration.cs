@@ -1096,6 +1096,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private string resetWinAmountField;
         
+        private string onMaxWinReachField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public long Amount {
@@ -1115,6 +1117,17 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.resetWinAmountField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string OnMaxWinReach {
+            get {
+                return this.onMaxWinReachField;
+            }
+            set {
+                this.onMaxWinReachField = value;
             }
         }
     }
