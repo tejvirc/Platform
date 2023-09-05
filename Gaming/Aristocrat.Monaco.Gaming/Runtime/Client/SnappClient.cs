@@ -25,7 +25,7 @@
         private readonly IEventBus _eventBus;
         private readonly IProcessManager _processManager;
 
-        private readonly object _sync = new ();
+        private readonly object _sync = new();
 
         private Channel _channel;
         private RuntimeServiceStub _runtimeStub;
@@ -80,6 +80,7 @@
 
         public void UpdateFlag(RuntimeCondition flag, bool state)
         {
+            Logger.Debug($"UpdateFlag({flag}, {state})");
             Invoke(client => client.UpdateFlag(new UpdateFlagRequest { Flag = (RuntimeFlag)flag, State = state }));
         }
 
@@ -96,6 +97,7 @@
 
         public void UpdateState(RuntimeState state)
         {
+            Logger.Debug($"UpdateState({state})");
             Invoke(client => client.UpdateState(new UpdateStateRequest { State = (V1.RuntimeState)state }));
         }
 
@@ -120,7 +122,7 @@
 
             request.Levels.Add(
                 winLevels.Select(
-                    r => new LevelInfo { LevelId = (uint)r.Key, Value = (ulong)r.Value}));
+                    r => new LevelInfo { LevelId = (uint)r.Key, Value = (ulong)r.Value }));
 
             Invoke(client => client.JackpotWinAvailable(request));
         }
@@ -161,7 +163,9 @@
                 client => client.UpdateButtonState(
                     new UpdateButtonStateRequest
                     {
-                        ButtonId = buttonId, ButtonMask = (int)mask, ButtonState = (int)state
+                        ButtonId = buttonId,
+                        ButtonMask = (int)mask,
+                        ButtonState = (int)state
                     }));
         }
 
@@ -232,7 +236,7 @@
                 overriddenPresentationMessage.OverridingMessages.Add(Any.Pack(presentationMessage));
             }
 
-            Invoke(x => x .PresentOverriddenPresentation(overriddenPresentationMessage));
+            Invoke(x => x.PresentOverriddenPresentation(overriddenPresentationMessage));
         }
 
         protected virtual void Dispose(bool disposing)

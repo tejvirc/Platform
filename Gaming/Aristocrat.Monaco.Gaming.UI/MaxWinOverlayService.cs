@@ -1,26 +1,24 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI
 {
-    using Aristocrat.Monaco.Gaming.Contracts;
-    using Aristocrat.Monaco.Kernel;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Aristocrat.MVVM;
-    using Aristocrat.Monaco.Gaming.UI.Views.Overlay;
-    using Aristocrat.Monaco.Gaming.UI.ViewModels;
     using System.Globalization;
-    using Aristocrat.Cabinet.Contracts;
-    using Aristocrat.Monaco.Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Gaming.Runtime;
-    using Aristocrat.Monaco.Gaming.Runtime.Client;
-    using Aristocrat.Monaco.Accounting.Contracts;
-    using Aristocrat.Monaco.Hardware.Contracts.Button;
-    using System.Timers;
-    using log4net;
+    using System.Linq;
     using System.Reflection;
+    using System.Timers;
     using System.Windows;
+    using Accounting.Contracts;
+    using Application.Contracts.Extensions;
+    using Cabinet.Contracts;
+    using Contracts;
+    using Hardware.Contracts.Button;
+    using Kernel;
+    using log4net;
+    using MVVM;
+    using Runtime;
+    using Runtime.Client;
+    using ViewModels;
+    using Views.Overlay;
 
     public class MaxWinOverlayService : IMaxWinOverlayService, IService, IDisposable
     {
@@ -120,6 +118,7 @@
 
         private void Handle(DownEvent obj)
         {
+            Logger.Debug($"DownEvent: ShowingMaxWinWarning={ShowingMaxWinWarning}");
             if (ShowingMaxWinWarning)
             {
                 _maxWinShowTimer.Stop();
@@ -176,6 +175,7 @@
 
         private void UpdateRuntime()
         {
+            Logger.Debug("UpdateRuntime");
             var runtime = ServiceManager.GetInstance().GetService<IContainerService>().Container.GetInstance<IRuntime>();
             runtime.UpdateBalance(_bank.QueryBalance().MillicentsToCents());
             runtime.UpdateFlag(RuntimeCondition.AllowGameRound, true);

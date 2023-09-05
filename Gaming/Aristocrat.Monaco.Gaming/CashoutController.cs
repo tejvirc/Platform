@@ -2,17 +2,21 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     using System.Timers;
     using Application.Contracts;
     using Contracts;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.Printer;
     using Kernel;
+    using log4net;
     using Runtime;
     using Runtime.Client;
 
     public class CashoutController : IDisposable, ICashoutController, IService
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly IResponsibleGaming _responsibleGaming;
         private readonly IEventBus _eventBus;
         private readonly IGamePlayState _gamePlayState;
@@ -180,6 +184,7 @@
 
             PaperInChuteNotificationActive = false;
             _eventBus.Publish(new CashoutNotificationEvent(false));
+            Logger.Debug($"_gamePlayState.CurrentState={_gamePlayState.CurrentState}, _runtime.Connected={_runtime.Connected}");
             if ((_gamePlayState.Idle || _gamePlayState.InPresentationIdle) && _runtime.Connected)
             {
                 _runtime.UpdateFlag(RuntimeCondition.AllowGameRound, true);

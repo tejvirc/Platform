@@ -9,10 +9,10 @@
     using Contracts.Session;
     using Hardware.Contracts.Persistence;
     using Kernel;
+    using log4net;
     using Payment;
     using Runtime;
     using Runtime.Client;
-    using log4net;
     using PlayMode = Runtime.Client.PlayMode;
 
     public class PresentEventHandler : BaseEventHandler, IRuntimeEventHandler
@@ -80,6 +80,7 @@
 
         private void HandleEnd(GameRoundEvent gameRoundEvent)
         {
+            Logger.Debug($"HandleEnd: PlayMode={gameRoundEvent.PlayMode}, _gameCashOutRecovery.HasPending={_gameCashOutRecovery.HasPending}, CurrentState={_gamePlayState.CurrentState}");
             var (game, denomination) = _properties.GetActiveGame();
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
             _bus.Publish(new GamePresentationEndedEvent(game.Id, denomination.Value, wagerCategory.Id, _gameHistory.CurrentLog));
@@ -151,6 +152,7 @@
 
         private void HandleGameEnded()
         {
+            Logger.Debug($"HandleGameEnded: _gameCashOutRecovery.HasPending={_gameCashOutRecovery.HasPending}, CurrentState={_gamePlayState.CurrentState}");
             if (!MeterFreeGames && _gameCashOutRecovery.HasPending)
             {
                 if (!CanExitRecovery())
@@ -172,9 +174,17 @@
 
         private void HandleInvoked(GameRoundEvent gameRoundEvent)
         {
+            Logger.Debug($"HandleInvoked: PlayMode={gameRoundEvent.PlayMode}, _gameCashOutRecovery.HasPending={_gameCashOutRecovery.HasPending}, CurrentState={_gamePlayState.CurrentState}");
             if (gameRoundEvent.PlayMode is PlayMode.Recovery && !_gameCashOutRecovery.HasPending)
             {
                 ClearHandpayPendingFlag();
+
+                if (_gamePlayState.CurrentState is PlayState.PayGameResults)
+                {
+                    // No more cash out or game results needs to occur after this recovery, we just need to exit this PlayState back to idle
+                    HandleGameEnded();
+                }
+
                 return;
             }
 
@@ -188,6 +198,7 @@
 
         private void HandlePending()
         {
+            Logger.Debug($"HandlePending: _gameCashOutRecovery.HasPending={_gameCashOutRecovery.HasPending}, CurrentState={_gamePlayState.CurrentState}");
             var (game, denomination) = _properties.GetActiveGame();
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
             _bus.Publish(new GameWinPresentationStartedEvent(game.Id, denomination.Value, wagerCategory.Id, _gameHistory.CurrentLog));
@@ -195,6 +206,7 @@
 
         private void HandleBegin()
         {
+            Logger.Debug($"HandleBegin: _gameCashOutRecovery.HasPending={_gameCashOutRecovery.HasPending}, CurrentState={_gamePlayState.CurrentState}");
             var (game, denomination) = _properties.GetActiveGame();
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
             _bus.Publish(new GamePresentationStartedEvent(game.Id, denomination.Value, wagerCategory.Id, _gameHistory.CurrentLog));

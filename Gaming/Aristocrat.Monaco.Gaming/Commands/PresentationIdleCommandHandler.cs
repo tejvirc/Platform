@@ -1,15 +1,19 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System;
+    using System.Reflection;
     using Contracts;
     using Contracts.Events;
     using Kernel;
+    using log4net;
     using Runtime;
     using Runtime.Client;
     using Vgt.Client12.Application.OperatorMenu;
 
     public class PresentationIdleCommandHandler : ICommandHandler<PresentationIdle>
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly IEventBus _bus;
         private readonly IRuntime _runtime;
         private readonly IGameHistory _history;
@@ -43,6 +47,7 @@
             _bus.Publish(new DisableCountdownTimerEvent(false));
             _bus.Publish(new AllowMoneyInEvent());
 
+            Logger.Debug($"PresentationIdle: ForcedCashout={checkBalance.ForcedCashout}, PaperInChuteNotificationActive={_cashoutController.PaperInChuteNotificationActive}");
             if (!checkBalance.ForcedCashout && !_cashoutController.PaperIsInChute)
             {
                 _runtime.UpdateFlag(RuntimeCondition.AllowGameRound, true);

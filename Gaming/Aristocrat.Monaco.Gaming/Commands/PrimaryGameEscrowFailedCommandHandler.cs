@@ -2,9 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
+    using log4net;
     using Progressives;
     using Runtime;
     using Runtime.Client;
@@ -12,6 +14,8 @@
 
     public class PrimaryGameEscrowFailedCommandHandler : ICommandHandler<PrimaryGameEscrowFailed>
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly IGameHistory _gameHistory;
         private readonly IPlayerBank _bank;
         private readonly IRuntime _runtime;
@@ -59,6 +63,7 @@
             _operatorMenu.EnableKey(GamingConstants.OperatorMenuDisableKey);
 
             var (game, _) = _properties.GetActiveGame();
+            Logger.Debug($"PrimaryGameEscrowFailed: ActiveGame={game}");
             if (game != null)
             {
                 _runtime.UpdateFlag(RuntimeCondition.AllowGameRound, true);

@@ -1,8 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Commands
 {
     using System;
+    using System.Reflection;
     using Contracts;
     using Kernel;
+    using log4net;
     using Runtime;
     using Runtime.Client;
     using Vgt.Client12.Application.OperatorMenu;
@@ -12,6 +14,8 @@
     /// </summary>
     public class GamePlayEnabledCommandHandler : ICommandHandler<GamePlayEnabled>
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly IResponsibleGaming _responsibleGaming;
         private readonly IRuntime _runtime;
         private readonly IPropertiesManager _properties;
@@ -46,6 +50,7 @@
 
             _responsibleGaming.OnGamePlayEnabled();
 
+            Logger.Debug($"GamePlayEnabled: _gamePlayState.CurrentState={_gamePlayState.CurrentState}, _runtime.Connected={_runtime.Connected}");
             if (_gamePlayState.Idle && _runtime.Connected)
             {
                 _runtime.UpdateFlag(RuntimeCondition.AllowGameRound, true);

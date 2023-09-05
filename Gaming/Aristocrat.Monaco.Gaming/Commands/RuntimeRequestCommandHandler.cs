@@ -58,6 +58,7 @@
 
         public void Handle(RuntimeRequest command)
         {
+            Logger.Debug($"Handle(RuntimeRequest): IsRecovering={_gameRecovery.IsRecovering}, Replay.IsActive={_gameDiagnostics.IsActive}");
             switch (command.State)
             {
                 case RuntimeRequestState.BeginGameRound:
@@ -138,12 +139,24 @@
 
         private bool IsPlayable()
         {
-            return !_transactions.IsTransactionActive &&
-                   !_systemDisableManager.DisableImmediately &&
-                   (!_systemDisableManager.IsDisabled || AllowGamePlayOnNormalLockup) &&
-                   !_resizeManager.IsResizing &&
-                   !_mediaProvider.IsPrimaryOverlayVisible &&
-                   _responsibleGaming.CanSpinReels();
+            var canSpinReels = _responsibleGaming.CanSpinReels();
+            var value = !_transactions.IsTransactionActive &&
+                        !_systemDisableManager.DisableImmediately &&
+                        (!_systemDisableManager.IsDisabled || AllowGamePlayOnNormalLockup) &&
+                        !_resizeManager.IsResizing &&
+                        !_mediaProvider.IsPrimaryOverlayVisible &&
+                        canSpinReels;
+
+            Logger.Debug($"IsPlayable={value}; " +
+                         $"IsTransactionActive={_transactions.IsTransactionActive}, " +
+                         $"DisableImmediately={_systemDisableManager.DisableImmediately}, " +
+                         $"IsDisabled={_systemDisableManager.IsDisabled}, " +
+                         $"AllowGamePlayOnNormalLockup={AllowGamePlayOnNormalLockup}, " +
+                         $"IsResizing={_resizeManager.IsResizing}, " +
+                         $"IsPrimaryOverlayVisible={_mediaProvider.IsPrimaryOverlayVisible}, " +
+                         $"CanSpinReels={canSpinReels}");
+
+            return value;
         }
     }
 }

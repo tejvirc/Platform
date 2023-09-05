@@ -310,6 +310,7 @@
         /// <inheritdoc />
         public void End(long finalWin)
         {
+            Logger.Debug($"End(finalWin={finalWin}): PayResultTrigger={_payResultTrigger.Trigger}, State={_state.State}, _pendingEvents={_pendingEvents}");
             if (_state.CanFire(_payResultTrigger.Trigger))
             {
                 // This is the one state change we can run async, but it's only because we control when the next game round can start.

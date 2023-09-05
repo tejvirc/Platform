@@ -3,10 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Reflection;
     using Common.PerformanceCounters;
     using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
+    using log4net;
     using Progressives;
     using Runtime;
     using Runtime.Client;
@@ -15,6 +17,8 @@
     [CounterDescription("Game Idle", PerformanceCounterType.AverageTimer32)]
     public class GameIdleCommandHandler : ICommandHandler<GameIdle>
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly IEventBus _bus;
         private readonly IProgressiveGameProvider _progressiveGameProvider;
         private readonly ICommandHandlerFactory _commandFactory;
@@ -71,6 +75,7 @@
 
             _bus.Publish(new DisableCountdownTimerEvent(false));
 
+            Logger.Debug($"GameIdle: ForcedCashout={checkBalance.ForcedCashout}, PaperInChuteNotificationActive={_cashoutController.PaperInChuteNotificationActive}, ShowingMaxWinWarning={_maxWinOverlayService.ShowingMaxWinWarning}");
             if (!checkBalance.ForcedCashout && !_cashoutController.PaperInChuteNotificationActive && !_maxWinOverlayService.ShowingMaxWinWarning)
             {
                 _runtime.UpdateFlag(RuntimeCondition.AllowGameRound, true);

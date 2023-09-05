@@ -45,6 +45,7 @@
             }
 
             // This is intended to handle a cashout during a game round
+            Logger.Debug($"_gameState.Idle={_gameState.Idle}, PaperInChuteNotificationActive={_cashoutController.PaperInChuteNotificationActive}");
             if (!_gameState.Idle)
             {
                 _history.CompleteCashOut(theEvent.TraceId);

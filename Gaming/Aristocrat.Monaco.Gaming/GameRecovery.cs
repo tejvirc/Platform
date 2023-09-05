@@ -39,6 +39,7 @@
         private IEventBus _eventBus;
 
         private bool _wasRecovering;
+        private bool _isRecovering;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GameRecovery" /> class.
@@ -63,7 +64,15 @@
         }
 
         /// <inheritdoc />
-        public bool IsRecovering { get; private set; }
+        public bool IsRecovering
+        {
+            get => _isRecovering;
+            private set
+            {
+                _isRecovering = value;
+                Logger.Debug($"IsRecovering={value}");
+            }
+        }
 
         /// <inheritdoc />
         public int GameId { get; private set; }
@@ -71,6 +80,7 @@
         /// <inheritdoc />
         public bool TryStartRecovery(int gameId, bool verifyState)
         {
+            Logger.Debug($"TryStartRecovery: gameId={gameId}, verifyState={verifyState}, CurrentState={_gamePlayState.CurrentState}");
             _gamePlayState.Faulted();
             if (verifyState && _gamePlayState.Idle)
             {
@@ -88,12 +98,11 @@
         /// <inheritdoc />
         public void EndRecovery()
         {
+            Logger.Debug("EndRecovery");
             IsRecovering = _wasRecovering;
 
             if (IsRecovering)
             {
-                Logger.Debug("Ending recovery.");
-
                 IsRecovering = false;
                 _wasRecovering = false;
                 GameId = 0;
@@ -103,7 +112,7 @@
         /// <inheritdoc />
         public void AbortRecovery()
         {
-            Logger.Debug("Aborting recovery.");
+            Logger.Debug("AbortRecovery");
 
             _wasRecovering = IsRecovering;
             if (IsRecovering)

@@ -1475,7 +1475,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 var gameControlHeight = GameControlHeight;
                 var gameIconSize = DisplayedGameList?.FirstOrDefault()?.GameIconSize ?? Size.Empty;
                 var anyVisibleGameHasProgressiveLabel = DisplayedGameList?.Any(x => x.HasProgressiveLabelDisplay) ?? false;
-                Logger.Debug($"MarginInputs: GameWindowHeight={gameControlHeight}, GameIconSize={gameIconSize}");
                 return new GameGridMarginInputs(
                     GameCount,
                     IsTabView,
@@ -2954,7 +2953,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 IsTopScreenRenderingDisabled = (IsInState(LobbyState.Disabled) || IsInOperatorMenu) &&
                                                 !ContainsAnyState(LobbyState.GameDiagnostics, LobbyState.GameLoadingForDiagnostics);
             }
-            else 
+            else
             {
                 if (_properties.GetValue(ApplicationConstants.DisplayTopScreenWhenCashout, true))
                 {
@@ -3671,7 +3670,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             // show cashout confirmation on the main screen only when responsible gaming dialog is visible
             // and the session limit has not been reached.
-            if (IsTimeLimitDlgVisible && (!_responsibleGaming?.IsSessionLimitHit ?? false) && commandParam is Main) 
+            if (IsTimeLimitDlgVisible && (!_responsibleGaming?.IsSessionLimitHit ?? false) && commandParam is Main)
             {
                 IsResponsibleGamingCashoutDlgVisible = true;
                 PlayAudioFile(Sound.Touch);
@@ -3700,7 +3699,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 ExecuteOnUserCashOut();
             }
 
-            IsVbdCashOutDialogVisible = false;  
+            IsVbdCashOutDialogVisible = false;
             IsResponsibleGamingCashoutDlgVisible = false;
         }
 
