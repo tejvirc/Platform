@@ -311,6 +311,12 @@
         {
             Logger.Info($"OnDeviceStateChanged {deviceId} - {newState}");
 
+            if (!AudioManager.IsSpeakerDevice(deviceId))
+            {
+                Logger.Info("Not a speaker device - discarding state change.");
+                return;
+            }
+
             switch (newState)
             {
                 case DeviceState.Active:
