@@ -10,4 +10,13 @@ public static class EdgeLightingReducers
         {
             EdgeLightState = action.EdgeLightState,
         };
+
+    [ReducerMethod]
+    public static EdgeLightingState UpdateStateForCanOverride(
+        EdgeLightingState state,
+        EdgeLightUpdateOverrideAction action) =>
+        state with
+        {
+            CanOverrideEdgeLight = action.CanOverrideEdgeLight,
+        };
 }
