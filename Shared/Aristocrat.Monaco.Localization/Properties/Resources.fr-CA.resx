@@ -2380,7 +2380,7 @@ Consulter le manuel pour plus de détails</value>
     <value>Coupon accepté</value>
   </data>
   <data name="VoucherIssued" xml:space="preserve">
-    <value>Coupon imprimé ‒</value>
+    <value>Coupon imprimé </value>
   </data>
   <data name="VoucherLimitExceeded" xml:space="preserve">
     <value>Dépassement de la limite de coupons</value>
@@ -5104,7 +5104,7 @@ Consulter le manuel pour plus de détails</value>
   </data>
   <data name="OpenMainDoor" xml:space="preserve">
     <value>??Main door must be open to change these settings.??</value>
-</data>
+  </data>
   <data name="GameBonusInfoTicketTitleText" xml:space="preserve">
     <value>??Game Bonus Info??</value>
   </data>
