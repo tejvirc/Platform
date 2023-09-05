@@ -110,6 +110,7 @@
       <Field FieldName="GamePlay.WagerLimitsUse" DataType="Bool"/>
       <Field FieldName="GamePlay.WagerLimitsMaxTotalWager" DataType="Int64"/>
       <Field FieldName="GamePlay.FreeSpinClearWinMeter" DataType="Bool"/>
+      <Field FieldName="GamePlay.ClearWinMeterOnBetChange" DataType="Bool"/>
       <Field FieldName="GamePlay.WinDestination" DataType="String" Size="256"/>
       <Field FieldName="GamePlay.DisplayGamePayMessageUse" DataType="Bool"/>
       <Field FieldName="GamePlay.DisplayGamePayMessageFormat" DataType="String" Size="256"/>

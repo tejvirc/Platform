@@ -76,6 +76,7 @@
                     ProgressivePoolCreation = new GamingConfigurationProgressivePoolCreation(),
                     PlayerInformationDisplay = new GamingConfigurationPlayerInformationDisplay(),
                     FreeSpin = new GamingConfigurationFreeSpin(),
+                    ClearWinMeter = new GamingConfigurationClearWinMeter(),
                     Win = new GamingConfigurationWin(),
                     DisplayGamePayMessage = new GamingConfigurationDisplayGamePayMessage(),
                     WagerLimits = new GamingConfigurationWagerLimits(),
@@ -158,6 +159,7 @@
                 { GamingConstants.GameLogOutcomeDetailsKey, (InitFromStorage(GamingConstants.GameLogOutcomeDetailsKey), true) },
                 { GamingConstants.AudioAudioChannelsKey, (InitFromStorage(GamingConstants.AudioAudioChannelsKey), true) },
                 { GamingConstants.FreeSpinClearWinMeterKey, (InitFromStorage(GamingConstants.FreeSpinClearWinMeterKey), true) },
+                { GamingConstants.ClearWinMeterOnBetChangeKey, (InitFromStorage(GamingConstants.ClearWinMeterOnBetChangeKey), true) },
                 { GamingConstants.WinDestinationKey, (InitFromStorage(GamingConstants.WinDestinationKey), true) },
                 { GamingConstants.ButtonAnimationGoodLuckKey, (InitFromStorage(GamingConstants.ButtonAnimationGoodLuckKey), true) },
                 { GamingConstants.ReelStopInBaseGameEnabled, ((object)configuration.ReelStopInBaseGame?.Enabled ?? true, false) },
@@ -361,6 +363,7 @@
                 SetProperty(GamingConstants.GameLogOutcomeDetailsKey, configuration.GameLog?.OutcomeDetails ?? GamingConstants.GameLogOutcomeDetails);
                 SetProperty(GamingConstants.AudioAudioChannelsKey, configuration.Audio?.AudioChannels ?? GamingConstants.AudioAudioChannels);
                 SetProperty(GamingConstants.FreeSpinClearWinMeterKey, configuration.FreeSpin?.ClearWinMeter ?? GamingConstants.FreeSpinClearWinMeter);
+                SetProperty(GamingConstants.ClearWinMeterOnBetChangeKey, configuration.ClearWinMeter?.OnBetChange ?? GamingConstants.ClearWinMeterOnBetChange);
                 SetProperty(GamingConstants.WinDestinationKey, configuration.Win?.Destination ?? GamingConstants.WinDestination);
                 SetProperty(GamingConstants.ButtonAnimationGoodLuckKey, configuration.ButtonAnimation?.GoodLuck ?? GamingConstants.ButtonAnimationGoodLuck);
                 SetProperty(GamingConstants.DisplayGamePayMessageUseKey, configuration.DisplayGamePayMessage?.Use ?? GamingConstants.DisplayGamePayMessageUse);

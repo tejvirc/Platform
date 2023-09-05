@@ -179,6 +179,16 @@
         public const bool FreeSpinClearWinMeter = false;
 
         /// <summary>
+        ///     Properties key for FreeSpinClearWinMeter
+        /// </summary>
+        public const string ClearWinMeterOnBetChangeKey = @"GamePlay.ClearWinMeterOnBetChange";
+
+        /// <summary>
+        ///     Default value for FreeSpinClearWinMeter
+        /// </summary>
+        public const bool ClearWinMeterOnBetChange = false;
+
+        /// <summary>
         ///     Properties key for WinDestination
         /// </summary>
         public const string WinDestinationKey = @"GamePlay.WinDestination";
