@@ -130,7 +130,7 @@
             _digitalRights = digitalRights ?? throw new ArgumentNullException(nameof(digitalRights));
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
-            _rtpService = rtpService ?? throw new ArgumentNullException(nameof(rtpService));;
+            _rtpService = rtpService ?? throw new ArgumentNullException(nameof(rtpService));
 
             _gameSpecificOptionManifest = gameSpecificOptionManifest ?? throw new ArgumentNullException(nameof(gameSpecificOptionManifest));
             _gameSpecificOptionProvider = gameSpecificOptionProvider ?? throw new ArgumentNullException(nameof(gameSpecificOptionProvider));
@@ -702,18 +702,10 @@
         {
             var game = _games.Single(g => g.Id == gameId);
             var manifestSubGames = game.SupportedSubGames.ToList();
+            
+            var subGameDenomDictionary = GenerateSubGameDenominationDictionary(subGameConfiguration, manifestSubGames);
 
-            foreach (var subGame in subGameConfiguration)
-            {
-                var foundSubGame =
-                    manifestSubGames.FirstOrDefault(x => long.Parse(x.CdsTitleId) == subGame.GameTitleId) as
-                        SubGameDetails;
-
-                if (foundSubGame?.Denominations.FirstOrDefault(x => x.Value == subGame.Denomination) is not null)
-                {
-                    foundSubGame.SupportedDenoms = new List<long> { subGame.Denomination };
-                }
-            }
+            UpdateSupportedDenoms(subGameDenomDictionary, manifestSubGames);
 
             game.SupportedSubGames = manifestSubGames.Where(subGame => !subGame.SupportedDenoms.IsNullOrEmpty()).ToList();
 
@@ -1947,6 +1939,43 @@
             }
 
             return animationFiles;
+        }
+
+        private static void UpdateSupportedDenoms(Dictionary<string, List<long>> subGameDenomDictionary, IReadOnlyCollection<ISubGameDetails> manifestSubGames)
+        {
+            foreach (var titleId in subGameDenomDictionary)
+            {
+                if (manifestSubGames.FirstOrDefault(x => x.CdsTitleId == titleId.Key) is SubGameDetails foundSubGame)
+                {
+                    foundSubGame.SupportedDenoms = titleId.Value;
+                }
+            }
+        }
+
+        private static Dictionary<string, List<long>> GenerateSubGameDenominationDictionary(
+            IEnumerable<SubGameConfiguration> subGameConfiguration,
+            IReadOnlyCollection<ISubGameDetails> manifestSubGames)
+        {
+            var subGameDenomDictionary = new Dictionary<string, List<long>>();
+            foreach (var subGame in subGameConfiguration)
+            {
+                var foundSubGame =
+                    manifestSubGames.FirstOrDefault(x => long.Parse(x.CdsTitleId) == subGame.GameTitleId);
+
+                if (foundSubGame?.Denominations.FirstOrDefault(x => x.Value == subGame.Denomination) is null)
+                {
+                    continue;
+                }
+
+                if (!subGameDenomDictionary.ContainsKey(foundSubGame.CdsTitleId))
+                {
+                    subGameDenomDictionary.Add(foundSubGame.CdsTitleId, new List<long>());
+                }
+
+                subGameDenomDictionary[foundSubGame.CdsTitleId].Add(subGame.Denomination);
+            }
+
+            return subGameDenomDictionary;
         }
     }
 }
