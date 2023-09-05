@@ -186,6 +186,7 @@
                             <GridViewColumn HeaderContainerStyle="{DynamicResource MonacoGridViewColumnHeader}"
                                             AutomationProperties.AutomationId="GridViewColumn26_303FCCD8">
                                 <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
                                         <Button Content="{lex:Loc HostConfigurationButtonDelete}" 
                                                 VerticalAlignment="Center"
                                                 Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"

@@ -58,10 +58,6 @@
 
             RolloverTest = PropertiesManager.GetValue(@"maxmeters", "false") == "true";
 
-            _meterManager.ProgressiveAdded += OnProgressiveAdded;
-            _meterManager.LinkedProgressiveAdded += OnLinkedProgressiveAdded;
-            _meterManager.LPCompositeMetersCanUpdate += UpdateLPCompositeMeters;
-
             _meterBuilders = new Dictionary<string, Action<ProgressiveAtomicMeterNode, IPersistentStorageAccessor>>()
             {
                 {MeterGroupNameProgressive, AddAtomicProgressiveMeter},
@@ -73,6 +69,7 @@
             Initialize();
             meterManager.AddProvider(this);
             _progressiveMeterManager.ProgressiveAdded += OnProgressiveAdded;
+            _progressiveMeterManager.LinkedProgressiveAdded += OnLinkedProgressiveAdded;
             _progressiveMeterManager.LPCompositeMetersCanUpdate += UpdateLPCompositeProgressiveMeters;
         }
 
@@ -156,10 +153,10 @@
 
                 var blockSize = meter.Group switch
                 {
-                    MeterGroupNameProgressive => _meterManager.ProgressiveCount,
-                    MeterGroupNameProgressiveLevel => _meterManager.LevelCount,
-                    MeterGroupNameLinkedProgressive => _meterManager.LinkedLevelCount,
-                    MeterGroupNameSharedLevel => _meterManager.SharedLevelCount,
+                    MeterGroupNameProgressive => _progressiveMeterManager.ProgressiveCount,
+                    MeterGroupNameProgressiveLevel => _progressiveMeterManager.LevelCount,
+                    MeterGroupNameLinkedProgressive => _progressiveMeterManager.LinkedLevelCount,
+                    MeterGroupNameSharedLevel => _progressiveMeterManager.SharedLevelCount,
                     _ => throw new ArgumentException($"Unknown Progressive meter group type: {meter.Group}")
                 };
 
@@ -281,9 +278,9 @@
         {
             var currentValues = block.GetAll();
 
-            foreach (var (level, blockIndex) in _meterManager.GetLinkedLevelBlocks())
+            foreach (var (level, blockIndex) in _progressiveMeterManager.GetLinkedLevelBlocks())
             {
-                var meterName = _meterManager.GetMeterName(level, meter.Name);
+                var meterName = _progressiveMeterManager.GetMeterName(level, meter.Name);
                 if (Contains(meterName))
                 {
                     continue;
