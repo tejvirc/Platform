@@ -32,7 +32,9 @@
         {
             _serviceManager = ServiceManager.GetInstance();
             _currencyCultureProvider = currencyCultureProvider ?? throw new ArgumentNullException(nameof(currencyCultureProvider));
-            _noteAcceptor = noteAcceptor ?? throw new ArgumentNullException(nameof(noteAcceptor));
+
+            // This param is expected to be null when note acceptor is unchecked from Hardware Configuration page
+            _noteAcceptor = noteAcceptor;
 
             if (SerialNumber.EditedValue == "0")
             {
