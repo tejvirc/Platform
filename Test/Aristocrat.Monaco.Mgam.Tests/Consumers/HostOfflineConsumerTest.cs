@@ -93,8 +93,8 @@
             _gamePlay.SetupGet(g => g.Idle).Returns(true);
             _properties.Setup(p => p.GetProperty(ApplicationConstants.HostOfflineSoundKey, string.Empty)).Returns("test");
             _properties.Setup(p => p.GetProperty(ApplicationConstants.AlertVolumeKey, MgamConstants.DefaultAlertVolume)).Returns(MgamConstants.DefaultAlertVolume);
-            _audio.Setup(a => a.Load(It.IsAny<string>())).Returns(true);
-            _audio.Setup(a => a.Play(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null)).Verifiable();
+            _audio.Setup(a => a.Load(It.IsAny<SoundName>(), It.IsAny<string>())).Returns(true);
+            _audio.Setup(a => a.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null)).Verifiable();
             _towerLight.Setup(t => t.SetFlashState(LightTier.Tier1, FlashState.FastFlash, It.IsAny<TimeSpan>(), false)).Verifiable();
 
             _target.Consume(new HostOfflineEvent());

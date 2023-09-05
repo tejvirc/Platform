@@ -57,10 +57,10 @@
             {
                 // Play alert sound && fast flash top tower light while host is disconnected
                 var soundFilePath = _propertiesManager.GetValue(ApplicationConstants.HostOfflineSoundKey, string.Empty);
-                if (!string.IsNullOrEmpty(soundFilePath) && _audioService.Load(Path.GetFullPath(soundFilePath)))
+                if (!string.IsNullOrEmpty(soundFilePath) && _audioService.Load(SoundName.HostOfflineSound, Path.GetFullPath(soundFilePath)))
                 {
                     var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, MgamConstants.DefaultAlertVolume);
-                    _audioService.Play(soundFilePath, MgamConstants.DefaultAlertLoopCount, alertVolume);
+                    _audioService.Play(SoundName.HostOfflineSound, MgamConstants.DefaultAlertLoopCount, alertVolume);
                 }
 
                 _towerLightService.SetFlashState(LightTier.Tier1, FlashState.FastFlash, TimeSpan.MaxValue);

@@ -117,7 +117,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             Assert.AreEqual(typeof(PrinterMonitor).Name, _target.Name);
             Assert.IsTrue(_target.ServiceTypes.Contains(typeof(IPrinterMonitor)));
         }
-
+        
         [TestMethod]
         public void NoAudioAlertWhenDisconnected()
         {
@@ -137,7 +137,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new DisconnectedEvent());
 
             _audioService.Verify(
-                m => m.Play(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
+                m => m.Play(SoundName.PrinterErrorSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
             Assert.AreEqual(1, _displayedMessages.Count);
             _systemDisableManager.Verify();
         }
@@ -161,7 +161,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new DisconnectedEvent());
 
             _audioService.Verify(
-                m => m.Play("Test.ogg", It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
+                m => m.Play(SoundName.PrinterErrorSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
             Assert.AreEqual(1, _displayedMessages.Count);
             _systemDisableManager.Verify();
         }
@@ -192,7 +192,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new DisconnectedEvent());
 
             _audioService.Verify(
-                m => m.Play(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
+                m => m.Play(SoundName.PrinterErrorSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
             Assert.AreEqual(1, _displayedMessages.Count);
             _systemDisableManager.Verify();
         }
@@ -225,7 +225,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new DisconnectedEvent());
 
             _audioService.Verify(
-                m => m.Play(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
+                m => m.Play(SoundName.PrinterErrorSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
             Assert.AreEqual(1, _displayedMessages.Count);
             _systemDisableManager.Verify();
         }
@@ -247,7 +247,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new HardwareWarningEvent(PrinterWarningTypes.PaperLow));
 
             _audioService.Verify(
-                m => m.Play(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
+                m => m.Play(SoundName.PrinterErrorSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
         }
 
         [TestMethod]
@@ -267,7 +267,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new HardwareWarningEvent(PrinterWarningTypes.PaperLow));
 
             _audioService.Verify(
-                m => m.Play("Test.ogg", It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
+                m => m.Play(SoundName.PrinterErrorSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
         }
 
         private void MockDisableManager(bool disable, Guid disableGuid, string msg = "")

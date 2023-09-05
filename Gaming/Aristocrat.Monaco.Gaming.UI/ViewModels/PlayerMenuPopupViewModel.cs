@@ -399,7 +399,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             if (!string.IsNullOrWhiteSpace(_touchSoundFile))
             {
                 var soundVolume = (byte)_properties.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
-                _audioService.Play(_touchSoundFile, soundVolume);
+                _audioService.Play(SoundName.Touch, soundVolume);
             }
         }
     }

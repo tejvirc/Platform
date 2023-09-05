@@ -260,7 +260,7 @@
             _excessiveDocumentRejectErrorSoundFilePath = _properties.GetValue(
                 ApplicationConstants.ExcessiveDocumentRejectSoundFilePath,
                 string.Empty);
-            _audioService.LoadSound(_excessiveDocumentRejectErrorSoundFilePath);
+            _audioService.Load(SoundName.ExcessiveDocumentRejectSound, _excessiveDocumentRejectErrorSoundFilePath);
         }
 
         /// <summary>
@@ -270,7 +270,7 @@
         {
             _audioService.PlaySound(
                 _properties,
-                _excessiveDocumentRejectErrorSoundFilePath);
+                SoundName.ExcessiveDocumentRejectSound);
         }
     }
 }

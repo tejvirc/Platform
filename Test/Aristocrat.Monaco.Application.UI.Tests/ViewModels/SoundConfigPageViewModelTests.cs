@@ -133,7 +133,7 @@
 
             _audioMock.Setup(m => m.GetVolume(soundLevel)).Returns(volume);
 
-            _audioMock.Setup(m => m.Play(It.IsAny<string>(), volume, It.IsAny<SpeakerMix>(), It.IsAny<Action>())).Verifiable();
+            _audioMock.Setup(m => m.Play(It.IsAny<SoundName>(), volume, It.IsAny<SpeakerMix>(), It.IsAny<Action>())).Verifiable();
 
             viewModel.SoundLevel = soundLevel;
 

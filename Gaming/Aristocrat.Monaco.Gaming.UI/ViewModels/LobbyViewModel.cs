@@ -257,7 +257,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private string _topperImageResourceKey;
         private int _attractModeTopperImageIndex;
         private string _topperLobbyVideoPath;
-        private readonly Dictionary<Sound, string> _soundFilePathMap = new Dictionary<Sound, string>();
+      //  private readonly Dictionary<Sound, string> _soundFilePathMap = new Dictionary<Sound, string>();
         private bool _playCollectSound;
         private MenuSelectionPayOption _selectedMenuSelectionPayOption;
         private bool _vbdInfoBarOpenRequested;
@@ -2170,7 +2170,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public void LaunchGameFromUi(object info)
         {
             OnUserInteraction();
-            PlayAudioFile(Sound.Touch);
+            PlayAudioFile(SoundName.Touch);
             if (info is not GameInfo game)
             {
                 game = _selectedGame;
@@ -3711,7 +3711,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 obj != null && obj.ToString().ToUpperInvariant() == "VBD" && _cabinetDetectionService.IsTouchVbd())
             {
                 IsVbdCashOutDialogVisible = true;
-                PlayAudioFile(Sound.Touch);
+                PlayAudioFile(SoundName.Touch);
             }
             else
             {
@@ -3728,7 +3728,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             _attendant.OnServiceButtonPressed();
             OnPropertyChanged(nameof(IsServiceRequested));
-            PlayAudioFile(Sound.Touch);
+            PlayAudioFile(SoundName.Touch);
         }
 
         private void VbdCashoutDlgYesNoPressed(object obj)
@@ -3784,7 +3784,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void ReturnToLobbyButtonPressed(object obj)
         {
             Logger.Debug("Return to lobby");
-            PlayAudioFile(Sound.Touch);
+            PlayAudioFile(SoundName.Touch);
             PlayerMenuPopupViewModel.IsMenuVisible = false;
             _runtime.SetRequestExitGame(true);
         }
@@ -4593,7 +4593,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             if (obj is GameTabInfo gameTabInfo && GameTabInfo.SelectedCategory != gameTabInfo.Category)
             {
                 Execute.OnUIThread(() => GameTabInfo.SelectTab(gameTabInfo));
-                PlayAudioFile(Sound.Touch);
+                PlayAudioFile(SoundName.Touch);
             }
         }
 
@@ -4603,7 +4603,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             {
                 Execute.OnUIThread(() => GameTabInfo.SetSelectedDenomination(denominationInfo));
             }
-            PlayAudioFile(Sound.Touch);
+            PlayAudioFile(SoundName.Touch);
         }
 
         private void OnDenominationForSpecificGamePressed(object[] obj)
@@ -4622,7 +4622,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             LaunchGameFromUi(selectedGame);
 
-            PlayAudioFile(Sound.Touch);
+            PlayAudioFile(SoundName.Touch);
         }
 
         private void OnSubTabPressed(object obj)
@@ -4631,7 +4631,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             {
                 Execute.OnUIThread(() => GameTabInfo.SelectSubTab(subTabInfo));
             }
-            PlayAudioFile(Sound.Touch);
+            PlayAudioFile(SoundName.Touch);
         }
 
         private bool CanPrintHelplineMessage(object obj)
@@ -4949,66 +4949,46 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void LoadSoundFiles()
         {
-            _soundFilePathMap.Add(Sound.Touch, _properties.GetValue(ApplicationConstants.TouchSoundKey, string.Empty));
-            _soundFilePathMap.Add(Sound.CoinIn, _properties.GetValue(ApplicationConstants.CoinInSoundKey, string.Empty));
-            _soundFilePathMap.Add(Sound.CoinOut, _properties.GetValue(ApplicationConstants.CoinOutSoundKey, string.Empty));
-            _soundFilePathMap.Add(Sound.FeatureBell, _properties.GetValue(ApplicationConstants.FeatureBellSoundKey, string.Empty));
-            _soundFilePathMap.Add(Sound.Collect, _properties.GetValue(ApplicationConstants.CollectSoundKey, string.Empty));
-            _soundFilePathMap.Add(Sound.PaperInChute, _properties.GetValue(ApplicationConstants.PaperInChuteSoundKey, string.Empty));
-
-            foreach (var filePath in _soundFilePathMap.Values.Where(filePath => !string.IsNullOrEmpty(filePath)))
-            {
-                _audio.Load(Path.GetFullPath(filePath));
-            }
+            _audio.Load(SoundName.Touch, Path.GetFullPath(_properties.GetValue(ApplicationConstants.TouchSoundKey, string.Empty)));
+            _audio.Load(SoundName.CoinIn, Path.GetFullPath(_properties.GetValue(ApplicationConstants.CoinInSoundKey, string.Empty)));
+            _audio.Load(SoundName.CoinOut, Path.GetFullPath(_properties.GetValue(ApplicationConstants.CoinOutSoundKey, string.Empty)));
+            _audio.Load(SoundName.FeatureBell, Path.GetFullPath(_properties.GetValue(ApplicationConstants.FeatureBellSoundKey, string.Empty)));
+            _audio.Load(SoundName.Collect, Path.GetFullPath(_properties.GetValue(ApplicationConstants.CollectSoundKey, string.Empty)));
+            _audio.Load(SoundName.PaperInChute, Path.GetFullPath(_properties.GetValue(ApplicationConstants.PaperInChuteSoundKey, string.Empty)));
         }
 
-        private void PlayAudioFile(Sound sound, Action callback = null)
+        private void PlayAudioFile(SoundName soundName, Action callback = null)
         {
             if (_audio == null)
             {
                 return;
             }
 
-            _soundFilePathMap.TryGetValue(sound, out var filePath);
-            if (!string.IsNullOrEmpty(filePath))
-            {
-                _audio.Play(filePath, Volume.GetVolume(_audio), SpeakerMix.All, callback);
-            }
+            _audio.Play(soundName, Volume.GetVolume(_audio), SpeakerMix.All, callback);
         }
 
-        private void PlayLoopingAlert(Sound sound, int loopCount) => PlayLoopingAudioFile(
-            sound,
+        private void PlayLoopingAlert(SoundName soundName, int loopCount) => PlayLoopingAudioFile(
+            soundName,
             loopCount,
             _properties.GetValue(ApplicationConstants.AlertVolumeKey, DefaultAlertVolume));
 
-        private void PlayLoopingAudioFile(Sound sound, int loopCount, float volume)
+        private void PlayLoopingAudioFile(SoundName soundName, int loopCount, float volume)
         {
-            _soundFilePathMap.TryGetValue(sound, out var filePath);
-
-            if (string.IsNullOrEmpty(filePath))
+            if (soundName == SoundName.PaperInChute)
             {
-                return;
-            }
-
-            if (sound == Sound.PaperInChute)
-            {
-                if (_audio.IsPlaying(filePath))
+                if (_audio.IsPlaying(soundName))
                 {
                     return;
                 }
 
                 volume = (float)(volume * PaperInChuteAlertVolumeRate);
             }
-            _audio.Play(filePath, loopCount, volume);
+            _audio.Play(soundName, loopCount, volume);
         }
 
-        private void StopSound(Sound sound)
+        private void StopSound(SoundName soundName)
         {
-            _soundFilePathMap.TryGetValue(sound, out var filePath);
-            if (!string.IsNullOrEmpty(filePath))
-            {
-                _audio.Stop(filePath);
-            }
+            _audio.Stop(soundName);
         }
 
         private void PlayGameWinHandPaySound()
@@ -5020,11 +5000,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 {
                     if (_playCollectSound)
                     {
-                        PlayAudioFile(Sound.Collect);
+                        PlayAudioFile(SoundName.Collect);
                     }
                 });
 
-            PlayAudioFile(Sound.FeatureBell, callback);
+            PlayAudioFile(SoundName.FeatureBell, callback);
         }
 
         private void SetLanguage(string localeCode)
@@ -5376,14 +5356,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     NavigateSelectionTo(SelectionNavigation.PreviousGame);
                     if (Config.ButtonDeckNavigationEnabled)
                     {
-                        PlayAudioFile(Sound.Touch);
+                        PlayAudioFile(SoundName.Touch);
                     }
                     break;
                 case LcdButtonDeckLobby.PreviousTab:
                     GameTabInfo.NextPreviousTab(false);
                     if (Config.ButtonDeckNavigationEnabled)
                     {
-                        PlayAudioFile(Sound.Touch);
+                        PlayAudioFile(SoundName.Touch);
                     }  
                     break;
                 case LcdButtonDeckLobby.ChangeDenom:
@@ -5395,18 +5375,18 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     {
                         GameTabInfo.IncrementSelectedDenomination();
                     }
-                    PlayAudioFile(Sound.Touch);
+                    PlayAudioFile(SoundName.Touch);
                     break;
                 case LcdButtonDeckLobby.NextTab:
                     GameTabInfo.NextPreviousTab(true);
                     if (Config.ButtonDeckNavigationEnabled)
                     {
-                        PlayAudioFile(Sound.Touch);
+                        PlayAudioFile(SoundName.Touch);
                     }
                     break;
                 case LcdButtonDeckLobby.NextGame:
                     NavigateSelectionTo(SelectionNavigation.NextGame);
-                    PlayAudioFile(Sound.Touch);
+                    PlayAudioFile(SoundName.Touch);
                     break;
                 case LcdButtonDeckLobby.CashOut:
                     CashOutPressed(new object());

@@ -314,7 +314,8 @@
         {
             if (!(bool)_properties.GetProperty(KernelConstants.IsInspectionOnly, false))
             {
-                _audioService.PlaySound(_properties, _firmwareCrcErrorSoundFilePath);
+                _audioService.LoadSound(SoundName.FirmwareCrcErrorSound, _firmwareCrcErrorSoundFilePath);
+                _audioService.PlaySound(_properties, SoundName.FirmwareCrcErrorSound);
             }
         }
     }

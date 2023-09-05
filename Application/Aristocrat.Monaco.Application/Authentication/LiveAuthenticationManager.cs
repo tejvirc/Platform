@@ -541,7 +541,7 @@ namespace Aristocrat.Monaco.Application.Authentication
             _liveAuthenticationCheckFailedErrorSoundFilePath = _propertiesManager.GetValue(
                 ApplicationConstants.LiveAuthenticationFailedSoundKey,
                 string.Empty);
-            _audioService.LoadSound(_liveAuthenticationCheckFailedErrorSoundFilePath);
+            _audioService.LoadSound(SoundName.LiveAuthenticationFailedSound, _liveAuthenticationCheckFailedErrorSoundFilePath);
         }
 
         /// <summary>
@@ -549,7 +549,7 @@ namespace Aristocrat.Monaco.Application.Authentication
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_propertiesManager, _liveAuthenticationCheckFailedErrorSoundFilePath);
+            _audioService.PlaySound(_propertiesManager, SoundName.LiveAuthenticationFailedSound);
         }
     }
 }

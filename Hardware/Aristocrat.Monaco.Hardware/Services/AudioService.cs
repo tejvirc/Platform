@@ -34,7 +34,7 @@
         private readonly ISystemDisableManager _disableManager;
         private readonly IPropertiesManager _properties;
         private readonly object _lock = new object();
-        private readonly ConcurrentDictionary<string, Sound> _sounds = new ConcurrentDictionary<string, Sound>();
+        private readonly ConcurrentDictionary<SoundName, (string, Sound)> _sounds = new ConcurrentDictionary<SoundName, (string, Sound)>();
         private readonly ConcurrentQueue<Action> _callbackQueue = new ConcurrentQueue<Action>();
 
         private readonly Dictionary<VolumeScalar, float> _volumeScalars = new Dictionary<VolumeScalar, float>
@@ -89,7 +89,7 @@
         public bool IsAvailable => AudioManager.IsSpeakerDeviceAvailable();
 
         /// <inheritdoc />
-        public bool Load(string file)
+        public bool Load(SoundName soundName, string file)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
@@ -104,7 +104,7 @@
 
             lock (_lock)
             {
-                if (_sounds.ContainsKey(file))
+                if (_sounds.ContainsKey(soundName))
                 {
                     Logger.Debug($"Audio file is already loaded: {file}");
                     return true;
@@ -124,7 +124,7 @@
                     return false;
                 }
 
-                _sounds.TryAdd(file, sound);
+                _sounds.TryAdd(soundName, (file, sound));
             }
 
             Logger.Debug($"Loaded audio file: {file}");
@@ -133,30 +133,42 @@
         }
 
         /// <inheritdoc />
-        public void Play(string file, float? volume, SpeakerMix speakers = SpeakerMix.All, Action callback = null)
+        public void Play(SoundName soundName, float? volume, SpeakerMix speakers = SpeakerMix.All, Action callback = null)
         {
+            if (!_sounds.ContainsKey(soundName))
+            {
+                Logger.Error($"Audio file can't play; sound file not loaded or existed: {soundName}");
+                return;
+            }
+
             if (!volume.HasValue)
             {
                 volume = GetDefaultVolume();
             }
 
-            InternalPlay(file, MODE.LOOP_OFF, 0, volume.Value / 100.0f, speakers, callback);
+            InternalPlay(soundName, MODE.LOOP_OFF, 0, volume.Value / 100.0f, speakers, callback);
         }
 
         /// <inheritdoc />
         public void Play(
-            string file,
+            SoundName soundName,
             int loopCount,
             float? volume,
             SpeakerMix speakers = SpeakerMix.All,
             Action callback = null)
         {
+            if (!_sounds.ContainsKey(soundName))
+            {
+                Logger.Error($"Audio file can't play; sound file not loaded or existed: {soundName}");
+                return;
+            }
+
             if (!volume.HasValue)
             {
                 volume = GetDefaultVolume();
             }
 
-            InternalPlay(file, MODE.LOOP_NORMAL, loopCount, volume.Value / 100.0f, speakers, callback);
+            InternalPlay(soundName, MODE.LOOP_NORMAL, loopCount, volume.Value / 100.0f, speakers, callback);
         }
 
         /// <inheritdoc />
@@ -175,8 +187,15 @@
         }
 
         /// <inheritdoc />
-        public void Stop(string soundFile)
+        public void Stop(SoundName soundName)
         {
+            if (!_sounds.ContainsKey(soundName))
+            {
+                Logger.Error($"Audio file can't stop; sound file not loaded or existed: {soundName}");
+                return;
+            }
+
+            var soundFile = _sounds[soundName].Item1;
             if (string.IsNullOrEmpty(soundFile))
             {
                 Logger.Debug("Audio file can't stop; name not specified");
@@ -209,9 +228,11 @@
         }
 
         /// <inheritdoc />
-        public bool IsPlaying(string soundFile)
+        public bool IsPlaying(SoundName soundName)
         {
-            return string.Equals(_currentSoundFile, soundFile) && IsPlaying();
+            if(!_sounds.ContainsKey(soundName)) { return false; }
+
+            return string.Equals(_currentSoundFile, _sounds[soundName].Item1) && IsPlaying();
         }
 
         /// <inheritdoc />
@@ -251,24 +272,25 @@
         }
 
         /// <inheritdoc />
-        public TimeSpan GetLength(string soundFile)
+        public TimeSpan GetLength(SoundName soundName)
         {
+            if (!_sounds.ContainsKey(soundName))
+            {
+                Logger.Error($"Audio file can't determine length; Sound file not loaded or existed: {soundName}");
+                return TimeSpan.Zero;
+            }
+
+            var soundFile = _sounds[soundName].Item1;
             if (string.IsNullOrEmpty(soundFile))
             {
                 Logger.Debug("Audio file can't determine length; name not specified");
                 return TimeSpan.Zero;
             }
 
-            Load(soundFile);
+            Load(soundName, soundFile);
 
-            if (!_sounds.TryGetValue(soundFile, out var sound))
-            {
-                Logger.Error($"Failed to load the audio file: {soundFile}");
-                return TimeSpan.Zero;
-            }
-
+            var sound = _sounds[soundName].Item2;
             uint lengthMs = 0;
-
             if (sound.getLength(ref lengthMs, TIMEUNIT.MS) == RESULT.OK)
             {
                 return TimeSpan.FromMilliseconds(lengthMs);
@@ -413,7 +435,7 @@
         }
 
         private void InternalPlay(
-            string file,
+            SoundName soundName,
             MODE mode,
             int loopCount,
             float volume,
@@ -425,6 +447,7 @@
                 {
                     lock (_lock)
                     {
+                        var file = _sounds[soundName].Item1;
                         if (string.IsNullOrEmpty(file))
                         {
                             Logger.Debug("Audio file can't play; name not specified");
@@ -433,17 +456,12 @@
 
                         Stop();
 
-                        if (!Load(file))
+                        if (!Load(soundName, _sounds[soundName].Item1))
                         {
                             return; 
                         }
 
-                        if (!_sounds.TryGetValue(file, out var sound))
-                        {
-                            Logger.Error($"Failed to playback the audio file: {file}");
-                            _currentSoundFile = null;
-                            return;
-                        }
+                        var sound = _sounds[soundName].Item2;
 
                         _currentSoundFile = file;
                         if (_system != null && _system.playSound(CHANNELINDEX.FREE, sound, true, ref _channel) ==
@@ -535,7 +553,7 @@
 
                 foreach (var sound in _sounds.Values)
                 {
-                    sound.release();
+                    sound.Item2.release();
                 }
 
                 _sounds.Clear();

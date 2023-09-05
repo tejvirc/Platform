@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Contracts;
     using Contracts.Localization;
     using Contracts.NoteAcceptorMonitor;
@@ -322,7 +323,7 @@
         {
             _noteAcceptorErrorSoundFilePath =
                 _propertiesManager?.GetValue(ApplicationConstants.NoteAcceptorErrorSoundKey, string.Empty);
-            _audioService.LoadSound(_noteAcceptorErrorSoundFilePath);
+            _audioService.LoadSound(SoundName.NoteAcceptorErrorSound, _noteAcceptorErrorSoundFilePath);
         }
 
         /// <summary>
@@ -334,7 +335,7 @@
             {
                 if (_noteAcceptor != null && !_noteAcceptor.ReasonDisabled.HasFlag(DisabledReasons.GamePlay))
                 {
-                    _audioService.PlaySound(_propertiesManager, _noteAcceptorErrorSoundFilePath);
+                    _audioService.PlaySound(_propertiesManager, SoundName.NoteAcceptorErrorSound);
                     return true;
                 }
                 else

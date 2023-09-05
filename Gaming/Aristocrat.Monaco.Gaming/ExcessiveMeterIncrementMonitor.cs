@@ -115,7 +115,7 @@
             _excessiveMeterIncrementErrorSoundFilePath = _propertiesManager?.GetValue(
                 GamingConstants.ExcessiveMeterIncrementTestSoundFilePath,
                 string.Empty);
-            _audioService.LoadSound(_excessiveMeterIncrementErrorSoundFilePath);
+            _audioService.Load(SoundName.ExcessiveMeterIncrementTestSound, _excessiveMeterIncrementErrorSoundFilePath);
         }
 
         /// <summary>
@@ -123,7 +123,7 @@
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_propertiesManager, _excessiveMeterIncrementErrorSoundFilePath);
+            _audioService.PlaySound(_propertiesManager, SoundName.ExcessiveMeterIncrementTestSound);
         }
 
         protected virtual void Dispose(bool disposing)

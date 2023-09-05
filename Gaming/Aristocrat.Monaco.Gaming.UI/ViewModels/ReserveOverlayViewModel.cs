@@ -15,6 +15,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.ComponentModel;
+    using Aristocrat.Monaco.Hardware.Services;
 
     /// <summary>
     ///     Reserve machine GUI states
@@ -645,7 +646,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             if (!string.IsNullOrWhiteSpace(_touchSoundFile))
             {
                 var soundVolume = (byte)_propertiesManager.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
-                _audioService.Play(_touchSoundFile, soundVolume);
+                _audioService.Load(SoundName.Touch, _touchSoundFile);
+                _audioService.Play(SoundName.Touch, soundVolume);
             }
         }
     }

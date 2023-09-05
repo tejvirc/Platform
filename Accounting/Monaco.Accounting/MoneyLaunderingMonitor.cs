@@ -199,7 +199,7 @@
         {
             _soundFilePath = (string)_propertiesManager?.GetProperty(AccountingConstants.ExcessiveMeterSound, string.Empty);
 
-            _audio.LoadSound(_soundFilePath);
+            _audio.Load(SoundName.ExcessiveMeterSound, _soundFilePath);
         }
 
         private void DisableMachine()
@@ -216,7 +216,7 @@
 
             StoreMachineDisabledStatus(true);
 
-            _audio.PlaySound(_propertiesManager, _soundFilePath);
+            _audio.PlaySound(_propertiesManager, SoundName.ExcessiveMeterSound);
 
             _eventBus.Subscribe<DownEvent>(this, e => EnableMachine(), e => e.LogicalId == (int)ButtonLogicalId.Button30);
 

@@ -59,6 +59,120 @@
         Scale100 = 5
     }
 
+    /// <summary>Sound name</summary>
+    public enum SoundName
+    {
+        /// <summary>
+        ///     Host Offline Sound.
+        /// </summary>
+        HostOfflineSound,
+
+        /// <summary>
+        ///     PaperInChute Sound.
+        /// </summary>
+        PaperInChute,
+
+        /// <summary>
+        ///     Touch Sound.
+        /// </summary>
+        Touch,
+
+        /// <summary>
+        ///     Coin In Sound.
+        /// </summary>
+        CoinIn,
+
+        /// <summary>
+        ///     Coin Out Sound.
+        /// </summary>
+        CoinOut,
+
+        /// <summary>
+        ///     Feature Bell Sound.
+        /// </summary>
+        FeatureBell,
+
+        /// <summary>
+        ///     Collect Sound.
+        /// </summary>
+        Collect,
+
+        /// <summary>
+        ///     Door Open Alarm Sound.
+        /// </summary>
+        DoorOpenAlarm,
+
+        /// <summary>
+        ///     Ding Sound.
+        /// </summary>
+        Ding,
+
+        /// <summary>
+        ///     Reel Click Sound.
+        /// </summary>
+        ReelClick,
+
+        /// <summary>
+        ///     Ball Drop Sound.
+        /// </summary>
+        BallDrop,
+
+        /// <summary>
+        ///     Card Flip Sound.
+        /// </summary>
+        CardFlip,
+
+        /// <summary>
+        ///     Excessive Meter Sound.
+        /// </summary>
+        ExcessiveMeterSound,
+
+        /// <summary>
+        ///     Excessive Document Reject Sound.
+        /// </summary>
+        ExcessiveDocumentRejectSound,
+
+        /// <summary>
+        ///     Live Authentication Failed Sound.
+        /// </summary>
+        LiveAuthenticationFailedSound,
+
+        /// <summary>
+        ///     Disk Space Monitor Error Sound.
+        /// </summary>
+        DiskSpaceMonitorErrorSound,
+
+        /// <summary>
+        ///     Note Acceptor Error Sound.
+        /// </summary>
+        NoteAcceptorErrorSound,
+
+        /// <summary>
+        ///     Printer Error Sound.
+        /// </summary>
+        PrinterErrorSound,
+
+        /// <summary>
+        ///     Printer Warning Sound.
+        /// </summary>
+        PrinterWarningSound,
+
+        /// <summary>
+        ///     Critical Memory Check Failed Sound.
+        /// </summary>
+        CriticalMemoryCheckFailedSound,
+
+        /// <summary>
+        ///     Firmware Crc Error Sound.
+        /// </summary>
+        FirmwareCrcErrorSound,
+
+        /// <summary>
+        ///     Excessive Meter Increment Test Sound.
+        /// </summary>
+        ExcessiveMeterIncrementTestSound
+    }
+
     /// <summary>
     ///     Provides a mechanism for audio playback.
     /// </summary>
@@ -77,28 +191,29 @@
         /// <summary>
         ///     Loads a file for playback.
         /// </summary>
+        /// <param name="soundName">The audio name of the audio file.</param>
         /// <param name="file">The audio file to load.</param>
         /// <returns>returns true if the file was loaded.</returns>
-        bool Load(string file);
+        bool Load(SoundName soundName, string file);
 
         /// <summary>
         ///     Plays the specified file.
         /// </summary>
-        /// <param name="file">The audio file to play.</param>
+        /// <param name="soundName">The audio name to play.</param>
         /// <param name="volume">volume of play channel</param>
         /// <param name="speakers">Speaker mix of play channel</param>
         /// <param name="callback">Callback when audio event finishes (will not be called if sound is interrupted)</param>
-        void Play(string file, float? volume, SpeakerMix speakers = SpeakerMix.All, Action callback = null);
+        void Play(SoundName soundName, float? volume, SpeakerMix speakers = SpeakerMix.All, Action callback = null);
 
         /// <summary>
         ///     Plays the specified file.
         /// </summary>
-        /// <param name="file">The audio file to play.</param>
+        /// <param name="soundName">The audio name to play.</param>
         /// <param name="loopCount">Repeat the playback for the specified count. Set to -1 to loop forever.</param>
         /// <param name="volume">volume of play channel</param>
         /// <param name="speakers">Speaker mix of play channel</param>
         /// <param name="callback">Callback when audio event finishes (will not be called if sound is interrupted)</param>
-        void Play(string file, int loopCount, float? volume, SpeakerMix speakers = SpeakerMix.All, Action callback = null);
+        void Play(SoundName soundName, int loopCount, float? volume, SpeakerMix speakers = SpeakerMix.All, Action callback = null);
 
         /// <summary>
         ///     Stops any audio playback.
@@ -108,8 +223,8 @@
         /// <summary>
         ///     Stops any audio playback.
         /// </summary>
-        /// <param name="soundFile">The sound file</param>
-        void Stop(string soundFile);
+        /// <param name="soundName">The sound name</param>
+        void Stop(SoundName soundName);
 
         /// <summary>
         ///     Returns true if audio playback is active.
@@ -120,9 +235,9 @@
         /// <summary>
         ///     Returns true if audio playback is active.
         /// </summary>
-        /// <param name="soundFile">The sound file</param>
+        /// <param name="soundName">The sound name</param>
         /// <returns>true if playback is active.</returns>
-        bool IsPlaying(string soundFile);
+        bool IsPlaying(SoundName soundName);
 
         /// <summary>
         ///     Set the mute state for the system.
@@ -166,9 +281,9 @@
         /// <summary>
         ///     Gets the length of the sound.
         /// </summary>
-        /// <param name="soundFile">The sound file path</param>
+        /// <param name="soundName">The sound name</param>
         /// <returns>Returns the length of the sound or <c>TimeSpan.Zero</c> if length could not be determined</returns>
-        TimeSpan GetLength(string soundFile);
+        TimeSpan GetLength(SoundName soundName);
 
         /// <summary>
         ///     Sets the speaker mix

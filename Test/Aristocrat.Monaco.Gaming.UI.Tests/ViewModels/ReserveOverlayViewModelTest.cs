@@ -65,8 +65,8 @@
             _propertiesManager.Setup(x => x.SetProperty(ApplicationConstants.ReserveServicePin, string.Empty));
             _disableManager.Setup(d => d.CurrentDisableKeys).Returns(new List<Guid>());
 
-            _audioService.Setup(a => a.Play(It.IsAny<string>(), It.IsAny<byte>(), It.IsAny<SpeakerMix>(), null));
-            _audioService.Setup(a => a.Play(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<float>(), It.IsAny<SpeakerMix>(), null));
+            _audioService.Setup(a => a.Play(It.IsAny<SoundName>(), It.IsAny<byte>(), It.IsAny<SpeakerMix>(), null));
+            _audioService.Setup(a => a.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), It.IsAny<SpeakerMix>(), null));
         }
 
         [TestCleanup]

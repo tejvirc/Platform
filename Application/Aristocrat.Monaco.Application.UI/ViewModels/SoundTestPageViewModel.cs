@@ -388,7 +388,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         {
             if (Sound != null)  // VLT-12533 : Fix null reference exception in sound page when switching tabs when cable unplugged 
             {
-                _audio?.Stop(Sound.Path);
+                _audio?.Stop(SoundName.Ding);
             }
         }
 
@@ -405,7 +405,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             IsPlaying = true;
 
-            _audio.Play(path, volume);
+            _audio.Load(SoundName.Ding, path);
+            _audio.Play(SoundName.Ding, volume);
             _playingTimer.Start();
         }
 
@@ -421,7 +422,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             IsPlaying = true;
 
-            _audio.Play(path, volume, speaker);
+            _audio.Load(SoundName.Ding, path);
+            _audio.Play(SoundName.Ding, volume, speaker);
             _playingTimer.Start();
 
         }

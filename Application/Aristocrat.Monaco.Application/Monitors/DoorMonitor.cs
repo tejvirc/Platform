@@ -360,7 +360,7 @@
             }
             else
             {
-                _audioService.Load(Path.GetFullPath(_doorAlarmFile));
+                _audioService.Load(SoundName.DoorOpenAlarm,Path.GetFullPath(_doorAlarmFile));
                 _doorOpenAlarmRepeatSeconds = Convert.ToInt32(doorOpenAlarmNodes.First().RepeatSeconds);
                 if (_doorOpenAlarmRepeatSeconds > 0)
                 {
@@ -524,7 +524,7 @@
             if (!_audioService.IsPlaying())
             {
                 var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, (byte)100);
-                _audioService.Play(_doorAlarmFile, _doorAlarmLoopCount, alertVolume);
+                _audioService.Play(SoundName.DoorOpenAlarm, _doorAlarmLoopCount, alertVolume);
                 Logger.Debug($"Door open alarm timer timed-out, playing alarm {_doorAlarmFile}");
             }
             else
@@ -580,7 +580,7 @@
                 }
                 if (!isInspectionMode)
                 {
-                    _audioService.Play(_doorAlarmFile, _doorAlarmLoopCount, alertVolume);
+                    _audioService.Play(SoundName.DoorOpenAlarm, _doorAlarmLoopCount, alertVolume);
                 }
                 if (_doorOpenAlarmRepeatSeconds > 0)
                 {
@@ -636,7 +636,7 @@
 
             if (_audioService.IsPlaying())
             {
-                _audioService.Stop(_doorAlarmFile);
+                _audioService.Stop(SoundName.DoorOpenAlarm);
             }
 
             if (_doorOpenAlarmRepeatSeconds > 0)

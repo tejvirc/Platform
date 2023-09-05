@@ -128,7 +128,7 @@
             _disableManager.Verify(
                 m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
             _audioService.Verify(
-                m => m.Play(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
+                m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
         }
 
         [TestMethod]
@@ -151,7 +151,7 @@
             _disableManager.Verify(
                 m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
             _audioService.Verify(
-                m => m.Play("Test.ogg", It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
+                m => m.Play(SoundName.CriticalMemoryCheckFailedSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
         }
 
         [TestMethod]

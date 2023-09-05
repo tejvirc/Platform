@@ -156,7 +156,7 @@
             _diskSpaceMonitorCheckFailedErrorSoundFilePath = _properties.GetValue(
                 ApplicationConstants.DiskSpaceMonitorErrorSoundKey,
                 string.Empty);
-            _audioService.LoadSound(_diskSpaceMonitorCheckFailedErrorSoundFilePath);
+            _audioService.LoadSound(SoundName.DiskSpaceMonitorErrorSound, _diskSpaceMonitorCheckFailedErrorSoundFilePath);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_properties, _diskSpaceMonitorCheckFailedErrorSoundFilePath);
+            _audioService.PlaySound(_properties, SoundName.DiskSpaceMonitorErrorSound);
         }
 
         private static class NativeMethods

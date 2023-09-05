@@ -205,12 +205,12 @@
         private void LoadSounds()
         {
             _printerErrorSoundFilePath = _propertiesManager?.GetValue(ApplicationConstants.PrinterErrorSoundKey, string.Empty);
-            _audioService.LoadSound(_printerErrorSoundFilePath);
+            _audioService.LoadSound(SoundName.PrinterErrorSound, _printerErrorSoundFilePath);
 
             _printerWarningSoundFilePath = _propertiesManager?.GetValue(
                 ApplicationConstants.PrinterWarningSoundKey,
                 string.Empty);
-            _audioService.LoadSound(_printerWarningSoundFilePath);
+            _audioService.LoadSound(SoundName.PrinterWarningSound, _printerWarningSoundFilePath);
         }
 
         /// <summary>
@@ -220,7 +220,7 @@
         {
             if (!_inOperatorMode)
             {
-                _audioService.PlaySound(_propertiesManager, _printerErrorSoundFilePath);
+                _audioService.PlaySound(_propertiesManager, SoundName.PrinterErrorSound);
             }
         }
 
@@ -231,7 +231,7 @@
         {
             if (!_inOperatorMode)
             {
-                _audioService.PlaySound(_propertiesManager, _printerWarningSoundFilePath);
+                _audioService.PlaySound(_propertiesManager, SoundName.PrinterWarningSound);
             }
         }
 

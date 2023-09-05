@@ -449,7 +449,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 OnPropertyChanged(nameof(LobbyVolumeScalar));
 
                 Save(ApplicationConstants.LobbyVolumeScalarKey, _lobbyVolumeScalar);
-                PlayVolumeChangeSound(_dingSoundFilePath, _audio.GetVolumeScalar(value));
+                PlayVolumeChangeSound(SoundName.Ding, _audio.GetVolumeScalar(value));
             }
         }
 
@@ -496,7 +496,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                         a.VolumeScalar = _slotVolumeScalar;
                         return a;
                     });
-                PlayVolumeChangeSound(_slotSoundFilePath, _audio.GetVolumeScalar(value));
+                PlayVolumeChangeSound(SoundName.ReelClick, _audio.GetVolumeScalar(value));
             }
         }
 
@@ -652,7 +652,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                         a.VolumeScalar = _kenoVolumeScalar;
                         return a;
                     });
-                PlayVolumeChangeSound(_kenoSoundFilePath, _audio.GetVolumeScalar(value));
+                PlayVolumeChangeSound(SoundName.BallDrop, _audio.GetVolumeScalar(value));
             }
         }
 
@@ -768,7 +768,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                         a.VolumeScalar = _pokerVolumeScalar;
                         return a;
                     });
-                PlayVolumeChangeSound(_cardSoundFilePath, _audio.GetVolumeScalar(value));
+                PlayVolumeChangeSound(SoundName.CardFlip, _audio.GetVolumeScalar(value));
             }
         }
 
@@ -816,7 +816,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                         a.VolumeScalar = _blackjackVolumeScalar;
                         return a;
                     });
-                PlayVolumeChangeSound(_cardSoundFilePath, _audio.GetVolumeScalar(value));
+                PlayVolumeChangeSound(SoundName.CardFlip, _audio.GetVolumeScalar(value));
             }
         }
 
@@ -840,7 +840,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                         a.VolumeScalar = _rouletteVolumeScalar;
                         return a;
                     });
-                PlayVolumeChangeSound(_cardSoundFilePath, _audio.GetVolumeScalar(value));
+                PlayVolumeChangeSound(SoundName.CardFlip, _audio.GetVolumeScalar(value));
             }
         }
 
@@ -1154,22 +1154,22 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 if (name.Equals("Ding"))
                 {
                     _dingSoundFilePath = Path.GetFullPath(path);
-                    _audio.Load(_dingSoundFilePath);
+                    _audio.Load(SoundName.Ding, _dingSoundFilePath);
                 }
                 else if (name.Equals("ReelClick"))
                 {
                     _slotSoundFilePath = Path.GetFullPath(path);
-                    _audio.Load(_slotSoundFilePath);
+                    _audio.Load(SoundName.ReelClick, _slotSoundFilePath);
                 }
                 else if (name.Equals("BallDrop"))
                 {
                     _kenoSoundFilePath = Path.GetFullPath(path);
-                    _audio.Load(_kenoSoundFilePath);
+                    _audio.Load(SoundName.BallDrop, _kenoSoundFilePath);
                 }
                 else if (name.Equals("CardFlip"))
                 {
                     _cardSoundFilePath = Path.GetFullPath(path);
-                    _audio.Load(_cardSoundFilePath);
+                    _audio.Load(SoundName.CardFlip, _cardSoundFilePath);
                 }
             }
         }
@@ -1182,11 +1182,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             return protocols.Contains(CommsProtocol.SAS) && PropertiesManager.GetValue(GamingConstants.ZeroCreditCashoutConfigurable, false);
         }
 
-        private void PlayVolumeChangeSound(string soundFilePath, float fVolumeScale)
+        private void PlayVolumeChangeSound(SoundName soundName, float fVolumeScale)
         {
-            if (!string.IsNullOrEmpty(soundFilePath))
+           // if (!string.IsNullOrEmpty(soundFilePath))
             {
-                _audio.Play(soundFilePath, fVolumeScale * _audio.GetDefaultVolume());
+                _audio.Play(soundName, fVolumeScale * _audio.GetDefaultVolume());
             }
         }
 

@@ -206,7 +206,7 @@
             _criticalMemoryCheckFailedErrorSoundFilePath = _properties?.GetValue(
                 ApplicationConstants.PeriodicCriticalMemoryIntegrityCheckSoundFilePath,
                 string.Empty);
-            _audioService.LoadSound(_criticalMemoryCheckFailedErrorSoundFilePath);
+            _audioService.LoadSound(SoundName.CriticalMemoryCheckFailedSound, _criticalMemoryCheckFailedErrorSoundFilePath);
         }
 
         /// <summary>
@@ -216,7 +216,7 @@
         {
             _audioService.PlaySound(
                 _properties,
-                _criticalMemoryCheckFailedErrorSoundFilePath);
+                SoundName.CriticalMemoryCheckFailedSound);
         }
     }
 }

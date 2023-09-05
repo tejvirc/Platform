@@ -33,6 +33,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Aristocrat.Extensions.CommunityToolkit;
 #if !(RETAIL)
     using Vgt.Client12.Testing.Tools;
+    using Aristocrat.Monaco.Hardware.Contracts.Audio;
 #endif
 
     /// <summary>
@@ -224,11 +225,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             if (evt.PaperIsInChute && !_systemDisableManager.IsDisabled)
             {
-                PlayLoopingAlert(Sound.PaperInChute, -1);
+                PlayLoopingAlert(SoundName.PaperInChute, -1);
             }
             else if (!evt.PaperIsInChute)
             {
-                StopSound(Sound.PaperInChute);
+                StopSound(SoundName.PaperInChute);
             }
 
             if (!evt.IsResending)
@@ -605,7 +606,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             Logger.Debug($"HandleCompletedMoneyIn.  Amount: {amount}");
             if (playSound)
             {
-                PlayAudioFile(Sound.CoinIn);
+                PlayAudioFile(SoundName.CoinIn);
             }
 
             CashInFinished();
@@ -727,7 +728,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             MessageOverlayDisplay.WatTransferInitiated(platformEvent);
             SetEdgeLighting();
-            PlayAudioFile(Sound.CoinOut);
+            PlayAudioFile(SoundName.CoinOut);
         }
 
         private void HandleEvent(WatTransferCommittedEvent platformEvent)
@@ -743,7 +744,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             MessageOverlayDisplay.VoucherOutStarted(platformEvent);
             SetEdgeLighting();
-            PlayAudioFile(Sound.CoinOut);
+            PlayAudioFile(SoundName.CoinOut);
         }
 
         private void HandleEvent(HandpayStartedEvent platformEvent)
@@ -795,7 +796,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
             else
             {
-                PlayAudioFile(Sound.CoinOut);
+                PlayAudioFile(SoundName.CoinOut);
             }
         }
 

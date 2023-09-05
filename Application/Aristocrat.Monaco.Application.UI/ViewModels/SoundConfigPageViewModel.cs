@@ -158,7 +158,8 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
                 if (_playTestAlertSound)
                 {
-                    _audio.Play(_soundFile, scaledVolume);
+                    _audio.Load(SoundName.Ding, _soundFile);
+                    _audio.Play(SoundName.Ding, scaledVolume);
                 }
             }
         }
