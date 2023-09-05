@@ -5825,7 +5825,7 @@ Do you really want to do partial reset?</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="ReplayTicketPrinted" xml:space="preserve">
-    <value>Printed Ticket for</value>
+    <value>Printed Ticket(s) for</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="ReprintButtonText" xml:space="preserve">
