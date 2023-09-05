@@ -21,11 +21,12 @@
 
         private readonly CurrencyCultureProvider _currencyCultureProvider;
 
+        private INoteAcceptor _noteAcceptor;
         private bool _requireZeroCredit;
         private Currency _selectedCurrency;
         private IReadOnlyCollection<Currency> _currencies;
 
-        public MachineSetupPageViewModel(CurrencyCultureProvider currencyCultureProvider)
+        public MachineSetupPageViewModel(CurrencyCultureProvider currencyCultureProvider, INoteAcceptor noteAcceptor)
             : base(true)
         {
             _currencyCultureProvider = currencyCultureProvider ?? throw new ArgumentNullException(nameof(currencyCultureProvider));
@@ -55,6 +56,7 @@
                         Currency = new ApplicationConfigurationCurrency { Configurable = false }
                     });
             CurrencyChangeAllowed = configuration.Currency.Configurable;
+            _noteAcceptor = noteAcceptor;
         }
 
         public IReadOnlyCollection<Currency> Currencies
