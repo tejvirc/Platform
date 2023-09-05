@@ -6,11 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Contracts;
+using Contracts.Audio;
 using Fluxor;
 using Hardware.Contracts.Audio;
 using Kernel;
 using Microsoft.Extensions.Logging;
-using Models;
 using Store.Audio;
 
 public class AudioService : IAudioService

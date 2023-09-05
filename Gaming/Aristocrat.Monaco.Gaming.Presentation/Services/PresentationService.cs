@@ -4,9 +4,9 @@ using System;
 using System.Threading.Tasks;
 using Application.Contracts;
 using Commands;
-using Contracts.Lobby;
 using Extensions.Fluxor;
 using Fluxor;
+using Gaming.Contracts.Lobby;
 using Kernel;
 using Microsoft.Extensions.Logging;
 using Store;
@@ -17,7 +17,6 @@ public class PresentationService : IPresentation, ILobby
     private readonly ILogger<PresentationService> _logger;
     private readonly IStore _store;
     private readonly IDispatcher _dispatcher;
-    private readonly LobbyConfiguration _configuration;
     private readonly IEventBus _eventBus;
     private readonly IOperatorMenuLauncher _operatorMenuLauncher;
     private readonly ILayoutManager _layoutManager;
@@ -27,7 +26,6 @@ public class PresentationService : IPresentation, ILobby
         ILogger<PresentationService> logger,
         IStore store,
         IDispatcher dispatcher,
-        LobbyConfiguration configuration,
         IEventBus eventBus,
         IOperatorMenuLauncher operatorMenuLauncher,
         ILayoutManager layoutManager,
@@ -36,7 +34,6 @@ public class PresentationService : IPresentation, ILobby
         _logger = logger;
         _store = store;
         _dispatcher = dispatcher;
-        _configuration = configuration;
         _eventBus = eventBus;
         _operatorMenuLauncher = operatorMenuLauncher;
         _layoutManager = layoutManager;
@@ -65,7 +62,7 @@ public class PresentationService : IPresentation, ILobby
     {
         await _store.InitializeAsync();
 
-        await _dispatcher.DispatchAsync(new StartupAction(_configuration));
+        await _dispatcher.DispatchAsync(new StartupAction());
 
         await _layoutManager.InitializeAsync();
 

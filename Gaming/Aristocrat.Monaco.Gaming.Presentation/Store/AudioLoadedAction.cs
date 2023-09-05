@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using Models;
+using Contracts.Audio;
 
 public record AudioLoadedAction
 {

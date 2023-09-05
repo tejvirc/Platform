@@ -2,7 +2,7 @@
 
 using System;
 using Common;
-using Contracts;
+using Gaming.Contracts;
 using Extensions.Fluxor;
 using Kernel;
 using static Store.Translate.TranslateSelectors;

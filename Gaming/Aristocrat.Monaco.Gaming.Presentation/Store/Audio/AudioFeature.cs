@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Audio;
 
 using System.Collections.Immutable;
+using Contracts.Audio;
 using Fluxor;
-using Models;
 
 public class AudioFeature : Feature<AudioState>
 {

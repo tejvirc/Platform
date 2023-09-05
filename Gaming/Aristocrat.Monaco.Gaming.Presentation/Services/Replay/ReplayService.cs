@@ -2,7 +2,7 @@
 
 using System;
 using System.Threading.Tasks;
-using Contracts;
+using Gaming.Contracts;
 using Gaming.Commands;
 using Hardware.Contracts.Button;
 using Kernel;

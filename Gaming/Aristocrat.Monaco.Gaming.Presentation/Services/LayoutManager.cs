@@ -13,7 +13,9 @@ using Hardware.Contracts.Cabinet;
 using Kernel;
 using ManagedBink;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Monaco.UI.Common;
+using Options;
 using Prism.Regions;
 using Views;
 using static Store.Translate.TranslateSelectors;
@@ -25,7 +27,7 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
 
     private readonly ILogger<LayoutManager> _logger;
     private readonly IPropertiesManager _properties;
-    private readonly LobbyConfiguration _configuration;
+    private readonly PresentationOptions _presentationOptions;
     private readonly IWpfWindowLauncher _windowLauncher;
     private readonly ICabinetDetectionService _cabinetDetection;
     private readonly IRegionManager _regionManager;
@@ -41,14 +43,14 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
         ILogger<LayoutManager> logger,
         IStoreSelector selector,
         IPropertiesManager properties,
-        LobbyConfiguration configuration,
+        IOptions<PresentationOptions> presentationOptions,
         IWpfWindowLauncher windowLauncher,
         ICabinetDetectionService cabinetDetection,
         IRegionManager regionManager)
     {
         _logger = logger;
         _properties = properties;
-        _configuration = configuration;
+        _presentationOptions = presentationOptions.Value;
         _windowLauncher = windowLauncher;
         _cabinetDetection = cabinetDetection;
         _regionManager = regionManager;
@@ -103,7 +105,7 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
     {
         D3D.Init();
 
-        foreach (var skinFilename in _configuration.SkinFilenames)
+        foreach (var skinFilename in _presentationOptions.SkinFiles)
         {
             _skins.Add(SkinLoader.Load(skinFilename));
         }

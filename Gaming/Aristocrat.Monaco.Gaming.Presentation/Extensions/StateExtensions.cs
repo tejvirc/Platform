@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation;
 
-using Contracts.Lobby;
-using Store.IdleText;
+using Gaming.Contracts.Lobby;
 using Store.Bank;
+using Store.IdleText;
 
 public static class StateExtensions
 {

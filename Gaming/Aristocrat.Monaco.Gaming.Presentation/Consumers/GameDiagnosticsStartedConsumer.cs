@@ -9,7 +9,7 @@ using Accounting.Contracts.HandCount;
 using Accounting.Contracts.Handpay;
 using Application.Contracts;
 using Application.Contracts.Extensions;
-using Contracts;
+using Gaming.Contracts;
 using Diagnostics;
 using Extensions.Fluxor;
 using Fluxor;

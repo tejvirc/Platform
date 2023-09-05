@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Lobby;
 
 using System;
-using Contracts.Models;
+using Gaming.Contracts.Models;
 
 public record LobbyState
 {

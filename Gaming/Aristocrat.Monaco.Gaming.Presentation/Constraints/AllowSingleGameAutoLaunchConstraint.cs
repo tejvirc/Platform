@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Constraints;
 
 using System;
-using Contracts;
-using Contracts.Constraints;
+using Gaming.Contracts;
+using Gaming.Contracts.Constraints;
 using Kernel;
 
 /// <summary>

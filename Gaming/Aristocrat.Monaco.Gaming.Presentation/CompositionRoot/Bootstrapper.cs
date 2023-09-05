@@ -7,13 +7,13 @@ using System.Windows;
 using Accounting.Contracts;
 using Application.Contracts.EdgeLight;
 using Application.Contracts.Localization;
-using Aristocrat.Monaco.Gaming.Commands;
 using Commands;
-using Contracts;
-using Contracts.Lobby;
 using Extensions.Fluxor;
 using Extensions.Prism;
 using Fluxor;
+using Gaming.Commands;
+using Gaming.Contracts;
+using Gaming.Contracts.Lobby;
 using Hardware.Contracts.Audio;
 using Hardware.Contracts.Cabinet;
 using Kernel;
@@ -120,6 +120,8 @@ public sealed class Bootstrapper : PrismBootstrapperBase
     {
         services.AddSingleton<ILobby, PresentationService>();
 
+        services.AddLobbyConfigurationOptions();
+
         services.AddSingleton<IGameLoader, GameLoader>();
 
         services.AddSingleton<ILayoutManager, LayoutManager>();
@@ -127,11 +129,6 @@ public sealed class Bootstrapper : PrismBootstrapperBase
         services.AddTransient<IScreenMapper, ScreenMapper>();
 
         services.AddSingleton<IApplicationCommands, ApplicationCommands>();
-
-        services.AddSingleton(
-            sp => sp.GetRequiredService<IPropertiesManager>()
-                      .GetValue<LobbyConfiguration?>(GamingConstants.LobbyConfig, null) ??
-                  throw new InvalidOperationException("Lobby configuration not found"));
 
         services.AddFluxor(
             options => options
@@ -172,7 +169,7 @@ public sealed class Bootstrapper : PrismBootstrapperBase
         services.AddPlatformService<IEdgeLightingStateManager>();
         services.AddPlatformService<IAttractConfigurationProvider>();
         services.AddPlatformService<ICabinetDetectionService>();
-        services.AddPlatformService<Contracts.IAttendantService>();
+        services.AddPlatformService<Gaming.Contracts.IAttendantService>();
         services.AddPlatformService<IBank>();
         services.AddPlatformService<ICommandHandlerFactory>();
         services.AddPlatformService<IGameDiagnostics>();

@@ -1,8 +1,6 @@
-﻿namespace Aristocrat.Monaco.Gaming.Presentation.Models;
+﻿namespace Aristocrat.Monaco.Gaming.Presentation.Contracts.Audio;
 
-using CommunityToolkit.Mvvm.ComponentModel;
-
-public class SoundFile : ObservableObject
+public class SoundFile
 {
     public SoundFile(SoundType sound, string path)
     {

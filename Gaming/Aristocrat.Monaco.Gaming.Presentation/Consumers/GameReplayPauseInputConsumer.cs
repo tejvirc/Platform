@@ -2,7 +2,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using Contracts;
+using Gaming.Contracts;
 using Extensions.Fluxor;
 using Fluxor;
 using Store;

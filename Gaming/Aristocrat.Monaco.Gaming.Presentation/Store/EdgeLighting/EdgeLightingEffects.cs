@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Application.Contracts.EdgeLight;
 using Extensions.Fluxor;
 using Fluxor;
+using Microsoft.Extensions.Options;
+using Options;
 using Services.EdgeLighting;
 using Store.Platform;
 
@@ -11,18 +13,18 @@ public class EdgeLightingEffects
 {
     private readonly IState<PlatformState> _platformState;
     private readonly IState<EdgeLightingState> _edgeLightingState;
-    private readonly LobbyConfiguration _configuration;
+    private readonly EdgeLightingOptions _edgeLightingOptions;
     private readonly IEdgeLightingService _edgeLightingService;
 
     public EdgeLightingEffects(
         IState<PlatformState> platformState,
         IState<EdgeLightingState> edgeLightingState,
-        LobbyConfiguration configuration,
+        IOptions<EdgeLightingOptions> edgeLightingOptions,
         IEdgeLightingService edgeLightingService)
     {
         _platformState = platformState;
         _edgeLightingState = edgeLightingState;
-        _configuration = configuration;
+        _edgeLightingOptions = edgeLightingOptions.Value;
         _edgeLightingService = edgeLightingService;
     }
 
@@ -35,8 +37,8 @@ public class EdgeLightingEffects
     [EffectMethod(typeof(AttractEnterAction))]
     public async Task AttractEnter(IDispatcher dispatcher)
     {
-        if (!_platformState.Value.IsDisabled && !_configuration.EdgeLightingOverrideUseGen8IdleMode ||
-            _edgeLightingState.Value.CanOverrideEdgeLight && _configuration.EdgeLightingOverrideUseGen8IdleMode)
+        if (!_platformState.Value.IsDisabled && !_edgeLightingOptions.Gen8IdleModeOverride ||
+            _edgeLightingState.Value.CanOverrideEdgeLight && _edgeLightingOptions.Gen8IdleModeOverride)
         {
             await dispatcher.DispatchAsync(new EdgeLightUpdateStateAction { EdgeLightState = EdgeLightState.AttractMode });
         }

@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.ViewModels;
 
 using CommunityToolkit.Mvvm.ComponentModel;
-using Contracts;
+using Gaming.Contracts;
 
 public class ShellButtonDeckViewModel : ObservableObject
 {

@@ -2,8 +2,8 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Contracts.Audio;
 using Hardware.Contracts.Audio;
-using Models;
 
 public interface IAudioService
 {

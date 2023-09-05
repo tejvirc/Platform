@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Audio;
 
 using System.Collections.Immutable;
+using Contracts.Audio;
 using Hardware.Contracts.Audio;
-using Models;
 
 public record AudioState
 {

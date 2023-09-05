@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Presentation.Models;
+﻿namespace Aristocrat.Monaco.Gaming.Presentation.Contracts.Audio;
 
 /// <summary>
 ///     Enum for determining which sound effect is played

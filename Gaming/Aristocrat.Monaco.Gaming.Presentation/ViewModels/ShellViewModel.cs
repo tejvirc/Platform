@@ -3,7 +3,7 @@
 using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Contracts;
+using Gaming.Contracts;
 using Events;
 using Microsoft.Extensions.Logging;
 using Prism.Common;

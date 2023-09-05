@@ -1,10 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Audio;
 
 using System.Threading.Tasks;
+using Contracts.Audio;
 using Extensions.Fluxor;
 using Fluxor;
 using Hardware.Contracts.Audio;
-using Models;
 using Services.Audio;
 
 public class AudioEffects

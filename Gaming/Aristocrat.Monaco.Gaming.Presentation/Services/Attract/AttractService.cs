@@ -2,11 +2,13 @@
 
 using System;
 using System.Linq;
-using Contracts;
-using Contracts.Events;
+using Aristocrat.Monaco.Gaming.Presentation.Options;
 using Fluxor;
+using Gaming.Contracts;
+using Gaming.Contracts.Events;
 using Kernel;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Monaco.UI.Common;
 using Monaco.UI.Common.Extensions;
 using Store;
@@ -23,7 +25,8 @@ public sealed class AttractService : IAttractService, IDisposable
     private readonly IState<AttractState> _attractState;
     private readonly IState<LobbyState> _lobbyState;
     private readonly IDispatcher _dispatcher;
-    private readonly LobbyConfiguration _configuration;
+    private readonly AttractOptions _attractOptions;
+    private readonly TranslateOptions _translateOptions;
     private readonly IEventBus _eventBus;
     private readonly IPropertiesManager _properties;
     private readonly IAttractConfigurationProvider _attractConfigurationProvider;
@@ -41,7 +44,8 @@ public sealed class AttractService : IAttractService, IDisposable
         IState<AttractState> attractState,
         IState<LobbyState> lobbyState,
         IDispatcher dispatcher,
-        LobbyConfiguration configuration,
+        IOptions<AttractOptions> attractOptions,
+        IOptions<TranslateOptions> translateOptions,
         IEventBus eventBus,
         IPropertiesManager properties,
         IAttractConfigurationProvider attractConfigurationProvider)
@@ -50,12 +54,13 @@ public sealed class AttractService : IAttractService, IDisposable
         _attractState = attractState;
         _lobbyState = lobbyState;
         _dispatcher = dispatcher;
-        _configuration = configuration;
+        _attractOptions = attractOptions.Value;
+        _translateOptions = translateOptions.Value;
         _eventBus = eventBus;
         _properties = properties;
         _attractConfigurationProvider = attractConfigurationProvider;
 
-        _attractTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(_configuration.AttractTimerIntervalInSeconds) };
+        _attractTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(_attractOptions.TimerIntervalInSeconds) };
         _attractTimer.Tick += AttractTimer_Tick;
 
         _rotateTopImageTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(RotateTopImageIntervalInSeconds) };
@@ -91,25 +96,25 @@ public sealed class AttractService : IAttractService, IDisposable
             attract = _attractState.Value.Videos.ElementAtOrDefault(currAttractIndex);
         }
 
-        if (_configuration.AlternateAttractModeLanguage)
+        if (_attractOptions.AlternateLanguage)
         {
             var languageIndex = _attractState.Value.IsNextLanguagePrimary ? 0 : 1;
 
             var topAttractVideoPath =
-                attract?.GetTopAttractVideoPathByLocaleCode(_configuration.LocaleCodes[languageIndex]).NullIfEmpty() ??
-                _configuration.DefaultTopAttractVideoFilename;
+                attract?.GetTopAttractVideoPathByLocaleCode(_translateOptions.LocaleCodes[languageIndex]).NullIfEmpty() ??
+                _attractOptions.DefaultTopVideoFilename;
 
             var topperAttractVideoPath =
-                attract?.GetTopperAttractVideoPathByLocaleCode(_configuration.LocaleCodes[languageIndex]).NullIfEmpty() ??
-                _configuration.DefaultTopperAttractVideoFilename;
+                attract?.GetTopperAttractVideoPathByLocaleCode(_translateOptions.LocaleCodes[languageIndex]).NullIfEmpty() ??
+                _attractOptions.DefaultTopperVideoFilename;
 
             string? bottomAttractVideoPath = null;
 
-            if (_configuration.BottomAttractVideoEnabled)
+            if (_attractOptions.BottomVideo)
             {
                 bottomAttractVideoPath =
-                    attract?.GetBottomAttractVideoPathByLocaleCode(_configuration.LocaleCodes[languageIndex]).NullIfEmpty() ??
-                    _configuration.DefaultTopAttractVideoFilename;
+                    attract?.GetBottomAttractVideoPathByLocaleCode(_translateOptions.LocaleCodes[languageIndex]).NullIfEmpty() ??
+                    _attractOptions.DefaultTopVideoFilename;
             }
 
             _dispatcher.Dispatch(
@@ -122,18 +127,18 @@ public sealed class AttractService : IAttractService, IDisposable
         }
         else
         {
-            var topAttractVideoPath = attract?.TopAttractVideoPath.NullIfEmpty() ?? _configuration.DefaultTopAttractVideoFilename;
+            var topAttractVideoPath = attract?.TopAttractVideoPath.NullIfEmpty() ?? _attractOptions.DefaultTopVideoFilename;
 
             var topperAttractVideoPath =
                 attract?.TopperAttractVideoPath.NullIfEmpty() ??
-                _configuration.DefaultTopperAttractVideoFilename;
+                _attractOptions.DefaultTopperVideoFilename;
 
             string? bottomAttractVideoPath = null;
 
-            if (_configuration.BottomAttractVideoEnabled)
+            if (_attractOptions.BottomVideo)
             {
                 bottomAttractVideoPath =
-                    attract?.BottomAttractVideoPath.NullIfEmpty() ?? _configuration.DefaultTopAttractVideoFilename;
+                    attract?.BottomAttractVideoPath.NullIfEmpty() ?? _attractOptions.DefaultTopVideoFilename;
             }
 
             _dispatcher.Dispatch(
@@ -148,14 +153,14 @@ public sealed class AttractService : IAttractService, IDisposable
 
     public void RotateTopImage()
     {
-        if (!(_configuration.RotateTopImageAfterAttractVideo is { Length: > 0 }))
+        if (!(_attractOptions.TopImageRotation is { Count: > 0 }))
         {
             return;
         }
 
         var newIndex = _attractState.Value.ModeTopImageIndex + 1;
 
-        if (newIndex < 0 || newIndex >= (_configuration.RotateTopImageAfterAttractVideo?.Length ?? 0))
+        if (newIndex < 0 || newIndex >= _attractOptions.TopImageRotation.Count)
         {
             newIndex = 0;
         }
@@ -165,14 +170,14 @@ public sealed class AttractService : IAttractService, IDisposable
 
     public void RotateTopperImage()
     {
-        if (!(_configuration.RotateTopperImageAfterAttractVideo is { Length: > 0 }))
+        if (!(_attractOptions.TopperImageRotation is { Count: > 0 }))
         {
             return;
         }
 
         var newIndex = _attractState.Value.ModeTopperImageIndex + 1;
 
-        if (newIndex < 0 || newIndex >= (_configuration.RotateTopperImageAfterAttractVideo?.Length ?? 0))
+        if (newIndex < 0 || newIndex >= _attractOptions.TopperImageRotation.Count)
         {
             newIndex = 0;
         }

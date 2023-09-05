@@ -2,7 +2,7 @@
 
 using System;
 using System.Collections.Immutable;
-using Contracts.Models;
+using Gaming.Contracts.Models;
 using UI.Models;
 
 public record ChooserState
