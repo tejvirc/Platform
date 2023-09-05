@@ -8,6 +8,9 @@
     /// </summary>
     public static class GsaRtpHelper
     {
+        private const int LegacyRtpDigitCount4 = 4;
+        private const int LegacyRtpDigitCount5 = 5;
+
         /// <summary>
         ///     Converts a non-normalized raw RTP contained in a decimal type to a normalized RTP percentage.
         ///     This helper is used to abstract out the different ways RTP has been stored in the manifest,
@@ -33,21 +36,21 @@
 
             // Older manifests contained a truncated Rtp (precision of 2), represented as 9821 (98.21%).
             var rtpDigitCount = MathHelper.CountDigits(rtpConvertedToLong);
-            if (rtpDigitCount == 4)
+            if (rtpDigitCount == LegacyRtpDigitCount4)
             {
                 return rawRtp / 100;
             }
 
             // Newer manifests contained a truncated Rtp (precision of 3), represented as 98212 (98.212%).
-            if (rtpDigitCount == 5)
+            if (rtpDigitCount == LegacyRtpDigitCount5)
             {
                 return rawRtp / 1000;
             }
 
             // No version of the manifests support more than 5 digits
-            if (rtpDigitCount > 5)
+            if (rtpDigitCount > LegacyRtpDigitCount5)
             {
-                throw new Exception($"Unsupported number of digits for serialized RTP: ({rtpDigitCount} digits)");
+                throw new RtpValueException($"Unsupported number of digits for serialized RTP value ({rtpDigitCount} digits)");
             }
 
             // The remaining cases are the newest manifests which have true percentages already (normalized).
