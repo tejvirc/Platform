@@ -14,4 +14,10 @@ public interface IAudioService
     void SetVolume(VolumeScalar volume);
 
     Task PlaySoundAsync(SoundType sound);
+
+    Task StopSoundAsync(SoundType sound);
+
+    public Task PlayGameWinHandPaySound();
+
+    public Task PlayLoopingAlert(SoundType sound, int loopCount);
 }

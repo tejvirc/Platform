@@ -16,13 +16,19 @@ using Store.Audio;
 public class AudioService : IAudioService
 {
     private const string SoundConfigurationExtensionPath = "/OperatorMenu/Sound/Configuration";
+    private const double PaperInChuteAlertVolumeRate = 0.8;
+    private const byte DefaultAlertVolume = 100;
 
     private readonly ILogger<AudioService> _logger;
     private readonly IState<AudioState> _audioState;
     private readonly IPropertiesManager _properties;
     private readonly IAudio _audio;
 
-    public AudioService(ILogger<AudioService> logger, IState<AudioState> audioState, IPropertiesManager properties, IAudio audio)
+    public AudioService(
+        ILogger<AudioService> logger,
+        IState<AudioState> audioState,
+        IPropertiesManager properties,
+        IAudio audio)
     {
         _logger = logger;
         _audioState = audioState;
@@ -35,8 +41,7 @@ public class AudioService : IAudioService
         var files = new Dictionary<SoundType, string?>
         {
             {
-                SoundType.First,
-                MonoAddinsHelper
+                SoundType.First, MonoAddinsHelper
                     .GetSelectedNodes<FilePathExtensionNode>(SoundConfigurationExtensionPath)
                     .Take(1)
                     .Select(node => node.FilePath)
@@ -62,10 +67,12 @@ public class AudioService : IAudioService
         return sounds;
     }
 
-    public VolumeScalar GetPlayerVolumeScalar() =>
-        _properties.GetValue(
-                ApplicationConstants.PlayerVolumeScalarKey,
-                (VolumeScalar)ApplicationConstants.PlayerVolumeScalar);
+    public VolumeScalar GetPlayerVolumeScalar()
+    {
+        return _properties.GetValue(
+            ApplicationConstants.PlayerVolumeScalarKey,
+            (VolumeScalar)ApplicationConstants.PlayerVolumeScalar);
+    }
 
     public void SetVolume(VolumeScalar volume)
     {
@@ -77,11 +84,80 @@ public class AudioService : IAudioService
         var tcs = new TaskCompletionSource<bool>();
 
         var soundFile = _audioState.Value.SoundFiles.FirstOrDefault(x => x.Sound == sound) ??
-            throw new ArgumentException("Sound not found", nameof(sound));
+                        throw new ArgumentException("Sound not found", nameof(sound));
 
         var volume = GetVolume();
 
         _audio.Play(soundFile.Path, volume, callback: OnCompleted);
+
+        return tcs.Task;
+
+        void OnCompleted()
+        {
+            tcs.SetResult(true);
+        }
+    }
+
+    public Task StopSoundAsync(SoundType sound)
+    {
+        var soundFile = _audioState.Value.SoundFiles.FirstOrDefault(x => x.Sound == sound) ??
+                        throw new ArgumentException("Sound not found", nameof(sound));
+
+        _audio.Stop(soundFile.Path);
+
+        return Task.CompletedTask;
+    }
+
+    public Task PlayGameWinHandPaySound()
+    {
+        var tcs = new TaskCompletionSource<bool>();
+
+        var featureBellSound = _audioState.Value.SoundFiles.FirstOrDefault(x => x.Sound == SoundType.FeatureBell) ??
+                               throw new ArgumentException("Sound not found", nameof(SoundType.FeatureBell));
+
+        var collectSound = _audioState.Value.SoundFiles.FirstOrDefault(x => x.Sound == SoundType.Collect) ??
+                           throw new ArgumentException("Sound not found", nameof(SoundType.Collect));
+
+        var volume = GetVolume();
+
+        _audio.Play(featureBellSound.Path, volume, callback: OnCompletedFeatureBell);
+
+        return tcs.Task;
+
+        void OnCompletedFeatureBell()
+        {
+            _audio.Play(collectSound.Path, volume, callback: OnCompleted);
+        }
+
+        void OnCompleted()
+        {
+            tcs.SetResult(true);
+        }
+    }
+
+    public Task PlayLoopingAlert(SoundType sound, int loopCount)
+    {
+        return PlayLoopingSoundAsync(
+            sound,
+            loopCount,
+            _properties.GetValue(ApplicationConstants.AlertVolumeKey, DefaultAlertVolume));
+    }
+
+    private Task PlayLoopingSoundAsync(SoundType sound, int loopCount, float volume)
+    {
+        var tcs = new TaskCompletionSource<bool>();
+
+        var soundFile = _audioState.Value.SoundFiles.FirstOrDefault(x => x.Sound == sound) ??
+                        throw new ArgumentException("Sound not found", nameof(sound));
+
+        if (sound == SoundType.PaperInChute && _audio.IsPlaying(soundFile.Path))
+        {
+            tcs.SetResult(true);
+        }
+
+        volume = (float)(volume * PaperInChuteAlertVolumeRate);
+
+        _audio.Play(soundFile.Path, loopCount, volume, callback: OnCompleted);
 
         return tcs.Task;
 
@@ -98,7 +174,7 @@ public class AudioService : IAudioService
             ApplicationConstants.LobbyVolumeScalar);
 
         return _audio.GetDefaultVolume() *
-            _audio.GetVolumeScalar(_audioState.Value.PlayerVolumeScalar) *
-            _audio.GetVolumeScalar(volumeScalar);
+               _audio.GetVolumeScalar(_audioState.Value.PlayerVolumeScalar) *
+               _audio.GetVolumeScalar(volumeScalar);
     }
 }
