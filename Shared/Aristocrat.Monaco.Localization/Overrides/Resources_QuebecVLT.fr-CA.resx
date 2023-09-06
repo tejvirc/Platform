@@ -278,7 +278,7 @@
     <value>ID de commande</value>
   </data>
   <data name="IdleTextDefault" xml:space="preserve">
-    <value>INSÉRER DE L’ARGENT</value>
+    <value>INSÉRER DE L’ARGENT POUR JOUER</value>
   </data>
   <data name="TotalCoinInText" xml:space="preserve">
     <value>Total des pièces en</value>
