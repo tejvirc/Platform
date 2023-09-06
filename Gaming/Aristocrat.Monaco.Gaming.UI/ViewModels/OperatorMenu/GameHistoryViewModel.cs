@@ -1038,8 +1038,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                     AmountOut = null,
                     LogSequence = baseRound.LogSequence,
                     GameIndex = transaction.GameIndex,
-                    TransactionId = transaction.TransactionId,
-                    Denom = null
+                    TransactionId = transaction.TransactionId
                 };
 
                 if (transaction.TransactionType == typeof(BillTransaction))
