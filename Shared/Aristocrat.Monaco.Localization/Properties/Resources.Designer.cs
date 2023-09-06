@@ -19064,6 +19064,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Linked Progressive.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string LinkedProgressiveMeters {
+			get {
+				return ResourceManager.GetString("LinkedProgressiveMeters", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Linked Progressive Verification.
 		/// </summary>
 		public static string LinkedProgressiveVerificationEnabledLabel {
@@ -55954,6 +55966,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Linked Progressive.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string LinkedProgressiveMeters {
+			get {
+				return "LinkedProgressiveMeters";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Linked Progressive Verification.
 		/// </summary>
 		public static string LinkedProgressiveVerificationEnabledLabel {
@@ -84660,6 +84684,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		LinkedProgressive,
+		/// <summary>
+		///   Looks up a localized string similar to Linked Progressive.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		LinkedProgressiveMeters,
 		/// <summary>
 		///   Looks up a localized string similar to Linked Progressive Verification.
 		/// </summary>

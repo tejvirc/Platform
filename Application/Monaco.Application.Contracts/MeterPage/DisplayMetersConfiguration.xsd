@@ -9,6 +9,7 @@
       <xs:enumeration value="Handpay" />
       <xs:enumeration value="Voucher" />
       <xs:enumeration value="Progressives" />
+      <xs:enumeration value="LinkedProgressives" />
     </xs:restriction>
   </xs:simpleType>
 

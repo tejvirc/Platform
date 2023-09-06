@@ -20,21 +20,24 @@
         <NodeSpecification addinId="Client12Addins.Monaco.Gaming.UI.OperatorMenu"
                            typeName="Aristocrat.Monaco.Gaming.UI.Loaders.ProgressiveMetersPageLoader" order="3" />
         <NodeSpecification addinId="Client12Addins.Monaco.Gaming.UI.OperatorMenu"
-                           typeName="Aristocrat.Monaco.Gaming.UI.Loaders.CustomSAPMetersPageLoader" order="4" />
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting.UI.OperatorMenu"
-                           typeName="Aristocrat.Monaco.Accounting.UI.Loaders.BillsMetersPageLoader" order="5" />
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting.UI.OperatorMenu"
-                           typeName="Aristocrat.Monaco.Accounting.UI.Loaders.VoucherMetersPageLoader" order="6" />
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting.UI.OperatorMenu"
-                           typeName="Aristocrat.Monaco.Accounting.UI.Loaders.WatMetersPageLoader" order="7" />
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting.UI.OperatorMenu"
-                           typeName="Aristocrat.Monaco.Accounting.UI.Loaders.HandpayMetersPageLoader" order="8" />
-        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
-                           typeName="Aristocrat.Monaco.Application.UI.Loaders.HardwareMetersPageLoader" order="9" />
-        <NodeSpecification addinId="Client12Addins.Monaco.Accounting.UI.OperatorMenu"
-                           typeName="Aristocrat.Monaco.Accounting.UI.Loaders.KeyedCreditsMetersPageLoader" order="10" />
+                           typeName="Aristocrat.Monaco.Gaming.UI.Loaders.LinkedProgressiveMetersPageLoader" order="4" />
         <NodeSpecification addinId="Client12Addins.Monaco.Gaming.UI.OperatorMenu"
-                           typeName="Aristocrat.Monaco.Gaming.UI.Loaders.BonusMetersPageLoader" order="11" />
+                           typeName="Aristocrat.Monaco.Gaming.UI.Loaders.CustomSAPMetersPageLoader" order="5" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Accounting.UI.Loaders.BillsMetersPageLoader" order="6" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Accounting.UI.Loaders.VoucherMetersPageLoader" order="7" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Accounting.UI.Loaders.WatMetersPageLoader" order="8" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Accounting.UI.Loaders.HandpayMetersPageLoader" order="9" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Application.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Application.UI.Loaders.HardwareMetersPageLoader" order="10" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Accounting.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Accounting.UI.Loaders.KeyedCreditsMetersPageLoader" order="11" />
+        <NodeSpecification addinId="Client12Addins.Monaco.Gaming.UI.OperatorMenu"
+                           typeName="Aristocrat.Monaco.Gaming.UI.Loaders.BonusMetersPageLoader" order="12" />
+
       </ExtensionPointConfiguration>
 
     </AddinConfigurationGroup>

@@ -130,5 +130,13 @@
     <MeterNode Page="Progressives" Name="ProgressiveLevel.WinOccurrence" DisplayName="Hit" Order="5" />
     <MeterNode Page="Progressives" Name="ProgressiveLevel.WinAccumulation" DisplayName="Won" Order="6" />
     <MeterNode Page="Progressives" Name="ProgressiveLevel.BulkTotal" DisplayName="Total Bulk Pool" Order="7" />
+
+    <MeterNode Page="LinkedProgressives" Name="LevelName" DisplayName="Level" Order="1" />
+    <MeterNode Page="LinkedProgressives" Name="LinkedProgressive.WageredAmount" DisplayName="Wagered" Order="2" />
+    <MeterNode Page="LinkedProgressives" Name="LinkedProgressive.PlayedCount" DisplayName="Games Played" Order="3" />
+    <MeterNode Page="LinkedProgressives" Name="LinkedProgressive.WinOccurrence" DisplayName="Hit" Order="4" />
+    <MeterNode Page="LinkedProgressives" Name="LinkedProgressive.WinAccumulation" DisplayName="Won" Order="5" />
+    <MeterNode Page="LinkedProgressives" Name="LinkedProgressive.BulkTotal" DisplayName="Total Bulk Pool" Order="6" />
+    <MeterNode Page="LinkedProgressives" Name="LinkedProgressive.WageredAmountWithAnte" DisplayName="Wagered With Ante" Order="7" />
   </MeterNodes>
 </DisplayMetersConfiguration>

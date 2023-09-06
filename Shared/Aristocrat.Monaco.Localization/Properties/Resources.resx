@@ -12461,4 +12461,8 @@ LEVEL ID</value>
     <value>Mystery Linked</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
+  <data name="LinkedProgressiveMeters" xml:space="preserve">
+    <value>Linked Progressive</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>

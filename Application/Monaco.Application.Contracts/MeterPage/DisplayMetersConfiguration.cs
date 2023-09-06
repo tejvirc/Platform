@@ -198,5 +198,9 @@ namespace Aristocrat.Monaco.Application.Contracts.MeterPage {
         
         /// <remarks/>
         Progressives,
+
+        /// <remarks/>
+        LinkedProgressives,
+
     }
 }

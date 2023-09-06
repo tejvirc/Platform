@@ -22,8 +22,9 @@
     <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.GamesMetersPageLoader" order="110"/>
     <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.DenomMetersPageLoader" order="120"/>
     <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.ProgressiveMetersPageLoader" order="130"/>
-    <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.CustomSAPMetersPageLoader" order="140"/>
-    <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.BonusMetersPageLoader" order="150"/>
+    <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.LinkedProgressiveMetersPageLoader" order="140" />
+    <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.CustomSAPMetersPageLoader" order="150"/>
+    <MetersMenu type="Aristocrat.Monaco.Gaming.UI.Loaders.BonusMetersPageLoader" order="160"/>
   </Extension>
 
   <Extension path="/Application/OperatorMenu/GamesMenu">
