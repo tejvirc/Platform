@@ -1,9 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Attract;
 
 using System.Threading.Tasks;
+using Aristocrat.Monaco.Gaming.Presentation.Options;
 using Chooser;
 using Extensions.Fluxor;
 using Fluxor;
+using Microsoft.Extensions.Options;
 using Services.Attract;
 using Services.EdgeLighting;
 
@@ -12,20 +14,20 @@ public partial class AttractEffects
     private readonly IState<AttractState> _attractState;
     private readonly IState<ChooserState> _chooserState;
     private readonly IAttractService _attractService;
-    private readonly LobbyConfiguration _configuration;
+    private readonly AttractOptions _attractOptions;
     private readonly IEdgeLightingService _edgeLightingService;
 
     public AttractEffects(
         IState<AttractState> attractState,
         IState<ChooserState> chooserState,
         IAttractService attractService,
-        LobbyConfiguration configuration,
+        IOptions<AttractOptions> attractOptions,
         IEdgeLightingService edgeLightingService)
     {
         _attractState = attractState;
         _chooserState = chooserState;
         _attractService = attractService;
-        _configuration = configuration;
+        _attractOptions = attractOptions.Value;
         _edgeLightingService = edgeLightingService;
     }
 
@@ -58,12 +60,12 @@ public partial class AttractEffects
         var nextAttractModeLanguageIsPrimary = _attractState.Value.IsNextLanguagePrimary;
         var lastInitialAttractModeLanguageIsPrimary = _attractState.Value.IsLastInitialLanguagePrimary;
 
-        if (_configuration.AlternateAttractModeLanguage)
+        if (_attractOptions.AlternateLanguage)
         {
             nextAttractModeLanguageIsPrimary = !nextAttractModeLanguageIsPrimary;
         }
 
-        if (currentAttractIndex == 0 && _configuration.AlternateAttractModeLanguage)
+        if (currentAttractIndex == 0 && _attractOptions.AlternateLanguage)
         {
             nextAttractModeLanguageIsPrimary = !lastInitialAttractModeLanguageIsPrimary;
             lastInitialAttractModeLanguageIsPrimary = nextAttractModeLanguageIsPrimary;
@@ -92,13 +94,13 @@ public partial class AttractEffects
     {
         var consecutiveAttractCount = _attractState.Value.ConsecutiveAttractCount;
 
-        if (!_configuration.HasAttractIntroVideo || _attractState.Value.CurrentAttractIndex != 0 || _attractState.Value.Videos.Count <= 1)
+        if (!_attractOptions.HasIntroVideo || _attractState.Value.CurrentAttractIndex != 0 || _attractState.Value.Videos.Count <= 1)
         {
             consecutiveAttractCount++;
 
             await dispatcher.DispatchAsync(new AttractUpdateConsecutiveCount { ConsecutiveAttractCount = consecutiveAttractCount });
 
-            if (consecutiveAttractCount >= _configuration.ConsecutiveAttractVideos ||
+            if (consecutiveAttractCount >= _attractOptions.ConsecutiveVideos ||
                 consecutiveAttractCount >= _chooserState.Value.Games.Count)
             {
                 await dispatcher.DispatchAsync(new AttractExitAction());

@@ -1,15 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Services.Attendant;
 
 using System.Threading.Tasks;
-using Contracts;
+using Gaming.Contracts;
 using Microsoft.Extensions.Logging;
 
 public class AttendantService : IAttendantService
 {
     private readonly ILogger<AttendantService> _logger;
-    private readonly Contracts.IAttendantService _attendantService;
+    private readonly Gaming.Contracts.IAttendantService _attendantService;
 
-    public AttendantService(ILogger<AttendantService> logger, Contracts.IAttendantService attendantService)
+    public AttendantService(ILogger<AttendantService> logger, Gaming.Contracts.IAttendantService attendantService)
     {
         _logger = logger;
         _attendantService = attendantService;

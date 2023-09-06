@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.IdleText;
 
-using Contracts.Lobby;
+using Gaming.Contracts.Lobby;
 
 public record IdleTextState
 {

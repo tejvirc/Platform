@@ -7,11 +7,13 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Application.Contracts.Extensions;
 using Common;
-using Contracts;
-using Contracts.Models;
 using Extensions.Fluxor;
+using Gaming.Contracts;
+using Gaming.Contracts.Models;
 using Kernel;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Options;
 using Progressives;
 using UI.Models;
 using static Store.Chooser.ChooserSelectors;
@@ -23,7 +25,8 @@ public sealed class GameLoader : IGameLoader, IDisposable
     private readonly IStoreSelector _selector;
     private readonly IPropertiesManager _properties;
     private readonly IGameStorage _gameStorage;
-    private readonly LobbyConfiguration _configuration;
+    private readonly ChooserOptions _chooserOptions;
+    private readonly AttractOptions _attractOptions;
     private readonly IGameOrderSettings _gameOrderSettings;
     private readonly IProgressiveConfigurationProvider _progressiveProvider;
 
@@ -34,7 +37,8 @@ public sealed class GameLoader : IGameLoader, IDisposable
     public GameLoader(
         ILogger<GameLoader> logger,
         IStoreSelector selector,
-        LobbyConfiguration configuration,
+        IOptions<ChooserOptions> chooserOptions,
+        IOptions<AttractOptions> attractOptions,
         IPropertiesManager properties,
         IGameStorage gameStorage,
         IGameOrderSettings gameOrderSettings,
@@ -44,7 +48,8 @@ public sealed class GameLoader : IGameLoader, IDisposable
         _selector = selector;
         _properties = properties;
         _gameStorage = gameStorage;
-        _configuration = configuration;
+        _chooserOptions = chooserOptions.Value;
+        _attractOptions = attractOptions.Value;
         _gameOrderSettings = gameOrderSettings;
         _progressiveProvider = progressiveProvider;
 
@@ -82,26 +87,29 @@ public sealed class GameLoader : IGameLoader, IDisposable
 
     private void SetGameOrderFromConfig(IEnumerable<IGameDetail> games)
     {
-        var distinctThemeGames = games.GroupBy(p => p.ThemeId).Select(g => g.FirstOrDefault(e => e.Active)).ToList();
+        var distinctThemeGames = games
+            .GroupBy(p => p.ThemeId)
+            .Select(g => g.FirstOrDefault(e => e.Active))
+            .Where(g => g is not null)
+            .ToList();
 
         var lightningLinkEnabled = distinctThemeGames.Any(g => g.EgmEnabled && g.Enabled && g.Category == GameCategory.LightningLink);
 
         var lightningLinkOrder = lightningLinkEnabled
-            ? _configuration.DefaultGameOrderLightningLinkEnabled
-            : _configuration.DefaultGameOrderLightningLinkDisabled;
+            ? _chooserOptions.DefaultEnabledGameOrderLightningLink
+            : _chooserOptions.DefaultDisabledGameOrderLightningLink;
 
-        var defaultList = lightningLinkOrder ?? _configuration.DefaultGameDisplayOrderByThemeId;
-
+        var defaultList = lightningLinkOrder ?? _chooserOptions.DefaultGameDisplayOrderByThemeId;
 
         _gameOrderSettings.SetAttractOrderFromConfig(distinctThemeGames.Select(g => new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId } as IGameInfo).ToList(),
             defaultList);
         _gameOrderSettings.SetIconOrderFromConfig(distinctThemeGames.Select(g => new GameInfo { InstallDateTime = g.InstallDate, ThemeId = g.ThemeId } as IGameInfo).ToList(),
-            _configuration.DefaultGameDisplayOrderByThemeId);
+            _chooserOptions.DefaultGameDisplayOrderByThemeId);
     }
 
     private async Task<IEnumerable<GameInfo>> GetOrderedGames(IReadOnlyCollection<IGameDetail> games, string activeLocalCode)
     {
-        var useSmallIcons = await _selector.Select(SelectUseSmallIcons).FirstAsync();
+        var useSmallIcons = await _selector.Select(SelectUseSmallIcons).LastAsync();
 
         var gameCombos = (from game in games
             from denom in game.ActiveDenominations
@@ -133,15 +141,15 @@ public sealed class GameLoader : IGameLoader, IDisposable
                 Denomination = denom,
                 BetOption = game.Denominations.Single(d => d.Value == denom).BetOption,
                 FilteredDenomination =
-                    _configuration.MinimumWagerCreditsAsFilter ? game.MinimumWagerCredits * denom : denom,
+                    _chooserOptions.MinimumWagerCreditsAsFilter ? game.MinimumWagerCredits * denom : denom,
                 GameType = game.GameType,
                 GameSubtype = game.GameSubtype,
                 PlatinumSeries = false,
                 Enabled = game.Enabled,
                 AttractHighlightVideoPath =
                     !string.IsNullOrEmpty(game.DisplayMeterName)
-                        ? _configuration.AttractVideoWithBonusFilename
-                        : _configuration.AttractVideoNoBonusFilename,
+                        ? _attractOptions.WithBonusVideoFilename
+                        : _attractOptions.NoBonusVideoFilename,
                 UseSmallIcons = useSmallIcons,
                 LocaleGraphics = game.LocaleGraphics,
                 ThemeId = game.ThemeId,

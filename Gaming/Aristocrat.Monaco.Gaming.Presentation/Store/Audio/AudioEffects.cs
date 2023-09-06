@@ -1,10 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Audio;
 
 using System.Threading.Tasks;
+using Contracts.Audio;
 using Extensions.Fluxor;
 using Fluxor;
 using Hardware.Contracts.Audio;
-using Models;
 using Services.Audio;
 
 public class AudioEffects
@@ -31,15 +31,9 @@ public class AudioEffects
     }
 
     [EffectMethod(typeof(AudioChangeVolumeAction))]
-    public async Task ChangeVolume(IDispatcher dispatcher)
+    public async Task ChangeVolume(IDispatcher _)
     {
-        var playerVolumeScalar = _audioState.Value.PlayerVolumeScalar;
-
-        playerVolumeScalar = playerVolumeScalar == VolumeScalar.Scale100 ? VolumeScalar.Scale20 : playerVolumeScalar + 1;
-
-        await dispatcher.DispatchAsync(new AudioUpdatePlayerVolumeScalarAction(playerVolumeScalar));
-
-        _audioService.SetVolume(playerVolumeScalar);
+        _audioService.SetVolume(_audioState.Value.PlayerVolumeScalar);
 
         await _audioService.PlaySoundAsync(SoundType.First);
     }

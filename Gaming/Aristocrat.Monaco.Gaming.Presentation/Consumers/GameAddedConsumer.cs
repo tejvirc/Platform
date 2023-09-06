@@ -2,9 +2,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using Contracts;
 using Extensions.Fluxor;
 using Fluxor;
+using Gaming.Contracts;
 using Store;
 
 public class GameAddedConsumer : Consumes<GameAddedEvent>

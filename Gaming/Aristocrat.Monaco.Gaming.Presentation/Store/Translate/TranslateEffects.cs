@@ -5,22 +5,32 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Extensions.Fluxor;
 using Fluxor;
+using Microsoft.Extensions.Options;
+using Options;
 using Services.Translate;
 
 public class TranslateEffects
 {
     private readonly IState<TranslateState> _translateState;
+    private readonly TranslateOptions _translateOptions;
     private readonly ITranslateAgent _translateService;
 
-    public TranslateEffects(IState<TranslateState> translateState, ITranslateAgent translateService)
+    public TranslateEffects(
+        IState<TranslateState> translateState,
+        IOptions<TranslateOptions> translateOptions,
+        ITranslateAgent translateService)
     {
         _translateState = translateState;
+        _translateOptions = translateOptions.Value;
         _translateService = translateService;
     }
 
     [EffectMethod()]
     public async Task Effect(StartupAction _, IDispatcher dispatcher)
     {
+        await dispatcher.DispatchAsync(new TranslateUpdateMultiLanguageAction(_translateOptions.MultiLanguage));
+        await dispatcher.DispatchAsync(new TranslateUpdateLocaleCodesAction(_translateOptions.LocaleCodes));
+
         if (_translateState.Value.IsMultiLangauge)
         {
             var localeCode = _translateService.GetSelectedLocaleCode();

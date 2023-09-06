@@ -6,6 +6,8 @@ using Commands;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Fluxor;
+using Microsoft.Extensions.Options;
+using Options;
 using Store;
 using static Store.Bank.BankSelectors;
 using static Store.Chooser.ChooserSelectors;
@@ -14,7 +16,7 @@ using static Store.Translate.TranslateSelectors;
 public class MultiLanguageUpiViewModel : ObservableObject, IActivatableViewModel
 {
     private readonly IDispatcher _dispatcher;
-    private readonly LobbyConfiguration _configuration;
+    private readonly UpiOptions _upiOptions;
 
     private string? _activeLocaleCode;
     private string? _formattedCredits;
@@ -27,10 +29,10 @@ public class MultiLanguageUpiViewModel : ObservableObject, IActivatableViewModel
         IDispatcher dispatcher,
         IStore store,
         IApplicationCommands commands,
-        LobbyConfiguration configuration)
+        IOptions<UpiOptions> upiOptions)
     {
         _dispatcher = dispatcher;
-        _configuration = configuration;
+        _upiOptions = upiOptions.Value;
 
         ShutdownCommand = new RelayCommand(OnShutdown);
         CashOutCommand = new RelayCommand(OnCashOut);
@@ -187,7 +189,7 @@ public class MultiLanguageUpiViewModel : ObservableObject, IActivatableViewModel
     private void OnPrimaryLanguageActiveChanged(bool isPrimaryLanguageActive)
     {
         IsPrimaryLanguageSelected = isPrimaryLanguageActive;
-        LanguageButtonResourceKey = _configuration.LanguageButtonResourceKeys[isPrimaryLanguageActive ? 1 : 0];
+        LanguageButtonResourceKey = _upiOptions.LanguageButtonResourceKeys[isPrimaryLanguageActive ? 1 : 0];
     }
 
     private void OnDenomFilterChanged(int denomFilter)

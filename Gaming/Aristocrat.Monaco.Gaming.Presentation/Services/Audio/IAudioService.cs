@@ -2,8 +2,8 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Contracts.Audio;
 using Hardware.Contracts.Audio;
-using Models;
 
 public interface IAudioService
 {
@@ -14,4 +14,10 @@ public interface IAudioService
     void SetVolume(VolumeScalar volume);
 
     Task PlaySoundAsync(SoundType sound);
+
+    Task StopSoundAsync(SoundType sound);
+
+    public Task PlayGameWinHandPaySound();
+
+    public Task PlayLoopingAlert(SoundType sound, int loopCount);
 }

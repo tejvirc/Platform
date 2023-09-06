@@ -4,6 +4,8 @@ using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Fluxor;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Options;
 using static Store.Attract.AttractSelectors;
 
 public class LobbyTopperViewModel : ObservableObject, IActivatableViewModel
@@ -15,7 +17,10 @@ public class LobbyTopperViewModel : ObservableObject, IActivatableViewModel
 
     private string? _topperImageResourceKey;
 
-    public LobbyTopperViewModel(ILogger<LobbyTopperViewModel> logger, IStore store, LobbyConfiguration configuration)
+    public LobbyTopperViewModel(
+        ILogger<LobbyTopperViewModel> logger,
+        IStore store,
+        IOptions<AttractOptions> attractOptions)
     {
         _logger = logger;
 
@@ -36,9 +41,9 @@ public class LobbyTopperViewModel : ObservableObject, IActivatableViewModel
                     _logger.LogDebug(
                         "Setting Topper Image Index: {NewIndex} Resource ID: {ImageKey}",
                         index,
-                        configuration.RotateTopperImageAfterAttractVideo[index]);
+                        attractOptions.Value.TopperImageRotation[index]);
 
-                    TopperImageResourceKey = configuration.RotateTopperImageAfterAttractVideo[index];
+                    TopperImageResourceKey = attractOptions.Value.TopperImageRotation[index];
                 })
                 .DisposeWith(disposables);
         });

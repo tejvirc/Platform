@@ -7,11 +7,17 @@ using Fluxor;
 public static class TranslateReducers
 {
     [ReducerMethod]
-    public static TranslateState Reduce(TranslateState state, StartupAction action) =>
+    public static TranslateState Reduce(TranslateState state, TranslateUpdateLocaleCodesAction action) =>
         state with
         {
-            LocaleCodes = ImmutableList.CreateRange(action.Configuration.LocaleCodes),
-            IsMultiLangauge = action.Configuration.MultiLanguageEnabled
+            LocaleCodes = ImmutableList.CreateRange(action.LocaleCodes),
+        };
+
+    [ReducerMethod]
+    public static TranslateState Reduce(TranslateState state, TranslateUpdateMultiLanguageAction action) =>
+        state with
+        {
+            IsMultiLangauge = action.IsEnabled
         };
 
     [ReducerMethod]
