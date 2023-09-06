@@ -11,15 +11,14 @@ using System.Timers;
 using Extensions.Fluxor;
 using Accounting.Contracts;
 using Application.Contracts.Extensions;
-using Contracts.Models;
-using Contracts.Progressives;
+using Gaming.Contracts.Models;
+using Gaming.Contracts.Progressives;
 using Store.Chooser;
 using Store.IdleText;
 using Gaming.Progressives;
 using UI.ViewModels;
 //using Aristocrat.Monaco.Gaming.UI.ViewModels;
 using Contracts;
-using Contracts.Events;
 using Aristocrat.Monaco.Gaming.Presentation.Options;
 using Fluxor;
 using Gaming.Contracts;
@@ -48,6 +47,7 @@ public sealed class AttractService : IAttractService, IDisposable
     private readonly IDispatcher _dispatcher;
     private readonly AttractOptions _attractOptions;
     private readonly TranslateOptions _translateOptions;
+    private readonly ResponsibleGamingOptions _responsibleGamingOptions;
     private readonly IEventBus _eventBus;
     private readonly IPropertiesManager _properties;
     private readonly IBank _bank;
@@ -72,6 +72,7 @@ public sealed class AttractService : IAttractService, IDisposable
         IDispatcher dispatcher,
         IOptions<AttractOptions> attractOptions,
         IOptions<TranslateOptions> translateOptions,
+        IOptions<ResponsibleGamingOptions> responsibleGamingOptions,
         IEventBus eventBus,
         IPropertiesManager properties,
         IAttractConfigurationProvider attractConfigurationProvider,
@@ -85,15 +86,14 @@ public sealed class AttractService : IAttractService, IDisposable
         _dispatcher = dispatcher;
         _attractOptions = attractOptions.Value;
         _translateOptions = translateOptions.Value;
+        _responsibleGamingOptions = responsibleGamingOptions.Value;
         _eventBus = eventBus;
         _properties = properties;
         _bank = bank;
         _attractConfigurationProvider = attractConfigurationProvider;
 
-        _attractTimer = new Timer { Interval = TimeSpan.FromSeconds(_configuration.AttractTimerIntervalInSeconds).TotalMilliseconds};
+        _attractTimer = new Timer { Interval = TimeSpan.FromSeconds(_attractOptions.TimerIntervalInSeconds).TotalMilliseconds};
         _attractTimer.Elapsed += AttractTimer_Tick;
-        _attractTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(_attractOptions.TimerIntervalInSeconds) };
-        _attractTimer.Tick += AttractTimer_Tick;
 
         _rotateTopImageTimer = new Timer { Interval = TimeSpan.FromSeconds(RotateTopImageIntervalInSeconds).TotalMilliseconds};
         _rotateTopImageTimer.Elapsed += RotateTopImageTimerTick;
@@ -105,7 +105,7 @@ public sealed class AttractService : IAttractService, IDisposable
     }
 
 
-    public string ActiveLocaleCode => _attractState.Value.IsPrimaryLanguageSelected ? _configuration.LocaleCodes[0] : _configuration.LocaleCodes[1];
+    public string ActiveLocaleCode => _attractState.Value.IsPrimaryLanguageSelected ? _translateOptions.LocaleCodes[0] : _translateOptions.LocaleCodes[1];
 
     public void NotifyEntered()
     {
@@ -275,8 +275,8 @@ public sealed class AttractService : IAttractService, IDisposable
             if (_idleTextState.Value.IsScrolling && _attractState.Value.CanAttractModeStart)
             {
                 var interval = _attractState.Value.IsActive
-                    ? _configuration.AttractSecondaryTimerIntervalInSeconds
-                    : _configuration.AttractTimerIntervalInSeconds;
+                    ? _attractOptions.SecondaryTimerIntervalInSeconds
+                    : _attractOptions.TimerIntervalInSeconds;
 
                 _attractTimer.Interval = TimeSpan.FromSeconds(interval).TotalMilliseconds;
                 _attractTimer.Start();
@@ -298,7 +298,7 @@ public sealed class AttractService : IAttractService, IDisposable
         // Don't display Age Warning while the inserting cash dialog is up.
         // TODO (Future Task) When we have a set way to determine if the current state matches with the old LobbyState.CashIn
         // we can add an && check for that after the config.DisplayAgeWarning check to make it match directly with the old functionality.
-        if(!_configuration.DisplayAgeWarning && _attractState.Value.IsPlaying)
+        if(!_responsibleGamingOptions.AgeWarningEnabled && _attractState.Value.IsPlaying)
         {
             _dispatcher.Dispatch(new AttractExitedAction());
         }
@@ -356,13 +356,13 @@ public sealed class AttractService : IAttractService, IDisposable
     {
         List<AttractVideoDetails> attractList = new List<AttractVideoDetails>();
 
-        if (_configuration.HasAttractIntroVideo)
+        if (_attractOptions.HasIntroVideo)
         {
             attractList.Add(new AttractVideoDetails
             {
-                BottomAttractVideoPath = _configuration.BottomAttractIntroVideoFilename,
-                TopAttractVideoPath = _configuration.TopAttractIntroVideoFilename,
-                TopperAttractVideoPath = _configuration.TopperAttractIntroVideoFilename
+                BottomAttractVideoPath = _attractOptions.BottomIntroVideoFilename,
+                TopAttractVideoPath = _attractOptions.TopIntroVideoFilename,
+                TopperAttractVideoPath = _attractOptions.TopperIntroVideoFilename
             });
         }
 
@@ -412,7 +412,7 @@ public sealed class AttractService : IAttractService, IDisposable
 
     private bool PlayAdditionalConsecutiveAttractVideo()
     {
-        if (!_configuration.HasAttractIntroVideo || _attractState.Value.CurrentAttractIndex != 0 || _attractState.Value.Videos.Count <= 1)
+        if (!_attractOptions.HasIntroVideo || _attractState.Value.CurrentAttractIndex != 0 || _attractState.Value.Videos.Count <= 1)
         {
             _dispatcher.Dispatch(new AttractUpdateConsecutiveCount
             {
@@ -421,7 +421,7 @@ public sealed class AttractService : IAttractService, IDisposable
 
             _logger.LogDebug($"Consecutive Attract Video count: {_attractState.Value.ConsecutiveAttractCount}");
 
-            if (_attractState.Value.ConsecutiveAttractCount >= _configuration.ConsecutiveAttractVideos ||
+            if (_attractState.Value.ConsecutiveAttractCount >= _attractOptions.ConsecutiveVideos ||
                 _attractState.Value.ConsecutiveAttractCount >= _chooserState.Value.Games.Count)
             {
                 _logger.LogDebug("Stopping attract video sequence");
