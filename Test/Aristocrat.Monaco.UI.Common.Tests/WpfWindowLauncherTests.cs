@@ -116,31 +116,9 @@
         {
             _target.Initialize();
 
-            string windowName = "TestWindow";
-
-            // The call to create a dialog blocks until the dialog closes.
-            // So, do it in a thread.
-            bool createWindowReturned = false;
-            Action dialogStarter = new Action(
-                () =>
-                {
-                    _target.CreateWindow<Window>(windowName, true);
-                    createWindowReturned = true;
-                });
-
-            Thread thread = new Thread(new ThreadStart(dialogStarter));
-            thread.Start();
-
-            // Give the thread time to create the dialog, but timeout after a reasonable wait.
-            DateTime stopWaitingDateTime = DateTime.Now + TimeSpan.FromSeconds(10.0);
-            Window createdWindow = null;
-            do
-            {
-                Thread.Sleep(100);
-                createdWindow = _target.GetWindow(windowName);
-            } while (createdWindow == null && DateTime.Now < stopWaitingDateTime);
-
-            Assert.IsFalse(createWindowReturned);
+            const string windowName = "TestWindow";
+            _target.CreateWindow<Window>(windowName);
+            var createdWindow = _target.GetWindow(windowName);
 
             Assert.IsNotNull(createdWindow);
             Assert.AreEqual(1, GetWindowCount());

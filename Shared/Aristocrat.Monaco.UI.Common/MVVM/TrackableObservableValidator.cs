@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
 
     /// <summary>
@@ -36,7 +37,7 @@
             protected set
             {
                 _committed = value;
-                CommitCommand.NotifyCanExecuteChanged();
+                Execute.OnUIThread(() => CommitCommand.NotifyCanExecuteChanged());
                 OnPropertyChanged(nameof(IsCommitted));
             }
         }
@@ -75,8 +76,8 @@
                 if (IsCommitted && !_untrackedPropertyNames.Contains(e.PropertyName))
                 {
                     IsCommitted = false;
-                    CommitCommand.NotifyCanExecuteChanged();
                 }
+                Execute.OnUIThread(() => CommitCommand.NotifyCanExecuteChanged());
             };
         }
 
