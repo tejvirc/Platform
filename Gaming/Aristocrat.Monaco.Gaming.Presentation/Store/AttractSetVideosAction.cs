@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store
 {
-    using Aristocrat.Monaco.Gaming.UI.Models;
+    using UI.Models;
     using System;
     using System.Collections.Generic;
     using System.Collections.Immutable;

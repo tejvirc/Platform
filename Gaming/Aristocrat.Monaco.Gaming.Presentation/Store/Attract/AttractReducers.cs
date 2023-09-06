@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Attract;
 
-using Aristocrat.Monaco.Application.Contracts;
-using Aristocrat.Monaco.Gaming.UI.Models;
+using Application.Contracts;
+using UI.Models;
 using Fluxor;
 using System.Collections.Immutable;
 

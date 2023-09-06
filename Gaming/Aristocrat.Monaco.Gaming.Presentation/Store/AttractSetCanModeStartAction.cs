@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store
 {
-    using Aristocrat.Monaco.Accounting.Contracts;
-    using Aristocrat.Monaco.Kernel;
+    using Accounting.Contracts;
+    using Kernel;
     using System;
     using System.Collections.Generic;
     using System.Linq;
