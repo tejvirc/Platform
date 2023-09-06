@@ -267,6 +267,15 @@
             return EmptyResult;
         }
 
+        public override Empty UpdateVolume(VolumeUpdateNotification request)
+        {
+            Logger.Debug($"UpdateVolume - volume: {request.Volume}");
+            //use command handler to update volume
+            _handlerFactory.Create<UpdateVolume>().Handle(new UpdateVolume(request.Volume));
+
+            return EmptyResult;
+        }
+
         /// <inheritdoc/>>
         public override BeginGameRoundResponse BeginGameRound(BeginGameRoundRequest request)
         {
