@@ -9,21 +9,37 @@ using Microsoft.Extensions.Logging;
 using Prism.Common;
 using Prism.Regions;
 using Views;
+using static Store.Attract.AttractSelectors;
+using Fluxor;
 
-public class MainViewModel : ObservableObject
+public class MainViewModel : ObservableObject, IActivatableViewModel
 {
     private readonly ILogger<MainViewModel> _logger;
 
     private IRegionManager? _regionManager;
     private ObservableObject<IRegion>? _mainRegion;
 
-    public MainViewModel(ILogger<MainViewModel> logger)
+    public MainViewModel(ILogger<MainViewModel> logger, IStore store)
     {
         _logger = logger;
 
         LoadedCommand = new RelayCommand(OnLoaded);
         RegionReadyCommand = new RelayCommand<RegionReadyEventArgs>(OnRegionReady);
+
+        this.WhenActivated(disposables =>
+        {
+            store
+                .Select(SelectAttractStarting)
+                .WhenTrue()
+                .Subscribe(_ =>
+                {
+                    _regionManager?.RequestNavigate(RegionNames.Main, ViewNames.Loading);
+                })
+                .DisposeWith(disposables);
+        });
     }
+
+    public ViewModelActivator Activator { get; } = new();
 
     public RelayCommand LoadedCommand { get; }
 

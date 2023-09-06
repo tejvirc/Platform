@@ -110,6 +110,8 @@ public sealed class Bootstrapper : PrismBootstrapperBase
         containerRegistry.RegisterForNavigation<MultiLanguageUpiView>(ViewNames.MultiLingualUpi);
         containerRegistry.RegisterForNavigation<InfoBarView>(ViewNames.InfoBar);
         containerRegistry.RegisterForNavigation<ReplayNavView>(ViewNames.ReplayNav);
+        containerRegistry.RegisterForNavigation<PaidMeterView>(ViewNames.PaidMeter);
+        containerRegistry.RegisterForNavigation<NotificationView>(ViewNames.Notification);
 
         containerRegistry.RegisterServices(ConfigureServices);
     }

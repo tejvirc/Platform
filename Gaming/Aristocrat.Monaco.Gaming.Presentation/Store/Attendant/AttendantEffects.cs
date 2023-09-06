@@ -6,16 +6,16 @@ using Services.Attendant;
 
 public class AttendantEffects
 {
-    private readonly IAttendantService _attendantAgent;
+    private readonly IAttendantService _attendantService;
 
-    public AttendantEffects(IAttendantService attendantAgent)
+    public AttendantEffects(IAttendantService attendantService)
     {
-        _attendantAgent = attendantAgent;
+        _attendantService = attendantService;
     }
 
     [EffectMethod(typeof(AttendantRequestOrCancelServiceAction))]
     public async Task RequestOrCancel(IDispatcher _)
     {
-        await _attendantAgent.RequestOrCancelServiceAsync();
+        await _attendantService.RequestOrCancelServiceAsync();
     }
 }

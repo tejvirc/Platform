@@ -12,26 +12,30 @@
              d:DataContext="{d:DesignInstance Type=viewModels:NotificationViewModel, IsDesignTimeCreatable=False}"
              d:DesignHeight="450" d:DesignWidth="800">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Skins/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
-        <Viewbox HorizontalAlignment="Right"
-                                 VerticalAlignment="Bottom"
-                                 AutomationProperties.AutomationId="Viewbox103_1F333AB0">
-            <Border Background="#FF000000"
-                                    BorderThickness="0"
-                                    CornerRadius="6"
-                                    Margin="0 4 0 4"
-                                    Padding="4 0 4 0"
-                                    Visibility="{Binding IsNotificationTextVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
-                                    AutomationProperties.AutomationId="Border104_1F333AB0">
-                <Label Content="{Binding CurrentNotificationText}"
-                                       FontSize="16"
-                                       FontFamily="Impact"
-                                       Foreground="White"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       AutomationProperties.AutomationId="Label105_1F333AB0" />
-            </Border>
-        </Viewbox>
+        <Border Background="#FF000000"
+                BorderThickness="0"
+                CornerRadius="6"
+                Margin="0 4 0 4"
+                Padding="4 0 4 0"
+                Visibility="{Binding IsNotificationTextVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                AutomationProperties.AutomationId="Border104_1F333AB0">
+            <Label Content="{Binding CurrentNotificationText}"
+                    FontSize="16"
+                    FontFamily="Impact"
+                    Foreground="White"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    AutomationProperties.AutomationId="Label105_1F333AB0" />
+        </Border>
     </Grid>
 
 </UserControl>

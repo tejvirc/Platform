@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Chooser;
 
 using System.Threading.Tasks;
+using Aristocrat.Monaco.Gaming.Presentation.Services.Chooser;
 using Contracts.Audio;
 using Extensions.Fluxor;
 using Fluxor;
@@ -16,19 +17,22 @@ public class ChooserEffects
     private readonly IState<GameState> _gameState;
     private readonly IAudioService _audioService;
     private readonly IGameLauncher _gameLauncher;
+    private readonly IGameFilterService _gameFilterService;
 
     public ChooserEffects(
         ILogger<ChooserEffects> logger,
         IState<ChooserState> chooserState,
         IState<GameState> gameState,
         IAudioService audioService,
-        IGameLauncher gameLauncher)
+        IGameLauncher gameLauncher,
+        IGameFilterService gameFilterService)
     {
         _logger = logger;
         _chooserState = chooserState;
         _gameState = gameState;
         _audioService = audioService;
         _gameLauncher = gameLauncher;
+        _gameFilterService = gameFilterService;
     }
 
     [EffectMethod]
@@ -45,5 +49,13 @@ public class ChooserEffects
         _gameLauncher.LaunchGame(action.Game);
 
         await dispatcher.DispatchAsync(new GameLoadingAction(action.Game));
+    }
+
+    [EffectMethod(typeof(UserInteractionAction))]
+    public Task UserInteraction(IDispatcher _)
+    {
+        _gameFilterService.ResetIdleTimer();
+
+        return Task.CompletedTask;
     }
 }

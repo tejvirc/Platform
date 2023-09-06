@@ -2,10 +2,10 @@
 
 public record ChooserUpdateDenomFilterAction
 {
-    public ChooserUpdateDenomFilterAction(int denomFilter)
+    public ChooserUpdateDenomFilterAction(int filter)
     {
-        DenomFilter = denomFilter;
+        Filter = filter;
     }
 
-    public int DenomFilter { get; }
+    public int Filter { get; }
 }

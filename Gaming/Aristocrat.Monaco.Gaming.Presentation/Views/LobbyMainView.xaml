@@ -35,31 +35,35 @@
 
         <Border Grid.Row="0">
             <Viewbox>
-                <!--<views:ChooserView />-->
-                <ContentControl x:Name="ChooserRegion" prism:RegionManager.RegionName="{x:Static views:RegionNames.Chooser}" /> 
+                <ContentControl x:Name="ChooserRegion" prism:RegionManager.RegionName="{x:Static views:RegionNames.Chooser}" />
             </Viewbox>
         </Border>
         <Border Grid.Row="1">
-            <Viewbox>
-                <!--<views:BannerView />-->
-                <ContentControl x:Name="BannerRegion" prism:RegionManager.RegionName="{x:Static views:RegionNames.Banner}" />
-            </Viewbox>
+            <Grid Margin="19 0 20 8">
+                <Viewbox>
+                    <ContentControl x:Name="BannerRegion" prism:RegionManager.RegionName="{x:Static views:RegionNames.Banner}" />
+                </Viewbox>
+                <Viewbox HorizontalAlignment="Left">
+                    <ContentControl x:Name="PaidMeterRegion" prism:RegionManager.RegionName="{x:Static views:RegionNames.PaidMeter}" />
+                </Viewbox>
+                <Viewbox HorizontalAlignment="Right"
+                         VerticalAlignment="Bottom">
+                    <ContentControl x:Name="NotificationRegion" prism:RegionManager.RegionName="{x:Static views:RegionNames.Notification}" />
+                </Viewbox>
+            </Grid>
         </Border>
         <Border Grid.Row="2">
             <Viewbox>
-                <!--<views:MultiLanguageUpiView />-->
                 <ContentControl x:Name="UpiRegion" prism:RegionManager.RegionName="{x:Static views:RegionNames.Upi}" />
             </Viewbox>
         </Border>
         <Border Grid.Row="3">
             <Viewbox>
-                <!--<views:InfoBarView />-->
                 <ContentControl x:Name="InfoBarRegion" prism:RegionManager.RegionName="{x:Static views:RegionNames.InfoBar}" />
             </Viewbox>
         </Border>
         <Border Grid.Row="4">
             <Viewbox>
-                <!--<views:ReplayNavView />-->
                 <ContentControl x:Name="ReplayNavRegion" prism:RegionManager.RegionName="{x:Static views:RegionNames.ReplayNav}" />
             </Viewbox>
         </Border>

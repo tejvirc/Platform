@@ -17,6 +17,13 @@ public static class ChooserReducers
     public static ChooserState UpdateDenomFilter(ChooserState state, ChooserUpdateDenomFilterAction action) =>
         state with
         {
-            DenomFilter = action.DenomFilter
+            DenomFilter = action.Filter
+        };
+
+    [ReducerMethod]
+    public static ChooserState UpdateGameFilter(ChooserState state, ChooserUpdateGameFilterAction action) =>
+        state with
+        {
+            GameFilter = action.Filter
         };
 }

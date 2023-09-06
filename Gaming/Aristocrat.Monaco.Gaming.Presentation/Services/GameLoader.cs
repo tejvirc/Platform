@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Application.Contracts.Extensions;
 using Common;
 using Extensions.Fluxor;
+using Fluxor;
 using Gaming.Contracts;
 using Gaming.Contracts.Models;
 using Kernel;
@@ -102,7 +103,7 @@ public sealed class GameLoader : IGameLoader, IDisposable
 
     private async Task<IEnumerable<GameInfo>> GetOrderedGames(IReadOnlyCollection<IGameDetail> games, string activeLocalCode)
     {
-        var useSmallIcons = await _selector.Select(SelectUseSmallIcons).LastAsync();
+        var useSmallIcons = await _store.Select(SelectUseSmallIcons).LastAsync();
 
         var gameCombos = (from game in games
             from denom in game.ActiveDenominations

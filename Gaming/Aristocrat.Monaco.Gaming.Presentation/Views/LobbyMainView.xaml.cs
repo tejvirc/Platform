@@ -31,6 +31,12 @@
 
             RegionManager.GetObservableRegion(ReplayNavRegion)
                 .PropertyChanged += OnRegionObservableChanged;
+
+            RegionManager.GetObservableRegion(PaidMeterRegion)
+                .PropertyChanged += OnRegionObservableChanged;
+
+            RegionManager.GetObservableRegion(NotificationRegion)
+                .PropertyChanged += OnRegionObservableChanged;
         }
 
         public static readonly RoutedEvent RegionReadyEvent

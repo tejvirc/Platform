@@ -12,36 +12,41 @@
              d:DataContext="{d:DesignInstance Type=viewModels:PaidMeterViewModel, IsDesignTimeCreatable=False}"
              d:DesignHeight="450" d:DesignWidth="800">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Aristocrat.Monaco.UI.Common;component/Skins/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
-        <Viewbox HorizontalAlignment="Left"
-                                 AutomationProperties.AutomationId="Viewbox98_1F333AB0">
-            <Border Background="#FF000000"
-                                    HorizontalAlignment="Left"
-                                    BorderThickness="0"
-                                    CornerRadius="10"
-                                    Padding="8 4 8 4"
-                                    Visibility="{Binding IsPaidMeterVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
-                                    AutomationProperties.AutomationId="Border99_1F333AB0">
-                <StackPanel Orientation="Horizontal"
-                                            AutomationProperties.AutomationId="StackPanel100_1F333AB0">
-                    <Label Content="{Binding PaidMeterLabel}"
-                                           FontSize="30"
-                                           FontFamily="Impact"
-                                           Foreground="White"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           AutomationProperties.AutomationId="Label101_1F333AB0" />
-                    <Label Content="{Binding PaidMeterValue}"
-                                           FontSize="30"
-                                           Padding="1 5 5 5"
-                                           FontFamily="Impact"
-                                           Foreground="White"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           AutomationProperties.AutomationId="Label102_1F333AB0" />
-                </StackPanel>
-            </Border>
-        </Viewbox>
+        <Border Background="#FF000000"
+                HorizontalAlignment="Left"
+                BorderThickness="0"
+                CornerRadius="10"
+                Padding="8 4 8 4"
+                Visibility="{Binding IsPaidMeterVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+                AutomationProperties.AutomationId="Border99_1F333AB0">
+            <StackPanel Orientation="Horizontal"
+                        AutomationProperties.AutomationId="StackPanel100_1F333AB0">
+                <Label Content="{Binding PaidMeterLabel}"
+                        FontSize="30"
+                        FontFamily="Impact"
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        AutomationProperties.AutomationId="Label101_1F333AB0" />
+                <Label Content="{Binding PaidMeterValue}"
+                        FontSize="30"
+                        Padding="1 5 5 5"
+                        FontFamily="Impact"
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        AutomationProperties.AutomationId="Label102_1F333AB0" />
+            </StackPanel>
+        </Border>
     </Grid>
 
 </UserControl>

@@ -3,8 +3,8 @@
 using System;
 using System.Reactive.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Contracts;
 using Fluxor;
+using Gaming.Contracts;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Options;
@@ -19,8 +19,8 @@ public class TopperViewModel : ObservableObject, IActivatableViewModel
 
     private string? _topperImageResourceKey;
 
-    public LobbyTopperViewModel(
-        ILogger<LobbyTopperViewModel> logger,
+    public TopperViewModel(
+        ILogger<TopperViewModel> logger,
         IStore store,
         IOptions<AttractOptions> attractOptions)
     {
@@ -45,7 +45,7 @@ public class TopperViewModel : ObservableObject, IActivatableViewModel
                         _logger.LogDebug(
                             "Setting Topper Image Index: {NewIndex} Resource ID: {ImageKey}",
                             index,
-                            configuration.RotateTopperImageAfterAttractVideo[index]);
+                            attractOptions.Value.TopperImageRotation[index]);
 
                         TopperImageResourceKey = attractOptions.Value.TopperImageRotation[index];
                     }
