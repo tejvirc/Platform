@@ -6,6 +6,7 @@
     <Configurations>Debug;Release;Retail;DebugInspection;ReleaseInspection;RetailInspection</Configurations>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>CODE_ANALYSIS;DEBUG;TRACE</DefineConstants>

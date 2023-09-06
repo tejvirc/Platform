@@ -26,6 +26,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
     <OutputType>Exe</OutputType>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="$(SolutionDir)CustomDictionary.xml">

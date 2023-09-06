@@ -5,6 +5,7 @@
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <AssemblyTitle>Aristocrat.Monaco.Hardware.Tests</AssemblyTitle>
     <Configurations>Debug;Release;Retail</Configurations>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Kernel\Aristocrat.Monaco.Kernel.Contracts\Aristocrat.Monaco.Kernel.Contracts.csproj" />
