@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -42,7 +43,7 @@
             _progressiveClient.Disconnected += OnClientDisconnected;
         }
 
-        public async Task<RegistrationResults> RegisterClient(
+        public async Task<ProgressiveRegistrationResults> RegisterClient(
             ProgressiveRegistrationMessage message,
             CancellationToken token = default)
         {
@@ -82,6 +83,17 @@
                 Logger.Debug($"ProgressiveMapping: level={pm.ProgressiveLevelId}, sequence={pm.SequenceNumber}, GameTitleId={pm.GameTitleId}, Denomination={pm.Denomination}");
             }
 
+            // Verify that for every attempted game registration there was a mapping returned from the server
+            var configurationFailed = false;
+            foreach (var game in message.Games)
+            {
+                if (!result.ProgressiveLevels.Select(x => x.GameTitleId == game.GameTitleId &&
+                                                          x.Denomination == game.Denomination).Any())
+                {
+                    configurationFailed = true;
+                }
+            }
+
             var progressiveLevels = new List<ProgressiveLevelInfo>();
             foreach (var progressiveMapping in result.ProgressiveLevels)
             {
@@ -113,7 +125,7 @@
             var progressiveInfoMessage = new ProgressiveInfoMessage(
                 ResponseCode.Ok,
                 true,
-                message.GameTitleId, // TODO result no longer has a game title id
+                message.GameTitleId, // result no longer has a game title id
                 result.AuthToken,
                 progressiveLevels,
                 metersToReport);
@@ -121,7 +133,7 @@
                 .Handle<ProgressiveInformationResponse, ProgressiveInfoMessage>(progressiveInfoMessage, token)
                 .ConfigureAwait(false);
 
-            return new RegistrationResults(handlerResult?.ResponseCode ?? ResponseCode.Rejected);
+            return new ProgressiveRegistrationResults(handlerResult?.ResponseCode ?? ResponseCode.Rejected, configurationFailed);
         }
 
         public void Dispose()

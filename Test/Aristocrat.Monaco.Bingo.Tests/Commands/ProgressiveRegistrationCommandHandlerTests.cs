@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using Application.Contracts;
     using Aristocrat.Bingo.Client.Messages;
-    using Aristocrat.Monaco.Gaming;
+    using Aristocrat.Bingo.Client.Messages.Progressives;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Common.Exceptions;
     using Common.Storage.Model;
@@ -80,7 +80,7 @@
             _registrationServer.Setup(x => x.RegisterClient(It.Is<ProgressiveRegistrationMessage>(
                 m => string.Equals(m.MachineSerial, MachineId.ToString()) &&
                 string.Equals(m.GameTitleId, GameTitleId)), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(new RegistrationResults(ResponseCode.Ok)))
+                .Returns(Task.FromResult(new ProgressiveRegistrationResults(ResponseCode.Ok)))
                 .Verifiable();
             SetupGameDetails();
 
@@ -97,7 +97,7 @@
             _registrationServer.Setup(x => x.RegisterClient(It.Is<ProgressiveRegistrationMessage>(
                 m => string.Equals(m.MachineSerial, MachineId) &&
                 string.Equals(m.GameTitleId, GameTitleId)), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(new RegistrationResults(code)))
+                .Returns(Task.FromResult(new ProgressiveRegistrationResults(code)))
                 .Verifiable();
             await _target.Handle(new ProgressiveRegistrationCommand());
         }
