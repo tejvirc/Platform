@@ -127,7 +127,8 @@
                     hostLevel.levelId,
                     hostLevel.progValueAmt.MillicentsToCents(),
                     hostLevel.progValueSeq,
-                    hostLevel.progValueText);
+                    hostLevel.progValueText,
+                    linkedLevel.FlavorType);
             }
 
             device.ResetProgressiveInfoTimer();

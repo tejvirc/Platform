@@ -34,10 +34,17 @@
         public string ProgressiveValueText { get; }
 
         /// <summary>
-        ///     Gets or the name of the level. This should always be unique as it is
+        ///     Gets the name of the level. This should always be unique as it is
         ///     a concatenation of ProtocolName, ProgressiveGroupId, and LevelId.
         /// </summary>
         string LevelName { get; }
+
+        /// <summary>
+        ///     Gets the common name of the level, as might be displayed to a player
+        ///     Used in some meter reporting.
+        ///     Not changeable once created to prevent meter names changing
+        /// </summary>
+        string CommonLevelName { get; }
 
         /// <summary>
         ///     Gets the current amount for the linked progressive level
@@ -64,6 +71,13 @@
         ///     Gets the wager credits associated with this level.
         /// </summary>
         long WagerCredits { get; }
+
+        /// <summary>
+        ///     Gets or sets the progressive flavor type associated with this level.
+        ///     This is used by vertex to distinguish various level funding behaviors
+        ///     All levels mapped to this Linked level must be the same flavor type
+        /// </summary>
+        public FlavorType FlavorType { get;}
 
     }
 }

@@ -35,12 +35,12 @@
         /// </summary>
         public string ProgressiveValueText { get; set; }
 
-        /// <summary>
-        ///     Gets or the name of the level. This should always be unique as it is
-        ///     a concatenation of ProtocolName, ProgressiveGroupId, and LevelId.
-        /// </summary>
+        /// <inheritdoc />
         [JsonIgnore]
         public string LevelName => $"{ProtocolName}, Level Id: {LevelId}, Progressive Group Id: {ProgressiveGroupId}";
+
+        /// <inheritdoc />
+        public string CommonLevelName { get; init; }
 
         /// <summary>
         ///     Gets or sets the amount for the linked progressive level
@@ -64,6 +64,9 @@
 
         /// <inheritdoc />
         public long WagerCredits { get; set; }
+
+        /// <inheritdoc />
+        public FlavorType FlavorType { get; set; }
 
         /// <summary>
         ///     Gets the string value of the progressive level

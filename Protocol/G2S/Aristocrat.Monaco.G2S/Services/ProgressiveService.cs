@@ -333,22 +333,11 @@
 
             var meters = new List<meterInfo>
             {
-                new meterInfo
+                new()
                 {
                     meterDateTime = DateTime.UtcNow,
                     meterInfoType = MeterInfoType.Event,
-                    deviceMeters =
-                        new[]
-                        {
-                            new deviceMeters
-                            {
-                                deviceClass = device.PrefixedDeviceClass(),
-                                deviceId = device.Id,
-                                simpleMeter = _progressiveLevelManager.GetProgressiveLevelMeters(linkedLevel.LevelName,
-                                    ProgressiveMeters.LinkedProgressiveWageredAmount,
-                                    ProgressiveMeters.LinkedProgressivePlayedCount).ToArray()
-                            }
-                        }
+                    deviceMeters = _progressiveLevelManager?.GetProgressiveDeviceMeters(device.Id).ToArray()
                 }
             };
 
@@ -554,11 +543,11 @@
             try
             {
                 var enabledGames = _gameProvider.GetGames().Where(g => g.EgmEnabled).ToList();
-                var enabledLinkedLevels = _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
-                            .Where(l => FilterEnabledLinkedLevels(l, enabledGames));
+                var enabledLpLevels = _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
+                            .Where(l => FilterEnabledLpLevels(l, enabledGames));
 
                 var pools =
-                    (from level in enabledLinkedLevels
+                    (from level in enabledLpLevels
                      join linkConfig in vertexLevelIds on level.DeviceId equals linkConfig.Key
                      group level by new
                      {
@@ -580,14 +569,18 @@
                         continue;
                     }
 
-                    var resetValue = pool.First().ResetValue;
+                    //mismatches on ResetValue will be caught by LinkedProgressiveVerification (if enabled)
+                    //mismatches on FlavorType will be caught by Vertex sync process (getProgressiveProfile)
+                    //so it's safe to use just the First matching level, even if there are multiple.
+                    var firstLevel = pool.First();
 
                     var linkedLevel = _progressiveLevelManager.UpdateLinkedProgressiveLevels(
                         pool.Key.ProgId,
                         pool.Key.LevelId,
-                        resetValue.MillicentsToCents(),
+                        firstLevel.ResetValue.MillicentsToCents(),
                         0,
                         string.Empty,
+                        firstLevel.FlavorType,
                         true);
 
                     var progressiveLevelAssignment = pool.Select(
@@ -600,7 +593,7 @@
                                 linkedLevel.LevelName),
                             level.ResetValue)).ToList();
 
-                    var poolName = $"{pool.Key.PackName}_{resetValue.MillicentsToDollars()}_{pool.Key.LevelName}";
+                    var poolName = $"{pool.Key.PackName}_{firstLevel.ResetValue.MillicentsToDollars()}_{pool.Key.LevelName}";
                     var valueAttributeName = $"ins{poolName}_Value";
                     var messageAttributeName = $"ins{poolName}_Message";
 
@@ -640,7 +633,7 @@
             }
         }
 
-        private static bool FilterEnabledLinkedLevels(IViewableProgressiveLevel level, IEnumerable<IGameDetail> enabledGames)
+        private static bool FilterEnabledLpLevels(IViewableProgressiveLevel level, IEnumerable<IGameDetail> enabledGames)
         {
             if (level.LevelType != ProgressiveLevelType.LP) return false;
 

@@ -4,6 +4,7 @@
     using Accounting.Contracts;
     using Application.Contracts;
     using Aristocrat.G2S;
+    using Aristocrat.G2S.Extension.ATI;
     using Gaming.Contracts;
 
     public static class MeterMap
@@ -142,7 +143,25 @@
         public static IDictionary<string, string> ProgressiveMeters { get; } = new Dictionary<string, string>
         {
             { ProgressiveMeterName.WageredAmount, Gaming.Contracts.Progressives.ProgressiveMeters.LinkedProgressiveWageredAmount },
-            { ProgressiveMeterName.PlayedCount, Gaming.Contracts.Progressives.ProgressiveMeters.LinkedProgressivePlayedCount } 
+            { ProgressiveMeterName.PlayedCount, Gaming.Contracts.Progressives.ProgressiveMeters.LinkedProgressivePlayedCount },
+            { ContributionMeterName.AnteBet, Gaming.Contracts.Progressives.ProgressiveMeters.LinkedProgressiveWageredAmountWithAnte },
+        };
+
+        //This mapping provides a map between a level id and the appropriate bulk contribution meter name
+        public static IDictionary<int, string> BulkContributionMeters { get; } = new Dictionary<int, string>
+        {
+            { 1, ContributionMeterName.BulkContribution01 },
+            { 2, ContributionMeterName.BulkContribution02 },
+            { 3, ContributionMeterName.BulkContribution03 },
+            { 4, ContributionMeterName.BulkContribution04 },
+            { 5, ContributionMeterName.BulkContribution05 },
+            { 6, ContributionMeterName.BulkContribution06 },
+            { 7, ContributionMeterName.BulkContribution07 },
+            { 8, ContributionMeterName.BulkContribution08 },
+            { 9, ContributionMeterName.BulkContribution09 },
+            { 10, ContributionMeterName.BulkContribution10 },
+            { 11, ContributionMeterName.BulkContribution11 },
+            { 12, ContributionMeterName.BulkContribution12 },
         };
 
         public static IDictionary<string, string> BonusMeters { get; } = new Dictionary<string, string>

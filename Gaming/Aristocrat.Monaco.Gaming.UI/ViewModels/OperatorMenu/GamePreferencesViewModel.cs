@@ -81,6 +81,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         private string _cardSoundFilePath;
         private ProgressiveLobbyIndicator _progressiveIndicator;
         private bool _linkedProgressiveVerificationEnabled;
+        private bool _linkedProgressiveVerificationAvailable;
 
         public GamePreferencesViewModel()
         {
@@ -175,6 +176,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             GameExistsWithExtendedRtpInfo = gameProvider.GetAllGames().Any(game => game.HasExtendedRtpInformation);
 
             LinkedProgressiveVerificationEnabled = PropertiesManager.GetValue(GamingConstants.LinkedProgressiveVerificationEnabled, true);
+            LinkedProgressiveVerificationAvailable = PropertiesManager.GetValue(GamingConstants.ProgressiveConfigurableLinkedLeveId, false);
         }
 
         public IEnumerable<GameStartMethodInfo> GameStartMethods { get; } = new[]
@@ -1003,15 +1005,17 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             get => _linkedProgressiveVerificationEnabled;
             set
             {
-                if (_linkedProgressiveVerificationEnabled == value)
+                if (SetProperty(ref _linkedProgressiveVerificationEnabled, value))
                 {
-                    return;
+                    Save(GamingConstants.LinkedProgressiveVerificationEnabled, _linkedProgressiveVerificationEnabled);
                 }
-
-                _linkedProgressiveVerificationEnabled = value;
-                OnPropertyChanged(nameof(LinkedProgressiveVerificationEnabled));
-                Save(GamingConstants.LinkedProgressiveVerificationEnabled, _linkedProgressiveVerificationEnabled);
             }
+        }
+
+        public bool LinkedProgressiveVerificationAvailable
+        {
+            get => _linkedProgressiveVerificationAvailable;
+            set => SetProperty(ref _linkedProgressiveVerificationAvailable, value);
         }
 
         public bool GameExistsWithExtendedRtpInfo { get; set; }

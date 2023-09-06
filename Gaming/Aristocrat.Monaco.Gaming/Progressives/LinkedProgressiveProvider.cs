@@ -175,7 +175,9 @@
                     CurrentErrorStatus = ProgressiveErrors.None,
                     ClaimStatus = new LinkedProgressiveClaimStatus(),
                     ProgressiveValueSequence = level.ProgressiveValueSequence,
-                    ProgressiveValueText = level.ProgressiveValueText
+                    ProgressiveValueText = level.ProgressiveValueText,
+                    FlavorType = level.FlavorType,
+                    CommonLevelName = level.CommonLevelName,
                 };
 
                 _linkedProgressiveIndex.Add(level.LevelName, levelToAdd);
@@ -212,11 +214,10 @@
                 }
 
                 level.WagerCredits = linkedLevel.WagerCredits;
-
                 level.Expiration = linkedLevel.Expiration.ToUniversalTime();
-
                 level.ProgressiveValueSequence = linkedLevel.ProgressiveValueSequence;
                 level.ProgressiveValueText = linkedLevel.ProgressiveValueText;
+                level.FlavorType = level.FlavorType;
 
                 updatedLevels.Add(level);
                 Logger.Debug($"Linked Level Updated: {level}");

@@ -83,20 +83,7 @@
         // It's not tied into the same mechanisms
         private deviceMeters[] GetProgressiveDeviceMeters(int progDeviceId)
         {
-            if (_progressiveLevelManager == null) return null;
-
-            return new[]
-                    {
-                            new deviceMeters
-                            {
-                                deviceClass = DeviceClass.G2S_progressive,
-                                deviceId = progDeviceId,
-                                simpleMeter = _progressiveLevelManager.GetProgressiveDeviceMeters(
-                                    progDeviceId,
-                                    ProgressiveMeters.LinkedProgressiveWageredAmount,
-                                    ProgressiveMeters.LinkedProgressivePlayedCount).ToArray()
-                            }
-                        };
+            return _progressiveLevelManager?.GetProgressiveDeviceMeters(progDeviceId).ToArray();
         }
     }
 }

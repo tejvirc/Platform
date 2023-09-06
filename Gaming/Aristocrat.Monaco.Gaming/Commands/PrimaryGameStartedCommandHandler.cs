@@ -54,7 +54,7 @@
             {
                 var betDetail = (IBetDetails)_properties.GetProperty(GamingConstants.SelectedBetDetails, null);
 
-                _progressiveGame.IncrementProgressiveLevel(string.Empty, command.Wager.CentsToMillicents(), betDetail?.Ante ?? 0);
+                _progressiveGame.IncrementProgressiveLevel(string.Empty, command.Wager.CentsToMillicents(), betDetail?.Ante ?? 0L);
 
                 // Start before subtracting bet to get correct StartCredits.
                 _gameHistory.Start(command.Wager, command.Data, _progressiveGame.GetJackpotSnapshot(string.Empty));
