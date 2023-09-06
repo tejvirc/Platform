@@ -12,11 +12,13 @@
     using System.Runtime.CompilerServices;
     using Contracts.ConfigWizard;
     using Contracts;
+    using Contracts.Localization;
     using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
     using Kernel.Contracts;
     using log4net;
+    using Models;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
     using MVVM;
@@ -68,6 +70,7 @@
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            VolumeOptions = new ();
 
             _isAudioDisabled = !IsAudioServiceAvailable || !_audio.IsAvailable;
 
@@ -96,6 +99,11 @@
             PlayCommandOnRearLeftSpeaker = new ActionCommand<object>(PlaySoundOnRearLeftSpeaker, _ => enablePlay);
 
             PlayCommandOnRearRightSpeaker = new ActionCommand<object>(PlaySoundOnRearRightSpeaker, _ => enablePlay);
+
+            foreach (VolumeLevel volumeLevel in Enum.GetValues(typeof(VolumeLevel)))
+            {
+                VolumeOptions.Add(new VolumeOption(volumeLevel));
+            }
         }
 
         public void SetTestReporter(IInspectionService reporter)
@@ -196,6 +204,8 @@
         }
 
         public ObservableCollection<SoundFileViewModel> SoundFiles { get; } = new ObservableCollection<SoundFileViewModel>();
+
+        public ObservableCollection<VolumeOption> VolumeOptions { get; set; }
 
         public SoundFileViewModel Sound
         {
@@ -320,6 +330,7 @@
         {
             _eventBus.Subscribe<EnabledEvent>(this, OnEnabledEvent);
             _eventBus.Subscribe<DisabledEvent>(this, OnDisabledEvent);
+            _eventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
 
             _playingTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromMilliseconds(100) };
             _playingTimer.Tick += OnPlayingTimerTick;
@@ -562,6 +573,19 @@
                 IsPlaying = false;
                 IsAudioDisabled = true;
             });
+        }
+
+        private void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            UpdateVolumeOptions();
+        }
+
+        private void UpdateVolumeOptions()
+        {
+            foreach (var volumeOption in VolumeOptions)
+            {
+                volumeOption.UpdateDisplay();
+            }
         }
     }
 }
