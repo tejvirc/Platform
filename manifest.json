@@ -14244,7 +14244,7 @@
       "output": {
         ".html": {
           "relative_path": "api/application/Aristocrat.Monaco.Application.UI.ViewModels.NetworkConfigPageViewModel.html",
-          "hash": "460B9UrXpY4zln9Oqhy7JsK2CAFrEyfeXbTX4MAJ8PE="
+          "hash": "nEBd5eD0nd+qLrgHbZqstl6qtD5c6tlrpnQFQTBa7i4="
         }
       },
       "is_incremental": false,
@@ -15682,9 +15682,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -25885,6 +25882,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -26214,7 +26214,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.UI.Common.MVVM.TrackableObservableValidator.html",
-          "hash": "d7z20JUx3Nu0S6lzEquit3zgq0+R+pAUFBd4XAlV5pM="
+          "hash": "gv8NDhPRws8bdYVhllKt4lcImH+abWlMdhmg8xy/S5g="
         }
       },
       "is_incremental": false,
@@ -43398,7 +43398,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.UI.ViewModels.SecurityConfigurationViewModel.html",
-          "hash": "9Du2spb49hi6bU3kD3pQixosm8HCxFDQSvzSURQzpNQ="
+          "hash": "pw1bGQj/ZqVJVd4nI1YPmSE9w7CZcIO1Tce2h56vIBo="
         }
       },
       "is_incremental": false,
