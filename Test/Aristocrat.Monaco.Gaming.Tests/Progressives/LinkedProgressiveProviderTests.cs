@@ -16,6 +16,9 @@
     [TestClass]
     public class LinkedProgressiveProviderTests
     {
+        private static readonly DateTime OneMillisecondFromNow = DateTime.Now.AddMilliseconds(1).ToUniversalTime();
+        private static readonly DateTime FiveSecondsFromNow = DateTime.Now.AddMilliseconds(5000).ToUniversalTime();
+
         private readonly List<LinkedProgressiveLevel> _testData = new List<LinkedProgressiveLevel>
         {
             new LinkedProgressiveLevel
@@ -25,7 +28,7 @@
                 LevelId = 1,
                 Amount = 100000,
                 CurrentErrorStatus = ProgressiveErrors.None,
-                Expiration = DateTime.Now.AddMilliseconds(1).ToUniversalTime()
+                Expiration = OneMillisecondFromNow,
             },
             new LinkedProgressiveLevel
             {
@@ -34,7 +37,7 @@
                 LevelId = 2,
                 Amount = 9999,
                 CurrentErrorStatus = ProgressiveErrors.None,
-                Expiration = DateTime.Now.AddMilliseconds(1).ToUniversalTime()
+                Expiration = OneMillisecondFromNow
             },
             new LinkedProgressiveLevel
             {
@@ -43,7 +46,7 @@
                 LevelId = 3,
                 Amount = 12345,
                 CurrentErrorStatus = ProgressiveErrors.ProgressiveRtpError,
-                Expiration = DateTime.Now.AddMilliseconds(1).ToUniversalTime()
+                Expiration = OneMillisecondFromNow
             }
         };
 
@@ -56,7 +59,7 @@
                 LevelId = 1,
                 Amount = 100001,
                 CurrentErrorStatus = ProgressiveErrors.None,
-                Expiration = DateTime.Now.AddMilliseconds(5000).ToUniversalTime()
+                Expiration = FiveSecondsFromNow
             },
             new LinkedProgressiveLevel
             {
@@ -65,7 +68,7 @@
                 LevelId = 2,
                 Amount = 10000,
                 CurrentErrorStatus = ProgressiveErrors.None,
-                Expiration = DateTime.Now.AddMilliseconds(5000).ToUniversalTime()
+                Expiration = FiveSecondsFromNow
             },
             new LinkedProgressiveLevel
             {
@@ -74,7 +77,7 @@
                 LevelId = 3,
                 Amount = 12346,
                 CurrentErrorStatus = ProgressiveErrors.ProgressiveRtpError,
-                Expiration = DateTime.Now.AddMilliseconds(5000).ToUniversalTime()
+                Expiration = FiveSecondsFromNow
             }
         };
 
@@ -87,7 +90,7 @@
                 LevelId = 1,
                 Amount = 100001,
                 CurrentErrorStatus = ProgressiveErrors.None,
-                Expiration = DateTime.Now.AddMilliseconds(5000).ToUniversalTime()
+                Expiration = FiveSecondsFromNow
             },
             new LinkedProgressiveLevel
             {
@@ -96,7 +99,7 @@
                 LevelId = 2,
                 Amount = 10000,
                 CurrentErrorStatus = ProgressiveErrors.None,
-                Expiration = DateTime.Now.AddMilliseconds(5000).ToUniversalTime()
+                Expiration = FiveSecondsFromNow
             },
             new LinkedProgressiveLevel
             {
@@ -105,7 +108,7 @@
                 LevelId = 3,
                 Amount = 12346,
                 CurrentErrorStatus = ProgressiveErrors.ProgressiveRtpError,
-                Expiration = DateTime.Now.AddMilliseconds(5000).ToUniversalTime()
+                Expiration = FiveSecondsFromNow
             },
             new LinkedProgressiveLevel
             {
@@ -114,7 +117,7 @@
                 LevelId = 4,
                 Amount = 12346,
                 CurrentErrorStatus = ProgressiveErrors.None,
-                Expiration = DateTime.Now.AddMilliseconds(5000).ToUniversalTime()
+                Expiration = FiveSecondsFromNow
             }
         };
 
