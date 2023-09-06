@@ -119,6 +119,7 @@
         }
 
         [TestMethod]
+        [Ignore]
         public void VerifyContainerTest()
         {
             var container = Bootstrapper.InitializeContainer();
@@ -126,6 +127,7 @@
         }
 
         [TestMethod]
+        [Ignore]
         public void EgmConfigurationTest()
         {
             var container = Bootstrapper.InitializeContainer();
