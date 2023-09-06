@@ -13,6 +13,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Application.Contracts.OperatorMenu;
     using Application.Contracts.Media;
     using Cabinet.Contracts;
+    using Commands;
     using Contracts;
     using Contracts.Bonus;
     using Contracts.Events;
@@ -360,6 +361,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     {
                         // Start the Responsible Game Timer since we have completed the Recovery Game Load
                         _responsibleGaming?.OnGamePlayEnabled();
+                        _commandFactory.Create<CheckBalance>().Handle(new CheckBalance());
                     }
 
                     if (Config.DisplaySessionTimeInClock)
