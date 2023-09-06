@@ -18,6 +18,7 @@
     using Kernel.Contracts;
     using log4net;
     using Monaco.Localization.Properties;
+    using Newtonsoft.Json;
 
     /// <summary>
     ///     Implements localization logic for currency culture provider.
@@ -69,6 +70,7 @@
 
         public Currency ConfiguredCurrency { get; private set; }
 
+        [JsonIgnore]
         public IDictionary<string, CurrencyDefaultsCurrencyInfo> CurrencyDefaultFormat => _currencyDefaults;
 
         protected override void OnInitialize()
