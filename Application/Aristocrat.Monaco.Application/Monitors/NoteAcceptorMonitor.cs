@@ -4,13 +4,13 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Contracts;
     using Contracts.Localization;
     using Contracts.NoteAcceptorMonitor;
     using Contracts.OperatorMenu;
     using Hardware.Contracts;
     using Hardware.Contracts.Dfu;
+    using Hardware.Contracts.Audio;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.SharedDevice;
@@ -193,8 +193,8 @@
         {
             _eventBus.Subscribe<ConnectedEvent>(this, _ => { Disconnected(false); });
             _eventBus.Subscribe<DisconnectedEvent>(this, _ => { Disconnected(true, BehavioralDelayKey); });
-            _eventBus.Subscribe<EnabledEvent>(this, _ => { SetBinary(DisabledKey, false); });
-            _eventBus.Subscribe<DisabledEvent>(
+            _eventBus.Subscribe<Hardware.Contracts.NoteAcceptor.EnabledEvent>(this, _ => { SetBinary(DisabledKey, false); });
+            _eventBus.Subscribe<Hardware.Contracts.NoteAcceptor.DisabledEvent>(
                 this,
                 _ =>
                 {
