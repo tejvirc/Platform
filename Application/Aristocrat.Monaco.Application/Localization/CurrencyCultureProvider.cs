@@ -273,6 +273,7 @@
                         else
                         {
                             FindCultureInfo(currencyCode, ref cultureInfo);
+                            region = new RegionInfo(cultureInfo.Name);
                         }
                     }
                     else

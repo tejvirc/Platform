@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
     using Application.Contracts;
+    using Application.Contracts.Currency;
+    using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.Localization;
@@ -33,6 +35,7 @@
         private string _allowedKenoRtp;
         private string _allowedBlackjackRtp;
         private string _allowedRouletteRtp;
+        private string _currencyDisplayText;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="JurisdictionSettingsPageViewModel" /> class.
@@ -43,7 +46,8 @@
 
             var localization = ServiceManager.GetInstance().GetService<ILocalization>();
             var currencyProvider = localization.GetProvider(CultureFor.Currency) as CurrencyCultureProvider;
-            Currency = currencyProvider?.ConfiguredCurrency.DisplayName;
+            Currency = currencyProvider?.ConfiguredCurrency;
+            _currencyDisplayText = Currency?.DisplayName;
 
             _defaultAnyGameMinimum = PropertiesManager.GetValue(GamingConstants.AnyGameMinimumReturnToPlayer, int.MinValue);
             _defaultAnyGameMaximum = PropertiesManager.GetValue(GamingConstants.AnyGameMaximumReturnToPlayer, int.MaxValue);
@@ -67,9 +71,15 @@
 
         }
 
+        public Currency Currency { get; }
+
         public string Jurisdiction { get; }
 
-        public string Currency { get; }
+        public string CurrencyDisplayText
+        {
+            get => _currencyDisplayText;
+            private set => SetProperty(ref _currencyDisplayText, value);
+        }
 
         public string AllowedSlotRtp
         {
@@ -125,14 +135,16 @@
 
         protected override void OnLoaded()
         {
+            UpdateCurrencyDescription();
             SetupRtpValuesAndVisibility();
-            RaisePropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
+            RaisePropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos), nameof(CurrencyDisplayText));
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
+            UpdateCurrencyDescription();
             SetupRtpValuesAndVisibility();
-            RaisePropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
+            RaisePropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos), nameof(CurrencyDisplayText));
             base.OnOperatorCultureChanged(evt);
         }
 
@@ -234,6 +246,13 @@
             }
 
             return string.Empty;
+        }
+
+        private void UpdateCurrencyDescription()
+        {
+            var culture = CurrencyExtensions.CurrencyCultureInfo;
+            var currencyText = CurrencyExtensions.GetFormattedDescriptionForOperator(culture, Currency.IsoCode);
+            CurrencyDisplayText = currencyText;
         }
     }
 }
