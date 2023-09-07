@@ -2467,7 +2467,7 @@ Consulter le manuel pour plus de détails</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="FullResetDialogText" xml:space="preserve">
-    <value>Cette opération n’est pas réversible.</value>
+    <value>Cette opération n’est pas réversible. Souhaitez-vous vraiment faire une réinitialisation complète?</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="PartialClearButtonContent" xml:space="preserve">
