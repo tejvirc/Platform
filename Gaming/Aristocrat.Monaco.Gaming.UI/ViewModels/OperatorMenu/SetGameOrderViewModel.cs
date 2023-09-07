@@ -19,10 +19,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         private readonly IGameOrderSettings _gameOrderSettings;
         private bool _isDirty;
         private readonly CanSaveDelegate _canSave;
+        private readonly INotifyPropertyChanged _ownerViewModel;
 
         public SetGameOrderViewModel(INotifyPropertyChanged ownerViewModel, CanSaveDelegate canSave)
         {
-            ownerViewModel.PropertyChanged += OwnerViewModelPropertyChanged;
+            _ownerViewModel = ownerViewModel;
             _canSave = canSave;
             var container = ServiceManager.GetInstance().GetService<IContainerService>();
             if (container != null)
@@ -69,9 +70,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         protected override void OnLoaded()
         {
             base.OnLoaded();
+            _ownerViewModel.PropertyChanged += OwnerViewModelPropertyChanged;
             SelectedItem = null;
 
             GameList = new ObservableCollection<GameOrderData>(LoadGames().OrderBy(GameOrder));
+        }
+
+        protected override void OnUnloaded()
+        {
+            _ownerViewModel.PropertyChanged -= OwnerViewModelPropertyChanged;
         }
 
         private int GameOrder(GameOrderData game) => _gameOrderSettings.GetIconPositionPriority(game.ThemeId);
