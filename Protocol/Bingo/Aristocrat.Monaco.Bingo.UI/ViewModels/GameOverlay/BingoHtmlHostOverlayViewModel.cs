@@ -586,7 +586,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                     };
                 },
                 token);
-        }
+            }
         }
 
         private async Task Handle(BingoGameNewCardEvent card, CancellationToken token)
@@ -637,12 +637,20 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.GameOverlay
                 {
                     var cardInstance = _bingoInstances[e.GameIndex];
                     cardInstance.Enabled = false;
-                    cardInstance.Visible = _currentBingoSettings.BingoCards[e.GameIndex].HideDisabled;
+                    cardInstance.Visible = !_currentBingoSettings.BingoCards[e.GameIndex].HideDisabled;
                     cardInstance.BingoCardNumbers = new List<BingoCardNumber>();
                     cardInstance.BingoPatterns = new List<BingoPattern>();
                     cardInstance.CyclingPatterns = new List<BingoPattern>();
+                    cardInstance.Card.IsGolden = false;
                     Logger.Debug($"Disabling bingo card {cardInstance.InstanceNumber} on overlay");
-                    return new BingoLiveData { ActiveCard = cardInstance.InstanceNumber, ClearBingoCard = true, CardIsEnabled = cardInstance.Enabled, CardIsVisible = cardInstance.Visible };
+                    return new BingoLiveData
+                    {
+                        ActiveCard = cardInstance.InstanceNumber,
+                        ClearBingoCard = true,
+                        CardIsEnabled = cardInstance.Enabled,
+                        CardIsVisible = cardInstance.Visible,
+                        CardIsGolden = cardInstance.Card.IsGolden
+                    };
                 },
                 token);
         }
