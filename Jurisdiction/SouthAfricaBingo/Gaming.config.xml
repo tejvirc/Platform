@@ -25,19 +25,15 @@ as follows:
   <WinMeterResetOnDenomChanged Enabled="true" />
   <LockupBehavior CashableLockupStrategy="Allowed" Configurable="true" />
   <GameCategory ApplyGameCategorySettings="true" />
+  <AllowZeroCreditCashout Configurable="true" />
   <Gamble SkipByJackpotHit="true" />
-  <GameLoad AllowGameInCharge="false" />
+  <GameLoad AllowGameInCharge="true" />
   <FudgePay Enabled="true" />
   <AdditionalInfoButton Enabled="true" />
   <AlwaysCombineOutcomesByType Enabled="false" />
   <Gamble Allowed="false" />
   <LetItRide Allowed="false" />
-  <ContinuousPlaySupport Mode="Toggle" Configurable="true">
-    <AllowedButtons>
-      <Button>Play</Button >
-      <Button>MaxBet</Button >
-    </AllowedButtons>
-  </ContinuousPlaySupport>
+  <ContinuousPlaySupport Mode="Toggle" Configurable="true" />
   <!--
 	GameRestrictions Settings:
 		ReturnToPlayerLimits:

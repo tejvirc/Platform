@@ -66,7 +66,6 @@ as follows:
     <Page Type="NoteAcceptorViewModel" PrintButtonEnabled="true" Access="MainLogicZeroCreditsGameIdle">
       <Setting Name="ActivationTimeVisible" Value="false" />
       <Setting Name="EgmCanEnableDenominations" Value="true" />
-      <Setting Name="EgmCanEditBillAcceptorLimit" Value="false" />
       <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
     </Page>
     <Page Type="LampsPageViewModel" PrintButtonEnabled="false" >
@@ -76,9 +75,6 @@ as follows:
       <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
     </Page>
     <Page Type="EdgeLightingPageViewModel" PrintButtonEnabled="false" Access="GameIdleZeroCredits">
-      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
-    </Page>
-    <Page Type="BeagleBonePageViewModel" PrintButtonEnabled="false">
       <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
     </Page>
     <Page Type="SoundConfigPageViewModel" PrintButtonEnabled="false" Access="GameIdleZeroCredits">
@@ -112,15 +108,15 @@ as follows:
     <Page Type="KeyedCreditsPageViewModel" TabType="KeyedCreditsPageLoader" Visible="false"/>
   </Menu>
   <Menu Type="GamesMainPageLoader">
-    <Page Type="AdvancedGameSetupViewModel" Access="EKeyLogicZeroCreditGameIdle" FieldAccess="EKeyLogicDoor">
+    <Page Type="AdvancedGameSetupViewModel" Access="ReadOnly">
       <Setting Name="AllowImportExport" Value="false" />
       <Setting Name="ShowGlobalOptions" Value="true" />
-      <Setting Name="EnableAdvancedConfig" Value="true" />
+      <Setting Name="EnableAdvancedConfig" Value="false" />
       <Setting Name="EnableQuickConfig" Value="false" />
     </Page>
-    <Page Type="GameHistoryViewModel" Access="ReadOnly" PrintButtonEnabled="true">
+    <Page Type="GameHistoryViewModel">
       <Setting Name="ShowGameInfoButtons" Value="true" />
-      <Setting Name="PrintGameRoundInfo" Value="true" />
+      <Setting Name="PrintGameRoundInfo" Value="false" />
     </Page>
     <Page Type="GamePreferencesViewModel" TabType="GamePreferencesViewLoader" Visible="false"/>
     <Page Type="GameInfoViewModel" TabType="GameInfoViewLoader" Visible="false" />

@@ -30,6 +30,9 @@ as follows:
   <CreditLimits>
     <MaxCreditMeter Default="119999000" MaxAllowed="999999999000"/>
   </CreditLimits>
+  <WinLimits>
+    <LargeWinLimit Default="119999000" Editable="false"/>
+  </WinLimits>
   <VoucherIn State="Enabled" LimitDefault="100000000"  AllowLimitEdit="false"/>
   <!--
     VoucherOut Settings:
@@ -71,8 +74,5 @@ as follows:
        "n" = Where n is any logical door id or Aristocrat.Monaco.Hardware.Contracts.Door.DoorLogicalId, door is required for reprint to be enabled.
        "|" = Requiring multiple doors can be accomplished by combining, for example "Main|Logic" will require both Main and Logic door to be open.
 -->
-  <ReprintLoggedVoucher Behavior="None" TitleOverride="true" DoorOpenRequirement="None"/>
-  <Handpay>
-    <PrintHandpayReceipt Enabled="true" Editable="false"/>
-  </Handpay>
+  <ReprintLoggedVoucher Behavior="None"/>
 </AccountingConfiguration>

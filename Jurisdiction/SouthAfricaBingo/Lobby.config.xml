@@ -39,7 +39,6 @@
   <DisplaySoftErrors>true</DisplaySoftErrors>
   <DisplayInformationMessages>true</DisplayInformationMessages>
   <VbdDisplayServiceButton>true</VbdDisplayServiceButton>
-  <DisplayVoucherNotification>true</DisplayVoucherNotification>
   <ResponsibleGamingMode>Continuous</ResponsibleGamingMode>
   <ClockMode>Locale</ClockMode>
   <DefaultGameDisplayOrderByThemeId>

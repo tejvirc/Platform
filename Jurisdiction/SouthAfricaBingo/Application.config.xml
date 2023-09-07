@@ -15,7 +15,6 @@ as follows:
   <NoteAcceptorMonitor DisableOnError="Immediate" LockupOnDisconnect="false" SoftErrorOnStackerFull="true"/>
   <PrinterMonitor FormFeedAfterKeyOff="true"/>
   <TicketMode Audit="Inspection"/>
-  <MediaDisplay Enabled="true"/>
   <GeneralMessages>
     <DisabledByOperator Message=""/>
   </GeneralMessages>
@@ -27,7 +26,7 @@ as follows:
     <BillUnexpectedError Message="Bill Unexpected Error"/>
     <BillValidatorFault Message="Bill Validator Fault"/>
     <InvalidBill Message="Invalid Bill"/>
-    <CashBoxRemoved Message="Stacker Box Removed"/>
+    <CashBoxRemoved Message="Cash Box Removed"/>
     <GeneralFailure Message="Note Acceptor Malfunction"/>
   </NoteAcceptorErrorMessages>
   <PrinterErrorMessages>
@@ -51,16 +50,15 @@ as follows:
     <Currency>1000000000000000</Currency> <!-- in millicents. This would roll over at $9,999,999,999.99999 -->
     <Occurrence>100000000</Occurrence>
   </MeterRollover>
-  <BellConfiguration InitialValue="1000000" IntervalValue="1000000" MaxBellValue="10000000000" />
   <StackerRemoveBehavior AutoClearPeriodMeters="false" />
   <AutoClearPeriodMetersBehavior>
     <AutoClearPeriodMeters>false</AutoClearPeriodMeters>
     <ClearClearPeriodOffsetHours>0</ClearClearPeriodOffsetHours>
   </AutoClearPeriodMetersBehavior>
   <SoundConfiguration>
-    <DefaultVolumeLevel>2</DefaultVolumeLevel>
+    <DefaultVolumeLevel>4</DefaultVolumeLevel>
   </SoundConfiguration>
-  <ReadOnlyMedia Required="true" />
+  <ReadOnlyMedia Required="false" />
   <!--
     ExcessiveDocumentReject Settings: Applicable to bills/vouchers rejection
     LockupType:
@@ -77,7 +75,6 @@ as follows:
   <CollectSound FilePath="..\jurisdiction\DefaultAssets\collect.ogg" />
   <BarcodeType>Interleave2of5</BarcodeType>
   <OperatorLockupReset Enabled="true"/>
-  <HostOfflineSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
   <LogTypesAllowedForDisplay>
     <string>BillIn</string>
     <string>Handpay</string>
@@ -97,8 +94,5 @@ as follows:
     <string>SoftwareChange</string>
     <string>Progressive</string>
   </LogTypesAllowedForDisplay>
-  <Cashout ClearWins="false" CommitStorageAfterCashout="true" />
-  <HandpayReceiptPrinting Enabled="true"/>
-  <ReserveService Allowed="false"/>
   <SecondaryStorageMedia Required="true" />
 </ApplicationConfiguration>

@@ -25,8 +25,6 @@ as follows:
   <CompletionPage ShowGameSetupMessage="true"/>
   <HardMetersConfig Configurable="true" Enable="false" TickValueConfigurable="true" />
   <DoorOptics Visible="true" Configurable="true" Enabled="true"/>
-  <Bell Visible="true" Configurable="true" Enabled="true" CanReconfigure="true" />
-  <HardwarePage RequirePrinter="false"/>
   <ProtocolConfiguration>
     <ProtocolsAllowed>
       <Protocol Name="Bingo" IsMandatory="true"/>
