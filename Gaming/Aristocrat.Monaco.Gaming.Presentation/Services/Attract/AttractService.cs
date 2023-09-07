@@ -107,6 +107,11 @@ public sealed class AttractService : IAttractService, IDisposable
         _eventBus.Publish(new AttractModeEntered());
     }
 
+    public void NotifyExited()
+    {
+        _eventBus.Publish(new AttractModeExited());
+    }
+
     public int AdvanceAttractIndex()
     {
         var currentAttractIndex = _attractState.Value.CurrentAttractIndex + 1;
