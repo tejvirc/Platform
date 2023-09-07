@@ -95,6 +95,14 @@ public partial class AttractEffects
         await dispatcher.DispatchAsync(new AttractExitedAction());
     }
 
+    [EffectMethod(typeof(AttractExitedAction))]
+    public Task Exited(IDispatcher dispatcher)
+    {
+        _attractService.NotifyExited();
+
+        return Task.CompletedTask;
+    }
+
     [EffectMethod(typeof(AttractVideoCompletedAction))]
     public async Task VideoCompleted(IDispatcher dispatcher)
     {
