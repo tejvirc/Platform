@@ -20,7 +20,7 @@
     <Import assembly="..\..\bin\Aristocrat.Monaco.Gaming.Class2.dll" />
   </Runtime>
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
-    <SelectableJurisdiction name="South Africa Bingo" description="Top level South Africa jurisdiction group for Bingo" id="JUR000178,JUR000998,JUR000999,JUR000033">
+    <SelectableJurisdiction name="South Africa Bingo" description="Top level South Africa jurisdiction group for Bingo" id="JUR000998,JUR000999,JUR000033">
       <AddinConfigurationGroupReference name="BaseOperatorMenus" />
       <AddinConfigurationGroupReference name="BaseConfigWizardPages" />
       <ExtensionPointConfiguration extensionPath="/Platform/Discovery/Configuration">
