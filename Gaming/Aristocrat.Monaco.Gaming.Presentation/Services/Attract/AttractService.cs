@@ -242,7 +242,7 @@ public sealed class AttractService : IAttractService, IDisposable
         // we can add an && check for that after the config.DisplayAgeWarning check to make it match directly with the old functionality.
         if(!_responsibleGamingOptions.AgeWarningEnabled && _attractState.Value.IsPlaying)
         {
-            _dispatcher.Dispatch(new AttractExitedAction());
+            _dispatcher.Dispatch(new AttractExitAction());
         }
 
         if (_attractState.Value.ResetAttractOnInterruption && _attractState.Value.CurrentAttractIndex != 0)
