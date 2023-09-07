@@ -10,10 +10,10 @@
         /// <summary>
         ///     Gets the specified simple meters for the specified progressive device
         /// </summary>
-        /// <param name="deviceId">
+        /// <param name="progDeviceId">
         ///     The identifier of the progressive device
         /// </param>
-        IEnumerable<deviceMeters> GetProgressiveDeviceMeters(int deviceId);
+        IEnumerable<deviceMeters> GetProgressiveDeviceMeters(int progDeviceId);
 
         /// <summary>
         /// Updates the specified LinkedProgressiveLevel to use the new valueInCents

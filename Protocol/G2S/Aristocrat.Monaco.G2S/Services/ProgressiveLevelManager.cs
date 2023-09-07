@@ -13,6 +13,7 @@
     using Gaming.Contracts.Progressives.Linked;
     using Humanizer.Localisation.NumberToWords;
     using Meters;
+    using NvAPIWrapper.Native.GPU.Structures;
 
     public class ProgressiveLevelManager : IProgressiveLevelManager, IDisposable
     {
@@ -50,32 +51,32 @@
             _updateTimer = new Timer(FlushPendingUpdates, null, Timeout.Infinite, Timeout.Infinite);
         }
 
-        public IEnumerable<deviceMeters> GetProgressiveDeviceMeters(int deviceId)
+        public IEnumerable<deviceMeters> GetProgressiveDeviceMeters(int progDeviceId)
         {
             var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels()
-                .Where(ll => ll.ProgressiveGroupId == deviceId && ll.ProtocolName == ProtocolNames.G2S).ToList();
+                .Where(ll => ll.ProgressiveGroupId == progDeviceId && ll.ProtocolName == ProtocolNames.G2S).ToList();
 
             var anyBulkLevels = linkedLevels.Any(ll => ll.FlavorType == FlavorType.BulkContribution);
 
             if (anyBulkLevels)
             {
-                return BuildBulkLevelMeters(deviceId, linkedLevels);
+                return BuildBulkLevelMeters(progDeviceId, linkedLevels);
             }
-            else
+
+            return new[]
             {
-                return new[]
+                new deviceMeters
                 {
-                    new deviceMeters
-                    {
-                        deviceClass = DeviceClass.G2S_progressive,
-                        deviceId = deviceId,
-                        simpleMeter = GetSimpleProgressiveLevelMeters(linkedLevels.First().LevelName, _basicMetersStandard).ToArray()
-                    }
-                };
-            }
+                    deviceClass = DeviceClass.G2S_progressive,
+                    deviceId = progDeviceId,
+                    simpleMeter = GetSimpleProgressiveLevelMeters(
+                        linkedLevels.First().LevelName,
+                        _basicMetersStandard).ToArray()
+                }
+            };
         }
 
-        private IEnumerable<deviceMeters> BuildBulkLevelMeters(int deviceId, IList<IViewableLinkedProgressiveLevel> linkedLevels)
+        private IEnumerable<deviceMeters> BuildBulkLevelMeters(int progDeviceId, IList<IViewableLinkedProgressiveLevel> linkedLevels)
         {
             //The basic meters are evenly incremented across all levels for the progressive device
             var basicMeters = GetSimpleProgressiveLevelMeters(linkedLevels.First().LevelName, _basicMetersBulk);
@@ -90,7 +91,7 @@
                 new deviceMeters
                 {
                     deviceClass = DeviceClass.G2S_progressive,
-                    deviceId = deviceId,
+                    deviceId = progDeviceId,
                     simpleMeter = basicMeters.Concat(bulkMeters).ToArray(),
                     complexMeter = complexMeters.ToArray()
                 }

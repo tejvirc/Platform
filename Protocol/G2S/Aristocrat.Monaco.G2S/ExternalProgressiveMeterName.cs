@@ -17,7 +17,8 @@
         /// <summary>
         ///     The meter and sub-meter name combination for CurrentValue
         /// </summary>
-        public static readonly (string, string) CurrentValue = (CurrentValueMeterName, CurrentValueSubMeterFormat);
+        public static readonly (string meterName, string subMeterNameFormat) CurrentValue = (CurrentValueMeterName,
+            CurrentValueSubMeterFormat);
 
         /// <summary>
         ///     The accumulation of hit amount for the linked progressive.
@@ -32,7 +33,8 @@
         /// <summary>
         ///     The meter and sub-meter name combination for WinAccumulation
         /// </summary>
-        public static readonly (string, string) WinAccumulation = (WinAccumulationMeterName, WinAccumulationSubMeterFormat);
+        public static readonly (string meterName, string subMeterNameFormat) WinAccumulation =
+            (WinAccumulationMeterName, WinAccumulationSubMeterFormat);
 
         /// <summary>
         ///     The number of hit occurrences for the linked progressive. 
@@ -47,6 +49,7 @@
         /// <summary>
         ///     The meter and sub-meter name combination for WinOccurrence
         /// </summary>
-        public static readonly (string, string) WinOccurrence = (WinOccurrenceMeterName, WinOccurrenceSubMeterFormat);
+        public static readonly (string meterName, string subMeterNameFormat) WinOccurrence =
+            (WinOccurrenceMeterName, WinOccurrenceSubMeterFormat);
     }
 }
