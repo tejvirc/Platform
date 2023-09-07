@@ -25,7 +25,7 @@
         public long DenomId { get; set; }
 
         /// <summary> Gets or sets the denom in dollars.</summary>
-        public decimal Denom { get; set; }
+        public decimal? Denom { get; set; }
 
         /// <summary> Gets or sets the start time.</summary>
         public DateTime StartTime { get; set; }
