@@ -42,8 +42,8 @@
                     (ResourceKeys.PaidAmount,transaction.TransactionAmount.MillicentsToDollars().FormattedCurrencyString())}
                           let name = string.Join(
                               EventLogUtilities.EventDescriptionNameDelimiter,
-                              Resources.HopperPayOut,
-                              transaction.TransactionAmount.MillicentsToDollars().FormattedCurrencyString())
+                              string.Format(Resources.HopperPayOut,
+                              transaction.TransactionAmount.MillicentsToDollars().FormattedCurrencyString()))
                           select new EventDescription(
                               name,
                               "info",

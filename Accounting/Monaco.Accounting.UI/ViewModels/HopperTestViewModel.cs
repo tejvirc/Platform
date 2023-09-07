@@ -113,11 +113,25 @@
             _coinAcceptorService = coinAcceptorService ?? throw new ArgumentNullException(nameof(coinAcceptorService));
             _meters = meters ?? throw new ArgumentNullException(nameof(meters));
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
-
+            
             ActivatePayoutCommand = new ActionCommand<object>(obj => ActivatePayout());
             CloseHopperTestCommand = new ActionCommand<object>(obj => CloseHopperTestDialog());
             CanHopperTestClose = true;
             CanActivatePayout = true;
+        }
+
+        private bool CheckForFake()
+        {
+            if (!_hopperService.Name.Contains("Fake"))
+            {
+                return false;
+            }
+
+            CanActivatePayout = true;
+            CanHopperTestClose = true;
+            Status = "Fake Hopper test done";
+            return true;
+
         }
 
         protected override void OnLoaded()
@@ -202,6 +216,7 @@
 
         public void ActivatePayout()
         {
+            if (CheckForFake()) return;
             InitHopperTest();
             _hopperService.SetMaxCoinoutAllowed(HopperTestPayoutLevel);
             _hopperService.StartHopperMotor();

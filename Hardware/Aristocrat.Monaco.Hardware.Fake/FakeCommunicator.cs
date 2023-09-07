@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
@@ -11,6 +12,7 @@
     using Contracts.Communicator;
     using Contracts.Gds;
     using Contracts.Gds.CardReader;
+    using Contracts.Gds.Hopper;
     using Contracts.Gds.NoteAcceptor;
     using Contracts.Gds.Printer;
     using Contracts.Gds.Reel;
@@ -40,6 +42,7 @@
         private const string PackagesPath = "/Packages";
         private const int LightsPerReel = 3;
         private const int StepsPerReel = 200;
+        private const int HopperPulseTimeout = 70; //milli
 
         private readonly Dictionary<int, Note> _noteTable = new();
         private readonly IEventBus _eventBus;
@@ -65,6 +68,9 @@
         private int[] _reelOffsets;
         private int[] _homePositions;
         private int _homeCommandCounter;
+        private int _maxCoinoutAllowed = 0;
+        private bool _hopperMotorStopped;
+
 
         /// <summary>Base name is used to fake out various identification strings (overrideable).</summary>
         protected override string BaseName => _baseName;
@@ -140,6 +146,10 @@
                     _homeCommandCounter = 0;
 
                     break;
+
+                case DeviceType.Hopper:
+                    _maxCoinoutAllowed = 0;
+                    break;
             }
 
             //We assume the device will be opened by default
@@ -169,10 +179,10 @@
         }
 
         /// <inheritdoc/>
+        [SuppressMessage("ReSharper", "MethodSupportsCancellation")]
         public override void SendMessage(GdsSerializableMessage message, CancellationToken token)
         {
             Logger.Debug($"{DeviceType}/{BaseName} Got message {message}");
-
             if (!IsOpen)
             {
                 Logger.Debug($"{DeviceType}/{BaseName} Throw away message because this fake communicator is closed.");
@@ -338,9 +348,41 @@
                         OnMessageReceived(new ControllerInitializedStatus());
                     }
                     break;
+                case GdsConstants.ReportId.MaxCoinOutControll:
+                    _maxCoinoutAllowed = ((HopperMaxOutControl)message).Count;
+                    Logger.Debug($"Allowed Coins Out are {_maxCoinoutAllowed}");
+                    
+                    break;
+                case GdsConstants.ReportId.HopperMotorControl:
+                    if (((HopperMotorControl)message).OnOff)
+                    {
+                        _hopperMotorStopped = false;
+                        Task.Run(FakeCoinOutEventHandler);
+                    }
+                    else
+                    {
+                        _hopperMotorStopped = true;
+                    }
+                    break;
                 default:
                     base.SendMessage(message, token);
                     break;
+            }
+        }
+
+        private void FakeCoinOutEventHandler()
+        {
+            for (var i = 0; i < _maxCoinoutAllowed; i++)
+            {
+                if (!_hopperMotorStopped)
+                {
+                    OnMessageReceived(new CoinOutStatus { Legal = true });
+                    Thread.Sleep(HopperPulseTimeout);
+                }
+                else
+                {
+                    break;
+                }
             }
         }
 
