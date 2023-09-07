@@ -405,7 +405,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             IsPlaying = true;
 
-            _audio.Load(SoundName.Ding, path);
             _audio.Play(SoundName.Ding, volume);
             _playingTimer.Start();
         }
@@ -422,7 +421,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             IsPlaying = true;
 
-            _audio.Load(SoundName.Ding, path);
             _audio.Play(SoundName.Ding, volume, speaker);
             _playingTimer.Start();
 

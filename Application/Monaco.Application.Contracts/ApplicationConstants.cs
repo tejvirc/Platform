@@ -57,7 +57,7 @@
 
         /// <summary> The properties manager egm position key. </summary>
         public const string Currencies = "Cabinet.Currencies";
-
+        /*
         /// <summary> The properties manager key for paper in chute sound file path. </summary>
         public const string PaperInChuteSoundKey = "Cabinet.PaperInChuteSound";
 
@@ -102,7 +102,7 @@
 
         /// <summary> The properties manager key for ding sound file path. </summary>
         public const string DingSoundKey = "Cabinet.DingSoundKey";
-
+        */
         /// <summary> The properties manager key for audit ticket mode. </summary>
         public const string TicketModeAuditKey = "Cabinet.TicketModeAudit";
 

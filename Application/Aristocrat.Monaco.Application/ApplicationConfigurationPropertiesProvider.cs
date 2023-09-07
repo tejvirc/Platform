@@ -87,7 +87,7 @@
                                                (VolumeControlLocation)ApplicationConstants.VolumeControlLocationDefault;
             var excessiveDocumentRejectCount = configuration.ExcessiveDocumentReject?.ConsecutiveRejectsBeforeLockup ??
                                                ApplicationConstants.ExcessiveDocumentRejectDefaultCount;
-            var excessiveDocumentRejectSoundFilePath = configuration.ExcessiveDocumentReject?.SoundFilePath ?? string.Empty;
+            
             var barCodeType = configuration.BarcodeType;
             var validationLength = configuration.ValidationLength;
             var layoutType = configuration.LayoutType;
@@ -118,9 +118,7 @@
                 excessiveDocumentRejectCount = propertiesManager.GetValue(
                     ApplicationConstants.ExcessiveDocumentRejectCount,
                     ApplicationConstants.ExcessiveDocumentRejectDefaultCount);
-                excessiveDocumentRejectSoundFilePath = propertiesManager.GetValue(
-                    ApplicationConstants.ExcessiveDocumentRejectSoundFilePath,
-                    string.Empty);
+                
                 barCodeType = propertiesManager.GetValue(ApplicationConstants.BarCodeType, BarcodeTypeOptions.Interleave2of5);
                 validationLength = propertiesManager.GetValue(ApplicationConstants.ValidationLength, ValidationLengthOptions.System);
                 layoutType = propertiesManager.GetValue(ApplicationConstants.LayoutType, LayoutTypeOptions.ExtendedLayout);
@@ -424,13 +422,6 @@
                         false)
                 },
                 {
-                    ApplicationConstants.ExcessiveDocumentRejectSoundFilePath,
-                    Tuple.Create(
-                            (object)excessiveDocumentRejectSoundFilePath,
-                        ApplicationConstants.ExcessiveDocumentRejectSoundFilePath,
-                        false)
-                },
-                {
                     ApplicationConstants.ExcessiveDocumentRejectResetMethodKey,
                     Tuple.Create(
                         (object)configuration.ExcessiveDocumentReject?.ResetMethodKey ?? ResetMethodKeyType.MainDoor,
@@ -456,104 +447,6 @@
                     Tuple.Create(
                         (object)configuration.CriticalMemoryIntegrityCheck?.SoundFilePath ?? string.Empty,
                         ApplicationConstants.PeriodicCriticalMemoryIntegrityCheckSoundFilePath,
-                        false)
-                },
-                {
-                    ApplicationConstants.PaperInChuteSoundKey,
-                    Tuple.Create(
-                        (object)configuration.PaperInChuteSound?.FilePath,
-                        ApplicationConstants.PaperInChuteSoundKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.PrinterErrorSoundKey,
-                    Tuple.Create(
-                        (object)configuration.PrinterErrorSound?.FilePath,
-                        ApplicationConstants.PrinterErrorSoundKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.PrinterWarningSoundKey,
-                    Tuple.Create(
-                        (object)configuration.PrinterWarningSound?.FilePath,
-                        ApplicationConstants.PrinterWarningSoundKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.NoteAcceptorErrorSoundKey,
-                    Tuple.Create(
-                        (object)configuration.NoteAcceptorErrorSound?.FilePath,
-                        ApplicationConstants.NoteAcceptorErrorSoundKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.DiskSpaceMonitorErrorSoundKey,
-                    Tuple.Create(
-                        (object)configuration.DiskSpaceMonitorErrorSound?.FilePath,
-                        ApplicationConstants.DiskSpaceMonitorErrorSoundKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.FirmwareCrcErrorSoundKey,
-                    Tuple.Create(
-                        (object)configuration.FirmwareCrcErrorSound?.FilePath,
-                        ApplicationConstants.FirmwareCrcErrorSoundKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.LiveAuthenticationFailedSoundKey,
-                    Tuple.Create(
-                        (object)configuration.LiveAuthenticationFailedSound?.FilePath,
-                        ApplicationConstants.LiveAuthenticationFailedSoundKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.TouchSoundKey,
-                    Tuple.Create(
-                        (object)configuration.TouchSound?.FilePath,
-                        ApplicationConstants.TouchSoundKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.CoinInSoundKey,
-                    Tuple.Create(
-                        (object)configuration.CoinInSound?.FilePath,
-                        ApplicationConstants.CoinInSoundKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.CoinOutSoundKey,
-                    Tuple.Create(
-                        (object)configuration.CoinOutSound?.FilePath,
-                        ApplicationConstants.CoinOutSoundKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.FeatureBellSoundKey,
-                    Tuple.Create(
-                        (object)configuration.FeatureBellSound?.FilePath,
-                        ApplicationConstants.FeatureBellSoundKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.CollectSoundKey,
-                    Tuple.Create(
-                        (object)configuration.CollectSound?.FilePath,
-                        ApplicationConstants.CollectSoundKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.HostOfflineSoundKey,
-                    Tuple.Create(
-                        (object)configuration.HostOfflineSound?.FilePath,
-                        ApplicationConstants.HostOfflineSoundKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.DingSoundKey,
-                    Tuple.Create(
-                        (object)configuration.DingSound?.FilePath,
-                        ApplicationConstants.DingSoundKey,
                         false)
                 },
                 {

@@ -56,8 +56,7 @@
             _propertiesManager.Setup(x => x.SetProperty(ApplicationConstants.ReserveServiceLockupRemainingSeconds, It.IsAny<int>()));
             _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.ReserveServiceLockupRemainingSeconds, It.IsAny<int>()))
                 .Returns(It.IsAny<int>());
-            _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.TouchSoundKey, It.IsAny<string>()))
-                .Returns(It.IsAny<string>());
+
             _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, It.IsAny<byte>()))
                 .Returns(It.IsAny<byte>());
 

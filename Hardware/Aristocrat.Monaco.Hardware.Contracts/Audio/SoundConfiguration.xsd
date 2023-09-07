@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="SoundConfiguration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="Sound">
+          <xs:complexType>
+            <xs:attribute name="Name" type="SoundName" />
+            <xs:attribute default="" name="FilePath" type="xs:string" />
+          </xs:complexType>        
+        </xs:element>
+      </xs:sequence>
+     </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="SoundName">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Alarm" />
+      <xs:enumeration value="BallDrop" />
+      <xs:enumeration value="CardFlip" />
+      <xs:enumeration value="Center" />
+      <xs:enumeration value="CoinIn" />
+      <xs:enumeration value="CoinOut" />
+      <xs:enumeration value="Collect" />
+      <xs:enumeration value="Ding" />
+      <xs:enumeration value="ExcessiveDocumentReject" />
+      <xs:enumeration value="FeatureBell" />
+      <xs:enumeration value="PaperInChute" />
+      <xs:enumeration value="FrontLeft" />
+      <xs:enumeration value="FrontRight" />
+      <xs:enumeration value="LowFrequency" />
+      <xs:enumeration value="RearLeft" />
+      <xs:enumeration value="RearRight" />
+      <xs:enumeration value="ReelClick" />
+      <xs:enumeration value="SideLeft" />
+      <xs:enumeration value="SideRight" />
+      <xs:enumeration value="Silence" />
+      <xs:enumeration value="Touch" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

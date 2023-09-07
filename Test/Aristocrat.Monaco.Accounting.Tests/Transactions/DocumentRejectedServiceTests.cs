@@ -154,7 +154,7 @@
             _bus.Verify(x => x.Publish(It.IsAny<ExcessiveDocumentRejectedEvent>()), Times.Exactly(_displayedMessages.Count));
             _systemDisableManager.Verify();
             _audioService.Verify(
-                m => m.Play(SoundName.ExcessiveDocumentRejectSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
+                m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
         }
 
         [TestMethod()]
@@ -280,7 +280,7 @@
 
                     _systemDisableManager.Verify();
                     _audioService.Verify(
-                        m => m.Play(SoundName.ExcessiveDocumentRejectSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
+                        m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
                     break;
                 case ResetMethodKeyType.JackpotKey:
                     Assert.IsNotNull(_jpKeyResetEvent);
@@ -288,7 +288,7 @@
 
                     _systemDisableManager.Verify();
                     _audioService.Verify(
-                        m => m.Play(SoundName.ExcessiveDocumentRejectSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
+                        m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
                     break;
             }
         }

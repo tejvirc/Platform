@@ -59,120 +59,6 @@
         Scale100 = 5
     }
 
-    /// <summary>Sound name</summary>
-    public enum SoundName
-    {
-        /// <summary>
-        ///     Host Offline Sound.
-        /// </summary>
-        HostOfflineSound,
-
-        /// <summary>
-        ///     PaperInChute Sound.
-        /// </summary>
-        PaperInChute,
-
-        /// <summary>
-        ///     Touch Sound.
-        /// </summary>
-        Touch,
-
-        /// <summary>
-        ///     Coin In Sound.
-        /// </summary>
-        CoinIn,
-
-        /// <summary>
-        ///     Coin Out Sound.
-        /// </summary>
-        CoinOut,
-
-        /// <summary>
-        ///     Feature Bell Sound.
-        /// </summary>
-        FeatureBell,
-
-        /// <summary>
-        ///     Collect Sound.
-        /// </summary>
-        Collect,
-
-        /// <summary>
-        ///     Door Open Alarm Sound.
-        /// </summary>
-        DoorOpenAlarm,
-
-        /// <summary>
-        ///     Ding Sound.
-        /// </summary>
-        Ding,
-
-        /// <summary>
-        ///     Reel Click Sound.
-        /// </summary>
-        ReelClick,
-
-        /// <summary>
-        ///     Ball Drop Sound.
-        /// </summary>
-        BallDrop,
-
-        /// <summary>
-        ///     Card Flip Sound.
-        /// </summary>
-        CardFlip,
-
-        /// <summary>
-        ///     Excessive Meter Sound.
-        /// </summary>
-        ExcessiveMeterSound,
-
-        /// <summary>
-        ///     Excessive Document Reject Sound.
-        /// </summary>
-        ExcessiveDocumentRejectSound,
-
-        /// <summary>
-        ///     Live Authentication Failed Sound.
-        /// </summary>
-        LiveAuthenticationFailedSound,
-
-        /// <summary>
-        ///     Disk Space Monitor Error Sound.
-        /// </summary>
-        DiskSpaceMonitorErrorSound,
-
-        /// <summary>
-        ///     Note Acceptor Error Sound.
-        /// </summary>
-        NoteAcceptorErrorSound,
-
-        /// <summary>
-        ///     Printer Error Sound.
-        /// </summary>
-        PrinterErrorSound,
-
-        /// <summary>
-        ///     Printer Warning Sound.
-        /// </summary>
-        PrinterWarningSound,
-
-        /// <summary>
-        ///     Critical Memory Check Failed Sound.
-        /// </summary>
-        CriticalMemoryCheckFailedSound,
-
-        /// <summary>
-        ///     Firmware Crc Error Sound.
-        /// </summary>
-        FirmwareCrcErrorSound,
-
-        /// <summary>
-        ///     Excessive Meter Increment Test Sound.
-        /// </summary>
-        ExcessiveMeterIncrementTestSound
-    }
-
     /// <summary>
     ///     Provides a mechanism for audio playback.
     /// </summary>
@@ -187,15 +73,7 @@
         ///     Gets a value indicating whether or not the audio service is available and ready
         /// </summary>
         bool IsAvailable { get; }
-
-        /// <summary>
-        ///     Loads a file for playback.
-        /// </summary>
-        /// <param name="soundName">The audio name of the audio file.</param>
-        /// <param name="file">The audio file to load.</param>
-        /// <returns>returns true if the file was loaded.</returns>
-        bool Load(SoundName soundName, string file);
-
+        
         /// <summary>
         ///     Plays the specified file.
         /// </summary>
@@ -214,6 +92,11 @@
         /// <param name="speakers">Speaker mix of play channel</param>
         /// <param name="callback">Callback when audio event finishes (will not be called if sound is interrupted)</param>
         void Play(SoundName soundName, int loopCount, float? volume, SpeakerMix speakers = SpeakerMix.All, Action callback = null);
+
+        /// <summary>
+        ///     Load sounds.
+        /// </summary>
+        void Load();
 
         /// <summary>
         ///     Stops any audio playback.

@@ -30,8 +30,6 @@
         private readonly IPersistentStorageManager _persistentStorage = ServiceManager.GetInstance().GetService<IPersistentStorageManager>();
         private readonly IPropertiesManager _propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
-        private string _printerErrorSoundFilePath;
-        private string _printerWarningSoundFilePath;
         private bool _stopAlarmWhenAuditMenuOpened;
 
         /// <inheritdoc />
@@ -93,8 +91,6 @@
             ServiceManager.GetInstance().GetService<IPropertiesManager>().AddPropertyProvider(this);
 
             SubscribeToEvents();
-
-            LoadSounds();
 
             CheckPrinterStatus();
         }
@@ -202,17 +198,6 @@
             }
         }
 
-        private void LoadSounds()
-        {
-            _printerErrorSoundFilePath = _propertiesManager?.GetValue(ApplicationConstants.PrinterErrorSoundKey, string.Empty);
-            _audioService.LoadSound(SoundName.PrinterErrorSound, _printerErrorSoundFilePath);
-
-            _printerWarningSoundFilePath = _propertiesManager?.GetValue(
-                ApplicationConstants.PrinterWarningSoundKey,
-                string.Empty);
-            _audioService.LoadSound(SoundName.PrinterWarningSound, _printerWarningSoundFilePath);
-        }
-
         /// <summary>
         /// Plays the sound defined in the Application Config for PaperEmptySound.
         /// </summary>
@@ -220,7 +205,7 @@
         {
             if (!_inOperatorMode)
             {
-                _audioService.PlaySound(_propertiesManager, SoundName.PrinterErrorSound);
+                _audioService.PlaySound(_propertiesManager, SoundName.Alarm);
             }
         }
 
@@ -231,7 +216,7 @@
         {
             if (!_inOperatorMode)
             {
-                _audioService.PlaySound(_propertiesManager, SoundName.PrinterWarningSound);
+                _audioService.PlaySound(_propertiesManager, SoundName.Alarm);
             }
         }
 

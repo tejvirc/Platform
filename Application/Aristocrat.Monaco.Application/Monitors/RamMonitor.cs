@@ -35,7 +35,6 @@
         private Timer _integrityCheckTimer;
 
         private bool _disposed;
-        private string _criticalMemoryCheckFailedErrorSoundFilePath;
 
         public RamMonitor()
             : this(
@@ -94,9 +93,7 @@
         public void Initialize()
         {
             Logger.Info("Initializing RamMonitor...");
-
-            LoadSounds();
-
+            
             _bus.Subscribe<PersistentStorageClearStartedEvent>(this, Handle);
             _bus.Subscribe<PersistentStorageIntegrityCheckFailedEvent>(this, Handle);
             _bus.Subscribe<StorageErrorEvent>(this, Handle);
@@ -197,18 +194,7 @@
                     break;
             }
         }
-
-        /// <summary>
-        /// Load sound if configured for DB Integrity check failed.
-        /// </summary>
-        private void LoadSounds()
-        {
-            _criticalMemoryCheckFailedErrorSoundFilePath = _properties?.GetValue(
-                ApplicationConstants.PeriodicCriticalMemoryIntegrityCheckSoundFilePath,
-                string.Empty);
-            _audioService.LoadSound(SoundName.CriticalMemoryCheckFailedSound, _criticalMemoryCheckFailedErrorSoundFilePath);
-        }
-
+        
         /// <summary>
         /// Plays the sound defined in the Application Config for DB Integrity check failed.
         /// </summary>
@@ -216,7 +202,7 @@
         {
             _audioService.PlaySound(
                 _properties,
-                SoundName.CriticalMemoryCheckFailedSound);
+                SoundName.Alarm);
         }
     }
 }

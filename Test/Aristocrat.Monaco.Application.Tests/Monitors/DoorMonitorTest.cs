@@ -236,11 +236,11 @@
             }
 
             _audioService = MoqServiceManager.CreateAndAddService<IAudio>(MockBehavior.Strict);
-            _audioService.Setup(a => a.Load(SoundName.DoorOpenAlarm, It.IsAny<string>())).Returns(true);
+            
             _audioService.Setup(
-                a => a.Play(SoundName.DoorOpenAlarm, It.IsAny<int>(), It.IsAny<float>(), It.IsAny<SpeakerMix>(), It.IsAny<Action>()));
-            _audioService.Setup(a => a.Play(SoundName.DoorOpenAlarm, It.IsAny<int>(), It.IsAny<SpeakerMix>(), It.IsAny<Action>()));
-            _audioService.Setup(a => a.Play(SoundName.DoorOpenAlarm, It.IsAny<float>(), It.IsAny<SpeakerMix>(), It.IsAny<Action>()));
+                a => a.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), It.IsAny<SpeakerMix>(), It.IsAny<Action>()));
+            _audioService.Setup(a => a.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<SpeakerMix>(), It.IsAny<Action>()));
+            _audioService.Setup(a => a.Play(It.IsAny<SoundName>(), It.IsAny<float>(), It.IsAny<SpeakerMix>(), It.IsAny<Action>()));
             _audioService.Setup(m => m.GetVolume(It.IsAny<VolumeLevel>())).Returns(It.IsAny<float>());
 
             var logicalDoors = new Dictionary<int, LogicalDoor>();

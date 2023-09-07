@@ -118,12 +118,8 @@
 
             if (_propertiesManager.GetValue(MgamConstants.PlayAlarmAfterGameRoundKey, false))
             {
-                var soundFilePath = _propertiesManager.GetValue(ApplicationConstants.HostOfflineSoundKey, string.Empty);
-                if (!string.IsNullOrEmpty(soundFilePath) && _audioService.Load(SoundName.HostOfflineSound, Path.GetFullPath(soundFilePath)))
-                {
-                    var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, MgamConstants.DefaultAlertVolume);
-                    _audioService.Play(SoundName.HostOfflineSound, MgamConstants.DefaultAlertLoopCount, alertVolume);
-                }
+                var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, MgamConstants.DefaultAlertVolume);
+                _audioService.Play(SoundName.Alarm, MgamConstants.DefaultAlertLoopCount, alertVolume);
 
                 _towerLightService.SetFlashState(LightTier.Tier1, FlashState.FastFlash, TimeSpan.MaxValue);
 

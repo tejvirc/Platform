@@ -30,7 +30,6 @@
         private INoteAcceptor _noteAcceptor;
         private int _consecutiveDocumentRejectCount;
         private bool _disposed;
-        private string _excessiveDocumentRejectErrorSoundFilePath;
 
         public DocumentRejectedService()
             : this(
@@ -103,7 +102,6 @@
             _bus.Subscribe<VoucherRejectedEvent>(this, HandleEvent);
             _bus.Subscribe<VoucherRedeemedEvent>(this, HandleEvent);
 
-            LoadSounds();
             CheckDocumentRejectLockupEnabled();
         }
 
@@ -253,24 +251,11 @@
         }
 
         /// <summary>
-        /// Load sound if configured for ExcessiveDocumentRejectedSound
-        /// </summary>
-        private void LoadSounds()
-        {
-            _excessiveDocumentRejectErrorSoundFilePath = _properties.GetValue(
-                ApplicationConstants.ExcessiveDocumentRejectSoundFilePath,
-                string.Empty);
-            _audioService.Load(SoundName.ExcessiveDocumentRejectSound, _excessiveDocumentRejectErrorSoundFilePath);
-        }
-
-        /// <summary>
         /// Plays the sound defined in the Application Config for ExcessiveDocumentRejectedSound.
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(
-                _properties,
-                SoundName.ExcessiveDocumentRejectSound);
+            _audioService.PlaySound(_properties, SoundName.Alarm);
         }
     }
 }

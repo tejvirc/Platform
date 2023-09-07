@@ -15,7 +15,6 @@
         public SoundTestPage()
         {
             InitializeComponent();
-            Resources.MergedDictionaries.Add(SkinLoader.Load("SpeakerNames.xaml", false));
         }
     }
 }

@@ -62,7 +62,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private string _trackingAmountPlayed = string.Empty;
         private string _trackingAmountWon = string.Empty;
         private string _pin = string.Empty;
-        private readonly string _touchSoundFile = string.Empty;
 
         private readonly Timer _closeDelayTimer = new Timer(GamingConstants.PlayerMenuPopupTimeoutMilliseconds);
 
@@ -102,7 +101,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _eventBus.Subscribe<GamePlayStateChangedEvent>(this, eventArgs => Handler(eventArgs.CurrentState));
             _eventBus.Subscribe<PropertyChangedEvent>(this, eventArgs => SetVolumeControlVisible(), property => property.PropertyName == ApplicationConstants.VolumeControlLocationKey);
             _closeDelayTimer.Elapsed += (sender, args) => SendButtonPressToExit();
-            _touchSoundFile = _properties.GetValue(ApplicationConstants.TouchSoundKey, string.Empty);
 
             ReserveDigitClickedCommand = new RelayCommand<string>(ConcatenateReservePin);
             ReserveClickedCommand = new RelayCommand<object>(StartMachineReservation);
@@ -396,11 +394,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         public void PlayClickSound()
         {
-            if (!string.IsNullOrWhiteSpace(_touchSoundFile))
-            {
-                var soundVolume = (byte)_properties.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
-                _audioService.Play(SoundName.Touch, soundVolume);
-            }
+            var soundVolume = (byte)_properties.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
+            _audioService.Play(SoundName.Touch, soundVolume);
         }
     }
 }

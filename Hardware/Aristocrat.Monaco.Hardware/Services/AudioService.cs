@@ -88,8 +88,7 @@
 
         public bool IsAvailable => AudioManager.IsSpeakerDeviceAvailable();
 
-        /// <inheritdoc />
-        public bool Load(SoundName soundName, string file)
+        private void LoadSound(SoundName soundName, string file)
         {
             if (string.IsNullOrWhiteSpace(file))
             {
@@ -99,7 +98,7 @@
                 }
 
                 Logger.Debug("Audio file can't load; name not specified");
-                return false;
+                return;
             }
 
             lock (_lock)
@@ -107,13 +106,13 @@
                 if (_sounds.ContainsKey(soundName))
                 {
                     Logger.Debug($"Audio file is already loaded: {file}");
-                    return true;
+                    return;
                 }
 
                 if (_system == null)
                 {
                     Logger.Error($"Failed to load the audio file: {file} - Sound System has not been created");
-                    return false;
+                    return;
                 }
 
                 Sound sound = null;
@@ -121,23 +120,36 @@
                 if (result != RESULT.OK)
                 {
                     Logger.Error($"Failed to load the audio file: {file} with error code ({result}");
-                    return false;
+                    return;
                 }
 
                 _sounds.TryAdd(soundName, (file, sound));
             }
 
             Logger.Debug($"Loaded audio file: {file}");
-
-            return true;
         }
 
+        /// <inheritdoc /> 
+        public void Load()
+        {
+            var config = ConfigurationUtilities.GetConfiguration(
+                "/Sound/Configuration",
+                () => new SoundConfiguration());
+
+            if (config.Sound is not null)
+            {
+                foreach (var sound in config.Sound)
+                {
+                    LoadSound(sound.Name, sound.FilePath);
+                }
+            }
+        }
         /// <inheritdoc />
         public void Play(SoundName soundName, float? volume, SpeakerMix speakers = SpeakerMix.All, Action callback = null)
         {
             if (!_sounds.ContainsKey(soundName))
             {
-                Logger.Error($"Audio file can't play; sound file not loaded or existed: {soundName}");
+                Logger.Error($"Audio file can't play; sound file not loaded or not existed: {soundName}");
                 return;
             }
 
@@ -286,9 +298,7 @@
                 Logger.Debug("Audio file can't determine length; name not specified");
                 return TimeSpan.Zero;
             }
-
-            Load(soundName, soundFile);
-
+            
             var sound = _sounds[soundName].Item2;
             uint lengthMs = 0;
             if (sound.getLength(ref lengthMs, TIMEUNIT.MS) == RESULT.OK)
@@ -456,14 +466,9 @@
 
                         Stop();
 
-                        if (!Load(soundName, _sounds[soundName].Item1))
-                        {
-                            return; 
-                        }
-
                         var sound = _sounds[soundName].Item2;
-
                         _currentSoundFile = file;
+
                         if (_system != null && _system.playSound(CHANNELINDEX.FREE, sound, true, ref _channel) ==
                             RESULT.OK)
                         {

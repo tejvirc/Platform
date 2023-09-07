@@ -28,7 +28,6 @@
         private bool _disposed;
         private long _banknoteLimit;
         private long _coinLimit;
-        private string _excessiveMeterIncrementErrorSoundFilePath;
 
         public ExcessiveMeterIncrementMonitor(
             IMeterManager meterManager,
@@ -67,7 +66,7 @@
                 GamingConstants.ExcessiveMeterIncrementTestDefaultCoinLimit);
             _eventBus.Subscribe<GameEndedEvent>(this, CheckExcessiveMeterIncrement);
             _eventBus.Subscribe<DownEvent>(this, Enable, evt => evt.LogicalId == (int)ButtonLogicalId.Button30);
-            LoadSounds();
+            
             var locked = _propertiesManager.GetValue(ApplicationConstants.ExcessiveMeterIncrementLockedKey, false);
             if (locked)
             {
@@ -106,24 +105,13 @@
             _disableManager.Enable(ApplicationConstants.ExcessiveMeterIncrementErrorGuid);
             _propertiesManager.SetProperty(ApplicationConstants.ExcessiveMeterIncrementLockedKey, false);
         }
-
-        /// <summary>
-        /// Load sound if configured
-        /// </summary>
-        private void LoadSounds()
-        {
-            _excessiveMeterIncrementErrorSoundFilePath = _propertiesManager?.GetValue(
-                GamingConstants.ExcessiveMeterIncrementTestSoundFilePath,
-                string.Empty);
-            _audioService.Load(SoundName.ExcessiveMeterIncrementTestSound, _excessiveMeterIncrementErrorSoundFilePath);
-        }
-
+        
         /// <summary>
         /// Plays the sound defined in the Application Config for ExcessiveMeterIncrement.
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_propertiesManager, SoundName.ExcessiveMeterIncrementTestSound);
+            _audioService.PlaySound(_propertiesManager, SoundName.Alarm);
         }
 
         protected virtual void Dispose(bool disposing)

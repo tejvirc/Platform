@@ -111,7 +111,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 var volume = GetVolume(_audio);
 
                 Enum.TryParse(_soundFile.Name, out SoundName soundName);
-                _audio.Load(soundName, _soundFile.Path);
                 _audio.Play(soundName, volume);
             }
         }

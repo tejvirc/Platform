@@ -375,7 +375,6 @@
 
         private void SetupPropertiesForAudioTest()
         {
-            _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.FirmwareCrcErrorSoundKey, It.IsAny<string>())).Returns("test");
             _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<byte>())).Returns(It.IsAny<byte>());
         }
     }

@@ -557,8 +557,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             MenuSelectionPayOptions = new List<MenuSelectionPayOption>((MenuSelectionPayOption[])Enum.GetValues(typeof(MenuSelectionPayOption)));
 
-            LoadSoundFiles();
-
             Logger.Debug("Lobby initialization complete");
         }
 
@@ -4945,16 +4943,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
 
             _initialLanguageEventSent = true;
-        }
-
-        private void LoadSoundFiles()
-        {
-            _audio.Load(SoundName.Touch, Path.GetFullPath(_properties.GetValue(ApplicationConstants.TouchSoundKey, string.Empty)));
-            _audio.Load(SoundName.CoinIn, Path.GetFullPath(_properties.GetValue(ApplicationConstants.CoinInSoundKey, string.Empty)));
-            _audio.Load(SoundName.CoinOut, Path.GetFullPath(_properties.GetValue(ApplicationConstants.CoinOutSoundKey, string.Empty)));
-            _audio.Load(SoundName.FeatureBell, Path.GetFullPath(_properties.GetValue(ApplicationConstants.FeatureBellSoundKey, string.Empty)));
-            _audio.Load(SoundName.Collect, Path.GetFullPath(_properties.GetValue(ApplicationConstants.CollectSoundKey, string.Empty)));
-            _audio.Load(SoundName.PaperInChute, Path.GetFullPath(_properties.GetValue(ApplicationConstants.PaperInChuteSoundKey, string.Empty)));
         }
 
         private void PlayAudioFile(SoundName soundName, Action callback = null)

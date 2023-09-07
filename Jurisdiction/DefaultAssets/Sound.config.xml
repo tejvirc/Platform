@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundConfiguration>	
+	<Sound Name="Alarm" FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
+	<Sound Name="BallDrop" FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" />
+	<Sound Name="CardFlip" FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" />
+	<Sound Name="Center" FilePath="..\jurisdiction\DefaultAssets\Center.ogg" />
+	<Sound Name="CoinIn" FilePath="..\jurisdiction\DefaultAssets\coinin.ogg" />
+	<Sound Name="CoinOut" FilePath="..\jurisdiction\DefaultAssets\coinout.ogg" />
+	<Sound Name="Collect" FilePath="..\jurisdiction\DefaultAssets\collect.ogg" />
+	<Sound Name="Ding" FilePath="..\jurisdiction\DefaultAssets\ding.ogg" />
+	<Sound Name="FeatureBell" FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" />
+	<Sound Name="PaperInChute" FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" />
+	<Sound Name="FrontLeft" FilePath="..\jurisdiction\DefaultAssets\FrontLeft.ogg" />
+	<Sound Name="FrontRight" FilePath="..\jurisdiction\DefaultAssets\FrontRight.ogg" />
+	<Sound Name="LowFrequency" FilePath="..\jurisdiction\DefaultAssets\LowFrequency.ogg" />
+	<Sound Name="RearLeft" FilePath="..\jurisdiction\DefaultAssets\RearLeft.ogg" />
+	<Sound Name="RearRight" FilePath="..\jurisdiction\DefaultAssets\RearRight.ogg" />
+	<Sound Name="ReelClick" FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" />
+	<Sound Name="SideLeft" FilePath="..\jurisdiction\DefaultAssets\SideLeft.ogg" />
+	<Sound Name="SideRight" FilePath="..\jurisdiction\DefaultAssets\SideRight.ogg" />
+	<Sound Name="Silence" FilePath="..\jurisdiction\DefaultAssets\silence.ogg" />
+	<Sound Name="Touch" FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" />
+</SoundConfiguration>

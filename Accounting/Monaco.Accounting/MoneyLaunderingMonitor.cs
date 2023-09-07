@@ -26,7 +26,6 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private bool _disposed;
         private long _excessiveMeterValue;
-        private string _soundFilePath;
         private static readonly object Lock = new object();
 
         public MoneyLaunderingMonitor()
@@ -99,9 +98,7 @@
             Logger.Debug($"{nameof(MoneyLaunderingMonitor)} service initialized.");
 
             _excessiveMeterValue = (long)_propertiesManager.GetProperty(AccountingConstants.ExcessiveMeterValue, 0L);
-
-            LoadAudio();
-
+            
             RestoreMachineStatus();
 
             if (IsServiceEnabled())
@@ -195,13 +192,6 @@
             return (bool)_propertiesManager.GetProperty(AccountingConstants.IncrementThresholdIsChecked, false);
         }
 
-        private void LoadAudio()
-        {
-            _soundFilePath = (string)_propertiesManager?.GetProperty(AccountingConstants.ExcessiveMeterSound, string.Empty);
-
-            _audio.Load(SoundName.ExcessiveMeterSound, _soundFilePath);
-        }
-
         private void DisableMachine()
         {
             if (IsMachineDisabled())
@@ -216,7 +206,7 @@
 
             StoreMachineDisabledStatus(true);
 
-            _audio.PlaySound(_propertiesManager, SoundName.ExcessiveMeterSound);
+            _audio.PlaySound(_propertiesManager, SoundName.Alarm);
 
             _eventBus.Subscribe<DownEvent>(this, e => EnableMachine(), e => e.LogicalId == (int)ButtonLogicalId.Button30);
 

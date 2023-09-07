@@ -114,10 +114,6 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
         [TestMethod]
         public void NoAudioAlertWhenDisconnected()
         {
-            _propertiesManager
-                .Setup(m => m.GetProperty(ApplicationConstants.NoteAcceptorErrorSoundKey, It.IsAny<object>()))
-                .Returns(string.Empty);
-
             Action<DisconnectedEvent> handler = null;
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DisconnectedEvent>>()))
                 .Callback<object, Action<DisconnectedEvent>>((subscriber, callback) => handler = callback);
@@ -138,10 +134,6 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
         [TestMethod]
         public void ExpectAudioAlertWhenDisconnected()
         {
-            _propertiesManager
-                .Setup(m => m.GetProperty(ApplicationConstants.NoteAcceptorErrorSoundKey, It.IsAny<object>()))
-                .Returns("Test.ogg");
-
             Action<DisconnectedEvent> handler = null;
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DisconnectedEvent>>()))
                 .Callback<object, Action<DisconnectedEvent>>((subscriber, callback) => handler = callback);
@@ -154,7 +146,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new DisconnectedEvent());
 
             _audioService.Verify(
-                m => m.Play(SoundName.NoteAcceptorErrorSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
+                m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
             Assert.AreEqual(1, _displayedMessages.Count);
             _systemDisableManager.Verify();
         }
@@ -162,10 +154,6 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
         [TestMethod]
         public void NoAudioAlertForDisconnectionWhenAuditMenuOpened()
         {
-            _propertiesManager
-                .Setup(m => m.GetProperty(ApplicationConstants.NoteAcceptorErrorSoundKey, It.IsAny<object>()))
-                .Returns("Test.ogg");
-
             Action<DisconnectedEvent> handler = null;
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DisconnectedEvent>>()))
                 .Callback<object, Action<DisconnectedEvent>>((subscriber, callback) => handler = callback);
@@ -193,10 +181,6 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
         [TestMethod]
         public void ExpectAudioAlertForDisconnectionWhenAuditMenuOpened()
         {
-            _propertiesManager
-                .Setup(m => m.GetProperty(ApplicationConstants.NoteAcceptorErrorSoundKey, It.IsAny<object>()))
-                .Returns("Test.ogg");
-
             Action<DisconnectedEvent> handler = null;
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DisconnectedEvent>>()))
                 .Callback<object, Action<DisconnectedEvent>>((subscriber, callback) => handler = callback);

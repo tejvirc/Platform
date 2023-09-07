@@ -121,10 +121,6 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
         [TestMethod]
         public void NoAudioAlertWhenDisconnected()
         {
-            _propertiesManager
-                .Setup(m => m.GetProperty(ApplicationConstants.PrinterErrorSoundKey, It.IsAny<object>()))
-                .Returns(string.Empty);
-
             Action<DisconnectedEvent> handler = null;
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DisconnectedEvent>>()))
                 .Callback<object, Action<DisconnectedEvent>>((subscriber, callback) => handler = callback);
@@ -137,7 +133,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new DisconnectedEvent());
 
             _audioService.Verify(
-                m => m.Play(SoundName.PrinterErrorSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
+                m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
             Assert.AreEqual(1, _displayedMessages.Count);
             _systemDisableManager.Verify();
         }
@@ -145,10 +141,6 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
         [TestMethod]
         public void ExpectAudioAlertWhenDisconnected()
         {
-            _propertiesManager
-                .Setup(m => m.GetProperty(ApplicationConstants.PrinterErrorSoundKey, It.IsAny<object>()))
-                .Returns("Test.ogg");
-
             Action<DisconnectedEvent> handler = null;
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DisconnectedEvent>>()))
                 .Callback<object, Action<DisconnectedEvent>>((subscriber, callback) => handler = callback);
@@ -161,7 +153,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new DisconnectedEvent());
 
             _audioService.Verify(
-                m => m.Play(SoundName.PrinterErrorSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
+                m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
             Assert.AreEqual(1, _displayedMessages.Count);
             _systemDisableManager.Verify();
         }
@@ -169,10 +161,6 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
         [TestMethod]
         public void NoAudioAlertForDisconnectionWhenAuditMenuOpened()
         {
-            _propertiesManager
-                .Setup(m => m.GetProperty(ApplicationConstants.PrinterErrorSoundKey, It.IsAny<object>()))
-                .Returns("Test.ogg");
-
             Action<DisconnectedEvent> handler = null;
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DisconnectedEvent>>()))
                 .Callback<object, Action<DisconnectedEvent>>((subscriber, callback) => handler = callback);
@@ -192,7 +180,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new DisconnectedEvent());
 
             _audioService.Verify(
-                m => m.Play(SoundName.PrinterErrorSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
+                m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
             Assert.AreEqual(1, _displayedMessages.Count);
             _systemDisableManager.Verify();
         }
@@ -200,10 +188,6 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
         [TestMethod]
         public void ExpectAudioAlertForDisconnectionWhenAuditMenuOpened()
         {
-            _propertiesManager
-                .Setup(m => m.GetProperty(ApplicationConstants.PrinterErrorSoundKey, It.IsAny<object>()))
-                .Returns("Test.ogg");
-
             Action<DisconnectedEvent> handler = null;
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<DisconnectedEvent>>()))
                 .Callback<object, Action<DisconnectedEvent>>((subscriber, callback) => handler = callback);
@@ -225,7 +209,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new DisconnectedEvent());
 
             _audioService.Verify(
-                m => m.Play(SoundName.PrinterErrorSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
+                m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
             Assert.AreEqual(1, _displayedMessages.Count);
             _systemDisableManager.Verify();
         }
@@ -233,10 +217,6 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
         [TestMethod]
         public void NoAudioAlertWhenPrinterPaperLow()
         {
-            _propertiesManager
-                .Setup(m => m.GetProperty(ApplicationConstants.PrinterWarningSoundKey, It.IsAny<object>()))
-                .Returns(string.Empty);
-
             Action<HardwareWarningEvent> handler = null;
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<HardwareWarningEvent>>()))
                 .Callback<object, Action<HardwareWarningEvent>>((subscriber, callback) => handler = callback);
@@ -247,16 +227,12 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new HardwareWarningEvent(PrinterWarningTypes.PaperLow));
 
             _audioService.Verify(
-                m => m.Play(SoundName.PrinterErrorSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
+                m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
         }
 
         [TestMethod]
         public void ExpectAudioAlertWhenPrinterPaperLow()
         {
-            _propertiesManager
-                .Setup(m => m.GetProperty(ApplicationConstants.PrinterWarningSoundKey, It.IsAny<object>()))
-                .Returns("Test.ogg");
-
             Action<HardwareWarningEvent> handler = null;
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<HardwareWarningEvent>>()))
                 .Callback<object, Action<HardwareWarningEvent>>((subscriber, callback) => handler = callback);
@@ -267,7 +243,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new HardwareWarningEvent(PrinterWarningTypes.PaperLow));
 
             _audioService.Verify(
-                m => m.Play(SoundName.PrinterErrorSound, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
+                m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Once);
         }
 
         private void MockDisableManager(bool disable, Guid disableGuid, string msg = "")

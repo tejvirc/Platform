@@ -64,8 +64,6 @@
         private bool _disposed;
         private bool _newBlockGenerated;
 
-        private string _firmwareCrcErrorSoundFilePath;
-
         public FirmwareCrcMonitor()
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
@@ -114,9 +112,7 @@
 
             Logger.Info("Initializing FirmwareCrcMonitor...");
             _seed = (int)_properties.GetProperty(ApplicationConstants.FirmwareCrcMonitorSeed, GdsConstants.DefaultSeed);
-
-            _firmwareCrcErrorSoundFilePath = _properties?.GetValue(ApplicationConstants.FirmwareCrcErrorSoundKey, DefaultAlarmSoundFilePath);
-
+            
             InitializeDeviceMappings();
 
             _bus.Subscribe<PlatformBootedEvent>(this, Handle);
@@ -314,8 +310,7 @@
         {
             if (!(bool)_properties.GetProperty(KernelConstants.IsInspectionOnly, false))
             {
-                _audioService.LoadSound(SoundName.FirmwareCrcErrorSound, _firmwareCrcErrorSoundFilePath);
-                _audioService.PlaySound(_properties, SoundName.FirmwareCrcErrorSound);
+                _audioService.PlaySound(_properties, SoundName.Alarm);
             }
         }
     }

@@ -47,6 +47,9 @@
 		<Compile Update="Region.cs">
 			<DependentUpon>Region.xsd</DependentUpon>
 		</Compile>
+    <Compile Update="Audio\SoundConfiguration.cs">
+      <DependentUpon>SoundConfiguration.xsd</DependentUpon>
+    </Compile>
 		<Compile Update="Template.cs">
 			<DependentUpon>Template.xsd</DependentUpon>
 		</Compile>

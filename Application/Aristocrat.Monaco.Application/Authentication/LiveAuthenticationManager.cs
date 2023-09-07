@@ -66,9 +66,7 @@ namespace Aristocrat.Monaco.Application.Authentication
         private bool _enabled;
 
         private bool _disposed;
-
-        private string _liveAuthenticationCheckFailedErrorSoundFilePath;
-
+        
         public LiveAuthenticationManager()
          : this(ServiceManager.GetInstance().GetService<IEventBus>(),
              ServiceManager.GetInstance().GetService<ISystemDisableManager>(),
@@ -108,8 +106,6 @@ namespace Aristocrat.Monaco.Application.Authentication
         /// <inheritdoc />
         public void Initialize()
         {
-            LoadSounds();
-
             var systemKeyFile = _propertiesManager.GetValue(KernelConstants.SystemKey, string.Empty);
             if (!string.IsNullOrEmpty(systemKeyFile))
             {
@@ -532,24 +528,13 @@ namespace Aristocrat.Monaco.Application.Authentication
             return _developmentKey;
         }
 #endif
-
-        /// <summary>
-        /// Load sound if configured for LiveAuthentication check failed.
-        /// </summary>
-        private void LoadSounds()
-        {
-            _liveAuthenticationCheckFailedErrorSoundFilePath = _propertiesManager.GetValue(
-                ApplicationConstants.LiveAuthenticationFailedSoundKey,
-                string.Empty);
-            _audioService.LoadSound(SoundName.LiveAuthenticationFailedSound, _liveAuthenticationCheckFailedErrorSoundFilePath);
-        }
-
+        
         /// <summary>
         /// Plays the sound defined in the Application Config for LiveAuthentication check failures.
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_propertiesManager, SoundName.LiveAuthenticationFailedSound);
+            _audioService.PlaySound(_propertiesManager, SoundName.Alarm);
         }
     }
 }

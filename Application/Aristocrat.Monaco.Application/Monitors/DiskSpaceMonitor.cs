@@ -40,7 +40,6 @@
         private DateTime _lastLogTime = DateTime.MinValue;
 
         private bool _disposed;
-        private string _diskSpaceMonitorCheckFailedErrorSoundFilePath;
 
         public DiskSpaceMonitor()
             : this(
@@ -103,9 +102,7 @@
             }
 
             _checkDiskSpaceTimer = new Timer(CheckDiskSpace, dirInfoRoot.Root.Name, TimeSpan.Zero, Interval);
-
-            LoadSounds();
-
+            
             Logger.Info("Initialized");
         }
 
@@ -147,24 +144,13 @@
                 _bus.Publish(new DiskSpaceClearEvent());
             }
         }
-
-        /// <summary>
-        /// Load sound if configured for DiskSpace monitor check failed.
-        /// </summary>
-        private void LoadSounds()
-        {
-            _diskSpaceMonitorCheckFailedErrorSoundFilePath = _properties.GetValue(
-                ApplicationConstants.DiskSpaceMonitorErrorSoundKey,
-                string.Empty);
-            _audioService.LoadSound(SoundName.DiskSpaceMonitorErrorSound, _diskSpaceMonitorCheckFailedErrorSoundFilePath);
-        }
-
+        
         /// <summary>
         /// Plays the sound defined in the Application Config for DiskSpace monitor check failed.
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_properties, SoundName.DiskSpaceMonitorErrorSound);
+            _audioService.PlaySound(_properties, SoundName.Alarm);
         }
 
         private static class NativeMethods

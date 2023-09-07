@@ -15,19 +15,6 @@ namespace Aristocrat.Monaco.Application.Util
         private const int DefaultAlertDurationMs = 5000;
         private const int DefaultSoundLengthMs = 500;
 
-        private static readonly Dictionary<SoundName, (string, int)> DicFileNameToLoopCount = new Dictionary<SoundName, (string, int)>();
-
-        /// <summary> Load sound if provided. </summary>
-        public static void LoadSound(this IAudio audioService, SoundName soundName, string soundFilePath)
-        {
-            if (!string.IsNullOrEmpty(soundFilePath) && !DicFileNameToLoopCount.ContainsKey(soundName))
-            {
-                audioService.Load(soundName, Path.GetFullPath(soundFilePath));
-                var loopCount = GetLoopCountForSound(audioService, soundName);
-                DicFileNameToLoopCount.Add(soundName, (soundFilePath, loopCount));
-            }
-        }
-
         private static int GetLoopCountForSound(IAudio audioService, SoundName soundName)
         {
             var soundLength = audioService.GetLength(soundName);
@@ -39,13 +26,10 @@ namespace Aristocrat.Monaco.Application.Util
         /// <summary> Plays the sound file provided for specific duration </summary>
         public static void PlaySound(this IAudio audioService, IPropertiesManager properties, SoundName soundName)
         {
-            if (!DicFileNameToLoopCount.ContainsKey(soundName))
-            {
-                int loopCount = DicFileNameToLoopCount[soundName].Item2;
+            int loopCount = GetLoopCountForSound(audioService, soundName);
 
-                var alertVolume = properties.GetValue(ApplicationConstants.AlertVolumeKey, DefaultAlertVolume);
-                audioService.Play(soundName, loopCount, alertVolume);
-            }
+            var alertVolume = properties.GetValue(ApplicationConstants.AlertVolumeKey, DefaultAlertVolume);
+            audioService.Play(soundName, loopCount, alertVolume);
         }
     }
 }

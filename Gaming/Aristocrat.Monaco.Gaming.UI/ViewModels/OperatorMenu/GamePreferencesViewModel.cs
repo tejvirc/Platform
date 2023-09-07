@@ -76,10 +76,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         private bool _logicDoorEnabled;
         private OperatorMenuAccessRestriction _logicDoorAccessRestriction;
 
-        private string _dingSoundFilePath;
-        private string _slotSoundFilePath;
-        private string _kenoSoundFilePath;
-        private string _cardSoundFilePath;
         private ProgressiveLobbyIndicator _progressiveIndicator;
         private bool _linkedProgressiveVerificationEnabled;
 
@@ -1101,8 +1097,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             AttractOptionsEnabled = enabledGames.Any();
 
             RegisterAccessRule(AutoHoldField, nameof(LogicDoorEnabled), nameof(LogicDoorAccessRestriction));
-
-            LoadSoundFile();
         }
 
         protected override void OnUnloaded()
@@ -1139,41 +1133,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             }
         }
 
-        private void LoadSoundFile()
-        {
-            var nodes =
-                MonoAddinsHelper.GetSelectedNodes<FilePathExtensionNode>("/OperatorMenu/GamePreferences/Sounds");
-
-            foreach (var node in nodes)
-            {
-                var path = node.FilePath;
-                var name = !string.IsNullOrWhiteSpace(node.Name)
-                    ? node.Name
-                    : Path.GetFileNameWithoutExtension(path);
-
-                if (name.Equals("Ding"))
-                {
-                    _dingSoundFilePath = Path.GetFullPath(path);
-                    _audio.Load(SoundName.Ding, _dingSoundFilePath);
-                }
-                else if (name.Equals("ReelClick"))
-                {
-                    _slotSoundFilePath = Path.GetFullPath(path);
-                    _audio.Load(SoundName.ReelClick, _slotSoundFilePath);
-                }
-                else if (name.Equals("BallDrop"))
-                {
-                    _kenoSoundFilePath = Path.GetFullPath(path);
-                    _audio.Load(SoundName.BallDrop, _kenoSoundFilePath);
-                }
-                else if (name.Equals("CardFlip"))
-                {
-                    _cardSoundFilePath = Path.GetFullPath(path);
-                    _audio.Load(SoundName.CardFlip, _cardSoundFilePath);
-                }
-            }
-        }
-
         private bool GetZeroCreditCashoutCheckboxVisibility()
         {
             var protocols = ServiceManager.GetInstance().GetService<IMultiProtocolConfigurationProvider>()
@@ -1184,10 +1143,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         private void PlayVolumeChangeSound(SoundName soundName, float fVolumeScale)
         {
-           // if (!string.IsNullOrEmpty(soundFilePath))
-            {
-                _audio.Play(soundName, fVolumeScale * _audio.GetDefaultVolume());
-            }
+            _audio.Play(soundName, fVolumeScale * _audio.GetDefaultVolume());
         }
 
         // verifies the speed setting is valid or not 0 and return number or mid point value

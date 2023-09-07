@@ -46,7 +46,6 @@
         private bool _lockupOnDisconnect;
         private bool _lockupOnStackerFull;
         private bool _softErrorOnStackerFull;
-        private string _noteAcceptorErrorSoundFilePath;
         private bool _isOperatorMenuOpen;
         private bool _errorWhileInGamePlay;
         private bool _stopAlarmWhenAuditMenuOpened;
@@ -183,8 +182,6 @@
 
             SubscribeToEvents();
 
-            LoadSounds();
-
             // check device status on boot up
             CheckDeviceStatus();
         }
@@ -318,30 +315,20 @@
                 DisableForDocumentCheck();
             }
         }
-
-        private void LoadSounds()
-        {
-            _noteAcceptorErrorSoundFilePath =
-                _propertiesManager?.GetValue(ApplicationConstants.NoteAcceptorErrorSoundKey, string.Empty);
-            _audioService.LoadSound(SoundName.NoteAcceptorErrorSound, _noteAcceptorErrorSoundFilePath);
-        }
-
+        
         /// <summary>
         ///     Plays the sound defined in the Application Config for PlayNoteAcceptorErrorSound
         /// </summary>
         private bool PlayNoteAcceptorErrorSound()
         {
-            if (!string.IsNullOrEmpty(_noteAcceptorErrorSoundFilePath))
+            if (_noteAcceptor != null && !_noteAcceptor.ReasonDisabled.HasFlag(DisabledReasons.GamePlay))
             {
-                if (_noteAcceptor != null && !_noteAcceptor.ReasonDisabled.HasFlag(DisabledReasons.GamePlay))
-                {
-                    _audioService.PlaySound(_propertiesManager, SoundName.NoteAcceptorErrorSound);
-                    return true;
-                }
-                else
-                {
-                    _errorWhileInGamePlay = true;
-                }
+                _audioService.PlaySound(_propertiesManager, SoundName.Alarm);
+                return true;
+            }
+            else
+            {
+                _errorWhileInGamePlay = true;
             }
 
             return false;

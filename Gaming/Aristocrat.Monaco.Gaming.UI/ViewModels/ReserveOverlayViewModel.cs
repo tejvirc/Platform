@@ -61,7 +61,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private const string TimeFormat = "m\\:ss";
         private const int DefaultTimeOutInMinutes = 5;
         private readonly string PasswordChar = "*";
-        private readonly string _touchSoundFile;
 
         private int FullLockupTimeSeconds => _propertiesManager.GetValue(
             ApplicationConstants.ReserveServiceTimeoutInSeconds,
@@ -129,7 +128,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _keyboardService = keyboardService ?? throw new ArgumentNullException(nameof(keyboardService));
             _audioService = audioService ?? throw new ArgumentNullException(nameof(audioService));
-            _touchSoundFile = _propertiesManager.GetValue(ApplicationConstants.TouchSoundKey, string.Empty);
 
             DigitClickedCommand = new RelayCommand<object>(ConcatenateReservePin);
 
@@ -643,12 +641,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void PlayButtonClickSound()
         {
-            if (!string.IsNullOrWhiteSpace(_touchSoundFile))
-            {
-                var soundVolume = (byte)_propertiesManager.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
-                _audioService.Load(SoundName.Touch, _touchSoundFile);
-                _audioService.Play(SoundName.Touch, soundVolume);
-            }
+            var soundVolume = (byte)_propertiesManager.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
+
+            _audioService.Play(SoundName.Touch, soundVolume);
         }
     }
 }

@@ -36,7 +36,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private byte _alertMinimumVolume;
         private string _infoText;
         private bool _playTestAlertSound;
-        private string _soundFile;
         private bool _inTestMode;
         private VolumeLevel _selectedVolumeLevel;
 
@@ -60,7 +59,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             OnPropertyChanged(nameof(AlertMinimumVolume));
 
             _playTestAlertSound = PropertiesManager.GetValue(ApplicationConstants.SoundConfigurationPlayTestAlertSound, ApplicationConstants.DefaultPlayTestAlertSound);
-            _soundFile = PropertiesManager.GetValue(ApplicationConstants.DingSoundKey, "");
 
             // Load alert volume level and settings
             var alertVolume = ConvertVolumeToSlider(
@@ -158,7 +156,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 }
                 if (_playTestAlertSound)
                 {
-                    _audio.Load(SoundName.Ding, _soundFile);
                     _audio.Play(SoundName.Ding, scaledVolume);
                 }
             }
