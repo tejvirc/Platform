@@ -155,6 +155,8 @@ public sealed class Bootstrapper : PrismBootstrapperBase
         services.AddSingleton<Services.Attendant.IAttendantService, AttendantService>();
         services.AddSingleton<IBankService, BankService>();
         services.AddSingleton<IReplayService, ReplayService>();
+        services.AddSingleton<ITopImageRotationService, TopImageRotationService>();
+        services.AddSingleton<ITopperImageRotationService, TopperImageRotationService>();
 
         services.AddLocatedPlatformService<IWpfWindowLauncher>();
         services.AddPlatformService<IPropertiesManager>();

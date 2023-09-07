@@ -36,9 +36,6 @@ using LobbyState = Store.Lobby.LobbyState;
 
 public sealed class AttractService : IAttractService, IDisposable
 {
-    private const double RotateTopImageIntervalInSeconds = 10.0;
-    private const double RotateTopperImageIntervalInSeconds = 10.0;
-
     private readonly ILogger<AttractService> _logger;
     private readonly IState<AttractState> _attractState;
     private readonly IState<LobbyState> _lobbyState;
@@ -52,10 +49,10 @@ public sealed class AttractService : IAttractService, IDisposable
     private readonly IPropertiesManager _properties;
     private readonly IBank _bank;
     private readonly IAttractConfigurationProvider _attractConfigurationProvider;
+    private readonly ITopImageRotationService _topImageRotationService;
+    private readonly ITopperImageRotationService _topperImageRotationService;
 
     private readonly Timer _attractTimer;
-    private readonly Timer _rotateTopImageTimer;
-    private readonly Timer _rotateTopperImageTimer;
 
     private readonly object _attractLock = new object();
 
@@ -76,7 +73,9 @@ public sealed class AttractService : IAttractService, IDisposable
         IEventBus eventBus,
         IPropertiesManager properties,
         IAttractConfigurationProvider attractConfigurationProvider,
-        IBank bank)
+        IBank bank,
+        ITopImageRotationService topImageRotationService,
+        ITopperImageRotationService topperImageRotationService)
     {
         _logger = logger;
         _attractState = attractState;
@@ -91,15 +90,11 @@ public sealed class AttractService : IAttractService, IDisposable
         _properties = properties;
         _bank = bank;
         _attractConfigurationProvider = attractConfigurationProvider;
+        _topImageRotationService = topImageRotationService;
+        _topperImageRotationService = topperImageRotationService;
 
-        _attractTimer = new Timer { Interval = TimeSpan.FromSeconds(_attractOptions.TimerIntervalInSeconds).TotalMilliseconds};
+        _attractTimer = new Timer { Interval = TimeSpan.FromSeconds(_attractOptions.TimerIntervalInSeconds).TotalMilliseconds };
         _attractTimer.Elapsed += AttractTimer_Tick;
-
-        _rotateTopImageTimer = new Timer { Interval = TimeSpan.FromSeconds(RotateTopImageIntervalInSeconds).TotalMilliseconds};
-        _rotateTopImageTimer.Elapsed += RotateTopImageTimerTick;
-
-        _rotateTopperImageTimer = new Timer { Interval = TimeSpan.FromSeconds(RotateTopperImageIntervalInSeconds).TotalMilliseconds};
-        _rotateTopperImageTimer.Elapsed += RotateTopperImageTimerTick;
 
         _dispatcher.DispatchAsync(new AttractSetCanModeStartAction { Bank = bank, Properties = properties });
     }
@@ -188,40 +183,6 @@ public sealed class AttractService : IAttractService, IDisposable
         }
     }
 
-    public void RotateTopImage()
-    {
-        if (!(_attractOptions.TopImageRotation is { Count: > 0 }))
-        {
-            return;
-        }
-
-        var newIndex = _attractState.Value.ModeTopImageIndex + 1;
-
-        if (newIndex < 0 || newIndex >= _attractOptions.TopImageRotation.Count)
-        {
-            newIndex = 0;
-        }
-
-        _dispatcher.Dispatch(new AttractUpdateTopImageIndexAction { Index = newIndex });
-    }
-
-    public void RotateTopperImage()
-    {
-        if (!(_attractOptions.TopperImageRotation is { Count: > 0 }))
-        {
-            return;
-        }
-
-        var newIndex = _attractState.Value.ModeTopperImageIndex + 1;
-
-        if (newIndex < 0 || newIndex >= _attractOptions.TopperImageRotation.Count)
-        {
-            newIndex = 0;
-        }
-
-        _dispatcher.Dispatch(new AttractUpdateTopperImageIndexAction { Index = newIndex });
-    }
-
     public void Dispose()
     {
         _attractTimer.Stop();
@@ -240,22 +201,6 @@ public sealed class AttractService : IAttractService, IDisposable
         }
 
         _dispatcher.DispatchAsync(new AttractEnterAction());
-    }
-
-    private void RotateTopImageTimerTick(object? sender, EventArgs e)
-    {
-        if (_attractState.Value.IsPlaying)
-        {
-            _dispatcher.Dispatch(new AttractRotateTopImageAction());
-        }
-    }
-
-    private void RotateTopperImageTimerTick(object? sender, EventArgs e)
-    {
-        if (_attractState.Value.IsPlaying)
-        {
-            _dispatcher.Dispatch(new AttractRotateTopperImageAction());
-        }
     }
 
     public void StartAttractTimer()
@@ -280,9 +225,6 @@ public sealed class AttractService : IAttractService, IDisposable
 
                 _attractTimer.Interval = TimeSpan.FromSeconds(interval).TotalMilliseconds;
                 _attractTimer.Start();
-
-                _rotateTopImageTimer.Start();
-                _rotateTopperImageTimer.Start();
             }
         }
     }
@@ -402,8 +344,8 @@ public sealed class AttractService : IAttractService, IDisposable
 
         if (!PlayAdditionalConsecutiveAttractVideo())
         {
-            RotateTopImage();
-            RotateTopperImage();
+            _topImageRotationService.RotateTopImage();
+            _topperImageRotationService.RotateTopperImage();
             //TODO (Future Task) - Implement this functionality when the Attract View Model is being implemented
             //Task.Run(
             //    () => { MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.AttractVideoComplete)); });

@@ -14,6 +14,8 @@ public partial class AttractEffects
     private readonly IState<AttractState> _attractState;
     private readonly IState<ChooserState> _chooserState;
     private readonly IAttractService _attractService;
+    private readonly ITopImageRotationService _topImageRotationService;
+    private readonly ITopperImageRotationService _topperImageRotationService;
     private readonly AttractOptions _attractOptions;
     private readonly IEdgeLightingService _edgeLightingService;
 
@@ -21,12 +23,16 @@ public partial class AttractEffects
         IState<AttractState> attractState,
         IState<ChooserState> chooserState,
         IAttractService attractService,
+        ITopImageRotationService topImageRotationService,
+        ITopperImageRotationService topperImageRotationService,
         IOptions<AttractOptions> attractOptions,
         IEdgeLightingService edgeLightingService)
     {
         _attractState = attractState;
         _chooserState = chooserState;
         _attractService = attractService;
+        _topImageRotationService = topImageRotationService;
+        _topperImageRotationService = topperImageRotationService;
         _attractOptions = attractOptions.Value;
         _edgeLightingService = edgeLightingService;
     }
@@ -80,9 +86,9 @@ public partial class AttractEffects
 
         _attractService.SetAttractVideoPaths(currentAttractIndex);
 
-        _attractService.RotateTopImage();
+        _topImageRotationService.RotateTopImage();
 
-        _attractService.RotateTopperImage();
+        _topperImageRotationService.RotateTopperImage();
 
         await dispatcher.DispatchAsync(new AttractUpdateConsecutiveCount { ConsecutiveAttractCount = 0 });
 

@@ -7,8 +7,4 @@ public interface IAttractService
     void SetAttractVideoPaths(int currAttractIndex);
 
     void NotifyEntered();
-
-    void RotateTopImage();
-
-    void RotateTopperImage();
 }
