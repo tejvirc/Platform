@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading;
     using Application.Contracts;
+    using Application.Contracts.Extensions;
     using Aristocrat.G2S;
     using Aristocrat.G2S.Protocol.v21;
     using Gaming.Contracts.Meters;
@@ -23,16 +24,22 @@
         private readonly object _lock = new object();
         private const int FlushInterval = 5; // seconds
 
-        private readonly string[] basicMetersStandard = new[]
+        private readonly string[] _basicMetersStandard = new[]
         {
             ProgressiveMeters.LinkedProgressiveWageredAmount,
             ProgressiveMeters.LinkedProgressivePlayedCount
         };
-        private readonly string[] basicMetersBulk = new[]
+        private readonly string[] _basicMetersBulk = new[]
         {
             ProgressiveMeters.LinkedProgressiveWageredAmount,
             ProgressiveMeters.LinkedProgressiveWageredAmountWithAnte,
             ProgressiveMeters.LinkedProgressivePlayedCount
+        };
+        private readonly string[] _externalMeters = new[]
+        {
+            ProgressiveMeters.CurrentValueDisplayMeter,
+            ProgressiveMeters.LinkedProgressiveWinAccumulation,
+            ProgressiveMeters.LinkedProgressiveWinOccurrence
         };
 
         public ProgressiveLevelManager(IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter, IProgressiveMeterManager progressiveMeters)
@@ -62,7 +69,7 @@
                     {
                         deviceClass = DeviceClass.G2S_progressive,
                         deviceId = deviceId,
-                        simpleMeter = GetSimpleProgressiveLevelMeters(linkedLevels.First().LevelName, basicMetersStandard).ToArray()
+                        simpleMeter = GetSimpleProgressiveLevelMeters(linkedLevels.First().LevelName, _basicMetersStandard).ToArray()
                     }
                 };
             }
@@ -71,12 +78,12 @@
         private IEnumerable<deviceMeters> BuildBulkLevelMeters(int deviceId, IList<IViewableLinkedProgressiveLevel> linkedLevels)
         {
             //The basic meters are evenly incremented across all levels for the progressive device
-            var basicMeters = GetSimpleProgressiveLevelMeters(linkedLevels.First().LevelName, basicMetersBulk);
+            var basicMeters = GetSimpleProgressiveLevelMeters(linkedLevels.First().LevelName, _basicMetersBulk);
 
             //bulk meters are level specific and must be built for each applicable level. 
             var bulkMeters = GetSimpleBulkProgressiveLevelMeters(linkedLevels);
 
-            var complexMeters = GetComplexProgressiveLevelMeters(linkedLevels);
+            var complexMeters = GetComplexProgressiveLevelMeters(linkedLevels, _externalMeters);
 
             return new[]
             {
@@ -95,14 +102,14 @@
             return MeterMap.ProgressiveMeters
                 .Where(m => includedMeters != null && includedMeters.Any(i => i == m.Value))
                 .Select(
-                    meter => new simpleMeter
+                    meterMapping => new simpleMeter
                     {
-                        meterName = meter.Key.StartsWith("G2S_", StringComparison.InvariantCultureIgnoreCase) ||
-                                    meter.Key.StartsWith("ATI_", StringComparison.InvariantCultureIgnoreCase)
-                            ? meter.Key
-                            : $"G2S_{meter.Key}",
-                        meterValue = _progressiveMeters.IsMeterProvided(linkedLevelName, meter.Value)
-                            ? _progressiveMeters.GetMeter(linkedLevelName, meter.Value).Lifetime
+                        meterName = meterMapping.Key.StartsWith("G2S_", StringComparison.InvariantCultureIgnoreCase) ||
+                                    meterMapping.Key.StartsWith("ATI_", StringComparison.InvariantCultureIgnoreCase)
+                            ? meterMapping.Key
+                            : $"G2S_{meterMapping.Key}",
+                        meterValue = _progressiveMeters.IsMeterProvided(linkedLevelName, meterMapping.Value)
+                            ? _progressiveMeters.GetMeter(linkedLevelName, meterMapping.Value).Lifetime
                             : 0
                     });
         }
@@ -112,10 +119,10 @@
         {
             return from linkedLevel in linkedLevels
                 where linkedLevel.FlavorType == FlavorType.BulkContribution
-                join meter in MeterMap.BulkContributionMeters on linkedLevel.LevelId equals meter.Key
+                join meterMapping in MeterMap.BulkContributionMeters on linkedLevel.LevelId equals meterMapping.Key
                 select new simpleMeter
                 {
-                    meterName = meter.Value,
+                    meterName = meterMapping.Value,
                     meterValue = _progressiveMeters.IsMeterProvided(
                         linkedLevel.LevelName,
                         ProgressiveMeters.LinkedProgressiveBulkContribution)
@@ -126,9 +133,44 @@
                 };
         }
 
-        private IEnumerable<complexMeter> GetComplexProgressiveLevelMeters(IList<IViewableLinkedProgressiveLevel> linkedLevels, params string[] includedMeters)
+        private IEnumerable<complexMeter> GetComplexProgressiveLevelMeters(
+            IList<IViewableLinkedProgressiveLevel> linkedLevels,
+            params string[] includedMeters)
         {
-            return new List<complexMeter>();
+            return MeterMap.ExternalProgressiveMeters
+                .Where(m => includedMeters != null && includedMeters.Any(i => i == m.Value))
+                .Select(
+                    meterMapping => new complexMeter
+                    {
+                        meterName = meterMapping.Key.meterName,
+                        simpleMeter = BuildSimpleExternalProgressiveMeters(
+                            linkedLevels,
+                            meterMapping.Value,
+                            meterMapping.Key.subMeterNameFormat
+                            ).ToArray()
+                    }
+                );
+        }
+
+        private IEnumerable<simpleMeter> BuildSimpleExternalProgressiveMeters(
+            IList<IViewableLinkedProgressiveLevel> linkedLevels,
+            string meterName,
+            string meterNameFormat)
+        {
+            return linkedLevels.Select(
+                level => new simpleMeter
+                {
+                    meterName = string.Format(meterNameFormat, level.LevelId, level.CommonLevelName),
+                    meterValue = meterName switch
+                    {
+                        ProgressiveMeters.CurrentValueDisplayMeter => level.Amount.CentsToMillicents(),
+                        _ => _progressiveMeters.IsMeterProvided(
+                            level.LevelName, meterName)
+                            ? _progressiveMeters.GetMeter(
+                                level.LevelName, meterName).Lifetime
+                            : 0
+                    }
+                });
         }
 
         public LinkedProgressiveLevel UpdateLinkedProgressiveLevels(

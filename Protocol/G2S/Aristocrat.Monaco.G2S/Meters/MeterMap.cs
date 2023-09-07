@@ -164,6 +164,23 @@
             { 12, ContributionMeterName.BulkContribution12 },
         };
 
+        public static IDictionary<(string meterName, string subMeterNameFormat), string> ExternalProgressiveMeters { get; } =
+            new Dictionary<(string meterName, string subMeterNameFormat), string>
+            {
+                {
+                    ExternalProgressiveMeterName.CurrentValue,
+                    Gaming.Contracts.Progressives.ProgressiveMeters.CurrentValueDisplayMeter
+                },
+                {
+                    ExternalProgressiveMeterName.WinAccumulation,
+                    Gaming.Contracts.Progressives.ProgressiveMeters.LinkedProgressiveWinAccumulation
+                },
+                {
+                    ExternalProgressiveMeterName.WinOccurrence,
+                    Gaming.Contracts.Progressives.ProgressiveMeters.LinkedProgressiveWinOccurrence
+                },
+            };
+
         public static IDictionary<string, string> BonusMeters { get; } = new Dictionary<string, string>
         {
             { TransferMeterName.CashableInAmount, Gaming.Contracts.Bonus.BonusMeters.BonusCashableInAmount },

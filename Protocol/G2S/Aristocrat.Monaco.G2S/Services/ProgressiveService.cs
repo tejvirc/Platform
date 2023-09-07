@@ -174,12 +174,20 @@
             _eventBus.Subscribe<CommunicationsStateChangedEvent>(this, OnCommunicationsStateChanged);
             _eventBus.Subscribe<GameConfigurationSaveCompleteEvent>(this, Configure);
             _eventBus.Subscribe<ProgressiveWagerCommittedEvent>(this, OnProgressiveWagerCommitted);
+            _eventBus.Subscribe<PropertyChangedEvent>(
+                this,
+                LinkedProgressiveVerificationSettingChanged,
+                e => e.PropertyName == GamingConstants.LinkedProgressiveVerificationEnabled);
+
             _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<LinkedProgressiveHitEvent>(
-                ProtocolNames.G2S, this);
+                ProtocolNames.G2S,
+                this);
             _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<LinkedProgressiveCommitEvent>(
-                ProtocolNames.G2S, this);
+                ProtocolNames.G2S,
+                this);
             _protocolProgressiveEventsRegistry.SubscribeProgressiveEvent<ProgressiveCommitAckEvent>(
-                ProtocolNames.G2S, this);
+                ProtocolNames.G2S,
+                this);
         }
 
         private void OnCommsOnline()
@@ -205,7 +213,7 @@
                 .GroupBy(ll => ll.ProgressiveGroupId)
                 .ToDictionary(ll => ll.Key, ll => ll.ToList());
 
-            if(!EnsureLevelsMatch(progressiveHostInfos, linkedLevels, devices))
+            if (!EnsureLevelsMatch(progressiveHostInfos, linkedLevels, devices))
             {
                 return;
             }
@@ -213,6 +221,15 @@
             if (_propertiesManager.GetValue(GamingConstants.LinkedProgressiveVerificationEnabled, true))
             {
                 LinkedProgressiveVerification(progressiveHostInfos, linkedLevels, devices);
+            }
+            else
+            {
+                //Verification disabled, clear any potential errors already present. 
+                var erredLevels = _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
+                    .Where(
+                        l => (l.Errors & ProgressiveErrors.LinkedProgressiveVerificationFailure) ==
+                             ProgressiveErrors.LinkedProgressiveVerificationFailure).ToList();
+                _progressiveErrorProvider.ClearLinkedProgressiveVerificationFailedError(erredLevels);
             }
         }
 
@@ -581,7 +598,8 @@
                         0,
                         string.Empty,
                         firstLevel.FlavorType,
-                        true);
+                        true,
+                        firstLevel.LevelName);
 
                     var progressiveLevelAssignment = pool.Select(
                         level => new ProgressiveLevelAssignment(
@@ -795,7 +813,25 @@
         }
 
         /// <summary>
-        ///     Ensure the RTP values from the Monaco progressive levels match the values configured in the Vertex progressive levels.
+        /// When the linked progressive verification setting is changed, reevaluate the lockup
+        /// </summary>
+        private void LinkedProgressiveVerificationSettingChanged(PropertyChangedEvent _)
+        {
+            var progHost = _egm.Hosts.FirstOrDefault(host => host.IsProgressiveHost);
+            if (progHost == null)
+            {
+                return;
+            }
+
+            var commsDevice = _egm.GetDevice<ICommunicationsDevice>(progHost.Id);
+            if (commsDevice.State == t_commsStates.G2S_onLine)
+            {
+                OnCommsOnline();
+            }
+        }
+
+        /// <summary>
+        ///     Ensure the progressive configuration from the Monaco progressive levels match the values configured in the Vertex progressive levels.
         /// </summary>
         private void LinkedProgressiveVerification(
             List<progressiveHostInfo> progressiveHostInfos,
@@ -810,8 +846,8 @@
                 .GroupBy(l => l.AssignedProgressiveId.AssignedProgressiveKey)
                 .ToDictionary(group => group.Key, group => group.ToList());
 
-            List<IViewableProgressiveLevel> passedLevels = new List<IViewableProgressiveLevel>();
-            List<IViewableProgressiveLevel> failedLevels = new List<IViewableProgressiveLevel>();
+            var passedLevels = new List<IViewableProgressiveLevel>();
+            var failedLevels = new List<IViewableProgressiveLevel>();
 
             foreach (var progressiveHostInfo in progressiveHostInfos)
             {

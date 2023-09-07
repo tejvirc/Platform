@@ -374,7 +374,7 @@
                     AutomationProperties.AutomationId="CheckBox1_C639213A"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.LinkedProgressiveVerificationEnabledLabel}}"
                     IsChecked="{Binding LinkedProgressiveVerificationEnabled}"
-                    Visibility="{Binding Path=GameExistsWithExtendedRtpInfo, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
+                    Visibility="{Binding Path=LinkedProgressiveVerificationAvailable, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
             </StackPanel>
             <!--  Middle Grid Section  -->
             <StackPanel
