@@ -32,7 +32,7 @@
 
         private readonly IEventBus _eventBus;
         private readonly INoteAcceptor _noteAcceptor;
-        private readonly Audio.IAudio _audioService;
+        private readonly IAudio _audioService;
         private readonly IMeterManager _meterManager;
         private readonly IPersistentStorageManager _persistentStorage;
         private readonly ISystemDisableManager _disableManager;
@@ -52,7 +52,7 @@
 
         public NoteAcceptorMonitor(IEventBus eventBus,
             INoteAcceptor noteAcceptor,
-            Audio.IAudio audioService,
+            IAudio audioService,
             IMeterManager meterManager,
             IPersistentStorageManager persistentStorage,
             ISystemDisableManager disableManager,
