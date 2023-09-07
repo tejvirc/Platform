@@ -1,7 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Reel
 {
-    using Kernel;
-
     /// <summary>
     ///     The progress model used to report progress when loading animation files
     /// </summary>

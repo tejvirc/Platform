@@ -236,6 +236,8 @@
     </Style>
     <Style x:Key="MonacoIntegerUpDown"
            TargetType="{x:Type local:IntegerUpDown}">
+        <Setter Property="Validation.ErrorTemplate"
+                Value="{DynamicResource ValidationErrorTemplate}" />
         <Setter Property="Background"
                 Value="{StaticResource DarkBrush1}" />
         <Setter Property="BorderBrush"

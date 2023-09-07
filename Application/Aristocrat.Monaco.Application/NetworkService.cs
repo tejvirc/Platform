@@ -292,12 +292,19 @@
                             TimeSpan.FromSeconds(1),
                             () => IsCurrent(networkInfo),
                             _commitCancellationToken.Token)
+                        .ContinueWith(task =>
+                        {
+                            if (task.IsFaulted)
+                            {
+                                Log.Error("Exception while checking network change commit", task.Exception);
+                            }
+                        })
                         .Wait(_commitCancellationToken.Token);
                 }
             }
             catch (OperationCanceledException)
             {
-                Log.Debug("Wait for commit cancelled due to timeout or success");
+                Log.Debug("Wait for commit canceled due to timeout or success");
             }
             catch (Exception e)
             {
@@ -324,15 +331,23 @@
                 {
                     while (true)
                     {
-                        if (token.IsCancellationRequested || action() || token.WaitHandle.WaitOne(pollInterval))
+                        try
                         {
-                            break;
+                            if (token.IsCancellationRequested || action() || token.WaitHandle.WaitOne(pollInterval))
+                            {
+                                break;
+                            }
+                        }
+                        catch (OperationCanceledException)
+                        {
+                            // swallow OperationCanceledException
                         }
                     }
                 },
                 token,
                 TaskCreationOptions.LongRunning,
-                TaskScheduler.Default);
+                TaskScheduler.Default
+            );
         }
 
         private static void OnNetworkAvailabilityChanged(object sender, NetworkAvailabilityEventArgs args)

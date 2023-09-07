@@ -8,7 +8,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using Common;
+    using Common.Cryptography;
     using Contracts;
     using Contracts.Communicator;
     using Contracts.Reel;
@@ -293,65 +293,51 @@
                 return false;
             }
 
-            var animationFilesLoaded = 0;
+            var filesToLoad = new List<AnimationFile>();
             var animationFiles = files as AnimationFile[] ?? files.ToArray();
             var loadingAnimationFileModel = new LoadingAnimationFileModel();
+            var (animationIdsSuccess, animationIds) = await _relmCommunicator.SendQueryAsync<StoredAnimationIds>(token);
+
             Logger.Debug($"Checking {animationFiles.Length} animation files to download");
 
-            var count = 1;
+            loadingAnimationFileModel.Count = 1;
+            loadingAnimationFileModel.Total = animationFiles.Length;
             foreach (var file in animationFiles)
             {
-                if (_animationFiles.Contains(file))
+                var fileName = Path.GetFileName(file.Path);
+                var fileNameHash = fileName.HashDjb2();
+                var fileNeedsLoaded = true;
+
+                if (animationIdsSuccess && (animationIds?.AnimationIds.Contains(fileNameHash) ?? false))
                 {
-                    Logger.Debug($"Animation file already downloaded: {file.Path}");
+                    fileNeedsLoaded = await CheckFileIsModified(file.Path, fileNameHash, token);
+                }
+
+                loadingAnimationFileModel.Filename = fileName;
+
+                if (!fileNeedsLoaded)
+                {
+                    if (!_animationFiles.Contains(file))
+                    {
+                        file.AnimationId = fileNameHash;
+                        _animationFiles.Add(file);
+                    }
+                    
+                    Logger.Debug(
+                        $"Animation file is already present on controller. {loadingAnimationFileModel.Count} / {loadingAnimationFileModel.Total}: [{file.Path}], Name: {file.FriendlyName}, AnimationId: {file.AnimationId}");
+                    loadingAnimationFileModel.Count++;
                     continue;
                 }
 
-                loadingAnimationFileModel.Count = count;
-                loadingAnimationFileModel.Total = animationFiles.Length;
-                loadingAnimationFileModel.Filename = Path.GetFileName(file.Path);
-
-                try
+                if (!filesToLoad.Contains(file))
                 {
-                    if (!_propertiesManager.GetValue(HardwareConstants.DoNotResetRelmController, false))
-                    {
-                        Logger.Debug($"Downloading animation file {loadingAnimationFileModel.Count + "/" + loadingAnimationFileModel.Total} {file.Path}");
-                        loadingAnimationFileModel.State = LoadingAnimationState.Loading;
-                        progress?.Report(loadingAnimationFileModel);
-                        var storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
-                        file.AnimationId = storedFile.FileId;
-                    }
-                    else
-                    {
-                        var id = Path.GetFileName(file.Path).HashDjb2();
-                        file.AnimationId = id;
-                    }
-
-                    _animationFiles.Add(file);
-                    animationFilesLoaded++;
+                    filesToLoad.Add(file);
                 }
-                catch (Exception e)
-                {
-                    Logger.Error($"Error while loading animation file  {loadingAnimationFileModel.Count + "/" + loadingAnimationFileModel.Total} {loadingAnimationFileModel.Filename}: {e}");
-                    loadingAnimationFileModel.State = LoadingAnimationState.Error;
-                    progress?.Report(loadingAnimationFileModel);
-                    return false;
-                }
-
-                Logger.Debug($"Finished downloading animation file {count} of {animationFiles.Length}: [{file.Path}], Name: {file.FriendlyName}, AnimationId: {file.AnimationId}");
-                count++;
             }
 
-            if (animationFilesLoaded <= 0)
-            {
-                return true;
-            }
+            var loadSuccess = await LoadAnimationFilesInternal(filesToLoad, loadingAnimationFileModel, progress, token);
 
-            Logger.Debug($"Completed downloading {animationFilesLoaded} animation files");
-            loadingAnimationFileModel.State = LoadingAnimationState.Completed;
-            progress?.Report(loadingAnimationFileModel);
-
-            return true;
+            return loadSuccess;
         }
 
         /// <inheritdoc />
@@ -753,6 +739,98 @@
             return command == null
                 ? Task.FromResult(false)
                 : _relmCommunicator.SendCommandAsync(command, token);
+        }
+
+        internal virtual byte[] HashAnimationFile(string filePath)
+        {
+            using var streamReader = new StreamReader(filePath);
+            using var crc32 = new Crc32();
+            var hash = crc32.ComputeHash(streamReader.BaseStream).Reverse().ToArray();
+
+            Logger.Info($"Calculated File Hash for {filePath}: {string.Join(", ", hash.Take(hash.Length))}");
+
+            return hash;
+        }
+
+        private async Task<bool> LoadAnimationFilesInternal(
+            IEnumerable<AnimationFile> animationFiles,
+            LoadingAnimationFileModel loadingAnimationFileModel,
+            IProgress<LoadingAnimationFileModel> progress,
+            CancellationToken token = default)
+        {
+            foreach (var file in animationFiles)
+            {
+                loadingAnimationFileModel.Filename = Path.GetFileName(file.Path);
+                ReportLoadingAnimationProgress(LoadingAnimationState.Loading);
+                var loadProgressText = $"{loadingAnimationFileModel.Count} / {loadingAnimationFileModel.Total}";
+                Logger.Debug($"Downloading animation file {loadProgressText} {file.Path}");
+                try
+                {
+                    var storedFile = await _relmCommunicator.Download(file.Path, BitmapVerification.CRC32, token);
+
+                    if (!storedFile.Success)
+                    {
+                        Logger.Error($"Failed to load animation file {loadProgressText} {loadingAnimationFileModel.Filename}");
+                        ReportLoadingAnimationProgress(LoadingAnimationState.Error);
+                        return false;
+                    }
+
+                    Logger.Debug($"Finished downloading animation file {loadProgressText}: [{file.Path}], Name: {file.FriendlyName}, AnimationId: {file.AnimationId}");
+                    file.AnimationId = storedFile.FileId;
+                    loadingAnimationFileModel.Count++;
+                    _animationFiles.Add(file);
+                }
+                catch (Exception e)
+                {
+                    Logger.Error($"Error while loading animation file {loadProgressText} {loadingAnimationFileModel.Filename} : {e}");
+                    ReportLoadingAnimationProgress(LoadingAnimationState.Error);
+                    return false;
+                }
+            }
+
+            ReportLoadingAnimationProgress(LoadingAnimationState.Completed);
+
+            return true;
+
+            void ReportLoadingAnimationProgress(LoadingAnimationState state)
+            {
+                loadingAnimationFileModel.State = state;
+                progress?.Report(loadingAnimationFileModel);
+            }
+        }
+
+        private async Task<bool> CheckFileIsModified(string filePath, uint fileNameHash, CancellationToken token = default)
+        {
+            var animationHashCompleted = await CalculateAnimationHashOnDevice(fileNameHash, token);
+            if (!animationHashCompleted.Success)
+            {
+                //If we fail to hash for some reason assume the files are not the same
+                return false;
+            }
+
+            var hashFromController = animationHashCompleted.Response?.Hash ?? Array.Empty<byte>();
+            Logger.Info($"File hash from controller {filePath}: {string.Join(", ", hashFromController.Take(hashFromController.Length))}");
+            var areFilesDifferent = !HashAnimationFile(filePath).SequenceEqual(hashFromController);
+
+            Logger.Debug($"Animation file {filePath} was modified: {areFilesDifferent}");
+
+            return areFilesDifferent;
+        }
+
+        private async Task<RelmResponse<AnimationHashCompleted>> CalculateAnimationHashOnDevice(uint animationId, CancellationToken token = default)
+        {
+            if (_relmCommunicator is null)
+            {
+                return null;
+            }
+
+            var animationHashCompleted = await _relmCommunicator.SendCommandWithResponseAsync(new CalculateAnimationHash
+            {
+                AnimationId = animationId,
+                Verification = BitmapVerification.CRC32
+            }, token);
+
+            return animationHashCompleted;
         }
 
         private void OnInterruptReceived(object sender, RelmInterruptEventArgs e)

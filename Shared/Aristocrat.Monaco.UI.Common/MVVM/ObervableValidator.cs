@@ -625,7 +625,9 @@
             this.validationContext.MemberName = propertyName;
             this.validationContext.DisplayName = GetDisplayNameForProperty(propertyName);
 
-            bool isValid = Validator.TryValidateProperty(value, this.validationContext, propertyErrors);
+            Validator.TryValidateProperty(value, this.validationContext, propertyErrors);
+
+            OnPropertyChanged(propertyName);
         }
 
         /// <summary>
@@ -701,6 +703,7 @@
             }
 
             propertyErrors.Clear();
+            OnPropertyChanged(propertyName);
         }
 
         /// <summary>

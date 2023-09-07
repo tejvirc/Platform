@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Windows;
     using Aristocrat.Monaco.Bingo.Common.GameOverlay;
     using Aristocrat.Monaco.Bingo.UI.Models;
     using Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu;
@@ -55,6 +56,11 @@
                 .Returns(_format);
             MockLocalization.Localizer.Setup(x => x.GetString(ResourceKeys.NoBingoPatternInformationToDisplay))
                 .Returns(NoResult);
+
+            if (Application.Current == null)
+            {
+                new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+            }
         }
 
         [TestCleanup]

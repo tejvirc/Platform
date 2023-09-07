@@ -246,8 +246,9 @@
                     FinalWin = 50_000,  // 50 cents
                     FinalWager = 10, // 10 cents
                     LogSequence = 2,
-                    Transactions = new List<TransactionInfo> { new TransactionInfo { TransactionType = typeof(BillTransaction), TransactionId = 12, Amount = 10_00_000,  } }
+                    Transactions = new List<TransactionInfo> ()
                 };
+
             _gameHistory.Setup(m => m.GetGameHistory())
                 .Returns(new List<GameHistoryLog> { gameHistoryLog });
             _gameHistory.Setup(m => m.MaxEntries).Returns(1);

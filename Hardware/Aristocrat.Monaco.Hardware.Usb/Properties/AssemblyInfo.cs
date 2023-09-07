@@ -22,6 +22,7 @@ using System.Runtime.Versioning;
 [assembly: ComVisible(false)]
 
 [assembly: InternalsVisibleTo("Aristocrat.Monaco.Hardware.Usb.Tests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("ca8078e1-7f7d-48e7-a25b-5e5b310659b8")]

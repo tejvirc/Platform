@@ -6,6 +6,7 @@
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.G2S.UI.ViewModels"
                                xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                lex:ResxLocalizationProvider.DefaultAssembly="Aristocrat.Monaco.Localization"
                                lex:ResxLocalizationProvider.DefaultDictionary="Resources" 
@@ -47,17 +48,19 @@
                Content="{lex:Loc CommsInfo_HostId}"
                d:Content="Host Id"
                AutomationProperties.AutomationId="Label7_A7144911" />
-        <common:TouchTextBox Grid.Row="1"
-                             IsReadOnly="False"
-                             Text="{Binding HostId,
-                                    Mode=TwoWay,
-                                    ValidatesOnDataErrors=true,
-                                    NotifyOnValidationError=true,
-                                    UpdateSourceTrigger=PropertyChanged,
-                                    TargetNullValue=''}"
-                             Width="Auto"
-                             InputScope="Number"
-                             AutomationProperties.AutomationId="TextBox8_A7144911" />
+        <xctk:IntegerUpDown
+            Style="{StaticResource MonacoIntegerUpDown}"
+            Grid.Row="1"
+            Minimum="1"
+            DefaultValue="{Binding Minimum, RelativeSource={RelativeSource Self}}"
+            Watermark="{Binding DefaultValue, RelativeSource={RelativeSource Self}}"
+            Value="{Binding HostId,
+                    Mode=TwoWay,
+                    ValidatesOnDataErrors=true,
+                    NotifyOnValidationError=true,
+                    UpdateSourceTrigger=PropertyChanged}"
+            AutomationProperties.AutomationId="TextBox8_A7144911"
+        />
         <Label Grid.Row="2"
                Margin="0 15 0 0"
                Content="{lex:Loc CommsInfo_Address}"
@@ -131,14 +134,16 @@
                 <ColumnDefinition Width="Auto"
                                   AutomationProperties.AutomationId="ColumnDefinition17_A7144911" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0"
-                     IsReadOnly="False"
-                     Text="{Binding OfflineTimerIntervalSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
-                     Visibility="{Binding IsProgressiveHost, Converter={StaticResource BooleanToVisibilityConverter}}"
-                     Width="Auto"
-                     InputScope="Number"
-                     AutomationProperties.AutomationId="TextBox15_A7144911">
-            </TextBox>
+            <xctk:IntegerUpDown
+                Style="{StaticResource MonacoIntegerUpDown}"
+                Grid.Column="0"
+                Minimum="1"
+                DefaultValue="{Binding Minimum, RelativeSource={RelativeSource Self}}"
+                Watermark="{Binding DefaultValue, RelativeSource={RelativeSource Self}}"
+                Value="{Binding OfflineTimerIntervalSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                Visibility="{Binding IsProgressiveHost, Converter={StaticResource BooleanToVisibilityConverter}}"
+                AutomationProperties.AutomationId="TextBox15_A7144911"
+            />
             <Button Grid.Column="1"
                     Name="ImportInfoButton"
                     Style="{StaticResource MonacoWarningButton}"

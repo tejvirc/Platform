@@ -135,6 +135,11 @@
             _iio.Setup(m => m.SetButtonLamp(It.IsAny<uint>(), It.IsAny<bool>())).Returns(It.IsAny<uint>());
             _iio.Setup(m => m.SetButtonLampByMask(It.IsAny<uint>(), It.IsAny<bool>())).Returns(It.IsAny<uint>());
 
+            if (Application.Current == null)
+            {
+                new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+            }
+
             _target = new BillsMetersPageViewModel(PageName);
 
             _eventBus.Setup(a => a.Subscribe(_target, It.IsAny<Action<PeriodOrMasterButtonClickedEvent>>()));
@@ -146,11 +151,6 @@
             _eventBus.Setup(m => m.Publish(It.IsAny<MeterPageLoadedEvent>()));
             _eventBus.Setup(m => m.Publish(It.IsAny<OperatorMenuWarningMessageEvent>()));
             _eventBus.Setup(m => m.Publish(It.IsAny<PeriodMetersDateTimeChangeRequestEvent>()));
-
-            if (Application.Current == null)
-            {
-                new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
-            }
         }
 
         // Use TestCleanup to run code after each test has run

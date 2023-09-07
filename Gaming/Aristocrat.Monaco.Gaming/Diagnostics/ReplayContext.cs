@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Reflection;
     using System.Text;
     using Application.Contracts.Extensions;
@@ -23,9 +24,20 @@
 
         public IReadOnlyDictionary<string, string> GetParameters()
         {
+            if(!CurrencyExtensions.CurrencyCultureInfo.Name.ToLowerInvariant().Equals(Arguments.LocaleCode.ToLowerInvariant()))
+            {
+                CultureInfo.CurrentCulture = new CultureInfo(Arguments.LocaleCode);
+                CurrencyExtensions.UpdateCurrencyCulture();
+            }
+
             var parameters = new Dictionary<string, string>
             {
-                { "/Runtime/Localization/Language", Arguments.LocaleCode },
+                { "/Runtime/Localization/Language", CurrencyExtensions.CurrencyCultureInfo.Name},
+                { "/Runtime/Localization/Currency&positivePattern", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyPositivePattern.ToString() },
+                { "/Runtime/Localization/Currency&negativePattern", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyNegativePattern.ToString() },
+                { "/Runtime/Localization/Currency&decimalDigits", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits.ToString() },
+                { "/Runtime/Localization/Currency&decimalSeparator", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyDecimalSeparator },
+                { "/Runtime/Localization/Currency&groupSeparator", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyGroupSeparator },
                 { "/Runtime/ReplayMode", "true" },
                 { "/Runtime/ReplayMode&realtime", "true" },
                 { "/Runtime/ReplayMode&replaypause", "true" },
