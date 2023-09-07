@@ -57,52 +57,7 @@
 
         /// <summary> The properties manager egm position key. </summary>
         public const string Currencies = "Cabinet.Currencies";
-        /*
-        /// <summary> The properties manager key for paper in chute sound file path. </summary>
-        public const string PaperInChuteSoundKey = "Cabinet.PaperInChuteSound";
-
-        /// <summary> The properties manager key for out of printer error sound file path. </summary>
-        public const string PrinterErrorSoundKey = "Cabinet.PrinterErrorSound";
-
-        /// <summary> The properties manager key for printer warning sound file path. </summary>
-        public const string PrinterWarningSoundKey = "Cabinet.PrinterWarningSound";
-
-        /// <summary> The properties manager key for note acceptor (BNA) error sound file path. </summary>
-        public const string NoteAcceptorErrorSoundKey = "Cabinet.NoteAcceptorErrorSound";
-
-        /// <summary> The properties manager key for Disk Space Monitor error sound file path. </summary>
-        public const string DiskSpaceMonitorErrorSoundKey = "Cabinet.DiskSpaceMonitorErrorSound";
-
-        /// <summary> The properties manager key for Firmware CRC error sound file path. </summary>
-        public const string FirmwareCrcErrorSoundKey = "Cabinet.FirmwareCrcErrorSound";
-
-        /// <summary> The properties manager key for Memory Monitor error sound file path. </summary>
-        public const string MemoryMonitorErrorSoundKey = "Cabinet.MemoryMonitorErrorSound";
-
-        /// <summary> The properties manager key for LiveAuthenticationFailed sound file path. </summary>
-        public const string LiveAuthenticationFailedSoundKey = "Cabinet.LiveAuthenticationFailedSound";
-
-        /// <summary> The properties manager key for touch sound file path. </summary>
-        public const string TouchSoundKey = "Cabinet.TouchSound";
-
-        /// <summary> The properties manager key for coin in sound file path. </summary>
-        public const string CoinInSoundKey = "Cabinet.CoinInSound";
-
-        /// <summary> The properties manager key for coin out sound file path. </summary>
-        public const string CoinOutSoundKey = "Cabinet.CoinOutSound";
-
-        /// <summary> The properties manager key for feature bell sound file path. </summary>
-        public const string FeatureBellSoundKey = "Cabinet.FeatureBellSound";
-
-        /// <summary> The properties manager key for collect sound file path. </summary>
-        public const string CollectSoundKey = "Cabinet.CollectSound";
-
-        /// <summary> The properties manager key for host offline sound file path. </summary>
-        public const string HostOfflineSoundKey = "Cabinet.HostOfflineSound";
-
-        /// <summary> The properties manager key for ding sound file path. </summary>
-        public const string DingSoundKey = "Cabinet.DingSoundKey";
-        */
+        
         /// <summary> The properties manager key for audit ticket mode. </summary>
         public const string TicketModeAuditKey = "Cabinet.TicketModeAudit";
 

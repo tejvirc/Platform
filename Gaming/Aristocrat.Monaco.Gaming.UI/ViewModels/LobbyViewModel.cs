@@ -257,7 +257,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private string _topperImageResourceKey;
         private int _attractModeTopperImageIndex;
         private string _topperLobbyVideoPath;
-      //  private readonly Dictionary<Sound, string> _soundFilePathMap = new Dictionary<Sound, string>();
         private bool _playCollectSound;
         private MenuSelectionPayOption _selectedMenuSelectionPayOption;
         private bool _vbdInfoBarOpenRequested;
