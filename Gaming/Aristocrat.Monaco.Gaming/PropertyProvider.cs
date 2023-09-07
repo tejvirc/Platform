@@ -335,7 +335,7 @@ namespace Aristocrat.Monaco.Gaming
                 { GamingConstants.ProgressiveSetupReadonly, (configuration.ProgressiveView?.InitialSetupView?.Readonly ?? false, false) },
                 { GamingConstants.ActionOnMaxWinReached, (configuration.MaxWin?.OnMaxWinReached ?? "endgame", false) },
                 { GamingConstants.AutoEnableSimpleGames, (configuration.AutoEnableSimpleGames?.Enabled?? true, false) },
-                { GamingConstants.ProgressiveConfigurableLinkedLeveId, (false, false) },
+                { GamingConstants.ProgressiveConfigurableLinkedLevelId, (false, false) },
                 { GamingConstants.ProgressiveConfiguredLinkedLevelIds, (InitLinkedProgressiveConfigFromStorage(), true)}
             };
 

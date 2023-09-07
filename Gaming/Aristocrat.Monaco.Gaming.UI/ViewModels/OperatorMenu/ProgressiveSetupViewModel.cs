@@ -110,7 +110,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             _isAssociatedSap = _validProgressiveLevels.Any(
                 p => p.AssignedProgressiveId.AssignedProgressiveType == AssignableProgressiveType.AssociativeSap);
 
-            IsConfigurableLinkedLevelId = _propertiesManager.GetValue(GamingConstants.ProgressiveConfigurableLinkedLeveId, false) &&
+            IsConfigurableLinkedLevelId = _propertiesManager.GetValue(GamingConstants.ProgressiveConfigurableLinkedLevelId, false) &&
                                           _validProgressiveLevels.Any(l => l.LevelType == ProgressiveLevelType.LP);
         }
 

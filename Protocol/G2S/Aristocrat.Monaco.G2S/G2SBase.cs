@@ -193,7 +193,7 @@
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 propertiesManager.SetProperty(Constants.StartupContext, null);
                 propertiesManager.SetProperty(AccountingConstants.TicketBarcodeLength, AccountingConstants.DefaultTicketBarcodeLength);
-                propertiesManager.SetProperty(GamingConstants.ProgressiveConfigurableLinkedLeveId, _g2sProgressivesEnabled);
+                propertiesManager.SetProperty(GamingConstants.ProgressiveConfigurableLinkedLevelId, _g2sProgressivesEnabled);
                 if (_g2sProgressivesEnabled)
                 {
                     //Populate the levelID fields in the ProgressiveService

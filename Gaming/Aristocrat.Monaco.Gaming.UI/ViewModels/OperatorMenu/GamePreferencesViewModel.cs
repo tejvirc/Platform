@@ -176,7 +176,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             GameExistsWithExtendedRtpInfo = gameProvider.GetAllGames().Any(game => game.HasExtendedRtpInformation);
 
             LinkedProgressiveVerificationEnabled = PropertiesManager.GetValue(GamingConstants.LinkedProgressiveVerificationEnabled, true);
-            LinkedProgressiveVerificationAvailable = PropertiesManager.GetValue(GamingConstants.ProgressiveConfigurableLinkedLeveId, false);
+            LinkedProgressiveVerificationAvailable = PropertiesManager.GetValue(GamingConstants.ProgressiveConfigurableLinkedLevelId, false);
         }
 
         public IEnumerable<GameStartMethodInfo> GameStartMethods { get; } = new[]

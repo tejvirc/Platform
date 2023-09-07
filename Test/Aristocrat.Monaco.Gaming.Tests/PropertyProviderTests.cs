@@ -74,7 +74,7 @@
 
             accessor.Setup(a => a[GamingConstants.SelectedGameId]).Returns(GameId);
             accessor.Setup(a => a[GamingConstants.SelectedDenom]).Returns(Denom);
-            accessor.Setup(a => a[GamingConstants.ProgressiveConfigurableLinkedLeveId]).Returns(new Dictionary < int, (int, int)>());
+            accessor.Setup(a => a[GamingConstants.ProgressiveConfigurableLinkedLevelId]).Returns(new Dictionary < int, (int, int)>());
 
             var service = new PropertyProvider(storageManager.Object);
             Assert.IsNotNull(service);

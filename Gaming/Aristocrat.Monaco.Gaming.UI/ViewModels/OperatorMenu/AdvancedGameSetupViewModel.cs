@@ -153,7 +153,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ExitConfigurationText);
 
             _isConfigurableLinkedLevelIds = (bool)ServiceManager.GetInstance().GetService<IPropertiesManager>()
-                .GetProperty(GamingConstants.ProgressiveConfigurableLinkedLeveId, false);
+                .GetProperty(GamingConstants.ProgressiveConfigurableLinkedLevelId, false);
         }
 
         public ICommand ShowRtpSummaryCommand { get; }
