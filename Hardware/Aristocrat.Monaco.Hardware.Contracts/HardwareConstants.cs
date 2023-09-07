@@ -167,6 +167,11 @@
         public const string CabinetTypeRegexLs = "^LS";
 
         /// <summary>
+        ///     Mono.Addins extension path for SoundConfiguration
+        /// </summary>
+        public const string SoundConfigurationExtensionPath = "/Sound/Configuration";
+
+        /// <summary>
         ///     Array of Display Properties
         /// </summary>
         public static readonly string[] Displays = { Display1, Display2, Display3, Display4, Display5 };

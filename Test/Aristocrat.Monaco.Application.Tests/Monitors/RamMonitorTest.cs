@@ -45,7 +45,6 @@
             _propertiesManager.Setup(
                     m => m.GetProperty(ApplicationConstants.PeriodicCriticalMemoryIntegrityCheckValue, It.IsAny<int>()))
                 .Returns(100);
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.PeriodicCriticalMemoryIntegrityCheckSoundFilePath, It.IsAny<string>())).Returns(string.Empty);
 
             _propertiesManager.Setup(
                     m => m.GetProperty(
@@ -134,7 +133,6 @@
         [TestMethod]
         public void ExpectAudioAlertWhenPersistentStorageIntegrityCheckFailedEvent()
         {
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.PeriodicCriticalMemoryIntegrityCheckSoundFilePath, It.IsAny<string>())).Returns("Test.ogg");
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<byte>())).Returns((byte)5);
 
             Action<PersistentStorageIntegrityCheckFailedEvent> handler = null;

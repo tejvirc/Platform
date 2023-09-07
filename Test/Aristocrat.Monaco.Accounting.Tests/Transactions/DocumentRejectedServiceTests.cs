@@ -251,8 +251,6 @@
         [DataTestMethod()]
         public void VerifyBillRejectLockupIsClearedByConfig(ResetMethodKeyType resetMethodKey)
         {
-
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ExcessiveDocumentRejectSoundFilePath, It.IsAny<object>())).Returns("Test.ogg");
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ExcessiveDocumentRejectResetMethodKey, It.IsAny<object>())).Returns(resetMethodKey);
 
             SetupForHardLockup();

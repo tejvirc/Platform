@@ -1058,10 +1058,7 @@
 
         /// <summary>Property manager key for ExcessiveDocumentReject Count Default.</summary>
         public const string ExcessiveDocumentRejectCountDefault = "Application.ExcessiveDocumentReject.Count.Default";
-
-        /// <summary>Property manager key for ExcessiveDocumentReject SoundFilePath, if this file is present then Audio is played when ExcessiveDocumentReject is satisfied.</summary>
-        public const string ExcessiveDocumentRejectSoundFilePath = "Application.ExcessiveDocumentReject.SoundFilePath";
-
+        
         /// <summary>Property manager key for ExcessiveDocumentReject ResetMethodKey, if this lockup is present then ResetMethodKey is used to clear it.</summary>
         public const string ExcessiveDocumentRejectResetMethodKey = "Application.ExcessiveDocumentReject.ResetMethodKey";
 
@@ -1070,9 +1067,6 @@
 
         /// <summary>Property manager key for CriticalMemoryIntegrityCheck Enabled.</summary>
         public const string PeriodicCriticalMemoryIntegrityCheckValue = "Application.CriticalMemoryIntegrityCheck.Value";
-
-        /// <summary>Property manager key for CriticalMemoryIntegrityCheck SoundFilePath to be used for alerting when check fails.</summary>
-        public const string PeriodicCriticalMemoryIntegrityCheckSoundFilePath = "Application.CriticalMemoryIntegrityCheck.SoundFilePath";
 
         /// <summary> If Cabinet Brightness control feature is enabled </summary>
         public const string CabinetBrightnessControlEnabled = "CabinetBrightnessControlEnabled";

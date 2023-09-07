@@ -73,7 +73,12 @@
         ///     Gets a value indicating whether or not the audio service is available and ready
         /// </summary>
         bool IsAvailable { get; }
-        
+
+        /// <summary>
+        ///     Load all sound files for playback.
+        /// </summary>
+        void Load();
+
         /// <summary>
         ///     Plays the specified file.
         /// </summary>
@@ -92,11 +97,6 @@
         /// <param name="speakers">Speaker mix of play channel</param>
         /// <param name="callback">Callback when audio event finishes (will not be called if sound is interrupted)</param>
         void Play(SoundName soundName, int loopCount, float? volume, SpeakerMix speakers = SpeakerMix.All, Action callback = null);
-
-        /// <summary>
-        ///     Load sounds.
-        /// </summary>
-        void Load();
 
         /// <summary>
         ///     Stops any audio playback.

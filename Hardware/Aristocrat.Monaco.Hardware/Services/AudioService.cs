@@ -133,7 +133,7 @@
         public void Load()
         {
             var config = ConfigurationUtilities.GetConfiguration(
-                "/Sound/Configuration",
+                HardwareConstants.SoundConfigurationExtensionPath,
                 () => new SoundConfiguration());
 
             if (config.Sound is not null)

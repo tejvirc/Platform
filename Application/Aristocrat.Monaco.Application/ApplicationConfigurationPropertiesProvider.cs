@@ -443,13 +443,6 @@
                         false)
                 },
                 {
-                    ApplicationConstants.PeriodicCriticalMemoryIntegrityCheckSoundFilePath,
-                    Tuple.Create(
-                        (object)configuration.CriticalMemoryIntegrityCheck?.SoundFilePath ?? string.Empty,
-                        ApplicationConstants.PeriodicCriticalMemoryIntegrityCheckSoundFilePath,
-                        false)
-                },
-                {
                     ApplicationConstants.TicketModeAuditKey,
                     Tuple.Create(
                         (object)configuration.TicketMode?.Audit ?? TicketModeAuditBehavior.Audit,
