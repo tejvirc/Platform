@@ -535,7 +535,7 @@
                 }
 
                 var log = _gameHistoryProvider.GetByIndex(SelectedGameItem.ReplayIndex);
-
+                Logger.Info($"Replay game {SelectedGameItem.GameId} with log {log.LogSequence}/{_gameHistoryProvider.TotalEntries}.");
                 PreventOperatorMenuExit();
 
                 _gameDiagnostics.Start(
