@@ -117,7 +117,7 @@
         <StackPanel Orientation="Horizontal"
                     AutomationProperties.AutomationId="StackPanel8_9A0249AD">
             <ComboBox ItemsSource="{Binding SoundFiles}"
-                      DisplayMemberPath="Name"
+                      DisplayMemberPath="Description"
                       SelectedIndex="0"
                       SelectedItem="{Binding Sound}"
                       Style="{StaticResource OptionComboStyle}"

@@ -196,5 +196,8 @@ public enum SoundName {
     Silence,
     
     /// <remarks/>
+    SendPrintTicket,
+    
+    /// <remarks/>
     Touch,
 }

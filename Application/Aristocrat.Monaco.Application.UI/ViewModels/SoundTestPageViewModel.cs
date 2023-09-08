@@ -10,6 +10,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Linq;
     using System.Reflection;
     using System.Runtime.CompilerServices;
+    using System.Windows.Data;
     using Contracts.ConfigWizard;
     using Contracts;
     using Hardware.Contracts;
@@ -348,6 +349,15 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             }
         }
 
+        private void GetSoundFiles()
+        {
+            SoundFiles.Add(new SoundFileViewModel(SoundName.Ding, "Ding"));
+            SoundFiles.Add(new SoundFileViewModel(SoundName.FeatureBell, "Feature Bell"));
+            SoundFiles.Add(new SoundFileViewModel(SoundName.Touch, "Touch Sound"));
+            SoundFiles.Add(new SoundFileViewModel(SoundName.Collect, "Collect"));
+            SoundFiles.Add(new SoundFileViewModel(SoundName.SendPrintTicket, "Send Print Ticket"));
+        }
+
         protected void UnInitialize()
         {
             StopSound();
@@ -388,7 +398,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         {
             if (Sound != null)  // VLT-12533 : Fix null reference exception in sound page when switching tabs when cable unplugged 
             {
-                _audio?.Stop(SoundName.Ding);
+                _audio?.Stop(Sound.Name);
             }
         }
 
@@ -399,13 +409,12 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 return;
             }
 
-            _reporter?.SetTestName($"Play sound {Sound.Name}");
-            var path = Sound.Path;
+            _reporter?.SetTestName($"Play sound {Sound}");
             var volume = _audio.GetVolume(SoundLevel);
 
             IsPlaying = true;
 
-            _audio.Play(SoundName.Ding, volume);
+            _audio.Play(Sound.Name, volume);
             _playingTimer.Start();
         }
 
@@ -476,45 +485,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             });
         }
 
-        private void GetSoundFiles()
-        {
-            var filePath = SoundConfigurationExtensionPath;
-            try
-            {
-                var files = new List<SoundFileViewModel>();
-
-                var nodes =
-                    MonoAddinsHelper.GetSelectedNodes<FilePathExtensionNode>(
-                        filePath);
-
-                foreach (var node in nodes)
-                {
-                    var path = node.FilePath;
-                    var name = !string.IsNullOrWhiteSpace(node.Name)
-                        ? node.Name
-                        : Path.GetFileNameWithoutExtension(path);
-
-                    Logger.DebugFormat(
-                        CultureInfo.CurrentCulture,
-                        $"Found {SoundConfigurationExtensionPath} node: {node.FilePath}");
-
-                    files.Add(new SoundFileViewModel(name, path));
-                }
-                if (!SoundFiles.Any())
-                {
-                    SoundFiles.AddRange(files.ToArray());
-                    Sound = SoundFiles.FirstOrDefault();
-                }
-            }
-            catch (ConfigurationErrorsException)
-            {
-                Logger.ErrorFormat(
-                    CultureInfo.CurrentCulture,
-                    $"Extension path {filePath} not found");
-                throw;
-            }
-        }
-
         private void OnPlayingTimerTick(object sender, EventArgs args)
         {
             Execute.OnUIThread(() =>
@@ -564,4 +534,17 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             });
         }
     }
+
+    //public class EnumValueConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        return (int)value;
+    //    }
+
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 }

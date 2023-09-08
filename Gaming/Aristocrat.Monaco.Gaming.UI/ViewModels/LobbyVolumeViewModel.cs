@@ -110,8 +110,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             {
                 var volume = GetVolume(_audio);
 
-                Enum.TryParse(_soundFile.Name, out SoundName soundName);
-                _audio.Play(soundName, volume);
+                _audio.Play(_soundFile.Name, volume);
             }
         }
 
@@ -123,19 +122,19 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 MonoAddinsHelper.GetSelectedNodes<FilePathExtensionNode>(
                     SoundConfigurationExtensionPath);
 
-            foreach (var node in nodes)
-            {
-                var path = node.FilePath;
-                var name = !string.IsNullOrWhiteSpace(node.Name)
-                    ? node.Name
-                    : Path.GetFileNameWithoutExtension(path);
+            //foreach (var node in nodes)
+            //{
+            //    var path = node.FilePath;
+            //    var name = !string.IsNullOrWhiteSpace(node.Name)
+            //        ? node.Name
+            //        : Path.GetFileNameWithoutExtension(path);
 
-                Logger.DebugFormat(
-                    CultureInfo.CurrentCulture,
-                    $"Found {SoundConfigurationExtensionPath} node: {node.FilePath}");
+            //    Logger.DebugFormat(
+            //        CultureInfo.CurrentCulture,
+            //        $"Found {SoundConfigurationExtensionPath} node: {node.FilePath}");
 
-                files.Add(new SoundFileViewModel(name, path));
-            }
+            //    files.Add(new SoundFileViewModel(name, path));
+            //}
 
             if (files.Count > 0)
             {

@@ -92,6 +92,8 @@
 
         private void LoadSound(SoundName soundName, string file)
         {
+            Stopwatch sw = Stopwatch.StartNew();
+            Logger.Debug("Henry Stopwatch started");
             if (string.IsNullOrWhiteSpace(file))
             {
                 if (file is null)
@@ -129,6 +131,8 @@
             }
 
             Logger.Debug($"Loaded audio file: {file}");
+            Logger.Debug("Henry Stopwatch stopped");
+            sw.Stop();
         }
 
         private void Load(PlatformBootedEvent evt)

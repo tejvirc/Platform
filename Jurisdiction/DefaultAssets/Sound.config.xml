@@ -9,6 +9,7 @@
 		<AudioFile Name="CoinOut" File="coinout.ogg" />
 		<AudioFile Name="Collect" File="collect.ogg" />
 		<AudioFile Name="Ding" File="ding.ogg" />
+		<AudioFile Name="ExcessiveDocumentReject" File="alarm.ogg" />
 		<AudioFile Name="FeatureBell" File="feature_bell.ogg" />
 		<AudioFile Name="PaperInChute" File="snd_print_ticket.ogg" />
 		<AudioFile Name="FrontLeft" File="FrontLeft.ogg" />
@@ -20,6 +21,7 @@
 		<AudioFile Name="SideLeft" File="SideLeft.ogg" />
 		<AudioFile Name="SideRight" File="SideRight.ogg" />
 		<AudioFile Name="Silence" File="silence.ogg" />
+		<AudioFile Name="SendPrintTicket" File="snd_print_ticket.ogg" />
 		<AudioFile Name="Touch" File="touch_sound.ogg" />
 	</AudioFiles>
 </SoundConfiguration>

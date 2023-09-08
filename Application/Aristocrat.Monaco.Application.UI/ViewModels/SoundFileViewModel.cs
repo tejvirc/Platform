@@ -6,16 +6,16 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     [CLSCompliant(false)]
     public class SoundFileViewModel : ObservableObject
     {
-        private string _name;
-        private string _path;
+        private SoundName _name;
+        private string _description;
 
-        public SoundFileViewModel(string name, string path)
+        public SoundFileViewModel(SoundName name, string description)
         {
             _name = name;
-            _path = path;
+            _description = description;
         }
 
-        public string Name
+        public SoundName Name
         {
             get => _name;
 
@@ -31,19 +31,19 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             }
         }
 
-        public string Path
+        public string Description
         {
-            get => _path;
+            get => _description;
 
             set
             {
-                if (_path == value)
+                if (_description == value)
                 {
                     return;
                 }
 
-                _path = value;
-                OnPropertyChanged(nameof(Path));
+                _description = value;
+                OnPropertyChanged(nameof(Description));
             }
         }
     }
