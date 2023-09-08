@@ -66,7 +66,7 @@
                     if (_lobbyStateManager.CurrentState == LobbyState.GameDiagnostics &&
                         replayGameRoundEvent.Action == GameRoundEventAction.Completed &&
                         replayContext?.GameIndex != -1 &&
-                        replayContext?.GameIndex <= replayContext?.Arguments.FreeGames.Count())
+                        replayContext?.GameIndex < replayContext?.Arguments.FreeGames.Count())
                     {
                         _bus.Publish(new GameReplayCompletedEvent());
                     }
