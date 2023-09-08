@@ -516,7 +516,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             }
 
             _hardwareConfiguration.Apply(config, IsWizardPage);
-            
+
             _propertiesManager.SetProperty(HardwareConstants.HardMetersEnabledKey, HardMetersEnabled);
             _propertiesManager.SetProperty(ApplicationConstants.ConfigWizardDoorOpticsEnabled, EnabledDoorOpticSensor);
             _propertiesManager.SetProperty(HardwareConstants.BellEnabledKey, BellEnabled);
