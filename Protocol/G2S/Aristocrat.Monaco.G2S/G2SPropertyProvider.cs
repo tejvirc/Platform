@@ -38,6 +38,7 @@
                 .GetAccessor(PersistenceLevel.Critical, GetType().ToString());
 
             var port = (int)InitFromStorage(Constants.Port);
+            var bypassCertificateValidation = (bool)InitFromStorage(Constants.BypassCertificateValidation);
 
             _properties = new Dictionary<string, object>
             {
@@ -45,6 +46,7 @@
                 { Constants.RegisteredHosts, InitHostsFromStorage() },
                 { Constants.StartupContext, InitStartupContext() },
                 { Constants.Port, port != 0 ? port : Constants.DefaultPort },
+                { Constants.BypassCertificateValidation, bypassCertificateValidation },
                 { Constants.G2SProgressivesEnabled, false }
             };
         }
@@ -125,6 +127,10 @@
 
                 case Constants.Port:
                     _persistentStorageAccessor[Constants.Port] = propertyValue;
+                    break;
+
+                case Constants.BypassCertificateValidation:
+                    _persistentStorageAccessor[Constants.BypassCertificateValidation] = propertyValue;
                     break;
             }
 

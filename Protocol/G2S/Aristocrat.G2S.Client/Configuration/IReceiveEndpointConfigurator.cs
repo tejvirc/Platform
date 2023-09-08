@@ -21,8 +21,9 @@
         /// </summary>
         /// <param name="address">The address to listen on</param>
         /// <param name="certificate">The certificate</param>
+        /// <param name="bypassCertificateValidation">Determines whether or not to bypass SSL certificate validation</param>
         /// <param name="validator">An optional validator used to override the built-in certificate validation</param>
-        void ListenOn(Uri address, X509Certificate2 certificate, X509CertificateValidator validator);
+        void ListenOn(Uri address, X509Certificate2 certificate, bool bypassCertificateValidation, X509CertificateValidator validator);
 
         /// <summary>
         ///     Configures the address to listen on.

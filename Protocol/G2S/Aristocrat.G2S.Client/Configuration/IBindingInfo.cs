@@ -20,6 +20,11 @@
         X509Certificate2 Certificate { get; set; }
 
         /// <summary>
+        ///     GDetermines whether or not to bypass SSL certificate validation for this host
+        /// </summary>
+        bool BypassCertificateValidation { get; set; }
+
+        /// <summary>
         ///     Gets the custom validator, if any
         /// </summary>
         X509CertificateValidator Validator { get; set; }
