@@ -205,7 +205,6 @@
         private bool _logicalDoorsLoaded;
         private int _logicDoorId;
         private int _maxStoredMessages = 200;
-        private string _doorAlarmFile;
         private bool _doorOpenAlarmOperatorCanCancel;
         private bool _doorOpenAlarmCanBeStopped;
         private int _doorOpenAlarmRepeatSeconds;
@@ -350,30 +349,21 @@
                 MonoAddinsHelper.GetSelectedNodes<DoorMonitorConfigurationExtensionNode>(ConfigLocation);
             var doorOpenAlarmNodes =
                 MonoAddinsHelper.GetChildNodes<DoorOpenAlarmExtensionNode>(configurationNodes.First());
-            var doorOpenAlarmFilePathNodes =
-                MonoAddinsHelper.GetChildNodes<FilePathExtensionNode>(doorOpenAlarmNodes.First());
-            _doorAlarmFile = doorOpenAlarmFilePathNodes.First().FilePath;
-
-            if (string.IsNullOrEmpty(_doorAlarmFile))
+            
+            _doorOpenAlarmRepeatSeconds = Convert.ToInt32(doorOpenAlarmNodes.First().RepeatSeconds);
+            if (_doorOpenAlarmRepeatSeconds > 0)
             {
-                Logger.Warn($"Found {ConfigLocation} node DoorOpenAlarmFile not set");
+                _doorOpenAlarmTimer.Elapsed += OnDoorOpenAlarmTimeout;
+                _doorOpenAlarmTimer.Interval = TimeSpan.FromSeconds(_doorOpenAlarmRepeatSeconds).TotalMilliseconds;
             }
-            else
-            {
-                _doorOpenAlarmRepeatSeconds = Convert.ToInt32(doorOpenAlarmNodes.First().RepeatSeconds);
-                if (_doorOpenAlarmRepeatSeconds > 0)
-                {
-                    _doorOpenAlarmTimer.Elapsed += OnDoorOpenAlarmTimeout;
-                    _doorOpenAlarmTimer.Interval = TimeSpan.FromSeconds(_doorOpenAlarmRepeatSeconds).TotalMilliseconds;
-                }
 
-                _doorAlarmLoopCount = Convert.ToInt32(doorOpenAlarmNodes.First().LoopCount);
-                _doorOpenAlarmOperatorCanCancel = doorOpenAlarmNodes.First().OperatorCanCancel.Equals(TrueStr);
-                var doorOpenAlarmCanBeStopped = doorOpenAlarmNodes.First().CanStopSoundWhenDoorIsClosed;
-                _doorOpenAlarmCanBeStopped = string.IsNullOrEmpty(doorOpenAlarmCanBeStopped) || doorOpenAlarmCanBeStopped.Equals(TrueStr);
-                Logger.Debug(
-                    $"Found {ConfigLocation} node DoorOpenAlarmFile FilePath: {_doorAlarmFile} RepeatSeconds: {_doorOpenAlarmRepeatSeconds} OperatorCanCancel: {_doorOpenAlarmOperatorCanCancel} DoorAlarmCanBeStopped: {_doorOpenAlarmCanBeStopped}");
-            }
+            _doorAlarmLoopCount = Convert.ToInt32(doorOpenAlarmNodes.First().LoopCount);
+            _doorOpenAlarmOperatorCanCancel = doorOpenAlarmNodes.First().OperatorCanCancel.Equals(TrueStr);
+            var doorOpenAlarmCanBeStopped = doorOpenAlarmNodes.First().CanStopSoundWhenDoorIsClosed;
+            _doorOpenAlarmCanBeStopped = string.IsNullOrEmpty(doorOpenAlarmCanBeStopped) || doorOpenAlarmCanBeStopped.Equals(TrueStr);
+            Logger.Debug(
+                $"Found {ConfigLocation} node RepeatSeconds: {_doorOpenAlarmRepeatSeconds} OperatorCanCancel: {_doorOpenAlarmOperatorCanCancel} DoorAlarmCanBeStopped: {_doorOpenAlarmCanBeStopped}");
+            
 
             CheckDoorAlarm(true, true);
         }
@@ -524,18 +514,18 @@
             {
                 var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, (byte)100);
                 _audioService.Play(SoundName.Alarm, _doorAlarmLoopCount, alertVolume);
-                Logger.Debug($"Door open alarm timer timed-out, playing alarm {_doorAlarmFile}");
+                Logger.Debug($"Door open alarm timer timed-out, playing alarm");
             }
             else
             {
-                Logger.Debug($"Door open alarm timer timed-out while playing {_doorAlarmFile}");
+                Logger.Debug($"Door open alarm timer timed-out, playing alarm");
             }
         }
 
         private void CheckDoorAlarm(bool doorWasOpened, bool isBoot)
         {
             var doorAlarmEnabled = _propertiesManager.GetValue(HardwareConstants.DoorAlarmEnabledKey, true);
-            if (string.IsNullOrEmpty(_doorAlarmFile) || !doorAlarmEnabled)
+            if (!doorAlarmEnabled)
             {
                 return;
             }
@@ -548,8 +538,7 @@
                 {
                     PlayOpenDoorAlarm();
                     Logger.DebugFormat(
-                        "Door open alarm {0} played with {1} open door{2}",
-                        _doorAlarmFile,
+                        "Door open alarm played with {0} open door{1}",
                         numDoorsOpen,
                         numDoorsOpen > 1 ? "s" : string.Empty);
                 }
