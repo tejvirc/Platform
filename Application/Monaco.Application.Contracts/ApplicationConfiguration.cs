@@ -143,7 +143,9 @@ namespace Aristocrat.Monaco.Application.Contracts {
         private ApplicationConfigurationLargeWinInfo largeWinInfoField;
         
         private ApplicationConfigurationDisplayDisconnectNoReconfigure displayDisconnectNoReconfigureField;
-        
+
+        private ApplicationConfigurationTechnicianModeLocked technicianModeLockedField;
+
         public ApplicationConfiguration() {
             this.barcodeTypeField = BarcodeTypeOptions.Interleave2of5;
             this.validationLengthField = ValidationLengthOptions.System;
@@ -751,6 +753,19 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
             set {
                 this.displayDisconnectNoReconfigureField = value;
+            }
+        }
+
+        /// <remarks/>
+        public ApplicationConfigurationTechnicianModeLocked TechnicianModeLocked
+        {
+            get
+            {
+                return this.technicianModeLockedField;
+            }
+            set
+            {
+                this.technicianModeLockedField = value;
             }
         }
     }
@@ -3904,6 +3919,38 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
             set {
                 this.topperField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class ApplicationConfigurationTechnicianModeLocked
+    {
+
+        private bool enabledField;
+
+        public ApplicationConfigurationTechnicianModeLocked()
+        {
+            this.enabledField = false;
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Enabled
+        {
+            get
+            {
+                return this.enabledField;
+            }
+            set
+            {
+                this.enabledField = value;
             }
         }
     }

@@ -146,7 +146,8 @@ as follows:
   </Menu>
   <AccessRules>
     <AccessRuleSet Name="Technician">
-      <Rule DeviceName="Jackpot" />
+      <Rule DeviceName="Main" />
+      <Rule DeviceName="Logic" />
     </AccessRuleSet>
     <AccessRuleSet Name="ReadOnly">
       <Rule Restriction="ReadOnly" />
@@ -160,11 +161,11 @@ as follows:
       <Rule Restriction="ZeroCredits" />
     </AccessRuleSet>
     <AccessRuleSet Name="TechnicianZeroCredits">
-      <Rule DeviceName="Jackpot" />
+      <Rule RuleSet="Technician" />
       <Rule Restriction="ZeroCredits" />
     </AccessRuleSet>
     <AccessRuleSet Name="TechnicianGameIdle">
-      <Rule DeviceName="Jackpot" />
+      <Rule RuleSet="Technician" />
       <Rule Restriction="GameIdle" />
     </AccessRuleSet>
     <AccessRuleSet Name="GameIdleZeroCreditsEKeyPresent">
