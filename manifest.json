@@ -15694,6 +15694,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -24843,7 +24846,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.DataTypeAttribute.html",
-          "hash": "1pnYs8xDSkXKa38ArCYrvHstAzBtGj6DkeDHcoGkatw="
+          "hash": "TMLDV3C0fm9l8yC6bUmrL3dC+Y6B2U+vn6CvoR8NwcY="
         }
       },
       "is_incremental": false,
@@ -24855,7 +24858,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.LocalizedCategoryAttribute.html",
-          "hash": "uYZSaKQ1L2BMzqvsiSbTE4mth0BLu9oPfvQgxibPg1Q="
+          "hash": "HWollIqSWZQWfpL0wu5YcoMH2jrT93z2EHiljzR2voE="
         }
       },
       "is_incremental": false,
@@ -24867,7 +24870,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.LocalizedDescriptionAttribute.html",
-          "hash": "kbQwMxC7EmPLcton7fFFU9xLpAfwM/lPh0TpSRwuPFA="
+          "hash": "weODc2IF9N4RSoBrFMIJVTZ/HB4KOcWbvpkDwN9yfSA="
         }
       },
       "is_incremental": false,
@@ -24879,7 +24882,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.LocalizedDisplayNameAttribute.html",
-          "hash": "4oeX8RLucd5XWWC2/yRblijQ9DoYo7cY38lsSbsLZgc="
+          "hash": "JdJdaxkc1ZgfP9fcipuloIlWQzPmCgRGqTuIvStNZNg="
         }
       },
       "is_incremental": false,
@@ -24891,7 +24894,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.RangeAttribute.html",
-          "hash": "WqK26e7aeFuB/tZUSsnOI4vSZvtZa1GQ7a2vTpK4L2g="
+          "hash": "vGSR50Gf9N4d7L/slDWjuPrgOUt0uN8XiI9sQVNEeHs="
         }
       },
       "is_incremental": false,
@@ -24903,7 +24906,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.RegularExpressionAttribute.html",
-          "hash": "8exDmS/aoVUSCZwK/qesEZ69ugix5ZE/xxIWdsI9Cj0="
+          "hash": "k8D2tr1egXidantNQlYfrqbh2rh5NdU1W3UCJVCCzvA="
         }
       },
       "is_incremental": false,
@@ -24915,7 +24918,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.RequiredAttribute.html",
-          "hash": "k2/aTbbPcDoyTRRPZqaWCNskPVgThle5Ufx3NqsqSaU="
+          "hash": "IRA+UFiTHlu4HrnoznnIV/J0kMqTSXg7ogmJl/eA6ao="
         }
       },
       "is_incremental": false,
@@ -24927,7 +24930,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.ResourceKeys.html",
-          "hash": "1PjsJqHw1Naa29xYPj63ayvhiO8eZ3ad76RcAxSzLLc="
+          "hash": "yKh+dk1YHHX0MCyilyrF6iqaYRAhF7dd7MVlx5UrVYk="
         }
       },
       "is_incremental": false,
@@ -24939,7 +24942,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.Resources.html",
-          "hash": "P+aTRHhSPvxxo3cRmQ2BIEsSoa5QpJhE0b1XszwqzDU="
+          "hash": "ZBYPe3wCVosE1wnwUoy6LLST3aGzHKdoeo0gEOheDVU="
         }
       },
       "is_incremental": false,
@@ -24951,7 +24954,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.StringLengthAttribute.html",
-          "hash": "WqYHnIGrgASxY98/A9PP/fMAuxpa8VaGiwFS/vfroyQ="
+          "hash": "zOQoSv5lNkxnzq9R/i4c8yv9QGB+Zh4952LZg+0roaQ="
         }
       },
       "is_incremental": false,
@@ -24963,7 +24966,7 @@
       "output": {
         ".html": {
           "relative_path": "api/common/Aristocrat.Monaco.Localization.Properties.StringResourceKey.html",
-          "hash": "FkosiVRZAlxZdwbbpkiMj/+TrMwjOOj/8J/zvm6tGM8="
+          "hash": "MEHzq0/XSaXUtJH6cucnqGjls9hMfZaEAn03VnTSCpY="
         }
       },
       "is_incremental": false,
@@ -25894,9 +25897,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -26754,7 +26754,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.Communications.EndpointUtilities.html",
-          "hash": "wkS7xEl7pHC53mKAdhdG9Z3K2GOFAmruOI5NZIHDd9Q="
+          "hash": "sFjD7FnYRJYSD8BJl0QTTnA844pR3DAYQOb54a3UBRA="
         }
       },
       "is_incremental": false,
@@ -26994,7 +26994,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.Communications.ReceiveEndpoint.html",
-          "hash": "E41iG1w2U0Jslxbpy73zsrIvXggLOMBQiSpTWhof6Mo="
+          "hash": "L+ZDh0F5hJaU0yIl9GD0yLHrWcn9J5hSlUSjDtm9m6A="
         }
       },
       "is_incremental": false,
@@ -27042,7 +27042,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.Configuration.IBindingInfo.html",
-          "hash": "OQQz1mGl3fGynerGKrkUZGkbgdmcHIOI8jhJK79K6o8="
+          "hash": "PybBACIRh9ra09J96WiCRHduo2+LE1MGEpPF1WtPLg0="
         }
       },
       "is_incremental": false,
@@ -27054,7 +27054,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.Configuration.IClientConfigurator.html",
-          "hash": "L0kD3+CpYXcS8hpVavigAgIxUb4UYC0qX7DXqCdE9nk="
+          "hash": "e68HTEvzZYJOijmzCee1jusYXV5NbNCEaL+aonam6a8="
         }
       },
       "is_incremental": false,
@@ -27066,7 +27066,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.Configuration.IEgmFactoryConfigurator.html",
-          "hash": "Jd2EISjatO9OPxyIuzj/SW3T7DF2qWkKXMvQofyZq04="
+          "hash": "54IEPnZxmboxznmhUxHJfqhgjM1CbLWk9ERe13MD940="
         }
       },
       "is_incremental": false,
@@ -27090,7 +27090,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.G2S.Client.Configuration.IReceiveEndpointConfigurator.html",
-          "hash": "j3WdvxwTghbTBHNV8fAB5LNOmnPYPlBMYGgWlW1339k="
+          "hash": "kq1QEFmeuKinLAzEx4MTfssJgbZXVVn8qOJ3wX9EMyw="
         }
       },
       "is_incremental": false,
@@ -34290,7 +34290,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.Constants.html",
-          "hash": "A4Nzc5aXpPdFRrsn0gJsOBwUyvwv+VvIAoFe1OneWk0="
+          "hash": "jvNKyeyIVJctNy3jmsZoKxN0zO4R1op2aviCQD4YILE="
         }
       },
       "is_incremental": false,
@@ -37770,7 +37770,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.G2SPropertyProvider.html",
-          "hash": "0ErSG0eqG85DooYAeaYJfZpJNjOEKqfBIvaeQvmxVQE="
+          "hash": "W0YoNUv/LwtMoodfekXjB+my1TvzlNKOVAJYQe1MTtU="
         }
       },
       "is_incremental": false,
@@ -43386,7 +43386,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/g2s/Aristocrat.Monaco.G2S.UI.ViewModels.HostConfigurationViewModel.html",
-          "hash": "4FvPjngCjpC8V0eZvP2wCJSLAAnaeet5fkpko5DIbPU="
+          "hash": "52MnuzmMOG6a0mUkl/HMBQuf94AyTivZe227uTH7r6o="
         }
       },
       "is_incremental": false,
