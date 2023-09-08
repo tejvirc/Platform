@@ -73,12 +73,7 @@
         ///     Gets a value indicating whether or not the audio service is available and ready
         /// </summary>
         bool IsAvailable { get; }
-
-        /// <summary>
-        ///     Load all sound files for playback.
-        /// </summary>
-        void Load();
-
+        
         /// <summary>
         ///     Plays the specified file.
         /// </summary>

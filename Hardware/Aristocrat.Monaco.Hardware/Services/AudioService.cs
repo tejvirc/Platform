@@ -79,6 +79,8 @@
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
+            _bus.Subscribe<PlatformBootedEvent>(this, Load);
+
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _callback = ChannelCallback;
             SetSystemMuted(false);
@@ -129,21 +131,21 @@
             Logger.Debug($"Loaded audio file: {file}");
         }
 
-        /// <inheritdoc /> 
-        public void Load()
+        private void Load(PlatformBootedEvent evt)
         {
             var config = ConfigurationUtilities.GetConfiguration(
                 HardwareConstants.SoundConfigurationExtensionPath,
                 () => new SoundConfiguration());
 
-            if (config.Sound is not null)
+            if (config.AudioFiles is not null)
             {
-                foreach (var sound in config.Sound)
+                foreach (var audio in config.AudioFiles.AudioFile)
                 {
-                    LoadSound(sound.Name, sound.FilePath);
+                    LoadSound(audio.Name, config.AudioFiles.Path + audio.File);
                 }
             }
         }
+
         /// <inheritdoc />
         public void Play(SoundName soundName, float? volume, SpeakerMix speakers = SpeakerMix.All, Action callback = null)
         {

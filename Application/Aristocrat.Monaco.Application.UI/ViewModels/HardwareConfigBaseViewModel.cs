@@ -21,7 +21,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Contracts.OperatorMenu;
     using Contracts.TowerLight;
     using Hardware.Contracts;
-    using Hardware.Contracts.Audio;
     using Hardware.Contracts.Door;
     using Hardware.Contracts.HardMeter;
     using Hardware.Contracts.IdReader;
@@ -62,7 +61,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private readonly IPropertiesManager _propertiesManager;
         private readonly IHardMeter _hardMeter;
         private readonly IDeviceDetection _deviceDetection;
-        private readonly IAudio _audio;
 
         // This contains all potential devices, even those disabled and not visible on the page
         private readonly Dictionary<DeviceType, DeviceConfigViewModel> _deviceConfigurationDictionary =
@@ -127,7 +125,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _configWizardConfiguration = _serviceManager.GetService<IConfigurationUtilitiesProvider>()
                 .GetConfigWizardConfiguration(() => new ConfigWizardConfiguration());
             _deviceDetection = _serviceManager.GetService<IDeviceDetection>();
-            _audio = ServiceManager.GetInstance().TryGetService<IAudio>();
 
             ValidateCommand = new RelayCommand<object>(
                 _ => ValidateConfig(),
@@ -519,9 +516,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             }
 
             _hardwareConfiguration.Apply(config, IsWizardPage);
-
-            _audio.Load();
-
+            
             _propertiesManager.SetProperty(HardwareConstants.HardMetersEnabledKey, HardMetersEnabled);
             _propertiesManager.SetProperty(ApplicationConstants.ConfigWizardDoorOpticsEnabled, EnabledDoorOpticSensor);
             _propertiesManager.SetProperty(HardwareConstants.BellEnabledKey, BellEnabled);

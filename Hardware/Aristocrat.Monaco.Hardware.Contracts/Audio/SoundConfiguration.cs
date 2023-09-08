@@ -24,16 +24,15 @@ using System.Xml.Serialization;
 [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
 public partial class SoundConfiguration {
     
-    private SoundConfigurationSound[] soundField;
+    private SoundConfigurationAudioFiles audioFilesField;
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute("Sound")]
-    public SoundConfigurationSound[] Sound {
+    public SoundConfigurationAudioFiles AudioFiles {
         get {
-            return this.soundField;
+            return this.audioFilesField;
         }
         set {
-            this.soundField = value;
+            this.audioFilesField = value;
         }
     }
 }
@@ -44,16 +43,56 @@ public partial class SoundConfiguration {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-public partial class SoundConfigurationSound {
+public partial class SoundConfigurationAudioFiles {
+    
+    private SoundConfigurationAudioFilesAudioFile[] audioFileField;
+    
+    private string pathField;
+    
+    public SoundConfigurationAudioFiles() {
+        this.pathField = "..\\jurisdiction\\DefaultAssets\\";
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute("AudioFile")]
+    public SoundConfigurationAudioFilesAudioFile[] AudioFile {
+        get {
+            return this.audioFileField;
+        }
+        set {
+            this.audioFileField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    [System.ComponentModel.DefaultValueAttribute("..\\jurisdiction\\DefaultAssets\\")]
+    public string Path {
+        get {
+            return this.pathField;
+        }
+        set {
+            this.pathField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+public partial class SoundConfigurationAudioFilesAudioFile {
     
     private SoundName nameField;
     
     private bool nameFieldSpecified;
     
-    private string filePathField;
+    private string fileField;
     
-    public SoundConfigurationSound() {
-        this.filePathField = "";
+    public SoundConfigurationAudioFilesAudioFile() {
+        this.fileField = "";
     }
     
     /// <remarks/>
@@ -81,12 +120,12 @@ public partial class SoundConfigurationSound {
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     [System.ComponentModel.DefaultValueAttribute("")]
-    public string FilePath {
+    public string File {
         get {
-            return this.filePathField;
+            return this.fileField;
         }
         set {
-            this.filePathField = value;
+            this.fileField = value;
         }
     }
 }
@@ -119,10 +158,10 @@ public enum SoundName {
     
     /// <remarks/>
     Ding,
-
+    
     /// <remarks/>
     ExcessiveDocumentReject,
-
+    
     /// <remarks/>
     FeatureBell,
     

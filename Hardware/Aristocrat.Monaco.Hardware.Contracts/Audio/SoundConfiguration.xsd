@@ -3,11 +3,18 @@
   <xs:element name="SoundConfiguration">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" name="Sound">
+        <xs:element minOccurs="1" maxOccurs="1" name="AudioFiles">
           <xs:complexType>
-            <xs:attribute name="Name" type="SoundName" />
-            <xs:attribute default="" name="FilePath" type="xs:string" />
-          </xs:complexType>        
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="AudioFile">
+                <xs:complexType>
+                  <xs:attribute name="Name" type="SoundName" />
+                  <xs:attribute default="" name="File" type="xs:string" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute default="..\jurisdiction\DefaultAssets\" name="Path" type="xs:string" />
+          </xs:complexType>
         </xs:element>
       </xs:sequence>
      </xs:complexType>
