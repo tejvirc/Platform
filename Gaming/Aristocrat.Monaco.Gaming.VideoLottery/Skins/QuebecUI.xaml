@@ -8,7 +8,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_Background.png" />
     <BitmapImage x:Key="TopLoading"
                  AutomationProperties.AutomationId="BitmapImage1_6B3D3B77"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_LoadingScreen.png" />
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_LoadingScreen.png" />
     <BitmapImage x:Key="TopDisabled"
                  AutomationProperties.AutomationId="BitmapImage2_6B3D3B77"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_Background_Disabled.png" />
@@ -18,7 +18,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_Background.png" />
     <BitmapImage x:Key="TopperLoading"
                  AutomationProperties.AutomationId="BitmapImage4_6B3D3B77"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_LoadingScreen.png" />
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_LoadingScreen.png" />
     <BitmapImage x:Key="TopperDisabled"
                  AutomationProperties.AutomationId="BitmapImage5_6B3D3B77"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_Background_Disabled.png" />

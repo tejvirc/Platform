@@ -10,7 +10,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Manitoba-VLT/ui/Images/TS_Background_Alternate.png"
                  AutomationProperties.AutomationId="BitmapImage1_B1B249DC" />
     <BitmapImage x:Key="TopLoading"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Manitoba-VLT/ui/Images/TS_LoadingScreen.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_LoadingScreen.png"
                  AutomationProperties.AutomationId="BitmapImage2_B1B249DC" />
     <BitmapImage x:Key="TopDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Manitoba-VLT/ui/Images/TS_Background_Disabled.png"
@@ -23,7 +23,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Manitoba-VLT/ui/Images/TS_Background_Alternate.png"
                  AutomationProperties.AutomationId="BitmapImage5_B1B249DC" />
     <BitmapImage x:Key="TopperLoading"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Manitoba-VLT/ui/Images/TS_LoadingScreen.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_LoadingScreen.png"
                  AutomationProperties.AutomationId="BitmapImage6_B1B249DC" />
     <BitmapImage x:Key="TopperDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Manitoba-VLT/ui/Images/TS_Background_Disabled.png"
