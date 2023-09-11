@@ -38,4 +38,12 @@
     <StartupEventListenerImpl ProtocolName="G2S" type="Aristocrat.Monaco.G2S.Services.StartupEventListener" />
   </Extension>
 
+  <Extension path="/Kernel/CommandLineArguments">
+    <CommandLineArgument Name="forceDhcpOption43Response">
+      <ArgumentValue ValidValue="vltSampleValue" Description="Provides a typical VLT market Option 43 response" />
+      <ArgumentValue ValidValue="vertexSampleValue" Description="Provides a typical Vertex Option 43 response" />
+      <ArgumentValue ValidValue="[anything else]" Description="Provides your custom value back as the Option 43 response" />
+    </CommandLineArgument>
+  </Extension>
+
 </Addin>

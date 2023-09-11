@@ -7,15 +7,14 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
-    using System.Windows;
     using System.Windows.Data;
     using System.Windows.Input;
     using Newtonsoft.Json;
-    using Aristocrat.Extensions.CommunityToolkit;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.ConfigWizard;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
@@ -30,7 +29,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
     using Monaco.Common;
     using Views;
     using Constants = Constants;
-    using Org.BouncyCastle.Utilities.Net;
 
     /// <summary>
     ///     A HostConfigurationViewModel contains the logic for configuring the host list for the G2S client.
@@ -55,9 +53,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         private bool _registeredHostsEnabled;
 
         private bool _configurableProgressiveHost = true;
-
-        private bool _isProgressiveHost = false;
-        private int _newProgressiveHostId = -1;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="HostConfigurationViewModel" /> class.
@@ -100,12 +95,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
             WireDesignerData();
 
-#if !(RETAIL)
-            if (isWizardPage)
-            {
-                CreateTempHosts();
-            }
-#endif
             CopyCurrentHostList();
         }
 
@@ -186,11 +175,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             }
         }
 
-        protected override void OnUnloaded()
-        {
-            // the base calls Save, don't want to. This page saved the hosts already...
-        }
-
         protected override void Loaded()
         {
             _egm = GetEgm();
@@ -220,25 +204,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             OnCommitted();
 
             EventBus.Publish(new OperatorMenuSettingsChangedEvent());
-
-            //Update the owner ID on the device to match the new host THEN restart the protocol.
-            if (_isProgressiveHost && _egm != null)
-            {
-                var containerService = ServiceManager.GetInstance().TryGetService<IContainerService>();
-                var profileService = containerService?.Container.GetInstance<IProfileService>();
-                var devices = _egm.GetDevices<IProgressiveDevice>();
-                var progHost = Hosts.First(h => h.IsProgressiveHost);
-                foreach(ClientDeviceBase device in devices)
-                {
-                    bool success = device.HasOwner(progHost.Id, device.Active);
-                    if (success)
-                    {
-                        profileService?.Save(device);
-                    }
-                }
-
-                EventBus.Publish(new RestartProtocolEvent());
-            }
         }
 
         /// <summary>
@@ -316,8 +281,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                     Address = h.Address,
                     Registered = h.Registered,
                     RequiredForPlay = h.RequiredForPlay,
-                    RegisteredDisplayText = GetBooleanDisplayText(h.Registered),
-                    RequiredForPlayDisplayText = GetBooleanDisplayText(h.RequiredForPlay),
                     IsProgressiveHost = h.IsProgressiveHost,
                     ProgressiveHostOfflineTimerInterval = h.ProgressiveHostOfflineTimerInterval
                 };
@@ -354,8 +317,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                         Address = host.Address,
                         Registered = host.IsEgm() || host.Registered,
                         RequiredForPlay = host.RequiredForPlay,
-                        RegisteredDisplayText = GetBooleanDisplayText(host.Registered),
-                        RequiredForPlayDisplayText = GetBooleanDisplayText(host.RequiredForPlay),
                         IsProgressiveHost = host.IsProgressiveHost,
                         ProgressiveHostOfflineTimerInterval = host.ProgressiveHostOfflineTimerInterval
                     });
@@ -365,7 +326,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 try
                 {
-                    Task.Run(() => GetVendorSpecificInformation());
+                    var task = Task.Run(GetVendorSpecificInformation);
                 }
                 catch (Exception ex)
                 {
@@ -374,8 +335,8 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             }
             else
             {
-                _registeredHostsEnabled = true;
-                RegisteredHosts.View.Refresh();
+                CreateDevRgsHost();
+                EnableRegisteredHosts();
             }
         }
 
@@ -460,12 +421,6 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 {
                     //do nothing if nothing changed or we don't have a host id
                     return;
-                }
-
-                _isProgressiveHost = viewModel.IsProgressiveHostChangedAndToggled;
-                if (_isProgressiveHost)
-                {
-                    _newProgressiveHostId = viewModel.HostId.Value;
                 }
 
                 // Stop the old host and flag it for deletion if the host id changed
@@ -766,29 +721,34 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 Logger.Warn($"Profile Service unavailable - unable to reset Device ownership for deleted host {host.Id}.");
             }
         }
-
-        private void CreateTempHosts()
+        private void CreateDevRgsHost()
         {
-            // We're going to forcibly add the RGS host here until we have a proper keyboard and a dialog to capture this data
-            for (var id = 1; id < 2; id++)
+#if !(RETAIL)
+            if (!IsWizardPage)
             {
-                var host = Hosts.FirstOrDefault(h => h.Index == id);
-                if (host == null)
-                {
-                    Hosts.Add(
-                        new Host
-                        {
-                            Index = id,
-                            Id = id,
-                            Address = new Uri(
-                                $"http://{Dns.GetHostEntry(string.Empty).HostName}:3110{id}/RGS/api-services/G2SAPI"),
-                            Registered = id == 1,
-                            RequiredForPlay = false,
-                            IsProgressiveHost = false,
-                            ProgressiveHostOfflineTimerInterval = _defaultProgressiveHostOfflineInterval
-                        });
-                }
+                return;
             }
+
+            var id = 1;
+
+            while (Hosts.Any(h => h.Id == id))
+            {
+                id++;
+            }
+
+            Hosts.Add(
+                new Host
+                {
+                    Index = id,
+                    Id = id,
+                    Address = new Uri(
+                        $"http://{Dns.GetHostEntry(string.Empty).HostName}:31101/RGS/api-services/G2SAPI"),
+                    Registered = true,
+                    RequiredForPlay = false,
+                    IsProgressiveHost = false,
+                    ProgressiveHostOfflineTimerInterval = _defaultProgressiveHostOfflineInterval
+                });
+#endif
         }
 
         private void GetVendorSpecificInformation()
@@ -802,28 +762,37 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
 
                 var info = VendorSpecificInformation.Create(vendorSpecificString);
 
-                var index = 0;
-                foreach (var host in info.CommConfigDefinitions)
+                if (info.HasChangedDefault(DhcpConstants.CommConfigServiceName))
                 {
-                    index++;
+                    var index = 0;
+                    foreach (var host in info.CommConfigDefinitions)
+                    {
+                        index++;
 
-                    var requiredForPlay = _egm?.GetDevice<ICommunicationsDevice>(host.HostId)?.RequiredForPlay ?? false;
+                        var requiredForPlay = _egm?.GetDevice<ICommunicationsDevice>(host.HostId)?.RequiredForPlay ??
+                                              false;
 
-                    Hosts.Add(
-                        new Host
-                        {
-                            Index = index,
-                            Id = host.HostId,
-                            Address = host.Address,
-                            Registered = true,
-                            RequiredForPlay = requiredForPlay,
-                            IsProgressiveHost = false,
-                            ProgressiveHostOfflineTimerInterval = _defaultProgressiveHostOfflineInterval
-                        });
+                        Hosts.Add(
+                            new Host
+                            {
+                                Index = index,
+                                Id = host.HostId,
+                                Address = host.Address,
+                                Registered = true,
+                                RequiredForPlay = requiredForPlay,
+                                IsProgressiveHost = false,
+                                ProgressiveHostOfflineTimerInterval = _defaultProgressiveHostOfflineInterval
+                            });
+                    }
                 }
             }
 
-            Execute.OnUIThread(EnableRegisteredHosts);
+            Execute.OnUIThread(
+                () =>
+                {
+                    CreateDevRgsHost();
+                    EnableRegisteredHosts();
+                });
         }
 
         private static IG2SEgm GetEgm()
