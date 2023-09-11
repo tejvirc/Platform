@@ -457,9 +457,8 @@ namespace Aristocrat.Monaco.Application.Monitors
                 Guid id,
                 bool isLockup)
             {
-
                 DisplayableMessage = new DisplayableMessage(
-                    () => Localizer.ForLockup().GetString(key, _ => { }),
+                    () => (isLockup ? Localizer.ForLockup() : Localizer.DynamicCulture()).GetString(key, _ => { }),
                     classification,
                     priority,
                     id);
