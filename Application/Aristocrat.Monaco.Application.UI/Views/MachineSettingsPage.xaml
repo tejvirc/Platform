@@ -543,11 +543,13 @@
                    Grid.Row="9"
                    Grid.Column="0"
                    loc:Localizer.For="Operator"
+                   Visibility="{Binding ReelControllerEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ReelControllerLabel}}"
                    AutomationProperties.AutomationId="Label103_D3C5ECAC" />
             <TextBlock x:Name="ReelControllerTextBlock"
                        Grid.Row="9"
                        Grid.Column="1"
+                       Visibility="{Binding ReelControllerEnabled, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                        Text="{Binding ReelController, Mode=OneWay}"
                        AutomationProperties.AutomationId="TextBlock104_D3C5ECAC" />
             <!-- Bios Version Section -->

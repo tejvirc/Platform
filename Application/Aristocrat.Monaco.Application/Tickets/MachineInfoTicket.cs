@@ -81,13 +81,7 @@
             AddLine(
                 $"{TicketLocalizer.GetString(ResourceKeys.ButtonDeck)}:",
                 null,
-                null);
-
-            AddLine(
-                null,
-                null,
                 string.IsNullOrWhiteSpace(buttonDeck) ? TicketLocalizer.GetString(ResourceKeys.DataUnavailable) : buttonDeck);
-
 
             var edgeLighting = ServiceManager.TryGetService<IEdgeLightingController>();
             var edgeLightingStr = TicketLocalizer.GetString(ResourceKeys.DataUnavailable);
@@ -222,16 +216,6 @@
                string.Format(
                    CultureInfo.CurrentCulture,
                    $"{PropertiesManager.GetValue(ApplicationConstants.Location, TicketLocalizer.GetString(ResourceKeys.DataUnavailable))}"));
-            }
-
-            if (ConfigWizardUtil.VisibleByConfig(PropertiesManager, ApplicationConstants.ConfigWizardIdentityPageDeviceNameOverride))
-            {
-                AddLine(
-                    $"{TicketLocalizer.GetString(ResourceKeys.DeviceName)}:",
-                    null,
-                    string.Format(
-                        CultureInfo.CurrentCulture,
-                        $"{PropertiesManager.GetValue(ApplicationConstants.CalculatedDeviceName, TicketLocalizer.GetString(ResourceKeys.DataUnavailable))}"));
             }
 
             var bios = ServiceManager.GetService<IIO>().GetFirmwareVersion(FirmwareData.Bios);

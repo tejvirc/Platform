@@ -200,6 +200,9 @@
             private set => SetProperty(ref _reelController, value, nameof(ReelController));
         }
 
+        public bool ReelControllerEnabled =>
+            PropertiesManager.GetValue(ApplicationConstants.ReelControllerEnabled, false);
+
         /// <summary>
         ///     Gets or sets the hard boot time value.
         /// </summary>
