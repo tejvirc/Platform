@@ -30,8 +30,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private static readonly Guid AudioReconnectedLock = HardwareConstants.AudioReconnectedLockKey;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-        private const string SoundConfigurationExtensionPath = "/OperatorMenu/Sound/Configuration";
-
         private bool _isAudioDisabled;
         private bool _isPlaying;
         private bool _centerSpeaker;
@@ -349,15 +347,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             }
         }
 
-        private void GetSoundFiles()
-        {
-            SoundFiles.Add(new SoundFileViewModel(SoundName.Ding, "Ding"));
-            SoundFiles.Add(new SoundFileViewModel(SoundName.FeatureBell, "Feature Bell"));
-            SoundFiles.Add(new SoundFileViewModel(SoundName.Touch, "Touch Sound"));
-            SoundFiles.Add(new SoundFileViewModel(SoundName.Collect, "Collect"));
-            SoundFiles.Add(new SoundFileViewModel(SoundName.SendPrintTicket, "Send Print Ticket"));
-        }
-
         protected void UnInitialize()
         {
             StopSound();
@@ -418,9 +407,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _playingTimer.Start();
         }
 
-        private void PlaySoundOnSpeaker(SpeakerMix speaker, string path)
+        private void PlaySoundOnSpeaker(SpeakerMix speaker, SoundName soundName)
         {
-            if (!IsAudioServiceAvailable || IsPlaying || path.IsEmpty())
+            if (!IsAudioServiceAvailable || IsPlaying)
             {
                 return;
             }
@@ -430,49 +419,49 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             IsPlaying = true;
 
-            _audio.Play(SoundName.Ding, volume, speaker);
+            _audio.Play(soundName, volume, speaker);
             _playingTimer.Start();
 
         }
 
         private void PlaySoundOnFrontLeftSpeaker(object obj)
         {
-            PlaySoundOnSpeaker(SpeakerMix.FrontLeft, (string)(obj));
+            PlaySoundOnSpeaker(SpeakerMix.FrontLeft, SoundName.FrontLeft);
         }
 
         private void PlaySoundOnCenterSpeaker(object obj)
         {
-            PlaySoundOnSpeaker(SpeakerMix.Center, (string)(obj));
+            PlaySoundOnSpeaker(SpeakerMix.Center, SoundName.Center);
         }
 
         private void PlaySoundOnFrontRightSpeaker(object obj)
         {
-            PlaySoundOnSpeaker(SpeakerMix.FrontRight, (string)(obj));
+            PlaySoundOnSpeaker(SpeakerMix.FrontRight, SoundName.FrontRight);
         }
 
         private void PlaySoundOnSideLeftSpeaker(object obj)
         {
-            PlaySoundOnSpeaker(SpeakerMix.SideLeft, (string)(obj));
+            PlaySoundOnSpeaker(SpeakerMix.SideLeft, SoundName.SideLeft);
         }
 
         private void PlaySoundOnSideRightSpeaker(object obj)
         {
-            PlaySoundOnSpeaker(SpeakerMix.SideRight, (string)(obj));
+            PlaySoundOnSpeaker(SpeakerMix.SideRight, SoundName.SideRight);
         }
 
         private void PlaySoundOnLowFrequencySpeaker(object obj)
         {
-            PlaySoundOnSpeaker(SpeakerMix.LowFrequency, (string)(obj));
+            PlaySoundOnSpeaker(SpeakerMix.LowFrequency, SoundName.LowFrequency);
         }
 
         private void PlaySoundOnRearLeftSpeaker(object obj)
         {
-            PlaySoundOnSpeaker(SpeakerMix.RearLeft, (string)(obj));
+            PlaySoundOnSpeaker(SpeakerMix.RearLeft, SoundName.RearLeft);
         }
 
         private void PlaySoundOnRearRightSpeaker(object obj)
         {
-            PlaySoundOnSpeaker(SpeakerMix.RearRight, (string)(obj));
+            PlaySoundOnSpeaker(SpeakerMix.RearRight, SoundName.RearRight);
         }
 
         private void OnPlayEnded(object sender, EventArgs eventArgs)
@@ -483,6 +472,16 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 IsPlaying = false;
                 StopCommand?.NotifyCanExecuteChanged();
             });
+        }
+
+
+        private void GetSoundFiles()
+        {
+            SoundFiles.Add(new SoundFileViewModel(SoundName.Ding, "Ding"));
+            SoundFiles.Add(new SoundFileViewModel(SoundName.FeatureBell, "Feature Bell"));
+            SoundFiles.Add(new SoundFileViewModel(SoundName.Touch, "Touch Sound"));
+            SoundFiles.Add(new SoundFileViewModel(SoundName.Collect, "Collect"));
+            SoundFiles.Add(new SoundFileViewModel(SoundName.SendPrintTicket, "Send Print Ticket"));
         }
 
         private void OnPlayingTimerTick(object sender, EventArgs args)
@@ -534,17 +533,4 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             });
         }
     }
-
-    //public class EnumValueConverter : IValueConverter
-    //{
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        return (int)value;
-    //    }
-
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        throw new NotImplementedException();
-    //    }
-    //}
 }

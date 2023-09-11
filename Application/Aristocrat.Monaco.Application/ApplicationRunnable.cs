@@ -21,6 +21,7 @@ namespace Aristocrat.Monaco.Application
     using EKey;
     using ErrorMessage;
     using Hardware.Contracts;
+    using Hardware.Contracts.Audio;
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.VHD;
     using Kernel;
@@ -114,6 +115,8 @@ namespace Aristocrat.Monaco.Application
         protected override void OnRun()
         {
             Logger.Debug("Run started");
+
+            ServiceManager.GetInstance().GetService<IAudio>().Load();
 
             // Check to see if the layer should stop loading based on a
             // request to clear persistent storage from the operator

@@ -79,7 +79,6 @@
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
-            _bus.Subscribe<PlatformBootedEvent>(this, Load);
 
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _callback = ChannelCallback;
@@ -90,52 +89,8 @@
 
         public bool IsAvailable => AudioManager.IsSpeakerDeviceAvailable();
 
-        private void LoadSound(SoundName soundName, string file)
-        {
-            Stopwatch sw = Stopwatch.StartNew();
-            Logger.Debug("Henry Stopwatch started");
-            if (string.IsNullOrWhiteSpace(file))
-            {
-                if (file is null)
-                {
-                    Logger.Error("Unable to load null audio file");
-                }
-
-                Logger.Debug("Audio file can't load; name not specified");
-                return;
-            }
-
-            lock (_lock)
-            {
-                if (_sounds.ContainsKey(soundName))
-                {
-                    Logger.Debug($"Audio file is already loaded: {file}");
-                    return;
-                }
-
-                if (_system == null)
-                {
-                    Logger.Error($"Failed to load the audio file: {file} - Sound System has not been created");
-                    return;
-                }
-
-                Sound sound = null;
-                var result = _system.createStream(file, MODE.ACCURATETIME, ref sound);
-                if (result != RESULT.OK)
-                {
-                    Logger.Error($"Failed to load the audio file: {file} with error code ({result}");
-                    return;
-                }
-
-                _sounds.TryAdd(soundName, (file, sound));
-            }
-
-            Logger.Debug($"Loaded audio file: {file}");
-            Logger.Debug("Henry Stopwatch stopped");
-            sw.Stop();
-        }
-
-        private void Load(PlatformBootedEvent evt)
+        /// <inheritdoc />
+        public void Load()
         {
             var config = ConfigurationUtilities.GetConfiguration(
                 HardwareConstants.SoundConfigurationExtensionPath,
@@ -143,6 +98,7 @@
 
             if (config.AudioFiles is not null)
             {
+                Logger.Debug($"Loading Audio files");
                 foreach (var audio in config.AudioFiles.AudioFile)
                 {
                     LoadSound(audio.Name, config.AudioFiles.Path + audio.File);
@@ -423,6 +379,47 @@
         public void OnPropertyValueChanged(string deviceId, AudioProperty propertyKey)
         {
             Logger.Info($"OnDefaultDeviceChanged {deviceId} {propertyKey}");
+        }
+
+        private void LoadSound(SoundName soundName, string file)
+        {
+            if (string.IsNullOrWhiteSpace(file))
+            {
+                if (file is null)
+                {
+                    Logger.Error("Unable to load null audio file");
+                }
+
+                Logger.Debug("Audio file can't load; name not specified");
+                return;
+            }
+
+            lock (_lock)
+            {
+                if (_sounds.ContainsKey(soundName))
+                {
+                    Logger.Debug($"Audio file is already loaded: {file}");
+                    return;
+                }
+
+                if (_system == null)
+                {
+                    Logger.Error($"Failed to load the audio file: {file} - Sound System has not been created");
+                    return;
+                }
+
+                Sound sound = null;
+                var result = _system.createStream(file, MODE.ACCURATETIME, ref sound);
+                if (result != RESULT.OK)
+                {
+                    Logger.Error($"Failed to load the audio file: {file} with error code ({result}");
+                    return;
+                }
+
+                _sounds.TryAdd(soundName, (file, sound));
+            }
+
+            Logger.Debug($"Loaded audio file: {file}");
         }
 
         protected virtual void Dispose(bool disposing)
