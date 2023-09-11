@@ -26,7 +26,7 @@
     public sealed class ProgressiveController : IProgressiveController, IDisposable, IProtocolProgressiveEventHandler
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private const int FifteenSecondsInMs = 15000;
+        private const int ProgressiveClaimResendTimeInMs = 15000; // 15 seconds
 
         private readonly IEventBus _eventBus;
         private readonly IGameProvider _gameProvider;
@@ -43,7 +43,7 @@
         private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new();
         private readonly IList<ProgressiveInfo> _activeProgressiveInfos = new List<ProgressiveInfo>();
         private readonly object _pendingAwardsLock = new();
-        private readonly Timer _resendProgressiveClaimTimer = new(FifteenSecondsInMs) { AutoReset = true };
+        private readonly Timer _resendProgressiveClaimTimer = new(ProgressiveClaimResendTimeInMs) { AutoReset = true };
 
         private IList<(string poolName, long progressiveLevelId, long amountInPennies, int awardId)> _pendingAwards = new List<(string, long, long, int)>();
         private bool _disposed;
