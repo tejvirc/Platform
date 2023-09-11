@@ -15,16 +15,23 @@
         /// </summary>
         /// <param name="forcedByMaxBank">Indicates if the cashout was forced by the system for hitting a max bank value.</param>
         /// <param name="zeroRemaining">Indicates if the cashout leaves nothing in the bank.</param>
-        public CashOutStartedEvent(bool forcedByMaxBank, bool zeroRemaining)
+        /// <param name="forcedByMaxWin">Indicates if the cashout was forced by the system for hitting a max win value.</param>
+        public CashOutStartedEvent(bool forcedByMaxBank, bool zeroRemaining, bool forcedByMaxWin = false)
         {
             ForcedByMaxBank = forcedByMaxBank;
             ZeroRemaining = zeroRemaining;
+            ForcedByMaxWin = forcedByMaxWin;
         }
 
         /// <summary>
         ///     Gets the ForcedByMaxBank parameter
         /// </summary>
         public bool ForcedByMaxBank { get; }
+
+        /// <summary>
+        ///     Gets the ForcedByMaxWin parameter
+        /// </summary>
+        public bool ForcedByMaxWin { get; }
 
         /// <summary>
         ///     Gets the ZeroRemaining parameter

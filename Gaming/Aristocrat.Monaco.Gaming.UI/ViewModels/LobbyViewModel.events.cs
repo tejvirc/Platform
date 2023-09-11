@@ -726,6 +726,8 @@
 
         private void HandleEvent(CashOutStartedEvent platformEvent)
         {
+            MessageOverlayDisplay.LastCashOutForcedByMaxWin = platformEvent.ForcedByMaxWin;
+
             Logger.Debug($"Detected CashOutStartedEvent.  Forced By Max Bank: {platformEvent.ForcedByMaxBank}");
             _forcedCashOutData.Enqueue(platformEvent.ForcedByMaxBank);
         }

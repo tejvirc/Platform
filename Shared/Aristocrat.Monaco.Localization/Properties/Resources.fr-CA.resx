@@ -244,10 +244,10 @@
     <value>La liste contient un élément nul.</value>
   </data>
   <data name="MaximumValueReachedCashOutText1" xml:space="preserve">
-    <value>La limite de crédits a été atteinte.</value>
+    <value>La valeur maximale a été atteinte.</value>
   </data>
   <data name="MaximumValueReachedCashOutText2" xml:space="preserve">
-    <value>Un ticket d’encaissement est en cours d’impression.</value>
+    <value>Un ticket de retrait est en cours d'élaboration.</value>
   </data>
   <data name="Million" xml:space="preserve">
     <value>Million</value>
@@ -2034,7 +2034,7 @@ Consulter le manuel pour plus de détails</value>
     <value>Dépassement de la limite d’insertion de crédits</value>
   </data>
   <data name="CreditLimitExceeded" xml:space="preserve">
-    <value>Dépassement de la limite de crédits</value>
+    <value>La limite de crédits a été atteinte.</value>
   </data>
   <data name="CurrentValue" xml:space="preserve">
     <value>Valeur actuelle</value>

@@ -49,7 +49,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         /// <param name="data">The message data to be displayed</param>
         /// <param name="lastCashOutForcedByMaxBank">If Cash out was forced by max bank</param>
         /// <param name="cashOutState">The Current Cash Out State</param>
-        IMessageOverlayData HandleMessageOverlayCashOut(IMessageOverlayData data, bool lastCashOutForcedByMaxBank, LobbyCashOutState cashOutState);
+        /// <param name="lastCashOutForcedByMaxWin"></param>
+        IMessageOverlayData HandleMessageOverlayCashOut(IMessageOverlayData data, bool lastCashOutForcedByMaxBank, LobbyCashOutState cashOutState, bool lastCashOutForcedByMaxWin = false);
 
         /// <summary>
         ///     Handles Cash in messaging scenarios

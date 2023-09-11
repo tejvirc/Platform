@@ -19,7 +19,8 @@ namespace Aristocrat.Monaco.Gaming.UI.Utils
             LobbyCashOutState cashOutState,
             bool printHandpayReceipt,
             long lastCashOutAmount,
-            long handpayAmount)
+            long handpayAmount,
+            bool lastCashOutForcedByMaxWin = false)
         {
             var cashoutAmountText = ToCredits(lastCashOutAmount).FormattedCurrencyString();
             var cashoutTypeText = string.Empty;
@@ -42,18 +43,27 @@ namespace Aristocrat.Monaco.Gaming.UI.Utils
                     break;
             }
 
-            return GenerateCashoutTextData(data, lastCashOutForcedByMaxBank, cashoutTypeText, cashoutAmountText);
+            return GenerateCashoutTextData(data, lastCashOutForcedByMaxBank, lastCashOutForcedByMaxWin, cashoutTypeText, cashoutAmountText);
         }
 
         private static IMessageOverlayData GenerateCashoutTextData(
             IMessageOverlayData data,
             bool lastCashOutForcedByMaxBank,
+            bool lastCashOutForcedByMaxWin,
             string cashoutTypeText,
             string cashoutAmountText)
         {
-            if (lastCashOutForcedByMaxBank)
+
+            if (lastCashOutForcedByMaxWin)
             {
                 data.Text = Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaximumValueReachedCashOutText1);
+                data.IsSubText2Visible = true;
+                data.SubText = cashoutTypeText;
+                data.SubText2 = cashoutAmountText;
+            }
+            else if (lastCashOutForcedByMaxBank)
+            {
+                data.Text = Localizer.For(CultureFor.Player).GetString(ResourceKeys.CreditLimitExceeded);
                 data.IsSubText2Visible = true;
                 data.SubText = cashoutTypeText;
                 data.SubText2 = cashoutAmountText;

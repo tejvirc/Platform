@@ -192,6 +192,8 @@
 
         public bool LastCashOutForcedByMaxBank;
 
+        public bool LastCashOutForcedByMaxWin;
+
         public bool ForceBuildLockupText { get; set; }
 
         public CashInType CashInType { get; set; }
@@ -271,7 +273,7 @@
                         return;
                     }
 
-                    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, LastCashOutForcedByMaxBank, _lobbyStateManager.CashOutState);
+                    MessageOverlayData = _overlayMessageStrategyController.OverlayStrategy.HandleMessageOverlayCashOut(MessageOverlayData, LastCashOutForcedByMaxBank, _lobbyStateManager.CashOutState, LastCashOutForcedByMaxWin);
                     messageSent = true;
                     break;
                 case MessageOverlayState.PrintHelpline:

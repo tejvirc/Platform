@@ -37,18 +37,20 @@
         /// <inheritdoc/>
         public void Handle(CheckResult command)
         {
-            var strategy = _properties.GetValue(GamingConstants.GameEndCashOutStrategy, CashOutStrategy.None);
-            if (strategy == CashOutStrategy.Full)
-            {
-                return;
-            }
+            var checkMaxWin = true;
 
             var (game, denomination) = _properties.GetActiveGame();
 
-            var result = command.Result * GamingConstants.Millicents;
-            var checkMaxWin = true;
-
             var log = _gameHistory.CurrentLog;
+
+            var result = command.Result * GamingConstants.Millicents;
+
+            var strategy = _properties.GetValue(GamingConstants.GameEndCashOutStrategy, CashOutStrategy.None);
+            if (strategy == CashOutStrategy.Full)
+            {
+                CheckMaxWin(checkMaxWin, result, true);
+                return;
+            }
 
             command.AmountOut = 0;
 
@@ -86,15 +88,22 @@
                 checkMaxWin = false;
             }
 
-            if (checkMaxWin && game.MaximumWinAmount > 0 && result >= game.MaximumWinAmount)
-            {
-                var traceId = Guid.NewGuid();
+            CheckMaxWin(checkMaxWin, result);
 
-                command.ForcedCashout = _bank.CashOut(traceId, result, TransferOutReason.CashOut, true, log.TransactionId);
-                if (command.ForcedCashout)
+            void CheckMaxWin(bool checkWin, long winAmount, bool fullCashOut = false)
+            {
+                if (checkWin && game.MaximumWinAmount > 0 && winAmount >= game.MaximumWinAmount)
                 {
-                    command.AmountOut += result;
-                    _gameHistory.AppendCashOut(new CashOutInfo { Amount = result, TraceId = traceId });
+                    var traceId = Guid.NewGuid();
+
+                    var amount = fullCashOut ? _bank.Balance : winAmount;
+
+                    command.ForcedCashout = _bank.CashOut(traceId, amount, TransferOutReason.CashOut, true, log.TransactionId, true);
+                    if (command.ForcedCashout)
+                    {
+                        command.AmountOut += amount;
+                        _gameHistory.AppendCashOut(new CashOutInfo { Amount = amount, TraceId = traceId });
+                    }
                 }
             }
         }

@@ -51,7 +51,7 @@
             };
 
             var overlayMessageData = new MessageOverlayData();
-            fallbackStrategy.Setup(x => x.HandleMessageOverlayCashOut(It.IsAny<MessageOverlayData>(), lastCashOutForcedByMaxBank, cashOutState)).Returns(expectedMessageData);
+            fallbackStrategy.Setup(x => x.HandleMessageOverlayCashOut(It.IsAny<MessageOverlayData>(), lastCashOutForcedByMaxBank, cashOutState, false)).Returns(expectedMessageData);
 
             var expectedOverride = new PresentationOverrideData("Text\nSubText\nSubText2", expectedPresentation);
 
@@ -98,7 +98,7 @@
             };
 
             var overlayMessageData = new MessageOverlayData();
-            fallbackStrategy.Setup(x => x.HandleMessageOverlayCashOut(It.IsAny<MessageOverlayData>(), lastCashOutForcedByMaxBank, cashOutState)).Returns(expectedMessageData);
+            fallbackStrategy.Setup(x => x.HandleMessageOverlayCashOut(It.IsAny<MessageOverlayData>(), lastCashOutForcedByMaxBank, cashOutState, false)).Returns(expectedMessageData);
 
             var expectedOverride = new PresentationOverrideData("Text\nSubText\nSubText2", expectedPresentation);
 
@@ -141,7 +141,7 @@
 
             gameOverlayStrategy.HandleMessageOverlayCashOut(overlayMessageData, lastCashOutForcedByMaxBank, cashOutState);
 
-            fallbackStrategy.Verify(x => x.HandleMessageOverlayCashOut(overlayMessageData, lastCashOutForcedByMaxBank, cashOutState));
+            fallbackStrategy.Verify(x => x.HandleMessageOverlayCashOut(overlayMessageData, lastCashOutForcedByMaxBank, cashOutState, false));
         }
 
         [TestMethod]

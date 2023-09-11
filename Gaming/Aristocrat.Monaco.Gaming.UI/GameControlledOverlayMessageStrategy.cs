@@ -45,7 +45,8 @@
         public IMessageOverlayData HandleMessageOverlayCashOut(
             IMessageOverlayData data,
             bool lastCashOutForcedByMaxBank,
-            LobbyCashOutState cashOutState)
+            LobbyCashOutState cashOutState,
+            bool lastCashOutForcedByMaxWin = false)
         {
             var registeredPresentations = _overlayMessageStrategyController.RegisteredPresentations;
             if (!_overlayMessageStrategyController.GameRegistered)

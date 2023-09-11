@@ -97,8 +97,9 @@
         /// <param name="forcedCashout">true if this is a forced cash out.  Typically due to exceeding a jurisdictional limit</param>
         /// <param name="reason">The transfer out reason</param>
         /// <param name="associatedTransaction">The associated transaction Id.  This will typically be something like the gamePlay transaction</param>
+        /// <param name="forcedByMaxWin">Indicates if this cashout was triggered by hitting the game max win limit</param>
         /// <returns>true if the partial cashout completed successfully, else false.</returns>
-        bool CashOut(Guid traceId, long amount, TransferOutReason reason, bool forcedCashout, long associatedTransaction);
+        bool CashOut(Guid traceId, long amount, TransferOutReason reason, bool forcedCashout, long associatedTransaction, bool forcedByMaxWin = false);
 
         /// <summary>
         ///     Forces a handpay for the amount specified

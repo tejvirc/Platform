@@ -400,7 +400,7 @@
             var command = new PayGameResults(win);
 
             handler.Handle(command);
-            _bank.Verify(b => b.CashOut(It.IsAny<Guid>(), winInMillicents, TransferOutReason.CashOut, true, It.IsAny<long>()), Times.Once);
+            _bank.Verify(b => b.CashOut(It.IsAny<Guid>(), winInMillicents, TransferOutReason.CashOut, true, It.IsAny<long>(), false), Times.Once);
             _bank.Verify(b => b.AddWin(win), Times.Once);
             scope.Verify(m => m.Complete(), Times.AtLeastOnce);
         }
@@ -439,7 +439,7 @@
             var command = new PayGameResults(win);
 
             handler.Handle(command);
-            _bank.Verify(b => b.CashOut(It.IsAny<Guid>(), winInMillicents, TransferOutReason.CashOut, true, It.IsAny<long>()), Times.Once);
+            _bank.Verify(b => b.CashOut(It.IsAny<Guid>(), winInMillicents, TransferOutReason.CashOut, true, It.IsAny<long>(), false), Times.Once);
             _bank.Verify(b => b.AddWin(win), Times.Once);
             scope.Verify(m => m.Complete(), Times.AtLeastOnce);
         }
@@ -477,10 +477,10 @@
             handler.Handle(command);
 
             _bank.Verify(b => b.AddWin((large1) / GamingConstants.Millicents), Times.Once);
-            _bank.Verify(b => b.CashOut(It.IsAny<Guid>(), large1, TransferOutReason.CashOut, true, It.IsAny<long>()), Times.Once);
+            _bank.Verify(b => b.CashOut(It.IsAny<Guid>(), large1, TransferOutReason.CashOut, true, It.IsAny<long>(), false), Times.Once);
 
             _bank.Verify(b => b.AddWin((large2) / GamingConstants.Millicents), Times.Once);
-            _bank.Verify(b => b.CashOut(It.IsAny<Guid>(), large2, TransferOutReason.CashOut, true, It.IsAny<long>()), Times.Once);
+            _bank.Verify(b => b.CashOut(It.IsAny<Guid>(), large2, TransferOutReason.CashOut, true, It.IsAny<long>(), false), Times.Once);
             _bank.Verify(b => b.AddWin((wager1 + wager2) / GamingConstants.Millicents), Times.Once);
 
             scope.Verify(m => m.Complete(), Times.AtLeastOnce);
@@ -559,7 +559,7 @@
             var command = new PayGameResults(win);
 
             handler.Handle(command);
-            _bank.Verify(b => b.CashOut(It.IsAny<Guid>(), maxCreditInMillicents, TransferOutReason.CashOut, true, It.IsAny<long>()), Times.Once);
+            _bank.Verify(b => b.CashOut(It.IsAny<Guid>(), maxCreditInMillicents, TransferOutReason.CashOut, true, It.IsAny<long>(), false), Times.Once);
             _bank.Verify(b => b.AddWin(win), Times.Once);
             scope.Verify(m => m.Complete(), Times.AtLeastOnce);
         }

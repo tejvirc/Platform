@@ -37,7 +37,7 @@
 
         public long CashableAmount { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public IMessageOverlayData HandleMessageOverlayCashOut(IMessageOverlayData data, bool lastCashOutForcedByMaxBank, LobbyCashOutState cashOutState)
+        public IMessageOverlayData HandleMessageOverlayCashOut(IMessageOverlayData data, bool lastCashOutForcedByMaxBank, LobbyCashOutState cashOutState, bool lastCashOutForcedByMaxWin = false)
         {
             Logger.Debug("BasicOverlayMessageStrategy HandleMessageOverlayCashout entered");
             var printHandpayReceipt = _properties.GetValue(AccountingConstants.EnableReceipts, false);
@@ -47,7 +47,8 @@
                 cashOutState,
                 printHandpayReceipt,
                 LastCashOutAmount,
-                HandpayAmount);
+                HandpayAmount,
+                lastCashOutForcedByMaxWin);
         }
 
         public IMessageOverlayData HandleMessageOverlayCashIn(IMessageOverlayData data, CashInType cashInType, bool stateContainsCashOut, LobbyCashOutState cashOutState)

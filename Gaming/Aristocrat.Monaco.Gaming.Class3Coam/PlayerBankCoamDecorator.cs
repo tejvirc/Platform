@@ -84,7 +84,7 @@ namespace Aristocrat.Monaco.Gaming.Class3Coam
 
         public bool CashOut(Guid traceId, bool forcedCashout, long associatedTransaction) => _decorated.CashOut(traceId, forcedCashout, associatedTransaction);
 
-        public bool CashOut(Guid traceId, long amount, TransferOutReason reason, bool forcedCashout, long associatedTransaction) => _decorated.CashOut(traceId, amount, reason, forcedCashout, associatedTransaction);
+        public bool CashOut(Guid traceId, long amount, TransferOutReason reason, bool forcedCashout, long associatedTransaction, bool maxWin = false) => _decorated.CashOut(traceId, amount, reason, forcedCashout, associatedTransaction, maxWin);
 
         public bool ForceHandpay(Guid traceId, long amount, TransferOutReason reason, long associatedTransaction) => _decorated.ForceHandpay(traceId, amount, reason, associatedTransaction);
 

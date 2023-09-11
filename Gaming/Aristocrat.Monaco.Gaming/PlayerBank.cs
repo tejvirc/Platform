@@ -208,12 +208,14 @@
             long amount,
             TransferOutReason reason,
             bool forcedCashout,
-            long associatedTransaction)
+            long associatedTransaction,
+            bool forcedByMaxWin = false)
         {
             _bus.Publish(
                 new CashOutStartedEvent(
                     forcedCashout,
-                    reason == TransferOutReason.CashWin ? Balance == 0 : Balance == amount));
+                    reason == TransferOutReason.CashWin ? Balance == 0 : Balance == amount,
+                    forcedByMaxWin));
 
             var associated = associatedTransaction == NoAssociatedTransactionId
                 ? Enumerable.Empty<long>().ToArray()
