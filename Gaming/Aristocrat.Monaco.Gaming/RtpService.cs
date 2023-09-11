@@ -11,6 +11,7 @@ namespace Aristocrat.Monaco.Gaming
     using Contracts;
     using Contracts.Models;
     using Contracts.Rtp;
+    using JetBrains.Annotations;
     using Kernel;
     using ProgressiveRtp = Contracts.Progressives.ProgressiveRtp;
 
@@ -196,6 +197,13 @@ namespace Aristocrat.Monaco.Gaming
 
             return rtpBreakdown;
         }
+
+        public RtpRange GetTotalSubGameRtp(IEnumerable<ISubGameDetails> subGames)
+        {
+            return subGames.Select(GetSubGameRtp).Aggregate(RtpRange.Total);
+        }
+
+        public RtpRange GetSubGameRtp(ISubGameDetails subGame) => new(subGame.MinimumPaybackPercent, subGame.MaximumPaybackPercent);
 
         public RtpRules GetJurisdictionalRtpRules(GameType gameType) => _rules[gameType];
 
@@ -387,7 +395,7 @@ namespace Aristocrat.Monaco.Gaming
             }
         }
 
-        private void ValidateRtpRangeBoundaries(RtpBreakdown rtpBreakdown)
+        private static void ValidateRtpRangeBoundaries(RtpBreakdown rtpBreakdown)
         {
             if (CheckRtpRange(rtpBreakdown.Base) &&
                 CheckRtpRange(rtpBreakdown.StandaloneProgressiveReset) &&
@@ -402,7 +410,7 @@ namespace Aristocrat.Monaco.Gaming
             rtpBreakdown.FailureFlags |= RtpValidationFailureFlags.InvalidRtpValue;
         }
 
-        private void ValidatePrecision(RtpBreakdown rtpBreakdown, int numOfDecimalPlaces)
+        private static void ValidatePrecision(RtpBreakdown rtpBreakdown, int numOfDecimalPlaces)
         {
             if (rtpBreakdown.Base.Minimum.CheckPrecision(numOfDecimalPlaces) &&
                rtpBreakdown.Base.Maximum.CheckPrecision(numOfDecimalPlaces) &&

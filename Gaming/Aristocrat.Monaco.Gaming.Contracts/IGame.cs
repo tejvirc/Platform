@@ -21,8 +21,8 @@
         string PaytableId { get; }
 
         /// <summary>
-        ///     Gets a value indicating whether or not the game is active.  An inactive game has been removed from the system and
-        ///     is no longer available for play.
+        ///     Gets a value indicating whether or not the game is active. An inactive game has been removed from the system and is
+        ///     no longer available for play.
         /// </summary>
         bool Active { get; }
     }

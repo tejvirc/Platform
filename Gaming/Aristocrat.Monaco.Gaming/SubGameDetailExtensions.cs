@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming
+namespace Aristocrat.Monaco.Gaming
 {
     using System.Collections.Generic;
     using Contracts;
@@ -10,7 +10,7 @@
     public static class SubGameDetailExtensions
     {
         /// <summary>
-        ///  Serializes a group of sub games into a format for Runtime consumption.
+        ///     Serializes a group of sub games into a format for Runtime consumption.
         /// </summary>
         /// <param name="this">The group of sub games to serialize</param>
         /// <returns>A json string with the serialized sub games</returns>

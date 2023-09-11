@@ -1876,6 +1876,7 @@
                     return _properties.GetValue(GamingConstants.AllowSlotGames, true);
             }
         }
+
         private IEnumerable<ISubGameDetails> GetSubGames(IEnumerable<SubGame> subGames, IList<IDenomination> gameDenominations)
         {
             var subGameList = new List<SubGameDetails>();

@@ -73,6 +73,7 @@
         ///     Gets a Totaled RTP contribution breakdown for all Wager categories for the provided game (variation).
         /// </summary>
         /// <param name="game">The game (variations) for which to breakdown.</param>
+        /// <returns>The total RTP Breakdown for the game.</returns>
         RtpBreakdown GetTotalRtpBreakdown(IGameDetail game);
 
         /// <summary>
@@ -80,6 +81,7 @@
         ///     highest maximum RTP of all RTP values in the given games (variations).
         /// </summary>
         /// <param name="game">The game to calculate Total RTP.</param>
+        /// <returns>The total RTP for the game.</returns>
         RtpRange GetTotalRtp(IGameDetail game);
 
         /// <summary>
@@ -87,24 +89,42 @@
         ///     highest maximum RTP of all RTP values in the given games (variations).
         /// </summary>
         /// <param name="games">The games to calculate Total RTP over.</param>
+        /// <returns></returns>
         RtpRange GetTotalRtp(IEnumerable<IGameDetail> games);
+
+        /// <summary>
+        ///     Gets the total Return to Player payback percent from all SubGames.
+        /// </summary>
+        /// <param name="subGames">The sub games to get Total RTP for.</param>
+        /// <returns>The total RTP range over the set of given SubGames</returns>
+        RtpRange GetTotalSubGameRtp(IEnumerable<ISubGameDetails> subGames);
+
+        /// <summary>
+        ///     Gets the SubGame Return to Player payback percent.
+        /// </summary>
+        /// <param name="subGame">The sub game to get the RTP for.</param>
+        /// <returns>The SubGame RTP</returns>
+        RtpRange GetSubGameRtp(ISubGameDetails subGame);
 
         /// <summary>
         ///     Gets the average RTP percent over the given set of games (variations) and their WagerCategories.
         /// </summary>
-        /// <param name="game">The game to calculate Average RTP.</param>
+        /// <param name="game">The game to calculate Average RTP for.</param>
+        /// <returns>The games average RTP</returns>
         decimal GetAverageRtp(IGameDetail game);
 
         /// <summary>
         ///     Gets the average RTP percent over the given set of games (variations) and their WagerCategories.
         /// </summary>
-        /// <param name="games">The list of games to calculate Average RTP.</param>
+        /// <param name="games">The list of games to calculate Average RTP for.</param>
+        /// <returns>The average RTP over the set of games</returns>
         decimal GetAverageRtp(IEnumerable<IGameDetail> games);
 
         /// <summary>
         ///     Gets the jurisdiction RTP rules for a specific GameType.
         /// </summary>
-        /// <param name="gameType">The GameType to get the rules for</param>
+        /// <param name="gameType">The GameType to get the rules for.</param>
+        /// <returns>The jurisdictional rules</returns>
         RtpRules GetJurisdictionalRtpRules(GameType gameType);
     }
 }

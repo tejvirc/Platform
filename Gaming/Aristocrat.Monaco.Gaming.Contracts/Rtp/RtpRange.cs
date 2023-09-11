@@ -38,8 +38,17 @@
         ///     Totals the specified RTP ranges together. The resulting range has the lowest minimum and highest maximum of all ranges.
         /// </summary>
         /// <param name="rtpRanges">The RTP ranges to be totaled together.</param>
-        /// <returns>A new <see cref="RtpRange"/> which is the total of a many ranges.</returns>
+        /// <returns>A new <see cref="RtpRange"/> which is the total over the set of given RTP ranges.</returns>
         public static RtpRange Total(params RtpRange[] rtpRanges) => rtpRanges.Aggregate((r1, r2) => r1.GetTotalWith(r2));
+
+         
+        /// <summary>
+        ///     Totals the two RTP ranges together. The resulting range has the lowest minimum and highest maximum of both.
+        /// </summary>
+        /// <param name="rtpRange1">The RTP range 1.</param>
+        /// <param name="rtpRange2">The RTP range 2.</param>
+        /// <returns>A new <see cref="RtpRange"/> which is the total of the two given ranges.</returns>
+        public static RtpRange Total(RtpRange rtpRange1, RtpRange rtpRange2) => Total(new [] {rtpRange1, rtpRange2});
 
         /// <summary>
         ///     Totals this RTP range with another RTP range.
