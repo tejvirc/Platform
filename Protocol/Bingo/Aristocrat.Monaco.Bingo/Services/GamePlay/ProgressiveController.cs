@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Timers;
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Aristocrat.Bingo.Client.Messages;
@@ -25,6 +26,7 @@
     public sealed class ProgressiveController : IProgressiveController, IDisposable, IProtocolProgressiveEventHandler
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private const int FifteenSecondsInMs = 15000;
 
         private readonly IEventBus _eventBus;
         private readonly IGameProvider _gameProvider;
@@ -41,8 +43,11 @@
         private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new();
         private readonly IList<ProgressiveInfo> _activeProgressiveInfos = new List<ProgressiveInfo>();
         private readonly object _pendingAwardsLock = new();
+        private readonly Timer _resendProgressiveClaimTimer = new(FifteenSecondsInMs) { AutoReset = true };
+
         private IList<(string poolName, long progressiveLevelId, long amountInPennies, int awardId)> _pendingAwards = new List<(string, long, long, int)>();
         private bool _disposed;
+        private PendingLinkedProgressivesHitEvent _lastProgressivesHitEvent;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ProgressiveController" /> class.
@@ -84,6 +89,7 @@
             _bingoGameOutcomeHandler = bingoGameOutcomeHandler ?? throw new ArgumentNullException(nameof(bingoGameOutcomeHandler));
 
             SubscribeToEvents();
+            _resendProgressiveClaimTimer.Elapsed += ResendProgressiveClaim;
         }
 
         /// <inheritdoc />
@@ -127,7 +133,6 @@
             var progressiveId = level.ProgressiveId;
             lock (_pendingAwardsLock)
             {
-
                 var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
 
                 var request = new ProgressiveAwardRequestMessage(
@@ -137,6 +142,10 @@
                     amountInPennies,
                     true);
                 _progressiveAwardService.AwardProgressive(request);
+                _lastProgressivesHitEvent = null;
+
+                Logger.Debug("Stopping resend progressive claim timer");
+                _resendProgressiveClaimTimer.Stop();
             }
         }
 
@@ -236,6 +245,9 @@
             }
 
             _eventBus.UnsubscribeAll(this);
+            _resendProgressiveClaimTimer.Stop();
+            _resendProgressiveClaimTimer.Elapsed -= ResendProgressiveClaim;
+            _resendProgressiveClaimTimer.Dispose();
 
             _disposed = true;
         }
@@ -355,6 +367,7 @@
                 return;
             }
 
+            _lastProgressivesHitEvent = evt;
             lock (_pendingAwardsLock)
             {
                 foreach (var level in evt.LinkedProgressiveLevels)
@@ -362,6 +375,7 @@
                     // Calls to progressive server to claim each progressive level.
                     Logger.Debug($"Calling ProgressiveClaimService.ClaimProgressive, MachineSerial={machineSerial}, ProgLevelId={level.LevelId}, Amount={level.Amount}");
                     var response = _progressiveClaimService.ClaimProgressive(new ProgressiveClaimRequestMessage(machineSerial, level.LevelId, level.Amount));
+                    _resendProgressiveClaimTimer.Start();
                     Logger.Debug($"ProgressiveClaimResponse received, ResponseCode={response.Result.ResponseCode} ProgressiveLevelId={response.Result.ProgressiveLevelId}, ProgressiveWinAmount={response.Result.ProgressiveWinAmount}, ProgressiveAwardId={response.Result.ProgressiveAwardId}");
 
                     _bingoGameOutcomeHandler.ProcessProgressiveClaimWin(response.Result.ProgressiveWinAmount.CentsToMillicents());
@@ -373,8 +387,6 @@
                     {
                         _pendingAwards.Add((poolName, response.Result.ProgressiveLevelId, response.Result.ProgressiveWinAmount, response.Result.ProgressiveAwardId));
                     }
-
-                    //UpdatePendingAwards();
                 }
             }
         }
@@ -411,7 +423,6 @@
                 if (matched)
                 {
                     _pendingAwards.Remove(pendingAwardToRemove);
-                    //UpdatePendingAwards();
                 }
             }
 
@@ -425,6 +436,29 @@
             var poolName = GetPoolName(linkedLevel.LevelName);
             AwardJackpot(poolName, winAmount);
             _protocolLinkedProgressiveAdapter.AwardLinkedProgressiveLevel(linkedLevel.LevelName, winAmount, ProtocolNames.Bingo);
+        }
+
+        private void ResendProgressiveClaim(object sender, ElapsedEventArgs e)
+        {
+            var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
+
+            if (string.IsNullOrEmpty(machineSerial))
+            {
+                Logger.Error($"Unable to get {ApplicationConstants.SerialNumber} from properties manager");
+                return;
+            }
+
+            lock (_pendingAwardsLock)
+            {
+                foreach (var level in _lastProgressivesHitEvent.LinkedProgressiveLevels)
+                {
+                    // Calls to progressive server to re-claim each progressive level.
+                    Logger.Debug(
+                        $"Resending ProgressiveClaimService.ClaimProgressive, MachineSerial={machineSerial}, ProgLevelId={level.LevelId}, Amount={level.Amount}");
+                    var response = _progressiveClaimService.ClaimProgressive(
+                        new ProgressiveClaimRequestMessage(machineSerial, level.LevelId, level.Amount));
+                }
+            }
         }
 
         private LinkedProgressiveLevel UpdateLinkedProgressiveLevels(
@@ -464,19 +498,6 @@
         {
             var key = _progressives.FirstOrDefault(p => p.Value.Any(i => LevelName(i).Equals(levelName, StringComparison.OrdinalIgnoreCase))).Key;
             return key ?? string.Empty;
-        }
-
-        private void UpdatePendingAwards()
-        {
-            using var unitOfWork = _unitOfWorkFactory.Create();
-            var pendingJackpots = unitOfWork.Repository<PendingJackpotAwards>().Queryable().SingleOrDefault() ??
-                                  new PendingJackpotAwards();
-
-            pendingJackpots.Awards = JsonConvert.SerializeObject(_pendingAwards);
-
-            unitOfWork.Repository<PendingJackpotAwards>().AddOrUpdate(pendingJackpots);
-
-            unitOfWork.SaveChanges();
         }
 
         private static LinkedProgressiveLevel LinkedProgressiveLevel(int progId, int levelId, long valueInCents)
