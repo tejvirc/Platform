@@ -45,8 +45,6 @@ public sealed class AttractService : IAttractService, IDisposable
     private readonly TranslateOptions _translateOptions;
     private readonly IEventBus _eventBus;
     private readonly IAttractConfigurationProvider _attractConfigurationProvider;
-    private readonly ITopImageRotationService _topImageRotationService;
-    private readonly ITopperImageRotationService _topperImageRotationService;
 
     private readonly Timer _attractTimer;
 
