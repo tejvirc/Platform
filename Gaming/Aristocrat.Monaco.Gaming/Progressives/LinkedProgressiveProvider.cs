@@ -401,6 +401,11 @@
             _broadcastTimer.Timer.Start();
         }
 
+        public IEnumerable<LinkedProgressiveLevel> GetLinkedProgressiveLevels()
+        {
+            return LockedGetLinkedLevels();
+        }
+
         private static void EvaluateClaimExpiration(
             DateTime currentTime,
             LinkedProgressiveLevel level,

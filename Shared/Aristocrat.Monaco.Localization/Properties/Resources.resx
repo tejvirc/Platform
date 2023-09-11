@@ -12465,4 +12465,8 @@ LEVEL ID</value>
     <value>Linked Progressive</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
+  <data name="NoLinkedProgressiveLevelsAdded" xml:space="preserve">
+    <value>No Linked Progressive Levels Added</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
 </root>

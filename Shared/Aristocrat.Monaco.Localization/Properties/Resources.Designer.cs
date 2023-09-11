@@ -22421,6 +22421,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to No Linked Progressive Levels Added.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string NoLinkedProgressiveLevelsAdded {
+			get {
+				return ResourceManager.GetString("NoLinkedProgressiveLevelsAdded", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to NON-CASHABLE CREDIT\r\n\r\nA non-cashable amount o....
 		/// </summary>
         /// <remarks>
@@ -59323,6 +59335,18 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to No Linked Progressive Levels Added.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		public static string NoLinkedProgressiveLevelsAdded {
+			get {
+				return "NoLinkedProgressiveLevelsAdded";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to NON-CASHABLE CREDIT\r\n\r\nA non-cashable amount o....
 		/// </summary>
         /// <remarks>
@@ -86581,6 +86605,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Monaco.Accounting.UI
         /// </remarks>
 		NoLimit,
+		/// <summary>
+		///   Looks up a localized string similar to No Linked Progressive Levels Added.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Gaming.UI
+        /// </remarks>
+		NoLinkedProgressiveLevelsAdded,
 		/// <summary>
 		///   Looks up a localized string similar to NON-CASHABLE CREDIT\r\n\r\nA non-cashable amount o....
 		/// </summary>

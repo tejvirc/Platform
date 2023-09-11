@@ -8,6 +8,7 @@
     using Application.UI.MeterPage;
     using Contracts.Meters;
     using Contracts.Progressives;
+    using Contracts.Progressives.Linked;
 
     public static class ProgressiveDisplayMeterFactory
     {
@@ -20,7 +21,7 @@
             long sharedHiddenTotal,
             long sharedBulkTotal)
         {
-            string meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
+            var meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
                             meterNode.DisplayNameKey,
                             _ => { });
 
@@ -154,6 +155,46 @@
             }
         }
 
+        public static DisplayMeter Build(
+            this IProgressiveMeterManager progressiveManager,
+            IViewableLinkedProgressiveLevel linkedProgressiveLevel,
+            MeterNode meterNode,
+            bool showLifetime)
+        {
+            var meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
+                meterNode.DisplayNameKey,
+                _ => { });
+
+            if (string.IsNullOrEmpty(meterDisplayName))
+            {
+                meterDisplayName = meterNode.DisplayName;
+            }
+
+            switch (meterNode.Name)
+            {
+                case ProgressiveMeters.LinkedProgressiveBulkContribution:
+                case ProgressiveMeters.LinkedProgressiveWageredAmount:
+                case ProgressiveMeters.LinkedProgressiveWageredAmountWithAnte:
+                case ProgressiveMeters.LinkedProgressiveWinAccumulation:
+                    return CreateValueDisplayMeter(
+                        progressiveManager,
+                        linkedProgressiveLevel,
+                        meterNode,
+                        showLifetime);
+
+                case ProgressiveMeters.LinkedProgressivePlayedCount:
+                case ProgressiveMeters.LinkedProgressiveWinOccurrence:
+                    return CreateDisplayMeter(
+                        progressiveManager,
+                        linkedProgressiveLevel,
+                        meterNode,
+                        showLifetime);
+                default:
+                    throw new ArgumentException(
+                        $"GetProgressiveLinkedProgressiveMeter called with invalid meterNode.Name {meterNode.Name}");
+            }
+        }
+
         private static IMeter GetIMeter(IProgressiveMeterManager progressiveManager, int deviceId, int levelId, string meterName)
         {
             switch (meterName)
@@ -184,7 +225,7 @@
                 progressiveLevel.LevelId,
                 meterNode.Name);
 
-            string meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
+            var meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
                             meterNode.DisplayNameKey,
                             _ => { });
 
@@ -209,6 +250,42 @@
                 meterNode.Order);
         }
 
+        private static DisplayMeter CreateValueDisplayMeter(
+            IProgressiveMeterManager progressiveManager,
+            IViewableLinkedProgressiveLevel linkedProgressiveLevel,
+            MeterNode meterNode,
+            bool showLifetime)
+        {
+            var linkedProgressiveMeter = progressiveManager.GetMeter(
+                linkedProgressiveLevel.LevelName,
+                meterNode.Name);
+
+            var meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
+                meterNode.DisplayNameKey,
+                _ => { });
+
+            if (string.IsNullOrEmpty(meterDisplayName))
+            {
+                meterDisplayName = meterNode.DisplayName;
+            }
+
+            if (linkedProgressiveMeter != null)
+            {
+                return new ValueDisplayMeter(
+                    meterNode.DisplayName,
+                    linkedProgressiveMeter,
+                    showLifetime,
+                    meterNode.Order);
+            }
+
+            return new ProxyDisplayMeter<long>(
+                meterDisplayName,
+                0,
+                v => v.FormattedCurrencyString(),
+                meterNode.Order);
+
+        }
+
         private static DisplayMeter CreateDisplayMeter(
             IProgressiveMeterManager progressiveManager,
             IViewableProgressiveLevel progressiveLevel,
@@ -221,7 +298,7 @@
                 progressiveLevel.LevelId,
                 meterNode.Name);
 
-            string meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
+            var meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
                             meterNode.DisplayNameKey,
                             _ => { });
 
@@ -235,6 +312,41 @@
                 return new DisplayMeter(
                     meterDisplayName,
                     progressiveMeter,
+                    showLifetime,
+                    meterNode.Order);
+            }
+
+            return new ProxyDisplayMeter<long>(
+                meterDisplayName,
+                0,
+                v => v.ToString(),
+                meterNode.Order);
+        }
+
+        private static DisplayMeter CreateDisplayMeter(
+            IProgressiveMeterManager progressiveManager,
+            IViewableLinkedProgressiveLevel linkedProgressiveLevel,
+            MeterNode meterNode,
+            bool showLifetime)
+        {
+            var linkedProgressiveMeter = progressiveManager.GetMeter(
+                linkedProgressiveLevel.LevelName,
+                meterNode.Name);
+
+            var meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
+                meterNode.DisplayNameKey,
+                _ => { });
+
+            if (string.IsNullOrEmpty(meterDisplayName))
+            {
+                meterDisplayName = meterNode.DisplayName;
+            }
+
+            if (linkedProgressiveMeter != null)
+            {
+                return new DisplayMeter(
+                    meterDisplayName,
+                    linkedProgressiveMeter,
                     showLifetime,
                     meterNode.Order);
             }

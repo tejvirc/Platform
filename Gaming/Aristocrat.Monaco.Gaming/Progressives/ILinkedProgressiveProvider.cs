@@ -112,5 +112,11 @@
         ///    This call must be done on any level that can be awarded
         /// </summary>
         void ClaimAndAwardLinkedProgressiveLevel(string levelName, long winAmount = -1);
+
+        /// <summary>
+        ///     Retrieves the list of all linked progressive levels
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<LinkedProgressiveLevel> GetLinkedProgressiveLevels();
     }
 }

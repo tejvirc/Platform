@@ -35,7 +35,14 @@
         </Grid.RowDefinitions>
         <Border Grid.Row="0"
                 Grid.RowSpan="2"
-                HorizontalAlignment="Left" />
-        <Label Grid.Row="1" Content="This is a label" />
+                HorizontalAlignment="Left"
+                MinWidth="1250">
+            <DataGrid Grid.Row="0" 
+                      ColumnWidth="*"
+                      Name="ProgressiveDataGrid"
+                      ItemsSource="{Binding LinkedProgressiveDetailMeters}"
+                      ColumnHeaderStyle="{StaticResource WrappedHeaderStyle}"
+                      VerticalContentAlignment="Top" />
+        </Border>
     </Grid>
 </operatorMenu:OperatorMenuPage>
