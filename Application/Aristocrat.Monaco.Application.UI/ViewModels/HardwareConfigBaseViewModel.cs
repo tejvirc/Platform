@@ -1563,9 +1563,14 @@
             var device = EnabledDevices.FirstOrDefault(d => d.DeviceType == deviceType);
             if (device?.IsDetectionFailure ?? false)
             {
-                var statusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoDeviceDetected);
-                SetDeviceStatusAndValidate(deviceType, statusText, DeviceState.NoDeviceDetected, false);
-                IsValidating = false;
+                MvvmHelper.ExecuteOnUI(
+                    () =>
+                    {
+                        var statusText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.NoDeviceDetected);
+                        SetDeviceStatusAndValidate(deviceType, statusText, DeviceState.NoDeviceDetected, false);
+                        IsValidating = false;
+                    });
+                
                 return true;
             }
 
