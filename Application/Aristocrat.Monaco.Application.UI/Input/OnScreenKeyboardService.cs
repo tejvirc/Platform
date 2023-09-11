@@ -21,7 +21,7 @@
 
         private readonly IEventBus _eventBus;
         private readonly IVirtualKeyboardProvider _keyboardProvider;
-        private readonly CultureInfo _startupCulture = InputLanguage.CurrentInputLanguage.Culture;
+        private readonly CultureInfo _defaultCulture = CultureInfo.GetCultureInfo(ApplicationConstants.DefaultLanguage);
 
         private bool _disableKeyboard;
         private bool _disposed;
@@ -128,8 +128,8 @@
         {
             _keyboardProvider?.CloseKeyboard();
 
-            // Return to the startup language after closing the keyboard
-            SetInputLanguage(_startupCulture);
+            // Return to the default language after closing the keyboard
+            SetInputLanguage(_defaultCulture);
         }
 
         private void HandleOnScreenKeyboardClosed(OnscreenKeyboardClosedEvent e)
@@ -149,6 +149,7 @@
             if (cabinetType == CabinetType.Unknown)
             {
                 // Only dev machines should have Unknown type
+                // Comment this out to use the on screen keyboard in debug as well
                 return null;
             }
 #endif

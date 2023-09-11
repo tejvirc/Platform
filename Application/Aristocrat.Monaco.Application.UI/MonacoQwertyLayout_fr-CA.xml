@@ -278,7 +278,7 @@
       <Top>96</Top>
       <Width>40</Width>
       <Height>40</Height>
-      <VirtualKey>220</VirtualKey>
+      <VirtualKey>65</VirtualKey>
       <Repeat>1</Repeat>
     </Key>
     <Key xsi:type="RegularKey">
@@ -286,7 +286,7 @@
       <Top>96</Top>
       <Width>40</Width>
       <Height>40</Height>
-      <VirtualKey>65</VirtualKey>
+      <VirtualKey>83</VirtualKey>
       <Repeat>1</Repeat>
     </Key>
     <Key xsi:type="RegularKey">
@@ -294,7 +294,7 @@
       <Top>96</Top>
       <Width>40</Width>
       <Height>40</Height>
-      <VirtualKey>83</VirtualKey>
+      <VirtualKey>68</VirtualKey>
       <Repeat>1</Repeat>
     </Key>
     <Key xsi:type="RegularKey">
@@ -302,7 +302,7 @@
       <Top>96</Top>
       <Width>40</Width>
       <Height>40</Height>
-      <VirtualKey>68</VirtualKey>
+      <VirtualKey>70</VirtualKey>
       <Repeat>1</Repeat>
     </Key>
     <Key xsi:type="RegularKey">
@@ -310,7 +310,7 @@
       <Top>96</Top>
       <Width>40</Width>
       <Height>40</Height>
-      <VirtualKey>70</VirtualKey>
+      <VirtualKey>71</VirtualKey>
       <Repeat>1</Repeat>
     </Key>
     <Key xsi:type="RegularKey">
@@ -318,7 +318,7 @@
       <Top>96</Top>
       <Width>40</Width>
       <Height>40</Height>
-      <VirtualKey>71</VirtualKey>
+      <VirtualKey>72</VirtualKey>
       <Repeat>1</Repeat>
     </Key>
     <Key xsi:type="RegularKey">
@@ -326,7 +326,7 @@
       <Top>96</Top>
       <Width>40</Width>
       <Height>40</Height>
-      <VirtualKey>72</VirtualKey>
+      <VirtualKey>74</VirtualKey>
       <Repeat>1</Repeat>
     </Key>
     <Key xsi:type="RegularKey">
@@ -334,7 +334,7 @@
       <Top>96</Top>
       <Width>40</Width>
       <Height>40</Height>
-      <VirtualKey>74</VirtualKey>
+      <VirtualKey>75</VirtualKey>
       <Repeat>1</Repeat>
     </Key>
     <Key xsi:type="RegularKey">
@@ -342,7 +342,7 @@
       <Top>96</Top>
       <Width>40</Width>
       <Height>40</Height>
-      <VirtualKey>75</VirtualKey>
+      <VirtualKey>76</VirtualKey>
       <Repeat>1</Repeat>
     </Key>
     <Key xsi:type="RegularKey">
@@ -350,7 +350,7 @@
       <Top>96</Top>
       <Width>40</Width>
       <Height>40</Height>
-      <VirtualKey>76</VirtualKey>
+      <VirtualKey>186</VirtualKey>
       <Repeat>1</Repeat>
     </Key>
     <Key xsi:type="RegularKey">
@@ -358,7 +358,7 @@
       <Top>96</Top>
       <Width>40</Width>
       <Height>40</Height>
-      <VirtualKey>186</VirtualKey>
+      <VirtualKey>192</VirtualKey>
       <Repeat>1</Repeat>
     </Key>
     <Key xsi:type="RegularKey">
@@ -366,7 +366,7 @@
       <Top>51</Top>
       <Width>70</Width>
       <Height>40</Height>
-      <VirtualKey>192</VirtualKey>
+      <VirtualKey>220</VirtualKey>
       <Repeat>1</Repeat>
     </Key>
     <Key xsi:type="RegularKey">
@@ -456,6 +456,14 @@
       <Height>40</Height>
       <VirtualKey>191</VirtualKey>
       <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="SpecialKey">
+      <Content xsi:type="xsd:string">AltGr</Content>
+      <Left>448.76568105901248</Left>
+      <Top>186.20462699492759</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>165</VirtualKey>
     </Key>
   </Keys>
   <Width>720</Width>
