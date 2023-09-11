@@ -407,6 +407,7 @@ namespace Aristocrat.Monaco.Gaming.UI
 
             _state.Configure(LobbyState.GameLoading)
                 .OnEntryFrom(_launchGameTrigger, CallStateEntry)
+                .OnEntryFrom(LobbyTrigger.ResponsibleGamingTimeLimitDialogDismissed, ResponsibleGamingExited)
                 .InternalTransition(LobbyTrigger.ResponsibleGamingTimeLimitDialog, ResponsibleGamingWhileGameLoading)
                 .Permit(LobbyTrigger.GameLoaded, LobbyState.Game)
                 .PermitIf(LobbyTrigger.Disable, LobbyState.Disabled, () => !AllowSingleGameAutoLaunch || (_gameHistory.IsRecoveryNeeded && IsLoadingGameForRecovery))
@@ -427,6 +428,7 @@ namespace Aristocrat.Monaco.Gaming.UI
 
             _state.Configure(LobbyState.Game)
                 .OnEntry(GameLoaded)
+                .OnEntryFrom(LobbyTrigger.ResponsibleGamingTimeLimitDialogDismissed, ResponsibleGamingExited)
                 .PermitDynamic(LobbyTrigger.GameNormalExit, GetDefaultChooserState)
                 .PermitDynamic(LobbyTrigger.GameUnexpectedExit, GetDefaultChooserState)
                 .Permit(LobbyTrigger.Disable, LobbyState.Disabled)
