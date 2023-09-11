@@ -215,7 +215,7 @@
         /// <summary>
         ///     The maximum length of the Machine Id for G2S Protocol.
         /// </summary>
-        public const int MaxMachineIdLengthG2S = 8;
+        public const int MaxMachineIdLengthG2S = 10;
 
         /// <summary>
         ///     The maximum length of the Machine Id for SAS Protocol.
