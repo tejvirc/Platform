@@ -1,11 +1,13 @@
 ﻿namespace Aristocrat.Monaco.RobotController
 {
     using Aristocrat.Monaco.Accounting.Contracts;
+    using Aristocrat.Monaco.Accounting.Contracts.HandCount;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Kernel;
     using System;
     using System.Collections.Generic;
     using System.Threading;
+    using System.Threading.Tasks;
 
     internal class CashoutOperations : IRobotOperations
     {
@@ -15,6 +17,8 @@
         private readonly RobotController _robotController;
         private Timer _actionCashoutTimer;
         private bool _disposed;
+
+        private readonly int CashoutDialogDismiss = (int)TimeSpan.FromSeconds(3).TotalMilliseconds;
 
         public CashoutOperations(IEventBus eventBus, RobotLogger logger, StateChecker sc, RobotController robotController)
         {
@@ -115,6 +119,8 @@
                     _robotController.BlockOtherOperations(RobotStateAndOperations.CashoutOperation);
                     _logger.Info($"CashOutStartedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 });
+
+            CashoutBannerSupport();
         }
 
         private void RequestCashOut()
@@ -126,5 +132,23 @@
             _logger.Info("Requesting Cashout", GetType().Name);
             _eventBus.Publish(new CashOutButtonPressedEvent());
         }
+
+        private void CashoutBannerSupport()
+        {
+            _eventBus.Subscribe<CashoutAmountAuthorizationRequestedEvent>(this,
+                evt =>
+                {
+                    _robotController.BlockOtherOperations(RobotStateAndOperations.CashoutBannerSupport);
+                    Task.Delay(CashoutDialogDismiss).ContinueWith(task =>
+                    {
+                        var cashOut = GetRandomBoolean();
+
+                        _eventBus.Publish(new CashoutAmountAuthorizationReceivedEvent(cashOut));
+                        _robotController.UnBlockOtherOperations(RobotStateAndOperations.CashoutBannerSupport);
+                    });
+                });
+        }
+
+        private bool GetRandomBoolean() => new Random((int)DateTime.Now.Ticks).Next() % 2 != 0;
     }
 }

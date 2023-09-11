@@ -14,7 +14,7 @@
         SoftReboot,
         Service,
         GameOperation_LoadGame,
-        GameOperation_ForceGameExit,
+        GameOperation_ExitGame,
         RegularMode,
         SuperMode,
         UberMode,
