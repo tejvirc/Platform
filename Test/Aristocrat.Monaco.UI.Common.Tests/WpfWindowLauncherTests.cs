@@ -13,247 +13,260 @@
     [TestClass]
     public class WpfWindowLauncherTests
     {
-        private WpfWindowLauncher _target;
-
-        /// <summary>Gets or sets the test context</summary>
-        public TestContext TestContext { get; set; }
-
-        /// <summary>
-        ///     Initializes class members and prepares for execution of a TestMethod.
-        /// </summary>
-        [TestInitialize]
-        public void Initialize()
-        {
-            _target = new WpfWindowLauncher();
-        }
-
-        /// <summary>
-        ///     Cleans up class members after execution of a TestMethod.
-        /// </summary>
-        [TestCleanup]
-        public void CleanUp()
-        {
-            _target.Dispose();
-        }
-
-        /// <summary>
-        ///     Cleans up after all tests have executed
-        /// </summary>
-        [ClassCleanup]
-        public static void FinalCleanUp()
-        {
-            if (Application.Current != null)
-            {
-                Application.Current.Dispatcher.Invoke(() => Application.Current.Shutdown());
-            }
-        }
-
         [TestMethod]
         public void ConstructorTest()
         {
-            Assert.IsNotNull(_target);
+            Application.Current.Dispatcher.Invoke(() => Assert.IsNotNull(new WpfWindowLauncher()));
         }
 
         [TestMethod]
         public void NameTest()
         {
-            Assert.AreEqual(nameof(WpfWindowLauncher), _target.Name);
+            Assert.AreEqual(nameof(WpfWindowLauncher), new WpfWindowLauncher().Name);
         }
 
         [TestMethod]
         public void ServiceTypesTest()
         {
-            ICollection<Type> serviceTypes = _target.ServiceTypes;
-            Assert.AreEqual(1, serviceTypes.Count);
-            Assert.IsTrue(serviceTypes.Contains(typeof(IWpfWindowLauncher)));
+            RunTest(() =>
+            {
+                ICollection<Type> serviceTypes = new WpfWindowLauncher().ServiceTypes;
+                Assert.AreEqual(1, serviceTypes.Count);
+                Assert.IsTrue(serviceTypes.Contains(typeof(IWpfWindowLauncher)));
+            });
         }
 
         [TestMethod]
         public void InitializeTest()
         {
-            _target.Initialize();
-
-            Assert.IsNotNull(Application.Current);
+            RunTest(() =>
+            {
+                new WpfWindowLauncher().Initialize();
+                Assert.IsNotNull(Application.Current);
+            });
         }
 
         [TestMethod]
         public void GetWindowTestForUnknownName()
         {
-            _target.Initialize();
-
-            Assert.IsNull(_target.GetWindow("badname"));
+            RunTest(() =>
+            {
+                var target = new WpfWindowLauncher();
+                target.Initialize();
+                Assert.IsNull(target.GetWindow("badname"));
+            });
         }
 
         [TestMethod]
         public void CreateWindowTestWhenDisposed()
         {
-            _target.Initialize();
-            _target.Dispose();
+            RunTest(() =>
+            {
+                var target = new WpfWindowLauncher();
+                target.Initialize();
+                target.Dispose();
 
-            string windowName = "TestWindow";
-            _target.CreateWindow<Window>(windowName);
+                string windowName = "TestWindow";
+                target.CreateWindow<Window>(windowName);
 
-            Assert.AreEqual(0, GetWindowCount());
+                Assert.AreEqual(0, GetWindowCount());
+            });
         }
 
         [TestMethod]
         public void CreateWindowTestSuccessNotADialog()
         {
-            _target.Initialize();
+            RunTest(() =>
+            {
+                var target = new WpfWindowLauncher();
+                target.Initialize();
 
-            string windowName = "TestWindow";
-            _target.CreateWindow<Window>(windowName);
+                string windowName = "TestWindow";
+                target.CreateWindow<Window>(windowName);
 
-            Window createdWindow = _target.GetWindow(windowName);
+                Window createdWindow = target.GetWindow(windowName);
 
-            Assert.IsNotNull(createdWindow);
-            Assert.AreEqual(1, GetWindowCount());
-            Assert.AreEqual(windowName, GetWindowName(createdWindow));
+                Assert.IsNotNull(createdWindow);
+                Assert.AreEqual(1, GetWindowCount());
+                Assert.AreEqual(windowName, GetWindowName(createdWindow));
+            });
         }
 
         [TestMethod]
         public void CreateWindowTestSuccessDialog()
         {
-            _target.Initialize();
+            RunTest(() =>
+            {
+                var target = new WpfWindowLauncher();
+                target.Initialize();
 
-            const string windowName = "TestWindow";
-            _target.CreateWindow<Window>(windowName);
-            var createdWindow = _target.GetWindow(windowName);
+                const string windowName = "TestWindow";
+                target.CreateWindow<Window>(windowName);
+                var createdWindow = target.GetWindow(windowName);
 
-            Assert.IsNotNull(createdWindow);
-            Assert.AreEqual(1, GetWindowCount());
-            Assert.AreEqual(windowName, GetWindowName(createdWindow));
+                Assert.IsNotNull(createdWindow);
+                Assert.AreEqual(1, GetWindowCount());
+                Assert.AreEqual(windowName, GetWindowName(createdWindow));
+            });
         }
 
         [TestMethod]
         public void CreateWindowTestTwoUniqueWindows()
         {
-            _target.Initialize();
+            RunTest(() =>
+            {
+                var target = new WpfWindowLauncher();
+                target.Initialize();
 
-            string window1Name = "TestWindow";
-            string window2Name = "SecondWindow";
-            _target.CreateWindow<Window>(window1Name);
-            _target.CreateWindow<Window>(window2Name);
+                string window1Name = "TestWindow";
+                string window2Name = "SecondWindow";
+                target.CreateWindow<Window>(window1Name);
+                target.CreateWindow<Window>(window2Name);
 
-            Assert.AreEqual(2, GetWindowCount());
+                Assert.AreEqual(2, GetWindowCount());
 
-            Window createdWindow1 = _target.GetWindow(window1Name);
-            Assert.IsNotNull(createdWindow1);
-            Assert.AreEqual(window1Name, GetWindowName(createdWindow1));
+                Window createdWindow1 = target.GetWindow(window1Name);
+                Assert.IsNotNull(createdWindow1);
+                Assert.AreEqual(window1Name, GetWindowName(createdWindow1));
 
-            Window createdWindow2 = _target.GetWindow(window2Name);
-            Assert.IsNotNull(createdWindow2);
-            Assert.AreEqual(window2Name, GetWindowName(createdWindow2));
+                Window createdWindow2 = target.GetWindow(window2Name);
+                Assert.IsNotNull(createdWindow2);
+                Assert.AreEqual(window2Name, GetWindowName(createdWindow2));
+            });
         }
 
         [TestMethod]
         public void CreateWindowTestForDuplicateWindow()
         {
-            _target.Initialize();
-
-            string windowName = "TestWindow";
-            _target.CreateWindow<Window>(windowName);
-
-            // Try a second time
-            bool threwException = false;
-            try
+            RunTest(() =>
             {
-                _target.CreateWindow<Window>(windowName);
-            }
-            catch (ArgumentException)
-            {
-                threwException = true;
-            }
+                var target = new WpfWindowLauncher();
+                target.Initialize();
 
-            Assert.IsTrue(threwException);
+                string windowName = "TestWindow";
+                target.CreateWindow<Window>(windowName);
 
-            // First window should still be fine
-            Window createdWindow = _target.GetWindow(windowName);
+                // Try a second time
+                bool threwException = false;
+                try
+                {
+                    target.CreateWindow<Window>(windowName);
+                }
+                catch (ArgumentException)
+                {
+                    threwException = true;
+                }
 
-            Assert.IsNotNull(createdWindow);
-            Assert.AreEqual(1, GetWindowCount());
-            Assert.AreEqual(windowName, GetWindowName(createdWindow));
+                Assert.IsTrue(threwException);
+
+                // First window should still be fine
+                Window createdWindow = target.GetWindow(windowName);
+
+                Assert.IsNotNull(createdWindow);
+                Assert.AreEqual(1, GetWindowCount());
+                Assert.AreEqual(windowName, GetWindowName(createdWindow));
+            });
         }
 
         [TestMethod]
         public void GetWindowVisibilityTest()
         {
-            _target.Initialize();
+            RunTest(() =>
+            {
+                var target = new WpfWindowLauncher();
+                target.Initialize();
 
-            string windowName = "TestWindow";
-            _target.CreateWindow<Window>(windowName);
+                string windowName = "TestWindow";
+                target.CreateWindow<Window>(windowName);
 
-            Assert.AreEqual(Visibility.Visible, _target.GetWindowVisibility(windowName));
-            Assert.AreEqual(Visibility.Collapsed, _target.GetWindowVisibility("badname"));
+                Assert.AreEqual(Visibility.Visible, target.GetWindowVisibility(windowName));
+                Assert.AreEqual(Visibility.Collapsed, target.GetWindowVisibility("badname"));
+            });
         }
 
         [TestMethod]
         public void ShowAndHideTest()
         {
-            _target.Initialize();
+            RunTest(() =>
+            {
+                var target = new WpfWindowLauncher();
+                target.Initialize();
 
-            string windowName = "TestWindow";
-            _target.CreateWindow<Window>(windowName);
+                string windowName = "TestWindow";
+                target.CreateWindow<Window>(windowName);
 
-            _target.Hide(windowName);
-            Assert.AreEqual(Visibility.Hidden, _target.GetWindowVisibility(windowName));
+                target.Hide(windowName);
+                Assert.AreEqual(Visibility.Hidden, target.GetWindowVisibility(windowName));
 
-            _target.Show(windowName);
-            Assert.AreEqual(Visibility.Visible, _target.GetWindowVisibility(windowName));
+                target.Show(windowName);
+                Assert.AreEqual(Visibility.Visible, target.GetWindowVisibility(windowName));
+            });
         }
 
         [TestMethod]
         public void WindowStateTest()
         {
-            _target.Initialize();
+            RunTest(() =>
+            {
+                var target = new WpfWindowLauncher();
+                target.Initialize();
 
-            string windowName = "TestWindow";
-            _target.CreateWindow<Window>(windowName);
+                string windowName = "TestWindow";
+                target.CreateWindow<Window>(windowName);
 
-            Assert.AreEqual(WindowState.Normal, _target.GetWindowState(windowName));
-            Assert.AreEqual(WindowState.Normal, _target.GetWindowState("badname"));
+                Assert.AreEqual(WindowState.Normal, target.GetWindowState(windowName));
+                Assert.AreEqual(WindowState.Normal, target.GetWindowState("badname"));
 
-            _target.SetWindowState(windowName, WindowState.Minimized);
-            Assert.AreEqual(WindowState.Minimized, _target.GetWindowState(windowName));
+                target.SetWindowState(windowName, WindowState.Minimized);
+                Assert.AreEqual(WindowState.Minimized, target.GetWindowState(windowName));
+            });
         }
 
         [TestMethod]
         public void CloseTest()
         {
-            _target.Initialize();
+            RunTest(() =>
+            {
+                var target = new WpfWindowLauncher();
+                target.Initialize();
 
-            string window1Name = "TestWindow";
-            string window2Name = "SecondWindow";
-            _target.CreateWindow<Window>(window1Name);
-            _target.CreateWindow<Window>(window2Name);
+                string window1Name = "TestWindow";
+                string window2Name = "SecondWindow";
+                target.CreateWindow<Window>(window1Name);
+                target.CreateWindow<Window>(window2Name);
 
-            Assert.IsNotNull(_target.GetWindow(window1Name));
+                Assert.IsNotNull(target.GetWindow(window1Name));
 
-            Window window2 = _target.GetWindow(window2Name);
-            Assert.IsNotNull(window2);
+                Window window2 = target.GetWindow(window2Name);
+                Assert.IsNotNull(window2);
 
-            bool window2Closed = false;
-            window2.Closed += (sender, eventArgs) => window2Closed = true;
+                bool window2Closed = false;
+                window2.Closed += (sender, eventArgs) => window2Closed = true;
 
-            _target.Close(window2Name);
-            Assert.IsTrue(window2Closed);
-            Assert.IsNull(_target.GetWindow(window2Name));
+                target.Close(window2Name);
+                Assert.IsTrue(window2Closed);
+                Assert.IsNull(target.GetWindow(window2Name));
+            });
         }
 
         [TestMethod]
         public void DisposeTest()
         {
-            _target.Initialize();
+            RunTest(() =>
+            {
+                var target = new WpfWindowLauncher();
+                target.Initialize();
 
-            string window1Name = "TestWindow";
-            string window2Name = "SecondWindow";
-            _target.CreateWindow<Window>(window1Name);
-            _target.CreateWindow<Window>(window2Name);
+                string window1Name = "TestWindow";
+                string window2Name = "SecondWindow";
+                target.CreateWindow<Window>(window1Name);
+                target.CreateWindow<Window>(window2Name);
 
-            _target.Dispose();
+                target.Dispose();
 
-            // A second dispose should do nothing
-            _target.Dispose();
+                // A second dispose should do nothing
+                target.Dispose();
+            });
         }
 
         private int GetWindowCount()
@@ -272,6 +285,23 @@
             string actualName = null;
             window.Dispatcher.Invoke(() => actualName = window.Name);
             return actualName;
+        }
+
+        private void RunTest(Action action)
+        {
+            var newWindowThread = new Thread(new ThreadStart(() =>
+            {
+                action();
+                // start the Dispatcher processing  
+                Dispatcher.Run();
+            }));
+
+            // set the apartment state  
+            newWindowThread.SetApartmentState(ApartmentState.STA);
+            // make the thread a background thread  
+            newWindowThread.IsBackground = true;
+            // start the thread  
+            newWindowThread.Start();
         }
     }
 }
