@@ -13,11 +13,10 @@
     public class GameBonusInfoTicketCreator : IGameBonusInfoTicketCreator, IService
     {
         public Ticket Create(
-            string bonusInfo,
-            IEnumerable<BonusInfoMeter> items,
-            string totalMeterLabelKey)
+            (string CategoryKey, string CategoryTotalKey) categoryLabelKeys,
+            IEnumerable<BonusInfoMeter> items)
         {
-            var ticket = new GameBonusInfoTicket(bonusInfo, items, totalMeterLabelKey);
+            var ticket = new GameBonusInfoTicket(categoryLabelKeys, items);
             
             return ticket.CreateTextTicket();
         }

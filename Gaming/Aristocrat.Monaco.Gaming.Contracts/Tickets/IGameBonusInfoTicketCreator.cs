@@ -12,10 +12,14 @@
         /// <summary>
         ///     Creates a ticket containing game bonus info.
         /// </summary>
-        /// <param name="bonusInfo"></param>
-        /// <param name="items"></param>
-        /// <param name="totalMeterLabelKey"></param>
-        /// <returns>A Ticket object with fields required for an EGM game bonus info ticket.</returns>
-        Ticket Create(string bonusInfo, IEnumerable<BonusInfoMeter> items, string totalMeterLabelKey);
+        /// <param name="labelResourceKeys">
+        /// The resource keys for the labels of the game bonus info meter category name and total meter name to be printed
+        /// <param name="items">
+        /// The meters associated with the bonusInfoType
+        /// </param>
+        /// <returns>
+        /// A Ticket object with fields required for an EGM game bonus info ticket.
+        /// </returns>
+        Ticket Create((string CategoryKey, string CategoryTotalKey) categoryLabelResourceKeys, IEnumerable<BonusInfoMeter> items);
     }
 }

@@ -161,11 +161,15 @@
 
         private IEnumerable<Ticket> GetGameBonusMeterTickets(IGameBonusInfoTicketCreator ticketCreator)
         {
-            var machinePaidTicketName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.MachinePaidBonusAwardsLabel);
-            var handpayTicketName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AttendantPaidBonusAwardsLabel);
             var ticketList = new List<Ticket>();
-            ticketList.Add(ticketCreator.Create(machinePaidTicketName, EgmPaidBonusAwardsMeters, ResourceKeys.MachinePaidBonusTotalLabel));
-            ticketList.Add(ticketCreator.Create(handpayTicketName, HandPaidBonusAwardsMeters, ResourceKeys.AttendantPaidBonusTotalLabel));
+            ticketList.Add(ticketCreator.Create(
+                (ResourceKeys.MachinePaidBonusAwardsLabel, ResourceKeys.MachinePaidBonusTotalLabel),
+                EgmPaidBonusAwardsMeters));
+
+            ticketList.Add(ticketCreator.Create(
+                (ResourceKeys.AttendantPaidBonusAwardsLabel, ResourceKeys.AttendantPaidBonusTotalLabel),
+                HandPaidBonusAwardsMeters));
+
             return ticketList;
         }
 

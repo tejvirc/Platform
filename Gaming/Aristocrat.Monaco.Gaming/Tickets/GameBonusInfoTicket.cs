@@ -13,20 +13,16 @@
     /// </summary>
     public class GameBonusInfoTicket : TextTicket
     {
-        private readonly string _bonusInfo;
         private readonly IEnumerable<BonusInfoMeter> _items;
-        private readonly string _totalMeterLabelKey;
+        private readonly string _bonusInfoCategoryLabel;
+        private readonly string _bonusInfoCategoryTotalLabel;
 
-        public GameBonusInfoTicket(
-            string bonusInfo,
-            IEnumerable<BonusInfoMeter> items,
-            string totalMeterLabelKey)
-            : base(Localizer.For(CultureFor.PlayerTicket))
+        public GameBonusInfoTicket((string CategoryKey, string CategoryTotalKey) categoryLabelKeys, IEnumerable<BonusInfoMeter> items)
+            : base(Localizer.For(CultureFor.OperatorTicket))
         {
             _items = items;
-            _bonusInfo = bonusInfo;
-            _totalMeterLabelKey = totalMeterLabelKey;
-
+            _bonusInfoCategoryLabel = TicketLocalizer.GetString(categoryLabelKeys.CategoryKey);
+            _bonusInfoCategoryTotalLabel = TicketLocalizer.GetString(categoryLabelKeys.CategoryTotalKey);
             Title = TicketLocalizer.GetString(ResourceKeys.GameBonusInfoTicketTitleText).ToUpper(TicketLocalizer.CurrentCulture);
         }
 
@@ -38,31 +34,27 @@
             }
 
             AddDashesLine();
-            AddLine(null, _bonusInfo, null);
+            AddLine(null, _bonusInfoCategoryLabel, null);
 
-            AddLine(
-                TicketLocalizer.GetString(ResourceKeys.NameLabel),
-                string.Empty,
-                TicketLocalizer.GetString(ResourceKeys.Value));
+            AddLabeledLine(
+                ResourceKeys.NameLabel,
+                ResourceKeys.Value);
 
             var totalValue = 0L;
             foreach (var item in _items)
             {
+                var label = item.MeterName;
                 var value = item.MeterValue;
                 var valueString = value.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture);
-                AddLine(
-                    item.MeterName,
-                    null,
-                    valueString);
+                var isLabelStringLonger = label.Length > valueString.Length;
+                AddLabeledLine(item.MeterName, valueString, false, isLabelStringLonger);
+
                 totalValue += value;
             }
 
-            var totalLabel = TicketLocalizer.GetString(_totalMeterLabelKey);
-            AddLine(
-                totalLabel,
-                null,
-                totalValue.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture));
-
+            var totalValueString = totalValue.FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture);
+            var isTotalLabelStringLonger = _bonusInfoCategoryTotalLabel.Length > totalValueString.Length;
+            AddLabeledLine(_bonusInfoCategoryTotalLabel, totalValueString, false, isTotalLabelStringLonger);
 
             AddDashesLine();
             AddTicketFooter();
