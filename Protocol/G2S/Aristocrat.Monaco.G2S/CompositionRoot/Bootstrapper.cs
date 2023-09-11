@@ -314,6 +314,7 @@
             var properties = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
             var port = properties.GetValue(Constants.Port, Constants.DefaultPort);
+            var bypassCertificateValidation = properties.GetValue(Constants.BypassCertificateValidation, false);
 
             Firewall.AddRule(Constants.FirewallRuleName, (ushort)port);
 
@@ -325,7 +326,14 @@
 
                 var validation = new CertificateValidation(certificateService);
 
-                ServicePointManager.ServerCertificateValidationCallback += validation.OnValidateCertificate;
+                if (bypassCertificateValidation)
+                {
+                    ServicePointManager.ServerCertificateValidationCallback += (sender, x509Certificate, chain, errors) => true;
+                }
+                else
+                {
+                    ServicePointManager.ServerCertificateValidationCallback += validation.OnValidateCertificate;
+                }
 
                 var certificates = certificateService.GetCertificates();
 
@@ -393,6 +401,7 @@
 
                 bindingInfo.Address = clientAddress.Uri;
                 bindingInfo.Certificate = certificate;
+                bindingInfo.BypassCertificateValidation = bypassCertificateValidation;
                 bindingInfo.Validator = new ClientCertificateValidator(certificateService);
 
                 Logger.Debug($"Created endpoint at {clientAddress.Uri} using certificate {certificate.Thumbprint}");

@@ -263,7 +263,12 @@
                 return;
             }
 
-            ConfigurationId = id;
+            // -1 reconfigure override from the operator menu
+            if(id != -1)
+            {
+                ConfigurationId = id;
+            }
+
             ConfigDateTime = DateTime.UtcNow;
             ConfigComplete = true;
 

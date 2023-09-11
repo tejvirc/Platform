@@ -4,6 +4,8 @@ C#, Windows-based Aristocrat gaming platform (codename Monaco).
 ## Contributing
 Refer to the [Monaco Getting Started Guide](https://confy.aristocrat.com/display/GTech/Monaco+%7C+Getting+Started) on how to set up your development environment to contribute to Monaco, involving the setup of a Personal Access Token, Git Commit Signing, NuGet package source setup, etc; as well as the general contribution workflow (ticketing, pull requests, etc).
 
+See the [R2C Development Processes](https://confy.aristocrat.com/pages/viewpage.action?spaceKey=GTech&title=R2C+Development+Processes) Confluence page to familiarize yourself with the branching and release strategy introduced on September 2023.
+
 ## Builds
 - [TeamCity Project](http://usan-abuild-01.dev.local/project/Monaco)
     - Root TeamCity project for the Monaco platform.

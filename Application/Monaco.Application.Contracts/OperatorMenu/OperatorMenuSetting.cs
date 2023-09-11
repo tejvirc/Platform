@@ -139,5 +139,7 @@
         public const string VolumeControlVisible = "VolumeControlVisible";
         /// <summary/>
         public const string UseOperatorCultureForCurrencyFormatting = "UseOperatorCultureForCurrencyFormatting";
+        /// <summary/>
+        public const string RequiredProtocol = "RequiredProtocol";
     }
 }

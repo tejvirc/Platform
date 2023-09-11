@@ -110,6 +110,19 @@
                                  UpdateSourceTrigger=PropertyChanged,
                                  ValidatesOnDataErrors=True}"
                              AutomationProperties.AutomationId="TextBox15_303FCCD8" />
+        <Label Grid.Row="3"
+               Grid.Column="0"
+               Content="{lex:Loc Key={x:Static loc:ResourceKeys.BypassCertificateValidation}}"
+               VerticalAlignment="Center"
+               AutomationProperties.AutomationId="Label15_303FCCD8" />
+        <CheckBox Grid.Row="3"
+                  Grid.Column="2"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Left"
+                  Margin="0 15 0 0"
+                  IsChecked="{Binding BypassCertificateValidation}"
+                  d:Content="Bypass Certificate Validation"
+                  AutomationProperties.AutomationId="CheckBox1_303FCCD8" />
         <Border Grid.Row="4"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"

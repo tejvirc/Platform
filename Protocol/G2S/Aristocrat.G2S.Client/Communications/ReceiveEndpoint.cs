@@ -28,11 +28,13 @@
         /// </summary>
         /// <param name="address">The address to listen on.</param>
         /// <param name="certificate">The certificate</param>
+        /// <param name="bypassCertificateValidation"></param>
         /// <param name="validator">An optional <see cref="X509CertificateValidator" /> validator</param>
         /// <param name="app"></param>
         public ReceiveEndpoint(
             Uri address,
             X509Certificate2 certificate,
+            bool bypassCertificateValidation,
             X509CertificateValidator validator,
             IWcfApplicationRuntime app)
         {
@@ -52,7 +54,7 @@
 
             _endpoint = new CoreWCF.Description.ServiceEndpoint(
                 ContractDescription.GetContract<IG2SService>(typeof(IG2SService)),
-                EndpointUtilities.Binding(address),
+                EndpointUtilities.Binding(address, bypassCertificateValidation),
                 new EndpointAddress(address));
         }
 

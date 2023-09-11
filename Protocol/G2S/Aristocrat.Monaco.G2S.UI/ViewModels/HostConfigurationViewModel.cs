@@ -50,6 +50,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
         private string _macAddress;
 
         private int _port;
+        private bool _bypassCertificateValidation;
         private bool _activated;
         private bool _registeredHostsEnabled;
 
@@ -84,6 +85,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             DeleteCommand = new RelayCommand<Host>(DeleteHost);
 
             _port = PropertiesManager.GetValue(Constants.Port, Constants.DefaultPort);
+            _bypassCertificateValidation = PropertiesManager.GetValue(Constants.BypassCertificateValidation, false);
 
             _egm = GetEgm();
 
@@ -157,6 +159,20 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             set
             {
                 SetProperty(ref _port, value, true);
+            }
+        }
+
+        public bool BypassCertificateValidation
+        {
+            get => _bypassCertificateValidation;
+            set
+            {
+                if (_bypassCertificateValidation != value)
+                {
+                    _bypassCertificateValidation = value;
+                    OnPropertyChanged(nameof(BypassCertificateValidation));
+                    SaveChanges();
+                }
             }
         }
 
@@ -238,6 +254,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             var hosts = Hosts.Cast<IHost>().ToList();
             PropertiesManager.SetProperty(Constants.RegisteredHosts, hosts);
             PropertiesManager.SetProperty(Constants.Port, Port);
+            PropertiesManager.SetProperty(Constants.BypassCertificateValidation, BypassCertificateValidation);
             var addresses = new { addresses = hosts.Select(x => x.Address).ToList() };
             PropertiesManager.SetProperty(ApplicationConstants.HostAddresses, JsonConvert.SerializeObject(addresses));
 
@@ -312,6 +329,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             ResetEditState();
 
             Port = PropertiesManager.GetValue(Constants.Port, Constants.DefaultPort);
+            BypassCertificateValidation = PropertiesManager.GetValue(Constants.BypassCertificateValidation, false);
         }
 
         private void LoadHosts()
@@ -492,6 +510,24 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 }
 
                 SaveChanges();
+
+                var containerService = ServiceManager.GetInstance().TryGetService<IContainerService>();
+                var profileService = containerService?.Container.GetInstance<IProfileService>();
+
+                if (profileService != null)
+                {
+                    var communications = _egm.GetDevice<ICommunicationsDevice>(host.Id);
+                    communications.Configure(
+                        -1,
+                        communications.UseDefaultConfig,
+                        host.RequiredForPlay,
+                        communications.TimeToLive,
+                        (int)communications.NoResponseTimer.TotalMilliseconds,
+                        communications.DisplayFault);
+                    profileService.Save(communications);
+
+                    communications.NotifyConfigurationChanged();
+                }
             }
         }
 

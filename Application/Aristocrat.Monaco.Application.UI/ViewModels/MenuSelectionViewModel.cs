@@ -664,7 +664,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         /// <summary>
         ///     Determines if the safety message should be displayed
         /// </summary>
-        public bool ShouldDisplaySafetyMessage => _cabinetDetectionService.Type == CabinetType.Marquis34 &&
+        public bool ShouldDisplaySafetyMessage => _cabinetDetectionService.IsCabinetType(HardwareConstants.CabinetTypeRegexMarquis34) &&
                                                   _systemDisableManager.CurrentDisableKeys.Contains(ApplicationConstants.MainDoorGuid);
 
         private bool PrintButtonEnabledInternal

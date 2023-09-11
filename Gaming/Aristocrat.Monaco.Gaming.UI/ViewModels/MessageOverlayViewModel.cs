@@ -29,6 +29,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Utils;
     using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.ComponentModel;
+    using Hardware.Contracts;
 
     public class MessageOverlayViewModel : ObservableObject
     {
@@ -397,7 +398,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             IsSafetyMessageVisible =
                 IsLockupMessageVisible &&
                 HardErrorMessages.ContainsKey(ApplicationConstants.MainDoorGuid) &&
-                _cabinetDetectionService.Type == CabinetType.Marquis34;
+                _cabinetDetectionService.IsCabinetType(HardwareConstants.CabinetTypeRegexMarquis34);
 
             IsReplayRecoveryDlgVisible = _lobbyStateManager.CurrentState == LobbyState.GameLoadingForDiagnostics ||
                                          _lobbyStateManager.CurrentState == LobbyState.GameDiagnostics ||

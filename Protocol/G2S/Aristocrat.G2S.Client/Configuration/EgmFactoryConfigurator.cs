@@ -6,6 +6,7 @@
     using System.Reflection;
     using System.Security.Cryptography.X509Certificates;
     using Communications;
+    using Communicator.ServiceModel;
     using CoreWCF.IdentityModel.Selectors;
     using Devices;
 
@@ -16,6 +17,7 @@
     {
         private Uri _address;
         private X509Certificate2 _certificate;
+        private bool _bypassCertificateValidation;
         private X509CertificateValidator _certificateValidator;
         private string _egmId;
         private MessageBuilder _messageBuilder;
@@ -69,8 +71,7 @@
             var commandDispatcher = new CommandDispatcher(handlerConnector, deviceConnector);
 
             var receiveEndpointProvider = _app.GetRequiredService<IReceiveEndpointProvider>();
-
-            var receiver = new ReceiveEndpoint(_address, _certificate, _certificateValidator, _app);
+            var receiver = new ReceiveEndpoint(_address, _certificate, _bypassCertificateValidation, _certificateValidator, _app);
 
             var messageConsumer = new MessageConsumer(egm, deviceConnector);
             receiveEndpointProvider.ConnectConsumer(messageConsumer);
@@ -87,14 +88,15 @@
         /// <inheritdoc />
         public void ListenOn(Uri address)
         {
-            ListenOn(address, null, null);
+            ListenOn(address, null, false, null);
         }
 
         /// <inheritdoc />
-        public void ListenOn(Uri address, X509Certificate2 certificate, X509CertificateValidator validator)
+        public void ListenOn(Uri address, X509Certificate2 certificate, bool bypassCertificateValidation, X509CertificateValidator validator)
         {
             _address = address ?? throw new ArgumentNullException(nameof(address));
             _certificate = certificate;
+            _bypassCertificateValidation = bypassCertificateValidation;
             _certificateValidator = validator;
         }
 
@@ -110,7 +112,7 @@
 
             configure(bindingInfo);
 
-            ListenOn(bindingInfo.Address, bindingInfo.Certificate, bindingInfo.Validator);
+            ListenOn(bindingInfo.Address, bindingInfo.Certificate, bindingInfo.BypassCertificateValidation, bindingInfo.Validator);
         }
 
         /// <inheritdoc />
@@ -174,6 +176,8 @@
             public Uri Address { get; set; }
 
             public X509Certificate2 Certificate { get; set; }
+
+            public bool BypassCertificateValidation { get; set; }
 
             public X509CertificateValidator Validator { get; set; }
         }
