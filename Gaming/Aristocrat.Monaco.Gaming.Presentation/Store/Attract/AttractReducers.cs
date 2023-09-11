@@ -60,30 +60,12 @@ public static class AttractReducers
             IsAlternateTopperImageActive = !state.IsAlternateTopperImageActive,
         };
 
-
     [ReducerMethod]
     public static AttractState Reduce(AttractState state, AttractSetVideosAction action) =>
         state with
         {
             Videos = action.AttractList != null ? ImmutableList<AttractVideoDetails>.Empty.AddRange(action.AttractList) : state.Videos
         };
-    //{
-    //    var newState = state;
-
-    //    var newList = ImmutableList<UI.Models.IAttractDetails>.Empty;
-    //    if (action.AttractList != null)
-    //    {
-    //        newState.Videos.Clear();
-
-    //        foreach (var v in action.AttractList)
-    //        {
-    //            newList = newState.Videos.Add(v);
-    //        }
-    //    }
-
-    //    return newState;
-    //}
-
 
     [ReducerMethod]
     public static AttractState Reduce(AttractState state, AttractSetCanModeStartAction action) =>

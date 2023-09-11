@@ -17,9 +17,8 @@ using Store.Chooser;
 using Store.IdleText;
 using Gaming.Progressives;
 using UI.ViewModels;
-//using Aristocrat.Monaco.Gaming.UI.ViewModels;
 using Contracts;
-using Aristocrat.Monaco.Gaming.Presentation.Options;
+using Options;
 using Fluxor;
 using Gaming.Contracts;
 using Gaming.Contracts.Events;
@@ -44,21 +43,12 @@ public sealed class AttractService : IAttractService, IDisposable
     private readonly IDispatcher _dispatcher;
     private readonly AttractOptions _attractOptions;
     private readonly TranslateOptions _translateOptions;
-    private readonly ResponsibleGamingOptions _responsibleGamingOptions;
     private readonly IEventBus _eventBus;
-    private readonly IPropertiesManager _properties;
-    private readonly IBank _bank;
     private readonly IAttractConfigurationProvider _attractConfigurationProvider;
     private readonly ITopImageRotationService _topImageRotationService;
     private readonly ITopperImageRotationService _topperImageRotationService;
 
     private readonly Timer _attractTimer;
-
-    private readonly object _attractLock = new object();
-
-    //private int _consecutiveAttractCount;
-    //private bool _nextAttractModeLanguageIsPrimary = true;
-    //private bool _lastInitialAttractModeLanguageIsPrimary = true;
 
     public AttractService(
         ILogger<AttractService> logger,
@@ -69,13 +59,8 @@ public sealed class AttractService : IAttractService, IDisposable
         IDispatcher dispatcher,
         IOptions<AttractOptions> attractOptions,
         IOptions<TranslateOptions> translateOptions,
-        IOptions<ResponsibleGamingOptions> responsibleGamingOptions,
         IEventBus eventBus,
-        IPropertiesManager properties,
-        IAttractConfigurationProvider attractConfigurationProvider,
-        IBank bank,
-        ITopImageRotationService topImageRotationService,
-        ITopperImageRotationService topperImageRotationService)
+        IAttractConfigurationProvider attractConfigurationProvider)
     {
         _logger = logger;
         _attractState = attractState;
@@ -85,22 +70,12 @@ public sealed class AttractService : IAttractService, IDisposable
         _dispatcher = dispatcher;
         _attractOptions = attractOptions.Value;
         _translateOptions = translateOptions.Value;
-        _responsibleGamingOptions = responsibleGamingOptions.Value;
         _eventBus = eventBus;
-        _properties = properties;
-        _bank = bank;
         _attractConfigurationProvider = attractConfigurationProvider;
-        _topImageRotationService = topImageRotationService;
-        _topperImageRotationService = topperImageRotationService;
 
         _attractTimer = new Timer { Interval = TimeSpan.FromSeconds(_attractOptions.TimerIntervalInSeconds).TotalMilliseconds };
         _attractTimer.Elapsed += AttractTimer_Tick;
-
-        _dispatcher.DispatchAsync(new AttractSetCanModeStartAction { Bank = bank, Properties = properties });
     }
-
-
-    public string ActiveLocaleCode => _attractState.Value.IsPrimaryLanguageSelected ? _translateOptions.LocaleCodes[0] : _translateOptions.LocaleCodes[1];
 
     public void NotifyEntered()
     {
@@ -234,41 +209,23 @@ public sealed class AttractService : IAttractService, IDisposable
         }
     }
 
-    public void ExitAndResetAttractMode()
+    public void CheckAndStartAttractTimer()
     {
-        _dispatcher.Dispatch(new AttractExitAction());
         if (_attractTimer != null && _attractTimer.Enabled)
         {
             StartAttractTimer();
-        }
-
-        // Don't display Age Warning while the inserting cash dialog is up.
-        // TODO (Future Task) When we have a set way to determine if the current state matches with the old LobbyState.CashIn
-        // we can add an && check for that after the config.DisplayAgeWarning check to make it match directly with the old functionality.
-        if(!_responsibleGamingOptions.AgeWarningEnabled && _attractState.Value.IsPlaying)
-        {
-            _dispatcher.Dispatch(new AttractExitAction());
-        }
-
-        if (_attractState.Value.ResetAttractOnInterruption && _attractState.Value.CurrentAttractIndex != 0)
-        {
-            _dispatcher.Dispatch(new AttractUpdateIndexAction { AttractIndex = 0 });
-            SetAttractVideoPaths(_attractState.Value.CurrentAttractIndex);
         }
     }
 
     public bool CheckAndResetAttractIndex()
     {
-        lock (_attractLock)
+        if (_attractState.Value.CurrentAttractIndex >= _attractState.Value.Videos.Count)
         {
-            if (_attractState.Value.CurrentAttractIndex >= _attractState.Value.Videos.Count)
-            {
-                _dispatcher.Dispatch(new AttractUpdateIndexAction { AttractIndex = 0 });
-                return true;
-            }
-
-            return false;
+            _dispatcher.Dispatch(new AttractUpdateIndexAction { AttractIndex = 0 });
+            return true;
         }
+        
+        return false;
     }
 
     public IEnumerable<GameInfo> GetAttractGameInfoList()
@@ -339,62 +296,5 @@ public sealed class AttractService : IAttractService, IDisposable
         return (_lobbyState.Value.LastUserInteractionTime != DateTime.MinValue
                 || _lobbyState.Value.LastUserInteractionTime != DateTime.MaxValue) &&
                 _lobbyState.Value.LastUserInteractionTime.AddSeconds(_attractState.Value.AttractModeIdleTimeoutInSeconds) <= DateTime.UtcNow;
-    }
-
-    private void OnGameAttractVideoCompleted()
-    {
-        // Have to run this on a separate thread because we are triggering off an event from the video
-        // and we end up making changes to the video control (loading new video).  The Bink Video Control gets very upset
-        // if we try to do that on the same thread.
-
-        if (!PlayAdditionalConsecutiveAttractVideo())
-        {
-            _topImageRotationService.RotateTopImage();
-            _topperImageRotationService.RotateTopperImage();
-            //TODO (Future Task) - Implement this functionality when the Attract View Model is being implemented
-            //Task.Run(
-            //    () => { MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.AttractVideoComplete)); });
-        }
-    }
-
-    private bool PlayAdditionalConsecutiveAttractVideo()
-    {
-        if (!_attractOptions.HasIntroVideo || _attractState.Value.CurrentAttractIndex != 0 || _attractState.Value.Videos.Count <= 1)
-        {
-            _dispatcher.Dispatch(new AttractUpdateConsecutiveCount
-            {
-                ConsecutiveAttractCount = _attractState.Value.ConsecutiveAttractCount  + 1
-            });
-
-            _logger.LogDebug($"Consecutive Attract Video count: {_attractState.Value.ConsecutiveAttractCount}");
-
-            if (_attractState.Value.ConsecutiveAttractCount >= _attractOptions.ConsecutiveVideos ||
-                _attractState.Value.ConsecutiveAttractCount >= _chooserState.Value.Games.Count)
-            {
-                _logger.LogDebug("Stopping attract video sequence");
-                return false;
-            }
-
-            _logger.LogDebug("Starting another attract video");
-        }
-
-        Task.Run(
-            () =>
-            {
-                if (_attractState.Value.Videos.Count <= 1)
-                {
-                    _dispatcher.Dispatch(new AttractExitAction());
-                }
-
-                AdvanceAttractIndex();
-                SetAttractVideoPaths(_attractState.Value.CurrentAttractIndex);
-            });
-
-        return true;
-    }
-
-    public void UserInteracted()
-    {
-        ExitAndResetAttractMode();
     }
 }
