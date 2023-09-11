@@ -131,6 +131,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="CaliforniaTribalHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="CaliforniaTribalSoundConfig" />
+  </Extension>
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\CaliforniaTribal\TowerLight.config.xml" filterid="CaliforniaTribalTowerLightConfig" />
   </Extension>

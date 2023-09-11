@@ -131,6 +131,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="SouthDakotaHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="SouthDakotaSoundConfig" />
+  </Extension>
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\SouthDakota\TowerLight.config.xml" filterid="SouthDakotaTowerLightConfig" />
   </Extension>

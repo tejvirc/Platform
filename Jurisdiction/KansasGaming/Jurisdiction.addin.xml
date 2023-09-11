@@ -131,6 +131,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="KansasGamingHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="KansasGamingSoundConfig" />
+  </Extension>
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\KansasGaming\TowerLight.config.xml" filterid="KansasGamingTowerLightConfig" />
   </Extension>

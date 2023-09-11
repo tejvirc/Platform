@@ -131,6 +131,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="WisconsinHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="WisconsinSoundConfig" />
+  </Extension>
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\Wisconsin\TowerLight.config.xml" filterid="WisconsinTowerLightConfig" />
   </Extension>

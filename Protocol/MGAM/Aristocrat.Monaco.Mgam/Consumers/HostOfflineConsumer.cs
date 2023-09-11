@@ -56,7 +56,7 @@
             if (_gamePlayStateService.Idle)
             {
                 var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, MgamConstants.DefaultAlertVolume);
-                _audioService.Play(SoundName.Alert, MgamConstants.DefaultAlertLoopCount, alertVolume);
+                _audioService.Play(SoundName.HostOffline, MgamConstants.DefaultAlertLoopCount, alertVolume);
 
                 _towerLightService.SetFlashState(LightTier.Tier1, FlashState.FastFlash, TimeSpan.MaxValue);
             }

@@ -145,6 +145,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.VLT.config.xml" filterid="ALCHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="ALCSoundConfig" />
+  </Extension>
   <Extension path="/Hardware/PrinterOverrides">
     <FilePath FilePath="..\jurisdiction\ALC-VLT\PrinterOverrides.xml" filterid="ALCPrinterOverridesConfig" />
   </Extension>

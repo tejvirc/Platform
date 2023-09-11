@@ -148,6 +148,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.VLT.config.xml" filterid="AlbertaHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="AlbertaSoundConfig" />
+  </Extension>
   <Extension path="/Hardware/PrinterOverrides">
     <FilePath FilePath="..\jurisdiction\Alberta-VLT\PrinterOverrides.xml" filterid="AlbertaPrinterOverridesConfig" />
   </Extension>

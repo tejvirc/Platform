@@ -181,6 +181,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.VLT.config.xml" filterid="QuebecHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="QuebecSoundConfig" />
+  </Extension>
   <Extension path="/Application/Services">
     <Service type="Aristocrat.Monaco.G2S.G2SEventLogger" />
   </Extension>

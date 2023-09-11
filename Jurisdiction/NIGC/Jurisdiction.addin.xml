@@ -146,6 +146,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="NIGCHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="NIGCSoundConfig" />
+  </Extension>
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\NIGC\printable_regions.xml" filterid="NIGCPrintableRegionsConfig" />
   </Extension>

@@ -137,6 +137,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\UnregulatedClassIII\HardMeterMapping.config.xml" filterid="UnregulatedClassIIIHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="UnregulatedClassIIISoundConfig" />
+  </Extension>
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\UnregulatedClassIII\TowerLight.config.xml" filterid="UnregulatedClassIIITowerLightConfig" />
   </Extension>

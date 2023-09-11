@@ -140,6 +140,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\SingaporeClubs\HardMeterMapping.config.xml" filterid="SingaporeClubsHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="SingaporeClubsSoundConfig" />
+  </Extension>
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\SingaporeClubs\printable_regions.xml" filterid="SingaporeClubsPrintableRegionsConfig" />
   </Extension>

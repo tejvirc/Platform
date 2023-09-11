@@ -131,6 +131,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\AlbertaCasino\HardMeterMapping.config.xml" filterid="AlbertaCasinoHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="AlbertaCasinoSoundConfig" />
+  </Extension>
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\AlbertaCasino\TowerLight.config.xml" filterid="AlbertaCasinoTowerLightConfig" />
   </Extension>

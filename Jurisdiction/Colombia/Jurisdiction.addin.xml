@@ -137,6 +137,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="ColombiaHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="ColombiaSoundConfig" />
+  </Extension>
   <Extension path="/Hardware/PrintableTemplates">
     <FilePath FilePath="..\jurisdiction\Colombia\printable_templates.xml" filterid="ColombiaPrintableTemplatesConfig" />
   </Extension>

@@ -134,6 +134,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="NSWHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="NSWSoundConfig" />
+  </Extension>
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\NSW\printable_regions.xml" filterid="NSWPrintableRegionsConfig" />
   </Extension>

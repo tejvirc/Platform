@@ -140,6 +140,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.Eurasia.config.xml" filterid="SpainHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="SpainSoundConfig" />
+  </Extension>
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\Spain\printable_regions.xml" filterid="SpainPrintableRegionsConfig" />
   </Extension>

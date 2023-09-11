@@ -151,6 +151,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.VLT.config.xml" filterid="ManitobaHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="ManitobaSoundConfig" />
+  </Extension>
   <Extension path="/Application/OperatorMenu/DisplayMeters">
     <FilePath FilePath="..\jurisdiction\Manitoba-VLT\DisplayMeters.config.xml" filterid="ManitobaDisplayMetersConfig" />
   </Extension>

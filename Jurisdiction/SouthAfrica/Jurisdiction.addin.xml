@@ -140,6 +140,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\\SouthAfrica\HardMeterMapping.config.xml" filterid="SouthAfricaHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="SouthAfricaSoundConfig" />
+  </Extension>
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\SouthAfrica\printable_regions.xml" filterid="SouthAfricaPrintableRegionsConfig" />
   </Extension>

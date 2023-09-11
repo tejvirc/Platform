@@ -143,6 +143,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.VLT.config.xml" filterid="IllinoisHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="IllinoisSoundConfig" />
+  </Extension>
   <Extension path="/Application/OperatorMenu/DisplayMeters">
     <FilePath FilePath="..\jurisdiction\Illinois-VLT\DisplayMeters.config.xml" filterid="IllinoisDisplayMetersConfig" />
   </Extension>

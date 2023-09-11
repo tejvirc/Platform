@@ -140,6 +140,9 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\Belgium\HardMeterMapping.config.xml" filterid="BelgiumHardMeterMappingConfig" />
   </Extension>
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="BelgiumSoundConfig" />
+  </Extension>
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\Belgium\printable_regions.xml" filterid="BelgiumPrintableRegionsConfig" />
   </Extension>
