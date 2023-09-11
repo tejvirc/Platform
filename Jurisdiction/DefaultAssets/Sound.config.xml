@@ -11,6 +11,7 @@
 		<AudioFile Name="CriticalMemoryIntegrityCheck" File="alarm.ogg" />
 		<AudioFile Name="Ding" File="ding.ogg" />
 		<AudioFile Name="DiskSpaceMonitorError" File="alarm.ogg" />
+		<AudioFile Name="DoorAlarm" File="alarm.ogg" />
 		<AudioFile Name="ExcessiveDocumentReject" File="alarm.ogg" />
 		<AudioFile Name="ExcessiveMeterIncrement" File="alarm.ogg" />
 		<AudioFile Name="FeatureBell" File="feature_bell.ogg" />

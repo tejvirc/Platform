@@ -10,7 +10,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System.Linq;
     using System.Reflection;
     using System.Runtime.CompilerServices;
-    using System.Windows.Data;
     using Contracts.ConfigWizard;
     using Contracts;
     using Hardware.Contracts;
@@ -398,7 +397,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 return;
             }
 
-            _reporter?.SetTestName($"Play sound {Sound}");
+            _reporter?.SetTestName($"Play sound {Sound.Description}");
             var volume = _audio.GetVolume(SoundLevel);
 
             IsPlaying = true;

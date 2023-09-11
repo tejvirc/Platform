@@ -136,7 +136,7 @@ public partial class SoundConfigurationAudioFilesAudioFile {
 public enum SoundName {
     
     /// <remarks/>
-    Alarm,
+    Alert,
     
     /// <remarks/>
     BallDrop,
@@ -161,6 +161,9 @@ public enum SoundName {
     
     /// <remarks/>
     Ding,
+    
+    /// <remarks/>
+    DoorAlarm,
     
     /// <remarks/>
     DiskSpaceMonitorError,

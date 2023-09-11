@@ -15,7 +15,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.ComponentModel;
-    using Aristocrat.Monaco.Hardware.Services;
 
     /// <summary>
     ///     Reserve machine GUI states

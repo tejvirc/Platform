@@ -22,7 +22,7 @@
 
   <xs:simpleType name="SoundName">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="Alarm"/>
+      <xs:enumeration value="Alert"/>
       <xs:enumeration value="BallDrop" />
       <xs:enumeration value="CardFlip" />
       <xs:enumeration value="Center" />
@@ -31,6 +31,7 @@
       <xs:enumeration value="Collect" />
       <xs:enumeration value="CriticalMemoryIntegrityCheck" />
       <xs:enumeration value="Ding" />
+      <xs:enumeration value="DoorAlarm" />
       <xs:enumeration value="DiskSpaceMonitorError" />
       <xs:enumeration value="ExcessiveDocumentReject" />
       <xs:enumeration value="ExcessiveMeterIncrement" />

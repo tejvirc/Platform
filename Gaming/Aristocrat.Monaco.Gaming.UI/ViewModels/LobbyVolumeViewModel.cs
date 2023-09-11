@@ -16,7 +16,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
     public class LobbyVolumeViewModel : ObservableObject
     {
-        private const string SoundConfigurationExtensionPath = "/OperatorMenu/Sound/Configuration";
         private const string Volume0Key = "Volume0Normal";
         private const string Volume1Key = "Volume1Normal";
         private const string Volume2Key = "Volume2Normal";
@@ -28,7 +27,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private readonly IAudio _audio;
         private readonly Action _onUserInteraction;
         private VolumeScalar _playerVolumeScalar;
-        private SoundFileViewModel _soundFile;
 
         public LobbyVolumeViewModel(Action onUserInteraction)
         {
@@ -41,7 +39,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 ApplicationConstants.PlayerVolumeScalar);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", PlayerVolumeScalar);
             VolumeCommand = new RelayCommand<object>(o => OnVolumeChange());
-            LoadSoundFile();
         }
 
         public ICommand VolumeCommand { get; }
@@ -106,39 +103,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void SetVolumeAndPlaySound()
         {
             _propertiesManager.SetProperty(ApplicationConstants.PlayerVolumeScalarKey, PlayerVolumeScalar);
-            if (_audio != null && _soundFile != null)
+            if (_audio != null)
             {
                 var volume = GetVolume(_audio);
 
-                _audio.Play(_soundFile.Name, volume);
-            }
-        }
-
-        private void LoadSoundFile()
-        {
-            var files = new List<SoundFileViewModel>();
-
-            var nodes =
-                MonoAddinsHelper.GetSelectedNodes<FilePathExtensionNode>(
-                    SoundConfigurationExtensionPath);
-
-            //foreach (var node in nodes)
-            //{
-            //    var path = node.FilePath;
-            //    var name = !string.IsNullOrWhiteSpace(node.Name)
-            //        ? node.Name
-            //        : Path.GetFileNameWithoutExtension(path);
-
-            //    Logger.DebugFormat(
-            //        CultureInfo.CurrentCulture,
-            //        $"Found {SoundConfigurationExtensionPath} node: {node.FilePath}");
-
-            //    files.Add(new SoundFileViewModel(name, path));
-            //}
-
-            if (files.Count > 0)
-            {
-                _soundFile = files[0];
+                _audio.Play(SoundName.Ding, volume);
             }
         }
     }
