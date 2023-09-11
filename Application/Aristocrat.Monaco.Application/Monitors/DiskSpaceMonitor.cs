@@ -150,7 +150,7 @@
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_properties, SoundName.Alarm);
+            _audioService.PlaySound(_properties, SoundName.DiskSpaceMonitorError);
         }
 
         private static class NativeMethods

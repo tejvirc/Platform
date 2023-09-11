@@ -61,8 +61,6 @@ as follows:
 	<UseGameTypeVolume>false</UseGameTypeVolume>
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
-  <PrinterErrorSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
-  <NoteAcceptorErrorSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
   <LogTypesAllowedForDisplay>
     <string>BillIn</string>
     <string>Handpay</string>

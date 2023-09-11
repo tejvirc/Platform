@@ -104,26 +104,11 @@
   </Extension>
   <Extension path="/DoorMonitor/Configuration">
     <DoorMonitorConfiguration>
-      <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true">
-        <FilePath FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" filterid="NewYorkStateDoorMonitorConfig" />
-      </DoorOpenAlarm>
+      <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true" />
     </DoorMonitorConfiguration>
   </Extension>
   <Extension path="/ConfigWizard/Configuration">
     <FilePath FilePath="..\jurisdiction\NewYorkState\ConfigWizard.config.xml" filterid="NewYorkStateConfigWizardConfig" />
-  </Extension>
-  <Extension path="/OperatorMenu/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="NewYorkStateOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" Name="Feature Bell" filterid="NewYorkStateOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" Name="Touch Sound" filterid="NewYorkStateOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\collect.ogg" Name="Collect" filterid="NewYorkStateOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" Name="Send Print Ticket" filterid="NewYorkStateOperatorMenuSoundConfig" />
-  </Extension>
-  <Extension path="/OperatorMenu/GamePreferences/Sounds">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="NewYorkStateGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="NewYorkStateGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="NewYorkStateGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="NewYorkStateGamePreferencesSounds" />
   </Extension>
   <Extension path="/OperatorMenu/Configuration">
     <FilePath FilePath="..\jurisdiction\NewYorkState\OperatorMenu.config.xml" filterid="NewYorkStateOperatorMenuConfig" />

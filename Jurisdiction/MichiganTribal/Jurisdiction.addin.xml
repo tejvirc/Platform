@@ -104,26 +104,11 @@
   </Extension>
   <Extension path="/DoorMonitor/Configuration">
     <DoorMonitorConfiguration>
-      <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true">
-        <FilePath FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" filterid="MichiganTribalDoorMonitorConfig" />
-      </DoorOpenAlarm>
+      <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true" />
     </DoorMonitorConfiguration>
   </Extension>
   <Extension path="/ConfigWizard/Configuration">
     <FilePath FilePath="..\jurisdiction\MichiganTribal\ConfigWizard.config.xml" filterid="MichiganTribalConfigWizardConfig" />
-  </Extension>
-  <Extension path="/OperatorMenu/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="MichiganTribalOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" Name="Feature Bell" filterid="MichiganTribalOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" Name="Touch Sound" filterid="MichiganTribalOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\collect.ogg" Name="Collect" filterid="MichiganTribalOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" Name="Send Print Ticket" filterid="MichiganTribalOperatorMenuSoundConfig" />
-  </Extension>
-  <Extension path="/OperatorMenu/GamePreferences/Sounds">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="MichiganTribalGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="MichiganTribalGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="MichiganTribalGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="MichiganTribalGamePreferencesSounds" />
   </Extension>
   <Extension path="/OperatorMenu/Configuration">
     <FilePath FilePath="..\jurisdiction\MichiganTribal\OperatorMenu.config.xml" filterid="MichiganTribalOperatorMenuConfig" />

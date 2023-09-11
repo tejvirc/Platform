@@ -104,26 +104,11 @@
   </Extension>
   <Extension path="/DoorMonitor/Configuration">
     <DoorMonitorConfiguration>
-      <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true">
-        <FilePath FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" filterid="DelawareDoorMonitorConfig" />
-      </DoorOpenAlarm>
+      <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true" />
     </DoorMonitorConfiguration>
   </Extension>
   <Extension path="/ConfigWizard/Configuration">
     <FilePath FilePath="..\jurisdiction\Delaware\ConfigWizard.config.xml" filterid="DelawareConfigWizardConfig" />
-  </Extension>
-  <Extension path="/OperatorMenu/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="DelawareOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" Name="Feature Bell" filterid="DelawareOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" Name="Touch Sound" filterid="DelawareOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\collect.ogg" Name="Collect" filterid="DelawareOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" Name="Send Print Ticket" filterid="DelawareOperatorMenuSoundConfig" />
-  </Extension>
-  <Extension path="/OperatorMenu/GamePreferences/Sounds">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="DelawareGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="DelawareGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="DelawareGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="DelawareGamePreferencesSounds" />
   </Extension>
   <Extension path="/OperatorMenu/Configuration">
     <FilePath FilePath="..\jurisdiction\Delaware\OperatorMenu.config.xml" filterid="DelawareOperatorMenuConfig" />

@@ -107,26 +107,11 @@
   </Extension>
   <Extension path="/DoorMonitor/Configuration">
     <DoorMonitorConfiguration>
-      <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true">
-        <FilePath FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" filterid="VirginiaClassIIIDoorMonitorConfig" />
-      </DoorOpenAlarm>
+      <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true" />
     </DoorMonitorConfiguration>
   </Extension>
   <Extension path="/ConfigWizard/Configuration">
     <FilePath FilePath="..\jurisdiction\VirginiaClassIII\ConfigWizard.config.xml" filterid="VirginiaClassIIIConfigWizardConfig" />
-  </Extension>
-  <Extension path="/OperatorMenu/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="VirginiaClassIIIOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" Name="Feature Bell" filterid="VirginiaClassIIIOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" Name="Touch Sound" filterid="VirginiaClassIIIOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\collect.ogg" Name="Collect" filterid="VirginiaClassIIIOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" Name="Send Print Ticket" filterid="VirginiaClassIIIOperatorMenuSoundConfig" />
-  </Extension>
-  <Extension path="/OperatorMenu/GamePreferences/Sounds">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="VirginiaClassIIIGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="VirginiaClassIIIGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="VirginiaClassIIIGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="VirginiaClassIIIGamePreferencesSounds" />
   </Extension>
   <Extension path="/OperatorMenu/Configuration">
     <FilePath FilePath="..\jurisdiction\VirginiaClassIII\OperatorMenu.config.xml" filterid="VirginiaClassIIIOperatorMenuConfig" />

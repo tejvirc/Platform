@@ -110,26 +110,11 @@
   </Extension>
   <Extension path="/DoorMonitor/Configuration">
     <DoorMonitorConfiguration>
-      <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true">
-        <FilePath FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" filterid="MexicoDoorMonitorConfig" />
-      </DoorOpenAlarm>
+      <DoorOpenAlarm RepeatSeconds="0" LoopCount="7" OperatorCanCancel="true" />
     </DoorMonitorConfiguration>
   </Extension>
   <Extension path="/ConfigWizard/Configuration">
     <FilePath FilePath="..\jurisdiction\Mexico\ConfigWizard.config.xml" filterid="MexicoConfigWizardConfig" />
-  </Extension>
-  <Extension path="/OperatorMenu/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="MexicoOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" Name="Feature Bell" filterid="MexicoOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" Name="Touch Sound" filterid="MexicoOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\collect.ogg" Name="Collect" filterid="MexicoOperatorMenuSoundConfig" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" Name="Send Print Ticket" filterid="MexicoOperatorMenuSoundConfig" />
-  </Extension>
-  <Extension path="/OperatorMenu/GamePreferences/Sounds">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="MexicoGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="MexicoGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="MexicoGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="MexicoGamePreferencesSounds" />
   </Extension>
   <Extension path="/OperatorMenu/Configuration">
     <FilePath FilePath="..\jurisdiction\Mexico\OperatorMenu.config.xml" filterid="MexicoOperatorMenuConfig" />

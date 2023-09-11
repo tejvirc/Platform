@@ -107,11 +107,11 @@
         }
         
         /// <summary>
-        /// Plays the sound defined in the Application Config for ExcessiveMeterIncrement.
+        /// Plays the sound for ExcessiveMeterIncrement.
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_propertiesManager, SoundName.Alarm);
+            _audioService.PlaySound(_propertiesManager, SoundName.ExcessiveMeterIncrement);
         }
 
         protected virtual void Dispose(bool disposing)

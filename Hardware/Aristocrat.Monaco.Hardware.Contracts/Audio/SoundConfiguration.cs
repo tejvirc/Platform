@@ -157,10 +157,19 @@ public enum SoundName {
     Collect,
     
     /// <remarks/>
+    CriticalMemoryIntegrityCheck,
+    
+    /// <remarks/>
     Ding,
     
     /// <remarks/>
+    DiskSpaceMonitorError,
+    
+    /// <remarks/>
     ExcessiveDocumentReject,
+    
+    /// <remarks/>
+    ExcessiveMeterIncrement,
     
     /// <remarks/>
     FeatureBell,
@@ -169,13 +178,34 @@ public enum SoundName {
     PaperInChute,
     
     /// <remarks/>
+    FirmwareCrcError,
+    
+    /// <remarks/>
     FrontLeft,
     
     /// <remarks/>
     FrontRight,
     
     /// <remarks/>
+    HostOffline,
+    
+    /// <remarks/>
     LowFrequency,
+    
+    /// <remarks/>
+    LiveAuthenticationFailed,
+    
+    /// <remarks/>
+    NoteAcceptorError,
+    
+    /// <remarks/>
+    MoneyLaunderingMonitor,
+    
+    /// <remarks/>
+    PrinterError,
+    
+    /// <remarks/>
+    PrinterWarning,
     
     /// <remarks/>
     RearLeft,

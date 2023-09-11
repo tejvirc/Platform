@@ -307,7 +307,6 @@ namespace Aristocrat.Monaco.Gaming
                 { GamingConstants.ExcessiveMeterIncrementTestEnabled, (configuration.ExcessiveMeterIncrementTest?.Enabled ?? false, false)},
                 { GamingConstants.ExcessiveMeterIncrementTestBanknoteLimit,(configuration.ExcessiveMeterIncrementTest?.BanknoteLimit ?? GamingConstants.ExcessiveMeterIncrementTestDefaultBanknoteLimit, false)},
                 { GamingConstants.ExcessiveMeterIncrementTestCoinLimit,(configuration.ExcessiveMeterIncrementTest?.CoinLimit ?? GamingConstants.ExcessiveMeterIncrementTestDefaultCoinLimit, false)},
-                { GamingConstants.ExcessiveMeterIncrementTestSoundFilePath,(configuration.ExcessiveMeterIncrementTest?.SoundFilePath ?? string.Empty ,false) },
                 { GamingConstants.CycleMaxBet, (configuration.CycleMaxBet?.Enabled ?? false, false) },
                 { GamingConstants.AlwaysCombineOutcomesByType, (configuration.AlwaysCombineOutcomesByType?.Enabled ?? true, false) },
                 { GamingConstants.HandpayPresentationOverride, (false, false) },

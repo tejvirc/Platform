@@ -533,7 +533,7 @@ namespace Aristocrat.Monaco.Application.Authentication
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_propertiesManager, SoundName.Alarm);
+            _audioService.PlaySound(_propertiesManager, SoundName.LiveAuthenticationFailed);
         }
     }
 }

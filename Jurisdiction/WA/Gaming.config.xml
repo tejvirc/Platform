@@ -19,7 +19,7 @@ as follows:
 	<OperatorMenu DisableDuringGame="true" />
 	<LockupBehavior CashableLockupStrategy="Allowed" />
 	<GameCategory ApplyGameCategorySettings="true" />
-  <ExcessiveMeterIncrementTest Enabled="true" BanknoteLimit="1000000000" CoinLimit="100000000" SoundFilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
+  <ExcessiveMeterIncrementTest Enabled="true" BanknoteLimit="1000000000" CoinLimit="100000000" />
   <Gamble Allowed="true" WinLimit="1000000000" UseWinLimit="true" WinLimitConfigurable="false" ShowGambleDynamicHelp="true"/>
 <!--
 	GameRestrictions Settings:

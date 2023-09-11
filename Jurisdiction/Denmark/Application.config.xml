@@ -68,12 +68,6 @@ as follows:
         Disable note acceptor after these many number of rejections. Defaults to "-1", if not defined. "-1" means this lockup is not applicable to this market.
 -->
   <ExcessiveDocumentReject LockupType="Hard" ConsecutiveRejectsBeforeLockup="10" ResetMethodKey="JackpotKey"/>
-  <PaperInChuteSound FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" />
-  <TouchSound FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" />
-  <CoinInSound FilePath="..\jurisdiction\DefaultAssets\coinin.ogg" />
-  <CoinOutSound FilePath="..\jurisdiction\DefaultAssets\coinout.ogg" />
-  <FeatureBellSound FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" />
-  <CollectSound FilePath="..\jurisdiction\DefaultAssets\collect.ogg" />
   <BarcodeType>Interleave2of5</BarcodeType>
   <OperatorLockupReset Enabled="true"/>
   <LogTypesAllowedForDisplay>

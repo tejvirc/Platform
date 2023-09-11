@@ -24,7 +24,7 @@ as follows:
            "Default" = The default max credits in value (in millicents) to check against the bank balance if check credits in is enabled.
            "Editable"= This value may be over-ridden by the technician in the audit menu settings, if set to true. Default is true, if not defined.
 -->
-  <MoneyLaunderingMonitor Enabled="true" Visible="true" SoundFilePath="..\jurisdiction\DefaultAssets\alarm.ogg"/>
+  <MoneyLaunderingMonitor Enabled="true" Visible="true" />
   <TenderIn CheckCreditsIn="Balance" AllowCreditUnderLimit="false">
     <MaxCreditsIn Default="119999000" />
   </TenderIn>

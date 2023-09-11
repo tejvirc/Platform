@@ -206,7 +206,7 @@
 
             StoreMachineDisabledStatus(true);
 
-            _audio.PlaySound(_propertiesManager, SoundName.Alarm);
+            _audio.PlaySound(_propertiesManager, SoundName.MoneyLaunderingMonitor);
 
             _eventBus.Subscribe<DownEvent>(this, e => EnableMachine(), e => e.LogicalId == (int)ButtonLogicalId.Button30);
 

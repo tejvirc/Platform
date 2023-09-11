@@ -205,7 +205,7 @@
         {
             if (!_inOperatorMode)
             {
-                _audioService.PlaySound(_propertiesManager, SoundName.Alarm);
+                _audioService.PlaySound(_propertiesManager, SoundName.PrinterError);
             }
         }
 
@@ -216,7 +216,7 @@
         {
             if (!_inOperatorMode)
             {
-                _audioService.PlaySound(_propertiesManager, SoundName.Alarm);
+                _audioService.PlaySound(_propertiesManager, SoundName.PrinterWarning);
             }
         }
 

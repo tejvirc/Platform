@@ -30,7 +30,6 @@
     public class FirmwareCrcMonitor : IService, IDisposable
     {
         private const string CrcBlockMemberName = "Crc";
-        private const string DefaultAlarmSoundFilePath = @"..\jurisdiction\DefaultAssets\alarm.ogg";
         private const int DesignatedCrcErrorNumber = 0; // CrcRequest will return 0 if something goes wrong.
         private const int NoteAcceptorPosition = 0;
         private const int PrinterPosition = 1;
@@ -310,7 +309,7 @@
         {
             if (!(bool)_properties.GetProperty(KernelConstants.IsInspectionOnly, false))
             {
-                _audioService.PlaySound(_properties, SoundName.Alarm);
+                _audioService.PlaySound(_properties, SoundName.FirmwareCrcError);
             }
         }
     }

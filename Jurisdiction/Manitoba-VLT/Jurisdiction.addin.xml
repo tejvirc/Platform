@@ -115,15 +115,6 @@
   <Extension path="/ConfigWizard/Configuration">
     <FilePath FilePath="..\jurisdiction\Manitoba-VLT\ConfigWizard.config.xml" filterid="ManitobaConfigWizardConfig" />
   </Extension>
-  <Extension path="/OperatorMenu/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" filterid="ManitobaOperatorMenuSoundConfig" />
-  </Extension>
-  <Extension path="/OperatorMenu/GamePreferences/Sounds">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" Name="Ding" filterid="ManitobaGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ReelClick.ogg" Name="ReelClick" filterid="ManitobaGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\CardFlip.ogg" Name="CardFlip" filterid="ManitobaGamePreferencesSounds" />
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\BallDrop.ogg" Name="BallDrop" filterid="ManitobaGamePreferencesSounds" />
-  </Extension>
   <Extension path="/OperatorMenu/Configuration">
     <FilePath FilePath="..\jurisdiction\Manitoba-VLT\OperatorMenu.config.xml" filterid="ManitobaOperatorMenuConfig" />
   </Extension>

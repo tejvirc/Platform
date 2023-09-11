@@ -62,8 +62,6 @@ as follows:
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
   <SoftwareInstall DeletePackageAfter="true"/>
-  <FeatureBellSound FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" />
-  <HostOfflineSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
   <LogTypesAllowedForDisplay>
     <string>BillIn</string>
     <string>Handpay</string>

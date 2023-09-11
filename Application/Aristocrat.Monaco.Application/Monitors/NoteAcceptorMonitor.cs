@@ -323,7 +323,7 @@
         {
             if (_noteAcceptor != null && !_noteAcceptor.ReasonDisabled.HasFlag(DisabledReasons.GamePlay))
             {
-                _audioService.PlaySound(_propertiesManager, SoundName.Alarm);
+                _audioService.PlaySound(_propertiesManager, SoundName.NoteAcceptorError);
                 return true;
             }
             else

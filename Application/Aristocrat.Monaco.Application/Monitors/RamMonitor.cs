@@ -202,7 +202,7 @@
         {
             _audioService.PlaySound(
                 _properties,
-                SoundName.Alarm);
+                SoundName.CriticalMemoryIntegrityCheck);
         }
     }
 }

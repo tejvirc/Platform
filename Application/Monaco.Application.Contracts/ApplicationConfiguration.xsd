@@ -328,85 +328,13 @@
           <xs:complexType>
             <xs:attribute default="Soft" name="LockupType" type="ExcessiveDocumentRejectLockupType" />
             <xs:attribute default="-1" name="ConsecutiveRejectsBeforeLockup" type="xs:int" />
-            <xs:attribute default="" name="SoundFilePath" type="xs:string" />
             <xs:attribute default="MainDoor" name="ResetMethodKey" type="ResetMethodKeyType" use="optional"/>
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="PaperInChuteSound">
-          <xs:complexType>
-            <xs:attribute default="" name="FilePath" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="PrinterErrorSound">
-          <xs:complexType>
-            <xs:attribute default="" name="FilePath" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="PrinterWarningSound">
-            <xs:complexType>
-                <xs:attribute default="" name="FilePath" type="xs:string" />
-            </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="NoteAcceptorErrorSound">
-          <xs:complexType>
-            <xs:attribute default="" name="FilePath" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="DiskSpaceMonitorErrorSound">
-          <xs:complexType>
-            <xs:attribute default="" name="FilePath" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="FirmwareCrcErrorSound">
-          <xs:complexType>
-            <xs:attribute default="" name="FilePath" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="LiveAuthenticationFailedSound">
-          <xs:complexType>
-            <xs:attribute default="" name="FilePath" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="TouchSound">
-          <xs:complexType>
-            <xs:attribute default="" name="FilePath" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="CoinInSound">
-          <xs:complexType>
-            <xs:attribute default="" name="FilePath" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="CoinOutSound">
-          <xs:complexType>
-            <xs:attribute default="" name="FilePath" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="FeatureBellSound">
-          <xs:complexType>
-            <xs:attribute default="" name="FilePath" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="CollectSound">
-          <xs:complexType>
-            <xs:attribute default="" name="FilePath" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="HostOfflineSound">
-          <xs:complexType>
-            <xs:attribute default="" name="FilePath" type="xs:string" />
-          </xs:complexType>
-        </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="DingSound">
-          <xs:complexType>
-            <xs:attribute default="" name="FilePath" type="xs:string" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="CriticalMemoryIntegrityCheck">
           <xs:complexType>
             <xs:attribute default="false" name="Enabled" type="xs:boolean" />
             <xs:attribute default="86400" name="Value" type="xs:int" />
-            <xs:attribute default="" name="SoundFilePath" type="xs:string" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="BarcodeType" type="BarcodeTypeOptions" default="Interleave2of5" />

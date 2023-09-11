@@ -75,24 +75,14 @@ as follows:
     SoundFilePath:
         Path of the sound file to be played when ConsecutiveRejectsBeforeLockup reached.
 -->
-  <ExcessiveDocumentReject LockupType="Hard" ConsecutiveRejectsBeforeLockup="10" ResetMethodKey="JackpotKey" SoundFilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
-  <PaperInChuteSound FilePath="..\jurisdiction\DefaultAssets\snd_print_ticket.ogg" />
-  <PrinterErrorSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
-  <PrinterWarningSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
-  <NoteAcceptorErrorSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
-  <DiskSpaceMonitorErrorSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
-  <FirmwareCrcErrorSound FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" />
-  <TouchSound FilePath="..\jurisdiction\DefaultAssets\touch_sound.ogg" />
-  <CoinInSound FilePath="..\jurisdiction\DefaultAssets\coinin.ogg" />
-  <CoinOutSound FilePath="..\jurisdiction\DefaultAssets\coinout.ogg" />
-  <FeatureBellSound FilePath="..\jurisdiction\DefaultAssets\feature_bell.ogg" />
-  <CollectSound FilePath="..\jurisdiction\DefaultAssets\collect.ogg" />
+  <ExcessiveDocumentReject LockupType="Hard" ConsecutiveRejectsBeforeLockup="10" ResetMethodKey="JackpotKey" />
+
   <!--
   Checks the integrity of the critical memory:
     Enabled: The critical memory will be checked
     Value: The time interval at which it will be checked (in secs)
   -->
-  <CriticalMemoryIntegrityCheck Enabled="true" Value="86400" SoundFilePath="..\jurisdiction\DefaultAssets\alarm.ogg"/>
+  <CriticalMemoryIntegrityCheck Enabled="true" Value="86400" />
   <OperatorLockupReset Enabled="true"/>
   <LogTypesAllowedForDisplay>
     <string>BillIn</string>

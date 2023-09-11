@@ -255,7 +255,7 @@
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_properties, SoundName.Alarm);
+            _audioService.PlaySound(_properties, SoundName.ExcessiveDocumentReject);
         }
     }
 }

@@ -132,7 +132,6 @@
             <xs:attribute name="Enabled" type="xs:boolean" use="optional" default="false" />
             <xs:attribute name="BanknoteLimit" type="xs:long" use="optional" default="9223372036854775807" />
             <xs:attribute name="CoinLimit" type="xs:long" use="optional" default="9223372036854775807" />
-            <xs:attribute name="SoundFilePath" type="xs:string" default="" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="InGameDisplay">

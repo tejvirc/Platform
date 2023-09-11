@@ -11,9 +11,7 @@
       <FilePath FilePath=".\EventLogger.config.xml" />
       <PropertySetting PropertyName="Log Size" PropertyValue="2500" />
       <PropertySetting PropertyName="Screen Title Key" PropertyValue="EventLogTitle" />
-      <DoorOpenAlarm RepeatSeconds="20" OperatorCanCancel="true">
-        <FilePath FilePath="..\jurisdiction\DefaultAssets\alarm.ogg" filterid="QuebecTiltLoggerConfig" />
-      </DoorOpenAlarm>
+      <DoorOpenAlarm RepeatSeconds="20" OperatorCanCancel="true" />
     </TiltLoggerConfiguration>
   </Extension>
 
