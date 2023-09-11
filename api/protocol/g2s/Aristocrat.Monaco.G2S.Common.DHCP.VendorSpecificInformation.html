@@ -554,6 +554,74 @@ the certificate.</p>
   
   </div>
   
+  <span class="small pull-right mobile-hide">
+    <span class="divider"> </span>
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/new/main/apiSpec/new?filename=Aristocrat_Monaco_G2S_Common_DHCP_VendorSpecificInformation_HasChangedDefault_System_String_.md&amp;value=---%0Auid%3A%20Aristocrat.Monaco.G2S.Common.DHCP.VendorSpecificInformation.HasChangedDefault(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" title="Improve this Doc"><i class="fa fa-pencil"></i></a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/Aristocrat-Monaco-Platform/monaco/blob/main/Protocol/G2S/Aristocrat.Monaco.G2S.Common/DHCP/VendorSpecificInformation.cs/#L115" title="View Source"><i class="fa fa-code"></i></a>
+  </span>
+  
+  <a id="Aristocrat_Monaco_G2S_Common_DHCP_VendorSpecificInformation_HasChangedDefault_" data-uid="Aristocrat.Monaco.G2S.Common.DHCP.VendorSpecificInformation.HasChangedDefault*"></a>
+  
+  <h4 id="Aristocrat_Monaco_G2S_Common_DHCP_VendorSpecificInformation_HasChangedDefault_System_String_" data-uid="Aristocrat.Monaco.G2S.Common.DHCP.VendorSpecificInformation.HasChangedDefault(System.String)"><a href="#collapsible-Aristocrat_Monaco_G2S_Common_DHCP_VendorSpecificInformation_HasChangedDefault_System_String_" class="expander" data-toggle="collapse">HasChangedDefault(String)</a></h4>
+  
+  <div id="collapsible-Aristocrat_Monaco_G2S_Common_DHCP_VendorSpecificInformation_HasChangedDefault_System_String_" class="collapse in">
+  <div class="markdown level1 summary"><p>Returns whether or not the specified DHCP parameter was provided in the Option 43 response</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasChangedDefault(string parameterName)</code></pre>
+  </div>
+  
+  <h5 class="parameters">Parameters</h5>
+  <table>
+    <tr>
+      <td>
+        <span class="pull-right"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">String</a></span>
+        <span class="parametername">parameterName</span>
+        <p><p>The parameter name to check.
+Should be one of DhcpConstants.CertificateManagerServiceName, DhcpConstants.CertificateStatusServiceName,
+or DhcpConstants.CommConfigServiceName</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  <h5 class="returns">Returns</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">Boolean</a>
+        <p><p>true if the Option 43 response contained overriding information the parameter. false otherwise</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h5 class="exceptions">Exceptions</h5>
+  <table>
+    <tr>
+      <td>
+        <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a>
+        <p><p>thrown when parameterName is not a valid value</p>
+</p>
+      </td>
+    </tr>
+  </table>
+  
+  </div>
+  
   
 </article>
           </div>
