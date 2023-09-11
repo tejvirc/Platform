@@ -16,6 +16,7 @@ as follows:
   </Defaults>
 
   <Included>
+    <Device Name="JCM UBA500 USB GDS" />
     <Device Name="MEI USB GDS" />
     <Device Name="JCM IVizion USB GDS" />
     <Device Name="JCM Gen5 USB GDS" />
