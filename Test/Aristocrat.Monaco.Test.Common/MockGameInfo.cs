@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Test.Common
+namespace Aristocrat.Monaco.Test.Common
 {
     using System;
     using System.Collections.Generic;
@@ -176,7 +176,7 @@
 
         public BetLinePresetList BetLinePresetList { get; set; }
 
-        public long WinThreshold { get; set; }
+        public long? WinThreshold { get; set; }
 
         public bool AutoPlaySupported { get; }
 
@@ -286,6 +286,26 @@
             return gameGraphics;
         }
 
+        public bool HasExtendedRtpInformation
+        {
+            get
+            {
+                return WagerCategories.Any(
+                    w =>
+                        w.MinBaseRtpPercent != default ||
+                        w.MaxBaseRtpPercent != default ||
+                        w.MinSapStartupRtpPercent != default ||
+                        w.MaxSapStartupRtpPercent != default ||
+                        w.SapIncrementRtpPercent != default ||
+                        w.MinLinkStartupRtpPercent != default ||
+                        w.MaxLinkStartupRtpPercent != default ||
+                        w.LinkIncrementRtpPercent != default);
+            }
+        }
+
+        public bool LinkedProgressiveVerificationComplete { get; set; }
+
+        public bool? LinkedProgressiveVerificationResult { get; set; }
     }
 
     public class MockLocalGameGraphics : ILocaleGameGraphics

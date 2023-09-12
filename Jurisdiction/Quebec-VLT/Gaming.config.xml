@@ -12,7 +12,7 @@ as follows:
 <GamingConfiguration>
   <GameHistory KeepGameRoundEvents="false" KeepGameRoundMeterSnapshots="false" />
   <GameEnd CashOutStrategy="Full" />
-  <MaximumGameRoundWin Amount="100000000" ResetWinAmount="primary"/>
+  <MaximumGameRoundWin Amount="100000000" ResetWinAmount="free" OnMaxWinReach="continueGame" />
   <FreeGames MeterIndependently="true" />
   <Messages ShowMessages="true">
     <MinBetMessage MustDisplay="false" Format="Currency" />
@@ -39,9 +39,10 @@ as follows:
   <AttractModeOptions KenoAttractSelected="true" PokerAttractSelected="true" BlackjackAttractSelected="true" />
   <ProgressiveLobbyIndicator Indicator="Disabled" />
   <FreeSpin ClearWinMeter="true"/>
+  <ClearWinMeter OnBetChange="true" />
   <Win Destination="winAndCredit"/>
   <DisplayGamePayMessage Use="true" Format="currency"/>
-  <Instructions GameRulesInstructions="GDK_GameRulesInstructions1.1" />
+  <Instructions GameRulesInstructions="GDK_GameRulesInstructions1.1" PressStart="GDK_PressStart" />
   <WagerLimits Use="true" MaxTotalWager="250" />
   <VolumeLevel ShowInHelpScreen="false" />
   <Service Use="false" />

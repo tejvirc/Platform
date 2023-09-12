@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming
+namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -79,6 +79,7 @@
                     PlayerInformationDisplay = new GamingConfigurationPlayerInformationDisplay(),
                     AllowZeroCreditCashout = new GamingConfigurationAllowZeroCreditCashout(),
                     FreeSpin = new GamingConfigurationFreeSpin(),
+                    ClearWinMeter = new GamingConfigurationClearWinMeter(),
                     Win = new GamingConfigurationWin(),
                     DisplayGamePayMessage = new GamingConfigurationDisplayGamePayMessage(),
                     WagerLimits = new GamingConfigurationWagerLimits(),
@@ -100,17 +101,24 @@
                 ? storageManager.GetBlock(storageName)
                 : storageManager.CreateBlock(PersistenceLevel.Transient, storageName, 1);
 
-            var anyRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Any);
-            var blackjackRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Blackjack);
-            var slotRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Slot);
-            var kenoRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Keno);
-            var pokerRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Poker);
-            var rouletteRtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits?.FirstOrDefault(x => x.GameType == GameTypes.Roulette);
+            // RTP
+            var rtpLimits = configuration.GameRestrictions?.ReturnToPlayerLimits;
 
-            var anyGameMinRtp = anyRtpLimits?.MinimumSpecified ?? false ? anyRtpLimits.Minimum : int.MinValue;
-            var anyGameMaxRtp = anyRtpLimits?.MaximumSpecified ?? false ? anyRtpLimits.Maximum : int.MaxValue;
+            var anyRtpLimits = rtpLimits?.FirstOrDefault(x => x.GameType == GameTypes.Any);
+            var blackjackRtpLimits = rtpLimits?.FirstOrDefault(x => x.GameType == GameTypes.Blackjack);
+            var slotRtpLimits = rtpLimits?.FirstOrDefault(x => x.GameType == GameTypes.Slot);
+            var kenoRtpLimits = rtpLimits?.FirstOrDefault(x => x.GameType == GameTypes.Keno);
+            var pokerRtpLimits = rtpLimits?.FirstOrDefault(x => x.GameType == GameTypes.Poker);
+            var rouletteRtpLimits = rtpLimits?.FirstOrDefault(x => x.GameType == GameTypes.Roulette);
+
+            var anyGameMinRtp = anyRtpLimits?.MinimumSpecified ?? false ? anyRtpLimits.Minimum : decimal.MinValue;
+            var anyGameMaxRtp = anyRtpLimits?.MaximumSpecified ?? false ? anyRtpLimits.Maximum : decimal.MaxValue;
+
             var anyGameIncludeLinkProgressiveIncrementRtp = anyRtpLimits?.IncludeLinkProgressiveIncrementRTP ?? false;
+            var anyGameIncludeLinkProgressiveStartUpRtp = anyRtpLimits?.IncludeLinkProgressiveStartUpRTP ?? false;
             var anyGameIncludeStandaloneProgressiveIncrementRtp = anyRtpLimits?.IncludeStandaloneProgressiveIncrementRTP ?? true;
+            var anyGameIncludeStandaloneProgressiveStartUpRtp = anyRtpLimits?.IncludeStandaloneProgressiveStartUpRTP ?? false;
+
             var playerInformationDisplayOptions = configuration.PlayerInformationDisplay;
 
             _properties = new Dictionary<string, (object property, bool isPersisted)>
@@ -147,6 +155,7 @@
                 { GamingConstants.WagerLimitsMaxTotalWagerKey, (InitFromStorage(GamingConstants.WagerLimitsMaxTotalWagerKey), true) },
                 { GamingConstants.WagerLimitsUseKey, (InitFromStorage(GamingConstants.WagerLimitsUseKey), true) },
                 { GamingConstants.MaximumGameRoundWinResetWinAmountKey, (InitFromStorage(GamingConstants.MaximumGameRoundWinResetWinAmountKey), true) },
+                { GamingConstants.MaximumGameRoundWinOnMaxWinReachKey, (InitFromStorage(GamingConstants.MaximumGameRoundWinOnMaxWinReachKey), true) },
                 { GamingConstants.VolumeLevelShowInHelpScreenKey, (InitFromStorage(GamingConstants.VolumeLevelShowInHelpScreenKey), true) },
                 { GamingConstants.ServiceUseKey, (InitFromStorage(GamingConstants.ServiceUseKey), true) },
                 { GamingConstants.ClockUseHInDisplayKey, (InitFromStorage(GamingConstants.ClockUseHInDisplayKey), true) },
@@ -159,32 +168,16 @@
                 { GamingConstants.GameLogOutcomeDetailsKey, (InitFromStorage(GamingConstants.GameLogOutcomeDetailsKey), true) },
                 { GamingConstants.AudioAudioChannelsKey, (InitFromStorage(GamingConstants.AudioAudioChannelsKey), true) },
                 { GamingConstants.FreeSpinClearWinMeterKey, (InitFromStorage(GamingConstants.FreeSpinClearWinMeterKey), true) },
+                { GamingConstants.ClearWinMeterOnBetChangeKey, (InitFromStorage(GamingConstants.ClearWinMeterOnBetChangeKey), true) },
                 { GamingConstants.WinDestinationKey, (InitFromStorage(GamingConstants.WinDestinationKey), true) },
                 { GamingConstants.ButtonAnimationGoodLuckKey, (InitFromStorage(GamingConstants.ButtonAnimationGoodLuckKey), true) },
                 { GamingConstants.ReelStopInBaseGameEnabled, ((object)configuration.ReelStopInBaseGame?.Enabled ?? true, false) },
                 { GamingConstants.ApplyGameCategorySettings, ((object)configuration.GameCategory?.ApplyGameCategorySettings ?? false, false) },
                 { GamingConstants.JackpotCeilingHelpScreen, ((object)configuration.DynamicHelpScreen?.JackpotCeiling ?? false, false) },
                 { GamingConstants.RetainLastRoundResult, ((object)configuration.RetainLastRoundResult?.Enabled ?? false, false) },
-                {
-                    GamingConstants.WinMeterResetOnBetLineDenomChanged, (
-                        configuration.WinMeterResetOnBetLineDenomChanged?.Enabled ??
-                        ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged,
-                        false)
-                },
-                {
-                    GamingConstants.WinMeterResetOnBetLineChanged, (
-                        configuration.WinMeterResetOnBetLineChanged?.Enabled ??
-                        configuration.WinMeterResetOnBetLineDenomChanged?.Enabled ??
-                        ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged,
-                        false)
-                },
-                {
-                    GamingConstants.WinMeterResetOnDenomChanged, (
-                        configuration.WinMeterResetOnDenomChanged?.Enabled ??
-                        configuration.WinMeterResetOnBetLineDenomChanged?.Enabled ??
-                        ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged,
-                        false)
-                },
+                { GamingConstants.WinMeterResetOnBetLineDenomChanged, (configuration.WinMeterResetOnBetLineDenomChanged?.Enabled ?? ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged, false) },
+                { GamingConstants.WinMeterResetOnBetLineChanged, (configuration.WinMeterResetOnBetLineChanged?.Enabled ?? configuration.WinMeterResetOnBetLineDenomChanged?.Enabled ?? ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged, false) },
+                { GamingConstants.WinMeterResetOnDenomChanged, (configuration.WinMeterResetOnDenomChanged?.Enabled ?? configuration.WinMeterResetOnBetLineDenomChanged?.Enabled ?? ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged, false) },
                 { GamingConstants.ShowServiceButton, (InitFromStorage(GamingConstants.ShowServiceButton), true) },
                 { GamingConstants.CensorshipEnforced, (configuration.Censorship?.Enforced ?? false, false) },
                 { GamingConstants.CensorshipEditable, ((object)configuration.Censorship?.Editable ?? true, false) },
@@ -214,6 +207,13 @@
                 { GamingConstants.ContinuousPlayMode, (InitFromStorage(GamingConstants.ContinuousPlayMode), true) },
                 { GamingConstants.ContinuousPlayModeConfigurable, ((object)configuration.ContinuousPlaySupport?.Configurable ?? false, false) },
                 { GamingConstants.ContinuousPlayModeButtonsToUse, ((object)configuration.ContinuousPlaySupport?.AllowedButtons ?? new [] { ContinuousPlayButton.Play }, false) },
+                { GamingConstants.AllowSlotGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Slot) ?? 0) == 0, false) },
+                { GamingConstants.AllowPokerGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Poker) ?? 0) == 0, false) },
+                { GamingConstants.AllowKenoGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Keno) ?? 0) == 0, false) },
+                { GamingConstants.AllowBlackjackGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Blackjack) ?? 0) == 0, false) },
+                { GamingConstants.AllowRouletteGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Roulette) ?? 0) == 0, false) },
+                { GamingConstants.RestrictedProgressiveTypes, (configuration.GameRestrictions?.RestrictedProgressivesTypes?.Select(x => x.ProgressiveType.ToProgressiveLevelType()).ToList() ?? new List<ProgressiveLevelType>(), false) },
+                // RTP Properties Start
                 { GamingConstants.AnyGameMinimumReturnToPlayer, (anyGameMinRtp, false) },
                 { GamingConstants.AnyGameMaximumReturnToPlayer, (anyGameMaxRtp, false) },
                 { GamingConstants.SlotMinimumReturnToPlayer, (GetRtpValue((slotRtpLimits?.MinimumSpecified ?? false) ? slotRtpLimits.Minimum : anyGameMinRtp, anyGameMinRtp), false) },
@@ -226,12 +226,6 @@
                 { GamingConstants.BlackjackMaximumReturnToPlayer, (GetRtpValue((blackjackRtpLimits?.MaximumSpecified ?? false) ? blackjackRtpLimits.Maximum : anyGameMaxRtp, anyGameMaxRtp), false) },
                 { GamingConstants.KenoMinimumReturnToPlayer, (GetRtpValue((kenoRtpLimits?.MinimumSpecified ?? false) ? kenoRtpLimits.Minimum : anyGameMinRtp, anyGameMinRtp), false) },
                 { GamingConstants.KenoMaximumReturnToPlayer, (GetRtpValue((kenoRtpLimits?.MaximumSpecified ?? false) ? kenoRtpLimits.Maximum : anyGameMaxRtp, anyGameMaxRtp), false) },
-                { GamingConstants.AllowSlotGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Slot) ?? 0) == 0, false) },
-                { GamingConstants.AllowPokerGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Poker) ?? 0) == 0, false) },
-                { GamingConstants.AllowKenoGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Keno) ?? 0) == 0, false) },
-                { GamingConstants.AllowBlackjackGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Blackjack) ?? 0) == 0, false) },
-                { GamingConstants.AllowRouletteGames, ((configuration.GameRestrictions?.RestrictedGameTypes?.Count(x => x.GameType == GameTypes.Roulette) ?? 0) == 0, false) },
-                { GamingConstants.RestrictedProgressiveTypes, (configuration.GameRestrictions?.RestrictedProgressivesTypes?.Select(x => x.ProgressiveType.ToProgressiveLevelType()).ToList() ?? new List<ProgressiveLevelType>(), false) },
                 { GamingConstants.SlotsIncludeLinkProgressiveIncrementRtp, (slotRtpLimits?.IncludeLinkProgressiveIncrementRTP ?? anyGameIncludeLinkProgressiveIncrementRtp, false) },
                 { GamingConstants.PokerIncludeLinkProgressiveIncrementRtp, (pokerRtpLimits?.IncludeLinkProgressiveIncrementRTP ?? anyGameIncludeLinkProgressiveIncrementRtp, false) },
                 { GamingConstants.RouletteIncludeLinkProgressiveIncrementRtp, (rouletteRtpLimits?.IncludeLinkProgressiveIncrementRTP ?? anyGameIncludeLinkProgressiveIncrementRtp, false) },
@@ -242,6 +236,18 @@
                 { GamingConstants.RouletteIncludeStandaloneProgressiveIncrementRtp, (rouletteRtpLimits?.IncludeStandaloneProgressiveIncrementRTP ?? anyGameIncludeStandaloneProgressiveIncrementRtp, false) },
                 { GamingConstants.KenoIncludeStandaloneProgressiveIncrementRtp, (kenoRtpLimits?.IncludeStandaloneProgressiveIncrementRTP ?? anyGameIncludeStandaloneProgressiveIncrementRtp, false) },
                 { GamingConstants.BlackjackIncludeStandaloneProgressiveIncrementRtp, (blackjackRtpLimits?.IncludeStandaloneProgressiveIncrementRTP ?? anyGameIncludeStandaloneProgressiveIncrementRtp, false) },
+                { GamingConstants.SlotsIncludeLinkProgressiveStartUpRtp, (slotRtpLimits?.IncludeLinkProgressiveStartUpRTP ?? anyGameIncludeLinkProgressiveStartUpRtp, false) },
+                { GamingConstants.PokerIncludeLinkProgressiveStartUpRtp, (pokerRtpLimits?.IncludeLinkProgressiveStartUpRTP ?? anyGameIncludeLinkProgressiveStartUpRtp, false) },
+                { GamingConstants.RouletteIncludeLinkProgressiveStartUpRtp, (rouletteRtpLimits?.IncludeLinkProgressiveStartUpRTP ?? anyGameIncludeLinkProgressiveStartUpRtp, false) },
+                { GamingConstants.KenoIncludeLinkProgressiveStartUpRtp, (kenoRtpLimits?.IncludeLinkProgressiveStartUpRTP ?? anyGameIncludeLinkProgressiveStartUpRtp, false) },
+                { GamingConstants.BlackjackIncludeLinkProgressiveStartUpRtp, (blackjackRtpLimits?.IncludeLinkProgressiveStartUpRTP ?? anyGameIncludeLinkProgressiveStartUpRtp, false) },
+                { GamingConstants.SlotsIncludeStandaloneProgressiveStartUpRtp, (slotRtpLimits?.IncludeStandaloneProgressiveStartUpRTP ?? anyGameIncludeStandaloneProgressiveStartUpRtp, false) },
+                { GamingConstants.PokerIncludeStandaloneProgressiveStartUpRtp, (pokerRtpLimits?.IncludeStandaloneProgressiveStartUpRTP ?? anyGameIncludeStandaloneProgressiveStartUpRtp, false) },
+                { GamingConstants.RouletteIncludeStandaloneProgressiveStartUpRtp, (rouletteRtpLimits?.IncludeStandaloneProgressiveStartUpRTP ?? anyGameIncludeStandaloneProgressiveStartUpRtp, false) },
+                { GamingConstants.KenoIncludeStandaloneProgressiveStartUpRtp, (kenoRtpLimits?.IncludeStandaloneProgressiveStartUpRTP ?? anyGameIncludeStandaloneProgressiveStartUpRtp, false) },
+                { GamingConstants.BlackjackIncludeStandaloneProgressiveStartUpRtp, (blackjackRtpLimits?.IncludeStandaloneProgressiveStartUpRTP ?? anyGameIncludeStandaloneProgressiveStartUpRtp, false) },
+                { GamingConstants.LinkedProgressiveVerificationEnabled, (InitFromStorage(GamingConstants.LinkedProgressiveVerificationEnabled), true) },
+                // RTP Properties End
                 { GamingConstants.InGameDisplayFormat, (configuration.InGameDisplay?.DisplayFormat ?? DisplayFormat.Any, false) },
                 { GamingConstants.AllowCashInDuringPlay, ((object)configuration.InGamePlay?.AllowCashInDuringPlay ?? false, false) },
                 { GamingConstants.AllowEditHostDisabled, ((object)configuration.GameEditOptions?.AllowEditHostDisabled ?? false, false) },
@@ -316,6 +322,7 @@
                 { GamingConstants.PlayerInformationDisplay.GameRulesScreenEnabled, (playerInformationDisplayOptions?.GameRulesScreen?.Enabled ?? false, false) },
                 { GamingConstants.PlayerInformationDisplay.PlayerInformationScreenEnabled, (playerInformationDisplayOptions?.PlayerInformationScreen?.Enabled ?? false, false) },
                 { GamingConstants.GameRulesInstructions, (configuration.Instructions?.GameRulesInstructions ?? string.Empty, false) },
+                { GamingConstants.PressStartInstructions, (configuration.Instructions?.PressStart ?? string.Empty, false) },
                 { GamingConstants.UseRngCycling, (configuration.RngCycling?.Enabled ?? false, false) },
                 { GamingConstants.ShowPlayerSpeedButtonEnabled, (configuration.ShowPlayerSpeedButton?.Enabled ?? true, false) },
                 { GamingConstants.BonusTransferPlaySound, ((object)configuration.BonusTransfer?.PlaySound ?? true, false) },
@@ -352,6 +359,7 @@
                 SetProperty(GamingConstants.WagerLimitsMaxTotalWagerKey, configuration.WagerLimits?.MaxTotalWager ?? GamingConstants.WagerLimitsMaxTotalWager);
                 SetProperty(GamingConstants.WagerLimitsUseKey, configuration.WagerLimits?.Use ?? GamingConstants.WagerLimitsUse);
                 SetProperty(GamingConstants.MaximumGameRoundWinResetWinAmountKey, configuration.MaximumGameRoundWin?.ResetWinAmount ?? GamingConstants.MaximumGameRoundWinResetWinAmount);
+                SetProperty(GamingConstants.MaximumGameRoundWinOnMaxWinReachKey, configuration.MaximumGameRoundWin?.OnMaxWinReach ?? GamingConstants.MaximumGameRoundWinOnMaxWinReachDefault);
                 SetProperty(GamingConstants.VolumeLevelShowInHelpScreenKey, configuration.VolumeLevel?.ShowInHelpScreen ?? GamingConstants.VolumeLevelShowInHelpScreen);
                 SetProperty(GamingConstants.ServiceUseKey, configuration.Service?.Use ?? GamingConstants.ServiceUse);
                 SetProperty(GamingConstants.ClockUseHInDisplayKey, configuration.Clock?.UseHInDisplay ?? GamingConstants.ClockUseHInDisplay);
@@ -364,6 +372,7 @@
                 SetProperty(GamingConstants.GameLogOutcomeDetailsKey, configuration.GameLog?.OutcomeDetails ?? GamingConstants.GameLogOutcomeDetails);
                 SetProperty(GamingConstants.AudioAudioChannelsKey, configuration.Audio?.AudioChannels ?? GamingConstants.AudioAudioChannels);
                 SetProperty(GamingConstants.FreeSpinClearWinMeterKey, configuration.FreeSpin?.ClearWinMeter ?? GamingConstants.FreeSpinClearWinMeter);
+                SetProperty(GamingConstants.ClearWinMeterOnBetChangeKey, configuration.ClearWinMeter?.OnBetChange ?? GamingConstants.ClearWinMeterOnBetChange);
                 SetProperty(GamingConstants.WinDestinationKey, configuration.Win?.Destination ?? GamingConstants.WinDestination);
                 SetProperty(GamingConstants.ButtonAnimationGoodLuckKey, configuration.ButtonAnimation?.GoodLuck ?? GamingConstants.ButtonAnimationGoodLuck);
                 SetProperty(GamingConstants.DisplayGamePayMessageUseKey, configuration.DisplayGamePayMessage?.Use ?? GamingConstants.DisplayGamePayMessageUse);
@@ -384,6 +393,7 @@
                 SetProperty(GamingConstants.ShowTopPickBanners,true);
                 SetProperty(GamingConstants.ShowPlayerMenuPopup, true);
                 SetProperty(GamingConstants.LaunchGameAfterReboot, false);
+                SetProperty(GamingConstants.LinkedProgressiveVerificationEnabled, true);
                 SetProperty(GamingConstants.ProgressiveConfiguredLinkedLevelIds, new Dictionary<int, (int linkedGroupId, int linkedLevelId)>());
                 var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
                 var machineSettingsImported = propertiesManager.GetValue(ApplicationConstants.MachineSettingsImported, ImportMachineSettings.None);
@@ -465,7 +475,7 @@
             var storedValue = InitFromStorage(GamingConstants.ProgressiveConfiguredLinkedLevelIds)?.ToString();
 
             var toReturn = new Dictionary<int, (int linkedGroupId, int linkedLevelId)>();
-
+            
             if (!string.IsNullOrEmpty(storedValue))
             {
                 toReturn = JsonConvert.DeserializeObject<Dictionary<int, (int linkedGroupId, int linkedLevelId)>>(storedValue);
@@ -474,9 +484,9 @@
             return toReturn;
         }
 
-        private int GetRtpValue(int configRtp, int defaultRtp)
+        private decimal GetRtpValue(decimal configRtp, decimal defaultRtp)
         {
-            return configRtp == 0 ? defaultRtp : configRtp;
+            return configRtp == decimal.Zero ? defaultRtp : configRtp;
         }
     }
 }

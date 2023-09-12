@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,8 @@
     using System.Linq;
     using System.Windows.Input;
     using Accounting.Contracts;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Authentication;
     using Contracts.Localization;
@@ -22,8 +24,6 @@
     using Models;
     using Monaco.Common;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
     using NoteAcceptorDisconnectedEvent = Hardware.Contracts.NoteAcceptor.DisconnectedEvent;
     using NoteAcceptorHardwareFaultEvent = Hardware.Contracts.NoteAcceptor.HardwareFaultEvent;
@@ -151,7 +151,9 @@
             { ApplicationConstants.ReserveDisableKey, ResourceKeys.ReservedMachineErrorFaultMessage },
             { ApplicationConstants.ExcessiveMeterIncrementErrorGuid, ResourceKeys.ClearLockupExcessiveMeterIncrement },
             { ApplicationConstants.BellyDoorDiscrepencyGuid, ResourceKeys.BellyDoorDiscrepancy },
-            { ApplicationConstants.MemoryBelowThresholdDisableKey, ResourceKeys.OutOfMemoryMessageDescription }
+            { ApplicationConstants.MemoryBelowThresholdDisableKey, ResourceKeys.OutOfMemoryMessageDescription },
+            { ApplicationConstants.ReelLoadingAnimationFilesDisableKey, ResourceKeys.LoadingAnimationFilesInfo },
+            { ApplicationConstants.ReelLoadingAnimationFilesErrorKey, ResourceKeys.ClearLockupReconnectedRebootKeyMessage }
         };
 
         private bool _isExitReserveButtonEnabled;
@@ -160,7 +162,7 @@
         {
             InputStatusText = string.Empty;
 
-            ExitReserveCommand = new ActionCommand<object>(ExitReserve);
+            ExitReserveCommand = new RelayCommand<object>(ExitReserve);
 
             OutOfServiceViewModel = new OutOfServiceViewModel();
         }
@@ -193,7 +195,7 @@
             {
                 Logger.Debug("Displaying messages");
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         if (_guidInfosToIgnore.Contains(displayableMessage.Id))
@@ -219,7 +221,7 @@
             {
                 Logger.Debug("Removing messages");
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         var reason = DisableReasons.LastOrDefault(d => d.MessageId == displayableMessage.Id);
@@ -239,7 +241,7 @@
 
         public void ClearMessages()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Logger.Debug("Clearing messages");
@@ -311,7 +313,7 @@
 
             if (!active && PopupOpen)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         EventBus.Publish(new OperatorMenuPopupEvent(false, string.Empty));

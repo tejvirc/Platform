@@ -14,7 +14,7 @@
     public class GameHistoryReportHandlerTests
     {
         private const int WaitTime = 1000;
-        private readonly ReportMultiGameOutcomeResponse _ack = new(ResponseCode.Ok);
+        private readonly ServerApiGateway.GameOutcomeAck _ack = new() { Succeeded = true };
         private GameHistoryReportHandler _target;
         private readonly Mock<IAcknowledgedQueue<ReportMultiGameOutcomeMessage, long>> _queue = new(MockBehavior.Default);
         private readonly Mock<ICentralProvider> _centralProvider = new(MockBehavior.Default);

@@ -1,14 +1,17 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Globalization;
     using System.Linq;
     using System.Timers;
     using System.Windows;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
     using System.Windows.Threading;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.ConfigWizard;
@@ -27,8 +30,6 @@
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
     using Mono.Addins;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
     using Views;
     using Xceed.Wpf.Toolkit.Primitives;
@@ -51,6 +52,8 @@
         private readonly ISerialTouchService _serialTouchService;
         private readonly ISerialTouchCalibration _serialTouchCalibrationService;
         private readonly ITouchCalibration _touchCalibrationService;
+        private readonly IConfigurationUtilitiesProvider _configurationUtilitiesProvider;
+        private readonly IPropertiesManager _properties;
 
         private int _lastWizardSelectedIndex;
         private bool _onFinishedPage;
@@ -79,6 +82,8 @@
             _serialTouchService = _serviceManager.GetService<ISerialTouchService>();
             _serialTouchCalibrationService = _serviceManager.GetService<ISerialTouchCalibration>();
             _touchCalibrationService = _serviceManager.GetService<ITouchCalibration>();
+            _configurationUtilitiesProvider = _serviceManager.GetService<IConfigurationUtilitiesProvider>();
+            _properties = _serviceManager.GetService<IPropertiesManager>();
 
             var existing = _serviceManager.TryGetService<IConfigWizardNavigator>();
             if (existing != null)
@@ -135,6 +140,13 @@
                 Logger.Debug($"Navigating to {_selectableConfigurationPages[_lastWizardSelectedIndex].PageName} selection page...");
 
                 _currentPageLoader = _selectableConfigurationPages[_lastWizardSelectedIndex];
+                var jurisdictionPageIndex = _selectableConfigurationPages.IndexOf(
+                    _selectableConfigurationPages.FirstOrDefault(p => p is JurisdictionConfigLoader));
+
+                if (_lastWizardSelectedIndex > jurisdictionPageIndex)
+                {
+                    ForceDefaultConfigWizardCulture();
+                }
                 _pageTitle = _currentPageLoader?.PageName;
             }
 
@@ -143,7 +155,7 @@
                 {
                     if (_calibrationPending)
                     {
-                        MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                        Execute.OnUIThread(InvokeCalibration);
                     }
                 });
 
@@ -153,8 +165,8 @@
             // We're forcing touch screen mapping.  After doing so, we're going to force a restart
             _restartWhenFinished = !_isInspection && !_cabinetDetectionService.TouchscreensMapped;
 
-            BackButtonClicked = new ActionCommand<object>(BackButton_Click, _ => CanNavigateBackward);
-            NextButtonClicked = new ActionCommand<object>(NextButton_Click, _ => CanNavigateForward);
+            BackButtonClicked = new RelayCommand<object>(BackButton_Click, _ => CanNavigateBackward);
+            NextButtonClicked = new RelayCommand<object>(NextButton_Click, _ => CanNavigateForward);
         }
 
         public ICommand BackButtonClicked { get; }
@@ -189,7 +201,10 @@
                     vm.Save();
                 }
 
-                SetProperty(ref _currentPageLoader, value, nameof(CurrentPage));
+                if (SetProperty(ref _currentPageLoader, value, nameof(CurrentPageLoader)))
+                {
+                    OnPropertyChanged(nameof(CurrentPage));
+                }
 
                 if (_currentPageLoader != null)
                 {
@@ -212,9 +227,9 @@
             set
             {
                 SetProperty(ref _canNavigateForward, value, nameof(CanNavigateForward));
-                if (NextButtonClicked is IActionCommand actionCommand)
+                if (NextButtonClicked is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -226,9 +241,9 @@
             set
             {
                 SetProperty(ref _canNavigateBackward, value, nameof(CanNavigateBackward));
-                if (BackButtonClicked is IActionCommand actionCommand)
+                if (BackButtonClicked is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -252,7 +267,6 @@
         ///     Gets the service types of the service
         /// </summary>
         public ICollection<Type> ServiceTypes => new[] { typeof(IConfigWizardNavigator) };
-
         public string PopupText
         {
             get => _popupText;
@@ -261,7 +275,7 @@
                 if (_popupText != value)
                 {
                     _popupText = value;
-                    RaisePropertyChanged(nameof(PopupText));
+                    OnPropertyChanged(nameof(PopupText));
                     PopupOpen = !string.IsNullOrEmpty(PopupText);
                 }
             }
@@ -275,7 +289,7 @@
                 if (_popupOpen != value)
                 {
                     _popupOpen = value;
-                    RaisePropertyChanged(nameof(PopupOpen));
+                    OnPropertyChanged(nameof(PopupOpen));
 
                     if (_popupOpen)
                     {
@@ -318,9 +332,9 @@
             set
             {
                 _popupPlacementTarget = value;
-                RaisePropertyChanged(nameof(PopupPlacement));
-                RaisePropertyChanged(nameof(PopupPlacementTarget));
-                RaisePropertyChanged(nameof(PopupFontSize));
+                OnPropertyChanged(nameof(PopupPlacement));
+                OnPropertyChanged(nameof(PopupPlacementTarget));
+                OnPropertyChanged(nameof(PopupFontSize));
             }
         }
 
@@ -396,6 +410,11 @@
             if (CurrentPageLoader?.ViewModel is LegalCopyrightPageViewModel copyrightPage)
             {
                 copyrightPage.AcceptCopyrightTerms();
+            }
+
+            if (CurrentPageLoader?.ViewModel is JurisdictionSetupPageViewModel jurisdictionSetupPage)
+            {
+                ForceDefaultConfigWizardCulture();
             }
 
             if (!_selectablePagesDone)
@@ -632,7 +651,7 @@
             {
                 if (_errorViewModel != null)
                 {
-                    MvvmHelper.ExecuteOnUI(() => _errorViewModel?.Close());
+                    Execute.OnUIThread(() => _errorViewModel?.Close());
                 }
                 else
                 {
@@ -643,7 +662,7 @@
                     }
 
                     _serialTouchCalibrated = false;
-                    MvvmHelper.ExecuteOnUI(InvokeCalibration);
+                    Execute.OnUIThread(InvokeCalibration);
                 }
             }
             else
@@ -729,7 +748,7 @@
                 var dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
                 _errorViewModel = new TouchCalibrationErrorViewModel { IsInWizard = true };
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         dialogService.ShowDialog<TouchCalibrationErrorView>(
@@ -783,6 +802,39 @@
             }
         }
 
+        private CultureInfo GetDefaultConfigWizardCultureFromConfig()
+        {
+            var configuration = _configurationUtilitiesProvider.GetConfigWizardConfiguration(() => new ConfigWizardConfiguration());
+            var culture = configuration.Localization?.DefaultCulture ?? string.Empty;
+            if (!string.IsNullOrEmpty(culture))
+            {
+                try
+                {
+                    return new CultureInfo(culture);
+                }
+                catch (CultureNotFoundException)
+                {
+                    return null;
+                }
+            }
+
+            return null;
+        }
+
+        private void ForceDefaultConfigWizardCulture()
+        {
+            var cultureInfo = GetDefaultConfigWizardCultureFromConfig();
+            if (cultureInfo != null)
+            {
+                var operatorCultureProvider = Localizer.For(CultureFor.Operator) as CultureProvider;
+                if (operatorCultureProvider != null)
+                {
+                    operatorCultureProvider.AddCultures(new CultureInfo[] { cultureInfo });
+                    _properties.SetProperty(ApplicationConstants.LocalizationOperatorCurrentCulture, cultureInfo.Name);
+                }
+            }
+        }
+
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
         {
             if (dataType != OperatorMenuPrintData.Main)
@@ -792,6 +844,10 @@
 
             var ticketCreator = ServiceManager.GetInstance().TryGetService<IIdentityTicketCreator>();
             return TicketToList(ticketCreator?.CreateIdentityTicket());
+        }
+
+        public void Initialize()
+        {
         }
     }
 }

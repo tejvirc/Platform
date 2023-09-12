@@ -43,28 +43,27 @@
         private static Container RegisterClient(this Container container, bool isBingoProgressiveEnabled)
         {
             var clientRegistration = Lifestyle.Singleton.CreateRegistration<BingoClient>(container);
+            container.AddRegistration<IClient<ClientApi.ClientApiClient>>(clientRegistration);
+            var clientLists = new List<Registration> { clientRegistration };
 
             if (isBingoProgressiveEnabled)
             {
                 var progressiveClientRegistration = Lifestyle.Singleton.CreateRegistration<ProgressiveClient>(container);
-                container.Collection.Register<IClient>(
-                    new Registration[] { clientRegistration, progressiveClientRegistration });
 
+                container.AddRegistration<IClient<ProgressiveApi.ProgressiveApiClient>>(progressiveClientRegistration);
+                clientLists.Add(progressiveClientRegistration);
                 container.AddRegistration<IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient>>(progressiveClientRegistration);
                 container.RegisterSingleton<IProgressiveAuthorizationProvider, ProgressiveAuthorizationProvider>();
                 container.RegisterSingleton<ProgressiveClientAuthorizationInterceptor>();
                 container.RegisterSingleton<IProgressiveRegistrationService, ProgressiveRegistrationService>();
+                container.RegisterSingleton<IProgressiveContributionService, ProgressiveContributionService>();
                 container.RegisterSingleton<IProgressiveClaimService, ProgressiveClaimService>();
                 container.RegisterSingleton<IProgressiveAwardService, ProgressiveAwardService>();
                 var progressiveCommand = Lifestyle.Singleton.CreateRegistration<ProgressiveCommandService>(container);
                 container.AddRegistration<IProgressiveCommandService>(progressiveCommand);
             }
-            else
-            {
-                container.Collection.Register<IClient>(
-                    new Registration[] { clientRegistration });
-            }
 
+            container.Collection.Register<IClient>(clientLists);
             container.AddRegistration<IClientEndpointProvider<ClientApi.ClientApiClient>>(clientRegistration);
 
             container.RegisterSingleton<IBingoAuthorizationProvider, BingoAuthorizationProvider>();

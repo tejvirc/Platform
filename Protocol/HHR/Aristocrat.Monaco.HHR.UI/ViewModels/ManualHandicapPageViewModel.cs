@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.ViewModels
+namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -21,9 +21,9 @@
     using Localization.Properties;
     using Menu;
     using Models;
-    using MVVM.Command;
     using Storage.Helpers;
     using Command = Menu.Command;
+    using CommunityToolkit.Mvvm.Input;
 
     public class ManualHandicapPageViewModel : HhrMenuPageViewModelBase
     {
@@ -64,7 +64,7 @@
             _gameProvider = gameProvider
                 ?? throw new ArgumentNullException(nameof(gameProvider));
 
-            HorseNumberClicked = new ActionCommand<object>(OnHorseNumberClicked);
+            HorseNumberClicked = new RelayCommand<object>(OnHorseNumberClicked);
 
             _tickCount = 0;
             _manualHandicapTimer = new HHRTimer(1000);
@@ -98,7 +98,7 @@
                 if (value != _raceSelectionCompleted)
                 {
                     _raceSelectionCompleted = value;
-                    RaisePropertyChanged(nameof(RaceSelectionCompleted));
+                    OnPropertyChanged(nameof(RaceSelectionCompleted));
                 }
             }
         }
@@ -229,7 +229,7 @@
         {
             TimerInfo = new TimerInfo
             {
-                TimerElapsedCommand = new ActionCommand<object>(OnTimerElapsed),
+                TimerElapsedCommand = new RelayCommand<object>(OnTimerElapsed),
                 Timeout = ManualHandicapRemainingTime,
                 IsVisible = true,
                 IsQuickPickTextVisible = ClientProperties.ManualHandicapMode == HhrConstants.QuickPickMode,
@@ -546,18 +546,18 @@
 
         private void UpdateView()
         {
-            RaisePropertyChanged(nameof(TimerInfo));
-            RaisePropertyChanged(nameof(CurrentRaceIndex));
-            RaisePropertyChanged(nameof(CurrentHorsePicks));
-            RaisePropertyChanged(nameof(CurrentHorseNumbers));
-            RaisePropertyChanged(nameof(RemainingRacesToHandicap));
+            OnPropertyChanged(nameof(TimerInfo));
+            OnPropertyChanged(nameof(CurrentRaceIndex));
+            OnPropertyChanged(nameof(CurrentHorsePicks));
+            OnPropertyChanged(nameof(CurrentHorseNumbers));
+            OnPropertyChanged(nameof(RemainingRacesToHandicap));
         }
 
         private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e != null)
             {
-                RaisePropertyChanged(e.PropertyName);
+                OnPropertyChanged(e.PropertyName);
             }
         }
 

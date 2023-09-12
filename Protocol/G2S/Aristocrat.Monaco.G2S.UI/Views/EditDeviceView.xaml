@@ -7,6 +7,7 @@
                                xmlns:lex="http://wpflocalizeextension.codeplex.com"
                                xmlns:loc="http://monaco.aristocrat.com/localization"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
+                               xmlns:common="http://monaco.aristocrat.com/common"
                                mc:Ignorable="d"
                                d:DataContext="{d:DesignInstance {x:Type viewModels:EditDeviceViewModel}, IsDesignTimeCreatable=True}"
                                Width="600">
@@ -42,23 +43,23 @@
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewDeviceCaption}}"
                VerticalAlignment="Stretch"
                AutomationProperties.AutomationId="Label10_CC526D56" />
-        <TextBox Grid.Row="1"
-                 Text="{Binding DeviceName}"
-                 IsEnabled="False"
-                 VerticalAlignment="Stretch"
-                 Width="Auto"
-                 AutomationProperties.AutomationId="TextBox11_CC526D56" />
+        <common:TouchTextBox Grid.Row="1"
+                             Text="{Binding DeviceName}"
+                             IsEnabled="False"
+                             VerticalAlignment="Stretch"
+                             Width="Auto"
+                             AutomationProperties.AutomationId="TextBox11_CC526D56" />
         <Label Margin="0 15 0 0"
                Grid.Row="2"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewDeviceIdCaption}}"
                VerticalAlignment="Stretch"
                AutomationProperties.AutomationId="Label12_CC526D56" />
-        <TextBox Grid.Row="3"
-                 Text="{Binding DeviceId}"
-                 IsEnabled="False"
-                 VerticalAlignment="Stretch"
-                 Width="Auto"
-                 AutomationProperties.AutomationId="TextBox13_CC526D56" />
+        <common:TouchTextBox Grid.Row="3"
+                             Text="{Binding DeviceId}"
+                             IsEnabled="False"
+                             VerticalAlignment="Stretch"
+                             Width="Auto"
+                             AutomationProperties.AutomationId="TextBox13_CC526D56" />
         <Label Margin="0 15 0 0"
                Grid.Row="4"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewOwnerIdCaption}}"
@@ -72,7 +73,7 @@
                   Margin="0 15 0 0"
                   HorizontalAlignment="Left"
                   IsEnabled="False"
-                  IsChecked="{Binding Enabled, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}"
+                  IsChecked="{Binding Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   Content="{lex:Loc Key={x:Static loc:ResourceKeys.DeviceManagerEditDeviceViewEnabledCaption}}"
                   AutomationProperties.AutomationId="CheckBox16_CC526D56" />
         <CheckBox Grid.Row="7"

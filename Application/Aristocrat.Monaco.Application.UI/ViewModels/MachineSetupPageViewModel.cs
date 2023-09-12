@@ -32,7 +32,9 @@
         {
             _serviceManager = ServiceManager.GetInstance();
             _currencyCultureProvider = currencyCultureProvider ?? throw new ArgumentNullException(nameof(currencyCultureProvider));
-            _noteAcceptor = noteAcceptor ?? throw new ArgumentNullException(nameof(noteAcceptor));
+
+            // This param is expected to be null when note acceptor is unchecked from Hardware Configuration page
+            _noteAcceptor = noteAcceptor;
 
             if (SerialNumber.EditedValue == "0")
             {
@@ -64,7 +66,7 @@
             set
             {
                 _currencies = value;
-                RaisePropertyChanged(nameof(Currencies));
+                OnPropertyChanged(nameof(Currencies));
             }
         }
 
@@ -76,7 +78,7 @@
                 if (_selectedCurrency != value)
                 {
                     _selectedCurrency = value;
-                    RaisePropertyChanged(nameof(SelectedCurrency));
+                    OnPropertyChanged(nameof(SelectedCurrency));
                 }
             }
         }
@@ -89,7 +91,7 @@
                 if (_requireZeroCredit != value)
                 {
                     _requireZeroCredit = value;
-                    RaisePropertyChanged(nameof(RequireZeroCredit));
+                    OnPropertyChanged(nameof(RequireZeroCredit));
                 }
             }
         }

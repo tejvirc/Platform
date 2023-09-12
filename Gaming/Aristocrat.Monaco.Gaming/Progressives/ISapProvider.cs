@@ -22,7 +22,7 @@
         /// </summary>
         /// <param name="level">The associated progressive level</param>
         /// <param name="transaction">The associated transaction</param>
-        void ProcessHit(ProgressiveLevel level, IViewableJackpotTransaction transaction);
+        void ProcessHit(ProgressiveLevel level, IViewableJackpotTransaction transaction, long? remainingAmount);
 
         /// <summary>
         ///     Reset the progressive level after it has been hit and awarded

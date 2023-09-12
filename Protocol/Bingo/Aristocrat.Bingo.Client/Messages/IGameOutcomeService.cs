@@ -3,6 +3,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using GamePlay;
+    using ServerApiGateway;
 
     /// <summary>
     ///     The game play service
@@ -31,6 +32,6 @@
         /// <param name="message">The report game outcomes message</param>
         /// <param name="token">The cancellation token</param>
         /// <returns>The response for the reported outcome</returns>
-        Task<ReportMultiGameOutcomeResponse> ReportMultiGameOutcome(ReportMultiGameOutcomeMessage message, CancellationToken token);
+        Task<GameOutcomeAck> ReportMultiGameOutcome(ReportMultiGameOutcomeMessage message, CancellationToken token);
     }
 }

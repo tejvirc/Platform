@@ -27,6 +27,7 @@
         private readonly IPlayerService _players;
         private readonly IGameCashOutRecovery _gameCashOutRecovery;
         private readonly IPropertiesManager _properties;
+        private readonly IGameProvider _gameProvider;
         private readonly IRuntime _runtime;
         private readonly IEventBus _bus;
         private readonly IPaymentDeterminationProvider _largeWinDetermination;
@@ -37,6 +38,7 @@
             IRuntime runtime,
             IGamePlayState gamePlayState,
             IGameHistory gameHistory,
+            IGameProvider gameProvider,
             IPersistentStorageManager persistentStorage,
             IGameMeterManager meters,
             IPlayerBank bank,
@@ -53,6 +55,7 @@
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
             _gamePlayState = gamePlayState ?? throw new ArgumentNullException(nameof(gamePlayState));
             _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _bank = bank ?? throw new ArgumentNullException(nameof(bank));
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
@@ -80,7 +83,7 @@
 
         private void HandleEnd(GameRoundEvent gameRoundEvent)
         {
-            var (game, denomination) = _properties.GetActiveGame();
+            var (game, denomination) = _gameProvider.GetActiveGame();
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
             _bus.Publish(new GamePresentationEndedEvent(game.Id, denomination.Value, wagerCategory.Id, _gameHistory.CurrentLog));
 
@@ -188,14 +191,14 @@
 
         private void HandlePending()
         {
-            var (game, denomination) = _properties.GetActiveGame();
+            var (game, denomination) = _gameProvider.GetActiveGame();
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
             _bus.Publish(new GameWinPresentationStartedEvent(game.Id, denomination.Value, wagerCategory.Id, _gameHistory.CurrentLog));
         }
 
         private void HandleBegin()
         {
-            var (game, denomination) = _properties.GetActiveGame();
+            var (game, denomination) = _gameProvider.GetActiveGame();
             var wagerCategory = _properties.GetValue<IWagerCategory>(GamingConstants.SelectedWagerCategory, null);
             _bus.Publish(new GamePresentationStartedEvent(game.Id, denomination.Value, wagerCategory.Id, _gameHistory.CurrentLog));
         }

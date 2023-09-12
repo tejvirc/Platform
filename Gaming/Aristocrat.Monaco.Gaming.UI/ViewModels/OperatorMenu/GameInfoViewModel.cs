@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -10,15 +10,16 @@
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Models;
+    using Contracts.Rtp;
     using Contracts.Tickets;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
     using Views.OperatorMenu;
 
     /// <summary>
@@ -27,14 +28,12 @@
     [CLSCompliant(false)]
     public class GameInfoViewModel : OperatorMenuPageViewModelBase
     {
-        private const double NumberToPercentageDivisor = 10000D;
-
         private readonly IDialogService _dialogService;
         private readonly IGameOrderSettings _gameOrderSettings;
 
         private bool _allowPrintGamingMachineInfo;
         private bool _downButtonEnabled;
-        private ObservableCollection<GameOrderData> _gameList = new ObservableCollection<GameOrderData>();
+        private ObservableCollection<GameOrderData> _gameList = new ();
         private int _selectedIndex = -1;
         private GameOrderData _selectedItem;
         private string _selectedTag;
@@ -58,7 +57,7 @@
 
             _allowPrintGamingMachineInfo = true;
 
-            SetGameOrderCommand = new ActionCommand<object>(SetGameOrder);
+            SetGameOrderCommand = new RelayCommand<object>(SetGameOrder);
             _setGameOrderOnlyInShowMode = GetConfigSetting(OperatorMenuSetting.SetGameOrderOnlyInShowMode, false);
         }
 
@@ -80,7 +79,7 @@
                 if (_gameList != value)
                 {
                     _gameList = value;
-                    RaisePropertyChanged(nameof(GameList));
+                    OnPropertyChanged(nameof(GameList));
                 }
             }
         }
@@ -97,7 +96,7 @@
                 if (_selectedItem != value)
                 {
                     _selectedItem = value;
-                    RaisePropertyChanged(nameof(SelectedItem));
+                    OnPropertyChanged(nameof(SelectedItem));
                 }
             }
         }
@@ -114,7 +113,7 @@
                 if (_selectedIndex != value)
                 {
                     _selectedIndex = value;
-                    RaisePropertyChanged(nameof(SelectedIndex));
+                    OnPropertyChanged(nameof(SelectedIndex));
                 }
             }
         }
@@ -131,7 +130,7 @@
                 if (_upButtonEnabled != value)
                 {
                     _upButtonEnabled = value;
-                    RaisePropertyChanged(nameof(UpButtonEnabled));
+                    OnPropertyChanged(nameof(UpButtonEnabled));
                 }
             }
         }
@@ -148,7 +147,7 @@
                 if (_downButtonEnabled != value)
                 {
                     _downButtonEnabled = value;
-                    RaisePropertyChanged(nameof(DownButtonEnabled));
+                    OnPropertyChanged(nameof(DownButtonEnabled));
                 }
             }
         }
@@ -163,7 +162,7 @@
                 if (_selectedTag != value)
                 {
                     _selectedTag = value;
-                    RaisePropertyChanged(nameof(SelectedTag));
+                    OnPropertyChanged(nameof(SelectedTag));
                 }
             }
         }
@@ -177,7 +176,7 @@
                 if (_allowPrintGamingMachineInfo != value)
                 {
                     _allowPrintGamingMachineInfo = value;
-                    RaisePropertyChanged(nameof(AllowPrintGamingMachineInfo));
+                    OnPropertyChanged(nameof(AllowPrintGamingMachineInfo));
                 }
             }
         }
@@ -211,9 +210,9 @@
                         ThemeId = game.ThemeId,
                         ThemeName = game.ThemeName,
                         GameTags = new ObservableCollection<string>(game.GameTags ?? new List<string>()),
-                        TheoPaybackPct = game.MaximumPaybackPercent.ToDecimal(),
+                        TheoPaybackPct = game.MaximumPaybackPercent,
                         TheoPaybackPctDisplay =
-                            $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TheoPaybackPctLabelText)}: {game.MaximumPaybackPercent.ToDecimal():p3}"
+                            $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TheoPaybackPctLabelText)}: {game.MaximumPaybackPercent:p2}"
                     });
             }
 
@@ -247,7 +246,7 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     GameList.Clear();

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Accounting.UI.ViewModels
+namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -13,13 +13,13 @@
     using Application.Contracts.Tickets;
     using Application.UI.MeterPage;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Hardware.Contracts.NoteAcceptor;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class BillsMetersPageViewModel : MetersPageViewModelBase
@@ -36,7 +36,7 @@
             : base(null)
         {
             _pageName = pageName;
-            BillClearanceButtonClickedCommand = new ActionCommand<object>(BillClearance_Clicked);
+            BillClearanceButtonClickedCommand = new RelayCommand<object>(BillClearance_Clicked);
             BillClearanceEnabled = (bool)PropertiesManager.GetProperty(AccountingConstants.BillClearanceEnabled, false);
             _billClearanceButtonEnabled = GameIdle;
         }
@@ -51,7 +51,7 @@
             set
             {
                 _totalCount = value;
-                RaisePropertyChanged(nameof(TotalCount));
+                OnPropertyChanged(nameof(TotalCount));
             }
         }
 
@@ -61,7 +61,7 @@
             set
             {
                 _totalValue = value;
-                RaisePropertyChanged(nameof(TotalValue));
+                OnPropertyChanged(nameof(TotalValue));
             }
         }
 
@@ -72,7 +72,7 @@
             set
             {
                 _billClearanceButtonEnabled = value;
-                RaisePropertyChanged(nameof(BillClearanceButtonEnabled));
+                OnPropertyChanged(nameof(BillClearanceButtonEnabled));
             }
         }
 
@@ -82,7 +82,7 @@
         protected override void OnFieldAccessEnabledChanged()
         {
             if (BillClearanceEnabled)
-                RaisePropertyChanged(nameof(BillClearanceButtonEnabled));
+                OnPropertyChanged(nameof(BillClearanceButtonEnabled));
         }
 
         protected override void OnLoaded()
@@ -191,7 +191,7 @@
             }
 
             ClearBillCountPeriodMeters();
-            MvvmHelper.ExecuteOnUI(UpdateMeters);
+            Execute.OnUIThread(UpdateMeters);
         }
 
         private void ClearBillCountPeriodMeters()

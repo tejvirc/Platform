@@ -67,6 +67,9 @@
         /// <summary> Cashing Out Failure Message </summary>
         [StackableLobbyState][FlagLobbyState] CashOutFailure,
 
+        /// <summary> Cash out forced by max bank</summary>
+        [StackableLobbyState][FlagLobbyState] ForcedCashoutByMaxBank,
+
         /// <summary> Disabled (Lockup) State </summary>
         [StackableLobbyState] Disabled,
 

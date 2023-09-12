@@ -17,9 +17,20 @@
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null || parameter == null || !Enum.TryParse(parameter.ToString(), out LobbyViewMarginType type))
+            if (value == null)
             {
                 return new Thickness(0);
+            }
+
+            if (parameter == null || !Enum.TryParse(parameter.ToString(), out LobbyViewMarginType type))
+            {
+                // UPI Bank Image Margin (for MultiLanguageUPI.xaml)
+                var activeLocaleCode = value.ToString();
+                return new Thickness(
+                    0,
+                    activeLocaleCode.ToUpper() == GamingConstants.FrenchCultureCode ? BankImageTopMarginFr : BankImageTopMarginEn,
+                    0,
+                    0);
             }
 
             var gameCount = 0;
@@ -94,15 +105,10 @@
 
                 case LobbyViewMarginType.ProgressiveOverlayText:
                     return new Thickness(0, 0, 0, value is bool selected ? (selected ? -5 : 0) : 0);
-            }
 
-            // UPI Bank Image Margin (for MultiLanguageUPI.xaml)
-            var activeLocaleCode = value.ToString();
-            return new Thickness(
-                0,
-                activeLocaleCode.ToUpper() == GamingConstants.FrenchCultureCode ? BankImageTopMarginFr : BankImageTopMarginEn,
-                0,
-                0);
+                default:
+                    return new Thickness(0);
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

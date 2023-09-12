@@ -10,8 +10,6 @@
     using Application.Contracts;
     using Aristocrat.Bingo.Client;
     using Aristocrat.Bingo.Client.Configuration;
-    using Aristocrat.Bingo.Client.Messages;
-    using Aristocrat.Bingo.Client.Messages.Interceptor;
     using Aristocrat.Monaco.Gaming.Contracts;
     using Commands;
     using Common;
@@ -22,40 +20,18 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Protocol.Common.Storage.Entity;
+    using ServerApiGateway;
 
     [TestClass]
     public class BingoClientConnectionStateTests
     {
-        public class BingoClientConnectionStateTester : BingoClientConnectionState
-        {
-            public BingoClientConnectionStateTester(
-                IEventBus eventBus,
-                IEnumerable<IClient> clients,
-                IClientConfigurationProvider configurationProvider,
-                IPropertiesManager propertiesManager,
-                ISystemDisableManager systemDisable,
-                IUnitOfWorkFactory unitOfWorkFactory,
-                ICommandHandlerFactory commandFactory) :
-                base(eventBus, clients, configurationProvider, propertiesManager, systemDisable, unitOfWorkFactory, commandFactory)
-            {
-            }
-
-            public void SetClients(IEnumerable<IClient> clients)
-            {
-                Clients = clients;
-            }
-        }
-
-        private BingoClientConnectionStateTester _target;
+        private BingoClientConnectionState _target;
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
-        private readonly Mock<IClient> _client = new(MockBehavior.Default);
         private readonly Mock<ICommandHandlerFactory> _commandFactory = new(MockBehavior.Default);
-        private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
         private readonly Mock<ISystemDisableManager> _systemDisableManager = new(MockBehavior.Default);
         private readonly Mock<IClientConfigurationProvider> _configurationProvider = new(MockBehavior.Default);
         private readonly Mock<IUnitOfWork> _unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
-        private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new Mock<IUnitOfWorkFactory>(MockBehavior.Strict);
-
+        private readonly Mock<IClient<ClientApi.ClientApiClient>> _bingoClient = new Mock<IClient<ClientApi.ClientApiClient>>(MockBehavior.Default);
         // This will point to the HandleRestartingEvent function due to reconnection
         private Func<ForceReconnectionEvent, CancellationToken, Task> _handleForceReconnectionEvent;
 
@@ -63,13 +39,13 @@
         public void Initialize()
         {
             var uriBuilder = new UriBuilder { Host = "localhost", Port = 5000 };
-            _client.Setup(m => m.Start()).Returns(Task.FromResult(true));
+            _bingoClient.Setup(m => m.Start()).Returns(Task.FromResult(true));
             _configurationProvider.Setup(m => m.CreateConfiguration()).Returns(
                 new ClientConfigurationOptions(
                     uriBuilder.Uri,
                     TimeSpan.FromSeconds(2),
                     Enumerable.Empty<X509Certificate2>()));
-            _client.Setup(m => m.FirewallRuleName).Returns("TestFirewall");
+            _bingoClient.Setup(m => m.FirewallRuleName).Returns("TestFirewall");
 
             _eventBus.Setup(
                     x => x.Subscribe(
@@ -81,10 +57,6 @@
                         It.IsAny<object>(),
                         It.IsAny<Func<PropertyChangedEvent, CancellationToken, Task>>(),
                         It.IsAny<Predicate<PropertyChangedEvent>>()));
-            _unitOfWork.Setup(x => x.BeginTransaction(IsolationLevel.ReadCommitted));
-            _unitOfWork.Setup(x => x.Commit());
-            _unitOfWork.Setup(x => x.Dispose());
-            _unitOfWorkFactory.Setup(x => x.Create()).Returns(_unitOfWork.Object);
 
             // Setup for cross game progressive check
             var gameId = 1;
@@ -97,26 +69,14 @@
             gameDetail.Setup(m => m.Denominations).Returns(listOfDenominations);
             var listOfGames = new List<IGameDetail>();
             listOfGames.Add(gameDetail.Object);
-            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.IsGameRunning, false)).Returns(true);
-            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.SelectedGameId, 0)).Returns(gameId);
-            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.SelectedDenom, 0L)).Returns(1L);
-            _propertiesManager.Setup(m => m.GetProperty(GamingConstants.Games, null)).Returns(listOfGames);
             var bingoConfig = new BingoServerSettingsModel();
-            _unitOfWorkFactory.Setup(x => x.Invoke(It.IsAny<Func<IUnitOfWork, BingoServerSettingsModel>>()))
-                .Returns(bingoConfig);
 
-            var clients = new List<IClient> { _client.Object };
-            _target = new BingoClientConnectionStateTester(
+            _target = new BingoClientConnectionState(
                 _eventBus.Object,
-                clients,
+                _bingoClient.Object,
                 _configurationProvider.Object,
-                _propertiesManager.Object,
                 _systemDisableManager.Object,
-                _unitOfWorkFactory.Object,
                _commandFactory.Object);
-
-            // Force the clients for unit testing
-            _target.SetClients(new List<IClient> { _client.Object });
         }
 
         [TestCleanup]
@@ -126,13 +86,11 @@
             _target.Dispose();
         }
 
-        [DataRow(true, false, false, false, false, false, false, DisplayName = "EventBus null")]
-        [DataRow(false, true, false, false, false, false, false, DisplayName = "Client null")]
-        [DataRow(false, false, true, false, false, false, false, DisplayName = "ConfigurationProvider null")]
-        [DataRow(false, false, false, true, false, false, false, DisplayName = "PropertiesManager null")]
-        [DataRow(false, false, false, false, true, false, false, DisplayName = "SystemDisableManager null")]
-        [DataRow(false, false, false, false, false, true, false, DisplayName = "UnitOfWorkFactory null")]
-        [DataRow(false, false, false, false, false, false, true, DisplayName =  "CommandFactory null")]
+        [DataRow(true, false, false, false, false, DisplayName = "EventBus null")]
+        [DataRow(false, true, false, false, false, DisplayName = "Client null")]
+        [DataRow(false, false, true, false, false, DisplayName = "ConfigurationProvider null")]
+        [DataRow(false, false, false, true, false, DisplayName = "SystemDisableManager null")]
+        [DataRow(false, false, false, false, true, DisplayName =  "CommandFactory null")]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructorTest(
@@ -140,17 +98,13 @@
             bool clientNull,
             bool commandFactoryNull,
             bool configurationNull,
-            bool propertiesManagerNull,
-            bool systemDisableManagerNull,
-            bool unitOfWorkFactoryNull)
+            bool systemDisableManagerNull)
         {
-            _target = new BingoClientConnectionStateTester(
+            _target = new BingoClientConnectionState(
                 eventBusNull ? null : _eventBus.Object,
-                clientNull ? null : new List<IClient> { _client.Object },
+                clientNull ? null : _bingoClient.Object,
                 configurationNull ? null : _configurationProvider.Object,
-                propertiesManagerNull ? null : _propertiesManager.Object,
                 systemDisableManagerNull ? null : _systemDisableManager.Object,
-                unitOfWorkFactoryNull ? null : _unitOfWorkFactory.Object,
                 commandFactoryNull ? null : _commandFactory.Object);
         }
 
@@ -183,9 +137,10 @@
                 null));
 
             // set up mocks for OnConnecting method
-            _client.SetupSequence(m => m.Start())
+            _bingoClient.SetupSequence(m => m.Start())
                 .Returns(Task.FromResult(false))
                 .Returns(Task.FromResult(true));
+            _bingoClient.Setup(x => x.Stop()).Returns(Task.FromResult(false));
 
             await _target.Start();
 
@@ -207,14 +162,13 @@
             // set up mocks for OnConnected
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
             // raise the Connected event which will call OnClientConnected
             // which will send the Trigger.Connected to the state machine
             // and put us in state Registering, which will call OnRegistering
             // which will move to state Configuring which will call OnConfiguring which
             // would move to state Connected.
-            _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
+            _bingoClient.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
             _eventBus.Verify(m => m.Publish(It.IsAny<HostDisconnectedEvent>()));
         }
@@ -232,6 +186,7 @@
                 true,
                 It.IsAny<Func<string>>(),
                 null));
+            _bingoClient.Setup(x => x.Stop()).Returns(Task.FromResult(false));
 
             await _target.Start();
 
@@ -242,9 +197,8 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
-            _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
+            _bingoClient.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
             await _handleForceReconnectionEvent(new ForceReconnectionEvent(), new CancellationToken(false));
 
@@ -264,6 +218,7 @@
                 true,
                 It.IsAny<Func<string>>(),
                 null));
+            _bingoClient.Setup(x => x.Stop()).Returns(Task.FromResult(false));
 
             await _target.Start();
 
@@ -274,11 +229,10 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
-            _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
+            _bingoClient.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
-            _client.Raise(m => m.Disconnected += null, new DisconnectedEventArgs());
+            _bingoClient.Raise(m => m.Disconnected += null, new DisconnectedEventArgs());
 
             _eventBus.Verify(m => m.Publish(It.IsAny<HostDisconnectedEvent>()));
         }
@@ -295,9 +249,10 @@
                 It.IsAny<Func<string>>(),
                 null));
 
-            _client.SetupSequence(m => m.Start())
+            _bingoClient.SetupSequence(m => m.Start())
                 .Returns(Task.FromResult(false))
                 .Returns(Task.FromResult(true));
+            _bingoClient.Setup(x => x.Stop()).Returns(Task.FromResult(false));
 
             await _target.Start();
 
@@ -312,11 +267,10 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
-            _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
+            _bingoClient.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
-            _client.Raise(m => m.Disconnected += null, new DisconnectedEventArgs());
+            _bingoClient.Raise(m => m.Disconnected += null, new DisconnectedEventArgs());
 
             _eventBus.Verify(m => m.Publish(It.IsAny<HostDisconnectedEvent>()));
         }
@@ -335,9 +289,10 @@
                 It.IsAny<Func<string>>(),
                 null));
 
-            _client.SetupSequence(m => m.Start())
+            _bingoClient.SetupSequence(m => m.Start())
                 .Returns(Task.FromResult(false))
                 .Returns(Task.FromResult(true));
+            _bingoClient.Setup(x => x.Stop()).Returns(Task.FromResult(false));
 
             await _target.Start();
 
@@ -352,9 +307,8 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
-            _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
+            _bingoClient.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
             await _handleForceReconnectionEvent(new ForceReconnectionEvent(), new CancellationToken(false));
 
@@ -373,9 +327,10 @@
                 It.IsAny<Func<string>>(),
                 null));
 
-            _client.SetupSequence(m => m.Start())
+            _bingoClient.SetupSequence(m => m.Start())
                 .Returns(Task.FromResult(false))
                 .Returns(Task.FromResult(true));
+            _bingoClient.Setup(x => x.Stop()).Returns(Task.FromResult(false));
 
             _eventBus.Setup(m => m.Publish(It.IsAny<RegistrationFailedEvent>())).Verifiable();
 
@@ -393,9 +348,8 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
-            _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
+            _bingoClient.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
             _eventBus.Verify(m => m.Publish(It.IsAny<HostDisconnectedEvent>()));
 
@@ -424,9 +378,10 @@
             }
 
             // set up mocks for OnConnecting method
-            _client.SetupSequence(m => m.Start())
+            _bingoClient.SetupSequence(m => m.Start())
                 .Returns(Task.FromResult(false))
                 .Returns(Task.FromResult(true));
+            _bingoClient.Setup(x => x.Stop()).Returns(Task.FromResult(false));
 
             _commandFactory.Setup(m => m.Execute(It.IsAny<RegistrationCommand>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(true));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostRegistrationFailedKey));
@@ -440,9 +395,8 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
-            _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
+            _bingoClient.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
             if (ConfigurationFailureReason.ConfigurationMismatch == reason)
             {
@@ -466,9 +420,10 @@
                 It.IsAny<Func<string>>(),
                 null));
 
-            _client.SetupSequence(m => m.Start())
+            _bingoClient.SetupSequence(m => m.Start())
                 .Returns(Task.FromResult(false))
                 .Returns(Task.FromResult(true));
+            _bingoClient.Setup(x => x.Stop()).Returns(Task.FromResult(false));
 
             await _target.Start();
 
@@ -483,11 +438,10 @@
 
             _eventBus.Setup(m => m.Publish(It.IsAny<HostConnectedEvent>()));
             _systemDisableManager.Setup(m => m.Enable(BingoConstants.BingoHostDisconnectedKey));
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.SerialNumber, string.Empty)).Returns("1");
 
-            _client.Raise(m => m.Connected += null, new ConnectedEventArgs());
+            _bingoClient.Raise(m => m.Connected += null, new ConnectedEventArgs());
 
-            _client.Raise(m => m.MessageReceived += null, EventArgs.Empty);
+            _bingoClient.Raise(m => m.MessageReceived += null, EventArgs.Empty);
 
             _eventBus.Verify(m => m.Publish(It.IsAny<HostDisconnectedEvent>()));
         }
@@ -504,15 +458,17 @@
                 It.IsAny<Func<string>>(),
                 null));
 
-            _client.SetupSequence(m => m.Start())
+            _bingoClient.SetupSequence(m => m.Start())
                 .Returns(Task.FromResult(false))
                 .Returns(Task.FromResult(true));
+            _bingoClient.Setup(x => x.Stop()).Returns(Task.FromResult(false));
 
             await _target.Start();
 
-            _client.Setup(x => x.Stop()).Returns(Task.FromResult(false));
             await _target.Stop();
-            _client.Verify(x => x.Stop(), Times.Once);
+
+            // Stop is called once on initializing and once on stopping
+            _bingoClient.Verify(x => x.Stop(), Times.Exactly(2));
         }
     }
 }

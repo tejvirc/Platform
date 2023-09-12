@@ -60,13 +60,15 @@
             IMessageDisplay messageDisplay)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _noteAcceptor = noteAcceptor ?? throw new ArgumentNullException(nameof(noteAcceptor));
             _audioService = audioService ?? throw new ArgumentNullException(nameof(audioService));
             _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
             _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _messageDisplay = messageDisplay ?? throw new ArgumentNullException(nameof(messageDisplay));
+
+            // This param is expected to be null when note acceptor is unchecked from Hardware Configuration page
+            _noteAcceptor = noteAcceptor;
 
             _disconnectedMessage = new DisplayableMessage(
                 DisconnectedMessageCallback,
@@ -78,7 +80,7 @@
         public NoteAcceptorMonitor()
             : this(
                 ServiceManager.GetInstance().GetService<IEventBus>(),
-                ServiceManager.GetInstance().GetService<INoteAcceptor>(),
+                ServiceManager.GetInstance().TryGetService<INoteAcceptor>(),
                 ServiceManager.GetInstance().GetService<Audio.IAudio>(),
                 ServiceManager.GetInstance().GetService<IMeterManager>(),
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),

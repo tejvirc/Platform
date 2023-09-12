@@ -9,50 +9,51 @@
     </ResourceDictionary.MergedDictionaries>
     <DataTemplate x:Key="NetworkEditorTemplate"
                   DataType="{x:Type viewModels:NetworkConfigPageViewModel}">
-        <Grid AutomationProperties.AutomationId="Grid0_BDFFF18C">
-            <Border AutomationProperties.AutomationId="Border1_BDFFF18C">
-                <Grid AutomationProperties.AutomationId="Grid2_BDFFF18C">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="5"
+        <AdornerDecorator AutomationProperties.AutomationId="NetworkEditorTemplate_AdornerDecorator">
+            <Grid AutomationProperties.AutomationId="Grid0_BDFFF18C">
+                <Border AutomationProperties.AutomationId="Border1_BDFFF18C">
+                    <Grid AutomationProperties.AutomationId="Grid2_BDFFF18C">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5"
                                        AutomationProperties.AutomationId="RowDefinition3_BDFFF18C" />
-                        <RowDefinition Height="Auto"
+                            <RowDefinition Height="Auto"
                                        AutomationProperties.AutomationId="RowDefinition4_BDFFF18C" />
-                        <RowDefinition Height="10"
+                            <RowDefinition Height="10"
                                        AutomationProperties.AutomationId="RowDefinition5_BDFFF18C" />
-                        <RowDefinition Height="Auto"
+                            <RowDefinition Height="Auto"
                                        AutomationProperties.AutomationId="RowDefinition6_BDFFF18C" />
-                        <RowDefinition Height="Auto"
+                            <RowDefinition Height="Auto"
                                        AutomationProperties.AutomationId="RowDefinition7_BDFFF18C" />
-                        <RowDefinition Height="Auto"
+                            <RowDefinition Height="Auto"
                                        AutomationProperties.AutomationId="RowDefinition8_BDFFF18C" />
-                        <RowDefinition Height="Auto"
+                            <RowDefinition Height="Auto"
                                        AutomationProperties.AutomationId="RowDefinition9_BDFFF18C" />
-                        <RowDefinition Height="Auto"
+                            <RowDefinition Height="Auto"
                                        AutomationProperties.AutomationId="RowDefinition10_BDFFF18C" />
-                        <RowDefinition Height="Auto"
+                            <RowDefinition Height="Auto"
                                        AutomationProperties.AutomationId="RowDefinition11_BDFFF18C" />
-                        <RowDefinition Height="Auto"
+                            <RowDefinition Height="Auto"
                                        AutomationProperties.AutomationId="RowDefinition12_BDFFF18C" />
-                        <RowDefinition Height="Auto"
+                            <RowDefinition Height="Auto"
                                        AutomationProperties.AutomationId="RowDefinition13_BDFFF18C" />
-                        <RowDefinition Height="Auto"
+                            <RowDefinition Height="Auto"
                                        AutomationProperties.AutomationId="RowDefinition14_BDFFF18C" />
-                        <RowDefinition Height="Auto"
+                            <RowDefinition Height="Auto"
                                        AutomationProperties.AutomationId="RowDefinition15_BDFFF18C" />
-                        <RowDefinition Height="10"
+                            <RowDefinition Height="10"
                                        AutomationProperties.AutomationId="RowDefinition16_BDFFF18C" />
-                        <RowDefinition Height="Auto"
+                            <RowDefinition Height="Auto"
                                        AutomationProperties.AutomationId="RowDefinition17_BDFFF18C" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".5*"
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".5*"
                                           AutomationProperties.AutomationId="ColumnDefinition18_BDFFF18C" />
-                        <ColumnDefinition Width="20"
+                            <ColumnDefinition Width="20"
                                           AutomationProperties.AutomationId="ColumnDefinition19_BDFFF18C" />
-                        <ColumnDefinition Width=".5*"
+                            <ColumnDefinition Width=".5*"
                                           AutomationProperties.AutomationId="ColumnDefinition20_BDFFF18C" />
-                    </Grid.ColumnDefinitions>
-                    <RadioButton Grid.Column="0"
+                        </Grid.ColumnDefinitions>
+                        <RadioButton Grid.Column="0"
                                  Grid.Row="1"
                                  GroupName="ConnectionType"
                                  Content="{lex:Loc Key={x:Static loc:ResourceKeys.ObtainIpAddressAutomatically}}"
@@ -60,7 +61,7 @@
                                  IsChecked="{Binding DhcpEnabled,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                  IsEnabled="{Binding InputEnabled}"
                                  AutomationProperties.AutomationId="RadioButton21_BDFFF18C" />
-                    <RadioButton x:Name="staticIp"
+                        <RadioButton x:Name="staticIp"
                                  GroupName="ConnectionType"
                                  Grid.Column="0"
                                  Grid.Row="3"
@@ -69,112 +70,112 @@
                                  IsChecked="{Binding StaticIp,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                  IsEnabled="{Binding InputEnabled}"
                                  AutomationProperties.AutomationId="RadioButton22_BDFFF18C" />
-                    <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.IpAddress}}"
+                        <Label Content="{lex:Loc Key={x:Static loc:ResourceKeys.IpAddress}}"
                            Grid.Column="0"
                            Grid.Row="4"
                            Margin="0 30 0 0"
                            AutomationProperties.AutomationId="Label23_BDFFF18C" />
-                    <common:TouchTextBox Grid.Column="0"
+                        <common:TouchTextBox Grid.Column="0"
                                          Grid.Row="5"
                                          Width="400"
                                          Margin="5,0,0,0"
                                          HorizontalAlignment="Left"
                                          Text="{Binding IpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}"
                                          InputScope="Number">
-                        <TextBox.IsEnabled>
-                            <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                <Binding ElementName="staticIp"
+                            <TextBox.IsEnabled>
+                                <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                    <Binding ElementName="staticIp"
                                          Path="IsChecked" />
-                                <Binding RelativeSource="{RelativeSource Self}"
+                                    <Binding RelativeSource="{RelativeSource Self}"
                                          Path="DataContext.InputEnabled" />
-                            </MultiBinding>
-                        </TextBox.IsEnabled>
-                    </common:TouchTextBox>
-                    <Label Grid.Column="2"
+                                </MultiBinding>
+                            </TextBox.IsEnabled>
+                        </common:TouchTextBox>
+                        <Label Grid.Column="2"
                            Grid.Row="4"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.SubnetMask}}"
                            Margin="0 20 0 0"
                            AutomationProperties.AutomationId="Label24_BDFFF18C" />
-                    <common:TouchTextBox Grid.Column="2"
+                        <common:TouchTextBox Grid.Column="2"
                                          Grid.Row="5"
                                          Width="400"
                                          HorizontalAlignment="Left"
                                          Margin="5,0,0,0"
                                          Text="{Binding SubnetMask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}"
                                          InputScope="Number">
-                        <TextBox.IsEnabled>
-                            <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                <Binding ElementName="staticIp"
+                            <TextBox.IsEnabled>
+                                <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                    <Binding ElementName="staticIp"
                                          Path="IsChecked" />
-                                <Binding RelativeSource="{RelativeSource Self}"
+                                    <Binding RelativeSource="{RelativeSource Self}"
                                          Path="DataContext.InputEnabled" />
-                            </MultiBinding>
-                        </TextBox.IsEnabled>
-                    </common:TouchTextBox>
-                    <Label Grid.Column="0"
+                                </MultiBinding>
+                            </TextBox.IsEnabled>
+                        </common:TouchTextBox>
+                        <Label Grid.Column="0"
                            Grid.Row="6"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.DefaultGateway}}"
                            Margin="0 20 0 0"
                            AutomationProperties.AutomationId="Label25_BDFFF18C" />
-                    <common:TouchTextBox Grid.Column="0"
+                        <common:TouchTextBox Grid.Column="0"
                                          Grid.Row="7"
                                          Width="400"
                                          HorizontalAlignment="Left"
                                          Margin="5,0,0,0"
                                          Text="{Binding Gateway, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=true, NotifyOnValidationError=true}"
                                          InputScope="Number">
-                        <TextBox.IsEnabled>
-                            <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                <Binding ElementName="staticIp"
+                            <TextBox.IsEnabled>
+                                <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                    <Binding ElementName="staticIp"
                                          Path="IsChecked" />
-                                <Binding RelativeSource="{RelativeSource Self}"
+                                    <Binding RelativeSource="{RelativeSource Self}"
                                          Path="DataContext.InputEnabled" />
-                            </MultiBinding>
-                        </TextBox.IsEnabled>
-                    </common:TouchTextBox>
-                    <Label Grid.Column="2"
+                                </MultiBinding>
+                            </TextBox.IsEnabled>
+                        </common:TouchTextBox>
+                        <Label Grid.Column="2"
                            Grid.Row="6"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.PreferredDnsServer}}"
                            Margin="0 20 0 0"
                            AutomationProperties.AutomationId="Label26_BDFFF18C" />
-                    <common:TouchTextBox Grid.Column="2"
+                        <common:TouchTextBox Grid.Column="2"
                                          Grid.Row="7"
                                          Width="400"
                                          HorizontalAlignment="Left"
                                          Margin="5,0,0,0"
                                          Text="{Binding DnsServer1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnDataErrors=true}"
                                          InputScope="Number">
-                        <TextBox.IsEnabled>
-                            <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                <Binding ElementName="staticIp"
+                            <TextBox.IsEnabled>
+                                <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                    <Binding ElementName="staticIp"
                                          Path="IsChecked" />
-                                <Binding RelativeSource="{RelativeSource Self}"
+                                    <Binding RelativeSource="{RelativeSource Self}"
                                          Path="DataContext.InputEnabled" />
-                            </MultiBinding>
-                        </TextBox.IsEnabled>
-                    </common:TouchTextBox>
-                    <Label Grid.Column="0"
+                                </MultiBinding>
+                            </TextBox.IsEnabled>
+                        </common:TouchTextBox>
+                        <Label Grid.Column="0"
                            Grid.Row="10"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.AlternateDnsServer}}"
                            Margin="0 20 0 0"
                            AutomationProperties.AutomationId="Label27_BDFFF18C" />
-                    <common:TouchTextBox Grid.Column="0"
+                        <common:TouchTextBox Grid.Column="0"
                                          Grid.Row="11"
                                          Width="400"
                                          HorizontalAlignment="Left"
                                          Margin="5,0,0,0"
                                          Text="{Binding DnsServer2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnDataErrors=true}"
                                          InputScope="Number">
-                        <TextBox.IsEnabled>
-                            <MultiBinding Converter="{StaticResource BoolAndConverter}">
-                                <Binding ElementName="staticIp"
+                            <TextBox.IsEnabled>
+                                <MultiBinding Converter="{StaticResource BoolAndConverter}">
+                                    <Binding ElementName="staticIp"
                                          Path="IsChecked" />
-                                <Binding RelativeSource="{RelativeSource Self}"
+                                    <Binding RelativeSource="{RelativeSource Self}"
                                          Path="DataContext.InputEnabled" />
-                            </MultiBinding>
-                        </TextBox.IsEnabled>
-                    </common:TouchTextBox>
-                    <Button Grid.Column="0"
+                                </MultiBinding>
+                            </TextBox.IsEnabled>
+                        </common:TouchTextBox>
+                        <Button Grid.Column="0"
                             Grid.Row="12"
                             Margin="0,30,0,0"
                             HorizontalAlignment="Left"
@@ -182,23 +183,24 @@
                             IsEnabled="{Binding CanApplyChanges, UpdateSourceTrigger=PropertyChanged}"
                             Command="{Binding CommitCommand}"
                             AutomationProperties.AutomationId="Button28_BDFFF18C" />
-                </Grid>
-            </Border>
-            <Border Visibility="{Binding Path=ShowStatus, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    </Grid>
+                </Border>
+                <Border Visibility="{Binding Path=ShowStatus, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="Border29_BDFFF18C">
-                <Grid AutomationProperties.AutomationId="Grid30_BDFFF18C">
-                    <Border Background="{DynamicResource DarkBrush1}"
+                    <Grid AutomationProperties.AutomationId="Grid30_BDFFF18C">
+                        <Border Background="{DynamicResource DarkBrush1}"
                             Opacity=".1"
                             AutomationProperties.AutomationId="Border31_BDFFF18C" />
-                    <Label Margin="10"
+                        <Label Margin="10"
                            DockPanel.Dock="Top"
                            Content="{lex:Loc Key={x:Static loc:ResourceKeys.ConfiguringNetwork}}"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            Foreground="{DynamicResource YellowBrush}"
                            AutomationProperties.AutomationId="Label32_BDFFF18C" />
-                </Grid>
-            </Border>
-        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </AdornerDecorator>
     </DataTemplate>
 </ResourceDictionary>

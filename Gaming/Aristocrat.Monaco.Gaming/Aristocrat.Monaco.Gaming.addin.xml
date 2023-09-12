@@ -212,7 +212,10 @@
         <ProgressiveAtomicMeter name="SharedLevel.WinAccumulation" classification="Currency" group="sharedLevel" />
         <ProgressiveAtomicMeter name="WageredAmount" classification="Currency" group="progressive" />
         <ProgressiveAtomicMeter name="PlayedCount" classification="Occurrence" group="progressive" />
-    </Extension>
+        <ProgressiveAtomicMeter name="ProgressiveLevel.BulkTotal" classification="Currency" group="progressiveLevel" />
+        <ProgressiveAtomicMeter name="LinkedProgressive.WageredAmount" classification="Currency" group="linkedProgressive" />
+        <ProgressiveAtomicMeter name="LinkedProgressive.PlayedCount" classification="Occurrence" group="linkedProgressive" />
+     </Extension>
 
     <ExtensionPoint path="/Gaming/Metering/GameMeterProvider">
         <ExtensionNode name="GameAtomicMeter" type="Aristocrat.Monaco.Gaming.Contracts.Meters.GameAtomicMeterNode" />

@@ -4,6 +4,7 @@
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
+    using Contracts.Meters;
     using Contracts.Progressives;
     using Contracts.Progressives.Linked;
     using Gaming.Progressives;
@@ -77,24 +78,71 @@
             }
         };
 
+        private readonly List<LinkedProgressiveLevel> _updatedTestDataIncludingNew = new List<LinkedProgressiveLevel>
+        {
+            new LinkedProgressiveLevel
+            {
+                ProtocolName = "SAS",
+                ProgressiveGroupId = 1,
+                LevelId = 1,
+                Amount = 100001,
+                CurrentErrorStatus = ProgressiveErrors.None,
+                Expiration = DateTime.Now.AddMilliseconds(5000).ToUniversalTime()
+            },
+            new LinkedProgressiveLevel
+            {
+                ProtocolName = "SAS",
+                ProgressiveGroupId = 1,
+                LevelId = 2,
+                Amount = 10000,
+                CurrentErrorStatus = ProgressiveErrors.None,
+                Expiration = DateTime.Now.AddMilliseconds(5000).ToUniversalTime()
+            },
+            new LinkedProgressiveLevel
+            {
+                ProtocolName = "SAS",
+                ProgressiveGroupId = 1,
+                LevelId = 3,
+                Amount = 12346,
+                CurrentErrorStatus = ProgressiveErrors.ProgressiveRtpError,
+                Expiration = DateTime.Now.AddMilliseconds(5000).ToUniversalTime()
+            },
+            new LinkedProgressiveLevel
+            {
+                ProtocolName = "SAS",
+                ProgressiveGroupId = 1,
+                LevelId = 4,
+                Amount = 12346,
+                CurrentErrorStatus = ProgressiveErrors.None,
+                Expiration = DateTime.Now.AddMilliseconds(5000).ToUniversalTime()
+            }
+        };
+
         private ProgressiveBroadcastTimer _broadcastTimer;
         private LinkedProgressiveProvider _linkedProgressiveProvider;
+        private Mock<IProgressiveMeterManager> _progressiveMeterManager;
         private Mock<IPersistenceProvider> _mockPersistenceProvider;
         private Mock<IPersistentBlock> _mockSaveBlock;
         private Mock<IPersistentTransaction> _mockSaveTransaction;
         private Mock<IEventBus> _mockEventBus;
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<IPersistentStorageManager> _persistenceProvider;
+        private Mock<IScopedTransaction> _scopedTransaction;
         private bool _timerElapsed;
 
         [TestInitialize]
         public void Init()
         {
             _broadcastTimer = new ProgressiveBroadcastTimer();
+            _progressiveMeterManager = new Mock<IProgressiveMeterManager>();
             _mockEventBus = new Mock<IEventBus>();
             _mockSaveTransaction = new Mock<IPersistentTransaction>();
             _propertiesManager = new Mock<IPropertiesManager>();
             _persistenceProvider = new Mock<IPersistentStorageManager>(MockBehavior.Default);
+            _scopedTransaction = new Mock<IScopedTransaction>(MockBehavior.Default);
+
+            _scopedTransaction.Setup(x => x.Complete());
+            _persistenceProvider.Setup(x => x.ScopedTransaction()).Returns(_scopedTransaction.Object);
 
             // Setup the save block so it can return a valid linked progressive index
             _mockSaveBlock = new Mock<IPersistentBlock>();
@@ -102,9 +150,9 @@
                 .Setup(
                     x => x
                         .GetOrCreateValue<
-                            ConcurrentDictionary<string, LinkedProgressiveLevel>>(
+                            Dictionary<string, LinkedProgressiveLevel>>(
                             It.IsAny<string>()))
-                .Returns(new ConcurrentDictionary<string, LinkedProgressiveLevel>());
+                .Returns(new Dictionary<string, LinkedProgressiveLevel>());
             _mockSaveBlock.Setup(x => x.Transaction()).Returns(_mockSaveTransaction.Object);
 
             // Setup the IPersistenceProvider
@@ -117,6 +165,7 @@
             _linkedProgressiveProvider = new LinkedProgressiveProvider(
                 _mockEventBus.Object,
                 _broadcastTimer,
+                _progressiveMeterManager.Object,
                 _mockPersistenceProvider.Object,
                 _propertiesManager.Object,
                 _persistenceProvider.Object);
@@ -236,28 +285,32 @@
         [TestMethod]
         public void UpdateLinkedProgressiveLevelsWithNoExistingLevelsTest()
         {
-            var updatedEventData = new List<IViewableLinkedProgressiveLevel>();
-            _mockEventBus.Setup(x => x.Publish(It.IsAny<LinkedProgressiveUpdatedEvent>()))
-                .Callback<LinkedProgressiveUpdatedEvent>(
-                    e => updatedEventData = e.LinkedProgressiveLevels.ToList());
+            var addedEventData = new List<IViewableLinkedProgressiveLevel>();
+            _mockEventBus.Setup(x => x.Publish(It.IsAny<LinkedProgressiveAddedEvent>()))
+                .Callback<LinkedProgressiveAddedEvent>(
+                    e => addedEventData.AddRange(e.LinkedProgressiveLevels.ToList()));
 
             // Call update with no existing levels
             _linkedProgressiveProvider.UpdateLinkedProgressiveLevels(_testData);
 
             _mockEventBus.Verify(
-                x => x.Publish(It.IsAny<LinkedProgressiveUpdatedEvent>()), Times.Once);
-            Assert.AreEqual(3, updatedEventData.Count);
+                x => x.Publish(It.IsAny<LinkedProgressiveAddedEvent>()), Times.Once);
+            Assert.AreEqual(3, addedEventData.Count);
 
-            VerifyEventData(_testData, updatedEventData, ProgressiveErrors.None);
+            VerifyEventData(_testData, addedEventData, ProgressiveErrors.None);
         }
 
         [TestMethod]
         public void UpdateLinkedProgressiveLevelsWithExistingLevelsTest()
         {
+            var addedEventData = new List<IViewableLinkedProgressiveLevel>();
             var updatedEventData = new List<IViewableLinkedProgressiveLevel>();
+            _mockEventBus.Setup(x => x.Publish(It.IsAny<LinkedProgressiveAddedEvent>()))
+                .Callback<LinkedProgressiveAddedEvent>(
+                    e => addedEventData.AddRange(e.LinkedProgressiveLevels.ToList()));
             _mockEventBus.Setup(x => x.Publish(It.IsAny<LinkedProgressiveUpdatedEvent>()))
                 .Callback<LinkedProgressiveUpdatedEvent>(
-                    e => updatedEventData = e.LinkedProgressiveLevels.ToList());
+                    e => updatedEventData.AddRange(e.LinkedProgressiveLevels.ToList()));
 
             // Call update with no existing levels
             _linkedProgressiveProvider.UpdateLinkedProgressiveLevels(_testData);
@@ -266,8 +319,42 @@
             _linkedProgressiveProvider.UpdateLinkedProgressiveLevels(_updatedTestData);
 
             _mockEventBus.Verify(
-                x => x.Publish(It.IsAny<LinkedProgressiveUpdatedEvent>()), Times.Exactly(2));
+                x => x.Publish(It.IsAny<LinkedProgressiveAddedEvent>()), Times.Once);
 
+            _mockEventBus.Verify(
+                x => x.Publish(It.IsAny<LinkedProgressiveUpdatedEvent>()), Times.Once);
+
+            Assert.AreEqual(3, addedEventData.Count);
+            Assert.AreEqual(3, updatedEventData.Count);
+
+            VerifyEventData(_updatedTestData, updatedEventData, ProgressiveErrors.None);
+        }
+
+        [TestMethod]
+        public void UpdateLinkedProgressiveLevelsWithExistingAndNewLevelsTest()
+        {
+            var addedEventData = new List<IViewableLinkedProgressiveLevel>();
+            var updatedEventData = new List<IViewableLinkedProgressiveLevel>();
+            _mockEventBus.Setup(x => x.Publish(It.IsAny<LinkedProgressiveAddedEvent>()))
+                .Callback<LinkedProgressiveAddedEvent>(
+                    e => addedEventData.AddRange(e.LinkedProgressiveLevels.ToList()));
+            _mockEventBus.Setup(x => x.Publish(It.IsAny<LinkedProgressiveUpdatedEvent>()))
+                .Callback<LinkedProgressiveUpdatedEvent>(
+                    e => updatedEventData.AddRange(e.LinkedProgressiveLevels.ToList()));
+
+            // Call update with no existing levels
+            _linkedProgressiveProvider.UpdateLinkedProgressiveLevels(_testData);
+
+            // Update it again with updated levels
+            _linkedProgressiveProvider.UpdateLinkedProgressiveLevels(_updatedTestDataIncludingNew);
+
+            _mockEventBus.Verify(
+                x => x.Publish(It.IsAny<LinkedProgressiveAddedEvent>()), Times.Exactly(2));
+
+            _mockEventBus.Verify(
+                x => x.Publish(It.IsAny<LinkedProgressiveUpdatedEvent>()), Times.Once);
+
+            Assert.AreEqual(4, addedEventData.Count);
             Assert.AreEqual(3, updatedEventData.Count);
 
             VerifyEventData(_updatedTestData, updatedEventData, ProgressiveErrors.None);

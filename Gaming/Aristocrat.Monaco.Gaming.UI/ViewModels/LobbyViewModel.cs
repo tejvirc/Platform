@@ -1,7 +1,6 @@
 namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
@@ -47,15 +46,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Models;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
-    using MVVM.ViewModel;
     using Progressives;
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
     using Views.Lobby;
     using Size = System.Windows.Size;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
+    using CommunityToolkit.Mvvm.ComponentModel;
 #if !(RETAIL)
     using Events;
 #endif
@@ -63,7 +62,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     /// <summary>
     ///     Defines the LobbyViewModel class
     /// </summary>
-    public partial class LobbyViewModel : BaseEntityViewModel, IMessageDisplayHandler, IDisposable, IPlayerInfoDisplayScreensContainer
+    public partial class LobbyViewModel : ObservableObject, IMessageDisplayHandler, IDisposable, IPlayerInfoDisplayScreensContainer
     {
         private const double IdleTimerIntervalSeconds = 15.0;
         private const double IdleTextTimerIntervalSeconds = 30.0;
@@ -87,7 +86,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private const string LobbyIdleTextDefaultResourceKey = "LobbyIdleTextDefault";
         private const string TopperImageDefaultResourceKey = "TopperBackground";
         private const string TopperImageAlternateResourceKey = "TopperBackgroundAlternate";
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string IdleTextFamilyName = "Segoe UI";
         private const double OpacityNone = 0.0;
         private const double OpacityFifth = 0.2;
@@ -176,6 +175,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private bool _isTopScreenRenderingDisabled;
         private bool _isTopperScreenRenderingDisabled;
         private bool _isVbdCashOutDialogVisible;
+        private bool _isResponsibleGamingCashoutDlgVisible;
         private bool _isVbdServiceDialogVisible;
         private bool _isVbdRenderingDisabled = true;
         private bool _largeGameIconsEnabled;
@@ -250,7 +250,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private int _currentNotificationIndex;
         private string _currentNotificationText = string.Empty;
         private bool? _cashInStartZeroCredits;
-        private readonly ConcurrentQueue<bool> _forcedCashOutData = new ConcurrentQueue<bool>();
         private IEdgeLightToken _edgeLightStateToken;
         private EdgeLightState? _currentEdgeLightState;
         private bool _canOverrideEdgeLight;
@@ -429,37 +428,37 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             GameList = new ObservableCollection<GameInfo>();
 
-            GameSelectCommand = new ActionCommand<object>(LaunchGameFromUi);
-            PreviousPageCommand = new ActionCommand<object>(PrevPage);
-            NextPageCommand = new ActionCommand<object>(NextPage);
-            PreviousTabCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.PreviousTab));
-            NextTabCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.NextTab));
-            PreviousGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.PreviousGame));
-            NextGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.NextGame));
-            ChangeDenomCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.ChangeDenom));
-            SelectGameCommand = new ActionCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.LaunchGame));
-            AddCreditsCommand = new ActionCommand<object>(BankPressed);
-            CashOutCommand = new ActionCommand<object>(CashOutPressed);
-            ServiceCommand = new ActionCommand<object>(ServicePressed);
-            VbdCashoutDlgYesNoCommand = new ActionCommand<object>(VbdCashoutDlgYesNoPressed);
-            VbdServiceDlgYesNoCommand = new ActionCommand<object>(VbdServiceDlgYesNoPressed);
-            DenomFilterPressedCommand = new ActionCommand<object>(DenomFilterPressed);
-            TimeLimitDlgCommand = new ActionCommand<object>(TimeLimitAccepted);
-            ResponsibleGamingDialogOpenCommand = new ActionCommand<object>(ResponsibleGamingDialogOpenButtonPressed);
-            PrintHelplineMessageCommand = new ActionCommand<object>(OnPrintHelplineMessage, CanPrintHelplineMessage);
-            IdleTextScrollingCompletedCommand = new ActionCommand<object>(OnIdleTextScrollingCompleted);
-            CashOutWrapperMouseDownCommand = new ActionCommand<object>(OnCashOutWrapperMouseDown);
-            UpiPreviewMouseDownCommand = new ActionCommand<object>(OnUpiPreviewMouseDown);
-            UserInteractionCommand = new ActionCommand<object>(obj => OnUserInteraction());
-            ExitResponsibleGamingInfoCommand = new ActionCommand<object>(obj => ExitResponsibleGamingInfoDialog());
-            TouchResponsibleGamingInfoCommand = new ActionCommand<object>(obj => TouchResponsibleGamingInfoDialog());
-            ClockSwitchCommand = new ActionCommand<object>(OnClockSwitchPressed);
-            GameTabPressedCommand = new ActionCommand<object>(OnGameTabPressed);
-            DenominationPressedCommand = new ActionCommand<object>(OnDenominationPressed);
-            DenominationForSpecificGamePressedCommand = new ActionCommand<object[]>(OnDenominationForSpecificGamePressed);
-            SubTabPressedCommand = new ActionCommand<object>(OnSubTabPressed);
-            ReturnToLobbyCommand = new ActionCommand<object>(ReturnToLobbyButtonPressed);
-            CashOutFromPlayerMenuPopupCommand = new ActionCommand<object>(CashoutFromPlayerPopUpMenu);
+            GameSelectCommand = new RelayCommand<object>(LaunchGameFromUi);
+            PreviousPageCommand = new RelayCommand<object>(PrevPage);
+            NextPageCommand = new RelayCommand<object>(NextPage);
+            PreviousTabCommand = new RelayCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.PreviousTab));
+            NextTabCommand = new RelayCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.NextTab));
+            PreviousGameCommand = new RelayCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.PreviousGame));
+            NextGameCommand = new RelayCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.NextGame));
+            ChangeDenomCommand = new RelayCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.ChangeDenom));
+            SelectGameCommand = new RelayCommand<object>(_ => VbdButtonClick(LcdButtonDeckLobby.LaunchGame));
+            AddCreditsCommand = new RelayCommand<object>(BankPressed);
+            CashOutCommand = new RelayCommand<object>(CashOutPressed);
+            ServiceCommand = new RelayCommand<object>(ServicePressed);
+            CashoutDlgYesNoCommand = new RelayCommand<object>(CashoutDlgYesNoPressed);
+            VbdServiceDlgYesNoCommand = new RelayCommand<object>(VbdServiceDlgYesNoPressed);
+            DenomFilterPressedCommand = new RelayCommand<object>(DenomFilterPressed);
+            TimeLimitDlgCommand = new RelayCommand<object>(TimeLimitAccepted);
+            ResponsibleGamingDialogOpenCommand = new RelayCommand<object>(ResponsibleGamingDialogOpenButtonPressed);
+            PrintHelplineMessageCommand = new RelayCommand<object>(OnPrintHelplineMessage, CanPrintHelplineMessage);
+            IdleTextScrollingCompletedCommand = new RelayCommand<object>(OnIdleTextScrollingCompleted);
+            CashOutWrapperMouseDownCommand = new RelayCommand<object>(OnCashOutWrapperMouseDown);
+            UpiPreviewMouseDownCommand = new RelayCommand<object>(OnUpiPreviewMouseDown);
+            UserInteractionCommand = new RelayCommand<object>(obj => OnUserInteraction());
+            ExitResponsibleGamingInfoCommand = new RelayCommand<object>(obj => ExitResponsibleGamingInfoDialog());
+            TouchResponsibleGamingInfoCommand = new RelayCommand<object>(obj => TouchResponsibleGamingInfoDialog());
+            ClockSwitchCommand = new RelayCommand<object>(OnClockSwitchPressed);
+            GameTabPressedCommand = new RelayCommand<object>(OnGameTabPressed);
+            DenominationPressedCommand = new RelayCommand<object>(OnDenominationPressed);
+            DenominationForSpecificGamePressedCommand = new RelayCommand<object[]>(OnDenominationForSpecificGamePressed);
+            SubTabPressedCommand = new RelayCommand<object>(OnSubTabPressed);
+            ReturnToLobbyCommand = new RelayCommand<object>(ReturnToLobbyButtonPressed);
+            CashOutFromPlayerMenuPopupCommand = new RelayCommand<object>(CashoutFromPlayerPopUpMenu);
             ResponsibleGaming = new ResponsibleGamingViewModel(this);
             ReplayRecovery = new ReplayRecoveryViewModel(_eventBus, _gameDiagnostics, _properties, _commandFactory);
             PlayerMenuPopupViewModel = new PlayerMenuPopupViewModel();
@@ -647,9 +646,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public ICommand ServiceCommand { get; }
 
         /// <summary>
-        ///     Gets the VbdCashoutDlgYesNoCommand
+        ///     Gets the CashoutDlgYesNoCommand
         /// </summary>
-        public ICommand VbdCashoutDlgYesNoCommand { get; }
+        public ICommand CashoutDlgYesNoCommand { get; }
 
         /// <summary>
         ///     Gets the VbdServiceDlgYesNoCommand
@@ -669,7 +668,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         /// <summary>
         ///     Gets the print helpline message command
         /// </summary>
-        public ActionCommand<object> PrintHelplineMessageCommand { get; }
+        public RelayCommand<object> PrintHelplineMessageCommand { get; }
 
         /// <summary>
         ///     Gets the time limit dialog command
@@ -757,12 +756,12 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
                     _gameList.CollectionChanged += GameList_CollectionChanged;
 
-                    RaisePropertyChanged(nameof(GameList));
-                    RaisePropertyChanged(nameof(MarginInputs));
-                    RaisePropertyChanged(nameof(IsSingleTabView));
-                    RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
-                    RaisePropertyChanged(nameof(IsSingleGameDisplayed));
-                    RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
+                    OnPropertyChanged(nameof(GameList));
+                    OnPropertyChanged(nameof(MarginInputs));
+                    OnPropertyChanged(nameof(IsSingleTabView));
+                    OnPropertyChanged(nameof(IsSingleDenomDisplayed));
+                    OnPropertyChanged(nameof(IsSingleGameDisplayed));
+                    OnPropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
                 }
             }
         }
@@ -803,12 +802,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsVbdRenderingDisabled
         {
             get => _isVbdRenderingDisabled;
-            set => SetProperty(ref _isVbdRenderingDisabled,
-                value,
-                nameof(IsVbdRenderingDisabled),
-                nameof(IsLobbyVbdVisible),
-                nameof(IsGameVbdVisible),
-                nameof(IsLobbyVbdBackgroundBlank));
+            set
+            {
+                if (SetProperty(ref _isVbdRenderingDisabled, value))
+                {
+                    OnPropertyChanged(nameof(IsLobbyVbdVisible));
+                    OnPropertyChanged(nameof(IsGameVbdVisible));
+                    OnPropertyChanged(nameof(IsLobbyVbdBackgroundBlank));
+                }
+            }
         }
 
         public IPlayerInfoDisplayManager PlayerInfoDisplayManager => _playerInfoDisplayManager;
@@ -826,7 +828,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsTopScreenRenderingDisabled
         {
             get => _isTopScreenRenderingDisabled;
-            set => SetProperty(ref _isTopScreenRenderingDisabled, value, nameof(IsTopScreenRenderingDisabled), nameof(IsLobbyTopScreenVisible), nameof(IsGameTopScreenVisible));
+            set
+            {
+                if (SetProperty(ref _isTopScreenRenderingDisabled, value))
+                {
+                    OnPropertyChanged(nameof(IsLobbyTopScreenVisible));
+                    OnPropertyChanged(nameof(IsGameTopScreenVisible));
+                }
+            }
         }
 
         /// <summary>
@@ -835,13 +844,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsTopperScreenRenderingDisabled
         {
             get => _isTopperScreenRenderingDisabled;
-            set => SetProperty(
-                ref _isTopperScreenRenderingDisabled,
-                value,
-                nameof(IsTopperScreenRenderingDisabled),
-                nameof(IsLobbyTopperScreenVisible),
-                nameof(IsGameTopperScreenVisible),
-                nameof(IsLobbyTopperVideoVisible));
+            set
+            {
+                if (SetProperty(ref _isTopperScreenRenderingDisabled, value))
+                {
+                    OnPropertyChanged(nameof(IsLobbyTopperScreenVisible));
+                    OnPropertyChanged(nameof(IsGameTopperScreenVisible));
+                    OnPropertyChanged(nameof(IsLobbyTopperVideoVisible));
+                }
+            }
         }
 
         /// <summary> Gets a value indicating whether the top screen is visible in the lobby. </summary>
@@ -908,16 +919,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
 
                 _credits = value;
-                RaisePropertyChanged(nameof(Credits));
-                RaisePropertyChanged(nameof(HasZeroCredits));
-                RaisePropertyChanged(nameof(CashOutEnabled));
-                RaisePropertyChanged(nameof(CashOutEnabledInPlayerMenu));
-                RaisePropertyChanged(nameof(FormattedCredits));
-                RaisePropertyChanged(nameof(ShowAttractMode));
-                RaisePropertyChanged(nameof(IsBlinkingIdleTextVisible));
-                RaisePropertyChanged(nameof(StartIdleTextBlinking));
-                RaisePropertyChanged(nameof(IsScrollingIdleTextEnabled));
-                RaisePropertyChanged(nameof(IsCashOutButtonLit));
+                OnPropertyChanged(nameof(Credits));
+                OnPropertyChanged(nameof(HasZeroCredits));
+                OnPropertyChanged(nameof(CashOutEnabled));
+                OnPropertyChanged(nameof(CashOutEnabledInPlayerMenu));
+                OnPropertyChanged(nameof(FormattedCredits));
+                OnPropertyChanged(nameof(ShowAttractMode));
+                OnPropertyChanged(nameof(IsBlinkingIdleTextVisible));
+                OnPropertyChanged(nameof(StartIdleTextBlinking));
+                OnPropertyChanged(nameof(IsScrollingIdleTextEnabled));
+                OnPropertyChanged(nameof(IsCashOutButtonLit));
                 UpdateLcdButtonDeckVideo();
                 UpdateLamps();
             }
@@ -1013,20 +1024,20 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 {
                     _isInLobby = value;
                     ClockTimer.IsInLobby = value;
-                    RaisePropertyChanged(nameof(IsInLobby));
-                    RaisePropertyChanged(nameof(IsIdleAttractVideoVisible));
-                    RaisePropertyChanged(nameof(IsBottomAttractVisible));
-                    RaisePropertyChanged(nameof(IsLobbyVbdVisible));
-                    RaisePropertyChanged(nameof(IsGameVbdVisible));
-                    RaisePropertyChanged(nameof(IsLobbyVbdBackgroundBlank));
-                    RaisePropertyChanged(nameof(IsLobbyTopScreenVisible));
-                    RaisePropertyChanged(nameof(IsGameTopScreenVisible));
-                    RaisePropertyChanged(nameof(IsLobbyTopperScreenVisible));
-                    RaisePropertyChanged(nameof(IsGameTopperScreenVisible));
-                    RaisePropertyChanged(nameof(IsGameVisible));
-                    RaisePropertyChanged(nameof(IsIdleTextBlinking));
-                    RaisePropertyChanged(nameof(StartIdleTextBlinking));
-                    RaisePropertyChanged(nameof(IsLobbyTopperVideoVisible));
+                    OnPropertyChanged(nameof(IsInLobby));
+                    OnPropertyChanged(nameof(IsIdleAttractVideoVisible));
+                    OnPropertyChanged(nameof(IsBottomAttractVisible));
+                    OnPropertyChanged(nameof(IsLobbyVbdVisible));
+                    OnPropertyChanged(nameof(IsGameVbdVisible));
+                    OnPropertyChanged(nameof(IsLobbyVbdBackgroundBlank));
+                    OnPropertyChanged(nameof(IsLobbyTopScreenVisible));
+                    OnPropertyChanged(nameof(IsGameTopScreenVisible));
+                    OnPropertyChanged(nameof(IsLobbyTopperScreenVisible));
+                    OnPropertyChanged(nameof(IsGameTopperScreenVisible));
+                    OnPropertyChanged(nameof(IsGameVisible));
+                    OnPropertyChanged(nameof(IsIdleTextBlinking));
+                    OnPropertyChanged(nameof(StartIdleTextBlinking));
+                    OnPropertyChanged(nameof(IsLobbyTopperVideoVisible));
                 }
             }
         }
@@ -1056,12 +1067,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsAttractModePlaying
         {
             get => _isAttractModePlaying;
-            set => SetProperty(
-                ref _isAttractModePlaying,
-                value,
-                nameof(IsAttractModePlaying),
-                nameof(IsCashOutButtonLit)
-            );
+            set
+            {
+                if (SetProperty(ref _isAttractModePlaying, value))
+                {
+                    OnPropertyChanged(nameof(IsCashOutButtonLit));
+                }
+            }
         }
 
         /// <summary>
@@ -1079,11 +1091,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsTopperAttractFeaturePlaying
         {
             get => _isTopperAttractFeaturePlaying;
-            set => SetProperty(
-                ref _isTopperAttractFeaturePlaying,
-                value,
-                nameof(IsTopperAttractFeaturePlaying),
-                nameof(IsLobbyTopperVideoVisible));
+            set
+            {
+                if (SetProperty(ref _isTopperAttractFeaturePlaying, value))
+                {
+                    OnPropertyChanged(nameof(IsLobbyTopperVideoVisible));
+                }
+            }
         }
 
         /// <summary>
@@ -1116,10 +1130,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsBottomAttractVisible
         {
             get => _isBottomAttractVisible;
-            set => SetProperty(ref _isBottomAttractVisible,
-                value,
-                nameof(IsBottomAttractVisible),
-                nameof(IsMainInfoBarVisible));
+            set
+            {
+                if (SetProperty(ref _isBottomAttractVisible, value))
+                {
+                    OnPropertyChanged(nameof(IsMainInfoBarVisible));
+                }
+            }
         }
 
 
@@ -1132,12 +1149,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             get => _mainInfoBarOpenRequested;
             set
             {
-                SetProperty(
-                ref _mainInfoBarOpenRequested,
-                value,
-                nameof(MainInfoBarOpenRequested),
-                nameof(GameControlHeight),
-                nameof(IsMainInfoBarVisible));
+                if (SetProperty(ref _mainInfoBarOpenRequested, value))
+                {
+                    OnPropertyChanged(nameof(GameControlHeight));
+                    OnPropertyChanged(nameof(IsMainInfoBarVisible));
+                }
 
                 _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
             }
@@ -1157,12 +1173,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             get => _vbdInfoBarOpenRequested;
             set
             {
-                SetProperty(
-                ref _vbdInfoBarOpenRequested,
-                value,
-                nameof(VbdInfoBarOpenRequested),
-                nameof(GameControlHeight),
-                nameof(IsVbdInfoBarVisible));
+                if (SetProperty(ref _vbdInfoBarOpenRequested, value))
+                {
+                    OnPropertyChanged(nameof(GameControlHeight));
+                    OnPropertyChanged(nameof(IsVbdInfoBarVisible));
+                }
 
                 _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
             }
@@ -1179,10 +1194,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public string PaidMeterValue
         {
             get => _paidMeterValue;
-            set => SetProperty(ref _paidMeterValue, value, nameof(PaidMeterValue), nameof(IsPaidMeterVisible));
+            set
+            {
+                if (SetProperty(ref _paidMeterValue, value, nameof(PaidMeterValue)))
+                {
+                    OnPropertyChanged(nameof(IsPaidMeterVisible));
+                }
+            }
         }
 
-        public bool IsTimeLimitDlgVisible => _responsibleGaming?.IsTimeLimitDialogVisible ?? false;
+        public bool IsTimeLimitDlgVisible => (_responsibleGaming?.IsTimeLimitDialogVisible ?? false);
 
         /// <summary>
         ///     Gets a value indicating whether the responsible gaming info dialog is visible
@@ -1223,11 +1244,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public string TopperLobbyVideoPath
         {
             get => _topperLobbyVideoPath;
-            set => SetProperty(
-                ref _topperLobbyVideoPath,
-                value,
-                nameof(TopperLobbyVideoPath),
-                nameof(IsLobbyTopperVideoVisible));
+            set
+            {
+                if (SetProperty(ref _topperLobbyVideoPath, value))
+                {
+                    OnPropertyChanged(nameof(IsLobbyTopperVideoVisible));
+                }
+            }
         }
 
         /// <summary>
@@ -1263,15 +1286,17 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public bool IsBottomLoadingScreenVisible
         {
             get => _isBottomLoadingScreenVisible;
-            set => SetProperty(
-                ref _isBottomLoadingScreenVisible,
-                value,
-                nameof(IsBottomLoadingScreenVisible),
-                nameof(CashOutEnabled),
-                nameof(CashOutEnabledInPlayerMenu),
-                nameof(IsMainInfoBarVisible),
-                nameof(IsVbdInfoBarVisible),
-                nameof(ResponsibleGamingInfoEnabled));
+            set
+            {
+                if (SetProperty(ref _isBottomLoadingScreenVisible, value))
+                {
+                    OnPropertyChanged(nameof(CashOutEnabled));
+                    OnPropertyChanged(nameof(CashOutEnabledInPlayerMenu));
+                    OnPropertyChanged(nameof(IsMainInfoBarVisible));
+                    OnPropertyChanged(nameof(IsVbdInfoBarVisible));
+                    OnPropertyChanged(nameof(ResponsibleGamingInfoEnabled));
+                }
+            }
         }
 
         /// <summary>
@@ -1307,7 +1332,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 {
                     _gameFilter = value;
                     OnUserInteraction();
-                    RaisePropertyChanged(nameof(GameFilter));
+                    OnPropertyChanged(nameof(GameFilter));
                 }
             }
         }
@@ -1346,12 +1371,12 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     OnLanguageChanged();
 
                     CurrencyExtensions.UpdateCurrencyCulture();
-                    RaisePropertyChanged(nameof(IsPrimaryLanguageSelected));
-                    RaisePropertyChanged(nameof(ActiveLocaleCode));
-                    RaisePropertyChanged(nameof(FormattedCredits));
-                    RaisePropertyChanged(nameof(DisableCountdownMessage));
-                    RaisePropertyChanged(nameof(LanguageButtonResourceKey));
-                    RaisePropertyChanged(nameof(PaidMeterLabel));
+                    OnPropertyChanged(nameof(IsPrimaryLanguageSelected));
+                    OnPropertyChanged(nameof(ActiveLocaleCode));
+                    OnPropertyChanged(nameof(FormattedCredits));
+                    OnPropertyChanged(nameof(DisableCountdownMessage));
+                    OnPropertyChanged(nameof(LanguageButtonResourceKey));
+                    OnPropertyChanged(nameof(PaidMeterLabel));
 
                     UpdateLcdButtonDeckVideo();
                     UpdatePaidMeterValue(_sessionInfoService.GetSessionPaidValue());
@@ -1418,7 +1443,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public LobbyVbdVideoState VbdVideoState
         {
             get => _vbdVideoState;
-            set => SetProperty(ref _vbdVideoState, value, nameof(VbdVideoState), nameof(IsLobbyVbdBackgroundBlank));
+            set
+            {
+                if (SetProperty(ref _vbdVideoState, value, nameof(VbdVideoState)))
+                {
+                    OnPropertyChanged(nameof(IsLobbyVbdBackgroundBlank));
+                }
+            }
         }
 
         public int GameCount => DisplayedGameList.Count;
@@ -1471,7 +1502,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 if (Math.Abs(_chooseGameOffsetY - value) > 0.001)
                 {
                     _chooseGameOffsetY = value;
-                    RaisePropertyChanged(nameof(ChooseGameOffsetY));
+                    OnPropertyChanged(nameof(ChooseGameOffsetY));
                 }
             }
         }
@@ -1565,7 +1596,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public string CurrentNotificationText
         {
             get => _currentNotificationText;
-            set => SetProperty(ref _currentNotificationText, value, nameof(CurrentNotificationText), nameof(IsNotificationTextVisible));
+            set
+            {
+                if (SetProperty(ref _currentNotificationText, value, nameof(CurrentNotificationText)))
+                {
+                    OnPropertyChanged(nameof(IsNotificationTextVisible));
+                }
+            }
         }
 
         /// <summary>
@@ -1575,6 +1612,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             get => _isVbdCashOutDialogVisible;
             set => SetProperty(ref _isVbdCashOutDialogVisible, value);
+        }
+
+        /// <summary>
+        ///     Gets or sets a value indicating whether the main screen RG Cash Out confirmation dialog is visible
+        /// </summary>
+        public bool IsResponsibleGamingCashoutDlgVisible
+        {
+            get => _isResponsibleGamingCashoutDlgVisible;
+            set => SetProperty(ref _isResponsibleGamingCashoutDlgVisible, value);
         }
 
         /// <summary>
@@ -1684,7 +1730,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             get => _replayNavigationBarHeight;
             set
             {
-                SetProperty(ref _replayNavigationBarHeight, value, nameof(ReplayNavigationBarHeight), nameof(GameControlHeight));
+                if (SetProperty(ref _replayNavigationBarHeight, value, nameof(ReplayNavigationBarHeight)))
+                {
+                    OnPropertyChanged(nameof(GameControlHeight));
+                }
+
                 _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
             }
         }
@@ -1717,20 +1767,23 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     Logger.Debug($"Recalculate Infobar height => {_mainInfoBarHeight} because aspect ratio = {_aspectRatio}");
                 }
                 _eventBus.Publish(new InfoBarSetHeightEvent(_mainInfoBarHeight, DisplayRole.Main));
-                RaisePropertyChanged(nameof(MarginInputs));
+                OnPropertyChanged(nameof(MarginInputs));
             }
         }
 
         private BannerDisplayMode LobbyBannerDisplayMode
         {
             get => _bannerDisplayMode;
-            set => SetProperty(ref _bannerDisplayMode,
-                value,
-                nameof(LobbyBannerDisplayMode),
-                nameof(IsIdleTextScrolling),
-                nameof(IsBlinkingIdleTextVisible),
-                nameof(StartIdleTextBlinking),
-                nameof(IsScrollingIdleTextEnabled));
+            set
+            {
+                if (SetProperty(ref _bannerDisplayMode, value))
+                {
+                    OnPropertyChanged(nameof(IsIdleTextScrolling));
+                    OnPropertyChanged(nameof(IsBlinkingIdleTextVisible));
+                    OnPropertyChanged(nameof(StartIdleTextBlinking));
+                    OnPropertyChanged(nameof(IsScrollingIdleTextEnabled));
+                }
+            }
         }
 
         public bool PreserveGameLayoutSideMargins => Config?.PreserveGameLayoutSideMargins ?? false;
@@ -1762,8 +1815,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     return;
                 }
                 _handCount = value;
-                RaisePropertyChanged(nameof(HandCount));
-                RaisePropertyChanged(nameof(CashOutEnabled));
+                OnPropertyChanged(nameof(HandCount));
+                OnPropertyChanged(nameof(CashOutEnabled));
             }
         }
 
@@ -1822,7 +1875,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public void ClearMessages()
         {
             Logger.Debug("Clearing messages");
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (Config.DisplaySoftErrors)
@@ -1855,7 +1908,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             // So any text that needs to be localized from resources can be updated once
             // we are here.
             Logger.Debug("Lobby OnLoaded() complete");
-            RaisePropertyChanged(nameof(PaidMeterLabel));
+            OnPropertyChanged(nameof(PaidMeterLabel));
         }
 
         /// <summary>
@@ -1871,7 +1924,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 SetTabViewToDefault();
             }
 
-            RaisePropertyChanged(nameof(PreserveGameLayoutSideMargins));
+            OnPropertyChanged(nameof(PreserveGameLayoutSideMargins));
             UpdateIdleText();
 
             var cabinetType = _cabinetDetectionService.Type.ToString();
@@ -1993,7 +2046,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         /// </summary>
         public void LoadGameInfo()
         {
-            if (InDesigner)
+            if (Execute.InDesigner)
             {
                 return;
             }
@@ -2021,7 +2074,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void DisplayNotificationMessage(DisplayableMessage displayableMessage)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (NotificationMessages.Any(x => x.Equals(displayableMessage)))
@@ -2043,7 +2096,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void RemoveNotificationMessage(DisplayableMessage displayableMessage)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     NotificationMessages.Remove(x => x.Equals(displayableMessage));
@@ -2256,7 +2309,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             switch (state)
             {
                 case LobbyState.Chooser:
-                    MvvmHelper.ExecuteOnUI(OnChooserEnter);
+                    Execute.OnUIThread(OnChooserEnter);
                     break;
                 case LobbyState.ChooserScrollingIdleText:
                     OnChooserShowingIdleTextEnter();
@@ -2429,7 +2482,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
 
             ProgressiveLabelDisplay.UpdateMultipleGameAssociativeSapText();
-            RaisePropertyChanged(nameof(MarginInputs));
+            OnPropertyChanged(nameof(MarginInputs));
 
             UpdateLamps();
             UpdateLcdButtonDeckRenderSetting(true);
@@ -2558,7 +2611,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void UninstallerStartedEvent(object sender, EventArgs eventArgs)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     OnUserInteraction();
@@ -2761,9 +2814,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void CheckMaxBalance(string message)
         {
-            if (_gameState.Idle && !_transferOutHandler.InProgress && !_gameHistory.IsRecoveryNeeded && !_gameHistory.HasPendingCashOut)
+            if (_gameState.Idle && !_transferOutHandler.InProgress && !_gameHistory.IsRecoveryNeeded &&
+                !_gameHistory.HasPendingCashOut || _gameState.Enabled &&
+                _gameState.CurrentState != PlayState.Idle && _gameHistory.IsRecoveryNeeded &&
+                !_transferOutHandler.InProgress)
             {
-                Logger.Debug(message);
                 _commandFactory.Create<CheckBalance>().Handle(new CheckBalance());
             }
         }
@@ -2940,8 +2995,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             if (CurrentState == LobbyState.GameLoading ||
                 ContainsAnyState(LobbyState.CashOut, LobbyState.CashIn, LobbyState.PrintHelpline, LobbyState.AgeWarningDialog))
             {
-                // VLT-4248:  Clear Cash-Out Dialog on VBD when we load a game.
-                // VLT-4169: Hide VBD Cash Out dialog if we are in a bill-in situation.
+                // Hide Cash Out dialogs when we load a game and on cash in 
                 IsVbdCashOutDialogVisible = false;
                 ShowVbdServiceConfirmationDialog(false);
             }
@@ -2960,8 +3014,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
             else
             {
-                IsTopScreenRenderingDisabled = IsInState(LobbyState.Disabled) &&
-                                                              !ContainsAnyState(LobbyState.GameDiagnostics, LobbyState.GameLoadingForDiagnostics);
+                if (_properties.GetValue(ApplicationConstants.DisplayTopScreenWhenCashout, true))
+                {
+                    IsTopScreenRenderingDisabled = IsInState(LobbyState.Disabled) && (IsInLobby || IsInOperatorMenu) &&
+                                                                 !ContainsAnyState(LobbyState.GameDiagnostics, LobbyState.GameLoadingForDiagnostics);
+                }
+                else
+                {
+                    IsTopScreenRenderingDisabled = IsInState(LobbyState.Disabled) &&
+                                                                !ContainsAnyState(LobbyState.GameDiagnostics, LobbyState.GameLoadingForDiagnostics);
+                }
             }
 
             IsTopperScreenRenderingDisabled = IsTopScreenRenderingDisabled;
@@ -3048,6 +3110,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 _rotateTopImageTimer?.Stop();
                 _rotateTopperImageTimer?.Stop();
                 IsVbdCashOutDialogVisible = false;
+                IsResponsibleGamingCashoutDlgVisible = false;
                 ShowVbdServiceConfirmationDialog(false);
             }
 
@@ -3115,27 +3178,27 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             RaisePropertiesChanged();
 
-            PrintHelplineMessageCommand.RaiseCanExecuteChanged();
+            PrintHelplineMessageCommand.NotifyCanExecuteChanged();
 
             Logger.Debug($"Leaving UpdateUI, state: {CurrentState}");
         }
 
         public void RaisePropertiesChanged()
         {
-            RaisePropertyChanged(nameof(CashOutEnabled));
-            RaisePropertyChanged(nameof(CashOutEnabledInPlayerMenu));
-            RaisePropertyChanged(nameof(IsCashOutButtonLit));
-            RaisePropertyChanged(nameof(ResponsibleGamingInfoEnabled));
-            RaisePropertyChanged(nameof(IsIdleTextBlinking));
-            RaisePropertyChanged(nameof(StartIdleTextBlinking));
-            RaisePropertyChanged(nameof(IsNotificationTextVisible));
-            RaisePropertyChanged(nameof(IsVirtualButtonDeckDisabled));
-            RaisePropertyChanged(nameof(CanCashoutInLockup));
-            RaisePropertyChanged(nameof(IsGameLoading));
-            RaisePropertyChanged(nameof(IsServiceRequested));
-            RaisePropertyChanged(nameof(ReturnToLobbyAllowed));
-            RaisePropertyChanged(nameof(ReserveMachineAllowed));
-            RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
+            OnPropertyChanged(nameof(CashOutEnabled));
+            OnPropertyChanged(nameof(CashOutEnabledInPlayerMenu));
+            OnPropertyChanged(nameof(IsCashOutButtonLit));
+            OnPropertyChanged(nameof(ResponsibleGamingInfoEnabled));
+            OnPropertyChanged(nameof(IsIdleTextBlinking));
+            OnPropertyChanged(nameof(StartIdleTextBlinking));
+            OnPropertyChanged(nameof(IsNotificationTextVisible));
+            OnPropertyChanged(nameof(IsVirtualButtonDeckDisabled));
+            OnPropertyChanged(nameof(CanCashoutInLockup));
+            OnPropertyChanged(nameof(IsGameLoading));
+            OnPropertyChanged(nameof(IsServiceRequested));
+            OnPropertyChanged(nameof(ReturnToLobbyAllowed));
+            OnPropertyChanged(nameof(ReserveMachineAllowed));
+            OnPropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
 
 #if !(RETAIL)
             _eventBus?.Publish(new CashoutButtonStatusEvent(CashOutEnabledInPlayerMenu));
@@ -3152,14 +3215,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             switch (e.PropertyName)
             {
                 case nameof(MessageOverlayDisplay.IsReplayRecoveryDlgVisible):
-                    RaisePropertyChanged(nameof(IsVirtualButtonDeckDisabled));
-                    RaisePropertyChanged(nameof(GameControlHeight));
-                    RaisePropertyChanged(nameof(IsMainInfoBarVisible));
+                    OnPropertyChanged(nameof(IsVirtualButtonDeckDisabled));
+                    OnPropertyChanged(nameof(GameControlHeight));
+                    OnPropertyChanged(nameof(IsMainInfoBarVisible));
                     _eventBus.Publish(new GameControlSizeChangedEvent(GameControlHeight));
                     break;
                 case nameof(MessageOverlayDisplay.IsLockupMessageVisible):
-                    RaisePropertyChanged(nameof(IsVirtualButtonDeckDisabled));
-                    RaisePropertyChanged(nameof(CanCashoutInLockup));
+                    OnPropertyChanged(nameof(IsVirtualButtonDeckDisabled));
+                    OnPropertyChanged(nameof(CanCashoutInLockup));
                     break;
                 case nameof(MessageOverlayDisplay.MessageOverlayData):
                     RaisePropertiesChanged();
@@ -3205,9 +3268,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             if (IsSingleGameMode)
             {
-                RaisePropertyChanged(nameof(IsLobbyVbdVisible));
-                RaisePropertyChanged(nameof(IsGameVbdVisible));
-                RaisePropertyChanged(nameof(IsLobbyVbdBackgroundBlank));
+                OnPropertyChanged(nameof(IsLobbyVbdVisible));
+                OnPropertyChanged(nameof(IsGameVbdVisible));
+                OnPropertyChanged(nameof(IsLobbyVbdBackgroundBlank));
             }
         }
 
@@ -3313,7 +3376,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 RotateTopImageForAttractMode();
                 RotateTopperImageForAttractMode();
                 Task.Run(
-                    () => { MvvmHelper.ExecuteOnUI(() => SendTrigger(LobbyTrigger.AttractVideoComplete)); });
+                    () => { Execute.OnUIThread(() => SendTrigger(LobbyTrigger.AttractVideoComplete)); });
             }
         }
 
@@ -3503,7 +3566,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                         Logger.Debug("Show Responsible Gaming Dialog");
                         _responsibleGaming.ShowDialog(allowDialogWhileDisabled);
                     }
-                    IsVbdCashOutDialogVisible = false; //VLT-12355:  Cancel the VBD cashout dialog on Responsible Gaming banner
+                    IsVbdCashOutDialogVisible = false; // Cancel the VBD cashout dialog on Responsible Gaming banner
                 }
             }
         }
@@ -3515,8 +3578,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             // Keep these in sync.
             if (propertyChangedEventArgs.PropertyName == ResponsibleGamingPropNameDialogVisible)
             {
-                RaisePropertyChanged(nameof(IsTimeLimitDlgVisible));
-                RaisePropertyChanged(nameof(ResponsibleGamingCurrentDialogState));
+                OnPropertyChanged(nameof(IsTimeLimitDlgVisible));
+                OnPropertyChanged(nameof(ResponsibleGamingCurrentDialogState));
                 ClockTimer.UpdateSessionTimeText();
 
                 if (IsTimeLimitDlgVisible)
@@ -3536,7 +3599,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     Task.Run(
                         () =>
                         {
-                            MvvmHelper.ExecuteOnUI(
+                            Execute.OnUIThread(
                                 () =>
                                     OnResponsibleGamingDialogPending()); //need to thread this to allow async locking in responsible gaming to work.
                         });
@@ -3544,11 +3607,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
             else if (propertyChangedEventArgs.PropertyName == ResponsibleGamingPropNameDialogState)
             {
-                RaisePropertyChanged(nameof(ResponsibleGamingCurrentDialogState));
+                OnPropertyChanged(nameof(ResponsibleGamingCurrentDialogState));
             }
             else if (propertyChangedEventArgs.PropertyName == ResponsibleGamingPropNameDialogResourceKey)
             {
-                RaisePropertyChanged(nameof(ResponsibleGamingDialogResourceKey));
+                OnPropertyChanged(nameof(ResponsibleGamingDialogResourceKey));
             }
         }
 
@@ -3651,44 +3714,54 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void CashOutPressed(object obj)
         {
+            const string VBD = "VBD", Main = "MAIN";
+
             if (IsDisabledByHandCount())
             {
                 return;
             }
 
-            // TODO:  Not sure about time limit dialog here
-            if (!(IsTimeLimitDlgVisible && (_responsibleGaming?.IsSessionLimitHit ?? false)) &&
-                obj != null && obj.ToString().ToUpperInvariant() == "VBD" && _cabinetDetectionService.IsTouchVbd())
+            var commandParam = obj?.ToString().ToUpperInvariant() ?? string.Empty;
+            if (commandParam is VBD && _cabinetDetectionService.IsTouchVbd()) // show cashout confirmation when cashout is pressed from VBD always
             {
                 IsVbdCashOutDialogVisible = true;
                 PlayAudioFile(Sound.Touch);
+                return;
             }
-            else
-            {
-                if (CurrentState == LobbyState.ResponsibleGamingInfo)
-                {
-                    ExitResponsibleGamingInfoDialog();
-                }
 
-                ExecuteOnUserCashOut();
+            // show cashout confirmation on the main screen only when responsible gaming dialog is visible
+            // and the session limit has not been reached.
+            if (IsTimeLimitDlgVisible && (!_responsibleGaming?.IsSessionLimitHit ?? false) && commandParam is Main) 
+            {
+                IsResponsibleGamingCashoutDlgVisible = true;
+                PlayAudioFile(Sound.Touch);
+                return;
             }
+
+            if (CurrentState == LobbyState.ResponsibleGamingInfo)
+            {
+                ExitResponsibleGamingInfoDialog();
+            }
+
+            ExecuteOnUserCashOut();
         }
 
         private void ServicePressed(object obj)
         {
             _attendant.OnServiceButtonPressed();
-            RaisePropertyChanged(nameof(IsServiceRequested));
+            OnPropertyChanged(nameof(IsServiceRequested));
             PlayAudioFile(Sound.Touch);
         }
 
-        private void VbdCashoutDlgYesNoPressed(object obj)
+        private void CashoutDlgYesNoPressed(object obj)
         {
-            if (obj.ToString().Equals("YES", StringComparison.InvariantCultureIgnoreCase))
+            if (obj.ToString().Equals(ResourceKeys.Yes.ToUpperInvariant(), StringComparison.InvariantCultureIgnoreCase))
             {
                 ExecuteOnUserCashOut();
             }
 
-            IsVbdCashOutDialogVisible = false;
+            IsVbdCashOutDialogVisible = false;  
+            IsResponsibleGamingCashoutDlgVisible = false;
         }
 
         private void VbdServiceDlgYesNoPressed(object obj)
@@ -3696,7 +3769,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             if (obj.ToString().Equals("YES", StringComparison.InvariantCultureIgnoreCase))
             {
                 _attendant.IsServiceRequested = true;
-                RaisePropertyChanged(nameof(IsServiceRequested));
+                OnPropertyChanged(nameof(IsServiceRequested));
             }
 
             ShowVbdServiceConfirmationDialog(false);
@@ -3840,7 +3913,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 UpdateDisplayedGames();
             }
 
-            if (_lobbyStateManager?.IsTabView ?? false)
+            if (IsTabView)
             {
                 var gameToSelect = DisplayedGameList.FirstOrDefault(game => game.GameId == _selectedGame?.GameId);
                 if (gameToSelect is null)
@@ -3853,12 +3926,12 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
             }
 
-            RaisePropertyChanged(nameof(MarginInputs));
-            RaisePropertyChanged(nameof(IsExtraLargeGameIconTabActive));
-            RaisePropertyChanged(nameof(IsSingleTabView));
-            RaisePropertyChanged(nameof(IsSingleDenomDisplayed));
-            RaisePropertyChanged(nameof(IsSingleGameDisplayed));
-            RaisePropertyChanged(nameof(IsJackpotBannerVisible));
+            OnPropertyChanged(nameof(MarginInputs));
+            OnPropertyChanged(nameof(IsExtraLargeGameIconTabActive));
+            OnPropertyChanged(nameof(IsSingleTabView));
+            OnPropertyChanged(nameof(IsSingleDenomDisplayed));
+            OnPropertyChanged(nameof(IsSingleGameDisplayed));
+            OnPropertyChanged(nameof(IsJackpotBannerVisible));
         }
 
         private void UpdateDisplayedGames()
@@ -3872,8 +3945,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             DisplayedGameList.AddRange(_enabledGameList?.Where(g => g.ImagePath != null));
 
             _lobbyStateManager.IsSingleGame = UniqueThemeIds <= 1;
-            RaisePropertyChanged(nameof(GameCount));
-            RaisePropertyChanged(nameof(MarginInputs));
+            OnPropertyChanged(nameof(GameCount));
+            OnPropertyChanged(nameof(MarginInputs));
         }
 
         private void SelectFirstDisplayedGame()
@@ -4026,7 +4099,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             UpdateIdleText();
 
-            RaisePropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
+            OnPropertyChanged(nameof(NoGamesForThisLanguageErrorIsVisible));
         }
 
         private void GameList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -4130,7 +4203,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void VbdConfirmationTimeOutTimerOnTick(object sender, EventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(() => ShowVbdServiceConfirmationDialog(false));
+            Execute.OnUIThread(() => ShowVbdServiceConfirmationDialog(false));
         }
 
         private void RenderTimerTick(object sender, EventArgs e)
@@ -4191,7 +4264,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void DismissResponsibleGamingDialog(int choiceIndex)
         {
-            IsVbdCashOutDialogVisible = false; //VLT-4680:  Cancel the VBD cashout dialog on Responsible Gaming interactions
+            IsVbdCashOutDialogVisible = false; // Cancel the VBD cashout dialog on Responsible Gaming interactions
+            IsResponsibleGamingCashoutDlgVisible = false;
             ShowVbdServiceConfirmationDialog(false);
             _responsibleGaming?.AcceptTimeLimit(choiceIndex);
         }
@@ -4409,18 +4483,18 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void DoUiUpdatesForResponsibleGamingStateChange()
         {
-            MvvmHelper.ExecuteOnUI(() => ClockTimer.UpdateClockTimer());
+            Execute.OnUIThread(() => ClockTimer.UpdateClockTimer());
         }
 
         private void ForcePendingResponsibleGamingCheck(object sender, EventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(() => OnResponsibleGamingDialogPending());
+            Execute.OnUIThread(() => OnResponsibleGamingDialogPending());
         }
 
         private void PrintHelplineTicketTimerTick(object sender, EventArgs e)
         {
             _inPrintHelplineTicketWaitPeriod = false;
-            PrintHelplineMessageCommand.RaiseCanExecuteChanged();
+            PrintHelplineMessageCommand.NotifyCanExecuteChanged();
         }
 
         private void RotateTopImageTimerTick(object sender, EventArgs e)
@@ -4437,7 +4511,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void RotateSoftErrorTextTimerTick(object sender, EventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (NotificationMessages.Count == 0)
@@ -4475,7 +4549,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             Logger.Debug($"Cash In Started at Zero Credits: {_cashInStartZeroCredits}");
             MessageOverlayDisplay.CashInType = cashInType;
             MessageOverlayDisplay.IsCashingInDlgVisible = showDialog;
-            MvvmHelper.ExecuteOnUI(() => _lobbyStateManager.AddFlagState(LobbyState.CashIn, cashInType));
+            Execute.OnUIThread(() => _lobbyStateManager.AddFlagState(LobbyState.CashIn, cashInType));
         }
 
         private void CashInFinished()
@@ -4497,7 +4571,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
             _cashInStartZeroCredits = null;
             _canOverrideEdgeLight = false;
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _lobbyStateManager.RemoveFlagState(LobbyState.CashIn);
@@ -4542,7 +4616,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             if (obj is GameTabInfo gameTabInfo && GameTabInfo.SelectedCategory != gameTabInfo.Category)
             {
-                MvvmHelper.ExecuteOnUI(() => GameTabInfo.SelectTab(gameTabInfo));
+                Execute.OnUIThread(() => GameTabInfo.SelectTab(gameTabInfo));
                 PlayAudioFile(Sound.Touch);
             }
         }
@@ -4551,7 +4625,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             if (obj is DenominationInfoViewModel denominationInfo)
             {
-                MvvmHelper.ExecuteOnUI(() => GameTabInfo.SetSelectedDenomination(denominationInfo));
+                Execute.OnUIThread(() => GameTabInfo.SetSelectedDenomination(denominationInfo));
             }
             PlayAudioFile(Sound.Touch);
         }
@@ -4579,7 +4653,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             if (obj is SubTabInfoViewModel subTabInfo)
             {
-                MvvmHelper.ExecuteOnUI(() => GameTabInfo.SelectSubTab(subTabInfo));
+                Execute.OnUIThread(() => GameTabInfo.SelectSubTab(subTabInfo));
             }
             PlayAudioFile(Sound.Touch);
         }
@@ -4776,7 +4850,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
             else
             {
-                state = true;
+                state = Config.ButtonDeckNavigationEnabled;
             }
 
             buttonsLampState.Add(SetLampState(LampName.Bash, state));
@@ -4809,33 +4883,31 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void DetermineNavLampStates(ref IList<ButtonLampState> buttonsLampState)
         {
             bool? state;
-            bool? gameTabState;
+            bool? navigationEnabled;
 
             if (BaseState == LobbyState.GameLoading)
             {
-                state = gameTabState = null;
+                state = navigationEnabled = null;
             }
             else if (ContainsAnyState(LobbyState.Disabled, LobbyState.MediaPlayerOverlay))
             {
-                state = gameTabState = false;
+                state = navigationEnabled = false;
             }
             else if (BaseState == LobbyState.Game)
             {
-                state = gameTabState = _justCashedOut ? CashOutEnabled : null;
+                state = navigationEnabled = _justCashedOut ? CashOutEnabled : null;
             }
             else
             {
                 state = true;
-
-                //For GA-COAM jurisdiction there will no game tab and when in Lobby need to unlit the Bet4(MaxBet) button and Playline5 button
-                gameTabState = IsTabView;
+                navigationEnabled = Config.ButtonDeckNavigationEnabled;
             }
 
-            buttonsLampState.Add(SetLampState(LampName.Bet3, state)); // prev game
-            buttonsLampState.Add(SetLampState(LampName.Bet4, gameTabState)); // prev tab
+            buttonsLampState.Add(SetLampState(LampName.Bet3, navigationEnabled)); // prev game
+            buttonsLampState.Add(SetLampState(LampName.Bet4, navigationEnabled)); // prev tab
             buttonsLampState.Add(SetLampState(LampName.Bet5, state)); // inc denom
-            buttonsLampState.Add(SetLampState(LampName.Playline5, gameTabState)); //next tab
-            buttonsLampState.Add(SetLampState(LampName.Playline4, state)); //next game
+            buttonsLampState.Add(SetLampState(LampName.Playline5, navigationEnabled)); //next tab
+            buttonsLampState.Add(SetLampState(LampName.Playline4, navigationEnabled)); //next game
         }
 
         private void DetermineUnusedLampStates(ref IList<ButtonLampState> buttonsLampState)
@@ -5238,10 +5310,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void ClearCashOutDialog(bool success)
         {
             _cashOutTimer?.Stop();
+            _lobbyStateManager.RemoveFlagState(LobbyState.ForcedCashoutByMaxBank);
             _lobbyStateManager.RemoveFlagState(LobbyState.CashOut, success);
             CashOutDialogState = LobbyCashOutDialogState.Hidden;
             MessageOverlayDisplay.UpdateCashoutButtonState(false);
-            MessageOverlayDisplay.LastCashOutForcedByMaxBank = false;
         }
 
         private void UpdateLcdButtonDeckVideo()
@@ -5326,11 +5398,17 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             {
                 case LcdButtonDeckLobby.PreviousGame:
                     NavigateSelectionTo(SelectionNavigation.PreviousGame);
-                    PlayAudioFile(Sound.Touch);
+                    if (Config.ButtonDeckNavigationEnabled)
+                    {
+                        PlayAudioFile(Sound.Touch);
+                    }
                     break;
                 case LcdButtonDeckLobby.PreviousTab:
                     GameTabInfo.NextPreviousTab(false);
-                    PlayAudioFile(Sound.Touch);
+                    if (Config.ButtonDeckNavigationEnabled)
+                    {
+                        PlayAudioFile(Sound.Touch);
+                    }  
                     break;
                 case LcdButtonDeckLobby.ChangeDenom:
                     if (_selectedGame.Category == GameCategory.LightningLink)
@@ -5345,7 +5423,10 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     break;
                 case LcdButtonDeckLobby.NextTab:
                     GameTabInfo.NextPreviousTab(true);
-                    PlayAudioFile(Sound.Touch);
+                    if (Config.ButtonDeckNavigationEnabled)
+                    {
+                        PlayAudioFile(Sound.Touch);
+                    }
                     break;
                 case LcdButtonDeckLobby.NextGame:
                     NavigateSelectionTo(SelectionNavigation.NextGame);
@@ -5446,7 +5527,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void RequestInfoBarOpen(DisplayRole displayTarget, bool open)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 switch (displayTarget)
                 {
@@ -5481,7 +5562,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                         break;
                 }
 
-                RaisePropertyChanged(nameof(SelectedMenuSelectionPayOption));
+                OnPropertyChanged(nameof(SelectedMenuSelectionPayOption));
             }
         }
 

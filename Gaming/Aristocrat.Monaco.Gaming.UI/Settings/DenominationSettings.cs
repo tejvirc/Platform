@@ -1,11 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Settings
 {
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Denomination settings.
     /// </summary>
-    internal class DenominationSettings : BaseNotify
+    internal class DenominationSettings : ObservableObject
     {
         private long _id;
         private long _value;
@@ -18,6 +18,7 @@
         private int _bonusBet;
         private bool _secondaryAllowed;
         private bool _letItRideAllowed;
+        private bool _betKeeperAllowed;
 
         /// <summary>
         ///     Gets or sets the identifier of the denomination.
@@ -130,6 +131,16 @@
         }
 
         /// <summary>
+        ///     Gets or sets whether or not the bet keeper feature is allowed
+        /// </summary>
+        public bool BetKeeperAllowed
+        {
+            get => _betKeeperAllowed;
+
+            set => SetProperty(ref _betKeeperAllowed, value);
+        }
+
+        /// <summary>
         ///     Performs conversion from <see cref="Denomination"/> to <see cref="DenominationSettings"/>.
         /// </summary>
         /// <param name="denom">The <see cref="Denomination"/> object.</param>
@@ -145,6 +156,7 @@
             MaximumWagerOutsideCredits = denom.MaximumWagerOutsideCredits,
             SecondaryAllowed = denom.SecondaryAllowed,
             LetItRideAllowed = denom.LetItRideAllowed,
+            BetKeeperAllowed = denom.BetKeeperAllowed,
             Active = denom.Active
         };
 
@@ -163,6 +175,7 @@
             MaximumWagerOutsideCredits = settings.MaximumWagerOutsideCredits,
             SecondaryAllowed = settings.SecondaryAllowed,
             LetItRideAllowed = settings.LetItRideAllowed,
+            BetKeeperAllowed = settings.BetKeeperAllowed,
             Active = settings.Active
         };
     }

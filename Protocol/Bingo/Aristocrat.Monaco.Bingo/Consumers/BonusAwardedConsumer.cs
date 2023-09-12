@@ -2,6 +2,7 @@
 {
     using System;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Gaming.Contracts;
     using Common;
     using Gaming.Contracts.Bonus;
     using Kernel;
@@ -16,7 +17,7 @@
         private readonly IReportEventQueueService _bingoEventQueue;
         private readonly IReportTransactionQueueService _transactionQueue;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
-        private readonly IPropertiesManager _propertiesManager;
+        private readonly IGameProvider _gameProvider;
 
         public BonusAwardedConsumer(
             IEventBus eventBus,
@@ -24,13 +25,13 @@
             IReportEventQueueService bingoEventQueue,
             IReportTransactionQueueService transactionQueue,
             IUnitOfWorkFactory unitOfWorkFactory,
-            IPropertiesManager propertiesManager)
+            IGameProvider gameProvider)
             : base(eventBus, sharedConsumer)
         {
             _bingoEventQueue = bingoEventQueue ?? throw new ArgumentNullException(nameof(bingoEventQueue));
             _transactionQueue = transactionQueue ?? throw new ArgumentNullException(nameof(transactionQueue));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
         }
 
         public override void Consume(BonusAwardedEvent theEvent)
@@ -52,7 +53,7 @@
                 return;
             }
 
-            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
+            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_gameProvider);
             _transactionQueue.AddNewTransactionToQueue(
                 TransactionType.ExternalBonusWin,
                 transaction.PaidAmount.MillicentsToCents(),

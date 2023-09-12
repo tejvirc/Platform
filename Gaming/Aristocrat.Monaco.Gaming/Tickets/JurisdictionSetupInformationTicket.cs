@@ -4,6 +4,7 @@
     using Application.Contracts.OperatorMenu;
     using Application.Tickets;
     using Contracts;
+    using Contracts.Rtp;
     using Hardware.Contracts.HardMeter;
     using Kernel;
     using Localization.Properties;
@@ -114,9 +115,10 @@
         {
             if (PropertiesManager.GetValue(allowGameTypeKey, true))
             {
-                allowedRtpRange = GameConfigHelper.GetRtpRangeString(
+                allowedRtpRange = new RtpRange(
                     PropertiesManager.GetValue(minimumRtpKey, _defaultAnyGameMinimum),
-                    PropertiesManager.GetValue(maximumRtpKey, _defaultAnyGameMaximum));
+                    PropertiesManager.GetValue(maximumRtpKey, _defaultAnyGameMaximum))
+                    .ToString();
 
                 return true;
             }

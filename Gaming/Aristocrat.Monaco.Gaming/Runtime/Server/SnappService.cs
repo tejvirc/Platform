@@ -8,6 +8,8 @@
     using System.Threading.Tasks;
     using System.Threading.Tasks.Dataflow;
     using Application.Contracts.Extensions;
+    using Aristocrat.Monaco.Application.Contracts.Protocol;
+    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using Client;
     using Commands;
     using Contracts;
@@ -605,7 +607,8 @@
                 request.PoolName,
                 request.Levels.Select(i => (int)i).ToList(),
                 request.TransactionIds.Select(i => (long)i).ToList(),
-                request.Mode == GameRoundPlayMode.ModeRecovery || request.Mode == GameRoundPlayMode.ModeReplay);
+                request.Mode == GameRoundPlayMode.ModeRecovery || request.Mode == GameRoundPlayMode.ModeReplay,
+                (long)request.ExistingWinInCents);
 
             _handlerFactory.Create<TriggerJackpot>()
                 .Handle(trigger);
@@ -655,6 +658,13 @@
             {
                 _handlerFactory.Create<ProgressiveLevelWagers>()
                     .Handle(new ProgressiveLevelWagers(request.Wagers.Select(x => (long)x)));
+
+                var isBingoProgressiveEnabled = ServiceManager.GetInstance().GetService<IMultiProtocolConfigurationProvider>().MultiProtocolConfiguration
+                    .Any(x => x.IsProgressiveHandled && x.Protocol == CommsProtocol.Bingo);
+                if (isBingoProgressiveEnabled)
+                {
+                    _bus.Publish(new ProgressiveContributionEvent { Wagers = request.Wagers.Select(x => (long)x) });
+                }
             }
 
             return EmptyResult;

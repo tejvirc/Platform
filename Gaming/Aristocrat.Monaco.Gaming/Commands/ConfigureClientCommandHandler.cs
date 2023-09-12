@@ -196,6 +196,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/Meters&idleDisplay", GamingConstants.IdleCreditDisplayFormat },
                 { "/Runtime/Meters/Win&destination", _properties.GetValue(GamingConstants.WinDestinationKey, GamingConstants.WinDestination) },
                 { "/Runtime/FreeSpin&clearWinMeter", _properties.GetValue(GamingConstants.FreeSpinClearWinMeterKey, GamingConstants.FreeSpinClearWinMeter) ? "allowed" : "disallowed" },
+                { "/Runtime/ClearWinMeter&onBetChange", _properties.GetValue(GamingConstants.ClearWinMeterOnBetChangeKey, GamingConstants.ClearWinMeterOnBetChange).ToString() },
                 { "/Runtime/WinMeterResetOnBetLineDenomChanged", _properties.GetValue(GamingConstants.WinMeterResetOnBetLineDenomChanged, ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged).ToString() },
                 { "/Runtime/WinMeterResetOnBetLineChanged", _properties.GetValue(GamingConstants.WinMeterResetOnBetLineChanged, ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged).ToString() },
                 { "/Runtime/WinMeterResetOnDenomChanged", _properties.GetValue(GamingConstants.WinMeterResetOnDenomChanged, ApplicationConstants.DefaultWinMeterResetOnBetLineDenomChanged).ToString() },
@@ -229,6 +230,11 @@ namespace Aristocrat.Monaco.Gaming.Commands
                 { "/Runtime/GameSpecificOptions", _properties.GetValue(GamingConstants.GameSpecificOptions, _gameSpecificOptionProvider.GetCurrentOptionsForGDK(currentGame.ThemeId)) }
             };
 
+            if (currentGame?.Features?.Any(x => x?.FeatureName?.Equals(GamingConstants.BetKeeper, StringComparison.Ordinal) ?? false) ?? false)
+            {
+                parameters.Add("/Runtime/BetKeeper&enabled", denomination.BetKeeperAllowed ? "true" : "false");
+            }
+
             SetGambleParameters(parameters, currentGame.GameType, denomination);
 
             if (_properties.GetValue(GamingConstants.RetainLastRoundResult, false))
@@ -255,7 +261,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
             {
                 parameters["/Runtime/MaximumGameRoundWin&use"] = "allowed";
                 parameters["/Runtime/MaximumGameRoundWin&valueCents"] = maxGameRoundWin.MillicentsToCents().ToString(CultureInfo.InvariantCulture);
-                parameters["/Runtime/MaximumGameRoundWin&onMaxWinReach"] = "endGameAfterPresentation";
+                parameters["/Runtime/MaximumGameRoundWin&onMaxWinReach"] = _properties.GetValue(GamingConstants.MaximumGameRoundWinOnMaxWinReachKey, GamingConstants.MaximumGameRoundWinOnMaxWinReachDefault);
             }
 
             if (denomination.LineOption != null)
@@ -325,6 +331,12 @@ namespace Aristocrat.Monaco.Gaming.Commands
             if (!string.IsNullOrEmpty(gameRulesInstructions))
             {
                 parameters["/Runtime/Instructions/GameRulesInstructions1"] = gameRulesInstructions;
+            }
+
+            var pressStartInstructions = _properties.GetValue(GamingConstants.PressStartInstructions, string.Empty);
+            if (!string.IsNullOrEmpty(pressStartInstructions))
+            {
+                parameters["/Runtime/Instructions/PressStart"] = pressStartInstructions;
             }
 
             AddHandCountSettings(parameters);

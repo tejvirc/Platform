@@ -141,8 +141,8 @@
 
         public static IDictionary<string, string> ProgressiveMeters { get; } = new Dictionary<string, string>
         {
-            { ProgressiveMeterName.WageredAmount, Gaming.Contracts.Progressives.ProgressiveMeters.WageredAmount },
-            { ProgressiveMeterName.PlayedCount, Gaming.Contracts.Progressives.ProgressiveMeters.PlayedCount } 
+            { ProgressiveMeterName.WageredAmount, Gaming.Contracts.Progressives.ProgressiveMeters.LinkedProgressiveWageredAmount },
+            { ProgressiveMeterName.PlayedCount, Gaming.Contracts.Progressives.ProgressiveMeters.LinkedProgressivePlayedCount } 
         };
 
         public static IDictionary<string, string> BonusMeters { get; } = new Dictionary<string, string>

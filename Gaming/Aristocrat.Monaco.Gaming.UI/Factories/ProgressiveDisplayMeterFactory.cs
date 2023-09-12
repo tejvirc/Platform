@@ -17,7 +17,8 @@
             MeterNode meterNode,
             bool showLifetime,
             long denomMillicents,
-            long sharedHiddenTotal)
+            long sharedHiddenTotal,
+            long sharedBulkTotal)
         {
             string meterDisplayName = Localizer.For(CultureFor.Operator).GetString(
                             meterNode.DisplayNameKey,
@@ -84,6 +85,21 @@
                         return new ProxyDisplayMeter<long>(
                             meterDisplayName,
                             sharedHiddenTotal,
+                            v => v.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
+                            meterNode.Order);
+                    }
+
+                    return CreateValueDisplayMeter(
+                        progressiveManager,
+                        progressiveLevel,
+                        meterNode,
+                        showLifetime);
+                case ProgressiveMeters.ProgressiveLevelBulkTotal:
+                    if (sharedBulkTotal > 0)
+                    {
+                        return new ProxyDisplayMeter<long>(
+                            meterDisplayName,
+                            sharedBulkTotal,
                             v => v.MillicentsToDollarsNoFraction().FormattedCurrencyString(),
                             meterNode.Order);
                     }

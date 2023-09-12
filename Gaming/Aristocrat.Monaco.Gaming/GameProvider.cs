@@ -1,4 +1,4 @@
-namespace Aristocrat.Monaco.Gaming
+﻿namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -21,6 +21,7 @@ namespace Aristocrat.Monaco.Gaming
     using Contracts.Meters;
     using Contracts.Models;
     using Contracts.Progressives;
+    using Contracts.Rtp;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -85,6 +86,7 @@ namespace Aristocrat.Monaco.Gaming
         private readonly IDigitalRights _digitalRights;
         private readonly IConfigurationProvider _configurationProvider;
         private readonly ICabinetDetectionService _cabinetDetectionService;
+        private readonly IRtpService _rtpService;
         private readonly IManifest<GameSpecificOptionConfig> _gameSpecificOptionManifest;
         private readonly IGameSpecificOptionProvider _gameSpecificOptionProvider;
        
@@ -110,7 +112,8 @@ namespace Aristocrat.Monaco.Gaming
             IIdProvider idProvider,
             IDigitalRights digitalRights,
             IConfigurationProvider configurationProvider,
-            ICabinetDetectionService cabinetDetectionService)
+            ICabinetDetectionService cabinetDetectionService,
+            IRtpService rtpService)
         {
             _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
             _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
@@ -127,6 +130,7 @@ namespace Aristocrat.Monaco.Gaming
             _digitalRights = digitalRights ?? throw new ArgumentNullException(nameof(digitalRights));
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
             _cabinetDetectionService = cabinetDetectionService ?? throw new ArgumentNullException(nameof(cabinetDetectionService));
+            _rtpService = rtpService ?? throw new ArgumentNullException(nameof(rtpService));
 
             _gameSpecificOptionManifest = gameSpecificOptionManifest ?? throw new ArgumentNullException(nameof(gameSpecificOptionManifest));
             _gameSpecificOptionProvider = gameSpecificOptionProvider ?? throw new ArgumentNullException(nameof(gameSpecificOptionProvider));
@@ -204,11 +208,61 @@ namespace Aristocrat.Monaco.Gaming
             }
         }
 
+        /// <inheritdoc />
+        public (IGameDetail game, IDenomination denomination) GetActiveGame()
+        {
+            if (!_properties.GetValue(GamingConstants.IsGameRunning, false))
+            {
+                return (null, null);
+            }
+
+            var selectedGame = _properties.GetValue(GamingConstants.SelectedGameId, 0);
+            var game = _properties.GetValues<IGameDetail>(GamingConstants.Games)
+                .FirstOrDefault(game => game.Id == selectedGame);
+
+            var denom = game?.Denominations.Single(d => d.Value == _properties.GetValue(GamingConstants.SelectedDenom, 0L));
+
+            return (game, denom);
+        }
+
+        /// <inheritdoc />
         public IReadOnlyCollection<ISubGameDetails> GetEnabledSubGames(IGameDetail currentGame)
         {
             lock (_sync)
             {
-                return currentGame.SupportedSubGames.ToList();
+                return currentGame?.SupportedSubGames?.ToList();
+            }
+        }
+
+        public IReadOnlyCollection<ISubGameDetails> GetActiveSubGames(IGameDetail currentGame)
+        {
+            lock (_sync)
+            {
+                return currentGame?.ActiveSubGames?.ToList();
+            }
+        }
+
+        public void SetActiveSubGames(int primaryGameId, IEnumerable<ISubGameDetails> currentSubGameDetails)
+        {
+            lock (_sync)
+            {
+                var game = _games.Single(g => g.Id == primaryGameId);
+                if (game is not null)
+                {
+                    game.ActiveSubGames = currentSubGameDetails;
+                }
+            }
+        }
+
+        public void SetSubGameActiveDenomination(int primaryGameId, ISubGameDetails subGame, long denomination)
+        {
+            lock (_sync)
+            {
+                var game = _games.Single(g => g.Id == primaryGameId);
+                if (game?.ActiveSubGames?.Single(x => x.Id == subGame.Id) is SubGameDetails activeSubGame)
+                {
+                    activeSubGame.ActiveDenoms = new List<long> { denomination };
+                }
             }
         }
 
@@ -251,6 +305,7 @@ namespace Aristocrat.Monaco.Gaming
                     g.ThemeId == gameProfile.ThemeId &&
                     denominationsList.Intersect(g.ActiveDenominations).Any());
 
+                Logger.Debug($"ValidateConfiguration() collision={collision}");
                 return !collision;
             }
         }
@@ -373,6 +428,7 @@ namespace Aristocrat.Monaco.Gaming
                         denomination.MaximumWagerOutsideCredits = active.MaximumWagerOutsideCredits;
                         denomination.SecondaryAllowed = active.SecondaryAllowed;
                         denomination.LetItRideAllowed = active.LetItRideAllowed;
+                        denomination.BetKeeperAllowed = active.BetKeeperAllowed;
                         if (!denomination.Active)
                         {
                             denomination.ActiveDate = DateTime.UtcNow;
@@ -620,28 +676,36 @@ namespace Aristocrat.Monaco.Gaming
 
             using var scope = _storageManager.ScopedTransaction();
             var result = InstallNewGame(game, paytableConfiguration);
+            _bus.Publish(new GameAddedEvent(result.Id, result.ThemeId));
             _progressiveProvider.LoadProgressiveLevels(result, progressiveDetails);
             scope.Complete();
 
-            return result;
+            var success = ValidateGameRtp(game);
+
+            return success ? result : null;
+        }
+
+        private bool ValidateGameRtp(GameDetail game)
+        {
+            var rtpBreakdown = _rtpService.GetTotalRtpBreakdown(game);
+            if (!rtpBreakdown.IsValid)
+            {
+                Logger.Error($@"Disabling game ({game.ThemeName}-{game.VariationId}) for invalid RTP values: {rtpBreakdown.FailureFlags}");
+                DisableGame(game.Id, GameStatus.DisabledBySystem);
+                return false;
+            }
+
+            return true;
         }
 
         void IServerPaytableInstaller.InstallSubGames(int gameId, IReadOnlyCollection<SubGameConfiguration> subGameConfiguration)
         {
             var game = _games.Single(g => g.Id == gameId);
             var manifestSubGames = game.SupportedSubGames.ToList();
+            
+            var subGameDenomDictionary = GenerateSubGameDenominationDictionary(subGameConfiguration, manifestSubGames);
 
-            foreach (var subGame in subGameConfiguration)
-            {
-                var foundSubGame =
-                    manifestSubGames.FirstOrDefault(x => long.Parse(x.CdsTitleId) == subGame.GameTitleId) as
-                        SubGameDetails;
-
-                if (foundSubGame?.Denominations.FirstOrDefault(x => x.Value == subGame.Denomination) is not null)
-                {
-                    foundSubGame.SupportedDenoms = new List<long> { subGame.Denomination };
-                }
-            }
+            UpdateSupportedDenoms(subGameDenomDictionary, manifestSubGames);
 
             game.SupportedSubGames = manifestSubGames.Where(subGame => !subGame.SupportedDenoms.IsNullOrEmpty()).ToList();
 
@@ -861,13 +925,6 @@ namespace Aristocrat.Monaco.Gaming
             return path;
         }
 
-        private static decimal ConvertToRtp(long value)
-        {
-            // Older versions of the manifest contained a truncated Rtp (precision of 2), represented as 9821 or 98.21%
-            // Newer manifests have a precision of 3, represented as 98212 or 98.212%
-            return value > 10000 ? new decimal(value / 1000.0) : new decimal(value / 100.0);
-        }
-
         private static string GetPaytableName(string paytableId)
         {
             var prefixIndex = paytableId.IndexOf(AtiPrefix, StringComparison.Ordinal);
@@ -925,6 +982,7 @@ namespace Aristocrat.Monaco.Gaming
         private IEnumerable<(GameDetail, List<ProgressiveDetail>)> GetGameDetailFromManifest(GameContent gameContent, string file, bool upgrade, bool addIfNotExists)
         {
             const string binFolder = @"bin";
+            Logger.Debug($"loading manifest {file}");
 
             var gameFolder = Path.GetDirectoryName(file);
             if (gameFolder == null)
@@ -988,19 +1046,22 @@ namespace Aristocrat.Monaco.Gaming
                 return (null, null);
             }
 
-            if (!IsValidRtp(game, progressiveDetails))
-            {
-                Logger.Info($"{game.ThemeId}:{game.PaytableId}'s RTP is not allowed in Jurisdiction");
-                return (null, null);
-            }
-
             var wagerCategories = game.WagerCategories.Select(
                 w => new WagerCategory(
                     w.Id,
-                    ConvertToRtp(w.TheoPaybackPercent),
+                    w.TheoPaybackPercent,
                     w.MinWagerCredits,
                     w.MaxWagerCredits,
-                    w.MaxWinAmount)).ToList();
+                    w.MaxWinAmount,
+                    w.MinBaseRtpPercent,
+                    w.MaxBaseRtpPercent,
+                    w.MinSapStartupRtpPercent,
+                    w.MaxSapStartupRtpPercent,
+                    w.SapIncrementRtpPercent,
+                    w.MinLinkStartupRtpPercent,
+                    w.MaxLinkStartupRtpPercent,
+                    w.LinkIncrementRtpPercent)).ToList();
+
             var centralAllowed = false;
 
             if (game.CentralInfo.Any())
@@ -1031,6 +1092,7 @@ namespace Aristocrat.Monaco.Gaming
             var features = game?.Features?.Select(
                 x => new Feature
                 {
+                    FeatureName = x.FeatureName,
                     Name = x.Name,
                     Enable = x.Enable,
                     Editable = x.Editable,
@@ -1073,8 +1135,8 @@ namespace Aristocrat.Monaco.Gaming
                     SubCategory = game.SubCategory != null ? (GameSubCategory)game.SubCategory : GameSubCategory.Undefined,
                     Features = features,
                     CdsGameInfos = cdsGameInfos,
-                    MaximumPaybackPercent = ConvertToRtp(game.MaxPaybackPercent),
-                    MinimumPaybackPercent = ConvertToRtp(game.MinPaybackPercent)
+                    MaximumPaybackPercent = game.MaxPaybackPercent,
+                    MinimumPaybackPercent = game.MinPaybackPercent
                 };
             }
 
@@ -1088,8 +1150,9 @@ namespace Aristocrat.Monaco.Gaming
             gameDetail.VariationId = game.VariationId;
             if (upgrade)
             {
-                gameDetail.MaximumPaybackPercent = ConvertToRtp(game.MaxPaybackPercent);
-                gameDetail.MinimumPaybackPercent = ConvertToRtp(game.MinPaybackPercent);
+                var totalRtp = _rtpService.GetTotalRtp(gameDetail);
+                gameDetail.MaximumPaybackPercent = totalRtp.Maximum;
+                gameDetail.MinimumPaybackPercent = totalRtp.Minimum;
             }
 
             gameDetail.CentralAllowed = centralAllowed;
@@ -1144,7 +1207,7 @@ namespace Aristocrat.Monaco.Gaming
 
             return (gameDetail, progressiveDetails);
         }
-
+        
         private IGameDetail InstallNewGame(
             GameDetail gameDetail,
             ServerPaytableConfiguration paytableConfiguration = null)
@@ -1187,6 +1250,7 @@ namespace Aristocrat.Monaco.Gaming
                     BonusBet = x.BonusBet,
                     LetItRideAllowed = x.LetItRideAllowed,
                     LetItRideEnabled = x.LetItRideEnabled,
+                    BetKeeperAllowed = x.BetKeeperAllowed,
                     LineOption = x.LineOption,
                     MaximumWagerCredits = x.MaximumWagerCredits,
                     MaximumWagerOutsideCredits = x.MaximumWagerOutsideCredits,
@@ -1209,8 +1273,6 @@ namespace Aristocrat.Monaco.Gaming
 
                 // This is only used to track whether or not the game was added in GetOrCreateGame. Reset to avoid reentry
                 gameDetail.New = false;
-
-                _bus.Publish(new GameAddedEvent(gameDetail.Id, gameDetail.ThemeId));
             }
 
             return gameDetail;
@@ -1248,6 +1310,7 @@ namespace Aristocrat.Monaco.Gaming
                     {
                         InstallNewGame(gameDetail);
                         _progressiveProvider.LoadProgressiveLevels(gameDetail, progressiveDetails);
+                        _bus.Publish(new GameAddedEvent(gameDetail.Id, gameDetail.ThemeId));
                     }
                     else
                     {
@@ -1259,10 +1322,14 @@ namespace Aristocrat.Monaco.Gaming
 
                     lock (_sync)
                     {
-                        _availableGames.Add((gameDetail, progressiveDetails));
+                        if (ValidateGameRtp(gameDetail))
+                        {
+                            _availableGames.Add((gameDetail, progressiveDetails));
+                        }
+
                         gameThemeId = gameDetail.ThemeId;
                     }
-                }
+                } // End foreach (game in definedGames)
 
                 if (gameContent.Configurations != null)
                 {
@@ -1652,6 +1719,7 @@ namespace Aristocrat.Monaco.Gaming
                 ? game.WagerCategories.Min(wc => wc.MinWagerCredits)
                 : activeBetOption.Bets.Min(b => b.Multiplier) * activeLineOption.Lines.Min(l => l.Cost);
 
+            // the following logic supports Roulette; the odd-looking use of wc.MinWagerCredits has been tested.
             var maxWagerCredits = activeLineOption == null || activeBetOption == null
                 ? game.WagerCategories.Max(wc => wc.MinWagerCredits)
                 : activeBetOption.Bets.Max(b => b.Multiplier) * activeLineOption.Lines.Max(l => l.Cost);
@@ -1684,7 +1752,9 @@ namespace Aristocrat.Monaco.Gaming
                     SecondaryEnabled = game.SecondaryEnabled, // default value
                     LetItRideAllowed = game.LetItRideAllowed || game.LetItRideEnabled,
                     LetItRideEnabled = game.LetItRideEnabled, // default value
-                    Active = denomination == activeDenom
+                    BetKeeperAllowed = game.Features?.FirstOrDefault()?.Enable ?? false,
+                    Active = denomination == activeDenom,
+                    ActiveDate = denomination == activeDenom ? DateTime.UtcNow : DateTime.MinValue
                 }).ToList();
 
             if (game.GameType != t_gameType.Poker || activeBetOption == null)
@@ -1790,86 +1860,6 @@ namespace Aristocrat.Monaco.Gaming
             return game.Denominations.Where(d => MaximumWagerCredits(game) * d <= maxBetLimit && d <= denomLimit);
         }
 
-        private bool IsValidRtp(GameAttributes game, IReadOnlyCollection<ProgressiveDetail> progressiveDetails)
-        {
-            string includeLinkIncrementKey;
-            string includeStandaloneIncrementKey;
-            string minRtpKey;
-            string maxRtpKey;
-
-            // Default to slot for games that are not tagged
-            switch (game.GameType)
-            {
-                case t_gameType.Blackjack:
-                    includeLinkIncrementKey = GamingConstants.BlackjackIncludeLinkProgressiveIncrementRtp;
-                    includeStandaloneIncrementKey = GamingConstants.BlackjackIncludeStandaloneProgressiveIncrementRtp;
-                    minRtpKey = GamingConstants.BlackjackMinimumReturnToPlayer;
-                    maxRtpKey = GamingConstants.BlackjackMaximumReturnToPlayer;
-                    break;
-                case t_gameType.Poker:
-                    includeLinkIncrementKey = GamingConstants.PokerIncludeLinkProgressiveIncrementRtp;
-                    includeStandaloneIncrementKey = GamingConstants.PokerIncludeStandaloneProgressiveIncrementRtp;
-                    minRtpKey = GamingConstants.PokerMinimumReturnToPlayer;
-                    maxRtpKey = GamingConstants.PokerMaximumReturnToPlayer;
-                    break;
-                case t_gameType.Keno:
-                    includeLinkIncrementKey = GamingConstants.KenoIncludeLinkProgressiveIncrementRtp;
-                    includeStandaloneIncrementKey = GamingConstants.KenoIncludeStandaloneProgressiveIncrementRtp;
-                    minRtpKey = GamingConstants.KenoMinimumReturnToPlayer;
-                    maxRtpKey = GamingConstants.KenoMaximumReturnToPlayer;
-                    break;
-                case t_gameType.Roulette:
-                    includeLinkIncrementKey = GamingConstants.RouletteIncludeLinkProgressiveIncrementRtp;
-                    includeStandaloneIncrementKey = GamingConstants.RouletteIncludeStandaloneProgressiveIncrementRtp;
-                    minRtpKey = GamingConstants.RouletteMinimumReturnToPlayer;
-                    maxRtpKey = GamingConstants.RouletteMaximumReturnToPlayer;
-                    break;
-                default:
-                    includeLinkIncrementKey = GamingConstants.SlotsIncludeLinkProgressiveIncrementRtp;
-                    includeStandaloneIncrementKey = GamingConstants.SlotsIncludeStandaloneProgressiveIncrementRtp;
-                    minRtpKey = GamingConstants.SlotMinimumReturnToPlayer;
-                    maxRtpKey = GamingConstants.SlotMaximumReturnToPlayer;
-                    break;
-            }
-
-            return IsValidRtp(
-                progressiveDetails,
-                includeLinkIncrementKey,
-                includeStandaloneIncrementKey,
-                minRtpKey,
-                maxRtpKey,
-                ConvertToRtp(game.MinPaybackPercent),
-                ConvertToRtp(game.MaxPaybackPercent));
-        }
-
-        private bool IsValidRtp(
-            IReadOnlyCollection<ProgressiveDetail> progressiveDetails,
-            string includeLinkProgressiveIncrementRtpKey,
-            string includeStandaloneProgressiveIncrementKey,
-            string minRtpKey,
-            string maxRtpKey,
-            decimal minPayback,
-            decimal maxPayback)
-        {
-            var includeIncrement = _properties.GetValue(includeLinkProgressiveIncrementRtpKey, false) ||
-                                    _properties.GetValue(includeStandaloneProgressiveIncrementKey, false);
-
-            var returnToPlayer = progressiveDetails?.FirstOrDefault()?.ReturnToPlayer;
-
-            var totalRtpMin = (includeIncrement
-                ? returnToPlayer?.BaseRtpAndResetRtpAndIncRtpMin
-                : returnToPlayer?.BaseRtpAndResetRtpMin) ?? minPayback;
-            var totalRtpMax = (includeIncrement
-                ? returnToPlayer?.BaseRtpAndResetRtpAndIncRtpMax
-                : returnToPlayer?.BaseRtpAndResetRtpMax) ?? maxPayback;
-
-            return totalRtpMax >= totalRtpMin
-                   && totalRtpMax > 0
-                   && totalRtpMin >= 0
-                   && IsValidMinimumRtp(minRtpKey, totalRtpMin)
-                   && IsValidMaximumRtp(maxRtpKey, totalRtpMax);
-        }
-
         private bool IsTypeAllowed(GameAttributes game)
         {
             switch (game.GameType)
@@ -1886,17 +1876,6 @@ namespace Aristocrat.Monaco.Gaming
                     return _properties.GetValue(GamingConstants.AllowSlotGames, true);
             }
         }
-
-        private bool IsValidMinimumRtp(string key, decimal rtp)
-        {
-            return rtp >= ConvertToRtp(_properties.GetValue(key, int.MinValue));
-        }
-
-        private bool IsValidMaximumRtp(string key, decimal rtp)
-        {
-            return rtp <= ConvertToRtp(_properties.GetValue(key, int.MaxValue));
-        }
-
         private IEnumerable<ISubGameDetails> GetSubGames(IEnumerable<SubGame> subGames, IList<IDenomination> gameDenominations)
         {
             var subGameList = new List<SubGameDetails>();
@@ -1960,6 +1939,43 @@ namespace Aristocrat.Monaco.Gaming
             }
 
             return animationFiles;
+        }
+
+        private static void UpdateSupportedDenoms(Dictionary<string, List<long>> subGameDenomDictionary, IReadOnlyCollection<ISubGameDetails> manifestSubGames)
+        {
+            foreach (var titleId in subGameDenomDictionary)
+            {
+                if (manifestSubGames.FirstOrDefault(x => x.CdsTitleId == titleId.Key) is SubGameDetails foundSubGame)
+                {
+                    foundSubGame.SupportedDenoms = titleId.Value;
+                }
+            }
+        }
+
+        private static Dictionary<string, List<long>> GenerateSubGameDenominationDictionary(
+            IEnumerable<SubGameConfiguration> subGameConfiguration,
+            IReadOnlyCollection<ISubGameDetails> manifestSubGames)
+        {
+            var subGameDenomDictionary = new Dictionary<string, List<long>>();
+            foreach (var subGame in subGameConfiguration)
+            {
+                var foundSubGame =
+                    manifestSubGames.FirstOrDefault(x => long.Parse(x.CdsTitleId) == subGame.GameTitleId);
+
+                if (foundSubGame?.Denominations.FirstOrDefault(x => x.Value == subGame.Denomination) is null)
+                {
+                    continue;
+                }
+
+                if (!subGameDenomDictionary.ContainsKey(foundSubGame.CdsTitleId))
+                {
+                    subGameDenomDictionary.Add(foundSubGame.CdsTitleId, new List<long>());
+                }
+
+                subGameDenomDictionary[foundSubGame.CdsTitleId].Add(subGame.Denomination);
+            }
+
+            return subGameDenomDictionary;
         }
     }
 }

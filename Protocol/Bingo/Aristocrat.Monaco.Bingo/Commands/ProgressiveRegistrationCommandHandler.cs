@@ -37,7 +37,7 @@
             try
             {
                 var machineId = _properties.GetValue(ApplicationConstants.MachineId, (uint)0).ToString();
-                var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_properties);
+                var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_gameProvider);
                 var gameTitleId = (int)(gameConfiguration?.GameTitleId ?? 0);
 
                 // After an nvram clear there will be no active game set at registration time. In this case use the first enabled game.

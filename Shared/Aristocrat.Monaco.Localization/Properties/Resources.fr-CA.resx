@@ -4999,4 +4999,94 @@ Do you really want to do partial reset????</value>
   <data name="PrinterWarningTypes_PaperLow" xml:space="preserve">
     <value>??Printer Paper Low??</value>
   </data>
+  <data name="InvalidNoteAcceptorFirmware" xml:space="preserve">
+    <value>??Invalid Note Acceptor Firmware Detected ISO {0}??</value>
+  </data>
+  <data name="RemoveAllCreditsBeforeChange" xml:space="preserve">
+    <value>??Please remove all credits from the machine before changing these settings.??</value>
+  </data>
+  <data name="PrinterWarningTypes_PaperLow" xml:space="preserve">
+    <value>Papier d'imprimante bas</value>
+  </data>
+  <data name="AddinProtocolSelection" xml:space="preserve">
+    <value>??Select a Protocol Configuration??</value>
+  </data>
+  <data name="ProtocolScreenTitle" xml:space="preserve">
+    <value>??Protocol Configuration Selection??</value>
+  </data>
+  <data name="LicenseFileValidationError" xml:space="preserve">
+    <value>??Invalid License File??</value>
+  </data>
+  <data name="SmartCardExpired" xml:space="preserve">
+    <value>??Smart Card Expired??</value>
+  </data>
+  <data name="SmartCardMissing" xml:space="preserve">
+    <value>??Smart Card Not Present??</value>
+  </data>
+  <data name="SmartCardRemoved" xml:space="preserve">
+    <value>??Smart Card Removed??</value>
+  </data>
+  <data name="EKeyDetected" xml:space="preserve">
+    <value>??EKey Detected??</value>
+  </data>
+  <data name="ComponentText" xml:space="preserve">
+    <value>??Component??</value>
+  </data>
+  <data name="GameInfoTicketTitle" xml:space="preserve">
+    <value>Info jeu</value>
+</data>
+  <data name="DenomMetersLifetime" xml:space="preserve">
+    <value>??Master Denomination Meters??</value>
+  </data>
+  <data name="DenomMetersPeriod" xml:space="preserve">
+    <value>??Period Denomination Meters??</value>
+  </data>
+  <data name="NoDeviceDetected" xml:space="preserve">
+    <value>??No device detected??</value>
+  </data>
+  <data name="LastResetText" xml:space="preserve">
+    <value>??LAST RESET??</value>
+  </data>
+  <data name="MasterMetersTicketMetersHeaderText" xml:space="preserve">
+    <value>Compteur maître</value>
+  </data>
+  <data name="PeriodMetersTicketMetersHeaderText" xml:space="preserve">
+    <value>Compteur de période</value>
+  </data>
+  <data name="LicenseFileMissing" xml:space="preserve">
+    <value>??Missing License File??</value>
+  </data>
+  <data name="LicenseFileParsingError" xml:space="preserve">
+    <value>??Invalid License File??</value>
+  </data>
+  <data name="GamesPlayedWarning" xml:space="preserve">
+    <value>??Settings cannot be changed after a game round has been played.??</value>
+  </data>
+  <data name="SomeGamesPlayedWarning" xml:space="preserve">
+    <value>??Some settings cannot be changed after a game round has been played.??</value>
+  </data>
+  <data name="GameMetersTicketGameIdText" xml:space="preserve">
+    <value>??GAME ID??</value>
+  </data>
+  <data name="MasterGameMetersTicketTitleText" xml:space="preserve">
+    <value>??Master Game Meters??</value>
+  </data>
+  <data name="PeriodGameMetersTicketTitleText" xml:space="preserve">
+    <value>??Period Game Meters??</value>
+  </data>
+  <data name="OpenLogicDoor" xml:space="preserve">
+    <value>??Logic door must be open to change these settings.??</value>
+  </data>
+  <data name="OpenMainDoor" xml:space="preserve">
+    <value>??Main door must be open to change these settings.??</value>
+  </data>
+  <data name="GameBonusInfoTicketTitleText" xml:space="preserve">
+    <value>??Game Bonus Info??</value>
+  </data>
+  <data name="TotalBillInCount" xml:space="preserve">
+    <value>Total des billets en - Nombre</value>
+  </data>
+  <data name="TotalBillInValue" xml:space="preserve">
+    <value>Total des billets en - Valeur</value>
+  </data>
 </root>

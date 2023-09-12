@@ -44,7 +44,7 @@
 
             response.Command.idReaderId = device.IdReader;
 
-            response.Command.minTheoHoldPct = _players.Options.MinimumTheoreticalHoldPercentage;
+            response.Command.minTheoHoldPct = _players.Options.MinimumTheoreticalHoldPercentageMeter;
             response.Command.decimalPoints = _players.Options.DecimalPoints;
 
             response.Command.inactiveSessionEnd = _players.Options.InactiveSessionEnd;

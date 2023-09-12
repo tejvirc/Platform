@@ -13,16 +13,20 @@
         private readonly List<GameOrderData> _games;
 
         public GameInfoTicket()
-            : this(null, 0)
+            : this(null, 0, false)
         {
         }
 
-        public GameInfoTicket(List<GameOrderData> games, int page)
+        public GameInfoTicket(List<GameOrderData> games, int page, bool multiPage)
             : base(Localizer.For(CultureFor.PlayerTicket))
         {
             _games = games;
 
-            Title = $"{TicketLocalizer.GetString(ResourceKeys.GameInfoTicketTitle)} - {TicketLocalizer.GetString(ResourceKeys.PageText)} {page}";
+            var pageNumberText = multiPage ?
+                $" - {TicketLocalizer.GetString(ResourceKeys.PageText)} {page}" :
+                string.Empty;
+
+            Title = $"{TicketLocalizer.GetString(ResourceKeys.GameInfoTicketTitle)}{pageNumberText}";
         }
 
         public override void AddTicketContent()

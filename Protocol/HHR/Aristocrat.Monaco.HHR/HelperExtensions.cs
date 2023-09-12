@@ -15,6 +15,7 @@
     using Gaming.Contracts.Progressives;
     using Gaming.Contracts.Progressives.Linked;
     using Kernel;
+    using Newtonsoft.Json;
     using Services;
 
     /// <summary>
@@ -98,12 +99,12 @@
         /// </summary>
         /// <param name="prizeInformation">Prize Information</param>
         /// <param name="protocolLinkedProgressiveAdapter"> Protocol Adapter</param>
-        /// <param name="propertiesManager">Properties Manager</param>
+        /// <param name="gameProvider">Game Provider</param>
         /// <returns></returns>
         public static IList<IViewableProgressiveLevel> GetActiveProgressiveLevelsForWager(
             this PrizeInformation prizeInformation,
             IProtocolLinkedProgressiveAdapter protocolLinkedProgressiveAdapter = null,
-            IPropertiesManager propertiesManager = null)
+            IGameProvider gameProvider = null)
         {
             if (protocolLinkedProgressiveAdapter == null)
             {
@@ -111,13 +112,13 @@
                     ServiceManager.GetInstance().GetService<IProtocolLinkedProgressiveAdapter>();
             }
 
-            if (propertiesManager == null)
+            if (gameProvider == null)
             {
-                propertiesManager =
-                    ServiceManager.GetInstance().GetService<IPropertiesManager>();
+                gameProvider =
+                    ServiceManager.GetInstance().GetService<IGameProvider>();
             }
 
-            var (_, currentDenom) = propertiesManager.GetActiveGame();
+            var (_, currentDenom) = gameProvider.GetActiveGame();
 
             return protocolLinkedProgressiveAdapter
                 .GetActiveProgressiveLevels().Where(
@@ -182,10 +183,16 @@
                                     (long)prizeInformation.ScratchTicketId,
                                     OutcomeReference.Direct,
                                     OutcomeType.Progressive,
-                                    index++ == 0 ? ((long)prizeInformation.ProgressiveWin.ElementAt(levelId))
-                                    .CentsToMillicents() : progressiveLevel.ResetValue, // Progressive won amount
+                                    index++ == 0
+                                        ? ((long)prizeInformation.ProgressiveWin.ElementAt(levelId))
+                                        .CentsToMillicents()
+                                        : progressiveLevel.ResetValue, // Progressive won amount
                                     levelId, // Level Hit
-                                    levelId.ToString(CultureInfo.InvariantCulture))));
+                                    JsonConvert.SerializeObject(
+                                        new LookupData
+                                        {
+                                            Progressives = levelId.ToString(CultureInfo.InvariantCulture)
+                                        }))));
                     });
             }
 
@@ -271,6 +278,6 @@
             }
             return systemDisableManager.CurrentDisableKeys.Intersect(FilteredLockupsForGamePlay).Any();
         }
-        
+
     }
 }

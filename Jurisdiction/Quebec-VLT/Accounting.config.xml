@@ -25,7 +25,7 @@ as follows:
            "Editable"= This value may be over-ridden by the technician in the audit menu settings, if set to true. Default is true, if not defined.
 -->
   <TenderIn CheckCreditsIn="Balance" AllowCreditUnderLimit="false">
-    <MaxCreditsIn Default="100000000" />
+    <MaxCreditsIn Default="10000000" />
   </TenderIn>
   <CreditLimits AllowCreditsInAboveMaxCredit="true">
     <MaxCreditMeter Default="100000000"/>

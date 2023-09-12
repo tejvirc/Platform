@@ -9,13 +9,14 @@
     using Gaming.Contracts.Central;
     using log4net;
     using Monaco.Common;
+    using ServerApiGateway;
 
     /// <summary>
     ///     Reports game history to the bingo server
     /// </summary>
     public class GameHistoryReportHandler : IGameHistoryReportHandler, IDisposable
     {
-        private const int RetryDelay = 100;
+        private const int RetryDelayMs = 100;
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly ICentralProvider _centralProvider;
@@ -44,6 +45,7 @@
         /// <inheritdoc/>
         public void AddReportToQueue(ReportMultiGameOutcomeMessage message)
         {
+            Logger.Debug($"adding ReportMultiGameOutcomeMessage to queue. queue has {_queue.Count} items");
             if (message == null)
             {
                 throw new ArgumentNullException(nameof(message));
@@ -107,25 +109,32 @@
                     continue;
                 }
 
-                ReportMultiGameOutcomeResponse ack = null;
+                Logger.Debug("************ got a ReportGameHistory item");
+                GameOutcomeAck ack = null;
                 try
                 {
                     ack = await _gameOutcomeService.ReportMultiGameOutcome(item, token);
+                    var ackValue = ack==null ? "null" : ack.Succeeded.ToString();
+                    Logger.Debug($"after ReportGameOutcome call ack is {ackValue}");
                 }
                 catch (Exception e) when (e is not OperationCanceledException)
                 {
-                    Logger.Error($"The game history message failed: {item}", e);
+                    Logger.Error($"************ ReportGameHistory The game history message failed: {item}", e);
                 }
 
-                if (ack is { ResponseCode: ResponseCode.Ok })
+                var ackValue1 = ack == null ? "null" : ack.Succeeded.ToString();
+                Logger.Debug($"************ ReportGameHistory after ReportGameOutcome call ack is {ackValue1}");
+                if (ack is not null && ack.Succeeded)
                 {
+                    Logger.Debug("************ ReportGameHistory Took an item off the game history reporting queue");
                     _centralProvider.AcknowledgeOutcome(item.TransactionId);
                     _queue.Acknowledge(item.TransactionId);
                 }
                 else
                 {
-                    // delay 1/2 second before retrying failed reports
-                    await Task.Delay(TimeSpan.FromMilliseconds(RetryDelay), token);
+                    Logger.Debug("************ ReportGameHistory ack was null or didn't succeed");
+                    // delay before retrying failed reports
+                    await Task.Delay(RetryDelayMs, token);
                 }
             }
         }

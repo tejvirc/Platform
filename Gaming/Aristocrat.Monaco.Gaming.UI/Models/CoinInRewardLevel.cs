@@ -4,8 +4,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Application.Contracts.Extensions;
     using Aristocrat.Monaco.Kernel;
-    using Aristocrat.MVVM.ViewModel;
-    using Contracts.Barkeeper;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// CoinInRewardLevel which binds to BarkeeperConfigurationViewModel for RewardsLevels.
@@ -13,14 +12,25 @@ namespace Aristocrat.Monaco.Gaming.UI.Models
     /// </summary>
     public class CoinInRewardLevel : RewardLevelViewModel
     {
-        public override bool ValidateThresholdInCents()
-        {
-            var thresholdValidate = (ThresholdInCents.CentsToDollars()).Validate(
-                false,
-                PropertiesManager?.GetValue(GamingConstants.GambleWagerLimit, GamingConstants.DefaultGambleWagerLimit) ?? GamingConstants.DefaultGambleWagerLimit);
+        private long _thresholdInCents;
 
-            SetError(nameof(ThresholdInCents), thresholdValidate);
-            return string.IsNullOrEmpty(thresholdValidate);
+        [CustomValidation(typeof(CoinInRewardLevel), nameof(ValidateCoinInRewardLevel))]
+        public override long ThresholdInCents
+        {
+            get => _thresholdInCents;
+            set => SetProperty(ref _thresholdInCents, value, true);
+        }
+
+        public static ValidationResult ValidateCoinInRewardLevel(long threshhold, ValidationContext context)
+        {
+            var instance = (CoinInRewardLevel)context.ObjectInstance;
+            var errors = threshhold
+                .CentsToDollars()
+                .Validate(
+                    false,
+                    instance.PropertiesManager?.GetValue(GamingConstants.GambleWagerLimit, GamingConstants.DefaultGambleWagerLimit) ?? GamingConstants.DefaultGambleWagerLimit
+                );
+            return string.IsNullOrEmpty(errors) ? ValidationResult.Success : new(errors);
         }
     }
 }

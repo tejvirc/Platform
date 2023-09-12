@@ -104,7 +104,7 @@
                     ParamCreator = () => new integerParameter { canModRemote = true, canModLocal = true },
                     ValueCreator = () => new integerValue1(),
                     DefaultValue = 0L,
-                    Value = _players.Options.MinimumTheoreticalHoldPercentage
+                    Value = _players.Options.MinimumTheoreticalHoldPercentageMeter
                 },
 
                 new ParameterDescription

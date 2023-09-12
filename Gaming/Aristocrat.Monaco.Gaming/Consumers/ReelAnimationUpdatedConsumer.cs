@@ -32,17 +32,17 @@
                 return;
             }
 
-            var updateNotification = new AnimationUpdatedNotification()
+            var updateNotification = new AnimationUpdatedNotification
             {
                 AnimationId = theEvent.AnimationName,
-                AnimationData = Any.Pack(new ReelAnimationData { ReelIndex = theEvent.ReelIndex }),
+                AnimationData = Any.Pack(new ReelAnimationData { ReelIndex = (uint)theEvent.ReelId }),
                 State = ToGdkAnimationState(theEvent.State)
             };
 
-            _reelService.AnimationUpdated(updateNotification);
+            _reelService.NotifyAnimationUpdated(updateNotification);
         }
 
-        private GDKAnimationState ToGdkAnimationState(AnimationState preparedState)
+        private static GDKAnimationState ToGdkAnimationState(AnimationState preparedState)
         {
             return preparedState switch
             {

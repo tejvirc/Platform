@@ -8,24 +8,40 @@
     using Contracts.Reel.Events;
     using Contracts.Reel.ImplementationCapabilities;
 
-    internal class RelmSynchronization : ISynchronizationImplementation
+    internal sealed class RelmSynchronization : ISynchronizationImplementation
     {
         private readonly IRelmCommunicator _communicator;
 
         public RelmSynchronization(IRelmCommunicator communicator)
         {
             _communicator = communicator;
+            _communicator.SynchronizationCompleted += HandleSynchronizationCompleted;
+            _communicator.SynchronizationStarted += HandleSynchronizationStarted;
         }
 
-#pragma warning disable 67
         public event EventHandler<ReelSynchronizationEventArgs> SynchronizationStarted;
 
         public event EventHandler<ReelSynchronizationEventArgs> SynchronizationCompleted;
-#pragma warning restore 67
 
-        public Task<bool> Synchronize(ReelSynchronizationData data, CancellationToken token)
+        public void Dispose()
         {
-            return _communicator.Synchronize(data, token);
+            _communicator.SynchronizationCompleted -= HandleSynchronizationCompleted;
+            _communicator.SynchronizationStarted -= HandleSynchronizationStarted;
+        }
+
+        public Task<bool> Synchronize(ReelSynchronizationData syncData, CancellationToken token = default)
+        {
+            return _communicator.Synchronize(syncData, token);
+        }
+
+        private void HandleSynchronizationCompleted(object sender, ReelSynchronizationEventArgs args)
+        {
+            SynchronizationCompleted?.Invoke(sender, args);
+        }
+
+        private void HandleSynchronizationStarted(object sender, ReelSynchronizationEventArgs args)
+        {
+            SynchronizationStarted?.Invoke(sender, args);
         }
     }
 }

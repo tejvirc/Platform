@@ -1,5 +1,6 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.Controls
+namespace Aristocrat.Monaco.Hhr.UI.Controls
 {
+    using Aristocrat.Extensions.CommunityToolkit;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -8,7 +9,6 @@
     using System.Windows.Media;
     using System.Windows.Media.Animation;
     using System.Windows.Media.Imaging;
-    using MVVM;
     using WpfAnimatedGif;
 
     /// <summary>
@@ -79,7 +79,7 @@
             lock (_lock)
             {
                 _clock?.Controller?.Pause();
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     ImageBehavior.GetAnimationController(Horse)?.Pause();
                 });
@@ -97,7 +97,7 @@
 
                 if (_initialized)
                 {
-                    MvvmHelper.ExecuteOnUI(() =>
+                    Execute.OnUIThread(() =>
                     {
                         ImageBehavior.GetAnimationController(Horse)?.Play();
                     });

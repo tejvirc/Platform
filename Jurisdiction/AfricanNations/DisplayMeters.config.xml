@@ -134,5 +134,6 @@
     <MeterNode Page="Progressives" Name="PlayedCount" DisplayName="Games Played" Order="4" />
     <MeterNode Page="Progressives" Name="ProgressiveLevel.WinOccurrence" DisplayName="Hit" Order="5" />
     <MeterNode Page="Progressives" Name="ProgressiveLevel.WinAccumulation" DisplayName="Won" Order="6" />
+    <MeterNode Page="Progressives" Name="ProgressiveLevel.BulkTotal" DisplayName="Total Bulk Pool" Order="7" />
   </MeterNodes>
 </DisplayMetersConfiguration>

@@ -10,44 +10,55 @@
     using Polly;
     using ServerApiGateway;
 
-    public class ProgressiveCommandService :
+    public sealed class ProgressiveCommandService :
         BaseClientCommunicationService<ProgressiveApi.ProgressiveApiClient>,
-        IProgressiveCommandService
+        IProgressiveCommandService,
+        IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
+        private readonly IClient<ProgressiveApi.ProgressiveApiClient> _progressiveClient;
         private readonly IProgressiveCommandProcessorFactory _processorFactory;
         private readonly IAsyncPolicy _commandRetryPolicy;
+        private CancellationTokenSource _tokenSource;
+        private bool _disposed;
 
         public TimeSpan BackOffTime { get; set; } = TimeSpan.FromMilliseconds(200);
 
         public ProgressiveCommandService(
             IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient> endpointProvider,
+            IClient<ProgressiveApi.ProgressiveApiClient> progressiveClient,
             IProgressiveCommandProcessorFactory processorFactory)
             : base(endpointProvider)
         {
+            _progressiveClient = progressiveClient ?? throw new ArgumentNullException(nameof(progressiveClient));
             _processorFactory = processorFactory ?? throw new ArgumentNullException(nameof(processorFactory));
             _commandRetryPolicy = CreatePolicy();
+
+            _progressiveClient.ConnectionStateChanged += HandleConnectionStateChanges;
         }
 
         public async Task<bool> HandleCommands(string machineSerial, int gameTitleId, CancellationToken cancellationToken)
         {
+            _tokenSource?.Cancel();
+
             try
             {
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    using var commandCaller = GetCommandHandler(cancellationToken);
-                    if (commandCaller is not null &&
-                        await StartProgressiveUpdates(machineSerial, commandCaller.RequestStream, cancellationToken))
+                    using var source = _tokenSource = new CancellationTokenSource();
+                    try
                     {
-                        await ProcessCommandsOnStream(
-                            machineSerial,
-                            commandCaller.RequestStream,
-                            commandCaller.ResponseStream,
+                        using var shared = CancellationTokenSource.CreateLinkedTokenSource(
+                            source.Token,
                             cancellationToken);
+                        await ProgressProgressiveCommands(machineSerial, cancellationToken, shared.Token)
+                            .ConfigureAwait(false);
                     }
-
-                    await Task.Delay(BackOffTime, cancellationToken);
+                    finally
+                    {
+                        _tokenSource = null;
+                    }
                 }
             }
             catch (Exception e)
@@ -173,6 +184,60 @@
             if (result is not null)
             {
                 await _commandRetryPolicy.ExecuteAsync(t => Respond(output, machineSerial, t), token);
+            }
+        }
+
+        private async Task ProgressProgressiveCommands(
+            string machineSerial,
+            CancellationToken cancellationToken,
+            CancellationToken token)
+        {
+            try
+            {
+                using var commandCaller = GetCommandHandler(cancellationToken);
+                if (commandCaller is not null &&
+                    await StartProgressiveUpdates(
+                        machineSerial,
+                        commandCaller.RequestStream,
+                        token).ConfigureAwait(false))
+                    {
+                        await ProcessCommandsOnStream(
+                            machineSerial,
+                            commandCaller.RequestStream,
+                            commandCaller.ResponseStream,
+                            token).ConfigureAwait(false);
+                    }
+
+                await Task.Delay(BackOffTime, _tokenSource.Token).ConfigureAwait(false);
+            }
+            catch (TaskCanceledException)
+            {
+                // Do nothing
+            }
+            catch (OperationCanceledException)
+            {
+                // Do nothing
+            }
+        }
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _progressiveClient.ConnectionStateChanged -= HandleConnectionStateChanges;
+            _tokenSource?.Cancel();
+            _tokenSource?.Dispose();
+            _tokenSource = null;
+            _disposed = true;
+        }
+
+        private void HandleConnectionStateChanges(object sender, ConnectionStateChangedEventArgs eventArgs)
+        {
+            if (eventArgs.State == RpcConnectionState.Disconnected || eventArgs.State == RpcConnectionState.Closed)
+            {
+                _tokenSource?.Cancel();
             }
         }
     }

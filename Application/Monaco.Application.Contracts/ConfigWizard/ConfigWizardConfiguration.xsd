@@ -97,6 +97,12 @@
                         <xs:attribute name="CanReconfigure" type="xs:boolean" use="optional" default="false" />
                     </xs:complexType>
                 </xs:element>
+                <xs:element maxOccurs="1" minOccurs="0" name="Localization">
+                    <xs:complexType>
+                        <xs:attribute name="Currency" type="Culture" default="Default" use="optional" />
+                        <xs:attribute name="DefaultCulture" type="xs:string" use="optional" default="" />
+                    </xs:complexType>
+                </xs:element>
                 <xs:element maxOccurs="1" minOccurs="0" name="Bell">
                     <xs:complexType>
                         <xs:attribute name="Visible" type="xs:boolean" use="optional" default="false" />
@@ -201,6 +207,13 @@
             <xs:enumeration value="CentralDeterminationSystem" />
         </xs:restriction>
     </xs:simpleType>
+  <xs:simpleType name="Culture" >
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Operator" />
+      <xs:enumeration value="Player" />
+      <xs:enumeration value="Default" />
+    </xs:restriction>
+  </xs:simpleType>
     <xs:simpleType name="CommsProtocol">
         <xs:restriction base="xs:string">
             <xs:enumeration value="None" />

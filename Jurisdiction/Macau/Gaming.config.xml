@@ -34,9 +34,13 @@ as follows:
 				Maximum:
 					Default is int max, unless specified
 				IncludeLinkProgressiveIncrementRTP:
-					Default is false. If set to true, will include the link progressive increment RTP in the RTP check
+					Default is false. If set to true, will include the link progressive increment RTP in the RTP calculation
+				IncludeLinkProgressiveStartUpRTP:
+					Default is true. If set to true, will include the link progressive startup/reset RTP in the RTP calculation
 				IncludeStandaloneProgressiveIncrementRTP:
-					Default is true. If set to false, will not include the standalone progressive increment RTP in the RTP check
+					Default is true. If set to true, will include the standalone progressive increment RTP in the RTP calculation
+				IncludeStandaloneProgressiveStartUpRTP:
+					Default is true. If set to true, will include the standalone progressive startup/reset RTP in the RTP calculation
 		RestrictedGameTypes:
 			Type:
 				GameType:
@@ -44,7 +48,7 @@ as follows:
 -->
 	<GameRestrictions>
 		<ReturnToPlayerLimits>
-			<ReturnToPlayer GameType="Any" Minimum="80000" Maximum="98000"/>
+			<ReturnToPlayer GameType="Any" Minimum="80.0" Maximum="98.0"/>
 		</ReturnToPlayerLimits>
 	</GameRestrictions>
 	<AutoPlay Allowed="false"/>

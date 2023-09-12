@@ -13,7 +13,8 @@
         /// <param name="level">The level that the contribution is being applied to</param>
         /// <param name="levelUpdate">The level update that describes the the update</param>
         /// <param name="hiddenTotalMeter">the hidden total meter.</param>
-        void ApplyContribution(ProgressiveLevel level, ProgressiveLevelUpdate levelUpdate, IMeter hiddenTotalMeter);
+        /// <param name="bulkTotalMeter">The bulk total meter.</param>
+        void ApplyContribution(ProgressiveLevel level, ProgressiveLevelUpdate levelUpdate, IMeter hiddenTotalMeter, IMeter bulkTotalMeter);
 
         /// <summary>
         ///     Applies the provided increment to the specified game and denom

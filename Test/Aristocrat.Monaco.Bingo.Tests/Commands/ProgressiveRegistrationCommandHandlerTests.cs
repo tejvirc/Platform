@@ -26,7 +26,7 @@
         private readonly Mock<IPropertiesManager> _propertiesManager = new(MockBehavior.Default);
         private readonly Mock<IUnitOfWork> _unitOfWork = new Mock<IUnitOfWork>(MockBehavior.Strict);
         private readonly Mock<IUnitOfWorkFactory> _unitOfWorkFactory = new Mock<IUnitOfWorkFactory>(MockBehavior.Strict);
-        private readonly Mock<IGameProvider> _gameProvider = new Mock<IGameProvider>(MockBehavior.Strict);
+        private readonly Mock<IGameProvider> _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
         private readonly Mock<IGameDetail> _gameDetail = new Mock<IGameDetail>(MockBehavior.Default);
         private readonly Mock<IDenomination> _denomination = new Mock<IDenomination>(MockBehavior.Default);
         private readonly Mock<ISubGameDetails> _subGameDetails = new Mock<ISubGameDetails>(MockBehavior.Default);

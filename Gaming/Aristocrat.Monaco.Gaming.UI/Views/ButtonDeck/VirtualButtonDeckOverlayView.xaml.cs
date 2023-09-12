@@ -1,14 +1,14 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck
+namespace Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck
 {
     using System;
     using System.Windows;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Cabinet.Contracts;
     using Contracts.Events.OperatorMenu;
     using Contracts.InfoBar;
     using Hardware.Contracts.Cabinet;
     using Kernel;
     using MahApps.Metro.Controls;
-    using MVVM;
     using ViewModels;
 
     /// <summary>
@@ -36,7 +36,7 @@
             // since it momentarily is behind the lobby until it is repositioned
             ServiceManager.GetInstance().GetService<IEventBus>().Subscribe<ResetVbdBoundariesEvent>(
                 this,
-                evt => MvvmHelper.ExecuteOnUI(SetBoundaries));
+                evt => Execute.OnUIThread(SetBoundaries));
         }
 
         /// <summary>

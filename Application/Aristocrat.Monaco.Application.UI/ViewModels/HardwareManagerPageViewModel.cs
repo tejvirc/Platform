@@ -1,16 +1,16 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Linq;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Kernel;
     using Kernel.Contracts;
     using Localization;
-    using MVVM;
-    using MVVM.Command;
     using Vgt.Client12.Application.OperatorMenu;
 
     [CLSCompliant(false)]
@@ -32,14 +32,14 @@
         {
             _operatorMenuLauncher = ServiceManager.GetInstance().GetService<IOperatorMenuLauncher>();
 
-            ApplyHardwareSettingsCommand = new ActionCommand<object>(Apply, _ => IsDirty);
+            ApplyHardwareSettingsCommand = new RelayCommand<object>(Apply, _ => IsDirty);
             _initialDoorOpticSensor = DoorOpticSensorEnabled;
             _initialBellyPanelDoor = BellyPanelDoorEnabled;
             _initialBell = BellEnabled;
             UpdateChanges = () => IsDirty = AreChangesMade();
         }
 
-        public ActionCommand<object> ApplyHardwareSettingsCommand { get; set; }
+        public RelayCommand<object> ApplyHardwareSettingsCommand { get; set; }
 
         public bool IsDirty
         {
@@ -52,8 +52,8 @@
                 }
 
                 _isDirty = value;
-                RaisePropertyChanged(nameof(IsDirty));
-                ApplyHardwareSettingsCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(IsDirty));
+                ApplyHardwareSettingsCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -79,7 +79,7 @@
 
         protected override void OnInputEnabledChanged()
         {
-            ApplyHardwareSettingsCommand.RaiseCanExecuteChanged();
+            ApplyHardwareSettingsCommand.NotifyCanExecuteChanged();
             base.OnInputEnabledChanged();
         }
 
@@ -198,7 +198,7 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 foreach (var device in Devices)
                 {

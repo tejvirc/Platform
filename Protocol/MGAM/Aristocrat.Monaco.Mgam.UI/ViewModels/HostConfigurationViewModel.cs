@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Mgam.UI.ViewModels
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
@@ -46,21 +47,14 @@
         /// <summary>
         ///     Gets or sets the directory service port.
         /// </summary>
+        [CustomValidation(typeof(HostConfigurationViewModel), nameof(ValidateDirectoryPort))]
         public int DirectoryPort
         {
             get => _directoryPort;
             set
             {
-                if (_directoryPort != value)
+                if (SetProperty(ref _directoryPort, value, true))
                 {
-                    ClearErrors(nameof(DirectoryPort));
-
-                    if (value <= 0 || value > ushort.MaxValue)
-                    {
-                        SetError(nameof(DirectoryPort), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange));
-                    }
-                    _directoryPort = value;
-                    RaisePropertyChanged(nameof(DirectoryPort));
                     SetupNavigation();
                 }
             }
@@ -75,9 +69,8 @@
 
             set
             {
-                if (value != _useUdpBroadcasting)
+                if (SetProperty(ref _useUdpBroadcasting, value, nameof(UseUdpBroadcasting)))
                 {
-                    _useUdpBroadcasting = value;
                     if (value)
                     {
                         _previousIpAddress = DirectoryIpAddress;
@@ -87,7 +80,6 @@
                     {
                         DirectoryIpAddress = _previousIpAddress;
                     }
-                    RaisePropertyChanged(nameof(UseUdpBroadcasting));
                 }
             }
         }
@@ -95,19 +87,14 @@
         /// <summary>
         /// Gets or Sets DirectoryIpAddress
         /// </summary>
+        [CustomValidation(typeof(HostConfigurationViewModel), nameof(ValidateDirectoryIpAddress))]
         public string DirectoryIpAddress
         {
             get => _directoryIpAddress;
 
             set
             {
-                var trimmed = value.Trim();
-                if (trimmed != _directoryIpAddress)
-                {
-                    _directoryIpAddress = trimmed;
-                    RaisePropertyChanged(nameof(DirectoryIpAddress));
-                }
-                ValidateNetworkAddress(trimmed);
+                SetProperty(ref _directoryIpAddress, value.Trim(), true);
                 SetupNavigation();
             }
         }
@@ -115,23 +102,14 @@
         /// <summary>
         ///     Gets or sets the VLT service name to locate.
         /// </summary>
+        [CustomValidation(typeof(HostConfigurationViewModel), nameof(ValidateServiceName))]
         public string ServiceName
         {
             get => _serviceName;
             set
             {
-                if (_serviceName != value)
-                {
-                    ClearErrors(nameof(ServiceName));
-
-                    if (string.IsNullOrEmpty(value))
-                    {
-                        SetError(nameof(ServiceName), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EmptyStringNotAllowErrorMessage));
-                    }
-                    _serviceName = value;
-                    RaisePropertyChanged(nameof(ServiceName));
-                    SetupNavigation();
-                }
+                SetProperty(ref _serviceName, value, true);
+                SetupNavigation();
             }
         }
 
@@ -313,16 +291,6 @@
             Logger.Info("Create database complete.");
         }
 
-        private void ValidateNetworkAddress(string address)
-        {
-            ClearErrors(nameof(DirectoryIpAddress));
-
-            if (!UseUdpBroadcasting && !IpValidation.IsIpV4AddressValid(address))
-            {
-                SetError(nameof(DirectoryIpAddress), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid));
-            }
-        }
-
         /// <inheritdoc />
         protected override void LoadAutoConfiguration()
         {
@@ -347,6 +315,53 @@
             }
 
             base.LoadAutoConfiguration();
+        }
+
+        /// <remarks />
+        public static ValidationResult ValidateDirectoryIpAddress(string address, ValidationContext context)
+        {
+            HostConfigurationViewModel instance = (HostConfigurationViewModel)context.ObjectInstance;
+            var errors = "";
+
+            if (!instance.UseUdpBroadcasting && !IpValidation.IsIpV4AddressValid(address))
+            {
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid);
+            }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
+
+        /// <remarks />
+        public static ValidationResult ValidateDirectoryPort(int directoryPort, ValidationContext context)
+        {
+            var errors = "";
+
+            if (directoryPort <= 0 || directoryPort > ushort.MaxValue)
+            {
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange);
+            }
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
+
+        /// <remarks />
+        public static ValidationResult ValidateServiceName(string serviceName, ValidationContext context)
+        {
+            if (string.IsNullOrEmpty(serviceName))
+            {
+                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EmptyStringNotAllowErrorMessage));
+            }
+            return ValidationResult.Success;
         }
     }
 }

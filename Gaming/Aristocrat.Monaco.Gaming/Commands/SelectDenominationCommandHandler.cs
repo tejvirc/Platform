@@ -16,22 +16,19 @@
     /// </summary>
     public class SelectDenominationCommandHandler : ICommandHandler<SelectDenomination>
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
-        private readonly IPropertiesManager _properties;
         private readonly IGameService _gameService;
         private readonly IRuntime _runtime;
         private readonly IEventBus _eventBus;
         private readonly IGameProvider _gameProvider;
 
         public SelectDenominationCommandHandler(
-            IPropertiesManager properties,
             IGameService gameService,
             IRuntime runtime,
             IEventBus eventBus,
             IGameProvider gameProvider)
         {
-            _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _gameService = gameService ?? throw new ArgumentNullException(nameof(gameService));
             _runtime = runtime ?? throw new ArgumentNullException(nameof(runtime));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
@@ -41,7 +38,7 @@
         /// <inheritdoc />
         public void Handle(SelectDenomination command)
         {
-            var (currentGame, currentDenom) = _properties.GetActiveGame();
+            var (currentGame, currentDenom) = _gameProvider.GetActiveGame();
 
             var selectedDenomValue = command.Denomination.CentsToMillicents();
 

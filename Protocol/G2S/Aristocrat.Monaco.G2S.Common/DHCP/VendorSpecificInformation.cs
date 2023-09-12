@@ -104,6 +104,23 @@
             return vendorSpecificInformation;
         }
 
+        /// <summary>
+        ///     Returns whether or not the specified DHCP parameter was provided in the Option 43 response
+        /// </summary>
+        /// <param name="parameterName">The parameter name to check.
+        /// Should be one of DhcpConstants.CertificateManagerServiceName, DhcpConstants.CertificateStatusServiceName,
+        /// or DhcpConstants.CommConfigServiceName</param>
+        /// <returns>true if the Option 43 response contained overriding information the parameter. false otherwise</returns>
+        /// <exception cref="ArgumentException">thrown when parameterName is not a valid value</exception>
+        public bool HasChangedDefault(string parameterName)
+        {
+            if (!ChangedDefaults.ContainsKey(parameterName))
+            {
+                throw new ArgumentException($"Invalid parameter name specified: {parameterName}");
+            }
+            return ChangedDefaults[parameterName];
+        }
+
         private static void SetDefaults(VendorSpecificInformation vendorSpecificInformation)
         {
             vendorSpecificInformation.OcspMinimumPeriodForOfflineMin = 240;

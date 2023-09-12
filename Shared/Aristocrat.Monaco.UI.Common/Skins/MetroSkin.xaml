@@ -21,15 +21,15 @@
     <LinearGradientBrush x:Key="WindowBackgroundBrush"
                          StartPoint="0,0"
                          EndPoint="1,1"
-                         AutomationProperties.AutomationId="LinearGradientBrush0_7407BCF1">
+                         AutomationProperties.AutomationId="LinearGradientBrush0_8A7127A">
         <LinearGradientBrush.GradientStops>
-            <GradientStopCollection AutomationProperties.AutomationId="GradientStopCollection1_7407BCF1">
+            <GradientStopCollection AutomationProperties.AutomationId="GradientStopCollection1_8A7127A">
                 <GradientStop Color="DeepSkyBlue"
                               Offset="0"
-                              AutomationProperties.AutomationId="GradientStop2_7407BCF1" />
+                              AutomationProperties.AutomationId="GradientStop2_8A7127A" />
                 <GradientStop Color="SkyBlue"
                               Offset="1"
-                              AutomationProperties.AutomationId="GradientStop3_7407BCF1" />
+                              AutomationProperties.AutomationId="GradientStop3_8A7127A" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
@@ -45,63 +45,63 @@
     <LinearGradientBrush x:Key="OperatorMenuPanelBackgroundBrush"
                          StartPoint="0,0"
                          EndPoint="1,1"
-                         AutomationProperties.AutomationId="LinearGradientBrush4_7407BCF1">
+                         AutomationProperties.AutomationId="LinearGradientBrush4_8A7127A">
         <LinearGradientBrush.GradientStops>
-            <GradientStopCollection AutomationProperties.AutomationId="GradientStopCollection5_7407BCF1">
+            <GradientStopCollection AutomationProperties.AutomationId="GradientStopCollection5_8A7127A">
                 <GradientStop Color="{StaticResource ExtraDarkBlue1}"
                               Offset="0"
-                              AutomationProperties.AutomationId="GradientStop6_7407BCF1" />
+                              AutomationProperties.AutomationId="GradientStop6_8A7127A" />
                 <GradientStop Color="{StaticResource ExtraDarkBlue2}"
                               Offset=".45"
-                              AutomationProperties.AutomationId="GradientStop7_7407BCF1" />
+                              AutomationProperties.AutomationId="GradientStop7_8A7127A" />
                 <GradientStop Color="{StaticResource MediumBlue2}"
                               Offset="1"
-                              AutomationProperties.AutomationId="GradientStop8_7407BCF1" />
+                              AutomationProperties.AutomationId="GradientStop8_8A7127A" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="MenuHighlightBrush"
                          StartPoint=".5,0"
                          EndPoint=".5,1"
-                         AutomationProperties.AutomationId="LinearGradientBrush9_7407BCF1">
+                         AutomationProperties.AutomationId="LinearGradientBrush9_8A7127A">
         <LinearGradientBrush.GradientStops>
-            <GradientStopCollection AutomationProperties.AutomationId="GradientStopCollection10_7407BCF1">
+            <GradientStopCollection AutomationProperties.AutomationId="GradientStopCollection10_8A7127A">
                 <GradientStop Color="{StaticResource White}"
                               Offset="0"
-                              AutomationProperties.AutomationId="GradientStop11_7407BCF1" />
+                              AutomationProperties.AutomationId="GradientStop11_8A7127A" />
                 <GradientStop Color="{StaticResource Gray}"
                               Offset="1"
-                              AutomationProperties.AutomationId="GradientStop12_7407BCF1" />
+                              AutomationProperties.AutomationId="GradientStop12_8A7127A" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
     <LinearGradientBrush x:Key="OperatorMenuDropShadowBrush"
                          StartPoint=".5,0"
                          EndPoint=".5,1"
-                         AutomationProperties.AutomationId="LinearGradientBrush13_7407BCF1">
+                         AutomationProperties.AutomationId="LinearGradientBrush13_8A7127A">
         <LinearGradientBrush.GradientStops>
-            <GradientStopCollection AutomationProperties.AutomationId="GradientStopCollection14_7407BCF1">
+            <GradientStopCollection AutomationProperties.AutomationId="GradientStopCollection14_8A7127A">
                 <GradientStop Color="{StaticResource MediumBlue}"
                               Offset="0"
-                              AutomationProperties.AutomationId="GradientStop15_7407BCF1" />
+                              AutomationProperties.AutomationId="GradientStop15_8A7127A" />
                 <GradientStop Color="{StaticResource DarkBlue}"
                               Offset="1"
-                              AutomationProperties.AutomationId="GradientStop16_7407BCF1" />
+                              AutomationProperties.AutomationId="GradientStop16_8A7127A" />
             </GradientStopCollection>
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
     <SolidColorBrush x:Key="OperatorMenuMedium"
                      Color="{StaticResource MediumBlue}"
-                     AutomationProperties.AutomationId="SolidColorBrush17_7407BCF1" />
+                     AutomationProperties.AutomationId="SolidColorBrush17_8A7127A" />
     <SolidColorBrush x:Key="OperatorMenuDark"
                      Color="{StaticResource DarkBlue}"
-                     AutomationProperties.AutomationId="SolidColorBrush18_7407BCF1" />
+                     AutomationProperties.AutomationId="SolidColorBrush18_8A7127A" />
     <SolidColorBrush x:Key="OperatorMenuLabelText"
                      Color="{StaticResource LightBlue}"
-                     AutomationProperties.AutomationId="SolidColorBrush19_7407BCF1" />
+                     AutomationProperties.AutomationId="SolidColorBrush19_8A7127A" />
     <SolidColorBrush x:Key="OperatorMenuDisabledText"
                      Color="{StaticResource DarkGray}"
-                     AutomationProperties.AutomationId="SolidColorBrush20_7407BCF1" />
+                     AutomationProperties.AutomationId="SolidColorBrush20_8A7127A" />
     <!-- The default style for window. -->
     <Style TargetType="{x:Type Window}">
         <Setter Property="Background"
@@ -158,25 +158,25 @@
                     <Border BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Background="{TemplateBinding Background}"
-                            AutomationProperties.AutomationId="Border21_7407BCF1">
-                        <Grid AutomationProperties.AutomationId="Grid22_7407BCF1">
+                            AutomationProperties.AutomationId="Border21_8A7127A">
+                        <Grid AutomationProperties.AutomationId="Grid22_8A7127A">
                             <ContentPresenter Content="{TemplateBinding Content}"
                                               ContentTemplate="{TemplateBinding ContentTemplate}"
                                               Margin="{TemplateBinding Padding}"
                                               HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                                               VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                              AutomationProperties.AutomationId="ContentPresenter23_7407BCF1" />
-                            <Border AutomationProperties.AutomationId="Border24_7407BCF1">
+                                              AutomationProperties.AutomationId="ContentPresenter23_8A7127A" />
+                            <Border AutomationProperties.AutomationId="Border24_8A7127A">
                                 <Border.Background>
                                     <VisualBrush Opacity="1"
-                                                 AutomationProperties.AutomationId="VisualBrush25_7407BCF1">
+                                                 AutomationProperties.AutomationId="VisualBrush25_8A7127A">
                                         <VisualBrush.Visual>
                                             <Path Name="path"
                                                   Data="M 0 0 L 10 10 M 10 0 L 0 10"
                                                   StrokeStartLineCap="Round"
                                                   StrokeEndLineCap="Round"
                                                   StrokeLineJoin="Round"
-                                                  AutomationProperties.AutomationId="Path26_7407BCF1" />
+                                                  AutomationProperties.AutomationId="Path26_8A7127A" />
                                         </VisualBrush.Visual>
                                     </VisualBrush>
                                 </Border.Background>
@@ -186,7 +186,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked"
                                  Value="True"
-                                 AutomationProperties.AutomationId="Trigger27_7407BCF1">
+                                 AutomationProperties.AutomationId="Trigger27_8A7127A">
                             <Setter TargetName="path"
                                     Property="Data"
                                     Value="M 0 5 L 3 10 10 0" />
@@ -196,7 +196,7 @@
                         </Trigger>
                         <Trigger Property="IsEnabled"
                                  Value="False"
-                                 AutomationProperties.AutomationId="Trigger28_7407BCF1">
+                                 AutomationProperties.AutomationId="Trigger28_8A7127A">
                             <Setter TargetName="path"
                                     Property="Stroke"
                                     Value="Gray" />
@@ -223,19 +223,19 @@
                             Margin="0,0,2,0"
                             CornerRadius="4,4,0,0"
                             Background="White"
-                            AutomationProperties.AutomationId="Border29_7407BCF1">
+                            AutomationProperties.AutomationId="Border29_8A7127A">
                         <ContentPresenter x:Name="tabContent"
                                           ContentSource="Header"
                                           RecognizesAccessKey="True"
                                           VerticalAlignment="Center"
                                           HorizontalAlignment="Center"
-                                          AutomationProperties.AutomationId="ContentPresenter30_7407BCF1" />
+                                          AutomationProperties.AutomationId="ContentPresenter30_8A7127A" />
                     </Border>
                     <!-- Create a trigger so that selected tabs will be a little taller, highlighted, and with no bottom border -->
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected"
                                  Value="True"
-                                 AutomationProperties.AutomationId="Trigger31_7407BCF1">
+                                 AutomationProperties.AutomationId="Trigger31_8A7127A">
                             <Setter TargetName="tabBorder"
                                     Property="BorderThickness"
                                     Value="4,4,4,0" />
@@ -251,7 +251,7 @@
                         </Trigger>
                         <Trigger Property="IsSelected"
                                  Value="False"
-                                 AutomationProperties.AutomationId="Trigger32_7407BCF1">
+                                 AutomationProperties.AutomationId="Trigger32_8A7127A">
                             <Setter Property="Foreground"
                                     Value="Black" />
                         </Trigger>
@@ -270,22 +270,22 @@
             <Setter.Value>
                 <ControlTemplate TargetType="TabControl">
                     <Grid UseLayoutRounding="True"
-                          AutomationProperties.AutomationId="Grid33_7407BCF1">
+                          AutomationProperties.AutomationId="Grid33_8A7127A">
                         <Grid.RowDefinitions>
                             <!-- 3 rows for the TabPanel, overlap, and the selected content -->
                             <RowDefinition Height="40"
-                                           AutomationProperties.AutomationId="RowDefinition34_7407BCF1" />
+                                           AutomationProperties.AutomationId="RowDefinition34_8A7127A" />
                             <RowDefinition Height="4"
-                                           AutomationProperties.AutomationId="RowDefinition35_7407BCF1" />
+                                           AutomationProperties.AutomationId="RowDefinition35_8A7127A" />
                             <RowDefinition Height="*"
-                                           AutomationProperties.AutomationId="RowDefinition36_7407BCF1" />
+                                           AutomationProperties.AutomationId="RowDefinition36_8A7127A" />
                         </Grid.RowDefinitions>
                         <!-- TabPanel needs to be on top of the selected content border -->
                         <TabPanel IsItemsHost="True"
                                   Grid.Row="0"
                                   Grid.RowSpan="2"
                                   Panel.ZIndex="1"
-                                  AutomationProperties.AutomationId="TabPanel37_7407BCF1" />
+                                  AutomationProperties.AutomationId="TabPanel37_8A7127A" />
                         <Border Grid.Row="1"
                                 Grid.RowSpan="2"
                                 CornerRadius="0,4,4,4"
@@ -293,10 +293,10 @@
                                 BorderThickness="4,4,4,4"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                AutomationProperties.AutomationId="Border38_7407BCF1">
+                                AutomationProperties.AutomationId="Border38_8A7127A">
                             <ContentPresenter Margin="4"
                                               ContentSource="SelectedContent"
-                                              AutomationProperties.AutomationId="ContentPresenter39_7407BCF1" />
+                                              AutomationProperties.AutomationId="ContentPresenter39_8A7127A" />
                         </Border>
                     </Grid>
                 </ControlTemplate>
@@ -307,10 +307,10 @@
     <Color x:Key="lightBlueColor">#FFDDEEFF</Color>
     <SolidColorBrush x:Key="darkBlueSolidBrush"
                      Color="{DynamicResource darkBlueColor}"
-                     AutomationProperties.AutomationId="SolidColorBrush40_7407BCF1" />
+                     AutomationProperties.AutomationId="SolidColorBrush40_8A7127A" />
     <SolidColorBrush x:Key="lightBlueSolidBrush"
                      Color="{DynamicResource lightBlueColor}"
-                     AutomationProperties.AutomationId="SolidColorBrush41_7407BCF1" />
+                     AutomationProperties.AutomationId="SolidColorBrush41_8A7127A" />
     <Style TargetType="{x:Type Calendar}">
         <Setter Property="Template">
             <Setter.Value>
@@ -318,12 +318,12 @@
                     <!-- Wrapping in ViewBox will enlarge calendar of that size.-->
                     <Viewbox Height="600"
                              Width="600"
-                             AutomationProperties.AutomationId="Viewbox42_7407BCF1">
+                             AutomationProperties.AutomationId="Viewbox42_8A7127A">
                         <CalendarItem x:Name="PART_CalendarItem"
                                       Background="{TemplateBinding Background}"
                                       BorderBrush="{TemplateBinding BorderBrush}"
                                       BorderThickness="{TemplateBinding BorderThickness}"
-                                      AutomationProperties.AutomationId="CalendarItem43_7407BCF1" />
+                                      AutomationProperties.AutomationId="CalendarItem43_8A7127A" />
                     </Viewbox>
                 </ControlTemplate>
             </Setter.Value>

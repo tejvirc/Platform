@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -19,6 +19,8 @@
     using Application.Contracts.OperatorMenu;
     using Application.UI.Events;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Central;
     using Contracts.Events.OperatorMenu;
@@ -37,8 +39,6 @@
     using Localization.Properties;
     using Models;
     using Monaco.UI.Common.Models;
-    using MVVM;
-    using MVVM.Command;
     using Tickets;
     using Views.OperatorMenu;
 
@@ -106,7 +106,7 @@
             ShowGameInfoButtons = GetConfigSetting(OperatorMenuSetting.ShowGameInfoButtons, false);
             ShowProgressiveDetails = GetConfigSetting(OperatorMenuSetting.ShowProgressiveDetails, false);
 
-            if (!InDesigner)
+            if (!Execute.InDesigner)
             {
                 var container = ServiceManager.GetInstance().GetService<IContainerService>();
 
@@ -135,13 +135,13 @@
 
             _dialogService = ServiceManager.GetInstance().GetService<IDialogService>();
 
-            ReplayCommand = new ActionCommand<object>(ReplayPressed);
-            ShowGameMetersCommand = new ActionCommand<object>(ShowGameMeters);
-            ShowGameTransactionsCommand = new ActionCommand<object>(ShowGameTransactions);
-            ShowGameProgressiveWinCommand = new ActionCommand<object>(ShowGameProgressiveWin);
-            ShowGameEventLogsCommand = new ActionCommand<object>(ShowGameEventLogs);
-            ShowGameDetailsCommand = new ActionCommand<object>(ShowGameDetails);
-            ShowProgressiveDetailsCommand = new ActionCommand<object>(ShowProgressiveDetailsPopup);
+            ReplayCommand = new RelayCommand<object>(ReplayPressed);
+            ShowGameMetersCommand = new RelayCommand<object>(ShowGameMeters);
+            ShowGameTransactionsCommand = new RelayCommand<object>(ShowGameTransactions);
+            ShowGameProgressiveWinCommand = new RelayCommand<object>(ShowGameProgressiveWin);
+            ShowGameEventLogsCommand = new RelayCommand<object>(ShowGameEventLogs);
+            ShowGameDetailsCommand = new RelayCommand<object>(ShowGameDetails);
+            ShowProgressiveDetailsCommand = new RelayCommand<object>(ShowProgressiveDetailsPopup);
 
             ReplayPauseActive = PropertiesManager.GetValue(GamingConstants.ReplayPauseActive, true);
             ReplayPauseEnabled = PropertiesManager.GetValue(GamingConstants.ReplayPauseEnable, true);
@@ -175,10 +175,10 @@
             set
             {
                 _gameHistory = value;
-                RaisePropertyChanged(nameof(GameHistory));
-                RaisePropertyChanged(nameof(ReplayButtonEnabled));
-                RaisePropertyChanged(nameof(EnablePrintCurrentPageButton));
-                RaisePropertyChanged(nameof(MainPrintButtonEnabled));
+                OnPropertyChanged(nameof(GameHistory));
+                OnPropertyChanged(nameof(ReplayButtonEnabled));
+                OnPropertyChanged(nameof(EnablePrintCurrentPageButton));
+                OnPropertyChanged(nameof(MainPrintButtonEnabled));
             }
         }
 
@@ -258,7 +258,7 @@
             set
             {
                 _resetScrollToTop = value;
-                RaisePropertyChanged(nameof(ResetScrollToTop));
+                OnPropertyChanged(nameof(ResetScrollToTop));
             }
         }
 
@@ -268,7 +268,7 @@
             set
             {
                 _replayPauseEnabled = value;
-                RaisePropertyChanged(nameof(ReplayPauseEnabled));
+                OnPropertyChanged(nameof(ReplayPauseEnabled));
             }
         }
 
@@ -278,7 +278,7 @@
             set
             {
                 _replayPauseActive = value;
-                RaisePropertyChanged(nameof(ReplayPauseActive));
+                OnPropertyChanged(nameof(ReplayPauseActive));
                 _propertiesManager.SetProperty(GamingConstants.ReplayPauseActive, ReplayPauseActive);
             }
         }
@@ -314,14 +314,14 @@
                         .SelectMany(SplitGameRoundInfo);
                     SelectedGameRoundTextList = new ObservableCollection<string>(gameRoundDescriptionTextItems);
 
-                    RaisePropertyChanged(nameof(ReplayButtonEnabled));
-                    RaisePropertyChanged(nameof(SelectedGameItem));
-                    RaisePropertyChanged(nameof(EnablePrintSelectedButton));
-                    RaisePropertyChanged(nameof(IsGameRoundComplete));
-                    RaisePropertyChanged(nameof(IsHistoryItemSelected));
-                    RaisePropertyChanged(nameof(GameProgressiveWinButtonEnabled));
-                    RaisePropertyChanged(nameof(IsMeteredGameSelected));
-                    RaisePropertyChanged(nameof(SelectedGameHasProgressiveDetails));
+                    OnPropertyChanged(nameof(ReplayButtonEnabled));
+                    OnPropertyChanged(nameof(SelectedGameItem));
+                    OnPropertyChanged(nameof(EnablePrintSelectedButton));
+                    OnPropertyChanged(nameof(IsGameRoundComplete));
+                    OnPropertyChanged(nameof(IsHistoryItemSelected));
+                    OnPropertyChanged(nameof(GameProgressiveWinButtonEnabled));
+                    OnPropertyChanged(nameof(IsMeteredGameSelected));
+                    OnPropertyChanged(nameof(SelectedGameHasProgressiveDetails));
                     UpdateStatusText();
                     ResetScrollToTop = false;
                 }
@@ -337,7 +337,7 @@
             set
             {
                 _isReplaying = value;
-                RaisePropertyChanged(nameof(IsReplaying), nameof(ReplayButtonEnabled));
+                OnPropertyChanged(nameof(IsReplaying), nameof(ReplayButtonEnabled));
             }
         }
 
@@ -435,11 +435,11 @@
             // We don't need to subscribe to completed events because that is handled by the UpdatePrinterButtons override
 
             SelectedGameItem = null;
-            RaisePropertyChanged(nameof(PrintCurrentPageButtonVisible));
-            RaisePropertyChanged(nameof(PrintSelectedButtonVisible));
-            RaisePropertyChanged(nameof(PrintLast15ButtonVisible));
-            RaisePropertyChanged(nameof(ReplayButtonEnabled));
-            RaisePropertyChanged(nameof(PendingCurrencyIn));
+            OnPropertyChanged(nameof(PrintCurrentPageButtonVisible));
+            OnPropertyChanged(nameof(PrintSelectedButtonVisible));
+            OnPropertyChanged(nameof(PrintLast15ButtonVisible));
+            OnPropertyChanged(nameof(ReplayButtonEnabled));
+            OnPropertyChanged(nameof(PendingCurrencyIn));
             RefreshGameHistory();
         }
 
@@ -452,10 +452,10 @@
 
         protected override void UpdatePrinterButtons()
         {
-            RaisePropertyChanged(nameof(EnablePrintCurrentPageButton));
-            RaisePropertyChanged(nameof(EnablePrintSelectedButton));
-            RaisePropertyChanged(nameof(EnablePrintLast15Button));
-            RaisePropertyChanged(nameof(ReplayButtonEnabled));
+            OnPropertyChanged(nameof(EnablePrintCurrentPageButton));
+            OnPropertyChanged(nameof(EnablePrintSelectedButton));
+            OnPropertyChanged(nameof(EnablePrintLast15Button));
+            OnPropertyChanged(nameof(ReplayButtonEnabled));
         }
 
         protected override void UpdateStatusText()
@@ -553,7 +553,7 @@
                 ? GetHistory()
                 : GetExpandedHistory();
 
-            var gameHistory = new List<GameRoundHistoryItem>();
+            var history = new List<GameRoundHistoryItem>();
 
             // Base Game Index is -1 when metering Free Game Independently, 0 when not.  This is for Replay.
             var gameHistoryBase = gameHistoryTemp.Where(o => o.GameIndex <= 0 && !o.IsTransactionItem)
@@ -571,23 +571,19 @@
                         .Where(o => o.IsTransactionItem && o.GameIndex == gameIndex)
                         .OrderByDescending(o => o.TransactionId).ToList();
 
-                    if (postGameTransactions.Any())
-                    {
-                        gameHistory.AddRange(postGameTransactions);
-                    }
+                    AddItemRange(postGameTransactions, history);
 
-                    gameHistory.Add(game);
+                    history.Add(game);
                 }
 
                 var preGameTransactions = historyByLogId
                     .Where(o => o.IsTransactionItem && o.GameIndex == -1)
                     .OrderByDescending(o => o.TransactionId).ToList();
 
-                if (preGameTransactions.Any())
-                {
-                    gameHistory.AddRange(preGameTransactions);
-                }
+                AddItemRange(preGameTransactions, history);
             }
+
+            var gameHistory = history.OrderByDescending(i => i.StartTime);
 
             // go through the list and compute start & end values for Transaction Items
             GameRoundHistoryItem lastItem = null;
@@ -616,6 +612,14 @@
             FilterGameHistory();
 
             UpdatePrinterButtons();
+
+            void AddItemRange(List<GameRoundHistoryItem> items, List<GameRoundHistoryItem> history)
+            {
+                if (items.Any())
+                {
+                    history.AddRange(items);
+                }
+            }
         }
 
         private void FilterGameHistory()
@@ -747,7 +751,7 @@
                     round.GameVersion = game.Version;
                 }
 
-                FillTransactionData(ref round, gameHistory.Transactions);
+                FillTransactionData(ref round, gameHistory.Transactions, rounds);
 
                 rounds.Add(round);
 
@@ -900,9 +904,6 @@
                     AmountIn = null,
                     AmountOut = null,
                     StartCredits = gameHistory.StartCredits.MillicentsToDollars(),
-                    EndCredits = gameHistory.PlayState != PlayState.Idle
-                        ? null
-                        : gameHistory.EndCredits.MillicentsToDollars(),
                     EndJackpot = BuildJackpotString(gameHistory.JackpotSnapshotEnd?.ToList()),
                     EndJackpots = gameHistory.JackpotSnapshotEnd,
                     GameIndex = 0
@@ -910,17 +911,27 @@
 
                 if (IsBaseGameCommitted(gameHistory))
                 {
+                    round.EndCredits = (gameHistory.StartCredits.MillicentsToCents() -
+                                        gameHistory.InitialWager + gameHistory.UncommittedWin).CentsToDollars();
+
                     round.CreditsWon = gameHistory.UncommittedWin.CentsToDollars();
                 }
                 else
                 {
                     var freeGamesTotalWon = freeGames.Sum(f => f.FinalWin);
+
+                    round.EndCredits = gameHistory.PlayState != PlayState.Idle
+                        ? (decimal?)null
+                        : (gameHistory.StartCredits.MillicentsToCents()
+                          - gameHistory.InitialWager + gameHistory.FinalWin - freeGamesTotalWon).CentsToDollars();
+
                     round.CreditsWon = gameHistory.PlayState != PlayState.Idle
-                        ? null
-                        : (gameHistory.TotalWon - freeGamesTotalWon).CentsToDollars();
+                        ? (decimal?)null
+                        : (gameHistory.FinalWin - freeGamesTotalWon).CentsToDollars();
                 }
 
-                FillTransactionData(ref round, gameHistory.Transactions);
+                FillTransactionData(ref round, gameHistory.Transactions, rounds);
+
                 rounds.Add(round);
 
                 index++;
@@ -935,10 +946,17 @@
 
         private void FillTransactionData(
             ref GameRoundHistoryItem round,
-            IEnumerable<TransactionInfo> transactions)
+            IEnumerable<TransactionInfo> transactions,
+            List<GameRoundHistoryItem> rounds)
         {
             if (transactions == null)
             {
+                return;
+            }
+
+            if (!ShowGameInfoButtons && transactions.Any())
+            {
+                rounds.AddRange(GetTransactionData(round, transactions));
                 return;
             }
 
@@ -1002,6 +1020,66 @@
             }
         }
 
+        private List<GameRoundHistoryItem> GetTransactionData(GameRoundHistoryItem baseRound, IEnumerable<TransactionInfo> transactions)
+        {
+            var transactionData = new List<GameRoundHistoryItem>();
+
+            foreach (var transaction in transactions)
+            {
+                GameRoundHistoryItem round = new GameRoundHistoryItem()
+                {
+                    RefNoText = string.Empty,
+                    StartTime = transaction.Time,
+                    EndTime = DateTime.MinValue,
+                    CreditsWagered = null,
+                    CreditsWon = null,
+                    Status = string.Empty,
+                    AmountIn = null,
+                    AmountOut = null,
+                    LogSequence = baseRound.LogSequence,
+                    GameIndex = transaction.GameIndex,
+                    TransactionId = transaction.TransactionId,
+                    Denom = null
+                };
+
+                if (transaction.TransactionType == typeof(BillTransaction))
+                {
+                    round.GameName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillIn);
+                    round.AmountIn = transaction.Amount.MillicentsToDollars();
+                }
+                else if (transaction.TransactionType == typeof(VoucherInTransaction))
+                {
+                    round.GameName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherIn);
+                    round.AmountIn = transaction.Amount.MillicentsToDollars();
+                }
+                else if (transaction.TransactionType == typeof(VoucherOutTransaction))
+                {
+                    round.GameName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherOut);
+                    round.AmountOut = transaction.Amount.MillicentsToDollars();
+                }
+                else if (transaction.TransactionType == typeof(WatOnTransaction))
+                {
+                    round.GameName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TransferIn);
+                    round.AmountIn = transaction.Amount.MillicentsToDollars();
+                }
+                else if (transaction.TransactionType == typeof(WatTransaction))
+                {
+                    round.GameName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TransferOut);
+                    round.AmountOut = transaction.Amount.MillicentsToDollars();
+                }
+                else if (transaction.TransactionType == typeof(HandpayTransaction))
+                {
+                    round.GameName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Handpay);
+                    round.AmountOut = transaction.Amount.MillicentsToDollars();
+                }
+
+                transactionData.Add(round);
+            }
+
+            return transactionData;
+        }
+
+
         private string BuildJackpotString(IList<Jackpot> jackpots)
         {
             if (jackpots == null || !jackpots.Any())
@@ -1054,7 +1132,7 @@
 
         private List<Ticket> GetLogTickets(OperatorMenuPrintData dataType)
         {
-            var logs = GameHistory.ToList();
+            var logs = FilteredGameHistory.ToList();
 
             if (dataType == OperatorMenuPrintData.Last15)
             {
@@ -1123,23 +1201,23 @@
 
         private void PrintStatusChanged(IEvent printEvent)
         {
-            RaisePropertyChanged(nameof(ReplayButtonEnabled));
+            OnPropertyChanged(nameof(ReplayButtonEnabled));
         }
 
         private void HandleUpdate(IEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RefreshGameHistory();
-                    RaisePropertyChanged(nameof(PendingCurrencyIn));
+                    OnPropertyChanged(nameof(PendingCurrencyIn));
                 });
         }
 
         private void HandleReelRelatedFault(IEvent theEvent)
         {
             UpdateStatusText();
-            RaisePropertyChanged(nameof(ReplayButtonEnabled));
+            OnPropertyChanged(nameof(ReplayButtonEnabled));
         }
 
         private void HandleSystemDisableAddedEvent(SystemDisableAddedEvent theEvent)
@@ -1147,7 +1225,7 @@
             if (theEvent.DisableId == ApplicationConstants.ReelControllerDisconnectedGuid)
             {
                 UpdateStatusText();
-                RaisePropertyChanged(nameof(ReplayButtonEnabled));
+                OnPropertyChanged(nameof(ReplayButtonEnabled));
             }
         }
 
@@ -1156,17 +1234,17 @@
             if (theEvent.DisableId == ApplicationConstants.ReelControllerDisconnectedGuid)
             {
                 UpdateStatusText();
-                RaisePropertyChanged(nameof(ReplayButtonEnabled));
+                OnPropertyChanged(nameof(ReplayButtonEnabled));
             }
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     RefreshGameHistory();
-                    RaisePropertyChanged(nameof(PendingCurrencyIn));
+                    OnPropertyChanged(nameof(PendingCurrencyIn));
                 });
 
             base.OnOperatorCultureChanged(evt);

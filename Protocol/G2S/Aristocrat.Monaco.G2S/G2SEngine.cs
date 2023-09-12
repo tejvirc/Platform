@@ -302,7 +302,7 @@
             
             if (protocol.IsProgressiveHandled)
             {
-                _progressiveDeviceManager.AddProgressiveDevices(initialCreation: true);
+                _progressiveDeviceManager.AddProgressiveDevices();
             }
         }
 
@@ -322,6 +322,10 @@
                     {
                         device.HostEnabled = status.RestartStatus;
                     }
+                }
+                else if (device.Owner == Aristocrat.G2S.Client.Constants.EgmHostId)
+                {
+                    device.HostEnabled = true;
                 }
                 else if (!device.HostEnabled)
                 {

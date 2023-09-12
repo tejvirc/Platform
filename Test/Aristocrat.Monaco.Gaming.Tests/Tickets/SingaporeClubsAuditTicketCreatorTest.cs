@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Tests.Tickets
+namespace Aristocrat.Monaco.Gaming.Tests.Tickets
 {
     using System;
     using System.Collections.Generic;
@@ -109,7 +109,7 @@
 
         public BetLinePresetList BetLinePresetList { get; }
 
-        public long WinThreshold { get; }
+        public long? WinThreshold { get; }
 
         public int? MaximumProgressivePerDenom { get; }
 
@@ -156,8 +156,29 @@
         public IEnumerable<ISubGameDetails> SupportedSubGames { get; }
 
         public IEnumerable<ISubGameDetails> ActiveSubGames { get; }
-
+ 
         public int UniqueGameId { get; set; }
+
+        public bool HasExtendedRtpInformation
+        {
+            get
+            {
+                return WagerCategories.Any(
+                    w =>
+                        w.MinBaseRtpPercent != default ||
+                        w.MaxBaseRtpPercent != default ||
+                        w.MinSapStartupRtpPercent != default ||
+                        w.MaxSapStartupRtpPercent != default ||
+                        w.SapIncrementRtpPercent != default ||
+                        w.MinLinkStartupRtpPercent != default ||
+                        w.MaxLinkStartupRtpPercent != default ||
+                        w.LinkIncrementRtpPercent != default);
+            }
+        }
+
+        public bool LinkedProgressiveVerificationComplete { get; set;}
+
+        public bool? LinkedProgressiveVerificationResult { get; set;}
     }
 
     internal class TestDenomination : IDenomination
@@ -198,6 +219,8 @@
         public bool LetItRideAllowed { get; set; }
 
         public bool LetItRideEnabled { get; set; }
+
+        public bool BetKeeperAllowed { get; set; }
 
         public long DisplayedValue { get; }
     }
@@ -304,6 +327,7 @@
                         (int)ProgressiveLevelType.Sap,
                         string.Empty,
                         PayMethod.Any,
+                        0,
                         0,
                         0)
                     {

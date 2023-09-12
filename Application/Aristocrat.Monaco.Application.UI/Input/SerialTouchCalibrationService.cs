@@ -1,10 +1,11 @@
-﻿namespace Aristocrat.Monaco.Application.UI.Input
+namespace Aristocrat.Monaco.Application.UI.Input
 {
     using System;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Timers;
     using Aristocrat.Monaco.Localization.Properties;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
@@ -13,7 +14,6 @@
     using Kernel;
     using Kernel.Contracts;
     using log4net;
-    using MVVM;
 
     public class SerialTouchCalibrationService : ISerialTouchCalibration, IService, IDisposable
     {
@@ -110,7 +110,7 @@
             }
 
             Logger.Debug("CalibrateNextDevice - Progressing on to calibrate next serial touch device...");
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 _activeCalibration?.Value.ViewModel.CompleteCalibrationTest();
                 _activeCalibration = _activeCalibration?.Next;
@@ -140,7 +140,7 @@
 
         private void InitializeCalibration()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 { // Create SerialTouchCalibration control for each expected display with serial touch
                     foreach (var display in _cabinetDetection.ExpectedDisplayDevicesWithSerialTouch)
@@ -177,7 +177,7 @@
 
         private void FinalizeCalibration(bool aborted, string message = "")
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     Logger.Debug($"FinalizeCalibration - Aborted {aborted} - IsCalibrating {IsCalibrating} - CalibrationError {CalibrationError}");
@@ -216,7 +216,7 @@
 
         private void OnCalibrationErrorTimeout(object sender, ElapsedEventArgs e)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _timerElapsedSeconds++;
@@ -275,7 +275,7 @@
         {
             if (IsCalibrating)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         _activeCalibration?.Value.ViewModel.UpdateCalibration(e);

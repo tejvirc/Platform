@@ -66,7 +66,7 @@
         public event EventHandler<ReelFaultedEventArgs> FaultCleared;
 
         /// <inheritdoc />
-        public event EventHandler<ReelEventArgs> ReelStopping;
+        public event EventHandler<ReelStoppingEventArgs> ReelStopping;
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelStopped;
@@ -318,7 +318,7 @@
         ///     Not used for Harkey reels.
         /// </summary>
         /// <param name="e">The event arguments</param>
-        protected virtual void OnReelStopping(ReelEventArgs e)
+        protected virtual void OnReelStopping(ReelStoppingEventArgs e)
         {
             ReelStopping?.Invoke(this, e);
         }

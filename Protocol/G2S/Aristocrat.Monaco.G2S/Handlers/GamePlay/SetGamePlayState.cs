@@ -151,7 +151,9 @@
                             }
 
                             device.Queue.SendResponse(command);
-                        });
+                        },
+                        EgmState.HostLocked,
+                        true);
                     break;
                 default:
                     command.Error.SetErrorCode(ErrorCode.G2S_GPX004);

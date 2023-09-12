@@ -33,7 +33,7 @@
                 if (_pagedMemorySize64 != value)
                 {
                     _pagedMemorySize64 = value;
-                    RaisePropertyChanged(nameof(PagedMemorySize64));
+                    OnPropertyChanged(nameof(PagedMemorySize64));
                 }
             }
         }
@@ -47,7 +47,7 @@
                 if (_peakPagedMemorySize64 != value)
                 {
                     _peakPagedMemorySize64 = value;
-                    RaisePropertyChanged(nameof(PeakPagedMemorySize64));
+                    OnPropertyChanged(nameof(PeakPagedMemorySize64));
                 }
             }
         }
@@ -61,7 +61,7 @@
                 if (_peakWorkingSet64 != value)
                 {
                     _peakWorkingSet64 = value;
-                    RaisePropertyChanged(nameof(PeakWorkingSet64));
+                    OnPropertyChanged(nameof(PeakWorkingSet64));
                 }
             }
         }
@@ -75,7 +75,7 @@
                 if (_privateMemorySize64 != value)
                 {
                     _privateMemorySize64 = value;
-                    RaisePropertyChanged(nameof(PrivateMemorySize64));
+                    OnPropertyChanged(nameof(PrivateMemorySize64));
                 }
             }
         }
@@ -89,7 +89,7 @@
                 if (_virtualMemorySize64 != value)
                 {
                     _virtualMemorySize64 = value;
-                    RaisePropertyChanged(nameof(VirtualMemorySize64));
+                    OnPropertyChanged(nameof(VirtualMemorySize64));
                 }
             }
         }
@@ -103,7 +103,7 @@
                 if (_workingSet64 != value)
                 {
                     _workingSet64 = value;
-                    RaisePropertyChanged(nameof(WorkingSet64));
+                    OnPropertyChanged(nameof(WorkingSet64));
                 }
             }
         }
@@ -117,7 +117,7 @@
                 if (_pagedSystemMemorySize64 != value)
                 {
                     _pagedSystemMemorySize64 = value;
-                    RaisePropertyChanged(nameof(PagedSystemMemorySize64));
+                    OnPropertyChanged(nameof(PagedSystemMemorySize64));
                 }
             }
         }
@@ -131,7 +131,7 @@
                 if (_nonPagedSystemMemorySize64 != value)
                 {
                     _nonPagedSystemMemorySize64 = value;
-                    RaisePropertyChanged(nameof(NonPagedSystemMemorySize64));
+                    OnPropertyChanged(nameof(NonPagedSystemMemorySize64));
                 }
             }
         }
@@ -145,7 +145,7 @@
                 if (_threadCount != value)
                 {
                     _threadCount = value;
-                    RaisePropertyChanged(nameof(ThreadCount));
+                    OnPropertyChanged(nameof(ThreadCount));
                 }
             }
         }
@@ -159,7 +159,7 @@
                 if (_handleCount != value)
                 {
                     _handleCount = value;
-                    RaisePropertyChanged(nameof(HandleCount));
+                    OnPropertyChanged(nameof(HandleCount));
                 }
             }
         }

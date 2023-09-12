@@ -1,0 +1,7 @@
+﻿<?xml version="1.0"?>
+<BlockFormat version="1" name="Aristocrat.Monaco.Gaming.Progressives.ProgressiveMeterManager.LinkedLevels">
+  <Fields>
+    <Field DataType="Int32" Count="0" FieldName="BlockIndex" />
+    <Field DataType="String" Count="0" FieldName="Levels" />
+  </Fields>
+</BlockFormat>

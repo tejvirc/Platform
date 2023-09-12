@@ -11,7 +11,7 @@
     public class BeginGameRoundCommandHandlerTests
     {
         private readonly Mock<IGameRecovery> _recovery = new Mock<IGameRecovery>();
-        private readonly Mock<IGameDiagnostics> _diagnostics = new Mock<IGameDiagnostics>();
+        private readonly Mock<IGameProvider> _provider = new Mock<IGameProvider>();
         private readonly Mock<IGamePlayState> _gameState = new Mock<IGamePlayState>();
         private readonly Mock<IPropertiesManager> _properties = new Mock<IPropertiesManager>();
         private readonly Mock<IEventBus> _eventBus = new Mock<IEventBus>();
@@ -29,13 +29,13 @@
             bool nullRecovery,
             bool nullState,
             bool nullProps,
-            bool nullDiagnostics,
+            bool nullProvider,
             bool nullBus,
             bool nullConditions)
         {
             var handler = new BeginGameRoundCommandHandler(
                 nullRecovery ? null : _recovery.Object,
-                nullDiagnostics ? null : _diagnostics.Object,
+                nullProvider ? null : _provider.Object,
                 nullState ? null : _gameState.Object,
                 nullProps ? null : _properties.Object,
                 nullBus ? null : _eventBus.Object,
@@ -49,7 +49,7 @@
         {
             var handler = new BeginGameRoundCommandHandler(
                 _recovery.Object,
-                _diagnostics.Object,
+                _provider.Object,
                 _gameState.Object,
                 _properties.Object,
                 _eventBus.Object,
@@ -67,7 +67,7 @@
 
             var handler = new BeginGameRoundCommandHandler(
                 _recovery.Object,
-                _diagnostics.Object,
+                _provider.Object,
                 _gameState.Object,
                 _properties.Object,
                 _eventBus.Object,

@@ -5,6 +5,7 @@
     using Gaming.Runtime;
     using GdkRuntime.V1;
     using Google.Protobuf.WellKnownTypes;
+    using Hardware.Contracts.Reel;
     using Hardware.Contracts.Reel.Events;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,6 +20,7 @@
         private Mock<IReelService> _reelService;
         private readonly Mock<IEventBus> _eventBus = new(MockBehavior.Default);
         private ReelAnimationUpdatedConsumer _target;
+        private const string AnimationName = "animation";
 
         [TestInitialize]
         public void MyTestInitialize()
@@ -45,35 +47,52 @@
         }
 
         [TestMethod]
-        [DataRow(AnimationState.Started, GDKAnimationState.AnimationPlaying)]
-        [DataRow(AnimationState.Stopped, GDKAnimationState.AnimationStopped)]
-        [DataRow(AnimationState.Prepared, GDKAnimationState.AnimationsPrepared)]
-        public void Consume(AnimationState givenState, GDKAnimationState expectedState)
+        [DataRow(AnimationState.Started, GDKAnimationState.AnimationPlaying, 1)]
+        [DataRow(AnimationState.Stopped, GDKAnimationState.AnimationStopped, 2)]
+        public void ConsumeStartStop(AnimationState givenState, GDKAnimationState expectedState, int reelId)
         {
-            var animationUpdatedEvent = new ReelAnimationUpdatedEvent("animation", 0, givenState);
+            var animationUpdatedEvent = new ReelAnimationUpdatedEvent(reelId, AnimationName, givenState);
             _reelService.Setup(s => s.Connected).Returns(true);
 
             _target.Consume(animationUpdatedEvent);
 
-            var notification = new AnimationUpdatedNotification
+            var expectedNotification = new AnimationUpdatedNotification
             {
-                AnimationData = Any.Pack(new ReelAnimationData { ReelIndex = animationUpdatedEvent.ReelIndex }),
-                AnimationId = animationUpdatedEvent.AnimationName,
+                AnimationData = Any.Pack(new ReelAnimationData { ReelIndex = (uint)reelId }),
+                AnimationId = AnimationName,
                 State = expectedState
             };
 
-            _reelService.Verify(s => s.AnimationUpdated(notification), Times.Once);
+            _reelService.Verify(s => s.NotifyAnimationUpdated(expectedNotification), Times.Once);
+        }
+
+        [TestMethod]
+        public void ConsumePrepared()
+        {
+            var animationUpdatedEvent = new ReelAnimationUpdatedEvent(AnimationName, AnimationPreparedStatus.Prepared);
+            _reelService.Setup(s => s.Connected).Returns(true);
+
+            _target.Consume(animationUpdatedEvent);
+
+            var expectedNotification = new AnimationUpdatedNotification
+            {
+                AnimationData = Any.Pack(new ReelAnimationData { ReelIndex = 0 }),
+                AnimationId = AnimationName,
+                State = GDKAnimationState.AnimationsPrepared
+            };
+
+            _reelService.Verify(s => s.NotifyAnimationUpdated(expectedNotification), Times.Once);
         }
 
         [TestMethod]
         public void ConsumeNotConnected()
         {
-            var animationUpdatedEvent = new ReelAnimationUpdatedEvent("animation", 0, AnimationState.Started);
+            var animationUpdatedEvent = new ReelAnimationUpdatedEvent(0, AnimationName, AnimationState.Started);
             _reelService.Setup(s => s.Connected).Returns(false);
 
             _target.Consume(animationUpdatedEvent);
 
-            _reelService.Verify(s => s.AnimationUpdated(It.IsAny<AnimationUpdatedNotification>()), Times.Never);
+            _reelService.Verify(s => s.NotifyAnimationUpdated(It.IsAny<AnimationUpdatedNotification>()), Times.Never);
         }
     }
 }

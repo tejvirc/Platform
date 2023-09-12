@@ -10,9 +10,6 @@
         /// <summary>
         ///     Gets the identifier of the denomination
         /// </summary>
-        /// <value>
-        ///     The identifier of the denomination
-        /// </value>
         long Id { get; }
 
         /// <summary>
@@ -23,9 +20,6 @@
         /// <summary>
         ///     Gets a value indicating whether or not the denomination is active
         /// </summary>
-        /// <value>
-        ///     true, if the value is active otherwise false
-        /// </value>
         bool Active { get; }
 
         /// <summary>
@@ -49,6 +43,11 @@
         ///     Gets whether or not the Let It Ride feature is allowed
         /// </summary>
         bool LetItRideAllowed { get; set; }
+
+        /// <summary>
+        ///     Gets whether or not the Bet Keeper feature is allowed or not
+        /// </summary>
+        bool BetKeeperAllowed { get; set; }
 
         /// <summary>
         ///     Gets the value in millicents of each credit for the game's display

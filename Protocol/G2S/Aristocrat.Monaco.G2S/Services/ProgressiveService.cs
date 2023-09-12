@@ -6,29 +6,27 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Accounting.Contracts;
+    using Accounting.Contracts.Transactions;
     using Application.Contracts;
+    using Application.Contracts.Extensions;
     using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Client.Devices.v21;
     using Aristocrat.G2S.Protocol.v21;
-    using Aristocrat.Monaco.Accounting.Contracts;
-    using Aristocrat.Monaco.Accounting.Contracts.Transactions;
-    using Aristocrat.Monaco.Application.Contracts.Extensions;
-    using Aristocrat.Monaco.Application.Contracts.OperatorMenu;
-    using Aristocrat.Monaco.G2S;
-    using Aristocrat.Monaco.G2S.Data.Model;
-    using Aristocrat.Monaco.Gaming.Contracts.Events.OperatorMenu;
-    using Aristocrat.Monaco.Gaming.Contracts.Meters;
-    using Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked;
-    using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.Protocol.Common.Storage.Entity;
     using Common.Events;
+    using Data.Model;
     using DisableProvider;
+    using G2S;
     using Gaming.Contracts;
+    using Gaming.Contracts.Events.OperatorMenu;
     using Gaming.Contracts.Progressives;
+    using Gaming.Contracts.Progressives.Linked;
     using Handlers;
     using Handlers.Progressive;
+    using Hardware.Contracts.Persistence;
     using Kernel;
     using log4net;
     using Newtonsoft.Json;
@@ -197,6 +195,7 @@
             }
 
             var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels()
+                .Where(ll => ll.ProtocolName == ProtocolNames.G2S)
                 .GroupBy(ll => ll.ProgressiveGroupId)
                 .ToDictionary(ll => ll.Key, ll => ll.ToList());
 
@@ -368,9 +367,9 @@
                             {
                                 deviceClass = device.PrefixedDeviceClass(),
                                 deviceId = device.Id,
-                                simpleMeter = _progressiveLevelManager.GetProgressiveLevelMeters(level.DeviceId,
-                                    ProgressiveMeters.WageredAmount,
-                                    ProgressiveMeters.PlayedCount).ToArray()
+                                simpleMeter = _progressiveLevelManager.GetProgressiveLevelMeters(linkedLevel.LevelName,
+                                    ProgressiveMeters.LinkedProgressiveWageredAmount,
+                                    ProgressiveMeters.LinkedProgressivePlayedCount).ToArray()
                             }
                         }
                 }

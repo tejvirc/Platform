@@ -7,6 +7,7 @@
     using System.Windows;
     using System.Windows.Forms;
     using Cabinet.Contracts;
+    using Hardware.Contracts;
     using Hardware.Contracts.Cabinet;
     using Kernel;
     using log4net;
@@ -21,15 +22,12 @@
         private readonly DisplayRole _role;
         private readonly bool _showCursor;
 
-        public WindowToScreenMapper(DisplayRole role)
-            : this(
-                role,
-                GetFullscreen(ServiceManager.GetInstance().GetService<IPropertiesManager>()),
-                GetShowCursor(ServiceManager.GetInstance().GetService<IPropertiesManager>()),
-                ServiceManager.GetInstance().GetService<ICabinetDetectionService>())
-        {
-        }
-
+        /// <summary>
+        ///     Maps the given display role to this window.
+        /// </summary>
+        /// <param name="role">The display role to map this window to.</param>
+        /// <param name="fullscreen">Indicates whether or not this window is in full screen.</param>
+        /// <param name="showCursor">Indicates whether or not this window shows the cursor.</param>
         public WindowToScreenMapper(DisplayRole role, bool? fullscreen = null, bool? showCursor = null)
             : this(
                 role,
@@ -48,9 +46,11 @@
             _role = role;
             _showCursor = showCursor;
             IsFullscreen = fullscreen;
+
             var cabinetService = cabinetDetectionService ??
                                  throw new ArgumentNullException(nameof(cabinetDetectionService));
-            _device = cabinetService.GetDisplayDeviceByItsRole(role);
+
+            _device = cabinetService.GetDisplayDeviceByItsRole(_role);
         }
 
         public bool IsFullscreen { get; }

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -7,6 +7,8 @@
     using System.Threading;
     using System.Timers;
     using System.Windows.Input;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.HardwareDiagnostics;
@@ -21,8 +23,6 @@
     using LampTest;
     using Models;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
     using Timer = System.Timers.Timer;
 
     [CLSCompliant(false)]
@@ -87,7 +87,7 @@
 
             _selectedTowerLight = TowerLights.FirstOrDefault();
 
-            SetTowerLightFlashStateCommand = new ActionCommand<object>(SetTowerLightFlashState);
+            SetTowerLightFlashStateCommand = new RelayCommand<object>(SetTowerLightFlashState);
         }
 
         public bool ButtonLampsAvailable { get; set; }
@@ -116,9 +116,9 @@
                     SelectedFlashState =
                         FlashStates.FirstOrDefault(f => f.FlashState == _selectedTowerLight.FlashState);
 
-                    RaisePropertyChanged(nameof(SelectedTowerLight));
-                    RaisePropertyChanged(nameof(SelectedFlashState));
-                    RaisePropertyChanged(nameof(FlashStates));
+                    OnPropertyChanged(nameof(SelectedTowerLight));
+                    OnPropertyChanged(nameof(SelectedFlashState));
+                    OnPropertyChanged(nameof(FlashStates));
                 }
             }
         }
@@ -140,7 +140,7 @@
                 }
 
                 _selectedButtonLamp = value;
-                RaisePropertyChanged(nameof(SelectedButtonLamp));
+                OnPropertyChanged(nameof(SelectedButtonLamp));
                 SetSelectedLamps(value);
             }
         }
@@ -159,7 +159,7 @@
                 StopFlashTimer();
 
                 _selectedInterval = value;
-                RaisePropertyChanged(nameof(SelectedInterval));
+                OnPropertyChanged(nameof(SelectedInterval));
 
                 if (SelectedInterval != null)
                 {
@@ -222,7 +222,7 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 LoadButtonLampsAndIntervals();
                 foreach (var state in FlashStates)
@@ -277,7 +277,7 @@
         protected override void OnTestModeEnabledChanged()
         {
             UpdateStatusText();
-            RaisePropertyChanged(nameof(TowerLightsIsEnabled));
+            OnPropertyChanged(nameof(TowerLightsIsEnabled));
 
             if (!TestModeEnabled)
             {

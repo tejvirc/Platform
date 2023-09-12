@@ -2,12 +2,12 @@
 {
     using System;
     using Aristocrat.Mgam.Client.Routing;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     A message sent to or from the server.
     /// </summary>
-    public class HostTranscript : BaseNotify
+    public class HostTranscript : ObservableObject
     {
         private DateTime _timestamp;
         private string _source;

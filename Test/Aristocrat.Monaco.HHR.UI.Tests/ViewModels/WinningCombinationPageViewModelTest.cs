@@ -39,7 +39,7 @@
         private int _indexToReturn;
 
         [TestInitialize]
-        public void TestInitialization()
+        public async Task TestInitializationAsync()
         {
             _systemDisable = new Mock<ISystemDisableManager>(MockBehavior.Default);
             _gameDataService = new Mock<IGameDataService>(MockBehavior.Default);
@@ -94,7 +94,7 @@
             _gameDataService.Setup(x => x.GetRaceInformation(It.IsAny<uint>(), 0, 0))
                 .Returns(() => Task.FromResult(_racePariResponse));
 
-            _target.Init(Command.WinningCombination);
+            await _target.Init(Command.WinningCombination);
 
             // Reset the bet up/down delay counter so that we don't hit the limit while testing.
             HostPageViewModelManager.ResetBetButtonDelayLimit(

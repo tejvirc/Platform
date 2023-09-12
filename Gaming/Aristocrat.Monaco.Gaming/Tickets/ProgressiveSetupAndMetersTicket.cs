@@ -115,6 +115,9 @@
                 AddLabeledLine(ResourceKeys.TotalHidden,
                     FormattedMeterLifetimeValue(meterManager.GetMeter(progressive.DeviceId, progressive.LevelId,
                     ProgressiveMeters.ProgressiveLevelHiddenTotal)));
+                AddLabeledLine(ResourceKeys.TotalBulk,
+                    FormattedMeterLifetimeValue(meterManager.GetMeter(progressive.DeviceId, progressive.LevelId,
+                    ProgressiveMeters.ProgressiveLevelBulkTotal)));
                 AddLabeledLine(ResourceKeys.OverflowText, overflow);
                 AddLabeledLine(ResourceKeys.TotalOverflow, overflowTotal);
                 AddLabeledLine(ResourceKeys.CurrentValue, currentValue);

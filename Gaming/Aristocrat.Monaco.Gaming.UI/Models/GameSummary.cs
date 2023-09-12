@@ -1,16 +1,16 @@
 ﻿namespace Aristocrat.Monaco.Gaming.UI.Models
 {
-    using Contracts;
+    using Contracts.Rtp;
 
     public class GameSummary
     {
-        private int _oneHundredPercent = 100;
+        private const decimal OneHundredPercent = 100m;
 
         public GameSummary(string name, decimal rtp)
         {
             Name = name;
-            BlendedRTP = rtp.GetRtpString();
-            BlendedHold = (_oneHundredPercent - rtp).GetRtpString();
+            BlendedRTP = rtp.ToRtpString();
+            BlendedHold = (OneHundredPercent - rtp).ToRtpString();
         }
 
         public string Name { get; }

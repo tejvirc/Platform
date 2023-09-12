@@ -26,6 +26,7 @@
     using Kernel;
     using log4net;
     using Monaco.Common;
+    using Newtonsoft.Json;
     using Protocol.Common.Storage.Entity;
     using GameEndWinFactory =
         Common.IBingoStrategyFactory<GameEndWin.IGameEndWinStrategy, Common.Storage.Model.GameEndWinStrategy>;
@@ -144,6 +145,20 @@
             }
 
             return ProcessClaimWinInternal(gewPattern, _currentGameTransactionId, token);
+        }
+
+        public Task<bool> ProcessProgressiveClaimWin(long amount)
+        {
+            Logger.Debug("Received a progressive claim win");
+
+            var outcome = CurrentTransaction.Outcomes.FirstOrDefault(x => x.Type == OutcomeType.Progressive);
+            if (outcome is not null)
+            {
+                outcome.AddProgressiveWin(amount);
+                return Task.FromResult(true);
+            }
+
+            return Task.FromResult(false);
         }
 
         /// <inheritdoc />
@@ -425,13 +440,10 @@
             Logger.Debug($"UpdateCentralTransaction, outcomes count ={outcomes.Count}, newCard={newCard}, processOutcomes={processOutcomes}, gameDescriptions.Count={bingoGameDescriptions.Count}");
 
             // Send bingo pattern events for each bingo game description with wins
-            foreach (var description in bingoGameDescriptions)
+            foreach (var description in bingoGameDescriptions.Where(description => description.Patterns.Any()))
             {
-                if (description.Patterns.Any())
-                {
-                    _eventBus.Publish(
-                        new BingoGamePatternEvent(description.Patterns.ToList(), false, description.GameIndex));
-                }
+                _eventBus.Publish(
+                    new BingoGamePatternEvent(description.Patterns.ToList(), false, description.GameIndex));
             }
 
             if ((outcomes.Any() || newCard) && processOutcomes)
@@ -481,7 +493,7 @@
                         {
                             bingoCard.DaubedBits = cardPlayed.BitPattern;
                             bingoCard.IsGameEndWin = cardPlayed.IsGameEndWin;
-                            
+
                             if (cardPlayed.IsGolden && cardPlayed.IsGolden != bingoCard.IsGolden)
                             {
                                 bingoCard.IsGolden = cardPlayed.IsGolden;
@@ -705,16 +717,18 @@
             // Otherwise it's a standard win.
             else
             {
+                // convert list of any progressive wins to comma separated string
+                var progressiveWins = string.Join(",", winResult.ProgressiveWins);
                 outcomes.Add(
                     new Outcome(
                         DateTime.UtcNow.Ticks,
                         outcome.GameDetails.GameTitleId,
                         winResult.PaytableId,
                         OutcomeReference.Direct,
-                        OutcomeType.Standard,
+                        winResult.ProgressiveWins.Any() ? OutcomeType.Progressive : OutcomeType.Standard,
                         winAmount.CentsToMillicents(),
                         winResult.WinIndex,
-                        winResult.PatternName,
+                        JsonConvert.SerializeObject(new LookupData { Flags = progressiveWins }),
                         outcome.GameId,
                         outcome.GameIndex));
 

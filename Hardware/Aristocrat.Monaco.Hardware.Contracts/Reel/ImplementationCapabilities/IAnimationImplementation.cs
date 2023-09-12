@@ -14,24 +14,44 @@
     public interface IAnimationImplementation : IReelImplementationCapability
     {
         /// <summary>
+        ///     The event that occurs when all light animations are removed from the playing queue
+        /// </summary>
+        event EventHandler AllLightAnimationsCleared;
+        
+        /// <summary>
+        ///     The event that occurs when a light animation is removed from the playing queue 
+        /// </summary>
+        public event EventHandler<LightAnimationEventArgs> LightAnimationRemoved;
+
+        /// <summary>
         ///     The event that occurs when the reel controller starts a light animation
         /// </summary>
         event EventHandler<LightAnimationEventArgs> LightAnimationStarted;
 
         /// <summary>
-        ///     The event that occurs when the reel controller completes a light animation
+        ///     The event that occurs when the reel controller stops a light animation
         /// </summary>
-        event EventHandler<LightAnimationEventArgs> LightAnimationCompleted;
+        event EventHandler<LightAnimationEventArgs> LightAnimationStopped;
+
+        /// <summary>
+        ///     The event that occurs when the reel controller prepares a light animation
+        /// </summary>
+        event EventHandler<LightAnimationEventArgs> LightAnimationPrepared;
 
         /// <summary>
         ///     The event that occurs when the reel controller starts a reel animation
         /// </summary>
-        event EventHandler<LightAnimationEventArgs> ReelAnimationStarted;
+        event EventHandler<ReelAnimationEventArgs> ReelAnimationStarted;
 
         /// <summary>
-        ///     The event that occurs when the reel controller completes a reel animation
+        ///     The event that occurs when the reel controller stops a reel animation
         /// </summary>
-        event EventHandler<LightAnimationEventArgs> ReelAnimationCompleted;
+        event EventHandler<ReelAnimationEventArgs> ReelAnimationStopped;
+
+        /// <summary>
+        ///     The event that occurs when the reel controller prepares a reel animation
+        /// </summary>
+        event EventHandler<ReelAnimationEventArgs> ReelAnimationPrepared;
 
         /// <summary>
         ///     Contains all the loaded animation files

@@ -5,6 +5,7 @@
                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                        xmlns:converters="http://monaco.aristocrat.com/common"
                        xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
+                       xmlns:buttonDeck="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck"
                        xmlns:overlay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Overlay"
                        xmlns:mediaDisplay="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.MediaDisplay"
                        mc:Ignorable="d"
@@ -28,6 +29,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
                 <ResourceDictionary
                         Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="../../Skins/Styles.xaml" />
@@ -104,6 +106,7 @@
                             </Style>
                         </overlay:TimeLimitDialog.Style>
                     </overlay:TimeLimitDialog>
+                    <buttonDeck:VbdCashOutDlg Visibility="{Binding IsResponsibleGamingCashoutDlgVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}" />
                 </Grid>
             </Viewbox>
         </Grid>

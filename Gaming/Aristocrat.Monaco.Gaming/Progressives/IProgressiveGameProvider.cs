@@ -98,7 +98,8 @@
             string packName,
             IList<int> levelIds,
             IList<long> transactionIds,
-            bool recovering);
+            bool recovering,
+            long? existingWinInCents);
 
         /// <summary>
         ///     Claims the results of the provided transaction Ids.  This should be invoked when the credits hit the credit meter

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Concurrent;
@@ -9,13 +9,13 @@
     using System.Windows.Input;
     using System.Windows.Threading;
     using Accounting.Contracts;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Contracts.MeterPage;
     using Contracts.OperatorMenu;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
     using OperatorMenu;
     using Vgt.Client12.Application.OperatorMenu;
 
@@ -39,8 +39,8 @@
 
         public MetersMainPageViewModel(string pageNameResourceKey): base(pageNameResourceKey, PagesExtensionPath)
         {
-            IsVisibleChangedCommand = new ActionCommand<Page>(OnIsVisibleChanged);
-            PeriodMasterButtonClickedCommand = new ActionCommand<object>(PeriodOrMasterButtonClicked);
+            IsVisibleChangedCommand = new RelayCommand<Page>(OnIsVisibleChanged);
+            PeriodMasterButtonClickedCommand = new RelayCommand<object>(PeriodOrMasterButtonClicked);
             var dateFormat = PropertiesManager.GetValue(
                 ApplicationConstants.LocalizationOperatorDateFormat,
                 ApplicationConstants.DefaultDateTimeFormat);
@@ -67,7 +67,7 @@
                 }
 
                 _isPeriodMasterButtonChecked = value;
-                RaisePropertyChanged(nameof(IsPeriodMasterButtonChecked));
+                OnPropertyChanged(nameof(IsPeriodMasterButtonChecked));
             }
         }
 
@@ -77,7 +77,7 @@
             set
             {
                 _currentPageHeader = value;
-                RaisePropertyChanged(nameof(CurrentPageHeader));
+                OnPropertyChanged(nameof(CurrentPageHeader));
             }
         }
 

@@ -1,8 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Bingo
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -21,10 +19,11 @@
     using log4net;
     using Monaco.Common;
     using Protocol.Common.Storage.Entity;
+    using ServerApiGateway;
     using Stateless;
     using Timer = System.Threading.Timer;
 
-    public class ProgressiveClientConnectionState : IProgressiveClientConnectionState, IDisposable
+    public sealed class ProgressiveClientConnectionState : IProgressiveClientConnectionState, IDisposable
     {
         private static readonly TimeSpan NoMessagesTimeout = TimeSpan.FromMilliseconds(40_000);
         private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
@@ -34,20 +33,20 @@
         private readonly IProgressiveCommandService _progressiveCommandService;
         private readonly IGameProvider _gameProvider;
         private readonly IEventBus _eventBus;
+        private readonly IClient<ProgressiveApi.ProgressiveApiClient> _progressiveClient;
         private readonly ISystemDisableManager _systemDisable;
         private readonly IClientConfigurationProvider _configurationProvider;
         private CancellationTokenSource _tokenSource;
         private StateMachine<State, Trigger> _registrationState;
         private StateMachine<State, Trigger>.TriggerWithParameters<RegistrationFailureReason> _failedRegistrationTrigger;
         private StateMachine<State, Trigger>.TriggerWithParameters<ConfigurationFailureReason> _failedConfigurationTrigger;
-        private IEnumerable<IClient> _clients;
         private bool _readyToRegister;
         private Timer _timeoutTimer;
         private bool _disposed;
 
         public ProgressiveClientConnectionState(
             IEventBus eventBus,
-            IEnumerable<IClient> clients,
+            IClient<ProgressiveApi.ProgressiveApiClient> progressiveClient,
             IClientConfigurationProvider configurationProvider,
             IPropertiesManager propertiesManager,
             ISystemDisableManager systemDisable,
@@ -57,6 +56,7 @@
             IGameProvider gameProvider)
         {
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _progressiveClient = progressiveClient ?? throw new ArgumentNullException(nameof(progressiveClient));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _systemDisable = systemDisable ?? throw new ArgumentNullException(nameof(systemDisable));
             _configurationProvider = configurationProvider ?? throw new ArgumentNullException(nameof(configurationProvider));
@@ -64,13 +64,6 @@
             _progressiveCommandFactory = progressiveCommandFactory ?? throw new ArgumentNullException(nameof(progressiveCommandFactory));
             _progressiveCommandService = progressiveCommandService ?? throw new ArgumentNullException(nameof(progressiveCommandService));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
-
-            if (clients is null)
-            {
-                throw new ArgumentNullException(nameof(clients));
-            }
-
-            Clients = clients.AsEnumerable().Where(x => x is ProgressiveClient);
 
             Initialize();
         }
@@ -90,12 +83,9 @@
 
             _eventBus.UnsubscribeAll(this);
             _registrationState.Deactivate();
-            foreach (var client in Clients)
-            {
-                client.Disconnected -= OnClientDisconnected;
-                client.Connected -= OnClientConnected;
-                client.MessageReceived -= OnMessageReceived;
-            }
+            _progressiveClient.Disconnected -= OnClientDisconnected;
+            _progressiveClient.Connected -= OnClientConnected;
+            _progressiveClient.MessageReceived -= OnMessageReceived;
 
             _timeoutTimer.Dispose();
             var tokenSource = _tokenSource;
@@ -117,17 +107,6 @@
         public async Task Stop()
         {
             await _registrationState.FireAsync(Trigger.Shutdown).ConfigureAwait(false);
-        }
-
-        // Exposing this for unit testing
-        protected IEnumerable<IClient> Clients
-        {
-            get => _clients;
-            set
-            {
-                _clients = value;
-                RegisterEventListeners();
-            }
         }
 
         private void Initialize()
@@ -195,7 +174,7 @@
             }
         }
 
-        private void OnConfiguringExit(StateMachine<State, Trigger>.Transition t)
+        private static void OnConfiguringExit(StateMachine<State, Trigger>.Transition t)
         {
             // Progressive client does not require configuration
         }
@@ -206,7 +185,7 @@
             _systemDisable.Enable(BingoConstants.ProgressiveHostOfflineKey);
             ClientConnected?.Invoke(this, EventArgs.Empty);
 
-            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
+            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_gameProvider);
             var gameTitleId = (int)(gameConfiguration?.GameTitleId ?? 0);
             _progressiveCommandService.HandleCommands(
                 _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty),
@@ -236,21 +215,15 @@
             _tokenSource?.Dispose();
             _tokenSource = null;
 
-            foreach (var client in Clients)
-            {
-                await client.Stop().ConfigureAwait(false);
-            }
+            await _progressiveClient.Stop().ConfigureAwait(false);
         }
 
         private async Task ConnectClient(CancellationToken token)
         {
             SetupFirewallRule();
-            foreach (var client in Clients)
+            while (!await _progressiveClient.Start().ConfigureAwait(false) && !token.IsCancellationRequested)
             {
-                while (!await client.Start().ConfigureAwait(false) && !token.IsCancellationRequested)
-                {
-                    _logger.Info($"Client failed to connect retrying.  IsCancelled={token.IsCancellationRequested}");
-                }
+                _logger.Info($"Client failed to connect retrying.  IsCancelled={token.IsCancellationRequested}");
             }
 
             _timeoutTimer.Change(NoMessagesConnectionTimeout, Timeout.InfiniteTimeSpan);
@@ -259,10 +232,10 @@
         private void SetupFirewallRule()
         {
             using var configuration = _configurationProvider.CreateConfiguration();
-            foreach (var client in Clients)
-            {
-                Firewall.AddRule(client.FirewallRuleName, (ushort)configuration.Address.Port, Firewall.Direction.Out);
-            }
+            Firewall.AddRule(
+                _progressiveClient.FirewallRuleName,
+                (ushort)configuration.Address.Port,
+                Firewall.Direction.Out);
         }
 
         private void RegisterEventListeners()
@@ -276,12 +249,9 @@
             _eventBus.Subscribe<ForceReconnectionEvent>(this, HandleRestartingEvent);
             _eventBus.Subscribe<ServerConfigurationCompletedEvent>(this, HandleConfigurationCompleteEvent);
 
-            foreach (var client in Clients)
-            {
-                client.Connected += OnClientConnected;
-                client.Disconnected += OnClientDisconnected;
-                client.MessageReceived += OnMessageReceived;
-            }
+            _progressiveClient.Connected += OnClientConnected;
+            _progressiveClient.Disconnected += OnClientDisconnected;
+            _progressiveClient.MessageReceived += OnMessageReceived;
         }
 
         private static State HandleConfigurationFailure(ConfigurationFailureReason reason)
@@ -385,14 +355,14 @@
                 (state, trigger) =>
                 {
                     _logger.Error(
-                        $"{this.GetType().Name} Invalid Registration State Transition. State : {state} Trigger : {trigger}");
+                        $"{GetType().Name} Invalid Registration State Transition. State : {state} Trigger : {trigger}");
                 });
 
             _registrationState.OnTransitioned(
                 transition =>
                 {
                     _logger.Debug(
-                        $"{this.GetType().Name} Transitioned From : {transition.Source} To : {transition.Destination} Trigger : {transition.Trigger}");
+                        $"{GetType().Name} Transitioned From : {transition.Source} To : {transition.Destination} Trigger : {transition.Trigger}");
                 });
         }
 

@@ -1,10 +1,10 @@
-﻿namespace Aristocrat.Monaco.Application.UI.StatusDisplay
+namespace Aristocrat.Monaco.Application.UI.StatusDisplay
 {
     using System;
     using System.Reflection;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Kernel;
     using log4net;
-    using MVVM;
 
     /// <summary>
     ///     Handles registration as the IMessageDisplayHandler as well as dispatching of incomming messages to the GUI thread.
@@ -41,7 +41,7 @@
             lock (_lock)
             {
                 Logger.Debug("Clearing message");
-                MvvmHelper.ExecuteOnUI(() => _statusDisplay.ClearMessages());
+                Execute.OnUIThread(() => _statusDisplay.ClearMessages());
                 Logger.Debug("Cleared message");
             }
         }
@@ -52,7 +52,7 @@
             lock (_lock)
             {
                 Logger.Debug("Displaying message");
-                MvvmHelper.ExecuteOnUI(() => _statusDisplay.DisplayMessage(displayableMessage));
+                Execute.OnUIThread(() => _statusDisplay.DisplayMessage(displayableMessage));
                 Logger.Debug("Displayed message");
             }
         }
@@ -63,7 +63,7 @@
             lock (_lock)
             {
                 Logger.Debug("Removing message");
-                MvvmHelper.ExecuteOnUI(() => _statusDisplay.RemoveMessage(displayableMessage));
+                Execute.OnUIThread(() => _statusDisplay.RemoveMessage(displayableMessage));
                 Logger.Debug("Removed message");
             }
         }
@@ -71,12 +71,19 @@
         /// <inheritdoc />
         public void DisplayStatus(DisplayableMessage message)
         {
+<<<<<<< HEAD
             MvvmHelper.ExecuteOnUI(() => _statusDisplay.DisplayStatus(message));   
         }
 
         public void UpdateMessages()
         {
             MvvmHelper.ExecuteOnUI(() => _statusDisplay.UpdateMessages());
+=======
+            lock (_lock)
+            {
+                Execute.OnUIThread(() => _statusDisplay.DisplayStatus(message));
+            }
+>>>>>>> refs/remotes/origin/main
         }
 
         private void Dispose(bool disposing)

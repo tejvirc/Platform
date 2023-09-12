@@ -40,6 +40,7 @@
                         Denomination = d.Value.MillicentsToCents(),
                         Gamble = d.SecondaryAllowed,
                         LetItRide = d.LetItRideAllowed,
+                        BetKeeper = d.BetKeeperAllowed,
                         d.MinimumWagerCredits,
                         d.MaximumWagerCredits,
                         d.MaximumWagerOutsideCredits,

@@ -10,8 +10,8 @@ namespace Aristocrat.Monaco.Gaming.UI
     using Contracts.Models;
     using Hardware.Contracts.Bell;
     using Kernel;
-    using Models;
     using log4net;
+    using Models;
     using Stateless;
 
     /// <summary>
@@ -119,6 +119,8 @@ namespace Aristocrat.Monaco.Gaming.UI
         public bool IsTabView { get; set; }
 
         public bool ResetAttractOnInterruption { get; set; }
+
+        public bool IsCashoutForcedByMaxBank => ContainsAnyState(LobbyState.ForcedCashoutByMaxBank);
 
         public bool CanAttractModeStart => _bank.QueryBalance() == 0 ||
                                            (bool)_properties.GetProperty(ApplicationConstants.ShowMode, false);
@@ -290,6 +292,10 @@ namespace Aristocrat.Monaco.Gaming.UI
                     CashInFinished();
                     break;
                 case LobbyState.CashOut:
+                    if (IsCashoutForcedByMaxBank)
+                    {
+                        _lobbyStateQueue.RemoveFlagState(LobbyState.ForcedCashoutByMaxBank);
+                    }
                     if (param is bool success)
                     {
                         CashOutFinished(success);
@@ -407,6 +413,7 @@ namespace Aristocrat.Monaco.Gaming.UI
 
             _state.Configure(LobbyState.GameLoading)
                 .OnEntryFrom(_launchGameTrigger, CallStateEntry)
+                .InternalTransition(LobbyTrigger.ResponsibleGamingTimeLimitDialog, ResponsibleGamingWhileGameLoading)
                 .Permit(LobbyTrigger.GameLoaded, LobbyState.Game)
                 .PermitIf(LobbyTrigger.Disable, LobbyState.Disabled, () => !AllowSingleGameAutoLaunch || (_gameHistory.IsRecoveryNeeded && IsLoadingGameForRecovery))
                 .PermitDynamic(
@@ -415,7 +422,8 @@ namespace Aristocrat.Monaco.Gaming.UI
                 .PermitDynamic(
                     LobbyTrigger.GameUnexpectedExit,
                     () => IsLoadingGameForRecovery ? LobbyState.Recovery : GetDefaultChooserState())
-                .Permit(LobbyTrigger.InitiateRecovery, LobbyState.Recovery);
+                .Permit(LobbyTrigger.InitiateRecovery, LobbyState.Recovery)
+                .PermitReentryIf(LobbyTrigger.ResponsibleGamingTimeLimitDialogDismissed, () => ContainsAnyState(LobbyState.ResponsibleGamingTimeLimitDialog));
 
             _state.Configure(LobbyState.GameLoadingForDiagnostics)
                 .SubstateOf(LobbyState.Disabled)
@@ -431,7 +439,8 @@ namespace Aristocrat.Monaco.Gaming.UI
                 .Permit(LobbyTrigger.InitiateRecovery, LobbyState.Recovery)
                 .PermitIf(LobbyTrigger.AttractTimer, LobbyState.Attract, () => AllowSingleGameAutoLaunch && _bank.QueryBalance() == 0)
                 .Permit(LobbyTrigger.ResponsibleGamingTimeLimitDialog, LobbyState.ResponsibleGamingTimeLimitDialog)
-                .PermitIf(LobbyTrigger.ReturnToLobby, LobbyState.Chooser, () => !AllowSingleGameAutoLaunch);
+                .PermitIf(LobbyTrigger.ReturnToLobby, LobbyState.Chooser, () => !AllowSingleGameAutoLaunch)
+                .PermitReentryIf(LobbyTrigger.ResponsibleGamingTimeLimitDialogDismissed, () => ContainsAnyState(LobbyState.ResponsibleGamingTimeLimitDialog));
 
             _state.Configure(LobbyState.GameDiagnostics)
                 .SubstateOf(LobbyState.Disabled)
@@ -697,6 +706,12 @@ namespace Aristocrat.Monaco.Gaming.UI
                 _ageWarningOnEnable = true;
             }
             CallStateExit(LobbyState.CashIn);
+        }
+
+        private void ResponsibleGamingWhileGameLoading()
+        {
+            Logger.Debug("Responsible Gaming Triggered While Game Loading.");
+            _lobbyStateQueue.AddStackableState(LobbyState.ResponsibleGamingTimeLimitDialog);
         }
 
         private void ResponsibleGamingWhileDisabled()

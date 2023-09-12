@@ -1,10 +1,12 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Markup;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.Localization;
@@ -13,8 +15,6 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Common;
-    using MVVM;
-    using MVVM.Command;
 
     /// <summary>
     ///     The view model for time and time zone configuration
@@ -62,10 +62,10 @@
 
             _timeZoneChanged = false;
 
-            ApplyCommand = new ActionCommand<object>(Apply, _ => CanApply);
+            ApplyCommand = new RelayCommand<object>(Apply, _ => CanApply);
         }
 
-        public ActionCommand<object> ApplyCommand { get; }
+        public RelayCommand<object> ApplyCommand { get; }
 
         public ReadOnlyCollection<TimeZoneInfo> TimeZones { get; }
 
@@ -94,8 +94,8 @@
                 if (!string.IsNullOrEmpty(value))
                 {
                     OnTimeZoneChanged(value);
-                    RaisePropertyChanged(nameof(TimeZoneId));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(TimeZoneId));
+                    ApplyCommand.NotifyCanExecuteChanged();
                     SetItemPickFlag(ItemPick.Timezone);
                 }
             }
@@ -110,7 +110,7 @@
                 if (_timeZoneOffset != value)
                 {
                     _timeZoneOffset = value;
-                    RaisePropertyChanged(nameof(TimeZoneOffset));
+                    OnPropertyChanged(nameof(TimeZoneOffset));
                 }
             }
         }
@@ -124,8 +124,8 @@
                 if (_hour != value)
                 {
                     _hour = value;
-                    RaisePropertyChanged(nameof(Hour));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(Hour));
+                    ApplyCommand.NotifyCanExecuteChanged();
                     SetItemPickFlag(ItemPick.Hours);
                 }
             }
@@ -140,8 +140,8 @@
                 if (_minute != value)
                 {
                     _minute = value;
-                    RaisePropertyChanged(nameof(Minute));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(Minute));
+                    ApplyCommand.NotifyCanExecuteChanged();
                     SetItemPickFlag(ItemPick.Minutes);
                 }
             }
@@ -156,8 +156,8 @@
                 if (_second != value)
                 {
                     _second = value;
-                    RaisePropertyChanged(nameof(Second));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(Second));
+                    ApplyCommand.NotifyCanExecuteChanged();
                     SetItemPickFlag(ItemPick.Seconds);
                 }
             }
@@ -172,8 +172,8 @@
                 if (_pickerDate != value)
                 {
                     _pickerDate = value;
-                    RaisePropertyChanged(nameof(PickerDate));
-                    ApplyCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(PickerDate));
+                    ApplyCommand.NotifyCanExecuteChanged();
                     SetItemPickFlag(ItemPick.Date);
                 }
             }
@@ -188,7 +188,7 @@
                 if (_datePickerLanguage != value)
                 {
                     _datePickerLanguage = value;
-                    RaisePropertyChanged(nameof(DatePickerLanguage));
+                    OnPropertyChanged(nameof(DatePickerLanguage));
                 }
             }
         }
@@ -202,7 +202,13 @@
         public bool IsInspection
         {
             get => _isInspection;
-            set => SetProperty(ref _isInspection, value, nameof(IsInputEnabled));
+            set
+            {
+                if (SetProperty(ref _isInspection, value, nameof(IsInspection)))
+                {
+                    OnPropertyChanged(nameof(IsInputEnabled));
+                }
+            }
         }
 
         public string OrderNumber
@@ -263,7 +269,7 @@
             _previousDay = _pickerDate.Day;
             _previousMonth = _pickerDate.Month;
             _previousYear = _pickerDate.Year;
-            ApplyCommand.RaiseCanExecuteChanged();
+            ApplyCommand.NotifyCanExecuteChanged();
 
             _timeZoneChanged = false;
 
@@ -311,12 +317,12 @@
             _previousMonth = _pickerDate.Month;
             _previousYear = _pickerDate.Year;
 
-            ApplyCommand.RaiseCanExecuteChanged();
+            ApplyCommand.NotifyCanExecuteChanged();
         }
 
         protected override void OnInputEnabledChanged()
         {
-            ApplyCommand.RaiseCanExecuteChanged();
+            ApplyCommand.NotifyCanExecuteChanged();
         }
 
         private void OnOffsetUpdated(TimeZoneOffsetUpdatedEvent evt)
@@ -348,7 +354,7 @@
             Logger.Debug($"Time Zone Selected: {timeZone.Id} Local Time Zone: {TimeZoneInfo.Local.Id}");
 
             UpdateTimeZoneOffset();
-            ApplyCommand.RaiseCanExecuteChanged();
+            ApplyCommand.NotifyCanExecuteChanged();
         }
 
         private void UpdateTimeZoneOffset()
@@ -365,7 +371,7 @@
 
         private void UpdateDatePickerLanguage()
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 var oldLanguage = DatePickerLanguage;
                 var newLanguage = XmlLanguage.GetLanguage(Localizer.For(CultureFor.Operator).CurrentCulture.Name);
