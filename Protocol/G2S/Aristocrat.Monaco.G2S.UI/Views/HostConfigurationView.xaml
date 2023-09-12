@@ -102,8 +102,10 @@
                 AutomationProperties.AutomationId="Border16_303FCCD8">
             <StackPanel Orientation="Vertical"
                         AutomationProperties.AutomationId="StackPanel17_303FCCD8">
-                <ListView ItemsSource="{Binding Path=RegisteredHosts.View}"
+                <ListView x:Name="CommsDevice"
+                          ItemsSource="{Binding Path=RegisteredHosts.View}"
                           IsEnabled="{Binding RegisteredHostsEnabled}"
+                          SelectionChanged="CommsDevice_SelectionChanged"
                           AutomationProperties.AutomationId="ListView18_303FCCD8">
                     <ListView.Resources>
                         <dialog:BindingProxy x:Key="Proxy"

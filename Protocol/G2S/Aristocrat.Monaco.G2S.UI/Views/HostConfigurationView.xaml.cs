@@ -12,5 +12,10 @@
         {
             InitializeComponent();
         }
+
+        private void CommsDevice_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            CommsDevice.SelectedItem = null;
+        }
     }
 }
