@@ -1,8 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store;
 
-public record UpdateActiveLanguageAction
+public record TranslateUpdatePrimaryLanguageAction
 {
-    public UpdateActiveLanguageAction(bool isPrimaryLanguageActive)
+    public TranslateUpdatePrimaryLanguageAction(bool isPrimaryLanguageActive)
     {
         IsPrimaryLanguageActive = isPrimaryLanguageActive;
     }

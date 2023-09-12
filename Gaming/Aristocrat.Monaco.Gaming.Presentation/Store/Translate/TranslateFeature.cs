@@ -5,14 +5,18 @@ using Fluxor;
 
 public class TranslateFeature : Feature<TranslateState>
 {
-    public override string GetName() => "Translate";
+    public override string GetName()
+    {
+        return "Translate";
+    }
 
     protected override TranslateState GetInitialState()
     {
         return new TranslateState
         {
             LocaleCodes = ImmutableList<string>.Empty,
-            IsPrimaryLanguageActive = true
+            IsPrimaryLanguageActive = true,
+            IsInitialLanguageEventSent = false
         };
     }
 }

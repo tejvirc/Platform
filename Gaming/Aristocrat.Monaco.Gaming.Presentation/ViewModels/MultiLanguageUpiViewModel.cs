@@ -40,7 +40,7 @@ public class MultiLanguageUpiViewModel : ObservableObject, IActivatableViewModel
         UpiPreviewMouseDownCommand = new RelayCommand(OnUpiPreviewMouseDown);
         DenomFilterPressedCommand = new RelayCommand(OnDenomFilterPressed);
         UserInteractionCommand = new RelayCommand(OnUserInteraction);
-        ToggleActiveLangaugeCommand = new RelayCommand(OnToggleActiveLangauge);
+        ToggleActiveLangaugeCommand = new RelayCommand(OnToggleActiveLanguage);
 
         commands.ShutdownCommand.RegisterCommand(ShutdownCommand);
 
@@ -176,9 +176,9 @@ public class MultiLanguageUpiViewModel : ObservableObject, IActivatableViewModel
         //SetEdgeLighting();
     }
 
-    private void OnToggleActiveLangauge()
+    private void OnToggleActiveLanguage()
     {
-        _dispatcher.Dispatch(new UpdateActiveLanguageAction(IsPrimaryLanguageSelected));
+        _dispatcher.Dispatch(new TranslateUpdatePrimaryLanguageAction(IsPrimaryLanguageSelected));
     }
 
     private void OnActiveLocaleChanged(string activeLocaleCode)

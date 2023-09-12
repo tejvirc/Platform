@@ -2,35 +2,42 @@
 
 using System;
 using Common;
-using Gaming.Contracts;
 using Extensions.Fluxor;
+using Gaming.Contracts;
 using Kernel;
 using static Store.Translate.TranslateSelectors;
 
 public sealed class TranslateAgent : ITranslateAgent, IDisposable
 {
+    private static IStoreSelector? _selector;
     private readonly IPropertiesManager _properties;
 
     private readonly SubscriptionList _subscriptions = new();
 
-    private string? _activeLocaleCode;
+    public string? ActiveLocaleCode = _selector?.Select(SelectActiveLocale).ToString();
 
     public TranslateAgent(IStoreSelector selector, IPropertiesManager properties)
     {
         _properties = properties;
 
-        _subscriptions += selector.Select(SelectActiveLocale).Subscribe(code => _activeLocaleCode = code);
+        _subscriptions += selector.Select(SelectActiveLocale).Subscribe(code => ActiveLocaleCode = code);
+
+        _selector = selector;
     }
-
-    public string GetSelectedLocaleCode() =>
-        _properties.GetValue(GamingConstants.SelectedLocaleCode, GamingConstants.EnglishCultureCode)
-            .ToUpperInvariant();
-
-    public void SetSelectedLocaleCode() =>
-        _properties.SetProperty(GamingConstants.SelectedLocaleCode, _activeLocaleCode);
 
     public void Dispose()
     {
         _subscriptions.Dispose();
+    }
+
+    public string GetSelectedLocaleCode()
+    {
+        return _properties.GetValue(GamingConstants.SelectedLocaleCode, GamingConstants.EnglishCultureCode)
+            .ToUpperInvariant();
+    }
+
+    public void SetSelectedLocaleCode()
+    {
+        _properties.SetProperty(GamingConstants.SelectedLocaleCode, ActiveLocaleCode);
     }
 }

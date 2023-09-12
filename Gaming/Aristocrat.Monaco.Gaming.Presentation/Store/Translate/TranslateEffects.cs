@@ -1,7 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Translate;
 
-using System.Linq;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Extensions.Fluxor;
 using Fluxor;
@@ -25,24 +23,24 @@ public class TranslateEffects
         _translateService = translateService;
     }
 
-    [EffectMethod()]
+    [EffectMethod]
     public async Task Effect(StartupAction _, IDispatcher dispatcher)
     {
         await dispatcher.DispatchAsync(new TranslateUpdateMultiLanguageAction(_translateOptions.MultiLanguage));
         await dispatcher.DispatchAsync(new TranslateUpdateLocaleCodesAction(_translateOptions.LocaleCodes));
 
-        if (_translateState.Value.IsMultiLangauge)
+        if (_translateState.Value.IsMultiLanguage)
         {
             var localeCode = _translateService.GetSelectedLocaleCode();
 
-            if (string.IsNullOrEmpty(localeCode) || _translateState.Value.LocaleCodes.Count == 1 ||
-                localeCode == _translateState.Value.LocaleCodes.First().ToUpperInvariant())
+            if (string.IsNullOrEmpty(localeCode) || _translateState.Value.LocaleCodes.Count == 1)
+            //|| localeCode == _translateState.Value.LocaleCodes.First().ToUpperInvariant())
             {
                 _translateService.SetSelectedLocaleCode();
             }
             else
             {
-                await dispatcher.DispatchAsync(new UpdateActiveLanguageAction(false));
+                await dispatcher.DispatchAsync(new TranslateUpdatePrimaryLanguageAction(false));
             }
         }
         else
@@ -51,10 +49,10 @@ public class TranslateEffects
         }
     }
 
-    [EffectMethod()]
-    public Task Effect(UpdateActiveLanguageAction action, IDispatcher dispatcher)
+    [EffectMethod]
+    public Task Effect(TranslateUpdatePrimaryLanguageAction action, IDispatcher dispatcher)
     {
-        if (_translateState.Value.IsMultiLangauge)
+        if (_translateState.Value.IsMultiLanguage)
         {
             _translateService.SetSelectedLocaleCode();
         }

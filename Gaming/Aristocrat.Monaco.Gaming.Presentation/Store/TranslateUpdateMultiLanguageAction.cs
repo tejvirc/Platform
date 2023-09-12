@@ -1,6 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store;
 
-public class TranslateUpdateMultiLanguageAction
+public record TranslateUpdateMultiLanguageAction
 {
     public TranslateUpdateMultiLanguageAction(bool isEnabled)
     {

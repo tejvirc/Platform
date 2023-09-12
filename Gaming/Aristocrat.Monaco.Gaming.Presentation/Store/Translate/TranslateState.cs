@@ -6,7 +6,9 @@ public record TranslateState
 {
     public ImmutableList<string> LocaleCodes { get; init; }
 
-    public bool IsMultiLangauge { get; init; }
+    public bool IsMultiLanguage { get; init; }
 
     public bool IsPrimaryLanguageActive { get; init; }
+
+    public bool IsInitialLanguageEventSent { get; init; }
 }

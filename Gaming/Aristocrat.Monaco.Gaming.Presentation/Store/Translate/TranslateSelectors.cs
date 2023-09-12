@@ -13,11 +13,16 @@ public static class TranslateSelectors
         (TranslateState state) => state.IsPrimaryLanguageActive);
 
     public static readonly ISelector<TranslateState, string> SelectActiveLocale = CreateSelector(
-        SelectLocaleCodes, SelectPrimaryLanguageActive, (localeCodes, isPrimaryActive) =>
+        SelectLocaleCodes,
+        SelectPrimaryLanguageActive,
+        (localeCodes, isPrimaryActive) =>
             localeCodes switch
-                {
-                    { Count: >= 2 } => isPrimaryActive ? localeCodes[0] : localeCodes[1],
-                    { Count: 1 } => localeCodes[0],
-                    _ => "US-EN"
-                });
+            {
+                { Count: >= 2 } => isPrimaryActive ? localeCodes[0] : localeCodes[1],
+                { Count: 1 } => localeCodes[0],
+                _ => "US-EN"
+            });
+
+    public static readonly ISelector<TranslateState, bool> SelectInitialLanguageEventSent = CreateSelector(
+        (TranslateState state) => state.IsInitialLanguageEventSent);
 }

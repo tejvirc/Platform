@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class TranslateUpdateLocaleCodesAction
+public record TranslateUpdateLocaleCodesAction
 {
     public TranslateUpdateLocaleCodesAction(IEnumerable<string> localeCodes)
     {
