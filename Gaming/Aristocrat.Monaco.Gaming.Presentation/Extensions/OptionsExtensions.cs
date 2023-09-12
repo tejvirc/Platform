@@ -131,6 +131,13 @@ public static class OptionsExtensions
                 };
             });
 
+        services.AddOptions<PresentationOptions>()
+            .Configure<LobbyConfiguration>((o, c) =>
+            {
+                o.AssetsPath = c.LobbyUiDirectoryPath;
+                o.SkinFiles.AddRange(c.SkinFilenames);
+            });
+
         return services;
     }
 }
