@@ -102,13 +102,20 @@
             _progressiveCommitBuilder = progressiveCommitBuilder ?? throw new ArgumentNullException(nameof(progressiveCommitBuilder));
 
             _g2sProgressivesEnabled = (bool)propertiesManager.GetProperty(G2S.Constants.G2SProgressivesEnabled, false);
-            if (_g2sProgressivesEnabled)
+            if (!_g2sProgressivesEnabled)
             {
-                SubscribeEvents();
-                Configure();
+                return;
+            }
 
+            SubscribeEvents();
+            Configure();
+
+            if (_egm.GetDevices<IProgressiveDevice>().Any())
+            {
                 //start in a disabled state until communications are established with the progressive host
-                _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveHostCommsOffline);
+                _disableProvider.Disable(
+                    SystemDisablePriority.Immediate,
+                    G2SDisableStates.ProgressiveHostCommsOffline);
             }
         }
 

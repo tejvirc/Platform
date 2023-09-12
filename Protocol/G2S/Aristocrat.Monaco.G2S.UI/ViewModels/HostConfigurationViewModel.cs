@@ -735,11 +735,13 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
             {
                 id++;
             }
+            
+            var index = Hosts.Max(h => h.Index) + 1;
 
             Hosts.Add(
                 new Host
                 {
-                    Index = id,
+                    Index = index,
                     Id = id,
                     Address = new Uri(
                         $"http://{Dns.GetHostEntry(string.Empty).HostName}:31101/RGS/api-services/G2SAPI"),
