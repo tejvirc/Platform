@@ -15691,6 +15691,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -25891,9 +25894,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/common/Aristocrat.Monaco.UI.Common.Converters.yml",
       "output": {
@@ -58950,7 +58950,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.ViewModels.LobbyViewModel.html",
-          "hash": "ibqBmIn04xafzD7718w4JaviW64TG19uJ+pDbFNBC8M="
+          "hash": "VZm7KKpHbTIdOhUVHt6NFKDx+kZaOvFc+ur83PnIBjs="
         }
       },
       "is_incremental": false,
@@ -61218,7 +61218,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.UI.Views.Overlay.SafetyDisplayOverlay.html",
-          "hash": "Cb9mNS9zoWIT67X0EtsEAifq2C64RFhmKRd0/wGWeQA="
+          "hash": "7oizdIwAM8KtK5WZBdh7HWWyret7dgDJ88rTkoQlAvs="
         }
       },
       "is_incremental": false,
