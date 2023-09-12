@@ -101,6 +101,9 @@
                 Logger.Debug($"Loading Audio files");
                 foreach (var audio in config.AudioFiles.AudioFile)
                 {
+                    if (audio.Name == SoundName.None)
+                        continue;
+
                     LoadSound(audio.Name, config.AudioFiles.Path + audio.File);
                 }
             }
@@ -419,7 +422,7 @@
                 _sounds.TryAdd(soundName, (file, sound));
             }
 
-            Logger.Debug($"Loaded audio file: {file}");
+            Logger.Debug($"Loaded audio file: {soundName} - {file}");
         }
 
         protected virtual void Dispose(bool disposing)

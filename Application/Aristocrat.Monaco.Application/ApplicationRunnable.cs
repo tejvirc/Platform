@@ -116,8 +116,6 @@ namespace Aristocrat.Monaco.Application
         {
             Logger.Debug("Run started");
 
-            ServiceManager.GetInstance().GetService<IAudio>().Load();
-
             // Check to see if the layer should stop loading based on a
             // request to clear persistent storage from the operator
             if (RunState == RunnableState.Running)
@@ -145,6 +143,8 @@ namespace Aristocrat.Monaco.Application
 
                 CheckInitialConfiguration();
             }
+
+            ServiceManager.GetInstance().GetService<IAudio>().Load();
 
             if (RunState == RunnableState.Running)
             {

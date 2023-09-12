@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundConfiguration>
 	<AudioFiles>
-		<AudioFile Name="Alarm" File="alarm.ogg" />
+		<AudioFile Name="Alert" File="alarm.ogg" />
 		<AudioFile Name="BallDrop" File="BallDrop.ogg" />
 		<AudioFile Name="CardFlip" File="CardFlip.ogg" />
 		<AudioFile Name="Center" File="Center.ogg" />
