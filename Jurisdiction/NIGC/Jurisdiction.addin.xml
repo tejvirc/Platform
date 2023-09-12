@@ -38,11 +38,8 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.NIGCJurisdiction" filterid="NIGCOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
-        <NodeSpecification addinId="Client12Addins.NIGCJurisdiction" filterid="NIGCOperatorMenuSoundConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/GamePreferences/Sounds">
-        <NodeSpecification addinId="Client12Addins.NIGCJurisdiction" filterid="NIGCGamePreferencesSounds" />
+      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.NIGCJurisdiction" filterid="NIGCSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.NIGCJurisdiction" filterid="NIGCLocaleConfig" />

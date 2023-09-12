@@ -35,11 +35,8 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.NewHampshireHHRJurisdiction" filterid="NewHampshireHHROperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
-        <NodeSpecification addinId="Client12Addins.NewHampshireHHRJurisdiction" filterid="NewHampshireHHROperatorMenuSoundConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/GamePreferences/Sounds">
-        <NodeSpecification addinId="Client12Addins.NewHampshireHHRJurisdiction" filterid="NewHampshireHHRGamePreferencesSounds" />
+      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.NewHampshireHHRJurisdiction" filterid="NewHampshireHHRSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.NewHampshireHHRJurisdiction" filterid="NewHampshireHHRLocaleConfig" />

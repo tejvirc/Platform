@@ -35,11 +35,8 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.NewYorkTribalJurisdiction" filterid="NewYorkTribalOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
-        <NodeSpecification addinId="Client12Addins.NewYorkTribalJurisdiction" filterid="NewYorkTribalOperatorMenuSoundConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/GamePreferences/Sounds">
-        <NodeSpecification addinId="Client12Addins.NewYorkTribalJurisdiction" filterid="NewYorkTribalGamePreferencesSounds" />
+      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.NewYorkTribalJurisdiction" filterid="NewYorkTribalSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.NewYorkTribalJurisdiction" filterid="NewYorkTribalLocaleConfig" />

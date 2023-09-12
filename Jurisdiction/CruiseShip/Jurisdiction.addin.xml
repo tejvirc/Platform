@@ -35,11 +35,8 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.CruiseShipJurisdiction" filterid="CruiseShipOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
-        <NodeSpecification addinId="Client12Addins.CruiseShipJurisdiction" filterid="CruiseShipOperatorMenuSoundConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/GamePreferences/Sounds">
-        <NodeSpecification addinId="Client12Addins.CruiseShipJurisdiction" filterid="CruiseShipGamePreferencesSounds" />
+      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.CruiseShipJurisdiction" filterid="CruiseShipSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.CruiseShipJurisdiction" filterid="CruiseShipLocaleConfig" />

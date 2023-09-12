@@ -34,11 +34,8 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.NewYorkVLTJurisdiction" filterid="NewYorkVLTOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
-        <NodeSpecification addinId="Client12Addins.NewYorkVLTJurisdiction" filterid="NewYorkVLTOperatorMenuSoundConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/GamePreferences/Sounds">
-        <NodeSpecification addinId="Client12Addins.NewYorkVLTJurisdiction" filterid="NewYorkVLTGamePreferencesSounds" />
+      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.NewYorkVLTJurisdiction" filterid="NewYorkVLTSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.NewYorkVLTJurisdiction" filterid="NewYorkVLTLocaleConfig" />

@@ -22,6 +22,7 @@
 
   <xs:simpleType name="SoundName">
     <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
       <xs:enumeration value="Alert"/>
       <xs:enumeration value="BallDrop" />
       <xs:enumeration value="CardFlip" />

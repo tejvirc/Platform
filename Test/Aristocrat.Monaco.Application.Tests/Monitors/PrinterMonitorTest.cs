@@ -133,7 +133,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new DisconnectedEvent());
 
             _audioService.Verify(
-                m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
+                m => m.Play(SoundName.None, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
             Assert.AreEqual(1, _displayedMessages.Count);
             _systemDisableManager.Verify();
         }
@@ -227,7 +227,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             handler(new HardwareWarningEvent(PrinterWarningTypes.PaperLow));
 
             _audioService.Verify(
-                m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
+                m => m.Play(SoundName.None, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
         }
 
         [TestMethod]

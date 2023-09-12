@@ -129,6 +129,7 @@
             SetupInitializeBlockExists();
             SetupDevices(bnaNull, printerNull, buttonDeckNull);
             SetupDeviceCrcs(_noteAcceptorDesignatedCrc, _printerDesignatedCrc, _buttonDeckDesignatedCrc);
+            SetupServices();
             _target.Initialize();
             await _platformBootedHandler.Invoke(new PlatformBootedEvent(), new CancellationToken());
             _disableManager.SetupGet(d => d.CurrentDisableKeys).Returns(new List<Guid> { });
@@ -188,6 +189,7 @@
             AddPersistedCrcEntry(1, _printerDesignatedCrc - 1, printerNull);
             AddPersistedCrcEntry(2, _buttonDeckDesignatedCrc - 1, buttonDeckNull);
             SetupInitializeBlockExists();
+            SetupServices();
             SetupDevices(bnaNull, printerNull, buttonDeckNull);
             SetupDeviceCrcs(_noteAcceptorDesignatedCrc, _printerDesignatedCrc, _buttonDeckDesignatedCrc);
             _target.Initialize();
@@ -297,6 +299,13 @@
             var dict = new Dictionary<string, object>();
             dict.Add("Crc", value);
             _getAllReturnValue.Add(blockPosition, dict);
+        }
+
+        private void SetupServices()
+        {
+            _audioService.Setup(p => p.Load());
+            _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<object>()))
+                .Returns((byte)10);
         }
 
         private void SetupInitializeBlockExists()

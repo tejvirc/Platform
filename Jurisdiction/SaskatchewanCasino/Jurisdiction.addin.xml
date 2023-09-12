@@ -35,11 +35,8 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.SaskatchewanCasinoJurisdiction" filterid="SaskatchewanCasinoOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
-        <NodeSpecification addinId="Client12Addins.SaskatchewanCasinoJurisdiction" filterid="SaskatchewanCasinoOperatorMenuSoundConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/GamePreferences/Sounds">
-        <NodeSpecification addinId="Client12Addins.SaskatchewanCasinoJurisdiction" filterid="SaskatchewanCasinoGamePreferencesSounds" />
+      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.SaskatchewanCasinoJurisdiction" filterid="SaskatchewanCasinoSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.SaskatchewanCasinoJurisdiction" filterid="SaskatchewanCasinoLocaleConfig" />

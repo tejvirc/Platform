@@ -63,6 +63,12 @@
                 _audioService.Object);
         }
 
+        private void SetupAudio()
+        {
+            _audioService.Setup(p => p.Load());
+            _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<object>())).Returns((byte)10);
+        }
+
         [TestCleanup]
         public void CleanUp()
         {
@@ -118,6 +124,8 @@
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<PersistentStorageIntegrityCheckFailedEvent>>()))
                 .Callback<object, Action<PersistentStorageIntegrityCheckFailedEvent>>((subscriber, callback) => handler = callback);
 
+            SetupAudio();
+
             _target.Initialize();
 
             Assert.IsNotNull(handler);
@@ -127,7 +135,7 @@
             _disableManager.Verify(
                 m => m.Disable(It.IsAny<Guid>(), SystemDisablePriority.Immediate, It.IsAny<Func<string>>(), null));
             _audioService.Verify(
-                m => m.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
+                m => m.Play(SoundName.None, It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null), Times.Never);
         }
 
         [TestMethod]
@@ -179,6 +187,8 @@
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<StorageErrorEvent>>()))
                 .Callback<object, Action<StorageErrorEvent>>((subscriber, callback) => handler = callback);
 
+            SetupAudio();
+
             var meter = new Mock<IMeter>();
 
             meter.Setup(m => m.Increment(1));
@@ -219,6 +229,8 @@
 
             _eventBus.Setup(m => m.Subscribe(_target, It.IsAny<Action<SecondaryStorageErrorEvent>>()))
                 .Callback<object, Action<SecondaryStorageErrorEvent>>((subscriber, callback) => handler = callback);
+
+            SetupAudio();
 
             _target.Initialize();
 

@@ -64,8 +64,8 @@
   <Extension path="/Kernel/SelectableAddinConfiguration/Jurisdiction">
     <SelectableJurisdiction name="Quebec VLT" description="Test jurisdiction group">
       <AddinConfigurationGroupReference name="BaseConfigWizardPages"/>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
-        <NodeSpecification addinId="Client12Addins.Application.UI.Test" filterid="QuebecOperatorMenuSoundConfig" />
+      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.Application.UI.Test" filterid="QuebecSoundConfig" />
       </ExtensionPointConfiguration>
     </SelectableJurisdiction>
   </Extension>
@@ -89,12 +89,12 @@
     </SelectableProtocol>
   </Extension>
 
-  <ExtensionPoint path = "/OperatorMenu/Sound/Configuration">
+  <ExtensionPoint path = "/Sound/Configuration">
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
 
-  <Extension path="/OperatorMenu/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" filterid="QuebecOperatorMenuSoundConfig" />
+  <Extension path="/Sound/Configuration">
+    <FilePath FilePath="..\jurisdiction\DefaultAssets\ding.ogg" filterid="QuebecSoundConfig" />
   </Extension>
   
   <ExtensionPoint path = "/Application/OperatorMenu/MetersMenu">

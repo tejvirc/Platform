@@ -136,6 +136,9 @@ public partial class SoundConfigurationAudioFilesAudioFile {
 public enum SoundName {
     
     /// <remarks/>
+    None,
+    
+    /// <remarks/>
     Alert,
     
     /// <remarks/>

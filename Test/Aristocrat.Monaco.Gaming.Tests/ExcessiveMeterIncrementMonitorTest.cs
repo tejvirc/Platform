@@ -31,7 +31,7 @@
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Default);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Default);
             _systemDisableManager = MoqServiceManager.CreateAndAddService<ISystemDisableManager>(MockBehavior.Strict);
-            _audioService = MoqServiceManager.CreateAndAddService<IAudio>(MockBehavior.Strict);
+            _audioService = MoqServiceManager.CreateAndAddService<IAudio>(MockBehavior.Default);
         }
 
         [TestCleanup]
@@ -193,6 +193,11 @@
                         It.IsAny<Predicate<DownEvent>>()))
                 .Callback<object, Action<DownEvent>, Predicate<DownEvent>>
                 ((y, x, z) => _downEventHandler = x);
+
+            _audioService.Setup(p => p.Load());
+            _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<object>()))
+                .Returns((byte)10);
+
             _propertiesManager.Setup(p => p.GetProperty(GamingConstants.ExcessiveMeterIncrementTestBanknoteLimit, It.IsAny<object>()))
                 .Returns(1000000000L);
             _propertiesManager.Setup(p => p.GetProperty(GamingConstants.ExcessiveMeterIncrementTestCoinLimit, It.IsAny<object>()))

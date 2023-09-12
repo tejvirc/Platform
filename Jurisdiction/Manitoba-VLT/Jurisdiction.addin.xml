@@ -33,11 +33,8 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.ManitobaJurisdiction" filterid="ManitobaOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/Sound/Configuration">
-        <NodeSpecification addinId="Client12Addins.ManitobaJurisdiction" filterid="ManitobaOperatorMenuSoundConfig" />
-      </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/OperatorMenu/GamePreferences/Sounds">
-        <NodeSpecification addinId="Client12Addins.ManitobaJurisdiction" filterid="ManitobaGamePreferencesSounds" />
+      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+        <NodeSpecification addinId="Client12Addins.ManitobaJurisdiction" filterid="ManitobaSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
         <NodeSpecification addinId="Client12Addins.ManitobaJurisdiction" filterid="ManitobaLocaleConfig" />
@@ -106,10 +103,7 @@
   </Extension>
   <Extension path="/DoorMonitor/Configuration">
     <DoorMonitorConfiguration>
-      <DoorOpenAlarm RepeatSeconds="3" LoopCount="8" OperatorCanCancel="true">
-        <FilePath FilePath="" filterid="ManitobaDoorMonitorConfig" />
-        <!-- No door alarm for class II -->
-      </DoorOpenAlarm>
+      <DoorOpenAlarm RepeatSeconds="3" LoopCount="8" OperatorCanCancel="true" />
     </DoorMonitorConfiguration>
   </Extension>
   <Extension path="/ConfigWizard/Configuration">

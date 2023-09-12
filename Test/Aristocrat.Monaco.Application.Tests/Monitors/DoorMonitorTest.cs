@@ -10,6 +10,7 @@
     using Contracts;
     using Contracts.EdgeLight;
     using Contracts.Localization;
+    using Kernel.Contracts;
     using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Door;
@@ -313,7 +314,10 @@
             _doorService.Setup(mock => mock.LogicalDoors).Returns(logicalDoors);
             _doorService.Setup(mock => mock.GetDoorClosed(1)).Returns(false);
             _doorService.Setup(mock => mock.GetDoorClosed(2)).Returns(false);
+            _doorService.Setup(mock => mock.GetDoorOpen(7)).Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoorAlarmEnabledKey, It.IsAny<bool>())).Returns(true);
+            _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.SoundConfigurationLogicDoorFullVolumeAlert, It.IsAny<object>())).Returns(true);
+            _propertiesManager.Setup(p => p.GetProperty(KernelConstants.IsInspectionOnly, It.IsAny<object>())).Returns(true);
 
             _accessor.CheckDoorAlarm(true, true);
         }

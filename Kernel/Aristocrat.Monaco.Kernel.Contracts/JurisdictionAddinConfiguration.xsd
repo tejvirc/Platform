@@ -70,14 +70,6 @@
                     <xs:sequence>
                       <xs:element name="DoorOpenAlarm">
                         <xs:complexType>
-                          <xs:sequence>
-                            <xs:element name="FilePath">
-                              <xs:complexType>
-                                <xs:attribute name="FilePath" type="xs:string" use="required" />
-                                <xs:attribute name="filterid" type="xs:string" use="required" />
-                              </xs:complexType>
-                            </xs:element>
-                          </xs:sequence>
                           <xs:attribute name="RepeatSeconds" type="xs:unsignedByte" use="required" />
                           <xs:attribute name="LoopCount" type="xs:unsignedByte" use="required" />
                           <xs:attribute name="OperatorCanCancel" type="xs:boolean" use="required" />
