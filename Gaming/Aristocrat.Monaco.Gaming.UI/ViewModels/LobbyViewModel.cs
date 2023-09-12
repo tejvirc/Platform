@@ -175,6 +175,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private bool _isTopScreenRenderingDisabled;
         private bool _isTopperScreenRenderingDisabled;
         private bool _isVbdCashOutDialogVisible;
+        private bool _isResponsibleGamingCashoutDlgVisible;
         private bool _isVbdServiceDialogVisible;
         private bool _isVbdRenderingDisabled = true;
         private bool _largeGameIconsEnabled;
@@ -439,7 +440,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             AddCreditsCommand = new RelayCommand<object>(BankPressed);
             CashOutCommand = new RelayCommand<object>(CashOutPressed);
             ServiceCommand = new RelayCommand<object>(ServicePressed);
-            VbdCashoutDlgYesNoCommand = new RelayCommand<object>(VbdCashoutDlgYesNoPressed);
+            CashoutDlgYesNoCommand = new RelayCommand<object>(CashoutDlgYesNoPressed);
             VbdServiceDlgYesNoCommand = new RelayCommand<object>(VbdServiceDlgYesNoPressed);
             DenomFilterPressedCommand = new RelayCommand<object>(DenomFilterPressed);
             TimeLimitDlgCommand = new RelayCommand<object>(TimeLimitAccepted);
@@ -645,9 +646,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public ICommand ServiceCommand { get; }
 
         /// <summary>
-        ///     Gets the VbdCashoutDlgYesNoCommand
+        ///     Gets the CashoutDlgYesNoCommand
         /// </summary>
-        public ICommand VbdCashoutDlgYesNoCommand { get; }
+        public ICommand CashoutDlgYesNoCommand { get; }
 
         /// <summary>
         ///     Gets the VbdServiceDlgYesNoCommand
@@ -1202,7 +1203,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
         }
 
-        public bool IsTimeLimitDlgVisible => _responsibleGaming?.IsTimeLimitDialogVisible ?? false;
+        public bool IsTimeLimitDlgVisible => (_responsibleGaming?.IsTimeLimitDialogVisible ?? false);
 
         /// <summary>
         ///     Gets a value indicating whether the responsible gaming info dialog is visible
@@ -1611,6 +1612,12 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             get => _isVbdCashOutDialogVisible;
             set => SetProperty(ref _isVbdCashOutDialogVisible, value);
+        }
+
+        public bool IsResponsibleGamingCashoutDlgVisible
+        {
+            get => _isResponsibleGamingCashoutDlgVisible;
+            set => SetProperty(ref _isResponsibleGamingCashoutDlgVisible, value);
         }
 
         /// <summary>
@@ -3703,27 +3710,36 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void CashOutPressed(object obj)
         {
+            const string VBD = "VBD", Main = "MAIN";
+
             if (IsDisabledByHandCount())
             {
                 return;
             }
 
-            // TODO:  Not sure about time limit dialog here
-            if (!(IsTimeLimitDlgVisible && (_responsibleGaming?.IsSessionLimitHit ?? false)) &&
-                obj != null && obj.ToString().ToUpperInvariant() == "VBD" && _cabinetDetectionService.IsTouchVbd())
+            var commandParam = obj?.ToString().ToUpperInvariant() ?? string.Empty;
+            if (commandParam is VBD && _cabinetDetectionService.IsTouchVbd()) // show cashout confirmation when cashout is pressed from VBD always
             {
                 IsVbdCashOutDialogVisible = true;
                 PlayAudioFile(Sound.Touch);
+                return;
             }
-            else
-            {
-                if (CurrentState == LobbyState.ResponsibleGamingInfo)
-                {
-                    ExitResponsibleGamingInfoDialog();
-                }
 
-                ExecuteOnUserCashOut();
+            // show cashout confirmation on the main screen only when responsible gaming dialog is visible
+            // and the session limit has not been reached.
+            if (IsTimeLimitDlgVisible && (!_responsibleGaming?.IsSessionLimitHit ?? false) && commandParam is Main) 
+            {
+                IsResponsibleGamingCashoutDlgVisible = true;
+                PlayAudioFile(Sound.Touch);
+                return;
             }
+
+            if (CurrentState == LobbyState.ResponsibleGamingInfo)
+            {
+                ExitResponsibleGamingInfoDialog();
+            }
+
+            ExecuteOnUserCashOut();
         }
 
         private void ServicePressed(object obj)
@@ -3733,14 +3749,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             PlayAudioFile(Sound.Touch);
         }
 
-        private void VbdCashoutDlgYesNoPressed(object obj)
+        private void CashoutDlgYesNoPressed(object obj)
         {
-            if (obj.ToString().Equals("YES", StringComparison.InvariantCultureIgnoreCase))
+            if (obj.ToString().Equals(ResourceKeys.Yes.ToUpperInvariant(), StringComparison.InvariantCultureIgnoreCase))
             {
                 ExecuteOnUserCashOut();
             }
 
-            IsVbdCashOutDialogVisible = false;
+            IsVbdCashOutDialogVisible = false;  
+            IsResponsibleGamingCashoutDlgVisible = false;
         }
 
         private void VbdServiceDlgYesNoPressed(object obj)
