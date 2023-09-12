@@ -1614,6 +1614,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             set => SetProperty(ref _isVbdCashOutDialogVisible, value);
         }
 
+        /// <summary>
+        ///     Gets or sets a value indicating whether the main screen RG Cash Out confirmation dialog is visible
+        /// </summary>
         public bool IsResponsibleGamingCashoutDlgVisible
         {
             get => _isResponsibleGamingCashoutDlgVisible;
@@ -2991,8 +2994,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             if (CurrentState == LobbyState.GameLoading ||
                 ContainsAnyState(LobbyState.CashOut, LobbyState.CashIn, LobbyState.PrintHelpline, LobbyState.AgeWarningDialog))
             {
-                // VLT-4248:  Clear Cash-Out Dialog on VBD when we load a game.
-                // VLT-4169: Hide VBD Cash Out dialog if we are in a bill-in situation.
+                // Hide Cash Out dialogs when we load a game and on cash in 
                 IsVbdCashOutDialogVisible = false;
                 ShowVbdServiceConfirmationDialog(false);
             }
@@ -3107,6 +3109,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 _rotateTopImageTimer?.Stop();
                 _rotateTopperImageTimer?.Stop();
                 IsVbdCashOutDialogVisible = false;
+                IsResponsibleGamingCashoutDlgVisible = false;
                 ShowVbdServiceConfirmationDialog(false);
             }
 
@@ -3562,7 +3565,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                         Logger.Debug("Show Responsible Gaming Dialog");
                         _responsibleGaming.ShowDialog(allowDialogWhileDisabled);
                     }
-                    IsVbdCashOutDialogVisible = false; //VLT-12355:  Cancel the VBD cashout dialog on Responsible Gaming banner
+                    IsVbdCashOutDialogVisible = false; // Cancel the VBD cashout dialog on Responsible Gaming banner
                 }
             }
         }
@@ -4260,7 +4263,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void DismissResponsibleGamingDialog(int choiceIndex)
         {
-            IsVbdCashOutDialogVisible = false; //VLT-4680:  Cancel the VBD cashout dialog on Responsible Gaming interactions
+            IsVbdCashOutDialogVisible = false; // Cancel the VBD cashout dialog on Responsible Gaming interactions
+            IsResponsibleGamingCashoutDlgVisible = false;
             ShowVbdServiceConfirmationDialog(false);
             _responsibleGaming?.AcceptTimeLimit(choiceIndex);
         }
