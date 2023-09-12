@@ -1,7 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Services;
 
 using Aristocrat.Monaco.Application.Contracts;
-using Contracts;
+using Gaming.Contracts;
 using Vgt.Client12.Application.OperatorMenu;
 
 public class OperatorMenuService : IOperatorMenuService

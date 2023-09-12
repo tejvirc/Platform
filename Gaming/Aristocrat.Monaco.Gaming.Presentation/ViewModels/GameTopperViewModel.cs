@@ -3,7 +3,7 @@
 using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Contracts;
+using Gaming.Contracts;
 using Fluxor;
 using Store;
 

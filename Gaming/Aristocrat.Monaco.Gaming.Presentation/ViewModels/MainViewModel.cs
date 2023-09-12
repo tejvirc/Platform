@@ -3,14 +3,13 @@
 using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Gaming.Contracts;
 using Events;
+using Fluxor;
+using Gaming.Contracts;
 using Microsoft.Extensions.Logging;
 using Prism.Common;
 using Prism.Regions;
 using Views;
-using static Store.Attract.AttractSelectors;
-using Fluxor;
 
 public class MainViewModel : ObservableObject, IActivatableViewModel
 {
@@ -28,14 +27,6 @@ public class MainViewModel : ObservableObject, IActivatableViewModel
 
         this.WhenActivated(disposables =>
         {
-            store
-                .Select(SelectAttractStarting)
-                .WhenTrue()
-                .Subscribe(_ =>
-                {
-                    _regionManager?.RequestNavigate(RegionNames.Main, ViewNames.Loading);
-                })
-                .DisposeWith(disposables);
         });
     }
 

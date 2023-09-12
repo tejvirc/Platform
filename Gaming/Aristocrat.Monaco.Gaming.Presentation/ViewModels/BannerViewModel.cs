@@ -9,7 +9,7 @@ using static Store.IdleText.IdleTextSelectors;
 
 public class BannerViewModel : ObservableObject, INavigationAware, IActivatableViewModel
 {
-    private string _idleText;
+    private string? _idleText;
 
     public BannerViewModel(IStore store)
     {
@@ -31,7 +31,7 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
 
     public RelayCommand UnloadedCommand { get; }
 
-    public string IdleText
+    public string? IdleText
     {
         get => _idleText;
 

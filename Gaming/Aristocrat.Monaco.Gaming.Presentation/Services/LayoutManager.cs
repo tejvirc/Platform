@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Monaco.UI.Common;
 using Options;
+using Prism.Ioc;
 using Prism.Regions;
 using Views;
 using static Store.Translate.TranslateSelectors;
