@@ -21,7 +21,7 @@
     <ProjectReference Include="..\..\Protocol\HHR\Aristocrat.Monaco.HHR\Aristocrat.Monaco.HHR.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.26" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.27" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.1" />
   </ItemGroup>
 </Project>

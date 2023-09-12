@@ -236,16 +236,7 @@
         {
             lock (_lock)
             {
-                var primaryDisplayRole = DisplayRole.Main;
-
-                // Do we have a designated primary display?
-                if (ExpectedDisplayDevices.Any(d => d.IsPrimary))
-                {
-                    // Yes, get the role of the desinated primary display.
-                    primaryDisplayRole = ExpectedDisplayDevices.FirstOrDefault(d => d.IsPrimary).Role;
-                }
-
-                var primaryDisplayDevice = GetDisplayDeviceByItsRole(primaryDisplayRole);
+                var primaryDisplayDevice = GetDisplayDeviceByItsRole(DisplayRole.Main);
                 Logger.Info($"MapTouchscreens - CabinetType {_cabinet.CabinetType} Id {_cabinet.Id} - persistMappings {persistMappings} - Primary Display Name {primaryDisplayDevice.Name} - Primary Display Role {primaryDisplayDevice.Role}");
 
                 var serialTouchName = "?";

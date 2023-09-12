@@ -28,7 +28,7 @@
             set
             {
                 _displayRole = value;
-                _mapper = new WindowToScreenMapper(value, swapRoles: true);
+                _mapper = new WindowToScreenMapper(value);
                 Topmost = _mapper.IsFullscreen;
                 _mapper.MapWindow(this);
             }
