@@ -33,6 +33,7 @@ public sealed class GameLoader : IGameLoader, IDisposable
     private readonly SubscriptionList _subscriptions = new();
 
     private string? _activeLocaleCode;
+    private bool _useSmallIcons;
 
     public GameLoader(
         ILogger<GameLoader> logger,
@@ -53,7 +54,8 @@ public sealed class GameLoader : IGameLoader, IDisposable
         _gameOrderSettings = gameOrderSettings;
         _progressiveProvider = progressiveProvider;
 
-        _subscriptions += selector.Select(SelectActiveLocale).Subscribe(code => _activeLocaleCode = code);
+        _subscriptions += selector.Select(SelectActiveLocale).Subscribe(activeLocaleCode => _activeLocaleCode = activeLocaleCode);
+        _subscriptions += selector.Select(SelectUseSmallIcons).Subscribe(useSmallIcons => _useSmallIcons = useSmallIcons);
     }
 
     public async Task<IEnumerable<GameInfo>> LoadGames()
@@ -107,10 +109,8 @@ public sealed class GameLoader : IGameLoader, IDisposable
             _chooserOptions.DefaultGameDisplayOrderByThemeId);
     }
 
-    private async Task<IEnumerable<GameInfo>> GetOrderedGames(IReadOnlyCollection<IGameDetail> games, string activeLocalCode)
+    private Task<IList<GameInfo>> GetOrderedGames(IReadOnlyCollection<IGameDetail> games, string activeLocalCode)
     {
-        var useSmallIcons = await _selector.Select(SelectUseSmallIcons).LastAsync();
-
         var gameCombos = (from game in games
             from denom in game.ActiveDenominations
             where game.Enabled
@@ -121,11 +121,11 @@ public sealed class GameLoader : IGameLoader, IDisposable
                 InstallDateTime = game.InstallDate,
                 DllPath = game.GameDll,
                 ImagePath =
-                    useSmallIcons
+                    _useSmallIcons
                         ? game.LocaleGraphics[activeLocalCode].SmallIcon
                         : game.LocaleGraphics[activeLocalCode].LargeIcon,
                 TopPickImagePath =
-                    useSmallIcons
+                    _useSmallIcons
                         ? game.LocaleGraphics[activeLocalCode].SmallTopPickIcon
                         : game.LocaleGraphics[activeLocalCode].LargeTopPickIcon,
                 TopAttractVideoPath = game.LocaleGraphics[activeLocalCode].TopAttractVideo,
@@ -150,7 +150,7 @@ public sealed class GameLoader : IGameLoader, IDisposable
                     !string.IsNullOrEmpty(game.DisplayMeterName)
                         ? _attractOptions.WithBonusVideoFilename
                         : _attractOptions.NoBonusVideoFilename,
-                UseSmallIcons = useSmallIcons,
+                UseSmallIcons = _useSmallIcons,
                 LocaleGraphics = game.LocaleGraphics,
                 ThemeId = game.ThemeId,
                 IsNew = GameIsNew(game.GameTags),
@@ -159,8 +159,13 @@ public sealed class GameLoader : IGameLoader, IDisposable
                 RequiresMechanicalReels = game.MechanicalReels > 0
             }).ToList();
 
-        return gameCombos.OrderBy(game => _gameOrderSettings.GetIconPositionPriority(game.ThemeId))
-                .ThenBy(g => g.Denomination);
+        var orderGameCombos = gameCombos
+                .OrderBy(game => _gameOrderSettings
+                                    .GetIconPositionPriority(game.ThemeId))
+                .ThenBy(g => g.Denomination)
+                .ToList();
+
+        return Task.FromResult<IList<GameInfo>>(orderGameCombos);
     }
 
     private static bool GameIsNew(IEnumerable<string>? gameTags)
