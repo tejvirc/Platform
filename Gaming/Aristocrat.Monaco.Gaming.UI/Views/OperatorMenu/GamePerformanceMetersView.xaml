@@ -67,7 +67,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Meter}}"
                                     loc:Localizer.For="Operator"
-                                    HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
+                                    HeaderStyle="{StaticResource MonacoDataGridColumnHeader}"
                                     Binding="{Binding Name}"
                                     AutomationProperties.AutomationId="DataGridTextColumn20_A89303F4" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Value}}"
@@ -93,7 +93,7 @@
                                     AutomationProperties.AutomationId="DataGridTextColumn23_A89303F4" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.RTP}}"
                                     loc:Localizer.For="Operator"
-                                    HeaderStyle="{StaticResource MonacoDataGridWrappedColumnHeader}"
+                                    HeaderStyle="{StaticResource MonacoDataGridColumnHeader}"
                                     Binding="{Binding RTP, Converter={StaticResource ReturnToPlayerConverter}}"
                                     AutomationProperties.AutomationId="DataGridTextColumn24_A89303F4" />
                 <DataGridTextColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.Wagered}}"
