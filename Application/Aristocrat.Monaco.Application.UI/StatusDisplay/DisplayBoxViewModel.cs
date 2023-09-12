@@ -42,7 +42,7 @@ namespace Aristocrat.Monaco.Application.UI.StatusDisplay
                 if (_displayableMessages != value)
                 {
                     _displayableMessages = value;
-                    RaisePropertyChanged(nameof(DisplayableMessages));  
+                    OnPropertyChanged(nameof(DisplayableMessages));  
                 }
             }
         }

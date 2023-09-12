@@ -71,19 +71,12 @@ namespace Aristocrat.Monaco.Application.UI.StatusDisplay
         /// <inheritdoc />
         public void DisplayStatus(DisplayableMessage message)
         {
-<<<<<<< HEAD
-            MvvmHelper.ExecuteOnUI(() => _statusDisplay.DisplayStatus(message));   
+            Execute.OnUIThread(() => _statusDisplay.DisplayStatus(message));   
         }
 
         public void UpdateMessages()
         {
-            MvvmHelper.ExecuteOnUI(() => _statusDisplay.UpdateMessages());
-=======
-            lock (_lock)
-            {
-                Execute.OnUIThread(() => _statusDisplay.DisplayStatus(message));
-            }
->>>>>>> refs/remotes/origin/main
+            Execute.OnUIThread(() => _statusDisplay.UpdateMessages());
         }
 
         private void Dispose(bool disposing)
