@@ -72,6 +72,7 @@
                 .Returns(false);
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.MachineId, It.IsAny<uint>()))
                 .Returns((uint)1);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ShowMode, false)).Returns(false);
 
             _printer.SetupGet(m => m.Enabled).Returns(true);
             _printer.SetupGet(m => m.CanPrint).Returns(true);

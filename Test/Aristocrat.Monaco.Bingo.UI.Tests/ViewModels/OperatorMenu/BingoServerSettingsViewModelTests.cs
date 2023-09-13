@@ -48,6 +48,7 @@
                 .Returns("TRUE");
             propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.CabinetControlsDisplayElements, It.IsAny<bool>()))
                 .Returns(false);
+            propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ShowMode, false)).Returns(false);
             _model = new BingoServerSettingsModel();
 
             _localizerFactory.Setup(m => m.For(It.IsAny<string>())).Returns<string>(

@@ -73,6 +73,7 @@
                 .Returns(DateTime.UtcNow);
             _propertiesManager.Setup(m => m.GetProperty(PropertyKey.CurrentBalance, It.IsAny<long>()))
                 .Returns(0L);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ShowMode, false)).Returns(false);
 
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Strict);
 
