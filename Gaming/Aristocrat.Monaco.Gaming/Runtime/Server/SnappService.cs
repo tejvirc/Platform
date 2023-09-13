@@ -694,19 +694,35 @@
             Logger.Debug($"Update Bet Line option with wager : {request.Wager}");
             var betDetails = new List<IBetDetails>();
             // Store bet details for each game id
-            foreach (var gameDetails in request.GamesDetails)
+            if (request.GamesDetails != null)
             {
-                var subGameBetOptions = gameDetails.Unpack<SubgameBetOptions>();
-                _subGameBetOptions.AddOrUpdate((int)subGameBetOptions.GameId, subGameBetOptions, (_,_) => subGameBetOptions);
+                foreach (var gameDetails in request.GamesDetails)
+                {
+                    var subGameBetOptions = gameDetails.Unpack<SubgameBetOptions>();
+                    _subGameBetOptions.AddOrUpdate((int)subGameBetOptions.GameId, subGameBetOptions, (_, _) => subGameBetOptions);
+                    betDetails.Add(new BetDetails(
+                        (int)subGameBetOptions.BetLinePresetId,
+                        (int)((long)subGameBetOptions.LineCost).MillicentsToCents(),
+                        (int)subGameBetOptions.NumberLines,
+                        (int)subGameBetOptions.Ante,
+                        (long)subGameBetOptions.StakeAmount,
+                        (long)request.Wager,
+                        (int)request.BetMultiplier,
+                        (int)subGameBetOptions.GameId));
+                }
+            }
+            
+            if (!betDetails.Any())
+            {
                 betDetails.Add(new BetDetails(
-                    (int)subGameBetOptions.BetLinePresetId,
-                    (int)((long)subGameBetOptions.LineCost).MillicentsToCents(),
-                    (int)subGameBetOptions.NumberLines,
-                    (int)subGameBetOptions.Ante,
-                    (long)subGameBetOptions.StakeAmount,
+                    (int)request.BetLinePresetId,
+                    (int)((long)request.LineCost).MillicentsToCents(),
+                    (int)request.NumberLines,
+                    (int)request.Ante,
+                    (long)request.StakeAmount,
                     (long)request.Wager,
                     (int)request.BetMultiplier,
-                    (int)subGameBetOptions.GameId));
+                    0));
             }
 
             var betOptions = new UpdateBetOptions(betDetails);
