@@ -510,6 +510,23 @@
         }
 
         /// <summary>
+        /// Gets the formatted currency description for the specified region in Operator Culture
+        /// </summary>
+        /// <param name="culture">the culture</param>
+        /// <param name="isoCurrencyCode">currency code</param>
+        /// <param name="region">the region</param>
+        /// <returns></returns>
+        public static string GetFormattedDescriptionForOperator(
+            this CultureInfo culture,
+            string isoCurrencyCode,
+            RegionInfo region = null)
+        {
+            region ??= !string.IsNullOrEmpty(culture.Name) ? new RegionInfo(culture.Name) : null;
+
+            return
+                $"{region?.CurrencyEnglishName} {isoCurrencyCode} {FormattedCurrencyStringForOperator(DefaultDescriptionAmount)}".Trim();
+        }
+        /// <summary>
         /// Apply no currency format on the culture
         /// </summary>
         /// <param name="currencyCulture"></param>
