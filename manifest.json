@@ -15607,9 +15607,6 @@
       "version": ""
     },
     {
-      "log_codes": [
-        "DuplicateUids"
-      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/application/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -23499,7 +23496,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.Models.BingoCardModel.html",
-          "hash": "xVOd5Os9Ufe7uevR8v++6GXCXy/rj6wuNNmQPNES+Fk="
+          "hash": "6O/8wq+cEYS0Emh/naWcR4iTgQsReIzzOyG64qkhm3I="
         }
       },
       "is_incremental": false,
@@ -23655,7 +23652,7 @@
       "output": {
         ".html": {
           "relative_path": "api/protocol/bingo/Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu.BingoGameHistoryDetailsViewModel.html",
-          "hash": "1plNUH7d7wtupekSxQZ2cOEC4mtCT2+LZw1u1bCY0fk="
+          "hash": "3+Xn9RbAjaf1nJ/lsx0M7oaFgAsuRLnGvB5hKiB8Dbc="
         }
       },
       "is_incremental": false,
@@ -43621,6 +43618,9 @@
       "version": ""
     },
     {
+      "log_codes": [
+        "DuplicateUids"
+      ],
       "type": "ManagedReference",
       "source_relative_path": "obj/gaming/Aristocrat.Monaco.Application.UI.Views.yml",
       "output": {
@@ -56922,7 +56922,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Runtime.Server.SnappService.html",
-          "hash": "qm9Oj/Vej+073YbXXU9o3Mx3ehYOVBDjuYI4XhNQrJI="
+          "hash": "XtZ3UeEBNQPWeFwRuHCl5YI8+bmrBthXudYRc8j16XU="
         }
       },
       "is_incremental": false,
