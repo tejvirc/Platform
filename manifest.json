@@ -30,7 +30,7 @@
       "output": {
         ".html": {
           "relative_path": "api/toc.html",
-          "hash": "bIrqrxFq6fP+gZMJ1wOR3j10T5IvmY3Hin0u2Tdo47A="
+          "hash": "eFfBVX6+7ggBVUCEAFDr/ZC7lspTO3rr014eH6LD0SM="
         }
       },
       "is_incremental": false,
@@ -44490,7 +44490,7 @@
       "output": {
         ".html": {
           "relative_path": "api/gaming/Aristocrat.Monaco.Gaming.Commands.CheckResultCommandHandler.html",
-          "hash": "DGoEaHKrPn2a1tt7ASxAyjKFOcZ+Uza6hgbkFUvF0bM="
+          "hash": "AprxnNOl1EBBGMe7esQ2MfBxY4s/BLBBRv6Eus6kI7c="
         }
       },
       "is_incremental": false,
@@ -61610,23 +61610,11 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "obj/hardware/Aristocrat.Monaco.Hardware.Audio.MultimediaDevice.yml",
-      "output": {
-        ".html": {
-          "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Audio.MultimediaDevice.html",
-          "hash": "ciZAqGbC/JT0n1Xb2pCTGpkCj/XqAgTxF1nx5u/ct70="
-        }
-      },
-      "is_incremental": false,
-      "version": ""
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "obj/hardware/Aristocrat.Monaco.Hardware.Audio.yml",
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Audio.html",
-          "hash": "R4gRqxQ5qCWBobCdk6znIFM4oAj2pNUMl9Ku/ztsR/k="
+          "hash": "P9mFO0yW6NwmaduMg0XsdBdDQDRapT6hXhfOpAnq0H0="
         }
       },
       "is_incremental": false,
@@ -71706,7 +71694,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Services.AudioService.html",
-          "hash": "0X6LBiSUU9I3265fiYUn/mSOwr6JKa7qtUhWmRvduh4="
+          "hash": "YXn2wBNmRXJnTznXeNYcEwsV+4FbrHBZ3jV4a2VHnmQ="
         }
       },
       "is_incremental": false,
@@ -71778,7 +71766,7 @@
       "output": {
         ".html": {
           "relative_path": "api/hardware/Aristocrat.Monaco.Hardware.Services.ChannelExtensions.html",
-          "hash": "YW0IGlo2u6KopmaxFfbiZyiKE2dJNqhpPfZXmKB3o8M="
+          "hash": "a7U5sID3jz1Amm8GD7XMiEN9RV/3kpOg6vsm9L7QD9s="
         }
       },
       "is_incremental": false,
@@ -86733,7 +86721,7 @@
         "ManagedReferenceDocumentProcessor": {
           "can_incremental": false,
           "incrementalPhase": "build",
-          "total_file_count": 7194,
+          "total_file_count": 7193,
           "skipped_file_count": 0
         },
         "ResourceDocumentProcessor": {
