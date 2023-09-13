@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
+    using System.Windows.Markup.Localizer;
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Application.Contracts.MeterPage;
@@ -28,9 +29,6 @@
 
         // Ticket type
         private const string TicketType = "text";
-
-        // Date format strings
-        private static readonly string DateFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
 
         /// <inheritdoc />
         public List<Ticket> CreateGameMetersTicket(
@@ -74,9 +72,15 @@
         {
             var meterManager = _serviceManager.GetService<IGameMeterManager>();
             var meters = new List<Tuple<IMeter, string>>();
+
+            var localizer = _propertiesManager.GetValue(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, false) ?
+                Localizer.For(CultureFor.Operator) :
+                Localizer.For(CultureFor.OperatorTicket);
+            var dateFormat = localizer.CurrentCulture.DateTimeFormat.ShortDatePattern;
+
             foreach (var meter in meterNodes)
             {
-                AddMeter(meterManager, meters, game.Id, meter.Name, meter.DisplayName);
+                AddMeter(meterManager, meters, game.Id, meter.Name, meter.DisplayNameKey);
             }
 
             // print region string builders
@@ -86,23 +90,23 @@
 
             // Header data
             var title = useMasterValues
-                ? Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.MasterGameMetersTicketTitleText)
-                : Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.PeriodGameMetersTicketTitleText);
+                ? localizer.GetString(ResourceKeys.MasterGameMetersTicketTitleText)
+                : localizer.GetString(ResourceKeys.PeriodGameMetersTicketTitleText);
             var dateTimeNow = _serviceManager.GetService<ITime>().GetLocationTime(DateTime.UtcNow);
             var retailerName =
                 (string)_propertiesManager.GetProperty(PropertyKey.TicketTextLine1, string.Empty);
-            var retailerId = (string)_propertiesManager.GetProperty(ApplicationConstants.Zone, Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.DataUnavailable));
+            var retailerId = (string)_propertiesManager.GetProperty(ApplicationConstants.Zone, localizer.GetString(ResourceKeys.DataUnavailable));
             var jurisdiction = (string)_propertiesManager.GetProperty(
                 ApplicationConstants.JurisdictionKey,
-                Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.DataUnavailable));
+                localizer.GetString(ResourceKeys.DataUnavailable));
             var serialNumber = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
-            var version = (string)_propertiesManager.GetProperty(KernelConstants.SystemVersion, Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.NotSet));
+            var version = (string)_propertiesManager.GetProperty(KernelConstants.SystemVersion, localizer.GetString(ResourceKeys.NotSet));
 
             // Theme
             var gameName = game.ThemeName;
 
-            string leftHeader = Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.Meter);
-            string rightHeader = Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.Value);
+            string leftHeader = localizer.GetString(ResourceKeys.Meter);
+            string rightHeader = localizer.GetString(ResourceKeys.Value);
 
             leftBuilder.AppendLine(leftHeader + "\n\n\n");
             rightBuilder.AppendLine(rightHeader + "\n\n\n");
@@ -114,9 +118,9 @@
             {
                 var meter = m.Item1;
                 var meterValue = useMasterValues ? meter.Lifetime : meter.Period;
-                var meterValueText = meter.Classification.CreateValueString(meterValue);
+                var meterValueText = meter.Classification.CreateValueString(meterValue, localizer.CurrentCulture);
                 meterValueText = Regex.Replace(meterValueText, @"[^\u0000-\u007F]+", " ");
-                var meterName = m.Item2;
+                var meterName = localizer.GetString(m.Item2);
                 meterValues.Add(meterValueText);
                 meterNames.Add(meterName);
 
@@ -135,20 +139,20 @@
             var ticket = new Ticket
             {
                 ["ticket type"] = TicketType,
-                ["title"] = title.ToUpper(CultureInfo.CurrentCulture),
-                ["retailer_name"] = retailerName.ToUpper(CultureInfo.CurrentCulture),
-                ["retailer_id"] = retailerId.ToUpper(CultureInfo.CurrentCulture),
-                ["jurisdiction"] = jurisdiction.ToUpper(CultureInfo.CurrentCulture),
-                ["serial_number_header"] = Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.SerialNumberText) + ":",
+                ["title"] = title.ToUpper(localizer.CurrentCulture),
+                ["retailer_name"] = retailerName.ToUpper(localizer.CurrentCulture),
+                ["retailer_id"] = retailerId.ToUpper(localizer.CurrentCulture),
+                ["jurisdiction"] = jurisdiction.ToUpper(localizer.CurrentCulture),
+                ["serial_number_header"] = localizer.GetString(ResourceKeys.SerialNumberText) + ":",
                 ["serial_number"] = serialNumber,
-                ["version"] = version,
-                ["date_header"] = Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.DateText) + ":",
-                ["date"] = dateTimeNow.ToString(DateFormat),
-                ["time_header"] = Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.TimeText) + ":",
+                ["version"] = version,  
+                ["date_header"] = localizer.GetString(ResourceKeys.DateText) + ":",
+                ["date"] = dateTimeNow.ToString(dateFormat),
+                ["time_header"] = localizer.GetString(ResourceKeys.TimeText) + ":",
                 ["time"] = dateTimeNow.ToString(ApplicationConstants.DefaultTimeFormat),
                 ["game_name"] = gameName,
-                ["game_id_header"] = Localizer.For(CultureFor.OperatorTicket).GetString(ResourceKeys.GameMetersTicketGameIdText) + ":",
-                ["game_id"] = game.Id.ToString(CultureInfo.CurrentCulture)
+                ["game_id_header"] = localizer.GetString(ResourceKeys.GameMetersTicketGameIdText) + ":",
+                ["game_id"] = game.Id.ToString(localizer.CurrentCulture)
             };
 
             ticket.AddFields("meter_name", meterNames);
