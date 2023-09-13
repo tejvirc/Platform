@@ -19,13 +19,18 @@
     {
         private const string G2SPrefix = @"g2s";
         private const string GsaPrefix = @"gsa";
+        private const string Option43CommandLineKey = "forceDhcpOption43Response";
         private const int Timeout = 15000; // It's in milliseconds
 
         // ReSharper disable once StringLiteralTypo
         private static readonly string ClientInfo = $@"{GsaPrefix}{G2SPrefix}EGMATI";
         private static readonly ILog Logger =
             LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
+        private static readonly Dictionary<string, string> SampleOption43Values = new()
+        {
+            {"vltSampleValue","g2sCC=shs:10.3.0.70:8443//g2s/services/G2SAPIService+1|gsaCS=tou:10.3.2.246/ocsp|gsaCM=tsu:10.3.2.246/certsrv/mscep/^c=gsaCA|gsaOO=20160|GTKkl=4096"},
+            {"vertexSampleValue","g2sCC=shs:192.168.50.2:9091/g2shost+1"},
+        };
         private string _options;
 
         /// <inheritdoc />
@@ -77,6 +82,21 @@
         /// <inheritdoc />
         public void Initialize()
         {
+#if !(RETAIL)
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            var overrideOption43CommandLineValue =
+                (string)propertiesManager.GetProperty(Option43CommandLineKey, string.Empty);
+            if (!string.IsNullOrWhiteSpace(overrideOption43CommandLineValue))
+            {
+                //if requesting a predefined sample, use it. otherwise use the provided value directly.
+                if (!SampleOption43Values.TryGetValue(overrideOption43CommandLineValue, out _options))
+                {
+                    _options = overrideOption43CommandLineValue;
+                }
+
+                Logger.Debug($"Using Option 43 value from command line- {_options}");
+            }
+#endif
         }
 
         private static string GetVendorSpecificOptions(NetworkInterface networkInterface)

@@ -134,6 +134,8 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
         
         private GamingConfigurationFreeSpin freeSpinField;
         
+        private GamingConfigurationClearWinMeter clearWinMeterField;
+        
         private GamingConfigurationWin winField;
         
         private GamingConfigurationDisplayGamePayMessage displayGamePayMessageField;
@@ -719,6 +721,16 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.freeSpinField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public GamingConfigurationClearWinMeter ClearWinMeter {
+            get {
+                return this.clearWinMeterField;
+            }
+            set {
+                this.clearWinMeterField = value;
             }
         }
         
@@ -4136,6 +4148,33 @@ namespace Aristocrat.Monaco.Gaming.Contracts {
             }
             set {
                 this.clearWinMeterField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class GamingConfigurationClearWinMeter {
+        
+        private bool onBetChangeField;
+        
+        public GamingConfigurationClearWinMeter() {
+            this.onBetChangeField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool OnBetChange {
+            get {
+                return this.onBetChangeField;
+            }
+            set {
+                this.onBetChangeField = value;
             }
         }
     }

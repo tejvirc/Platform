@@ -88,6 +88,7 @@
                     VerticalAlignment="Center"
                     IsEnabled="{Binding Path=CashOutEnabled}"
                     Command="{Binding Path=CashOutCommand}"
+                    CommandParameter="main"
                     Style="{StaticResource stlFlatButton}"
                     AutomationProperties.AutomationId="Button12_6CF61223">
                 <!-- Ex: Jurisdiction resources

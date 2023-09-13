@@ -1022,29 +1022,35 @@
                     ReAuthenticatedPeriod = info.OcspReauthPeriodMin;
                     AcceptPreviouslyGoodCertificatePeriod = info.OcspAcceptPrevGoodPeriodMin;
 
-                    var certificateManager = info.CertificateManagerDefinitions.First();
-                    CertificateManagerLocation = certificateManager.Address.ToString();
-
-                    if (!string.IsNullOrEmpty(CertificateManagerLocation))
+                    if (info.HasChangedDefault(DhcpConstants.CertificateManagerServiceName))
                     {
-                        EnrollmentEnabled = true;
-                        ScepEnabled = true;
-                    }
+                        var certificateManager = info.CertificateManagerDefinitions.First();
+                        CertificateManagerLocation = certificateManager.Address.ToString();
 
-                    if (certificateManager.ServiceParameters.ContainsKey(DhcpConstants.CaIdent))
-                    {
-                        var caIdent = certificateManager.ServiceParameters[DhcpConstants.CaIdent];
-                        if (!string.IsNullOrWhiteSpace(caIdent))
+                        if (!string.IsNullOrEmpty(CertificateManagerLocation))
                         {
-                            Identity = caIdent;
+                            EnrollmentEnabled = true;
+                            ScepEnabled = true;
+                        }
+
+                        if (certificateManager.ServiceParameters.ContainsKey(DhcpConstants.CaIdent))
+                        {
+                            var caIdent = certificateManager.ServiceParameters[DhcpConstants.CaIdent];
+                            if (!string.IsNullOrWhiteSpace(caIdent))
+                            {
+                                Identity = caIdent;
+                            }
                         }
                     }
 
-                    var certificateStatus = info.CertificateStatusDefinitions.First();
-                    CertificateStatusLocation = certificateStatus.Address.ToString();
-                    if (!string.IsNullOrEmpty(CertificateStatusLocation))
+                    if (info.HasChangedDefault(DhcpConstants.CertificateStatusServiceName))
                     {
-                        RenewalEnabled = true;
+                        var certificateStatus = info.CertificateStatusDefinitions.First();
+                        CertificateStatusLocation = certificateStatus.Address.ToString();
+                        if (!string.IsNullOrEmpty(CertificateStatusLocation))
+                        {
+                            RenewalEnabled = true;
+                        }
                     }
                 }
             }

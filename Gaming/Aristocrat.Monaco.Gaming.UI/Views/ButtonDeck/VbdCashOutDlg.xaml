@@ -33,7 +33,7 @@
                    AutomationProperties.AutomationId="Image4_2D10AA18" />
             <Button x:Name="btnYes"
                     Margin="-300 120 0 0"
-                    Command="{Binding VbdCashoutDlgYesNoCommand}"
+                    Command="{Binding CashoutDlgYesNoCommand}"
                     CommandParameter="yes"
                     Style="{StaticResource stlFlatButton}"
                     AutomationProperties.AutomationId="Button5_2D10AA18">
@@ -43,7 +43,7 @@
             </Button>
             <Button x:Name="btnNo"
                     Margin="256 120 0 0"
-                    Command="{Binding VbdCashoutDlgYesNoCommand}"
+                    Command="{Binding CashoutDlgYesNoCommand}"
                     CommandParameter="no"
                     Style="{StaticResource stlFlatButton}"
                     AutomationProperties.AutomationId="Button7_2D10AA18">

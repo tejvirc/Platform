@@ -47,7 +47,6 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
-
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid AutomationProperties.AutomationId="Grid1_303FCCD8">
@@ -171,12 +170,13 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Progressive Host"
+                            <GridViewColumn Header="{lex:Loc Key={x:Static loc:ResourceKeys.ProgressiveHost}}"
                                             HeaderContainerStyle="{StaticResource LocalColumnHiderStyle2}"
+                                            loc:Localizer.For="Operator"
                                             AutomationProperties.AutomationId="GridViewColumn23_303FCCD8">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=(models:Host.IsProgressiveHost), Mode=OneWay}" 
+                                        <TextBlock Text="{Binding Path=(models:Host.IsProgressiveHostDisplayText), Mode=OneWay}" 
                                                    Visibility="{Binding Path=Data.HideProgressiveHostColumn,
                                                         Source={StaticResource Proxy},
                                                         Converter={StaticResource TrueCollapsedFalseVisible}}"

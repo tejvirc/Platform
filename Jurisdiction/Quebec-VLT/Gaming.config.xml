@@ -39,6 +39,7 @@ as follows:
   <AttractModeOptions KenoAttractSelected="true" PokerAttractSelected="true" BlackjackAttractSelected="true" />
   <ProgressiveLobbyIndicator Indicator="Disabled" />
   <FreeSpin ClearWinMeter="true"/>
+  <ClearWinMeter OnBetChange="true" />
   <Win Destination="winAndCredit"/>
   <DisplayGamePayMessage Use="true" Format="currency"/>
   <Instructions GameRulesInstructions="GDK_GameRulesInstructions1.1" PressStart="GDK_PressStart" />

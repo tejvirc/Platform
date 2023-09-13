@@ -181,6 +181,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Settings
                 GameLogEnabled = _properties.GetValue(GamingConstants.GameLogEnabledKey, GamingConstants.GameLogEnabled),
                 AudioAudioChannels = _properties.GetValue(GamingConstants.AudioAudioChannelsKey, GamingConstants.AudioAudioChannels),
                 FreeSpinClearWinMeter = _properties.GetValue(GamingConstants.FreeSpinClearWinMeterKey, GamingConstants.FreeSpinClearWinMeter),
+                ClearWinMeterOnBetChange = _properties.GetValue(GamingConstants.ClearWinMeterOnBetChangeKey, GamingConstants.ClearWinMeterOnBetChange),
                 WinDestination = _properties.GetValue(GamingConstants.WinDestinationKey, GamingConstants.WinDestination),
                 DisplayGamePayMessageUse = _properties.GetValue(GamingConstants.DisplayGamePayMessageUseKey, GamingConstants.DisplayGamePayMessageUse),
                 DisplayGamePayMessageFormat = _properties.GetValue(GamingConstants.DisplayGamePayMessageFormatKey, GamingConstants.DisplayGamePayMessageFormat),
@@ -311,6 +312,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Settings
             _properties.SetProperty(GamingConstants.GameLogOutcomeDetailsKey, settings.GameLogOutcomeDetails);
             _properties.SetProperty(GamingConstants.AudioAudioChannelsKey, settings.AudioAudioChannels);
             _properties.SetProperty(GamingConstants.FreeSpinClearWinMeterKey, settings.FreeSpinClearWinMeter);
+            _properties.SetProperty(GamingConstants.ClearWinMeterOnBetChangeKey, settings.ClearWinMeterOnBetChange);
             _properties.SetProperty(GamingConstants.ButtonAnimationGoodLuckKey, settings.ButtonAnimationGoodLuck);
             _properties.SetProperty(GamingConstants.WinDestinationKey, settings.WinDestination);
 
