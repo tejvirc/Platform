@@ -135,7 +135,7 @@
     <PropertyProvider type="Aristocrat.Monaco.Hardware.HardwarePropertyProvider" />
   </Extension>
 
-  <ExtensionPoint path="/Sound/Configuration">
+  <ExtensionPoint path="/Hardware/SoundConfiguration">
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
   

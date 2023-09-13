@@ -35,7 +35,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.ManitobaCasinoJurisdiction" filterid="ManitobaCasinoOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.ManitobaCasinoJurisdiction" filterid="ManitobaCasinoSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -128,8 +128,8 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="ManitobaCasinoHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="ManitobaCasinoSoundConfig" />
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\ManitobaCasino\Sound.config.xml" filterid="ManitobaCasinoSoundConfig" />
   </Extension>
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\ManitobaCasino\TowerLight.config.xml" filterid="ManitobaCasinoTowerLightConfig" />

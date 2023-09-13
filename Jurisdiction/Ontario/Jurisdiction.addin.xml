@@ -35,7 +35,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.OntarioJurisdiction" filterid="OntarioOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.OntarioJurisdiction" filterid="OntarioSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -128,8 +128,8 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="OntarioHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="OntarioSoundConfig" />
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\Ontario\Sound.config.xml" filterid="OntarioSoundConfig" />
   </Extension>
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\Ontario\TowerLight.config.xml" filterid="OntarioTowerLightConfig" />

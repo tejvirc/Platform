@@ -35,7 +35,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.ArgentinaBuenosAiresJurisdiction" filterid="ArgentinaBuenosAiresOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.ArgentinaBuenosAiresJurisdiction" filterid="ArgentinaBuenosAiresSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -134,8 +134,8 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="ArgentinaBuenosAiresHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="ArgentinaBuenosAiresSoundConfig" />
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\ArgentinaBuenosAires\Sound.config.xml" filterid="ArgentinaBuenosAiresSoundConfig" />
   </Extension>
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\ArgentinaBuenosAires\TowerLight.config.xml" filterid="ArgentinaBuenosAiresTowerLightConfig" />

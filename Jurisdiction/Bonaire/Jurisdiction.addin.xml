@@ -35,7 +35,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.BonaireJurisdiction" filterid="BonaireOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.BonaireJurisdiction" filterid="BonaireSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -134,8 +134,8 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="BonaireHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="BonaireSoundConfig" />
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\Bonaire\Sound.config.xml" filterid="BonaireSoundConfig" />
   </Extension>
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\Bonaire\TowerLight.config.xml" filterid="BonaireTowerLightConfig" />

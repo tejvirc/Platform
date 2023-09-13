@@ -35,7 +35,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.QuebecCasinoJurisdiction" filterid="QuebecCasinoOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.QuebecCasinoJurisdiction" filterid="QuebecCasinoSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -128,9 +128,6 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="QuebecCasinoHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="QuebecCasinoSoundConfig" />
-  </Extension>
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\QuebecCasino\TowerLight.config.xml" filterid="QuebecCasinoTowerLightConfig" />
   </Extension>
@@ -142,6 +139,9 @@
   </Extension>
   <Extension path="/Hardware/PrinterOverrides">
     <FilePath FilePath="..\jurisdiction\QuebecCasino\PrinterOverrides.xml" filterid="QuebecCasinoPrinterOverridesConfig" />
+  </Extension>
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\QuebecCasino\Sound.config.xml" filterid="QuebecCasinoSoundConfig" />
   </Extension>
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\QuebecCasino\ErrorMessage.config.xml" filterid="QuebecCasinoErrorMessageConfig" />

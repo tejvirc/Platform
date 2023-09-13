@@ -35,7 +35,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.SouthAfricaWCJurisdiction" filterid="SouthAfricaWCOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.SouthAfricaWCJurisdiction" filterid="SouthAfricaWCSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -137,9 +137,6 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\SouthAfricaWC\HardMeterMapping.config.xml" filterid="SouthAfricaWCHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="SouthAfricaWCSoundConfig" />
-  </Extension>
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\SouthAfricaWC\printable_regions.xml" filterid="SouthAfricaWCPrintableRegionsConfig" />
   </Extension>
@@ -148,6 +145,9 @@
   </Extension>
   <Extension path="/Hardware/PrinterOverrides">
     <FilePath FilePath="..\jurisdiction\SouthAfricaWC\PrinterOverrides.xml" filterid="SouthAfricaWCPrinterOverridesConfig" />
+  </Extension>
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\SouthAfricaWC\Sound.config.xml" filterid="SouthAfricaWCSoundConfig" />
   </Extension>
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\SouthAfricaWC\ErrorMessage.config.xml" filterid="SouthAfricaWCErrorMessageConfig" />

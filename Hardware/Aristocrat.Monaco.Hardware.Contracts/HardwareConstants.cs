@@ -169,7 +169,7 @@
         /// <summary>
         ///     Mono.Addins extension path for SoundConfiguration
         /// </summary>
-        public const string SoundConfigurationExtensionPath = "/Sound/Configuration";
+        public const string SoundConfigurationExtensionPath = "/Hardware/SoundConfiguration";
 
         /// <summary>
         ///     Array of Display Properties

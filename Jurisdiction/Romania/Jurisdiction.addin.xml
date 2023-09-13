@@ -35,7 +35,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.RomaniaJurisdiction" filterid="RomaniaOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.RomaniaJurisdiction" filterid="RomaniaSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -137,9 +137,6 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.Eurasia.config.xml" filterid="RomaniaHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="RomaniaSoundConfig" />
-  </Extension>
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\Romania\printable_regions.xml" filterid="RomaniaPrintableRegionsConfig" />
   </Extension>
@@ -148,6 +145,9 @@
   </Extension>
   <Extension path="/Hardware/PrinterOverrides">
     <FilePath FilePath="..\jurisdiction\Romania\PrinterOverrides.xml" filterid="RomaniaPrinterOverridesConfig" />
+  </Extension>
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\Romania\Sound.config.xml" filterid="RomaniaSoundConfig" />
   </Extension>
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\Romania\ErrorMessage.config.xml" filterid="RomaniaErrorMessageConfig" />

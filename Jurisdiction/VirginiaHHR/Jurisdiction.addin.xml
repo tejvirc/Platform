@@ -35,7 +35,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.VirginiaHHRJurisdiction" filterid="VirginiaHHROperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.VirginiaHHRJurisdiction" filterid="VirginiaHHRSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -131,9 +131,6 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="VirginiaHHRHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="VirginiaHHRSoundConfig" />
-  </Extension>
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\VirginiaHHR\printable_regions.xml" filterid="VirginiaHHRPrintableRegionsConfig" />
   </Extension>
@@ -142,6 +139,9 @@
   </Extension>
   <Extension path="/Hardware/PrinterOverrides">
     <FilePath FilePath="..\jurisdiction\VirginiaHHR\PrinterOverrides.xml" filterid="VirginiaHHRPrinterOverridesConfig" />
+  </Extension>
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\VirginiaHHR\Sound.config.xml" filterid="VirginiaHHRSoundConfig" />
   </Extension>
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\VirginiaHHR\ErrorMessage.config.xml" filterid="VirginiaHHRErrorMessageConfig" />

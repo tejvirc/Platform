@@ -170,10 +170,6 @@
     <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
   </ExtensionPoint>
 
-  <ExtensionPoint path="/Sound/Configuration">
-    <ExtensionNode name="FilePath" type="Aristocrat.Monaco.Kernel.FilePathExtensionNode" />
-  </ExtensionPoint>
-
   <ExtensionPoint path="/OperatorMenu/Settings/Template">
     <ExtensionNode name="SettingsTemplate" type="Aristocrat.Monaco.Application.UI.Settings.SettingsTemplateNode" />
   </ExtensionPoint>

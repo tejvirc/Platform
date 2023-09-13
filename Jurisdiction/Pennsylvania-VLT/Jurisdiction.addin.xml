@@ -33,7 +33,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.PennsylvaniaVLTJurisdiction" filterid="PennsylvaniaVLTOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.PennsylvaniaVLTJurisdiction" filterid="PennsylvaniaVLTSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -140,8 +140,8 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.VLT.config.xml" filterid="PennsylvaniaVLTHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="PennsylvaniaVLTSoundConfig" />
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\Pennsylvania-VLT\Sound.config.xml" filterid="PennsylvaniaVLTSoundConfig" />
   </Extension>
   <Extension path="/Application/OperatorMenu/DisplayMeters">
     <FilePath FilePath="..\jurisdiction\Pennsylvania-VLT\DisplayMeters.config.xml" filterid="PennsylvaniaVLTDisplayMetersConfig" />

@@ -35,7 +35,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.SaintKittsandNevisJurisdiction" filterid="SaintKittsandNevisOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.SaintKittsandNevisJurisdiction" filterid="SaintKittsandNevisSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -134,9 +134,6 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="SaintKittsandNevisHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="SaintKittsandNevisSoundConfig" />
-  </Extension>
   <Extension path="/TowerLight/Configuration">
     <FilePath FilePath="..\jurisdiction\SaintKittsandNevis\TowerLight.config.xml" filterid="SaintKittsandNevisTowerLightConfig" />
   </Extension>
@@ -148,6 +145,9 @@
   </Extension>
   <Extension path="/Hardware/PrinterOverrides">
     <FilePath FilePath="..\jurisdiction\SaintKittsandNevis\PrinterOverrides.xml" filterid="SaintKittsandNevisPrinterOverridesConfig" />
+  </Extension>
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\SaintKittsandNevis\Sound.config.xml" filterid="SaintKittsandNevisSoundConfig" />
   </Extension>
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\SaintKittsandNevis\ErrorMessage.config.xml" filterid="SaintKittsandNevisErrorMessageConfig" />

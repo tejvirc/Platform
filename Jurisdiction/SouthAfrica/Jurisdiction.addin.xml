@@ -35,7 +35,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.SouthAfricaJurisdiction" filterid="SouthAfricaOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.SouthAfricaJurisdiction" filterid="SouthAfricaSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -137,14 +137,14 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\\SouthAfrica\HardMeterMapping.config.xml" filterid="SouthAfricaHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="SouthAfricaSoundConfig" />
-  </Extension>
   <Extension path="/Hardware/PrintableRegions">
     <FilePath FilePath="..\jurisdiction\SouthAfrica\printable_regions.xml" filterid="SouthAfricaPrintableRegionsConfig" />
   </Extension>
   <Extension path="/Hardware/PrintableTemplates">
     <FilePath FilePath="..\jurisdiction\SouthAfrica\printable_templates.xml" filterid="SouthAfricaPrintableTemplatesConfig" />
+  </Extension>
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\SouthAfrica\Sound.config.xml" filterid="SouthAfricaSoundConfig" />
   </Extension>
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\SouthAfrica\ErrorMessage.config.xml" filterid="SouthAfricaErrorMessageConfig" />

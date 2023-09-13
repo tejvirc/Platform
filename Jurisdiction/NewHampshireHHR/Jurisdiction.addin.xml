@@ -35,7 +35,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.NewHampshireHHRJurisdiction" filterid="NewHampshireHHROperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.NewHampshireHHRJurisdiction" filterid="NewHampshireHHRSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -131,7 +131,7 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.config.xml" filterid="NewHampshireHHRHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
+  <Extension path="/Hardware/SoundConfiguration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="NewHampshireHHRSoundConfig" />
   </Extension>
   <Extension path="/Hardware/PrintableRegions">

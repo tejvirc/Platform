@@ -35,7 +35,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.SingaporeClubsJurisdiction" filterid="SingaporeClubsOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.SingaporeClubsJurisdiction" filterid="SingaporeClubsSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -137,17 +137,17 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\SingaporeClubs\HardMeterMapping.config.xml" filterid="SingaporeClubsHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="SingaporeClubsSoundConfig" />
-  </Extension>
-  <Extension path="/Hardware/PrintableRegions">
-    <FilePath FilePath="..\jurisdiction\SingaporeClubs\printable_regions.xml" filterid="SingaporeClubsPrintableRegionsConfig" />
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\SingaporeClubs\Sound.config.xml" filterid="SingaporeClubsSoundConfig" />
   </Extension>
   <Extension path="/Hardware/PrintableTemplates">
     <FilePath FilePath="..\jurisdiction\SingaporeClubs\printable_templates.xml" filterid="SingaporeClubsPrintableTemplatesConfig" />
   </Extension>
   <Extension path="/Hardware/PrinterOverrides">
     <FilePath FilePath="..\jurisdiction\SingaporeClubs\PrinterOverrides.xml" filterid="SingaporeClubsPrinterOverridesConfig" />
+  </Extension>
+  <Extension path="/Hardware/PrintableRegions">
+    <FilePath FilePath="..\jurisdiction\SingaporeClubs\printable_regions.xml" filterid="SingaporeClubsPrintableRegionsConfig" />
   </Extension>
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\SingaporeClubs\ErrorMessage.config.xml" filterid="SingaporeClubsErrorMessageConfig" />

@@ -34,7 +34,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.NewYorkVLTJurisdiction" filterid="NewYorkVLTOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.NewYorkVLTJurisdiction" filterid="NewYorkVLTSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -144,8 +144,8 @@
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.VLT.config.xml" filterid="NewYorkVLTHardMeterMappingConfig" />
   </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="NewYorkVLTSoundConfig" />
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\NewYork-VLT\Sound.config.xml" filterid="NewYorkVLTSoundConfig" />
   </Extension>
   <Extension path="/MGAM/Configuration">
     <FilePath FilePath="..\jurisdiction\NewYork-VLT\MGAM.config.xml" filterid="NewYorkVLTMGAMConfig" />

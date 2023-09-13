@@ -35,7 +35,7 @@
       <ExtensionPointConfiguration extensionPath="/OperatorMenu/Configuration">
         <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecOperatorMenuConfig" />
       </ExtensionPointConfiguration>
-      <ExtensionPointConfiguration extensionPath="/Sound/Configuration">
+      <ExtensionPointConfiguration extensionPath="/Hardware/SoundConfiguration">
         <NodeSpecification addinId="Client12Addins.QuebecJurisdiction" filterid="QuebecSoundConfig" />
       </ExtensionPointConfiguration>
       <ExtensionPointConfiguration extensionPath="/Locale/Configuration">
@@ -145,6 +145,9 @@
   <Extension path="/Hardware/PrinterOverrides">
     <FilePath FilePath="..\jurisdiction\Quebec-VLT\PrinterOverrides.xml" filterid="QuebecPrinterOverridesConfig" />
   </Extension>
+  <Extension path="/Hardware/SoundConfiguration">
+    <FilePath FilePath="..\jurisdiction\Quebec-VLT\Sound.config.xml" filterid="QuebecSoundConfig" />
+  </Extension>
   <Extension path="/ErrorMessage/Configuration">
     <FilePath FilePath="..\jurisdiction\Quebec-VLT\ErrorMessage.config.xml" filterid="QuebecErrorMessageConfig" />
   </Extension>
@@ -177,9 +180,6 @@
   </Extension>
   <Extension path="/HardMeterMapping/Configuration">
     <FilePath FilePath="..\jurisdiction\DefaultAssets\HardMeterMapping.VLT.config.xml" filterid="QuebecHardMeterMappingConfig" />
-  </Extension>
-  <Extension path="/Sound/Configuration">
-    <FilePath FilePath="..\jurisdiction\DefaultAssets\Sound.config.xml" filterid="QuebecSoundConfig" />
   </Extension>
   <Extension path="/Application/Services">
     <Service type="Aristocrat.Monaco.G2S.G2SEventLogger" />
