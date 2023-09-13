@@ -19,7 +19,7 @@ namespace Aristocrat.Monaco.Application.UI.Views
     {
         private readonly AutoConfigurator _autoConfigurator = new AutoConfigurator();
         private readonly BaseWindow _windowInfo = new BaseWindow();
-        private readonly WindowToScreenMapper _screenMapper = new WindowToScreenMapper(DisplayRole.Main, swapRoles: true, showCursor: true);
+        private readonly WindowToScreenMapper _screenMapper = new WindowToScreenMapper(DisplayRole.Main, showCursor: true);
         private readonly IEventBus _eventBus;
 
         /// <summary>

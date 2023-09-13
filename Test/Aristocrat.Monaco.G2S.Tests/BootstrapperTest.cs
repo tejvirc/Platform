@@ -56,6 +56,7 @@
             var properties = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Default);
 
             properties.Setup(m => m.GetProperty(Constants.Port, Constants.DefaultPort)).Returns(Constants.DefaultPort);
+            properties.Setup(m => m.GetProperty(Constants.BypassCertificateValidation, false)).Returns(false);
             properties.Setup(m => m.GetProperty(ApplicationConstants.DemonstrationMode, false)).Returns(false);
             properties.Setup(m => m.GetProperty(ApplicationConstants.HandpayReceiptPrintingEnabled, It.IsAny<bool>())).Returns(false);
             properties.Setup(m => m.GetProperty(G2S.Constants.G2SProgressivesEnabled, It.IsAny<bool>())).Returns(true);

@@ -79,6 +79,7 @@
                     });
 
             var deletePackageAfterInstall = configuration.SoftwareInstall?.DeletePackageAfter ?? false;
+            var technicianMenuLocked = configuration.TechnicianModeLocked?.Enabled ?? false;
             var mediaDisplayEnabled = configuration.MediaDisplay?.Enabled ?? false;
             var defaultVolumeLevel = configuration.SoundConfiguration?.DefaultVolumeLevelSpecified == true
                 ? configuration.SoundConfiguration.DefaultVolumeLevel
@@ -144,6 +145,13 @@
             // The Tuple is structured as value (Item1), Key (Item2), IsPersistent (Item3)
             _properties = new Dictionary<string, Tuple<object, string, bool>>
             {
+                {
+                    ApplicationConstants.TechnicianModeLocked,
+                    Tuple.Create(
+                        (object)technicianMenuLocked,
+                        ApplicationConstants.TechnicianModeLocked,
+                        false)
+                },
                 {
                     ApplicationConstants.DisabledByOperatorText,
                     Tuple.Create(

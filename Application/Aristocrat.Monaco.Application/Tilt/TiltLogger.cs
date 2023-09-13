@@ -910,7 +910,7 @@
             if (unformattedEvent.Event is DoorBaseEvent doorEvent)
             {
                 var doorMonitor = ServiceManager.GetInstance().TryGetService<IDoorMonitor>();
-                var localizedName = doorMonitor.GetLocalizedDoorName(doorEvent.LogicalId, true);
+                var localizedName = doorMonitor.GetLocalizedDoorName(doorEvent.LogicalId);
                 targetName = doorEvent.ToLocalizedString(localizedName);
             }
             else
@@ -970,8 +970,8 @@
             var role = _properties.GetValue(ApplicationConstants.RolePropertyKey, string.Empty);
 
             return role == ApplicationConstants.DefaultRole || string.IsNullOrEmpty(role)
-                ? provider?.GetString(provider.DefaultCulture, ResourceKeys.MenuTitleRoleAdmin) ?? string.Empty
-                : provider?.GetString(provider.DefaultCulture, ResourceKeys.MenuTitleRoleTechnician) ?? string.Empty;
+                ? provider?.GetString(ResourceKeys.MenuTitleRoleAdmin) ?? string.Empty
+                : provider?.GetString(ResourceKeys.MenuTitleRoleTechnician) ?? string.Empty;
         }
     }
 }

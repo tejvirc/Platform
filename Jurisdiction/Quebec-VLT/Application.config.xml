@@ -81,4 +81,5 @@ as follows:
   <AuditTicket LineLimit="37" PrinterProtocol="GDS" />
   <HandpayReceiptPrinting Enabled="true"/>
   <ReserveService Allowed="false"/>
+  <TechnicianModeLocked Enabled="true"/>
 </ApplicationConfiguration>

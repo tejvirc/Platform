@@ -553,7 +553,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 ? GetHistory()
                 : GetExpandedHistory();
 
-            var gameHistory = new List<GameRoundHistoryItem>();
+            var history = new List<GameRoundHistoryItem>();
 
             // Base Game Index is -1 when metering Free Game Independently, 0 when not.  This is for Replay.
             var gameHistoryBase = gameHistoryTemp.Where(o => o.GameIndex <= 0 && !o.IsTransactionItem)
@@ -571,23 +571,19 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                         .Where(o => o.IsTransactionItem && o.GameIndex == gameIndex)
                         .OrderByDescending(o => o.TransactionId).ToList();
 
-                    if (postGameTransactions.Any())
-                    {
-                        gameHistory.AddRange(postGameTransactions);
-                    }
+                    AddItemRange(postGameTransactions, history);
 
-                    gameHistory.Add(game);
+                    history.Add(game);
                 }
 
                 var preGameTransactions = historyByLogId
                     .Where(o => o.IsTransactionItem && o.GameIndex == -1)
                     .OrderByDescending(o => o.TransactionId).ToList();
 
-                if (preGameTransactions.Any())
-                {
-                    gameHistory.AddRange(preGameTransactions);
-                }
+                AddItemRange(preGameTransactions, history);
             }
+
+            var gameHistory = history.OrderByDescending(i => i.StartTime);
 
             // go through the list and compute start & end values for Transaction Items
             GameRoundHistoryItem lastItem = null;
@@ -616,6 +612,14 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             FilterGameHistory();
 
             UpdatePrinterButtons();
+
+            void AddItemRange(List<GameRoundHistoryItem> items, List<GameRoundHistoryItem> history)
+            {
+                if (items.Any())
+                {
+                    history.AddRange(items);
+                }
+            }
         }
 
         private void FilterGameHistory()
@@ -747,7 +751,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                     round.GameVersion = game.Version;
                 }
 
-                FillTransactionData(ref round, gameHistory.Transactions);
+                FillTransactionData(ref round, gameHistory.Transactions, rounds);
 
                 rounds.Add(round);
 
@@ -900,9 +904,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                     AmountIn = null,
                     AmountOut = null,
                     StartCredits = gameHistory.StartCredits.MillicentsToDollars(),
-                    EndCredits = gameHistory.PlayState != PlayState.Idle
-                        ? null
-                        : gameHistory.EndCredits.MillicentsToDollars(),
                     EndJackpot = BuildJackpotString(gameHistory.JackpotSnapshotEnd?.ToList()),
                     EndJackpots = gameHistory.JackpotSnapshotEnd,
                     GameIndex = 0
@@ -910,17 +911,27 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
                 if (IsBaseGameCommitted(gameHistory))
                 {
+                    round.EndCredits = (gameHistory.StartCredits.MillicentsToCents() -
+                                        gameHistory.InitialWager + gameHistory.UncommittedWin).CentsToDollars();
+
                     round.CreditsWon = gameHistory.UncommittedWin.CentsToDollars();
                 }
                 else
                 {
                     var freeGamesTotalWon = freeGames.Sum(f => f.FinalWin);
+
+                    round.EndCredits = gameHistory.PlayState != PlayState.Idle
+                        ? (decimal?)null
+                        : (gameHistory.StartCredits.MillicentsToCents()
+                          - gameHistory.InitialWager + gameHistory.FinalWin - freeGamesTotalWon).CentsToDollars();
+
                     round.CreditsWon = gameHistory.PlayState != PlayState.Idle
-                        ? null
-                        : (gameHistory.TotalWon - freeGamesTotalWon).CentsToDollars();
+                        ? (decimal?)null
+                        : (gameHistory.FinalWin - freeGamesTotalWon).CentsToDollars();
                 }
 
-                FillTransactionData(ref round, gameHistory.Transactions);
+                FillTransactionData(ref round, gameHistory.Transactions, rounds);
+
                 rounds.Add(round);
 
                 index++;
@@ -935,10 +946,17 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         private void FillTransactionData(
             ref GameRoundHistoryItem round,
-            IEnumerable<TransactionInfo> transactions)
+            IEnumerable<TransactionInfo> transactions,
+            List<GameRoundHistoryItem> rounds)
         {
             if (transactions == null)
             {
+                return;
+            }
+
+            if (!ShowGameInfoButtons && transactions.Any())
+            {
+                rounds.AddRange(GetTransactionData(round, transactions));
                 return;
             }
 
@@ -1001,6 +1019,66 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 round.AmountOut = null;
             }
         }
+
+        private List<GameRoundHistoryItem> GetTransactionData(GameRoundHistoryItem baseRound, IEnumerable<TransactionInfo> transactions)
+        {
+            var transactionData = new List<GameRoundHistoryItem>();
+
+            foreach (var transaction in transactions)
+            {
+                GameRoundHistoryItem round = new GameRoundHistoryItem()
+                {
+                    RefNoText = string.Empty,
+                    StartTime = transaction.Time,
+                    EndTime = DateTime.MinValue,
+                    CreditsWagered = null,
+                    CreditsWon = null,
+                    Status = string.Empty,
+                    AmountIn = null,
+                    AmountOut = null,
+                    LogSequence = baseRound.LogSequence,
+                    GameIndex = transaction.GameIndex,
+                    TransactionId = transaction.TransactionId,
+                    Denom = null
+                };
+
+                if (transaction.TransactionType == typeof(BillTransaction))
+                {
+                    round.GameName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillIn);
+                    round.AmountIn = transaction.Amount.MillicentsToDollars();
+                }
+                else if (transaction.TransactionType == typeof(VoucherInTransaction))
+                {
+                    round.GameName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherIn);
+                    round.AmountIn = transaction.Amount.MillicentsToDollars();
+                }
+                else if (transaction.TransactionType == typeof(VoucherOutTransaction))
+                {
+                    round.GameName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherOut);
+                    round.AmountOut = transaction.Amount.MillicentsToDollars();
+                }
+                else if (transaction.TransactionType == typeof(WatOnTransaction))
+                {
+                    round.GameName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TransferIn);
+                    round.AmountIn = transaction.Amount.MillicentsToDollars();
+                }
+                else if (transaction.TransactionType == typeof(WatTransaction))
+                {
+                    round.GameName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.TransferOut);
+                    round.AmountOut = transaction.Amount.MillicentsToDollars();
+                }
+                else if (transaction.TransactionType == typeof(HandpayTransaction))
+                {
+                    round.GameName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Handpay);
+                    round.AmountOut = transaction.Amount.MillicentsToDollars();
+                }
+
+                transactionData.Add(round);
+            }
+
+            return transactionData;
+        }
+
 
         private string BuildJackpotString(IList<Jackpot> jackpots)
         {

@@ -175,6 +175,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private bool _isTopScreenRenderingDisabled;
         private bool _isTopperScreenRenderingDisabled;
         private bool _isVbdCashOutDialogVisible;
+        private bool _isResponsibleGamingCashoutDlgVisible;
         private bool _isVbdServiceDialogVisible;
         private bool _isVbdRenderingDisabled = true;
         private bool _largeGameIconsEnabled;
@@ -439,7 +440,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             AddCreditsCommand = new RelayCommand<object>(BankPressed);
             CashOutCommand = new RelayCommand<object>(CashOutPressed);
             ServiceCommand = new RelayCommand<object>(ServicePressed);
-            VbdCashoutDlgYesNoCommand = new RelayCommand<object>(VbdCashoutDlgYesNoPressed);
+            CashoutDlgYesNoCommand = new RelayCommand<object>(CashoutDlgYesNoPressed);
             VbdServiceDlgYesNoCommand = new RelayCommand<object>(VbdServiceDlgYesNoPressed);
             DenomFilterPressedCommand = new RelayCommand<object>(DenomFilterPressed);
             TimeLimitDlgCommand = new RelayCommand<object>(TimeLimitAccepted);
@@ -645,9 +646,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public ICommand ServiceCommand { get; }
 
         /// <summary>
-        ///     Gets the VbdCashoutDlgYesNoCommand
+        ///     Gets the CashoutDlgYesNoCommand
         /// </summary>
-        public ICommand VbdCashoutDlgYesNoCommand { get; }
+        public ICommand CashoutDlgYesNoCommand { get; }
 
         /// <summary>
         ///     Gets the VbdServiceDlgYesNoCommand
@@ -1202,7 +1203,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             }
         }
 
-        public bool IsTimeLimitDlgVisible => _responsibleGaming?.IsTimeLimitDialogVisible ?? false;
+        public bool IsTimeLimitDlgVisible => (_responsibleGaming?.IsTimeLimitDialogVisible ?? false);
 
         /// <summary>
         ///     Gets a value indicating whether the responsible gaming info dialog is visible
@@ -1375,6 +1376,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     OnPropertyChanged(nameof(FormattedCredits));
                     OnPropertyChanged(nameof(DisableCountdownMessage));
                     OnPropertyChanged(nameof(LanguageButtonResourceKey));
+                    OnPropertyChanged(nameof(LanguageButtonPressedResourceKey));
                     OnPropertyChanged(nameof(PaidMeterLabel));
 
                     UpdateLcdButtonDeckVideo();
@@ -1614,6 +1616,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         }
 
         /// <summary>
+        ///     Gets or sets a value indicating whether the main screen RG Cash Out confirmation dialog is visible
+        /// </summary>
+        public bool IsResponsibleGamingCashoutDlgVisible
+        {
+            get => _isResponsibleGamingCashoutDlgVisible;
+            set => SetProperty(ref _isResponsibleGamingCashoutDlgVisible, value);
+        }
+
+        /// <summary>
         ///     Gets or sets a value indicating whether the VBD Service Dialog is Visible
         /// </summary>
         public bool IsVbdServiceDialogVisible
@@ -1656,7 +1667,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         public bool IsPaidMeterVisible => PaidMeterValue != string.Empty;
 
-        public string LanguageButtonResourceKey => GetCurrentLanguageButtonResourceKey();
+        public string LanguageButtonResourceKey => GetCurrentLanguageButtonResourceKey(false);
+
+        public string LanguageButtonPressedResourceKey => GetCurrentLanguageButtonResourceKey(true);
 
         public string TopImageResourceKey
         {
@@ -2803,9 +2816,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void CheckMaxBalance(string message)
         {
-            if (_gameState.Idle && !_transferOutHandler.InProgress && !_gameHistory.IsRecoveryNeeded && !_gameHistory.HasPendingCashOut)
+            if (_gameState.Idle && !_transferOutHandler.InProgress && !_gameHistory.IsRecoveryNeeded &&
+                !_gameHistory.HasPendingCashOut || _gameState.Enabled &&
+                _gameState.CurrentState != PlayState.Idle && _gameHistory.IsRecoveryNeeded &&
+                !_transferOutHandler.InProgress)
             {
-                Logger.Debug(message);
                 _commandFactory.Create<CheckBalance>().Handle(new CheckBalance());
             }
         }
@@ -2982,8 +2997,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             if (CurrentState == LobbyState.GameLoading ||
                 ContainsAnyState(LobbyState.CashOut, LobbyState.CashIn, LobbyState.PrintHelpline, LobbyState.AgeWarningDialog))
             {
-                // VLT-4248:  Clear Cash-Out Dialog on VBD when we load a game.
-                // VLT-4169: Hide VBD Cash Out dialog if we are in a bill-in situation.
+                // Hide Cash Out dialogs when we load a game and on cash in 
                 IsVbdCashOutDialogVisible = false;
                 ShowVbdServiceConfirmationDialog(false);
             }
@@ -3098,6 +3112,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 _rotateTopImageTimer?.Stop();
                 _rotateTopperImageTimer?.Stop();
                 IsVbdCashOutDialogVisible = false;
+                IsResponsibleGamingCashoutDlgVisible = false;
                 ShowVbdServiceConfirmationDialog(false);
             }
 
@@ -3553,7 +3568,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                         Logger.Debug("Show Responsible Gaming Dialog");
                         _responsibleGaming.ShowDialog(allowDialogWhileDisabled);
                     }
-                    IsVbdCashOutDialogVisible = false; //VLT-12355:  Cancel the VBD cashout dialog on Responsible Gaming banner
+                    IsVbdCashOutDialogVisible = false; // Cancel the VBD cashout dialog on Responsible Gaming banner
                 }
             }
         }
@@ -3701,27 +3716,36 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void CashOutPressed(object obj)
         {
+            const string VBD = "VBD", Main = "MAIN";
+
             if (IsDisabledByHandCount())
             {
                 return;
             }
 
-            // TODO:  Not sure about time limit dialog here
-            if (!(IsTimeLimitDlgVisible && (_responsibleGaming?.IsSessionLimitHit ?? false)) &&
-                obj != null && obj.ToString().ToUpperInvariant() == "VBD" && _cabinetDetectionService.IsTouchVbd())
+            var commandParam = obj?.ToString().ToUpperInvariant() ?? string.Empty;
+            if (commandParam is VBD && _cabinetDetectionService.IsTouchVbd()) // show cashout confirmation when cashout is pressed from VBD always
             {
                 IsVbdCashOutDialogVisible = true;
                 PlayAudioFile(Sound.Touch);
+                return;
             }
-            else
-            {
-                if (CurrentState == LobbyState.ResponsibleGamingInfo)
-                {
-                    ExitResponsibleGamingInfoDialog();
-                }
 
-                ExecuteOnUserCashOut();
+            // show cashout confirmation on the main screen only when responsible gaming dialog is visible
+            // and the session limit has not been reached.
+            if (IsTimeLimitDlgVisible && (!_responsibleGaming?.IsSessionLimitHit ?? false) && commandParam is Main) 
+            {
+                IsResponsibleGamingCashoutDlgVisible = true;
+                PlayAudioFile(Sound.Touch);
+                return;
             }
+
+            if (CurrentState == LobbyState.ResponsibleGamingInfo)
+            {
+                ExitResponsibleGamingInfoDialog();
+            }
+
+            ExecuteOnUserCashOut();
         }
 
         private void ServicePressed(object obj)
@@ -3731,14 +3755,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             PlayAudioFile(Sound.Touch);
         }
 
-        private void VbdCashoutDlgYesNoPressed(object obj)
+        private void CashoutDlgYesNoPressed(object obj)
         {
-            if (obj.ToString().Equals("YES", StringComparison.InvariantCultureIgnoreCase))
+            if (obj.ToString().Equals(ResourceKeys.Yes.ToUpperInvariant(), StringComparison.InvariantCultureIgnoreCase))
             {
                 ExecuteOnUserCashOut();
             }
 
-            IsVbdCashOutDialogVisible = false;
+            IsVbdCashOutDialogVisible = false;  
+            IsResponsibleGamingCashoutDlgVisible = false;
         }
 
         private void VbdServiceDlgYesNoPressed(object obj)
@@ -4241,7 +4266,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void DismissResponsibleGamingDialog(int choiceIndex)
         {
-            IsVbdCashOutDialogVisible = false; //VLT-4680:  Cancel the VBD cashout dialog on Responsible Gaming interactions
+            IsVbdCashOutDialogVisible = false; // Cancel the VBD cashout dialog on Responsible Gaming interactions
+            IsResponsibleGamingCashoutDlgVisible = false;
             ShowVbdServiceConfirmationDialog(false);
             _responsibleGaming?.AcceptTimeLimit(choiceIndex);
         }
@@ -4559,7 +4585,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             MessageOverlayDisplay.IsCashingInDlgVisible = false;
         }
 
-        private string GetCurrentLanguageButtonResourceKey()
+        private string GetCurrentLanguageButtonResourceKey(bool isButtonPressed)
         {
             Logger.Debug("GetCurrentLanguageButtonResourceKey entered");
             if (!Config.MultiLanguageEnabled)
@@ -4569,7 +4595,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
             // return the opposite language of whatever is selected, since we show the language the button will switch you TO.
             // Note:  This will need to be updated to support more than 2 languages.
-            return Config.LanguageButtonResourceKeys[IsPrimaryLanguageSelected ? 1 : 0];
+
+            if (isButtonPressed && Config.LanguageButtonActiveResourceKeys?.Count() > 0)
+            {
+                return Config.LanguageButtonActiveResourceKeys[IsPrimaryLanguageSelected ? 1 : 0];
+            }
+            else
+            {
+                return Config.LanguageButtonResourceKeys[IsPrimaryLanguageSelected ? 1 : 0];
+            }
         }
 
         private void SetVbdGameInput(bool cashingOut, bool validatingBill, bool displayResponsibleGamingDialog, bool displayOverlay)

@@ -149,8 +149,6 @@ namespace Aristocrat.Monaco.Application
 
                 LoadErrorMessageMapping();
 
-                SetDemonstrationMode();
-
                 LoadMeterManager();
 
                 LoadPersistenceClearArbiter();
@@ -829,22 +827,6 @@ namespace Aristocrat.Monaco.Application
                     eventBus.Publish(new PreConfigBootCompleteEvent());
                 }
             }
-        }
-
-        private void SetDemonstrationMode()
-        {
-            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-
-            var isDemonstrationModeEnabled = propertiesManager.GetValue(
-                ApplicationConstants.DemonstrationModeEnabled,
-                false); // From jurisdiction config
-
-            if (isDemonstrationModeEnabled)
-            {
-                return;
-            }
-
-            propertiesManager.SetProperty(ApplicationConstants.DemonstrationMode, false);
         }
 
         private void LoadErrorMessageMapping()

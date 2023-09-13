@@ -167,6 +167,11 @@
         public const string CabinetTypeRegexLs = "^LS";
 
         /// <summary>
+        ///     Regex value used to identify Marquis with 34 inch main display (with or without wheel) cabinet types
+        /// </summary>
+        public const string CabinetTypeRegexMarquis34 = "^Marquis34";
+
+        /// <summary>
         ///     Array of Display Properties
         /// </summary>
         public static readonly string[] Displays = { Display1, Display2, Display3, Display4, Display5 };

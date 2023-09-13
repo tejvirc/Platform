@@ -3582,13 +3582,27 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-		/// <summary>
-		///   Looks up a localized string similar to Bytes Received.
-		/// </summary>
+        /// <summary>
+        ///   Looks up a localized string similar to Bypass Certificate Validation.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        public static string BypassCertificateValidation
+        {
+            get
+            {
+                return ResourceManager.GetString("BypassCertificateValidation", resourceCulture) ?? string.Empty;
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Bytes Received.
+        /// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
-		public static string BytesReceivedLabel {
+        public static string BytesReceivedLabel {
 			get {
 				return ResourceManager.GetString("BytesReceivedLabel", resourceCulture) ?? string.Empty;
 			}
@@ -11281,6 +11295,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ErrorInfoPrinterPaperEmpty {
 			get {
 				return ResourceManager.GetString("ErrorInfoPrinterPaperEmpty", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Load more paper before paper is empty.
+		/// </summary>
+		public static string ErrorInfoPrinterPaperLow {
+			get {
+				return ResourceManager.GetString("ErrorInfoPrinterPaperLow", resourceCulture) ?? string.Empty;
 			}
 		}
 
@@ -25613,7 +25636,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not&am....
+		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not Po....
 		/// </summary>
 		public static string Printer_DfuInProgress {
 			get {
@@ -40296,6 +40319,19 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
+        /// <summary>
+		///		Looks up a localized string similar to Bypass Certificate Validation.
+		/// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+		public static string BypassCertificateValidation
+        {
+			get {
+				return "BypassCertificateValidation";
+			}
+		}
+
 		/// <summary>
 		///		Looks up a localized string similar to Bytes Received.
 		/// </summary>
@@ -47994,6 +48030,15 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		public static string ErrorInfoPrinterPaperEmpty {
 			get {
 				return "ErrorInfoPrinterPaperEmpty";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Load more paper before paper is empty.
+		/// </summary>
+		public static string ErrorInfoPrinterPaperLow {
+			get {
+				return "ErrorInfoPrinterPaperLow";
 			}
 		}
 
@@ -62326,7 +62371,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not&am....
+		///		Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not Po....
 		/// </summary>
 		public static string Printer_DfuInProgress {
 			get {
@@ -75500,6 +75545,13 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		ByGameType,
+        /// <summary>
+		///   Looks up a localized string similar to Bypass Certificate Validation.
+		/// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        BypassCertificateValidation,
 		/// <summary>
 		///   Looks up a localized string similar to Bytes Received.
 		/// </summary>
@@ -79872,6 +79924,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
 		ErrorInfoPrinterPaperEmpty,
+		/// <summary>
+		///   Looks up a localized string similar to Load more paper before paper is empty.
+		/// </summary>
+		ErrorInfoPrinterPaperLow,
 		/// <summary>
 		///   Looks up a localized string similar to Open Main Door, change firmware CRC seed from Hard....
 		/// </summary>
@@ -88041,7 +88097,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		Printed,
 		/// <summary>
-		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not&am....
+		///   Looks up a localized string similar to Printer DFU Download In Progress: Please Do Not Po....
 		/// </summary>
 		Printer_DfuInProgress,
 		/// <summary>

@@ -20,6 +20,7 @@
         private VolumeScalar _relativeVolume;
         private bool _reelStopEnabled;
         private bool _freeSpinClearWinMeter;
+        private bool _clearWinMeterOnBetChange;
         private string _winDestination;
         private double _reelSpeed;
         private bool _displayGamePayMessageUse;
@@ -167,6 +168,13 @@
             get => _freeSpinClearWinMeter;
 
             set => SetProperty(ref _freeSpinClearWinMeter, value);
+        }
+
+        public bool ClearWinMeterOnBetChange
+        {
+            get => _clearWinMeterOnBetChange;
+
+            set => SetProperty(ref _clearWinMeterOnBetChange, value);
         }
 
         /// <summary>

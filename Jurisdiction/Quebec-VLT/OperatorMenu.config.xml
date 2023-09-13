@@ -123,7 +123,9 @@ as follows:
       <Setting Name="ShowProgressiveDetails" Value="true" />
     </Page>
     <Page Type="GamePreferencesViewModel" TabType="GamePreferencesViewLoader" Visible="false" />
-    <Page Type="GameInfoViewModel" Access="TechnicianZeroCredits" PrintButtonEnabled="true" />
+    <Page Type="GameInfoViewModel" PrintButtonEnabled="true">
+      <Setting Name="SetGameOrderOnlyInShowMode" Value="true" />
+    </Page>
     <Page TabType="CombinationTestViewLoader" Visible="false" />
   </Menu>
   <Menu Type="CommsMainPageLoader" Access="Technician">
@@ -146,7 +148,8 @@ as follows:
   </Menu>
   <AccessRules>
     <AccessRuleSet Name="Technician">
-      <Rule DeviceName="Jackpot" />
+      <Rule DeviceName="Main" />
+      <Rule DeviceName="Logic" />
     </AccessRuleSet>
     <AccessRuleSet Name="ReadOnly">
       <Rule Restriction="ReadOnly" />
@@ -160,11 +163,11 @@ as follows:
       <Rule Restriction="ZeroCredits" />
     </AccessRuleSet>
     <AccessRuleSet Name="TechnicianZeroCredits">
-      <Rule DeviceName="Jackpot" />
+      <Rule RuleSet="Technician" />
       <Rule Restriction="ZeroCredits" />
     </AccessRuleSet>
     <AccessRuleSet Name="TechnicianGameIdle">
-      <Rule DeviceName="Jackpot" />
+      <Rule RuleSet="Technician" />
       <Rule Restriction="GameIdle" />
     </AccessRuleSet>
     <AccessRuleSet Name="GameIdleZeroCreditsEKeyPresent">
@@ -173,7 +176,7 @@ as follows:
       <Rule Restriction="EKeyVerified" />
     </AccessRuleSet>
     <AccessRuleSet Name="ZeroGamesPlayed">
-			<Rule Restriction="ZeroGamesPlayed" />
-		</AccessRuleSet>	
+      <Rule Restriction="ZeroGamesPlayed" />
+    </AccessRuleSet>	
   </AccessRules>
 </OperatorMenuConfiguration>

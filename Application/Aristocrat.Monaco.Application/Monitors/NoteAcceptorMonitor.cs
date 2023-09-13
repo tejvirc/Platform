@@ -366,7 +366,7 @@
                 }
             }
 
-            if (@event.Fault == NoteAcceptorFaultTypes.StackerDisconnected)
+            if (@event.Fault.HasFlag(NoteAcceptorFaultTypes.StackerDisconnected))
             {
                 var block = _persistentStorage.GetBlock(BlockName);
                 using (var transaction = block.StartTransaction())
@@ -399,7 +399,7 @@
                 }
             }
 
-            if (@event.Fault == NoteAcceptorFaultTypes.StackerDisconnected)
+            if (@event.Fault.HasFlag(NoteAcceptorFaultTypes.StackerDisconnected))
             {
                 if (_meterManager != null)
                 {

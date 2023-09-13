@@ -125,7 +125,7 @@ namespace Aristocrat.Monaco.Application
                 {
                     ApplicationConstants.DemonstrationMode,
                     Tuple.Create(
-                        (object)InitFromStorage(ApplicationConstants.DemonstrationMode, true),
+                        (object)InitFromStorage(ApplicationConstants.DemonstrationMode, false),
                         ApplicationConstants.DemonstrationMode)
                 },
                 {

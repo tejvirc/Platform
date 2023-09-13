@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Windows;
     using Application.Contracts.OperatorMenu;
     using Common;
     using Common.GameOverlay;
@@ -38,6 +39,11 @@
             _centralProvider = new Mock<ICentralProvider>(MockBehavior.Strict);
             _ownerViewModel = new Mock<INotifyPropertyChanged>(MockBehavior.Strict);
             _dialogService = new Mock<IDialogService>(MockBehavior.Strict);
+
+            if (Application.Current == null)
+            {
+                new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+            }
 
             _transaction = new CentralTransaction()
             {

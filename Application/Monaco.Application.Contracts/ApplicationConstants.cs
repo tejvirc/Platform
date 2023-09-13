@@ -296,6 +296,11 @@
         public const string DeletePackageAfterInstall = @"Application.DeletePackageAfterInstall";
 
         /// <summary>
+        ///    Defines a property indicating whether technician mode is locked.
+        /// </summary>
+        public const string TechnicianModeLocked = @"Application.TechnicianModeLocked";
+
+        /// <summary>
         ///     Path Mapper path identifier for manifests
         /// </summary>
         public const string ManifestPath = "/Manifests";

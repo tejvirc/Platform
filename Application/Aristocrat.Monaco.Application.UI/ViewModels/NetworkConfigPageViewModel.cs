@@ -3,7 +3,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
-    using Aristocrat.Monaco.Hardware.Contracts.Gds.NoteAcceptor;
     using Aristocrat.Monaco.UI.Common.MVVM;
     using Aristocrat.Extensions.CommunityToolkit;
     using ConfigWizard;
@@ -12,6 +11,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Kernel;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common;
+    using log4net;
 
     /// <summary>
     ///     View model for network configuration
@@ -19,7 +19,11 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     [CLSCompliant(false)]
     public sealed class NetworkConfigPageViewModel : ConfigWizardViewModelBase
     {
-        private readonly INetworkService _network;
+        private static readonly ILog Log = LogManager.GetLogger(nameof(NetworkConfigPageViewModel));
+
+        private readonly INetworkService _network = ServiceManager.GetInstance().GetService<INetworkService>();
+
+        private bool _canApplyChanges;
 
         private bool _dhcpEnabled;
 
@@ -40,133 +44,62 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private string _originalDnsServer1;
         private string _originalDnsServer2;
 
-        public NetworkConfigPageViewModel(bool isWizardPage) : base(isWizardPage)
+        public bool CanApplyChanges
         {
-            if (!isWizardPage)
-            {
-                RunCustomValidation();
-            }
-
-            _network = ServiceManager.GetInstance().GetService<INetworkService>();
-
-            InputStatusText = string.Empty;
+            get => _canApplyChanges;
+            set => SetProperty(ref _canApplyChanges, value);
         }
 
-        public bool CanApplyChanges => !HasErrors && InputEnabled && HasChanges();
-
-        [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateIpAddressAllowEmpty))]
+        [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateDnsServer))]
         public string DnsServer1
         {
             get => _dnsServer1;
-            set
-            {
-                if (SetProperty(ref _dnsServer1, value, true))
-                {
-                    OnPropertyChanged(nameof(CanApplyChanges));
-                }
-            }
+            set => SetProperty(ref _dnsServer1, value, IsLoaded && !DhcpEnabled);
         }
 
-        [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateIpAddressAllowEmpty))]
+        [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateDnsServer))]
         public string DnsServer2
         {
             get => _dnsServer2;
-            set
-            {
-                if (SetProperty(ref _dnsServer2, value, true))
-                {
-                    OnPropertyChanged(nameof(CanApplyChanges));
-                }
-            }
+            set => SetProperty(ref _dnsServer2, value, IsLoaded && !DhcpEnabled);
         }
 
         [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateIpAddress))]
         public string IpAddress
         {
             get => _ipAddress;
-            set
-            {
-                if (SetProperty(ref _ipAddress, value, true))
-                {
-                    OnPropertyChanged(nameof(CanApplyChanges));
-                }
-            }
+            set => SetProperty(ref _ipAddress, value, IsLoaded && !DhcpEnabled);
         }
 
         [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateSubnetMask))]
         public string SubnetMask
         {
             get => _subnetMask;
-            set
-            {
-                if (SetProperty(ref _subnetMask, value, true))
-                {
-                    OnPropertyChanged(nameof(CanApplyChanges));
-                }
-            }
+            set => SetProperty(ref _subnetMask, value, IsLoaded && !DhcpEnabled);
         }
 
-        [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateIpAddressAllowEmptyIfStatic))]
+        [CustomValidation(typeof(NetworkConfigPageViewModel), nameof(ValidateGateway))]
         public string Gateway
         {
             get => _gateway;
-            set
-            {
-                if (SetProperty(ref _gateway, value, true))
-                {
-                    OnPropertyChanged(nameof(CanApplyChanges));
-                }
-            }
+            set => SetProperty(ref _gateway, value, IsLoaded && !DhcpEnabled);
         }
 
         public bool StaticIp
         {
             get => _staticIp;
-            set
-            {
-                if (SetProperty(ref _staticIp, value, nameof(StaticIp)))
-                {
-                    OnPropertyChanged(nameof(CanApplyChanges));
-                }
-            }
+            set => SetProperty(ref _staticIp, value, nameof(StaticIp));
         }
 
         public bool DhcpEnabled
         {
             get => _dhcpEnabled;
-
             set
             {
-                if (_dhcpEnabled == value)
-                {
-                    return;
-                }
-
                 if (SetProperty(ref _dhcpEnabled, value, nameof(DhcpEnabled)))
                 {
-                    OnPropertyChanged(nameof(CanApplyChanges));
-                }
-
-                if (_dhcpEnabled)
-                {
-                    // RefreshScreen();
-                    ClearErrors(nameof(IpAddress));
-                    ClearErrors(nameof(SubnetMask));
-                    ClearErrors(nameof(Gateway));
-                    ClearErrors(nameof(DnsServer1));
-                    ClearErrors(nameof(DnsServer2));
-                }
-                else
-                {
                     RunCustomValidation();
-
-                    OnPropertyChanged(nameof(IpAddress));
-                    OnPropertyChanged(nameof(SubnetMask));
-                    OnPropertyChanged(nameof(Gateway));
-                    OnPropertyChanged(nameof(DnsServer1));
-                    OnPropertyChanged(nameof(DnsServer2));
                 }
-
             }
         }
 
@@ -177,9 +110,39 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             set => SetProperty(ref _showStatus, value);
         }
 
+        public NetworkConfigPageViewModel(bool isWizardPage) : base(isWizardPage)
+        {
+            InputStatusText = string.Empty;
+            PropertyChanged += NetworkConfigPageViewModel_PropertyChanged;
+        }
+
         ~NetworkConfigPageViewModel()
         {
             Dispose();
+        }
+
+        protected override void DisposeInternal()
+        {
+            base.DisposeInternal();
+            PropertyChanged -= NetworkConfigPageViewModel_PropertyChanged;
+        }
+
+        private void NetworkConfigPageViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            UpdateCanApplyChanges();
+        }
+
+        private void RefreshNetworkInfo()
+        {
+            var info = _network.GetNetworkInfo();
+
+            _originalStaticIp = StaticIp = !info.DhcpEnabled;
+            _originalIpAddress = IpAddress = info.IpAddress;
+            _originalSubnetMask = SubnetMask = info.SubnetMask;
+            _originalGateway = Gateway = info.DefaultGateway;
+            _originalDnsServer1 = DnsServer1 = info.PreferredDnsServer;
+            _originalDnsServer2 = DnsServer2 = info.AlternateDnsServer;
+            _originalDhcpEnabled = DhcpEnabled = info.DhcpEnabled;
         }
 
         protected override void OnCommitted()
@@ -198,66 +161,67 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             ShowStatus = true;
 
-            Task.Run(
-                () =>
+            Task.Run(() =>
                 {
                     _network.SetNetworkInfo(networkInfo);
-                    Execute.OnUIThread(
-                        () =>
+                })
+                .ContinueWith(task =>
+                {
+                    if (task.IsFaulted)
+                    {
+                        Log.Error("Encountered exception while attempting to set network info", task.Exception);
+                    }
+                    else
+                    {
+                        Execute.OnUIThread(() =>
                         {
-                            RefreshScreen();
+                            RefreshNetworkInfo();
+                            RunCustomValidation();
                             ShowStatus = false;
                             IsCommitted = true;
                         });
+                    }
                 });
         }
 
         private bool HasChanges()
         {
-            return _originalDhcpEnabled != DhcpEnabled ||
-                   _originalStaticIp != StaticIp ||
-                   _originalIpAddress != IpAddress ||
-                   _originalSubnetMask != SubnetMask ||
-                   _originalGateway != Gateway ||
-                   _originalDnsServer1 != DnsServer1 ||
-                   _originalDnsServer2 != DnsServer2;
+            return DhcpEnabled != _originalDhcpEnabled ||
+                   StaticIp != _originalStaticIp ||
+                   IpAddress != _originalIpAddress ||
+                   SubnetMask != _originalSubnetMask ||
+                   Gateway != _originalGateway ||
+                   DnsServer1 != _originalDnsServer1 ||
+                   DnsServer2 != _originalDnsServer2;
         }
 
         protected override void SaveChanges()
         {
-
         }
 
         protected override void Loaded()
         {
-            RefreshScreen();
+            RefreshNetworkInfo();
+            RunCustomValidation();
             IsCommitted = true;
         }
 
         protected override void OnInputEnabledChanged()
         {
-            OnPropertyChanged(nameof(CanApplyChanges));
-        }
-
-        private void RefreshScreen()
-        {
-            var info = _network.GetNetworkInfo();
-
-            _originalStaticIp = StaticIp = !info.DhcpEnabled;
-            _originalIpAddress = IpAddress = info.IpAddress;
-            _originalSubnetMask = SubnetMask = info.SubnetMask;
-            _originalGateway = Gateway = info.DefaultGateway;
-            _originalDnsServer1 = DnsServer1 = info.PreferredDnsServer;
-            _originalDnsServer2 = DnsServer2 = info.AlternateDnsServer;
-
-            // keep this property assignment at last so the validation logic inside the property setter
-            // can check and clear the errors on other properties accordingly
-            _originalDhcpEnabled = DhcpEnabled = info.DhcpEnabled;
+            UpdateCanApplyChanges();
         }
 
         protected override void RunCustomValidation()
         {
-            if (!DhcpEnabled)
+            if (DhcpEnabled)
+            {
+                ClearErrors(nameof(IpAddress));
+                ClearErrors(nameof(SubnetMask));
+                ClearErrors(nameof(Gateway));
+                ClearErrors(nameof(DnsServer1));
+                ClearErrors(nameof(DnsServer2));
+            }
+            else
             {
                 ValidateProperty(IpAddress, nameof(IpAddress));
                 ValidateProperty(SubnetMask, nameof(SubnetMask));
@@ -265,6 +229,12 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 ValidateProperty(DnsServer1, nameof(DnsServer1));
                 ValidateProperty(DnsServer2, nameof(DnsServer2));
             }
+            UpdateCanApplyChanges();
+        }
+
+        private void UpdateCanApplyChanges()
+        {
+            CanApplyChanges = !HasErrors && InputEnabled && HasChanges();
         }
 
         public static ValidationResult ValidateIpAddress(string address, ValidationContext context)
@@ -287,7 +257,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             return ValidationResult.Success;
         }
 
-        public static ValidationResult ValidateIpAddressAllowEmpty(string address, ValidationContext context)
+        public static ValidationResult ValidateDnsServer(string address, ValidationContext context)
         {
             if (!string.IsNullOrEmpty(address) && !IpValidation.IsIpV4AddressValid(address))
             {
@@ -297,9 +267,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             return ValidationResult.Success;
         }
 
-        public static ValidationResult ValidateIpAddressAllowEmptyIfStatic(string address, ValidationContext context)
+        public static ValidationResult ValidateGateway(string address, ValidationContext context)
         {
-            NetworkConfigPageViewModel instance = (NetworkConfigPageViewModel)context.ObjectInstance;
+            var instance = (NetworkConfigPageViewModel)context.ObjectInstance;
             if (instance.StaticIp)
             {
                 if (!string.IsNullOrEmpty(address) && !IpValidation.IsIpV4AddressValid(address))

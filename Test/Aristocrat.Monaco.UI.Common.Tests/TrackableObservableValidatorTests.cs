@@ -3,11 +3,14 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using FluentAssertions;
     using Aristocrat.Monaco.UI.Common.MVVM;
+    using System.Windows;
+    using System;
+    using System.Threading;
 
     [TestClass]
     public class TrackableObservableValidatorTests
     {
-        private class MockCustomObservableValidator : TrackableObservableValidator
+        private class MockTrackableObservableValidator : TrackableObservableValidator
         {
             private bool _commitPublic;
             public bool CommitPublic
@@ -86,20 +89,28 @@
             public void SetIgnorePrivate() => IgnorePrivate = true;
 
             public void SetCommitted() => IsCommitted = true;
+        }
 
+        [TestInitialize]
+        public void Initialize()
+        {
+            if (Application.Current == null)
+            {
+                new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+            }
         }
 
         [TestMethod]
         public void NewObjectShouldBeCommitedByDefault()
         {
-            var mock = new MockCustomObservableValidator();
+            var mock = new MockTrackableObservableValidator();
             mock.IsCommitted.Should().BeTrue();
         }
 
         [TestMethod]
         public void SettingCommittedToTrueShouldNotSetItBackToFalseDueToChangeTracking()
         {
-            var mock = new MockCustomObservableValidator();
+            var mock = new MockTrackableObservableValidator();
             mock.SetCommitted();
             mock.IsCommitted.Should().BeTrue();
         }
@@ -107,7 +118,7 @@
         [TestMethod]
         public void SettingAPublicPropertyShouldResultInUncommittedStatus()
         {
-            var mock = new MockCustomObservableValidator();
+            var mock = new MockTrackableObservableValidator();
             mock.CommitPublic = true;
             mock.IsCommitted.Should().BeFalse();
         }
@@ -115,7 +126,7 @@
         [TestMethod]
         public void SettingAProtectedPropertyShouldResultInUncommittedStatus()
         {
-            var mock = new MockCustomObservableValidator();
+            var mock = new MockTrackableObservableValidator();
             mock.SetCommitProtected();
             mock.IsCommitted.Should().BeFalse();
         }
@@ -123,7 +134,7 @@
         [TestMethod]
         public void SettingAPrivatePropertyShouldResultInUncommittedStatus()
         {
-            var mock = new MockCustomObservableValidator();
+            var mock = new MockTrackableObservableValidator();
             mock.SetCommitPrivate();
             mock.IsCommitted.Should().BeFalse();
         }
@@ -131,7 +142,7 @@
         [TestMethod]
         public void SettingAnIgnoredPublicPropertyShouldNotAffectCommittedStatus()
         {
-            var mock = new MockCustomObservableValidator();
+            var mock = new MockTrackableObservableValidator();
             mock.IgnorePublic = true;
             mock.IsCommitted.Should().BeTrue();
         }
@@ -139,7 +150,7 @@
         [TestMethod]
         public void SettingAnIgnoredProtectedPropertyShouldNotAffectCommittedStatus()
         {
-            var mock = new MockCustomObservableValidator();
+            var mock = new MockTrackableObservableValidator();
             mock.SetIgnoreProtected();
             mock.IsCommitted.Should().BeTrue();
         }
@@ -147,7 +158,7 @@
         [TestMethod]
         public void SettingAnIgnoredPrivatePropertyShouldNotAffectCommittedStatus()
         {
-            var mock = new MockCustomObservableValidator();
+            var mock = new MockTrackableObservableValidator();
             mock.SetIgnorePrivate();
             mock.IsCommitted.Should().BeTrue();
         }
