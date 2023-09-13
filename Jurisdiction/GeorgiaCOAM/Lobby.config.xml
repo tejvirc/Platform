@@ -25,7 +25,7 @@
         <string>en-us</string>
     </LocaleCodes>
     <DefaultLoadingScreenFilename>../jurisdiction/DefaultAssets/ui/Images/BS_LoadingScreen.png</DefaultLoadingScreenFilename>
-    <DefaultTopAttractVideoFilename>../jurisdiction/DefaultAssets/ui/Videos/LobbyAttract.bk2</DefaultTopAttractVideoFilename>
+    <DefaultTopAttractVideoFilename>../jurisdiction/GeorgiaCOAM/ui/Videos/LobbyTopScreen.bk2</DefaultTopAttractVideoFilename>
     <DefaultTopperAttractVideoFilename>../jurisdiction/GeorgiaCOAM/ui/Videos/LobbyTopScreen.bk2</DefaultTopperAttractVideoFilename>
     <LcdInsertMoneyVideoLanguage1>../jurisdiction/DefaultAssets/ui/Videos/LCD_InsertMoney_EN.bk2</LcdInsertMoneyVideoLanguage1>
     <LcdChooseVideoLanguage1>../jurisdiction/DefaultAssets/ui/Videos/LCD_ChooseGame_EN.bk2</LcdChooseVideoLanguage1>
@@ -34,9 +34,9 @@
     <AttractVideoNoBonusFilename>../jurisdiction/DefaultAssets/ui/Videos/Attract_NoBonus.bk2</AttractVideoNoBonusFilename>
     <AttractVideoWithBonusFilename>../jurisdiction/DefaultAssets/ui/Videos/Attract_Bonus.bk2</AttractVideoWithBonusFilename>
     <TopperLobbyVideoFilename>../jurisdiction/GeorgiaCOAM/ui/Videos/LobbyTopScreen.bk2</TopperLobbyVideoFilename>
-    <TopAttractIntroVideoFilename>../jurisdiction/DefaultAssets/ui/Videos/LobbyAttractIntro.bk2</TopAttractIntroVideoFilename>
-    <BottomAttractIntroVideoFilename>../jurisdiction/DefaultAssets/ui/Videos/LobbyAttractIntro.bk2</BottomAttractIntroVideoFilename>
-    <TopperAttractIntroVideoFilename>../jurisdiction/DefaultAssets/ui/Videos/LobbyAttractIntro.bk2</TopperAttractIntroVideoFilename>
+    <TopAttractIntroVideoFilename>../jurisdiction/GeorgiaCOAM/ui/Videos/LobbyAttractIntro.bk2</TopAttractIntroVideoFilename>
+    <BottomAttractIntroVideoFilename>../jurisdiction/GeorgiaCOAM/ui/Videos/LobbyAttractIntro.bk2</BottomAttractIntroVideoFilename>
+    <TopperAttractIntroVideoFilename>../jurisdiction/GeorgiaCOAM/ui/Videos/LobbyAttractIntro.bk2</TopperAttractIntroVideoFilename>
     <AlternateAttractModeLanguage>false</AlternateAttractModeLanguage>
     <DisplaySoftErrors>true</DisplaySoftErrors>
     <DisplayInformationMessages>true</DisplayInformationMessages>

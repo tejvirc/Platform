@@ -6,24 +6,24 @@
 
     <!-- **IMAGES TOP SCREEN** -->
     <BitmapImage x:Key="TopBackground"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_Background.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/GeorgiaCOAM/ui/Images/TS_Background.png"
                  AutomationProperties.AutomationId="BitmapImage1_9E6189C5" />
     <BitmapImage x:Key="TopLoading"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_WW_LoadingScreen.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/GeorgiaCOAM/ui/Images/TS_Background.png"
                  AutomationProperties.AutomationId="BitmapImage2_9E6189C5" />
     <BitmapImage x:Key="TopDisabled"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_Background_Disabled.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/GeorgiaCOAM/ui/Images/TS_Background_Disabled.png"
                  AutomationProperties.AutomationId="BitmapImage3_9E6189C5" />
 
     <!-- **IMAGES TOPPER SCREEN** -->
     <BitmapImage x:Key="TopperBackground"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_Background.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/GeorgiaCOAM/ui/Images/TS_Background.png"
                  AutomationProperties.AutomationId="BitmapImage4_9E6189C5" />
     <BitmapImage x:Key="TopperLoading"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_WW_LoadingScreen.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/GeorgiaCOAM/ui/Images/TS_Background.png"
                  AutomationProperties.AutomationId="BitmapImage5_9E6189C5" />
     <BitmapImage x:Key="TopperDisabled"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_Background_Disabled.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/GeorgiaCOAM/ui/Images/TS_Background_Disabled.png"
                  AutomationProperties.AutomationId="BitmapImage6_9E6189C5" />
 
     <!-- **IMAGES BOTTOM SCREEN** -->
@@ -336,7 +336,7 @@
     <sys:String x:Key="PlatinumVideoPath">../jurisdiction/DefaultAssets/ui/Videos/12_PlatinumSeries.bk2</sys:String>
     <sys:String x:Key="NewStarPath">../jurisdiction/DefaultAssets/ui/Videos/NewStar_EN.bk2</sys:String>
 
-    <sys:String x:Key="TopIdleAttractVideoPath">../jurisdiction/DefaultAssets/ui/Videos/LobbyAttract.bk2</sys:String>
+    <sys:String x:Key="TopIdleAttractVideoPath">../jurisdiction/GeorgiaCOAM/ui/Videos/LobbyTopScreen.bk2</sys:String>
     <sys:String x:Key="VBD_ChooseGame">../jurisdiction/DefaultAssets/ui/Videos/VBD_ChooseGame_EN.bk2</sys:String>
     <sys:String x:Key="VBD_InsertMoney">../jurisdiction/DefaultAssets/ui/Videos/VBD_InsertMoney_EN.bk2</sys:String>
     <sys:String x:Key="VBD_ChooseTime">../jurisdiction/DefaultAssets/ui/Videos/VBD_ChooseTime_EN.bk2</sys:String>
