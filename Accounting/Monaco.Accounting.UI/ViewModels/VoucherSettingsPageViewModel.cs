@@ -276,6 +276,10 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             get => _selectedBarcodeType;
             set
             {
+                if (value == null)
+                {
+                    return;
+                }
                 if (SetProperty(ref _selectedBarcodeType, value))
                 {
                     PropertiesManager.SetProperty(ApplicationConstants.BarCodeType, value.Value);
@@ -391,7 +395,6 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 
         protected override void OnLoaded()
         {
-            UpdateUI();
             ClearValidationOnUnload = true;
 
             MaxCreditMeterMaxAllowed = (long)PropertiesManager.GetProperty(AccountingConstants.MaxCreditMeterMaxAllowed, long.MaxValue);
@@ -445,6 +448,8 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
             PrinterEnabled = PropertiesManager.GetValue(ApplicationConstants.PrinterEnabled, false);
 
             EventBus?.Subscribe<PropertyChangedEvent>(this, HandleEvent);
+
+            UpdateUI();
         }
 
         protected override void OnUnloaded()
