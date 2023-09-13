@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Translate;
 
+using System.Linq;
 using System.Threading.Tasks;
 using Extensions.Fluxor;
 using Fluxor;
@@ -33,8 +34,8 @@ public class TranslateEffects
         {
             var localeCode = _translateService.GetSelectedLocaleCode();
 
-            if (string.IsNullOrEmpty(localeCode) || _translateState.Value.LocaleCodes.Count == 1)
-            //|| localeCode == _translateState.Value.LocaleCodes.First().ToUpperInvariant())
+            if (string.IsNullOrEmpty(localeCode) || _translateState.Value.LocaleCodes.Count == 1
+            || localeCode == _translateState.Value.LocaleCodes.First().ToUpperInvariant())
             {
                 _translateService.SetSelectedLocaleCode();
             }

@@ -23,6 +23,4 @@ public static class TranslateSelectors
                 _ => "US-EN"
             });
 
-    public static readonly ISelector<TranslateState, bool> SelectInitialLanguageEventSent = CreateSelector(
-        (TranslateState state) => state.IsInitialLanguageEventSent);
 }

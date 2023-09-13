@@ -22,10 +22,4 @@ public static class TranslateReducers
     {
         return state with { IsPrimaryLanguageActive = action.IsPrimaryLanguageActive };
     }
-
-    [ReducerMethod]
-    public static TranslateState Reduce(TranslateState state, TranslateInitialLanguageEventAction action)
-    {
-        return state with { IsInitialLanguageEventSent = action.IsInitialLanguageEventSent };
-    }
 }

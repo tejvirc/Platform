@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Services.Translate;
 
 using System;
+using Application.Contracts;
 using Common;
 using Extensions.Fluxor;
 using Gaming.Contracts;
@@ -39,5 +40,6 @@ public sealed class TranslateAgent : ITranslateAgent, IDisposable
     public void SetSelectedLocaleCode()
     {
         _properties.SetProperty(GamingConstants.SelectedLocaleCode, ActiveLocaleCode);
+        _properties.SetProperty(ApplicationConstants.LocalizationPlayerCurrentCulture, ActiveLocaleCode);
     }
 }

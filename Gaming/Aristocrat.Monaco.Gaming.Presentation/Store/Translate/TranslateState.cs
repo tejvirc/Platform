@@ -9,6 +9,4 @@ public record TranslateState
     public bool IsMultiLanguage { get; init; }
 
     public bool IsPrimaryLanguageActive { get; init; }
-
-    public bool IsInitialLanguageEventSent { get; init; }
 }
