@@ -371,6 +371,11 @@
 
             lock (_noteLock)
             {
+                if(_isoCode == null && notesDefinitions.Count == 1)
+                {
+                    SetIsoCode(notesDefinitions[0].Code);
+                }
+
                 _excludedNotes.Clear();
                 foreach (var currency in notesDefinitions)
                 {
@@ -810,6 +815,11 @@
 
             SaveSupportedNotes();
 
+            if(!CheckCurrencyCulture())
+            {
+                return;
+            }
+
             SetInternalConfiguration();
 
             Implementation?.UpdateConfiguration(InternalConfiguration);
@@ -838,6 +848,23 @@
                 DisabledDetected();
                 Implementation?.Disable();
             }
+        }
+
+        private bool CheckCurrencyCulture()
+        {
+            var properties = ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
+            var noteDefinitions = properties?.GetValue(HardwareConstants.NoteDefinitions, new Collection<NoteDefinitions>());
+
+            if (noteDefinitions?.Count > 0)
+            {
+                if(!Implementation.SupportedNotes.Any(a => noteDefinitions.Any(b => b.Code.Equals(a.CurrencyCode.ToString()))))
+                {
+                    Fire(NoteAcceptorLogicalStateTrigger.InspectionFailed, new InspectionFailedEvent(NoteAcceptorId));
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private Collection<int> GetDisabledNotes(string isoCode = null)
