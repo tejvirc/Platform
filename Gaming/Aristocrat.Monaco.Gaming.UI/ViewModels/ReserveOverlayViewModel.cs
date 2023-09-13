@@ -15,6 +15,7 @@
     using MVVM.Command;
     using MVVM.ViewModel;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
+    using Aristocrat.MVVM;
 
     /// <summary>
     ///     Reserve machine GUI states
@@ -453,28 +454,32 @@
 
         private void HandleEvent(PropertyChangedEvent evt)
         {
-            switch (evt.PropertyName)
+            MvvmHelper.ExecuteOnUI(() =>
             {
-                case ApplicationConstants.ReserveServiceLockupPresent:
-                    var lockup = (bool)_propertiesManager.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, false);
+                switch (evt.PropertyName)
+                {
+                    case ApplicationConstants.ReserveServiceLockupPresent:
+                        var lockup = (bool)_propertiesManager.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, false);
 
-                    State = lockup ? ReserveMachineDisplayState.Countdown : ReserveMachineDisplayState.None;
+                        State = lockup ? ReserveMachineDisplayState.Countdown : ReserveMachineDisplayState.None;
 
-                    // If there's no lockup then we don't need to display anything
-                    if (!lockup)
-                    {
-                        IsDialogVisible = false;
-                    }
-                    break;
+                        // If there's no lockup then we don't need to display anything
+                        if (!lockup)
+                        {
+                            IsDialogVisible = false;
+                        }
+                        break;
 
-                case ApplicationConstants.ReserveServiceTimeoutInSeconds:
-                    RaisePropertyChanged(nameof(TimeLengthMachineWillBeReserved));
-                    break;
+                    case ApplicationConstants.ReserveServiceTimeoutInSeconds:
+                        RaisePropertyChanged(nameof(TimeLengthMachineWillBeReserved));
+                        break;
 
-                case ApplicationConstants.ReserveServiceLockupRemainingSeconds:
-                    SetCountdownText();
-                    break;
-            }
+                    case ApplicationConstants.ReserveServiceLockupRemainingSeconds:
+                        SetCountdownText();
+                        break;
+                }
+
+            });
         }
 
         /// <summary>
@@ -484,7 +489,7 @@
         private void ExitReserveButtonPressed()
         {
             PlayButtonClickSound();
-            State = ReserveMachineDisplayState.Exit;
+            MvvmHelper.ExecuteOnUI(() => State = ReserveMachineDisplayState.Exit);
         }
 
         /// <summary>
@@ -507,7 +512,7 @@
             else if (State == ReserveMachineDisplayState.Exit)
             {
                 PlayButtonClickSound();
-                State = ReserveMachineDisplayState.Countdown;
+                MvvmHelper.ExecuteOnUI(() => State = ReserveMachineDisplayState.Countdown);
             }
         }
 
@@ -516,10 +521,13 @@
             PlayButtonClickSound();
             if (Pin.Length > 0)
             {
-                Pin = Pin.Substring(0, Pin.Length - 1);
-                PinBoxContent = PinBoxContent.Substring(0, PinBoxContent.Length - 1);
-                UpdateConfirmButtonEnabled();
-                RestartPinEntryCloseTimer();
+                MvvmHelper.ExecuteOnUI(() =>
+                {
+                    Pin = Pin.Substring(0, Pin.Length - 1);
+                    PinBoxContent = PinBoxContent.Substring(0, PinBoxContent.Length - 1);
+                    UpdateConfirmButtonEnabled();
+                    RestartPinEntryCloseTimer();
+                });
             }
         }
 
@@ -528,11 +536,14 @@
             PlayButtonClickSound();
             if (Pin.Length < GamingConstants.ReserveMachinePinLength)
             {
-                Pin += (string)obj;
-                PinBoxContent += PasswordChar;
-                UpdateConfirmButtonEnabled();
-                ShowIncorrectPinWarning = false;
-                RestartPinEntryCloseTimer();
+                MvvmHelper.ExecuteOnUI(() =>
+                {
+                    Pin += (string)obj;
+                    PinBoxContent += PasswordChar;
+                    UpdateConfirmButtonEnabled();
+                    ShowIncorrectPinWarning = false;
+                    RestartPinEntryCloseTimer();
+                });
             }
         }
 
@@ -541,20 +552,24 @@
             PlayButtonClickSound();
             var storedPin = (string)_propertiesManager.GetProperty(ApplicationConstants.ReserveServicePin, string.Empty);
 
-            // The pin was confirmed, reserve the machine
-            if (string.Compare(Pin, storedPin, StringComparison.InvariantCultureIgnoreCase) == 0)
+            MvvmHelper.ExecuteOnUI(() =>
             {
-                _reserveService.ReserveMachine();
-                State = ReserveMachineDisplayState.Countdown;
-                RemovePreReserveLockup();
-            }
-            // The pin does not match what was entered on the player menu
-            else
-            {
-                ShowIncorrectPinWarning = true;
-            }
+                // The pin was confirmed, reserve the machine
+                if (string.Compare(Pin, storedPin, StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    _reserveService.ReserveMachine();
+                    State = ReserveMachineDisplayState.Countdown;
+                    RemovePreReserveLockup();
+                }
+                // The pin does not match what was entered on the player menu
+                else
+                {
+                    ShowIncorrectPinWarning = true;
+                }
 
-            ResetFields();
+                ResetFields();
+            });
+
         }
 
         private void UnlockReserve()
@@ -562,34 +577,36 @@
             var storedPin = (string)_propertiesManager.GetProperty(ApplicationConstants.ReserveServicePin, string.Empty);
             PlayButtonClickSound();
 
-            // The entered pin matches the saved pin, unlock the machine and exit reserve
-            if (string.Compare(storedPin, Pin, StringComparison.CurrentCultureIgnoreCase) == 0)
+            MvvmHelper.ExecuteOnUI(() =>
             {
-                _reserveService?.ExitReserveMachine();
-                StopPinEntryTimer();
-                _propertiesManager.SetProperty(ApplicationConstants.ReserveServicePin, string.Empty);
-                IsDialogVisible = false;
-                RemovePreReserveLockup();
-            }
-            // The entered pin does not match, up the retry count
-            else
-            {
-                if (++PinEntryAttempts < GamingConstants.ReserveMachineMaxPinEntryAttempts)
+                // The entered pin matches the saved pin, unlock the machine and exit reserve
+                if (string.Compare(storedPin, Pin, StringComparison.CurrentCultureIgnoreCase) == 0)
                 {
-                    ShowIncorrectPinWarning = true;
+                    _reserveService?.ExitReserveMachine();
+                    StopPinEntryTimer();
+                    _propertiesManager.SetProperty(ApplicationConstants.ReserveServicePin, string.Empty);
+                    IsDialogVisible = false;
+                    RemovePreReserveLockup();
                 }
+                // The entered pin does not match, up the retry count
                 else
                 {
-                    State = ReserveMachineDisplayState.IncorrectPin;
+                    if (++PinEntryAttempts < GamingConstants.ReserveMachineMaxPinEntryAttempts)
+                    {
+                        ShowIncorrectPinWarning = true;
+                    }
+                    else
+                    {
+                        State = ReserveMachineDisplayState.IncorrectPin;
 
-                    // Start the incorrect PIN attempts timer of 1 minute
-                    _incorrectPinWaitTimeSpan = TimeSpan.FromSeconds(GamingConstants.ReserveMachineIncorrectPinWaitTimeSeconds);
-                    _incorrectPinWaitTimer.Change(TimeSpan.FromSeconds(1), Timeout.InfiniteTimeSpan);
-                    RaisePropertyChanged(nameof(IncorrectPinWaitTimeLeft));
+                        // Start the incorrect PIN attempts timer of 1 minute
+                        _incorrectPinWaitTimeSpan = TimeSpan.FromSeconds(GamingConstants.ReserveMachineIncorrectPinWaitTimeSeconds);
+                        _incorrectPinWaitTimer.Change(TimeSpan.FromSeconds(1), Timeout.InfiniteTimeSpan);
+                        RaisePropertyChanged(nameof(IncorrectPinWaitTimeLeft));
+                    }
                 }
-            }
-
-            ResetFields();
+                ResetFields();
+            });
         }
 
         public void Dispose()
