@@ -17,6 +17,7 @@ as follows:
   <Messages ShowMessages="true">
     <MinBetMessage MustDisplay="false" Format="Currency" />
   </Messages>
+  <StateChangeOverride DisableStrategy="ZeroCredits" />
   <ReelStop Enabled="false" />
   <ReelSpeed Value="5" />
   <LockupBehavior CashableLockupStrategy="NotAllowed" />
