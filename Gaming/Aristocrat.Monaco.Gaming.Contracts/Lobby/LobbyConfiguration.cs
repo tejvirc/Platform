@@ -57,6 +57,8 @@ public partial class LobbyConfiguration {
     
     private string[] languageButtonResourceKeysField;
     
+    private string[] languageButtonActiveResourceKeysField;
+    
     private string defaultLoadingScreenFilenameField;
     
     private string defaultTopAttractVideoFilenameField;
@@ -350,6 +352,16 @@ public partial class LobbyConfiguration {
         }
         set {
             this.languageButtonResourceKeysField = value;
+        }
+    }
+    
+    /// <remarks/>
+    public string[] LanguageButtonActiveResourceKeys {
+        get {
+            return this.languageButtonActiveResourceKeysField;
+        }
+        set {
+            this.languageButtonActiveResourceKeysField = value;
         }
     }
     
