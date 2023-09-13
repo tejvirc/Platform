@@ -5068,4 +5068,7 @@ Do you really want to do partial reset????</value>
   <data name="TotalBillInValue" xml:space="preserve">
     <value>Total des billets en - Valeur</value>
   </data>
+  <data name="ErrorInfoPrinterPaperLow" xml:space="preserve">
+    <value>??Open Main Door and Load More Paper Before Paper is Empty??</value>
+  </data>
 </root>
