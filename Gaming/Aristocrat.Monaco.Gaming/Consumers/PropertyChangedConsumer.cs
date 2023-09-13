@@ -40,7 +40,7 @@
 
             var maxVolume = _audio.GetMaxVolume(_properties, _gameCategoryService, showVolumeControlInLobbyOnly);
             _runtime.UpdateVolume(maxVolume);
-            _properties.SetProperty(GamingConstants.GameVolumeKey, maxVolume);
+            _properties.SetProperty(GamingConstants.GamePlayerVolumeScalarKey, maxVolume);
         }
     }
 }

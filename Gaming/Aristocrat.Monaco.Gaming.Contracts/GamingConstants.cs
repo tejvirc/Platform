@@ -629,7 +629,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         /// <summary>
         ///     Volume set by game
         /// </summary>
-        public static readonly string GameVolumeKey = "GameVolume";
+        public static readonly string GamePlayerVolumeScalarKey = "GamePlayerVolumeScalar";
 
         /// <summary>
         ///     Determines if reel stop is enabled
