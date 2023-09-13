@@ -1524,7 +1524,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     if (_bank.QueryBalance() == 0 && _gameState.Idle && !_gameHistory.IsRecoveryNeeded)
                     {
                         Logger.Debug("Cashed out after going over limit. Returning player to Lobby and changing Language to default.");
-                        MvvmHelper.ExecuteOnUI(() =>
+                        Execute.OnUIThread(() =>
                         {
                             IsPrimaryLanguageSelected = true;
                             _runtime.SetRequestExitGame(_properties.GetValue(GamingConstants.RequestGameExitOnCashout, false));
