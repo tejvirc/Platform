@@ -513,7 +513,7 @@
             if (!_audioService.IsPlaying())
             {
                 var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, (byte)100);
-                _audioService.Play(SoundName.DoorAlarm, _doorAlarmLoopCount, alertVolume);
+                _audioService.Play(SoundName.DoorOpenAlarm, _doorAlarmLoopCount, alertVolume);
                 Logger.Debug($"Door open alarm timer timed-out, playing Door Alarm");
             }
             else
@@ -568,7 +568,7 @@
                 }
                 if (!isInspectionMode)
                 {
-                    _audioService.Play(SoundName.DoorAlarm, _doorAlarmLoopCount, alertVolume);
+                    _audioService.Play(SoundName.DoorOpenAlarm, _doorAlarmLoopCount, alertVolume);
                 }
                 if (_doorOpenAlarmRepeatSeconds > 0)
                 {
@@ -624,7 +624,7 @@
 
             if (_audioService.IsPlaying())
             {
-                _audioService.Stop(SoundName.DoorAlarm);
+                _audioService.Stop(SoundName.DoorOpenAlarm);
             }
 
             if (_doorOpenAlarmRepeatSeconds > 0)

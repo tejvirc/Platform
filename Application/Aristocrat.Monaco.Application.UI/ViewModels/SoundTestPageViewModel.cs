@@ -480,7 +480,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             SoundFiles.Add(new SoundFileViewModel(SoundName.FeatureBell, "Feature Bell"));
             SoundFiles.Add(new SoundFileViewModel(SoundName.Touch, "Touch Sound"));
             SoundFiles.Add(new SoundFileViewModel(SoundName.Collect, "Collect"));
-            SoundFiles.Add(new SoundFileViewModel(SoundName.SendPrintTicket, "Send Print Ticket"));
+            SoundFiles.Add(new SoundFileViewModel(SoundName.PaperInChute, "Send Print Ticket"));
         }
 
         private void OnPlayingTimerTick(object sender, EventArgs args)

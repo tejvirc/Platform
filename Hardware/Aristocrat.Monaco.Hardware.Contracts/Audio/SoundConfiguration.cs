@@ -164,9 +164,9 @@ public enum SoundName {
     
     /// <remarks/>
     Ding,
-    
+
     /// <remarks/>
-    DoorAlarm,
+    DoorOpenAlarm,
     
     /// <remarks/>
     DiskSpaceMonitorError,
@@ -230,9 +230,6 @@ public enum SoundName {
     
     /// <remarks/>
     Silence,
-    
-    /// <remarks/>
-    SendPrintTicket,
     
     /// <remarks/>
     Touch,

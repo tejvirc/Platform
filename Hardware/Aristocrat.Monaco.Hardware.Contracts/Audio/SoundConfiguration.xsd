@@ -32,7 +32,7 @@
       <xs:enumeration value="Collect" />
       <xs:enumeration value="CriticalMemoryIntegrityCheck" />
       <xs:enumeration value="Ding" />
-      <xs:enumeration value="DoorAlarm" />
+      <xs:enumeration value="DoorOpenAlarm" />
       <xs:enumeration value="DiskSpaceMonitorError" />
       <xs:enumeration value="ExcessiveDocumentReject" />
       <xs:enumeration value="ExcessiveMeterIncrement" />
@@ -54,7 +54,6 @@
       <xs:enumeration value="SideLeft" />
       <xs:enumeration value="SideRight" />
       <xs:enumeration value="Silence" />
-      <xs:enumeration value="SendPrintTicket" />
       <xs:enumeration value="Touch" />
     </xs:restriction>
   </xs:simpleType>

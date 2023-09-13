@@ -1,38 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundConfiguration>
 	<AudioFiles>
-		<AudioFile Name="Alert" File="alarm.ogg" />
-		<AudioFile Name="BallDrop" File="BallDrop.ogg" />
-		<AudioFile Name="CardFlip" File="CardFlip.ogg" />
-		<AudioFile Name="Center" File="Center.ogg" />
-		<AudioFile Name="CoinIn" File="coinin.ogg" />
-		<AudioFile Name="CoinOut" File="coinout.ogg" />
-		<AudioFile Name="Collect" File="collect.ogg" />
-		<AudioFile Name="CriticalMemoryIntegrityCheck" File="alarm.ogg" />
-		<AudioFile Name="Ding" File="ding.ogg" />
-		<AudioFile Name="DiskSpaceMonitorError" File="alarm.ogg" />
-		<AudioFile Name="DoorAlarm" File="alarm.ogg" />
-		<AudioFile Name="ExcessiveDocumentReject" File="alarm.ogg" />
-		<AudioFile Name="ExcessiveMeterIncrement" File="alarm.ogg" />
-		<AudioFile Name="FeatureBell" File="feature_bell.ogg" />
-		<AudioFile Name="PaperInChute" File="snd_print_ticket.ogg" />
-		<AudioFile Name="FirmwareCrcError" File="alarm.ogg" />
-		<AudioFile Name="FrontLeft" File="FrontLeft.ogg" />
-		<AudioFile Name="FrontRight" File="FrontRight.ogg" />
-		<AudioFile Name="HostOffline" File="alarm.ogg" />
-		<AudioFile Name="LowFrequency" File="LowFrequency.ogg" />
-		<AudioFile Name="LiveAuthenticationFailed" File="alarm.ogg" />
-		<AudioFile Name="NoteAcceptorError" File="alarm.ogg" />
-		<AudioFile Name="MoneyLaunderingMonitor" File="alarm.ogg" />
-		<AudioFile Name="PrinterError" File="alarm.ogg" />
-		<AudioFile Name="PrinterWarning" File="alarm.ogg" />
-		<AudioFile Name="RearLeft" File="RearLeft.ogg" />
-		<AudioFile Name="RearRight" File="RearRight.ogg" />
-		<AudioFile Name="ReelClick" File="ReelClick.ogg" />
-		<AudioFile Name="SideLeft" File="SideLeft.ogg" />
-		<AudioFile Name="SideRight" File="SideRight.ogg" />
-		<AudioFile Name="Silence" File="silence.ogg" />
-		<AudioFile Name="SendPrintTicket" File="snd_print_ticket.ogg" />
-		<AudioFile Name="Touch" File="touch_sound.ogg" />
+    <AudioFile Name="BallDrop" File="BallDrop.ogg" />
+    <AudioFile Name="CardFlip" File="CardFlip.ogg" />
+    <AudioFile Name="Collect" File="collect.ogg" />
+    <AudioFile Name="Ding" File="ding.ogg" />
+    <AudioFile Name="DoorOpenAlarm" File="alarm.ogg" />
+    <AudioFile Name="FeatureBell" File="feature_bell.ogg" />
+    <AudioFile Name="PaperInChute" File="snd_print_ticket.ogg" />
+    <AudioFile Name="ReelClick" File="ReelClick.ogg" />
+    <AudioFile Name="Touch" File="touch_sound.ogg" />
+    <!-- Sound Test -->
+    <AudioFile Name="Center" File="Center.ogg" />
+    <AudioFile Name="FrontLeft" File="FrontLeft.ogg" />
+    <AudioFile Name="FrontRight" File="FrontRight.ogg" />
+    <AudioFile Name="RearLeft" File="RearLeft.ogg" />
+    <AudioFile Name="RearRight" File="RearRight.ogg" />
+    <AudioFile Name="SideLeft" File="SideLeft.ogg" />
+    <AudioFile Name="SideRight" File="SideRight.ogg" />
+    <AudioFile Name="Silence" File="silence.ogg" />
 	</AudioFiles>
 </SoundConfiguration>
