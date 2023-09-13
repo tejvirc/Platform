@@ -736,7 +736,7 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 id++;
             }
             
-            var index = Hosts.Max(h => h.Index) + 1;
+            var index = Hosts.Any() ? Hosts.Max(h => h.Index) + 1 : 1;
 
             Hosts.Add(
                 new Host
