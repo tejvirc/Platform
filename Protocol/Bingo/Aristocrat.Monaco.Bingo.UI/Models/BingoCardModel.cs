@@ -33,12 +33,14 @@
             ObservableCollection<BingoNumberModel> numbers,
             IList<BingoPatternModel> patterns,
             uint serialNumber,
-            int ballCallDaubs)
+            int ballCallDaubs,
+            bool isGolden = false)
         {
             Numbers = numbers ?? throw new ArgumentNullException(nameof(numbers));
             Patterns = patterns ?? throw new ArgumentNullException(nameof(patterns));
             SerialNumber = serialNumber.ToString();
             BallCallBitDaubs = ballCallDaubs;
+            IsGolden = isGolden;
 
             if (numbers.Count != ExpectedNumberCount)
             {
@@ -58,6 +60,8 @@
         public IList<BingoPatternModel> Patterns { get; }
 
         public IList<int> BallCallDaubedNumbers { get; } = new List<int>();
+
+        public bool IsGolden { get; set; }
 
         /// <summary>
         ///     Uses the given <see cref="patternDaubs"/> to update the card numbers with the pattern daubing,

@@ -3,6 +3,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using System;
     using System.Collections.Generic;
     using Application.Contracts;
+    using Application.Contracts.Currency;
+    using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.Localization;
@@ -34,6 +36,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
         private string _allowedKenoRtp;
         private string _allowedBlackjackRtp;
         private string _allowedRouletteRtp;
+        private string _currencyDisplayText;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="JurisdictionSettingsPageViewModel" /> class.
@@ -44,7 +47,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             var localization = ServiceManager.GetInstance().GetService<ILocalization>();
             var currencyProvider = localization.GetProvider(CultureFor.Currency) as CurrencyCultureProvider;
-            Currency = currencyProvider?.ConfiguredCurrency.DisplayName;
+            Currency = currencyProvider?.ConfiguredCurrency;
+            _currencyDisplayText = Currency?.DisplayName;
 
             _defaultAnyGameMinimum = PropertiesManager.GetValue(GamingConstants.AnyGameMinimumReturnToPlayer, decimal.MinValue);
             _defaultAnyGameMaximum = PropertiesManager.GetValue(GamingConstants.AnyGameMaximumReturnToPlayer, decimal.MaxValue);
@@ -68,9 +72,15 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         }
 
+        public Currency Currency { get; }
+
         public string Jurisdiction { get; }
 
-        public string Currency { get; }
+        public string CurrencyDisplayText
+        {
+            get => _currencyDisplayText;
+            private set => SetProperty(ref _currencyDisplayText, value);
+        }
 
         public string AllowedSlotRtp
         {
@@ -126,14 +136,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         protected override void OnLoaded()
         {
+            UpdateCurrencyDescription();
             SetupRtpValuesAndVisibility();
-            OnPropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
+            OnPropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos), nameof(CurrencyDisplayText));
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
+            UpdateCurrencyDescription();
             SetupRtpValuesAndVisibility();
-            OnPropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
+            OnPropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos), nameof(CurrencyDisplayText));
             base.OnOperatorCultureChanged(evt);
         }
 
@@ -235,6 +247,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             }
 
             return string.Empty;
+        }
+
+        private void UpdateCurrencyDescription()
+        {
+            var culture = CurrencyExtensions.CurrencyCultureInfo;
+            var currencyText = CurrencyExtensions.GetFormattedDescriptionForOperator(culture, Currency.IsoCode);
+            CurrencyDisplayText = currencyText;
         }
     }
 }
