@@ -24,6 +24,7 @@
 
         private readonly IIO _io;
         private readonly IPersistentStorageManager _storageManager;
+        private readonly IPropertiesManager _propertiesManager;
         private readonly IEventBus _bus;
 
         private readonly ConcurrentDictionary<int, LogicalDoor> _logicalDoors =
@@ -32,19 +33,26 @@
         private bool _disposed;
         private DateTime _lastInput;
         private bool _platformBooted;
+        private bool _isInspection;
 
         public DoorService()
             : this(
                 ServiceManager.GetInstance().GetService<IIO>(),
                 ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
-                ServiceManager.GetInstance().GetService<IEventBus>())
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IPropertiesManager>())
         {
         }
 
-        public DoorService(IIO io, IPersistentStorageManager storageManager, IEventBus bus)
+        public DoorService(
+            IIO io,
+            IPersistentStorageManager storageManager,
+            IEventBus bus,
+            IPropertiesManager propertiesManager)
         {
             _io = io ?? throw new ArgumentNullException(nameof(io));
             _storageManager = storageManager ?? throw new ArgumentNullException(nameof(storageManager));
+            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
 
             Enabled = false;
@@ -225,6 +233,8 @@
         {
             LastError = string.Empty;
 
+            _isInspection = (bool)_propertiesManager.GetProperty(Kernel.Contracts.KernelConstants.IsInspectionOnly, false);
+
             _bus.Subscribe<InputEvent>(this, HandleEvent);
             _bus.Subscribe<PlatformBootedEvent>(this, HandleEvent);
 
@@ -323,7 +333,7 @@
 
         private void HandleEvent(InputEvent inEvent, bool whilePoweredDown)
         {
-            if (inEvent.Timestamp >= _lastInput || _platformBooted)
+            if (inEvent.Timestamp >= _lastInput || _platformBooted || _isInspection)
             {
                 _lastInput = inEvent.Timestamp;
 
