@@ -332,7 +332,7 @@
             _games.Setup(m => m.GetGame(1, Denomination)).Returns(Factory_CreateGame(Denomination));
             var scope = new Mock<IScopedTransaction>();
             _persistence.Setup(m => m.ScopedTransaction()).Returns(scope.Object);
-            _commands.Setup(m => m.Create<CheckResult>()).Returns(new CheckResultCommandHandler(_bank.Object, _gameProvider.Object, _gameHistory.Object, (new Mock<IProgressiveConfigurationProvider>()).Object));
+            _commands.Setup(m => m.Create<CheckResult>()).Returns(new CheckResultCommandHandler(_bank.Object, _gameProvider.Object, _properties.Object, _gameHistory.Object, (new Mock<IProgressiveConfigurationProvider>()).Object));
             var log = new Mock<IGameHistoryLog>();
             _gameHistory.SetupGet(m => m.CurrentLog).Returns(log.Object);
 

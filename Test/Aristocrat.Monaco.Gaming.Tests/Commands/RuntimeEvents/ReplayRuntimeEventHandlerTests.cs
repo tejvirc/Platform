@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Tests.Commands.RuntimeEvents
 {
     using Contracts;
+    using Contracts.Lobby;
     using Gaming.Commands;
     using Gaming.Commands.RuntimeEvents;
     using Gaming.Runtime.Client;
@@ -18,6 +19,7 @@
         private readonly Mock<IEventBus> _bus = new Mock<IEventBus>(MockBehavior.Default);
         private readonly Mock<IGameDiagnostics> _gameDiagnostics = new Mock<IGameDiagnostics>(MockBehavior.Default);
         private readonly Mock<IGameProvider> _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
+        private readonly Mock<ILobbyStateManager> _lobbyStateManager = new Mock<ILobbyStateManager>(MockBehavior.Default);
 
         private ReplayRuntimeEventHandler _target;
 
@@ -25,7 +27,6 @@
         public void MyTestInitialize()
         {
             _target = CreateEventHandler();
-
             var mockContext = new Mock<IDiagnosticContext<IGameHistoryLog>>(MockBehavior.Default);
             _gameDiagnostics.SetupGet(m => m.Context).Returns(mockContext.Object);
 
@@ -132,13 +133,15 @@
             bool nullProperties = false,
             bool nullGameProvider = false,
             bool nullBus = false,
-            bool nullGameDiagnostics = false)
+            bool nullGameDiagnostics = false,
+            bool nullLobbyStateManager = false)
         {
             return new ReplayRuntimeEventHandler(
                 nullProperties ? null : _propertiesManager.Object,
                 nullGameProvider ? null : _gameProvider.Object,
                 nullBus ? null : _bus.Object,
-                nullGameDiagnostics ? null : _gameDiagnostics.Object);
+                nullGameDiagnostics ? null : _gameDiagnostics.Object,
+                nullLobbyStateManager ? null : _lobbyStateManager.Object);
         }
     }
 }
