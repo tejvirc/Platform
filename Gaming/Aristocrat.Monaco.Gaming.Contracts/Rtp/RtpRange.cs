@@ -17,9 +17,16 @@
         public static RtpRange Zero = new ();
 
         /// <summary>
+        ///     Empty constructor for deserialization
+        /// </summary>
+        public RtpRange()
+        {
+        }
+
+        /// <summary>
         ///     Constructs a new RTP (Return to Player) range in percent.
         /// </summary>
-        public RtpRange(decimal min = decimal.Zero, decimal max = decimal.Zero)
+        public RtpRange(decimal min, decimal max) : this()
         {
             Minimum = min;
             Maximum = max;
