@@ -66,6 +66,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             {
                 _brightness = value;
                 _edgeLightingController.SetBrightnessForPriority(_brightness, StripPriority.PlatformTest);
+                OnPropertyChanged();
             }
         }
 
