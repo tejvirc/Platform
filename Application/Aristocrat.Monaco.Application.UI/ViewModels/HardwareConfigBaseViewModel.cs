@@ -413,7 +413,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             SubscribeToEvents();
 
-            if (IsWizardPage)
+            if (IsWizardPage && !(AutoConfigurator?.AutoConfigurationExists ?? false))
             {
                 StartDetection();
             }
