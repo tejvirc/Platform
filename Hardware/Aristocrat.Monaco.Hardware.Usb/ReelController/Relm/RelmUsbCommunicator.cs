@@ -639,6 +639,12 @@
         }
 
         /// <inheritdoc />
+        public Task<bool> HaltReels()
+        {
+            return _relmCommunicator.SendCommandAsync(new HaltReels());
+        }
+
+        /// <inheritdoc />
         public Task<bool> HomeReel(int reelId, int stop, bool resetStatus = true)
         {
             if (_relmCommunicator is null)
@@ -694,7 +700,7 @@
 
             if (deviceStatuses!.ReelStatuses.Any())
             {
-                var reelStatuses = deviceStatuses!.ReelStatuses.Select(x => x.ToReelStatus());
+                var reelStatuses = deviceStatuses.ReelStatuses.Select(x => x.ToReelStatus());
                 ReelStatusReceived?.Invoke(this, new ReelStatusReceivedEventArgs(reelStatuses));
             }
 

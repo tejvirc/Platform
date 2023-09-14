@@ -287,6 +287,12 @@ namespace Aristocrat.Monaco.Hardware.Fake
             OnDeviceAttached();
         }
 
+        /// <inheritdoc />
+        public Task<bool> HaltReels()
+        {
+            return Task.FromResult(false);
+        }
+
         /// <inheritdoc/>
         public Task<bool> HomeReel(int reelId, int stop, bool resetStatus = true)
         {

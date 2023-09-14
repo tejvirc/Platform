@@ -138,6 +138,18 @@
 
         public IEnumerable<Type> GetCapabilities() => _supportedCapabilities.Keys;
 
+        /// <inheritdoc />
+        public Task<bool> HaltReels()
+        {
+            if (_stateManager?.FireAll(ReelControllerTrigger.HaltReels) ?? false)
+            {
+                return _reelControllerImplementation.HaltReels();
+            }
+
+            Logger.Debug("HaltReels - Fire FAILED - CAN NOT HALT");
+            return Task.FromResult(false);
+        }
+
         public async Task<bool> HomeReels()
         {
             return await HomeReels(ReelHomeSteps);
@@ -552,6 +564,12 @@
                 if (!AddError(value))
                 {
                     continue;
+                }
+                
+                if (LogicalState == ReelControllerState.Halted && value == ReelFaults.IdleUnknown)
+                {
+                    Logger.Debug("Ignoring IdleUnknown fault while in halted state.");
+                    return;
                 }
 
                 Logger.Info($"ReelControllerFaultOccurred - ADDED {value} to the error list for reel {e.ReelId}");

@@ -143,6 +143,13 @@
         }
 
         /// <inheritdoc />
+        public Task<bool> HaltReels()
+        {
+            // Not supported by Harkey
+            return Task.FromResult(false);
+        }
+
+        /// <inheritdoc />
         public Task<bool> HomeReel(int reelId, int stop, bool resetStatus = true)
         {
             ClearFaults(reelId);

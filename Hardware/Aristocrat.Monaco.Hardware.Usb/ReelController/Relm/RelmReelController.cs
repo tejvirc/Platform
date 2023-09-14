@@ -283,6 +283,12 @@
         }
 
         /// <inheritdoc />
+        public Task<bool> HaltReels()
+        {
+            return _communicator.HaltReels();
+        }
+
+        /// <inheritdoc />
         public Task<bool> HomeReel(int reelId, int stop, bool resetStatus = true)
         {
             return _communicator.HomeReel(reelId, stop, resetStatus);
