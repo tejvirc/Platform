@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Audio
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Runtime.InteropServices;
 
     /// <summary>
@@ -284,19 +286,22 @@
         /// </summary>
         internal static bool IsSpeakerDeviceAvailable()
         {
-            IMMDevice device = null;
-            try
+            return GetPrimarySpeakerDevice()?.State == DeviceState.Active;
+        }
+
+        /// <summary>
+        ///     Check if device id corresponds to a speaker or not
+        /// </summary>
+        /// <param name="id">Device id to search for</param>
+        /// <returns></returns>
+        internal static bool IsSpeakerDevice(string id)
+        {
+            if (string.IsNullOrEmpty(id))
             {
-                device = GetDefaultAudioDevice();
-                return device != null;
+                throw new ArgumentException(nameof(id));
             }
-            finally
-            {
-                if (device != null)
-                {
-                    Marshal.ReleaseComObject(device);
-                }
-            }
+
+            return GetSpeakerDevices().Any(device => id.Equals(device.Id, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>
@@ -333,7 +338,7 @@
             IMMDevice speakers = null;
             try
             {
-                speakers = GetDefaultAudioDevice();
+                speakers = GetPrimarySpeakerDeviceCom();
                 if (speakers == null)
                 {
                     return null;
@@ -361,7 +366,7 @@
             IMMDevice speakers = null;
             try
             {
-                speakers = GetDefaultAudioDevice();
+                speakers = GetPrimarySpeakerDeviceCom();
                 if (speakers == null)
                 {
                     return null;
@@ -426,15 +431,34 @@
             }
         }
 
-        private static IMMDevice GetDefaultAudioDevice()
+        private static IEnumerable<MultimediaDevice> GetAudioDevices()
         {
             IMMDeviceEnumerator deviceEnumerator = null;
             try
             {
-                // get the speakers (1st render + multimedia) device
                 deviceEnumerator = CreateDeviceEnumerator();
-                deviceEnumerator.GetDefaultAudioEndpoint(EDataFlow.ERender, ERole.EMultimedia, out var speakers);
-                return speakers;
+                deviceEnumerator.EnumAudioEndpoints(EDataFlow.ERender, (uint)DeviceState.All, out var collection);
+
+                collection.GetCount(out var size);
+                for (uint i = 0; i < size; i++)
+                {
+                    IMMDevice device = null;
+                    try
+                    {
+                        collection?.Item(i, out device);
+                        if (device != null)
+                        {
+                            yield return new MultimediaDevice(device);
+                        }
+                    }
+                    finally
+                    {
+                        if (device != null)
+                        {
+                            Marshal.ReleaseComObject(device);
+                        }
+                    }
+                }
             }
             finally
             {
@@ -443,6 +467,78 @@
                     Marshal.ReleaseComObject(deviceEnumerator);
                 }
             }
+        }
+
+        private static MultimediaDevice GetPrimarySpeakerDevice()
+        {
+            var speakerDevices = GetSpeakerDevices();
+            var device = speakerDevices.FirstOrDefault(speaker => speaker.State == DeviceState.Active);
+            if (device != null)
+            {
+                return device;
+            }
+
+            return speakerDevices.FirstOrDefault();
+        }
+
+        private static IMMDevice GetPrimarySpeakerDeviceCom()
+        {
+            IMMDeviceEnumerator deviceEnumerator = null;
+            try
+            {
+                deviceEnumerator = CreateDeviceEnumerator();
+                deviceEnumerator.EnumAudioEndpoints(EDataFlow.ERender, (uint)DeviceState.All, out var collection);
+
+                collection.GetCount(out var size);
+                for (uint i = 0; i < size; i++)
+                {
+                    IMMDevice device = null;
+                    IPropertyStore properties = null;
+                    PropVariant property = default(PropVariant);
+                    try
+                    {
+                        collection?.Item(i, out device);
+                        if (device != null)
+                        {
+                            device.GetState(out var state);
+                            device.OpenPropertyStore(0, out properties);
+
+                            var propKey = PropKey.PKeyDeviceDeviceDesc();
+                            properties.GetValue(ref propKey, out property);
+                            if (state == DeviceState.Active && property.Value.ToString().Contains(MultimediaDevice.SpeakerDescriptor))
+                            {
+                                return device;
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        if (property._ptrVal != IntPtr.Zero)
+                        {
+                            property.Clear();
+                        }
+
+                        if (properties != null)
+                        {
+                            Marshal.ReleaseComObject(properties);
+                        }
+                    }
+                }
+            }
+            finally
+            {
+                if (deviceEnumerator != null)
+                {
+                    Marshal.ReleaseComObject(deviceEnumerator);
+                }
+            }
+
+            return null;
+        }
+
+        private static IEnumerable<MultimediaDevice> GetSpeakerDevices()
+        {
+            return GetAudioDevices().Where(device => device.IsSpeakerDevice);
         }
     }
 }

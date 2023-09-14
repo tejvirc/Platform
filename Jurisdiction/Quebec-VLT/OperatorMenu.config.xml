@@ -24,7 +24,7 @@ as follows:
     <Page Type="StatusPageViewModel" Access="GameIdleZeroCredits" />
   </Menu>
   <Menu Type="IdentificationMainPageLoader">
-    <Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="false" Access="ZeroGamesPlayed" />
+    <Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="true" Access="ZeroGamesPlayed" />
     <Page TabType="SerialGatPageLoader" Visible="false" />
   </Menu>
   <Menu Type="LogsMainPageLoader">

@@ -121,26 +121,9 @@ namespace Aristocrat.Monaco.Application.UI.Input
                         }
                     }
 
-                    // Do we have a designated primary display?
-                    var hasPrimaryDisplay = _cabinetDetection.ExpectedDisplayDevices.Any(d => d.IsPrimary);
-                    if (hasPrimaryDisplay)
-                    {
-                        // Yes, add the primary display to first.
-                        var primaryDisplay = _cabinetDetection.ExpectedDisplayDevices.FirstOrDefault(d => d.IsPrimary);
-                        if (primaryDisplay != null)
-                        {
-                            AddDisplayToCalibrationWindow(primaryDisplay);
-                        }
-                    }
-
                     // Add touch calibration window for each display.
                     foreach (var display in _cabinetDetection.ExpectedDisplayDevices)
                     {
-                        if (hasPrimaryDisplay && display.IsPrimary)
-                        {
-                            continue;
-                        }
-
                         AddDisplayToCalibrationWindow(display); 
                     }
 

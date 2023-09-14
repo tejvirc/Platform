@@ -175,5 +175,10 @@
         ///     Array of Display Properties
         /// </summary>
         public static readonly string[] Displays = { Display1, Display2, Display3, Display4, Display5 };
+
+        /// <summary>
+        ///     Property manager key for Note Definitions
+        /// </summary>
+        public const string NoteDefinitions = "NoteDefinitions";
     }
 }

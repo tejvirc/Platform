@@ -79,6 +79,7 @@
                 .Returns(100L);
             _propertiesManager.Setup(m => m.GetProperty(PropertyKey.CurrentBalance, It.IsAny<long>()))
                 .Returns(0L);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ShowMode, false)).Returns(false);
 
             _localizerFactory = MoqServiceManager.CreateAndAddService<ILocalizerFactory>(MockBehavior.Strict);
             _localizerFactory.Setup(m => m.For(It.IsAny<string>())).Returns<string>(

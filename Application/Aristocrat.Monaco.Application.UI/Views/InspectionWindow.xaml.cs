@@ -19,7 +19,7 @@ namespace Aristocrat.Monaco.Application.UI.Views
     public sealed partial class InspectionWindow : BaseWindow
     {
         private readonly BaseWindow _windowInfo = new BaseWindow();
-        private readonly WindowToScreenMapper _screenMapper = new WindowToScreenMapper(DisplayRole.Main, swapRoles: true, showCursor: true);
+        private readonly WindowToScreenMapper _screenMapper = new WindowToScreenMapper(DisplayRole.Main, showCursor: true);
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="InspectionWindow" /> class.

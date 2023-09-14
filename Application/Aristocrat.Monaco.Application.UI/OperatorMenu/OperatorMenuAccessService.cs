@@ -190,6 +190,8 @@
             }
         }
 
+        public bool ShowModeEnabled => _properties.GetValue(ApplicationConstants.ShowMode, false);
+
         public void RegisterAccessRule(
             IOperatorMenuConfigObject obj,
             string ruleSetName,
@@ -328,8 +330,13 @@
             AccessRuleSet ruleSet,
             IEnumerable<Action<bool, OperatorMenuAccessRestriction>> callbacks)
         {
-            if(TechnicianMode && _technicianModeLocked)
+            if (ruleSet.Name == Technician && TechnicianMode && _technicianModeLocked)
             {
+                foreach (var callback in callbacks)
+                {
+                    callback?.Invoke(true, OperatorMenuAccessRestriction.None);
+                }
+
                 return (true, OperatorMenuAccessRestriction.None);
             }
 
@@ -445,7 +452,7 @@
                     break;
 
                 case OperatorMenuAccessRestriction.ZeroCredits:
-                    access = _properties.GetValue(PropertyKey.CurrentBalance, 0L) == 0;
+                    access = ShowModeEnabled || _properties.GetValue(PropertyKey.CurrentBalance, 0L) == 0;
                     break;
 
                 case OperatorMenuAccessRestriction.ReadOnly:

@@ -65,6 +65,7 @@
             _propertiesManager.Setup(m => m.GetProperty("OperatorMenu.MetersScreen.PrintButton.Visibility", false)).Returns(false);
             _propertiesManager.Setup(m => m.GetProperty(PropertyKey.CurrentBalance, It.IsAny<long>()))
                 .Returns(0L);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ShowMode, false)).Returns(false);
 
             MeterClassification classification = new OccurrenceMeterClassification();
             _meter = new Mock<IMeter>(MockBehavior.Strict);

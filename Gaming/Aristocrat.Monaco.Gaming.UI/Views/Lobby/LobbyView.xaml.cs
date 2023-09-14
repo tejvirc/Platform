@@ -129,7 +129,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Views.Lobby
             }
 
             Logger.Debug("Creating overlay view");
-            _overlayWindow = _cabinetDetectionService.ExpectedDisplayDevices.Any(d => d.IsPrimary && d.Role == DisplayRole.Top) ? new OverlayWindow(_topView) : new OverlayWindow(this);
+            _overlayWindow = new OverlayWindow(this);
 
             Logger.Debug("Creating view model");
             ViewModel = new LobbyViewModel();

@@ -4,6 +4,10 @@
     using Runtime.Client;
     using System;
     using Contracts;
+    using Contracts.Lobby;
+    using Contracts.Models;
+    using Diagnostics;
+    using System.Linq;
 
     public class ReplayRuntimeEventHandler : IReplayRuntimeEventHandler
     {
@@ -11,17 +15,20 @@
         private readonly IGameProvider _gameProvider;
         private readonly IEventBus _bus;
         private readonly IGameDiagnostics _gameDiagnostics;
+        private readonly ILobbyStateManager _lobbyStateManager;
 
         public ReplayRuntimeEventHandler(
             IPropertiesManager properties,
             IGameProvider gameProvider,
             IEventBus bus,
-            IGameDiagnostics gameDiagnostics)
+            IGameDiagnostics gameDiagnostics,
+            ILobbyStateManager lobbyStateManager)
         {
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _gameDiagnostics = gameDiagnostics ?? throw new ArgumentNullException(nameof(gameDiagnostics));
+            _lobbyStateManager = lobbyStateManager ?? throw new ArgumentNullException(nameof(lobbyStateManager));
         }
 
         public void HandleEvent(ReplayGameRoundEvent replayGameRoundEvent)
@@ -50,6 +57,19 @@
                         _bus.Publish(new GamePresentationEndedEvent(game.Id, denomination.Value, wagerCategory.Id, context.Arguments));
                     }
                     else if (replayGameRoundEvent.Action == GameRoundEventAction.Invoked)
+                    {
+                        _bus.Publish(new GameReplayCompletedEvent());
+                    }
+
+                    break;
+
+                case GameRoundEventState.FreeGame:
+                    var replayContext = context as ReplayContext;
+
+                    if (_lobbyStateManager.CurrentState == LobbyState.GameDiagnostics &&
+                        replayGameRoundEvent.Action == GameRoundEventAction.Completed &&
+                        replayContext?.GameIndex != -1 &&
+                        replayContext?.GameIndex <= replayContext?.Arguments.FreeGames.Count())
                     {
                         _bus.Publish(new GameReplayCompletedEvent());
                     }

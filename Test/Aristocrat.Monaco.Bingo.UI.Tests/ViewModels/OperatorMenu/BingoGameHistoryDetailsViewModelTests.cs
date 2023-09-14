@@ -80,7 +80,7 @@
         public void UpdateData_LosingCard()
         {
             EstablishData(true, false, false);
-            _target = new BingoGameHistoryDetailsViewModel(_data);
+            _target = new BingoGameHistoryDetailsViewModel(new List<BingoGameDescription> { _data });
 
             var result = _target.BingoRoundData;
 
@@ -113,7 +113,7 @@
         public void CardNote()
         {
             EstablishData();
-            _target = new BingoGameHistoryDetailsViewModel(_data);
+            _target = new BingoGameHistoryDetailsViewModel(new List<BingoGameDescription> { _data });
 
             var result = _target.CardNote;
 
@@ -129,7 +129,7 @@
         public void PatternNote(bool losingCard, bool singlePatternCard, bool multiPatternCard)
         {
             EstablishData(losingCard, singlePatternCard, multiPatternCard);
-            _target = new BingoGameHistoryDetailsViewModel(_data);
+            _target = new BingoGameHistoryDetailsViewModel(new List<BingoGameDescription> { _data });
 
             var result = _target.PatternNote;
 
@@ -150,7 +150,7 @@
         public void DisplayNextCardCommand()
         {
             EstablishData();
-            _target = new BingoGameHistoryDetailsViewModel(_data);
+            _target = new BingoGameHistoryDetailsViewModel(new List<BingoGameDescription> { _data });
 
             var initialCard = _target.BingoRoundData.CurrentCard;
             var initialCardNote = _target.CardNote;
@@ -196,7 +196,7 @@
         public void DisplayPreviousCardCommand()
         {
             EstablishData();
-            _target = new BingoGameHistoryDetailsViewModel(_data);
+            _target = new BingoGameHistoryDetailsViewModel(new List<BingoGameDescription> { _data });
 
             var initialCard = _target.BingoRoundData.CurrentCard;
             var initialCardNote = _target.CardNote;
@@ -242,7 +242,7 @@
         public void DisplayNextPatternCommand()
         {
             EstablishData(false, false);
-            _target = new BingoGameHistoryDetailsViewModel(_data);
+            _target = new BingoGameHistoryDetailsViewModel(new List<BingoGameDescription> { _data });
 
             var initialPattern = _target.BingoRoundData.CurrentPattern;
             var initialPatternNote = _target.PatternNote;
@@ -280,7 +280,7 @@
         public void DisplayPreviousPatternCommand()
         {
             EstablishData(false, false);
-            _target = new BingoGameHistoryDetailsViewModel(_data);
+            _target = new BingoGameHistoryDetailsViewModel(new List<BingoGameDescription> { _data });
 
             var initialPattern = _target.BingoRoundData.CurrentPattern;
             var initialPatternNote = _target.PatternNote;

@@ -41,7 +41,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Meter}" 
                                     loc:Localizer.For="Operator"
-                                    Width="360" 
+                                    Width="Auto"
                                     Binding="{Binding Name}" 
                                     AutomationProperties.AutomationId="DataGridTextColumn5_8109713E" />
                 <DataGridTextColumn Header="{lex:Loc Count}" 
@@ -66,7 +66,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="{lex:Loc Meter}" 
                                     loc:Localizer.For="Operator"
-                                    Width="380" 
+                                    Width="Auto"
                                     Binding="{Binding Name}" 
                                     AutomationProperties.AutomationId="DataGridTextColumn8_8109713E" />
                 <DataGridTextColumn Header="{lex:Loc Count}" 

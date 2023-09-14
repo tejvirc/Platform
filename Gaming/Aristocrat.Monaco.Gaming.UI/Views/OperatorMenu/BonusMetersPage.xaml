@@ -47,7 +47,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc MachinePaidBonusAwardsLabel}"
                                         loc:Localizer.For="Operator"
-                                        Width="460"
+                                        Width="Auto"
                                         Binding="{Binding Name}"
                                         AutomationProperties.AutomationId="DataGridTextColumn7_7F68A5EA" />
                     <DataGridTextColumn Header="{lex:Loc Value}"
@@ -108,7 +108,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc AttendantPaidBonusAwardsLabel}"
                                         loc:Localizer.For="Operator"
-                                        Width="460"
+                                        Width="Auto"
                                         Binding="{Binding Name}"
                                         AutomationProperties.AutomationId="DataGridTextColumn18_7F68A5EA" />
                     <DataGridTextColumn Header="{lex:Loc Value}"

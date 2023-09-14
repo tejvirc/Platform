@@ -1,4 +1,4 @@
-namespace Aristocrat.Monaco.Gaming
+﻿namespace Aristocrat.Monaco.Gaming
 {
     using System;
     using System.Collections.Generic;
@@ -37,7 +37,8 @@ namespace Aristocrat.Monaco.Gaming
         private int _processId;
         private bool _running;
         private GameInitRequest _lastRequest;
-        private readonly object _sync = new();
+        private readonly object _sync = new(); 
+        private readonly object _ipcLock = new();
 
         public GameService(
             IEventBus eventBus,
@@ -99,9 +100,12 @@ namespace Aristocrat.Monaco.Gaming
 
             StoreSelectedGame(request);
 
-            _ipc.StartComms();
+            lock (_ipcLock)
+            {
+                _ipc.StartComms();
 
-            _processId = _process.StartGameProcess(request);
+                _processId = _process.StartGameProcess(request);
+            }
 
             Logger.Info("Game process Started.");
         }
@@ -159,6 +163,7 @@ namespace Aristocrat.Monaco.Gaming
             {
                 _ipc.EndComms();
                 _eventBus.Publish(new GameShutdownCompletedEvent());
+                EndCommsSafe();
             }
         }
 
@@ -218,7 +223,7 @@ namespace Aristocrat.Monaco.Gaming
                 _process.EndGameProcess(processId, notifyExited, terminateExpected);
             }
 
-            _ipc.EndComms();
+            EndCommsSafe();
 
             _processId = 0;
             Logger.Info("All game processes and IPC terminated.");
@@ -270,6 +275,17 @@ namespace Aristocrat.Monaco.Gaming
             var json = JsonConvert.SerializeObject(gameConfigPropValue, Formatting.None);
 
             _propertiesManager.SetProperty(GamingConstants.GameConfiguration, json);
+        } 
+        
+        private void EndCommsSafe()
+        {
+            lock (_ipcLock)
+            {
+                if (!_process.IsRunning(_processId))
+                {
+                    _ipc.EndComms();
+                }
+            }
         }
     }
 }

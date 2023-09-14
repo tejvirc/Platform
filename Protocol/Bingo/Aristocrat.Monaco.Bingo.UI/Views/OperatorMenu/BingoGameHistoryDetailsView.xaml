@@ -10,7 +10,8 @@
     xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu"
     xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu;assembly=Aristocrat.Monaco.Application.UI"
     xmlns:loc="http://monaco.aristocrat.com/localization"
-    xmlns:converters="clr-namespace:Aristocrat.Monaco.Bingo.UI.Converters"
+                               xmlns:commonConverters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters;assembly=Aristocrat.Monaco.UI.Common"
+                               xmlns:bingoConverters="clr-namespace:Aristocrat.Monaco.Bingo.UI.Converters"
     mc:Ignorable="d" 
     d:DataContext="{d:DesignInstance viewModels:BingoGameHistoryDetailsViewModel}">
 
@@ -19,8 +20,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Controls.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/OperatorMenu.xaml" />
+                <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <converters:BingoNumberToStringConverter x:Key="BingoNumberToStringConverter" />
+            <bingoConverters:BingoNumberToStringConverter x:Key="BingoNumberToStringConverter" />
+            <commonConverters:BoolToVisibilityConverter x:Key="BoolToVisConverter" />
             <Style TargetType="Label"
                    BasedOn="{StaticResource MonacoLabel}">
                 <Setter Property="Margin"
@@ -187,14 +190,20 @@
                     </ItemsControl>
                     <!-- Card Serial -->
                     <StackPanel Margin="0,5,0,0"
-                                VerticalAlignment="Bottom"
                                 Orientation="Horizontal"
                                 AutomationProperties.AutomationId="StackPanel25_93A15CA">
                         <Label Content="{lex:Loc BingoCardSerialNumber}"
                                AutomationProperties.AutomationId="Label26_93A15CA" />
-                        <Label Foreground="{DynamicResource LightBrush4}"
+                        <StackPanel Orientation="Horizontal" 
+                                AutomationProperties.AutomationId="StackPanel61_93A15CA">
+                            <Label Foreground="{DynamicResource LightBrush4}"
                                Content="{Binding BingoRoundData.CurrentCard.SerialNumber}"
                                AutomationProperties.AutomationId="Label27_93A15CA" />
+                            <Label Foreground="{DynamicResource YellowBrush}" 
+                               Content="(Golden)" 
+                               Visibility="{Binding BingoRoundData.CurrentCard.IsGolden, Converter={StaticResource BoolToVisConverter}}"                                   
+                               AutomationProperties.AutomationId="Label66_93A15CA" />
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </Border>

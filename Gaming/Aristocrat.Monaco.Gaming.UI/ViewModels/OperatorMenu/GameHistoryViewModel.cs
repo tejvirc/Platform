@@ -1141,7 +1141,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             logs = GetItemsToPrint(logs, dataType).ToList();
 
-            if (logs.Count > 0 && logs[0].EndTime.Equals(DateTime.MinValue))
+            if (logs.Count > 0 && logs[0].EndTime.Equals(DateTime.MinValue) && !logs[0].IsTransactionItem)
             {
                 // remove the first game if it is in progress
                 logs.RemoveAt(0);

@@ -21,7 +21,7 @@
     <ProjectReference Include="..\..\Shared\Aristocrat.Monaco.Localization\Aristocrat.Monaco.Localization.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.0-beta0014"/>
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.0-beta0029"/>
     <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
   </ItemGroup>
 </Project>

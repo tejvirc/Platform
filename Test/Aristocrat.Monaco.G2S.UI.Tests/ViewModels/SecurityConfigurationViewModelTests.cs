@@ -50,6 +50,7 @@
 
             _propertiesManagerMock = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Default);
             _propertiesManagerMock.Setup(p => p.GetProperty(Constants.EgmId, null)).Returns("ATI_TEST123");
+            _propertiesManagerMock.Setup(m => m.GetProperty(ApplicationConstants.ShowMode, false)).Returns(false);
             //_propertiesManagerMock.Setup(m => m.GetProperty(ApplicationConstants.OperatorMenuPrintButtonOptionsPrintLast15, true))
             //    .Returns(true);
             //_propertiesManagerMock.Setup(m => m.GetProperty(ApplicationConstants.OperatorMenuTechnicianModeRestrictions, false))

@@ -35,7 +35,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu
 
         private const int NumberModelFontSize = 17;
 
-        public BingoGameHistoryDetailsViewModel(BingoGameDescription bingoGame)
+        public BingoGameHistoryDetailsViewModel(IEnumerable<BingoGameDescription> bingoGames)
         {
             _noPatternInfoToDisplay = Localizer.For(CultureFor.Operator)
                 .GetString(ResourceKeys.NoBingoPatternInformationToDisplay);
@@ -49,7 +49,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu
             DisplayPreviousPatternCommand = new RelayCommand<object>(DisplayPreviousPattern);
             DisplayNextCardCommand = new RelayCommand<object>(DisplayNextCard);
             DisplayPreviousCardCommand = new RelayCommand<object>(DisplayPreviousCard);
-            BingoRoundData = GetRoundData(bingoGame ?? throw new ArgumentNullException(nameof(bingoGame)));
+            BingoRoundData = GetRoundData(bingoGames ?? throw new ArgumentNullException(nameof(bingoGames)));
 
             BingoRoundData.UpdateDaubing();
         }
@@ -97,19 +97,25 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu
         /// </summary>
         public ICommand DisplayPreviousCardCommand { get; }
 
-        private static BingoGameRoundModel GetRoundData(BingoGameDescription bingoGame)
+        private static BingoGameRoundModel GetRoundData(IEnumerable<BingoGameDescription> bingoGames)
         {
+            var cards = new List<BingoCardModel>();
+            foreach (var description in bingoGames)
+            {
+                cards.AddRange(description.Cards.Select(c => ToBingoCardModel(c, description)));
+            }
             return new BingoGameRoundModel(
-                bingoGame.Cards.Select(ToBingoCardModel).ToList(),
-                new BingoBallCallModel(GenerateNumberModels(bingoGame.BallCallNumbers)),
-                bingoGame.GameSerial);
+                cards,
+                new BingoBallCallModel(GenerateNumberModels(bingoGames.First().BallCallNumbers)),
+                bingoGames.First().GameSerial);
 
-            BingoCardModel ToBingoCardModel(BingoCard card) =>
+            BingoCardModel ToBingoCardModel(BingoCard card, BingoGameDescription bingoGame) =>
                 new BingoCardModel(
-                    GenerateNumberModels(card, true),
-                    bingoGame.Patterns.Where(x => KeepPattern(x, card)).Select(ToBingoPatternModel).ToList(),
-                    card.SerialNumber,
-                    card.DaubedBits);
+                        GenerateNumberModels(card, true),
+                        bingoGame.Patterns.Where(x => KeepPattern(x, card, bingoGame)).Select(ToBingoPatternModel).ToList(),
+                        card.SerialNumber,
+                        card.DaubedBits,
+                        card.IsGolden);
 
             BingoPatternModel ToBingoPatternModel(BingoPattern pattern) =>
                 new BingoPatternModel(
@@ -119,7 +125,7 @@ namespace Aristocrat.Monaco.Bingo.UI.ViewModels.OperatorMenu
                     pattern.BitFlags,
                     pattern.WinAmount);
 
-            bool KeepPattern(BingoPattern x, BingoCard card) =>
+            bool KeepPattern(BingoPattern x, BingoCard card, BingoGameDescription bingoGame) =>
                 x.CardSerial == card.SerialNumber && (!x.IsGameEndWin || bingoGame.GameEndWinClaimAccepted);
         }
 

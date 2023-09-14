@@ -73,6 +73,7 @@
             _propertiesManager.Setup(m => m.GetProperty("System.VoucherIn", true)).Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.CurrencyMeterRolloverText, It.IsAny<long>()))
                 .Returns(100L);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ShowMode, false)).Returns(false);
             _propertiesManager.Setup(m => m.GetProperty(PropertyKey.CurrentBalance, It.IsAny<long>()))
                 .Returns(0L);
 

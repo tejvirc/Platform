@@ -112,6 +112,7 @@
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.ReplayPauseEnable, true)).Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.KeepGameRoundEvents, true)).Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ReelControllerEnabled, false)).Returns(false);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ShowMode, false)).Returns(false);
             _eventBus.Setup(m => m.Subscribe(It.IsAny<GameHistoryViewModel>(), It.IsAny<Action<TransactionCompletedEvent>>()))
                 .Callback<object, Action<TransactionCompletedEvent>>((_, action) => _handleProtocolInitializedEvent = action);
 
