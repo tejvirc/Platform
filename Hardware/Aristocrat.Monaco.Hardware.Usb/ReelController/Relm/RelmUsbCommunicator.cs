@@ -8,8 +8,10 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Common;
     using Common.Cryptography;
     using Contracts;
+    using Contracts.Cabinet;
     using Contracts.Communicator;
     using Contracts.Reel;
     using Contracts.Reel.ControlData;
@@ -36,14 +38,18 @@
         private const int DefaultHomeStepValue = 5;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
         private readonly IPropertiesManager _propertiesManager;
+        private readonly IEventBus _eventBus;
         private readonly HashSet<AnimationFile> _animationFiles = new();
         private readonly ConcurrentDictionary<string, uint> _tags = new();
 
         private RelmReels.Communicator.IRelmCommunicator _relmCommunicator;
         private bool _disposed;
         private uint _firmwareSize;
-        private int[] _reelOffsets = {0, 0, 0, 0, 0, 0};
+        private int[] _reelOffsets = { 0, 0, 0, 0, 0, 0 };
+        private bool _initialized;
+        private bool _resetting;
 
         /// <summary>
         ///     Instantiates a new instance of the RelmUsbCommunicator class
@@ -51,7 +57,8 @@
         public RelmUsbCommunicator()
             : this(new RelmCommunicator(new VerificationFactory(),
                 RelmConstants.DefaultKeepAlive),
-                ServiceManager.GetInstance().GetService<IPropertiesManager>())
+                ServiceManager.GetInstance().GetService<IPropertiesManager>(),
+                ServiceManager.GetInstance().GetService<IEventBus>())
         {
         }
 
@@ -60,24 +67,26 @@
         /// </summary>
         /// <param name="communicator">The Relm communicator</param>
         /// <param name="propertiesManager">The properties manager</param>
-        public RelmUsbCommunicator(RelmReels.Communicator.IRelmCommunicator communicator, IPropertiesManager propertiesManager)
+        /// <param name="eventBus">The event bus</param>
+        public RelmUsbCommunicator(RelmReels.Communicator.IRelmCommunicator communicator, IPropertiesManager propertiesManager, IEventBus eventBus)
         {
             _relmCommunicator = communicator;
             _propertiesManager = propertiesManager;
+            _eventBus = eventBus;
         }
 
-#pragma warning disable 67
-        // TODO: Wire up DFU events
         /// <inheritdoc />
         public event EventHandler<EventArgs> DeviceAttached;
 
         /// <inheritdoc />
         public event EventHandler<EventArgs> DeviceDetached;
 
+#pragma warning disable 67
+        // TODO: Wire up DFU events
         /// <inheritdoc />
         public event EventHandler<ProgressEventArgs> DownloadProgressed;
 #pragma warning restore 67
-        
+
         /// <inheritdoc />
         public event EventHandler<LightEventArgs> LightStatusReceived;
 
@@ -92,40 +101,40 @@
 
         /// <inheritdoc />
         public event EventHandler<ReelSpinningEventArgs> ReelSpinningStatusReceived;
-        
+
         /// <inheritdoc />
         public event EventHandler<ReelStoppingEventArgs> ReelStopping;
-        
+
         /// <inheritdoc />
         public event EventHandler<StepperRuleTriggeredEventArgs> StepperRuleTriggered;
-        
+
         /// <inheritdoc />
         public event EventHandler<ReelSynchronizationEventArgs> SynchronizationStarted;
-        
+
         /// <inheritdoc />
         public event EventHandler<ReelSynchronizationEventArgs> SynchronizationCompleted;
-        
+
         /// <inheritdoc />
         public event EventHandler AllLightAnimationsCleared;
-        
+
         /// <inheritdoc />
         public event EventHandler<LightAnimationEventArgs> LightAnimationRemoved;
-        
+
         /// <inheritdoc />
         public event EventHandler<LightAnimationEventArgs> LightAnimationStarted;
-        
+
         /// <inheritdoc />
         public event EventHandler<LightAnimationEventArgs> LightAnimationStopped;
-        
+
         /// <inheritdoc />
         public event EventHandler<LightAnimationEventArgs> LightAnimationPrepared;
-        
+
         /// <inheritdoc />
         public event EventHandler<ReelAnimationEventArgs> ReelAnimationStarted;
-        
+
         /// <inheritdoc />
         public event EventHandler<ReelAnimationEventArgs> ReelAnimationStopped;
-        
+
         /// <inheritdoc />
         public event EventHandler<ReelAnimationEventArgs> ReelAnimationPrepared;
 
@@ -155,11 +164,11 @@
         // TODO: Wire this up
         /// <inheritdoc />
         public int VendorId => 0;
-        
+
         // TODO: Wire this up
         /// <inheritdoc />
         public int ProductId => 0;
-        
+
         // TODO: Wire this up
         /// <inheritdoc />
         public int ProductIdDfu => 0;
@@ -208,35 +217,19 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            if (!IsOpen && !Open())
+            _initialized = false;
+            if (_relmCommunicator is not null)
             {
-                return;
+                _relmCommunicator.InterruptReceived += OnInterruptReceived;
+                _relmCommunicator.PingTimeoutCleared += OnPingTimeoutCleared;
+                _relmCommunicator.DeviceDetached += OnDeviceDetached;
+
+                _eventBus.Subscribe<DeviceConnectedEvent>(this, HandleDeviceConnected);
+
+                await InnerOpen(true);
             }
 
-            if (!_propertiesManager.GetValue(HardwareConstants.DoNotResetRelmController, false))
-            {
-                await _relmCommunicator?.SendCommandAsync(new Reset())!;
-            }
-
-            _relmCommunicator!.KeepAliveEnabled = true;
-            _relmCommunicator.InterruptReceived += OnInterruptReceived;
-            _relmCommunicator.PingTimeoutCleared += OnPingTimeoutCleared;
-
-            await _relmCommunicator?.SendQueryAsync<RelmVersionInfo>()!;
-            var (success, configuration) = await _relmCommunicator?.SendQueryAsync<DeviceConfiguration>()!;
-            if (success)
-            {
-                Logger.Debug($"Reel controller connected with {configuration!.NumReels} reel and {configuration.NumLights} lights. {configuration}");
-            }
-
-            var (firmwareSuccess, firmwareSize) = await _relmCommunicator?.SendQueryAsync<FirmwareSize>()!;
-            if (firmwareSuccess)
-            {
-                _firmwareSize = firmwareSize!.Size;
-                Logger.Debug($"Reel controller firmware size is {_firmwareSize}");
-            }
-
-            await RequestDeviceStatuses();
+            _initialized = true;
         }
 
         /// <inheritdoc />
@@ -655,7 +648,7 @@
             byte reel = (byte)(reelId - 1);
             var reelStepInfo = new ReelStepInfo(reel, (short)(stop + _reelOffsets[reel]));
 
-            _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo>{ reelStepInfo }));
+            _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo> { reelStepInfo }));
             return Task.FromResult(true);
         }
 
@@ -668,7 +661,7 @@
             }
 
             _reelOffsets = offsets;
-            
+
             return Task.FromResult(true);
         }
 
@@ -946,8 +939,7 @@
                     break;
 
                 case ReelSlowSpin:
-                    RaiseReelSpinningStatusUpdated(
-                        ReelSpinningEventArgs.CreateForSlowSpinning(reelIndex));
+                    RaiseReelSpinningStatusUpdated(ReelSpinningEventArgs.CreateForSlowSpinning(reelIndex));
                     break;
 
                 case ReelTamperingDetected:
@@ -1017,8 +1009,8 @@
 
             void RaiseReelSpinningStatusUpdated(ReelSpinningEventArgs eventArgs)
             {
-                ReelSpinningStatusReceived?.Invoke(this, eventArgs);
                 RaiseStatus(x => x.Connected = true);   // receiving a reel spin status means the reel must be connected
+                ReelSpinningStatusReceived?.Invoke(this, eventArgs);
             }
         }
 
@@ -1039,12 +1031,14 @@
             {
                 communicator.InterruptReceived -= OnInterruptReceived;
                 communicator.PingTimeoutCleared -= OnPingTimeoutCleared;
+                communicator.DeviceDetached -= OnDeviceDetached;
 
                 _relmCommunicator = null;
                 communicator.Close();
                 communicator.Dispose();
             }
 
+            _eventBus.UnsubscribeAll(this);
             _disposed = true;
         }
 
@@ -1061,6 +1055,64 @@
         private string GetTag(uint tagId)
         {
             return _tags.FirstOrDefault(x => x.Value == tagId).Key ?? string.Empty;
+        }
+
+        private void HandleDeviceConnected(DeviceConnectedEvent evt)
+        {
+            if (_initialized && !_resetting &&
+                evt.IsForVidPid(RelmConstants.VendorId, RelmConstants.ProductId))
+            {
+                InnerOpen(false).FireAndForget(Logger.Error);
+            }
+        }
+
+        private async Task InnerOpen(bool initializing)
+        {
+            if (!IsOpen && !Open())
+            {
+                return;
+            }
+
+            if (initializing &&
+                !_propertiesManager.GetValue(HardwareConstants.DoNotResetRelmController, false))
+            {
+                _resetting = true;
+                await _relmCommunicator?.SendCommandAsync(new Reset())!;
+                _resetting = false;
+
+                // the reset failed and the connection could not be reopened
+                if (!_relmCommunicator.IsOpen)
+                {
+                    OnDeviceDetached(this, EventArgs.Empty);
+                }
+            }
+
+            _relmCommunicator!.KeepAliveEnabled = true;
+
+            await _relmCommunicator?.SendQueryAsync<RelmVersionInfo>()!;
+            var (success, configuration) = await _relmCommunicator?.SendQueryAsync<DeviceConfiguration>()!;
+            if (success)
+            {
+                Logger.Debug($"Reel controller connected with {configuration!.NumReels} reel and {configuration.NumLights} lights. {configuration}");
+            }
+
+            var (firmwareSuccess, firmwareSize) = await _relmCommunicator?.SendQueryAsync<FirmwareSize>()!;
+            if (firmwareSuccess)
+            {
+                _firmwareSize = firmwareSize!.Size;
+                Logger.Debug($"Reel controller firmware size is {_firmwareSize}");
+            }
+
+            await RequestDeviceStatuses();
+            DeviceAttached?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnDeviceDetached(object sender, EventArgs e)
+        {
+            if (!_resetting)
+            {
+                DeviceDetached?.Invoke(sender, e);
+            }
         }
     }
 }

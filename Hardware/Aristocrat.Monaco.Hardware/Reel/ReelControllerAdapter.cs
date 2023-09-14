@@ -271,10 +271,12 @@
                     Implementation.Dispose();
                     _reelControllerImplementation = null;
 
-                    foreach (var capability in _supportedCapabilities)
+                    var keys = _supportedCapabilities.Keys.ToArray();
+                    foreach (var key in keys)
                     {
-                        capability.Value.Dispose();
-                        _supportedCapabilities[capability.Key] = null;
+                        var capability = _supportedCapabilities[key];
+                        capability.Dispose();
+                        _supportedCapabilities[key] = null;
                     }
 
                     _supportedCapabilities.Clear();
@@ -448,8 +450,11 @@
             RegisterComponent();
             Initialized = true;
 
-            _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
-                .ToDictionary(x => x.Key, x => x.Value);
+            if (!_supportedCapabilities.Any())
+            {
+                _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
+                    .ToDictionary(x => x.Key, x => x.Value);
+            }
 
             InitializeReels().WaitForCompletion();
             SetReelOffsets(_reelOffsets.ToArray());

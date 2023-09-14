@@ -37,6 +37,7 @@
         private readonly uint _tagId = Tag.HashDjb2();
         private RelmUsbCommunicator _usbCommunicator;
         private Mock<IPropertiesManager> _propertiesManager;
+        private Mock<IEventBus> _eventBus;
 
         [TestInitialize]
         public void Initialize()
@@ -72,7 +73,8 @@
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoNotResetRelmController, It.IsAny<bool>())).Returns(false);
-            _usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object);
+            _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Loose);
+            _usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _eventBus.Object);
         }
 
         [TestCleanup]
