@@ -1531,7 +1531,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             if (_playerCashoutProcessed && !MessageOverlayDisplay.IsOverlayWindowVisible)
             {
                 Logger.Debug("Player cashed out. Returning player to Lobby and changing Language to default.");
-                MvvmHelper.ExecuteOnUI(() =>
+                Execute.OnUIThread(() =>
                 {
                     IsPrimaryLanguageSelected = true;
                     _runtime.SetRequestExitGame(true);
