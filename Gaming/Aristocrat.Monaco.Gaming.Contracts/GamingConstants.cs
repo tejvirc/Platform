@@ -197,7 +197,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         ///     Default value for WinDestination
         /// </summary>
         public const string WinDestination = "win";
-        
+
         /// <summary>
         ///     Property key for DisplayGamePayMessageUse
         /// </summary>
@@ -627,6 +627,11 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         public static readonly int DefaultMaximumGameRoundDurationMs = 10000;
 
         /// <summary>
+        ///     Volume set by game
+        /// </summary>
+        public static readonly string GameVolumeKey = "GameVolume";
+
+        /// <summary>
         ///     Determines if reel stop is enabled
         /// </summary>
         public const string ReelStopEnabled = @"Cabinet.ReelStop";
@@ -745,7 +750,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         ///     Determines if AllowZeroCreditCashout is enabled
         /// </summary>
         public const string AllowZeroCreditCashout = @"AllowZeroCreditCashout";
-        
+
         /// <summary>
         ///     Property manager key for DefaultCreditDisplay
         /// </summary>
@@ -850,7 +855,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         ///     Buttons that start continuous play mode
         /// </summary>
         public const string ContinuousPlayModeButtonsToUse = @"GamePlay.ContinuousPlaySupport.ButtonsToUse";
-        
+
         /// <summary>
         ///     When enabled, it will retain last round result for roulette games.
         /// </summary>
@@ -1100,7 +1105,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         ///     flag to indicate if auto play is currently active
         /// </summary>
         public const string AutoPlayActive = "AutoPlayActive";
-        
+
         /// <summary>
         ///     Determines whether or not the Voucher Issued message is displayed in game
         /// </summary>
@@ -1582,7 +1587,7 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         ///     verify all Linked Progressive RTP values for all games that have Linked Progressives.
         /// </summary>
         public static string LinkedProgressiveVerificationEnabled = "LinkedProgressiveVerificationEnabled";
-        
+
         /// <summary>
         ///     Encapsulate Player Information Display options
         /// </summary>

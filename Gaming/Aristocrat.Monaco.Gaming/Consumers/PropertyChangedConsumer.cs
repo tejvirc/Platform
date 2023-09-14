@@ -38,7 +38,9 @@
                 ApplicationConstants.VolumeControlLocationDefault);
             var showVolumeControlInLobbyOnly = volumeControlLocation == VolumeControlLocation.Lobby;
 
-            _runtime.UpdateVolume(_audio.GetMaxVolume(_properties, _gameCategoryService, showVolumeControlInLobbyOnly));
+            var maxVolume = _audio.GetMaxVolume(_properties, _gameCategoryService, showVolumeControlInLobbyOnly);
+            _runtime.UpdateVolume(maxVolume);
+            _properties.SetProperty(GamingConstants.GameVolumeKey, maxVolume);
         }
     }
 }
