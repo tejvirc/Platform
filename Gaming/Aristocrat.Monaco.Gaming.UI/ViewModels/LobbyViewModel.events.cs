@@ -241,6 +241,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void HandleEvent(CashOutButtonPressedEvent evt)
         {
             MessageOverlayDisplay.UpdateCashoutButtonState(true);
+            _playerCashoutProcessed = true;
         }
 
         private void HandleEvent(DisplayConnectedEvent evt)
@@ -1525,6 +1526,16 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                     _runtime.SetRequestExitGame(true);
                 });
                 _overlimitCashoutProcessed = false;
+            }
+            if(_playerCashoutProcessed && !MessageOverlayDisplay.IsOverlayWindowVisible)
+            {
+                Logger.Debug("Player cashed out. Returning player to Lobby and changing Language to default.");
+                MvvmHelper.ExecuteOnUI(() =>
+                {
+                    IsPrimaryLanguageSelected = true;
+                    _runtime.SetRequestExitGame(true);
+                });
+                _playerCashoutProcessed = false;
             }
         }
 
