@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hardware.Contracts
+namespace Aristocrat.Monaco.Hardware.Contracts
 {
     using System;
 
@@ -180,5 +180,12 @@
         ///     Property manager key for Note Definitions
         /// </summary>
         public const string NoteDefinitions = "NoteDefinitions";
+        ///     Key used to get the preset volume level
+        /// </summary>
+        public const string VolumePreset = "VolumePreset";
+        /// <summary>
+        ///     Key used to get the preset volume level
+        /// </summary>
+        public const string VolumeScalarPreset = "VolumeScalarPreset";
     }
 }
