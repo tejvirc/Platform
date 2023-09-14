@@ -489,7 +489,7 @@
             return new List<Ticket>();
         }
 
-        protected virtual CultureInfo GetCurrencyDisplayCulture() => UseOperatorCultureForCurrencyFormatting ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
+        protected virtual CultureInfo GetCurrencyDisplayCulture() => CurrencyExtensions.CurrencyDisplayCulture;
 
         protected IEnumerable<Ticket> GeneratePrintVerificationTickets()
         {

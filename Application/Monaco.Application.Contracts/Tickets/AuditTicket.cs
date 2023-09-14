@@ -16,7 +16,9 @@
     public class AuditTicket : TextTicket
     {
         private const string Culture = CultureFor.OperatorTicket;
-        private const int MaxPrintPropertyNameLength = 29;
+
+        /// <summary>The maximum length the establishment name can be on a single line</summary>
+        protected const int MaxPrintPropertyNameLength = 29;
 
         /// <inheritdoc />
         public AuditTicket(string titleOverride = null) : base(Localizer.For(Culture))
@@ -107,7 +109,7 @@
             // Currency name
             AddLabeledLine(ResourceKeys.Currency, CurrencyExtensions.Currency.CurrencyName);
 
-            AddLine(null, null, null);
+            AddDashesLine();
         }
 
         /// <inheritdoc />

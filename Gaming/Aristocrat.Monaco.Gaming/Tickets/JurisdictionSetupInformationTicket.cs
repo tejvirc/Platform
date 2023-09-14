@@ -1,11 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Tickets
 {
+    using System.Linq;
+    using Contracts;
+    using Application.Tickets;
     using Application.Contracts;
     using Application.Contracts.OperatorMenu;
-    using Application.Tickets;
-    using Contracts;
-    using Hardware.Contracts.HardMeter;
+    using Application.Contracts.Extensions;
     using Kernel;
+    using Kernel.Contracts;
+    using Hardware.Contracts.HardMeter;
     using Localization.Properties;
 
     public class JurisdictionSetupInformationTicket : AuditTicket
@@ -19,7 +22,7 @@
         {
             if (string.IsNullOrEmpty(titleOverride))
             {
-                UpdateTitle(TicketLocalizer.GetString(ResourceKeys.JurisdictionSetupInformation));
+                UpdateTitle(TicketLocalizer.GetString(ResourceKeys.JurisdictionSetupInformation).ToUpper(TicketLocalizer.CurrentCulture));
             }
 
             _defaultAnyGameMinimum = PropertiesManager.GetValue(
@@ -30,11 +33,51 @@
                 int.MaxValue);
         }
 
+        public override void AddTicketHeader()
+        {
+            AddEmptyLines();
+            AddLabeledLine(ResourceKeys.DateAndTime, Time.GetLocationTime().ToString(DateTimeFormat));
+
+            var serialNumber =
+                PropertiesManager.GetValue(ApplicationConstants.SerialNumber, TicketLocalizer.GetString(ResourceKeys.DataUnavailable));
+            AddLabeledLine(ResourceKeys.SerialNumber, serialNumber);
+
+            var machineId = PropertiesManager.GetValue(ApplicationConstants.MachineId, (uint)0);
+            var assetNumber = string.Empty;
+            if (machineId != 0)
+            {
+                assetNumber = machineId.ToString();
+            }
+
+            AddLabeledLine(ResourceKeys.AssetNumber, assetNumber);
+
+            AddLabeledLine(
+                ResourceKeys.MacAddressLabel,
+                string.Join(":", Enumerable.Range(0, 6).Select(i => NetworkInterfaceInfo.DefaultPhysicalAddress.Substring(i * 2, 2))));
+
+            var propertyName = (string)PropertiesManager.GetProperty(PropertyKey.TicketTextLine1, string.Empty);
+            if (propertyName.Length > MaxPrintPropertyNameLength)
+            {
+                AddLabeledLine(ResourceKeys.PropertyName, propertyName.Substring(0, MaxPrintPropertyNameLength));
+                AddLabeledLine(string.Empty, propertyName.Substring(MaxPrintPropertyNameLength).PadRight(MaxPrintPropertyNameLength, ' '), false);
+            }
+            else
+            {
+                AddLabeledLine(ResourceKeys.PropertyName, propertyName);
+            }
+
+            AddDashesLine();
+        }
+
         public override void AddTicketContent()
         {
             AddLabeledLine(
-                ResourceKeys.Currency,
-                PropertiesManager.GetValue(ApplicationConstants.CurrencyId, string.Empty));
+                ResourceKeys.JurisdictionLabel,
+                PropertiesManager.GetValue(ApplicationConstants.JurisdictionKey, string.Empty));
+
+            var currencyDisplayString =
+                CurrencyExtensions.CurrencyDisplayCulture.GetFormattedCurrencyDescription(CurrencyExtensions.Currency.IsoCode);
+            AddLabeledLine(ResourceKeys.Currency, currencyDisplayString);
 
             var config = ServiceManager.GetService<IOperatorMenuConfiguration>();
             var showAllowedRtp = config.GetSetting(ShowAllowedRtpSetting, true);
@@ -46,7 +89,7 @@
                     GamingConstants.SlotMaximumReturnToPlayer,
                     ref rtpRange))
             {
-                AddLabeledLine(ResourceKeys.AllowedSlotRtp, rtpRange);
+                AddLabeledLine(ResourceKeys.AllowedSlotRtp, rtpRange, reformatLabelFirst: true);
             }
 
             if (showAllowedRtp && GetAllowedRtpForGameType(
@@ -55,7 +98,7 @@
                     GamingConstants.PokerMaximumReturnToPlayer,
                     ref rtpRange))
             {
-                AddLabeledLine(ResourceKeys.AllowedPokerRtp, rtpRange);
+                AddLabeledLine(ResourceKeys.AllowedPokerRtp, rtpRange, reformatLabelFirst: true);
             }
 
             if (showAllowedRtp && GetAllowedRtpForGameType(
@@ -64,7 +107,7 @@
                     GamingConstants.KenoMaximumReturnToPlayer,
                     ref rtpRange))
             {
-                AddLabeledLine(ResourceKeys.AllowedKenoRtp, rtpRange);
+                AddLabeledLine(ResourceKeys.AllowedKenoRtp, rtpRange, reformatLabelFirst: true);
             }
 
             if (showAllowedRtp && GetAllowedRtpForGameType(
@@ -73,7 +116,7 @@
                     GamingConstants.BlackjackMaximumReturnToPlayer,
                     ref rtpRange))
             {
-                AddLabeledLine(ResourceKeys.AllowedBlackjackRtp, rtpRange);
+                AddLabeledLine(ResourceKeys.AllowedBlackjackRtp, rtpRange, reformatLabelFirst: true);
             }
 
             if (showAllowedRtp && GetAllowedRtpForGameType(
@@ -82,7 +125,7 @@
                 GamingConstants.RouletteMaximumReturnToPlayer,
                 ref rtpRange))
             {
-                AddLabeledLine(ResourceKeys.AllowedRouletteRtp, rtpRange);
+                AddLabeledLine(ResourceKeys.AllowedRouletteRtp, rtpRange, reformatLabelFirst: true);
             }
 
             AddLabeledLine(
@@ -103,7 +146,8 @@
                     ApplicationConstants.MachineSetupConfigEnterOutOfServiceWithCreditsEnabled,
                     false)
                     ? TicketLocalizer.GetString(ResourceKeys.OnText)
-                    : TicketLocalizer.GetString(ResourceKeys.OffText));
+                    : TicketLocalizer.GetString(ResourceKeys.OffText),
+                reformatLabelFirst: true);
         }
 
         private bool GetAllowedRtpForGameType(

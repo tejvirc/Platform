@@ -39,7 +39,10 @@
 
         private static bool UseOperatorCultureForCurrencyFormatting => Configuration?.GetSetting(OperatorMenuSetting.UseOperatorCultureForCurrencyFormatting, false) ?? false;
 
-        private static CultureInfo CurrencyDisplayCulture => UseOperatorCultureForCurrencyFormatting ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyExtensions.CurrencyCultureInfo;
+        /// <summary>
+        ///   Gets the operator's perferred culture for formatting currency when enabled, or the standard currency culture
+        /// </summary>
+        public static CultureInfo CurrencyDisplayCulture => UseOperatorCultureForCurrencyFormatting ? Localizer.For(CultureFor.Operator).CurrentCulture : CurrencyCultureInfo;
 
         /// <summary>
         /// The configured currency
@@ -495,7 +498,7 @@
         /// <param name="isoCurrencyCode">currency code</param>
         /// <param name="region">The region.</param>
         /// <returns>The formatted description, which includes the currency's English name, ISO symbol, and formatted currency value.</returns>
-        public static string GetFormattedDescription(this CultureInfo culture, string isoCurrencyCode, RegionInfo region = null)
+        public static string GetFormattedCurrencyDescription(this CultureInfo culture, string isoCurrencyCode, RegionInfo region = null)
         {
             region ??= !string.IsNullOrEmpty(culture.Name) ? new RegionInfo(culture.Name) : null;
 
@@ -503,23 +506,6 @@
                 $"{region?.CurrencyEnglishName} {isoCurrencyCode} {FormattedCurrencyString(DefaultDescriptionAmount, false, culture)}".Trim();
         }
 
-        /// <summary>
-        /// Gets the formatted currency description for the specified region in Operator Culture
-        /// </summary>
-        /// <param name="culture">the culture</param>
-        /// <param name="isoCurrencyCode">currency code</param>
-        /// <param name="region">the region</param>
-        /// <returns></returns>
-        public static string GetFormattedDescriptionForOperator(
-            this CultureInfo culture,
-            string isoCurrencyCode,
-            RegionInfo region = null)
-        {
-            region ??= !string.IsNullOrEmpty(culture.Name) ? new RegionInfo(culture.Name) : null;
-
-            return
-                $"{region?.CurrencyEnglishName} {isoCurrencyCode} {FormattedCurrencyStringForOperator(DefaultDescriptionAmount)}".Trim();
-        }
         /// <summary>
         /// Apply no currency format on the culture
         /// </summary>

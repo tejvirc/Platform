@@ -44,11 +44,6 @@
         {
             Jurisdiction = PropertiesManager.GetValue(ApplicationConstants.JurisdictionKey, string.Empty);
 
-            var localization = ServiceManager.GetInstance().GetService<ILocalization>();
-            var currencyProvider = localization.GetProvider(CultureFor.Currency) as CurrencyCultureProvider;
-            Currency = currencyProvider?.ConfiguredCurrency;
-            _currencyDisplayText = Currency?.DisplayName;
-
             _defaultAnyGameMinimum = PropertiesManager.GetValue(GamingConstants.AnyGameMinimumReturnToPlayer, int.MinValue);
             _defaultAnyGameMaximum = PropertiesManager.GetValue(GamingConstants.AnyGameMaximumReturnToPlayer, int.MaxValue);
 
@@ -70,8 +65,6 @@
                 false);
 
         }
-
-        public Currency Currency { get; }
 
         public string Jurisdiction { get; }
 
@@ -250,9 +243,7 @@
 
         private void UpdateCurrencyDescription()
         {
-            var culture = CurrencyExtensions.CurrencyCultureInfo;
-            var currencyText = CurrencyExtensions.GetFormattedDescriptionForOperator(culture, Currency.IsoCode);
-            CurrencyDisplayText = currencyText;
-        }
+            CurrencyDisplayText = CurrencyDisplayCulture.GetFormattedCurrencyDescription(CurrencyExtensions.Currency.IsoCode);
+        } 
     }
 }

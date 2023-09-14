@@ -40,7 +40,7 @@
         {
             IsoCode = isoCurrencyCode;
             MinorUnitSymbol = minorUnitSymbol;
-            Description = culture.GetFormattedDescription(isoCurrencyCode, region);
+            Description = culture.GetFormattedCurrencyDescription(isoCurrencyCode, region);
 
             Culture = culture;
         }

@@ -293,8 +293,7 @@
                     var (minorUnits, minorUnitsPlural, pluralizeMajorUnits, pluralizeMinorUnits) =
                         GetOverrideInformation(cultureInfo, currencyCode, ref minorUnitSymbol);
 
-                    ConfiguredCurrency = new Currency(currencyCode, region, cultureInfo, minorUnitSymbol);
-                    CurrencyExtensions.Currency = ConfiguredCurrency;
+                    CurrencyExtensions.Currency = ConfiguredCurrency = new Currency(currencyCode, region, cultureInfo, minorUnitSymbol);
 
                     var defaultMultiplier = CurrencyExtensions.SetCultureInfo(
                         currencyCode,
@@ -509,7 +508,7 @@
                     overrideFormat.ExcludePluralizeMajorUnits = configuredCurrency?.Format?.ExcludePluralizeMajorUnits;
                     overrideFormat.ExcludePluralizeMinorUnits = configuredCurrency?.Format?.ExcludePluralizeMinorUnits;
                     unitResults = SetFormatOverrides(overrideFormat, cultureInfo, ref minorUnitSymbol);
-                    if (currencyDescription.Equals(cultureInfo.GetFormattedDescription(currencyCode), StringComparison.InvariantCultureIgnoreCase))
+                    if (currencyDescription.Equals(cultureInfo.GetFormattedCurrencyDescription(currencyCode), StringComparison.InvariantCultureIgnoreCase))
                     {
                         return unitResults;
                     }
@@ -664,7 +663,7 @@
 
             _ = GetOverrideInformation(culture, currencyCode, ref minorSymbol);
 
-            return description.Equals(culture.GetFormattedDescription(currencyCode), StringComparison.InvariantCultureIgnoreCase);
+            return description.Equals(culture.GetFormattedCurrencyDescription(currencyCode), StringComparison.InvariantCultureIgnoreCase);
         }
 
         private string GetDefaultMinorUnitSymbol(string currencyCode)
