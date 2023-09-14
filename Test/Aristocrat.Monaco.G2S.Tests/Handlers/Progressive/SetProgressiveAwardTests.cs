@@ -106,7 +106,8 @@
                         string.Empty,
                         PayMethod.Any,
                         25000,
-                        100000)
+                        100000,
+                        25000)
             {
                 TransactionId = 1,
                 LogSequence = 0,

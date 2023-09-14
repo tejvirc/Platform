@@ -364,12 +364,12 @@
                 }
 
                 Logger.Debug(
-                    $"Physical Button {theEvent.Id} {1}, logical Button {button.Action} {buttonId} {button.Name} event posted");
+                    $"Physical Button {theEvent.Id}, logical Button {button.Action} {buttonId} {button.Name} event posted");
             }
             else
             {
                 Logger.Debug(
-                    $"Physical Button {theEvent.Id} {1}, logical Button {button.Action} {buttonId} {button.Name} disabled");
+                    $"Physical Button {theEvent.Id}, logical Button {button.Action} {buttonId} {button.Name} disabled");
             }
         }
     }

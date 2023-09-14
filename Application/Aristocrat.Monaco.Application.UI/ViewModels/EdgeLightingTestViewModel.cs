@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -8,13 +8,13 @@
     using System.Linq;
     using System.Runtime.CompilerServices;
     using System.Text.RegularExpressions;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
     using Monaco.Localization.Properties;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
 
     [CLSCompliant(false)]
     public class EdgeLightingTestViewModel : INotifyPropertyChanged
@@ -66,6 +66,7 @@
             {
                 _brightness = value;
                 _edgeLightingController.SetBrightnessForPriority(_brightness, StripPriority.PlatformTest);
+                OnPropertyChanged();
             }
         }
 
@@ -104,7 +105,7 @@
                 SetProperty(ref _selectedStripIndex, value, nameof(SelectedStripIndex));
                 SetProperty(ref _startLed, Math.Min(1, SelectedStrip.LedCount), nameof(StartLed));
                 SetProperty(ref _endLed, SelectedStrip.LedCount, nameof(EndLed));
-                RaisePropertyChanged(nameof(SelectedStrip), nameof(SelectedLedCount));
+                OnPropertyChanged(nameof(SelectedStrip), nameof(SelectedLedCount));
                 TestSelectionChanged();
             }
         }
@@ -142,7 +143,7 @@
                 SetProperty(ref _selectedColorIndex, 0, nameof(SelectedColorIndex));
                 SetProperty(ref _startLed, Math.Min(1, SelectedStrip.LedCount), nameof(StartLed));
                 SetProperty(ref _endLed, SelectedStrip.LedCount, nameof(EndLed));
-                RaisePropertyChanged(nameof(SelectedStrip), nameof(SelectedLedCount));
+                OnPropertyChanged(nameof(SelectedStrip), nameof(SelectedLedCount));
                 TestSelectionChanged();
             }
         }
@@ -164,7 +165,7 @@
             set
             {
                 SetProperty(ref _startLed, value, nameof(StartLed));
-                RaisePropertyChanged(nameof(SelectedLedCount));
+                OnPropertyChanged(nameof(SelectedLedCount));
                 TestSelectionChanged();
             }
         }
@@ -175,7 +176,7 @@
             set
             {
                 SetProperty(ref _endLed, value, nameof(EndLed));
-                RaisePropertyChanged(nameof(SelectedLedCount));
+                OnPropertyChanged(nameof(SelectedLedCount));
                 TestSelectionChanged();
             }
         }
@@ -215,7 +216,7 @@
             OnPropertyChanged(propertyName);
         }
 
-        private void RaisePropertyChanged(params string[] propertyNames)
+        private void OnPropertyChanged(params string[] propertyNames)
         {
             foreach (var propertyName in propertyNames)
             {
@@ -254,7 +255,7 @@
             var stripsData =
                 _edgeLightingController.StripIds.Select(
                     x => new StripData(x, _edgeLightingController.GetStripLedCount(x)));
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     lock (_lock)

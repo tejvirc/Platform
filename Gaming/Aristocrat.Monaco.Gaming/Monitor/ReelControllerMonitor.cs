@@ -324,6 +324,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             _eventBus.Subscribe<GameDiagnosticsCompletedEvent>(this, _ => DisableReelLights());
             _eventBus.Subscribe<GameHistoryPageLoadedEvent>(this, HandleGameHistoryPageLoaded);
             _eventBus.Subscribe<ClosedEvent>(this, HandleDoorClose, e => e.LogicalId is (int)DoorLogicalId.Main);
+            _eventBus.Subscribe<OpenEvent>(this, HandleDoorOpen);
             _eventBus.Subscribe<ReelStoppedEvent>(this, HandleReelStoppedEvent);
             _eventBus.Subscribe<GameAddedEvent>(this, _ => HandleGameAddedEvent());
             _eventBus.Subscribe<GameProcessExitedEvent>(this, GameProcessExitedUnexpected, evt => evt.Unexpected);
@@ -545,8 +546,9 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                     break;
                 case LoadingAnimationState.Error:
                     var disableText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ReelControllerFaults_HardwareError) + " " + loadingAnimationFilesText;
+                    _disableManager.Enable(ApplicationConstants.ReelLoadingAnimationFilesDisableKey);
                     _disableManager.Disable(
-                        ApplicationConstants.ReelLoadingAnimationFilesDisableKey,
+                        ApplicationConstants.ReelLoadingAnimationFilesErrorKey,
                         SystemDisablePriority.Immediate,
                         () => disableText,
                         true);
@@ -588,6 +590,17 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             }
         }
 
+        private Task HandleDoorOpen(DoorBaseEvent doorBaseEvent, CancellationToken token)
+        {
+            if (_gamePlayState.InGameRound || !_operatorMenuLauncher.IsShowing || _disableManager.CurrentDisableKeys.Contains(GamingConstants.ReelsTiltedGuid))
+            {
+                return Task.CompletedTask;
+            }
+
+            SetBinary(ReelsNeedHomingKey, true);
+            return ReelController.HaltReels();
+        }
+
         private bool NeedsReelFaultsCleared()
         {
             return _disableManager.CurrentDisableKeys.All(
@@ -598,12 +611,17 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 guid == GamingConstants.ReelsTiltedGuid);
         }
 
-        private static bool IsHomeReelsCondition(IEnumerable<Guid> disableKeys)
+        private static bool IsHomeReelsCondition(IEnumerable<Guid> disableKeys, ReelControllerState logicalState)
         {
             var homeReels = disableKeys.All(guid =>
                  guid == ApplicationConstants.LiveAuthenticationDisableKey ||
                  guid == GamingConstants.ReelsNeedHomingGuid ||
                  guid == GamingConstants.ReelsTiltedGuid);
+
+            homeReels = homeReels && logicalState
+                is ReelControllerState.Tilted
+                or ReelControllerState.Halted
+                or ReelControllerState.IdleUnknown;
 
             return homeReels;
         }
@@ -617,9 +635,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                 ? _disableManager.CurrentImmediateDisableKeys
                 : _disableManager.CurrentDisableKeys;
 
-            var logicalState = ReelController.LogicalState;
-            if (IsHomeReelsCondition(disableKeys) &&
-                logicalState is ReelControllerState.Tilted or ReelControllerState.IdleUnknown)
+            if (IsHomeReelsCondition(disableKeys, ReelController.LogicalState))
             {
                 await HomeReels();
             }
@@ -771,7 +787,6 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             {
                 _tiltLock.Release();
             }
-
         }
 
         private async Task HomeReels()
@@ -787,7 +802,10 @@ namespace Aristocrat.Monaco.Gaming.Monitor
                         or ReelControllerState.Inspecting
                         or ReelControllerState.Disconnected
                         or ReelControllerState.Disabled
-                    || (ReelController.LogicalState != ReelControllerState.Tilted && ReelController.LogicalState != ReelControllerState.IdleUnknown && ReelController.LogicalState != ReelControllerState.IdleAtStops))
+                    || (ReelController.LogicalState != ReelControllerState.Tilted &&
+                        ReelController.LogicalState != ReelControllerState.Halted &&
+                        ReelController.LogicalState != ReelControllerState.IdleUnknown &&
+                        ReelController.LogicalState != ReelControllerState.IdleAtStops))
                 {
                     Logger.Debug($"HomeReels not able to be executed at this time. State is {ReelController?.LogicalState}");
                     return;

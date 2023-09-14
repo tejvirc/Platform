@@ -1,20 +1,21 @@
-﻿namespace Aristocrat.Monaco.Accounting.UI.ViewModels
+namespace Aristocrat.Monaco.Accounting.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Windows.Input;
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Transactions;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Localization.Properties;
-    using MVVM.Command;
-    using MVVM.Model;
 
     [CLSCompliant(false)]
     public class KeyedCreditsPageViewModel : OperatorMenuPageViewModelBase
@@ -65,8 +66,8 @@
                                         throw new ArgumentNullException(nameof(persistentStorageManager));
             _transactionHistory = transactionHistory ?? throw new ArgumentNullException(nameof(transactionHistory));
 
-            ConfirmKeyOnCreditsCommand = new ActionCommand<object>(ConfirmKeyOnCreditsPressed);
-            ConfirmKeyOffCreditsCommand = new ActionCommand<object>(ConfirmKeyOffCreditsPressed);
+            ConfirmKeyOnCreditsCommand = new RelayCommand<object>(ConfirmKeyOnCreditsPressed);
+            ConfirmKeyOffCreditsCommand = new RelayCommand<object>(ConfirmKeyOffCreditsPressed);
         }
 
         public ICommand ConfirmKeyOnCreditsCommand { get; }
@@ -84,15 +85,15 @@
             set => SetProperty(ref _selectedCredit, value, nameof(SelectedCredit));
         }
 
+        [CustomValidation(typeof(KeyedCreditsPageViewModel), nameof(ValidateKeyedOnCredits))]
         public decimal KeyedOnCreditAmount
         {
             get => _keyedOnCreditAmount;
             set
             {
-                if (SetProperty(ref _keyedOnCreditAmount, value, nameof(KeyedOnCreditAmount)))
+                if (SetProperty(ref _keyedOnCreditAmount, value, true))
                 {
-                    ValidateKeyedOnCredits();
-                    RaisePropertyChanged(nameof(KeyedOnCreditsAllowed));
+                    OnPropertyChanged(nameof(KeyedOnCreditsAllowed));
                 }
             }
         }
@@ -145,9 +146,9 @@
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(KeyedOnInputEnabled));
-            RaisePropertyChanged(nameof(KeyedOnCreditsAllowed));
-            RaisePropertyChanged(nameof(KeyOffCreditsButtonEnabled));
+            OnPropertyChanged(nameof(KeyedOnInputEnabled));
+            OnPropertyChanged(nameof(KeyedOnCreditsAllowed));
+            OnPropertyChanged(nameof(KeyOffCreditsButtonEnabled));
         }
 
         private void UpdateCreditData()
@@ -165,8 +166,8 @@
         private void UpdateCurrentCredits()
         {
             _currentCredits = Credits.Sum(x => x.Value);
-            RaisePropertyChanged(nameof(KeyedOnInputEnabled));
-            RaisePropertyChanged(nameof(KeyOffCreditsButtonEnabled));
+            OnPropertyChanged(nameof(KeyedOnInputEnabled));
+            OnPropertyChanged(nameof(KeyOffCreditsButtonEnabled));
         }
 
         private void ConfirmKeyOnCreditsPressed(object obj)
@@ -296,21 +297,20 @@
             KeyedOnCreditAmount = 0m;
         }
 
-        private void ValidateKeyedOnCredits()
+        public static ValidationResult ValidateKeyedOnCredits(decimal keyedOnCredits, ValidationContext context)
         {
-            var error = KeyedOnCreditAmount.Validate(true, _creditLimit - _currentCredits);
+            KeyedCreditsPageViewModel instance = (KeyedCreditsPageViewModel)context.ObjectInstance;
+            var errors = keyedOnCredits.Validate(true, instance._creditLimit - instance._currentCredits);
 
-            if (string.IsNullOrEmpty(error))
+            if (string.IsNullOrEmpty(errors))
             {
-                ClearErrors(nameof(KeyedOnCreditAmount));
+                return ValidationResult.Success;
             }
-            else
-            {
-                SetError(nameof(KeyedOnCreditAmount), error);
-            }
+
+            return new(errors);
         }
 
-        public class Credit : BaseNotify
+        public class Credit : ObservableObject
         {
             private long _value;
             private string _formattedValue;

@@ -156,11 +156,6 @@ namespace Aristocrat.Monaco.Accounting
                 return false;
             }
 
-            if (!IsValid(account, amount, reason))
-            {
-                return false;
-            }
-
             var transactionId = _transactionCoordinator.RequestTransaction(RequestorId, 0, TransactionType.Write, true);
             if (transactionId == Guid.Empty)
             {
@@ -172,6 +167,12 @@ namespace Aristocrat.Monaco.Accounting
                 TransactionId = transactionId,
                 OwnedTransaction = true
             };
+
+            if (!IsValid(account, amount, reason))
+            {
+                ClearTransaction();
+                return false;
+            }
 
             Task.Run(
                 () => TransferAsync(
@@ -524,7 +525,8 @@ namespace Aristocrat.Monaco.Accounting
             };
 
             // Check each provider to see if there is anything to recover
-            if (!_providers.Any(provider => provider.instance.CanRecover(CurrentTransaction.TransactionId)))
+            if (!_providers.Any(
+                provider => provider.permitted && provider.instance.CanRecover(CurrentTransaction.TransactionId)))
             {
                 Logger.Warn(
                     $"Failed to recover the current transaction.  TransactionId={CurrentTransaction.TransactionId}, TraceId={CurrentTransaction.TraceId}");

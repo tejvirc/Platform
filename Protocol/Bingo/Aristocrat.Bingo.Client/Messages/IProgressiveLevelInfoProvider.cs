@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Bingo.Client.Messages
 {
+    using System.Collections.Generic;
+
     /// <summary>
     ///     The provider for mapping platform progressive level Ids to progressive server progressive level Ids.
     /// </summary>
@@ -20,6 +22,13 @@
         /// <param name="levelId">The 0-based platform progressive level Id configured for the progressive level</param>
         /// <returns>The progressive server progressive level Id or -1</returns>
         long GetServerProgressiveLevelId(int levelId);
+
+        /// <summary>
+        ///     Gets the GameTitleId/Denomination tuples that are using a progressive with the specified sequence number
+        /// </summary>
+        /// <param name="sequenceNumber">The 0-based sequence number of the progressive</param>
+        /// <returns>The GameTitleId/Denomination tuples that are using the specified progressive</returns>
+        IEnumerable<(int, long)> GetGamesUsingProgressive(int sequenceNumber);
 
         /// <summary>
         ///     Clears the existing progressive level information

@@ -24,13 +24,13 @@
         event EventHandler<ReelFaultedEventArgs> FaultCleared;
 
         /// <summary> The event that occurs when the reel begins to stop spinning </summary>
-        event EventHandler<ReelEventArgs> ReelStopping;
+        event EventHandler<ReelStoppingEventArgs> ReelStopping;
 
         /// <summary> The event that occurs when the reel stops spinning </summary>
         event EventHandler<ReelEventArgs> ReelStopped;
 
         /// <summary> The event that occurs when the reel starts spinning </summary>
-        event EventHandler<ReelEventArgs> ReelSpinning;
+        event EventHandler<ReelSpinningEventArgs> ReelSpinning;
 
         /// <summary> The event that occurs when the reel starts slow spinning </summary>
         event EventHandler<ReelEventArgs> ReelSlowSpinning;
@@ -62,6 +62,12 @@
         int DefaultHomeStep { get; }
 
         /// <summary>
+        ///     Halts the reels (releases brake)
+        /// </summary>
+        /// <returns>Whether or not the reels were halted</returns>
+        Task<bool> HaltReels();
+
+        /// <summary>
         ///     Homes the reel to the requested stop
         /// </summary>
         /// <param name="reelId">The reel ID to home</param>
@@ -80,7 +86,7 @@
         /// <summary>
         ///     Tilts the reels (slow spinning)
         /// </summary>
-        /// <returns>Whether or not the reels where tilted</returns>
+        /// <returns>Whether or not the reels were tilted</returns>
         Task<bool> TiltReels();
 
         /// <summary>

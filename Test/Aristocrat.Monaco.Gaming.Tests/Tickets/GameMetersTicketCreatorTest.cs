@@ -121,6 +121,7 @@
                 .Returns(100L);
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.TicketModeAuditKey, It.IsAny<TicketModeAuditBehavior>()))
                 .Returns(TicketModeAuditBehavior.Audit);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, It.IsAny<bool>())).Returns(false);
 
             // Mock meters
             var meterNodes = new List<MeterNode>();
@@ -185,6 +186,8 @@
                 .Returns(100L);
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.TicketModeAuditKey, It.IsAny<TicketModeAuditBehavior>()))
                 .Returns(TicketModeAuditBehavior.Audit);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, It.IsAny<bool>())).Returns(false);
+
 
             // Mock meters
             var meterNodes = new List<MeterNode>();

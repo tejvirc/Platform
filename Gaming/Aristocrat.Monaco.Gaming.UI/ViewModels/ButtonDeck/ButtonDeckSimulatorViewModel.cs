@@ -1,11 +1,10 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.ButtonDeck
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.ButtonDeck
 {
     using Contracts;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.ButtonDeck;
     using Kernel;
     using Monaco.UI.Common;
-    using MVVM.ViewModel;
     using System;
     using System.Collections.Generic;
     using System.Windows;
@@ -14,8 +13,9 @@
     using System.Windows.Threading;
     using Contracts.Lobby;
     using Contracts.Models;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
-    public class ButtonDeckSimulatorViewModel : BaseEntityViewModel
+    public class ButtonDeckSimulatorViewModel : ObservableObject
     {
         private const int BetButtonWidth = 800;
         private const int BetButtonHeight = 256;
@@ -119,7 +119,7 @@
                     _buttonDeckDisplay.GetRenderedFrame(BetButtonDisplayId),
                     BetButtonBitmap.BackBufferStride,
                     0);
-                RaisePropertyChanged(nameof(BetButtonBitmap));
+                OnPropertyChanged(nameof(BetButtonBitmap));
                 _betButtonFrameId = _buttonDeckDisplay.GetRenderedFrameId(BetButtonDisplayId);
             }
 
@@ -131,7 +131,7 @@
                     _buttonDeckDisplay.GetRenderedFrame(BashButtonDisplayId),
                     BashButtonBitmap.BackBufferStride,
                     0);
-                RaisePropertyChanged(nameof(BashButtonBitmap));
+                OnPropertyChanged(nameof(BashButtonBitmap));
                 _bashButtonFrameId = _buttonDeckDisplay.GetRenderedFrameId(BashButtonDisplayId);
             }
         }

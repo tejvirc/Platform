@@ -1,8 +1,9 @@
-﻿namespace Aristocrat.Monaco.G2S.UI.ViewModels
+namespace Aristocrat.Monaco.G2S.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Reflection;
     using System.Security.Cryptography.X509Certificates;
@@ -14,9 +15,11 @@
     using Application.Contracts.OperatorMenu;
     using Application.UI.Events;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Common.CertificateManager;
     using Common.CertificateManager.Models;
     using Common.Events;
+    using CommunityToolkit.Mvvm.Input;
     using Hardware.Contracts.Door;
     using Kernel;
     using Linq;
@@ -24,8 +27,6 @@
     using log4net;
     using Models;
     using Monaco.UI.Common;
-    using MVVM;
-    using MVVM.Command;
     using Security;
 
     /// <summary>
@@ -82,13 +83,13 @@
             var access = ServiceManager.GetInstance().GetService<IOperatorMenuAccess>();
             _technicianMode = access?.HasTechnicianMode ?? false;
 
-            RenewCertificateCommand = new ActionCommand<object>(RenewCertificate, _ => RenewEnabled);
-            RemoveCertificateCommand = new ActionCommand<object>(RemoveCertificate, _ => RemoveEnabled);
-            EnrollCertificateCommand = new ActionCommand<object>(EnrollCertificate, _ => EnrollEnabled);
-            DrillDownCommand = new ActionCommand<object>(DrillDown, _ => SelectedCertificate?.Certificates.Count > 0);
-            RollUpCommand = new ActionCommand<object>(RollUp, _ => _certificateDataStack.Count > 0);
+            RenewCertificateCommand = new RelayCommand<object>(RenewCertificate, _ => RenewEnabled);
+            RemoveCertificateCommand = new RelayCommand<object>(RemoveCertificate, _ => RemoveEnabled);
+            EnrollCertificateCommand = new RelayCommand<object>(EnrollCertificate, _ => EnrollEnabled);
+            DrillDownCommand = new RelayCommand<object>(DrillDown, _ => SelectedCertificate?.Certificates.Count > 0);
+            RollUpCommand = new RelayCommand<object>(RollUp, _ => _certificateDataStack.Count > 0);
 
-            CancelRequestCommand = new ActionCommand<object>(
+            CancelRequestCommand = new RelayCommand<object>(
                 _ =>
                 {
                     _countDownTimer?.Stop();
@@ -116,7 +117,7 @@
                 if (_certificateData != value)
                 {
                     _certificateData = value;
-                    RaisePropertyChanged(nameof(CertificateInfoData));
+                    OnPropertyChanged(nameof(CertificateInfoData));
                 }
             }
         }
@@ -124,7 +125,7 @@
         /// <summary>
         ///     Gets or sets a command that cancels the certificate request
         /// </summary>
-        public ActionCommand<object> CancelRequestCommand { get; set; }
+        public RelayCommand<object> CancelRequestCommand { get; set; }
 
         /// <summary>
         ///     Gets or sets a value indicating whether invalid server response popup should be shown
@@ -136,7 +137,7 @@
             set
             {
                 _showInvalidServerResponse = value;
-                RaisePropertyChanged(nameof(ShowInvalidServerResponse));
+                OnPropertyChanged(nameof(ShowInvalidServerResponse));
             }
         }
 
@@ -152,7 +153,7 @@
                 if (_renewMessage != value)
                 {
                     _renewMessage = value;
-                    RaisePropertyChanged(nameof(ErrorMessage));
+                    OnPropertyChanged(nameof(ErrorMessage));
                 }
             }
         }
@@ -169,8 +170,8 @@
                 if (_renewEnabled != value)
                 {
                     _renewEnabled = value;
-                    RaisePropertyChanged(nameof(RenewEnabled));
-                    RenewCertificateCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(RenewEnabled));
+                    RenewCertificateCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -186,7 +187,7 @@
                 if (_enrollEnabled != value)
                 {
                     _enrollEnabled = value;
-                    RaisePropertyChanged(nameof(EnrollEnabled));
+                    OnPropertyChanged(nameof(EnrollEnabled));
                 }
             }
         }
@@ -202,8 +203,8 @@
                 if (_removeEnabled != value)
                 {
                     _removeEnabled = value;
-                    RaisePropertyChanged(nameof(RemoveEnabled));
-                    RemoveCertificateCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(RemoveEnabled));
+                    RemoveCertificateCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -223,34 +224,34 @@
                 }
 
                 _isScepEnabled = value;
-                RaisePropertyChanged(nameof(IsScepEnabled));
+                OnPropertyChanged(nameof(IsScepEnabled));
             }
         }
 
         /// <summary>
         ///     Gets the command that fires when page renew certificate.
         /// </summary>
-        public ActionCommand<object> RenewCertificateCommand { get; }
+        public RelayCommand<object> RenewCertificateCommand { get; }
 
         /// <summary>
         ///     Gets the command that fires when page enroll certificate.
         /// </summary>
-        public ActionCommand<object> EnrollCertificateCommand { get; }
+        public RelayCommand<object> EnrollCertificateCommand { get; }
 
         /// <summary>
         ///     Roll up to parent certificate level
         /// </summary>
-        public ActionCommand<object> RollUpCommand { get; }
+        public RelayCommand<object> RollUpCommand { get; }
 
         /// <summary>
         ///     Drill down to child certificate level
         /// </summary>
-        public ActionCommand<object> DrillDownCommand { get; }
+        public RelayCommand<object> DrillDownCommand { get; }
 
         /// <summary>
         ///     Gets the command that fires when page remove certificate.
         /// </summary>
-        public ActionCommand<object> RemoveCertificateCommand { get; }
+        public RelayCommand<object> RemoveCertificateCommand { get; }
 
         /// <summary>
         ///     Gets the selected game round text.
@@ -264,7 +265,7 @@
                 if (_selectedText != value)
                 {
                     _selectedText = value;
-                    RaisePropertyChanged(nameof(SelectedCertificateText));
+                    OnPropertyChanged(nameof(SelectedCertificateText));
                 }
             }
         }
@@ -279,7 +280,7 @@
             set
             {
                 _showRequestStatus = value;
-                RaisePropertyChanged(nameof(ShowRequestStatus));
+                OnPropertyChanged(nameof(ShowRequestStatus));
             }
         }
 
@@ -293,7 +294,7 @@
             set
             {
                 _showStatus = value;
-                RaisePropertyChanged(nameof(ShowStatus));
+                OnPropertyChanged(nameof(ShowStatus));
                 UpdateStatusText();
             }
         }
@@ -308,8 +309,8 @@
             set
             {
                 _enrolled = value;
-                RaisePropertyChanged(nameof(Enrolled));
-                CancelRequestCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged(nameof(Enrolled));
+                CancelRequestCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -323,7 +324,7 @@
             set
             {
                 _requestStatus = value;
-                RaisePropertyChanged(nameof(RequestStatus));
+                OnPropertyChanged(nameof(RequestStatus));
             }
         }
 
@@ -337,7 +338,7 @@
             set
             {
                 _status = value;
-                RaisePropertyChanged(nameof(Status));
+                OnPropertyChanged(nameof(Status));
                 UpdateStatusText();
             }
         }
@@ -345,16 +346,15 @@
         /// <summary>
         ///     Gets or sets Manual Polling Interval in seconds for SCEP protocol.
         /// </summary>
+        [CustomValidation(typeof(CertificatesViewModel), nameof(ValidateManualPollingInterval))]
         public int ManualPollingInterval
         {
             get => _manualPollingInterval;
 
             set
             {
-                ValidateManualPollingInterval(value);
-                _manualPollingInterval = value;
-                RaisePropertyChanged(nameof(ManualPollingInterval));
-                RenewCertificateCommand.RaiseCanExecuteChanged();
+                SetProperty(ref _manualPollingInterval, value, true);
+                RenewCertificateCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -370,8 +370,8 @@
                 if (_preSharedSecret != value)
                 {
                     _preSharedSecret = value;
-                    RaisePropertyChanged(nameof(PreSharedSecret));
-                    EnrollCertificateCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(PreSharedSecret));
+                    EnrollCertificateCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -399,9 +399,9 @@
                         }
                     }
 
-                    RaisePropertyChanged(nameof(SelectedCertificate));
-                    DrillDownCommand.RaiseCanExecuteChanged();
-                    RollUpCommand.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(SelectedCertificate));
+                    DrillDownCommand.NotifyCanExecuteChanged();
+                    RollUpCommand.NotifyCanExecuteChanged();
                     OnSelectedCertificateChanged();
                 }
             }
@@ -497,7 +497,7 @@
         {
             CertificateInfoData = new ObservableCollection<CertificateInfo>();
             _certificateDataStack.Clear();
-            RollUpCommand.RaiseCanExecuteChanged();
+            RollUpCommand.NotifyCanExecuteChanged();
             _defaultCertificate = null;
             _hasPrivateKey = false;
 
@@ -681,14 +681,21 @@
                 .Publish(new CertificateStatusUpdatedEvent(result.Status));
         }
 
-        private void ValidateManualPollingInterval(int interval)
+        public static ValidationResult ValidateManualPollingInterval(int interval, ValidationContext context)
         {
-            ClearErrors(nameof(ManualPollingInterval));
+            CertificatesViewModel instance = (CertificatesViewModel)context.ObjectInstance;
+            instance.ClearErrors(nameof(ManualPollingInterval));
+            var errors = "";
 
             if (interval <= 0)
             {
-                SetError(nameof(ManualPollingInterval), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ScepManualPollingInterval_GreaterThanZero));
+                errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ScepManualPollingInterval_GreaterThanZero);
             }
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+            return new(errors);
         }
 
         private void StatusCheckCountdown(object sender, EventArgs e)
@@ -782,15 +789,15 @@
         {
             _certificateDataStack.Push(CertificateInfoData);
             CertificateInfoData = SelectedCertificate.Certificates;
-            DrillDownCommand.RaiseCanExecuteChanged();
-            RollUpCommand.RaiseCanExecuteChanged();
+            DrillDownCommand.NotifyCanExecuteChanged();
+            RollUpCommand.NotifyCanExecuteChanged();
         }
 
         private void RollUp(object obj)
         {
             CertificateInfoData = _certificateDataStack.Pop();
-            DrillDownCommand.RaiseCanExecuteChanged();
-            RollUpCommand.RaiseCanExecuteChanged();
+            DrillDownCommand.NotifyCanExecuteChanged();
+            RollUpCommand.NotifyCanExecuteChanged();
         }
 
         private void CheckLogicDoorStatus()
@@ -798,7 +805,7 @@
             var door = ServiceManager.GetInstance().GetService<IDoorService>();
             _doorOpened = !door.GetDoorClosed((int)DoorLogicalId.Logic);
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (!_doorOpened && _technicianMode)

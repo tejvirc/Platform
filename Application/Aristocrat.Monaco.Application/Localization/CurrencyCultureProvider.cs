@@ -188,6 +188,8 @@
                 Logger.Debug("No currency overrides loaded");
             }
 
+            _properties.SetProperty(HardwareConstants.NoteDefinitions, _noteDefinitions);
+
             _noteAcceptor?.SetNoteDefinitions(_noteDefinitions);
         }
 
@@ -271,6 +273,7 @@
                         else
                         {
                             FindCultureInfo(currencyCode, ref cultureInfo);
+                            region = new RegionInfo(cultureInfo.Name);
                         }
                     }
                     else

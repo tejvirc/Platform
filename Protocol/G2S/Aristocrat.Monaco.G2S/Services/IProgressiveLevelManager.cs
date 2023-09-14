@@ -1,21 +1,32 @@
 ﻿namespace Aristocrat.Monaco.G2S.Services
 {
-    using Aristocrat.G2S.Protocol.v21;
-    using Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked;
     using System.Collections.Generic;
+    using Aristocrat.G2S.Protocol.v21;
+    using Gaming.Contracts.Progressives.Linked;
 
     public interface IProgressiveLevelManager
     {
         /// <summary>
         ///     Gets the specified simple meters for the specified progressive device
         /// </summary>
-        /// <param name="levelDeviceId">
-        ///     The identifier of the progressive level
+        /// <param name="deviceId">
+        ///     The identifier of the progressive device
         /// </param>
         /// <param name="includedMeters">
         ///     The array of meter names
         /// </param>
-        IEnumerable<simpleMeter> GetProgressiveLevelMeters(int levelDeviceId, params string[] includedMeters);
+        IEnumerable<simpleMeter> GetProgressiveDeviceMeters(int deviceId, params string[] includedMeters);
+
+        /// <summary>
+        ///     Gets the specified simple meters for the specified progressive device
+        /// </summary>
+        /// <param name="linkedLevelName">
+        ///     The identifier of the linked progressive level
+        /// </param>
+        /// <param name="includedMeters">
+        ///     The array of meter names
+        /// </param>
+        IEnumerable<simpleMeter> GetProgressiveLevelMeters(string linkedLevelName, params string[] includedMeters);
 
         /// <summary>
         /// Updates the specified LinkedProgressiveLevel to use the new valueInCents

@@ -21,8 +21,8 @@
 
         private readonly Mock<IClientEndpointProvider<ClientApi.ClientApiClient>> _clientEndpointProvider = new(MockBehavior.Default);
         private readonly Mock<ICommandProcessorFactory> _commandFactory = new(MockBehavior.Default);
-        private readonly Mock<IClient> _client = new(MockBehavior.Default);
-
+        private Mock<IClient<ClientApi.ClientApiClient>> _bingoClient =
+            new Mock<IClient<ClientApi.ClientApiClient>>(MockBehavior.Default);
         private CommandService _target;
 
         [TestInitialize]
@@ -199,7 +199,7 @@
             var commandTask = _target.HandleCommands(MachineId, source.Token);
             waiter.WaitOne(1000);
             waiter.Reset();
-            _client.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(state));
+            _bingoClient.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(state));
             waiter.WaitOne(1000);
             client.Verify(
                 x => x.ReadCommands(
@@ -270,7 +270,7 @@
             return new CommandService(
                 nullEndpoint ? null : _clientEndpointProvider.Object,
                 nullCommandFactory ? null : _commandFactory.Object,
-                nullClient ? null : new List<IClient>() { _client.Object });
+                nullClient ? null : _bingoClient.Object);
         }
 
         private class StreamReader : IAsyncStreamReader<Command>

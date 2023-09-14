@@ -2,11 +2,11 @@
 {
     using System;
     using Aristocrat.Monaco.Application.Contracts.Localization;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Hardware.Contracts.TowerLight;
-    using MVVM.Model;
 
     [CLSCompliant(false)]
-    public class LocalizableFlashState : BaseNotify
+    public class LocalizableFlashState : ObservableObject
     {
         public LocalizableFlashState(FlashState state)
         {
@@ -19,7 +19,7 @@
 
         public void UpdateString()
         {
-            RaisePropertyChanged(nameof(FlashStateString));
+            OnPropertyChanged(nameof(FlashStateString));
         }
     }
 }

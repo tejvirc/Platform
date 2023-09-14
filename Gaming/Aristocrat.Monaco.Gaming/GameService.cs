@@ -15,7 +15,7 @@
     using Kernel.Contracts;
     using Localization.Properties;
     using log4net;
-	using Newtonsoft.Json;
+    using Newtonsoft.Json;
     using Runtime;
 
     /// <summary>
@@ -37,6 +37,8 @@
         private int _processId;
         private bool _running;
         private GameInitRequest _lastRequest;
+        private readonly object _sync = new(); 
+        private readonly object _ipcLock = new();
 
         public GameService(
             IEventBus eventBus,
@@ -98,9 +100,12 @@
 
             StoreSelectedGame(request);
 
-            _ipc.StartComms();
+            lock (_ipcLock)
+            {
+                _ipc.StartComms();
 
-            _processId = _process.StartGameProcess(request);
+                _processId = _process.StartGameProcess(request);
+            }
 
             Logger.Info("Game process Started.");
         }
@@ -156,7 +161,9 @@
         {
             if (!Running)
             {
+                _ipc.EndComms();
                 _eventBus.Publish(new GameShutdownCompletedEvent());
+                EndCommsSafe();
             }
         }
 
@@ -216,6 +223,8 @@
                 _process.EndGameProcess(processId, notifyExited, terminateExpected);
             }
 
+            EndCommsSafe();
+
             _processId = 0;
             Logger.Info("All game processes and IPC terminated.");
         }
@@ -238,7 +247,13 @@
             // Store the validated selected game
             Logger.Info(
                 $"New game selected, replay={request.IsReplay}. Game Id: {request.GameId} with a denom of {request.Denomination}");
-            _propertiesManager.SetActiveGame(request.GameId, request.Denomination);
+
+            lock (_sync) // TXM-10879 Fixes a race-condition which causes a game to crash
+            {
+                _propertiesManager.SetProperty(GamingConstants.SelectedGameId, request.GameId);
+                _propertiesManager.SetProperty(GamingConstants.SelectedDenom, request.Denomination);
+            }
+            
             _propertiesManager.SetProperty(GamingConstants.SelectedBetOption, request.BetOption);
 
             if (request.IsReplay)
@@ -260,6 +275,17 @@
             var json = JsonConvert.SerializeObject(gameConfigPropValue, Formatting.None);
 
             _propertiesManager.SetProperty(GamingConstants.GameConfiguration, json);
+        } 
+        
+        private void EndCommsSafe()
+        {
+            lock (_ipcLock)
+            {
+                if (!_process.IsRunning(_processId))
+                {
+                    _ipc.EndComms();
+                }
+            }
         }
     }
 }

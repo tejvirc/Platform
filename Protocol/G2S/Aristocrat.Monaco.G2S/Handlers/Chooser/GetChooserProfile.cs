@@ -47,10 +47,27 @@
                     paytableId = g.PaytableId,
                     denomId = d,
                     gamePosPriority = _gameOrderSettings.GetIconPositionPriority(g.ThemeId),
-                    gameComboTag = g.GameTags.Select(t => new gameComboTag{gameTag = t.ToG2SGameTagString()}).ToArray()
+                    gameComboTag = GetGameComboTag(g)
                 }).ToArray();
 
             await Task.CompletedTask;
         }
+
+        private static gameComboTag[] GetGameComboTag(IGameProfile game)
+        {
+            try
+            {
+                return game.GameTags.Select(t => new gameComboTag
+                {
+                    gameTag = t.ToG2SGameTagString()
+                }).ToArray();
+            }
+            catch (Exception)
+            {
+                return new gameComboTag[] { };
+            }
+        }
+
+
     }
 }

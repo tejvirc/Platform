@@ -1,9 +1,11 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Tests.Commands.RuntimeEvents
 {
     using Contracts;
+    using Contracts.Lobby;
     using Gaming.Commands;
     using Gaming.Commands.RuntimeEvents;
     using Gaming.Runtime.Client;
+    using Google.Protobuf.WellKnownTypes;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
@@ -13,11 +15,11 @@
     [TestClass]
     public class ReplayRuntimeEventHandlerTests
     {
-        private readonly Mock<IPropertiesManager> _propertiesManager =
-            new Mock<IPropertiesManager>(MockBehavior.Default);
-
+        private readonly Mock<IPropertiesManager> _propertiesManager = new Mock<IPropertiesManager>(MockBehavior.Default);
         private readonly Mock<IEventBus> _bus = new Mock<IEventBus>(MockBehavior.Default);
         private readonly Mock<IGameDiagnostics> _gameDiagnostics = new Mock<IGameDiagnostics>(MockBehavior.Default);
+        private readonly Mock<IGameProvider> _gameProvider = new Mock<IGameProvider>(MockBehavior.Default);
+        private readonly Mock<ILobbyStateManager> _lobbyStateManager = new Mock<ILobbyStateManager>(MockBehavior.Default);
 
         private ReplayRuntimeEventHandler _target;
 
@@ -26,8 +28,21 @@
         {
             _target = CreateEventHandler();
             var mockContext = new Mock<IDiagnosticContext<IGameHistoryLog>>(MockBehavior.Default);
-
             _gameDiagnostics.SetupGet(m => m.Context).Returns(mockContext.Object);
+
+            const int activeId = 1;
+            const long denomValue = 1000;
+
+            var denom = new Mock<IDenomination>();
+            denom.Setup(x => x.Id).Returns(activeId);
+            denom.Setup(x => x.Value).Returns(denomValue);
+            denom.Setup(x => x.Active).Returns(true);
+
+            var gameDetail = new Mock<IGameDetail>();
+            gameDetail.Setup(x => x.Id).Returns(activeId);
+            gameDetail.Setup(x => x.Denominations).Returns(new List<IDenomination> { denom.Object });
+
+            _gameProvider.Setup(x => x.GetActiveGame()).Returns((gameDetail.Object, denom.Object));
         }
 
         [DataTestMethod]
@@ -116,13 +131,17 @@
 
         private ReplayRuntimeEventHandler CreateEventHandler(
             bool nullProperties = false,
+            bool nullGameProvider = false,
             bool nullBus = false,
-            bool nullGameDiagnostics = false)
+            bool nullGameDiagnostics = false,
+            bool nullLobbyStateManager = false)
         {
             return new ReplayRuntimeEventHandler(
                 nullProperties ? null : _propertiesManager.Object,
+                nullGameProvider ? null : _gameProvider.Object,
                 nullBus ? null : _bus.Object,
-                nullGameDiagnostics ? null : _gameDiagnostics.Object);
+                nullGameDiagnostics ? null : _gameDiagnostics.Object,
+                nullLobbyStateManager ? null : _lobbyStateManager.Object);
         }
     }
 }

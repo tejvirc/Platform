@@ -2,9 +2,16 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Reflection;
+    using System.Windows.Forms;
     using Aristocrat.Monaco.Application.Contracts.Input;
+#if !RETAIL
+    using Aristocrat.Monaco.Hardware.Contracts.Cabinet;
+    using Cabinet.Contracts;
+#endif
     using Contracts;
+    using Contracts.Localization;
     using Kernel;
     using log4net;
 
@@ -14,6 +21,7 @@
 
         private readonly IEventBus _eventBus;
         private readonly IVirtualKeyboardProvider _keyboardProvider;
+        private readonly CultureInfo _startupCulture = InputLanguage.CurrentInputLanguage.Culture;
 
         private bool _disableKeyboard;
         private bool _disposed;
@@ -78,7 +86,16 @@
                 return;
             }
 
-            _keyboardProvider?.OpenKeyboard(targetControl);
+            if (_keyboardProvider == null)
+            {
+                Logger.Warn("OnScreenKeyboard provider not available");
+                return;
+            }
+
+            var culture = Localizer.For(CultureFor.Operator).CurrentCulture;
+            SetInputLanguage(culture);
+
+            _keyboardProvider.OpenKeyboard(targetControl, culture);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -96,9 +113,23 @@
             _disposed = true;
         }
 
+        private void SetInputLanguage(CultureInfo culture)
+        {
+            if (culture == null)
+            {
+                return;
+            }
+
+            InputLanguage.CurrentInputLanguage = InputLanguage.FromCulture(culture);
+            Logger.Debug($"Set Windows Input language to {culture.EnglishName}");
+        }
+
         private void CloseOnScreenKeyboard()
         {
             _keyboardProvider?.CloseKeyboard();
+
+            // Return to the startup language after closing the keyboard
+            SetInputLanguage(_startupCulture);
         }
 
         private void HandleOnScreenKeyboardClosed(OnscreenKeyboardClosedEvent e)
@@ -113,11 +144,20 @@
 
         private IVirtualKeyboardProvider GetKeyboardProvider(KeyboardProviderType configuredType)
         {
+#if !RETAIL
+            var cabinetType = ServiceManager.GetInstance().GetService<ICabinetDetectionService>().Type;
+            if (cabinetType == CabinetType.Unknown)
+            {
+                // Only dev machines should have Unknown type
+                return null;
+            }
+#endif
+
             return configuredType switch
             {
-                KeyboardProviderType.Embedded => new EmbeddedKeyboardProvider(),
+                // Default to Embedded (third party) keyboard for all known cabinets
                 KeyboardProviderType.Windows => new WindowsKeyboardProvider(),
-                _ => null
+                _ => new EmbeddedKeyboardProvider()
             };
         }
     }

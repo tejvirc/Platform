@@ -1,42 +1,26 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Progressives
 {
-    using System;
     using Application.Contracts;
     using Contracts.Progressives;
+    using log4net;
+    using System.Reflection;
 
-    public class BulkCalculator : ICalculatorStrategy
+    /// <summary>
+    ///     Bulk Calculator used for adding contributions to bulk progressive levels.
+    /// </summary>
+    public class BulkCalculator : CalculatorBase, ICalculatorStrategy
     {
-        private const long Divisor = 100000000;
-        
-        public void ApplyContribution(ProgressiveLevel level, ProgressiveLevelUpdate levelUpdate, IMeter hiddenTotalMeter)
+        /// <summary>
+        ///     Default constructor
+        /// </summary>
+        /// <param name="mysteryProgressiveProvider">An isntance of IMysteryProgressiveProvider.</param>
+        public BulkCalculator(IMysteryProgressiveProvider mysteryProgressiveProvider)
+            : base(mysteryProgressiveProvider, LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType))
         {
-            level.Residual += levelUpdate.Fraction;
-
-            var overflow = level.Residual / Divisor;
-            level.Residual %= Divisor;
-            level.CurrentValue += levelUpdate.Amount + overflow;
-            level.HiddenValue += level.CurrentValue * level.HiddenIncrementRate;
-            hiddenTotalMeter?.Increment(level.CurrentValue * level.HiddenIncrementRate);
-
-            if (level.CurrentValue > level.MaximumValue)
-            {
-                level.Overflow += level.CurrentValue - level.MaximumValue;
-                level.OverflowTotal += level.CurrentValue - level.MaximumValue;
-                level.CurrentValue = level.MaximumValue;
-            }
         }
 
-        public void Increment(ProgressiveLevel level, long wager, long ante, IMeter hiddenTotalMeter)
-        {
-            throw new NotSupportedException();
-        }
-
-        public void Reset(ProgressiveLevel level)
-        {
-            Reset(level, level.ResetValue);
-        }
-
-        public void Reset(ProgressiveLevel level, long resetValue)
+        /// <inheritdoc />
+        public override void Reset(ProgressiveLevel level, long resetValue)
         {
             level.CurrentValue = resetValue + level.Overflow + level.HiddenValue;
 
@@ -46,16 +30,17 @@
             level.Overflow = 0;
             // OverflowTotal will not reset to zero
 
-            ApplyContribution(level, new ProgressiveLevelUpdate(level.LevelId, 0, residual, false), null);
+            ApplyContribution(level, new ProgressiveLevelUpdate(level.LevelId, 0, residual, false), null, null);
         }
 
-        public long Claim(ProgressiveLevel level)
+        /// <inheritdoc />
+        public override long Claim(ProgressiveLevel level, long resetValue)
         {
-            return Claim(level, level.ResetValue);
-        }
+            if (level.TriggerControl == TriggerType.Mystery)
+            {
+                return MysteryClaim(level, resetValue);
+            }
 
-        public long Claim(ProgressiveLevel level, long resetValue)
-        {
             var current = level.CurrentValue;
 
             Reset(level, resetValue);

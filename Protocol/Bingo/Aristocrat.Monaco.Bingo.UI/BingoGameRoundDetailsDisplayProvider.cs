@@ -50,18 +50,17 @@
                 throw new ArgumentNullException(nameof(windowTitle));
             }
 
-            var bingoGameDescription = _centralProvider.Transactions
+            var bingoGameDescriptions = _centralProvider.Transactions
                 .SingleOrDefault(x => x.TransactionId == centralTransactionId)?.Descriptions
-                .OfType<BingoGameDescription>()
-                .FirstOrDefault();
-            if (bingoGameDescription is null)
+                .OfType<BingoGameDescription>();
+            if (!bingoGameDescriptions.Any())
             {
                 return;
             }
 
             dialogService.ShowInfoDialog<BingoGameHistoryDetailsView>(
                 ownerViewModel,
-                new BingoGameHistoryDetailsViewModel(bingoGameDescription),
+                new BingoGameHistoryDetailsViewModel(bingoGameDescriptions),
                 windowTitle);
         }
     }

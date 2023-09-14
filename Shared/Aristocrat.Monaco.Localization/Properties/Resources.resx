@@ -11689,6 +11689,33 @@ Otherwise, please shut down this game and contact Aristocrat via our website: ww
     <value>Too many transaction requests are pending with the Server. This lockup will be removed when the Server acknowledges the requests.</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
+  <data name="RtpBreakdown" xml:space="preserve">
+    <value>RTP BREAKDOWN</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value>MIN</value>
+  </data>
+  <data name="Max" xml:space="preserve">
+    <value>MAX</value>
+  </data>
+  <data name="BaseExcludingProgressives" xml:space="preserve">
+    <value>Base (Excluding Progressives)</value>
+  </data>
+  <data name="StandaloneProgressiveReset" xml:space="preserve">
+    <value>Standalone Progressive Reset</value>
+  </data>
+  <data name="StandaloneProgressiveIncrement" xml:space="preserve">
+    <value>Standalone Progressive Increment</value>
+  </data>
+  <data name="LinkProgressiveReset" xml:space="preserve">
+    <value>Link Progressive Reset</value>
+  </data>
+  <data name="LinkProgressiveIncrement" xml:space="preserve">
+    <value>Link Progressive Increment</value>
+  </data>
+  <data name="LinkedProgressiveVerificationEnabledLabel" xml:space="preserve">
+    <value>Linked Progressive Verification</value>
+  </data>
   <data name="ProgressiveHostDisconnected" xml:space="preserve">
     <value>Progressive Host Disconnected</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
@@ -12283,7 +12310,7 @@ Do you really want to do full reset?</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
   <data name="TimeBeforeHandCountReset" xml:space="preserve">
-    <value>TIME BEFORE CREDITS/HANDCOUNT IS RESET.</value>
+    <value>TIME BEFORE CREDITS/HAND COUNT IS RESET.</value>
     <comment>Monaco.Gaming.UI</comment>
   </data>
   <data name="Secs" xml:space="preserve">
@@ -12332,13 +12359,17 @@ Do you really want to do full reset?</value>
     <value>Setting this lower than the default 30 seconds can result in excessive EGM lockups. </value>
     <comment>Aristocrat.Monaco.G2S.UI</comment>
   </data>
-  <data name="VertexGameIdLabel" xml:space="preserve">
-    <value>Vertex Game Id</value>
+  <data name="LinkedGameIdLabel" xml:space="preserve">
+    <value>Linked Game Id</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
   </data>
-  <data name="VertexIdLabel" xml:space="preserve">
-    <value>VERTEX ID</value>
+  <data name="LinkedLevelIdLabel" xml:space="preserve">
+    <value>LINKED
+LEVEL ID</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="BypassCertificateValidation" xml:space="preserve">
+    <value>Bypass Certificate Validation</value>
   </data>
   <data name="ReelController_LoadingAnimationFile" xml:space="preserve">
     <value>Loading Animation File {0}</value>
@@ -12347,4 +12378,34 @@ Do you really want to do full reset?</value>
   <data name="DisplayConnected" xml:space="preserve">
     <value>Display Connected - Restart Required</value>
   </data>
+  <data name="Printer_DfuInProgress" xml:space="preserve">
+    <value>Printer DFU Download In Progress: Please Do Not Power Off The Gaming Machine</value>
+  </data>
+  <data name="ErrorInfoPrinterPaperLow" xml:space="preserve">
+    <value>Open Main Door and Load More Paper Before Paper is Empty</value>
+  </data>
+  <data name="FirmwareUpdateText" xml:space="preserve">
+    <value>Firmware Update</value>
+  </data>
+  <data name="Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="WorkingText" xml:space="preserve">
+    <value>Working</value>
+  </data>
+  <data name="LoadingAnimationFilesInfo" xml:space="preserve">
+    <value>Animation files are being loaded to the reel controller.  This lockup will be removed once all animation files have been loaded.</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="TotalBulk" xml:space="preserve">
+    <value>Total Bulk</value>
+  </data>
+  <data name="ConfigurableIdNotUsedForSapMessage" xml:space="preserve">
+    <value>Linked level id is only needed for Linked levels</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+  </data>
+  <data name="ColumnsNotAvailableForLpLevelsMessage" xml:space="preserve">
+    <value>Certain Linked level parameters are Not Applicable in this screen as they are managed in the progressive controller.</value>
+    <comment>Aristocrat.Monaco.Gaming.UI</comment>
+ </data> 
 </root>

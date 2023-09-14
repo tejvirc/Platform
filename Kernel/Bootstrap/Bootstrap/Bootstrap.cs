@@ -9,6 +9,7 @@
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Security.Permissions;
+    using System.Threading;
     using System.Threading.Tasks;
     using Kernel;
     using Kernel.Contracts;
@@ -42,6 +43,8 @@
 
         // The int representing a verbose logging level for MonoLogger
         private const int VerboseMonoLogLevel = 2;
+        private const int minWorkerThreads = 32;
+        private const int minCompletionPortThreads = 32;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -131,6 +134,12 @@
 
             Logger.Debug($"_softBootTime: {_softBootTime} kind:{_softBootTime.Kind}");
             Logger.Debug($"_hardBootTime: {_hardBootTime} kind:{_softBootTime.Kind}");
+
+            ThreadPool.SetMinThreads(minWorkerThreads, minCompletionPortThreads);
+            ThreadPool.GetMinThreads(out var readWorkerThreads, out var readCompletionPortThreads);
+            Logger.Info($"Min Worker threads: {readWorkerThreads}, Min I/O threads: {readCompletionPortThreads}");
+            ThreadPool.GetMaxThreads(out readWorkerThreads, out readCompletionPortThreads);
+            Logger.Info($"Max Worker threads: {readWorkerThreads}, Max I/O threads: {readCompletionPortThreads}");
 
             LoadKernel();
             RunBootExtender();

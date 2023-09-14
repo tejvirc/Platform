@@ -1,11 +1,11 @@
-﻿namespace Aristocrat.Monaco.Application.UI.StatusDisplay
+namespace Aristocrat.Monaco.Application.UI.StatusDisplay
 {
     using System;
     using System.Collections.ObjectModel;
-    using MVVM.ViewModel;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     [CLSCompliant(false)]
-    public class DisplayBoxViewModel : BaseViewModel
+    public class DisplayBoxViewModel : ObservableObject
     {
         private ObservableCollection<string> _messages;
 
@@ -23,7 +23,7 @@
                 if (_messages != value)
                 {
                     _messages = value;
-                    RaisePropertyChanged(nameof(Messages));
+                    OnPropertyChanged(nameof(Messages));
                 }
             }
         }

@@ -67,6 +67,12 @@ namespace Aristocrat.Monaco.Application
             _properties = new Dictionary<string, Tuple<object, string>>
             {
                 {
+                    ApplicationConstants.ConfigWizardLocalizationCurrency,
+                    Tuple.Create(
+                        (object)configWizardConfiguration.Localization?.Currency ?? Culture.Default,
+                        ApplicationConstants.ConfigWizardLocalizationCurrency)
+                },
+                {
                     ApplicationConstants.ConfigWizardMachineSetupConfigVisibility,
                     Tuple.Create(
                         (object)(configWizardConfiguration.MachineSetupConfig?.Visibility != null &&

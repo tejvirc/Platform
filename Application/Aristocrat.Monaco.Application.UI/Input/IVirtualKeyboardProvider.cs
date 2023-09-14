@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Input
 {
+    using System.Globalization;
+
     /// <summary>
     ///     Provides virtual keyboard functionality
     /// </summary>
@@ -14,6 +16,7 @@
         ///     Opens the keyboard
         /// </summary>
         /// <param name="targetControl">The target control of the keyboard</param>
-        public void OpenKeyboard(object targetControl);
+        /// <param name="culture">The culture info to set the keyboard language</param>
+        public void OpenKeyboard(object targetControl, CultureInfo culture);
     }
 }

@@ -236,8 +236,8 @@
         {
             lock (_lock)
             {
-                Logger.Info($"MapTouchscreens - CabinetType {_cabinet.CabinetType} Id {_cabinet.Id} - persistMappings {persistMappings}");
-                var mainDisplayDevice = GetDisplayDeviceByItsRole(DisplayRole.Main);
+                var primaryDisplayDevice = GetDisplayDeviceByItsRole(DisplayRole.Main);
+                Logger.Info($"MapTouchscreens - CabinetType {_cabinet.CabinetType} Id {_cabinet.Id} - persistMappings {persistMappings} - Primary Display Name {primaryDisplayDevice.Name} - Primary Display Role {primaryDisplayDevice.Role}");
 
                 var serialTouchName = "?";
                 var serialTouchProductString = "?";
@@ -251,7 +251,7 @@
                 {
                     // No, add the main display device with serial touch
                     var expectedDisplayDevicesWithSerialTouch = new List<IDisplayDevice>();
-                    expectedDisplayDevicesWithSerialTouch.Add(mainDisplayDevice);
+                    expectedDisplayDevicesWithSerialTouch.Add(primaryDisplayDevice);
                     ExpectedDisplayDevicesWithSerialTouch = expectedDisplayDevicesWithSerialTouch;
  
                     // Try to get serial touch model and firmware
@@ -279,7 +279,7 @@
                     }
 
                     Logger.Debug($"MapTouchscreens - LS cabinet matched, injecting {serialTouchProductString} serial touch {serialTouchName} version {serialTouchVersionNumber} " +
-                                 $"for main display device {mainDisplayDevice.Name} Touch VID {mainDisplayDevice.TouchVendorId} Touch PID {mainDisplayDevice.TouchProductId}");
+                                 $"for main display device {primaryDisplayDevice.Name} Touch VID {primaryDisplayDevice.TouchVendorId} Touch PID {primaryDisplayDevice.TouchProductId}");
 
                     var expectedSerialTouchDevices = new List<ITouchDevice>();
                     expectedSerialTouchDevices.Add(serialTouchDevice);

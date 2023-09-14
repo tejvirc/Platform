@@ -208,20 +208,65 @@
                 _shutdownRequested = true;
             }
         }
-
-        public void UpdateReelState(IDictionary<int, ReelLogicalState> updateData)
+        
+        /// <inheritdoc />
+        public void UpdateReelState(IDictionary<int, ReelLogicalState> updateData, int? step = null)
         {
             var stateRequest = new UpdateReelStateNotification
             {
                 States = { updateData.ToDictionary(x => x.Key, x => HardwareReelExtensions.GetReelState(x.Value)) }
             };
 
+            if (step != null)
+            {
+                stateRequest.ReelStateData = Any.Pack(new ReelIdleData { Step = (uint)step });
+            }
+
             Invoke(x => x.UpdateReelState(stateRequest));
         }
-
-        public void AnimationUpdated(AnimationUpdatedNotification animationUpdatedNotification)
+        
+        /// <inheritdoc />
+        public void NotifyAnimationUpdated(AnimationUpdatedNotification updateData)
         {
-            Invoke(x => x.AnimationUpdated(animationUpdatedNotification));
+            Invoke(x => x.AnimationUpdated(updateData));
+        }
+
+        /// <inheritdoc />
+        public void NotifyStepperRuleTriggered(int reelId, int eventId)
+        {
+            var notification = new UserSpecifiedEventsNotification
+            {
+                ReelIndex = (uint)reelId,
+                EventIdentifier = (uint)eventId
+            };
+
+            Invoke(x => x.UserSpecifiedEvents(new UserSpecifiedEventsNotification(notification)));
+        }
+
+        /// <inheritdoc />
+        public void NotifyReelSynchronizationStatus(int reelId, SynchronizeStatus status)
+        {
+            var notificationStatus = status == SynchronizeStatus.Complete
+                ? ReelState.Synchronized
+                : ReelState.SynchronizationStarted;
+
+            var notification = new UpdateReelStateNotification
+            {
+                States = { new Dictionary<int, ReelState> { {reelId, notificationStatus} } }
+            };
+
+            Invoke(x => x.UpdateReelState(notification));
+        }
+
+        /// <inheritdoc />
+        public void NotifyReelStopping(int reelId, long timeToStop)
+        {
+            var notification = new ReelStoppingNotification
+            {
+                ReelIndex = (uint)reelId, StopTime = (uint)timeToStop
+            };
+
+            Invoke(x => x.ReelStopping(notification));
         }
 
         public void PresentOverriddenPresentation(IList<PresentationOverrideData> presentations)

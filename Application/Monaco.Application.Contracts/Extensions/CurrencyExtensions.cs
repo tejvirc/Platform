@@ -125,6 +125,13 @@
         }
 
         /// <summary>
+        ///     Remove the fractional units from the millicents.
+        /// </summary>
+        /// <param name="millicents">The millicents to remove fraction.</param>
+        /// <returns>Millicents without fraction units for the provided millicents.</returns>
+        public static long RemoveMillicentsFraction(this long millicents) => millicents.MillicentsToDollarsNoFraction().DollarsToMillicents();
+
+        /// <summary>
         ///     Converts dollars to millicents.
         /// </summary>
         /// <param name="dollars">The value in dollars.</param>
@@ -283,7 +290,7 @@
         /// <summary>
         ///     Formats currency string.
         /// </summary>
-        /// <param name="amount">Amount.</param>
+        /// <param name="amount">Amount in dollars.</param>
         /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>
         /// <param name="culture">The optional culture used for formatting.  If none is provided, defaults to the current Currency culture.</param>
         /// <returns>Formatted currency string.</returns>
@@ -316,11 +323,13 @@
         ///     Formats currency string.
         /// </summary>
         /// <param name="amount">Amount.</param>
-        /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>
+        /// <param name="withMillicents">Whether to add extra digits for fractional currency (default false)</param>\
+        /// <param name="culture">The optional CultureInfo to use for string formatting</param>
         /// <returns>Formatted currency string.</returns>
-        public static string FormattedCurrencyString(this string amount, bool withMillicents = false)
+        public static string FormattedCurrencyString(this string amount, bool withMillicents = false, CultureInfo culture = null)
         {
-            return double.TryParse(amount, out var result) ? result.FormattedCurrencyString(withMillicents) : amount;
+            culture ??= CurrencyCultureInfo;
+            return double.TryParse(amount, out var result) ? result.FormattedCurrencyString(withMillicents, culture) : amount;
         }
 
         /// <summary>
@@ -500,6 +509,23 @@
                 $"{region?.CurrencyEnglishName} {isoCurrencyCode} {FormattedCurrencyString(DefaultDescriptionAmount, false, culture)}".Trim();
         }
 
+        /// <summary>
+        /// Gets the formatted currency description for the specified region in Operator Culture
+        /// </summary>
+        /// <param name="culture">the culture</param>
+        /// <param name="isoCurrencyCode">currency code</param>
+        /// <param name="region">the region</param>
+        /// <returns></returns>
+        public static string GetFormattedDescriptionForOperator(
+            this CultureInfo culture,
+            string isoCurrencyCode,
+            RegionInfo region = null)
+        {
+            region ??= !string.IsNullOrEmpty(culture.Name) ? new RegionInfo(culture.Name) : null;
+
+            return
+                $"{region?.CurrencyEnglishName} {isoCurrencyCode} {FormattedCurrencyStringForOperator(DefaultDescriptionAmount)}".Trim();
+        }
         /// <summary>
         /// Apply no currency format on the culture
         /// </summary>

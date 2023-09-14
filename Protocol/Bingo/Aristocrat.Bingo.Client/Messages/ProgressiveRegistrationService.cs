@@ -5,7 +5,6 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using GamePlay;
     using Grpc.Core;
     using log4net;
     using Progressives;
@@ -21,64 +20,57 @@
         IDisposable
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private readonly IEnumerable<IClient> _clients;
         private readonly IProgressiveMessageHandlerFactory _messageHandlerFactory;
+        private readonly IClient<ProgressiveApi.ProgressiveApiClient> _progressiveClient;
         private readonly IProgressiveAuthorizationProvider _authorization;
         private readonly IProgressiveLevelInfoProvider _progressiveLevelInfoProvider;
         private bool _disposed;
 
         public ProgressiveRegistrationService(
             IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient> endpointProvider,
-            IEnumerable<IClient> clients,
+            IClient<ProgressiveApi.ProgressiveApiClient> progressiveClient,
             IProgressiveMessageHandlerFactory messageHandlerFactory,
             IProgressiveAuthorizationProvider authorization,
             IProgressiveLevelInfoProvider progressiveLevelInfoProvider)
             : base(endpointProvider)
         {
-            _clients = clients ?? throw new ArgumentNullException(nameof(clients));
+            _progressiveClient = progressiveClient ?? throw new ArgumentNullException(nameof(progressiveClient));
             _authorization = authorization ?? throw new ArgumentNullException(nameof(authorization));
             _messageHandlerFactory = messageHandlerFactory ?? throw new ArgumentNullException(nameof(messageHandlerFactory));
             _progressiveLevelInfoProvider = progressiveLevelInfoProvider ?? throw new ArgumentNullException(nameof(progressiveLevelInfoProvider));
 
-            foreach (var client in _clients)
-            {
-                client.Disconnected += OnClientDisconnected;
-            }
+            _progressiveClient.Disconnected += OnClientDisconnected;
         }
 
-        public async Task<RegistrationResults> RegisterClient(ProgressiveRegistrationMessage message, CancellationToken token)
+        public async Task<RegistrationResults> RegisterClient(
+            ProgressiveRegistrationMessage message,
+            CancellationToken token = default)
         {
             Logger.Debug($"Progressive RegisterClient called, MachineSerial={message.MachineSerial}");
 
-            Google.Protobuf.Collections.RepeatedField<ServerApiGateway.ProgressiveGame> games = new ();
+            Google.Protobuf.Collections.RepeatedField<ProgressiveGame> games = new();
             foreach (var progressiveGame in message.Games)
             {
-                // TODO right now the fake progressive service only supports a denom of $1 so don't register all the sub-games
-                if (progressiveGame.GameTitleId == 3002 && progressiveGame.Denomination == 100)
+                var game = new ProgressiveGame
                 {
-                    var game = new ServerApiGateway.ProgressiveGame
-                    {
-                        GameTitleId = progressiveGame.GameTitleId,
-                        Denomination = progressiveGame.Denomination,
-                        MaxBet = progressiveGame.MaxBet
-                    };
+                    GameTitleId = progressiveGame.GameTitleId,
+                    Denomination = progressiveGame.Denomination,
+                    MaxBet = progressiveGame.MaxBet
+                };
 
-                    games.Add(game);
+                games.Add(game);
 
-                    Logger.Debug(
-                        $"Registering progressive game GameTitleId={game.GameTitleId}, Denomination={game.Denomination}, MaxBet={game.MaxBet}");
-                }
+                Logger.Debug(
+                    $"Registering progressive game GameTitleId={game.GameTitleId}, Denomination={game.Denomination}, MaxBet={game.MaxBet}");
             }
 
 
-            var request = new ProgressiveInfoRequest
-            {
-                MachineSerial = message.MachineSerial,
-                Games = { games }
-            };
+            var request = new ProgressiveInfoRequest { MachineSerial = message.MachineSerial, Games = { games } };
 
             var result = await Invoke(
-                    async x => await x.RequestProgressiveInfoAsync(request, null, null, token));
+                async (x, r, c) => await x.RequestProgressiveInfoAsync(r, null, null, c),
+                request,
+                token).ConfigureAwait(false);
 
             _authorization.AuthorizationData = new Metadata { { "Authorization", $"Bearer {result.AuthToken}" } };
 
@@ -93,9 +85,15 @@
             var progressiveLevels = new List<ProgressiveLevelInfo>();
             foreach (var progressiveMapping in result.ProgressiveLevels)
             {
-                Logger.Debug($"ProgressiveLevelInfo added, level={progressiveMapping.ProgressiveLevelId}, sequence={progressiveMapping.SequenceNumber}, GameTitleId={progressiveMapping.GameTitleId}, Denomination={progressiveMapping.Denomination}");
+                Logger.Debug(
+                    $"ProgressiveLevelInfo added, level={progressiveMapping.ProgressiveLevelId}, sequence={progressiveMapping.SequenceNumber}, GameTitleId={progressiveMapping.GameTitleId}, Denomination={progressiveMapping.Denomination}");
 
-                progressiveLevels.Add(new ProgressiveLevelInfo(progressiveMapping.ProgressiveLevelId, progressiveMapping.SequenceNumber, progressiveMapping.GameTitleId, progressiveMapping.Denomination));
+                progressiveLevels.Add(
+                    new ProgressiveLevelInfo(
+                        progressiveMapping.ProgressiveLevelId,
+                        progressiveMapping.SequenceNumber,
+                        progressiveMapping.GameTitleId,
+                        progressiveMapping.Denomination));
 
                 _progressiveLevelInfoProvider.AddProgressiveLevelInfo(
                         progressiveMapping.ProgressiveLevelId,
@@ -119,10 +117,11 @@
                 result.AuthToken,
                 progressiveLevels,
                 metersToReport);
-            var handlerResult = await _messageHandlerFactory.Handle<ProgressiveInformationResponse, ProgressiveInfoMessage>(progressiveInfoMessage, token)
+            var handlerResult = await _messageHandlerFactory
+                .Handle<ProgressiveInformationResponse, ProgressiveInfoMessage>(progressiveInfoMessage, token)
                 .ConfigureAwait(false);
 
-            return new RegistrationResults(handlerResult is null ? ResponseCode.Rejected : handlerResult.ResponseCode);
+            return new RegistrationResults(handlerResult?.ResponseCode ?? ResponseCode.Rejected);
         }
 
         public void Dispose()
@@ -140,11 +139,7 @@
 
             if (disposing)
             {
-                foreach (var client in _clients)
-                {
-                    client.Disconnected -= OnClientDisconnected;
-                }
-
+                _progressiveClient.Disconnected -= OnClientDisconnected;
                 _authorization.AuthorizationData = null;
             }
 

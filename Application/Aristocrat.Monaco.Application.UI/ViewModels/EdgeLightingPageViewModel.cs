@@ -1,9 +1,11 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
     using Application.Settings;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
     using Contracts;
     using Contracts.EdgeLight;
@@ -16,8 +18,6 @@
     using Kernel;
     using Kernel.Contracts;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class EdgeLightingPageViewModel : InspectionWizardViewModelBase
@@ -34,7 +34,7 @@
         {
             _edgeLightingController = ServiceManager.GetInstance().GetService<IEdgeLightingController>();
             TestViewModel.SetTestReporter(Inspection);
-            ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode, _ => TestModeEnabled);
+            ToggleTestModeCommand = new RelayCommand<object>(_ => InTestMode = !InTestMode, _ => TestModeEnabled);
         }
 
         public ICommand ToggleTestModeCommand { get; }
@@ -51,12 +51,12 @@
 
             set
             {
-                SetProperty(
-                    ref _isEdgeLightingAvailable,
-                    value,
-                    nameof(IsEdgeLightingAvailable),
-                    nameof(TestButtonEnabled));
-                RaisePropertyChanged(nameof(EdgeLightingEnabled));
+                if (SetProperty(ref _isEdgeLightingAvailable, value, nameof(IsEdgeLightingAvailable)))
+                {
+                    OnPropertyChanged(nameof(TestButtonEnabled));
+                }
+
+                OnPropertyChanged(nameof(EdgeLightingEnabled));
                 if (!value)
                 {
                     InTestMode = false;
@@ -88,6 +88,7 @@
                 {
                     EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.EdgeLighting));
                     EventBus.Publish(new OperatorMenuWarningMessageEvent(""));
+                    TestViewModel.Brightness = EdgeLightingBrightnessLimits.MaximumBrightness;
                 }
 
                 SetProperty(ref _inTestMode, value, nameof(InTestMode));
@@ -100,9 +101,9 @@
             set
             {
                 base.TestModeEnabled = value;
-                if (ToggleTestModeCommand is IActionCommand actionCommand)
+                if (ToggleTestModeCommand is IRelayCommand RelayCommand)
                 {
-                    MvvmHelper.ExecuteOnUI(() => actionCommand.RaiseCanExecuteChanged());
+                    Execute.OnUIThread(() => RelayCommand.NotifyCanExecuteChanged());
                 }
             }
         }
@@ -250,12 +251,12 @@
 
         protected override void OnInputEnabledChanged()
         {
-            RaisePropertyChanged(nameof(EdgeLightingEnabled));
+            OnPropertyChanged(nameof(EdgeLightingEnabled));
         }
 
         protected override void OnTestModeEnabledChanged()
         {
-            RaisePropertyChanged(nameof(TestButtonEnabled));
+            OnPropertyChanged(nameof(TestButtonEnabled));
         }
 
         protected override void UpdateStatusText()
@@ -272,32 +273,32 @@
 
         private void HandleEdgeLightConnectedEvent(EdgeLightingConnectedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsEdgeLightingAvailable = true;
-                    RaisePropertyChanged(nameof(InfoText), nameof(InfoTextVisible));
+                    OnPropertyChanged(nameof(InfoText), nameof(InfoTextVisible));
                     UpdateStatusText();
                 });
         }
 
         private void HandleEdgeLightDisconnectedEvent(EdgeLightingDisconnectedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     IsEdgeLightingAvailable = false;
-                    RaisePropertyChanged(nameof(InfoText), nameof(InfoTextVisible));
+                    OnPropertyChanged(nameof(InfoText), nameof(InfoTextVisible));
                     UpdateStatusText();
                 });
         }
 
         private void HandleOperatorCultureChangedEvent(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
-                    RaisePropertyChanged(nameof(InfoText));
+                    OnPropertyChanged(nameof(InfoText));
                     UpdateStatusText();
                 });
         }

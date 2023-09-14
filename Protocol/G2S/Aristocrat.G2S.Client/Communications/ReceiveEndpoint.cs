@@ -27,11 +27,13 @@
         /// <param name="service">An instance of the IG2SService.</param>
         /// <param name="address">The address to listen on.</param>
         /// <param name="certificate">The certificate</param>
+        /// <param name="bypassCertificateValidation"></param>
         /// <param name="validator">An optional <see cref="X509CertificateValidator" /> validator</param>
         public ReceiveEndpoint(
             IG2SService service,
             Uri address,
             X509Certificate2 certificate,
+            bool bypassCertificateValidation,
             X509CertificateValidator validator)
         {
             if (address == null)
@@ -50,7 +52,7 @@
 
             _endpoint = new ServiceEndpoint(
                 ContractDescription.GetContract(typeof(IG2SService)),
-                EndpointUtilities.Binding(address),
+                EndpointUtilities.Binding(address, bypassCertificateValidation),
                 new EndpointAddress(address));
         }
 

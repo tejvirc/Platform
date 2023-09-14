@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -13,18 +13,18 @@
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Commands;
+    using CommunityToolkit.Mvvm.ComponentModel;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Diagnostics;
     using Hardware.Contracts.Button;
     using Kernel;
     using Localization.Properties;
-    using MVVM.Command;
-    using MVVM.ViewModel;
 
     /// <summary>
     ///     Helper class to handle replay/recovering screen of the lobby ViewModel.
     /// </summary>
-    public class ReplayRecoveryViewModel : BaseEntityViewModel, IDisposable
+    public class ReplayRecoveryViewModel : ObservableObject, IDisposable
     {
         private const double CashOutMessagesCycleIntervalInSeconds = 3.0;
 
@@ -67,8 +67,8 @@
             _properties = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
             _commandHandlerFactory = handlerFactory ?? throw new ArgumentNullException(nameof(handlerFactory));
 
-            ExitCommand = new ActionCommand<object>(ExitButtonPressed);
-            ContinueCommand = new ActionCommand<object>(ContinueButtonPressed);
+            ExitCommand = new RelayCommand<object>(ExitButtonPressed);
+            ContinueCommand = new RelayCommand<object>(ContinueButtonPressed);
             _cashoutMessageTimer = new Timer(TimeSpan.FromSeconds(CashOutMessagesCycleIntervalInSeconds).TotalMilliseconds);
             _cashoutMessageTimer.Elapsed += CashOutMessageCycleTimerTick;
 
@@ -100,7 +100,7 @@
                 }
 
                 _isReplayNavigationVisible = value;
-                RaisePropertyChanged(nameof(IsReplayNavigationVisible));
+                OnPropertyChanged(nameof(IsReplayNavigationVisible));
             }
         }
 
@@ -119,7 +119,7 @@
                 }
 
                 _backgroundOpacity = value;
-                RaisePropertyChanged(nameof(BackgroundOpacity));
+                OnPropertyChanged(nameof(BackgroundOpacity));
             }
         }
 
@@ -138,7 +138,7 @@
                 }
 
                 _messageText = value;
-                RaisePropertyChanged(nameof(MessageText));
+                OnPropertyChanged(nameof(MessageText));
             }
         }
 
@@ -154,7 +154,7 @@
                 }
 
                 _replaySequence = value;
-                RaisePropertyChanged(nameof(ReplaySequence));
+                OnPropertyChanged(nameof(ReplaySequence));
             }
         }
 
@@ -170,7 +170,7 @@
                 }
 
                 _replayGameName = value;
-                RaisePropertyChanged(nameof(ReplayGameName));
+                OnPropertyChanged(nameof(ReplayGameName));
             }
         }
 
@@ -186,7 +186,7 @@
                 }
 
                 _replayStartTime = value;
-                RaisePropertyChanged(nameof(ReplayStartTime));
+                OnPropertyChanged(nameof(ReplayStartTime));
             }
         }
 
@@ -205,7 +205,7 @@
                 }
 
                 _label = value;
-                RaisePropertyChanged(nameof(Label));
+                OnPropertyChanged(nameof(Label));
             }
         }
 
@@ -221,7 +221,7 @@
                 }
 
                 _cashoutText = value;
-                RaisePropertyChanged(nameof(CashoutText));
+                OnPropertyChanged(nameof(CashoutText));
             }
         }
 
@@ -237,9 +237,9 @@
                 }
 
                 _replayPauseMessageText = value;
-                RaisePropertyChanged(nameof(ReplayPauseMessageText));
-                RaisePropertyChanged(nameof(IsReplayPauseMessageVisible));
-                RaisePropertyChanged(nameof(CanReplayContinue));
+                OnPropertyChanged(nameof(ReplayPauseMessageText));
+                OnPropertyChanged(nameof(IsReplayPauseMessageVisible));
+                OnPropertyChanged(nameof(CanReplayContinue));
             }
         }
 
@@ -381,7 +381,7 @@
 
             ReplaySequence = context.Arguments.LogSequence;
 
-            ReplayStartTime = context.GameIndex == -1 || context.GameIndex == 0
+            ReplayStartTime = context.GameIndex is -1 or 0
                 ? time.GetLocationTime(context.Arguments.StartDateTime)
                 : time.GetLocationTime(
                     context.Arguments.FreeGames.ElementAt(context.GameIndex - 1)?.StartDateTime ?? DateTime.MinValue);
@@ -403,9 +403,10 @@
                 return;
             }
 
-            var gameWinBonusText = Localizer.For(CultureFor.Player).FormatString(
+            var localizer = Localizer.For(CultureFor.Operator);
+            var gameWinBonusText = localizer.FormatString(
                 ResourceKeys.ReplayGameWinBonusAwarded,
-                context.Arguments.GameWinBonus.CentsToDollars().FormattedCurrencyString());
+                context.Arguments.GameWinBonus.CentsToDollars().FormattedCurrencyString(culture: localizer.CurrentCulture));
             _cashOutTexts.Add(gameWinBonusText);
         }
 
@@ -427,7 +428,7 @@
 
         private void AppendHardMeterOutInfo(ReplayContext context)
         {
-            var amountOut = context.GameIndex == -1 || context.GameIndex == 0
+            var amountOut = context.GameIndex is -1 or 0
                 ? context.Arguments.Transactions
                     .Where(t => t.TransactionType == typeof(HardMeterOutTransaction))
                     .Sum(t => t.Amount)
@@ -435,15 +436,16 @@
 
             if (amountOut > 0)
             {
+                var localizer = Localizer.For(CultureFor.Operator);
                 _cashOutTexts.Add(
-                    Localizer.For(CultureFor.Player)
-                        .FormatString(ResourceKeys.ReplayTicketPrinted) + " " + amountOut.MillicentsToDollars().FormattedCurrencyString());
+                    localizer.FormatString(ResourceKeys.ReplayTicketPrinted) + " " +
+                    amountOut.MillicentsToDollars().FormattedCurrencyString(culture: localizer.CurrentCulture));
             }
         }
 
         private void AppendVoucherInfo(ReplayContext context)
         {
-            var amountOut = context.GameIndex == -1 || context.GameIndex == 0
+            var amountOut = context.GameIndex is -1 or 0
                 ? context.Arguments.Transactions
                     .Where(t => t.TransactionType == typeof(VoucherOutTransaction))
                     .Sum(t => t.Amount)
@@ -451,18 +453,17 @@
 
             if (amountOut > 0)
             {
+                var localizer = Localizer.For(CultureFor.Operator);
                 _cashOutTexts.Add(
-                    Localizer.For(CultureFor.Player)
-                        .FormatString(ResourceKeys.ReplayTicketPrinted) + " " +
-                    (Convert.ToDecimal(amountOut / GamingConstants.Millicents) /
-                     CurrencyExtensions.CurrencyMinorUnitsPerMajorUnit).FormattedCurrencyString());
+                    localizer.FormatString(ResourceKeys.ReplayTicketPrinted) + " " +
+                    amountOut.MillicentsToDollars().FormattedCurrencyString(culture: localizer.CurrentCulture));
             }
         }
 
         private void AppendHandpayInfo(ReplayContext context)
         {
             // If we had a handpay key-off during the game round that was just replayed, display the hand paid text as well
-            if (!(context.GameIndex == -1 || context.GameIndex == 0))
+            if (context.GameIndex is not (-1 or 0))
             {
                 return;
             }
@@ -505,28 +506,30 @@
                 }
             }
 
+            var localizer = Localizer.For(CultureFor.Operator);
+
             if (bonusOrGameWinToCredits > 0)
             {
                 _cashOutTexts.Add(
                     string.Format(
-                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.JackpotToCreditsKeyedOff),
-                        bonusOrGameWinToCredits.MillicentsToDollars().FormattedCurrencyString()));
+                        localizer.GetString(ResourceKeys.JackpotToCreditsKeyedOff),
+                        bonusOrGameWinToCredits.MillicentsToDollars().FormattedCurrencyString(culture: localizer.CurrentCulture)));
             }
 
             if (bonusOrGameWinToHandpay > 0)
             {
                 _cashOutTexts.Add(
                     string.Format(
-                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.JackpotHandpayKeyedOff),
-                        bonusOrGameWinToHandpay.MillicentsToDollars().FormattedCurrencyString()));
+                        localizer.GetString(ResourceKeys.JackpotHandpayKeyedOff),
+                        bonusOrGameWinToHandpay.MillicentsToDollars().FormattedCurrencyString(culture: localizer.CurrentCulture)));
             }
 
             if (cancelledCredits > 0)
             {
                 _cashOutTexts.Add(
                     string.Format(
-                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.CashOutHandpayKeyedOff),
-                        cancelledCredits.MillicentsToDollars().FormattedCurrencyString()));
+                        localizer.GetString(ResourceKeys.CashOutHandpayKeyedOff),
+                        cancelledCredits.MillicentsToDollars().FormattedCurrencyString(culture: localizer.CurrentCulture)));
             }
         }
 

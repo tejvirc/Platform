@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Sas.Tests.Handlers
+namespace Aristocrat.Monaco.Sas.Tests.Handlers
 {
     using System;
     using System.Collections.Generic;
@@ -18,7 +18,7 @@
         public DateTime ReleaseDate { get; set; }
 
         public DateTime InstallDate { get; set; }
-
+        
         public bool Upgraded { get; set; }
 
         public int Id { get; set; }
@@ -91,7 +91,7 @@
 
         public BetLinePresetList BetLinePresetList { get; }
 
-        public long WinThreshold { get; }
+        public long? WinThreshold { get; }
 
         public int? MaximumProgressivePerDenom { get; }
 
@@ -142,5 +142,28 @@
         public IEnumerable<ISubGameDetails> SupportedSubGames { get; }
 
         public IEnumerable<ISubGameDetails> ActiveSubGames { get; }
+        
+        public int UniqueGameId { get; set; }
+
+        public bool HasExtendedRtpInformation
+        {
+            get
+            {
+                return WagerCategories.Any(
+                    w =>
+                        w.MinBaseRtpPercent != default ||
+                        w.MaxBaseRtpPercent != default ||
+                        w.MinSapStartupRtpPercent != default ||
+                        w.MaxSapStartupRtpPercent != default ||
+                        w.SapIncrementRtpPercent != default ||
+                        w.MinLinkStartupRtpPercent != default ||
+                        w.MaxLinkStartupRtpPercent != default ||
+                        w.LinkIncrementRtpPercent != default);
+            }
+        }
+
+        public bool LinkedProgressiveVerificationComplete { get; set;}
+
+        public bool? LinkedProgressiveVerificationResult { get; set;}
     }
 }

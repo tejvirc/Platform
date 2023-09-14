@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Contracts
+namespace Aristocrat.Monaco.Gaming.Contracts
 {
     using Models;
     using System;
@@ -65,14 +65,14 @@
         /// <summary>
         ///     Gets the maximum theoretical payback percentage for the game; a value of 0 (zero) indicates that the attribute is
         ///     not supported; otherwise, MUST be set to the maximum payback percentage of the game, which MUST be greater than 0
-        ///     (zero). For example, a value of 9637 represents a maximum payback percentage of 96.37%
+        ///     (zero). For example, a value of 96.37 represents a maximum payback percentage of 96.37%
         /// </summary>
         decimal MaximumPaybackPercent { get; }
 
         /// <summary>
         ///     Gets the minimum theoretical payback percentage for the game; a value of 0 (zero) indicates that the attribute is
         ///     not supported; otherwise, MUST be set to the minimum payback percentage for the game, which MUST be greater than 0
-        ///     (zero). For example, a value of 8245 represent
+        ///     (zero). For example, a value of 82.45 represents a minimum payback percentage of 82.45%
         /// </summary>
         decimal MinimumPaybackPercent { get; }
 
@@ -174,7 +174,7 @@
         /// <summary>
         ///     Gets the win threshold
         /// </summary>
-        long WinThreshold { get; }
+        long? WinThreshold { get; }
 
         /// <summary>
         ///    Gets whether autoplay is supported
@@ -187,7 +187,7 @@
         int? MaximumProgressivePerDenom { get; }
 
         /// <summary>
-        ///     Gets the reference Id.  This can be used by the platform to
+        ///     Gets the reference Id. This can be used by the platform to
         ///     identify the reference variation used when the game is loaded
         /// </summary>
         string ReferenceId { get; }
@@ -208,9 +208,9 @@
         IEnumerable<Feature> Features { get; }
 
         /// <summary>
-        ///     Gets or sets the number of mechanical reels
+        ///     Gets the number of mechanical reels
         /// </summary>
-        int MechanicalReels { get; set; }
+        int MechanicalReels { get; }
 
         /// <summary>
         ///     Gets or sets the mechanical reel home steps
@@ -228,6 +228,11 @@
         int MaximumWagerOutsideCredits { get; set; }
 
         /// <summary>
+        ///     Gets or sets the unique game id used to identify the primary game.
+        /// </summary>
+        int UniqueGameId { get; set; }
+
+        /// <summary>
         ///     Specifies that a game uses the next-to-highest bet-multiplier when calculating its Top Award.
         /// </summary>
         public bool NextToMaxBetTopAwardMultiplier { get; set; }
@@ -236,5 +241,25 @@
         ///     Gets for sets the animation files to pre-load.
         /// </summary>
         public IEnumerable<AnimationFile> PreloadedAnimationFiles { get; set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether this game includes extended RTP information. After the release of GDK 5.0, games
+        ///     are required to supply additional information about how the Total RTP is broken down.
+        /// </summary>
+        bool HasExtendedRtpInformation { get; }
+
+        /// <summary>
+        ///     If true, the game has completed linked progressive verification with the remote LinkedProgressive host and the
+        ///     result stored in <see cref="LinkedProgressiveVerificationResult" />. Otherwise, if this is false, verification is
+        ///     either in-progress or has not occurred.
+        /// </summary>
+        bool LinkedProgressiveVerificationComplete { get; }
+
+        /// <summary>
+        ///     After LinkedProgressiveVerification, the result should be stored here. Set to true if all LinkedProgressive RTP
+        ///     values have been successfully verified with the LinkedProgressive host as matching. Else, set this to false, when
+        ///     the RTP values between the host and game are not matching; or another error has occurred.
+        /// </summary>
+        bool? LinkedProgressiveVerificationResult { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.ViewModels
+namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 {
     using System;
     using System.Collections;
@@ -13,20 +13,20 @@
     using Application.Contracts.OperatorMenu;
     using Client.Data;
     using Common;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Gaming.Contracts;
     using Hhr.Events;
     using Kernel;
     using Localization.Properties;
-    using Models;
-    using MVVM.ViewModel;
-    using Storage.Helpers;
     using log4net;
+    using Models;
+    using Storage.Helpers;
 
-    public class VenueRaceCollectionViewModel : BaseViewModel, IDisposable
+    public class VenueRaceCollectionViewModel : ObservableObject, IDisposable
     {
         private const string RaceFinishedName = "RaceFinished";
 
-        private new static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IEventBus _eventBus;
         private readonly IPrizeInformationEntityHelper _prizeEntityHelper;
@@ -143,24 +143,24 @@
             switch (e.PropertyName)
             {
                 case RaceFinishedName:
-                {
-                    if (IsAnimationVisible || RaceStarted)
                     {
-                        var allRacesFinished =
-                            RaceSet1Models.All(r => r.RaceFinished) &&
-                            RaceSet2Models.All(r => r.RaceFinished);
-
-                        if (allRacesFinished)
+                        if (IsAnimationVisible || RaceStarted)
                         {
-                            Logger.Debug("All race animations are complete, hiding window");
-                            RaceStarted = false;
-                            IsAnimationVisible = false;
-                            // Pause to ensure the GIFs aren't running when the window is hidden
-                            IsPaused = true;
+                            var allRacesFinished =
+                                RaceSet1Models.All(r => r.RaceFinished) &&
+                                RaceSet2Models.All(r => r.RaceFinished);
+
+                            if (allRacesFinished)
+                            {
+                                Logger.Debug("All race animations are complete, hiding window");
+                                RaceStarted = false;
+                                IsAnimationVisible = false;
+                                // Pause to ensure the GIFs aren't running when the window is hidden
+                                IsPaused = true;
+                            }
                         }
+                        break;
                     }
-                    break;
-                }
             }
         }
 
@@ -390,7 +390,8 @@
                 }
 
                 _raceStarted = value;
-                RaisePropertyChanged(nameof(RaceStarted), nameof(IsAnimationVisible));
+                OnPropertyChanged(nameof(RaceStarted));
+                OnPropertyChanged(nameof(IsAnimationVisible));
             }
         }
 
@@ -401,7 +402,8 @@
             {
                 Logger.Debug($"Set IsAnimationVisible: {value}");
                 _isAnimationVisible = value;
-                RaisePropertyChanged(nameof(IsAnimationVisible), nameof(RaceStarted));
+                OnPropertyChanged(nameof(IsAnimationVisible));
+                OnPropertyChanged(nameof(RaceStarted));
             }
         }
 

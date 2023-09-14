@@ -157,7 +157,7 @@
                 }
 
                 _betPatterns.Add(betIndex, winningPatterns);
-                RaisePropertyChanged(nameof(CurrentWinningPattern));
+                OnPropertyChanged(nameof(CurrentWinningPattern));
             }
 
             _systemDisable.Enable(HhrUiConstants.WaitingForWinningCombinationInfo);
@@ -198,7 +198,7 @@
                     _currentBetIndex -= _betOptions.Count;
                 }
                 _currentPatternIndex = 0;
-                RaisePropertyChanged(nameof(CurrentWinningPattern));
+                OnPropertyChanged(nameof(CurrentWinningPattern));
             }
         }
 
@@ -216,7 +216,7 @@
 
                 _currentBetIndex -= _numOfLineOptions;
                 _currentPatternIndex = 0;
-                RaisePropertyChanged(nameof(CurrentWinningPattern));
+                OnPropertyChanged(nameof(CurrentWinningPattern));
             }
         }
 
@@ -230,7 +230,7 @@
             }
 
             _currentPatternIndex++;
-            RaisePropertyChanged(nameof(CurrentWinningPattern));
+            OnPropertyChanged(nameof(CurrentWinningPattern));
         }
 
         public override void Reset()

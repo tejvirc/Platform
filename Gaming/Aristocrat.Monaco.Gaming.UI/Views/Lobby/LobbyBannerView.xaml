@@ -6,10 +6,12 @@
              xmlns:converters="clr-namespace:Aristocrat.Monaco.Gaming.UI.Converters"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800"
-             AutomationProperties.AutomationId="UserControl0_10DA6753">
+             AutomationProperties.AutomationId="UserControl0_10DA6753"
+             d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,8 +22,8 @@
             <Storyboard x:Key="IdleTextPulseStoryboard"
                         AutomationProperties.AutomationId="Storyboard1_10DA6753">
                 <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
-                                 From="0.9"
-                                 To="1.1"
+                                 From="1.0"
+                                 To="1.2"
                                  Duration="0:0:1.5"
                                  BeginTime="0:0:0"
                                  AutoReverse="True"
@@ -33,8 +35,8 @@
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
                 <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
-                                 From="0.9"
-                                 To="1.1"
+                                 From="1.0"
+                                 To="1.2"
                                  Duration="0:0:1.5"
                                  BeginTime="0:0:0"
                                  AutoReverse="True"
@@ -59,12 +61,6 @@
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
             </Storyboard>
-            <!--<Storyboard x:Key="IdleTextScrollingStoryboard" TargetName="txtIdleText">
-                <DoubleAnimation Storyboard.TargetProperty="(Canvas.Left)" 
-                                From="{Binding ActualWidth, ElementName=canvasIdleText}" 
-                                To="{Binding ActualWidth, ElementName=txtIdleText, Converter={StaticResource NegatingConverter}}" 
-                                Duration="00:00:25" />
-            </Storyboard>-->
             <Style x:Key="IdleTextStyle"
                    TargetType="TextBlock">
                 <Setter Property="Foreground"
@@ -99,10 +95,10 @@
                        Style="{StaticResource IdleTextStyle}"
                        AutomationProperties.AutomationId="TextBlock11_10DA6753" />
             <StackPanel.RenderTransform>
-                <ScaleTransform AutomationProperties.AutomationId="ScaleTransform12_10DA6753"></ScaleTransform>
+                <ScaleTransform AutomationProperties.AutomationId="ScaleTransform12_10DA6753" />
             </StackPanel.RenderTransform>
             <StackPanel.Style>
-                <Style TargetType="StackPanel">
+                <Style TargetType="StackPanel" d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding StartIdleTextBlinking}"
                                      Value="True"
@@ -133,17 +129,17 @@
                 </Style>
             </StackPanel.Style>
         </StackPanel>
-        <Border x:Name="pnlIdleText"
+        <Border x:Name="IdleTextBorder"
                 ClipToBounds="True"
                 Visibility="{Binding IsScrollingIdleTextEnabled, Converter={StaticResource TrueVisibleFalseHidden}}"
                 AutomationProperties.AutomationId="Border19_10DA6753">
             <Border.Resources>
                 <Storyboard x:Key="IdleTextScrollingStoryboard"
-                            TargetName="txtIdleText"
+                            TargetName="IdleTextBlock"
                             AutomationProperties.AutomationId="Storyboard20_10DA6753">
                     <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TranslateTransform.X)"
-                                     From="{Binding ActualWidth, ElementName=canvasIdleText}"
-                                     To="{Binding ActualWidth, ElementName=txtIdleText, Converter={StaticResource NegatingConverter}}"
+                                     From="{Binding ActualWidth, ElementName=IdleTextCanvas}"
+                                     To="{Binding ActualWidth, ElementName=IdleTextBlock, Converter={StaticResource NegatingConverter}}"
                                      Duration="00:01:00"
                                      AutomationProperties.AutomationId="DoubleAnimation21_10DA6753" />
                 </Storyboard>
@@ -181,12 +177,12 @@
                     <i:InvokeCommandAction Command="{Binding IdleTextScrollingCompletedCommand}" />
                 </ei:StoryboardCompletedTrigger>
             </i:Interaction.Triggers>
-            <Canvas x:Name="canvasIdleText"
+            <Canvas x:Name="IdleTextCanvas"
                     Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
                     AutomationProperties.AutomationId="Canvas26_10DA6753">
-                <TextBlock x:Name="txtIdleText"
+                <TextBlock x:Name="IdleTextBlock"
                            Style="{StaticResource IdleTextStyle}"
-                           FontSize="{Binding ElementName=pnlIdleText, Path=ActualHeight, Converter={StaticResource FontSizeConverter}, UpdateSourceTrigger=PropertyChanged}"
+                           FontSize="{Binding ElementName=IdleTextBorder, Path=ActualHeight, Converter={StaticResource FontSizeConverter}, UpdateSourceTrigger=PropertyChanged}"
                            Visibility="{Binding IsScrollingIdleTextVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
                            AutomationProperties.AutomationId="TextBlock27_10DA6753">
                     <TextBlock.RenderTransform>

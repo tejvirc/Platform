@@ -43,7 +43,6 @@
     <ProjectReference Include="..\..\..\Protocol\SAS\Aristocrat.Monaco.Sas\Aristocrat.Monaco.Sas.csproj" />
     <ProjectReference Include="..\..\..\Protocol\SAS\Aristocrat.Sas.Client\Aristocrat.Sas.Client.csproj" />
     <ProjectReference Include="..\..\..\Shared\Aristocrat.Monaco.UI.Common\Aristocrat.Monaco.UI.Common.csproj" />
-    <ProjectReference Include="..\Aristocrat.Monaco.RobotController.Contracts\Aristocrat.Monaco.RobotController.Contracts.csproj" />
     <ProjectReference Include="..\Aristocrat.Monaco.Test.Automation\Aristocrat.Monaco.Test.Automation.csproj" />
     <ProjectReference Include="..\..\integration\DebugCurrencyHandler\DebugCurrencyHandler\DebugCurrencyHandler.csproj" />
   </ItemGroup>

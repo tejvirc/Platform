@@ -157,7 +157,12 @@
         /// <summary>
         ///     The disconnected state
         /// </summary>
-        Disconnected
+        Disconnected,
+
+        /// <summary>
+        ///     The state for halted reels
+        /// </summary>
+        Halted
     }
 
     /// <summary>
@@ -191,6 +196,11 @@
         SpinningForward,
 
         /// <summary>
+        ///     The state used for when the reel is spinning at a constant velocity
+        /// </summary>
+        SpinningConstant,
+
+        /// <summary>
         ///     The state used for when the reel is spinning freely in a backwards direction
         /// </summary>
         SpinningBackwards,
@@ -208,7 +218,17 @@
         /// <summary>
         ///     The state used for when the reels are tilted (slow spinning)
         /// </summary>
-        Tilted
+        Tilted,
+
+        /// <summary>
+        ///      The state used for when the reel is accelerating in a forward direction
+        /// </summary>
+        Accelerating,
+
+        /// <summary>
+        ///      The state used for when the reel is decelerating in a forward direction
+        /// </summary>
+        Decelerating
     }
 
     /// <summary>
@@ -267,6 +287,11 @@
         SpinReelBackwards,
 
         /// <summary>
+        ///     The spin reel constant trigger
+        /// </summary>
+        SpinConstant,
+
+        /// <summary>
         ///     The tilt reels trigger
         /// </summary>
         TiltReels,
@@ -274,7 +299,22 @@
         /// <summary>
         ///     The reel stopped trigger
         /// </summary>
-        ReelStopped
+        ReelStopped,
+
+        /// <summary>
+        ///     The accelerate trigger
+        /// </summary>
+        Accelerate,
+
+        /// <summary>
+        ///     The decelerate trigger
+        /// </summary>
+        Decelerate,
+
+        /// <summary>
+        ///     The halt reels trigger
+        /// </summary>
+        HaltReels
     }
 
     /// <summary>
@@ -291,6 +331,32 @@
         ///     This is used to indicate the reels should spin in the reverse direction
         /// </summary>
         Backwards
+    }
+
+    /// <summary>
+    ///     Describes the velocity of the spin of the reels
+    /// </summary>
+    public enum SpinVelocity
+    {
+        /// <summary>
+        ///     Not specified
+        /// </summary>
+        None,
+
+        /// <summary>
+        ///     Constant velocity
+        /// </summary>
+        Constant,
+
+        /// <summary>
+        ///     Accelerating velocity
+        /// </summary>
+        Accelerating,
+
+        /// <summary>
+        ///     Decelerating velocity
+        /// </summary>
+        Decelerating
     }
 
     /// <summary>
@@ -349,6 +415,22 @@
     }
 
     /// <summary>
+    ///     The type of synchronize status
+    /// </summary>
+    public enum SynchronizeStatus
+    {
+        /// <summary>
+        ///     Denotes that reel synchronization has started
+        /// </summary>
+        Started,
+
+        /// <summary>
+        ///     Denotes that synchronization has completed
+        /// </summary>
+        Complete
+    }
+
+    /// <summary>
     ///     The stepper rule type
     /// </summary>
     public enum StepperRuleType
@@ -362,5 +444,77 @@
         ///     Denotes a follow rule
         /// </summary>
         FollowRule
+    }
+
+    /// <summary>
+    ///     The animation prepared status
+    /// </summary>
+    public enum AnimationPreparedStatus
+    {
+        /// <summary>
+        ///     Preparation status is unknown
+        /// </summary>
+        Unknown,
+
+        /// <summary>
+        ///     The animation was prepared successfully.
+        /// </summary>
+        Prepared,
+
+        /// <summary>
+        ///     The show does not exist.
+        /// </summary>
+        DoesNotExist,
+
+        /// <summary>
+        ///     The file is corrupt.
+        /// </summary>
+        FileCorrupt,
+
+        /// <summary>
+        ///     The animation queue is full.
+        /// </summary>
+        QueueFull,
+
+        /// <summary>
+        ///     The animation is incompatible with the current controller state.
+        /// </summary>
+        IncompatibleState
+    }
+
+    /// <summary>
+    ///     The animation queue type
+    /// </summary>
+    public enum AnimationQueueType
+    {
+        /// <summary>
+        ///     Queue location is unknown
+        /// </summary>
+        Unknown,
+
+        /// <summary>
+        ///     Removed from playing queue.
+        /// </summary>
+        PlayingQueue,
+
+        /// <summary>
+        ///     Removed from waiting queue.
+        /// </summary>
+        WaitingQueue,
+
+        /// <summary>
+        ///     Removed from playing and waiting queue.
+        /// </summary>
+        PlayAndWaitQueues,
+
+        /// <summary>
+        ///     Removed from play because the animation ended.
+        /// </summary>
+        AnimationEnded,
+
+        /// <summary>
+        ///     Not in the animation queues.
+        /// </summary>
+        NotInQueues
     }
 }

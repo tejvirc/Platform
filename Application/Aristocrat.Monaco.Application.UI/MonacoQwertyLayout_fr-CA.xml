@@ -1,0 +1,464 @@
+<?xml version="1.0"?>
+<KeyboardLayout xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Keys>
+    <Key xsi:type="SpecialKey">
+      <Content xsi:type="xsd:string">Back</Content>
+      <Left>594</Left>
+      <Top>6</Top>
+      <Width>110</Width>
+      <Height>40</Height>
+      <VirtualKey>8</VirtualKey>
+    </Key>
+    <Key xsi:type="SpecialKey">
+      <Content xsi:type="xsd:string">Tab</Content>
+      <Left>9</Left>
+      <Top>51</Top>
+      <Width>80</Width>
+      <Height>40</Height>
+      <VirtualKey>9</VirtualKey>
+    </Key>
+    <Key xsi:type="SpecialKey">
+      <Content xsi:type="xsd:string">Enter</Content>
+      <Left>599.47470153496306</Left>
+      <Top>96</Top>
+      <Width>105</Width>
+      <Height>40</Height>
+      <VirtualKey>13</VirtualKey>
+    </Key>
+    <Key xsi:type="SpecialKey">
+      <Content xsi:type="xsd:string">Caps Lock</Content>
+      <Left>9</Left>
+      <Top>96</Top>
+      <Width>90</Width>
+      <Height>40</Height>
+      <VirtualKey>20</VirtualKey>
+    </Key>
+    <Key xsi:type="SpecialKey">
+      <Content xsi:type="xsd:string">Shift</Content>
+      <Left>9</Left>
+      <Top>141</Top>
+      <Width>60</Width>
+      <Height>40</Height>
+      <VirtualKey>16</VirtualKey>
+    </Key>
+    <Key xsi:type="SpecialKey">
+      <Content xsi:type="xsd:string">Shift</Content>
+      <Left>569</Left>
+      <Top>141</Top>
+      <Width>135.64485818962805</Width>
+      <Height>40</Height>
+      <VirtualKey>16</VirtualKey>
+    </Key>
+    <Key xsi:type="SpecialKey">
+      <Content xsi:type="xsd:string">Space</Content>
+      <Left>179</Left>
+      <Top>186</Top>
+      <Width>264.64468447981807</Width>
+      <Height>40</Height>
+      <VirtualKey>32</VirtualKey>
+    </Key>
+    <Key xsi:type="SpecialKey">
+      <Content xsi:type="xsd:string">Left</Content>
+      <Left>620</Left>
+      <Top>186</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>37</VirtualKey>
+    </Key>
+    <Key xsi:type="SpecialKey">
+      <Content xsi:type="xsd:string">Right</Content>
+      <Left>664.54902576995607</Left>
+      <Top>186</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>39</VirtualKey>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>9</Left>
+      <Top>6</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>222</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>54</Left>
+      <Top>6</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>49</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>99</Left>
+      <Top>6</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>50</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>144</Left>
+      <Top>6</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>51</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>189</Left>
+      <Top>6</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>52</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>234</Left>
+      <Top>6</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>53</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>279</Left>
+      <Top>6</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>54</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>324</Left>
+      <Top>6</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>55</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>369</Left>
+      <Top>6</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>56</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>414</Left>
+      <Top>6</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>57</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>459</Left>
+      <Top>6</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>48</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>504</Left>
+      <Top>6</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>189</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>549</Left>
+      <Top>6</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>187</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>94</Left>
+      <Top>51</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>81</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>139</Left>
+      <Top>51</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>87</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>184</Left>
+      <Top>51</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>69</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>229</Left>
+      <Top>51</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>82</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>274</Left>
+      <Top>51</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>84</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>319</Left>
+      <Top>51</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>89</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>364</Left>
+      <Top>51</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>85</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>409</Left>
+      <Top>51</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>73</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>454</Left>
+      <Top>51</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>79</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>499</Left>
+      <Top>51</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>80</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>544</Left>
+      <Top>51</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>219</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>589</Left>
+      <Top>51</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>221</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>104</Left>
+      <Top>96</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>220</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>149</Left>
+      <Top>96</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>65</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>194</Left>
+      <Top>96</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>83</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>239</Left>
+      <Top>96</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>68</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>284</Left>
+      <Top>96</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>70</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>329</Left>
+      <Top>96</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>71</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>374</Left>
+      <Top>96</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>72</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>419</Left>
+      <Top>96</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>74</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>464</Left>
+      <Top>96</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>75</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>509</Left>
+      <Top>96</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>76</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>554</Left>
+      <Top>96</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>186</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>634</Left>
+      <Top>51</Top>
+      <Width>70</Width>
+      <Height>40</Height>
+      <VirtualKey>192</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>74</Left>
+      <Top>141</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>226</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>119</Left>
+      <Top>141</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>90</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>164</Left>
+      <Top>141</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>88</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>209</Left>
+      <Top>141</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>67</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>254</Left>
+      <Top>141</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>86</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>299</Left>
+      <Top>141</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>66</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>344</Left>
+      <Top>141</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>78</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>389</Left>
+      <Top>141</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>77</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>434</Left>
+      <Top>141</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>188</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>479</Left>
+      <Top>141</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>190</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+    <Key xsi:type="RegularKey">
+      <Left>524</Left>
+      <Top>141</Top>
+      <Width>40</Width>
+      <Height>40</Height>
+      <VirtualKey>191</VirtualKey>
+      <Repeat>1</Repeat>
+    </Key>
+  </Keys>
+  <Width>720</Width>
+  <Height>240</Height>
+  <KeyboardLayoutId>-266335220</KeyboardLayoutId>
+</KeyboardLayout>

@@ -90,7 +90,7 @@
                         var linkedLevel = new LinkedProgressiveLevel()
                         {
                             ProtocolName = ProtocolNames.Bingo,
-                            ProgressiveGroupId = progressiveLevel.ProgressivePackId,
+                            ProgressiveGroupId = progressiveLevel.ProgressiveId,
                             LevelId = progressiveLevel.LevelId,
                             Amount = update.Amount,
                             Expiration = DateTime.Now + TimeSpan.FromSeconds(MaximumProgressiveUpdateSeconds)

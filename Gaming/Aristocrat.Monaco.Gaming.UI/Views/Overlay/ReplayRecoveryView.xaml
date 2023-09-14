@@ -124,6 +124,7 @@
                             </Button.Style>
                             <Button.Content>
                                 <TextBlock Margin="0"
+                                           loc:Localizer.For="Operator"
                                            Text="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}"
                                            TextDecorations="Underline"
                                            AutomationProperties.AutomationId="TextBlock17_41B007DA" />
@@ -133,8 +134,7 @@
                                    AutomationProperties.AutomationId="TextBlock18_41B007DA" />
                         <TextBlock Text="{Binding ReplayRecovery.ReplayGameName}"
                                    AutomationProperties.AutomationId="TextBlock19_41B007DA" />
-                        <TextBlock
-                                Text="{Binding ReplayRecovery.ReplayStartTime, Converter={StaticResource DateTimeFormatConverter}}"
+                        <TextBlock Text="{Binding ReplayRecovery.ReplayStartTime, Converter={StaticResource DateTimeFormatConverter}}"
                                    AutomationProperties.AutomationId="TextBlock20_41B007DA" />
                         <TextBlock Text="{Binding ReplayRecovery.CashoutText}"
                                    AutomationProperties.AutomationId="TextBlock21_41B007DA" />
@@ -255,6 +255,7 @@
                             </Button.Style>
                             <Button.Content>
                                 <TextBlock Margin="0"
+                                           loc:Localizer.For="Operator"
                                            Text="{lex:Loc Key={x:Static loc:ResourceKeys.ContinueText}}"
                                            TextDecorations="Underline"
                                            AutomationProperties.AutomationId="TextBlock36_41B007DA" />

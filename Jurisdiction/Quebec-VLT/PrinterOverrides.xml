@@ -20,7 +20,7 @@ The printer firmware version is discovered by the platform at runtime.
 -->
 
 <!--
-Please see the following link for descriptions of the elements and atributes in this file:
+Please see the following link for descriptions of the elements and atributes in this file:5
 
 https://confy.aristocrat.com/display/MON/Printer+Override+XML+Element+and+Attribute+Description
 
@@ -59,8 +59,10 @@ Please update the confluence page when new elements and attributes are added.
   <Override Protocol="JCM GDS" FirmwareBase="5HQUE" UsePrinterDefinedTemplates="false" >
 
     <FontOverrides>
-      <FontOverride RegionIds="107 108 109 110 111 112 134" OriginalFontNumber="8" NewFontNumber="9"/>
-      <FontOverride RegionIds="113 116" OriginalFontNumber="7" NewFontNumber="9" />
+      <FontOverride RegionIds="107 108 109 110 111 112 134" OriginalFontNumber="008" NewFontNumber="006"/>
+      <FontOverride RegionIds="121 122" OriginalFontNumber="003" NewFontNumber="005" />
+      <FontOverride RegionIds="116" OriginalFontNumber="007" NewFontNumber="006" />
+      <FontOverride RegionIds="100 101 102" OriginalFontNumber="009" NewFontNumber="006" />
     </FontOverrides>
     
   </Override>

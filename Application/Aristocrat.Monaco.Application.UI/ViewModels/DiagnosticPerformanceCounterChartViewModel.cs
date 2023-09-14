@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -8,12 +8,12 @@
     using System.Threading.Tasks;
     using System.Windows.Input;
     using Application.Helpers;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Kernel;
     using Monaco.Common;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
     using OxyPlot;
     using OxyPlot.Axes;
@@ -66,7 +66,7 @@
 
             PopulateAvailableMetrics();
 
-            ResetZoomOrPanCommand = new ActionCommand<object>(
+            ResetZoomOrPanCommand = new RelayCommand<object>(
                 _ =>
                 {
                     if (!ZoomingOrPanningDone)
@@ -79,7 +79,7 @@
                     MonacoPlotModel?.InvalidatePlot(true);
                 });
 
-            MagnifyMinusCommand = new ActionCommand<object>(
+            MagnifyMinusCommand = new RelayCommand<object>(
                 _ =>
                 {
                     Zoom(0.95);
@@ -89,7 +89,7 @@
                     MonacoPlotModel?.InvalidatePlot(false);
                 });
 
-            MagnifyPlusCommand = new ActionCommand<object>(
+            MagnifyPlusCommand = new RelayCommand<object>(
                 _ =>
                 {
                     Zoom(1.05);
@@ -112,7 +112,7 @@
             set
             {
                 SetProperty(ref _magnifyPlusEnabled, value, nameof(MagnifyPlusEnabled));
-                RaisePropertyChanged(nameof(MagnifyPlusEnabled));
+                OnPropertyChanged(nameof(MagnifyPlusEnabled));
             }
         }
 
@@ -122,7 +122,7 @@
             set
             {
                 SetProperty(ref _magnifyMinusEnabled, value, nameof(MagnifyMinusEnabled));
-                RaisePropertyChanged(nameof(MagnifyMinusEnabled));
+                OnPropertyChanged(nameof(MagnifyMinusEnabled));
             }
         }
 
@@ -137,7 +137,7 @@
                 }
 
                 SetProperty(ref _isTextEnabled, value, nameof(TextEnabled));
-                RaisePropertyChanged(nameof(TextEnabled));
+                OnPropertyChanged(nameof(TextEnabled));
                 MonacoPlotModel?.InvalidatePlot(true);
             }
         }
@@ -151,7 +151,7 @@
 
                 SetProperty(ref _text, value, nameof(Text));
 
-                RaisePropertyChanged(nameof(Text), nameof(TextEnabled));
+                OnPropertyChanged(nameof(Text), nameof(TextEnabled));
 
                 MonacoPlotModel?.InvalidatePlot(true);
             }
@@ -183,7 +183,7 @@
                 }
 
                 SetProperty(ref _startDate, value, nameof(StartDate));
-                RaisePropertyChanged(nameof(StartDate));
+                OnPropertyChanged(nameof(StartDate));
                 MonacoPlotModel?.InvalidatePlot(true);
             }
         }
@@ -199,7 +199,7 @@
                 }
 
                 SetProperty(ref _endDate, value, nameof(EndDate));
-                RaisePropertyChanged(nameof(EndDate));
+                OnPropertyChanged(nameof(EndDate));
                 MonacoPlotModel?.InvalidatePlot(true);
             }
         }
@@ -217,9 +217,9 @@
                 }
 
                 EndDate = EndDateForChart;
-                RaisePropertyChanged(nameof(EndDate), nameof(EndDateForChart));
+                OnPropertyChanged(nameof(EndDate), nameof(EndDateForChart));
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () => { IsLoadingChart = true; });
 
                 ZoomingOrPanningDone = false;
@@ -237,15 +237,15 @@
                 SetProperty(ref _startDateForChart, value, nameof(StartDateForChart));
                 EndDate = DateTime.Today;
 
-                RaisePropertyChanged(nameof(StartDateForChart), nameof(EndDate));
+                OnPropertyChanged(nameof(StartDateForChart), nameof(EndDate));
 
                 if (StartDateForChart > EndDateForChart)
                 {
                     _endDateForChart = StartDateForChart;
-                    RaisePropertyChanged(nameof(EndDateForChart));
+                    OnPropertyChanged(nameof(EndDateForChart));
                 }
 
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () => { IsLoadingChart = true; });
 
                 ZoomingOrPanningDone = false;
@@ -276,7 +276,7 @@
             set
             {
                 SetProperty(ref _isZoomingOrPanningDone, value, nameof(ZoomingOrPanningDone));
-                RaisePropertyChanged(nameof(ZoomingOrPanningDone));
+                OnPropertyChanged(nameof(ZoomingOrPanningDone));
             }
         }
 
@@ -289,7 +289,7 @@
             set
             {
                 SetProperty(ref _isLoadingChart, value, nameof(IsLoadingChart));
-                RaisePropertyChanged(nameof(IsLoadingChart));
+                OnPropertyChanged(nameof(IsLoadingChart));
             }
         }
 
@@ -474,14 +474,14 @@
                 series.Title = metric.GetMetricLabel();
             }
             MonacoPlotModel.Title = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.PerformanceCountersPlotting);
-            RaisePropertyChanged(nameof(AllMetrics));
-            RaisePropertyChanged(nameof(MonacoPlotModel));
+            OnPropertyChanged(nameof(AllMetrics));
+            OnPropertyChanged(nameof(MonacoPlotModel));
             MonacoPlotModel.InvalidatePlot(true);
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 if (MonacoPlotModel == null || AllMetrics == null)
                 {
@@ -521,13 +521,13 @@
             MonacoPlotModel?.InvalidatePlot(true);
         }
 
-        private new void Initialize()
+        private void Initialize()
         {
             UnInitialize();
 
             _startDateForChart = DateTime.Today;
             _endDateForChart = DateTime.Today;
-            RaisePropertyChanged(nameof(StartDateForChart), nameof(EndDateForChart));
+            OnPropertyChanged(nameof(StartDateForChart), nameof(EndDateForChart));
             ZoomingOrPanningDone = false;
             MagnifyMinusEnabled = false;
             GetPerformanceCountersForDuration(StartDateForChart, EndDateForChart);
@@ -754,7 +754,7 @@
         private void SetTodayAsEndDate()
         {
             EndDate = DateTime.Today;
-            RaisePropertyChanged(nameof(EndDate));
+            OnPropertyChanged(nameof(EndDate));
         }
 
         private void DisableZoomAndResetButtons()
@@ -768,7 +768,7 @@
         {
             SetTodayAsEndDate();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => { IsLoadingChart = false; });
 
             DisableZoomAndResetButtons();
@@ -825,7 +825,7 @@
                 DisableChartOperations();
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => { IsLoadingChart = false; });
 
             SetTodayAsEndDate();

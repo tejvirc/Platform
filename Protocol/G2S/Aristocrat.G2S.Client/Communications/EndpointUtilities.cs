@@ -27,8 +27,9 @@
         ///     Creates a BasicHttpBinding from given address
         /// </summary>
         /// <param name="address">endpoint address to bind to</param>
+        /// <param name="bypassCertificateValidation">Determines whether or not to bypass SSL certificate validation</param>
         /// <returns>a BasicHttpBinding as a Binding</returns>
-        public static Binding Binding(Uri address)
+        public static Binding Binding(Uri address, bool bypassCertificateValidation)
         {
             var readerQuotas = new XmlDictionaryReaderQuotas
             {
@@ -53,7 +54,7 @@
             {
                 bindingElement = new HttpsTransportBindingElement
                 {
-                    RequireClientCertificate = true,
+                    RequireClientCertificate = !bypassCertificateValidation,
                     AllowCookies = false,
                     AuthenticationScheme = AuthenticationSchemes.Anonymous,
                     BypassProxyOnLocal = false,

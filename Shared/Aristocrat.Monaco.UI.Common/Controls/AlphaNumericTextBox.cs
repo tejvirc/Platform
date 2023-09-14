@@ -43,7 +43,7 @@
                 {
                     tb.Text = Regex.Replace(
                         tb.Text,
-                        IsAlphaNumeric ? "[^a-zA-Z0-9]" : AllowNegatives ? "[^\\-0-9]" : "[^0-9]",
+                        IsAlphaNumeric ? "\\W" : AllowNegatives ? "[^\\-0-9]" : "[^0-9]",
                         "");
                 }
 

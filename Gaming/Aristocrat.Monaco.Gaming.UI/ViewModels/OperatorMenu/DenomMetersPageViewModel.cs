@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
@@ -10,14 +10,14 @@
     using Application.Contracts.MeterPage;
     using Application.UI.MeterPage;
     using Application.UI.OperatorMenu;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Meters;
     using Contracts.Tickets;
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
 
     [CLSCompliant(false)]
     public class DenomMetersPageViewModel : MetersPageViewModelBase
@@ -31,8 +31,8 @@
         {
             _meters = ServiceManager.GetInstance().TryGetService<IGameMeterManager>();
 
-            PreviousDenomCommand = new ActionCommand<object>(PreviousDenom);
-            NextDenomCommand = new ActionCommand<object>(NextDenom);
+            PreviousDenomCommand = new RelayCommand<object>(PreviousDenom);
+            NextDenomCommand = new RelayCommand<object>(NextDenom);
         }
 
         public ICommand PreviousDenomCommand { get; }
@@ -51,7 +51,7 @@
             set
             {
                 _selectedDenom = value;
-                RaisePropertyChanged(nameof(SelectedDenom));
+                OnPropertyChanged(nameof(SelectedDenom));
                 InitializeMeters();
             }
         }
@@ -68,8 +68,8 @@
 
                 _selectedDenomIndex = value;
                 SelectedDenom = Denoms[value];
-                RaisePropertyChanged(nameof(PreviousDenomIsEnabled));
-                RaisePropertyChanged(nameof(NextDenomIsEnabled));
+                OnPropertyChanged(nameof(PreviousDenomIsEnabled));
+                OnPropertyChanged(nameof(NextDenomIsEnabled));
             }
         }
 
@@ -83,7 +83,7 @@
             }
 
             // This will occur each time a different denom is selected
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     foreach (var meter in Meters)
@@ -146,14 +146,14 @@
                             MetersRightColumn.Add(meter);
                         }
                     }
-                    RaisePropertyChanged(nameof(MetersRightColumnVisible));
+                    OnPropertyChanged(nameof(MetersRightColumnVisible));
                 });
         }
 
         protected override void UpdatePrinterButtons()
         {
-            RaisePropertyChanged(nameof(PreviousDenomIsEnabled));
-            RaisePropertyChanged(nameof(NextDenomIsEnabled));
+            OnPropertyChanged(nameof(PreviousDenomIsEnabled));
+            OnPropertyChanged(nameof(NextDenomIsEnabled));
         }
 
         protected override IEnumerable<Ticket> GenerateTicketsForPrint(OperatorMenuPrintData dataType)
@@ -180,7 +180,7 @@
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(LoadDenoms);
+            Execute.OnUIThread(LoadDenoms);
 
             base.OnOperatorCultureChanged(evt);
         }
@@ -208,7 +208,7 @@
             var games = PropertiesManager.GetValues<IGameDetail>(GamingConstants.Games);
             Denoms = new List<Denomination>(
                 games.SelectMany(g => g.SupportedDenominations).Distinct().OrderBy(d => d).Select(d => new Denomination(d, d.MillicentsToDollars().FormattedCurrencyString(false, GetCurrencyDisplayCulture()))));
-            RaisePropertyChanged(nameof(Denoms));
+            OnPropertyChanged(nameof(Denoms));
             SelectedDenom = Denoms.FirstOrDefault();
         }
 

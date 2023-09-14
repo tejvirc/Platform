@@ -1,10 +1,11 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
+namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
 {
     using System;
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts.ConfigWizard;
     using Contracts.Extensions;
     using Contracts.Localization;
@@ -12,7 +13,6 @@
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM;
     using OperatorMenu;
 #if !RETAIL
     using Vgt.Client12.Testing.Tools;
@@ -122,7 +122,7 @@
             var eventName =
                 $"{evt.Note.Value.FormattedCurrencyString("C0")} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillInserted)}";
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => TestEvents.Insert(
                     0,
                     eventName));
@@ -142,7 +142,7 @@
         {
             var eventName = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.InvalidDocInserted);
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => TestEvents.Insert(
                     0,
                     eventName));
@@ -154,7 +154,7 @@
         {
             var eventName =
                 $"{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.VoucherInserted)}\r{Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ValidationNumber)} {evt.Barcode}";
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => TestEvents.Insert(
                     0,
                     eventName));
@@ -166,7 +166,7 @@
 #if !RETAIL
         private void HandleEvent(DebugNoteEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () => TestEvents.Insert(
                     0,
                     $"{evt.Denomination.FormattedCurrencyString("C0")} {Localizer.For(CultureFor.Operator).GetString(ResourceKeys.BillInserted)}"));

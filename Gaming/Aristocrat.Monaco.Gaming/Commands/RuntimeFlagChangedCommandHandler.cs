@@ -88,6 +88,9 @@
                 case RuntimeCondition.GambleFeatureActive:
                     _bus.Publish(new GambleFeatureActiveEvent(command.State));
                     break;
+                case RuntimeCondition.InSideBet:
+                    _bus.Publish(new SideBetChangedEvent(command.State));
+                    break;
             }
         }
     }

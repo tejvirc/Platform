@@ -1,10 +1,11 @@
-﻿namespace Aristocrat.Monaco.Application.UI.OperatorMenu
+namespace Aristocrat.Monaco.Application.UI.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
     using Contracts.Localization;
     using Contracts.MeterPage;
@@ -13,7 +14,6 @@
     using Kernel;
     using MeterPage;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
 
     /// <summary>
     ///     A MetersPageViewModelBase contains the base logic for meters page view models
@@ -212,12 +212,12 @@
                 }
             }
 
-            RaisePropertyChanged(nameof(ShowRightColumn));
+            OnPropertyChanged(nameof(ShowRightColumn));
         }
 
         protected virtual void RefreshMeters()
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 foreach (var meter in Meters)
                 {
@@ -229,9 +229,9 @@
                 MetersRightColumn.Clear();
                 InitializeMeters();
                 SplitMeters();
-                RaisePropertyChanged(nameof(Meters));
-                RaisePropertyChanged(nameof(MetersLeftColumn));
-                RaisePropertyChanged(nameof(MetersRightColumn));
+                OnPropertyChanged(nameof(Meters));
+                OnPropertyChanged(nameof(MetersLeftColumn));
+                OnPropertyChanged(nameof(MetersRightColumn));
             });
         }
 

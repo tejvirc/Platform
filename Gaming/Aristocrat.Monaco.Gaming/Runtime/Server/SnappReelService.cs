@@ -342,5 +342,10 @@
 
             return new MessageResponse { Result = command.Success };
         }
+
+        public override LightshowQueueAttributesResponse GetLightshowQueueAttributes(Empty request)
+        {
+            return default;
+        }
     }
 }

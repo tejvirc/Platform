@@ -8,13 +8,13 @@
     using System.Linq;
     using System.Reflection;
     using System.Windows;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.Models;
     using Kernel;
     using log4net;
     using ManagedBink;
     using Monaco.UI.Common.Extensions;
-    using MVVM.Model;
     using ViewModels;
     using BitmapImage = System.Windows.Media.Imaging.BitmapImage;
     using Size = System.Windows.Size;
@@ -23,7 +23,7 @@
     ///     Defines the GameInfo class
     /// </summary>
     [CLSCompliant(false)]
-    public class GameInfo : BaseNotify, IGameInfo, IAttractDetails
+    public class GameInfo : ObservableObject, IGameInfo, IAttractDetails
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -141,7 +141,13 @@
                 return _imagePath;
             }
 
-            set => SetProperty(ref _imagePath, value, nameof(ImagePath), nameof(ImageIsBink));
+            set
+            {
+                if (SetProperty(ref _imagePath, value, nameof(ImagePath)))
+                {
+                    OnPropertyChanged(nameof(ImageIsBink));
+                }
+            }
         }
 
         /// <summary>
@@ -209,13 +215,15 @@
         public ProgressiveLobbyIndicator ProgressiveIndicator
         {
             get => _progressiveIndicator;
-            set => SetProperty(
-                ref _progressiveIndicator,
-                value,
-                nameof(ProgressiveIndicator),
-                nameof(HasProgressiveLabelDisplay),
-                nameof(IsSelectedWithProgressiveLabel),
-                nameof(ProgressiveIndicatorText));
+            set
+            {
+                if (SetProperty(ref _progressiveIndicator, value))
+                {
+                    OnPropertyChanged(nameof(HasProgressiveLabelDisplay));
+                    OnPropertyChanged(nameof(IsSelectedWithProgressiveLabel));
+                    OnPropertyChanged(nameof(ProgressiveIndicatorText));
+                }
+            }
         }
 
         public bool ProgressiveErrorVisible
@@ -407,8 +415,9 @@
 
             set
             {
-                if (SetProperty(ref _isSelected, value, nameof(IsSelected), nameof(IsSelectedWithProgressiveLabel)))
+                if (SetProperty(ref _isSelected, value, nameof(IsSelected)))
                 {
+                    OnPropertyChanged(nameof(IsSelectedWithProgressiveLabel));
                     SelectedDenomination = null;
                 }
             }
@@ -463,7 +472,7 @@
         public IEnumerable LocaleGraphics { get; set; }
 
         /// <summary>
-        ///     Theme ID of the game.  Not currently displayed anywhere so doesn't need RaisePropertyChanged
+        ///     Theme ID of the game.  Not currently displayed anywhere so doesn't need OnPropertyChanged
         /// </summary>
         public string ThemeId { get; set; }
 

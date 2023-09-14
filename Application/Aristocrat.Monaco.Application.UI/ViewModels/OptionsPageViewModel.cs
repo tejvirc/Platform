@@ -1,8 +1,10 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
     using System.Windows.Input;
+    using Aristocrat.Extensions.CommunityToolkit;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
@@ -10,8 +12,6 @@
     using Hardware.Contracts.Ticket;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM;
-    using MVVM.Command;
     using OperatorMenu;
 
     /// <summary>
@@ -34,8 +34,10 @@
             OutOfServiceViewModel = new OutOfServiceViewModel();
 
             PrintVerificationButtonIsVisible = GetConfigSetting(OperatorMenuSetting.MainButtonPrintVerificationVisible, true);
-            PrintVerificationButtonClickedCommand = new ActionCommand<object>(_ => Print(OperatorMenuPrintData.Custom1));
+            PrintVerificationButtonClickedCommand = new RelayCommand<object>(_ => Print(OperatorMenuPrintData.Custom1));
         }
+
+        public override bool CanCalibrateTouchScreens => true;
 
         // This needs to be false to allow printing from this page
         protected override bool IsContainerPage => false;
@@ -106,7 +108,7 @@
 
             if (!active && PopupOpen)
             {
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     () =>
                     {
                         EventBus.Publish(new OperatorMenuPopupEvent(false, string.Empty));

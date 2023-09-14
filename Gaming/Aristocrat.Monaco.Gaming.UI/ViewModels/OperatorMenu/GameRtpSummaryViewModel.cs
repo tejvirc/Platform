@@ -1,32 +1,32 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.UI.OperatorMenu;
     using Contracts;
     using Contracts.Models;
+    using Contracts.Rtp;
+    using Kernel;
     using Localization.Properties;
     using Models;
 
     public class GameRtpSummaryViewModel : OperatorMenuSaveViewModelBase
     {
+        private readonly IRtpService _rtpService;
+
         public GameRtpSummaryViewModel(IReadOnlyCollection<IGameDetail> games, double denomMultiplier)
         {
-            if (games is null)
-            {
-                games = new ReadOnlyCollection<IGameDetail>(new List<IGameDetail>());
-            }
+            _rtpService = ServiceManager.GetInstance().GetService<IRtpService>();
 
             GameTypeItems = new List<GameSummary>();
             GameItemsByType = new Dictionary<GameType, IEnumerable<GameSummary>>();
 
-
             var activeDenomGames = games
                 .Where(game => game.ActiveDenominations.Any())
                 .ToArray();
+
             var gameTypes = activeDenomGames.Select(g => g.GameType).Distinct().ToList();
 
             if (gameTypes.Count > 1)
@@ -41,9 +41,9 @@
             {
                 var typeGames = activeDenomGames.Where(g => g.GameType == type).ToList();
 
-                var name = Localizer.For(CultureFor.Operator).GetString(type.ToString());
+                var typeName = Localizer.For(CultureFor.Operator).GetString(type.ToString());
 
-                GameTypeItems.Add(new GameSummary(name, GetAverageRtp(typeGames)));
+                GameTypeItems.Add(new GameSummary(typeName, GetAverageRtp(typeGames)));
 
                 GameItemsByType.Add(
                     type,
@@ -65,14 +65,9 @@
 
         public bool HasMoreThanOneGameType => GameTypeItems.Count > 1;
 
-        private static decimal GetAverageRtp(IReadOnlyCollection<IGameProfile> games)
-        {
-            return !games.Any()
-                ? 0
-                : games.Average(g => (g.MaximumPaybackPercent + g.MinimumPaybackPercent) / 2);
-        }
+        private decimal GetAverageRtp(IReadOnlyCollection<IGameDetail> games) => games.Any() ? _rtpService.GetAverageRtp(games) : decimal.Zero;
 
-        private static List<GameSummary> CreateGameSummaries(
+        private List<GameSummary> CreateGameSummaries(
             IReadOnlyCollection<IGameDetail> games,
             double denomMultiplier)
         {
@@ -84,12 +79,12 @@
                 .ToList();
         }
 
-        private static GameSummary CreateGameSummary(
+        private GameSummary CreateGameSummary(
             IReadOnlyCollection<IGameDetail> games,
             long denomValue,
             double denomMultiplier)
         {
-            var formattedDenomValue = (denomValue / denomMultiplier).FormattedCurrencyString();
+            var formattedDenomValue = (denomValue / denomMultiplier).FormattedCurrencyStringForOperator();
             var matchingActiveDenomGames = games.Where(g => g.ActiveDenominations.Contains(denomValue)).ToList();
             var averageRtp = GetAverageRtp(matchingActiveDenomGames);
 

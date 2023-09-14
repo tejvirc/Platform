@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
@@ -71,67 +72,38 @@
 
         public string GameTypeLabel => (_gameType == GameType.Poker) ? Poker : Keno;
 
+        [CustomValidation(typeof(AddSAPLevelViewModel), nameof(ValidateLevelName))]
         public string LevelName
         {
             get => _levelName;
-
             set
             {
-                _levelName = value;
-                var trimmedName = value?.Trim();
-                if (string.IsNullOrWhiteSpace(_levelName))
+                if (SetProperty(ref _levelName, value, true))
                 {
-                    SetError(
-                        nameof(LevelName),
-                        Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EmptyStringNotAllowErrorMessage));
+                    OnPropertyChanged(nameof(CanSave));
                 }
-                else if (_sharedSapLevel?.Name != trimmedName && _sharedSapProvider.ViewSharedSapLevels().Any(x => x.Name == trimmedName))
-                {
-                    SetError(nameof(LevelName), Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UniqueLevelNameError));
-                }
-                else
-                {
-                    ClearErrors(nameof(LevelName));
-                }
-
-                RaisePropertyChanged(nameof(LevelName), nameof(CanSave));
             }
         }
 
+        [CustomValidation(typeof(AddSAPLevelViewModel), nameof(ValidateResetValue))]
         public decimal ResetValue
         {
             get => _resetValue;
-            set
-            {
-                if (SetProperty(ref _resetValue, value, nameof(ResetValue)))
-                {
-                    ValidValueFields();
-                }
-            }
+            set => SetProperty(ref _resetValue, value, true);
         }
 
+        [CustomValidation(typeof(AddSAPLevelViewModel), nameof(ValidateInitialValue))]
         public decimal InitialValue
         {
             get => _initialValue;
-            set
-            {
-                if (SetProperty(ref _initialValue, value, nameof(InitialValue)))
-                {
-                    ValidValueFields();
-                }
-            }
+            set => SetProperty(ref _initialValue, value, true);
         }
 
+        [CustomValidation(typeof(AddSAPLevelViewModel), nameof(ValidateMaxValue))]
         public decimal MaxValue
         {
             get => _maxValue;
-            set
-            {
-                if (SetProperty(ref _maxValue, value, nameof(MaxValue)))
-                {
-                    ValidValueFields();
-                }
-            }
+            set => SetProperty(ref _maxValue, value, true);
         }
 
         public decimal MaximumIncrementRate =>
@@ -200,25 +172,53 @@
             IncrementRate = _sharedSapLevel.IncrementRate.ToPercentage();
         }
 
-        protected override void SetError(string propertyName, string error)
+        public static ValidationResult ValidateLevelName(string name, ValidationContext context)
         {
-            if (string.IsNullOrEmpty(error))
+            var instance = (AddSAPLevelViewModel)context.ObjectInstance;
+            var trimmedName = name?.Trim();
+
+            if (string.IsNullOrWhiteSpace(name))
             {
-                ClearErrors(propertyName);
+                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.EmptyStringNotAllowErrorMessage));
             }
-            else
+            else if (instance._sharedSapLevel?.Name != trimmedName && instance._sharedSapProvider.ViewSharedSapLevels().Any(x => x.Name == trimmedName))
             {
-                base.SetError(propertyName, error);
+                return new(Localizer.For(CultureFor.Operator).GetString(ResourceKeys.UniqueLevelNameError));
             }
+
+            return ValidationResult.Success;
         }
 
-        private void ValidValueFields()
+        public static ValidationResult ValidateResetValue(decimal resetValue, ValidationContext context)
         {
-            SetError(nameof(ResetValue), ResetValue.Validate(false, MaxValue.DollarsToMillicents()));
-            SetError(nameof(MaxValue), MaxValue == 0M ? string.Empty : MaxValue.Validate(false, 0, ResetValue.DollarsToMillicents()));
-            SetError(nameof(InitialValue), InitialValue.Validate(false, MaxValue.DollarsToMillicents(), ResetValue.DollarsToMillicents()));
+            var instance = (AddSAPLevelViewModel)context.ObjectInstance;
+            var validationErrorMessage = resetValue.Validate(false, instance.MaxValue.DollarsToMillicents());
+            return string.IsNullOrEmpty(validationErrorMessage)
+                ? ValidationResult.Success
+                : new(validationErrorMessage);
+        }
 
-            RaisePropertyChanged(nameof(ResetValue), nameof(MaxValue), nameof(InitialValue), nameof(CanSave));
+        public static ValidationResult ValidateInitialValue(decimal initialValue, ValidationContext context)
+        {
+            var instance = (AddSAPLevelViewModel)context.ObjectInstance;
+            var validationErrorMessage = initialValue.Validate(false, instance.MaxValue.DollarsToMillicents(), instance.ResetValue.DollarsToMillicents());
+            return string.IsNullOrEmpty(validationErrorMessage)
+                ? ValidationResult.Success
+                : new(validationErrorMessage);
+        }
+
+        public static ValidationResult ValidateMaxValue(decimal maxValue, ValidationContext context)
+        {
+            if (maxValue == 0M)
+            {
+                return ValidationResult.Success;
+            }
+
+            var instance = (AddSAPLevelViewModel)context.ObjectInstance;
+            var validationErrorMessage = maxValue.Validate(false, 0, instance.ResetValue.DollarsToMillicents());
+            return string.IsNullOrEmpty(validationErrorMessage)
+                ? ValidationResult.Success
+                : new(validationErrorMessage);
         }
     }
 }

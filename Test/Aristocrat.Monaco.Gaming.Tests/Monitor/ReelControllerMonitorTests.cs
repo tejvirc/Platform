@@ -46,6 +46,7 @@
         private Mock<IPropertiesManager> _propertiesManager;
 
         private Func<ClosedEvent, CancellationToken, Task> _doorClosedAction;
+        private Func<OpenEvent, CancellationToken, Task> _doorOpenAction;
         private Func<ConnectedEvent, CancellationToken, Task> _connectedAction;
         private Func<DisconnectedEvent, CancellationToken, Task> _disconnectedAction;
         private Func<ReelDisconnectedEvent, CancellationToken, Task> _reelDisconnectedAction;
@@ -154,6 +155,8 @@
                 .Callback<object, Func<OperatorMenuExitedEvent, CancellationToken, Task>>((o, c) => _operatorMenuExitedAction = c);
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Func<ClosedEvent, CancellationToken, Task>>(), It.IsAny<Predicate<ClosedEvent>>()))
                 .Callback<object, Func<ClosedEvent, CancellationToken, Task>, Predicate<ClosedEvent>>((_, c, _) => _doorClosedAction = c);
+            _eventBus.Setup(x => x.Subscribe(It.IsAny<object>(), It.IsAny<Func<OpenEvent, CancellationToken, Task>>()))
+                .Callback<object, Func<OpenEvent, CancellationToken, Task>>((_, c) => _doorOpenAction = c);
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<ReelStoppedEvent>>()))
                 .Callback<object, Action<ReelStoppedEvent>>((o, c) => _reelStoppedEventAction = c);
             _eventBus.Setup(m => m.Subscribe(It.IsAny<object>(), It.IsAny<Action<GameAddedEvent>>()))
@@ -976,6 +979,62 @@
             _gameAddedEventAction(new GameAddedEvent(1, "theme"));
 
             _disable.Verify(x => x.Enable(ApplicationConstants.ReelCountMismatchDisableKey));
+        }
+
+        [TestMethod]
+        public async Task HaltIsCalledWithAuditMenuAndMainDoorTest()
+        {
+            InitializeClient(false);
+            _disable.Reset();
+            _disable.Setup(x => x.CurrentDisableKeys).Returns(new List<Guid>());
+            _operatorMenuLauncher.Setup(x => x.IsShowing).Returns(true);
+
+            await _doorOpenAction(new OpenEvent((int)DoorLogicalId.Main, string.Empty), CancellationToken.None);
+
+            _reelController.Verify(x => x.HaltReels(), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task HaltIsNotCalledWithMainDoorOnlyTest()
+        {
+            InitializeClient(false);
+            _disable.Reset();
+            _operatorMenuLauncher.Setup(x => x.IsShowing).Returns(false);
+            _gamePlayState.Setup(x => x.InGameRound).Returns(false);
+
+            await _doorOpenAction(new OpenEvent((int)DoorLogicalId.Main, string.Empty), CancellationToken.None);
+
+            _reelController.Verify(x => x.HaltReels(), Times.Never());
+        }
+
+        [TestMethod]
+        public async Task HaltIsNotCalledWithAuditMenuMainDoorAndTiltTest()
+        {
+            InitializeClient(false);
+            _disable.Reset();
+            _disable.Setup(x => x.IsDisabled).Returns(true);
+            _disable.Setup(x => x.CurrentDisableKeys.Count).Returns(1);
+            _disable.Setup(x => x.CurrentDisableKeys).Returns(new List<Guid> { GamingConstants.ReelsTiltedGuid });
+            _operatorMenuLauncher.Setup(x => x.IsShowing).Returns(true);
+            _gamePlayState.Setup(x => x.InGameRound).Returns(false);
+
+            await _doorOpenAction(new OpenEvent((int)DoorLogicalId.Main, string.Empty), CancellationToken.None);
+
+            _reelController.Verify(x => x.HaltReels(), Times.Never);
+        }
+
+        [TestMethod]
+        public async Task HaltIsNotCalledWithAuditMenuMainDoorAndGameInProgressTest()
+        {
+            InitializeClient(false);
+            _disable.Reset();
+            _disable.Setup(x => x.CurrentDisableKeys).Returns(new List<Guid>());
+            _operatorMenuLauncher.Setup(x => x.IsShowing).Returns(true);
+            _gamePlayState.Setup(x => x.InGameRound).Returns(true);
+
+            await _doorOpenAction(new OpenEvent((int)DoorLogicalId.Main, string.Empty), CancellationToken.None);
+
+            _reelController.Verify(x => x.HaltReels(), Times.Never);
         }
 
         private void InitializeClient(bool areReelsTilted)

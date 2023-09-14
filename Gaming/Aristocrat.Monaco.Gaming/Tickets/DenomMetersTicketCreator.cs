@@ -17,17 +17,22 @@
         /// <inheritdoc />
         public List<Ticket> CreateDenomMetersTicket(long denomMillicents, bool isLifetime)
         {
-            if (ServiceManager.GetInstance().GetService<IPropertiesManager>()?.GetValue(
+            var properties = ServiceManager.GetInstance().TryGetService<IPropertiesManager>();
+            if (properties?.GetValue(
                     ApplicationConstants.TicketModeAuditKey,
                     TicketModeAuditBehavior.Audit) == TicketModeAuditBehavior.Inspection)
             {
                 return new DenomPerformanceMetersTicket(denomMillicents).CreateAuditTickets();
             }
 
+            var localizer = (properties?.GetValue(ApplicationConstants.LocalizationOperatorTicketLanguageSettingOperatorOverride, false) ?? false)
+                ? Localizer.For(CultureFor.Operator)
+                : Localizer.For(CultureFor.OperatorTicket);
+
             return new DenomPerformanceMetersTicket(
                 denomMillicents,
                 isLifetime,
-                Localizer.For(CultureFor.OperatorTicket).GetString(isLifetime ? ResourceKeys.DenomMetersLifetime : ResourceKeys.DenomMetersPeriod)
+                localizer.GetString(isLifetime ? ResourceKeys.DenomMetersLifetime : ResourceKeys.DenomMetersPeriod)
                 ).CreateAuditTickets();
         }
 

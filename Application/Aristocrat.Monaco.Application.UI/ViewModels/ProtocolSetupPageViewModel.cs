@@ -48,6 +48,16 @@
             if (PropertiesManager.GetValue(ApplicationConstants.ShowMode, false))
             {
                 var protocolsToMerge = protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed;
+
+                var configuration = ConfigurationUtilities.GetConfiguration(
+                    ApplicationConstants.JurisdictionConfigurationExtensionPath,
+                    () => new ApplicationConfiguration());
+
+                if (configuration.Demonstration != null && configuration.Demonstration.Enabled)
+                {
+                    protocolsToMerge = new GlobalProtocol[0];
+                }                
+
                 protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed =
                     new GlobalProtocol[protocolsToMerge.Length + 1];
                 protocolsConfiguration.ProtocolConfiguration.ProtocolsAllowed[0] =
@@ -78,6 +88,13 @@
                 {
                     continue;
                 }
+
+#if (RETAIL)
+                if(protocolName.Name.Equals(CommsProtocol.Test))
+                {
+                    continue;
+                }                
+#endif
 
                 if (protocolName.IsMandatory)
                 {
@@ -286,8 +303,8 @@
 
         private void CheckRequiredFunctionalityProtocolSelected()
         {
-            RaisePropertyChanged(nameof(IsDisplayRequiredFunctionalityProtocolSelectionMessage));
-            RaisePropertyChanged(nameof(RequiredFunctionalityProtocolSelectionMessage));
+            OnPropertyChanged(nameof(IsDisplayRequiredFunctionalityProtocolSelectionMessage));
+            OnPropertyChanged(nameof(RequiredFunctionalityProtocolSelectionMessage));
         }
     }
 }

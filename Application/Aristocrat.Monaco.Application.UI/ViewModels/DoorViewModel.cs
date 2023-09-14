@@ -1,16 +1,16 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Contracts;
     using Contracts.ConfigWizard;
     using Contracts.Localization;
     using Hardware.Contracts.Door;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.ViewModel;
 
     [CLSCompliant(false)]
-    public class DoorViewModel : BaseViewModel
+    public class DoorViewModel : ObservableObject
     {
         private readonly object _context = new object();
         private readonly IInspectionService _reporter;
@@ -52,7 +52,16 @@
         public bool Closed
         {
             get => _closed;
-            private set => SetProperty(ref _closed, value, nameof(Closed), nameof(Action), nameof(Message), nameof(IsTestPassed));
+            private set
+            {
+                if (SetProperty(ref _closed, value, nameof(Closed)))
+                {
+                    OnPropertyChanged(nameof(Action));
+                    OnPropertyChanged(nameof(Message));
+                    OnPropertyChanged(nameof(IsTestPassed));
+                }
+
+            }
         }
 
         public string Action => Closed ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.ClosedText) : Localizer.For(CultureFor.Operator).GetString(ResourceKeys.OpenText);
@@ -60,7 +69,14 @@
         public DateTime? LastOpened
         {
             get => _lastOpened;
-            private set => SetProperty(ref _lastOpened, value, nameof(LastOpened), nameof(Message), nameof(IsTestPassed));
+            private set
+            {
+                if (SetProperty(ref _lastOpened, value, nameof(LastOpened)))
+                {
+                    OnPropertyChanged(nameof(Message));
+                    OnPropertyChanged(nameof(IsTestPassed));
+                }
+            }
         }
 
         public void OnLoaded()

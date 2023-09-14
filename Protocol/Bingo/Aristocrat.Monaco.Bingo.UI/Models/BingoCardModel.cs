@@ -7,13 +7,13 @@
     using System.Linq;
     using Common;
     using Common.GameOverlay;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Data to display within <see cref="ViewModels.OperatorMenu.BingoGameHistoryDetailsViewModel"/>;
     ///     contains the data for a single card and its winning patterns, if any.
     /// </summary>
-    public class BingoCardModel : BaseNotify
+    public class BingoCardModel : ObservableObject
     {
         private const int ExpectedNumberCount = BingoConstants.BingoCardDimension * BingoConstants.BingoCardDimension;
 
@@ -33,12 +33,14 @@
             ObservableCollection<BingoNumberModel> numbers,
             IList<BingoPatternModel> patterns,
             uint serialNumber,
-            int ballCallDaubs)
+            int ballCallDaubs,
+            bool isGolden = false)
         {
             Numbers = numbers ?? throw new ArgumentNullException(nameof(numbers));
             Patterns = patterns ?? throw new ArgumentNullException(nameof(patterns));
             SerialNumber = serialNumber.ToString();
             BallCallBitDaubs = ballCallDaubs;
+            IsGolden = isGolden;
 
             if (numbers.Count != ExpectedNumberCount)
             {
@@ -59,6 +61,8 @@
 
         public IList<int> BallCallDaubedNumbers { get; } = new List<int>();
 
+        public bool IsGolden { get; set; }
+
         /// <summary>
         ///     Uses the given <see cref="patternDaubs"/> to update the card numbers with the pattern daubing,
         ///     and uses <see cref="BallCallDaubedNumbers"/> to update the card numbers with the ball call daubing.
@@ -76,7 +80,7 @@
                 number.Daubed = patternDaubs.Contains(number.Number);
             }
 
-            RaisePropertyChanged(nameof(Numbers));
+            OnPropertyChanged(nameof(Numbers));
         }
 
         /// <summary>

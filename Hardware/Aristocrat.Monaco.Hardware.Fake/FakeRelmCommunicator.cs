@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Hardware.Fake
+namespace Aristocrat.Monaco.Hardware.Fake
 {
     using System;
     using System.Collections.Generic;
@@ -15,10 +15,9 @@
     using Contracts.SharedDevice;
     using Kernel;
     using log4net;
-    using MVVM;
     using MonacoReelStatus = Contracts.Reel.ReelStatus;
     using MonacoLightStatus = Contracts.Reel.LightStatus;
-
+    using Aristocrat.Extensions.CommunityToolkit;
 
     public class FakeRelmCommunicator : IRelmCommunicator
     {
@@ -70,11 +69,48 @@
 
         /// <inheritdoc/>
         public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultCleared;
-
+        
+        /// <inheritdoc />
         public event EventHandler<LightEventArgs> LightStatusReceived;
 
         /// <inheritdoc/>
-        public event EventHandler<ReelStopData> ReelIdleInterruptReceived;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinningStatusReceived;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelStoppingEventArgs> ReelStopping;
+        
+        /// <inheritdoc />
+        public event EventHandler<StepperRuleTriggeredEventArgs> StepperRuleTriggered;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelSynchronizationEventArgs> SynchronizationStarted;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelSynchronizationEventArgs> SynchronizationCompleted;
+        
+        /// <inheritdoc />
+        public event EventHandler AllLightAnimationsCleared;
+        
+        /// <inheritdoc />
+        public event EventHandler<LightAnimationEventArgs> LightAnimationRemoved;
+        
+        /// <inheritdoc />
+        public event EventHandler<LightAnimationEventArgs> LightAnimationStarted;
+        
+        /// <inheritdoc />
+        public event EventHandler<LightAnimationEventArgs> LightAnimationStopped;
+        
+        /// <inheritdoc />
+        public event EventHandler<LightAnimationEventArgs> LightAnimationPrepared;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelAnimationEventArgs> ReelAnimationStarted;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelAnimationEventArgs> ReelAnimationStopped;
+        
+        /// <inheritdoc />
+        public event EventHandler<ReelAnimationEventArgs> ReelAnimationPrepared;
 #pragma warning restore 67
 
         /// <summary>
@@ -191,7 +227,7 @@
         public bool Close()
         {
             Logger.Debug($"Closing Simulator.");
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
             });
 
@@ -220,7 +256,7 @@
             usedIds.AddRange(usedTitles.ToList().Select(int.Parse).ToList());
             _id = 1 + usedIds.Max();
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
             () =>
             {
                 Logger.Debug($"Game says: {ReelCount} reels");
@@ -251,10 +287,10 @@
             OnDeviceAttached();
         }
 
-        /// <inheritdoc/>
-        public Task<bool> HomeReels()
+        /// <inheritdoc />
+        public Task<bool> HaltReels()
         {
-            return Task.FromResult(true);
+            return Task.FromResult(false);
         }
 
         /// <inheritdoc/>

@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!-- Used to customize lobby for different jurisdictions -->
@@ -7,7 +7,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/TS_Background.png"
                  AutomationProperties.AutomationId="BitmapImage0_CE5EBD3C" />
     <BitmapImage x:Key="TopLoading"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_LoadingScreen.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_LoadingScreen.png"
                  AutomationProperties.AutomationId="BitmapImage1_CE5EBD3C" />
     <BitmapImage x:Key="TopDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_Background_Disabled.png"
@@ -17,7 +17,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_Background.png"
                  AutomationProperties.AutomationId="BitmapImage3_CE5EBD3C" />
     <BitmapImage x:Key="TopperLoading"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_LoadingScreen.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_LoadingScreen.png"
                  AutomationProperties.AutomationId="BitmapImage4_CE5EBD3C" />
     <BitmapImage x:Key="TopperDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/TS_Background_Disabled.png"
@@ -133,7 +133,6 @@
     <BitmapImage x:Key="VBD_TimeExpired"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/VBD_Expired_FR.png"
                  AutomationProperties.AutomationId="BitmapImage43_CE5EBD3C" />
-    <!-- **STANDARD UPI** -->
     <!-- **MULTILANGUAGE UPI** -->
     <BitmapImage x:Key="UpiBackground"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/Upi/MultiLanguage/ConsoleBackground.png"
@@ -247,6 +246,12 @@
     <BitmapImage x:Key="TimeLimit60MinPressed"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/PlayTime/60_EN_FR_Button_Pressed.png"
                  AutomationProperties.AutomationId="BitmapImage80_CE5EBD3C" />
+    <BitmapImage x:Key="TimeLimitCashOutNormal"
+                 AutomationProperties.AutomationId="BitmapImage0_4146A47A"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_RG_Normal.png" />
+    <BitmapImage x:Key="TimeLimitCashOutPressed"
+                 AutomationProperties.AutomationId="BitmapImage1_4146A47A"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Quebec-VLT/ui/Images/French/Upi/CashOut_RG_Selected.png" />
     <!-- Filenames, margins, etc -->
     <sys:String x:Key="PlatinumVideoPath">../jurisdiction/Quebec-VLT/ui/Videos/12_PlatinumSeries.bk2</sys:String>
     <sys:String x:Key="NewStarPath">../jurisdiction/Quebec-VLT/ui/Videos/French/NewStar_FR.bk2</sys:String>
@@ -258,5 +263,4 @@
     <sys:String x:Key="VBD_Helix_InsertMoney">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_InsertMoney_FR.bk2</sys:String>
     <sys:String x:Key="VBD_Marsx_ChooseGame">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_ChooseGame_FR.bk2</sys:String>
     <sys:String x:Key="VBD_Marsx_InsertMoney">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_InsertMoney_FR.bk2</sys:String>
-
 </ResourceDictionary>

@@ -166,8 +166,18 @@
         DualPlay = ButtonBase + 33,
 
         /// <summary>
+        ///     Defines the Pull Handle Play input
+        /// </summary>
+        PullHandlePlay = ButtonBase + 34,
+
+        /// <summary>
+        ///     Defines the Pull Handle Reset input
+        /// </summary>
+        PullHandleReset = ButtonBase + 35,
+
+        /// <summary>
         ///     Max Button Id
         /// </summary>
-        MaxButtonId = DualPlay
+        MaxButtonId = PullHandleReset
     }
 }

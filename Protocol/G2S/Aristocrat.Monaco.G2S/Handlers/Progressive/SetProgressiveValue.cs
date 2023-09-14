@@ -4,14 +4,15 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Application.Contracts;
+    using Application.Contracts.Extensions;
     using Aristocrat.G2S;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
-    using Aristocrat.Monaco.Application.Contracts.Extensions;
-    using Aristocrat.Monaco.G2S.Services;
-    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
+    using Gaming.Contracts.Progressives;
     using Gaming.Contracts.Progressives.Linked;
+    using Services;
 
     /// <inheritdoc />
     public class SetProgressiveValue : ICommandHandler<progressive, setProgressiveValue>
@@ -54,7 +55,9 @@
             if (error == null && command.IClass.deviceId > 0)
             {
                 var device = _egm.GetDevice<IProgressiveDevice>(command.IClass.deviceId);
-                var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels().Where(l => l.ProgressiveGroupId == device.ProgressiveId).Cast<LinkedProgressiveLevel>().ToList();
+                var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels()
+                    .Where(ll => ll.ProgressiveGroupId == device.ProgressiveId && ll.ProtocolName == ProtocolNames.G2S)
+                    .Cast<LinkedProgressiveLevel>().ToList();
                 var linkedLevelNames = linkedLevels.Select(ll => ll.LevelName).ToList();
                 var levels = _progressiveProvider.GetProgressiveLevels().Where(
                     l => linkedLevelNames.Contains(l.AssignedProgressiveId.AssignedProgressiveKey)).ToList();
@@ -67,15 +70,19 @@
                 {
                     foreach (var hostLevel in command.Command.setLevelValue)
                     {
-                        var linkedLevel = linkedLevels.Single(ll => ll.LevelId == hostLevel.levelId && ll.ProgressiveGroupId == hostLevel.progId);
-                        var progLevel = levels.Single(l => l.AssignedProgressiveId.AssignedProgressiveKey == linkedLevel?.LevelName);
-                        if (linkedLevel == null || progLevel == null)
+                        var linkedLevel = linkedLevels.Single(
+                            ll => ll.LevelId == hostLevel.levelId && ll.ProgressiveGroupId == hostLevel.progId);
+                        if (linkedLevel == null)
                         {
                             error = new Error(ErrorCode.G2S_PGX003);
                             break;
                         }
 
-                        if (hostLevel.progValueAmt > progLevel.MaximumValue || hostLevel.progValueAmt < progLevel.ResetValue)
+                        var progLevels = levels.Where(
+                            l => l.AssignedProgressiveId.AssignedProgressiveKey == linkedLevel?.LevelName
+                                 && (hostLevel.progValueAmt > l.MaximumValue ||
+                                     hostLevel.progValueAmt < l.ResetValue));
+                        if (progLevels.Any())
                         {
                             error = new Error(ErrorCode.G2S_PGX004);
                             break;
@@ -97,7 +104,9 @@
                 return;
             }
 
-            var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels().Where(l => l.ProgressiveGroupId == device.ProgressiveId).Cast<LinkedProgressiveLevel>().ToList();
+            var linkedLevels = _protocolLinkedProgressiveAdapter.ViewLinkedProgressiveLevels()
+                .Where(ll => ll.ProgressiveGroupId == device.ProgressiveId && ll.ProtocolName == ProtocolNames.G2S)
+                .Cast<LinkedProgressiveLevel>().ToList();
             var linkedLevelNames = new HashSet<string>(linkedLevels.Select(ll => ll.LevelName));
 
             var levels = _progressiveProvider.GetProgressiveLevels().Where(

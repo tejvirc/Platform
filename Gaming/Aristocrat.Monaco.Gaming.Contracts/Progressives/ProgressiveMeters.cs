@@ -26,6 +26,11 @@
         public const string ProgressiveLevelHiddenTotal = "ProgressiveLevel.HiddenTotal";
 
         /// <summary>
+        ///     Progressive bulk total (total accumulated value of hits for each level)
+        /// </summary>
+        public const string ProgressiveLevelBulkTotal = "ProgressiveLevel.BulkTotal";
+
+        /// <summary>
         ///     Shared Level Win Occurrence
         /// </summary>
         public const string SharedLevelWinOccurrence = "SharedLevel.WinOccurrence";
@@ -39,6 +44,16 @@
         ///     linked Progressive Win Occurrence
         /// </summary>
         public const string LinkedProgressiveWinOccurrence = "LinkedProgressive.WinOccurrence";
+
+        /// <summary>
+        ///     The wagered amount per linked progressive level
+        /// </summary>
+        public const string LinkedProgressiveWageredAmount = "LinkedProgressive.WageredAmount";
+
+        /// <summary>
+        ///     The total accumulated plays per linked progressive level
+        /// </summary>
+        public const string LinkedProgressivePlayedCount = "LinkedProgressive.PlayedCount";
 
         /// <summary>
         ///   	Pack name of what the progressive level belongs to. Used to identify DisplayMeter node.
@@ -102,12 +117,12 @@
         public const string WagerBetLevelsDisplayMeter = @"WagerBetLevels";
 
         /// <summary>
-        ///     The wagered amount per progressive device
+        ///     The wagered amount per level
         /// </summary>
         public const string WageredAmount = "WageredAmount";
 
         /// <summary>
-        ///     The total accumulated plays per progressive device
+        ///     The total accumulated plays per level
         /// </summary>
         public const string PlayedCount = "PlayedCount";
     }

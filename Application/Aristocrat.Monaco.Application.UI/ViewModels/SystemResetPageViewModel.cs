@@ -1,13 +1,13 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Windows.Input;
+    using CommunityToolkit.Mvvm.Input;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Monaco.Localization.Properties;
-    using MVVM.Command;
     using OperatorMenu;
     using Vgt.Client12.Application.OperatorMenu;
 
@@ -16,8 +16,8 @@
     {
         public SystemResetPageViewModel()
         {
-            PartialResetButtonClickCommand = new ActionCommand<object>(OnPartialResetButtonClickCommand);
-            FullResetButtonClickCommand = new ActionCommand<object>(OnFullResetButtonClickCommand);
+            PartialResetButtonClickCommand = new RelayCommand<object>(OnPartialResetButtonClickCommand);
+            FullResetButtonClickCommand = new RelayCommand<object>(OnFullResetButtonClickCommand);
         }
 
         /// <summary>

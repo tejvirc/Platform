@@ -24,5 +24,12 @@
         /// <param name="token">The cancellation token for this task</param>
         /// <returns>A whether or not the claim was handled</returns>
         Task<bool> ProcessClaimWin(ClaimWinResults claim, CancellationToken token);
+
+        /// <summary>
+        ///     Process a progressive claim win by updating the outcome value with the amount.
+        /// </summary>
+        /// <param name="amount">The amount of the progressive win</param>
+        /// <returns>Whether or not the claim was handled</returns>
+        Task<bool> ProcessProgressiveClaimWin(long amount);
     }
 }

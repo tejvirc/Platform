@@ -109,6 +109,7 @@
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.ReplayPauseEnable, true)).Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(GamingConstants.KeepGameRoundEvents, true)).Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ReelControllerEnabled, false)).Returns(false);
+            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.ShowMode, false)).Returns(false);
             _eventBus.Setup(m => m.Subscribe(It.IsAny<GameHistoryViewModel>(), It.IsAny<Action<TransactionCompletedEvent>>()))
                 .Callback<object, Action<TransactionCompletedEvent>>((_, action) => _handleProtocolInitializedEvent = action);
 
@@ -243,8 +244,9 @@
                     FinalWin = 50_000,  // 50 cents
                     FinalWager = 10, // 10 cents
                     LogSequence = 2,
-                    Transactions = new List<TransactionInfo> { new TransactionInfo { TransactionType = typeof(BillTransaction), TransactionId = 12, Amount = 10_00_000,  } }
+                    Transactions = new List<TransactionInfo> ()
                 };
+
             _gameHistory.Setup(m => m.GetGameHistory())
                 .Returns(new List<GameHistoryLog> { gameHistoryLog });
             _gameHistory.Setup(m => m.MaxEntries).Returns(1);

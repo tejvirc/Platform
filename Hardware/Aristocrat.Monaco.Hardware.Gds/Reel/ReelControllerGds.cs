@@ -66,13 +66,13 @@
         public event EventHandler<ReelFaultedEventArgs> FaultCleared;
 
         /// <inheritdoc />
-        public event EventHandler<ReelEventArgs> ReelStopping;
+        public event EventHandler<ReelStoppingEventArgs> ReelStopping;
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelStopped;
 
         /// <inheritdoc />
-        public event EventHandler<ReelEventArgs> ReelSpinning;
+        public event EventHandler<ReelSpinningEventArgs> ReelSpinning;
 
         /// <inheritdoc />
         public event EventHandler<ReelEventArgs> ReelSlowSpinning;
@@ -140,6 +140,13 @@
             }
 
             return !report.FirmwareError && !report.MechanicalError && !report.ComponentError && !report.DiagnosticCode;
+        }
+
+        /// <inheritdoc />
+        public Task<bool> HaltReels()
+        {
+            // Not supported by Harkey
+            return Task.FromResult(false);
         }
 
         /// <inheritdoc />
@@ -308,7 +315,7 @@
         ///     Called when a reel is spinning
         /// </summary>
         /// <param name="e">The event arguments</param>
-        protected virtual void OnReelSpinning(ReelEventArgs e)
+        protected virtual void OnReelSpinning(ReelSpinningEventArgs e)
         {
             ReelSpinning?.Invoke(this, e);
         }
@@ -318,7 +325,7 @@
         ///     Not used for Harkey reels.
         /// </summary>
         /// <param name="e">The event arguments</param>
-        protected virtual void OnReelStopping(ReelEventArgs e)
+        protected virtual void OnReelStopping(ReelStoppingEventArgs e)
         {
             ReelStopping?.Invoke(this, e);
         }
@@ -614,7 +621,7 @@
 
             if (status.Spinning)
             {
-                OnReelSpinning(new ReelEventArgs(status.ReelId));
+                OnReelSpinning(new ReelSpinningEventArgs(status.ReelId));
             }
         }
 

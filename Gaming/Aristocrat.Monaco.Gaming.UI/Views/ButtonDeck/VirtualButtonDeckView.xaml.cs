@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck
+namespace Aristocrat.Monaco.Gaming.UI.Views.ButtonDeck
 {
     using System;
     using System.Drawing;
@@ -6,6 +6,7 @@
     using System.Windows;
     using System.Windows.Input;
     using Aristocrat.Monaco.Gaming.Contracts.Events.OperatorMenu;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Cabinet.Contracts;
     using Common;
     using Hardware.Contracts.Cabinet;
@@ -14,7 +15,6 @@
     using log4net;
     using ManagedBink;
     using Monaco.UI.Common;
-    using MVVM;
     using ViewModels;
     using Cursors = System.Windows.Input.Cursors;
 
@@ -41,7 +41,7 @@
             _layoutRootWidth = _vbdDisplayDevice?.Resolution.X ?? 1920;
 
             ServiceManager.GetInstance().GetService<IEventBus>()
-                .Subscribe<DisplayConnectedEvent>(this, evt => MvvmHelper.ExecuteOnUI(() => HandleEvent(evt)));
+                .Subscribe<DisplayConnectedEvent>(this, evt => Execute.OnUIThread(() => HandleEvent(evt)));
         }
 
         /// <summary>

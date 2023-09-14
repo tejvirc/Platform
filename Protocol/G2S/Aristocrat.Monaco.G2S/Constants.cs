@@ -24,6 +24,11 @@ namespace Aristocrat.Monaco.G2S
         public const string Port = @"G2SClient.Port";
 
         /// <summary>
+        ///     Property to define if bypassing of SSL certificate validation required
+        /// </summary>
+        public const string BypassCertificateValidation = @"G2SClient.BypassCertificateValidation";
+
+        /// <summary>
         ///     Firewall rule name for the G2S client port
         /// </summary>
         public const string FirewallRuleName = "G2S inbound TCP Port";

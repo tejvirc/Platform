@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.Contracts.Models
+namespace Aristocrat.Monaco.Gaming.Contracts.Models
 {
     using System;
     using System.Collections.ObjectModel;

@@ -1,8 +1,9 @@
-﻿namespace Aristocrat.Monaco.Gaming.Class3Coam
+namespace Aristocrat.Monaco.Gaming.Class3Coam
 {
     using System;
     using System.Collections.Generic;
     using System.Reflection;
+    using Accounting.Contracts;
     using Accounting.Contracts.HandCount;
     using Accounting.Contracts.TransferOut;
     using Kernel;
@@ -20,15 +21,23 @@
         private readonly IPlayerBank _decorated;
         private readonly IHandCountService _handCountService;
         private readonly ICashOutAmountCalculator _cashOutAmountCalculator;
+        private readonly ITransferOutHandler _transferOutHandler;
+        private readonly IEventBus _bus;
+
+        private static readonly object _lockObject = new();
 
         public PlayerBankCoamDecorator(
             IPlayerBank decorated,
             IHandCountService handCountService,
-            ICashOutAmountCalculator cashOutAmountCalculator)
+            ITransferOutHandler transferOutHandler,
+            ICashOutAmountCalculator cashOutAmountCalculator,
+            IEventBus bus)
         {
             _decorated = decorated ?? throw new ArgumentNullException(nameof(decorated));
             _handCountService = handCountService ?? throw new ArgumentNullException(nameof(handCountService));
             _cashOutAmountCalculator = cashOutAmountCalculator ?? throw new ArgumentNullException(nameof(cashOutAmountCalculator));
+            _transferOutHandler = transferOutHandler ?? throw new ArgumentNullException(nameof(transferOutHandler));
+            _bus = bus ?? throw new ArgumentNullException(nameof(bus));
         }
 
         public long Balance => _decorated.Balance;
@@ -48,15 +57,19 @@
             // Check if hand count calculations are active, and if so, fetch the calculator.
             if (_handCountService.HandCountServiceEnabled)
             {
-                var amountCashable = _cashOutAmountCalculator.GetCashableAmount(_decorated.Balance);
+                // There is no risk of deadlock, as long as all the CashOut calls are made from CashOutButtonPressedConsumer
+                // which is handled sequentially, guarantied by ActionBlock with capacity=1.
+                // this lock will ensure _transferOutHandler.InProgress check and _decorated.CashOut call are atomic.
+                lock (_lockObject)
+                {
+                    if (_transferOutHandler.InProgress)
+                    {
+                        Logger.Debug("CashOut: TransferOutHandler is in progress, returning false");
+                        return false;
+                    }
 
-                if (amountCashable > 0)
-                {
-                    return _decorated.CashOut(amountCashable);
-                }
-                else
-                {
-                    return true;
+                    var amountCashable = _cashOutAmountCalculator.GetCashableAmount(_decorated.Balance);
+                    return amountCashable <= 0 || CoamCashOut(amountCashable);
                 }
             }
             else
@@ -88,5 +101,23 @@
         public void Wager(long amount) => _decorated.Wager(amount);
 
         public void WaitForLock() => _decorated.WaitForLock();
+
+        private bool CoamCashOut(long amount)
+        {
+            Logger.Debug($"CoamCashOut: amount={amount}");
+
+            _bus.Publish(new CashOutStartedEvent(false, Balance == amount));
+
+            var success = _transferOutHandler.TransferOut(AccountType.Cashable, amount, TransferOutReason.CashOut);
+
+            if (!success)
+            {
+                _bus.Publish(new CashOutAbortedEvent());
+            }
+
+            Logger.Debug($"CoamCashOut: success={success}");
+
+            return success;
+        }
     }
 }

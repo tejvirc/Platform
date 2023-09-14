@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.Settings
+namespace Aristocrat.Monaco.Gaming.UI.Settings
 {
     using System;
     using System.Linq;
@@ -6,11 +6,11 @@
     using System.Windows;
     using Application.Contracts;
     using Application.Contracts.Settings;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Barkeeper;
     using Contracts;
     using Contracts.Barkeeper;
     using Kernel;
-    using MVVM;
 
     /// <summary>
     ///     Barkeeper configuration settings.
@@ -44,7 +44,7 @@
         /// <inheritdoc />
         public async Task Initialize()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     var resourceDictionary = new ResourceDictionary

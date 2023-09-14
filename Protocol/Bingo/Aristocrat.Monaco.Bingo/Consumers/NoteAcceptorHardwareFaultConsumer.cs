@@ -5,6 +5,7 @@
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Common;
+    using Gaming.Contracts;
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
     using Protocol.Common.Storage.Entity;
@@ -19,7 +20,7 @@
         private readonly IReportTransactionQueueService _bingoTransactionReportHandler;
         private readonly IMeterManager _meterManager;
         private readonly IUnitOfWorkFactory _unitOfWorkFactory;
-        private readonly IPropertiesManager _propertiesManager;
+        private readonly IGameProvider _gameProvider;
 
         private static readonly IReadOnlyDictionary<NoteAcceptorFaultTypes, ReportableEvent> BingoErrorMapping =
             new Dictionary<NoteAcceptorFaultTypes, ReportableEvent>
@@ -44,7 +45,7 @@
             IReportTransactionQueueService bingoTransactionReportHandler,
             IMeterManager meterManager,
             IUnitOfWorkFactory unitOfWorkFactory,
-            IPropertiesManager propertiesManager)
+            IGameProvider gameProvider)
             : base(eventBus, consumerContext)
         {
             _bingoServerEventReportingService =
@@ -53,7 +54,7 @@
                 bingoTransactionReportHandler ?? throw new ArgumentNullException(nameof(bingoTransactionReportHandler));
             _meterManager = meterManager ?? throw new ArgumentNullException(nameof(meterManager));
             _unitOfWorkFactory = unitOfWorkFactory ?? throw new ArgumentNullException(nameof(unitOfWorkFactory));
-            _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            _gameProvider = gameProvider ?? throw new ArgumentNullException(nameof(gameProvider));
         }
 
         public override void Consume(HardwareFaultEvent theEvent)
@@ -79,7 +80,7 @@
         {
             _bingoServerEventReportingService.AddNewEventToQueue(ReportableEvent.CashDrop);
             var totalInMeter = _meterManager.GetMeter(ApplicationMeters.TotalIn);
-            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_propertiesManager);
+            var gameConfiguration = _unitOfWorkFactory.GetSelectedGameConfiguration(_gameProvider);
             _bingoTransactionReportHandler.AddNewTransactionToQueue(
                 TransactionType.Drop,
                 totalInMeter.Period.MillicentsToCents(),

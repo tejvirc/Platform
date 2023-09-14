@@ -107,7 +107,7 @@
         }
 
         /// <inheritdoc />
-        public IHost UnregisterHost(int hostId)
+        public IHost UnregisterHost(int hostId, IEgmStateManager egmStateManager)
         {
             if (hostId == Constants.EgmHostId)
             {
@@ -120,6 +120,8 @@
                 throw new ArgumentOutOfRangeException(nameof(hostId), $@"Host Id {hostId} is not a registered host.");
             }
 
+            var cabinet = GetDevice<ICabinetDevice>();
+
             var devices = Devices.Where(d => d.IsMember(host.Id)).Cast<ClientDeviceBase>().ToList();
             foreach (var device in devices)
             {
@@ -127,6 +129,14 @@
                 {
                     device.Close();
                     RemoveDevice(device);
+                    egmStateManager.Enable(device, EgmState.EgmDisabled);
+                    egmStateManager.Enable(device, EgmState.HostLocked);
+                    egmStateManager.Enable(device, EgmState.HostDisabled);
+                    egmStateManager.Enable(device, EgmState.TransportDisabled);
+                    cabinet?.RemoveCondition(device, EgmState.EgmDisabled);
+                    cabinet?.RemoveCondition(device, EgmState.HostLocked);
+                    cabinet?.RemoveCondition(device, EgmState.HostDisabled);
+                    cabinet?.RemoveCondition(device, EgmState.TransportDisabled);
                 }
                 else if (device.IsOwner(host.Id))
                 {

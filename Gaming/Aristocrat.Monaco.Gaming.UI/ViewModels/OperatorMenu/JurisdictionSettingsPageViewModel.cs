@@ -1,13 +1,16 @@
-﻿namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
+namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     using System;
     using System.Collections.Generic;
     using Application.Contracts;
+    using Application.Contracts.Currency;
+    using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
     using Application.Contracts.OperatorMenu;
     using Application.Localization;
     using Application.UI.OperatorMenu;
     using Contracts;
+    using Contracts.Rtp;
     using Contracts.Tickets;
     using Hardware.Contracts.HardMeter;
     using Hardware.Contracts.Ticket;
@@ -22,8 +25,8 @@
     {
         private const string ShowAllowedRtpSetting = "ShowAllowedRTP";
 
-        private readonly int _defaultAnyGameMinimum;
-        private readonly int _defaultAnyGameMaximum;
+        private readonly decimal _defaultAnyGameMinimum;
+        private readonly decimal _defaultAnyGameMaximum;
         private readonly HardMeterLogicalState _mechanicalMeter;
         private readonly bool _doorOpticSensor;
         private readonly bool _zeroCreditOnOos;
@@ -33,6 +36,7 @@
         private string _allowedKenoRtp;
         private string _allowedBlackjackRtp;
         private string _allowedRouletteRtp;
+        private string _currencyDisplayText;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="JurisdictionSettingsPageViewModel" /> class.
@@ -43,10 +47,11 @@
 
             var localization = ServiceManager.GetInstance().GetService<ILocalization>();
             var currencyProvider = localization.GetProvider(CultureFor.Currency) as CurrencyCultureProvider;
-            Currency = currencyProvider?.ConfiguredCurrency.DisplayName;
+            Currency = currencyProvider?.ConfiguredCurrency;
+            _currencyDisplayText = Currency?.DisplayName;
 
-            _defaultAnyGameMinimum = PropertiesManager.GetValue(GamingConstants.AnyGameMinimumReturnToPlayer, int.MinValue);
-            _defaultAnyGameMaximum = PropertiesManager.GetValue(GamingConstants.AnyGameMaximumReturnToPlayer, int.MaxValue);
+            _defaultAnyGameMinimum = PropertiesManager.GetValue(GamingConstants.AnyGameMinimumReturnToPlayer, decimal.MinValue);
+            _defaultAnyGameMaximum = PropertiesManager.GetValue(GamingConstants.AnyGameMaximumReturnToPlayer, decimal.MaxValue);
 
             SetupRtpValuesAndVisibility();
 
@@ -67,9 +72,15 @@
 
         }
 
+        public Currency Currency { get; }
+
         public string Jurisdiction { get; }
 
-        public string Currency { get; }
+        public string CurrencyDisplayText
+        {
+            get => _currencyDisplayText;
+            private set => SetProperty(ref _currencyDisplayText, value);
+        }
 
         public string AllowedSlotRtp
         {
@@ -125,14 +136,16 @@
 
         protected override void OnLoaded()
         {
+            UpdateCurrencyDescription();
             SetupRtpValuesAndVisibility();
-            RaisePropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
+            OnPropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos), nameof(CurrencyDisplayText));
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
         {
+            UpdateCurrencyDescription();
             SetupRtpValuesAndVisibility();
-            RaisePropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos));
+            OnPropertyChanged(nameof(MechanicalMeter), nameof(DoorOpticSensor), nameof(ZeroCreditOnOos), nameof(CurrencyDisplayText));
             base.OnOperatorCultureChanged(evt);
         }
 
@@ -154,8 +167,6 @@
 
         private void SetupRtpValuesAndVisibility()
         {
-            // TODO: Put check in to include progressive RTP if progressive increment RTP is allowed.
-
             var config = ServiceManager.GetInstance().GetService<IOperatorMenuConfiguration>();
             var showAllowedRtp = config.GetSetting(this, ShowAllowedRtpSetting, true);
 
@@ -207,13 +218,15 @@
 
         private bool GetAllowedRtpForGameType(string allowGameTypeKey, string minimumRtpKey, string maximumRtpKey, ref string allowedRtpRange)
         {
-            // TODO : Construct keys from game type, eg GamingConstants.GetAllowedGamesKey(GameType forGameType); then, loop through each game type for the sent-in values.
-
             if (PropertiesManager.GetValue(allowGameTypeKey, true))
             {
-                allowedRtpRange = GameConfigHelper.GetRtpRangeString(
-                    PropertiesManager.GetValue(minimumRtpKey, _defaultAnyGameMinimum),
-                    PropertiesManager.GetValue(maximumRtpKey, _defaultAnyGameMaximum));
+                var minimumRtp = PropertiesManager.GetValue(minimumRtpKey, _defaultAnyGameMinimum);
+                var maximumRtp = PropertiesManager.GetValue(maximumRtpKey, _defaultAnyGameMaximum);
+
+                var rtpRange = new RtpRange(minimumRtp, maximumRtp);
+
+                allowedRtpRange = rtpRange.ToString();
+
                 return true;
             }
 
@@ -234,6 +247,13 @@
             }
 
             return string.Empty;
+        }
+
+        private void UpdateCurrencyDescription()
+        {
+            var culture = CurrencyExtensions.CurrencyCultureInfo;
+            var currencyText = CurrencyExtensions.GetFormattedDescriptionForOperator(culture, Currency.IsoCode);
+            CurrencyDisplayText = currencyText;
         }
     }
 }

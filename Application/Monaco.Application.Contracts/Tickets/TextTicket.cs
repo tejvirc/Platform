@@ -79,12 +79,12 @@
 
             DateTimeFormatInfo = TicketLocalizer.CurrentCulture.DateTimeFormat;
 
-            StateText = new Dictionary<PaperStates, string>
+            StateText = new Dictionary<PaperStates, Func<string>> // lazily evaluate these values to account for localization
             {
-                { PaperStates.Full, TicketLocalizer.GetString(ResourceKeys.PaperFullText)},
-                { PaperStates.Low, TicketLocalizer.GetString(ResourceKeys.PaperLowText)},
-                { PaperStates.Empty, TicketLocalizer.GetString(ResourceKeys.PaperOutText)},
-                { PaperStates.Jammed, TicketLocalizer.GetString(ResourceKeys.PaperJamText)}
+                { PaperStates.Full, () => TicketLocalizer.GetString(ResourceKeys.PaperFullText)},
+                { PaperStates.Low, () => TicketLocalizer.GetString(ResourceKeys.PaperLowText)},
+                { PaperStates.Empty, () => TicketLocalizer.GetString(ResourceKeys.PaperOutText)},
+                { PaperStates.Jammed, () => TicketLocalizer.GetString(ResourceKeys.PaperJamText)}
             };
         }
 
@@ -114,9 +114,7 @@
         /// </summary>
         public static readonly string TimeFormat = ApplicationConstants.DefaultTimeFormat;
 
-        /// <summary>
-        /// </summary>
-        public readonly Dictionary<PaperStates, string> StateText;
+        private readonly Dictionary<PaperStates, Func<string>> StateText;
 
         private readonly StringBuilder _centerField;
         private readonly StringBuilder _leftField;
@@ -275,7 +273,7 @@
                         PropertiesManager.GetValue(ApplicationConstants.SerialNumber, scope.GetString(ResourceKeys.DataUnavailable))));
 
                 AddLine(
-                    $"{scope.GetString(ResourceKeys.OSImageVersionText)}:",
+                    $"{scope.GetString(ResourceKeys.OSImageVersionLabel)}:",
                     null,
                     string.Format(
                         TicketLocalizer.CurrentCulture,
@@ -348,8 +346,8 @@
             // NOTE: If additional lines are added here, update the TicketFooterLineCount
             var printer = ServiceManager.TryGetService<IPrinter>();
             var state = printer?.PaperState ?? PaperStates.Empty;
-            StateText.TryGetValue(state, out var stateText);
-            AddLine(TicketLocalizer.GetString(ResourceKeys.PaperLevelText), null, stateText);
+            StateText.TryGetValue(state, out var stateTextCb);
+            AddLine(TicketLocalizer.GetString(ResourceKeys.PaperLevelText), null, stateTextCb());
         }
 
         /// <summary>

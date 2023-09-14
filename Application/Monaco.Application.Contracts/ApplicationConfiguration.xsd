@@ -28,6 +28,11 @@
             <xs:attribute default="false" name="DisableOnError" type="xs:boolean" />
           </xs:complexType>
         </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="DisplayTopScreen">
+          <xs:complexType>
+            <xs:attribute default="true" name="Enabled" type="xs:boolean" />
+          </xs:complexType>
+        </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="NoteAcceptorMonitor">
           <xs:complexType>
             <xs:attribute default="Immediate" name="DisableOnError" type="NoteAcceptorMonitorDisableBehavior" />
@@ -485,6 +490,11 @@
         <xs:element minOccurs="0" maxOccurs="1" name="DisplayDisconnectNoReconfigure">
           <xs:complexType>
             <xs:attribute name="Topper" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="TechnicianModeLocked">
+          <xs:complexType>
+            <xs:attribute default="false" name="Enabled" type="xs:boolean" />
           </xs:complexType>
         </xs:element>
       </xs:sequence>

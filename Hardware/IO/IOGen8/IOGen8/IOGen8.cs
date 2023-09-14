@@ -22,14 +22,16 @@
         private const int Tpci940NumInputs = 63;
         private const int Tpci940NumOutputs = 16;
         private const int LogicDoorPhysicalId = 45;
+        private const int GeneralPurposeInputs = 4;
+        private const int GeneralPurposeOutputs = 4;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
         private static ulong _outputs;
         private static SafeFileHandle _deviceHandle;
 
-        private readonly Dictionary<int, byte> _doorMasks = new Dictionary<int, byte>();
-        private readonly List<InputEvent> _intrusionEvents = new List<InputEvent>();
+        private readonly Dictionary<int, byte> _doorMasks = new();
+        private readonly List<InputEvent> _intrusionEvents = new();
 
         private readonly IEventBus _bus;
         private readonly ICabinetDetectionService _cabinetService;
@@ -89,6 +91,12 @@
 
         /// <inheritdoc />
         public int GetMaxOutputs => Tpci940NumOutputs;
+
+        /// <inheritdoc />
+        public int GetMaxGeneralPurposeInputs => GeneralPurposeInputs;
+
+        /// <inheritdoc />
+        public int GetMaxGeneralPurposeOutputs => GeneralPurposeOutputs;
 
         /// <inheritdoc />
         [CLSCompliant(false)]
@@ -763,6 +771,14 @@
             const int bankOnState = 1;
             const int bankOffState = 0;
             return DeviceControl.WriteReg32(_deviceHandle, Gen8PCI.Legacy.HWO_MPIO, bankOn ? bankOnState : bankOffState);
+        }
+
+        [CLSCompliant(false)]
+        public ulong GetGeneralPurposeInputs()
+        {
+            const int inputPinsMask = 0xF0;
+            var reg = DeviceControl.ReadReg32(_deviceHandle, Gen8PCI.Legacy.HWO_MPIO);
+            return (ulong)(reg & inputPinsMask);
         }
 
         public bool SetStrobeLightState(bool flashStrobe)

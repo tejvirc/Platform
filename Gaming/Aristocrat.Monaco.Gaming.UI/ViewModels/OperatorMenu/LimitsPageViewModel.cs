@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Windows;
     using Accounting.Contracts;
     using Accounting.Contracts.Handpay;
@@ -147,7 +148,7 @@
             set
             {
                 _placementTarget = value;
-                RaisePropertyChanged(nameof(PlacementTarget));
+                OnPropertyChanged(nameof(PlacementTarget));
             }
         }
 
@@ -158,8 +159,8 @@
             {
                 _popupOpen = value;
 
-                RaisePropertyChanged(nameof(PlacementTarget));
-                RaisePropertyChanged(nameof(ConfigPopupOpen));
+                OnPropertyChanged(nameof(PlacementTarget));
+                OnPropertyChanged(nameof(ConfigPopupOpen));
             }
         }
 
@@ -169,7 +170,7 @@
             set
             {
                 _limitsPopUpInfoText = value;
-                RaisePropertyChanged(nameof(LimitsPopUpInfoText));
+                OnPropertyChanged(nameof(LimitsPopUpInfoText));
             }
         }
 
@@ -182,9 +183,9 @@
                 {
                     return;
                 }
-                
+
                 _pageEnabled = value;
-                RaisePropertyChanged(nameof(PageEnabled));
+                OnPropertyChanged(nameof(PageEnabled));
             }
         }
 
@@ -194,20 +195,15 @@
             set
             {
                 _creditLimitEditable = value;
-                RaisePropertyChanged(nameof(CreditLimitEditable));
+                OnPropertyChanged(nameof(CreditLimitEditable));
             }
         }
 
+        [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateCreditLimit))]
         public decimal CreditLimit
         {
             get => CreditLimitIsChecked ? _creditLimit : _maxCreditMeter.MillicentsToDollars();
-            set
-            {
-                if (SetProperty(ref _creditLimit, value, nameof(CreditLimit)))
-                {
-                    ValidateFields(nameof(CreditLimit));
-                }
-            }
+            set => SetProperty(ref _creditLimit, value, true);
         }
 
         public bool CreditLimitIsChecked
@@ -225,16 +221,11 @@
             }
         }
 
+        [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateHandpayLimit))]
         public decimal HandpayLimit
         {
             get => HandpayLimitIsChecked ? _handpayLimit : AccountingConstants.DefaultHandpayLimit.MillicentsToDollars();
-            set
-            {
-                if (SetProperty(ref _handpayLimit, value, nameof(HandpayLimit)))
-                {
-                    ValidateFields(nameof(HandpayLimit));
-                }
-            }
+            set => SetProperty(ref _handpayLimit, value, true);
         }
 
         public bool HandpayLimitIsChecked
@@ -253,17 +244,11 @@
             }
         }
 
+        [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateIncrementThreshold))]
         public long IncrementThreshold
         {
             get => IncrementThresholdIsChecked ? _incrementThreshold : (long)AccountingConstants.DefaultIncrementThreshold.MillicentsToDollars();
-
-            set
-            {
-                if (SetProperty(ref _incrementThreshold, value, nameof(IncrementThreshold)))
-                {
-                    ValidateFields(nameof(IncrementThreshold));
-                }
-            }
+            set => SetProperty(ref _incrementThreshold, value, true);
         }
 
         public bool IncrementThresholdIsChecked
@@ -284,28 +269,24 @@
         }
 
         public bool IncrementThresholdVisible { get; }
-        
+
+        [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateLargeWinLimit))]
         public decimal LargeWinLimit
         {
             get => LargeWinLimitIsChecked ? _largeWinLimit : AccountingConstants.DefaultLargeWinLimit.MillicentsToDollars();
-            set
-            {
-                if (SetProperty(ref _largeWinLimit, value, nameof(LargeWinLimit)))
-                {
-                    ValidateFields(nameof(LargeWinLimit));
-                }
-            }
+            set => SetProperty(ref _largeWinLimit, value, true);
         }
 
         public bool OverwriteLargeWinLimit
         {
             get => _overwriteLargeWinLimit;
-            set => SetProperty(
-                ref _overwriteLargeWinLimit,
-                value,
-                nameof(OverwriteLargeWinLimit),
-                nameof(LargeWinLimitEditable),
-                nameof(LargeWinLimitCheckboxIsEnabled));
+            set
+            {
+                if (SetProperty(ref _overwriteLargeWinLimit, value, nameof(OverwriteLargeWinLimit)))
+                {
+                    OnPropertyChanged(nameof(LargeWinLimitEditable), nameof(LargeWinLimitCheckboxIsEnabled));
+                }
+            }
         }
 
         public bool LargeWinLimitEditable => OverwriteLargeWinLimit && PageEnabled;
@@ -355,16 +336,11 @@
             }
         }
 
+        [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateLargeWinRatio))]
         public decimal LargeWinRatio
         {
             get => _largeWinRatio;
-            set
-            {
-                if (SetProperty(ref _largeWinRatio, value, nameof(LargeWinRatio)))
-                {
-                    ValidateFields(nameof(LargeWinRatio));
-                }
-            }
+            set => SetProperty(ref _largeWinRatio, value, true);
         }
 
         public bool OverwriteLargeWinRatio
@@ -392,16 +368,11 @@
 
         public decimal MaximumLargeWinRatio => AccountingConstants.MaximumLargeWinRatio / 100.0m;
 
+        [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateLargeWinRatioThreshold))]
         public decimal LargeWinRatioThreshold
         {
             get => _largeWinRatioThreshold;
-            set
-            {
-                if (SetProperty(ref _largeWinRatioThreshold, value, nameof(LargeWinRatioThreshold)))
-                {
-                    ValidateFields(nameof(LargeWinRatioThreshold));
-                }
-            }
+            set => SetProperty(ref _largeWinRatioThreshold, value, true);
         }
 
         public bool OverwriteLargeWinRatioThreshold
@@ -427,40 +398,25 @@
             }
         }
 
+        [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateMaxBetLimit))]
         public decimal MaxBetLimit
         {
             get => MaxBetLimitIsChecked ? _maxBetLimit : AccountingConstants.DefaultMaxBetLimit.MillicentsToDollars();
-            set
-            {
-                if (SetProperty(ref _maxBetLimit, value, nameof(MaxBetLimit)))
-                {
-                    ValidateFields(nameof(MaxBetLimit));
-                }
-            }
+            set => SetProperty(ref _maxBetLimit, value, true);
         }
 
+        [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateBillAcceptanceLimit))]
         public decimal BillAcceptanceLimit
         {
             get => _billAcceptanceLimit;
-            set
-            {
-                if (SetProperty(ref _billAcceptanceLimit, value, nameof(BillAcceptanceLimit)))
-                {
-                    ValidateFields(nameof(BillAcceptanceLimit));
-                }
-            }
+            set => SetProperty(ref _billAcceptanceLimit, value, true);
         }
 
+        [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateHandCountPayoutLimit))]
         public decimal HandCountPayoutLimit
         {
             get => HandCountPayoutLimitIsChecked ? _handCountPayoutLimit : 0m;
-            set
-            {
-                if (SetProperty(ref _handCountPayoutLimit, value, nameof(HandCountPayoutLimit)))
-                {
-                    ValidateFields(nameof(HandCountPayoutLimit));
-                }
-            }
+            set => SetProperty(ref _handCountPayoutLimit, value, true);
         }
 
         public bool OverwriteMaxBetLimit
@@ -510,16 +466,11 @@
             set => SetProperty(ref _handCountLimitCheckboxEnabled, value, nameof(HandCountPayoutLimitCheckboxEnabled));
         }
 
+        [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateCelebrationLockupLimit))]
         public decimal CelebrationLockupLimit
         {
             get => CelebrationLockupLimitIsChecked ? _celebrationLockupLimit : 0;
-            set
-            {
-                if (SetProperty(ref _celebrationLockupLimit, value, nameof(CelebrationLockupLimit)))
-                {
-                    ValidateFields(nameof(CelebrationLockupLimit));
-                }
-            }
+            set => SetProperty(ref _celebrationLockupLimit, value, true);
         }
 
         public bool CelebrationLockupLimitCheckboxIsEnabled => LargeWinLimitCheckboxIsEnabled;
@@ -552,7 +503,7 @@
             set
             {
                 _selectedLargeWinHandpayResetMethod = value;
-                RaisePropertyChanged(nameof(SelectedLargeWinHandpayResetMethod));
+                OnPropertyChanged(nameof(SelectedLargeWinHandpayResetMethod));
             }
         }
 
@@ -562,7 +513,7 @@
             set
             {
                 _allowRemoteHandpayReset = value;
-                RaisePropertyChanged(nameof(AllowRemoteHandpayReset));
+                OnPropertyChanged(nameof(AllowRemoteHandpayReset));
             }
         }
 
@@ -574,8 +525,8 @@
             set
             {
                 _gambleWagerLimitVisible = value;
-                RaisePropertyChanged(nameof(GambleWagerLimitVisible));
-                RaisePropertyChanged(nameof(ShowGambleWagerLimit));
+                OnPropertyChanged(nameof(GambleWagerLimitVisible));
+                OnPropertyChanged(nameof(ShowGambleWagerLimit));
             }
         }
 
@@ -585,35 +536,25 @@
             set
             {
                 _gambleWinLimitVisible = value;
-                RaisePropertyChanged(nameof(GambleWinLimitVisible));
-                RaisePropertyChanged(nameof(ShowGambleWinLimit));
+                OnPropertyChanged(nameof(GambleWinLimitVisible));
+                OnPropertyChanged(nameof(ShowGambleWinLimit));
             }
         }
 
         public bool ShowGambleWinLimit => GambleAllowed && GambleWinLimitVisible;
 
+        [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateGambleWagerLimit))]
         public decimal GambleWagerLimit
         {
             get => _gambleWagerLimit;
-            set
-            {
-                if (SetProperty(ref _gambleWagerLimit, value, nameof(GambleWagerLimit)))
-                {
-                    ValidateFields(nameof(GambleWagerLimit));
-                }
-            }
+            set => SetProperty(ref _gambleWagerLimit, value, true);
         }
 
+        [CustomValidation(typeof(LimitsPageViewModel), nameof(ValidateGambleWinLimit))]
         public decimal GambleWinLimit
         {
             get => _gambleWinLimit;
-            set
-            {
-                if (SetProperty(ref _gambleWinLimit, value, nameof(GambleWinLimit)))
-                {
-                    ValidateFields(nameof(GambleWinLimit));
-                }
-            }
+            set => SetProperty(ref _gambleWinLimit, value, true);
         }
 
         public bool GambleAllowed { get; }
@@ -632,7 +573,7 @@
             set
             {
                 _overwriteAllowRemoteHandpayReset = value;
-                RaisePropertyChanged(nameof(AllowRemoteHandpayResetIsEnabled));
+                OnPropertyChanged(nameof(AllowRemoteHandpayResetIsEnabled));
             }
         }
 
@@ -732,7 +673,7 @@
         {
             if (UseOperatorCultureForCurrencyFormatting)
             {
-                RaisePropertyChanged(nameof(CurrencyDisplayCulture));
+                OnPropertyChanged(nameof(CurrencyDisplayCulture));
             }
 
             UpdateLimits();
@@ -839,37 +780,37 @@
 
             var hasChanges = false;
 
-            if (!ValidateCreditLimit())
+            if (PropertyHasErrors(nameof(CreditLimit)))
             {
                 CreditLimitIsChecked = true;
                 CreditLimit = _initialCreditLimit;
             }
 
-            if (HandpayLimitVisible && !ValidateHandpayLimit())
+            if (HandpayLimitVisible && PropertyHasErrors(nameof(HandpayLimit)))
             {
                 HandpayLimitIsChecked = true;
                 HandpayLimit = _initialHandpayLimit;
             }
 
-            if (LargeWinLimitVisible && !ValidateLargeWinLimit())
+            if (LargeWinLimitVisible && PropertyHasErrors(nameof(LargeWinLimit)))
             {
                 LargeWinLimitIsChecked = true;
                 LargeWinLimit = Math.Min(_initialLargeWinLimit, HandpayLimit);
             }
 
-            if (LargeWinRatioVisible && !ValidateLargeWinRatio())
+            if (LargeWinRatioVisible && PropertyHasErrors(nameof(LargeWinRatio)))
             {
                 LargeWinRatioIsChecked = true;
                 LargeWinRatio = _initialLargeWinRatio;
             }
 
-            if (LargeWinRatioThresholdVisible && !ValidateLargeWinRatioThreshold())
+            if (LargeWinRatioThresholdVisible && PropertyHasErrors(nameof(LargeWinRatioThreshold)))
             {
                 LargeWinRatioThresholdIsChecked = true;
                 LargeWinRatioThreshold = _initialLargeWinRatioThreshold;
             }
 
-            if (MaxBetLimitVisible && !ValidateMaxBetLimit())
+            if (MaxBetLimitVisible && PropertyHasErrors(nameof(MaxBetLimit)))
             {
                 MaxBetLimitIsChecked = true;
                 MaxBetLimit = _initialMaxBetLimit;
@@ -881,13 +822,13 @@
                 PropertiesManager.SetProperty(AccountingConstants.MaxBetLimit, MaxBetLimit.DollarsToMillicents());
             }
 
-            if (HandCountPayoutLimitVisible && !ValidateHandCountPayoutLimit())
+            if (HandCountPayoutLimitVisible && PropertyHasErrors(nameof(HandCountPayoutLimit)))
             {
                 HandCountPayoutLimitIsChecked = true;
                 HandCountPayoutLimit = _initialHandCountPayoutLimit;
             }
 
-            if (BillAcceptanceLimitVisible && !ValidateBillAcceptanceLimit())
+            if (BillAcceptanceLimitVisible && PropertyHasErrors(nameof(BillAcceptanceLimit)))
             {
                 BillAcceptanceLimitIsChecked = true;
                 BillAcceptanceLimit = _initialBillAcceptanceLimit;
@@ -905,7 +846,7 @@
                 PropertiesManager.SetProperty(PropertyKey.MaxCreditsIn, BillAcceptanceLimit.DollarsToMillicents());
             }
 
-            if (CelebrationLockupLimitVisible && !ValidateCelebrationLockupLimit())
+            if (CelebrationLockupLimitVisible && PropertyHasErrors(nameof(CelebrationLockupLimit)))
             {
                 CelebrationLockupLimitIsChecked = true;
                 CelebrationLockupLimit = Math.Min(_initialCelebrationLockupLimit, CurrentMaximumLockupLimit);
@@ -1007,7 +948,7 @@
 
                 if (IncrementThresholdIsChecked && IncrementThreshold != _initialIncrementThreshold)
                 {
-                    if (ValidateIncrementThreshold())
+                    if (PropertyHasErrors(nameof(IncrementThreshold)))
                     {
                         PropertiesManager.SetProperty(AccountingConstants.IncrementThreshold, IncrementThreshold.DollarsToMillicents());
                         hasChanges = true;
@@ -1027,195 +968,221 @@
 
         private void ValidateFields(string propertyName)
         {
-            if (propertyName == nameof(CreditLimit))
+            switch (propertyName)
             {
-                ValidateCreditLimit();
-                ValidateCelebrationLockupLimit();
-            }
-            else if (propertyName == nameof(HandpayLimit))
-            {
-                ValidateHandpayLimit();
-                ValidateCelebrationLockupLimit();
-            }
-            else if (propertyName == nameof(LargeWinLimit))
-            {
-                ValidateHandpayLimit();
-                ValidateLargeWinLimit();
-                ValidateCelebrationLockupLimit();
-            }
-            else if (propertyName == nameof(LargeWinRatio))
-            {
-                ValidateLargeWinRatio();
-            }
-            else if (propertyName == nameof(LargeWinRatioThreshold))
-            {
-                ValidateLargeWinRatioThreshold();
-            }
-            else if (propertyName == nameof(MaxBetLimit))
-            {
-                ValidateMaxBetLimit();
-            }
-            else if (propertyName == nameof(CelebrationLockupLimit))
-            {
-                ValidateCelebrationLockupLimit();
-            }
-            else if (propertyName == nameof(GambleWagerLimit))
-            {
-                ValidateGambleWagerLimit();
-            }
-            else if (propertyName == nameof(GambleWinLimit))
-            {
-                ValidateGambleWinLimit();
-            }
-            else if (propertyName == nameof(IncrementThreshold))
-            {
-                ValidateIncrementThreshold();
-            }
-            else if (propertyName == nameof(HandCountPayoutLimit))
-            {
-                ValidateHandCountPayoutLimit();
-            }
-            else if (propertyName == nameof(BillAcceptanceLimit))
-            {
-                ValidateBillAcceptanceLimit();
+                case nameof(CreditLimit):
+                    ValidateProperty(CreditLimit, nameof(CreditLimit));
+                    ValidateProperty(CelebrationLockupLimit, nameof(CelebrationLockupLimit));
+                    break;
+                case nameof(HandpayLimit):
+                    ValidateProperty(HandpayLimit, nameof(HandpayLimit));
+                    ValidateProperty(CelebrationLockupLimit, nameof(CelebrationLockupLimit));
+                    break;
+                case nameof(LargeWinLimit):
+                    ValidateProperty(HandpayLimit, nameof(HandpayLimit));
+                    ValidateProperty(LargeWinLimit, nameof(LargeWinLimit));
+                    ValidateProperty(CelebrationLockupLimit, nameof(CelebrationLockupLimit));
+                    break;
+                case nameof(LargeWinRatio):
+                    ValidateProperty(LargeWinRatio, nameof(LargeWinRatio));
+                    break;
+                case nameof(LargeWinRatioThreshold):
+                    ValidateProperty(LargeWinRatioThreshold, nameof(LargeWinRatioThreshold));
+                    break;
+                case nameof(MaxBetLimit):
+                    ValidateProperty(MaxBetLimit, nameof(MaxBetLimit));
+                    break;
+                case nameof(CelebrationLockupLimit):
+                    ValidateProperty(CelebrationLockupLimit, nameof(CelebrationLockupLimit));
+                    break;
+                case nameof(GambleWagerLimit):
+                    ValidateProperty(GambleWagerLimit, nameof(GambleWagerLimit));
+                    break;
+                case nameof(GambleWinLimit):
+                    ValidateProperty(GambleWinLimit, nameof(GambleWinLimit));
+                    break;
+                case nameof(IncrementThreshold):
+                    ValidateProperty(IncrementThreshold, nameof(IncrementThreshold));
+                    break;
+                case nameof(HandCountPayoutLimit):
+                    ValidateProperty(HandCountPayoutLimit, nameof(HandCountPayoutLimit));
+                    break;
+                case nameof(BillAcceptanceLimit):
+                    ValidateProperty(BillAcceptanceLimit, nameof(BillAcceptanceLimit));
+                    break;
             }
 
             UpdateLimits();
-            RaisePropertyChanged(nameof(LargeWinLimitCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(LargeWinLimitEditable));
-            RaisePropertyChanged(nameof(LargeWinRatioCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(LargeWinRatioThresholdCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(MaxBetLimitCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(CelebrationLockupLimitCheckboxIsEnabled));
+            OnPropertyChanged(nameof(LargeWinLimitCheckboxIsEnabled));
+            OnPropertyChanged(nameof(LargeWinLimitEditable));
+            OnPropertyChanged(nameof(LargeWinRatioCheckboxIsEnabled));
+            OnPropertyChanged(nameof(LargeWinRatioThresholdCheckboxIsEnabled));
+            OnPropertyChanged(nameof(MaxBetLimitCheckboxIsEnabled));
+            OnPropertyChanged(nameof(CelebrationLockupLimitCheckboxIsEnabled));
         }
 
-        private bool ValidateCreditLimit()
+        public static ValidationResult ValidateCreditLimit(decimal creditLimit, ValidationContext context)
         {
-            var creditValidate = CreditLimit.Validate(false, _maxCreditMeter);
-            SetError(nameof(CreditLimit), creditValidate);
-            return string.IsNullOrEmpty(creditValidate);
-        }
+            LimitsPageViewModel instance = (LimitsPageViewModel)context.ObjectInstance;
+            var errors = creditLimit.Validate(false, instance._maxCreditMeter);
 
-        private bool ValidateIncrementThreshold()
-        {
-            var result = ((decimal)IncrementThreshold).Validate(
-                false,
-                CreditLimit.DollarsToMillicents(),
-                AccountingConstants.MinimumIncrementThreshold);
-
-            SetError(nameof(IncrementThreshold), result);
-            return string.IsNullOrEmpty(result);
-        }
-
-        private bool ValidateHandpayLimit()
-        {
-            var handpayValidate = HandpayLimit.Validate(
-                false,
-                AccountingConstants.DefaultHandpayLimit,
-                LargeWinLimit.DollarsToMillicents());
-
-            SetError(nameof(HandpayLimit), handpayValidate);
-            return string.IsNullOrEmpty(handpayValidate);
-        }
-
-        private bool ValidateLargeWinLimit()
-        {
-            var largeWinValidate = LargeWinLimit.Validate(false, LargeWinLimitMaxValue);
-            SetError(nameof(LargeWinLimit), largeWinValidate);
-            return string.IsNullOrEmpty(largeWinValidate);
-        }
-
-        private bool ValidateLargeWinRatio()
-        {
-            var largeWinValidate = LargeWinRatio.ValidateDecimal(AccountingConstants.DefaultLargeWinRatio / 100.0m, AccountingConstants.MaximumLargeWinRatio / 100.0m);
-            SetError(nameof(LargeWinRatio), largeWinValidate);
-            return string.IsNullOrEmpty(largeWinValidate);
-        }
-
-        private bool ValidateLargeWinRatioThreshold()
-        {
-            var largeWinRatioThresholdValidate = LargeWinRatioThreshold.Validate(true);
-            SetError(nameof(LargeWinRatioThreshold), largeWinRatioThresholdValidate);
-            return string.IsNullOrEmpty(largeWinRatioThresholdValidate);
-        }
-
-        private bool ValidateMaxBetLimit()
-        {
-            var maxBetValidate = MaxBetLimit.Validate(false, PropertiesManager.GetValue(AccountingConstants.HighestMaxBetLimitAllowed, long.MaxValue));
-            SetError(nameof(MaxBetLimit), maxBetValidate);
-            return string.IsNullOrEmpty(maxBetValidate);
-        }
-
-        private bool ValidateCelebrationLockupLimit()
-        {
-            var celebrationLockupLimitValidate = CelebrationLockupLimit.Validate(true, CurrentMaximumLockupLimit.DollarsToMillicents());
-            SetError(nameof(CelebrationLockupLimit), celebrationLockupLimitValidate);
-            return string.IsNullOrEmpty(celebrationLockupLimitValidate);
-        }
-
-        // ReSharper disable once UnusedMethodReturnValue.Local
-        private bool ValidateGambleWagerLimit()
-        {
-            var gambleWagerLimitValidate = GambleWagerLimit.Validate();
-            SetError(nameof(GambleWagerLimit), gambleWagerLimitValidate);
-            return string.IsNullOrEmpty(gambleWagerLimitValidate);
-        }
-
-        private bool ValidateBillAcceptanceLimit()
-        {
-            var billAcceptanceLimitValidate = BillAcceptanceLimit < ApplicationConstants.MaxCreditsInMin ? Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaxCreditsInInvalid) : null;
-
-            if (BillAcceptanceLimit > ApplicationConstants.MaxCreditsInMax)
+            if (string.IsNullOrEmpty(errors))
             {
-                billAcceptanceLimitValidate = string.Format(Localizer.For(CultureFor.Player).GetString(ResourceKeys.LessThanOrEqualErrorMessage), ApplicationConstants.MaxCreditsInMax.FormattedCurrencyString());
+                return ValidationResult.Success;
             }
 
-            SetError(nameof(BillAcceptanceLimit), billAcceptanceLimitValidate);
-            return string.IsNullOrEmpty(billAcceptanceLimitValidate);
+            return new(errors);
         }
 
-        private bool ValidateHandCountPayoutLimit()
+        public static ValidationResult ValidateIncrementThreshold(decimal incrementThreshhold, ValidationContext context)
         {
-            var handCountPayoutLimit = HandCountPayoutLimit.Validate(true, AccountingConstants.MaximumHandCountPayoutLimit);
-            SetError(nameof(HandCountPayoutLimit), handCountPayoutLimit);
-            return string.IsNullOrEmpty(handCountPayoutLimit);
+            LimitsPageViewModel instance = (LimitsPageViewModel)context.ObjectInstance;
+            var errors = incrementThreshhold.Validate(
+                false,
+                instance.CreditLimit.DollarsToMillicents(),
+                AccountingConstants.MinimumIncrementThreshold);
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
+
+        public static ValidationResult ValidateHandpayLimit(decimal handpayLimit, ValidationContext context)
+        {
+            LimitsPageViewModel instance = (LimitsPageViewModel)context.ObjectInstance;
+            var errors = handpayLimit.Validate(
+                false,
+                AccountingConstants.DefaultHandpayLimit,
+                instance.LargeWinLimit.DollarsToMillicents());
+
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
+
+        public static ValidationResult ValidateLargeWinLimit(decimal largeWinLimit, ValidationContext context)
+        {
+            LimitsPageViewModel instance = (LimitsPageViewModel)context.ObjectInstance;
+            var errors = largeWinLimit.Validate(false, instance.LargeWinLimitMaxValue);
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
+
+        public static ValidationResult ValidateLargeWinRatio(decimal largeWinRatio, ValidationContext context)
+        {
+            LimitsPageViewModel instance = (LimitsPageViewModel)context.ObjectInstance;
+            var errors = largeWinRatio.ValidateDecimal(AccountingConstants.DefaultLargeWinRatio / 100.0m, AccountingConstants.MaximumLargeWinRatio / 100.0m);
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
+
+        public static ValidationResult ValidateLargeWinRatioThreshold(decimal largeWinRatioThreshold, ValidationContext context)
+        {
+            var errors = largeWinRatioThreshold.Validate(true);
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
+
+        public static ValidationResult ValidateMaxBetLimit(decimal maxBetLimit, ValidationContext context)
+        {
+            LimitsPageViewModel instance = (LimitsPageViewModel)context.ObjectInstance;
+            var errors = maxBetLimit.Validate(false, instance.PropertiesManager.GetValue(AccountingConstants.HighestMaxBetLimitAllowed, long.MaxValue));
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
+
+        public static ValidationResult ValidateCelebrationLockupLimit(decimal celebrationLockupLimit, ValidationContext context)
+        {
+            LimitsPageViewModel instance = (LimitsPageViewModel)context.ObjectInstance;
+            var errors = celebrationLockupLimit.Validate(true, instance.CurrentMaximumLockupLimit.DollarsToMillicents());
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
         }
 
         // ReSharper disable once UnusedMethodReturnValue.Local
-        private bool ValidateGambleWinLimit()
+        public static ValidationResult ValidateGambleWagerLimit(decimal gambleWagerLimit, ValidationContext context)
         {
-            var gambleWinLimitValidate = GambleWinLimit.Validate();
-            SetError(nameof(GambleWinLimit), gambleWinLimitValidate);
-            return string.IsNullOrEmpty(gambleWinLimitValidate);
+            var errors = gambleWagerLimit.Validate();
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
+
+        public static ValidationResult ValidateBillAcceptanceLimit(decimal billAcceptanceLimit, ValidationContext context)
+        {
+            return billAcceptanceLimit switch
+            {
+                < ApplicationConstants.MaxCreditsInMin => new(Localizer.For(CultureFor.Player).GetString(ResourceKeys.MaxCreditsInInvalid)),
+                > ApplicationConstants.MaxCreditsInMax => new(string.Format(Localizer.For(CultureFor.Player).GetString(ResourceKeys.LessThanOrEqualErrorMessage), ApplicationConstants.MaxCreditsInMax.FormattedCurrencyString())),
+                _ => ValidationResult.Success
+            };
+        }
+
+        public static ValidationResult ValidateHandCountPayoutLimit(decimal handCountPayoutLimit, ValidationContext context)
+        {
+            var errors = handCountPayoutLimit.Validate(true, AccountingConstants.MaximumHandCountPayoutLimit);
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
+        }
+
+        // ReSharper disable once UnusedMethodReturnValue.Local
+        public static ValidationResult ValidateGambleWinLimit(decimal gambleWinLimit, ValidationContext context)
+        {
+            var errors = gambleWinLimit.Validate();
+            if (string.IsNullOrEmpty(errors))
+            {
+                return ValidationResult.Success;
+            }
+
+            return new(errors);
         }
 
         private void UpdateLimits()
         {
-            RaisePropertyChanged(nameof(MaxBetLimit));
-            RaisePropertyChanged(nameof(CreditLimit));
-            RaisePropertyChanged(nameof(HandpayLimit));
-            RaisePropertyChanged(nameof(HandCountPayoutLimit));
-            RaisePropertyChanged(nameof(BillAcceptanceLimit));
-            RaisePropertyChanged(nameof(LargeWinLimit));
-            RaisePropertyChanged(nameof(LargeWinRatio));
-            RaisePropertyChanged(nameof(LargeWinRatioThreshold));
-            RaisePropertyChanged(nameof(CelebrationLockupLimit));
-            RaisePropertyChanged(nameof(GambleWagerLimit));
-            RaisePropertyChanged(nameof(GambleWinLimit));
-        }
-
-        protected override void SetError(string propertyName, string error)
-        {
-            if (string.IsNullOrEmpty(error))
-            {
-                ClearErrors(propertyName);
-            }
-            else
-            {
-                base.SetError(propertyName, error);
-            }
-
-            CheckNavigation();
+            OnPropertyChanged(nameof(MaxBetLimit));
+            OnPropertyChanged(nameof(CreditLimit));
+            OnPropertyChanged(nameof(HandpayLimit));
+            OnPropertyChanged(nameof(HandCountPayoutLimit));
+            OnPropertyChanged(nameof(BillAcceptanceLimit));
+            OnPropertyChanged(nameof(LargeWinLimit));
+            OnPropertyChanged(nameof(LargeWinRatio));
+            OnPropertyChanged(nameof(LargeWinRatioThreshold));
+            OnPropertyChanged(nameof(CelebrationLockupLimit));
+            OnPropertyChanged(nameof(GambleWagerLimit));
+            OnPropertyChanged(nameof(GambleWinLimit));
         }
 
         protected override void OnInputStatusChanged()
@@ -1225,19 +1192,21 @@
                 CloseTouchScreenKeyboard();
             }
 
-            RaisePropertyChanged(nameof(PageEnabled));
-            RaisePropertyChanged(nameof(LargeWinLimitEditable));
-            RaisePropertyChanged(nameof(LargeWinLimitCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(LargeWinRatioCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(LargeWinRatioThresholdCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(BillAcceptanceLimitCheckboxEnabled));
-            RaisePropertyChanged(nameof(MaxBetLimitCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(CelebrationLockupLimitCheckboxIsEnabled));
-            RaisePropertyChanged(nameof(AllowRemoteHandpayResetIsEnabled));
-            RaisePropertyChanged(nameof(CreditLimitCheckboxEnabled));
-            RaisePropertyChanged(nameof(HandpayLimitCheckboxEnabled));
-            RaisePropertyChanged(nameof(GambleWagerLimit));
-            RaisePropertyChanged(nameof(GambleWinLimit));
+            OnPropertyChanged(nameof(PageEnabled));
+            OnPropertyChanged(nameof(LargeWinLimitEditable));
+            OnPropertyChanged(nameof(LargeWinLimitCheckboxIsEnabled));
+            OnPropertyChanged(nameof(LargeWinRatioCheckboxIsEnabled));
+            OnPropertyChanged(nameof(LargeWinRatioThresholdCheckboxIsEnabled));
+            OnPropertyChanged(nameof(BillAcceptanceLimitCheckboxEnabled));
+            OnPropertyChanged(nameof(MaxBetLimitCheckboxIsEnabled));
+            OnPropertyChanged(nameof(CelebrationLockupLimitCheckboxIsEnabled));
+            OnPropertyChanged(nameof(AllowRemoteHandpayResetIsEnabled));
+            OnPropertyChanged(nameof(CreditLimitCheckboxEnabled));
+            OnPropertyChanged(nameof(HandpayLimitCheckboxEnabled));
+            OnPropertyChanged(nameof(GambleWagerLimit));
+            OnPropertyChanged(nameof(GambleWinLimit));
+
+            CreditLimitEditable = HandCountPayoutLimitVisible ? PageEnabled && CreditLimitCheckboxEnabled : PageEnabled;
         }
 
         protected override void OnInputEnabledChanged()

@@ -38,7 +38,7 @@
         GameResult Result { get; }
 
         /// <summary>
-        ///     Gets the amount out attributed to the free game
+        ///     Gets the amount out attributed to the free game (in millicents)
         /// </summary>
         long AmountOut { get; }
     }

@@ -12,6 +12,7 @@ as follows:
 <ApplicationConfiguration>
   <Currency Id="CAD"/>
   <HardMeterMonitor DisableOnError="true"/>
+  <DisplayTopScreen Enabled="false"/>
   <NoteAcceptorMonitor DisableOnError="Queue" LockupOnStackerFull="true" />
   <PrinterMonitor FormFeedAfterKeyOff="true"/>
   <GeneralMessages>
@@ -59,6 +60,7 @@ as follows:
     <UseGameTypeVolume>false</UseGameTypeVolume>
   </SoundConfiguration>
   <ReadOnlyMedia Required="false" />
+  <Demonstration Enabled="true"/>
   <LogTypesAllowedForDisplay>
     <string>General</string>
     <string>Error</string>
@@ -77,6 +79,8 @@ as follows:
   <Cashout ClearWins="false" PaperInChuteBlocksCashout="false" />
   <MultiGame RestoreRebootStateAfterSwitch="false" StateStorageLocation="game" />
   <PlatformEnhancedDisplay Enabled="false" />
+  <AuditTicket LineLimit="37" PrinterProtocol="GDS" />
   <HandpayReceiptPrinting Enabled="true"/>
   <ReserveService Allowed="false"/>
+  <TechnicianModeLocked Enabled="true"/>
 </ApplicationConfiguration>

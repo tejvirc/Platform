@@ -41,6 +41,12 @@
         IReadOnlyDictionary<int, int> ReelHomeSteps { get; set; }
 
         /// <summary>
+        ///     Halts the reels (releases brake)
+        /// </summary>
+        /// <returns>Whether or not the reels where halted</returns>
+        Task<bool> HaltReels();
+
+        /// <summary>
         ///     Homes the reels
         /// </summary>
         /// <returns>Whether or not the reels were homed</returns>

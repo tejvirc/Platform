@@ -138,6 +138,18 @@
 
         public IEnumerable<Type> GetCapabilities() => _supportedCapabilities.Keys;
 
+        /// <inheritdoc />
+        public Task<bool> HaltReels()
+        {
+            if (_stateManager?.FireAll(ReelControllerTrigger.HaltReels) ?? false)
+            {
+                return _reelControllerImplementation.HaltReels();
+            }
+
+            Logger.Debug("HaltReels - Fire FAILED - CAN NOT HALT");
+            return Task.FromResult(false);
+        }
+
         public async Task<bool> HomeReels()
         {
             return await HomeReels(ReelHomeSteps);
@@ -246,6 +258,7 @@
                     Implementation.ControllerFaultOccurred -= ReelControllerFaultOccurred;
                     Implementation.ControllerFaultCleared -= ReelControllerFaultCleared;
                     Implementation.ReelSlowSpinning -= ReelControllerSlowSpinning;
+                    Implementation.ReelStopping -= ReelControllerReelStopping;
                     Implementation.ReelStopped -= ReelControllerReelStopped;
                     Implementation.ReelSpinning -= ReelControllerSpinning;
                     Implementation.Connected -= ReelControllerConnected;
@@ -257,6 +270,16 @@
                     Implementation.HardwareInitialized -= HardwareInitialized;
                     Implementation.Dispose();
                     _reelControllerImplementation = null;
+
+                    var keys = _supportedCapabilities.Keys.ToArray();
+                    foreach (var key in keys)
+                    {
+                        var capability = _supportedCapabilities[key];
+                        capability.Dispose();
+                        _supportedCapabilities[key] = null;
+                    }
+
+                    _supportedCapabilities.Clear();
                 }
 
                 var stateManager = _stateManager;
@@ -287,6 +310,7 @@
             Implementation.ControllerFaultOccurred += ReelControllerFaultOccurred;
             Implementation.ControllerFaultCleared += ReelControllerFaultCleared;
             Implementation.ReelSlowSpinning += ReelControllerSlowSpinning;
+            Implementation.ReelStopping += ReelControllerReelStopping;
             Implementation.ReelStopped += ReelControllerReelStopped;
             Implementation.ReelSpinning += ReelControllerSpinning;
             Implementation.Connected += ReelControllerConnected;
@@ -369,10 +393,29 @@
             _stateManager?.HandleReelDisconnected(e);
         }
 
-        private void ReelControllerSpinning(object sender, ReelEventArgs e)
+        private void ReelControllerSpinning(object sender, ReelSpinningEventArgs e)
         {
             Logger.Debug($"ReelControllerSpinning reel {e.ReelId}");
-            _stateManager?.Fire(ReelControllerTrigger.SpinReel, e.ReelId);
+
+            switch (e.SpinVelocity)
+            {
+                case SpinVelocity.Accelerating:
+                    _stateManager?.Fire(ReelControllerTrigger.Accelerate, e.ReelId);
+                    return;
+                case SpinVelocity.Decelerating:
+                    _stateManager?.Fire(ReelControllerTrigger.Decelerate, e.ReelId);
+                    return;
+                default:
+                    _stateManager?.Fire(ReelControllerTrigger.SpinConstant, e.ReelId);
+                    break;
+            }
+
+            PostEvent(new ReelSpinningStatusUpdatedEvent(e.ReelId, e.SpinVelocity));
+        }
+
+        private void ReelControllerReelStopping(object sender, ReelStoppingEventArgs e)
+        {
+            PostEvent(new ReelStoppingEvent(e.ReelId, e.TimeToStop));
         }
 
         private void ReelControllerReelStopped(object sender, ReelEventArgs e)
@@ -407,8 +450,11 @@
             RegisterComponent();
             Initialized = true;
 
-            _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
-                .ToDictionary(x => x.Key, x => x.Value);
+            if (!_supportedCapabilities.Any())
+            {
+                _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
+                    .ToDictionary(x => x.Key, x => x.Value);
+            }
 
             InitializeReels().WaitForCompletion();
             SetReelOffsets(_reelOffsets.ToArray());
@@ -523,6 +569,12 @@
                 if (!AddError(value))
                 {
                     continue;
+                }
+                
+                if (LogicalState == ReelControllerState.Halted && value == ReelFaults.IdleUnknown)
+                {
+                    Logger.Debug("Ignoring IdleUnknown fault while in halted state.");
+                    return;
                 }
 
                 Logger.Info($"ReelControllerFaultOccurred - ADDED {value} to the error list for reel {e.ReelId}");

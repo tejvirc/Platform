@@ -1,4 +1,4 @@
-﻿namespace Aristocrat.Monaco.Application.UI.ViewModels
+namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using System.Collections.Generic;
@@ -12,15 +12,17 @@
     using System.Runtime.CompilerServices;
     using Contracts.ConfigWizard;
     using Contracts;
+    using Contracts.Localization;
     using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
     using Kernel.Contracts;
     using log4net;
+    using Models;
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
-    using MVVM;
-    using MVVM.Command;
+    using CommunityToolkit.Mvvm.Input;
+    using Aristocrat.Extensions.CommunityToolkit;
 
     [CLSCompliant(false)]
     public class SoundTestPageViewModel : INotifyPropertyChanged
@@ -68,6 +70,7 @@
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
+            VolumeOptions = new ();
 
             _isAudioDisabled = !IsAudioServiceAvailable || !_audio.IsAvailable;
 
@@ -75,27 +78,32 @@
 
             bool enablePlay = IsAudioServiceAvailable && !IsPlaying && !IsAudioDisabled;
 
-            StopCommand = new ActionCommand<object>(_ => StopSound(),
+            StopCommand = new RelayCommand<object>(_ => StopSound(),
                 _ => IsAudioServiceAvailable && !IsAudioDisabled && IsPlaying);
 
-            PlayCommand = new ActionCommand<object>(_ => PlaySound(),
+            PlayCommand = new RelayCommand<object>(_ => PlaySound(),
                 _ => IsAudioServiceAvailable && !IsPlaying && !IsAudioDisabled);
 
-            PlayCommandOnFrontLeftSpeaker = new ActionCommand<object>(PlaySoundOnFrontLeftSpeaker, _ => enablePlay);
+            PlayCommandOnFrontLeftSpeaker = new RelayCommand<object>(PlaySoundOnFrontLeftSpeaker, _ => enablePlay);
 
-            PlayCommandOnCenterSpeaker = new ActionCommand<object>(PlaySoundOnCenterSpeaker, _ => enablePlay);
+            PlayCommandOnCenterSpeaker = new RelayCommand<object>(PlaySoundOnCenterSpeaker, _ => enablePlay);
 
-            PlayCommandOnFrontRightSpeaker = new ActionCommand<object>(PlaySoundOnFrontRightSpeaker, _ => enablePlay);
+            PlayCommandOnFrontRightSpeaker = new RelayCommand<object>(PlaySoundOnFrontRightSpeaker, _ => enablePlay);
 
-            PlayCommandOnSideLeftSpeaker = new ActionCommand<object>(PlaySoundOnSideLeftSpeaker, _ => enablePlay);
+            PlayCommandOnSideLeftSpeaker = new RelayCommand<object>(PlaySoundOnSideLeftSpeaker, _ => enablePlay);
 
-            PlayCommandOnSideRightSpeaker = new ActionCommand<object>(PlaySoundOnSideRightSpeaker, _ => enablePlay);
+            PlayCommandOnSideRightSpeaker = new RelayCommand<object>(PlaySoundOnSideRightSpeaker, _ => enablePlay);
 
-            PlayCommandOnLowFrequencySpeaker = new ActionCommand<object>(PlaySoundOnLowFrequencySpeaker, _ => enablePlay);
+            PlayCommandOnLowFrequencySpeaker = new RelayCommand<object>(PlaySoundOnLowFrequencySpeaker, _ => enablePlay);
 
-            PlayCommandOnRearLeftSpeaker = new ActionCommand<object>(PlaySoundOnRearLeftSpeaker, _ => enablePlay);
+            PlayCommandOnRearLeftSpeaker = new RelayCommand<object>(PlaySoundOnRearLeftSpeaker, _ => enablePlay);
 
-            PlayCommandOnRearRightSpeaker = new ActionCommand<object>(PlaySoundOnRearRightSpeaker, _ => enablePlay);
+            PlayCommandOnRearRightSpeaker = new RelayCommand<object>(PlaySoundOnRearRightSpeaker, _ => enablePlay);
+
+            foreach (VolumeLevel volumeLevel in Enum.GetValues(typeof(VolumeLevel)))
+            {
+                VolumeOptions.Add(new VolumeOption(volumeLevel));
+            }
         }
 
         public void SetTestReporter(IInspectionService reporter)
@@ -111,25 +119,25 @@
             OnPropertyChanged(nameof(SoundLevel));
         }
 
-        public IActionCommand PlayCommand { get; }
+        public IRelayCommand PlayCommand { get; }
 
-        public IActionCommand StopCommand { get; }
+        public IRelayCommand StopCommand { get; }
 
-        public IActionCommand PlayCommandOnFrontLeftSpeaker { get; }
+        public IRelayCommand PlayCommandOnFrontLeftSpeaker { get; }
 
-        public IActionCommand PlayCommandOnCenterSpeaker { get; }
+        public IRelayCommand PlayCommandOnCenterSpeaker { get; }
 
-        public IActionCommand PlayCommandOnFrontRightSpeaker { get; }
+        public IRelayCommand PlayCommandOnFrontRightSpeaker { get; }
 
-        public IActionCommand PlayCommandOnSideLeftSpeaker { get; }
+        public IRelayCommand PlayCommandOnSideLeftSpeaker { get; }
 
-        public IActionCommand PlayCommandOnSideRightSpeaker { get; }
+        public IRelayCommand PlayCommandOnSideRightSpeaker { get; }
 
-        public IActionCommand PlayCommandOnLowFrequencySpeaker { get; }
+        public IRelayCommand PlayCommandOnLowFrequencySpeaker { get; }
 
-        public IActionCommand PlayCommandOnRearLeftSpeaker { get; }
+        public IRelayCommand PlayCommandOnRearLeftSpeaker { get; }
 
-        public IActionCommand PlayCommandOnRearRightSpeaker { get; }
+        public IRelayCommand PlayCommandOnRearRightSpeaker { get; }
 
         public bool TestMode
         {
@@ -158,8 +166,8 @@
                 }
 
                 SetProperty(ref _isPlaying, value, nameof(IsPlaying));
-                PlayCommand?.RaiseCanExecuteChanged();
-                StopCommand?.RaiseCanExecuteChanged();
+                PlayCommand?.NotifyCanExecuteChanged();
+                StopCommand?.NotifyCanExecuteChanged();
             }
         }
 
@@ -175,8 +183,8 @@
                 }
 
                 SetProperty(ref _isAudioDisabled, value, nameof(IsAudioDisabled));
-                PlayCommand?.RaiseCanExecuteChanged();
-                StopCommand?.RaiseCanExecuteChanged();
+                PlayCommand?.NotifyCanExecuteChanged();
+                StopCommand?.NotifyCanExecuteChanged();
             }
         }
 
@@ -196,6 +204,8 @@
         }
 
         public ObservableCollection<SoundFileViewModel> SoundFiles { get; } = new ObservableCollection<SoundFileViewModel>();
+
+        public ObservableCollection<VolumeOption> VolumeOptions { get; set; }
 
         public SoundFileViewModel Sound
         {
@@ -320,6 +330,7 @@
         {
             _eventBus.Subscribe<EnabledEvent>(this, OnEnabledEvent);
             _eventBus.Subscribe<DisabledEvent>(this, OnDisabledEvent);
+            _eventBus.Subscribe<OperatorCultureChangedEvent>(this, OnOperatorCultureChanged);
 
             _playingTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromMilliseconds(100) };
             _playingTimer.Tick += OnPlayingTimerTick;
@@ -468,11 +479,11 @@
 
         private void OnPlayEnded(object sender, EventArgs eventArgs)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 _playingTimer.Stop();
                 IsPlaying = false;
-                StopCommand?.RaiseCanExecuteChanged();
+                StopCommand?.NotifyCanExecuteChanged();
             });
         }
 
@@ -517,7 +528,7 @@
 
         private void OnPlayingTimerTick(object sender, EventArgs args)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 if (!IsAudioServiceAvailable)
                 {
@@ -549,7 +560,7 @@
 
         private void OnEnabledEvent(IEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 IsAudioDisabled = true;
             });
@@ -557,11 +568,24 @@
 
         private void OnDisabledEvent(IEvent theEvent)
         {
-            MvvmHelper.ExecuteOnUI(() =>
+            Execute.OnUIThread(() =>
             {
                 IsPlaying = false;
                 IsAudioDisabled = true;
             });
+        }
+
+        private void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
+        {
+            UpdateVolumeOptions();
+        }
+
+        private void UpdateVolumeOptions()
+        {
+            foreach (var volumeOption in VolumeOptions)
+            {
+                volumeOption.UpdateDisplay();
+            }
         }
     }
 }

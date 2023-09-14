@@ -63,7 +63,7 @@
                 AddLine(
                     TicketLocalizer.GetString(ResourceKeys.Amount),
                     null,
-                    $"{(entry.Amount / multiplier).FormattedCurrencyString()}");
+                    $"{(entry.Amount / multiplier).FormattedCurrencyString(culture: TicketLocalizer.CurrentCulture)}");
                 AddLine(null, Dashes, null);
             }
 

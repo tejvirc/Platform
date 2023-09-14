@@ -1,22 +1,22 @@
-﻿namespace Aristocrat.Monaco.Hhr.UI.ViewModels
+namespace Aristocrat.Monaco.Hhr.UI.ViewModels
 {
     using System;
     using System.Collections.Concurrent;
     using System.Threading.Tasks;
+    using System.Windows;
     using Accounting.Contracts;
     using Application.Contracts;
+    using Aristocrat.Extensions.CommunityToolkit;
     using Cabinet.Contracts;
+    using CommunityToolkit.Mvvm.ComponentModel;
     using Gaming.Contracts;
     using Kernel;
     using log4net;
     using Menu;
-    using MVVM.ViewModel;
     using Services;
     using Views;
-    using MVVM;
-    using System.Windows;
 
-    public class HostPageViewModelManager : BaseEntityViewModel, IMenuAccessService, IDisposable
+    public class HostPageViewModelManager : ObservableObject, IMenuAccessService, IDisposable
     {
         private static readonly Guid RaceInfoTransactionRequestorId = new Guid("5297D108-9F34-4174-BE9F-716538519FBA");
 
@@ -52,7 +52,7 @@
         private readonly IPlayerBank _bank;
         private readonly ITransactionCoordinator _transactionCoordinator;
         private Guid _raceInfoTransactionId;
-        protected new readonly ILog Logger;
+        protected readonly ILog Logger;
 
         public IHhrMenuPageViewModel SelectedViewModel
         {
@@ -116,7 +116,7 @@
             _overlayExpiryTimer.Elapsed += (obj, args) =>
             {
                 Logger.Debug("ExpireTimer: Fired");
-                MvvmHelper.ExecuteOnUI(
+                Execute.OnUIThread(
                     CloseMenu);
             };
 
@@ -175,7 +175,7 @@
 
             SelectedViewModel = viewModel;
 
-            RaisePropertyChanged(nameof(SelectedViewModel));
+            OnPropertyChanged(nameof(SelectedViewModel));
 
             oldViewModel?.Reset();
         }
@@ -186,7 +186,7 @@
 
             SelectedViewModel = null;
 
-            RaisePropertyChanged(nameof(SelectedViewModel));
+            OnPropertyChanged(nameof(SelectedViewModel));
         }
 
         /// <summary>
@@ -200,7 +200,7 @@
 
         public void Hide()
         {
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_hostView != null && SelectedViewModel != null && _hostView is UIElement element)
@@ -220,7 +220,7 @@
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     if (_hostView != null && _hostView is UIElement element)
@@ -422,7 +422,7 @@
                 return;
             }
 
-            MvvmHelper.ExecuteOnUI(
+            Execute.OnUIThread(
                 () =>
                 {
                     _placardView = new PlacardView(args.Placard);
@@ -567,7 +567,7 @@
 
         private void HandleEvent(GameDiagnosticsStartedEvent replayStartedEvent)
         {
-            MvvmHelper.ExecuteOnUI(CloseMenu);
+            Execute.OnUIThread(CloseMenu);
         }
 
         private bool EnableCashout(SystemDisableAddedEvent evt)

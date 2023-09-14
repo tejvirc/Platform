@@ -13,7 +13,7 @@ as follows:
   <Setting Name="UseOperatorCultureForCurrencyFormatting" Value="true" />
   <Setting Name="ShowToggleLanguageButton" Value="true" />
   <Setting Name="ShowExitButton" Value="true" />
-  <Setting Name="PrintCurrentPage" Value="false" />
+  <Setting Name="PrintCurrentPage" Value="true" />
   <Setting Name="PrintLast15" Value="true" />
   <Setting Name="PrintSelected" Value="true" />
   <Setting Name="ShowTimeFormat" Value="false" />
@@ -24,7 +24,7 @@ as follows:
     <Page Type="StatusPageViewModel" Access="GameIdleZeroCredits" />
   </Menu>
   <Menu Type="IdentificationMainPageLoader">
-    <Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="false" Access="ZeroGamesPlayed" />
+    <Page Type="MachineSettingsPageViewModel" PrintButtonEnabled="true" Access="ZeroGamesPlayed" />
     <Page TabType="SerialGatPageLoader" Visible="false" />
   </Menu>
   <Menu Type="LogsMainPageLoader">
@@ -111,19 +111,21 @@ as follows:
     <Page Type="KeyedCreditsPageViewModel" TabType="KeyedCreditsPageLoader" Visible="false"/>
   </Menu>
   <Menu Type="GamesMainPageLoader">
-    <Page Type="AdvancedGameSetupViewModel" Access="Technician">
+    <Page Type="AdvancedGameSetupViewModel" Access="TechnicianGameIdle">
       <Setting Name="AllowImportExport" Value="false" />
       <Setting Name="ShowGlobalOptions" Value="true" />
       <Setting Name="EnableAdvancedConfig" Value="true" />
       <Setting Name="EnableQuickConfig" Value="false" />
     </Page>
-    <Page Type="GameHistoryViewModel">
+    <Page Type="GameHistoryViewModel" PrintButtonEnabled="true">
       <Setting Name="ShowGameInfoButtons" Value="false" />
       <Setting Name="PrintGameRoundInfo" Value="false" />
       <Setting Name="ShowProgressiveDetails" Value="true" />
     </Page>
     <Page Type="GamePreferencesViewModel" TabType="GamePreferencesViewLoader" Visible="false" />
-    <Page Type="GameInfoViewModel" Access="TechnicianZeroCredits" />
+    <Page Type="GameInfoViewModel" PrintButtonEnabled="true">
+      <Setting Name="SetGameOrderOnlyInShowMode" Value="true" />
+    </Page>
     <Page TabType="CombinationTestViewLoader" Visible="false" />
   </Menu>
   <Menu Type="CommsMainPageLoader" Access="Technician">
@@ -146,7 +148,8 @@ as follows:
   </Menu>
   <AccessRules>
     <AccessRuleSet Name="Technician">
-      <Rule DeviceName="Jackpot" />
+      <Rule DeviceName="Main" />
+      <Rule DeviceName="Logic" />
     </AccessRuleSet>
     <AccessRuleSet Name="ReadOnly">
       <Rule Restriction="ReadOnly" />
@@ -160,13 +163,20 @@ as follows:
       <Rule Restriction="ZeroCredits" />
     </AccessRuleSet>
     <AccessRuleSet Name="TechnicianZeroCredits">
-      <Rule DeviceName="Jackpot" />
+      <Rule RuleSet="Technician" />
       <Rule Restriction="ZeroCredits" />
+    </AccessRuleSet>
+    <AccessRuleSet Name="TechnicianGameIdle">
+      <Rule RuleSet="Technician" />
+      <Rule Restriction="GameIdle" />
     </AccessRuleSet>
     <AccessRuleSet Name="GameIdleZeroCreditsEKeyPresent">
       <Rule Restriction="GameIdle" />
       <Rule Restriction="ZeroCredits" />
       <Rule Restriction="EKeyVerified" />
     </AccessRuleSet>
+    <AccessRuleSet Name="ZeroGamesPlayed">
+      <Rule Restriction="ZeroGamesPlayed" />
+    </AccessRuleSet>	
   </AccessRules>
 </OperatorMenuConfiguration>

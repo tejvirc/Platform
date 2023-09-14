@@ -2,12 +2,12 @@
 {
     using System.Collections.Generic;
     using Contracts;
-    using MVVM.Model;
+    using CommunityToolkit.Mvvm.ComponentModel;
 
     /// <summary>
     ///     Attract game settings.
     /// </summary>
-    internal class GameAttractSettings : BaseNotify
+    internal class GameAttractSettings : ObservableObject
     {
         private bool _overallAttractEnabled;
         private bool _slotAttractSelected;
