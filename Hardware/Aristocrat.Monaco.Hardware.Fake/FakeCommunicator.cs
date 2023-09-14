@@ -9,9 +9,11 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Common.Currency;
+    using Contracts.CoinAcceptor;
     using Contracts.Communicator;
     using Contracts.Gds;
     using Contracts.Gds.CardReader;
+    using Contracts.Gds.CoinAcceptor;
     using Contracts.Gds.Hopper;
     using Contracts.Gds.NoteAcceptor;
     using Contracts.Gds.Printer;
@@ -70,6 +72,7 @@
         private int _homeCommandCounter;
         private int _maxCoinoutAllowed = 0;
         private bool _hopperMotorStopped;
+        private DivertorState _divertorState = DivertorState.DivertToHopper;
 
 
         /// <summary>Base name is used to fake out various identification strings (overrideable).</summary>
@@ -147,7 +150,14 @@
 
                     break;
 
+                case DeviceType.CoinAcceptor:
+                    _eventBus?.Subscribe<FakeCoinInEvent>(this, HandleEvent);
+                    _eventBus?.Subscribe<FakeCoinFaultEvent>(this, HandleEvent);
+                    _eventBus?.Subscribe<FakeCoinDivertorEvent>(this, HandleEvent);
+                    break;
+
                 case DeviceType.Hopper:
+                    _eventBus?.Subscribe<FakeHopperFaultEvent>(this, HandleEvent);
                     _maxCoinoutAllowed = 0;
                     break;
             }
@@ -600,6 +610,40 @@
                 ChassisOpen = fakePrinterEvent.ChassisOpen,
                 TransactionId = GetNextTransactionId()
             });
+        }
+
+        /// <summary>Handle a <see cref="FakeCoinInEvent"/>.</summary>
+        /// <param name="fakeCoinInEvent">The <see cref="FakeCoinInEvent"/> to handle.</param>
+        protected virtual void HandleEvent(FakeCoinInEvent fakeCoinInEvent)
+        {
+            OnMessageReceived(new CoinInStatus { EventType = CoinEventType.CoinInEvent });
+            OnMessageReceived(
+                _divertorState == DivertorState.DivertToHopper
+                    ? new CoinInStatus { EventType = CoinEventType.CoinToHopperInEvent }
+                    : new CoinInStatus { EventType = CoinEventType.CoinToCashboxInEvent });
+        }
+
+        /// <summary>Handle a <see cref="FakeCoinFaultEvent"/>.</summary>
+        /// <param name="fakeCoinEvent">The <see cref="FakeCoinFaultEvent"/> to handle.</param>
+        protected virtual void HandleEvent(FakeCoinFaultEvent fakeCoinEvent)
+        {
+            OnMessageReceived(new CoinInFaultStatus() { FaultType = fakeCoinEvent.FaultType});
+        }
+
+        /// <summary>Handle a <see cref="FakeCoinDivertorEvent"/>.</summary>
+        /// <param name="fakeCoinDivertorEvent">The <see cref="FakeCoinDivertorEvent"/> to handle.</param>
+        protected virtual void HandleEvent(FakeCoinDivertorEvent fakeCoinDivertorEvent)
+        {
+            _divertorState = _divertorState == DivertorState.DivertToHopper
+                ? DivertorState.DivertToCashbox
+                : DivertorState.DivertToHopper;
+        }
+
+        /// <summary>Handle a <see cref="FakeHopperFaultEvent"/>.</summary>
+        /// <param name="fakeHopperEvent">The <see cref="FakeHopperFaultEvent"/> to handle.</param>
+        protected virtual void HandleEvent(FakeHopperFaultEvent fakeHopperEvent)
+        {
+            OnMessageReceived(new HopperFaultStatus() { FaultType = fakeHopperEvent.FaultType });
         }
 
         /// <summary>Handle a <see cref="FakeDeviceConnectedEvent"/>.</summary>

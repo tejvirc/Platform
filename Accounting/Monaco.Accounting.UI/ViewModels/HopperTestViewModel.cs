@@ -122,14 +122,14 @@
 
         private bool CheckForFake()
         {
-            if (!_hopperService.Name.Contains("Fake"))
+            if (!_hopperService.DeviceConfiguration.Model.Contains(ApplicationConstants.Fake))
             {
                 return false;
             }
 
             CanActivatePayout = true;
             CanHopperTestClose = true;
-            Status = "Fake Hopper test done";
+            Status = "Test Passed";
             return true;
 
         }

@@ -36,7 +36,6 @@
         public CoinAcceptorPageViewModel()
         {
             _coinAcceptor = ServiceManager.GetInstance().TryGetService<ICoinAcceptor>();
-
             DiverterDirections = Enum.GetValues(typeof(DivertorState))
                 .Cast<DivertorState>()
                 .Where(x => x != DivertorState.None)
@@ -54,7 +53,7 @@
             EventBus.Subscribe<HardwareFaultEvent>(this, HandleEvent);
             EventBus.Subscribe<OperatorMenuExitingEvent>(this, HandleEvent);
 
-            CoinEntry = _coinAcceptor.Name;
+            CoinEntry = _coinAcceptor.DeviceConfiguration.Model;
             SelectedDiverterDirection = _coinAcceptor.DiverterDirection;
             SelectedCoinEntryStates = AcceptorState.Reject;
             CoinToHopper = 0;

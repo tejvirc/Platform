@@ -14,6 +14,9 @@
     using Aristocrat.Monaco.Gaming.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.Button;
+    using Aristocrat.Monaco.Hardware.Contracts.CoinAcceptor;
+    using Aristocrat.Monaco.Hardware.Contracts.Hopper;
+    using Aristocrat.Monaco.Hardware.Contracts.IO;
     using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
     using Aristocrat.Monaco.Hardware.Contracts.Persistence;
     using Aristocrat.Monaco.Hardware.Contracts.SharedDevice;
@@ -225,15 +228,11 @@
 
             return noteAcceptor.Denominations.Contains(denomination);
         }
-
+        
         private void HandleEvent(DebugCoinEvent coinEvent)
         {
-            if (UpdateBalance(coinEvent.Denomination, AccountType.Cashable))
-            {
-                UpdateMeters(AccountType.Cashable, coinEvent.Denomination);
-                var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
-                eventBus.Publish(new CurrencyInCompletedEvent(coinEvent.Denomination));
-            }
+            var eventBus = ServiceManager.GetInstance().GetService<IEventBus>();
+            eventBus.Publish(new FakeCoinInEvent(){ Denomination = coinEvent.Denomination});
         }
 
         private void HandleEvent(DebugNoteEvent debugNoteEvent)

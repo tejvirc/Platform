@@ -12,6 +12,7 @@
     using Application.UI.ViewModels;
     using Contracts;
     using Hardware.Contracts;
+    using Hardware.Contracts.Hopper;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
     using Monaco.Localization.Properties;
@@ -200,6 +201,7 @@
             HopperTicketSplitConfigurable = PropertiesManager.GetValue(AccountingConstants.HopperTicketSplitConfigurable, false);
             HopperTicketSplitEnabled = PropertiesManager.GetValue(AccountingConstants.HopperTicketSplit, false);
             _meterManager = ServiceManager.GetInstance().GetService<IMeterManager>();
+            ModelText = ServiceManager.GetInstance().GetService<IHopper>().DeviceConfiguration.Model;
             // The current culture will be used to display the date/time.
             _time = ServiceManager.GetInstance().GetService<ITime>();
             Init();

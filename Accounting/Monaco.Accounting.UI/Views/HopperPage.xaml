@@ -61,6 +61,7 @@
                 Grid.Row="0"
                 AutomationProperties.AutomationId="Grid8_5D3CE66D">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition_Device_5D3CE66D" />
                     <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition9_5D3CE66D" />
                     <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition10_5D3CE66D" />
                     <RowDefinition Height="Auto" AutomationProperties.AutomationId="RowDefinition11_5D3CE66D" />
@@ -77,10 +78,21 @@
                 <Label
                     Grid.Row="0"
                     Grid.Column="0"
+                    AutomationProperties.AutomationId="Label_Model_5D3CE66D"
+                    Content="{lex:Loc Key={x:Static loc:ResourceKeys.ModelLabel}}" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    AutomationProperties.AutomationId="TextBlock_Model_5D3CE66D"
+                    Foreground="White"
+                    Text="{Binding ModelText}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
                     AutomationProperties.AutomationId="Label19_5D3CE66D"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.TimeOfLastRefill}}" />
                 <TextBlock
-                    Grid.Row="0"
+                    Grid.Row="1"
                     Grid.Column="1"
                     AutomationProperties.AutomationId="TextBlock20_5D3CE66D"
                     Foreground="Gray">
@@ -99,12 +111,12 @@
                     </TextBlock.Style>
                 </TextBlock>
                 <Label
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="0"
                     AutomationProperties.AutomationId="Label22_5D3CE66D"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.ValueOfLastRefill}}" />
                 <TextBlock
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="1"
                     AutomationProperties.AutomationId="TextBlock23_5D3CE66D"
                     Foreground="White">
@@ -123,51 +135,51 @@
                     </TextBlock.Style>
                 </TextBlock>
                 <Label
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Grid.Column="0"
                     AutomationProperties.AutomationId="Label25_5D3CE66D"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.RefillCount}}" />
                 <TextBlock
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Grid.Column="1"
                     AutomationProperties.AutomationId="TextBlock26_5D3CE66D"
                     Foreground="White"
                     Text="{Binding RefillCount}" />
                 <Label
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Grid.Column="0"
                     AutomationProperties.AutomationId="Label27_5D3CE66D"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.HopperRefill}}" />
                 <TextBlock
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Grid.Column="1"
                     AutomationProperties.AutomationId="TextBlock28_5D3CE66D"
                     Foreground="White"
                     Text="{Binding HopperRefill}" />
                 <Label
-                    Grid.Row="4"
+                    Grid.Row="5"
                     Grid.Column="0"
                     AutomationProperties.AutomationId="Label29_5D3CE66D"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.HopperLevel}}" />
                 <TextBlock
-                    Grid.Row="4"
+                    Grid.Row="5"
                     Grid.Column="1"
                     AutomationProperties.AutomationId="TextBlock30_5D3CE66D"
                     Foreground="White"
                     Text="{Binding HopperLevel}" />
                 <Label
-                    Grid.Row="5"
+                    Grid.Row="6"
                     Grid.Column="0"
                     AutomationProperties.AutomationId="Label31_5D3CE66D"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.CurrentRefillValue}}" />
                 <TextBlock
-                    Grid.Row="5"
+                    Grid.Row="6"
                     Grid.Column="1"
                     AutomationProperties.AutomationId="TextBlock32_5D3CE66D"
                     Foreground="White"
                     Text="{Binding CurrentRefillValue}" />
                 <StackPanel
-                    Grid.Row="6"
+                    Grid.Row="7"
                     Grid.Column="0"
                     AutomationProperties.AutomationId="StackPanel33_5D3CE66D"
                     Orientation="Horizontal">
@@ -194,7 +206,7 @@
                 </StackPanel>
                 <Button
                     x:Name="HopperTestButton"
-                    Grid.Row="7"
+                    Grid.Row="8"
                     Grid.Column="0"
                     AutomationProperties.AutomationId="Button36_5D3CE66D"
                     Command="{Binding HopperTestCommand}"
