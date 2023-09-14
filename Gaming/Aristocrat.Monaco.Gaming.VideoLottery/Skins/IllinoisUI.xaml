@@ -7,7 +7,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Illinois-VLT/ui/Images/TS_Background.png"
                  AutomationProperties.AutomationId="BitmapImage0_DD9C22D3" />
     <BitmapImage x:Key="TopLoading"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Illinois-VLT/ui/Images/TS_LoadingScreen.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_Background_Aristocrat.png"
                  AutomationProperties.AutomationId="BitmapImage1_DD9C22D3" />
     <BitmapImage x:Key="TopDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Illinois-VLT/ui/Images/TS_Background_Disabled.png"
@@ -17,7 +17,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Illinois-VLT/ui/Images/TS_Background.png"
                  AutomationProperties.AutomationId="BitmapImage3_DD9C22D3" />
     <BitmapImage x:Key="TopperLoading"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Illinois-VLT/ui/Images/TS_LoadingScreen.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_Background_Aristocrat.png"
                  AutomationProperties.AutomationId="BitmapImage4_DD9C22D3" />
     <BitmapImage x:Key="TopperDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Illinois-VLT/ui/Images/TS_Background_Disabled.png"
