@@ -30,6 +30,12 @@
 
             var playerVolumeScalar = audio.GetVolumeScalar((VolumeScalar)propertiesManager.GetValue(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.PlayerVolumeScalar));
 
+            var gamePlayerVolumeScalar= propertiesManager.GetValue(GamingConstants.GamePlayerVolumeScalarKey, GamingConstants.GamePlayerVolumeScalarDefault);
+            if (gamePlayerVolumeScalar > 0)
+            {
+                playerVolumeScalar = gamePlayerVolumeScalar;
+            }
+
             return masterVolume * gameTypeVolumeScalar * (!showVolumeControlInLobbyOnly ? playerVolumeScalar : 1.0f);
         }
     }

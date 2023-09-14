@@ -28,6 +28,12 @@
 
         public override void Consume(PropertyChangedEvent theEvent)
         {
+            //Player changed volume in the lobby, reset the game volume scalar to -1
+            if (theEvent.PropertyName== ApplicationConstants.PlayerVolumeScalarKey)
+            {
+                _properties.SetProperty(GamingConstants.GamePlayerVolumeScalarKey, -1);
+            }
+
             if (!_runtime.Connected)
             {
                 return;
@@ -40,7 +46,6 @@
 
             var maxVolume = _audio.GetMaxVolume(_properties, _gameCategoryService, showVolumeControlInLobbyOnly);
             _runtime.UpdateVolume(maxVolume);
-            _properties.SetProperty(GamingConstants.GamePlayerVolumeScalarKey, maxVolume);
         }
     }
 }

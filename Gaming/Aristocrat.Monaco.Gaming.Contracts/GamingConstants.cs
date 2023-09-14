@@ -632,6 +632,11 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         public static readonly string GamePlayerVolumeScalarKey = "GamePlayerVolumeScalar";
 
         /// <summary>
+        ///     The default value for the GamePlayerVolumeScalar property.
+        /// </summary>
+        public const float GamePlayerVolumeScalarDefault = -1;
+
+        /// <summary>
         ///     Determines if reel stop is enabled
         /// </summary>
         public const string ReelStopEnabled = @"Cabinet.ReelStop";
