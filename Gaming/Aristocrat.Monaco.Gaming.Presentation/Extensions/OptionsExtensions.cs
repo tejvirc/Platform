@@ -27,6 +27,13 @@ public static class OptionsExtensions
                 o.DefaultDisabledGameOrderLightningLink.AddRange(c.DefaultGameOrderLightningLinkDisabled);
             });
 
+        services.AddOptions<LobbyOptions>()
+            .Configure<LobbyConfiguration>((o, c) =>
+            {
+                o.MidKnightTheme = c.MidKnightLobbyEnabled;
+                // #FUTURE: Rest of lobby options
+            });
+
         services.AddOptions<ResponsibleGamingOptions>()
             .Configure<LobbyConfiguration>((o, c) =>
             {
@@ -116,6 +123,12 @@ public static class OptionsExtensions
                 o.LcdChooseVideoLanguage1 = c.LcdChooseVideoLanguage1;
                 o.LcdChooseVideoLanguage2 = c.LcdChooseVideoLanguage2;
                 o.VbdDisplayServiceButton = c.VbdDisplayServiceButton;
+            });
+
+        services.AddOptions<BannerOptions>()
+            .Configure<LobbyConfiguration>((o, c) =>
+            {
+                o.HideIdleTextOnCashIn = c.HideIdleTextOnCashIn;
             });
 
         services.AddOptions<UpiOptions>()

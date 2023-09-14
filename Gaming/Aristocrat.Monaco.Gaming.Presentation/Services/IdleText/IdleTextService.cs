@@ -1,82 +1,80 @@
-﻿namespace Aristocrat.Monaco.Gaming.Presentation.Services.IdleText;
-
-using System;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Media;
-using Fluxor;
-using Gaming.Contracts;
-using Gaming.Contracts.Lobby;
-using Kernel;
-using Monaco.UI.Common;
-using Store;
-
-public class IdleTextService : IIdleTextService
+﻿namespace Aristocrat.Monaco.Gaming.Presentation.Services.IdleText
 {
-    private const double IdleTextTimerIntervalSeconds = 30.0;
-    private const string IdleTextFamilyName = "Segoe UI";
-    private const double MaximumBlinkingIdleTextWidth = 1000;
+    using Application.Contracts.Localization;
+    using Fluxor;
+    using Gaming.Contracts;
+    using Kernel;
+    using Localization.Properties;
+    using Store;
+    using System;
 
-    private readonly IDispatcher _dispatcher;
-    private readonly IEventBus _eventBus;
-    private readonly IPropertiesManager _properties;
-
-    private readonly ITimer _idleTextTimer;
-
-    public IdleTextService(IDispatcher dispatcher, IEventBus eventBus, IPropertiesManager properties)
+    public class IdleTextService : IIdleTextService, IDisposable
     {
-        _dispatcher = dispatcher;
-        _eventBus = eventBus;
-        _properties = properties;
+        private bool _disposed;
+        private readonly IDispatcher _dispatcher;
+        private readonly IEventBus _eventBus;
+        private readonly IPropertiesManager _properties;
 
-        _idleTextTimer = new DispatcherTimerAdapter { Interval = TimeSpan.FromSeconds(IdleTextTimerIntervalSeconds) };
-        _idleTextTimer.Tick += IdleTextTimerTick;
-
-        SubscribeToEvents();
-    }
-
-    private void SubscribeToEvents()
-    {
-        _eventBus.Subscribe<PropertyChangedEvent>(this, Handle);
-    }
-
-    private void Handle(PropertyChangedEvent evt)
-    {
-        if (evt.PropertyName == GamingConstants.IdleText)
+        public IdleTextService(IDispatcher dispatcher, IEventBus eventBus, IPropertiesManager properties)
         {
-            UpdateIdleText();
+            _dispatcher = dispatcher;
+            _eventBus = eventBus;
+            _properties = properties;
+
+            SubscribeToEvents();
         }
-    }
 
-    private void UpdateIdleText()
-    {
-        var text = _properties.GetValue<string?>(GamingConstants.IdleText, null);
-        _dispatcher.Dispatch(new IdleTextUpdateTextAction { IdleText = text });
+        public string GetDefaultIdleText()
+        {
+            // #TODO: Handle localized and jurisdiction-specific text from resource file...if not here then somewhere like view/viewmodel
+            var defaultText = _properties.GetValue<string?>(GamingConstants.IdleText, null);
+            if (string.IsNullOrEmpty(defaultText))
+            {
+                defaultText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
+            }
 
-        var bannerDisplayMode = MeasureIdleText(text!).Width <= MaximumBlinkingIdleTextWidth
-            ? BannerDisplayMode.Blinking
-            : BannerDisplayMode.Scrolling;
+            return defaultText;
+        }
 
-        _dispatcher.Dispatch(new BannerUpdateDisplayModeAction { Mode = bannerDisplayMode });
-    }
+        private void SubscribeToEvents()
+        {
+            _eventBus.Subscribe<PropertyChangedEvent>(this, Handle);
+        }
 
-    private void IdleTextTimerTick(object? sender, EventArgs e)
-    {
-        _idleTextTimer.Stop();
-    }
+        private void Handle(PropertyChangedEvent evt)
+        {
+            if (evt.PropertyName == GamingConstants.IdleText)
+            {
+                UpdateIdleText();
+            }
+        }
 
-    private static Size MeasureIdleText(string idleText)
-    {
-        var formattedText = new FormattedText(
-            idleText,
-            CultureInfo.CurrentCulture,
-            FlowDirection.LeftToRight,
-            new Typeface(new FontFamily(IdleTextFamilyName), FontStyles.Normal, FontWeights.Bold, FontStretches.Normal),
-            32,
-            Brushes.Black,
-            new NumberSubstitution(),
-            1);
+        private void UpdateIdleText()
+        {
+            var text = _properties.GetValue<string?>(GamingConstants.IdleText, null);
+            _dispatcher.Dispatch(new BannerUpdateIdleTextAction(text));
+        }
 
-        return new Size(formattedText.Width, formattedText.Height);
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            if (disposing)
+            {
+                _eventBus.UnsubscribeAll(this);
+            }
+
+            _disposed = true;
+        }
+
     }
 }

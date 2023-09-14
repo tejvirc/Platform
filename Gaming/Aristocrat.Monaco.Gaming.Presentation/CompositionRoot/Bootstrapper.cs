@@ -30,6 +30,7 @@ using Services.Attract;
 using Services.Audio;
 using Services.Bank;
 using Services.EdgeLighting;
+using Services.IdleText;
 using Services.Replay;
 using Services.Translate;
 using Services.Upi;
@@ -155,6 +156,7 @@ public sealed class Bootstrapper : PrismBootstrapperBase
         services.AddSingleton<Services.Attendant.IAttendantService, AttendantService>();
         services.AddSingleton<IBankService, BankService>();
         services.AddSingleton<IReplayService, ReplayService>();
+        services.AddSingleton<IIdleTextService, IdleTextService>();
 
         services.AddLocatedPlatformService<IWpfWindowLauncher>();
         services.AddPlatformService<IPropertiesManager>();

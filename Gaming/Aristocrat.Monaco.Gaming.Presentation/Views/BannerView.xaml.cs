@@ -1,13 +1,12 @@
-﻿namespace Aristocrat.Monaco.Gaming.Presentation.Views
+﻿namespace Aristocrat.Monaco.Gaming.Presentation.Views;
+
+/// <summary>
+///     Interaction logic for BannerView.xaml
+/// </summary>
+public partial class BannerView
 {
-    /// <summary>
-    /// Interaction logic for BannerView.xaml
-    /// </summary>
-    public partial class BannerView
+    public BannerView()
     {
-        public BannerView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
