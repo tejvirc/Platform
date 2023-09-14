@@ -1527,7 +1527,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 });
                 _overlimitCashoutProcessed = false;
             }
-            if(_playerCashoutProcessed && !MessageOverlayDisplay.IsOverlayWindowVisible)
+
+            if (_playerCashoutProcessed && !MessageOverlayDisplay.IsOverlayWindowVisible)
             {
                 Logger.Debug("Player cashed out. Returning player to Lobby and changing Language to default.");
                 MvvmHelper.ExecuteOnUI(() =>
