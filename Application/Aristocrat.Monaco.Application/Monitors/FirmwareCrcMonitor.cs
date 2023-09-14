@@ -21,7 +21,6 @@
     using Kernel.Contracts;
     using log4net;
     using Monaco.Localization.Properties;
-    using Util;
 
     /// <summary>
     ///     The FirmwareCrcMonitor class is responsible for initializing and verifying device's CRCs of their firmware to
@@ -309,7 +308,8 @@
         {
             if (!(bool)_properties.GetProperty(KernelConstants.IsInspectionOnly, false))
             {
-                _audioService.PlaySound(_properties, SoundName.FirmwareCrcError);
+                var alertVolume = _properties.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
+                _audioService.PlayAlert(SoundName.FirmwareCrcError, alertVolume);
             }
         }
     }

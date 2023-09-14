@@ -17,7 +17,6 @@
     using Kernel;
     using log4net;
     using Monaco.Localization.Properties;
-    using Util;
     using Audio = Hardware.Contracts.Audio;
 
     /// <summary>
@@ -323,7 +322,8 @@
         {
             if (_noteAcceptor != null && !_noteAcceptor.ReasonDisabled.HasFlag(DisabledReasons.GamePlay))
             {
-                _audioService.PlaySound(_propertiesManager, SoundName.NoteAcceptorError);
+                var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
+                _audioService.PlayAlert(SoundName.NoteAcceptorError, alertVolume);
                 return true;
             }
             else

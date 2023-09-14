@@ -5,7 +5,6 @@
     using System.Linq;
     using Application.Contracts;
     using Application.Contracts.Localization;
-    using Application.Util;
     using Contracts;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Button;
@@ -255,7 +254,8 @@
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_properties, SoundName.ExcessiveDocumentReject);
+            var alertVolume = _properties.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
+            _audioService.PlayAlert(SoundName.ExcessiveDocumentReject, alertVolume);
         }
     }
 }

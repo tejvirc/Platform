@@ -3,7 +3,6 @@
     using System;
     using System.Reflection;
     using Application.Contracts.Localization;
-    using Application.Util;
     using Aristocrat.Monaco.Accounting.Contracts;
     using Aristocrat.Monaco.Application.Contracts;
     using Contracts;
@@ -111,7 +110,8 @@
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_propertiesManager, SoundName.ExcessiveMeterIncrement);
+            var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
+            _audioService.PlayAlert(SoundName.ExcessiveMeterIncrement, alertVolume);
         }
 
         protected virtual void Dispose(bool disposing)

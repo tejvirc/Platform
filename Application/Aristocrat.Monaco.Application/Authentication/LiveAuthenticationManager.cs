@@ -25,7 +25,6 @@ namespace Aristocrat.Monaco.Application.Authentication
     using Org.BouncyCastle.OpenSsl;
     using Signing;
     using Signing.Model;
-    using Util;
 
     /// <summary>
     ///     Provides a mechanism to monitor events and trigger Live Authentication process.
@@ -533,7 +532,8 @@ namespace Aristocrat.Monaco.Application.Authentication
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_propertiesManager, SoundName.LiveAuthenticationFailed);
+            var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
+            _audioService.PlayAlert(SoundName.LiveAuthenticationFailed, alertVolume);
         }
     }
 }

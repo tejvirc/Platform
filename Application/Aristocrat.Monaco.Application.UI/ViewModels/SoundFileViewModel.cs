@@ -2,6 +2,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
     using CommunityToolkit.Mvvm.ComponentModel;
+    using Hardware.Contracts.Audio;
 
     [CLSCompliant(false)]
     public class SoundFileViewModel : ObservableObject

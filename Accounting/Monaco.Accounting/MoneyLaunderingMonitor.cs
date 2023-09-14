@@ -5,16 +5,18 @@
     using System.Linq;
     using System.Reflection;
     using Application.Contracts.Extensions;
-    using Application.Util;
+    using Application.Contracts;
+    using Application.Contracts.Localization;
     using Contracts;
-    using Aristocrat.Monaco.Application.Contracts.Localization;
-    using Aristocrat.Monaco.Hardware.Contracts.Audio;
+    using Hardware.Contracts.Audio;
+	using Hardware.Services;
     using Kernel;
     using Localization.Properties;
     using Aristocrat.Monaco.Hardware.Contracts.Button;
     using log4net;
     using Aristocrat.Monaco.Accounting.Contracts.Wat;
     using System.Runtime.CompilerServices;
+
 
     public class MoneyLaunderingMonitor : IMoneyLaunderingMonitor, IService, IDisposable
     {
@@ -206,7 +208,8 @@
 
             StoreMachineDisabledStatus(true);
 
-            _audio.PlaySound(_propertiesManager, SoundName.MoneyLaunderingMonitor);
+            var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, _audio.DefaultAlertVolume);
+            _audio.PlayAlert(SoundName.MoneyLaunderingMonitor, alertVolume);
 
             _eventBus.Subscribe<DownEvent>(this, e => EnableMachine(), e => e.LogicalId == (int)ButtonLogicalId.Button30);
 

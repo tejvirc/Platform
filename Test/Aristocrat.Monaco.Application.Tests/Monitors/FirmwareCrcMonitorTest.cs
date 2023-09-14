@@ -379,7 +379,7 @@
 
         private void SetupAudioService()
         {
-            _audioService.Setup(audio => audio.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float?>(), It.IsAny<SpeakerMix>(), null)).Verifiable();
+            _audioService.Setup(audio => audio.PlayAlert(It.IsAny<SoundName>(), It.IsAny<float?>(), It.IsAny<SpeakerMix>(), null)).Verifiable();
         }
 
         private void SetupPropertiesForAudioTest()

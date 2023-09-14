@@ -75,7 +75,12 @@
         bool IsAvailable { get; }
 
         /// <summary>
-        ///     Load all sound files.
+        ///     Gets a value of DefaultAlertVolume
+        /// </summary>
+        int DefaultAlertVolume { get; }
+
+        /// <summary>
+        ///     Load sound configuration.
         /// </summary>
         void Load();
 
@@ -92,11 +97,20 @@
         ///     Plays the specified file.
         /// </summary>
         /// <param name="soundName">The audio name to play.</param>
-        /// <param name="loopCount">Repeat the playback for the specified count. Set to -1 to loop forever.</param>
+        /// <param name="loopCount">loop count</param>
         /// <param name="volume">volume of play channel</param>
         /// <param name="speakers">Speaker mix of play channel</param>
         /// <param name="callback">Callback when audio event finishes (will not be called if sound is interrupted)</param>
         void Play(SoundName soundName, int loopCount, float? volume, SpeakerMix speakers = SpeakerMix.All, Action callback = null);
+
+        /// <summary>
+        ///     Plays the specified file.
+        /// </summary>
+        /// <param name="soundName">The audio name to play.</param>
+        /// <param name="volume">volume of play channel</param>
+        /// <param name="speakers">Speaker mix of play channel</param>
+        /// <param name="callback">Callback when audio event finishes (will not be called if sound is interrupted)</param>
+        void PlayAlert(SoundName soundName, float? volume, SpeakerMix speakers = SpeakerMix.All, Action callback = null);
 
         /// <summary>
         ///     Stops any audio playback.
@@ -160,14 +174,7 @@
         /// <param name="scalarLevel">the VolumeScalar enum</param>
         /// <returns>returns the scalar (0.0-1.0)</returns>
         float GetVolumeScalar(VolumeScalar scalarLevel);
-
-        /// <summary>
-        ///     Gets the length of the sound.
-        /// </summary>
-        /// <param name="soundName">The sound name</param>
-        /// <returns>Returns the length of the sound or <c>TimeSpan.Zero</c> if length could not be determined</returns>
-        TimeSpan GetLength(SoundName soundName);
-
+        
         /// <summary>
         ///     Sets the speaker mix
         /// </summary>

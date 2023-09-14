@@ -11,7 +11,6 @@
     using Kernel;
     using log4net;
     using Monaco.Localization.Properties;
-    using Util;
 
     /// <summary>
     ///     The DiskSpaceMonitor class shall monitor the disk space to ensure that it does not fall
@@ -150,7 +149,8 @@
         /// </summary>
         private void PlayErrorSound()
         {
-            _audioService.PlaySound(_properties, SoundName.DiskSpaceMonitorError);
+            var alertVolume = _properties.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
+            _audioService.PlayAlert(SoundName.DiskSpaceMonitorError, alertVolume);
         }
 
         private static class NativeMethods

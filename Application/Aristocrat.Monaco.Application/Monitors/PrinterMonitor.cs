@@ -11,7 +11,6 @@
     using Hardware.Contracts.Printer;
     using Hardware.Contracts.SharedDevice;
     using Kernel;
-    using Util;
     using DisabledEvent = Hardware.Contracts.Printer.DisabledEvent;
     using EnabledEvent = Hardware.Contracts.Printer.EnabledEvent;
 
@@ -205,7 +204,8 @@
         {
             if (!_inOperatorMode)
             {
-                _audioService.PlaySound(_propertiesManager, SoundName.PrinterError);
+                var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
+                _audioService.PlayAlert(SoundName.PrinterError, alertVolume);
             }
         }
 
@@ -216,7 +216,8 @@
         {
             if (!_inOperatorMode)
             {
-                _audioService.PlaySound(_propertiesManager, SoundName.PrinterWarning);
+                var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
+                _audioService.PlayAlert(SoundName.PrinterWarning, alertVolume);
             }
         }
 

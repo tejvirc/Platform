@@ -24,6 +24,9 @@
     public class AudioService : IAudio, IService, IMMNotificationClient, IDisposable
     {
         private const int UpdateLoopPollingInterval = 100;
+        private int _defaultAlertVolume;
+        private int _defaultAlertDurationMs;
+        private int _defaultSoundLengthMs;
 
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly Guid AudioDisconnectedLock = HardwareConstants.AudioDisconnectedLockKey;
@@ -89,6 +92,8 @@
 
         public bool IsAvailable => AudioManager.IsSpeakerDeviceAvailable();
 
+        public int DefaultAlertVolume => _defaultAlertVolume;
+
         /// <inheritdoc />
         public void Load()
         {
@@ -98,7 +103,11 @@
 
             if (config.AudioFiles is not null)
             {
-                Logger.Debug($"Loading Audio files");
+                Logger.Debug($"Loading Sound.config.xml");
+                _defaultSoundLengthMs = config.SoundLengthMs;
+                _defaultAlertVolume = config.AlertVolume;
+                _defaultAlertDurationMs = config.AlertDurationMs;
+
                 foreach (var audio in config.AudioFiles.AudioFile)
                 {
                     if (audio.Name == SoundName.None)
@@ -134,6 +143,29 @@
             SpeakerMix speakers = SpeakerMix.All,
             Action callback = null)
         {
+            if (!_sounds.ContainsKey(soundName))
+            {
+                Logger.Error($"Audio file can't play; sound file not loaded or existed: {soundName}");
+                return;
+            }
+
+            if (!volume.HasValue)
+            {
+                volume = GetDefaultVolume();
+            }
+
+            InternalPlay(soundName, MODE.LOOP_NORMAL, loopCount, volume.Value / 100.0f, speakers, callback);
+        }
+
+        /// <inheritdoc />
+        public void PlayAlert(
+            SoundName soundName,
+            float? volume,
+            SpeakerMix speakers = SpeakerMix.All,
+            Action callback = null)
+        {
+            var loopCount = GetLoopCountForSound(soundName);
+            
             if (!_sounds.ContainsKey(soundName))
             {
                 Logger.Error($"Audio file can't play; sound file not loaded or existed: {soundName}");
@@ -246,33 +278,6 @@
         public IVolume GetVolumeControl(int processId)
         {
             return processId <= 0 ? null : new Volume(processId);
-        }
-
-        /// <inheritdoc />
-        public TimeSpan GetLength(SoundName soundName)
-        {
-            if (!_sounds.ContainsKey(soundName))
-            {
-                Logger.Error($"Audio file can't determine length; Sound file not loaded or existed: {soundName}");
-                return TimeSpan.Zero;
-            }
-
-            var soundFile = _sounds[soundName].Item1;
-            if (string.IsNullOrEmpty(soundFile))
-            {
-                Logger.Debug("Audio file can't determine length; name not specified");
-                return TimeSpan.Zero;
-            }
-            
-            var sound = _sounds[soundName].Item2;
-            uint lengthMs = 0;
-            if (sound.getLength(ref lengthMs, TIMEUNIT.MS) == RESULT.OK)
-            {
-                return TimeSpan.FromMilliseconds(lengthMs);
-            }
-
-            Logger.Error($"Failed to get length in milliseconds the audio file: {soundFile}");
-            return TimeSpan.Zero;
         }
 
         /// <inheritdoc />
@@ -423,6 +428,41 @@
             }
 
             Logger.Debug($"Loaded audio file: {soundName} - {file}");
+        }
+
+        private int GetLoopCountForSound(SoundName soundName)
+        {
+            var soundLength = GetLength(soundName);
+            var soundLengthMs = (soundLength != TimeSpan.Zero) ? soundLength.TotalMilliseconds : _defaultSoundLengthMs;
+            var loopCount = (int)Math.Ceiling(_defaultAlertDurationMs / soundLengthMs);
+
+            return loopCount;
+        }
+
+        private TimeSpan GetLength(SoundName soundName)
+        {
+            if (!_sounds.ContainsKey(soundName))
+            {
+                Logger.Error($"Audio file can't determine length; Sound file not loaded or existed: {soundName}");
+                return TimeSpan.Zero;
+            }
+
+            var soundFile = _sounds[soundName].Item1;
+            if (string.IsNullOrEmpty(soundFile))
+            {
+                Logger.Debug("Audio file can't determine length; name not specified");
+                return TimeSpan.Zero;
+            }
+
+            var sound = _sounds[soundName].Item2;
+            uint lengthMs = 0;
+            if (sound.getLength(ref lengthMs, TIMEUNIT.MS) == RESULT.OK)
+            {
+                return TimeSpan.FromMilliseconds(lengthMs);
+            }
+
+            Logger.Error($"Failed to get length in milliseconds the audio file: {soundFile}");
+            return TimeSpan.Zero;
         }
 
         protected virtual void Dispose(bool disposing)

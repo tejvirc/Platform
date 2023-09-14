@@ -16,6 +16,10 @@
             <xs:attribute default="..\jurisdiction\DefaultAssets\" name="Path" type="xs:string" />
           </xs:complexType>
         </xs:element>
+        <xs:element default="500" name="SoundLengthMs" type="xs:int" />
+        <xs:element default="100" name="AlertVolume" type="xs:int" />
+        <xs:element default="5000" name="AlertDurationMs" type="xs:int" />
+        <xs:element default="24" name="DoorAlarmLoopCount" type="xs:int" />
       </xs:sequence>
      </xs:complexType>
   </xs:element>
