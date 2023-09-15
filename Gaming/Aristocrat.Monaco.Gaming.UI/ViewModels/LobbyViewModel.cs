@@ -4690,7 +4690,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 {
                     newState = EdgeLightState.Cashout;
                 }
-                else if (!ContainsAnyState(LobbyState.Disabled) &&
+                else if (!ContainsAnyState(LobbyState.Disabled) && IsAttractModePlaying &&
                          (_attractMode && !Config.EdgeLightingOverrideUseGen8IdleMode ||
                           _canOverrideEdgeLight && Config.EdgeLightingOverrideUseGen8IdleMode))
                 {

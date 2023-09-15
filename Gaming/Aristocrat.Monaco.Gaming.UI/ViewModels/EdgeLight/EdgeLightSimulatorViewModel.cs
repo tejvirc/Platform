@@ -200,7 +200,10 @@
                         argb.G,
                         argb.B);
 
-                    _strips[strip.StripId].Leds[i].Color = color;
+                    if (_strips.ContainsKey(strip.StripId))
+                    {
+                        _strips[strip.StripId].Leds[i].Color = color;
+                    }
                 }
             }
         }
