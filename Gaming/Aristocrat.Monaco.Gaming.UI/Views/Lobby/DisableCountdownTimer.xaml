@@ -4,7 +4,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.UI.ViewModels"
-             xmlns:converters="http://monaco.aristocrat.com/common"
              xmlns:controls="clr-namespace:Aristocrat.Monaco.Gaming.UI.Views.Controls"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance {x:Type viewModels:LobbyViewModel}}"
@@ -20,39 +19,26 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
-                <ResourceDictionary
-                        Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="/Aristocrat.Monaco.UI.Common;component/Skins/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Width="485"
-          Height="40"
-          Visibility="{Binding IsDisableCountdownMessageSuppressed, Converter={StaticResource TrueCollapsedFalseVisible}}"
-          AutomationProperties.AutomationId="Grid1_A44F9E51">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*"
-                              AutomationProperties.AutomationId="ColumnDefinition2_A44F9E51" />
-            <ColumnDefinition Width="1*"
-                              AutomationProperties.AutomationId="ColumnDefinition3_A44F9E51" />
-        </Grid.ColumnDefinitions>
-        <controls:TextPath Width="Auto"
-                           Margin="15,5,0,0"
-                           Grid.Column="0"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Top"
-                           FontSize="24"
+    <StackPanel Width="Auto"
+                Height="Auto"
+                HorizontalAlignment="Right"
+                Margin="15 5 25 0"
+                Orientation="Horizontal"
+                Visibility="{Binding IsDisableCountdownMessageSuppressed, Converter={StaticResource TrueCollapsedFalseVisible}}"
+                AutomationProperties.AutomationId="Grid1_A44F9E51">
+        <controls:TextPath FontSize="24"
                            FontFamily="Verdana"
                            FontWeight="ExtraBold"
                            Fill="White"
                            Stroke="Black"
                            StrokeThickness="1.0"
                            Text="{Binding DisableCountdownMessage}" />
-        <controls:TextPath Margin="0,5,25,0"
-                           Width="50"
-                           Grid.Column="1"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Top"
+        <controls:TextPath Margin="25 0 0 0"
                            FontSize="24"
                            FontFamily="Verdana"
                            FontWeight="ExtraBold"
@@ -60,10 +46,10 @@
                            Stroke="Black"
                            StrokeThickness="1.0"
                            Text="{Binding DisableCountdownTimeRemaining, StringFormat=m\\:ss}" />
-        <Grid.Background>
+        <StackPanel.Background>
             <SolidColorBrush Color="Black"
                              Opacity=".35"
                              AutomationProperties.AutomationId="SolidColorBrush4_A44F9E51" />
-        </Grid.Background>
-    </Grid>
+        </StackPanel.Background>
+    </StackPanel>
 </UserControl>
