@@ -1,8 +1,10 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Usb.Tests.RelmUsbCommunicator
 {
     using System;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Common.Storage;
     using Aristocrat.Monaco.Test.Common;
     using Contracts;
     using Contracts.Reel;
@@ -25,6 +27,8 @@
     {
         private readonly Mock<IRelmCommunicator> _driver = new();
         private Mock<IPropertiesManager> _propertiesManager;
+        private Mock<IFileSystemProvider> _fileSystem;
+        private RelmUsbCommunicator _target;
         private Mock<IEventBus> _eventBus;
 
         [TestInitialize]
@@ -56,7 +60,10 @@
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoNotResetRelmController, It.IsAny<bool>())).Returns(false);
+
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Loose);
+            _fileSystem = new Mock<IFileSystemProvider>();
+            _target = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _fileSystem.Object, _eventBus.Object);
         }
 
         [TestCleanup]
@@ -73,14 +80,13 @@
                 .Returns(Task.FromResult(true))
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(new PingTimeout()));
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _eventBus.Object);
-            usbCommunicator.ControllerFaultOccurred += delegate (object _, ReelControllerFaultedEventArgs e)
+            _target.ControllerFaultOccurred += delegate (object _, ReelControllerFaultedEventArgs e)
             {
                 controllerFaultOccurred = e.Faults == ReelControllerFaults.CommunicationError;
             };
 
-            await usbCommunicator.Initialize();
-            await usbCommunicator.HomeReel(1, 0);
+            await _target.Initialize();
+            await _target.HomeReel(1, 0);
 
             Assert.IsTrue(controllerFaultOccurred);
         }
@@ -93,14 +99,13 @@
                 .Returns(Task.FromResult(true))
                 .Raises(x => x.PingTimeoutCleared += null, EventArgs.Empty);
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _eventBus.Object);
-            usbCommunicator.ControllerFaultCleared += delegate (object _, ReelControllerFaultedEventArgs e)
+            _target.ControllerFaultCleared += delegate (object _, ReelControllerFaultedEventArgs e)
             {
                 controllerFaultCleared = e.Faults == ReelControllerFaults.CommunicationError;
             };
 
-            await usbCommunicator.Initialize();
-            await usbCommunicator.HomeReel(1, 0);
+            await _target.Initialize();
+            await _target.HomeReel(1, 0);
 
             Assert.IsTrue(controllerFaultCleared);
         }
@@ -126,14 +131,13 @@
                 .Returns(Task.FromResult(true))
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(Activator.CreateInstance(interruptType)));
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _eventBus.Object);
-            usbCommunicator.ReelStatusReceived += delegate (object _, ReelStatusReceivedEventArgs e)
+            _target.ReelStatusReceived += delegate (object _, ReelStatusReceivedEventArgs e)
             {
                 actualReelStatus = e.Statuses.First();
             };
 
-            await usbCommunicator.Initialize();
-            await usbCommunicator.HomeReel(1, 0);
+            await _target.Initialize();
+            await _target.HomeReel(1, 0);
 
             Assert.AreEqual(connected, actualReelStatus.Connected);
             Assert.AreEqual(tampered, actualReelStatus.ReelTampered);
@@ -178,14 +182,13 @@
                     .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
             }
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _eventBus.Object);
-            usbCommunicator.LightStatusReceived += delegate (object _, LightEventArgs e)
+            _target.LightStatusReceived += delegate (object _, LightEventArgs e)
             {
                 actualLightStatus = e.Statuses.First();
             };
 
-            await usbCommunicator.Initialize();
-            await usbCommunicator.HomeReel(1, 0);
+            await _target.Initialize();
+            await _target.HomeReel(1, 0);
 
             Assert.IsNotNull(actualLightStatus);
             Assert.AreEqual((int)lightId, actualLightStatus.LightId);

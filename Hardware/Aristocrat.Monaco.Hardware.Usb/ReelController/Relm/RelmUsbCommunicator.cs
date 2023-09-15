@@ -8,6 +8,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Common.Storage;
     using Common;
     using Common.Cryptography;
     using Contracts;
@@ -40,6 +41,7 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private readonly IPropertiesManager _propertiesManager;
+        private readonly IFileSystemProvider _fileSystem;
         private readonly IEventBus _eventBus;
         private readonly HashSet<AnimationFile> _animationFiles = new();
         private readonly ConcurrentDictionary<string, uint> _tags = new();
@@ -58,6 +60,7 @@
             : this(new RelmCommunicator(new VerificationFactory(),
                 RelmConstants.DefaultKeepAlive),
                 ServiceManager.GetInstance().GetService<IPropertiesManager>(),
+                new FileSystemProvider(),
                 ServiceManager.GetInstance().GetService<IEventBus>())
         {
         }
@@ -67,11 +70,13 @@
         /// </summary>
         /// <param name="communicator">The Relm communicator</param>
         /// <param name="propertiesManager">The properties manager</param>
+        /// <param name="fileSystem">The file system provider</param>
         /// <param name="eventBus">The event bus</param>
-        public RelmUsbCommunicator(RelmReels.Communicator.IRelmCommunicator communicator, IPropertiesManager propertiesManager, IEventBus eventBus)
+        public RelmUsbCommunicator(RelmReels.Communicator.IRelmCommunicator communicator, IPropertiesManager propertiesManager, IFileSystemProvider fileSystem, IEventBus eventBus)
         {
             _relmCommunicator = communicator;
             _propertiesManager = propertiesManager;
+            _fileSystem = fileSystem;
             _eventBus = eventBus;
         }
 
@@ -741,12 +746,11 @@
 
         internal virtual byte[] HashAnimationFile(string filePath)
         {
-            using var streamReader = new StreamReader(filePath);
+            using var stream = _fileSystem.GetFileReadStream(filePath);
             using var crc32 = new Crc32();
-            var hash = crc32.ComputeHash(streamReader.BaseStream).Reverse().ToArray();
+            var hash = crc32.ComputeHash(stream).Reverse().ToArray();
 
             Logger.Info($"Calculated File Hash for {filePath}: {string.Join(", ", hash.Take(hash.Length))}");
-
             return hash;
         }
 

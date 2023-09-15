@@ -2,6 +2,7 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Common.Storage;
     using Aristocrat.RelmReels.Communicator;
     using Contracts;
     using Contracts.Reel;
@@ -18,26 +19,29 @@
     [TestClass]
     public class StepperRuleTests
     {
-        private readonly Mock<RelmReels.Communicator.IRelmCommunicator> _driver = new();
-        private RelmUsbCommunicator _usbCommunicator;
+        private readonly Mock<IRelmCommunicator> _driver = new();
+        private RelmUsbCommunicator _target;
         private Mock<IPropertiesManager> _propertiesManager;
+        private Mock<IFileSystemProvider> _fileSystem;
         private Mock<IEventBus> _eventBus;
+
 
         [TestInitialize]
         public void Initialize()
         {
+            MoqServiceManager.CreateInstance(MockBehavior.Strict);
+            _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
+            _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoNotResetRelmController, It.IsAny<bool>())).Returns(false);
+
             _driver.Setup(x => x.IsOpen).Returns(true);
             _driver.Setup(x => x.Configuration).Returns(new DeviceConfiguration());
             _driver.Setup(x => x.SendQueryAsync<DeviceConfiguration>(default)).ReturnsAsync(new RelmResponse<DeviceConfiguration>(true, new DeviceConfiguration()));
             _driver.Setup(x => x.SendQueryAsync<FirmwareSize>(default)).ReturnsAsync(new RelmResponse<FirmwareSize>(true, new FirmwareSize()));
             _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(new RelmResponse<DeviceStatuses>(true, new DeviceStatuses()));
 
-            MoqServiceManager.CreateInstance(MockBehavior.Strict);
-            _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
-            _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoNotResetRelmController, It.IsAny<bool>())).Returns(false);
+            _fileSystem = new Mock<IFileSystemProvider>();
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Loose);
-
-            _usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _eventBus.Object);
+            _target = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _fileSystem.Object, _eventBus.Object);
         }
 
         [TestCleanup]
@@ -65,7 +69,7 @@
             _driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareStepperAnticipationRule>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(expectedResult));
 
-            var actualResult = await _usbCommunicator.PrepareStepperRule(rule);
+            var actualResult = await _target.PrepareStepperRule(rule);
 
             _driver.Verify(x => x.SendCommandAsync(It.Is<PrepareStepperAnticipationRule>(r =>
                 r.Cycle == rule.Cycle &&
@@ -97,7 +101,7 @@
             _driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareStepperFollowRule>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(expectedResult));
 
-            var actualResult = await _usbCommunicator.PrepareStepperRule(rule);
+            var actualResult = await _target.PrepareStepperRule(rule);
 
             _driver.Verify(x => x.SendCommandAsync(It.Is<PrepareStepperFollowRule>(r =>
                 r.Cycle == rule.Cycle &&
