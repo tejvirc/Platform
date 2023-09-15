@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -11981,7 +11981,7 @@ Do you really want to do full reset?</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="ExtraLow" xml:space="preserve">
-    <value>Extra Low</value>
+    <value>Extra-Low</value>
     <comment>Aristocrat.Monaco.Application.UI</comment>
   </data>
   <data name="MediumLow" xml:space="preserve">
