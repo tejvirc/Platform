@@ -4,7 +4,6 @@
 
     public static class SerialPrinterExtensions
     {
-
         static SerialPrinterExtensions()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);

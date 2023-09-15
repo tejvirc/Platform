@@ -54,5 +54,7 @@
     <PackageReference Include="SimpleInjector" Version="5.4.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.1" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
 </Project>

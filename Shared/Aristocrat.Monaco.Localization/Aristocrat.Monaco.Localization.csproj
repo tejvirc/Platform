@@ -440,6 +440,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="6.0.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
   </ItemGroup>
