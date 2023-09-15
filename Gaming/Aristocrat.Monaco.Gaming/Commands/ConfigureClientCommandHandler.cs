@@ -107,15 +107,17 @@ namespace Aristocrat.Monaco.Gaming.Commands
             var useWinLimit = _properties.GetValue(GamingConstants.UseGambleWinLimit, false);
             var singleGameAutoLaunch = _lobbyStateManager.AllowSingleGameAutoLaunch;
 
+            var localeCode = _properties.GetValue(GamingConstants.SelectedLocaleCode, "en-us");
+
             var parameters = new Dictionary<string, string>
             {
                 { "/Runtime/Variation/SelectedID", currentGame.VariationId },
                 { "/Runtime/Denomination", denomination.Value.MillicentsToCents().ToString() },
                 { "/Runtime/ActiveDenominations", string.Join(",", activeDenominations.Select(d => d.Value.MillicentsToCents())) },
                 { "/Runtime/Flags&RequireGameStartPermission", "true" },
-                { "/Runtime/Localization/Language", _properties.GetValue(GamingConstants.SelectedLocaleCode, "en-us") },
+                { "/Runtime/Localization/Language", localeCode },
                 { "/Runtime/Localization/Currency&symbol", CurrencyExtensions.Currency.CurrencySymbol },
-                { "/Runtime/Localization/Currency&minorSymbol", CurrencyExtensions.Currency.MinorUnitSymbol },
+                { "/Runtime/Localization/Currency&minorSymbol", localeCode.Equals("fr-ca", StringComparison.OrdinalIgnoreCase) ? $" {CurrencyExtensions.Currency.MinorUnitSymbol}" : CurrencyExtensions.Currency.MinorUnitSymbol },
                 { "/Runtime/Localization/Currency&positivePattern", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyPositivePattern.ToString() },
                 { "/Runtime/Localization/Currency&negativePattern", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyNegativePattern.ToString() },
                 { "/Runtime/Localization/Currency&decimalDigits", CurrencyExtensions.CurrencyCultureInfo.NumberFormat.CurrencyDecimalDigits.ToString() },
