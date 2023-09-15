@@ -512,7 +512,7 @@
 
             if (!_audioService.IsPlaying())
             {
-                var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, (byte)100);
+                var alertVolume = _propertiesManager.GetValue(HardwareConstants.AlertVolumeKey, (byte)100);
                 _audioService.Play(SoundName.DoorOpenAlarm, _doorAlarmLoopCount, alertVolume);
                 Logger.Debug($"Door open alarm timer timed-out, playing Door Alarm");
             }
@@ -557,8 +557,8 @@
         {
             if (ServiceManager.GetInstance().IsServiceAvailable<IAudio>())
             {
-                var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, (byte)100);
-                var logicDoorFullVolume = _propertiesManager.GetValue(ApplicationConstants.SoundConfigurationLogicDoorFullVolumeAlert, false);
+                var alertVolume = _propertiesManager.GetValue(HardwareConstants.AlertVolumeKey, (byte)100);
+                var logicDoorFullVolume = _propertiesManager.GetValue(HardwareConstants.SoundConfigurationLogicDoorFullVolumeAlert, false);
                 var isInspectionMode = _propertiesManager.GetValue(KernelConstants.IsInspectionOnly, false);
 
                 //Using door service, since it appears that this is called before the door state is changed, so it will be false on door open and true on door close

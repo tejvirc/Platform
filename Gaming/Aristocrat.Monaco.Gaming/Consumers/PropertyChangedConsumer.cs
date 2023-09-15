@@ -3,6 +3,7 @@
     using System;
     using Application.Contracts;
     using Contracts;
+    using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
     using Kernel.Contracts;
@@ -18,7 +19,7 @@
         public PropertyChangedConsumer(
             IRuntime runtimeService, IAudio audio, IEventBus eventBus, IGameCategoryService gameCategoryService, IPropertiesManager properties)
             : base(eventBus, null, e => e.PropertyName == PropertyKey.DefaultVolumeLevel
-                                        || e.PropertyName == ApplicationConstants.PlayerVolumeScalarKey)
+                                        || e.PropertyName == HardwareConstants.PlayerVolumeScalarKey)
         {
             _runtime = runtimeService ?? throw new ArgumentNullException(nameof(runtimeService));
             _audio = audio ?? throw new ArgumentNullException(nameof(audio));
@@ -34,8 +35,8 @@
             }
 
             var volumeControlLocation = (VolumeControlLocation)_properties.GetValue(
-                ApplicationConstants.VolumeControlLocationKey,
-                ApplicationConstants.VolumeControlLocationDefault);
+                HardwareConstants.VolumeControlLocationKey,
+                HardwareConstants.VolumeControlLocationDefault);
             var showVolumeControlInLobbyOnly = volumeControlLocation == VolumeControlLocation.Lobby;
 
             _runtime.UpdateVolume(_audio.GetMaxVolume(_properties, _gameCategoryService, showVolumeControlInLobbyOnly));

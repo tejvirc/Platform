@@ -149,8 +149,7 @@
         /// </summary>
         private void PlayErrorSound()
         {
-            var alertVolume = _properties.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
-            _audioService.PlayAlert(SoundName.DiskSpaceMonitorError, alertVolume);
+            _audioService.PlayAlert(SoundName.DiskSpaceMonitorError);
         }
 
         private static class NativeMethods

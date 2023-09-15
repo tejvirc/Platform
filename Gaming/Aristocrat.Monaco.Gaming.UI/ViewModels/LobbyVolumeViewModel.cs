@@ -10,6 +10,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Application.UI.ViewModels;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
+    using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
     using log4net;
@@ -35,8 +36,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _audio = ServiceManager.GetInstance().TryGetService<IAudio>();
 
             _playerVolumeScalar = (VolumeScalar)_propertiesManager.GetValue(
-                ApplicationConstants.PlayerVolumeScalarKey,
-                ApplicationConstants.PlayerVolumeScalar);
+                HardwareConstants.PlayerVolumeScalarKey,
+                HardwareConstants.PlayerVolumeScalar);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", PlayerVolumeScalar);
             VolumeCommand = new RelayCommand<object>(o => OnVolumeChange());
         }
@@ -77,8 +78,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             if (audio != null)
             {
                 var lobbyVolumeScalar = (VolumeScalar)_propertiesManager.GetValue(
-                    ApplicationConstants.LobbyVolumeScalarKey,
-                    ApplicationConstants.LobbyVolumeScalar);
+                    HardwareConstants.LobbyVolumeScalarKey,
+                    HardwareConstants.LobbyVolumeScalar);
                 volume = audio.GetDefaultVolume() * audio.GetVolumeScalar(PlayerVolumeScalar) *
                          audio.GetVolumeScalar(lobbyVolumeScalar);
             }
@@ -102,7 +103,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void SetVolumeAndPlaySound()
         {
-            _propertiesManager.SetProperty(ApplicationConstants.PlayerVolumeScalarKey, PlayerVolumeScalar);
+            _propertiesManager.SetProperty(HardwareConstants.PlayerVolumeScalarKey, PlayerVolumeScalar);
             if (_audio != null)
             {
                 var volume = GetVolume(_audio);

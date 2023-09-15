@@ -3,6 +3,7 @@
     using System;
     using Application.Contracts;
     using Aristocrat.Monaco.Accounting.Contracts;
+    using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Aristocrat.Monaco.Hardware.Contracts.Button;
     using Contracts;
@@ -195,7 +196,7 @@
                 ((y, x, z) => _downEventHandler = x);
 
             _audioService.Setup(p => p.Load());
-            _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<object>()))
+            _propertiesManager.Setup(p => p.GetProperty(HardwareConstants.AlertVolumeKey, It.IsAny<object>()))
                 .Returns((byte)10);
 
             _propertiesManager.Setup(p => p.GetProperty(GamingConstants.ExcessiveMeterIncrementTestBanknoteLimit, It.IsAny<object>()))

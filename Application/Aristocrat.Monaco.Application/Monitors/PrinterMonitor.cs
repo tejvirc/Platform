@@ -204,8 +204,7 @@
         {
             if (!_inOperatorMode)
             {
-                var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
-                _audioService.PlayAlert(SoundName.PrinterError, alertVolume);
+                _audioService.PlayAlert(SoundName.PrinterError);
             }
         }
 
@@ -216,8 +215,7 @@
         {
             if (!_inOperatorMode)
             {
-                var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
-                _audioService.PlayAlert(SoundName.PrinterWarning, alertVolume);
+                _audioService.PlayAlert(SoundName.PrinterWarning);
             }
         }
 

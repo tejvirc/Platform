@@ -4,8 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using Application.Monitors;
-    using Aristocrat.Monaco.Hardware.Contracts.Audio;
+
     using Contracts;
+	using Hardware.Contracts;
+	using Hardware.Contracts.Audio;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -66,7 +68,7 @@
         private void SetupAudio()
         {
             _audioService.Setup(p => p.Load());
-            _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<object>())).Returns((byte)10);
+            _propertiesManager.Setup(p => p.GetProperty(HardwareConstants.AlertVolumeKey, It.IsAny<object>())).Returns((byte)10);
         }
 
         [TestCleanup]
@@ -141,7 +143,7 @@
         [TestMethod]
         public void ExpectAudioAlertWhenPersistentStorageIntegrityCheckFailedEvent()
         {
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<byte>())).Returns((byte)5);
+            _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.AlertVolumeKey, It.IsAny<byte>())).Returns((byte)5);
 
             Action<PersistentStorageIntegrityCheckFailedEvent> handler = null;
 

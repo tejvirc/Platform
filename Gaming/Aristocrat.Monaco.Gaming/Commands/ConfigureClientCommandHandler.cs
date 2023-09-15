@@ -103,8 +103,8 @@ namespace Aristocrat.Monaco.Gaming.Commands
             var denomination = currentGame.Denominations.Single(d => d.Value == _properties.GetValue(GamingConstants.SelectedDenom, 0L));
 
             var volumeControlLocation = (VolumeControlLocation)_properties.GetValue(
-                ApplicationConstants.VolumeControlLocationKey,
-                ApplicationConstants.VolumeControlLocationDefault);
+                HardwareConstants.VolumeControlLocationKey,
+                HardwareConstants.VolumeControlLocationDefault);
 
             var showVolumeControlInLobbyOnly = volumeControlLocation == VolumeControlLocation.Lobby;
 
@@ -275,7 +275,7 @@ namespace Aristocrat.Monaco.Gaming.Commands
 
             if (showVolumeControlInLobbyOnly)
             {
-                var playerVolumeScalar = _audio.GetVolumeScalar((VolumeScalar)_properties.GetValue(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.PlayerVolumeScalar));
+                var playerVolumeScalar = _audio.GetVolumeScalar((VolumeScalar)_properties.GetValue(HardwareConstants.PlayerVolumeScalarKey, HardwareConstants.PlayerVolumeScalar));
                 parameters["/Runtime/Audio&playerVolumeScalar"] = playerVolumeScalar.ToString(CultureInfo.InvariantCulture);
             }
 

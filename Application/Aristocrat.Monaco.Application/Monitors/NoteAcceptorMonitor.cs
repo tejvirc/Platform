@@ -322,8 +322,7 @@
         {
             if (_noteAcceptor != null && !_noteAcceptor.ReasonDisabled.HasFlag(DisabledReasons.GamePlay))
             {
-                var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
-                _audioService.PlayAlert(SoundName.NoteAcceptorError, alertVolume);
+                _audioService.PlayAlert(SoundName.NoteAcceptorError);
                 return true;
             }
             else

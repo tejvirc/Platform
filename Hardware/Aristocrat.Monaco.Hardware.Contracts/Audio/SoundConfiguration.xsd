@@ -16,10 +16,27 @@
             <xs:attribute default="..\jurisdiction\DefaultAssets\" name="Path" type="xs:string" />
           </xs:complexType>
         </xs:element>
-        <xs:element default="500" name="SoundLengthMs" type="xs:int" />
-        <xs:element default="100" name="AlertVolume" type="xs:int" />
-        <xs:element default="5000" name="AlertDurationMs" type="xs:int" />
-        <xs:element default="24" name="DoorAlarmLoopCount" type="xs:int" />
+        <xs:element minOccurs="0" maxOccurs="1" name="Alert">
+          <xs:complexType>
+            <xs:attribute default="100" name="Volume" type="xs:int" />
+            <xs:attribute default="50" name="Minimum" type="xs:int" />
+            <xs:attribute default="false" name="LogicDoorFullVolumeAlert" type="xs:boolean" />
+            <xs:attribute default="false" name="Configurable" type="xs:boolean" />
+            <xs:attribute default="false" name="PlayTestSound" type="xs:boolean" />
+            <xs:attribute default="5000" name="AlertDurationMs" type="xs:int" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="VolumeControl">
+          <xs:complexType>
+            <xs:attribute default="LobbyAndGame" name="Location" type="VolumeControlLocation" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" default="true" name="UseGameTypeVolume" type="xs:boolean" />
+        <xs:element minOccurs="0" maxOccurs="1" default="5" name="LobbyVolumeScalar" type="xs:int" />
+        <xs:element minOccurs="0" maxOccurs="1" default="5" name="PlayerVolumeScalar" type="xs:int" />
+        <xs:element minOccurs="0" maxOccurs="1" default="500" name="SoundLengthMs" type="xs:int" />
+        <xs:element minOccurs="0" maxOccurs="1" default="24" name="DoorAlarmLoopCount" type="xs:int" />
+        <xs:element minOccurs="0" maxOccurs="1" name="DefaultVolumeLevel" type="xs:unsignedByte" />
       </xs:sequence>
      </xs:complexType>
   </xs:element>
@@ -59,6 +76,14 @@
       <xs:enumeration value="SideRight" />
       <xs:enumeration value="Silence" />
       <xs:enumeration value="Touch" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="VolumeControlLocation">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Lobby" />
+      <xs:enumeration value="Game" />
+      <xs:enumeration value="LobbyAndGame" />
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

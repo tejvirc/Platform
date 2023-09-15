@@ -170,6 +170,78 @@
         ///     Mono.Addins extension path for SoundConfiguration
         /// </summary>
         public const string SoundConfigurationExtensionPath = "/Hardware/SoundConfiguration";
+        
+        /// <summary>
+        ///     Property Manager key for AlertVolume.
+        /// </summary>
+        public const string AlertVolumeKey = "SoundConfiguration.Alert.Volume";
+
+        /// <summary>
+        ///     Default volume level used if default is not specified in config files.
+        /// </summary>
+        public const byte DefaultVolumeLevel = 3;
+
+        /// <summary>
+        ///     Default for playing test alert sound on change.
+        /// </summary>
+        public const bool DefaultPlayTestAlertSound = false;
+
+        /// <summary>
+        ///     Default minimum volume for alerts if not specified in config files.
+        /// </summary>
+        public const byte AlertVolumeMinimum = 50;
+
+        /// <summary>
+        ///     Property Manager key for UseGameTypeVolume.
+        /// </summary>
+        public const string UseGameTypeVolumeKey = "SoundConfiguration.UseGameTypeVolume";
+
+        /// <summary>
+        ///     The default value for the UseGameTypeVolume flag.
+        /// </summary>
+        public const bool UseGameTypeVolume = true;
+
+        /// <summary>
+        ///     Property Manager key for LobbyVolumeScalar.
+        /// </summary>
+        public const string LobbyVolumeScalarKey = "Hardware.LobbyVolumeScalar";
+
+        /// <summary>
+        ///     The default value for the LobbyVolumeScalar property.
+        /// </summary>
+        public const byte LobbyVolumeScalar = 5;
+
+        /// <summary>
+        ///     Property Manager key for PlayerVolumeScalar.
+        /// </summary>
+        public const string PlayerVolumeScalarKey = "SoundConfiguration.PlayerVolumeScalar";
+
+        /// <summary>
+        ///     The default value for the PlayerVolumeScalar property.
+        /// </summary>
+        public const byte PlayerVolumeScalar = 5;
+
+        /// <summary>
+        ///     The key for the VolumeControlLocation property
+        /// </summary>
+        public const string VolumeControlLocationKey = "SoundConfiguration.VolumeControl.Location";
+
+        /// <summary>
+        ///     The default setting for the VolumeControlLocation property
+        /// </summary>
+        public const int VolumeControlLocationDefault = 2;
+
+        /// <summary> Property manager key for SoundConfigurationAlertVolumeMinimum </summary>
+        public const string SoundConfigurationAlertVolumeMinimum = "SoundConfiguration.Alert.Minimum";
+
+        /// <summary> Property manager key for SoundConfigurationAlertVolumeConfigurable </summary>
+        public const string SoundConfigurationAlertVolumeConfigurable = "SoundConfiguration.Alert.Configurable";
+
+        /// <summary> Property manager key for SoundConfigurationPlayTestAlertSound </summary>
+        public const string SoundConfigurationPlayTestAlertSound = "SoundConfiguration.Alert.PlayTestSound";
+
+        /// <summary> Property manager key for SoundConfigurationLogicDoorFullVolumeAlert </summary>
+        public const string SoundConfigurationLogicDoorFullVolumeAlert = "SoundConfiguration.Alert.LogicDoorFullVolumeAlert";
 
         /// <summary>
         ///     Array of Display Properties

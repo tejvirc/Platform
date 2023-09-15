@@ -10,6 +10,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Application.Contracts.Input;
     using Application.Contracts.OperatorMenu;
     using Contracts;
+	using Hardware.Contracts;
     using Kernel;
     using log4net;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
@@ -640,7 +641,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         private void PlayButtonClickSound()
         {
-            var soundVolume = (byte)_propertiesManager.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
+            var soundVolume = (byte)_propertiesManager.GetProperty(HardwareConstants.PlayerVolumeScalarKey, HardwareConstants.DefaultVolumeLevel);
 
             _audioService.Play(SoundName.Touch, soundVolume);
         }

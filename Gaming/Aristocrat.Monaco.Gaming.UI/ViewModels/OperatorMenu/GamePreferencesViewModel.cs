@@ -20,6 +20,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
     using Contracts.Models;
     using Contracts.Progressives;
     using Events;
+    using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
     using Localization.Properties;
@@ -444,7 +445,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
                 _lobbyVolumeScalar = value;
                 OnPropertyChanged(nameof(LobbyVolumeScalar));
 
-                Save(ApplicationConstants.LobbyVolumeScalarKey, _lobbyVolumeScalar);
+                Save(HardwareConstants.LobbyVolumeScalarKey, _lobbyVolumeScalar);
                 PlayVolumeChangeSound(SoundName.Ding, _audio.GetVolumeScalar(value));
             }
         }
@@ -1029,8 +1030,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
             ShowServiceButton = PropertiesManager.GetValue(GamingConstants.ShowServiceButton, false);
             LobbyVolumeScalar = (VolumeScalar)PropertiesManager.GetValue(
-                ApplicationConstants.LobbyVolumeScalarKey,
-                ApplicationConstants.LobbyVolumeScalar);
+                HardwareConstants.LobbyVolumeScalarKey,
+                HardwareConstants.LobbyVolumeScalar);
 
             var gameProvider = ServiceManager.GetInstance().GetService<IGameProvider>();
             var localeCode = PropertiesManager.GetValue(GamingConstants.SelectedLocaleCode, "EN-US");

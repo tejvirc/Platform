@@ -178,8 +178,6 @@ namespace Aristocrat.Monaco.Application.UI.Settings
                         _propertiesManager.GetValue(PropertyKey.MaxCreditsIn, ApplicationConstants.DefaultMaxCreditsIn),
                     DefaultVolumeLevel =
                         _propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, (byte)2),
-                    VolumeControlLocation =
-                        _propertiesManager.GetValue(ApplicationConstants.VolumeControlLocationKey, (VolumeControlLocation)ApplicationConstants.VolumeControlLocationDefault),
                     VoucherIn =
                         _propertiesManager.GetValue(PropertyKey.VoucherIn, false),
                     IdReaderEnabled = idReaderEnabled,
@@ -246,7 +244,6 @@ namespace Aristocrat.Monaco.Application.UI.Settings
             _propertiesManager.SetProperty(PropertyKey.TicketTextLine3, settings.TicketTextLine3);
             _propertiesManager.SetProperty(PropertyKey.MaxCreditsIn, settings.MaxCreditsIn);
             _propertiesManager.SetProperty(PropertyKey.DefaultVolumeLevel, settings.DefaultVolumeLevel);
-            _propertiesManager.SetProperty(ApplicationConstants.VolumeControlLocationKey, settings.VolumeControlLocation);
             _propertiesManager.SetProperty(PropertyKey.VoucherIn, settings.VoucherIn);
             _propertiesManager.SetProperty(ApplicationConstants.IdReaderEnabled, settings.IdReaderEnabled);
             _propertiesManager.SetProperty(ApplicationConstants.IdReaderManufacturer, settings.IdReaderManufacturer);

@@ -9,6 +9,7 @@ namespace Aristocrat.Monaco.Gaming.UI.Settings
     using Application.Contracts.Settings;
     using Aristocrat.Extensions.CommunityToolkit;
     using Contracts;
+    using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
 
@@ -149,8 +150,8 @@ namespace Aristocrat.Monaco.Gaming.UI.Settings
                 AutoPlayAllowed = _properties.GetValue(GamingConstants.AutoPlayAllowed, true),
                 AllowZeroCreditCashout = _properties.GetValue(GamingConstants.AllowZeroCreditCashout, false),
                 VolumeControlLocation = (VolumeControlLocation)_properties.GetValue(
-                    ApplicationConstants.VolumeControlLocationKey,
-                    ApplicationConstants.VolumeControlLocationDefault),
+                    HardwareConstants.VolumeControlLocationKey,
+                    HardwareConstants.VolumeControlLocationDefault),
                 ContinuousPlayModeConfigurable =
                     _properties.GetValue(GamingConstants.ContinuousPlayModeConfigurable, true),
                 AutoHoldConfigurable = _properties.GetValue(GamingConstants.AutoHoldConfigurable, true),
@@ -161,8 +162,8 @@ namespace Aristocrat.Monaco.Gaming.UI.Settings
                     _properties.GetValue(GamingConstants.ShowServiceButton, false),
                 RelativeVolume =
                     (VolumeScalar)_properties.GetValue(
-                        ApplicationConstants.LobbyVolumeScalarKey,
-                        ApplicationConstants.LobbyVolumeScalar),
+                        HardwareConstants.LobbyVolumeScalarKey,
+                        HardwareConstants.LobbyVolumeScalar),
                 ReelStopEnabled =
                     _properties.GetValue(GamingConstants.ReelStopEnabled, false),
                 ReelSpeed = _properties.GetValue(GamingConstants.ReelSpeedKey, GamingConstants.ReelSpeed),
@@ -290,9 +291,9 @@ namespace Aristocrat.Monaco.Gaming.UI.Settings
                 settings.ContinuousPlayModeConfigurable);
             _properties.SetProperty(GamingConstants.AutoHoldConfigurable, settings.AutoHoldConfigurable);
             _properties.SetProperty(GamingConstants.ProgressiveLobbyIndicatorType, settings.ProgressiveIndicator);
-            _properties.SetProperty(ApplicationConstants.VolumeControlLocationKey, settings.VolumeControlLocation);
+            _properties.SetProperty(HardwareConstants.VolumeControlLocationKey, settings.VolumeControlLocation);
             _properties.SetProperty(GamingConstants.ShowServiceButton, settings.ShowServiceButton);
-            _properties.SetProperty(ApplicationConstants.LobbyVolumeScalarKey, settings.RelativeVolume);
+            _properties.SetProperty(HardwareConstants.LobbyVolumeScalarKey, settings.RelativeVolume);
             _properties.SetProperty(GamingConstants.ReelStopEnabled, settings.ReelStopEnabled);
             _properties.SetProperty(GamingConstants.AllowZeroCreditCashout, settings.AllowZeroCreditCashout);
             _properties.SetProperty(GamingConstants.ReelSpeedKey, settings.ReelSpeed);

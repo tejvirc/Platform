@@ -8,6 +8,7 @@
     using Application.Contracts;
     using Application.Contracts.Localization;
     using Contracts;
+    using Hardware.Contracts;
     using Hardware.Contracts.Audio;
 	using Hardware.Services;
     using Kernel;
@@ -208,8 +209,7 @@
 
             StoreMachineDisabledStatus(true);
 
-            var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, _audio.DefaultAlertVolume);
-            _audio.PlayAlert(SoundName.MoneyLaunderingMonitor, alertVolume);
+            _audio.PlayAlert(SoundName.MoneyLaunderingMonitor);
 
             _eventBus.Subscribe<DownEvent>(this, e => EnableMachine(), e => e.LogicalId == (int)ButtonLogicalId.Button30);
 

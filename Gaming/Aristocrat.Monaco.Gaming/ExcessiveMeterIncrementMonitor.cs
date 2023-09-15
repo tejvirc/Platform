@@ -110,8 +110,7 @@
         /// </summary>
         private void PlayErrorSound()
         {
-            var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
-            _audioService.PlayAlert(SoundName.ExcessiveMeterIncrement, alertVolume);
+            _audioService.PlayAlert(SoundName.ExcessiveMeterIncrement);
         }
 
         protected virtual void Dispose(bool disposing)

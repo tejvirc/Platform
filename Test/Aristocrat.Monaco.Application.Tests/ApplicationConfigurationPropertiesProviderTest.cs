@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Cabinet.Contracts;
     using Contracts;
+	using Hardware.Contracts;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -42,13 +43,13 @@
             _storageManager.Setup(m => m.BlockExists(It.Is<string>(s => s == storageName))).Returns(true);
             _storageManager.Setup(m => m.GetBlock(It.Is<string>(s => s == storageName))).Returns(_accessor.Object);
             _accessor.Setup(a => a[It.IsAny<string>()]).Returns(It.IsAny<object>());
-            _accessor.Setup(a => a[ApplicationConstants.AlertVolumeKey]).Returns((byte)100);
             _accessor.Setup(a => a[PropertyKey.DefaultVolumeLevel]).Returns((byte)100);
             _accessor.Setup(a => a[ApplicationConstants.BottomEdgeLightingOnKey]).Returns(false);
             _accessor.Setup(a => a[ApplicationConstants.CabinetTypeKey]).Returns(CabinetType.Bartop);
             _accessor.Setup(a => a[ApplicationConstants.BarCodeType]).Returns(BarcodeTypeOptions.Interleave2of5);
-            _accessor.Setup(a => a[ApplicationConstants.LobbyVolumeScalarKey]).Returns((byte)5);
-            _accessor.Setup(a => a[ApplicationConstants.PlayerVolumeScalarKey]).Returns((byte)5);
+            _accessor.Setup(a => a[HardwareConstants.AlertVolumeKey]).Returns((byte)100);
+            _accessor.Setup(a => a[HardwareConstants.LobbyVolumeScalarKey]).Returns((byte)5);
+            _accessor.Setup(a => a[HardwareConstants.PlayerVolumeScalarKey]).Returns((byte)5);
             _accessor.Setup(a => a[ApplicationConstants.LayoutType]).Returns(LayoutTypeOptions.ExtendedLayout);
             _accessor.Setup(a => a[ApplicationConstants.ValidationLength]).Returns(ValidationLengthOptions.System);
             _accessor.Setup(a => a[ApplicationConstants.ReserveServiceLockupPresent]).Returns(false);
@@ -58,7 +59,7 @@
             _accessor.Setup(a => a[ApplicationConstants.ReserveServiceLockupRemainingSeconds]).Returns(10);
             _accessor.Setup(a => a[ApplicationConstants.InitialBellRing]).Returns(DefaultBellValueInMillicents);
             _accessor.Setup(a => a[ApplicationConstants.IntervalBellRing]).Returns(DefaultBellValueInMillicents);
-            _accessor.Setup(a => a[ApplicationConstants.VolumeControlLocationKey]).Returns(2);
+            _accessor.Setup(a => a[HardwareConstants.VolumeControlLocationKey]).Returns(2);
         }
 
         [TestCleanup]

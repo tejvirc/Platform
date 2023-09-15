@@ -2,6 +2,7 @@
 {
     using Application.Contracts;
     using Contracts;
+    using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Kernel;
     using Kernel.Contracts;
@@ -22,13 +23,13 @@
         /// <returns>Returns the max volume value (0-100.0)</returns>
         public static float GetMaxVolume(this IAudio audio, IPropertiesManager propertiesManager, IGameCategoryService gameCategoryService, bool showVolumeControlInLobbyOnly)
         {
-            var volumeLevel = (VolumeLevel)propertiesManager.GetProperty(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            var volumeLevel = (VolumeLevel)propertiesManager.GetProperty(PropertyKey.DefaultVolumeLevel, HardwareConstants.DefaultVolumeLevel);
             var masterVolume = audio.GetVolume(volumeLevel);
 
-            var useGameTypeVolume = propertiesManager.GetValue(ApplicationConstants.UseGameTypeVolumeKey, ApplicationConstants.UseGameTypeVolume);
+            var useGameTypeVolume = propertiesManager.GetValue(HardwareConstants.UseGameTypeVolumeKey, HardwareConstants.UseGameTypeVolume);
             var gameTypeVolumeScalar = useGameTypeVolume ? audio.GetVolumeScalar(gameCategoryService.SelectedGameCategorySetting.VolumeScalar) : 1.0f;
 
-            var playerVolumeScalar = audio.GetVolumeScalar((VolumeScalar)propertiesManager.GetValue(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.PlayerVolumeScalar));
+            var playerVolumeScalar = audio.GetVolumeScalar((VolumeScalar)propertiesManager.GetValue(HardwareConstants.PlayerVolumeScalarKey, HardwareConstants.PlayerVolumeScalar));
 
             return masterVolume * gameTypeVolumeScalar * (!showVolumeControlInLobbyOnly ? playerVolumeScalar : 1.0f);
         }

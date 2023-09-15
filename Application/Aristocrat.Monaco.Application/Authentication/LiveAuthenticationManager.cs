@@ -532,8 +532,7 @@ namespace Aristocrat.Monaco.Application.Authentication
         /// </summary>
         private void PlayErrorSound()
         {
-            var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
-            _audioService.PlayAlert(SoundName.LiveAuthenticationFailed, alertVolume);
+            _audioService.PlayAlert(SoundName.LiveAuthenticationFailed);
         }
     }
 }

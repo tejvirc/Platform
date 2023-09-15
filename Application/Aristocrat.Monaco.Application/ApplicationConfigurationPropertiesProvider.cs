@@ -6,6 +6,8 @@
     using System.Reflection;
     using Contracts;
     using Contracts.Localization;
+    using Hardware.Contracts;
+    using Hardware.Contracts.Audio;
     using Hardware.Contracts.Cabinet;
     using Hardware.Contracts.Gds;
     using Hardware.Contracts.Persistence;
@@ -80,11 +82,6 @@
 
             var deletePackageAfterInstall = configuration.SoftwareInstall?.DeletePackageAfter ?? false;
             var mediaDisplayEnabled = configuration.MediaDisplay?.Enabled ?? false;
-            var defaultVolumeLevel = configuration.SoundConfiguration?.DefaultVolumeLevelSpecified == true
-                ? configuration.SoundConfiguration.DefaultVolumeLevel
-                : ApplicationConstants.DefaultVolumeLevel;
-            var defaultVolumeControlLocation = configuration.SoundConfiguration?.VolumeControl?.Location ??
-                                               (VolumeControlLocation)ApplicationConstants.VolumeControlLocationDefault;
             var excessiveDocumentRejectCount = configuration.ExcessiveDocumentReject?.ConsecutiveRejectsBeforeLockup ??
                                                ApplicationConstants.ExcessiveDocumentRejectDefaultCount;
             
@@ -111,10 +108,6 @@
                     mediaDisplayEnabled = propertiesManager.GetValue(ApplicationConstants.MediaDisplayEnabled, false);
                 }
 
-                defaultVolumeLevel = propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
-                defaultVolumeControlLocation = (VolumeControlLocation)propertiesManager.GetValue(
-                    ApplicationConstants.VolumeControlLocationKey,
-                    ApplicationConstants.VolumeControlLocationDefault);
                 excessiveDocumentRejectCount = propertiesManager.GetValue(
                     ApplicationConstants.ExcessiveDocumentRejectCount,
                     ApplicationConstants.ExcessiveDocumentRejectDefaultCount);
@@ -278,86 +271,6 @@
                         (object)configuration.AutoClearPeriodMetersBehavior?.ClearClearPeriodOffsetHours,
                         ApplicationConstants.ClearClearPeriodOffsetHoursText,
                         false)
-                },
-                {
-                    ApplicationConstants.AlertVolumeKey,
-                    Tuple.Create(
-                        (object)InitFromStorage(
-                            ApplicationConstants.AlertVolumeKey,
-                            configuration.SoundConfiguration?.AlertVolume?.Value ?? 100),
-                        ApplicationConstants.AlertVolumeKey,
-                        true)
-                },
-                {
-                    ApplicationConstants.SoundConfigurationAlertVolumeMinimum,
-                    Tuple.Create(
-                        (object)configuration.SoundConfiguration?.AlertVolume?.Minimum ?? ApplicationConstants.AlertVolumeMinimum,
-                         ApplicationConstants.SoundConfigurationAlertVolumeMinimum,
-                         false)
-                },
-                {
-                    ApplicationConstants.SoundConfigurationAlertVolumeConfigurable,
-                    Tuple.Create(
-                        (object)configuration.SoundConfiguration?.AlertVolume?.Configurable ?? false,
-                         ApplicationConstants.SoundConfigurationAlertVolumeConfigurable,
-                        false)
-                },
-                {
-                    ApplicationConstants.SoundConfigurationPlayTestAlertSound,
-                    Tuple.Create(
-                        (object)configuration.SoundConfiguration?.AlertVolume?.PlayTestSound ?? false,
-                         ApplicationConstants.SoundConfigurationPlayTestAlertSound,
-                        false)
-                },
-                {
-                    ApplicationConstants.SoundConfigurationLogicDoorFullVolumeAlert,
-                    Tuple.Create(
-                        (object)configuration.SoundConfiguration?.AlertVolume?.LogicDoorFullVolumeAlert ?? false,
-                         ApplicationConstants.SoundConfigurationLogicDoorFullVolumeAlert,
-                        false)
-                },
-                {
-                    PropertyKey.DefaultVolumeLevel,
-                    Tuple.Create(
-                        (object)InitFromStorage(
-                            PropertyKey.DefaultVolumeLevel,
-                            defaultVolumeLevel),
-                        PropertyKey.DefaultVolumeLevel,
-                        true)
-                },
-                {
-                    ApplicationConstants.UseGameTypeVolumeKey,
-                    Tuple.Create(
-                        (object)configuration.SoundConfiguration?.UseGameTypeVolume ?? ApplicationConstants.UseGameTypeVolume,
-                        ApplicationConstants.UseGameTypeVolumeKey,
-                        false)
-                },
-                {
-                    ApplicationConstants.LobbyVolumeScalarKey,
-                    Tuple.Create(
-                        (object)InitFromStorage(
-                            ApplicationConstants.LobbyVolumeScalarKey,
-                            configuration.SoundConfiguration?.LobbyVolumeScalar ?? ApplicationConstants.LobbyVolumeScalar),
-                        ApplicationConstants.LobbyVolumeScalarKey,
-                        true)
-                },
-                {
-                    ApplicationConstants.PlayerVolumeScalarKey,
-                    Tuple.Create(
-                        (object)InitFromStorage(
-                            ApplicationConstants.PlayerVolumeScalarKey,
-                            configuration.SoundConfiguration?.PlayerVolumeScalar ?? ApplicationConstants.PlayerVolumeScalar),
-                        ApplicationConstants.PlayerVolumeScalarKey,
-                        true)
-                },
-                {
-                    ApplicationConstants.VolumeControlLocationKey,
-                    Tuple.Create(
-                        (object)InitFromStorage(
-                            ApplicationConstants.VolumeControlLocationKey,
-                            (int)defaultVolumeControlLocation),
-                        ApplicationConstants.VolumeControlLocationKey,
-                        true)
                 },
                 {
                     ApplicationConstants.DeletePackageAfterInstall,

@@ -12,6 +12,7 @@
     using Mgam.Services.PlayerTracking;
     using Gaming;
     using Gaming.Contracts;
+	using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.TowerLight;
     using Kernel;
@@ -175,7 +176,7 @@
         {
             CreateNewTarget();
             _propertiesManager.Setup(p => p.GetProperty(MgamConstants.PlayAlarmAfterGameRoundKey, false)).Returns(true).Verifiable();
-            _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.AlertVolumeKey, MgamConstants.DefaultAlertVolume)).Returns(MgamConstants.DefaultAlertVolume).Verifiable();
+            _propertiesManager.Setup(p => p.GetProperty(HardwareConstants.AlertVolumeKey, MgamConstants.DefaultAlertVolume)).Returns(MgamConstants.DefaultAlertVolume).Verifiable();
             _propertiesManager.Setup(p => p.SetProperty(MgamConstants.PlayAlarmAfterGameRoundKey, false)).Verifiable();
             
             _audio.Setup(p => p.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null)).Verifiable();

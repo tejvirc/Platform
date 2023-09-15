@@ -107,10 +107,9 @@
         ///     Plays the specified file.
         /// </summary>
         /// <param name="soundName">The audio name to play.</param>
-        /// <param name="volume">volume of play channel</param>
         /// <param name="speakers">Speaker mix of play channel</param>
         /// <param name="callback">Callback when audio event finishes (will not be called if sound is interrupted)</param>
-        void PlayAlert(SoundName soundName, float? volume, SpeakerMix speakers = SpeakerMix.All, Action callback = null);
+        void PlayAlert(SoundName soundName, SpeakerMix speakers = SpeakerMix.All, Action callback = null);
 
         /// <summary>
         ///     Stops any audio playback.

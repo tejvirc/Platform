@@ -8,6 +8,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
     using Contracts;
     using Contracts.Localization;
     using Contracts.OperatorMenu;
+	using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Persistence;
     using Hardware.Contracts.Printer;
@@ -89,7 +90,7 @@ namespace Aristocrat.Monaco.Application.Tests.Monitors
             _persistentStorageAccessor.Setup(m => m.StartTransaction()).Returns(_persistentStorageTransaction.Object);
 
             _propertiesManager
-                .Setup(m => m.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<byte>()))
+                .Setup(m => m.GetProperty(HardwareConstants.AlertVolumeKey, It.IsAny<byte>()))
                 .Returns((byte)100);
 
             _propertiesManager

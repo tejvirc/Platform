@@ -104,7 +104,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private void LoadVolumeSettings()
         {
             // Load default volume level
-            _soundLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            _soundLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, HardwareConstants.DefaultVolumeLevel);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", _soundLevel);
             OnPropertyChanged(nameof(SoundLevel));
         }

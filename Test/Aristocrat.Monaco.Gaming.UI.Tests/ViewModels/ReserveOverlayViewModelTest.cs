@@ -6,6 +6,7 @@
     using Application.Contracts;
     using Application.Contracts.Input;
     using Application.Contracts.OperatorMenu;
+    using Aristocrat.Monaco.Hardware.Contracts;
     using Aristocrat.Monaco.Hardware.Contracts.Audio;
     using Contracts;
     using Kernel;
@@ -57,7 +58,7 @@
             _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.ReserveServiceLockupRemainingSeconds, It.IsAny<int>()))
                 .Returns(It.IsAny<int>());
 
-            _propertiesManager.Setup(x => x.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, It.IsAny<byte>()))
+            _propertiesManager.Setup(x => x.GetProperty(HardwareConstants.PlayerVolumeScalarKey, It.IsAny<byte>()))
                 .Returns(It.IsAny<byte>());
 
             _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.ReserveServiceLockupPresent, It.IsAny<bool>())).Returns(false);

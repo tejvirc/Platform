@@ -8,6 +8,7 @@
     using System.Windows.Controls;
     using Contracts;
     using Contracts.OperatorMenu;
+	using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.Cabinet;
@@ -62,15 +63,15 @@
                 .Returns(showMode);
 
             var alertVolume = (byte)100;
-            _propertiesManagerMock.Setup(m => m.GetProperty(ApplicationConstants.AlertVolumeKey, alertVolume))
+            _propertiesManagerMock.Setup(m => m.GetProperty(HardwareConstants.AlertVolumeKey, alertVolume))
                 .Returns(alertVolume);
 
             var alertVolumeMinimum = (byte)50;
-            _propertiesManagerMock.Setup(m => m.GetProperty(ApplicationConstants.SoundConfigurationAlertVolumeMinimum, alertVolumeMinimum))
+            _propertiesManagerMock.Setup(m => m.GetProperty(HardwareConstants.SoundConfigurationAlertVolumeMinimum, alertVolumeMinimum))
                 .Returns(alertVolumeMinimum);
 
             var isAlertConfigurable = false;
-            _propertiesManagerMock.Setup(m => m.GetProperty(ApplicationConstants.SoundConfigurationAlertVolumeConfigurable, isAlertConfigurable))
+            _propertiesManagerMock.Setup(m => m.GetProperty(HardwareConstants.SoundConfigurationAlertVolumeConfigurable, isAlertConfigurable))
                 .Returns(isAlertConfigurable);
 
             var _buttonService = MoqServiceManager.CreateAndAddService<IButtonService>(MockBehavior.Strict);
@@ -112,8 +113,8 @@
         {
             var page = new Page();
 
-            _propertiesManagerMock.Setup(m => m.GetProperty(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel))
-                .Returns(ApplicationConstants.DefaultVolumeLevel);
+            _propertiesManagerMock.Setup(m => m.GetProperty(PropertyKey.DefaultVolumeLevel, HardwareConstants.DefaultVolumeLevel))
+                .Returns(HardwareConstants.DefaultVolumeLevel);
 
             var viewModel = new SoundTestPageViewModel();
 

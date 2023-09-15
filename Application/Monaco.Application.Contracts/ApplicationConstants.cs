@@ -93,67 +93,7 @@
 
         /// <summary> Property Manager key for the selected Jurisdiction </summary>
         public const string JurisdictionKey = "System.Jurisdiction";
-
-        /// <summary>
-        ///     Property Manager key for AlertVolume.
-        /// </summary>
-        public const string AlertVolumeKey = "Application.AlertVolume";
-
-        /// <summary>
-        ///     Default volume level used if default is not specified in config files.
-        /// </summary>
-        public const byte DefaultVolumeLevel = 3;
-
-        /// <summary>
-        ///     Default for playing test alert sound on change.
-        /// </summary>
-        public const bool DefaultPlayTestAlertSound = false;
-
-        /// <summary>
-        ///     Default minimum volume for alerts if not specified in config files.
-        /// </summary>
-        public const byte AlertVolumeMinimum = 50;
-
-        /// <summary>
-        ///     Property Manager key for UseGameTypeVolume.
-        /// </summary>
-        public const string UseGameTypeVolumeKey = "Application.UseGameTypeVolume";
-
-        /// <summary>
-        ///     The default value for the UseGameTypeVolume flag.
-        /// </summary>
-        public const bool UseGameTypeVolume = true;
-
-        /// <summary>
-        ///     Property Manager key for LobbyVolumeScalar.
-        /// </summary>
-        public const string LobbyVolumeScalarKey = "Application.LobbyVolumeScalar";
-
-        /// <summary>
-        ///     The default value for the LobbyVolumeScalar property.
-        /// </summary>
-        public const byte LobbyVolumeScalar = 5;
-
-        /// <summary>
-        ///     Property Manager key for PlayerVolumeScalar.
-        /// </summary>
-        public const string PlayerVolumeScalarKey = "Application.PlayerVolumeScalar";
-
-        /// <summary>
-        ///     The default value for the PlayerVolumeScalar property.
-        /// </summary>
-        public const byte PlayerVolumeScalar = 5;
-
-        /// <summary>
-        ///     The key for the VolumeControlLocation property
-        /// </summary>
-        public const string VolumeControlLocationKey = "Application.VolumeControlLocation";
-
-        /// <summary>
-        ///     The default setting for the VolumeControlLocation property
-        /// </summary>
-        public const int VolumeControlLocationDefault = 2;
-
+        
         /// <summary>
         ///     Property key for whether to enable show mode
         /// </summary>
@@ -1213,18 +1153,6 @@
         ///      Belly Door discrepancy lockup GUID
         /// </summary>
         public static readonly Guid BellyDoorDiscrepencyGuid = new Guid("{E3307468-9863-49E4-AF9E-C3982B869B27}");
-
-        /// <summary> Property manager key for SoundConfigurationAlertVolumeMinimum </summary>
-        public const string SoundConfigurationAlertVolumeMinimum = "SoundConfiguration.AlertVolume.Minimum";
-
-        /// <summary> Property manager key for SoundConfigurationAlertVolumeConfigurable </summary>
-        public const string SoundConfigurationAlertVolumeConfigurable = "SoundConfiguration.AlertVolume.Configurable";
-
-        /// <summary> Property manager key for SoundConfigurationPlayTestAlertSound </summary>
-        public const string SoundConfigurationPlayTestAlertSound = "SoundConfiguration.AlertVolume.PlayTestSound";
-
-        /// <summary> Property manager key for SoundConfigurationLogicDoorFullVolumeAlert </summary>
-        public const string SoundConfigurationLogicDoorFullVolumeAlert = "SoundConfiguration.AlertVolume.LogicDoorFullVolumeAlert";
 
         /// <summary> The default maximum allowable value when editing max credits in.</summary>
         public const decimal MaxCreditsInMax = 9_999_999_999.99M;

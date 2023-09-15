@@ -26,16 +26,30 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Audio {
         
         private SoundConfigurationAudioFiles audioFilesField;
         
+        private SoundConfigurationAlert alertField;
+        
+        private SoundConfigurationVolumeControl volumeControlField;
+        
+        private bool useGameTypeVolumeField;
+        
+        private int lobbyVolumeScalarField;
+        
+        private int playerVolumeScalarField;
+        
         private int soundLengthMsField;
         
-        private int alertVolumeField;
+        private int doorAlarmLoopCountField;
         
-        private int alertDurationMsField;
+        private byte defaultVolumeLevelField;
+        
+        private bool defaultVolumeLevelFieldSpecified;
         
         public SoundConfiguration() {
+            this.useGameTypeVolumeField = true;
+            this.lobbyVolumeScalarField = 5;
+            this.playerVolumeScalarField = 5;
             this.soundLengthMsField = 500;
-            this.alertVolumeField = 100;
-            this.alertDurationMsField = 5000;
+            this.doorAlarmLoopCountField = 24;
         }
         
         /// <remarks/>
@@ -49,6 +63,60 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Audio {
         }
         
         /// <remarks/>
+        public SoundConfigurationAlert Alert {
+            get {
+                return this.alertField;
+            }
+            set {
+                this.alertField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public SoundConfigurationVolumeControl VolumeControl {
+            get {
+                return this.volumeControlField;
+            }
+            set {
+                this.volumeControlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.ComponentModel.DefaultValueAttribute(true)]
+        public bool UseGameTypeVolume {
+            get {
+                return this.useGameTypeVolumeField;
+            }
+            set {
+                this.useGameTypeVolumeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.ComponentModel.DefaultValueAttribute(5)]
+        public int LobbyVolumeScalar {
+            get {
+                return this.lobbyVolumeScalarField;
+            }
+            set {
+                this.lobbyVolumeScalarField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.ComponentModel.DefaultValueAttribute(5)]
+        public int PlayerVolumeScalar {
+            get {
+                return this.playerVolumeScalarField;
+            }
+            set {
+                this.playerVolumeScalarField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.ComponentModel.DefaultValueAttribute(500)]
         public int SoundLengthMs {
             get {
                 return this.soundLengthMsField;
@@ -59,22 +127,34 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Audio {
         }
         
         /// <remarks/>
-        public int AlertVolume {
+        [System.ComponentModel.DefaultValueAttribute(24)]
+        public int DoorAlarmLoopCount {
             get {
-                return this.alertVolumeField;
+                return this.doorAlarmLoopCountField;
             }
             set {
-                this.alertVolumeField = value;
+                this.doorAlarmLoopCountField = value;
             }
         }
         
         /// <remarks/>
-        public int AlertDurationMs {
+        public byte DefaultVolumeLevel {
             get {
-                return this.alertDurationMsField;
+                return this.defaultVolumeLevelField;
             }
             set {
-                this.alertDurationMsField = value;
+                this.defaultVolumeLevelField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool DefaultVolumeLevelSpecified {
+            get {
+                return this.defaultVolumeLevelFieldSpecified;
+            }
+            set {
+                this.defaultVolumeLevelFieldSpecified = value;
             }
         }
     }
@@ -275,5 +355,149 @@ namespace Aristocrat.Monaco.Hardware.Contracts.Audio {
         
         /// <remarks/>
         Touch,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class SoundConfigurationAlert {
+        
+        private int volumeField;
+        
+        private int minimumField;
+        
+        private bool logicDoorFullVolumeAlertField;
+        
+        private bool configurableField;
+        
+        private bool playTestSoundField;
+        
+        private int alertDurationMsField;
+        
+        public SoundConfigurationAlert() {
+            this.volumeField = 100;
+            this.minimumField = 50;
+            this.logicDoorFullVolumeAlertField = false;
+            this.configurableField = false;
+            this.playTestSoundField = false;
+            this.alertDurationMsField = 5000;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(100)]
+        public int Volume {
+            get {
+                return this.volumeField;
+            }
+            set {
+                this.volumeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(50)]
+        public int Minimum {
+            get {
+                return this.minimumField;
+            }
+            set {
+                this.minimumField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool LogicDoorFullVolumeAlert {
+            get {
+                return this.logicDoorFullVolumeAlertField;
+            }
+            set {
+                this.logicDoorFullVolumeAlertField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Configurable {
+            get {
+                return this.configurableField;
+            }
+            set {
+                this.configurableField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool PlayTestSound {
+            get {
+                return this.playTestSoundField;
+            }
+            set {
+                this.playTestSoundField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(5000)]
+        public int AlertDurationMs {
+            get {
+                return this.alertDurationMsField;
+            }
+            set {
+                this.alertDurationMsField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class SoundConfigurationVolumeControl {
+        
+        private VolumeControlLocation locationField;
+        
+        public SoundConfigurationVolumeControl() {
+            this.locationField = VolumeControlLocation.LobbyAndGame;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(VolumeControlLocation.LobbyAndGame)]
+        public VolumeControlLocation Location {
+            get {
+                return this.locationField;
+            }
+            set {
+                this.locationField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    public enum VolumeControlLocation {
+        
+        /// <remarks/>
+        Lobby,
+        
+        /// <remarks/>
+        Game,
+        
+        /// <remarks/>
+        LobbyAndGame,
     }
 }

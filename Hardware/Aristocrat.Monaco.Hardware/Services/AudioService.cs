@@ -104,9 +104,20 @@
             if (config.AudioFiles is not null)
             {
                 Logger.Debug($"Loading Sound.config.xml");
+
                 _defaultSoundLengthMs = config.SoundLengthMs;
-                _defaultAlertVolume = config.AlertVolume;
-                _defaultAlertDurationMs = config.AlertDurationMs;
+                _defaultAlertVolume = config.Alert.Volume;
+                _defaultAlertDurationMs = config.Alert.AlertDurationMs;
+
+                _properties.SetProperty(HardwareConstants.AlertVolumeKey, config.Alert.Volume);
+                _properties.SetProperty(HardwareConstants.UseGameTypeVolumeKey, config.VolumeControl);
+                _properties.SetProperty(HardwareConstants.LobbyVolumeScalarKey, config.LobbyVolumeScalar);
+                _properties.SetProperty(HardwareConstants.PlayerVolumeScalarKey, config.PlayerVolumeScalar);
+                _properties.SetProperty(HardwareConstants.VolumeControlLocationKey, config.VolumeControl.Location);
+                _properties.SetProperty(HardwareConstants.SoundConfigurationAlertVolumeMinimum, config.Alert.Minimum);
+                _properties.SetProperty(HardwareConstants.SoundConfigurationAlertVolumeConfigurable, config.Alert.Configurable);
+                _properties.SetProperty(HardwareConstants.SoundConfigurationPlayTestAlertSound, config.Alert.PlayTestSound);
+                _properties.SetProperty(HardwareConstants.SoundConfigurationLogicDoorFullVolumeAlert, config.Alert.LogicDoorFullVolumeAlert);
 
                 foreach (var audio in config.AudioFiles.AudioFile)
                 {
@@ -160,24 +171,22 @@
         /// <inheritdoc />
         public void PlayAlert(
             SoundName soundName,
-            float? volume,
             SpeakerMix speakers = SpeakerMix.All,
             Action callback = null)
         {
             var loopCount = GetLoopCountForSound(soundName);
-            
+
+            var volume = (float)_properties.GetValue(HardwareConstants.AlertVolumeKey, _defaultAlertVolume);
+
             if (!_sounds.ContainsKey(soundName))
             {
                 Logger.Error($"Audio file can't play; sound file not loaded or existed: {soundName}");
                 return;
             }
 
-            if (!volume.HasValue)
-            {
-                volume = GetDefaultVolume();
-            }
+            volume = GetDefaultVolume();
 
-            InternalPlay(soundName, MODE.LOOP_NORMAL, loopCount, volume.Value / 100.0f, speakers, callback);
+            InternalPlay(soundName, MODE.LOOP_NORMAL, loopCount, volume / 100.0f, speakers, callback);
         }
 
         /// <inheritdoc />

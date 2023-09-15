@@ -11,6 +11,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using CommunityToolkit.Mvvm.Input;
     using Contracts;
     using Contracts.Events;
+	using Hardware.Contracts;
     using Kernel;
     using log4net;
     using CommunityToolkit.Mvvm.ComponentModel;
@@ -99,7 +100,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             _audioService = audioService ?? throw new ArgumentException(nameof(audioService));
 
             _eventBus.Subscribe<GamePlayStateChangedEvent>(this, eventArgs => Handler(eventArgs.CurrentState));
-            _eventBus.Subscribe<PropertyChangedEvent>(this, eventArgs => SetVolumeControlVisible(), property => property.PropertyName == ApplicationConstants.VolumeControlLocationKey);
+            _eventBus.Subscribe<PropertyChangedEvent>(this, eventArgs => SetVolumeControlVisible(), property => property.PropertyName == HardwareConstants.VolumeControlLocationKey);
             _closeDelayTimer.Elapsed += (sender, args) => SendButtonPressToExit();
 
             ReserveDigitClickedCommand = new RelayCommand<string>(ConcatenateReservePin);
@@ -385,8 +386,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void SetVolumeControlVisible()
         {
             var volumeControlLocation = (VolumeControlLocation)_properties.GetValue(
-                ApplicationConstants.VolumeControlLocationKey,
-                ApplicationConstants.VolumeControlLocationDefault);
+                HardwareConstants.VolumeControlLocationKey,
+                HardwareConstants.VolumeControlLocationDefault);
 
             IsVolumeButtonVisible = volumeControlLocation == VolumeControlLocation.Game ||
                                     volumeControlLocation == VolumeControlLocation.LobbyAndGame;
@@ -394,7 +395,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
         public void PlayClickSound()
         {
-            var soundVolume = (byte)_properties.GetProperty(ApplicationConstants.PlayerVolumeScalarKey, ApplicationConstants.DefaultVolumeLevel);
+            var soundVolume = (byte)_properties.GetProperty(HardwareConstants.PlayerVolumeScalarKey, HardwareConstants.DefaultVolumeLevel);
             _audioService.Play(SoundName.Touch, soundVolume);
         }
     }

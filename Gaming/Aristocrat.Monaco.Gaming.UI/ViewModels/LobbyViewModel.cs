@@ -33,6 +33,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Contracts.PlayerInfoDisplay;
     using Contracts.Tickets;
     using Converters;
+	using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.Button;
     using Hardware.Contracts.ButtonDeck;
@@ -4957,7 +4958,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void PlayLoopingAlert(SoundName soundName, int loopCount) => PlayLoopingAudioFile(
             soundName,
             loopCount,
-            _properties.GetValue(ApplicationConstants.AlertVolumeKey, DefaultAlertVolume));
+            _properties.GetValue(HardwareConstants.AlertVolumeKey, DefaultAlertVolume));
 
         private void PlayLoopingAudioFile(SoundName soundName, int loopCount, float volume)
         {
@@ -5318,8 +5319,8 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         private void GetVolumeButtonVisible()
         {
             var volumeControlLocation = (VolumeControlLocation)_properties.GetValue(
-                ApplicationConstants.VolumeControlLocationKey,
-                ApplicationConstants.VolumeControlLocationDefault);
+                HardwareConstants.VolumeControlLocationKey,
+                HardwareConstants.VolumeControlLocationDefault);
 
             VolumeButtonVisible = volumeControlLocation == VolumeControlLocation.Lobby ||
                                   volumeControlLocation == VolumeControlLocation.LobbyAndGame;

@@ -1,13 +1,13 @@
 ﻿namespace Aristocrat.Monaco.Mgam.Consumers
 {
     using System;
-    using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
     using Application.Contracts;
     using Common;
     using Common.Events;
     using Gaming.Contracts;
+    using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.TowerLight;
     using Kernel;
@@ -55,7 +55,7 @@
 
             if (_gamePlayStateService.Idle)
             {
-                var alertVolume = _propertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, MgamConstants.DefaultAlertVolume);
+                var alertVolume = _propertiesManager.GetValue(HardwareConstants.AlertVolumeKey, MgamConstants.DefaultAlertVolume);
                 _audioService.Play(SoundName.HostOffline, MgamConstants.DefaultAlertLoopCount, alertVolume);
 
                 _towerLightService.SetFlashState(LightTier.Tier1, FlashState.FastFlash, TimeSpan.MaxValue);

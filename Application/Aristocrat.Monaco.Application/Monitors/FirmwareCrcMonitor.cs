@@ -308,8 +308,7 @@
         {
             if (!(bool)_properties.GetProperty(KernelConstants.IsInspectionOnly, false))
             {
-                var alertVolume = _properties.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
-                _audioService.PlayAlert(SoundName.FirmwareCrcError, alertVolume);
+                _audioService.PlayAlert(SoundName.FirmwareCrcError);
             }
         }
     }

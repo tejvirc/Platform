@@ -210,7 +210,7 @@
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _propertiesManager.Setup(m => m.GetProperty(It.IsAny<string>(), It.IsAny<long>())).Returns(100L);
             _propertiesManager.Setup(m => m.GetProperty(It.IsAny<string>(), It.IsAny<int>())).Returns(100L);
-            _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.AlertVolumeKey, It.IsAny<byte>())).Returns((byte)100);
+            _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.AlertVolumeKey, It.IsAny<byte>())).Returns((byte)100);
             _propertiesManager.Setup(m => m.GetProperty(ApplicationConstants.LockupCulture, CultureFor.Operator)).Returns(CultureFor.Operator);
 
             SetupMeters();
@@ -316,7 +316,7 @@
             _doorService.Setup(mock => mock.GetDoorClosed(2)).Returns(false);
             _doorService.Setup(mock => mock.GetDoorOpen(7)).Returns(true);
             _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoorAlarmEnabledKey, It.IsAny<bool>())).Returns(true);
-            _propertiesManager.Setup(p => p.GetProperty(ApplicationConstants.SoundConfigurationLogicDoorFullVolumeAlert, It.IsAny<object>())).Returns(true);
+            _propertiesManager.Setup(p => p.GetProperty(HardwareConstants.SoundConfigurationLogicDoorFullVolumeAlert, It.IsAny<object>())).Returns(true);
             _propertiesManager.Setup(p => p.GetProperty(KernelConstants.IsInspectionOnly, It.IsAny<object>())).Returns(true);
 
             _accessor.CheckDoorAlarm(true, true);

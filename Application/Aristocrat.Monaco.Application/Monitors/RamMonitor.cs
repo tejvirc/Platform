@@ -199,8 +199,7 @@
         /// </summary>
         private void PlayErrorSound()
         {
-            var alertVolume = _properties.GetValue(ApplicationConstants.AlertVolumeKey, _audioService.DefaultAlertVolume);
-            _audioService.PlayAlert(SoundName.CriticalMemoryIntegrityCheck, alertVolume);
+            _audioService.PlayAlert(SoundName.CriticalMemoryIntegrityCheck);
         }
     }
 }

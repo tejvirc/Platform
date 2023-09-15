@@ -41,7 +41,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             }
 
             // Load default volume level
-            var selectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            var selectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, HardwareConstants.DefaultVolumeLevel);
             _selectedVolumeLevel = VolumeOptions.FirstOrDefault(v => v.Level == selectedVolumeLevel);
             Logger.DebugFormat("Initializing default volume setting with value: {0}", _selectedVolumeLevel);
         }
@@ -92,7 +92,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private void LoadVolumeSettings()
         {
             // Load volume level
-            var selectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            var selectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, HardwareConstants.DefaultVolumeLevel);
             SelectedVolumeLevel = VolumeOptions.FirstOrDefault(v => v.Level == selectedVolumeLevel);
         }
 

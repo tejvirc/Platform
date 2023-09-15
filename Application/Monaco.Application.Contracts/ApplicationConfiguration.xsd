@@ -265,30 +265,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element minOccurs="0" maxOccurs="1" name="SoundConfiguration">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element minOccurs="0" maxOccurs="1" name="DefaultVolumeLevel" type="xs:unsignedByte" />
-              <xs:element minOccurs="0" maxOccurs="1" name="AlertVolume">
-                <xs:complexType>
-                  <xs:attribute default="100" name="Value" type="xs:unsignedByte" />
-                  <xs:attribute default="50" name="Minimum" type="xs:unsignedByte" />
-                  <xs:attribute default="false" name="LogicDoorFullVolumeAlert" type="xs:boolean" />
-                  <xs:attribute default="false" name="Configurable" type="xs:boolean" />
-                  <xs:attribute default="false" name="PlayTestSound" type="xs:boolean" />
-                </xs:complexType>
-              </xs:element>
-              <xs:element minOccurs="0" maxOccurs="1" name="VolumeControl">
-                <xs:complexType>
-                  <xs:attribute default="LobbyAndGame" name="Location" type="VolumeControlLocation" />
-                </xs:complexType>
-              </xs:element>
-              <xs:element minOccurs="0" maxOccurs="1" default="true" name="UseGameTypeVolume" type="xs:boolean" />
-              <xs:element minOccurs="0" maxOccurs="1" default="5" name="LobbyVolumeScalar" type="xs:unsignedByte" />
-              <xs:element minOccurs="0" maxOccurs="1" default="5" name="PlayerVolumeScalar" type="xs:unsignedByte" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="ReadOnlyMedia">
           <xs:complexType>
             <xs:attribute name="Required" type="xs:boolean" />

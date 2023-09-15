@@ -7,6 +7,7 @@
     using Common.Events;
     using Mgam.Consumers;
     using Gaming.Contracts;
+	using Hardware.Contracts;
     using Hardware.Contracts.Audio;
     using Hardware.Contracts.TowerLight;
     using Kernel;
@@ -92,7 +93,7 @@
 
             _gamePlay.SetupGet(g => g.Idle).Returns(true);
 
-            _properties.Setup(p => p.GetProperty(ApplicationConstants.AlertVolumeKey, MgamConstants.DefaultAlertVolume)).Returns(MgamConstants.DefaultAlertVolume);
+            _properties.Setup(p => p.GetProperty(HardwareConstants.AlertVolumeKey, MgamConstants.DefaultAlertVolume)).Returns(MgamConstants.DefaultAlertVolume);
             
             _audio.Setup(a => a.Play(It.IsAny<SoundName>(), It.IsAny<int>(), It.IsAny<float>(), SpeakerMix.All, null)).Verifiable();
             _towerLight.Setup(t => t.SetFlashState(LightTier.Tier1, FlashState.FastFlash, It.IsAny<TimeSpan>(), false)).Verifiable();

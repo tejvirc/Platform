@@ -55,14 +55,14 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             AlertMinimumVolume = showMode
                 ? ShowModeAlertVolumeMinimum
-                : PropertiesManager.GetValue(ApplicationConstants.SoundConfigurationAlertVolumeMinimum, ApplicationConstants.AlertVolumeMinimum);
+                : PropertiesManager.GetValue(HardwareConstants.SoundConfigurationAlertVolumeMinimum, HardwareConstants.AlertVolumeMinimum);
             OnPropertyChanged(nameof(AlertMinimumVolume));
 
-            _playTestAlertSound = PropertiesManager.GetValue(ApplicationConstants.SoundConfigurationPlayTestAlertSound, ApplicationConstants.DefaultPlayTestAlertSound);
+            _playTestAlertSound = PropertiesManager.GetValue(HardwareConstants.SoundConfigurationPlayTestAlertSound, HardwareConstants.DefaultPlayTestAlertSound);
 
             // Load alert volume level and settings
             var alertVolume = ConvertVolumeToSlider(
-                PropertiesManager.GetValue(ApplicationConstants.AlertVolumeKey, ShowModeAlertVolumeDefault));
+                PropertiesManager.GetValue(HardwareConstants.AlertVolumeKey, ShowModeAlertVolumeDefault));
             _alertVolume = showMode
                 ? alertVolume >= ShowModeAlertVolumeMinimum
                     ? alertVolume
@@ -71,10 +71,10 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             Logger.DebugFormat("Initializing alert volume setting with value: {0}", alertVolume);
             OnPropertyChanged(nameof(AlertVolume));
 
-            IsAlertConfigurable = showMode || PropertiesManager.GetValue(ApplicationConstants.SoundConfigurationAlertVolumeConfigurable, IsAlertConfigurableDefault);
+            IsAlertConfigurable = showMode || PropertiesManager.GetValue(HardwareConstants.SoundConfigurationAlertVolumeConfigurable, IsAlertConfigurableDefault);
             OnPropertyChanged(nameof(IsAlertConfigurable));
 
-            SelectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
+            SelectedVolumeLevel = (VolumeLevel)_propertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, HardwareConstants.DefaultVolumeLevel);
             OnPropertyChanged(nameof(SelectedVolumeLevel));
         }
 
@@ -152,7 +152,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 {
                     _alertVolume = value;
                     OnPropertyChanged(nameof(AlertVolume));
-                    PropertiesManager.SetProperty(ApplicationConstants.AlertVolumeKey, scaledVolume);
+                    PropertiesManager.SetProperty(HardwareConstants.AlertVolumeKey, scaledVolume);
                 }
                 if (_playTestAlertSound)
                 {
