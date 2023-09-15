@@ -271,7 +271,6 @@ namespace Aristocrat.Monaco.Gaming
                 { GamingConstants.ProgressivePoolCreationType, (configuration.ProgressivePoolCreation?.Type ?? ProgressivePoolCreation.Default, false) },
                 { GamingConstants.AttendantServiceTimeoutSupportEnabled, (configuration.AttendantServiceTimeoutSupport?.Enabled ?? false, false) },
                 { GamingConstants.AttendantServiceTimeoutInMilliseconds, (configuration.AttendantServiceTimeoutSupport?.TimeoutInMilliseconds ?? 180000, false) },
-                { GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, (InitFromStorage(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete), true) },
                 { GamingConstants.ButtonLayoutBetButtonsOnBottom, (configuration?.PhysicalButtons?.BetButtons?.DisplayOnBottom ?? true, false) },
                 { GamingConstants.ButtonLayoutBetButtonsBetDown, (configuration?.PhysicalButtons?.BetButtons?.BetDown ?? "false", false) },
                 { GamingConstants.ButtonLayoutBetButtonsBetUp, (configuration?.PhysicalButtons?.BetButtons?.BetUp ?? "false", false) },

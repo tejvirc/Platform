@@ -13,6 +13,9 @@
         /// <summary> Property manager key for whether Legal Copyright has been accepted. </summary>
         public const string LegalCopyrightAcceptedKey = "LegalCopyright.Accepted";
 
+        /// <summary> Property manager key for whether game initial configuration has been completed. </summary>
+        public const string GameConfigurationInitialConfigComplete = @"GameConfigurationInitialConfigComplete";
+
         /// <summary> Property manager key for Total Banknotes in amount at the end of the previous play. </summary>
         public const string PreviousGameEndTotalBanknotesInKey = "Application.PreviousGameEndTotalBanknotesIn";
 

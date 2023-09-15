@@ -140,7 +140,7 @@
         private bool EvaluateInitialGameConfigurationComplete()
         {
             var access = (bool)_properties.GetProperty(
-                GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete,
+                ApplicationConstants.GameConfigurationInitialConfigComplete,
                 false);
             Logger.Debug($"Initial Game Configuration Complete : {access}");
             return access;
@@ -148,7 +148,7 @@
 
         private void HandleEvent(GameConfigurationSaveCompleteEvent obj)
         {
-            _properties.SetProperty(GamingConstants.OperatorMenuGameConfigurationInitialConfigComplete, true);
+            _properties.SetProperty(ApplicationConstants.GameConfigurationInitialConfigComplete, true);
             _operatorMenuAccess.UpdateAccessForRestriction(OperatorMenuAccessRestriction.InitialGameConfigurationComplete);
             _operatorMenuAccess.UpdateAccessForRestriction(OperatorMenuAccessRestriction.InitialGameConfigNotCompleteOrEKeyVerified);
         }

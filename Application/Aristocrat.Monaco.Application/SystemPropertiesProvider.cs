@@ -246,6 +246,12 @@ namespace Aristocrat.Monaco.Application
                 {
                     ApplicationConstants.HostAddresses,
                     Tuple.Create((object)InitFromStorage<string>(ApplicationConstants.HostAddresses), ApplicationConstants.HostAddresses)
+                },
+                {
+                    ApplicationConstants.GameConfigurationInitialConfigComplete,
+                    Tuple.Create(
+                        (object)InitFromStorage<bool>(ApplicationConstants.GameConfigurationInitialConfigComplete, false),
+                        ApplicationConstants.GameConfigurationInitialConfigComplete)
                 }
             };
 
