@@ -24,8 +24,7 @@
     ///     posts physical IO events to the system for logical interpretation.  The IO element is typically used by associated
     ///     logical IO services such as Button, Light.
     ///     This component does not provide an operator menu interface plug-in as this will be provides by the associated
-    ///     logical
-    ///     IO services.
+    ///     logical IO services.
     /// </summary>
     public class IOService : BaseRunnable, IDeviceService, IIO
     {
@@ -36,8 +35,8 @@
 
         private static readonly object QueuedEventsLock = new object();
 
-        private readonly DeviceAddinHelper _addinHelper = new DeviceAddinHelper();
-        private readonly Collection<IEvent> _queuedEvents = new Collection<IEvent>();
+        private readonly DeviceAddinHelper _addinHelper = new();
+        private readonly Collection<IEvent> _queuedEvents = new();
 
         private bool _hardMeterStoppedResponding;
         private IIOImplementation _inputOutput;
@@ -185,6 +184,8 @@
         /// <inheritdoc />
         [CLSCompliant(false)]
         public ulong LastChangedInputs { get; set; }
+
+        public ulong LastGeneralPurposeChangedInputs { get; set; }
 
         /// <inheritdoc />
         public IOLogicalState LogicalState { get; private set; }
@@ -501,7 +502,6 @@
 
         protected override void OnRun()
         {
-            const int spacer = 4;
             if (!CanProceed(false))
             {
                 return;
@@ -539,57 +539,81 @@
                 }
 
                 var inputs = _inputOutput.GetInputs;
+                if (inputs != LastChangedInputs)
+                {
+                    sb.Clear();
+                    HandleInputs(
+                        sb,
+                        eventBus,
+                        inputs,
+                        LastChangedInputs,
+                        inputEventOffset: 0,
+                        maxInputs: _inputOutput.GetMaxInputs,
+                        startingOffset: 0);
+                    LastChangedInputs = inputs;
+                    Logger.Debug($"Inputs: {sb}");
+                }
 
-                if (inputs == LastChangedInputs)
+                var gpInputs = _inputOutput.GetGeneralPurposeInputs();
+                if (gpInputs != LastGeneralPurposeChangedInputs)
+                {
+                    sb.Clear();
+                    HandleInputs(
+                        sb,
+                        eventBus,
+                        gpInputs,
+                        LastGeneralPurposeChangedInputs,
+                        inputEventOffset: _inputOutput.GetMaxInputs,
+                        maxInputs: _inputOutput.GetMaxGeneralPurposeInputs,
+                        startingOffset: _inputOutput.GetMaxGeneralPurposeOutputs);
+                    LastGeneralPurposeChangedInputs = gpInputs;
+                    Logger.Debug($"GP Inputs: {sb}");
+                }
+            }
+
+            UnsubscribeFromEvents();
+            _inputOutput.Cleanup();
+
+            Logger.Debug(Name + " stopped");
+        }
+
+        private void HandleInputs(StringBuilder stringBuilder, IEventBus eventBus, ulong inputs, ulong lastChangedInputs, int inputEventOffset, int maxInputs, int startingOffset)
+        {
+            const int spacer = 4;
+
+            var changedBits = inputs ^ lastChangedInputs;
+            var bitCount = startingOffset + maxInputs;
+
+            // Post an event for each changed input.
+            for (var bitPosition = startingOffset; bitPosition < bitCount; bitPosition++)
+            {
+                var currentBit = 1UL << bitPosition;
+                if (bitPosition != 0 && bitPosition % spacer == 0)
+                {
+                    stringBuilder.Append(' ');
+                }
+
+                stringBuilder.Append((inputs & currentBit) != 0 ? '1' : '0');
+                if ((changedBits & currentBit) == 0)
                 {
                     continue;
                 }
 
-                sb.Clear();
-                var changedBits = inputs ^ LastChangedInputs;
+                var isOn = (inputs & currentBit) != 0;
+                var inputEvent = new InputEvent(bitPosition + inputEventOffset, isOn);
 
-                // Post an event for each changed input.
-                for (var bitPosition = 0; bitPosition < _inputOutput.GetMaxInputs; bitPosition++)
+                if (!_platformBooted)
                 {
-                    var currentBit = 1UL << bitPosition;
-                    if (bitPosition != 0 && bitPosition % spacer == 0)
+                    lock (QueuedEventsLock)
                     {
-                        sb.Append(' ');
+                        Logger.Debug(
+                            $"Queuing Input {bitPosition} {(isOn ? "on" : "off")}. size is {_queuedEvents.Count}");
+                        _queuedEvents.Add(inputEvent);
                     }
-
-                    sb.Append((inputs & currentBit) != 0 ? '1' : '0');
-                    if ((changedBits & currentBit) == 0)
-                    {
-                        continue;
-                    }
-
-                    var isOn = (inputs & currentBit) != 0;
-                    var inputEvent = new InputEvent(bitPosition, isOn);
-
-                    if (!_platformBooted)
-                    {
-                        lock (QueuedEventsLock)
-                        {
-                            Logger.Debug($"Queuing Input {bitPosition} {(isOn ? "on" : "off")}. size is {_queuedEvents.Count}");
-                            _queuedEvents.Add(inputEvent);
-                        }
-                    }
-
-                    eventBus.Publish(inputEvent);
                 }
 
-                Logger.Debug($"Inputs {sb}");
-                // Set last changed inputs.
-                LastChangedInputs = inputs;
+                eventBus.Publish(inputEvent);
             }
-
-            // Unsubscribe from all events.
-            UnsubscribeFromEvents();
-
-            // Clean up the device implementation.
-            _inputOutput.Cleanup();
-
-            Logger.Debug(Name + " stopped");
         }
 
         protected override void OnStop()

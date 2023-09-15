@@ -47,6 +47,21 @@
       <FilePath FilePath=".\IO.Gen8.config.xml" />
     </IOConfiguration>
   </Extension>
+  <Extension path="/IO/Configuration">
+    <IOConfiguration Cabinet="Marquis34" Protocol="Gen9">
+      <FilePath FilePath=".\IO.Marquis.config.xml" />
+    </IOConfiguration>
+  </Extension>
+  <Extension path="/IO/Configuration">
+    <IOConfiguration Cabinet="Marquis34Wheel" Protocol="Gen9">
+      <FilePath FilePath=".\IO.Marquis.config.xml" />
+    </IOConfiguration>
+  </Extension>
+  <Extension path="/IO/Configuration">
+    <IOConfiguration Cabinet="Marquis23" Protocol="Gen9">
+      <FilePath FilePath=".\IO.Marquis.config.xml" />
+    </IOConfiguration>
+  </Extension>
 
   <Extension path="/Hardware/Services">
     <Service type="Aristocrat.Monaco.Hardware.Services.DeviceWatcher" />

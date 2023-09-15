@@ -19,7 +19,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Oregon-VLT/ui/Images/TS_Background_Alternate4.png"
                  AutomationProperties.AutomationId="BitmapImage4_232FA8FD" />
     <BitmapImage x:Key="TopLoading"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Oregon-VLT/ui/Images/TS_LoadingScreen.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_LoadingScreen.png"
                  AutomationProperties.AutomationId="BitmapImage5_232FA8FD" />
     <BitmapImage x:Key="TopDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Oregon-VLT/ui/Images/TS_Background_Disabled.png"
@@ -40,7 +40,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Oregon-VLT/ui/Images/TS_Background_Alternate4.png"
                  AutomationProperties.AutomationId="BitmapImage11_232FA8FD" />
     <BitmapImage x:Key="TopperLoading"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Oregon-VLT/ui/Images/TS_LoadingScreen.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_LoadingScreen.png"
                  AutomationProperties.AutomationId="BitmapImage12_232FA8FD" />
     <BitmapImage x:Key="TopperDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/Oregon-VLT/ui/Images/TS_Background_Disabled.png"

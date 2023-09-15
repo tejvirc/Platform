@@ -275,7 +275,7 @@
                     canFire = CanFire(trigger, reelId, updateControllerState);
                     if (!canFire)
                     {
-                        Logger.Debug($"Fire - FAILED CanFire for trigger {trigger} and reel {reelId} with reelState {reelState.StateMachine} in state {_state.State}");
+                        Logger.Debug($"Fire - FAILED CanFire for trigger {trigger} and reel {reelId} with reelState {reelState?.StateMachine} in state {_state.State}");
                         return false;
                     }
                     else if (updateControllerState)
@@ -283,13 +283,13 @@
                         canFire = CanFire(trigger);
                         if (!canFire)
                         {
-                            Logger.Debug($"Fire - FAILED CanFire for trigger {trigger} with reelState {reelState.StateMachine} in state {_state.State}");
+                            Logger.Debug($"Fire - FAILED CanFire for trigger {trigger} with reelState {reelState?.StateMachine} in state {_state.State}");
                             return false;
                         }
                     }
                 }
 
-                reelState.StateMachine.Fire(trigger);
+                reelState?.StateMachine.Fire(trigger);
                 return !updateControllerState || Fire(trigger);
             }
             finally
@@ -353,13 +353,13 @@
                     canFire = CanFire(trigger, reelId);
                     if (!canFire)
                     {
-                        Logger.Debug($"FireReelStopped - FAILED CanFire for trigger {trigger} and reel {reelId} with reelState {reelState.StateMachine} in state {_state.State}");
+                        Logger.Debug($"FireReelStopped - FAILED CanFire for trigger {trigger} and reel {reelId} with reelState {reelState?.StateMachine} in state {_state.State}");
                         return false;
                     }
                 }
 
-                Logger.Debug($"Stopping with trigger {reelState.StoppingTrigger} from state {reelState.StateMachine.State}");
-                reelState.StateMachine.Fire(reelState.StoppingTrigger, reelState.StateMachine.State, args);
+                Logger.Debug($"Stopping with trigger {reelState?.StoppingTrigger} from state {reelState?.StateMachine.State}");
+                reelState?.StateMachine.Fire(reelState.StoppingTrigger, reelState.StateMachine.State, args);
                 return Fire(trigger);
             }
             finally
@@ -377,11 +377,13 @@
                 .Permit(ReelControllerTrigger.Disconnected, ReelLogicalState.Disconnected)
                 .Permit(ReelControllerTrigger.TiltReels, ReelLogicalState.Tilted)
                 .Permit(ReelControllerTrigger.HomeReels, ReelLogicalState.Homing)
-                .Ignore(ReelControllerTrigger.Connected);
+                .Ignore(ReelControllerTrigger.Connected)
+                .Ignore(ReelControllerTrigger.HaltReels);
 
             stateMachine.Configure(ReelLogicalState.IdleAtStop)
                 .Permit(ReelControllerTrigger.Disconnected, ReelLogicalState.Disconnected)
                 .Permit(ReelControllerTrigger.TiltReels, ReelLogicalState.Tilted)
+                .Permit(ReelControllerTrigger.HaltReels, ReelLogicalState.IdleUnknown)
                 .Permit(ReelControllerTrigger.SpinReel, ReelLogicalState.SpinningForward)
                 .Permit(ReelControllerTrigger.SpinReelBackwards, ReelLogicalState.SpinningBackwards)
                 .Permit(ReelControllerTrigger.SpinConstant, ReelLogicalState.SpinningConstant)
@@ -463,6 +465,7 @@
                 .Ignore(ReelControllerTrigger.Initialized)
                 .Permit(ReelControllerTrigger.Disconnected, ReelControllerState.Disconnected)
                 .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted)
+                .Permit(ReelControllerTrigger.HaltReels, ReelControllerState.Halted)
                 .Permit(ReelControllerTrigger.HomeReels, ReelControllerState.Homing)
                 .Permit(ReelControllerTrigger.Disable, ReelControllerState.Disabled);
 
@@ -477,6 +480,7 @@
                 .Permit(ReelControllerTrigger.Accelerate, ReelControllerState.Spinning)
                 .Permit(ReelControllerTrigger.Decelerate, ReelControllerState.Spinning)
                 .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted)
+                .Permit(ReelControllerTrigger.HaltReels, ReelControllerState.Halted)
                 .Permit(ReelControllerTrigger.HomeReels, ReelControllerState.Homing)
                 .Permit(ReelControllerTrigger.Disable, ReelControllerState.Disabled);
 
@@ -495,9 +499,15 @@
                 .SubstateOf(ReelControllerState.Disabled)
                 .Permit(ReelControllerTrigger.HomeReels, ReelControllerState.Homing);
 
+            stateMachine.Configure(ReelControllerState.Halted)
+                .SubstateOf(ReelControllerState.Disabled)
+                .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted)
+                .Permit(ReelControllerTrigger.HomeReels, ReelControllerState.Homing);
+
             stateMachine.Configure(ReelControllerState.Disabled)
                 .Ignore(ReelControllerTrigger.ReelStopped)
                 .Permit(ReelControllerTrigger.TiltReels, ReelControllerState.Tilted)
+                .Permit(ReelControllerTrigger.HaltReels, ReelControllerState.Halted)
                 .Permit(ReelControllerTrigger.Disconnected, ReelControllerState.Disconnected)
                 .Ignore(ReelControllerTrigger.Disable)
                 .PermitDynamic(
@@ -557,10 +567,10 @@
                     }
                     else
                     {
-                        canFire = reelState.StateMachine.CanFire(trigger);
+                        canFire = reelState?.StateMachine.CanFire(trigger) ?? false;
                         if (!canFire)
                         {
-                            Logger.Debug($"CanFire - FAILED for trigger {trigger} and reel {reelId} with reelState {reelState.StateMachine} in state {_state.State}");
+                            Logger.Debug($"CanFire - FAILED for trigger {trigger} and reel {reelId} with reelState {reelState?.StateMachine} in state {_state.State}");
                         }
                     }
                 }

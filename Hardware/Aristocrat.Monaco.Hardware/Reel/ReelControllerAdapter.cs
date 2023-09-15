@@ -138,6 +138,18 @@
 
         public IEnumerable<Type> GetCapabilities() => _supportedCapabilities.Keys;
 
+        /// <inheritdoc />
+        public Task<bool> HaltReels()
+        {
+            if (_stateManager?.FireAll(ReelControllerTrigger.HaltReels) ?? false)
+            {
+                return _reelControllerImplementation.HaltReels();
+            }
+
+            Logger.Debug("HaltReels - Fire FAILED - CAN NOT HALT");
+            return Task.FromResult(false);
+        }
+
         public async Task<bool> HomeReels()
         {
             return await HomeReels(ReelHomeSteps);
@@ -259,10 +271,12 @@
                     Implementation.Dispose();
                     _reelControllerImplementation = null;
 
-                    foreach (var capability in _supportedCapabilities)
+                    var keys = _supportedCapabilities.Keys.ToArray();
+                    foreach (var key in keys)
                     {
-                        capability.Value.Dispose();
-                        _supportedCapabilities[capability.Key] = null;
+                        var capability = _supportedCapabilities[key];
+                        capability.Dispose();
+                        _supportedCapabilities[key] = null;
                     }
 
                     _supportedCapabilities.Clear();
@@ -445,8 +459,11 @@
             RegisterComponent();
             Initialized = true;
 
-            _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
-                .ToDictionary(x => x.Key, x => x.Value);
+            if (!_supportedCapabilities.Any())
+            {
+                _supportedCapabilities = ReelCapabilitiesFactory.CreateAll(_reelControllerImplementation, _stateManager)
+                    .ToDictionary(x => x.Key, x => x.Value);
+            }
 
             InitializeReels().WaitForCompletion();
             SetReelOffsets(_reelOffsets.ToArray());
@@ -561,6 +578,12 @@
                 if (!AddError(value))
                 {
                     continue;
+                }
+                
+                if (LogicalState == ReelControllerState.Halted && value == ReelFaults.IdleUnknown)
+                {
+                    Logger.Debug("Ignoring IdleUnknown fault while in halted state.");
+                    return;
                 }
 
                 Logger.Info($"ReelControllerFaultOccurred - ADDED {value} to the error list for reel {e.ReelId}");

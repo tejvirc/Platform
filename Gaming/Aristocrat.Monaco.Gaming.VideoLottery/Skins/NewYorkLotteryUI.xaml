@@ -7,7 +7,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_Background.png"
                  AutomationProperties.AutomationId="BitmapImage0_1C9F2A72" />
     <BitmapImage x:Key="TopLoading"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_LoadingScreen.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_Background_Aristocrat.png"
                  AutomationProperties.AutomationId="BitmapImage1_1C9F2A72" />
     <BitmapImage x:Key="TopDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_Background_Disabled.png"
@@ -17,7 +17,7 @@
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_Background.png"
                  AutomationProperties.AutomationId="BitmapImage3_1C9F2A72" />
     <BitmapImage x:Key="TopperLoading"
-                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_LoadingScreen.png"
+                 UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/TS_Background_Aristocrat.png"
                  AutomationProperties.AutomationId="BitmapImage4_1C9F2A72" />
     <BitmapImage x:Key="TopperDisabled"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/NewYork-VLT/ui/Images/TS_Background_Disabled.png"
@@ -285,7 +285,7 @@
     <sys:String x:Key="VBD_Helix_InsertMoney">../jurisdiction/NewYork-VLT/ui/Videos/VBD_InsertMoney_EN.bk2</sys:String>
     <sys:String x:Key="VBD_Marsx_ChooseGame">../jurisdiction/NewYork-VLT/ui/Videos/VBD_ChooseGame_EN.bk2</sys:String>
     <sys:String x:Key="VBD_Marsx_InsertMoney">../jurisdiction/NewYork-VLT/ui/Videos/VBD_InsertMoney_EN.bk2</sys:String>
-    <!-- Cashout, Lockup for Jackpot/Handpay Support-->
+    <!-- Cashout, Lockup for Jackpot/Handpay Support -->
     <BitmapImage x:Key="CashOutImage"
                  UriSource="pack://siteOfOrigin:,,,/../jurisdiction/DefaultAssets/ui/Images/CashOutImage.png"
                  AutomationProperties.AutomationId="BitmapImage90_1C9F2A72" />

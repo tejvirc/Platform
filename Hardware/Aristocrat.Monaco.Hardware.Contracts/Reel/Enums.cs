@@ -157,7 +157,12 @@
         /// <summary>
         ///     The disconnected state
         /// </summary>
-        Disconnected
+        Disconnected,
+
+        /// <summary>
+        ///     The state for halted reels
+        /// </summary>
+        Halted
     }
 
     /// <summary>
@@ -304,7 +309,12 @@
         /// <summary>
         ///     The decelerate trigger
         /// </summary>
-        Decelerate
+        Decelerate,
+
+        /// <summary>
+        ///     The halt reels trigger
+        /// </summary>
+        HaltReels
     }
 
     /// <summary>

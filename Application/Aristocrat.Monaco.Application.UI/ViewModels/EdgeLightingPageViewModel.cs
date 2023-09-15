@@ -88,6 +88,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 {
                     EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.EdgeLighting));
                     EventBus.Publish(new OperatorMenuWarningMessageEvent(""));
+                    TestViewModel.Brightness = EdgeLightingBrightnessLimits.MaximumBrightness;
                 }
 
                 SetProperty(ref _inTestMode, value, nameof(InTestMode));

@@ -25,6 +25,18 @@
         /// <returns>Maximum number of inputs.</returns>
         int GetMaxInputs { get; }
 
+        /// <summary>
+        ///     Gets the maximum number of available general purpose inputs.
+        /// </summary>
+        /// <returns>Maximum number of general purpose inputs.</returns>
+        int GetMaxGeneralPurposeInputs { get; }
+
+        /// <summary>
+        ///     Gets the maximum number of available general purpose outputs.
+        /// </summary>
+        /// <returns>Maximum number of general purpose outputs.</returns>
+        int GetMaxGeneralPurposeOutputs { get; }
+
         /// <summary>Gets the maximum number of available outputs.</summary>
         /// <returns>Maximum number of outputs.</returns>
         int GetMaxOutputs { get; }
@@ -190,5 +202,11 @@
         /// <param name="bankOn">State of the bank show on (true) or off (false).</param>
         /// <returns>true if successful, otherwise false</returns>
         bool SetRedScreenFreeSpinBankShow(bool bankOn);
+
+        /// <summary>
+        ///     Gets the General Purpose register value.
+        /// </summary>
+        /// <returns></returns>
+        ulong GetGeneralPurposeInputs();
     }
 }

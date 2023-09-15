@@ -148,6 +148,7 @@
                 }
 
                 _connectedTimer = new Timer(OnStatus, null, StatusInterval, Timeout.InfiniteTimeSpan);
+                OnStatus(null); // Check status once on initialize to prevent a delay in locking up equal to the StatusInterval
 
                 Logger.Info("Initialized the module");
             }

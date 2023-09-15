@@ -130,9 +130,10 @@
         /// <param name="label">Either use a ResourceKey or set localizeLabel to false</param>
         /// <param name="value">The value</param>
         /// <param name="localizeLabel">True if the label should be localized.</param>
-        public void AddLabeledLine(string label, string value, bool localizeLabel = true)
+        /// <param name="reformatLabelFirst">Whether or not to reformat the label part first in the event the line exceeds ticket width</param>
+        public void AddLabeledLine(string label, string value, bool localizeLabel = true, bool reformatLabelFirst = false)
         {
-            AddResolvedLine(FixWidth(localizeLabel ? TicketLocalizer.GetString(label) : label, value));
+            AddResolvedLine(FixWidth(localizeLabel ? TicketLocalizer.GetString(label) : label, value, reformatLabelFirst));
         }
 
         /// <summary>
@@ -152,8 +153,9 @@
         /// </summary>
         /// <param name="label">The unbroken label</param>
         /// <param name="value">The unbroken value</param>
+        /// <param name="labelFirst">Whether or not to break the label first </param>
         /// <returns>A tuple of string arrays</returns>
-        private static (string[] labelMember, string[] valueMember) FixWidth(string label, string value)
+        private static (string[] labelMember, string[] valueMember) FixWidth(string label, string value, bool labelFirst = false)
         {
             var original = (labelMember: new[] { label }, valueMember: new[] { value });
             if (CheckStringsLength(original))
@@ -161,20 +163,24 @@
                 return original;
             }
 
-            // Try reformatting the value
-            var (brokenList, fixedList) = BreakupStrings(value, original.labelMember);
-            var check = (labelMember: fixedList, valueMember: brokenList);
-
-            if (CheckStringsLength(check))
+            var check = labelFirst ? ReformatLabel(original.valueMember) : ReformatValue(original.labelMember);
+            if (!CheckStringsLength(check))
             {
-                return check;
+                return !labelFirst ? ReformatLabel(check.valueMember) : ReformatValue(check.labelMember);
+            }
+            return check;
+
+            (string[] labelMember, string[] valueMember) ReformatLabel(string[] fixedString)
+            {
+                var (brokenList, fixedList) = BreakupStrings(label, fixedString);
+                return (labelMember: brokenList, valueMember: fixedList);
             }
 
-            // Try reformatting the label
-            check = BreakupStrings(label, check.valueMember);
-
-            // Nothing more we can do, just return this result
-            return check;
+            (string[] labelMember, string[] valueMember) ReformatValue(string[] fixedString)
+            {
+                var (brokenList, fixedList) = BreakupStrings(value, fixedString);
+                return (labelMember: fixedList, valueMember: brokenList);
+            }
         }
 
         /// <summary>

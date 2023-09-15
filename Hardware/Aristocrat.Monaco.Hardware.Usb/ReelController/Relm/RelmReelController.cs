@@ -68,12 +68,6 @@
         public event EventHandler<EventArgs> Disabled;
 
         /// <inheritdoc />
-        public event EventHandler<EventArgs> Connected;
-
-        /// <inheritdoc />
-        public event EventHandler<EventArgs> Disconnected;
-
-        /// <inheritdoc />
         public event EventHandler<EventArgs> ResetSucceeded;
 
         /// <inheritdoc />
@@ -82,6 +76,13 @@
         /// <inheritdoc />
         public event EventHandler HardwareInitialized;
 #pragma warning restore 67
+
+        /// <inheritdoc />
+        public event EventHandler<EventArgs> Connected;
+
+        /// <inheritdoc />
+        public event EventHandler<EventArgs> Disconnected;
+
 
         /// <inheritdoc />
         public event EventHandler<ReelControllerFaultedEventArgs> ControllerFaultOccurred;
@@ -286,6 +287,12 @@
         }
 
         /// <inheritdoc />
+        public Task<bool> HaltReels()
+        {
+            return _communicator.HaltReels();
+        }
+
+        /// <inheritdoc />
         public Task<bool> HomeReel(int reelId, int stop, bool resetStatus = true)
         {
             return _communicator.HomeReel(reelId, stop, resetStatus);
@@ -413,14 +420,13 @@
 
             if (disposing)
             {
-                _supportedCapabilities[typeof(IAnimationImplementation)].Dispose();
-                _supportedCapabilities[typeof(IAnimationImplementation)] = null;
-                _supportedCapabilities[typeof(IReelBrightnessImplementation)].Dispose();
-                _supportedCapabilities[typeof(IReelBrightnessImplementation)] = null;
-                _supportedCapabilities[typeof(ISynchronizationImplementation)].Dispose();
-                _supportedCapabilities[typeof(ISynchronizationImplementation)] = null;
-                _supportedCapabilities[typeof(IStepperRuleImplementation)].Dispose();
-                _supportedCapabilities[typeof(IStepperRuleImplementation)] = null;
+                foreach (var key in _supportedCapabilities.Keys.ToArray())
+                {
+                    var capability = _supportedCapabilities[key];
+                    capability.Dispose();
+                    _supportedCapabilities[key] = null;
+                }
+
                 _supportedCapabilities.Clear();
 
                 UnregisterEventListeners();
@@ -446,6 +452,8 @@
             _communicator.ControllerFaultCleared += OnControllerFaultCleared;
             _communicator.ReelSpinningStatusReceived += OnReelSpinningStatusReceived;
             _communicator.ReelStopping += OnReelStoppingReceived;
+            _communicator.DeviceAttached += OnDeviceAttached;
+            _communicator.DeviceDetached += OnDeviceDetached;
         }
 
         private void UnregisterEventListeners()
@@ -461,6 +469,8 @@
             _communicator.ControllerFaultCleared -= OnControllerFaultCleared;
             _communicator.ReelSpinningStatusReceived -= OnReelSpinningStatusReceived;
             _communicator.ReelStopping -= OnReelStoppingReceived;
+            _communicator.DeviceAttached -= OnDeviceAttached;
+            _communicator.DeviceDetached -= OnDeviceDetached;
         }
 
         private async Task LoadPlatformSampleShowsAndCurves()
@@ -508,7 +518,7 @@
                 return;
             }
 
-            if(evt.SpinVelocity != SpinVelocity.None)
+            if (evt.SpinVelocity != SpinVelocity.None)
             {
                 ReelSpinning?.Invoke(this, new ReelSpinningEventArgs(evt.ReelId, evt.SpinVelocity));
             }
@@ -557,6 +567,24 @@
             }
 
             ControllerFaultCleared?.Invoke(this, e);
+        }
+
+        private void OnDeviceAttached(object sender, EventArgs e)
+        {
+            if (IsInitialized)
+            {
+                Connected?.Invoke(sender, e);
+                OnInitialized();
+            }
+        }
+
+        private void OnDeviceDetached(object sender, EventArgs e)
+        {
+            foreach (var status in _reelStatuses.Values)
+            {
+                status.Connected = false;
+            }
+            Disconnected?.Invoke(sender, e);
         }
     }
 }

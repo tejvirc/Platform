@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.MeterPage;
     using Application.Tickets;
@@ -30,7 +31,7 @@
 
         public override void AddTicketContent()
         {
-            AddLabeledLine(ResourceKeys.Denomination, _denomMillicents.MillicentsToDollars().FormattedCurrencyString());
+            AddLabeledLine(ResourceKeys.Denomination, _denomMillicents.MillicentsToDollars().FormattedCurrencyStringForOperator());
 
             var configMeters = ConfigurationUtilities.GetConfiguration(
                 MetersExtensionPath,
@@ -50,9 +51,9 @@
                 {
                     var meter = meterManager.GetMeter(_denomMillicents, meterNode.Name);
                     AddLabeledLine(
-                        meterNode.DisplayName,
-                        meter.Classification.CreateValueString(_isLifetime ? meter.Lifetime : meter.Period),
-                        false);
+                        meterNode.DisplayNameKey ?? meterNode.DisplayName,
+                        meter.Classification.CreateValueString(_isLifetime ? meter.Lifetime : meter.Period, TicketLocalizer.CurrentCulture),
+                        reformatLabelFirst: true);
                 }
             }
         }

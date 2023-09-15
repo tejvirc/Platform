@@ -113,6 +113,12 @@
         Task Initialize();
 
         /// <summary>
+        ///     Halts the reels (releases brake)
+        /// </summary>
+        /// <returns>Whether or not the reels were halted</returns>
+        Task<bool> HaltReels();
+
+        /// <summary>
         ///     Homes the reel to the requested stop
         /// </summary>
         /// <param name="reelId">The reel ID to home</param>
@@ -131,7 +137,7 @@
         /// <summary>
         ///     Tilts the reels (slow spinning)
         /// </summary>
-        /// <returns>Whether or not the reels where tilted</returns>
+        /// <returns>Whether or not the reels were tilted</returns>
         Task<bool> TiltReels();
 
         /// <summary>
