@@ -154,5 +154,15 @@
 
             return source.Select(selector.Invoke).DefaultIfEmpty(defaultValue).Min();
         }
+
+        /// <summary>
+        ///     Gets a string representation of the string list, for logging purposes
+        /// </summary>
+        /// <param name="source">The list of strings</param>
+        /// <returns>A comma-delimited string containing all strings in the list</returns>
+        public static string ToStringList(this IEnumerable<string> source)
+        {
+            return string.Join(", ", source.ToArray());
+        }
     }
 }

@@ -1992,7 +1992,9 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 }
             }
 
-            SetGameOrderFromConfig(games);
+            // Initialize the icon order using all available games, not just enabled games
+            var availableGames = _properties.GetValues<IGameDetail>(GamingConstants.Games).ToList();
+            SetGameOrderFromConfig(availableGames);
 
             var gameList = GetOrderedGames(games);
 

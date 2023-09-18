@@ -237,7 +237,7 @@
                                              Margin="{Binding Converter={StaticResource GameTabMarginConv}}">
                                         <Grid Height="98">
                                             <Image common:ImageHelper.SourceResourceKey="{Binding LabelResourceKey}"
-                                                   Margin="10 0"
+                                                   Margin="10 17"
                                                    Visibility="{Binding HasAnimatedResource, Converter={StaticResource BoolToCollapsedConverter}}"/>
                                             <Image gif:ImageBehavior.AnimatedSource="{Binding LabelAnimatedResourcePath}"
                                                    Stretch="None"

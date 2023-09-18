@@ -5,6 +5,7 @@ namespace Aristocrat.Monaco.Gaming
     using System.Linq;
     using System.Reflection;
     using System.Text;
+    using Common;
     using Contracts;
     using Hardware.Contracts.Persistence;
     using Kernel;
@@ -41,11 +42,13 @@ namespace Aristocrat.Monaco.Gaming
             _gameOrderAccessor = storageManager.BlockExists(dataBlockName)
                 ? storageManager.GetBlock(dataBlockName)
                 : storageManager.CreateBlock(BlockGameOrderDataLevel, dataBlockName, 1);
-            
-            
-              LoadGameOrder();
-        } 
 
+            LoadGameOrder();
+        }
+
+        /// <summary>
+        ///     Gets or sets the list of ThemeIds in the order to display the game icons in the lobby
+        /// </summary>
         public IList<string> IconOrder
         {
             get
@@ -75,6 +78,7 @@ namespace Aristocrat.Monaco.Gaming
         {
         }
 
+        /// <inheritdoc />
         public void SetAttractOrderFromConfig(IList<IGameInfo> games, IList<string> gameOrderConfig)
         {
             if (games == null || !games.Any() || gameOrderConfig == null || !gameOrderConfig.Any())
@@ -121,6 +125,7 @@ namespace Aristocrat.Monaco.Gaming
             _attractOrder = new List<string>(gameIdList);
         }
 
+        /// <inheritdoc />
         public void SetIconOrderFromConfig(IList<IGameInfo> games, IList<string> gameOrderConfig)
         {
             if (_wasOperatorChanged || games == null || !games.Any() || gameOrderConfig == null)
@@ -129,7 +134,7 @@ namespace Aristocrat.Monaco.Gaming
             }
 
             // No need to update the order if we're already using it
-            if (_iconOrderConfig.SequenceEqual(gameOrderConfig) && IconOrder.Any())
+            if (_iconOrderConfig.SequenceEqual(gameOrderConfig) && IconOrder.Any() && games.Count == IconOrder.Count)
             {
                 return;
             }
@@ -182,6 +187,7 @@ namespace Aristocrat.Monaco.Gaming
             lock (_sync)
             {
                 _iconOrder = new List<string>(gameOrder);
+                Logger.Debug($"SetIconOrder(gameOrder=[{_iconOrder.ToStringList()}], operatorChanged={operatorChanged})");
                 SaveGameOrder(operatorChanged);
             }
         }
@@ -196,7 +202,7 @@ namespace Aristocrat.Monaco.Gaming
         public int GetIconPositionPriority(string gameId)
         {
             // Add 1 to this because the operator expects order to begin with 1, not 0
-            return (IconOrder?.IndexOf(gameId) ?? -1) + 1; 
+            return (IconOrder?.IndexOf(gameId) ?? -1) + 1;
         }
 
 
