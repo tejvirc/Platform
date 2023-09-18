@@ -16,7 +16,6 @@ on:
     - main
     - develop
     - release/*
-    - develop
 
 jobs:
   build:
