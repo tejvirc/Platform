@@ -14,11 +14,12 @@
         SoftReboot,
         Service,
         GameOperation_LoadGame,
-        GameOperation_ForceGameExit,
+        GameOperation_ExitGame,
         RegularMode,
         SuperMode,
         UberMode,
         LobbyOperation_GameExit,
-        OperatingHoursOperation
+        OperatingHoursOperation,
+        CashoutBannerSupport
     }
 }

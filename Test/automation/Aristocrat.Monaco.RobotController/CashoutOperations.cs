@@ -6,6 +6,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading;
+    using System.Threading.Tasks;
 
     internal class CashoutOperations : IRobotOperations
     {
@@ -15,6 +16,8 @@
         private readonly RobotController _robotController;
         private Timer _actionCashoutTimer;
         private bool _disposed;
+
+        private readonly int CashoutDialogDismiss = (int)TimeSpan.FromSeconds(3).TotalMilliseconds;
 
         public CashoutOperations(IEventBus eventBus, RobotLogger logger, StateChecker sc, RobotController robotController)
         {
@@ -115,6 +118,7 @@
                     _robotController.BlockOtherOperations(RobotStateAndOperations.CashoutOperation);
                     _logger.Info($"CashOutStartedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                 });
+
         }
 
         private void RequestCashOut()
@@ -126,5 +130,7 @@
             _logger.Info("Requesting Cashout", GetType().Name);
             _eventBus.Publish(new CashOutButtonPressedEvent());
         }
+
+        private bool GetRandomBoolean() => new Random((int)DateTime.Now.Ticks).Next() % 2 != 0;
     }
 }

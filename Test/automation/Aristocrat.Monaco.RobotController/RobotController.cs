@@ -235,12 +235,8 @@
                     {
                         () =>
                         {
-                            if(!_stateChecker.IsGame)
-                            {
-                                Enabled = false;
-                                return;
-                            }
-                            _eventBus.Publish(new BalanceCheckEvent());
+                            _automator.ExitLockup();
+                            _eventBus.Publish(new GameLoadRequestEvent());
                         }
                     }
                 },
@@ -346,7 +342,7 @@
 
             _eventBus.Subscribe<ExitRequestedEvent>(this, _ =>
             {
-                _logger.Info("Exit requested. Disabling.", GetType().Name);
+                _logger?.Info("Exit requested. Disabling.", GetType().Name);
                 Enabled = false;
             });
         }
@@ -411,7 +407,6 @@
             container.Register<Automation>(Lifestyle.Singleton);
             container.Register<StateChecker>(Lifestyle.Singleton);
             container.Register<CashoutOperations>(Lifestyle.Singleton);
-            container.Register<GameOperations>(Lifestyle.Singleton);
             container.Register<PlayerOperations>(Lifestyle.Singleton);
             container.Register<TouchOperations>(Lifestyle.Singleton);
             container.Register<LockUpOperations>(Lifestyle.Singleton);
@@ -421,6 +416,10 @@
             container.Register<BalanceOperations>(Lifestyle.Singleton);
             container.Register<RebootRequestOperations>(Lifestyle.Singleton);
             container.Register<AuditMenuOperations>(Lifestyle.Singleton);
+            container.Register<ResponsibleGamingOperations>(Lifestyle.Singleton);
+            container.Register<GameOperations>(Lifestyle.Singleton);
+            container.Register<LoadGameOperations>(Lifestyle.Singleton);
+            container.Register<ExitGameOperations>(Lifestyle.Singleton);
             return container;
         }
     }
