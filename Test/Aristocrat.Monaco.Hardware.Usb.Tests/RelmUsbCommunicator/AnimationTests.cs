@@ -7,6 +7,8 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Aristocrat.Monaco.Application.Contracts.Localization;
+    using Aristocrat.Monaco.Common.Cryptography;
+    using Aristocrat.Monaco.Common.Storage;
     using Aristocrat.Monaco.Test.Common;
     using Contracts;
     using Contracts.Reel;
@@ -46,11 +48,16 @@
         private readonly LightShowData _lightShow2 = new(0, DefaultFriendlyName, Tag, ReelConstants.RepeatOnce, -1);
         private readonly ReelCurveData _curve1 = new(1, FriendlyName);
         private readonly ReelCurveData _curve2 = new(2, DefaultFriendlyName);
+        private readonly MemoryStream _fileStream = new MemoryStream(new byte[] { 1, 2, 3, 4, 5 });
+
         private StoredAnimationIds _storedAnimationIds;
         private RelmResponse<StoredAnimationIds> _storedAnimationIdsResponse;
         private AnimationHashCompleted _animationHashCompleted;
         private RelmResponse<AnimationHashCompleted> _animationHashCompletedResponse;
         private Mock<IPropertiesManager> _propertiesManager;
+        private Mock<IRelmCommunicator> _driver;
+        private Mock<IFileSystemProvider> _fileSystem;
+        private RelmUsbCommunicator _target;
         private Mock<IEventBus> _eventBus;
 
         [TestInitialize]
@@ -59,129 +66,143 @@
             MoqServiceManager.CreateInstance(MockBehavior.Strict);
             _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
             _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoNotResetRelmController, It.IsAny<bool>())).Returns(false);
+
             _storedAnimationIds = new();
             _storedAnimationIdsResponse = new(true, _storedAnimationIds);
-            _animationHashCompleted = new();
+
+            using var crc = new Crc32();
+            var hash = crc.ComputeHash(_fileStream).Reverse().ToArray();
+            _fileStream.Position = 0;
+
+            _animationHashCompleted = new()
+            {
+                Hash = hash
+            };
             _animationHashCompletedResponse = new(true, _animationHashCompleted);
+            _driver = new Mock<IRelmCommunicator>();
+
+            var localizer = new Mock<ILocalizer>();
+            localizer
+                .Setup(x => x.GetString(It.IsAny<string>()))
+                .Returns("empty");
+
+            var localizerFactory = MoqServiceManager.CreateAndAddService<ILocalizerFactory>(MockBehavior.Default);
+            localizerFactory
+                .Setup(x => x.For(It.IsAny<string>()))
+                .Returns(new Mock<ILocalizer>().Object);
+            localizerFactory
+                .Setup(x => x.For(It.IsAny<string>()))
+                .Returns(localizer.Object);
+
+            _fileSystem = new Mock<IFileSystemProvider>();
+            _fileSystem
+                .Setup(x => x.GetFileReadStream(It.IsAny<string>()))
+                .Returns(_fileStream);
+
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Loose);
+            _target = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _fileSystem.Object, _eventBus.Object);
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
+            _target.Dispose();
+            _fileStream.Dispose();
             MoqServiceManager.RemoveInstance();
         }
 
         [TestMethod]
         public async Task LoadedAnimationsShouldBeInCollectionTest()
         {
-            SetupMocks();
-            _animationHashCompleted.Hash = new byte[] { 1, 2, 3, 4 };
-            var driver = new Mock<IRelmCommunicator>();
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object, _eventBus.Object);
-            driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
-            driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
-            driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_storedAnimationIdsResponse));
-            driver.Setup(x => x.SendCommandWithResponseAsync(It.IsAny<CalculateAnimationHash>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendCommandWithResponseAsync(It.IsAny<CalculateAnimationHash>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_animationHashCompletedResponse));
 
+            await _target.LoadAnimationFile(_namedAnimationFile);
 
-            await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
-
-            Assert.AreEqual(usbCommunicator.AnimationFiles.Count, 1);
-            Assert.AreEqual(usbCommunicator.AnimationFiles.First().FriendlyName, FriendlyName);
-            Assert.AreEqual(usbCommunicator.AnimationFiles.First().AnimationId, AnimationId);
+            Assert.AreEqual(_target.AnimationFiles.Count, 1);
+            Assert.AreEqual(_target.AnimationFiles.First().FriendlyName, FriendlyName);
+            Assert.AreEqual(_target.AnimationFiles.First().AnimationId, AnimationId);
         }
 
         [TestMethod]
         public async Task DuplicateAnimationsShouldNotBeInCollectionTest()
         {
-            SetupMocks();
-            _animationHashCompleted.Hash = new byte[] { 1, 2, 3, 4 };
             var fileNameHash = Path.GetFileName(_namedAnimationFile.Path).HashDjb2();
-            var driver = new Mock<IRelmCommunicator>();
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object, _eventBus.Object);
-            driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Callback(() =>
                 {
                     _storedAnimationIds.AnimationIds = new[] { fileNameHash };
                 })
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
-            driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
-            driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_storedAnimationIdsResponse));
-            driver.Setup(x => x.SendCommandWithResponseAsync(It.IsAny<CalculateAnimationHash>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendCommandWithResponseAsync(It.IsAny<CalculateAnimationHash>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_animationHashCompletedResponse));
-            //usbCommunicator.Setup(x => x.HashAnimationFile(It.IsAny<string>())).Returns(new byte[] { 1, 2, 3, 4 });
 
-            await usbCommunicator.LoadAnimationFiles(new[] { _namedAnimationFile, _namedAnimationFile }, new Progress<LoadingAnimationFileModel>());
+            await _target.LoadAnimationFiles(new[] { _namedAnimationFile }, new Progress<LoadingAnimationFileModel>());
+            await _target.LoadAnimationFiles(new[] { _namedAnimationFile }, new Progress<LoadingAnimationFileModel>());
 
-            Assert.AreEqual(usbCommunicator.AnimationFiles.Count, 1);
-            Assert.AreEqual(usbCommunicator.AnimationFiles.First().FriendlyName, FriendlyName);
-            Assert.AreEqual(usbCommunicator.AnimationFiles.First().AnimationId, AnimationId);
-            driver.Verify(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()), Times.Once);
+            Assert.AreEqual(_target.AnimationFiles.Count, 1);
+            Assert.AreEqual(_target.AnimationFiles.First().FriendlyName, FriendlyName);
+            Assert.AreEqual(_target.AnimationFiles.First().AnimationId, AnimationId);
+            _driver.Verify(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [TestMethod]
         public async Task ModifiedAnimationsShouldBeLoadedTest()
         {
-            SetupMocks();
             _storedAnimationIdsResponse = new(true, new StoredAnimationIds { AnimationIds = new[] { FriendlyName.HashDjb2() } });
-            _animationHashCompleted.Hash = new byte[] { 1, 2, 3, 4 };
-            var driver = new Mock<IRelmCommunicator>();
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object, _eventBus.Object);
-            driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(true));
-            driver.Setup(x => x.SendCommandWithResponseAsync(It.IsAny<CalculateAnimationHash>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(_animationHashCompletedResponse));
-            driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(_storedAnimationIdsResponse));
-           
-            await usbCommunicator.LoadAnimationFiles(new[] { _namedAnimationFile }, new Progress<LoadingAnimationFileModel>());
 
-            driver.Verify(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()), Times.Once);
+            _driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(true));
+            _driver.Setup(x => x.SendCommandWithResponseAsync(It.IsAny<CalculateAnimationHash>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(_animationHashCompletedResponse));
+            _driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(_storedAnimationIdsResponse));
+
+            await _target.LoadAnimationFiles(new[] { _namedAnimationFile }, new Progress<LoadingAnimationFileModel>());
+            _driver.Verify(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [TestMethod]
         public async Task MissingFriendlyNameShouldBeSetToFileNameTest()
         {
-            var driver = new Mock<IRelmCommunicator>();
-            driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(string.Empty, AnimationId, FileLength, true)));
-            driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
-            driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_storedAnimationIdsResponse));
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object, _eventBus.Object);
 
-            await usbCommunicator.LoadAnimationFile(_unnamedAnimationFile);
+            await _target.LoadAnimationFile(_unnamedAnimationFile);
 
-            Assert.AreEqual(usbCommunicator.AnimationFiles.Count, 1);
-            Assert.AreEqual(usbCommunicator.AnimationFiles.First().FriendlyName, DefaultFriendlyName);
-            Assert.AreEqual(usbCommunicator.AnimationFiles.First().AnimationId, AnimationId);
+            Assert.AreEqual(_target.AnimationFiles.Count, 1);
+            Assert.AreEqual(_target.AnimationFiles.First().FriendlyName, DefaultFriendlyName);
+            Assert.AreEqual(_target.AnimationFiles.First().AnimationId, AnimationId);
         }
 
         [TestMethod]
         public async Task AnimationCollectionShouldBeEmptyAfterRemoveTest()
         {
-            SetupMocks();
-            var driver = new Mock<IRelmCommunicator>();
-            driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(string.Empty, AnimationId, FileLength, true)));
-            driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendCommandAsync(It.IsAny<RelmCommand>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
-            driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_storedAnimationIdsResponse));
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object, _eventBus.Object);
 
-            await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
-            await usbCommunicator.RemoveAllControllerAnimations();
+            await _target.LoadAnimationFile(_namedAnimationFile);
+            await _target.RemoveAllControllerAnimations();
 
-            Assert.AreEqual(usbCommunicator.AnimationFiles.Count, 0);
+            Assert.AreEqual(_target.AnimationFiles.Count, 0);
         }
 
         [TestMethod]
@@ -189,19 +210,18 @@
         [DataRow(false)]
         public async Task StopLightShowAnimationsReturnsControllerResult(bool controllerResult)
         {
-            var driver = new Mock<IRelmCommunicator>();
-            driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
-            driver.Setup(x => x.SendCommandAsync(It.IsAny<StopLightShowAnimation>(), default))
+            _driver.Setup(x => x.SendCommandAsync(It.IsAny<StopLightShowAnimation>(), default))
                 .Returns(Task.FromResult(controllerResult));
-            driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_storedAnimationIdsResponse));
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object, _eventBus.Object);
 
-            await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
-            var result = await usbCommunicator.StopLightShowAnimations(new List<LightShowData> { _lightShow1 });
+            await _target.LoadAnimationFile(_namedAnimationFile);
+            var result = await _target.StopLightShowAnimations(new List<LightShowData> { _lightShow1 });
 
-            driver.Verify(x => x.SendCommandAsync(It.IsAny<StopLightShowAnimation>(), default), Times.Once);
+            _driver.Verify(x => x.SendCommandAsync(It.IsAny<StopLightShowAnimation>(), default), Times.Once);
+
             Assert.AreEqual(controllerResult, result);
         }
 
@@ -210,50 +230,39 @@
         [DataRow(false)]
         public async Task StopAllAnimationTagsReturnsControllerResultWhenShowExists(bool controllerResult)
         {
-            var driver = new Mock<IRelmCommunicator>();
-            driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
-            driver.Setup(x => x.SendCommandAsync(It.IsAny<StopAllAnimationTags>(), default))
+            _driver.Setup(x => x.SendCommandAsync(It.IsAny<StopAllAnimationTags>(), default))
                 .Returns(Task.FromResult(controllerResult));
-            driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_storedAnimationIdsResponse));
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object, _eventBus.Object);
 
-            await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
-            var result = await usbCommunicator.StopAllAnimationTags(FriendlyName);
+            await _target.LoadAnimationFile(_namedAnimationFile);
+            var result = await _target.StopAllAnimationTags(FriendlyName);
 
-            driver.Verify(x => x.SendCommandAsync(It.IsAny<StopAllAnimationTags>(), default), Times.Once);
+            _driver.Verify(x => x.SendCommandAsync(It.IsAny<StopAllAnimationTags>(), default), Times.Once);
             Assert.AreEqual(controllerResult, result);
         }
 
         [TestMethod]
         public async Task StopAllAnimationTagsReturnsFalseWhenShowNotExist()
         {
-            var driver = new Mock<RelmReels.Communicator.IRelmCommunicator>();
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object, _eventBus.Object);
-
-            var result = await usbCommunicator.StopAllAnimationTags(FriendlyName);
+            var result = await _target.StopAllAnimationTags(FriendlyName);
             Assert.IsFalse(result);
         }
 
         [TestMethod]
         public async Task LightShowPrepareAnimationsFailsWhenOneNotLoaded()
         {
-            SetupMocks();
-            var driver = new Mock<IRelmCommunicator>();
-            driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
-            driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareLightShowAnimations>(), default))
+            _driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareLightShowAnimations>(), default))
                 .Returns(Task.FromResult(true));
-            driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_storedAnimationIdsResponse));
 
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object, _eventBus.Object);
-            var lightShows = new List<LightShowData> { _lightShow1, _lightShow2 };
-
-            await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
-            var result = await usbCommunicator.PrepareAnimations(lightShows);
-
+            await _target.LoadAnimationFile(_namedAnimationFile);
+            var result = await _target.PrepareAnimations(new List<LightShowData> { _lightShow1, _lightShow2 });
             Assert.IsFalse(result);
         }
 
@@ -262,40 +271,32 @@
         [DataRow(false)]
         public async Task LightShowPrepareAnimationReturnsControllerResult(bool controllerResult)
         {
-            SetupMocks();
-            var driver = new Mock<IRelmCommunicator>();
-            driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
-            driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareLightShowAnimations>(), default))
+            _driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareLightShowAnimations>(), default))
                 .Returns(Task.FromResult(controllerResult));
-            driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_storedAnimationIdsResponse));
 
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object, _eventBus.Object);
-
-            await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
-            var result = await usbCommunicator.PrepareAnimation(_lightShow1);
-
+            await _target.LoadAnimationFile(_namedAnimationFile);
+            var result = await _target.PrepareAnimation(_lightShow1);
             Assert.AreEqual(controllerResult, result);
         }
 
         [TestMethod]
         public async Task CurvePrepareAnimationsFailsWhenOneNotLoaded()
         {
-            SetupMocks();
-            var driver = new Mock<IRelmCommunicator>();
-            driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
-            driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareStepperCurves>(), default))
+            _driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareStepperCurves>(), default))
                 .Returns(Task.FromResult(true));
-            driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_storedAnimationIdsResponse));
 
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object, _eventBus.Object);
             var curves = new List<ReelCurveData> { _curve1, _curve2 };
 
-            await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
-            var result = await usbCommunicator.PrepareAnimations(curves);
+            await _target.LoadAnimationFile(_namedAnimationFile);
+            var result = await _target.PrepareAnimations(curves);
 
             Assert.IsFalse(result);
         }
@@ -305,31 +306,17 @@
         [DataRow(false)]
         public async Task CurvePrepareAnimationReturnsControllerResult(bool controllerResult)
         {
-            SetupMocks();
-            var driver = new Mock<IRelmCommunicator>();
-            driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.Download(It.IsAny<string>(), It.IsAny<BitmapVerification>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(new StoredFile(FriendlyName, AnimationId, FileLength, true)));
-            driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareStepperCurves>(), default))
+            _driver.Setup(x => x.SendCommandAsync(It.IsAny<PrepareStepperCurves>(), default))
                 .Returns(Task.FromResult(controllerResult));
-            driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
+            _driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_storedAnimationIdsResponse));
 
-            var usbCommunicator = new RelmUsbCommunicator(driver.Object, _propertiesManager.Object, _eventBus.Object);
-
-            await usbCommunicator.LoadAnimationFile(_namedAnimationFile);
-            var result = await usbCommunicator.PrepareAnimation(_curve1);
+            await _target.LoadAnimationFile(_namedAnimationFile);
+            var result = await _target.PrepareAnimation(_curve1);
 
             Assert.AreEqual(controllerResult, result);
-        }
-
-        private void SetupMocks()
-        {
-            MoqServiceManager.CreateInstance(MockBehavior.Default);
-            var localizerFactory = MoqServiceManager.CreateAndAddService<ILocalizerFactory>(MockBehavior.Default);
-            localizerFactory.Setup(x => x.For(It.IsAny<string>())).Returns(new Mock<ILocalizer>().Object);
-            var localizer = new Mock<ILocalizer>();
-            localizer.Setup(x => x.GetString(It.IsAny<string>())).Returns("empty");
-            localizerFactory.Setup(x => x.For(It.IsAny<string>())).Returns(localizer.Object);
         }
     }
 }

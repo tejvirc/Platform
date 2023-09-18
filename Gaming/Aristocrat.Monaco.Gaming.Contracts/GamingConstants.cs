@@ -1189,11 +1189,6 @@ namespace Aristocrat.Monaco.Gaming.Contracts
         public const string AttendantServiceTimeoutInMilliseconds = "AttendantServiceTimeoutSupport.TimeoutInMilliseconds";
 
         /// <summary>
-        ///     Property Key for Game Configuration Initial Configuration Complete.
-        /// </summary>
-        public const string OperatorMenuGameConfigurationInitialConfigComplete = @"OperatorMenu.GameConfiguration.InitialConfigComplete";
-
-        /// <summary>
         ///     Property Key for Button layout : Bet buttons on bottom
         /// </summary>
         public const string ButtonLayoutBetButtonsOnBottom = @"ButtonLayoutOptions.PhysicalButtons.BetButtonsOnBottom";

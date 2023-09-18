@@ -431,6 +431,7 @@
       <Field DataType="Bool" FieldName="Application.ExcessiveMeterIncrementLockedKey" />
       <Field DataType="Bool" FieldName="System.GameRules" />
       <Field DataType="String" FieldName="Protocol.HostAddresses" />
+	  <Field DataType="Bool" FieldName="GameConfigurationInitialConfigComplete" />
     </Fields>
   </BlockFormat>
 </ArrayOfBlockFormat>

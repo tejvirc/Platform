@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Common.Storage;
     using Aristocrat.Monaco.Test.Common;
     using Contracts;
     using Contracts.Reel.Events;
@@ -21,19 +22,25 @@
     {
         private readonly Mock<IRelmCommunicator> _driver = new();
         private Mock<IPropertiesManager> _propertiesManager;
+        private Mock<IFileSystemProvider> _fileSystem;
+        private RelmUsbCommunicator _target;
         private Mock<IEventBus> _eventBus;
 
         [TestInitialize]
         public void Initialize()
         {
+            MoqServiceManager.CreateInstance(MockBehavior.Strict);
+            _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
+            _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoNotResetRelmController, It.IsAny<bool>())).Returns(false);
+
             _driver.Setup(x => x.IsOpen).Returns(true);
             _driver.Setup(x => x.Configuration).Returns(new DeviceConfiguration());
             _driver.Setup(x => x.SendQueryAsync<DeviceConfiguration>(default)).ReturnsAsync(new RelmResponse<DeviceConfiguration>(true, new DeviceConfiguration()));
             _driver.Setup(x => x.SendQueryAsync<FirmwareSize>(default)).ReturnsAsync(new RelmResponse<FirmwareSize>(true, new FirmwareSize()));
-            MoqServiceManager.CreateInstance(MockBehavior.Strict);
-            _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
-            _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoNotResetRelmController, It.IsAny<bool>())).Returns(false);
+
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Loose);
+            _fileSystem = new Mock<IFileSystemProvider>();
+            _target = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _fileSystem.Object, _eventBus.Object);
         }
 
         [TestCleanup]
@@ -48,9 +55,8 @@
             var lightStatusesReceived = false;
             var reelStatusesReceived = false;
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _eventBus.Object);
-            usbCommunicator.LightStatusReceived += delegate { lightStatusesReceived = true; };
-            usbCommunicator.ReelStatusReceived += delegate { reelStatusesReceived = true; };
+            _target.LightStatusReceived += delegate { lightStatusesReceived = true; };
+            _target.ReelStatusReceived += delegate { reelStatusesReceived = true; };
 
             _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(new RelmResponse<DeviceStatuses>(true, new DeviceStatuses()
             {
@@ -72,7 +78,7 @@
                     .ToArray()
             }));
 
-            await usbCommunicator.Initialize();
+            await _target.Initialize();
 
             Assert.IsTrue(lightStatusesReceived);
             Assert.IsTrue(reelStatusesReceived);
@@ -97,11 +103,10 @@
                 LightCount = (byte)statusCount
             };
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _eventBus.Object);
-            usbCommunicator.LightStatusReceived += delegate (object _, LightEventArgs e) { actualLightStatuses = e.Statuses.ToList(); };
+            _target.LightStatusReceived += delegate (object _, LightEventArgs e) { actualLightStatuses = e.Statuses.ToList(); };
             _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(new RelmResponse<DeviceStatuses>(true, expectedDeviceStatuses));
 
-            await usbCommunicator.Initialize();
+            await _target.Initialize();
 
             for (var i = 0; i < expectedDeviceStatuses.LightStatuses.Length; i++)
             {
@@ -150,11 +155,10 @@
                 UnknownStop = unknownStop
             };
 
-            var usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _eventBus.Object);
-            usbCommunicator.ReelStatusReceived += delegate(object _, ReelStatusReceivedEventArgs e) { actualReelStatuses = e.Statuses.ToList(); };
+            _target.ReelStatusReceived += delegate(object _, ReelStatusReceivedEventArgs e) { actualReelStatuses = e.Statuses.ToList(); };
             _driver.Setup(x => x.SendQueryAsync<DeviceStatuses>(default)).ReturnsAsync(new RelmResponse<DeviceStatuses>(true, expectedDeviceStatuses));
 
-            await usbCommunicator.Initialize();
+            await _target.Initialize();
 
             for (var i = 0; i < expectedDeviceStatuses.ReelStatuses.Length; i++)
             {

@@ -114,7 +114,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="{lex:Loc Meter}"
                                         loc:Localizer.For="Operator"
-                                        Width="350"
+                                        Width="Auto"
                                         Binding="{Binding Name}" 
                                         AutomationProperties.AutomationId="DataGridTextColumn20_D1FE7F80" />
                     <DataGridTextColumn Header="{lex:Loc Count}"

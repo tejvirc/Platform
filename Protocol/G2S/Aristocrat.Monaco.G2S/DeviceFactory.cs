@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Data.Profile;
@@ -82,6 +83,11 @@
 
                 HydrateDevice(device);
 
+                if (SyncGuests(guests, device))
+                {
+                    _profiles.Save(device);
+                }
+
                 device.SetQueue(_egm);
             }
         }
@@ -89,6 +95,27 @@
         private void HydrateDevice(IDevice device)
         {
             _profiles.Populate(device);
+        }
+
+        private static bool SyncGuests(IEnumerable<IHost> guests, ClientDeviceBase device)
+        {
+            var guestListChanged = false;
+            var deviceGuestList = device.Guests.ToList();
+            var newGuestList = guests != null ? guests.Select(g => g.Id).ToList() : new List<int>();
+
+            foreach (var newGuestId in newGuestList.Where(newGuestId => !deviceGuestList.Contains(newGuestId)))
+            {
+                device.AddGuest(newGuestId);
+                guestListChanged = true;
+            }
+
+            foreach (var deviceGuestId in deviceGuestList.Where(deviceGuestId => !newGuestList.Contains(deviceGuestId)))
+            {
+                device.RemoveGuest(deviceGuestId);
+                guestListChanged = true;
+            }
+
+            return guestListChanged;
         }
     }
 }

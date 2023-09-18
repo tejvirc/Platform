@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Aristocrat.Monaco.Common.Storage;
     using Aristocrat.Monaco.Test.Common;
     using Contracts;
     using Contracts.Reel;
@@ -28,20 +29,26 @@
     {
         private const string AnimationName = "anim";
         private const string Tag = "ALL";
-        private readonly Mock<RelmReels.Communicator.IRelmCommunicator> _driver = new();
+        private readonly Mock<IRelmCommunicator> _driver = new();
         private readonly AnimationFile _testLightShowFile = new("anim.lightshow", AnimationType.PlatformLightShow, AnimationName);
         private readonly StoredFile _storedFile = new("", 12345, 1, true);
         private readonly LightShowData _lightShowData = new(3, AnimationName, Tag, ReelConstants.RepeatOnce, -1);
         private readonly AnimationFile _testStepperCurveFile = new("anim.stepper", AnimationType.PlatformStepperCurve, AnimationName);
         private readonly ReelCurveData _curveData = new(3, AnimationName);
         private readonly uint _tagId = Tag.HashDjb2();
-        private RelmUsbCommunicator _usbCommunicator;
+
+        private RelmUsbCommunicator _target;
+        private Mock<IFileSystemProvider> _fileSystem;
         private Mock<IPropertiesManager> _propertiesManager;
         private Mock<IEventBus> _eventBus;
 
         [TestInitialize]
         public void Initialize()
         {
+            MoqServiceManager.CreateInstance(MockBehavior.Strict);
+            _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
+            _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoNotResetRelmController, It.IsAny<bool>())).Returns(false);
+
             _driver.Setup(x => x.IsOpen).Returns(true);
             _driver.Setup(x => x.Configuration).Returns(new DeviceConfiguration());
             _driver.Setup(x => x.SendQueryAsync<StoredAnimationIds>(default)).ReturnsAsync(new RelmResponse<StoredAnimationIds>(true, new StoredAnimationIds()));
@@ -70,11 +77,10 @@
                 .Returns(Task.FromResult(_storedFile));
             _driver.Setup(x => x.Download(_testLightShowFile.Path, BitmapVerification.CRC32, It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(_storedFile));
-            MoqServiceManager.CreateInstance(MockBehavior.Strict);
-            _propertiesManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Strict);
-            _propertiesManager.Setup(m => m.GetProperty(HardwareConstants.DoNotResetRelmController, It.IsAny<bool>())).Returns(false);
+
+            _fileSystem = new Mock<IFileSystemProvider>();
             _eventBus = MoqServiceManager.CreateAndAddService<IEventBus>(MockBehavior.Loose);
-            _usbCommunicator = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _eventBus.Object);
+            _target = new RelmUsbCommunicator(_driver.Object, _propertiesManager.Object, _fileSystem.Object, _eventBus.Object);
         }
 
         [TestCleanup]
@@ -103,13 +109,13 @@
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
 
             LightAnimationEventArgs actualArgs = null; 
-            _usbCommunicator.LightAnimationPrepared += (_, args) =>
+            _target.LightAnimationPrepared += (_, args) =>
             {
                 actualArgs = args;
             };
 
             await InitializeAndLoadAnimation(_testLightShowFile);
-            await _usbCommunicator.PrepareAnimation(_lightShowData);
+            await _target.PrepareAnimation(_lightShowData);
 
             Assert.AreEqual(actualArgs?.AnimationName, AnimationName);
             Assert.AreEqual(actualArgs?.Tag, Tag);
@@ -131,13 +137,13 @@
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
 
             LightAnimationEventArgs actualArgs = null; 
-            _usbCommunicator.LightAnimationStarted += (_, args) =>
+            _target.LightAnimationStarted += (_, args) =>
             {
                 actualArgs = args;
             };
             
             await InitializeAndLoadAnimation(_testLightShowFile);
-            await _usbCommunicator.PrepareAnimation(_lightShowData);
+            await _target.PrepareAnimation(_lightShowData);
 
             Assert.AreEqual(actualArgs?.AnimationName, AnimationName);
             Assert.AreEqual(actualArgs?.Tag, Tag);
@@ -165,13 +171,13 @@
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
 
             LightAnimationEventArgs actualArgs = null; 
-            _usbCommunicator.LightAnimationStopped += (_, args) =>
+            _target.LightAnimationStopped += (_, args) =>
             {
                 actualArgs = args;
             };
 
             await InitializeAndLoadAnimation(_testLightShowFile);
-            await _usbCommunicator.PrepareAnimation(_lightShowData);
+            await _target.PrepareAnimation(_lightShowData);
 
             Assert.AreEqual(actualArgs?.AnimationName, AnimationName);
             Assert.AreEqual(actualArgs?.Tag, Tag);
@@ -197,13 +203,13 @@
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
 
             LightAnimationEventArgs actualArgs = null;
-            _usbCommunicator.LightAnimationRemoved += (_, args) =>
+            _target.LightAnimationRemoved += (_, args) =>
             {
                 actualArgs = args;
             };
 
             await InitializeAndLoadAnimation(_testLightShowFile);
-            await _usbCommunicator.PrepareAnimation(_lightShowData);
+            await _target.PrepareAnimation(_lightShowData);
 
             Assert.AreEqual(actualArgs?.AnimationName, AnimationName);
             Assert.IsTrue(string.IsNullOrEmpty(actualArgs?.Tag));
@@ -221,13 +227,13 @@
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
 
             var eventFired = false;
-            _usbCommunicator.AllLightAnimationsCleared += (_, _) =>
+            _target.AllLightAnimationsCleared += (_, _) =>
             {
                 eventFired = true;
             };
 
             await InitializeAndLoadAnimation(_testLightShowFile);
-            await _usbCommunicator.PrepareAnimation(_lightShowData);
+            await _target.PrepareAnimation(_lightShowData);
 
             Assert.IsTrue(eventFired);
         }
@@ -253,13 +259,13 @@
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
 
             ReelAnimationEventArgs actualArgs = null;
-            _usbCommunicator.ReelAnimationPrepared += (_, args) =>
+            _target.ReelAnimationPrepared += (_, args) =>
             {
                 actualArgs = args;
             };
 
             await InitializeAndLoadAnimation(_testStepperCurveFile);
-            await _usbCommunicator.PrepareAnimation(_curveData);
+            await _target.PrepareAnimation(_curveData);
 
             Assert.AreEqual(actualArgs?.ReelId, 0);
             Assert.AreEqual(actualArgs?.AnimationName, AnimationName);
@@ -280,13 +286,13 @@
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
 
             ReelAnimationEventArgs actualArgs = null;
-            _usbCommunicator.ReelAnimationStarted += (_, args) =>
+            _target.ReelAnimationStarted += (_, args) =>
             {
                 actualArgs = args;
             };
 
             await InitializeAndLoadAnimation(_testStepperCurveFile);
-            await _usbCommunicator.PrepareAnimation(_curveData);
+            await _target.PrepareAnimation(_curveData);
 
             Assert.AreEqual(actualArgs?.ReelId, _curveData.ReelIndex);
             Assert.AreEqual(actualArgs?.AnimationName, AnimationName);
@@ -307,13 +313,13 @@
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
 
             ReelAnimationEventArgs actualArgs = null;
-            _usbCommunicator.ReelAnimationStopped += (_, args) =>
+            _target.ReelAnimationStopped += (_, args) =>
             {
                 actualArgs = args;
             };
 
             await InitializeAndLoadAnimation(_testStepperCurveFile);
-            await _usbCommunicator.PrepareAnimation(_curveData);
+            await _target.PrepareAnimation(_curveData);
 
             Assert.AreEqual(actualArgs?.ReelId, _curveData.ReelIndex);
             Assert.AreEqual(actualArgs?.AnimationName, AnimationName);
@@ -337,13 +343,13 @@
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
 
             ReelStoppingEventArgs actualArgs = null;
-            _usbCommunicator.ReelStopping += (_, args) =>
+            _target.ReelStopping += (_, args) =>
             {
                 actualArgs = args;
             };
 
             await InitializeAndLoadAnimation(_testStepperCurveFile);
-            await _usbCommunicator.PrepareAnimation(_curveData);
+            await _target.PrepareAnimation(_curveData);
 
             Assert.AreEqual(actualArgs?.ReelId, reelId);
             Assert.AreEqual(actualArgs?.TimeToStop, stopTime);
@@ -366,13 +372,13 @@
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
 
             StepperRuleTriggeredEventArgs actualArgs = null;
-            _usbCommunicator.StepperRuleTriggered += (_, args) =>
+            _target.StepperRuleTriggered += (_, args) =>
             {
                 actualArgs = args;
             };
 
             await InitializeAndLoadAnimation(_testStepperCurveFile);
-            await _usbCommunicator.PrepareAnimation(_curveData);
+            await _target.PrepareAnimation(_curveData);
 
             Assert.AreEqual(actualArgs?.ReelId, reelId);
             Assert.AreEqual(actualArgs?.EventId, eventId);
@@ -393,13 +399,13 @@
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
 
             ReelSynchronizationEventArgs actualArgs = null;
-            _usbCommunicator.SynchronizationStarted += (_, args) =>
+            _target.SynchronizationStarted += (_, args) =>
             {
                 actualArgs = args;
             };
 
             await InitializeAndLoadAnimation(_testStepperCurveFile);
-            await _usbCommunicator.PrepareAnimation(_curveData);
+            await _target.PrepareAnimation(_curveData);
 
             Assert.AreEqual(actualArgs?.ReelId, reelId);
         }
@@ -419,20 +425,20 @@
                 .Raises(x => x.InterruptReceived += null, new RelmInterruptEventArgs(interrupt));
 
             ReelSynchronizationEventArgs actualArgs = null;
-            _usbCommunicator.SynchronizationCompleted += (_, args) =>
+            _target.SynchronizationCompleted += (_, args) =>
             {
                 actualArgs = args;
             };
 
             await InitializeAndLoadAnimation(_testStepperCurveFile);
-            await _usbCommunicator.PrepareAnimation(_curveData);
+            await _target.PrepareAnimation(_curveData);
 
             Assert.AreEqual(actualArgs?.ReelId, reelId);
         }
 
         private async Task InitializeAndLoadAnimation(AnimationFile animationFile) {
-            await _usbCommunicator.Initialize();
-            await _usbCommunicator.LoadAnimationFile(animationFile);
+            await _target.Initialize();
+            await _target.LoadAnimationFile(animationFile);
         }
     }
 }
