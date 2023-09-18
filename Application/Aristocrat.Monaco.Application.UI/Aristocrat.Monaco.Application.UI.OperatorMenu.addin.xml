@@ -85,6 +85,7 @@
 
   <Extension path="/Application/OperatorMenu/SystemMenu">
     <SystemMenu type="Aristocrat.Monaco.Application.UI.Loaders.TimeConfigPageLoader" order="10"/>
+    <SystemMenu type="Aristocrat.Monaco.Application.UI.Loaders.SystemRestartPageLoader" order="11"/>
   </Extension>
 
   <Extension path="/Application/OperatorMenu/DiagnosticMenu">

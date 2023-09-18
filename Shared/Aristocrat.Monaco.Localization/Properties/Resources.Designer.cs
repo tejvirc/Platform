@@ -3582,27 +3582,22 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-        /// <summary>
-        ///   Looks up a localized string similar to Bypass Certificate Validation.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        public static string BypassCertificateValidation
-        {
-            get
-            {
-                return ResourceManager.GetString("BypassCertificateValidation", resourceCulture) ?? string.Empty;
-            }
-        }
+		/// <summary>
+		///   Looks up a localized string similar to Bypass Certificate Validation.
+		/// </summary>
+		public static string BypassCertificateValidation {
+			get {
+				return ResourceManager.GetString("BypassCertificateValidation", resourceCulture) ?? string.Empty;
+			}
+		}
 
-        /// <summary>
-        ///   Looks up a localized string similar to Bytes Received.
-        /// </summary>
+		/// <summary>
+		///   Looks up a localized string similar to Bytes Received.
+		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
         /// </remarks>
-        public static string BytesReceivedLabel {
+		public static string BytesReceivedLabel {
 			get {
 				return ResourceManager.GetString("BytesReceivedLabel", resourceCulture) ?? string.Empty;
 			}
@@ -11299,7 +11294,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Load more paper before paper is empty.
+		///   Looks up a localized string similar to Open Main Door and Load More Paper Before Paper is....
 		/// </summary>
 		public static string ErrorInfoPrinterPaperLow {
 			get {
@@ -12004,7 +11999,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to Extra Low.
+		///   Looks up a localized string similar to Extra-Low.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -18934,7 +18929,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to LINKED LEVEL ID.
+		///   Looks up a localized string similar to LINKED&amp;#13;&amp;#10;LEVEL ID.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -32812,7 +32807,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///   Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET..
+		///   Looks up a localized string similar to TIME BEFORE CREDITS/HAND COUNT IS RESET..
 		/// </summary>
         /// <remarks>
         /// Monaco.Gaming.UI
@@ -40319,14 +40314,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
 			}
 		}
 
-        /// <summary>
+		/// <summary>
 		///		Looks up a localized string similar to Bypass Certificate Validation.
 		/// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-		public static string BypassCertificateValidation
-        {
+		public static string BypassCertificateValidation {
 			get {
 				return "BypassCertificateValidation";
 			}
@@ -48034,7 +48025,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Load more paper before paper is empty.
+		///		Looks up a localized string similar to Open Main Door and Load More Paper Before Paper is....
 		/// </summary>
 		public static string ErrorInfoPrinterPaperLow {
 			get {
@@ -48739,7 +48730,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to Extra Low.
+		///		Looks up a localized string similar to Extra-Low.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -55669,7 +55660,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to LINKED LEVEL ID.
+		///		Looks up a localized string similar to LINKED&amp;#13;&amp;#10;LEVEL ID.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -69547,7 +69538,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
-		///		Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET..
+		///		Looks up a localized string similar to TIME BEFORE CREDITS/HAND COUNT IS RESET..
 		/// </summary>
         /// <remarks>
         /// Monaco.Gaming.UI
@@ -75545,13 +75536,10 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.Gaming.UI
         /// </remarks>
 		ByGameType,
-        /// <summary>
+		/// <summary>
 		///   Looks up a localized string similar to Bypass Certificate Validation.
 		/// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        BypassCertificateValidation,
+		BypassCertificateValidation,
 		/// <summary>
 		///   Looks up a localized string similar to Bytes Received.
 		/// </summary>
@@ -79925,7 +79913,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ErrorInfoPrinterPaperEmpty,
 		/// <summary>
-		///   Looks up a localized string similar to Load more paper before paper is empty.
+		///   Looks up a localized string similar to Open Main Door and Load More Paper Before Paper is....
 		/// </summary>
 		ErrorInfoPrinterPaperLow,
 		/// <summary>
@@ -80315,7 +80303,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		ExtraHigh,
 		/// <summary>
-		///   Looks up a localized string similar to Extra Low.
+		///   Looks up a localized string similar to Extra-Low.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Application.UI
@@ -84275,7 +84263,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		LinkedGameIdLabel,
 		/// <summary>
-		///   Looks up a localized string similar to LINKED LEVEL ID.
+		///   Looks up a localized string similar to LINKED&amp;#13;&amp;#10;LEVEL ID.
 		/// </summary>
         /// <remarks>
         /// Aristocrat.Monaco.Gaming.UI
@@ -92163,7 +92151,7 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// </remarks>
 		TimeAndZoneConfiguration,
 		/// <summary>
-		///   Looks up a localized string similar to TIME BEFORE CREDITS/HANDCOUNT IS RESET..
+		///   Looks up a localized string similar to TIME BEFORE CREDITS/HAND COUNT IS RESET..
 		/// </summary>
         /// <remarks>
         /// Monaco.Gaming.UI
