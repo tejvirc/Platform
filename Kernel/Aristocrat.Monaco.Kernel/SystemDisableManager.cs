@@ -133,15 +133,21 @@ namespace Aristocrat.Monaco.Kernel
         }
 
         /// <inheritdoc />
+        public void Disable(Guid enableKey, SystemDisablePriority priority, bool resourceKeyOnly, Func<string> disableReason, Type type = null)
+        {
+            Disable(enableKey, priority, disableReason, TimeSpan.Zero, type, resourceKeyOnly);
+        }
+
+        /// <inheritdoc />
         public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, bool affectsIdleState, Type type = null)
         {
             Disable(enableKey, priority, disableReason, TimeSpan.Zero, affectsIdleState, type);
         }
 
         /// <inheritdoc />
-        public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, TimeSpan duration, Type type = null)
+        public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, TimeSpan duration, Type type = null, bool resourceKeyOnly = false)
         {
-            Disable(enableKey, priority, disableReason, duration, true, type);
+            Disable(enableKey, priority, disableReason, duration, true, type, resourceKeyOnly:resourceKeyOnly);
         }
 
         /// <inheritdoc />
@@ -151,7 +157,7 @@ namespace Aristocrat.Monaco.Kernel
         }
 
         /// <inheritdoc />
-        public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, TimeSpan duration, bool affectsIdleState, Type type = null, Func<string> helpText = null)
+        public void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, TimeSpan duration, bool affectsIdleState, Type type = null, Func<string> helpText = null, bool resourceKeyOnly = false)
         {
             _stateLock.EnterWriteLock();
             try
@@ -221,7 +227,8 @@ namespace Aristocrat.Monaco.Kernel
                     messagePriority,
                     type,
                     enableKey,
-                    helpText);
+                    helpText,
+                    resourceKeyOnly);
 
                 _messageDisplay.DisplayMessage(message);
             }

@@ -5117,4 +5117,7 @@ Consulter le manuel pour plus de détails</value>
   <data name="JurisdictionSetupInformation" xml:space="preserve">
     <value>??Jurisdiction Setup Information??</value>
   </data>
+  <data name="AudioConnected" xml:space="preserve">
+    <value>??Audio Connected - Restart Required??</value>
+  </data>
 </root>

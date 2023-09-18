@@ -458,9 +458,10 @@
 
             var messages = HardErrorMessages.ToArray();
 
-            foreach (var message in messages.Select(o => o.Value.Message).Distinct())
+            //Stop gap solution that will be refactored soon for unique displayablemessage guids
+            foreach (var message in messages.GroupBy(o => o.Value.Message).Select(o => o.First()))
             {
-                overlayMsg.AppendLine(message);
+                overlayMsg.AppendLine(ResolveDisplayableMessageText(message.Value));
             }
 
             return overlayMsg.ToString();
@@ -535,6 +536,26 @@
 
             Logger.Debug($"Setting MessageOverlayState={state} (LobbyState={_lobbyStateManager.CurrentState}, BaseState={_lobbyStateManager.BaseState}, CashOutState={_lobbyStateManager.CashOutState})");
             return state;
+        }
+
+        public string ResolveDisplayableMessageText(DisplayableMessage displayableMessage)
+        {
+            if (displayableMessage.ResourceKeyOnly)
+            {
+                try
+                {
+                    return Localizer.ForLockup().GetString(displayableMessage.Message);
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    // Localization providers may not be ready yet at this point
+                    return Resources.ResourceManager.GetString(displayableMessage.Message);
+                }
+            }
+            else
+            {
+                return displayableMessage.Message;
+            }
         }
 
         private string GetDisplayImageKey()

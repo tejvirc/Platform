@@ -340,7 +340,8 @@
                         _disableManager.Disable(
                             AudioReconnectedLock,
                             SystemDisablePriority.Immediate,
-                            () => Properties.Resources.AudioConnected);
+                            true,
+                            () => nameof(Properties.Resources.AudioConnected));
                         _disableManager.Enable(AudioDisconnectedLock);
                     }
 
@@ -551,7 +552,8 @@
             _disableManager.Disable(
                 AudioDisconnectedLock,
                 SystemDisablePriority.Immediate,
-                () => Properties.Resources.AudioDisconnect);
+                true,
+                () => nameof(Properties.Resources.AudioDisconnect));
         }
 
         private void PollingTimerOnElapsed(object sender, ElapsedEventArgs e)

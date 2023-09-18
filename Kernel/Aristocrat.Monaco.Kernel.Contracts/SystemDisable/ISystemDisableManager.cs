@@ -84,7 +84,6 @@ namespace Aristocrat.Monaco.Kernel
         ///     Gets a value indicating whether the system should disable immediately.
         /// </summary>
         bool DisableImmediately { get; }
-
         /// <summary>
         ///     Adds a reason for the system to be disabled.  If the system is enabled, this will disable the system.
         /// </summary>
@@ -93,6 +92,15 @@ namespace Aristocrat.Monaco.Kernel
         /// <param name="disableReason">A human readable reason for the disable</param>
         /// <param name="type">The type of the event that prompted this disable, if there is one</param>
         void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, Type type = null);
+        /// <summary>
+        ///     Adds a reason for the system to be disabled.  If the system is enabled, this will disable the system.
+        /// </summary>
+        /// <param name="enableKey">The unique value that will later re-enable this disable.</param>
+        /// <param name="priority">The priority of this need to disable.</param>
+        /// <param name="resourceKeyOnly">True if the disable reason is a resourceKey, false (default) if it's a localized string</param>
+        /// <param name="disableReason">A human readable reason for the disable</param>
+        /// <param name="type">The type of the event that prompted this disable, if there is one</param>
+        void Disable(Guid enableKey, SystemDisablePriority priority, bool resourceKeyOnly, Func<string> disableReason, Type type = null);
 
         /// <summary>
         ///     Adds a reason for the system to be disabled.  If the system is enabled, this will disable the system.
@@ -112,7 +120,8 @@ namespace Aristocrat.Monaco.Kernel
         /// <param name="disableReason">A human readable reason for the disable</param>
         /// <param name="duration">The duration of the system disable condition</param>
         /// <param name="type">The type of the event that prompted this disable, if there is one</param>
-        void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, TimeSpan duration, Type type = null);
+        /// <param name="resourceKeyOnly">True if the disable reason is a resourceKey, false (default) if it's a localized string</param>
+        void Disable(Guid enableKey, SystemDisablePriority priority, Func<string> disableReason, TimeSpan duration, Type type = null, bool resourceKeyOnly = false);
 
         /// <summary>
         ///     Adds a reason for the system to be disabled.  If the system is enabled, this will disable the system.
@@ -135,6 +144,7 @@ namespace Aristocrat.Monaco.Kernel
         /// <param name="affectsIdleState">true (the default) if this disable state affects the cabinet idle state.</param>
         /// <param name="type">The type of the event that prompted this disable, if there is one</param>
         /// <param name="helpText">A human readable string that contains the reason of the lockup and general guidelines on how to clear it.</param>
+        /// <param name="resourceKeyOnly">True if the disable reason is a resource key and not a localized string, false (default) if it is ready to be displayed as is</param>
         void Disable(
             Guid enableKey,
             SystemDisablePriority priority,
@@ -142,7 +152,8 @@ namespace Aristocrat.Monaco.Kernel
             TimeSpan duration,
             bool affectsIdleState,
             Type type = null,
-            Func<string> helpText = null);
+            Func<string> helpText = null,
+            bool resourceKeyOnly = false);
 
         /// <summary>
         ///     Clears an existing disable reason.  If this was the only reason to disable, the system will be enabled.

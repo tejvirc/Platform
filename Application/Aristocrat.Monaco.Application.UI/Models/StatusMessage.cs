@@ -18,7 +18,7 @@
             _resourceKey = resourceKey;
         }
 
-        public string Message => _displayableMessage.Message;
+        public string Message => ResolveDisplayableMessageText();
 
         public Guid? MessageId => _displayableMessage?.Id;
 
@@ -45,6 +45,15 @@
         public void UpdateAdditionalInfo()
         {
             RaisePropertyChanged(nameof(AdditionalInfo));
+        }
+
+        private string ResolveDisplayableMessageText()
+        {
+            if (_displayableMessage.ResourceKeyOnly)
+            {
+                return Localizer.For(CultureFor.Operator).GetString(_displayableMessage.Message);
+            }
+            return _displayableMessage.Message;
         }
     }
 }
