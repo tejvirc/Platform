@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Views
 {
-    using Cabinet.Contracts;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -9,6 +8,9 @@
     using System.Windows.Ink;
     using System.Windows.Input;
     using System.Windows.Media;
+    using Cabinet.Contracts;
+    using Hardware.Contracts.Cabinet;
+    using Kernel;
 
     /// <summary>
     /// </summary>
@@ -18,6 +20,7 @@
         private WindowToScreenMapper _mapper;
         private static int _maxTouchPointsPerStroke = 10;
         private static int _maxStrokesCount = 500;
+        private static int _maxVisibleAreaHeight = 300;
         private static double _minNearbyDistance = 0.5;
 
         private Dictionary<int, DottedStroke> _strokes = new Dictionary<int, DottedStroke>();
@@ -82,6 +85,20 @@
             {
                 _mapper = new WindowToScreenMapper(value);
                 Topmost = _mapper.IsFullscreen;
+
+                var cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
+                var displayDevice = cabinetDetectionService.GetDisplayDeviceByItsRole(value);
+                if (displayDevice != null && displayDevice.VisibleArea.Height < _maxVisibleAreaHeight)
+                {
+                    ExitButtonBottomLeft.Visibility = Visibility.Collapsed;
+                    ExitButtonTopRight.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    ExitButtonBottomLeft.Visibility = Visibility.Visible;
+                    ExitButtonTopRight.Visibility = Visibility.Collapsed;
+                }
+
                 _mapper.MapWindow(this);
             }
         }
