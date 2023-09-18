@@ -176,6 +176,18 @@
                     _logger.Info($"GameLoadRequestEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                     RequestGame();
                 });
+
+            _eventBus.Subscribe<GameExitedNormalEvent>(
+                 this,
+                 evt =>
+                 {
+                     _logger.Info($"GameProcessExitedEvent-Normal Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                     if (_gameOperation.IsRegularRobots())
+                     {
+                         _gameOperation.GameIsRunning = false;
+                         _gameOperation.LoadGameWithDelay(Constants.loadGameDelayDuration);
+                     }
+                 });
         }
     }
 }

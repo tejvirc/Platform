@@ -94,6 +94,7 @@
 
         public void DismissTimeLimitDialog()
         {
+            _logger.Info("Dismissing Time Limit Dialog.", GetType().Name);
             _automator.DismissTimeLimitDialog(true);
         }
 
@@ -106,6 +107,7 @@
         {
             var timeLimitDialogVisible = _propertyManager.GetValue(LobbyConstants.LobbyIsTimeLimitDlgVisible, false);
             var timeLimitDialogPending = _propertyManager.GetValue(LobbyConstants.LobbyShowTimeLimitDlgPending, false);
+            _logger.Info($"TimeLimitDialogVisible: {timeLimitDialogVisible}, TimeLimitDialogPending: {timeLimitDialogPending}", GetType().Name);
             return timeLimitDialogVisible || timeLimitDialogPending;
         }
 
@@ -131,7 +133,22 @@
 
         private void SubscribeToEvents()
         {
-            
+            _eventBus.Subscribe<GameFatalErrorEvent>(
+                 this,
+                 _ =>
+                 {
+                     _logger.Error($"GameFatalErrorEvent Got Triggered! There is an issue with [{_robotController.Config.CurrentGame}]", GetType().Name);
+                     _robotController.Enabled = false;
+                 });
+
+            _eventBus.Subscribe<GameIdleEvent>(
+                this,
+                _ =>
+                {
+                    _logger.Info($"GameIdleEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                    BalanceCheckWithDelay(Constants.BalanceCheckDelayDuration);
+                });
+
             _eventBus.Subscribe<GamePlayRequestFailedEvent>(
                 this,
                 _ =>
@@ -140,13 +157,14 @@
                     ToggleJackpotKey(Constants.ToggleJackpotKeyDuration);
                 });
 
-            _eventBus.Subscribe<UnexpectedOrNoResponseEvent>(
-                this,
-                _ =>
-                {
-                    _logger.Info($"Keying off UnexpectedOrNoResponseEvent Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    ToggleJackpotKey(Constants.ToggleJackpotKeyLongerDuration);
-                });
+            _eventBus.Subscribe<GamePlayStateChangedEvent>(
+                 this,
+                 _ =>
+                 {
+                     _logger.Info($"GamePlayStateChangedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                     _robotController.IdleDuration = 0;
+                     SanityCounter = 0;
+                 });
 
             _eventBus.Subscribe<HandpayStartedEvent>(this, evt =>
             {
@@ -162,29 +180,20 @@
                 }
             });
 
-            _eventBus.Subscribe<GamePlayStateChangedEvent>(
-                 this,
-                 _ =>
-                 {
-                     _logger.Info($"GamePlayStateChangedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     _robotController.IdleDuration = 0;
-                     SanityCounter = 0;
-                 });
-
-            _eventBus.Subscribe<GameFatalErrorEvent>(
-                 this,
-                 _ =>
-                 {
-                     _logger.Error($"GameFatalErrorEvent Got Triggered! There is an issue with [{_robotController.Config.CurrentGame}]", GetType().Name);
-                     _robotController.Enabled = false;
-                 });
-
             _eventBus.Subscribe<SystemEnabledEvent>(
                 this,
                 _ =>
                 {
                     _logger.Info($"SystemEnabledEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
                     LoadGameWithDelay(Constants.loadGameDelayDuration);
+                });
+
+            _eventBus.Subscribe<UnexpectedOrNoResponseEvent>(
+                this,
+                _ =>
+                {
+                    _logger.Info($"Keying off UnexpectedOrNoResponseEvent Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                    ToggleJackpotKey(Constants.ToggleJackpotKeyLongerDuration);
                 });
 
             InitGameProcessHungEvent();

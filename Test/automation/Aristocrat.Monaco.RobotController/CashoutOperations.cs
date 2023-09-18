@@ -106,6 +106,7 @@
                 {
                     _robotController.UnBlockOtherOperations(RobotStateAndOperations.CashoutOperation);
                     _logger.Info($"TransferOutCompletedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                    _eventBus.Publish(new GameLoadRequestEvent());
                 });
             _eventBus.Subscribe<CashOutAbortedEvent>(this,
                 _ =>
