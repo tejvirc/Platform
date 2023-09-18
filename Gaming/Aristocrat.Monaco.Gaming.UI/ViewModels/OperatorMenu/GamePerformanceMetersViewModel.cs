@@ -34,6 +34,7 @@
             EventBus.Subscribe<OperatorMenuExitingEvent>(this, HandleEvent);
             CancelCommand = new ActionCommand<object>(_ => Cancel());
             CancelButtonText = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Close);
+            HasSplitMeters = false;
         }
 
         public int GameId => _game.Id;

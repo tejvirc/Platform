@@ -78,6 +78,14 @@
 
         protected IMeterManager MeterManager => _meterManager ??= ServiceManager.GetInstance().TryGetService<IMeterManager>();
 
+        /// <summary>
+        ///     Determines if the meters are split into left and right columns or not   
+        /// </summary>
+        /// <remarks>
+        ///     Set this to false in derivative classes' constructors if the meters should only be in one column
+        ///  </remarks>
+        protected bool HasSplitMeters { get; set; } = true;
+
         private void LoadMetersToDisplay()
         {
             if (_meterNodePage.HasValue)
@@ -199,6 +207,10 @@
 
         protected virtual void SplitMeters()
         {
+            if (!HasSplitMeters)
+            {
+                return;
+            }
             MetersLeftColumn.Clear();
             MetersRightColumn.Clear();
 
