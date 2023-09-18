@@ -126,7 +126,8 @@ as follows:
     <Menu Type="SystemResetPageLoader" Visible="false">
         <Page Type="SystemResetPageLoader" />		
     </Menu>
-    <AccessRules>
+    <Menu Type="SystemRestartPageLoader" Visible="false" />
+	<AccessRules>
         <AccessRuleSet Name="ZeroCredits">
             <Rule Restriction="ZeroCredits" />
         </AccessRuleSet>

@@ -146,7 +146,8 @@ the corresponding class definition in csharp (OperatorMenuConfiguration.cs).
   </Menu>
   <Menu Type="OptionsMainPageLoader" Visible="false" />
   <Menu Type="SystemResetPageLoader" Visible="false" />
-  <AccessRules>
+  <Menu Type="SystemRestartPageLoader" Visible="false" />
+	<AccessRules>
     <AccessRuleSet Name="TestMode">
       <Rule Restriction="GameIdle" />
       <Rule DeviceName="Main" />

@@ -138,6 +138,7 @@ as follows:
 		</Page>
 	</Menu>
 	
+	<Menu Type="SystemRestartPageLoader" Visible="false" />
 	<AccessRules>
 		<AccessRuleSet Name="ReadOnly">
 			<Rule Restriction="ReadOnly" />

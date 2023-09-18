@@ -142,7 +142,8 @@ as follows:
         <Page Type="ToolsMainPageLoader" />		
     </Menu>
     
-    <AccessRules>
+    <Menu Type="SystemRestartPageLoader" Visible="false" />
+	<AccessRules>
         <AccessRuleSet Name="PageReadOnly">
             <Rule DeviceName="ReadOnly" />
         </AccessRuleSet>

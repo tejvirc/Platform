@@ -132,6 +132,7 @@ as follows:
 	<Menu Type="OptionsMainPageLoader" Visible="false" />
 	<Menu Type="SystemResetPageLoader" Visible="false" />
 
+	<Menu Type="SystemRestartPageLoader" Visible="false" />
 	<AccessRules>
 		<AccessRuleSet Name="TestMode">
 			<Rule DeviceName="Main" />

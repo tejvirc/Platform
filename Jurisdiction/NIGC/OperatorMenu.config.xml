@@ -144,7 +144,7 @@ as follows:
     </Menu>
     <Menu Type="OptionsMainPageLoader" Visible="false" />
     <Menu Type="SystemResetPageLoader" Visible="false" />
-    <AccessRules>
+	<AccessRules>
         <AccessRuleSet Name="TestMode">
             <Rule Restriction="GameIdle" />
             <Rule DeviceName="Main" />

@@ -146,7 +146,8 @@ as follows:
   <Menu Type="SystemResetPageLoader" Access="Technician">
     <Page Type="SystemResetPageViewModel" Access="GameIdleZeroCreditsEKeyPresent" />
   </Menu>
-  <AccessRules>
+  <Menu Type="SystemRestartPageLoader" Visible="false" />
+	<AccessRules>
     <AccessRuleSet Name="Technician">
       <Rule DeviceName="Main" />
       <Rule DeviceName="Logic" />
