@@ -8,6 +8,10 @@ public class InfoBarFeature : Feature<InfoBarState>
 
     protected override InfoBarState GetInitialState()
     {
-        return new InfoBarState();
+        return new InfoBarState()
+        {
+            MainInfoBarOpenRequested = false,
+            VbdInfoBarOpenRequested = false
+        };
     }
 }
