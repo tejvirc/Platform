@@ -109,6 +109,9 @@ public sealed class LayoutManager : ILayoutManager, IDisposable
         {
             _skins.Add(SkinLoader.Load(skinFilename));
         }
+        // DENNIS: TEMP - The following line allows loading resource from Loaded event in VM, but doesn't manage switching languages
+        Application.Current.Resources.MergedDictionaries.Add(_skins.ElementAt(0));
+
 
         //_regionManager.RegisterView<LobbyMainView>(RegionNames.Main, ViewNames.Lobby);
         //_regionManager.RegisterView<AttractMainView>(RegionNames.Main, ViewNames.Attract);

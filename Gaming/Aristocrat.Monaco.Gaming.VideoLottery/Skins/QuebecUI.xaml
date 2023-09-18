@@ -266,4 +266,5 @@
     <sys:String x:Key="VBD_Helix_InsertMoney">../jurisdiction/Quebec-VLT/ui/Videos/VBD_InsertMoney_EN.bk2</sys:String>
     <sys:String x:Key="VBD_Marsx_ChooseGame">../jurisdiction/Quebec-VLT/ui/Videos/VBD_ChooseGame_EN.bk2</sys:String>
     <sys:String x:Key="VBD_Marsx_InsertMoney">../jurisdiction/Quebec-VLT/ui/Videos/VBD_InsertMoney_EN.bk2</sys:String>
+    <sys:String x:Key="LobbyIdleTextDefault">Could you get me a drink</sys:String>
 </ResourceDictionary>

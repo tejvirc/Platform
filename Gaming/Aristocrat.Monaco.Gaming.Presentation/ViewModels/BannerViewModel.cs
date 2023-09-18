@@ -23,7 +23,7 @@ using static Store.Translate.TranslateSelectors;
 
 public class BannerViewModel : ObservableObject, INavigationAware, IActivatableViewModel
 {
-    private const double MaximumBlinkingIdleTextWidth = 1000;
+    private const double MaximumBlinkingIdleTextWidth = 500;
     private const string IdleTextFamilyName = "Segoe UI";
     private const int IdleTextFontSize = 32;
     private readonly IState<BankState> _bankState;
@@ -36,6 +36,7 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
     private bool _isIdleTextPaused;
     private bool _isIdleTextScrolling;
     private bool _isScrollingDisplayMode;
+    private bool _useDefaultIdleText = true;
 
     //#TODO: REMOVE THESE ONCE ADDRESSED PROPERLY:
     //#TODO: Get disabled state from Lobby
@@ -84,7 +85,26 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
                     .DisposeWith(disposables);
             });
         IdleTextScrollingCompletedCommand = new ActionCommand<object>(OnIdleTextScrollingCompleted);
+        LoadedCommand = new RelayCommand(OnLoaded);
+        UnloadedCommand = new RelayCommand(OnUnloaded);
 
+    }
+
+    public RelayCommand LoadedCommand { get; }
+    public RelayCommand UnloadedCommand { get; }
+
+    private void OnLoaded()
+    {
+        // DENNIS: TEMP: Just trying to see if string can be loaded here...this works if resource added to App
+        string txt = (string)Application.Current.TryFindResource("LobbyIdleTextDefault");
+        if (txt == null)
+        {
+
+        }
+    }
+
+    private void OnUnloaded()
+    {
     }
 
     public string? IdleText
@@ -142,6 +162,16 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
     {
         get => _isIdleTextScrolling;
         set => SetProperty(ref _isIdleTextScrolling, value);
+    }
+
+    /// <summary>
+    ///     Gets or sets a value indicating whether to use default (localized) idle text or text
+    ///     provided by the service
+    /// </summary>
+    public bool UseDefaultIdleText
+    {
+        get => _useDefaultIdleText;
+        set => SetProperty(ref _useDefaultIdleText, value);
     }
 
     /// <summary>
