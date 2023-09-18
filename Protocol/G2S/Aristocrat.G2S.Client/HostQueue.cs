@@ -498,14 +498,14 @@
 
                     var response = await endpoint.Send(command);
 
+                    OnSentCommand(command);
+
                     // Comms failed...
                     if (response == null)
                     {
                         _commandQueue.Clear(false, () => _sessionManager.CompleteAll(_hostId, SessionStatus.CommsLost));
                         break;
                     }
-
-                    OnSentCommand(command);
 
                     var error = new Error(response.errorCode, response.errorText);
                     if (!error.IsError)

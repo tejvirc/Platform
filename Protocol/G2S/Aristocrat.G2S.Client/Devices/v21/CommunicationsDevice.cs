@@ -8,6 +8,7 @@
     using System;
     using System.Linq;
     using System.Net;
+    using System.Runtime.CompilerServices;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -228,7 +229,7 @@
 
             if (_state.State == t_commsStates.G2S_onLine)
             {
-                CreateCommsTimer(interval, _ => KeepAlive());
+                CreateCommsTimer(interval, KeepAlive);
             }
 
             _keepAliveInterval = interval;
@@ -263,7 +264,7 @@
             }
 
             // -1 reconfigure override from the operator menu
-            if(id != -1)
+            if (id != -1)
             {
                 ConfigurationId = id;
             }
@@ -497,7 +498,7 @@
             }
         }
 
-        private void CommsDisabled()
+        private void CommsDisabled(object _ = null)
         {
             if (!_state.IsInState(t_commsStates.G2S_sync))
             {
@@ -531,7 +532,7 @@
             }
         }
 
-        private void KeepAlive()
+        private void KeepAlive(object _ = null)
         {
             var interval = TimeSpan.FromMilliseconds(_keepAliveInterval);
 
@@ -551,7 +552,7 @@
             HandleResponse(session.SessionState, session.Request.Error);
         }
 
-        private void CreateCommsTimer(int interval, TimerCallback timerCallback)
+        private void CreateCommsTimer(int interval, TimerCallback timerCallback, [CallerMemberName] string callingMethod = null)
         {
             lock (_timerLock)
             {
@@ -565,9 +566,11 @@
                         G2STrace.Source,
                         @"CommunicationsDevice : Created comms timer
     Host Id : {0}
-    Method : {1}",
+    Method : {1}
+    Source : {2}",
                         Owner,
-                        timerCallback.Method);
+                        timerCallback.Method,
+                        callingMethod);
                 }
             }
         }
@@ -732,7 +735,7 @@
 
             // Trigger a commsDisabled (immediately)
             Task.Run(() => CommsDisabled());
-            CreateCommsTimer(_commsDisabledInterval, _ => CommsDisabled());
+            CreateCommsTimer(_commsDisabledInterval, CommsDisabled);
         }
 
         private void OnOnline(StateMachine<t_commsStates, CommunicationTrigger>.Transition transition)
@@ -743,7 +746,7 @@
             HostEnabled = true;
             ReportEvent(EventCode.G2S_CME004);
 
-            CreateCommsTimer(_keepAliveInterval, _ => KeepAlive());
+            CreateCommsTimer(_keepAliveInterval, KeepAlive);
         }
 
         private void OnClosing(StateMachine<t_commsStates, CommunicationTrigger>.Transition transition)
@@ -845,7 +848,7 @@
                     ReportEvent(EventCode.G2S_CME120);
 
                     // This triggers a call into this method with state G2S_transportDown and changes TransportState, so we need to run this on another thread
-                    Task.Run(() => OnCommunicationsNotEstablished());
+                    Task.Run(OnCommunicationsNotEstablished);
                     break;
                 case t_transportStates.G2S_transportUp:
                     ReportEvent(EventCode.G2S_CME121);
@@ -895,9 +898,15 @@
                 return;
             }
 
-            CreateCommsTimer(interval, _ => CommsDisabled());
-
             _commsDisabledInterval = interval;
+
+            if (_state.IsInState(t_commsStates.G2S_sync))
+            {
+                //Don't start the CommsDisabled timer if we've already transitioned out of sync
+                //This can happen if the host replies with setCommsState 
+                //before replying with the commsDisabledAck. 
+                CreateCommsTimer(interval, CommsDisabled);
+            }
         }
     }
 }
