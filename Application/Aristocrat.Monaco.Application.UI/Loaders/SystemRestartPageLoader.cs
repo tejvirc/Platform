@@ -1,8 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Application.UI.Loaders
 {
-    using System;
-    using Aristocrat.Monaco.Application.Contracts;
-    using Aristocrat.Monaco.Kernel;
     using Contracts.OperatorMenu;
     using ViewModels;
     using Views;
