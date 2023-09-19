@@ -45,6 +45,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         private bool _allReelsIdle;
         private bool _allReelsIdleUnknown;
         private bool _testActive;
+        private bool _homeCommandSuccessful;
 
         /// <summary>
         ///     Instantiates a new instance of the MechanicalReelsAnimationTestViewModel class
@@ -155,8 +156,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
         public bool HomeEnabled
         {
             get => _homeEnabled && !TestActive && (AllReelsIdle || AllReelsIdleUnknown)
-                   || HasFault
-                   || _reelController.LogicalState == ReelControllerState.Disabled;
+                       || HasFault
+                       || _reelController.LogicalState == ReelControllerState.Disabled
+                       || !_homeCommandSuccessful;
 
             set
             {
@@ -303,7 +305,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
                 activeReel.IsNudging = false;
             }
 
-            await _reelController.HomeReels(homeData);
+            _homeCommandSuccessful = await _reelController.HomeReels(homeData);
 
             HomeEnabled = true;
             NudgeEnabled = true;

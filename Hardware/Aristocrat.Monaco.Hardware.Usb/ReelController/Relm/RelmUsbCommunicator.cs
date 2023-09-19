@@ -650,11 +650,12 @@
                 return Task.FromResult(false);
             }
 
-            byte reel = (byte)(reelId - 1);
+            var reel = (byte)(reelId - 1);
             var reelStepInfo = new ReelStepInfo(reel, (short)(stop + _reelOffsets[reel]));
 
-            _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo> { reelStepInfo }));
-            return Task.FromResult(true);
+            var result = _relmCommunicator?.SendCommandAsync(new HomeReels(new List<ReelStepInfo> { reelStepInfo }));
+
+            return result;
         }
 
         /// <inheritdoc />
