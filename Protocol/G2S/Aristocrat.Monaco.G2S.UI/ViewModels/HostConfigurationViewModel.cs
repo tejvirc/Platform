@@ -430,16 +430,19 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 if (profileService != null)
                 {
                     var communications = _egm.GetDevice<ICommunicationsDevice>(host.Id);
-                    communications.Configure(
-                        -1,
-                        communications.UseDefaultConfig,
-                        host.RequiredForPlay,
-                        communications.TimeToLive,
-                        (int)communications.NoResponseTimer.TotalMilliseconds,
-                        communications.DisplayFault);
-                    profileService.Save(communications);
+                    if (communications != null)
+                    {
+                        communications.Configure(
+                            -1,
+                            communications.UseDefaultConfig,
+                            host.RequiredForPlay,
+                            communications.TimeToLive,
+                            (int)communications.NoResponseTimer.TotalMilliseconds,
+                            communications.DisplayFault);
+                        profileService.Save(communications);
 
-                    communications.NotifyConfigurationChanged();
+                        communications.NotifyConfigurationChanged();
+                    }
                 }
             }
         }
