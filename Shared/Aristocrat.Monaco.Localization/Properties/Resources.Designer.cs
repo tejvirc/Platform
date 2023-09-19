@@ -6299,6 +6299,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///   Looks up a localized string similar to Confirm machine reboot?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ConfirmMachineRebootMessage {
+			get {
+				return ResourceManager.GetString("ConfirmMachineRebootMessage", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
+		///   Looks up a localized string similar to Confirm platform reboot?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ConfirmPlatformRebootMessage {
+			get {
+				return ResourceManager.GetString("ConfirmPlatformRebootMessage", resourceCulture) ?? string.Empty;
+			}
+		}
+
+		/// <summary>
 		///   Looks up a localized string similar to Connected Reels: {0}  Needed Reels: {1}.
 		/// </summary>
         /// <remarks>
@@ -43030,6 +43054,30 @@ namespace Aristocrat.Monaco.Localization.Properties {
 		}
 
 		/// <summary>
+		///		Looks up a localized string similar to Confirm machine reboot?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ConfirmMachineRebootMessage {
+			get {
+				return "ConfirmMachineRebootMessage";
+			}
+		}
+
+		/// <summary>
+		///		Looks up a localized string similar to Confirm platform reboot?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		public static string ConfirmPlatformRebootMessage {
+			get {
+				return "ConfirmPlatformRebootMessage";
+			}
+		}
+
+		/// <summary>
 		///		Looks up a localized string similar to Connected Reels: {0}  Needed Reels: {1}.
 		/// </summary>
         /// <remarks>
@@ -77077,6 +77125,20 @@ namespace Aristocrat.Monaco.Localization.Properties {
         /// Aristocrat.Monaco.G2S.UI
         /// </remarks>
 		ConfirmDeleteHost,
+		/// <summary>
+		///   Looks up a localized string similar to Confirm machine reboot?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		ConfirmMachineRebootMessage,
+		/// <summary>
+		///   Looks up a localized string similar to Confirm platform reboot?.
+		/// </summary>
+        /// <remarks>
+        /// Aristocrat.Monaco.Application.UI
+        /// </remarks>
+		ConfirmPlatformRebootMessage,
 		/// <summary>
 		///   Looks up a localized string similar to Connected Reels: {0}  Needed Reels: {1}.
 		/// </summary>

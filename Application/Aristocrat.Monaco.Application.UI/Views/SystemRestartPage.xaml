@@ -6,7 +6,9 @@
                                mc:Ignorable="d"
                                xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Application.UI.ViewModels"
                                xmlns:operatorMenu="clr-namespace:Aristocrat.Monaco.Application.UI.OperatorMenu"
-                               d:DataContext="{d:DesignInstance {x:Type viewModels:SystemRestartPageViewModel}}">
+                               xmlns:common="http://monaco.aristocrat.com/common"
+                               d:DataContext="{d:DesignInstance {x:Type viewModels:SystemRestartPageViewModel}}"
+                               common:DialogParticipation.Register="{Binding}">
 
     <UserControl.Resources>
         <ResourceDictionary>

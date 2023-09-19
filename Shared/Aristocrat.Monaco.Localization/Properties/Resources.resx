@@ -12407,5 +12407,13 @@ LEVEL ID</value>
   <data name="ColumnsNotAvailableForLpLevelsMessage" xml:space="preserve">
     <value>Certain Linked level parameters are Not Applicable in this screen as they are managed in the progressive controller.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
- </data> 
+  </data>
+  <data name="ConfirmMachineRebootMessage" xml:space="preserve">
+    <value>Confirm machine reboot?</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
+  <data name="ConfirmPlatformRebootMessage" xml:space="preserve">
+    <value>Confirm platform reboot?</value>
+    <comment>Aristocrat.Monaco.Application.UI</comment>
+  </data>
 </root>
