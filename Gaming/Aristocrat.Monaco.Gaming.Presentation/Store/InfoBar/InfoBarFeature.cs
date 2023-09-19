@@ -11,7 +11,9 @@ public class InfoBarFeature : Feature<InfoBarState>
         return new InfoBarState()
         {
             MainInfoBarOpenRequested = false,
-            VbdInfoBarOpenRequested = false
+            VbdInfoBarOpenRequested = false,
+            MainInfoBarIsOpen = false,
+            VbdInfoBarIsOpen = false
         };
     }
 }

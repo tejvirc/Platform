@@ -7,4 +7,7 @@ public static class InfoBarSelectors
 {
     public static readonly ISelector<InfoBarState, bool> SelectMainInfoBarOpenRequested = CreateSelector(
         (InfoBarState state) => state.MainInfoBarOpenRequested);
+
+    public static readonly ISelector<InfoBarState, bool> SelectVbdInfoBarOpenRequested = CreateSelector(
+        (InfoBarState state) => state.VbdInfoBarOpenRequested);
 }

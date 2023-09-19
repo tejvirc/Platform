@@ -17,7 +17,7 @@ public interface IAudioService
 
     Task StopSoundAsync(SoundType sound);
 
-    public Task PlayGameWinHandPaySound();
+    Task PlayGameWinHandPaySound();
 
-    public Task PlayLoopingAlert(SoundType sound, int loopCount);
+    Task PlayLoopingAlert(SoundType sound, int loopCount);
 }

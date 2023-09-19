@@ -5,5 +5,8 @@ public record InfoBarState
 
     public bool VbdInfoBarOpenRequested { get; init; }
 
-    public double MainInfoBarHeight { get; init; }
+    public bool MainInfoBarIsOpen { get; init; }
+
+    public bool VbdInfoBarIsOpen { get; init; }
+
 }

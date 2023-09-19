@@ -15,11 +15,12 @@ public static class InfoBarReducers
     }
 
     [ReducerMethod()]
-    public static InfoBarState Reduce(InfoBarState state, InfoBarSetHeightAction action)
+    public static InfoBarState Reduce(InfoBarState state, InfoBarCloseAction action)
     {
         return state with
         {
-            MainInfoBarHeight = action.Height
+            MainInfoBarIsOpen = action.MainInfoBarIsOpen,
+            VbdInfoBarIsOpen = action.VbdInfoBarIsOpen
         };
     }
 }

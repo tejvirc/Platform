@@ -1,7 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.InfoBar
 {
     using System.Threading.Tasks;
-    using Extensions.Fluxor;
     using Fluxor;
     using Services.InfoBar;
 
@@ -16,10 +15,10 @@
             _infoBarService = infoBarService;
         }
 
-        [EffectMethod(typeof(InfoBarRequestOpenAction))]
-        public async Task ChangeGameControlHeight(IDispatcher dispatcher)
+        [EffectMethod()]
+        public Task ClearMessage(InfoBarCloseAction action, IDispatcher _dispatcher)
         {
-            await dispatcher.DispatchAsync(new GameControlChangeHeightAction(0)); //TODO
+            return Task.CompletedTask;
         }
     }
 }

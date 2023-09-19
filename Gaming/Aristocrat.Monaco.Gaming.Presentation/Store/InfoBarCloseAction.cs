@@ -12,5 +12,20 @@ public record InfoBarCloseAction
     /// <param name="displayTarget">The display target.</param>
     public InfoBarCloseAction(DisplayRole displayTarget)
     {
+        switch (displayTarget)
+        {
+            case DisplayRole.Main:
+                MainInfoBarIsOpen = false;
+                break;
+            case DisplayRole.VBD:
+                VbdInfoBarIsOpen = false;
+                break;
+            default:
+                break;
+        }
     }
+
+    public bool MainInfoBarIsOpen { get; }
+
+    public bool VbdInfoBarIsOpen { get; }
 }
