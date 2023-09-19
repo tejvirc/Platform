@@ -276,7 +276,7 @@
 
                     ticket["title"] = VoucherExtensions.PrefixToTitle(transaction.HostOnline) + ticketTitleCash;
                     ticket["title 1"] = ticketTitleCash;
-                    ticket["title localized"] = scope.GetString(ResourceKeys.CashoutTicket);
+                    ticket["title localized"] = voidTicket ? scope.GetString(ResourceKeys.VoidDemoTicket) : scope.GetString(ResourceKeys.CashoutTicket);
                 }
 
                 ticket["serial id"] = propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);

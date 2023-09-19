@@ -5120,4 +5120,7 @@ Consulter le manuel pour plus de détails</value>
   <data name="AudioConnected" xml:space="preserve">
     <value>??Audio Connected - Restart Required??</value>
   </data>
+  <data name="VoidDemoTicket" xml:space="preserve">
+    <value>??VOID DEMO VOID??</value>
+  </data>
 </root>
