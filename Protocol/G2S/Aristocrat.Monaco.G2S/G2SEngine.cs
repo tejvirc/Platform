@@ -304,6 +304,11 @@
             {
                 _progressiveDeviceManager.AddProgressiveDevices();
             }
+
+            _deviceFactory.Create(
+                defaultHost ?? egmHost,
+                registeredGuests,
+                () => new AnalyticsDevice(1, _deviceStateObserver));
         }
 
         private void SetHostEnabled()
