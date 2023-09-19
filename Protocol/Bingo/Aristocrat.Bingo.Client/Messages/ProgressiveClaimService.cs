@@ -5,6 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using log4net;
+    using Polly;
     using Progressives;
     using ServerApiGateway;
 
@@ -16,7 +17,9 @@
         IProgressiveClaimService
     {
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly TimeSpan RetryDelay = TimeSpan.FromSeconds(15);
         private readonly IProgressiveLevelInfoProvider _progressiveLevelInfoProvider;
+        private readonly IAsyncPolicy _policy;
 
         public ProgressiveClaimService(
             IClientEndpointProvider<ProgressiveApi.ProgressiveApiClient> endpointProvider,
@@ -24,6 +27,7 @@
             : base(endpointProvider)
         {
             _progressiveLevelInfoProvider = progressiveLevelInfoProvider ?? throw new ArgumentNullException(nameof(progressiveLevelInfoProvider));
+            _policy = CreatePolicy(int.MaxValue, _ => RetryDelay);
         }
 
         public async Task<ProgressiveClaimResponse> ClaimProgressive(ProgressiveClaimRequestMessage message, CancellationToken token)
@@ -43,7 +47,8 @@
 
             Logger.Debug($"ClaimProgressiveWinRequest, MachineSerial={request.MachineSerial}, ProgressiveLevelId={request.ProgressiveLevelId}, Amount={request.ProgressiveWinAmount}");
 
-            var result = await Invoke(async x => await x.ClaimProgressiveWinAsync(request, null, null, token));
+            var result = await Invoke(
+                async (x, c) => await x.ClaimProgressiveWinAsync(request, null, null, token), _policy, token);
 
             Logger.Debug($"ProgressiveWinAck received, LevelId={result.ProgressiveLevelId}, WinAmount={result.ProgressiveWinAmount}, AwardId={result.ProgressiveAwardId}");
 
