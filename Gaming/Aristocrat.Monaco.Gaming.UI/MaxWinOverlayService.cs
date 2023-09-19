@@ -25,6 +25,7 @@
         private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private const double MaxWinDialogDisplaySeconds = 5.0;
         private const double ResetTimerIntervalSeconds = 1.0;
+        private const double MinTimeDialogDisplaySeconds = 2.0;
         private readonly Timer _maxWinShowTimer;
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
@@ -32,6 +33,7 @@
         private MaxWinDialog _maxWinDialog;
         private MaxWinDialogViewModel _maxWinDialogViewModel;
         private bool _disposed;
+        private bool _canRemoveMaxWinBanner;
 
         public string Name { get; } = "MaxWinOverlayService";
 
@@ -40,7 +42,6 @@
         private TimeSpan MaxWinDialogDispalyTime = TimeSpan.FromSeconds(MaxWinDialogDisplaySeconds);
 
         private TimeSpan oneSecondElapsed = TimeSpan.FromSeconds(ResetTimerIntervalSeconds);
-
         private TimeSpan TimeLeft { get; set; }
 
         public bool ShowingMaxWinWarning { get; set; }
@@ -119,7 +120,7 @@
         private void Handle(DownEvent obj)
         {
             Logger.Debug($"DownEvent: ShowingMaxWinWarning={ShowingMaxWinWarning}");
-            if (ShowingMaxWinWarning)
+            if (ShowingMaxWinWarning && _canRemoveMaxWinBanner)
             {
                 _maxWinShowTimer.Stop();
                 CloseMaxWinDialog();
@@ -132,6 +133,11 @@
         private void resetTimer_Tick(object sender, EventArgs e)
         {
             TimeLeft = TimeLeft.Subtract(oneSecondElapsed);
+            if (TimeLeft.Seconds <= (MaxWinDialogDisplaySeconds - MinTimeDialogDisplaySeconds))
+            {
+                _canRemoveMaxWinBanner = true;
+            }
+
             if (TimeLeft.Seconds == 0 && TimeLeft.Minutes == 0)
             {
                 _maxWinShowTimer.Stop();
@@ -171,6 +177,7 @@
         private void CloseMaxWinDialog()
         {
             _eventBus.Publish(new ViewInjectionEvent(_maxWinDialog, DisplayRole.Main, ViewInjectionEvent.ViewAction.Remove));
+            _canRemoveMaxWinBanner = false;
         }
 
         private void UpdateRuntime()
