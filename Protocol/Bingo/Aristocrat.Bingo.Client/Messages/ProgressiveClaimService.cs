@@ -48,7 +48,7 @@
             Logger.Debug($"ClaimProgressiveWinRequest, MachineSerial={request.MachineSerial}, ProgressiveLevelId={request.ProgressiveLevelId}, Amount={request.ProgressiveWinAmount}");
 
             var result = await Invoke(
-                async (x, c) => await x.ClaimProgressiveWinAsync(request, null, null, token), _policy, token);
+                async (x, m, t) => await x.ClaimProgressiveWinAsync(m, null, null, t), request, _policy, token);
 
             Logger.Debug($"ProgressiveWinAck received, LevelId={result.ProgressiveLevelId}, WinAmount={result.ProgressiveWinAmount}, AwardId={result.ProgressiveAwardId}");
 

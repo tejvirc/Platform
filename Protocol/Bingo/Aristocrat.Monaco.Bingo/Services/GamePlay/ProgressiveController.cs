@@ -42,7 +42,7 @@
 
         private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new();
         private readonly IList<ProgressiveInfo> _activeProgressiveInfos = new List<ProgressiveInfo>();
-        private readonly Mutex _pendingAwardsLock = new();
+        private readonly Semaphore _pendingAwardsLock = new(1, 1);
         private IList<(string poolName, long progressiveLevelId, long amountInPennies, int awardId)> _pendingAwards = new List<(string, long, long, int)>();
         private bool _disposed;
 
@@ -91,11 +91,11 @@
         /// <inheritdoc />
         public void HandleProgressiveEvent<T>(T @event)
         {
-            Handle(@event as LinkedProgressiveHitEvent);
+            _ = Handle(@event as LinkedProgressiveHitEvent);
         }
 
         /// <inheritdoc />
-        public async void AwardJackpot(string poolName, long amountInPennies)
+        public async Task AwardJackpot(string poolName, long amountInPennies)
         {
             Logger.Debug($"AwardJackpot, poolName={poolName}, amountInPennies={amountInPennies}");
 
@@ -136,7 +136,7 @@
                 levelId,
                 amountInPennies,
                 true);
-            _pendingAwardsLock.ReleaseMutex();
+            _pendingAwardsLock.Release();
             await _progressiveAwardService.AwardProgressive(request);
         }
 
@@ -159,7 +159,7 @@
                     : JsonConvert.DeserializeObject<IList<(string, long, long, int)>>(pendingJackpots.Awards);
             }
 
-            _pendingAwardsLock.ReleaseMutex();
+            _pendingAwardsLock.Release();
 
             var pools =
                 (from level in _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
@@ -243,46 +243,10 @@
         private void SubscribeToEvents()
         {
             _multiProtocolEventBusRegistry.SubscribeProgressiveEvent<LinkedProgressiveHitEvent>(ProtocolNames.Bingo, this);
-            _eventBus.Subscribe<PendingLinkedProgressivesHitEvent>(this, Handle);
+            _eventBus.Subscribe<PendingLinkedProgressivesHitEvent>(this, (e, _) => Handle(e));
             _eventBus.Subscribe<PaytablesInstalledEvent>(this, Handle);
             _eventBus.Subscribe<ProtocolInitialized>(this, Handle);
-            _eventBus.Subscribe<ProgressiveContributionEvent>(this, Handle);
-        }
-
-        private async void Handle(ProgressiveContributionEvent evt)
-        {
-            var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
-
-            if (string.IsNullOrEmpty(machineSerial))
-            {
-                Logger.Error($"Unable to get {ApplicationConstants.SerialNumber} from properties manager");
-                return;
-            }
-
-            var levelId = 0;
-            foreach (var wager in evt.Wagers)
-            {
-                var gamesUsingProgressive = _progressiveContributionService.GetGamesUsingProgressive(levelId);
-                //var activeGame = _gameProvider.GetActiveGame();
-                foreach (var (gameTitleId, denomination) in gamesUsingProgressive.Result)
-                {
-                    if (IsActiveGame(gameTitleId, denomination))
-                    {
-                        var message = new ProgressiveContributionRequestMessage(
-                            wager,
-                            machineSerial,
-                            gameTitleId,
-                            false, // Not used with server 11
-                            false, // Not used with server 11
-                            (int)denomination);
-                        await _progressiveContributionService.Contribute(message);
-
-                        Logger.Debug($"Game [GameTitleId={gameTitleId}, Denom={denomination}] is contributing to progressive {levelId} a wager amount of {wager}");
-                    }
-                }
-
-                ++levelId;
-            }
+            _eventBus.Subscribe<ProgressiveContributionEvent>(this, (e, _) => Handle(e));
         }
 
         private bool IsActiveGame(int gameTitleId, long denom)
@@ -304,16 +268,50 @@
 
             foreach (var subGame in activeSubGames)
             {
-                if (gameTitleId == Convert.ToInt32(subGame.CdsTitleId) && subGame.ActiveDenoms is not null)
+                if (gameTitleId == Convert.ToInt32(subGame.CdsTitleId) &&
+                    subGame.ActiveDenoms is not null &&
+                    subGame.ActiveDenoms.Any(activeDenom => denom == activeDenom))
                 {
-                    if (subGame.ActiveDenoms.Any(activeDenom => denom == activeDenom))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
 
             return false;
+        }
+
+        private async Task Handle(ProgressiveContributionEvent evt)
+        {
+            var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
+
+            if (string.IsNullOrEmpty(machineSerial))
+            {
+                Logger.Error($"Unable to get {ApplicationConstants.SerialNumber} from properties manager");
+                return;
+            }
+
+            var levelId = 0;
+            foreach (var wager in evt.Wagers)
+            {
+                var gamesUsingProgressive = _progressiveContributionService.GetGamesUsingProgressive(levelId);
+                foreach (var (gameTitleId, denomination) in gamesUsingProgressive.Result)
+                {
+                    if (IsActiveGame(gameTitleId, denomination))
+                    {
+                        var message = new ProgressiveContributionRequestMessage(
+                            wager,
+                            machineSerial,
+                            gameTitleId,
+                            false, // Not used with server 11
+                            false, // Not used with server 11
+                            (int)denomination);
+                        await _progressiveContributionService.Contribute(message);
+
+                        Logger.Debug($"Game [GameTitleId={gameTitleId}, Denom={denomination}] is contributing to progressive {levelId} a wager amount of {wager}");
+                    }
+                }
+
+                ++levelId;
+            }
         }
 
         private void Handle(PaytablesInstalledEvent evt)
@@ -328,7 +326,7 @@
             Configure();
         }
 
-        private void Handle(PendingLinkedProgressivesHitEvent evt)
+        private async Task Handle(PendingLinkedProgressivesHitEvent evt)
         {
             Logger.Info($"Received PendingLinkedProgressivesHitEvent with {evt.LinkedProgressiveLevels.ToList().Count} progressive levels");
 
@@ -350,7 +348,7 @@
             }
 
             _pendingAwardsLock.WaitOne();
-            var tasks = new List<System.Threading.Tasks.Task>();
+            var tasks = new List<Task>();
             foreach (var level in evt.LinkedProgressiveLevels)
             {
                 // Calls to progressive server to claim each progressive level.
@@ -358,7 +356,7 @@
                 var response = _progressiveClaimService.ClaimProgressive(new ProgressiveClaimRequestMessage(machineSerial, level.LevelId, level.Amount));
                 Logger.Debug($"ProgressiveClaimResponse received, ResponseCode={response.Result.ResponseCode} ProgressiveLevelId={response.Result.ProgressiveLevelId}, ProgressiveWinAmount={response.Result.ProgressiveWinAmount}, ProgressiveAwardId={response.Result.ProgressiveAwardId}");
                 tasks.Add(response);
-                _bingoGameOutcomeHandler.ProcessProgressiveClaimWin(response.Result.ProgressiveWinAmount.CentsToMillicents());
+                await _bingoGameOutcomeHandler.ProcessProgressiveClaimWin(response.Result.ProgressiveWinAmount.CentsToMillicents());
 
                 // TODO copied code does not allow for multiple pending awards with the same pool name. For Bingo we allow hitting the same progressive multiple times. How to handle?
                 var poolName = GetPoolName(level.LevelName);
@@ -369,15 +367,11 @@
                 }
             }
 
-            var t = Task.WhenAll(tasks);
-            _pendingAwardsLock.ReleaseMutex();
-            t.Wait();
-
-            if (t.Status == TaskStatus.Faulted)
-                Logger.Debug("ClaimProgressive Task failed");
+            _pendingAwardsLock.Release();
+            await Task.WhenAll(tasks);
         }
 
-        private void Handle(LinkedProgressiveHitEvent evt)
+        private async Task Handle(LinkedProgressiveHitEvent evt)
         {
             Logger.Debug($"LinkedProgressiveHitEvent Handler with level Id {evt.Level.LevelId}");
             var linkedLevel = evt.LinkedProgressiveLevels.FirstOrDefault();
@@ -411,7 +405,7 @@
                 _pendingAwards.Remove(pendingAwardToRemove);
             }
 
-            _pendingAwardsLock.ReleaseMutex();
+            _pendingAwardsLock.Release();
 
             Logger.Debug(
                 $"AwardJackpot progressiveLevel = {evt.Level.LevelName} " +
@@ -421,7 +415,7 @@
 
             _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(linkedLevel.LevelName, ProtocolNames.Bingo);
             var poolName = GetPoolName(linkedLevel.LevelName);
-            AwardJackpot(poolName, winAmount);
+            await AwardJackpot(poolName, winAmount);
             _protocolLinkedProgressiveAdapter.AwardLinkedProgressiveLevel(linkedLevel.LevelName, winAmount, ProtocolNames.Bingo);
         }
 
