@@ -496,7 +496,7 @@
 
         private static string LevelName(ProgressiveInfo info)
         {
-            return $"{ProtocolNames.Bingo}, LevelId: {info.LevelId}, ProgressiveGroupId: {info.ProgId}";
+            return $"{ProtocolNames.Bingo}, Level Id: {info.LevelId}, Progressive Group Id: {info.ProgId}";
         }
     }
 }
