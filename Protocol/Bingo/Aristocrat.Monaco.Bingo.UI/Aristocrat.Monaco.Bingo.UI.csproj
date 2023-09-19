@@ -50,7 +50,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.Bingo\Aristocrat.Monaco.Bingo.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.27" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="1.0.28" />
     <PackageReference Include="Aristocrat.Monaco.OverlayServer" Version="1.1.10" />
     <PackageReference Include="Aristocrat.Extensions.CommunityToolkit" Version="0.1.8" />
     <PackageReference Include="CefSharp.Wpf" Version="93.1.140" />
