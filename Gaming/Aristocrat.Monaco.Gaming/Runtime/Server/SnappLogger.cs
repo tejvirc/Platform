@@ -38,7 +38,7 @@
                 case Snapp.Logger.Level.Fatal:
                     Logger.Error(logMessage);
                     Logger.Error($"Since SNAPP declared fatal error, shut down the runtime.");
-                    _eventBus.Publish(new TerminateGameProcessEvent());
+                    _eventBus.Publish(new TerminateGameProcessEvent(false));
                     break;
             }
         }
