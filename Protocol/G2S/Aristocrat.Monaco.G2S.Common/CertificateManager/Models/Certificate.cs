@@ -43,12 +43,12 @@
         /// <summary>
         ///     Gets or sets get/sets verification date.
         /// </summary>
-        public DateTime VerificationDate { get; set; }
+        public DateTimeOffset VerificationDate { get; set; }
 
         /// <summary>
         ///     Gets or sets get/sets OcspOfflineDate.
         /// </summary>
-        public DateTime? OcspOfflineDate { get; set; }
+        public DateTimeOffset? OcspOfflineDate { get; set; }
 
         /// <summary>
         ///     Gets or sets the certificate status.

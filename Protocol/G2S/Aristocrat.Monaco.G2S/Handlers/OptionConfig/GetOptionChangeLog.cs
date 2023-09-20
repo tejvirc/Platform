@@ -71,7 +71,7 @@
                                             $"G2S_{a.AuthorizeStatus.ToString()}",
                                             true),
                                     timeoutDateSpecified = a.TimeoutDate.HasValue,
-                                    timeoutDate = a.TimeoutDate ?? DateTime.MinValue
+                                    timeoutDate = (a.TimeoutDate ?? DateTime.MinValue).UtcDateTime
                                 }).ToArray();
 
                             if (authorizeItems != null && authorizeItems.Length > 0)

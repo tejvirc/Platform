@@ -3,13 +3,12 @@
     using System;
     using System.IO;
     using Microsoft.EntityFrameworkCore;
-    using System.Reflection;
     using Protocol.Common.Storage;
 
     /// <summary>
-    ///     
+    ///
     /// </summary>
-    public class MgamContext : DbContext
+    public sealed class MgamContext : DbContext
     {
         private readonly string _connectionString;
 
@@ -19,6 +18,11 @@
         /// <param name="connectionStringResolver">Connection string.</param>
         public MgamContext(IConnectionStringResolver connectionStringResolver)
         {
+            if (connectionStringResolver == null)
+            {
+                throw new ArgumentNullException(nameof(connectionStringResolver));
+            }
+
             _connectionString = connectionStringResolver.Resolve();
         }
 
@@ -84,10 +88,11 @@
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var sqliteFile = _connectionString.Replace("Data Source=", string.Empty, StringComparison.OrdinalIgnoreCase);
-            if (sqliteFile.EndsWith(".sqlite") && !File.Exists(sqliteFile))
+            if (sqliteFile.EndsWith(".sqlite", StringComparison.OrdinalIgnoreCase) && !File.Exists(sqliteFile))
             {
-                using (var fs = File.Create(sqliteFile)) { }
+                using var fs = File.Create(sqliteFile);
             }
+
             optionsBuilder.UseSqlite(_connectionString);
         }
 
@@ -97,6 +102,11 @@
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            if (modelBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(modelBuilder));
+            }
+
             modelBuilder.ApplyConfiguration(new HostConfiguration());
             modelBuilder.ApplyConfiguration(new DeviceConfiguration());
             modelBuilder.ApplyConfiguration(new ApplicationConfiguration());

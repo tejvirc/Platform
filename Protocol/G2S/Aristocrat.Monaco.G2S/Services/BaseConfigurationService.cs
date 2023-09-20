@@ -74,7 +74,7 @@
         ///     Gets the <see cref="ITaskScheduler"/>.
         /// </summary>
         protected ITaskScheduler TaskScheduler => _taskScheduler;
-        
+
         /// <summary>
         ///     Gets the configuration authorized by host event code.
         /// </summary>
@@ -438,7 +438,7 @@
                 _taskScheduler.ScheduleTask(
                     GetCheckValidityTask(log.TransactionId),
                     "ConfigurationChangeExpiration",
-                    timeout.Value);
+                    timeout.Value.UtcDateTime);
             }
         }
 

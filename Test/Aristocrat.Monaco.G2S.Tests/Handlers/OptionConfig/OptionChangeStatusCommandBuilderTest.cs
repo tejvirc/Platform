@@ -66,10 +66,10 @@
                         DisableCondition = disableCondition,
                         AuthorizeItems = new List<ConfigChangeAuthorizeItem>
                         {
-                            new ConfigChangeAuthorizeItem
+                            new()
                             {
                                 AuthorizeStatus = authorizationState,
-                                TimeoutDate = DateTime.MaxValue
+                                TimeoutDate = DateTimeOffset.MaxValue
                             }
                         }
                     });

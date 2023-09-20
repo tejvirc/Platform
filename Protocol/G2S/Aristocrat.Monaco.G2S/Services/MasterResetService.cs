@@ -237,7 +237,7 @@
                         authorizeStatus = GetAuthorizeStatus(a),
                         timeoutAction = GetTimeoutAction(a),
                         timeoutDateSpecified = a.TimeoutDate.HasValue,
-                        timeoutDate = a.TimeoutDate ?? DateTime.MinValue
+                        timeoutDate = (a.TimeoutDate ?? DateTime.MinValue).UtcDateTime
                     }).ToArray();
 
                 if (authorizeItems != null && authorizeItems.Length > 0)
@@ -316,7 +316,7 @@
                         .ToList();
 
                 // The timeout MUST be within 24 hours of the dateTime specified within the class level element
-                authorizeItems.ForEach(a => a.TimeoutDate = GetDateTimeUTC(a.TimeoutDate) ?? dateTime);
+                authorizeItems.ForEach(a => a.TimeoutDate = a.TimeoutDate?.UtcDateTime ?? dateTime);
                 authorizeItems.ForEach(a => a.AuthorizeStatus = AuthorizationState.Pending);
 
                 AuthorizeItems = authorizeItems;
@@ -326,11 +326,6 @@
             {
                 SetStatus(MasterResetStatus.Authorized);
             }
-        }
-
-        private DateTime? GetDateTimeUTC(DateTime? dateTime)
-        {
-            return dateTime?.ToUniversalTime();
         }
 
         private void StartReset()

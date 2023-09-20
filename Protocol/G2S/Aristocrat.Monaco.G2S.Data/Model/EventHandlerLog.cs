@@ -41,7 +41,7 @@ namespace Aristocrat.Monaco.G2S.Data.Model
         /// <summary>
         ///     Gets or sets the event date time.
         /// </summary>
-        public DateTime EventDateTime { get; set; }
+        public DateTimeOffset EventDateTime { get; set; }
 
         /// <summary>
         ///     Gets or sets the event acknowledged by host.

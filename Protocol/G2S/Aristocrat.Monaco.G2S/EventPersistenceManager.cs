@@ -56,7 +56,7 @@
             get
             {
                 using (var context = _contextFactory.CreateDbContext())
-                { 
+                {
                     return _supportedEventRepository.GetAll(context).ToList();
                 }
             }
@@ -409,7 +409,7 @@
                 transactionId = data.TransactionId,
                 eventCode = data.EventCode,
                 deviceId = data.DeviceId,
-                eventDateTime = data.EventDateTime,
+                eventDateTime = data.EventDateTime.UtcDateTime,
                 eventId = data.EventId,
                 eventText = EventHandlerExtensions.GetEventText(data.EventCode),
                 transactionList = !string.IsNullOrEmpty(data.TransactionList) ? EventHandlerExtensions.ParseXml<transactionList>(data.TransactionList) : null,

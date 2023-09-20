@@ -34,27 +34,11 @@
 
     public static class Bootstrapper
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-        private static void AddDbContext(this Container container)
-        {
-            container.RegisterSingleton<IConnectionStringResolver, DefaultConnectionStringResolver>();
-
-            container.Register<DbContext, HHRContext>(Lifestyle.Scoped);
-
-            container.RegisterConditional(typeof(IRepository<>), typeof(Repository<>), Lifestyle.Scoped, _ => true);
-
-            var registration = Lifestyle.Transient.CreateRegistration<UnitOfWork>(container);
-            registration.SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "ignore");
-            container.AddRegistration(typeof(IUnitOfWork), registration);
-
-            container.RegisterSingleton<IUnitOfWorkFactory, UnitOfWorkFactory>();
-        }
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         public static void InitializeBase(Container container)
         {
-            var serviceWaiter = new ServiceWaiter(ServiceManager.GetInstance().GetService<IEventBus>());
-
+            using var serviceWaiter = new ServiceWaiter(ServiceManager.GetInstance().GetService<IEventBus>());
             serviceWaiter.AddServiceToWaitFor<ICentralProvider>();
             serviceWaiter.AddServiceToWaitFor<IBank>();
             serviceWaiter.AddServiceToWaitFor<IGameProvider>();
@@ -71,34 +55,53 @@
             serviceWaiter.AddServiceToWaitFor<IGamePlayState>();
             serviceWaiter.AddServiceToWaitFor<ITransactionCoordinator>();
             serviceWaiter.AddServiceToWaitFor<IGameStartConditionProvider>();
-
-            if (serviceWaiter.WaitForServices())
+            if (!serviceWaiter.WaitForServices())
             {
-                InitializeGames();
-                ConfigureContainer(container);
+                return;
             }
+
+            InitializeGames();
+            SetupStorageDatabase();
+            ConfigureContainer(container);
         }
 
-        private static void ConfigureContainer(Container container)
+        private static Container AddDbContext(this Container container)
         {
-            container.AddExternalServices();
+            container.RegisterSingleton<IConnectionStringResolver, DefaultConnectionStringResolver>();
 
-            container.AddInternalServices();
+            container.Register<DbContext, HHRContext>(Lifestyle.Scoped);
 
-            container.AddMappings();
+            container.RegisterConditional(typeof(IRepository<>), typeof(Repository<>), Lifestyle.Scoped, _ => true);
 
-            container.AddClientServices();
+            var registration = Lifestyle.Transient.CreateRegistration<UnitOfWork>(container);
+            registration.SuppressDiagnosticWarning(DiagnosticType.DisposableTransientComponent, "ignore");
+            container.AddRegistration(typeof(IUnitOfWork), registration);
 
-            container.AddCommandHandlers();
-
-            container.AddDbContext();
+            container.RegisterSingleton<IUnitOfWorkFactory, UnitOfWorkFactory>();
+            return container;
         }
 
-        private static void AddInternalServices(this Container container)
+        private static void SetupStorageDatabase()
         {
-            container.RegisterSingleton<LockupManager>();
+            using var context = new HHRContext(
+                new DefaultConnectionStringResolver(ServiceManager.GetInstance().GetService<IPathMapper>()));
+            context.Database.EnsureCreated();
+        }
+
+        private static Container ConfigureContainer(Container container)
+        {
+            return container.AddExternalServices()
+                .AddInternalServices()
+                .AddMappings()
+                .AddClientServices()
+                .AddCommandHandlers()
+                .AddDbContext();
+        }
+
+        private static Container AddInternalServices(this Container container)
+        {
             container.Register(typeof(IRequestTimeoutBehavior<>), typeof(IRequestTimeoutBehavior<>).Assembly);
-
+            container.RegisterSingleton<LockupManager>();
             container.RegisterSingleton<CentralHandler>();
             container.RegisterSingleton<IPrizeDeterminationService, PrizeDeterminationService>();
             container.RegisterSingleton<IPlayerSessionService, PlayerSessionService>();
@@ -126,24 +129,23 @@
             container.RegisterSingleton<IManualHandicapEntityHelper, ManualHandicapEntityHelper>();
             container.RegisterSingleton<IProgressiveUpdateEntityHelper, ProgressiveUpdateEntityHelper>();
             container.RegisterSingleton<ITransactionIdProvider, TransactionIdProvider>();
+            return container;
         }
 
-        private static void AddClientServices(this Container container)
+        private static Container AddClientServices(this Container container)
         {
             var egmSettings = ServiceManager.GetInstance().GetService<IPropertiesManager>();
 
             container.RegisterClientServices();
-
             var encryptionKey = egmSettings.GetValue(HHRPropertyNames.EncryptionKey, string.Empty);
             container.RegisterSingleton<ICryptoProvider>(
                 () => new CryptoProvider(encryptionKey));
             container.RegisterSingleton<ISequenceIdManager>(
                 () => new SequenceIdManager(egmSettings.GetValue(HHRPropertyNames.SequenceId, 1u)));
-            container.RegisterSingleton(
-                () => ServiceManager.GetInstance().TryGetService<IContainerService>().Container.GetInstance<IRuntimeFlagHandler>());
+            return container;
         }
 
-        private static void AddExternalServices(this Container container)
+        private static Container AddExternalServices(this Container container)
         {
             var serviceManager = ServiceManager.GetInstance();
             container.RegisterInstance(serviceManager.GetService<ICentralProvider>());
@@ -166,18 +168,23 @@
             container.RegisterInstance(serviceManager.GetService<IGamePlayState>());
             container.RegisterInstance(serviceManager.GetService<ITransactionCoordinator>());
             container.RegisterInstance(serviceManager.GetService<IGameStartConditionProvider>());
+            container.RegisterInstance(
+                serviceManager.TryGetService<IContainerService>().Container.GetInstance<IRuntimeFlagHandler>());
+            return container;
         }
 
-        private static void AddCommandHandlers(this Container container)
+        private static Container AddCommandHandlers(this Container container)
         {
             container.Register(typeof(ICommandHandler<>), typeof(ICommandHandler<>).Assembly);
             container.RegisterSingleton<ICommandHandlerFactory, CommandHandlerFactory>();
+            return container;
         }
 
-        private static void AddMappings(this Container container)
+        private static Container AddMappings(this Container container)
         {
             container.Register<MapperProvider>();
             container.RegisterSingleton(() => container.GetInstance<MapperProvider>().GetMapper());
+            return container;
         }
 
         private static void InitializeGames()

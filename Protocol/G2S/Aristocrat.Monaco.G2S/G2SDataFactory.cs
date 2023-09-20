@@ -2,11 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using CompositionRoot;
-    using G2S.Common.Data;
-    using Protocol.Common.Storage;
     using Data.Hosts;
     using Kernel;
+    using Monaco.Common.Storage;
 
     /// <summary>
     ///     An implementation of an <see cref="IG2SDataFactory" />
@@ -17,13 +15,20 @@
     /// </remarks>
     public class G2SDataFactory : IG2SDataFactory, IService
     {
-        /// <inheritdoc />
-        public IHostService GetHostService()
+        private readonly IMonacoContextFactory _contextFactory;
+
+        public G2SDataFactory()
+            : this(ServiceManager.GetInstance().GetService<IMonacoContextFactory>())
         {
-            return new HostService(
-                new DbContextFactory(new DefaultConnectionStringResolver(ServiceManager.GetInstance().GetService<IPathMapper>())),
-                new HostRepository());
         }
+
+        public G2SDataFactory(IMonacoContextFactory contextFactory)
+        {
+            _contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
+        }
+
+        /// <inheritdoc />
+        public IHostService GetHostService() => new HostService(_contextFactory, new HostRepository());
 
         /// <inheritdoc />
         public string Name => GetType().ToString();

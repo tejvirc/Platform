@@ -108,23 +108,23 @@
                 Assert.AreEqual(log.ConfigurationId, responseLog.configurationId);
                 Assert.AreEqual(log.ApplyCondition.ToG2SString(), responseLog.applyCondition);
                 Assert.AreEqual(log.DisableCondition.ToG2SString(), responseLog.disableCondition);
-                Assert.AreEqual(log.StartDateTime, responseLog.startDateTime);
-                Assert.AreEqual(log.EndDateTime, responseLog.endDateTime);
+                Assert.AreEqual(log.StartDateTime ?? default(DateTime), responseLog.startDateTime);
+                Assert.AreEqual(log.EndDateTime ?? default(DateTime), responseLog.endDateTime);
                 Assert.AreEqual(log.RestartAfter, responseLog.restartAfter);
                 Assert.AreEqual((int)log.ChangeStatus, (int)responseLog.changeStatus);
                 Assert.AreEqual(log.ChangeDateTime, responseLog.changeDateTime);
                 Assert.AreEqual((int)log.ChangeException, responseLog.changeException);
 
-                Assert.AreEqual(log.AuthorizeItems.Count(), responseLog.authorizeStatusList.authorizeStatus.Length);
+                Assert.AreEqual(log.AuthorizeItems.Count, responseLog.authorizeStatusList.authorizeStatus.Length);
 
-                for (var j = 0; j < log.AuthorizeItems.Count(); j++)
+                for (var j = 0; j < log.AuthorizeItems.Count; j++)
                 {
                     var auth = log.AuthorizeItems.ElementAt(j);
                     var responseAuth = responseLog.authorizeStatusList.authorizeStatus[j];
 
                     Assert.AreEqual(auth.HostId, responseAuth.hostId);
                     Assert.AreEqual((int)auth.AuthorizeStatus, (int)responseAuth.authorizationState);
-                    Assert.AreEqual(auth.TimeoutDate, responseAuth.timeoutDate);
+                    Assert.AreEqual(auth.TimeoutDate ?? default(DateTime), responseAuth.timeoutDate);
                 }
             }
         }

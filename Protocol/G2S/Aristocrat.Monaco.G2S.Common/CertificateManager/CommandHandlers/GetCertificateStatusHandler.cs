@@ -141,15 +141,15 @@
                     return new GetCertificateStatusResult(CertificateStatus.Good, DateTime.UtcNow, null, null);
                 }
 
-                var timePassed = DateTime.UtcNow - certificate.VerificationDate;
+                var timePassed = DateTimeOffset.UtcNow - certificate.VerificationDate;
 
                 if (timePassed.TotalMinutes < (short)(configuration.OcspReAuthenticationPeriod / 2))
                 {
                     return new GetCertificateStatusResult(
                         CertificateStatus.Good,
                         GetNextUpdate(configuration.OcspReAuthenticationPeriod),
-                        certificate.VerificationDate,
-                        certificate.OcspOfflineDate);
+                        certificate.VerificationDate.UtcDateTime,
+                        certificate.OcspOfflineDate?.UtcDateTime);
                 }
 
                 DateTime? nextUpdate = null;
@@ -216,7 +216,11 @@
                     certificate.Status = ToCertificateStatus(status.OcspCertificateStatus);
                 }
 
-                return new GetCertificateStatusResult(certificate.Status, certificate.VerificationDate, certificate.OcspOfflineDate, nextUpdate);
+                return new GetCertificateStatusResult(
+                    certificate.Status,
+                    certificate.VerificationDate.UtcDateTime,
+                    certificate.OcspOfflineDate?.UtcDateTime,
+                    nextUpdate);
             }
         }
     }

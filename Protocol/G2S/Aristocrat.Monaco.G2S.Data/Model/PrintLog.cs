@@ -21,7 +21,7 @@
         /// <summary>
         ///     Gets or sets the Date/time that the printer action took place
         /// </summary>
-        public DateTime PrintDateTime { get; set; }
+        public DateTimeOffset PrintDateTime { get; set; }
 
         /// <summary>
         ///     Gets or sets the template index associated with this transaction

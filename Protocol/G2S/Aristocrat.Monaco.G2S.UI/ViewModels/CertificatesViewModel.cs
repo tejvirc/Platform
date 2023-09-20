@@ -568,11 +568,12 @@ namespace Aristocrat.Monaco.G2S.UI.ViewModels
                 SerialNumber = certificate.SerialNumber,
                 NotBefore = time.GetFormattedLocationTime(certificate.NotBefore),
                 NotAfter = time.GetFormattedLocationTime(certificate.NotAfter),
-                VerificationDate = time.GetFormattedLocationTime(entity.VerificationDate),
+                VerificationDate = time.GetFormattedLocationTime(entity.VerificationDate.UtcDateTime),
                 Status = entity.Status.ToName(),
-                OcspOfflineDate = entity.OcspOfflineDate == null
-                    ? ""
-                    : time.GetFormattedLocationTime((DateTime)entity.OcspOfflineDate),
+                OcspOfflineDate =
+                    entity.OcspOfflineDate.HasValue
+                        ? time.GetFormattedLocationTime(entity.OcspOfflineDate.Value.UtcDateTime)
+                        : string.Empty,
                 HasPrivateKey = certificate.HasPrivateKey,
                 IsDefault = entity.Default,
                 IsExpired = time.GetLocationTime(certificate.NotAfter).ToUniversalTime() <

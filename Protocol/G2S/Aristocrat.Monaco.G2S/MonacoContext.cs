@@ -4,69 +4,46 @@
     using System.Linq;
     using Aristocrat.Monaco.Protocol.Common.Storage;
     using Common.CertificateManager.Mapping;
-    using Common.CertificateManager.Models;
-    using Common.GAT.Storage;
     using Common.Mapping;
-    using Common.PackageManager.Storage;
-    using Data.CommConfig;
     using Data.Mapping;
     using Data.Model;
-    using Data.OptionConfig;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-    using System.IO;
 
     /// <summary>
     ///     A Monaco specific DbContext implementation
     /// </summary>
-    public class MonacoContext : DbContext
+    public sealed class MonacoContext : DbContext
     {
         private readonly string _connectionString;
 
         public MonacoContext(IConnectionStringResolver connectionStringResolver)
         {
+            if (connectionStringResolver == null)
+            {
+                throw new ArgumentNullException(nameof(connectionStringResolver));
+            }
+
             _connectionString = connectionStringResolver.Resolve();
         }
 
-        public DbSet<Data.Model.Host> Host { get; set; }
-        public DbSet<ProfileData> ProfileData { get; set; }
-        public DbSet<EventHandlerLog> EventHandlerLog { get; set; }
-        public DbSet<EventSubscription> EventSubscription { get; set; }
-        public DbSet<SupportedEvent> SupportedEvent { get; set; }
-        public DbSet<MeterSubscription> MeterSubscription { get; set; }
-        public DbSet<CommHostConfig> CommHostConfig { get; set; }
-        public DbSet<CommHostConfigItem> CommHostConfigItem { get; set; }
-        public DbSet<CommHostConfigDevice> CommHostConfigDevice { get; set; }
-        public DbSet<CommChangeLog> CommChangeLog { get; set; }
-        public DbSet<ConfigChangeAuthorizeItem> ConfigChangeAuthorizeItem { get; set; }
-        public DbSet<OptionChangeLog> OptionChangeLog { get; set; }
-        public DbSet<OptionConfigDeviceEntity> OptionConfigDevice { get; set; }
-        public DbSet<OptionConfigGroup> OptionConfigGroup { get; set; }
-        public DbSet<OptionConfigItem> OptionConfigItem { get; set; }
-        public DbSet<GatVerificationRequest> GatVerificationRequest { get; set; }
-        public DbSet<GatComponentVerification> GatComponentVerification { get; set; }
-        public DbSet<GatSpecialFunction> GatSpecialFunction { get; set; }
-        public DbSet<GatSpecialFunctionParameter> GatSpecialFunctionParameter { get; set; }
-        public DbSet<PkiConfiguration> PkiConfiguration { get; set; }
-        public DbSet<Certificate> Certificate { get; set; }
-        public DbSet<Module> Module { get; set; }
-        public DbSet<PackageError> PackageError { get; set; }
-        public DbSet<Package> Package { get; set; }
-        public DbSet<Script> Script { get; set; }
-        public DbSet<TransferEntity> Transfer { get; set; }
-        public DbSet<PrintLog> PrinterLog { get; set; }
-        public DbSet<VoucherData> VoucherData { get; set; }
-        public DbSet<IdReaderData> IdReaderData { get; set; }
-        public DbSet<PackageLog> PackageLog { get; set; }
-        public DbSet<PendingJackpotAwards> PendingJackpotAwards { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (optionsBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(optionsBuilder));
+            }
+
             optionsBuilder.UseSqlite(_connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            if (modelBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(modelBuilder));
+            }
+
             modelBuilder.ApplyConfiguration(new HostMap());
             modelBuilder.ApplyConfiguration(new ProfileDataMap());
             modelBuilder.ApplyConfiguration(new EventHandlerLogMap());

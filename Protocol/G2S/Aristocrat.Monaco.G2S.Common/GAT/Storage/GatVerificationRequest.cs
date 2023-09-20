@@ -60,7 +60,7 @@
         /// <summary>
         ///     Gets or sets date and time that the GAT function was executed
         /// </summary>
-        public DateTime Date { get; set; }
+        public DateTimeOffset Date { get; set; }
 
         /// <summary>
         ///     Gets or sets the component verifications.

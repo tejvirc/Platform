@@ -74,12 +74,12 @@
         /// <summary>
         ///     Gets or sets the transfer completed datetime.
         /// </summary>
-        public DateTime? TransferCompletedDateTime { get; set; }
+        public DateTimeOffset? TransferCompletedDateTime { get; set; }
 
         /// <summary>
         ///     Gets or sets the package validate datetime.
         /// </summary>
-        public DateTime? PackageValidateDateTime { get; set; }
+        public DateTimeOffset? PackageValidateDateTime { get; set; }
 
         /// <summary>
         ///     Returns a human-readable representation of a Transfer Entity.

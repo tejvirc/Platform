@@ -206,7 +206,7 @@
                     // This is soft reset of the comms only as opposed to a restart of the EGM
                     Egm.Restart(contexts.Where(c => c.DeviceChanged));
 
-                    // Restarting comms will call NotifyConfigurationChanged() within the communications device, 
+                    // Restarting comms will call NotifyConfigurationChanged() within the communications device,
                     //  but if we didn't restart comms we need to close out this process with the communications device event notification(s)
                     foreach (var ctx in contexts)
                     {
@@ -245,7 +245,7 @@
                             $"G2S_{a.AuthorizeStatus.ToString()}",
                             true),
                     timeoutDateSpecified = a.TimeoutDate.HasValue,
-                    timeoutDate = a.TimeoutDate ?? DateTime.MinValue
+                    timeoutDate = (a.TimeoutDate ?? DateTime.MinValue).UtcDateTime
                 }).ToArray();
 
             if (authorizeItems != null && authorizeItems.Length > 0)

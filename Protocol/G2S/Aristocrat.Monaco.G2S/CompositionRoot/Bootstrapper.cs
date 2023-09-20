@@ -60,8 +60,7 @@
     /// </summary>
     internal static class Bootstrapper
     {
-        private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         ///     Initializes the container.
@@ -423,7 +422,6 @@
         private static string GetHostName()
         {
             var ipProperties = IPGlobalProperties.GetIPGlobalProperties();
-
             if (!string.IsNullOrEmpty(ipProperties.DomainName))
             {
                 return $"{ipProperties.HostName}.{ipProperties.DomainName}";

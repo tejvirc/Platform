@@ -12,27 +12,29 @@
     using Common.Extensions;
     using Common.Storage;
     using Common.Storage.Model;
-    using Events;
     using Kernel;
     using Localization.Properties;
 
     public class BingoHostConfigurationViewModel : ConfigWizardViewModelBase
     {
-        private IPathMapper PathMapper => _pathMapper ?? (_pathMapper = ServiceManager.GetInstance().GetService<IPathMapper>());
-
         private readonly IHostService _hostService;
+        private readonly IPathMapper _pathMapper;
+
         private int _port;
         private string _hostName;
-        private IPathMapper _pathMapper;
 
         public BingoHostConfigurationViewModel(bool isWizard)
-            : this(isWizard, ServiceManager.GetInstance().GetService<IBingoDataFactory>())
+            : this(
+                isWizard,
+                ServiceManager.GetInstance().GetService<IPathMapper>(),
+                ServiceManager.GetInstance().GetService<IBingoDataFactory>())
         {
         }
 
-        public BingoHostConfigurationViewModel(bool isWizard, IBingoDataFactory factory)
+        public BingoHostConfigurationViewModel(bool isWizard, IPathMapper pathMapper, IBingoDataFactory factory)
             : base(isWizard)
         {
+            _pathMapper = pathMapper ?? throw new ArgumentNullException(nameof(pathMapper));
             _hostService = factory?.GetHostService() ?? throw new ArgumentNullException(nameof(factory));
         }
 
@@ -65,8 +67,7 @@
                 return;
             }
 
-            using var context = new BingoContext(new DefaultConnectionStringResolver(PathMapper));
-
+            using var context = new BingoContext(new DefaultConnectionStringResolver(_pathMapper));
             context.Database.EnsureCreated();
             if (!context.Certificates.Any())
             {
@@ -147,8 +148,12 @@
 
         public static ValidationResult ValidateHostName(string hostName, ValidationContext context)
         {
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
 
-            BingoHostConfigurationViewModel instance = (BingoHostConfigurationViewModel)context.ObjectInstance;
+            var instance = (BingoHostConfigurationViewModel)context.ObjectInstance;
             var errors = "";
             instance.ClearErrors(nameof(hostName));
 
@@ -156,17 +161,18 @@
             {
                 errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.AddressNotValid);
             }
-            if (string.IsNullOrEmpty(errors))
-            {
-                return ValidationResult.Success;
-            }
 
-            return new(errors);
+            return string.IsNullOrEmpty(errors) ? ValidationResult.Success : new ValidationResult(errors);
         }
 
         public static ValidationResult ValidatePort(int port, ValidationContext context)
         {
-            BingoHostConfigurationViewModel instance = (BingoHostConfigurationViewModel)context.ObjectInstance;
+            if (context == null)
+            {
+                throw new ArgumentNullException(nameof(context));
+            }
+
+            var instance = (BingoHostConfigurationViewModel)context.ObjectInstance;
             var errors = "";
             instance.ClearErrors(nameof(Port));
             if (port is <= 0 or > ushort.MaxValue)
@@ -174,12 +180,7 @@
                 errors = Localizer.For(CultureFor.Operator).GetString(ResourceKeys.Port_MustBeInRange);
             }
 
-            if (string.IsNullOrEmpty(errors))
-            {
-                return ValidationResult.Success;
-            }
-
-            return new(errors);
+            return string.IsNullOrEmpty(errors) ? ValidationResult.Success : new ValidationResult(errors);
         }
     }
 }

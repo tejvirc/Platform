@@ -150,7 +150,7 @@
                     ApplyCommConfigurationTask.Create(commChangeLog.Id, commChangeLog.TransactionId),
                     "SetCommChange",
                     commChangeLog.ApplyCondition == ApplyCondition.Disable
-                        ? commChangeLog.StartDateTime ?? DateTime.UtcNow
+                        ? (commChangeLog.StartDateTime ?? DateTimeOffset.UtcNow).UtcDateTime
                         : DateTime.UtcNow);
             }
         }
@@ -165,17 +165,16 @@
                     hostId = a.HostId,
                     authorizationState = (t_authorizationStates)Enum.Parse(typeof(t_authorizationStates),$"G2S_{a.AuthorizeStatus.ToString()}",true),
                     timeoutDateSpecified = a.TimeoutDate.HasValue,
-                    timeoutDate = a.TimeoutDate ?? DateTime.MinValue
+                    timeoutDate = (a.TimeoutDate ?? DateTime.MinValue).UtcDateTime
                 }).ToArray();
 
-            if (authorizeItems != null && authorizeItems.Length > 0)
+            if (authorizeItems is { Length: > 0 })
             {
                 changeLog.authorizeStatusList = new authorizeStatusList
                 {
                     authorizeStatus = authorizeItems.ToArray()
                 };
             }
-             
 
             var transList = new transactionList { transactionInfo = new[] {  new transactionInfo
             {

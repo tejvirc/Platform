@@ -20,7 +20,7 @@
 
         private readonly Container _container;
 
-        private readonly Dictionary<Type, InstanceProducer> _repositories = new Dictionary<Type, InstanceProducer>();
+        private readonly Dictionary<Type, InstanceProducer> _repositories = new();
 
         private Scope _scope;
         private DbContext _context;
@@ -35,11 +35,8 @@
         public UnitOfWork(Container container)
         {
             _container = container;
-
             _scope = AsyncScopedLifestyle.BeginScope(_container);
-
             _context = _scope.GetInstance<DbContext>();
-            _context.Database.EnsureCreated();
         }
 
         /// <inheritdoc />
@@ -64,7 +61,7 @@
                 {
                     Logger.Warn($"Failed getting registration for {entityType.Name} - container has been disposed:", e);
                 }
-				
+
                 if (!_repositories.ContainsKey(entityType))
                 {
                     Logger.Debug($"Adding key {entityType.Name} to _repository...");

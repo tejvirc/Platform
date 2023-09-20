@@ -54,7 +54,7 @@
                     if (pe.ActivityDateTime.HasValue)
                     {
                         packageActivityItem.activityDateTimeSpecified = true;
-                        packageActivityItem.activityDateTime = pe.ActivityDateTime.Value;
+                        packageActivityItem.activityDateTime = pe.ActivityDateTime.Value.UtcDateTime;
                     }
                 }
             }

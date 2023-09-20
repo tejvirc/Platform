@@ -178,7 +178,7 @@
                         ApplyOptionConfigurationTask.Create(pendingChangeLog.Id, pendingChangeLog.TransactionId),
                         "SetOptionChange",
                         pendingChangeLog.ApplyCondition == ApplyCondition.Disable
-                            ? pendingChangeLog.StartDateTime ?? DateTime.UtcNow
+                            ? (pendingChangeLog.StartDateTime ?? DateTimeOffset.UtcNow).UtcDateTime
                             : DateTime.UtcNow);
                 }
             }
@@ -212,7 +212,7 @@
                             $"{Constants.DefaultPrefix}{a.AuthorizeStatus.ToString()}",
                             true),
                     timeoutDateSpecified = a.TimeoutDate.HasValue,
-                    timeoutDate = a.TimeoutDate ?? DateTime.MinValue
+                    timeoutDate = (a.TimeoutDate ?? DateTime.MinValue).UtcDateTime
                 }).ToArray();
 
             if (authorizeItems != null && authorizeItems.Length > 0)

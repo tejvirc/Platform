@@ -23,7 +23,7 @@
                 logSequence = @this.Id,
                 deviceId = @this.PrinterId,
                 transactionId = @this.TransactionId,
-                printDateTime = @this.PrintDateTime,
+                printDateTime = @this.PrintDateTime.UtcDateTime,
                 transactionClass = TemplateIndexToDeviceClass(@this.TemplateIndex),
                 transactionDevice = TemplateIndexToDeviceId(@this.TemplateIndex),
                 templateIndex = @this.TemplateIndex,

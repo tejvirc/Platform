@@ -65,7 +65,7 @@
                                 deviceId = log.DeviceId,
                                 applyCondition = log.ApplyCondition.ToG2SString(),
                                 disableCondition = log.DisableCondition.ToG2SString(),
-                                changeDateTime = log.ChangeDateTime,
+                                changeDateTime = log.ChangeDateTime.UtcDateTime,
                                 changeException = (int)log.ChangeException,
                                 restartAfter = log.RestartAfter,
                                 changeStatus =
@@ -75,13 +75,13 @@
 
                             if (log.StartDateTime.HasValue)
                             {
-                                changeLog.startDateTime = log.StartDateTime.Value;
+                                changeLog.startDateTime = log.StartDateTime.Value.UtcDateTime;
                             }
 
                             changeLog.endDateTimeSpecified = log.EndDateTime.HasValue;
                             if (log.EndDateTime.HasValue)
                             {
-                                changeLog.endDateTime = log.EndDateTime.Value;
+                                changeLog.endDateTime = log.EndDateTime.Value.UtcDateTime;
                             }
 
                             var authorizeItems = log.AuthorizeItems?.Select(
@@ -93,7 +93,7 @@
                                         $"G2S_{a.AuthorizeStatus.ToString()}",
                                         true),
                                     timeoutDateSpecified = a.TimeoutDate.HasValue,
-                                    timeoutDate = a.TimeoutDate ?? DateTime.MinValue
+                                    timeoutDate = (a.TimeoutDate ?? DateTime.MinValue).UtcDateTime
                                 }).ToArray();
 
                             if (authorizeItems != null && authorizeItems.Length > 0)

@@ -44,20 +44,20 @@
                 command.startDateTimeSpecified = log.StartDateTime.HasValue;
                 if (log.StartDateTime.HasValue)
                 {
-                    command.startDateTime = log.StartDateTime.Value;
+                    command.startDateTime = log.StartDateTime.Value.UtcDateTime;
                 }
 
                 command.endDateTimeSpecified = log.EndDateTime.HasValue;
                 if (log.EndDateTime.HasValue)
                 {
-                    command.endDateTime = log.EndDateTime.Value;
+                    command.endDateTime = log.EndDateTime.Value.UtcDateTime;
                 }
 
                 command.restartAfter = log.RestartAfter;
                 command.changeStatus =
                     (t_changeStatus)Enum.Parse(typeof(t_changeStatus), $"G2S_{log.ChangeStatus}", true);
 
-                command.changeDateTime = log.ChangeDateTime;
+                command.changeDateTime = log.ChangeDateTime.UtcDateTime;
                 command.changeException = (int)log.ChangeException;
                 command.listStateDateTimeSpecified = false;
 
@@ -70,10 +70,10 @@
                             $"G2S_{a.AuthorizeStatus.ToString()}",
                             true),
                         timeoutDateSpecified = a.TimeoutDate.HasValue,
-                        timeoutDate = a.TimeoutDate ?? DateTime.MinValue
+                        timeoutDate = (a.TimeoutDate ?? DateTime.MinValue).UtcDateTime
                     }).ToArray();
 
-                if (authorizeItems != null && authorizeItems.Length > 0)
+                if (authorizeItems is { Length: > 0 })
                 {
                     command.authorizeStatusList =
                         new authorizeStatusList { authorizeStatus = authorizeItems.ToArray() };

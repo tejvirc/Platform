@@ -12,7 +12,7 @@
         /// <summary>
         ///     Gets or sets the date/time the log entry was last updated.
         /// </summary>
-        public DateTime ChangeDateTime { get; set; }
+        public DateTimeOffset ChangeDateTime { get; set; }
 
         /// <summary>
         ///     Gets or sets the configuration identifier.
@@ -42,12 +42,12 @@
         /// <summary>
         ///     Gets or sets the start date time.
         /// </summary>
-        public DateTime? StartDateTime { get; set; }
+        public DateTimeOffset? StartDateTime { get; set; }
 
         /// <summary>
         ///     Gets or sets the end date time.
         /// </summary>
-        public DateTime? EndDateTime { get; set; }
+        public DateTimeOffset? EndDateTime { get; set; }
 
         /// <summary>
         ///     Gets or sets a value indicating whether [restart after].

@@ -3,25 +3,45 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using Aristocrat.Monaco.Protocol.Common.Storage;
-    using CompositionRoot;
     using Hardware.Contracts.Persistence;
     using Kernel;
     using log4net;
     using Microsoft.EntityFrameworkCore;
+    using Monaco.Common.Storage;
 
     /// <summary>
     ///     Handles storage events like clearing persistent storage
     /// </summary>
     public sealed class StorageHandler : IService, IDisposable
     {
-        private static readonly ILog Logger =
-            LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
+        private readonly IEventBus _eventBus;
+        private readonly IPersistentStorageManager _persistentStorage;
+        private readonly IMonacoContextFactory _contextFactory;
+
+        public StorageHandler()
+            : this(
+                ServiceManager.GetInstance().GetService<IEventBus>(),
+                ServiceManager.GetInstance().GetService<IPersistentStorageManager>(),
+                ServiceManager.GetInstance().GetService<IMonacoContextFactory>())
+        {
+        }
+
+        public StorageHandler(
+            IEventBus eventBus,
+            IPersistentStorageManager persistentStorage,
+            IMonacoContextFactory contextFactory)
+        {
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _persistentStorage = persistentStorage ?? throw new ArgumentNullException(nameof(persistentStorage));
+            _contextFactory = contextFactory ?? throw new ArgumentNullException(nameof(contextFactory));
+        }
 
         /// <inheritdoc />
         public void Dispose()
         {
-            ServiceManager.GetInstance().GetService<IEventBus>().UnsubscribeAll(this);
+            _eventBus.UnsubscribeAll(this);
         }
 
         /// <inheritdoc />
@@ -34,18 +54,12 @@
         public void Initialize()
         {
             // Because of the order in which things are torn down we need to jump through some hoops to make sure our callback is invoked
-            ServiceManager.GetInstance()
-                .GetService<IEventBus>()
-                .Subscribe<PersistentStorageClearStartedEvent>(
-                    this,
-                    _ =>
-                    {
-                        ServiceManager.GetInstance().GetService<IPersistentStorageManager>().StorageClearingEventHandler
-                            += OnStorageClearing;
-                    });
+            _eventBus.Subscribe<PersistentStorageClearStartedEvent>(
+                this,
+                _ => _persistentStorage.StorageClearingEventHandler += OnStorageClearing);
         }
 
-        private static void OnStorageClearing(object sender, StorageEventArgs e)
+        private void OnStorageClearing(object sender, StorageEventArgs e)
         {
             if (e.Level == PersistenceLevel.Transient)
             {
@@ -102,15 +116,12 @@
 
             Logger.Info("Preparing to clear persistent storage on the G2S database");
 
-            var factory = new DbContextFactory(ServiceManager.GetInstance().GetService<IConnectionStringResolver>());
             try
             {
-                using (var context = factory.Lock())
+                using var context = _contextFactory.Lock();
+                foreach (var table in tables)
                 {
-                    foreach (var table in tables)
-                    {
-                        context.Database.ExecuteSqlRaw($"DELETE FROM [{table}]");
-                    }
+                    context.Database.ExecuteSqlRaw($"DELETE FROM [{table}]");
                 }
             }
             catch (Exception ex)
@@ -120,13 +131,12 @@
             }
             finally
             {
-                factory.Release();
+                _contextFactory.Release();
             }
 
-            var storageManager = ServiceManager.GetInstance().TryGetService<IPersistentStorageManager>();
-            if (storageManager != null)
+            if (_persistentStorage != null)
             {
-                storageManager.StorageClearingEventHandler -= OnStorageClearing;
+                _persistentStorage.StorageClearingEventHandler -= OnStorageClearing;
             }
 
             Logger.Info("Finished clearing persistent storage on the G2S database");

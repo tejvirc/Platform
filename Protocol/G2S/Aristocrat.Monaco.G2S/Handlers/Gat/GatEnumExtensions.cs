@@ -151,7 +151,7 @@
                 feature = string.Empty, ////TODO we're not supporting this yet
                 parameter = string.Empty, ////TODO we're not supporting this yet
                 employeeId = request.EmployeeId,
-                gatDateTime = request.Date,
+                gatDateTime = request.Date.UtcDateTime,
                 componentLog = request.ComponentVerifications?.Select(
                     m => new componentLog
                     {

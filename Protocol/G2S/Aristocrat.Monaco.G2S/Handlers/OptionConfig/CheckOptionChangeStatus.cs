@@ -109,7 +109,7 @@
 
                 var authorizeItem = pendingChangeLog.AuthorizeItems.FirstOrDefault(x => x.Id == AuthorizeItemId);
 
-                if (authorizeItem?.TimeoutDate != null && currentTime.CompareTo(authorizeItem.TimeoutDate.Value) > 0 &&
+                if (authorizeItem?.TimeoutDate != null && currentTime.CompareTo(authorizeItem.TimeoutDate.Value.UtcDateTime) > 0 &&
                     pendingChangeLog.ChangeStatus != ChangeStatus.Authorized)
                 {
                     _configuration.Abort(pendingChangeLog.TransactionId, ChangeExceptionErrorCode.Timeout);
@@ -128,7 +128,7 @@
                                     $"G2S_{a.AuthorizeStatus.ToString()}",
                                     true),
                             timeoutDateSpecified = a.TimeoutDate.HasValue,
-                            timeoutDate = a.TimeoutDate ?? DateTime.MinValue
+                            timeoutDate = (a.TimeoutDate ?? DateTime.MinValue).UtcDateTime
                         }).ToArray();
 
                     if (authorizeItems.Length > 0)

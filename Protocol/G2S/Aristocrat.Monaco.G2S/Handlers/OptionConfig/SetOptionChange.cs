@@ -127,7 +127,7 @@
                     ApplyOptionConfigurationTask.Create(optionChangeLog.Id, optionChangeLog.TransactionId),
                     "SetOptionChange",
                     optionChangeLog.ApplyCondition == ApplyCondition.Disable
-                        ? optionChangeLog.StartDateTime ?? DateTime.UtcNow
+                        ? (optionChangeLog.StartDateTime ?? DateTimeOffset.UtcNow).UtcDateTime
                         : DateTime.UtcNow);
             }
         }
@@ -146,7 +146,7 @@
                             $"G2S_{a.AuthorizeStatus.ToString()}",
                             true),
                     timeoutDateSpecified = a.TimeoutDate.HasValue,
-                    timeoutDate = a.TimeoutDate ?? DateTime.MinValue
+                    timeoutDate = (a.TimeoutDate ?? DateTime.MinValue).UtcDateTime
                 }).ToArray();
 
             if (authorizeItems != null && authorizeItems.Length > 0)

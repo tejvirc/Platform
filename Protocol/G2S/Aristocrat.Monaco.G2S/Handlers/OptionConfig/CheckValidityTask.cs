@@ -127,7 +127,10 @@
 
             if (timeout.HasValue)
             {
-                _taskScheduler.ScheduleTask(Create(log.TransactionId), "CheckCommChangeExpiration", timeout.Value);
+                _taskScheduler.ScheduleTask(
+                    Create(log.TransactionId),
+                    "CheckCommChangeExpiration",
+                    timeout.Value.UtcDateTime);
             }
         }
     }

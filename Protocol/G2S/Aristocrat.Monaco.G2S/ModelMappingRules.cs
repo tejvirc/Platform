@@ -10,6 +10,7 @@
     using Data.OptionConfig;
     using Data.OptionConfig.ChangeOptionConfig;
     using ExpressMapper;
+    using ExpressMapper.Extensions;
     using Handlers;
     using Handlers.OptionConfig;
 
@@ -67,13 +68,13 @@
                         if (src.PackageValidateDateTime.HasValue)
                         {
                             dest.pkgValidateDateTimeSpecified = true;
-                            dest.pkgValidateDateTime = src.PackageValidateDateTime.Value;
+                            dest.pkgValidateDateTime = src.PackageValidateDateTime.Value.UtcDateTime;
                         }
 
                         if (src.TransferCompletedDateTime.HasValue)
                         {
                             dest.transferCompleteDateTimeSpecified = true;
-                            dest.transferCompleteDateTime = src.TransferCompletedDateTime.Value;
+                            dest.transferCompleteDateTime = src.TransferCompletedDateTime.Value.UtcDateTime;
                         }
                     });
         }
@@ -102,13 +103,13 @@
                         if (src.PackageValidateDateTime.HasValue)
                         {
                             dest.pkgValidateDateTimeSpecified = true;
-                            dest.pkgValidateDateTime = src.PackageValidateDateTime.Value;
+                            dest.pkgValidateDateTime = src.PackageValidateDateTime.Value.UtcDateTime;
                         }
 
                         if (src.TransferCompletedDateTime.HasValue)
                         {
                             dest.transferCompleteDateTimeSpecified = true;
-                            dest.transferCompleteDateTime = src.TransferCompletedDateTime.Value;
+                            dest.transferCompleteDateTime = src.TransferCompletedDateTime.Value.UtcDateTime;
                         }
                     });
         }
@@ -240,7 +241,7 @@
                     (src, desc) =>
                     {
                         desc.timeoutDateSpecified = src.TimeoutDate.HasValue;
-                        desc.timeoutDate = src.TimeoutDate ?? DateTime.UtcNow;
+                        desc.timeoutDate = (src.TimeoutDate ?? DateTimeOffset.UtcNow).UtcDateTime;
                         desc.authorizationState =
                             (t_authorizationStates)Enum.Parse(
                                 typeof(t_authorizationStates),
@@ -312,7 +313,7 @@
 
             Mapper.Register<CommChangeLog, commChangeStatus>()
                 .Member(dest => dest.changeException, src => (int)src.ChangeException)
-                .Member(dest => dest.changeDateTime, src => src.ChangeDateTime)
+                .Member(dest => dest.changeDateTime, src => src.ChangeDateTime.UtcDateTime)
                 .Ignore(dest => dest.applyCondition)
                 .Ignore(dest => dest.disableCondition)
                 .Ignore(dest => dest.authorizeStatusList)
@@ -333,6 +334,9 @@
         {
             Mapper.Register<OptionChangeLog, optionChangeStatus>()
                 .Member(dest => dest.changeException, src => (int)src.ChangeException)
+                .Member(dest => dest.changeDateTime, src => src.ChangeDateTime.UtcDateTime)
+                .Member(dest => dest.endDateTime, src => (src.EndDateTime ?? DateTimeOffset.MinValue).UtcDateTime)
+                .Member(dest => dest.startDateTime, src => (src.StartDateTime ?? DateTimeOffset.MinValue).UtcDateTime)
                 .Ignore(dest => dest.applyCondition)
                 .Ignore(dest => dest.disableCondition)
                 .Ignore(dest => dest.authorizeStatusList)
@@ -350,6 +354,7 @@
 
             Mapper.Register<OptionChangeLog, optionChangeLog>()
                 .Member(dest => dest.logSequence, src => src.Id)
+                .Member(dest => dest.changeDateTime, src => src.ChangeDateTime.UtcDateTime)
                 .Ignore(m => m.authorizeStatusList)
                 .Ignore(m => m.changeStatus)
                 .Ignore(m => m.changeException)
@@ -369,9 +374,9 @@
                             $"G2S_{src.ChangeStatus.ToString()}",
                             true);
                         desc.startDateTimeSpecified = src.StartDateTime.HasValue;
-                        desc.startDateTime = src.StartDateTime ?? DateTime.UtcNow;
+                        desc.startDateTime = (src.StartDateTime ?? DateTimeOffset.UtcNow).UtcDateTime;
                         desc.endDateTimeSpecified = src.EndDateTime.HasValue;
-                        desc.endDateTime = src.EndDateTime ?? DateTime.UtcNow;
+                        desc.endDateTime = (src.EndDateTime ?? DateTimeOffset.UtcNow).UtcDateTime;
                         desc.changeException = (int)src.ChangeException;
                     });
         }

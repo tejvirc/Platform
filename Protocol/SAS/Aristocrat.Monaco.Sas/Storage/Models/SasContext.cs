@@ -1,9 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Sas.Storage.Models
 {
     using System;
-    using System.IO;
-    using System.Reflection;
-    using System.Windows.Markup;
     using Microsoft.EntityFrameworkCore;
     using Protocol.Common.Storage;
 
@@ -20,6 +17,11 @@
         /// <param name="connectionStringResolver">An instance of <see cref="IConnectionStringResolver"/></param>
         public SasContext(IConnectionStringResolver connectionStringResolver)
         {
+            if (connectionStringResolver == null)
+            {
+                throw new ArgumentNullException(nameof(connectionStringResolver));
+            }
+
             _connectionString = connectionStringResolver.Resolve();
         }
 
@@ -97,6 +99,11 @@
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            if (modelBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(modelBuilder));
+            }
+
             modelBuilder.ApplyConfiguration(new AftHistoryItemConfiguration());
             modelBuilder.ApplyConfiguration(new AftRegistrationConfiguration());
             modelBuilder.ApplyConfiguration(new AftTransferOptionsConfiguration());

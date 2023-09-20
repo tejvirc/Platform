@@ -26,6 +26,6 @@ namespace Aristocrat.Monaco.G2S.Data.Model
         /// <summary>
         ///     Gets or sets the expiration time.
         /// </summary>
-        public DateTime ListTime { get; set; }
+        public DateTimeOffset ListTime { get; set; }
     }
 }

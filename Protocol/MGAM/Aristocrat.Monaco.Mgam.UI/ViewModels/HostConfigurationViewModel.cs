@@ -153,23 +153,20 @@
             MacAddress = NetworkInterfaceInfo.DefaultPhysicalAddress;
             DeviceName = properties.GetValue(ApplicationConstants.CalculatedDeviceName, string.Empty);
 
-            using (var context = new MgamContext(new DefaultConnectionStringResolver(PathMapper)))
+            using var context = new MgamContext(new DefaultConnectionStringResolver(PathMapper));
+            context.Database.EnsureCreated();
+            // get existing device GUID; else generate
+            DeviceId = context.Devices.Any()
+                ? context.Devices.First().DeviceGuid
+                : GuidUtility.Create(GuidUtility.DnsNamespace, DeviceName);
+
+            if (!IsWizardPage)
             {
-                context.Database.EnsureCreated();
-                // get existing device GUID; else generate
-                DeviceId = context.Devices.Any()
-                    ? context.Devices.First().DeviceGuid
-                    : GuidUtility.Create(GuidUtility.DnsNamespace, DeviceName);
-
-                if (!IsWizardPage)
-                {
-                    DirectoryPort = context.Hosts.First().DirectoryPort;
-                    ServiceName = context.Hosts.First().ServiceName;
-                    UseUdpBroadcasting = context.Hosts.First().UseUdpBroadcasting;
-                    DirectoryIpAddress = context.Hosts.First().DirectoryIpAddress;
-                }
+                DirectoryPort = context.Hosts.First().DirectoryPort;
+                ServiceName = context.Hosts.First().ServiceName;
+                UseUdpBroadcasting = context.Hosts.First().UseUdpBroadcasting;
+                DirectoryIpAddress = context.Hosts.First().DirectoryIpAddress;
             }
-
         }
 
         /// <inheritdoc />
@@ -182,25 +179,23 @@
 
             EventBus.Publish(new OperatorMenuSettingsChangedEvent());
 
-            using (var context = new MgamContext(new DefaultConnectionStringResolver(PathMapper)))
+            using var context = new MgamContext(new DefaultConnectionStringResolver(PathMapper));
+            if (IsWizardPage)
             {
-                if (IsWizardPage)
-                {
-                    CreateDatabase(context);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    context.Hosts.First().DirectoryPort = DirectoryPort;
-                    context.Hosts.First().ServiceName = ServiceName;
-                    context.Hosts.First().UseUdpBroadcasting = UseUdpBroadcasting;
-                    context.Hosts.First().DirectoryIpAddress = DirectoryIpAddress;
+                CreateDatabase(context);
+                context.SaveChanges();
+            }
+            else
+            {
+                context.Hosts.First().DirectoryPort = DirectoryPort;
+                context.Hosts.First().ServiceName = ServiceName;
+                context.Hosts.First().UseUdpBroadcasting = UseUdpBroadcasting;
+                context.Hosts.First().DirectoryIpAddress = DirectoryIpAddress;
 
-                    if (context.ChangeTracker.HasChanges())
-                    {
-                        context.SaveChanges();
-                        EventBus.Publish(new HostConfigurationChangedEvent(ServiceName, DirectoryIpAddress, DirectoryPort, UseUdpBroadcasting));
-                    }
+                if (context.ChangeTracker.HasChanges())
+                {
+                    context.SaveChanges();
+                    EventBus.Publish(new HostConfigurationChangedEvent(ServiceName, DirectoryIpAddress, DirectoryPort, UseUdpBroadcasting));
                 }
             }
         }

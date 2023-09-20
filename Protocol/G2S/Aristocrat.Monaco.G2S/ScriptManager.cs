@@ -354,12 +354,12 @@
                 if (firstTimeout != null && script.EndDateTime != null)
                 {
                     timeout = firstTimeout.Value < script.EndDateTime.Value
-                        ? firstTimeout.Value
+                        ? firstTimeout.Value.UtcDateTime
                         : script.EndDateTime.Value;
                 }
                 else if (firstTimeout != null)
                 {
-                    timeout = firstTimeout.Value;
+                    timeout = firstTimeout.Value.UtcDateTime;
                 }
             }
 

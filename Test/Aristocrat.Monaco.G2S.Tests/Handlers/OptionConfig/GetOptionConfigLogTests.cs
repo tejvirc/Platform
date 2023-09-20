@@ -139,15 +139,15 @@
                         TransactionId = i,
                         ApplyCondition = ApplyCondition.Cancel,
                         ChangeData = "ChangeData",
-                        ChangeDateTime = DateTime.MaxValue,
+                        ChangeDateTime = DateTimeOffset.MaxValue,
                         ChangeException = ChangeExceptionErrorCode.EgmMustBeDisabled,
                         ChangeStatus = ChangeStatus.Aborted,
                         ConfigurationId = i,
                         DeviceId = i,
                         DisableCondition = DisableCondition.Idle,
                         EgmActionConfirmed = true,
-                        StartDateTime = DateTime.MaxValue,
-                        EndDateTime = DateTime.MaxValue,
+                        StartDateTime = DateTimeOffset.MaxValue,
+                        EndDateTime = DateTimeOffset.MaxValue,
                         RestartAfter = true,
                         AuthorizeItems = new List<ConfigChangeAuthorizeItem>
                         {
@@ -159,7 +159,7 @@
                                 Id = 1,
                                 OptionChangeLogId = 1,
                                 TimeoutAction = TimeoutActionType.Ignore,
-                                TimeoutDate = DateTime.MaxValue
+                                TimeoutDate = DateTimeOffset.MaxValue
                             },
                             new ConfigChangeAuthorizeItem
                             {
@@ -169,7 +169,7 @@
                                 Id = 1,
                                 OptionChangeLogId = 1,
                                 TimeoutAction = TimeoutActionType.Ignore,
-                                TimeoutDate = DateTime.MaxValue
+                                TimeoutDate = DateTimeOffset.MaxValue
                             },
                         },
                     });

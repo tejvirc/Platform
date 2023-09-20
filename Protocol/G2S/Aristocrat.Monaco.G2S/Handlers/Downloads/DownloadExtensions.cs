@@ -42,7 +42,7 @@
                 if (@this.ActivityDateTime.HasValue)
                 {
                     packageActivityItem.activityDateTimeSpecified = true;
-                    packageActivityItem.activityDateTime = @this.ActivityDateTime.Value;
+                    packageActivityItem.activityDateTime = @this.ActivityDateTime.Value.UtcDateTime;
                 }
             }
             else

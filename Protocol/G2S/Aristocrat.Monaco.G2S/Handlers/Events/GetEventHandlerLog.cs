@@ -79,7 +79,7 @@
                 deviceId = log.DeviceId,
                 eventCode = log.EventCode,
                 eventId = log.EventId,
-                eventDateTime = log.EventDateTime,
+                eventDateTime = log.EventDateTime.UtcDateTime,
                 eventText = EventHandlerExtensions.GetEventText(log.EventCode),
                 eventAck = log.EventAck,
                 transactionId = log.TransactionId

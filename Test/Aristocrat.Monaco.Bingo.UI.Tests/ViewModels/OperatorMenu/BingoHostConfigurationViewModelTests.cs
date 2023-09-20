@@ -34,7 +34,7 @@
             _bingoDataFactory.Setup(x => x.GetHostService()).Returns(_hostService.Object);
             _propertyManager = MoqServiceManager.CreateAndAddService<IPropertiesManager>(MockBehavior.Default);
             MockLocalization.Setup(MockBehavior.Default);
-            _target = new BingoHostConfigurationViewModel(false, _bingoDataFactory.Object);
+            _target = new BingoHostConfigurationViewModel(false, _pathMapper.Object, _bingoDataFactory.Object);
         }
 
         [TestCleanup]
@@ -43,18 +43,22 @@
             MoqServiceManager.RemoveInstance();
         }
 
-        [DataRow(true, false)]
-        [DataRow(false, true)]
+        [DataRow(true, false, false)]
+        [DataRow(false, true, false)]
+        [DataRow(false, false, true)]
         [DataTestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void NullConstructorArgumentTest(bool nullDataFactory, bool nullHostService)
+        public void NullConstructorArgumentTest(bool nullPathMapper, bool nullDataFactory, bool nullHostService)
         {
             if (nullHostService)
             {
                 _bingoDataFactory.Setup(x => x.GetHostService()).Returns((IHostService)null);
             }
 
-            _target = new BingoHostConfigurationViewModel(false, nullDataFactory ? null : _bingoDataFactory.Object);
+            _target = new BingoHostConfigurationViewModel(
+                false,
+                nullPathMapper ? null : _pathMapper.Object,
+                nullDataFactory ? null : _bingoDataFactory.Object);
         }
 
         [DataRow("", 1, true, false, DisplayName = "Empty host name test")]
@@ -64,6 +68,7 @@
         [DataRow("localhost", 1, false, false, DisplayName = "Has no changes test")]
         [DataRow("localhost", 1, true, true, DisplayName = "Has no errors test")]
         [DataTestMethod]
+        [Ignore("Testing access DB this shouldn't be done for a unit tests")]
         public void SaveTest(string hostName, int port, bool hasChanges, bool saved)
         {
             _pathMapper.Setup(p => p.GetDirectory(It.IsAny<string>())).Returns(new DirectoryInfo("."));

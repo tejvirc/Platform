@@ -33,7 +33,7 @@
         private const int DefaultRetryInterval = 30000;
         private const int VoucherExpirationOverlapInSeconds = 2;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly IMeterAggregator<ICabinetDevice> _cabinetMeters;
 
         private readonly IMonacoContextFactory _contextFactory;
@@ -43,11 +43,11 @@
         private readonly ICommandBuilder<IVoucherDevice, voucherStatus> _statusCommandBuilder;
         private readonly ITransactionHistory _transactionHistory;
         private readonly IVoucherDataRepository _voucherData;
-        private readonly object _voucherDataLock = new object();
+        private readonly object _voucherDataLock = new();
         private readonly IMeterAggregator<IVoucherDevice> _voucherMeters;
         private readonly ITransactionReferenceProvider _references;
 
-        private readonly object _voucherUpdateLock = new object();
+        private readonly object _voucherUpdateLock = new();
 
         private bool _commsOfflineDisable;
         private DateTime _nextVoucherRefresh = DateTime.MinValue;
@@ -149,7 +149,7 @@
             {
                 if (_nextVoucherRefresh < DateTime.UtcNow)
                 {
-                    FreeCancelationTokens();
+                    FreeCancellationTokens();
 
                     Logger.Debug("Comms is online. Will update voucher data.");
 
@@ -163,7 +163,7 @@
             }
             else
             {
-                FreeCancelationTokens();
+                FreeCancellationTokens();
             }
 
             if (!device.PrintOffLine)
@@ -182,10 +182,8 @@
         /// <inheritdoc />
         public int VoucherIdAvailable()
         {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                return _voucherData.Count(context);
-            }
+            using var context = _contextFactory.CreateDbContext();
+            return _voucherData.Count(context);
         }
 
         /// <inheritdoc />
@@ -254,23 +252,21 @@
 
             lock (_voucherDataLock)
             {
-                using (var context = _contextFactory.CreateDbContext())
+                using var context = _contextFactory.CreateDbContext();
+                var count = _voucherData.Count(context);
+                if (count > 0)
                 {
-                    var count = _voucherData.Count(context);
-                    if (count > 0)
+                    var data = _voucherData.GetAll(context).ToList();
+
+                    if (data.Count > 0)
                     {
-                        var data = _voucherData.GetAll(context).ToList();
-
-                        if (data.Count > 0)
+                        if (data.Count == 1)
                         {
-                            if (data.Count == 1)
-                            {
-                                DisableVoucherDevice(DeviceDisableReason.RetrievingVoucherIds);
-                            }
-
-                            result = data[0];
-                            _voucherData.Delete(context, result);
+                            DisableVoucherDevice(DeviceDisableReason.RetrievingVoucherIds);
                         }
+
+                        result = data[0];
+                        _voucherData.Delete(context, result);
                     }
                 }
             }
@@ -283,10 +279,8 @@
         /// <inheritdoc />
         public VoucherData ReadVoucherData()
         {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                return GetLastVoucher(context);
-            }
+            using var context = _contextFactory.CreateDbContext();
+            return GetLastVoucher(context);
         }
 
         /// <inheritdoc />
@@ -301,24 +295,23 @@
             if (device.HostEnabled)
             {
                 EnableVoucherDevice(DeviceDisableReason.VoucherState);
-
                 AttachTaskExceptionHandler(
                     Task.Run(
                         () =>
                         {
-                            if (_nextVoucherRefresh < DateTime.UtcNow)
+                            if (_nextVoucherRefresh >= DateTime.UtcNow)
                             {
-                                FreeCancelationTokens();
-
-                                CheckForVoucherUpdate();
-
-                                SetVoucherIdListRefresh(device);
+                                return;
                             }
+
+                            FreeCancellationTokens();
+                            CheckForVoucherUpdate();
+                            SetVoucherIdListRefresh(device);
                         }));
             }
             else
             {
-                FreeCancelationTokens();
+                FreeCancellationTokens();
                 DeleteAllValidationIds(device);
                 DisableVoucherDevice(DeviceDisableReason.VoucherState);
             }
@@ -384,21 +377,20 @@
                 command =>
                 {
                     var trans = VoucherExtensions.FindTransaction<VoucherInTransaction>(_transactionHistory, command.transactionId);
-
-                    if (trans != null)
+                    if (trans == null)
                     {
-                        Logger.Debug($"Acknowledged pending issued voucher - {command.transactionId}");
-
-                        trans.CommitAcknowledged = true;
-                        _transactionHistory.UpdateTransaction(trans);
-
-                        pendingTransactions?.Remove(voucherInTransaction);
+                        return;
                     }
+
+                    Logger.Debug($"Acknowledged pending issued voucher - {command.transactionId}");
+                    trans.CommitAcknowledged = true;
+                    _transactionHistory.UpdateTransaction(trans);
+                    pendingTransactions?.Remove(voucherInTransaction);
                 },
                 GetMeterList);
         }
 
-        private void AttachTaskExceptionHandler(Task task)
+        private static void AttachTaskExceptionHandler(Task task)
         {
             task.ContinueWith(
                 t =>
@@ -444,10 +436,7 @@
                 Logger.Debug($"GetValidationData: {success}");
                 if (!success)
                 {
-                    if (_voucherDataCancellationToken == null)
-                    {
-                        _voucherDataCancellationToken = new CancellationTokenSource();
-                    }
+                    _voucherDataCancellationToken ??= new CancellationTokenSource();
 
                     AttachTaskExceptionHandler(
                         await Task.Delay(DefaultRetryInterval, _voucherDataCancellationToken.Token)
@@ -510,7 +499,7 @@
                     var refreshTime = lastData.ListTime + TimeSpan.FromMilliseconds(device.ValueIdListRefresh);
                     if (refreshTime > now)
                     {
-                        Logger.Debug("Refresh based on ValueIdListRefresh");
+                        Logger.Debug($"Refresh based on ValueIdListRefresh");
                         time = refreshTime - now;
                     }
                 }
@@ -518,10 +507,7 @@
                 //if we are going to refresh immediately, don't check for expired vouchers
                 if (!time.HasValue || time.Value.TotalSeconds > 1)
                 {
-                    var voucherExpirationData = GetVoucherExpirationData(device, context);
-                    var expiredVouchers = voucherExpirationData.Item1;
-                    var nextVoucherExpiration = voucherExpirationData.Item2;
-
+                    var (expiredVouchers, nextVoucherExpiration) = GetVoucherExpirationData(device, context);
                     if (expiredVouchers > 0)
                     {
                         //we have expired vouchers.  Refresh immediately
@@ -588,7 +574,7 @@
                         }));
         }
 
-        private void FreeCancelationTokens()
+        private void FreeCancellationTokens()
         {
             _refreshCancelSource?.Cancel();
             _refreshCancelSource?.Dispose();
@@ -626,33 +612,28 @@
                         transactionId =>
                         {
                             var trans = VoucherExtensions.FindTransaction<VoucherOutTransaction>(_transactionHistory, transactionId);
-
-                            if (trans != null)
-                            {
-                                return trans.HostAcknowledged;
-                            }
-
-                            return false;
+                            return trans != null && trans.HostAcknowledged;
                         },
                         result =>
                         {
                             var trans = VoucherExtensions.FindTransaction<VoucherOutTransaction>(_transactionHistory, result);
-
-                            if (trans != null)
+                            if (trans == null)
                             {
-                                Logger.Debug($"Acknowledged redeemed voucher - {transaction.TransactionId}");
-
-                                trans.HostAcknowledged = true;
-                                _transactionHistory.UpdateTransaction(trans);
-
-                                _eventLift.Report(
-                                    device,
-                                    EventCode.G2S_VCE105,
-                                    transaction.TransactionId,
-                                    device.TransactionList(trans.ToLog(_references)));
-
-                                pendingIssuedVouchers.Remove(transaction);
+                                return;
                             }
+
+                            Logger.Debug($"Acknowledged redeemed voucher - {transaction.TransactionId}");
+
+                            trans.HostAcknowledged = true;
+                            _transactionHistory.UpdateTransaction(trans);
+
+                            _eventLift.Report(
+                                device,
+                                EventCode.G2S_VCE105,
+                                transaction.TransactionId,
+                                device.TransactionList(trans.ToLog(_references)));
+
+                            pendingIssuedVouchers.Remove(transaction);
                         });
                 }
             }
@@ -700,73 +681,59 @@
 
                 lock (_voucherDataLock)
                 {
-                    using (var context = _contextFactory.CreateDbContext())
+                    using var context = _contextFactory.CreateDbContext();
+                    var data = _voucherData.GetAll(context).ToList();
+
+                    var expiredData = GetExpiredVouchers(data, device);
+
+                    var voucherCount = _voucherData.Count(context);
+                    Logger.Debug(
+                        $"Voucher Count: {voucherCount} Expired Count: {expiredData.Count} Min Voucher Level: {device.MinLevelValueIds}");
+                    var currentValidVoucherCount = voucherCount - expiredData.Count;
+                    if (currentValidVoucherCount <= device.MinLevelValueIds || timerExpired)
                     {
-                        var data = _voucherData.GetAll(context).ToList();
+                        RequestVoucherData(currentValidVoucherCount > 0 ? currentValidVoucherCount : 0, timerExpired);
+                    }
 
-                        var expiredData = GetExpiredVouchers(data, device);
-
-                        var voucherCount = _voucherData.Count(context);
-                        Logger.Debug(
-                            $"Voucher Count: {voucherCount} Expired Count: {expiredData.Count} Min Voucher Level: {device.MinLevelValueIds}");
-                        var currentValidVoucherCount = voucherCount - expiredData.Count;
-                        if (currentValidVoucherCount <= device.MinLevelValueIds || timerExpired)
-                        {
-                            RequestVoucherData(currentValidVoucherCount > 0 ? currentValidVoucherCount : 0, timerExpired);
-                        }
-
-                        if (expiredData.Count > 0)
-                        {
-                            Logger.Debug($"Deleting {expiredData.Count} Expired Vouchers");
-                            DeleteVoucherData(expiredData, device);
-                        }
+                    if (expiredData.Count > 0)
+                    {
+                        Logger.Debug($"Deleting {expiredData.Count} Expired Vouchers");
+                        DeleteVoucherData(expiredData, device);
                     }
                 }
             }
         }
 
-        private List<VoucherData> GetExpiredVouchers(
+        private static IReadOnlyCollection<VoucherData> GetExpiredVouchers(
             List<VoucherData> voucherData,
             IVoucherDevice device,
             DateTime? checkTime = null)
         {
-            var toDeleteData = new List<VoucherData>();
-
             if (voucherData == null)
             {
-                Logger.Debug(nameof(voucherData) + " is null");
-                return toDeleteData;
+                Logger.Debug($"{nameof(voucherData)} is null");
+                return Array.Empty<VoucherData>();
             }
 
             if (device == null)
             {
-                Logger.Debug(nameof(device) + " is null");
-                return toDeleteData;
+                Logger.Debug($"{nameof(device)} is null");
+                return Array.Empty<VoucherData>();
             }
 
-            if (!checkTime.HasValue)
-            {
-                checkTime = DateTime.UtcNow;
-            }
-
-            foreach (var toDelData in voucherData)
-            {
-                if (toDelData.ListTime.AddMilliseconds(device.ValueIdListLife) <= checkTime)
-                {
-                    toDeleteData.Add(toDelData);
-                }
-            }
-
-            return toDeleteData;
+            checkTime ??= DateTime.UtcNow;
+            return voucherData.Where(v => v.ListTime.AddMilliseconds(device.ValueIdListLife) <= checkTime).ToList();
         }
 
-        // int is # of currently expired vouchers.  
+        // int is # of currently expired vouchers.
         // First DateTime? is time of next voucher to expire, adjusted for overlap.
-        private Tuple<int, DateTime?> GetVoucherExpirationData(IVoucherDevice device, DbContext context)
+        private (int expiredCount, DateTime? nextVoucherExpiration) GetVoucherExpirationData(
+            IVoucherDevice device,
+            DbContext context)
         {
             if (context == null || device == null)
             {
-                return new Tuple<int, DateTime?>(0, null);
+                return (0, null);
             }
 
             DateTime? nextVoucherExpiration = null;
@@ -780,7 +747,7 @@
 
             if (voucherData.Any())
             {
-                nextVoucherExpiration = voucherData.First().ListTime.AddMilliseconds(device.ValueIdListLife);
+                nextVoucherExpiration = voucherData.First().ListTime.AddMilliseconds(device.ValueIdListLife).UtcDateTime;
                 var overlapExpiredVouchers = GetExpiredVouchers(
                     voucherData,
                     device,
@@ -789,14 +756,13 @@
                 {
                     //adjust the next voucher expiration by the overlap to batch these calls.
                     nextVoucherExpiration =
-                        overlapExpiredVouchers.Last().ListTime.AddMilliseconds(device.ValueIdListLife);
+                        overlapExpiredVouchers.Last().ListTime.AddMilliseconds(device.ValueIdListLife).UtcDateTime;
                 }
             }
 
-            var returnData = new Tuple<int, DateTime?>(expiredVouchers.Count, nextVoucherExpiration);
             Logger.Debug(
-                $"Time: {DateTime.UtcNow} Expired vouchers: {returnData.Item1}  Next voucher expiration: {returnData.Item2}");
-            return returnData;
+                $"Time: {DateTime.UtcNow} Expired vouchers: {expiredVouchers.Count}  Next voucher expiration: {nextVoucherExpiration}");
+            return (expiredVouchers.Count, nextVoucherExpiration);
         }
 
         private meterList GetMeterList(IVoucherDevice voucherDevice)
@@ -822,7 +788,7 @@
             return new meterList { meterInfo = cabinetMeters.Concat(voucherMeters).ToArray() };
         }
 
-        private void DeleteVoucherData(List<VoucherData> toDeleteData, IVoucherDevice device)
+        private void DeleteVoucherData(IReadOnlyCollection<VoucherData> toDeleteData, IVoucherDevice device)
         {
             if (toDeleteData == null)
             {
@@ -838,17 +804,15 @@
 
             lock (_voucherDataLock)
             {
-                using (var context = _contextFactory.CreateDbContext())
+                using var context = _contextFactory.CreateDbContext();
+                foreach (var del in toDeleteData)
                 {
-                    foreach (var del in toDeleteData)
-                    {
-                        _voucherData.DeleteAll(context, a => a.ValidationId == del.ValidationId);
-                    }
+                    _voucherData.DeleteAll(context, a => a.ValidationId == del.ValidationId);
+                }
 
-                    if (_voucherData.Count(context) == 0)
-                    {
-                        DisableVoucherDevice(DeviceDisableReason.RetrievingVoucherIds);
-                    }
+                if (_voucherData.Count(context) == 0)
+                {
+                    DisableVoucherDevice(DeviceDisableReason.RetrievingVoucherIds);
                 }
             }
 
@@ -863,12 +827,10 @@
 
         private void DeleteAllValidationIds(IVoucherDevice device)
         {
-            using (var context = _contextFactory.CreateDbContext())
-            {
-                var voucherData = _voucherData.GetAll(context).ToList();
+            using var context = _contextFactory.CreateDbContext();
+            var voucherData = _voucherData.GetAll(context).ToList();
 
-                DeleteVoucherData(voucherData, device);
-            }
+            DeleteVoucherData(voucherData, device);
         }
 
         private void RequestVoucherData(int currentValidVoucherCount, bool timerExpired)
@@ -947,7 +909,7 @@
                         _voucherData.Add(context, voucher);
                     }
 
-                    if (vouchersToDelete != null && vouchersToDelete.Count > 0)
+                    if (vouchersToDelete is { Count: > 0 })
                     {
                         DeleteVoucherData(vouchersToDelete, device);
                     }
@@ -991,12 +953,10 @@
             if (device.Enabled && reason != DeviceDisableReason.VoucherState)
             {
                 Logger.Debug($"Voucher service is disabling the voucher device: {reason}");
-
                 device.Enabled = false;
 
                 var status = new voucherStatus();
                 _statusCommandBuilder.Build(device, status);
-
                 _eventLift.Report(device, EventCode.G2S_VCE001, device.DeviceList(status));
             }
         }
@@ -1034,18 +994,18 @@
 
         private void SetState()
         {
-            using (var context = _contextFactory.CreateDbContext())
+            using var context = _contextFactory.CreateDbContext();
+            if (_voucherData.Count(context) > 0)
             {
-                if (_voucherData.Count(context) <= 0)
-                {
-                    var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
-                    var allowVoucherIssue = (bool)propertiesManager.GetProperty(AccountingConstants.VoucherOut, false);
+                return;
+            }
 
-                    if (allowVoucherIssue)
-                    {
-                        DisableVoucherDevice(DeviceDisableReason.RetrievingVoucherIds);
-                    }
-                }
+            var propertiesManager = ServiceManager.GetInstance().GetService<IPropertiesManager>();
+            var allowVoucherIssue = (bool)propertiesManager.GetProperty(AccountingConstants.VoucherOut, false);
+
+            if (allowVoucherIssue)
+            {
+                DisableVoucherDevice(DeviceDisableReason.RetrievingVoucherIds);
             }
         }
 

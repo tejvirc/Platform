@@ -21,7 +21,7 @@
         /// <summary>
         ///     Gets or sets the timeout date.
         /// </summary>
-        public DateTime? TimeoutDate { get; set; }
+        public DateTimeOffset? TimeoutDate { get; set; }
 
         /// <summary>
         ///     Gets or sets the timeout action.

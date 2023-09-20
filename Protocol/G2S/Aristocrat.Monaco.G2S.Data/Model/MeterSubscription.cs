@@ -118,6 +118,6 @@
         /// <summary>
         ///     Gets or sets a value for the last time this subscription was acknowledged by the host if the subscription is an EOD meter.
         /// </summary>
-        public DateTime LastAckedTime { get; set; }
+        public DateTimeOffset LastAckedTime { get; set; }
     }
 }
