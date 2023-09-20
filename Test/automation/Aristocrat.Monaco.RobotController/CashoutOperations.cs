@@ -105,6 +105,7 @@
                 {
                     _robotController.UnBlockOtherOperations(RobotStateAndOperations.CashoutOperation);
                     _logger.Info($"TransferOutCompletedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
+                    _eventBus.Publish(new GameLoadRequestEvent());
                 });
             _eventBus.Subscribe<CashOutAbortedEvent>(this,
                 _ =>
@@ -130,7 +131,5 @@
             _logger.Info("Requesting Cashout", GetType().Name);
             _eventBus.Publish(new CashOutButtonPressedEvent());
         }
-
-        private bool GetRandomBoolean() => new Random((int)DateTime.Now.Ticks).Next() % 2 != 0;
     }
 }

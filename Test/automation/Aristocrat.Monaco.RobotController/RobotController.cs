@@ -237,6 +237,7 @@
                         {
                             _automator.ExitLockup();
                             _eventBus.Publish(new GameLoadRequestEvent());
+                            _eventBus.Publish(new BalanceCheckEvent());
                         }
                     }
                 },
@@ -247,6 +248,7 @@
                         {
                             _automator.ExitLockup();
                             _eventBus.Publish(new GameLoadRequestEvent());
+                            _eventBus.Publish(new BalanceCheckEvent());
                         }
                     }
                 },
@@ -257,6 +259,7 @@
                         {
                             _automator.ExitLockup();
                             _eventBus.Publish(new GameLoadRequestEvent());
+                            _eventBus.Publish(new BalanceCheckEvent());
                         }
                     }
                 }
