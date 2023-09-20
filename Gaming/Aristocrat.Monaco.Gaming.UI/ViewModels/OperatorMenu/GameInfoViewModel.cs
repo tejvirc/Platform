@@ -262,7 +262,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 
         private void SetGameOrder(object obj)
         {
-            var viewModel = new SetGameOrderViewModel();
+            var viewModel = new SetGameOrderViewModel(this, () => InputEnabled);
 
             _dialogService.ShowDialog<SetGameOrderView>(this, viewModel, Localizer.For(CultureFor.Operator).GetString(ResourceKeys.GameOrderMessage));
         }

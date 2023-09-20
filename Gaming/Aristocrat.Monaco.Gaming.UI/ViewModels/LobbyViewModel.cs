@@ -3000,6 +3000,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             {
                 // Hide Cash Out dialogs when we load a game and on cash in 
                 IsVbdCashOutDialogVisible = false;
+                IsResponsibleGamingCashoutDlgVisible = false;
                 ShowVbdServiceConfirmationDialog(false);
             }
 

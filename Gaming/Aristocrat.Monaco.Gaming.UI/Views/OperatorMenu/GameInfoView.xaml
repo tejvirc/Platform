@@ -61,6 +61,7 @@
         <Button Grid.Row="1" Margin="0 15 0 0"
                 Content="{lex:Loc SetGameOrder}" 
                 Visibility="{Binding SetGameOrderVisible, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                IsEnabled="{Binding InputEnabledByRuleOverride}"
                 Command="{Binding SetGameOrderCommand}"
                 Height="50"
                 VerticalAlignment="Center"
