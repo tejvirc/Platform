@@ -18,13 +18,7 @@
         ///     A dictionary for the track command intervals
         ///     with the key in the format "action_category"
         /// </summary>
-        private Dictionary<string, long> _trackCommandIntervals;
-
-        /// <summary>
-        ///     A dictionary for the last time a track command was sent
-        ///     with the key in the format "action_category"
-        /// </summary>
-        private Dictionary<string, DateTime> _trackCommandLastSentTimes;
+        private readonly Dictionary<string, TrackInterval> _trackCommandIntervals;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="AnalyticsDevice" /> class.
@@ -34,8 +28,7 @@
         public AnalyticsDevice(int deviceId, IDeviceObserver deviceObserver)
             : base(deviceId, deviceObserver)
         {
-            _trackCommandIntervals = new Dictionary<string, long>();
-            _trackCommandLastSentTimes = new Dictionary<string, DateTime>();
+            _trackCommandIntervals = new Dictionary<string, TrackInterval>();
         }
 
         /// <inheritdoc />
@@ -44,10 +37,27 @@
             throw new NotImplementedException();
         }
 
-        private string GetActionCategoryKey(string action, string category)
+        /// <inheritdoc />
+        public void SetTrackInterval(string action, string category, TimeSpan interval)
         {
-            return action + "_" + category;
+            var key = BuildActionCategoryKey(action, category);
+
+            if (interval.TotalMilliseconds == 0)
+            {
+                //interval 0 means no limit.
+                _trackCommandIntervals.Remove(key);
+            }
+            else if (_trackCommandIntervals.TryGetValue(key, out var trackInterval))
+            {
+                trackInterval.Interval = interval;
+            }
+            else
+            {
+                _trackCommandIntervals[key] = new TrackInterval(interval);
+            }
         }
+
+        private static string BuildActionCategoryKey(string action, string category) => $"{action}_{category}";
 
         /// <inheritdoc />
         public override void Open(IStartupContext context)
@@ -61,5 +71,24 @@
 
         /// <inheritdoc />
         public bool RestartStatus { get; protected set; }
+
+        private class TrackInterval
+        {
+            private DateTime _lastSent = DateTime.MinValue;
+
+            public TimeSpan Interval { get; set; }
+
+            public TrackInterval(TimeSpan interval)
+            {
+                Interval = interval;
+            }
+
+            public void UpdateLastSent() => _lastSent = DateTime.Now;
+
+            public bool CanSend()
+            {
+                return (DateTime.Now - _lastSent) > Interval;
+            }
+        };
     }
 }
