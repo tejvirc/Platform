@@ -126,7 +126,7 @@ as follows:
     <Page Type="CustomSAPViewModel" TabType="CustomSAPViewLoader" Visible="false"/>
     <Page Type="GameStatisticsViewModel" TabType="GameStatisticsViewLoader" Visible="false"/>
     <Page Type="GamePreferencesViewModel" TabType="GamePreferencesViewLoader" Visible="false"/>
-    <Page Type="GameInfoViewModel" TabType="GameInfoViewLoader" Visible="false" />
+    <Page Type="GameInfoViewModel" TabType="GameInfoViewLoader" Visible="true" Access="Technician"/>
     <Page Type="CombinationTestViewModel" Access="MainDoorGameIdle" />
     <Page TabType="CombinationTestViewLoader" Visible="false" />
   </Menu>
@@ -146,6 +146,10 @@ as follows:
   <Menu Type="SystemResetPageLoader" Visible="false" />
 
     <AccessRules>
+    <AccessRuleSet Name="Technician">
+      <Rule DeviceName="Main" />
+      <Rule DeviceName="Logic" />
+    </AccessRuleSet>
     <AccessRuleSet Name="TestMode">
       <Rule Restriction="GameIdle" />
       <Rule DeviceName="Main" />

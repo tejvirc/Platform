@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using Aristocrat.Monaco.Application.UI.OperatorMenu;
 using Aristocrat.Monaco.Gaming.Contracts;
@@ -11,13 +12,19 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
 {
     public class SetGameOrderViewModel : OperatorMenuSaveViewModelBase
     {
+        public delegate bool CanSaveDelegate();
+
         private ObservableCollection<GameOrderData> _gameList = new ObservableCollection<GameOrderData>();
         private GameOrderData _selectedItem;
         private readonly IGameOrderSettings _gameOrderSettings;
         private bool _isDirty;
+        private readonly CanSaveDelegate _canSave;
+        private readonly INotifyPropertyChanged _ownerViewModel;
 
-        public SetGameOrderViewModel()
+        public SetGameOrderViewModel(INotifyPropertyChanged ownerViewModel, CanSaveDelegate canSave)
         {
+            _ownerViewModel = ownerViewModel;
+            _canSave = canSave;
             var container = ServiceManager.GetInstance().GetService<IContainerService>();
             if (container != null)
             {
@@ -58,12 +65,20 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             }
         }
 
+        public override bool CanSave => _canSave.Invoke() && HasChanges();
+
         protected override void OnLoaded()
         {
             base.OnLoaded();
+            _ownerViewModel.PropertyChanged += OwnerViewModelPropertyChanged;
             SelectedItem = null;
 
             GameList = new ObservableCollection<GameOrderData>(LoadGames().OrderBy(GameOrder));
+        }
+
+        protected override void OnUnloaded()
+        {
+            _ownerViewModel.PropertyChanged -= OwnerViewModelPropertyChanged;
         }
 
         private int GameOrder(GameOrderData game) => _gameOrderSettings.GetIconPositionPriority(game.ThemeId);
@@ -127,6 +142,11 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels.OperatorMenu
             GameList.Move(oldIndex, newIndex);
             IsDirty = true;
             DownCommand.NotifyCanExecuteChanged();
+        }
+
+        private void OwnerViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(CanSave));
         }
 
         public override bool HasChanges()
