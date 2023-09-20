@@ -37,6 +37,7 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
     private bool _isIdleTextScrolling;
     private bool _isScrollingDisplayMode;
     private bool _useDefaultIdleText = true;
+    private string _jurisdictionIdleText;
 
     //#TODO: REMOVE THESE ONCE ADDRESSED PROPERLY:
     //#TODO: Get disabled state from Lobby
@@ -72,10 +73,6 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
                     .Subscribe(OnIdleTextPausedUpdated)
                     .DisposeWith(disposables);
                 store
-                    .Select(IsIdleTextShowingSelector)
-                    .Subscribe(OnIdleTextShowingUpdated)
-                    .DisposeWith(disposables);
-                store
                     .Select(IsScrollingSelector)
                     .Subscribe(OnIdleTextScrollingUpdated)
                     .DisposeWith(disposables);
@@ -85,26 +82,6 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
                     .DisposeWith(disposables);
             });
         IdleTextScrollingCompletedCommand = new ActionCommand<object>(OnIdleTextScrollingCompleted);
-        LoadedCommand = new RelayCommand(OnLoaded);
-        UnloadedCommand = new RelayCommand(OnUnloaded);
-
-    }
-
-    public RelayCommand LoadedCommand { get; }
-    public RelayCommand UnloadedCommand { get; }
-
-    private void OnLoaded()
-    {
-        // DENNIS: TEMP: Just trying to see if string can be loaded here...this works if resource added to App
-        string txt = (string)Application.Current.TryFindResource("LobbyIdleTextDefault");
-        if (txt == null)
-        {
-
-        }
-    }
-
-    private void OnUnloaded()
-    {
     }
 
     public string? IdleText
@@ -114,13 +91,24 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
         {
             if (SetProperty(ref _idleText, value))
             {
-                IsScrollingDisplayMode = ShouldIdleTextScroll(_idleText);
+                //IsScrollingDisplayMode = ShouldIdleTextScroll(_idleText);
             }
-
             OnPropertyChanged(nameof(IsIdleTextScrolling));
             OnPropertyChanged(nameof(IsBlinkingIdleTextVisible));
             OnPropertyChanged(nameof(IsScrollingIdleTextEnabled));
             OnPropertyChanged(nameof(IsScrollingIdleTextVisible));
+        }
+    }
+
+    public string JurisdictionIdleText
+    {
+        get => _jurisdictionIdleText;
+        set
+        {
+            if (SetProperty(ref _jurisdictionIdleText, value))
+            {
+                _dispatcher.Dispatch(new BannerUpdateIdleTextAction(IdleTextType.Jurisdiction, value));
+            }
         }
     }
 

@@ -84,40 +84,24 @@
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Text" 
-                        Value="{DynamicResource LobbyIdleTextDefault}" />
-                <!--
-                <Style.Triggers>
-                    <MultiDataTrigger>
-                        <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding UseDefaultIdleText}" Value="True" />
-                            <Condition Binding="{Binding Source={StaticResource LobbyIdleTextDefault}}" Value="{x:Null}" />
-                        </MultiDataTrigger.Conditions>
-                        <MultiDataTrigger.Setters>
-                            <Setter Property="Text" Value="{lex:BLoc {x:Static loc:ResourceKeys.IdleTextDefault}}" />
-                        </MultiDataTrigger.Setters>
-                    </MultiDataTrigger>
-                    <DataTrigger Binding="{Binding UseDefaultIdleText}" Value="False">
-                        <Setter Property="Text" Value="{Binding IdleText}" />
-                    </DataTrigger>
-                </Style.Triggers>
-                -->
+                        Value="{Binding IdleText}" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
-        </i:EventTrigger>
-        <i:EventTrigger EventName="Unloaded">
-            <i:InvokeCommandAction Command="{Binding UnloadedCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Grid AutomationProperties.AutomationId="Grid9_10DA6753">
+        <!-- Hidden textbox used to capture jurisdiction override/localized text from resource if it exists -->
+        <TextBox HorizontalAlignment="Center" x:Name="IdleTextBoxInvisible"
+                   TextChanged="IdleTextBoxInvisible_OnTextChanged"
+                   Visibility="Collapsed"
+                   Text="{DynamicResource LobbyIdleTextDefault}"
+                   loc:Localizer.For="Player"/>
         <StackPanel RenderTransformOrigin="0.5 0.5"
                     Visibility="{Binding IsBlinkingIdleTextVisible , Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="StackPanel10_10DA6753">
             <TextBlock HorizontalAlignment="Center"
                        MaxWidth="1920"
+                       x:Name="IdleTextBlockBlinking"
+                       SizeChanged="IdleTextBlockBlinking_OnSizeChanged"
                        Style="{StaticResource IdleTextStyle}"
                        AutomationProperties.AutomationId="TextBlock11_10DA6753"
                        loc:Localizer.For="Player"/>
@@ -162,11 +146,11 @@
                 AutomationProperties.AutomationId="Border19_10DA6753">
             <Border.Resources>
                 <Storyboard x:Key="IdleTextScrollingStoryboard"
-                            TargetName="IdleTextBlock"
+                            TargetName="IdleTextBlockScrolling"
                             AutomationProperties.AutomationId="Storyboard20_10DA6753">
                     <DoubleAnimation Storyboard.TargetProperty="(RenderTransform).(TranslateTransform.X)"
                                      From="{Binding ActualWidth, ElementName=IdleTextCanvas}"
-                                     To="{Binding ActualWidth, ElementName=IdleTextBlock, Converter={StaticResource NegatingConverter}}"
+                                     To="{Binding ActualWidth, ElementName=IdleTextBlockScrolling, Converter={StaticResource NegatingConverter}}"
                                      Duration="00:01:00"
                                      AutomationProperties.AutomationId="DoubleAnimation21_10DA6753" />
                 </Storyboard>
@@ -207,7 +191,7 @@
             <Canvas x:Name="IdleTextCanvas"
                     Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
                     AutomationProperties.AutomationId="Canvas26_10DA6753">
-                <TextBlock x:Name="IdleTextBlock"
+                <TextBlock x:Name="IdleTextBlockScrolling"
                            Style="{StaticResource IdleTextStyle}"
                            FontSize="{Binding ElementName=IdleTextBorder, Path=ActualHeight, Converter={StaticResource FontSizeConverter}, UpdateSourceTrigger=PropertyChanged}"
                            Visibility="{Binding IsScrollingIdleTextVisible, Converter={StaticResource TrueVisibleFalseHidden}}"

@@ -15,6 +15,12 @@
         private readonly IEventBus _eventBus;
         private readonly IPropertiesManager _properties;
 
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="dispatcher"></param>
+        /// <param name="eventBus"></param>
+        /// <param name="properties"></param>
         public IdleTextService(IDispatcher dispatcher, IEventBus eventBus, IPropertiesManager properties)
         {
             _dispatcher = dispatcher;
@@ -24,16 +30,16 @@
             SubscribeToEvents();
         }
 
+        /// <inheritdoc />
+        public string? GetCabinetIdleText()
+        {
+            return _properties.GetValue<string?>(GamingConstants.IdleText, null);
+        }
+
+        /// <inheritdoc />
         public string GetDefaultIdleText()
         {
-            // #TODO: Handle localized and jurisdiction-specific text from resource file...if not here then somewhere like view/viewmodel
-            var defaultText = _properties.GetValue<string?>(GamingConstants.IdleText, null);
-            if (string.IsNullOrEmpty(defaultText))
-            {
-                defaultText = Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
-            }
-
-            return defaultText;
+            return Localizer.For(CultureFor.Player).GetString(ResourceKeys.IdleTextDefault);
         }
 
         private void SubscribeToEvents()
@@ -45,14 +51,14 @@
         {
             if (evt.PropertyName == GamingConstants.IdleText)
             {
-                UpdateIdleText();
+                UpdateCabinetIdleText();
             }
         }
 
-        private void UpdateIdleText()
+        private void UpdateCabinetIdleText()
         {
             var text = _properties.GetValue<string?>(GamingConstants.IdleText, null);
-            _dispatcher.Dispatch(new BannerUpdateIdleTextAction(text));
+            _dispatcher.Dispatch(new BannerUpdateIdleTextAction(IdleTextType.CabinetOrHost, text));
         }
 
         public void Dispose()

@@ -1,10 +1,15 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Banner;
 
+/// <summary>
+///     State of the Banner component, responsible for idle text
+/// </summary>
 public record BannerState
 {
-    public string? IdleText { get; init; }
+    public string? IdleTextFromCabinetOrHost { get; init; }
 
-    public bool IsIdleTextShowing { get; init; }
+    public string? IdleTextFromJurisdiction { get; init; }
+
+    public string? IdleTextDefault { get; init; }
 
     public bool IsPaused { get; init; }
 

@@ -3,9 +3,15 @@
     public interface IIdleTextService
     {
         /// <summary>
-        ///     Gets the default idle text to display if not otherwise specified/overridden
+        ///     Gets the cabinet specified idle text to display, which is generally highest precedence
         /// </summary>
         /// <returns>Default text to display</returns>
-        string GetDefaultIdleText();
+        string? GetCabinetIdleText();
+
+        /// <summary>
+        ///     Gets the default idle text to display if not otherwise specified/overridden
+        /// </summary>
+        /// <returns></returns>
+        string? GetDefaultIdleText();
     }
 }
