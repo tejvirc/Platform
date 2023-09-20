@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using Application.Contracts;
     using Aristocrat.Bingo.Client.Messages;
+    using Aristocrat.Bingo.Client.Messages.Progressives;
     using Common;
     using Common.Exceptions;
     using Kernel;

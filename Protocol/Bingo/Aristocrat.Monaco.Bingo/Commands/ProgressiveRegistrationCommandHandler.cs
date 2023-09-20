@@ -75,9 +75,16 @@
                                 "Progressive registration failed to communicate to the server",
                                 RegistrationFailureReason.NoResponse);
                     }
+
+                    if (results.ConfigurationFailed)
+                    {
+                        throw new RegistrationException(
+                            "Progressive registration rejected due to mismatched progressive configuration",
+                            RegistrationFailureReason.Rejected);
+                    }
                 }
             }
-            catch (Exception e) when (!(e is RegistrationException))
+            catch (Exception e) when (e is not RegistrationException)
             {
                 throw new RegistrationException("Progressive registration failed to communicate to the server", e, RegistrationFailureReason.NoResponse);
             }
