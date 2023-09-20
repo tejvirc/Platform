@@ -42,7 +42,7 @@
 
         private readonly ConcurrentDictionary<string, IList<ProgressiveInfo>> _progressives = new();
         private readonly IList<ProgressiveInfo> _activeProgressiveInfos = new List<ProgressiveInfo>();
-        private readonly Semaphore _pendingAwardsLock = new(1, 1);
+        private readonly SemaphoreSlim _pendingAwardsLock = new(1);
         private IList<(string poolName, long progressiveLevelId, long amountInPennies, int awardId)> _pendingAwards = new List<(string, long, long, int)>();
         private bool _disposed;
 
@@ -91,11 +91,11 @@
         /// <inheritdoc />
         public void HandleProgressiveEvent<T>(T @event)
         {
-            _ = Handle(@event as LinkedProgressiveHitEvent);
+            _ = Handle(@event as LinkedProgressiveHitEvent, new CancellationToken());
         }
 
         /// <inheritdoc />
-        public async Task AwardJackpot(string poolName, long amountInPennies)
+        public async Task AwardJackpot(string poolName, long amountInPennies, CancellationToken token)
         {
             Logger.Debug($"AwardJackpot, poolName={poolName}, amountInPennies={amountInPennies}");
 
@@ -127,17 +127,25 @@
 
             var levelId = progressiveLevel.LevelId;
             var progressiveId = progressiveLevel.ProgressiveId;
-            _pendingAwardsLock.WaitOne();
-            var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
+            await _pendingAwardsLock.WaitAsync(CancellationToken.None);
+            ProgressiveAwardRequestMessage request;
+            try
+            {
+                var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
 
-            var request = new ProgressiveAwardRequestMessage(
-                machineSerial,
-                progressiveId,
-                levelId,
-                amountInPennies,
-                true);
-            _pendingAwardsLock.Release();
-            await _progressiveAwardService.AwardProgressive(request);
+                request = new ProgressiveAwardRequestMessage(
+                    machineSerial,
+                    progressiveId,
+                    levelId,
+                    amountInPennies,
+                    true);
+            }
+            finally
+            {
+                _pendingAwardsLock.Release();
+            }
+
+            await _progressiveAwardService.AwardProgressive(request, token);
         }
 
         /// <inheritdoc />
@@ -149,17 +157,22 @@
             _activeProgressiveInfos.Clear();
 
             // handle if there are pending awards
-            _pendingAwardsLock.WaitOne();
-            if (_pendingAwards is null)
+            _pendingAwardsLock.WaitAsync(CancellationToken.None);
+            try
             {
-                using var unitOfWork = _unitOfWorkFactory.Create();
-                var pendingJackpots = unitOfWork.Repository<PendingJackpotAwards>().Queryable().SingleOrDefault();
-                _pendingAwards = pendingJackpots?.Awards is null
-                    ? new List<(string, long, long, int)>()
-                    : JsonConvert.DeserializeObject<IList<(string, long, long, int)>>(pendingJackpots.Awards);
+                if (_pendingAwards is null)
+                {
+                    using var unitOfWork = _unitOfWorkFactory.Create();
+                    var pendingJackpots = unitOfWork.Repository<PendingJackpotAwards>().Queryable().SingleOrDefault();
+                    _pendingAwards = pendingJackpots?.Awards is null
+                        ? new List<(string, long, long, int)>()
+                        : JsonConvert.DeserializeObject<IList<(string, long, long, int)>>(pendingJackpots.Awards);
+                }
             }
-
-            _pendingAwardsLock.Release();
+            finally
+            {
+                _pendingAwardsLock.Release();
+            }
 
             var pools =
                 (from level in _protocolLinkedProgressiveAdapter.ViewProgressiveLevels()
@@ -246,7 +259,7 @@
             _eventBus.Subscribe<PendingLinkedProgressivesHitEvent>(this, (e, _) => Handle(e));
             _eventBus.Subscribe<PaytablesInstalledEvent>(this, Handle);
             _eventBus.Subscribe<ProtocolInitialized>(this, Handle);
-            _eventBus.Subscribe<ProgressiveContributionEvent>(this, (e, _) => Handle(e));
+            _eventBus.Subscribe<ProgressiveContributionEvent>(this, (e, _) => Handle(e, new CancellationToken()));
         }
 
         private bool IsActiveGame(int gameTitleId, long denom)
@@ -279,7 +292,7 @@
             return false;
         }
 
-        private async Task Handle(ProgressiveContributionEvent evt)
+        private async Task Handle(ProgressiveContributionEvent evt, CancellationToken token)
         {
             var machineSerial = _propertiesManager.GetValue(ApplicationConstants.SerialNumber, string.Empty);
 
@@ -304,7 +317,7 @@
                             false, // Not used with server 11
                             false, // Not used with server 11
                             (int)denomination);
-                        await _progressiveContributionService.Contribute(message);
+                        await _progressiveContributionService.Contribute(message, token);
 
                         Logger.Debug($"Game [GameTitleId={gameTitleId}, Denom={denomination}] is contributing to progressive {levelId} a wager amount of {wager}");
                     }
@@ -347,31 +360,43 @@
                 return;
             }
 
-            _pendingAwardsLock.WaitOne();
             var tasks = new List<Task>();
-            foreach (var level in evt.LinkedProgressiveLevels)
+            await _pendingAwardsLock.WaitAsync(CancellationToken.None);
+            try
             {
-                // Calls to progressive server to claim each progressive level.
-                Logger.Debug($"Calling ProgressiveClaimService.ClaimProgressive, MachineSerial={machineSerial}, ProgLevelId={level.LevelId}, Amount={level.Amount}");
-                var response = _progressiveClaimService.ClaimProgressive(new ProgressiveClaimRequestMessage(machineSerial, level.LevelId, level.Amount));
-                Logger.Debug($"ProgressiveClaimResponse received, ResponseCode={response.Result.ResponseCode} ProgressiveLevelId={response.Result.ProgressiveLevelId}, ProgressiveWinAmount={response.Result.ProgressiveWinAmount}, ProgressiveAwardId={response.Result.ProgressiveAwardId}");
-                tasks.Add(response);
-                await _bingoGameOutcomeHandler.ProcessProgressiveClaimWin(response.Result.ProgressiveWinAmount.CentsToMillicents());
-
-                // TODO copied code does not allow for multiple pending awards with the same pool name. For Bingo we allow hitting the same progressive multiple times. How to handle?
-                var poolName = GetPoolName(level.LevelName);
-                if (!string.IsNullOrEmpty(poolName) &&
-                    !_pendingAwards.Any(a => a.poolName.Equals(poolName, StringComparison.OrdinalIgnoreCase)))
+                foreach (var level in evt.LinkedProgressiveLevels)
                 {
-                    _pendingAwards.Add((poolName, response.Result.ProgressiveLevelId, response.Result.ProgressiveWinAmount, response.Result.ProgressiveAwardId));
+                    // Calls to progressive server to claim each progressive level.
+                    Logger.Debug(
+                        $"Calling ProgressiveClaimService.ClaimProgressive, MachineSerial={machineSerial}, ProgLevelId={level.LevelId}, Amount={level.Amount}");
+                    var response = _progressiveClaimService.ClaimProgressive(
+                        new ProgressiveClaimRequestMessage(machineSerial, level.LevelId, level.Amount));
+                    Logger.Debug(
+                        $"ProgressiveClaimResponse received, ResponseCode={response.Result.ResponseCode} ProgressiveLevelId={response.Result.ProgressiveLevelId}, ProgressiveWinAmount={response.Result.ProgressiveWinAmount}, ProgressiveAwardId={response.Result.ProgressiveAwardId}");
+                    tasks.Add(response);
+                    await _bingoGameOutcomeHandler.ProcessProgressiveClaimWin(
+                        response.Result.ProgressiveWinAmount.CentsToMillicents());
+
+                    // TODO copied code does not allow for multiple pending awards with the same pool name. For Bingo we allow hitting the same progressive multiple times. How to handle?
+                    var poolName = GetPoolName(level.LevelName);
+                    if (!string.IsNullOrEmpty(poolName) &&
+                        !_pendingAwards.Any(a => a.poolName.Equals(poolName, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        _pendingAwards.Add(
+                            (poolName, response.Result.ProgressiveLevelId, response.Result.ProgressiveWinAmount,
+                                response.Result.ProgressiveAwardId));
+                    }
                 }
             }
+            finally
+            {
+                _pendingAwardsLock.Release();
+            }
 
-            _pendingAwardsLock.Release();
             await Task.WhenAll(tasks);
         }
 
-        private async Task Handle(LinkedProgressiveHitEvent evt)
+        private async Task Handle(LinkedProgressiveHitEvent evt, CancellationToken token)
         {
             Logger.Debug($"LinkedProgressiveHitEvent Handler with level Id {evt.Level.LevelId}");
             var linkedLevel = evt.LinkedProgressiveLevels.FirstOrDefault();
@@ -386,26 +411,31 @@
             var winAmount = 0L;
             var matchPoolName = GetPoolName(linkedLevel.LevelName);
 
-            _pendingAwardsLock.WaitOne();
-            (string, long, long, int) pendingAwardToRemove = new();
-            var matched = false;
-            foreach (var pendingAward in _pendingAwards)
+            await _pendingAwardsLock.WaitAsync(CancellationToken.None);
+            try
             {
-                if (pendingAward.poolName == matchPoolName)
+                (string, long, long, int) pendingAwardToRemove = new();
+                var matched = false;
+                foreach (var pendingAward in _pendingAwards)
                 {
-                    winAmount = pendingAward.amountInPennies;
-                    pendingAwardToRemove = pendingAward;
-                    matched = true;
-                    break;
+                    if (pendingAward.poolName == matchPoolName)
+                    {
+                        winAmount = pendingAward.amountInPennies;
+                        pendingAwardToRemove = pendingAward;
+                        matched = true;
+                        break;
+                    }
+                }
+
+                if (matched)
+                {
+                    _pendingAwards.Remove(pendingAwardToRemove);
                 }
             }
-
-            if (matched)
+            finally
             {
-                _pendingAwards.Remove(pendingAwardToRemove);
+                _pendingAwardsLock.Release();
             }
-
-            _pendingAwardsLock.Release();
 
             Logger.Debug(
                 $"AwardJackpot progressiveLevel = {evt.Level.LevelName} " +
@@ -415,7 +445,7 @@
 
             _protocolLinkedProgressiveAdapter.ClaimLinkedProgressiveLevel(linkedLevel.LevelName, ProtocolNames.Bingo);
             var poolName = GetPoolName(linkedLevel.LevelName);
-            await AwardJackpot(poolName, winAmount);
+            await AwardJackpot(poolName, winAmount, token);
             _protocolLinkedProgressiveAdapter.AwardLinkedProgressiveLevel(linkedLevel.LevelName, winAmount, ProtocolNames.Bingo);
         }
 

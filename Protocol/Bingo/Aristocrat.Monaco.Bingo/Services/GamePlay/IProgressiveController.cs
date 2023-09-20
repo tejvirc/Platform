@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Bingo.Services.GamePlay
 {
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -12,8 +13,9 @@
         /// </summary>
         /// <param name="poolName">The name of the pool defined on the back-end.</param>
         /// <param name="amountInPennies">The amount to award.</param>
-        /// <returns>A task</returns>
-        Task AwardJackpot(string poolName, long amountInPennies);
+        /// <param name="token">The cancellation token</param>
+        /// <returns>A task for awarding the jackpot</returns>
+        Task AwardJackpot(string poolName, long amountInPennies, CancellationToken token = default);
 
         /// <summary>
         ///     Configures the progressives for the game configuration.
