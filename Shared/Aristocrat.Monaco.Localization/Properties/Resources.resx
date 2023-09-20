@@ -12328,7 +12328,7 @@ Do you really want to do full reset?</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
   <data name="ProgressiveHostRegistrationFailedHelp" xml:space="preserve">
-    <value>Ensure the EGM is configured for progressives on the AMC and progressive system. Reboot the machine  to reestablish communication.</value>
+    <value>Ensure the EGM is configured for progressives on the AMC and progressive system. Ensure game and progressive system configuration matches. Reboot the machine  to reestablish communication.</value>
     <comment>Aristocrat.Monaco.Bingo</comment>
   </data>
   <data name="ProgressiveHostDisconnectedHelp" xml:space="preserve">
@@ -12407,5 +12407,5 @@ LEVEL ID</value>
   <data name="ColumnsNotAvailableForLpLevelsMessage" xml:space="preserve">
     <value>Certain Linked level parameters are Not Applicable in this screen as they are managed in the progressive controller.</value>
     <comment>Aristocrat.Monaco.Gaming.UI</comment>
- </data> 
+  </data>
 </root>
