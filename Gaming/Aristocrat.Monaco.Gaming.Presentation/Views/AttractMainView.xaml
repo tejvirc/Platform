@@ -13,13 +13,6 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
-        <Viewbox>
-            <!--<views:AttractView />-->
-            <!--<ContentControl x:Name="AttractRegion" prism:RegionManager.RegionName="{x:Static views:RegionNames.Main}" />-->
-
-            
-        </Viewbox>
-        <!--<TextBlock Text="{Binding}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />-->
         <!-- BOTTOM ATTRACT: Do not collapse BinkGpuControl.  You will get null BackBuffer. -->
         <bink:BinkGpuControl
          x:Name="GameAttract"

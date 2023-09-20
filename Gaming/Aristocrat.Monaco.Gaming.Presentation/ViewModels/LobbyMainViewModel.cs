@@ -30,7 +30,7 @@ public class LobbyMainViewModel : ObservableObject, IActivatableViewModel
         {
             store.Select(SelectAttractStarting)
                 .WhenTrue()
-                .Subscribe(index => _regionManager?.RequestNavigate(RegionNames.Attract, ViewNames.AttractMain))
+                .Subscribe(index => _regionManager?.RequestNavigate(RegionNames.Main, ViewNames.AttractMain))
                 .DisposeWith(disposables);
         });
     }

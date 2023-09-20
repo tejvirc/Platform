@@ -16,7 +16,7 @@ using Aristocrat.Monaco.Gaming.Presentation.Events;
 using Aristocrat.Monaco.Gaming.Presentation.Views;
 using CommunityToolkit.Mvvm.Input;
 
-public class AttractMainViewModel : ObservableObject, IActivatableViewModel
+public class AttractMainViewModel : ObservableObject
 {
     private readonly IState<AttractState> _attractState;
     private readonly IAttractService _attractService;
@@ -42,21 +42,7 @@ public class AttractMainViewModel : ObservableObject, IActivatableViewModel
         _attractService = attractService;
         _dispatcher = dispatcher;
         _store = store;
-
-        RegionReadyCommand = new RelayCommand<RegionReadyEventArgs>(OnRegionReady);
-
-        //this.WhenActivated(disposables =>
-        //{
-        //    store.Select(SelectAttractStarting)
-        //    .WhenTrue()
-        //    .Subscribe(index => _regionManager?.RequestNavigate(RegionNames.Attract, ViewNames.AttractMain))
-        //    .DisposeWith(disposables);
-        //});
     }
-
-    public ViewModelActivator Activator => new();
-
-    public RelayCommand<RegionReadyEventArgs> RegionReadyCommand { get; }
 
     public string BottomAttractVideoPath { get { return _attractState.Value.BottomVideoPath ?? ""; } }
 
@@ -75,40 +61,6 @@ public class AttractMainViewModel : ObservableObject, IActivatableViewModel
             MVVM.MvvmHelper.ExecuteOnUI(() =>
                 _dispatcher.DispatchAsync(new AttractVideoCompletedAction())
             );
-        });
-    }
-
-    private void OnRegionReady(RegionReadyEventArgs? args)
-    {
-        if (args == null)
-        {
-            throw new ArgumentNullException(nameof(args));
-        }
-
-        _regionManager = (IRegionManager?)args.Region.RegionManager;
-
-        switch (args.Region.Name)
-        {
-            case RegionNames.Attract:
-                args.Handled = true;
-                RequestNavigate(args.Region, ViewNames.AttractMain);
-                break;
-            default:
-                //_logger.LogDebug("No handler found for {RegionName} region", args.Region.Name);
-                break;
-        }
-    }
-
-    private void RequestNavigate(IRegion region, string viewName)
-    {
-        region.RequestNavigate(viewName, (NavigationResult nr) =>
-        {
-            if (nr.Result != null && (bool)nr.Result)
-            {
-                return;
-            }
-
-            //_logger.LogError("Navigation failed for {View} into {Region}\n{Error}", ViewNames.Lobby, RegionNames.Main, nr.Error);
         });
     }
 }
