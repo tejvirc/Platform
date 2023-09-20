@@ -38,21 +38,10 @@
                Width="{Binding Path=ActualWidth, ElementName=TouchCanvas}"
                Content="{lex:Loc Key={x:Static loc:ResourceKeys.DrawOnTouchableArea}}"
                AutomationProperties.AutomationId="Label1_9577AC4" />
-        <Button InkCanvas.Bottom="50"
-                InkCanvas.Left="50"
-                loc:Localizer.For="Operator"
-                x:Name="ExitButtonBottomLeft"
+        <Button loc:Localizer.For="Operator"
+                x:Name="ExitButton"
                 Click="OnExitButtonPressed"
                 Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}"
-                Margin="10"
-                AutomationProperties.AutomationId="Button2_9577AC4" />
-        <Button InkCanvas.Top="50"
-                InkCanvas.Right="100"
-                loc:Localizer.For="Operator"
-                x:Name="ExitButtonTopRight"
-                Click="OnExitButtonPressed"
-                Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitText}}"
-                Margin="10"
                 AutomationProperties.AutomationId="Button2_9577AC4" />
     </InkCanvas>
 </common:BaseWindow>

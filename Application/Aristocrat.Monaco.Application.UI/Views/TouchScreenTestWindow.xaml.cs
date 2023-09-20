@@ -88,15 +88,25 @@
 
                 var cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
                 var displayDevice = cabinetDetectionService.GetDisplayDeviceByItsRole(value);
-                if (displayDevice != null && displayDevice.VisibleArea.Height < _maxVisibleAreaHeight)
+                if (displayDevice != null)
                 {
-                    ExitButtonBottomLeft.Visibility = Visibility.Collapsed;
-                    ExitButtonTopRight.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    ExitButtonBottomLeft.Visibility = Visibility.Visible;
-                    ExitButtonTopRight.Visibility = Visibility.Collapsed;
+                    double width = displayDevice.VisibleArea.Width > 0 ? displayDevice.VisibleArea.Width : displayDevice.Resolution.X;
+                    double height = displayDevice.VisibleArea.Height > 0 ? displayDevice.VisibleArea.Height : displayDevice.Resolution.Y;
+                    if (displayDevice.Rotation == DisplayRotation.Degrees90 ||
+                        displayDevice.Rotation == DisplayRotation.Degrees270)
+                    {
+                        width = displayDevice.VisibleArea.Height > 0 ? displayDevice.VisibleArea.Height : displayDevice.Resolution.Y;
+                        height = displayDevice.VisibleArea.Width > 0 ? displayDevice.VisibleArea.Width : displayDevice.Resolution.X;
+                    }
+
+                    if (height < _maxVisibleAreaHeight)
+                    {
+                        ExitButton.Margin = new Thickness(width - 180, 50, 10, 10);
+                    }
+                    else
+                    {
+                        ExitButton.Margin = new Thickness(60, height - 100, 10, 10);
+                    }
                 }
 
                 _mapper.MapWindow(this);
