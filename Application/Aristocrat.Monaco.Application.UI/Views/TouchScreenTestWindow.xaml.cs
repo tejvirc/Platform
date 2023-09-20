@@ -17,10 +17,17 @@
     [CLSCompliant(false)]
     public partial class TouchScreenTestWindow
     {
+        private const int MaxVisibleAreaHeight = 300;
+        private const int ExitButtonLeftMargin = 60;
+        private const int ExitButtonTopMargin = 50;
+        private const int ExitButtonRightMargin = 10;
+        private const int ExitButtonBottomMargin = 10;
+        private const int ExitButtonAdjustLeftMargin = 180;
+        private const int ExitButtonAdjustTopMargin = 100;
+
         private WindowToScreenMapper _mapper;
         private static int _maxTouchPointsPerStroke = 10;
         private static int _maxStrokesCount = 500;
-        private static int _maxVisibleAreaHeight = 300;
         private static double _minNearbyDistance = 0.5;
 
         private Dictionary<int, DottedStroke> _strokes = new Dictionary<int, DottedStroke>();
@@ -85,30 +92,7 @@
             {
                 _mapper = new WindowToScreenMapper(value);
                 Topmost = _mapper.IsFullscreen;
-
-                var cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
-                var displayDevice = cabinetDetectionService.GetDisplayDeviceByItsRole(value);
-                if (displayDevice != null)
-                {
-                    double width = displayDevice.VisibleArea.Width > 0 ? displayDevice.VisibleArea.Width : displayDevice.Resolution.X;
-                    double height = displayDevice.VisibleArea.Height > 0 ? displayDevice.VisibleArea.Height : displayDevice.Resolution.Y;
-                    if (displayDevice.Rotation == DisplayRotation.Degrees90 ||
-                        displayDevice.Rotation == DisplayRotation.Degrees270)
-                    {
-                        width = displayDevice.VisibleArea.Height > 0 ? displayDevice.VisibleArea.Height : displayDevice.Resolution.Y;
-                        height = displayDevice.VisibleArea.Width > 0 ? displayDevice.VisibleArea.Width : displayDevice.Resolution.X;
-                    }
-
-                    if (height < _maxVisibleAreaHeight)
-                    {
-                        ExitButton.Margin = new Thickness(width - 180, 50, 10, 10);
-                    }
-                    else
-                    {
-                        ExitButton.Margin = new Thickness(60, height - 100, 10, 10);
-                    }
-                }
-
+                SetExitButtonMargin(value);
                 _mapper.MapWindow(this);
             }
         }
@@ -116,6 +100,32 @@
         public bool Drawable
         {
             set => TouchCanvas.Visibility = value ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void SetExitButtonMargin(DisplayRole displayRole)
+        {
+            var cabinetDetectionService = ServiceManager.GetInstance().GetService<ICabinetDetectionService>();
+            var displayDevice = cabinetDetectionService.GetDisplayDeviceByItsRole(displayRole);
+            if (displayDevice != null)
+            {
+                double width = displayDevice.VisibleArea.Width > 0 ? displayDevice.VisibleArea.Width : displayDevice.Resolution.X;
+                double height = displayDevice.VisibleArea.Height > 0 ? displayDevice.VisibleArea.Height : displayDevice.Resolution.Y;
+                if (displayDevice.Rotation == DisplayRotation.Degrees90 ||
+                    displayDevice.Rotation == DisplayRotation.Degrees270)
+                {
+                    width = displayDevice.VisibleArea.Height > 0 ? displayDevice.VisibleArea.Height : displayDevice.Resolution.Y;
+                    height = displayDevice.VisibleArea.Width > 0 ? displayDevice.VisibleArea.Width : displayDevice.Resolution.X;
+                }
+
+                if (height < MaxVisibleAreaHeight)
+                {
+                    ExitButton.Margin = new Thickness(width - ExitButtonAdjustLeftMargin, ExitButtonTopMargin, ExitButtonRightMargin, ExitButtonBottomMargin);
+                }
+                else
+                {
+                    ExitButton.Margin = new Thickness(ExitButtonLeftMargin, height - ExitButtonAdjustTopMargin, ExitButtonRightMargin, ExitButtonBottomMargin);
+                }
+            }
         }
 
         private void TouchScreenTestWindow_Closing(object sender, CancelEventArgs e)
