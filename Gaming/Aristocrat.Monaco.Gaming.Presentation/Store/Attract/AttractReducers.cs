@@ -13,6 +13,9 @@ public static class AttractReducers
         {
             IsActive = true,
             IsPlaying = true,
+            IsTopPlaying = true,
+            IsTopperPlaying = true,
+            IsBottomPlaying = true,
             IsPrimaryLanguageSelected = true
         };
 
@@ -81,5 +84,14 @@ public static class AttractReducers
         state with
         {
             ResetAttractOnInterruption = action.ResetOnInteraction
+        };
+
+    [ReducerMethod]
+    public static AttractState Reduce(AttractState state, AttractUpdateVideosAction action) =>
+        state with
+        {
+            TopVideoPath = action.TopAttractVideoPath,
+            TopperVideoPath = action.TopperAttractVideoPath,
+            BottomVideoPath = action.BottomAttractVideoPath
         };
 }

@@ -195,7 +195,7 @@ public sealed class AttractService : IAttractService, IDisposable
 
             //TODO (Future Task) take a look back into this while implementing the UI incase the idle text scrolling check is unnecessary
             //                   for now just keep it functioning as it was previously in the LobbyViewModel.
-            if (_idleTextState.Value.IsScrolling && _attractState.Value.CanAttractModeStart)
+            if (/*_idleTextState.Value.IsScrolling &&*/ _attractState.Value.CanAttractModeStart)
             {
                 var interval = _attractState.Value.IsActive
                     ? _attractOptions.SecondaryTimerIntervalInSeconds

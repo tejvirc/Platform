@@ -31,6 +31,8 @@ public record AttractState
 
     public string? TopVideoPath { get; init; }
 
+    public string? TopperVideoPath { get; init; }
+
     public string? BottomVideoPath { get; init; }
 
     public bool IsTopperPlaying { get; init; }

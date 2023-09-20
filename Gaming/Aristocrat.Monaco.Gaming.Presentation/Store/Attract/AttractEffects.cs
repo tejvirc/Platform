@@ -54,6 +54,8 @@ public partial class AttractEffects
     public async Task Startup(IDispatcher dispatcher)
     {
         await dispatcher.DispatchAsync(new AttractSetCanModeStartAction { Bank = _bank, Properties = _properties });
+
+        _attractService.SetAttractVideoPaths(_attractState.Value.CurrentAttractIndex);
     }
 
     [EffectMethod(typeof(AttractEnterAction))]

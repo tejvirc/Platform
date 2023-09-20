@@ -104,7 +104,7 @@ public sealed class Bootstrapper : PrismBootstrapperBase
     protected override void RegisterTypes(IContainerRegistry containerRegistry)
     {
         containerRegistry.RegisterForNavigation<LobbyMainView>(ViewNames.Lobby);
-        containerRegistry.RegisterForNavigation<AttractMainView>(ViewNames.Attract);
+        containerRegistry.RegisterForNavigation<AttractMainView>(ViewNames.AttractMain);
         containerRegistry.RegisterForNavigation<LoadingMainView>(ViewNames.Loading);
         containerRegistry.RegisterForNavigation<ChooserView>(ViewNames.Chooser);
         containerRegistry.RegisterForNavigation<BannerView>(ViewNames.Banner);

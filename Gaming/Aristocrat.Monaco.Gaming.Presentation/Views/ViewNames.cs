@@ -10,7 +10,11 @@ public static class ViewNames
 
     public const string ButtonDeck = "ButtonDeck";
 
-    public const string Attract = "Attract";
+    public const string AttractMain = "AttractMain";
+
+    public const string AttractTop = "AttractTop";
+
+    public const string AttractTopper = "AttractTopper";
 
     public const string Loading = "Loading";
 

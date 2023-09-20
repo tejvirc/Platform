@@ -16,4 +16,7 @@ public static class AttractSelectors
 
     public static readonly ISelector<AttractState, int> SelectAttractModeTopperImageIndex = CreateSelector(
         (AttractState s) => s.ModeTopperImageIndex);
+
+    public static readonly ISelector<AttractState, bool> SelectAttractStarting = CreateSelector(
+        (AttractState s) => s.IsActive);
 }

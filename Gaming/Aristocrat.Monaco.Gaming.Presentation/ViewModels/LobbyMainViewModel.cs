@@ -1,31 +1,53 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.ViewModels;
 
 using System;
+using System.Linq;
+using Aristocrat.Monaco.Gaming.Contracts;
+using Aristocrat.Monaco.Gaming.Presentation.Services.Attract;
+using Aristocrat.Monaco.Kernel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Events;
+using Fluxor;
 using Microsoft.Extensions.Logging;
 using Prism.Regions;
 using Views;
+using static Store.Attract.AttractSelectors;
 
-public class LobbyMainViewModel : ObservableObject
+public class LobbyMainViewModel : ObservableObject, IActivatableViewModel
 {
     private readonly ILogger<LobbyMainViewModel> _logger;
+    private IRegionManager? _regionManager;
 
-    public LobbyMainViewModel(ILogger<LobbyMainViewModel> logger)
+    public LobbyMainViewModel(ILogger<LobbyMainViewModel> logger, IStore store)
     {
         _logger = logger;
 
         LoadedCommand = new RelayCommand(OnLoaded);
         RegionReadyCommand = new RelayCommand<RegionReadyEventArgs>(OnRegionReady);
+
+        this.WhenActivated(disposables =>
+        {
+            store.Select(SelectAttractStarting)
+                .WhenTrue()
+                .Subscribe(index => _regionManager?.RequestNavigate(RegionNames.Attract, ViewNames.AttractMain))
+                .DisposeWith(disposables);
+        });
     }
 
     public RelayCommand LoadedCommand { get; }
 
     public RelayCommand<RegionReadyEventArgs> RegionReadyCommand { get; }
 
+    public ViewModelActivator Activator => new();
+
     private void OnLoaded()
     {
+        var _attractService = ServiceManager.GetInstance().TryGetService<IAttractService>();
+        if (_attractService == null) _attractService = ServiceManager.GetInstance().TryGetService<IContainerService>().Container.GetInstance<IAttractService>();
+
+        (_attractService as AttractService)?.StartAttractTimer();
+
         //_regionManager.RequestNavigate(RegionNames.Chooser, ViewNames.Chooser);
         //_regionManager.RequestNavigate(RegionNames.Banner, ViewNames.Banner);
         //_regionManager.RequestNavigate(RegionNames.Upi, ViewNames.MultiLingualUpi);
@@ -40,7 +62,9 @@ public class LobbyMainViewModel : ObservableObject
             throw new ArgumentNullException(nameof(args));
         }
 
-        switch(args.Region.Name)
+        _regionManager ??= args.Region.RegionManager;
+
+        switch (args.Region.Name)
         {
             case RegionNames.Chooser:
                 args.Handled = true;
