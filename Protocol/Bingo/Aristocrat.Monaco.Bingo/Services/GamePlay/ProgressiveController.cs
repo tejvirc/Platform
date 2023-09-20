@@ -91,7 +91,7 @@
         /// <inheritdoc />
         public void HandleProgressiveEvent<T>(T @event)
         {
-            _ = Handle(@event as LinkedProgressiveHitEvent, new CancellationToken());
+            _ = Handle(@event as LinkedProgressiveHitEvent, CancellationToken.None);
         }
 
         /// <inheritdoc />
@@ -127,7 +127,7 @@
 
             var levelId = progressiveLevel.LevelId;
             var progressiveId = progressiveLevel.ProgressiveId;
-            await _pendingAwardsLock.WaitAsync(CancellationToken.None);
+            await _pendingAwardsLock.WaitAsync(token);
             ProgressiveAwardRequestMessage request;
             try
             {
@@ -157,7 +157,7 @@
             _activeProgressiveInfos.Clear();
 
             // handle if there are pending awards
-            _pendingAwardsLock.WaitAsync(CancellationToken.None);
+            _pendingAwardsLock.Wait();
             try
             {
                 if (_pendingAwards is null)
@@ -256,10 +256,10 @@
         private void SubscribeToEvents()
         {
             _multiProtocolEventBusRegistry.SubscribeProgressiveEvent<LinkedProgressiveHitEvent>(ProtocolNames.Bingo, this);
-            _eventBus.Subscribe<PendingLinkedProgressivesHitEvent>(this, (e, _) => Handle(e));
+            _eventBus.Subscribe<PendingLinkedProgressivesHitEvent>(this, (e, _) => Handle(e, CancellationToken.None));
             _eventBus.Subscribe<PaytablesInstalledEvent>(this, Handle);
             _eventBus.Subscribe<ProtocolInitialized>(this, Handle);
-            _eventBus.Subscribe<ProgressiveContributionEvent>(this, (e, _) => Handle(e, new CancellationToken()));
+            _eventBus.Subscribe<ProgressiveContributionEvent>(this, (e, _) => Handle(e, CancellationToken.None));
         }
 
         private bool IsActiveGame(int gameTitleId, long denom)
@@ -339,7 +339,7 @@
             Configure();
         }
 
-        private async Task Handle(PendingLinkedProgressivesHitEvent evt)
+        private async Task Handle(PendingLinkedProgressivesHitEvent evt, CancellationToken token)
         {
             Logger.Info($"Received PendingLinkedProgressivesHitEvent with {evt.LinkedProgressiveLevels.ToList().Count} progressive levels");
 
@@ -361,7 +361,7 @@
             }
 
             var tasks = new List<Task>();
-            await _pendingAwardsLock.WaitAsync(CancellationToken.None);
+            await _pendingAwardsLock.WaitAsync(token);
             try
             {
                 foreach (var level in evt.LinkedProgressiveLevels)
@@ -370,7 +370,7 @@
                     Logger.Debug(
                         $"Calling ProgressiveClaimService.ClaimProgressive, MachineSerial={machineSerial}, ProgLevelId={level.LevelId}, Amount={level.Amount}");
                     var response = _progressiveClaimService.ClaimProgressive(
-                        new ProgressiveClaimRequestMessage(machineSerial, level.LevelId, level.Amount));
+                        new ProgressiveClaimRequestMessage(machineSerial, level.LevelId, level.Amount), token);
                     Logger.Debug(
                         $"ProgressiveClaimResponse received, ResponseCode={response.Result.ResponseCode} ProgressiveLevelId={response.Result.ProgressiveLevelId}, ProgressiveWinAmount={response.Result.ProgressiveWinAmount}, ProgressiveAwardId={response.Result.ProgressiveAwardId}");
                     tasks.Add(response);
@@ -411,7 +411,7 @@
             var winAmount = 0L;
             var matchPoolName = GetPoolName(linkedLevel.LevelName);
 
-            await _pendingAwardsLock.WaitAsync(CancellationToken.None);
+            await _pendingAwardsLock.WaitAsync(token);
             try
             {
                 (string, long, long, int) pendingAwardToRemove = new();
