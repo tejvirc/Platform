@@ -344,6 +344,9 @@
 
             lock (_lock)
             {
+                var status = _io.StatusMechanicalMeter(0xFF);
+                Logger.Debug($"Status of hard meters is  {status}");
+
                 foreach (var hardMeter in _ioConfiguration.HardMeters.HardMeter)
                 {
                     LogicalHardMeters.Add(
@@ -353,7 +356,8 @@
                             hardMeter.LogicalId,
                             hardMeter.Name,
                             hardMeter.Name,
-                            (long)_accessors[_blockName][hardMeter.LogicalId, _blockDataTickValue]));
+                            (long)_accessors[_blockName][hardMeter.LogicalId, _blockDataTickValue],
+                            ((status >> hardMeter.LogicalId) & 1) != 0));
 
                     LogicalHardMeters[hardMeter.LogicalId].State =
                         hardMeter.Enabled ? HardMeterState.Enabled : HardMeterState.Disabled;
