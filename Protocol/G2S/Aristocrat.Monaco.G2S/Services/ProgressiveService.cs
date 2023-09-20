@@ -395,11 +395,10 @@
                 _disableProvider.Enable(G2SDisableStates.ProgressiveHostCommsOffline);
                 Task.Run(OnCommsOnline);
             }
-            else
+            else if (_egm.GetDevices<IProgressiveDevice>().Any())
             {
                 _disableProvider.Disable(SystemDisablePriority.Immediate, G2SDisableStates.ProgressiveHostCommsOffline);
             }
-
         }
 
         private void HandleEvent(LinkedProgressiveCommitEvent evt)
