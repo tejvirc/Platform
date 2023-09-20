@@ -32,6 +32,7 @@
         private readonly ICommandBuilder<IHandpayDevice, handpayStatus> _handpayStatusCommandBuilder;
         private readonly ICommandBuilder<IBonusDevice, bonusStatus> _bonusStatusCommandBuilder;
         private readonly ICommandBuilder<ICentralDevice, centralStatus> _centralStatusCommandBuilder;
+        private readonly ICommandBuilder<IAnalyticsDevice, analyticsStatus> _analyticsStatusCommandBuilder;
 
         public DeviceConfigurationChangedConsumer(
             IEventLift eventLift,
@@ -51,7 +52,8 @@
             ICommandBuilder<IMediaDisplay, mediaDisplayStatus> mediaDisplayStatusCommandBuilder,
             ICommandBuilder<IHandpayDevice, handpayStatus> handpayStatusCommandBuilder,
             ICommandBuilder<IBonusDevice, bonusStatus> bonusStatusCommandBuilder,
-            ICommandBuilder<ICentralDevice, centralStatus> centralStatusCommandBuilder)
+            ICommandBuilder<ICentralDevice, centralStatus> centralStatusCommandBuilder,
+            ICommandBuilder<IAnalyticsDevice, analyticsStatus> analyticsStatusCommandBuilder)
         {
             _eventLift = eventLift ?? throw new ArgumentNullException(nameof(eventLift));
             _idReaderStatusCommandBuilder = idReaderStatusCommandBuilder ??
@@ -81,7 +83,7 @@
             _cabinetStatusCommandBuilder = cabinetStatusCommandBuilder ??
                                            throw new ArgumentNullException(nameof(cabinetStatusCommandBuilder));
             _progressiveStatusCommandBuilder = progressiveStatusCommandBuilder ??
-                                            throw new ArgumentNullException(nameof(progressiveStatusCommandBuilder));
+                                               throw new ArgumentNullException(nameof(progressiveStatusCommandBuilder));
             _playerStatusCommandBuilder = playerStatusCommandBuilder ??
                                           throw new ArgumentNullException(nameof(playerStatusCommandBuilder));
             _mediaDisplayStatusCommandBuilder = mediaDisplayStatusCommandBuilder ??
@@ -90,8 +92,12 @@
             _handpayStatusCommandBuilder = handpayStatusCommandBuilder ??
                                            throw new ArgumentNullException(
                                                nameof(handpayStatusCommandBuilder));
-            _bonusStatusCommandBuilder = bonusStatusCommandBuilder ?? throw new ArgumentNullException(nameof(bonusStatusCommandBuilder));
-            _centralStatusCommandBuilder = centralStatusCommandBuilder ?? throw new ArgumentNullException(nameof(centralStatusCommandBuilder));
+            _bonusStatusCommandBuilder = bonusStatusCommandBuilder ??
+                                         throw new ArgumentNullException(nameof(bonusStatusCommandBuilder));
+            _centralStatusCommandBuilder = centralStatusCommandBuilder ??
+                                           throw new ArgumentNullException(nameof(centralStatusCommandBuilder));
+            _analyticsStatusCommandBuilder = analyticsStatusCommandBuilder ??
+                                             throw new ArgumentNullException(nameof(analyticsStatusCommandBuilder));
         }
 
         /// <inheritdoc />
@@ -197,6 +203,11 @@
                     configUpdatedEventCode = EventCode.G2S_CLE005;
                     status = new centralStatus();
                     _centralStatusCommandBuilder.Build(central, (centralStatus)status);
+                    break;
+                case IAnalyticsDevice analytics:
+                    configUpdatedEventCode = EventCode.ATI_ANE005;
+                    status = new analyticsStatus();
+                    _analyticsStatusCommandBuilder.Build(analytics, (analyticsStatus)status);
                     break;
             }
 
