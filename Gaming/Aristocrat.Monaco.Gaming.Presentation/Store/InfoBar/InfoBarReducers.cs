@@ -19,8 +19,7 @@ public static class InfoBarReducers
     {
         return state with
         {
-            MainInfoBarIsOpen = action.MainInfoBarIsOpen,
-            VbdInfoBarIsOpen = action.VbdInfoBarIsOpen
+            IsOpen = action.IsOpen,
         };
     }
 }

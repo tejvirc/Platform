@@ -1,6 +1,5 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.InfoBar
 {
-    using System.Threading.Tasks;
     using Fluxor;
     using Services.InfoBar;
 
@@ -15,10 +14,5 @@
             _infoBarService = infoBarService;
         }
 
-        [EffectMethod()]
-        public Task ClearMessage(InfoBarCloseAction action, IDispatcher _dispatcher)
-        {
-            return Task.CompletedTask;
-        }
     }
 }
