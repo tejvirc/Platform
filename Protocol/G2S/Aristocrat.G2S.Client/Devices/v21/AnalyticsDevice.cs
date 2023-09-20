@@ -13,7 +13,6 @@
     /// </summary>
     public class AnalyticsDevice : ClientDeviceBase<analytics>, IAnalyticsDevice
     {
-
         /// <summary>
         ///     A dictionary for the track command intervals
         ///     with the key in the format "action_category"
@@ -32,9 +31,45 @@
         }
 
         /// <inheritdoc />
-        public trackAck SendTrack(track command)
+        public int TimeToLive { get; protected set; }
+
+        /// <inheritdoc />
+        public bool RestartStatus { get; protected set; }
+
+        /// <inheritdoc />
+        public int NoResponseTimer { get; protected set; }
+
+        /// <inheritdoc />
+        public int NoMessageTimer { get; protected set; }
+
+
+        /// <inheritdoc />
+        public string NoHostText { get; protected set; }
+
+        /// <inheritdoc />
+        public override void ApplyOptions(DeviceOptionConfigValues optionConfigValues)
         {
-            throw new NotImplementedException();
+            base.ApplyOptions(optionConfigValues);
+
+            SetDeviceValue(
+                G2SParametersNames.RestartStatusParameterName,
+                optionConfigValues,
+                parameterId => { RestartStatus = optionConfigValues.BooleanValue(parameterId); });
+
+            SetDeviceValue(
+                G2SParametersNames.UseDefaultConfigParameterName,
+                optionConfigValues,
+                parameterId => { UseDefaultConfig = optionConfigValues.BooleanValue(parameterId); });
+
+            SetDeviceValue(
+                G2SParametersNames.RequiredForPlayParameterName,
+                optionConfigValues,
+                parameterId => { RequiredForPlay = optionConfigValues.BooleanValue(parameterId); });
+
+            SetDeviceValue(
+                G2SParametersNames.TimeToLiveParameterName,
+                optionConfigValues,
+                parameterId => { TimeToLive = optionConfigValues.Int32Value(parameterId); });
         }
 
         /// <inheritdoc />
@@ -57,6 +92,19 @@
             }
         }
 
+        /// <inheritdoc />
+        public override void RegisterEvents()
+        {
+            var deviceClass = this.PrefixedDeviceClass();
+
+            EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.ATI_ANE001);
+            EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.ATI_ANE002);
+            EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.ATI_ANE003);
+            EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.ATI_ANE004);
+            EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.ATI_ANE005);
+            EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.ATI_ANE006);
+        }
+
         private static string BuildActionCategoryKey(string action, string category) => $"{action}_{category}";
 
         /// <inheritdoc />
@@ -70,7 +118,10 @@
         }
 
         /// <inheritdoc />
-        public bool RestartStatus { get; protected set; }
+        public trackAck SendTrack(track command)
+        {
+            throw new NotImplementedException();
+        }
 
         private class TrackInterval
         {
