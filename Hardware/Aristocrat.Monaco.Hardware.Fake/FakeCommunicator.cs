@@ -227,6 +227,7 @@
                     {
                         TransactionId = GetNextTransactionId(),
                         Returned = true,
+                        Rejected = true,
                         PathClear = true
                     });
                     break;
