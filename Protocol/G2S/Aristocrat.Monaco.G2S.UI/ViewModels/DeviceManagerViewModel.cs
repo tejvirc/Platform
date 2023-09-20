@@ -406,7 +406,6 @@
 
                 RaisePropertyChanged(nameof(ActiveDevices));
 
-                EventBus.Publish(new OperatorMenuSettingsChangedEvent());
                 IsDirty = true;
                 InputStatusText = (GameIdle
                     ? string.Empty
@@ -420,7 +419,11 @@
 
         private void HandleEvent(ProtocolsInitializedEvent evt)
         {
-            MvvmHelper.ExecuteOnUI(() => SaveInProgress = false);
+            MvvmHelper.ExecuteOnUI(() =>
+            {
+                ReloadEditableView();
+                SaveInProgress = false;
+            });
         }
 
         protected override void OnOperatorCultureChanged(OperatorCultureChangedEvent evt)
