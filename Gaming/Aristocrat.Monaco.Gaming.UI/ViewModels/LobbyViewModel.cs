@@ -2159,7 +2159,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                 {
                     _lobbyStateManager.AllowGameAutoLaunch = !_systemDisableManager.DisableImmediately;
 
-                    Logger.Debug($"LaunchGameFromUI. GameReady={GameReady}. CurrentState={CurrentState}.");
+                    Logger.Debug($"LaunchGameFromUI: GameReady={GameReady}, CurrentState={CurrentState}, GameState={_gameState.CurrentState}");
                     if (!GameReady && !IsInState(LobbyState.GameLoading)) // GameReady will be true if game process has not exited
                     {
                         SendTrigger(LobbyTrigger.LaunchGame, game);
@@ -2938,6 +2938,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
                                          && CurrentState == LobbyState.GameLoading
                 ? Localizer.For(CultureFor.Operator).GetString(ResourceKeys.RecoveringText)
                 : string.Empty;
+            Logger.Debug($"IsRecovering={_gameRecovery.IsRecovering}, IsLoadingGameForRecovery={_lobbyStateManager.IsLoadingGameForRecovery}, ReplayRecovery.MessageText={ReplayRecovery.MessageText}");
 
             if (CurrentState == LobbyState.GameLoading ||
                 ContainsAnyState(LobbyState.CashOut, LobbyState.CashIn, LobbyState.PrintHelpline, LobbyState.AgeWarningDialog))
@@ -4222,8 +4223,7 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
             return _lobbyStateManager.ContainsAnyState(states);
         }
 
-        private bool GameReady => _lobbyStateManager.BaseState == LobbyState.GameLoading ||
-                                  _lobbyStateManager.BaseState == LobbyState.Game;
+        private bool GameReady => _gameState.Initialized;
 
         private void SendTrigger(LobbyTrigger trigger)
         {

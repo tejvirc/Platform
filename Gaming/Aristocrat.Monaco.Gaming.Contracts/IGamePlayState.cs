@@ -14,6 +14,11 @@
         bool Enabled { get; }
 
         /// <summary>
+        ///     Gets a value indicating whether game has been initialized.
+        /// </summary>
+        bool Initialized { get; }
+
+        /// <summary>
         ///     Gets a value indicating whether the game is in play (not in a game-cycle), player input is enabled, player may
         ///     leave the game and browse the various games available on the EGM. Bonus awards MAY be paid while in the gameIdle
         ///     state. The player may adjust some game parameters such as lines bet or keno marks, without initiating a game-cycle.

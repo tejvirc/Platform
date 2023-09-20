@@ -7,12 +7,12 @@
     using System.Reflection;
     using System.Text;
     using Accounting.Contracts;
+    using Accounting.Contracts.HandCount;
     using Accounting.Contracts.Handpay;
     using Accounting.Contracts.Wat;
     using Application.Contracts;
     using Application.Contracts.Extensions;
     using Application.Contracts.Localization;
-    using Accounting.Contracts.HandCount;
     using Contracts;
     using Contracts.Events;
     using Contracts.Lobby;
@@ -268,7 +268,7 @@
                         ShowPaidMeterForAutoCashout = true;
                     }
 
-                    if(_lobbyStateManager.CashOutState == LobbyCashOutState.Undefined)
+                    if (_lobbyStateManager.CashOutState == LobbyCashOutState.Undefined)
                     {
                         return;
                     }
@@ -384,6 +384,8 @@
 
         public void HandleOverlayWindowDialogVisibility()
         {
+            Logger.Debug($"HandleOverlayWindowDialogVisibility: CurrentState={_lobbyStateManager.CurrentState}");
+
             IsLockupMessageVisible = _lobbyStateManager.IsInState(LobbyState.Disabled);
 
             IsReplayRecoveryDlgVisible = _lobbyStateManager.CurrentState == LobbyState.GameLoadingForDiagnostics ||
@@ -420,6 +422,19 @@
                                                  ShowProgressiveGameDisabledNotification ||
                                                  ShowVoucherNotification;
 
+            Logger.Debug($"MessageOverlayData.IsDialogVisible={MessageOverlayData.IsDialogVisible}, " +
+                         $"IsPresentationOverridden={isPresentationOverridden}, " +
+                         $"IsLockupMessageVisible={IsLockupMessageVisible}, " +
+                         $"HardErrorMessages={string.Join("; ", HardErrorMessages.Keys)}, " +
+                         $"CurrentDisableKeys={string.Join("; ", _systemDisableManager.CurrentDisableKeys)}, " +
+                         $"hasHardLockup={hasHardLockup}, " +
+                         $"isHandpayPaidDialogVisible={isHandpayPaidDialogVisible}, " +
+                         $"IsCashingOutDlgVisible={IsCashingOutDlgVisible}, " +
+                         $"IsCashingInDlgVisible={IsCashingInDlgVisible}, " +
+                         $"IsNonCashOverlayDlgVisible={IsNonCashOverlayDlgVisible}, " +
+                         $"ShowProgressiveGameDisabledNotification={ShowProgressiveGameDisabledNotification}, " +
+                         $"ShowVoucherNotification={ShowVoucherNotification}");
+
             if (MessageOverlayData.IsDialogVisible)
             {
                 ReserveOverlayViewModel.IsDialogVisible = false;
@@ -435,21 +450,16 @@
                                      _playerInfoDisplayManager.IsActive() ||
                                      CustomMainViewElementVisible;
 
-            Logger.Debug("HandleOverlayWindowDialogVisibility: " +
-                         $"CurrentState={_lobbyStateManager.CurrentState}, " +
-                         $"IsLockupMessageVisible={IsLockupMessageVisible}, " +
-                         $"HardErrorMessages={string.Join("; ", HardErrorMessages.Keys)}, " +
-                         $"CurrentDisableKeys={string.Join("; ", _systemDisableManager.CurrentDisableKeys)}, " +
-                         $"hasHardLockup={hasHardLockup}, " +
-                         $"isHandpayPaidDialogVisible={isHandpayPaidDialogVisible}, " +
-                         $"IsCashingOutDlgVisible={IsCashingOutDlgVisible}, " +
-                         $"IsCashingInDlgVisible={IsCashingInDlgVisible}, " +
-                         $"IsNonCashOverlayDlgVisible={IsNonCashOverlayDlgVisible}, " +
-                         $"ShowProgressiveGameDisabledNotification={ShowProgressiveGameDisabledNotification}, " +
-                         $"ShowVoucherNotification={ShowVoucherNotification}, " +
+            Logger.Debug($"IsOverlayWindowVisible={IsOverlayWindowVisible}, " +
+                         $"IsReplayRecoveryDlgVisible={IsReplayRecoveryDlgVisible}, " +
+                         $"IsAgeWarningDlgVisible={IsAgeWarningDlgVisible}, " +
+                         $"IsSelectPayModeVisible={IsSelectPayModeVisible}, " +
+                         $"IsResponsibleGamingInfoOverlayDlgVisible={IsResponsibleGamingInfoOverlayDlgVisible}, " +
                          $"MessageOverlayData.IsDialogVisible={MessageOverlayData.IsDialogVisible}, " +
-                         $"IsPresentationOverridden={isPresentationOverridden}" +
-                         $"IsOverlayWindowVisible={IsOverlayWindowVisible}, ");
+                         $"ReserveOverlayViewModel.IsDialogVisible={ReserveOverlayViewModel.IsDialogVisible}, " +
+                         $"_playerMenuPopup.IsMenuVisible={_playerMenuPopup.IsMenuVisible}, " +
+                         $"_playerInfoDisplayManager.IsActive()={_playerInfoDisplayManager.IsActive()}, " +
+                         $"CustomMainViewElementVisible={CustomMainViewElementVisible}");
         }
 
         private string BuildLockupMessageText()

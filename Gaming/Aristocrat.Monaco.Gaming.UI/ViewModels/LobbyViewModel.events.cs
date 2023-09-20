@@ -509,7 +509,7 @@
                     if (_bank.QueryBalance() == 0 &&
                         platformEvent.OldBalance >= _properties.GetValue(AccountingConstants.MaxCreditMeter, long.MaxValue))
                     {
-                         _overlimitCashoutProcessed = true;
+                        _overlimitCashoutProcessed = true;
                     }
 
                     HandleMessageOverlayText();
@@ -866,9 +866,10 @@
                     // Restore the fast-launch capability after tilts.
                     _lobbyStateManager.AllowGameAutoLaunch = true;
 
-                    // If game is ready but not loaded due to disable, load it now
                     SendTrigger(LobbyTrigger.Enable);
 
+                    // If game is ready but not loaded due to disable, load it now
+                    Logger.Debug($"GamePlayEnabledEvent: GameReady={GameReady}, LobbyState={CurrentState}, GameState={_gameState.CurrentState}");
                     if (GameReady && _lobbyStateManager.CurrentState != LobbyState.Disabled)
                     {
                         Logger.Debug("GamePlayEnabledEvent during game load. Assuming we are now loaded.");
@@ -1537,7 +1538,7 @@
                 Task.Delay(OverlimitCashoutDelayInMS).ContinueWith(_ =>
                 {
                     if (_bank.QueryBalance() == 0 && _gameState.Idle && !_gameHistory.IsRecoveryNeeded)
-                    {                    
+                    {
                         Logger.Debug("Cashed out after going over limit. Returning player to Lobby and changing Language to default.");
                         MvvmHelper.ExecuteOnUI(() =>
                         {

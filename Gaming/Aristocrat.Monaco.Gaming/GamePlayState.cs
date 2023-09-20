@@ -41,6 +41,7 @@
         private long _denom;
         private IWagerCategory _wagerCategory;
         private bool _enabled;
+        private bool _initialized;
         private bool _faulted;
         private bool _pendingEvents;
         private long _wageredAmount;
@@ -121,6 +122,37 @@
                 try
                 {
                     _enabled = value;
+                    Logger.Debug($"Enabled={value}, State={CurrentState}");
+                }
+                finally
+                {
+                    _stateLock.ExitWriteLock();
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        public bool Initialized
+        {
+            get
+            {
+                _stateLock.EnterReadLock();
+                try
+                {
+                    return _initialized;
+                }
+                finally
+                {
+                    _stateLock.ExitReadLock();
+                }
+            }
+            private set
+            {
+                _stateLock.EnterWriteLock();
+                try
+                {
+                    _initialized = value;
+                    Logger.Debug($"Initialized={value}, State={CurrentState}");
                 }
                 finally
                 {
@@ -215,7 +247,7 @@
         /// <inheritdoc />
         public void Initialize()
         {
-            _eventBus.Subscribe<GameProcessExitedEvent>(this, _ => Fire(Trigger.ProcessExited));
+            _eventBus.Subscribe<GameProcessExitedEvent>(this, _ => HandleGameProcessExited());
             _eventBus.Subscribe<ProgressiveHitEvent>(this, _ => Fire(Trigger.ProgressiveHit));
             _eventBus.Subscribe<BonusCommitCompletedEvent>(this, _ => End(-1));
             _eventBus.Subscribe<OutcomeFailedEvent>(this, _ => Fire(Trigger.PrimaryGameRequestFailed));
@@ -223,6 +255,7 @@
             _eventBus.Subscribe<SystemDisableAddedEvent>(this, HandleDisable);
             _eventBus.Subscribe<SystemDisableRemovedEvent>(this, HandleEnable);
             _eventBus.Subscribe<SystemEnabledEvent>(this, _ => HandleEnabled());
+            _eventBus.Subscribe<GameInitializationCompletedEvent>(this, _ => HandleInitialized());
 
             Enabled = !_systemDisableManager.DisableImmediately;
 
@@ -516,6 +549,17 @@
             {
                 HandleDisabled();
             }
+        }
+
+        private void HandleInitialized()
+        {
+            Initialized = true;
+        }
+
+        private void HandleGameProcessExited()
+        {
+            Fire(Trigger.ProcessExited);
+            Initialized = false;
         }
 
         private void CreateStateMachine(PlayState initialState)
