@@ -47,7 +47,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Monaco.UI.Common;
     using Monaco.UI.Common.Extensions;
     using Progressives;
-    using Kernel.Contracts;
     using Timers;
     using Utils;
     using Vgt.Client12.Application.OperatorMenu;
@@ -56,7 +55,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
     using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.ComponentModel;
-    using Runtime;
 #if !(RETAIL)
     using Events;
 #endif
