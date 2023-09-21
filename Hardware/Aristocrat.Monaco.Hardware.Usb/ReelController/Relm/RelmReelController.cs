@@ -268,6 +268,19 @@
         /// <inheritdoc />
         public Task<bool> SelfTest(bool nvm)
         {
+            // HarkeyProtocol.SelfTest does not test anything, it just clears errors.
+            // this needs to do the same.  this is because the ReelControllerMonitor needs
+            // these faults to be cleared before it can home the reels.
+
+            OnControllerFaultCleared(this,
+                new ReelControllerFaultedEventArgs(ReelControllerFaults.RequestError |
+                                                   ReelControllerFaults.CommunicationError));
+
+            var connectedReels = _reelStatuses.Values.Where(x => x.Connected).ToArray();
+            foreach (var status in connectedReels)
+            {
+                ClearFaults(status.ReelId);
+            }
             return Task.FromResult(true);
         }
 
@@ -336,38 +349,31 @@
                         ReelConnected?.Invoke(this, new ReelEventArgs(status.ReelId));
                         return status;
                     },
-                    updateValueFactory: (_, old) =>
+                    updateValueFactory: (_, currentStatus) =>
                     {
-                        if (old.Connected && !status.Connected)
+                        if (currentStatus.Connected && !status.Connected)
                         {
+                            currentStatus.Connected = false;
                             ReelDisconnected?.Invoke(this, new ReelEventArgs(status.ReelId));
                         }
-                        else if (!old.Connected && status.Connected)
+                        else if (!currentStatus.Connected && status.Connected)
                         {
+                            currentStatus.Connected = true;
                             ReelConnected?.Invoke(this, new ReelEventArgs(status.ReelId));
                         }
 
-                        var faultsToClear = ReelFaults.None;
                         var newFaults = ReelFaults.None;
 
                         foreach (var (condition, fault) in ReelFaultPredicates)
                         {
-                            var oldFaulted = condition(old);
+                            var oldFaulted = condition(currentStatus);
                             var newFaulted = condition(status);
 
-                            if (oldFaulted && !newFaulted)
-                            {
-                                faultsToClear |= fault;
-                            }
-                            else if (!oldFaulted && newFaulted)
+                            if (!oldFaulted && newFaulted)
                             {
                                 newFaults |= fault;
+                                currentStatus.SetFault(fault);
                             }
-                        }
-
-                        if (faultsToClear != ReelFaults.None)
-                        {
-                            FaultCleared?.Invoke(this, new ReelFaultedEventArgs(faultsToClear, status.ReelId));
                         }
 
                         if (newFaults != ReelFaults.None)
@@ -375,8 +381,32 @@
                             FaultOccurred?.Invoke(this, new ReelFaultedEventArgs(newFaults, status.ReelId));
                         }
 
-                        return status;
+                        return currentStatus;
                     });
+            }
+        }
+
+        private void ClearFaults(int reelId)
+        {
+            if (!_reelStatuses.TryGetValue(reelId, out var status))
+            {
+                return;
+            }
+
+            var faultsToClear = ReelFaults.None;
+            foreach (var (condition, fault) in ReelFaultPredicates)
+            {
+                if (condition(status))
+                {
+                    faultsToClear |= fault;
+                }
+            }
+
+            var newStatus = new ReelStatus { ReelId = reelId, Connected = true };
+            if (faultsToClear != ReelFaults.None)
+            {
+                _reelStatuses.AddOrUpdate(reelId, _ => newStatus, (_, _) => newStatus);
+                FaultCleared?.Invoke(this, new ReelFaultedEventArgs(faultsToClear, status.ReelId));
             }
         }
 

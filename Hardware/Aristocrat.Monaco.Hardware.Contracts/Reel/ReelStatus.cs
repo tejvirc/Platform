@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Hardware.Contracts.Reel
 {
+    using System;
     using System.Linq;
     using System.Text;
 
@@ -109,6 +110,44 @@
                 }
                 .Where(x => x.Item1)
                 .Aggregate(ReelFaults.None, (sum, current) => sum | current.Item2);
+        }
+
+        /// <summary>
+        ///     Sets the fault.
+        /// </summary>
+        /// <param name="fault">The fault to apply</param>
+        public void SetFault(ReelFaults fault)
+        {
+            switch (fault)
+            {
+                case ReelFaults.Disconnected:
+                    Connected = false;
+                    break;
+
+                case ReelFaults.LowVoltage:
+                    LowVoltage = true;
+                    break;
+
+                case ReelFaults.ReelStall:
+                    ReelStall = true;
+                    break;
+
+                case ReelFaults.ReelTamper:
+                    ReelTampered = true;
+                    break;
+
+                case ReelFaults.ReelOpticSequenceError:
+                    OpticSequenceError = true;
+                    break;
+
+                case ReelFaults.IdleUnknown:
+                    IdleUnknown = true;
+                    break;
+
+                case ReelFaults.UnknownStop:
+                    UnknownStop = true;
+                    break;
+            }
         }
     }
 }
