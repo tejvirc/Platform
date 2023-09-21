@@ -148,6 +148,18 @@ public partial class AttractEffects
         await dispatcher.DispatchAsync(new AttractVideoNextAction());
     }
 
+    [EffectMethod(typeof(AttractVideoNextAction))]
+    public async Task NextVideo(IDispatcher dispatcher)
+    {
+        if (_attractState.Value.Videos.Count <= 1)
+        {
+            await dispatcher.DispatchAsync(new AttractExitAction());
+        }
+
+        await dispatcher.DispatchAsync(new AttractUpdateIndexAction { AttractIndex = _attractService.AdvanceAttractIndex() });
+        _attractService.SetAttractVideoPaths(_attractState.Value.CurrentAttractIndex);
+    }
+
     [EffectMethod(typeof(GameUninstalledAction))]
     public async Task GameUninstalled(IDispatcher dispatcher)
     {

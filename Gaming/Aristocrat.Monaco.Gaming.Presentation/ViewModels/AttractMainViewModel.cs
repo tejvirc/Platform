@@ -23,8 +23,6 @@ public class AttractMainViewModel : ObservableObject
     private readonly IDispatcher _dispatcher;
     private readonly IStore _store;
 
-    private IRegionManager? _regionManager;
-
     public AttractMainViewModel()
         : this(ServiceManager.GetInstance().TryGetService<IContainerService>().Container.GetInstance<IState<AttractState>>(),
               ServiceManager.GetInstance().TryGetService<IAttractService>(),
@@ -42,6 +40,14 @@ public class AttractMainViewModel : ObservableObject
         _attractService = attractService;
         _dispatcher = dispatcher;
         _store = store;
+
+        store.Select(SelectBottomAttractVideo).Subscribe(_ => {
+            OnPropertyChanged(nameof(BottomAttractVideoPath));
+        });
+        store.Select(SelectBottomAttractVideoPlaying).Subscribe(_ => {
+            OnPropertyChanged(nameof(IsBottomAttractVisible));
+            OnPropertyChanged(nameof(IsBottomAttractVideoPlaying));
+        });
     }
 
     public string BottomAttractVideoPath { get { return _attractState.Value.BottomVideoPath ?? ""; } }

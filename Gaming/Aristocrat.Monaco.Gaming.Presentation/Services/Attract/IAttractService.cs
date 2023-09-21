@@ -9,4 +9,6 @@ public interface IAttractService
     void NotifyEntered();
 
     void NotifyExited();
+
+    int AdvanceAttractIndex();
 }

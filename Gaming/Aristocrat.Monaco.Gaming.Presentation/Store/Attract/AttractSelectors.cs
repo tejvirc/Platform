@@ -19,4 +19,10 @@ public static class AttractSelectors
 
     public static readonly ISelector<AttractState, bool> SelectAttractStarting = CreateSelector(
         (AttractState s) => s.IsActive);
+
+    public static readonly ISelector<AttractState, string> SelectBottomAttractVideo = CreateSelector(
+        (AttractState s) => s.BottomVideoPath ?? "");
+
+    public static readonly ISelector<AttractState, bool> SelectBottomAttractVideoPlaying = CreateSelector(
+        (AttractState s) => s.IsBottomPlaying);
 }

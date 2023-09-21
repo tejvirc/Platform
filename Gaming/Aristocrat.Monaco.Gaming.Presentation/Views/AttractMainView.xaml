@@ -10,7 +10,7 @@
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.Presentation.ViewModels" xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=viewModels:AttractMainViewModel, IsDesignTimeCreatable=False}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="1080" d:DesignWidth="1920">
 
     <Grid>
         <!-- BOTTOM ATTRACT: Do not collapse BinkGpuControl.  You will get null BackBuffer. -->
@@ -27,30 +27,29 @@
          Width="450">
             <bink:BinkGpuControl.Style>
                 <Style
-TargetType="bink:BinkGpuControl">
+                TargetType="bink:BinkGpuControl">
                     <Setter
-    Property="VideoState"
-        Value="Stopped" />
+                        Property="VideoState"
+                        Value="Stopped" />
                     <Style.Triggers>
                         <DataTrigger
-        Binding="{Binding IsBottomAttractVideoPlaying}"
-                 Value="True">
+                            Binding="{Binding IsBottomAttractVideoPlaying}"
+                            Value="True">
                             <Setter
-            Property="VideoState"
-                Value="Playing" />
+                                Property="VideoState"
+                                Value="Playing" />
                         </DataTrigger>
                         <DataTrigger
-        Binding="{Binding IsBottomAttractVideoPlaying}"
-                 Value="False">
+                            Binding="{Binding IsBottomAttractVideoPlaying}"
+                            Value="False">
                             <Setter
-            Property="VideoState"
-                Value="Stopped" />
+                                Property="VideoState"
+                                Value="Stopped" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </bink:BinkGpuControl.Style>
         </bink:BinkGpuControl>
-
     </Grid>
 
 </UserControl>
