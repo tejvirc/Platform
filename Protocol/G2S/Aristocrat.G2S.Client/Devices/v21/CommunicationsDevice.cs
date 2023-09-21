@@ -902,9 +902,9 @@
 
             if (_state.IsInState(t_commsStates.G2S_sync))
             {
-                //Don't start the CommsDisabled timer if we've already transitioned out of sync
-                //This can happen if the host replies with setCommsState 
-                //before replying with the commsDisabledAck. 
+                // Don't start the CommsDisabled timer if we've already transitioned out of sync
+                // This can happen if the host replies with setCommsState 
+                // before replying with the commsDisabledAck. 
                 CreateCommsTimer(interval, CommsDisabled);
             }
         }
