@@ -39,6 +39,7 @@
         private string _soundFile;
         private bool _inTestMode;
         private VolumeLevel _selectedVolumeLevel;
+        private bool _isSoundTestPageVisible;
 
         public SoundConfigPageViewModel(bool isWizard) : base(isWizard)
         {
@@ -48,6 +49,7 @@
             TestViewModel.SetTestReporter(Inspection);
             ToggleTestModeCommand = new ActionCommand<object>(_ => InTestMode = !InTestMode);
             VolumeViewModel = new VolumeViewModel();
+            IsSoundTestPageVisible = false;
         }
 
         private void LoadVolumeSettings()
@@ -124,6 +126,7 @@
                 TestViewModel.TestMode = value;
                 if (!value)
                 {
+                    IsSoundTestPageVisible = false;
                     if (_inTestMode)
                     {
                         EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Sound));
@@ -133,6 +136,7 @@
                 }
                 else
                 {
+                    IsSoundTestPageVisible = true;
                     EventBus.Publish(new HardwareDiagnosticTestStartedEvent(HardwareDiagnosticDeviceCategory.Sound));
                     EventBus.Publish(new OperatorMenuWarningMessageEvent(""));
                     if (TestViewModel?.SoundFiles?.Count > 0)
@@ -177,6 +181,12 @@
                     _propertiesManager.SetProperty(PropertyKey.DefaultVolumeLevel, (byte)value);
                 }
             }
+        }
+
+        public bool IsSoundTestPageVisible
+        {
+            get => _isSoundTestPageVisible;
+            set => SetProperty(ref _isSoundTestPageVisible, value);
         }
 
         protected override void OnLoaded()
@@ -243,6 +253,17 @@
         protected override void OnInputEnabledChanged()
         {
             VolumeViewModel.InputEnabled = InputEnabled;
+        }
+
+        protected override void OnTestModeEnabledChanged()
+        {
+            IsSoundTestPageVisible = false;
+            if (_inTestMode)
+            {
+                InTestMode = false;
+                EventBus.Publish(new HardwareDiagnosticTestFinishedEvent(HardwareDiagnosticDeviceCategory.Sound));
+                UpdateStatusText();
+            }
         }
 
         private void OnEnabledEvent(EnabledEvent theEvent)

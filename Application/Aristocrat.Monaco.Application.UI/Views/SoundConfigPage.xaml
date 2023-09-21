@@ -57,12 +57,14 @@
                     IsEnabled="{Binding Path=VolumeViewModel.CanEditVolume}"
                     AutomationProperties.AutomationId="Slider11_529054B4" />
         </StackPanel>
-        <local:SoundTestPage x:Name="TestControl"
-                             Grid.Row="0"
-                             Grid.Column="1"
-                             Grid.RowSpan="2"
-                             DataContext="{Binding TestViewModel}"
-                             Visibility="{Binding Visibility, ElementName=ExitTestModeButton}"/>
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
+                    Grid.RowSpan="2"
+                    Visibility="{Binding IsSoundTestPageVisible, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TrueVisibleFalseCollapsed}}"
+                    AutomationProperties.AutomationId="StackPanel12__529054B4">
+            <local:SoundTestPage x:Name="TestControl"
+                                 DataContext="{Binding TestViewModel}"/>
+        </StackPanel>
         <StackPanel Grid.Row="2" Margin="0 10"
                     VerticalAlignment="Bottom"
                     Orientation="Horizontal"
@@ -77,6 +79,7 @@
             <Button Name="ExitTestModeButton"
                     Content="{lex:Loc Key={x:Static loc:ResourceKeys.ExitSoundTest}}"
                     Command="{Binding ToggleTestModeCommand}"
+                    IsEnabled="{Binding TestModeEnabled, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding InTestMode, Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="Button15_529054B4" />
             <Button Name="WarningButton"
