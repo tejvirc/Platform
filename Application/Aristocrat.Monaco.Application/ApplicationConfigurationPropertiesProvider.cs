@@ -857,7 +857,7 @@
             {
                 _properties.Add(HardwareConstants.VolumePreset,
                     Tuple.Create(
-                        (object)LoadVolumeLevel(configuration.MasterVolumeSettings),
+                        (object)LoadVolumeLevels(configuration.MasterVolumeSettings),
                         HardwareConstants.VolumePreset,
                         false));
             }
@@ -866,11 +866,10 @@
             {
                 _properties.Add(HardwareConstants.VolumeScalarPreset,
                     Tuple.Create(
-                        (object)LoadVolumeScalar(configuration.VolumeScalarSettings),
+                        (object)LoadVolumeScalars(configuration.VolumeScalarSettings),
                         HardwareConstants.VolumeScalarPreset,
                         false));
             }
-
 
             SetPrinterLineLimits(configuration.AuditTicket);
 
@@ -883,7 +882,7 @@
             }
         }
 
-        private Dictionary<byte, Tuple<string,float>> LoadVolumeLevel(ApplicationConfigurationVolumeNode[] masterVolumeSettings)
+        private Dictionary<byte, Tuple<string,float>> LoadVolumeLevels(ApplicationConfigurationVolumeNode[] masterVolumeSettings)
         {
             var result = new Dictionary<byte, Tuple<string,float>>();
             foreach (var i in masterVolumeSettings)
@@ -893,7 +892,7 @@
             return result;
         }
 
-        private Dictionary<VolumeScalar, float> LoadVolumeScalar(ApplicationConfigurationScalar[] VolumeScalarSettings)
+        private Dictionary<VolumeScalar, float> LoadVolumeScalars(ApplicationConfigurationScalar[] VolumeScalarSettings)
         {
             var result = new Dictionary<VolumeScalar, float>();
             var scalars = VolumeScalarSettings.OrderBy(s => s.Value).ToArray();
