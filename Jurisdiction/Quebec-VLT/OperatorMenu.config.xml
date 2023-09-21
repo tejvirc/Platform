@@ -70,6 +70,7 @@ as follows:
   <Menu Type="HardwareMainPageLoader" Access="Technician">
     <Page Type="PrinterViewModel" PrintButtonEnabled="true">
       <Setting Name="ActivationTimeVisible" Value="true" />
+      <AccessRuleSet ID="TestMode" RuleSetName="TestMode" />
     </Page>
     <Page Type="NoteAcceptorViewModel" PrintButtonEnabled="true" Access="MainLogicZeroCreditsGameIdle">
       <Setting Name="ActivationTimeVisible" Value="true" />
