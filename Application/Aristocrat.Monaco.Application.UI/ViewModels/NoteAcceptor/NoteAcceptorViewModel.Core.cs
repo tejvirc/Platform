@@ -959,7 +959,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels.NoteAcceptor
         {
             Execute.OnUIThread(() =>
             {
-                CurrencyExtensions.UpdateCurrencyCulture();
+                CurrencyExtensions.UpdateCurrencyCulture(CultureInfo.CurrentCulture);
 
                 foreach (var denom in Denominations)
                 {

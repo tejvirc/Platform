@@ -8,6 +8,7 @@
           <xs:complexType>
             <xs:attribute default="USD" name="Id" type="xs:string" />
             <xs:attribute default="false" name="Configurable" type="xs:boolean" />
+            <xs:attribute default="false" name="AllowFormatToChange" type="xs:boolean" />
           </xs:complexType>
         </xs:element>
         <xs:element minOccurs="0" maxOccurs="1" name="EdgeLightConfiguration">

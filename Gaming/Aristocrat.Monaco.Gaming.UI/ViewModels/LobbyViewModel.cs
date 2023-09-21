@@ -1370,14 +1370,13 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
 
                     OnLanguageChanged();
 
-                    CurrencyExtensions.UpdateCurrencyCulture();
-                    OnPropertyChanged(nameof(IsPrimaryLanguageSelected));
-                    OnPropertyChanged(nameof(ActiveLocaleCode));
-                    OnPropertyChanged(nameof(FormattedCredits));
-                    OnPropertyChanged(nameof(DisableCountdownMessage));
-                    OnPropertyChanged(nameof(LanguageButtonResourceKey));
-                    OnPropertyChanged(nameof(LanguageButtonPressedResourceKey));
-                    OnPropertyChanged(nameof(PaidMeterLabel));
+                    CurrencyExtensions.UpdateCurrencyCulture(CultureInfo.CurrentCulture);
+                    RaisePropertyChanged(nameof(IsPrimaryLanguageSelected));
+                    RaisePropertyChanged(nameof(ActiveLocaleCode));
+                    RaisePropertyChanged(nameof(FormattedCredits));
+                    RaisePropertyChanged(nameof(DisableCountdownMessage));
+                    RaisePropertyChanged(nameof(LanguageButtonPressedResourceKey));
+                    RaisePropertyChanged(nameof(PaidMeterLabel));
 
                     UpdateLcdButtonDeckVideo();
                     UpdatePaidMeterValue(_sessionInfoService.GetSessionPaidValue());

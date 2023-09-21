@@ -549,9 +549,17 @@
         /// <summary>
         /// Update the Currency Culture manually
         /// </summary>
-        public static void UpdateCurrencyCulture()
+        public static void UpdateCurrencyCulture(CultureInfo culture)
         {
-            CurrencyCultureInfo = CultureInfo.CurrentCulture;
+            var configuration = ConfigurationUtilities.GetConfiguration(
+                ApplicationConstants.JurisdictionConfigurationExtensionPath,
+                () => default(ApplicationConfiguration));
+
+            bool change = configuration?.Currency?.AllowFormatToChange ?? false;
+            if (change)
+            {
+                CurrencyCultureInfo = culture;
+            }
         }
     }
 }
