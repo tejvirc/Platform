@@ -6,6 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using System.Windows.Controls.Primitives;
+    using Diagnostics;
     using Protocol.v21;
 
     /// <summary>
@@ -81,8 +82,17 @@
             {
                 //interval 0 means no limit.
                 _trackCommandIntervals.Remove(key);
+                SourceTrace.TraceInformation(
+                    G2STrace.Source,
+                    @"{0}.{1}: Cleared TrackInterval. Device Id : {2}, Tracking Key: {3}",
+                    nameof(AnalyticsDevice),
+                    nameof(SetTrackInterval),
+                    Id,
+                    key);
+                return;
             }
-            else if (_trackCommandIntervals.TryGetValue(key, out var trackInterval))
+
+            if (_trackCommandIntervals.TryGetValue(key, out var trackInterval))
             {
                 trackInterval.Interval = interval;
             }
@@ -90,6 +100,15 @@
             {
                 _trackCommandIntervals[key] = new TrackInterval(interval);
             }
+
+            SourceTrace.TraceInformation(
+                G2STrace.Source,
+                @"{0}.{1}: Set TrackInterval. Device Id : {2}, Tracking Key: {3}, Interval: {4}",
+                nameof(AnalyticsDevice),
+                nameof(SetTrackInterval),
+                Id,
+                key,
+                interval);
         }
 
         /// <inheritdoc />
@@ -105,6 +124,7 @@
             EventHandlerDevice.RegisterEvent(deviceClass, Id, EventCode.ATI_ANE006);
         }
 
+        private static string BuildActionCategoryKey(track command) => BuildActionCategoryKey(command.action, command.category);
         private static string BuildActionCategoryKey(string action, string category) => $"{action}_{category}";
 
         /// <inheritdoc />
@@ -120,7 +140,65 @@
         /// <inheritdoc />
         public trackAck SendTrack(track command)
         {
-            throw new NotImplementedException();
+            var key = BuildActionCategoryKey(command);
+            var shouldSend = true;
+
+            if (_trackCommandIntervals.TryGetValue(key, out var trackInterval))
+            {
+                if (!trackInterval.CanSend())
+                {
+                    //specified interval has not elapsed yet
+                    SourceTrace.TraceInformation(
+                        G2STrace.Source,
+                        @"{0}.{1}: Allowable interval has not elapsed for Device Id : {2}, Key: {3}, Interval: {4}",
+                        nameof(AnalyticsDevice),
+                        nameof(SendTrack),
+                        Id,
+                        key,
+                        trackInterval.Interval);
+
+                    shouldSend = false;
+                }
+            }
+
+            if (!shouldSend)
+            {
+                return null;
+            }
+
+            var request = InternalCreateClass();
+            request.Item = command;
+
+            var session = SendRequest(request);
+            session.WaitForCompletion();
+            var response = session.Responses.FirstOrDefault();
+
+            if (session.SessionState == SessionStatus.Success && response != null)
+            {
+                trackInterval?.UpdateLastSent();
+                return response.IClass.Item as trackAck;
+            }
+
+            if (session.SessionState == SessionStatus.TimedOut)
+            {
+                SourceTrace.TraceInformation(
+                    G2STrace.Source,
+                    @"{0}.{1}: c_baseCommand Timed Out. Device Id: {2}, Key: {3}",
+                    nameof(AnalyticsDevice),
+                    nameof(SendTrack),
+                    Id,
+                    key);
+            }
+
+            SourceTrace.TraceInformation(
+                G2STrace.Source,
+                @"{0}.{1}: c_baseCommand Failed. Device Id : {2}, Key: {3}",
+                nameof(AnalyticsDevice),
+                nameof(SendTrack),
+                Id,
+                key);
+
+            return null;
         }
 
         private class TrackInterval

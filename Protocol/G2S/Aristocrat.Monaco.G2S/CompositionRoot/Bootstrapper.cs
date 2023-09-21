@@ -162,6 +162,7 @@
             @this.Register<IProgressiveDeviceManager, ProgressiveDeviceManager>(Lifestyle.Singleton);
             @this.Register<IProgressiveLevelManager, ProgressiveLevelManager>(Lifestyle.Singleton);
             @this.Register<IProgressiveService, ProgressiveService>(Lifestyle.Singleton);
+            @this.Register<IAnalyticsService, AnalyticsService>(Lifestyle.Singleton);
         }
 
         private static void ConfigureMeterProviders(this Container @this)

@@ -119,6 +119,7 @@
                 ((IService)_container.GetInstance<IHandpayService>()).Initialize();
 
                 ServiceManager.GetInstance().AddServiceAndInitialize(_container.GetInstance<IEmdi>());
+                ServiceManager.GetInstance().AddService(_container.GetInstance<IAnalyticsService>() as IService);
             }
 
             _container.GetInstance<IEventBus>().Subscribe<RestartProtocolEvent>(this, _ => OnStop());
@@ -391,6 +392,7 @@
                 }
                 _container.GetInstance<IEmdi>().Unload();
                 ServiceManager.GetInstance().RemoveService(_container.GetInstance<IEmdi>());
+                ServiceManager.GetInstance().RemoveService(_container.GetInstance<IAnalyticsService>() as IService);
             }
 
             if (_containerService != null)
