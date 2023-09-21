@@ -112,10 +112,12 @@ public sealed class AttractService : IAttractService, IDisposable
 
             var topAttractVideoPath =
                 attract?.GetTopAttractVideoPathByLocaleCode(_translateOptions.LocaleCodes[languageIndex]).NullIfEmpty() ??
+                attract?.TopAttractVideoPath.NullIfEmpty() ?? //TODO This may need removed, for now it is a placeholder
                 _attractOptions.DefaultTopVideoFilename;
 
             var topperAttractVideoPath =
                 attract?.GetTopperAttractVideoPathByLocaleCode(_translateOptions.LocaleCodes[languageIndex]).NullIfEmpty() ??
+                attract?.TopperAttractVideoPath.NullIfEmpty() ?? //TODO This may need removed, for now it is a placeholder
                 _attractOptions.DefaultTopperVideoFilename;
 
             string? bottomAttractVideoPath = null;
@@ -124,6 +126,7 @@ public sealed class AttractService : IAttractService, IDisposable
             {
                 bottomAttractVideoPath =
                     attract?.GetBottomAttractVideoPathByLocaleCode(_translateOptions.LocaleCodes[languageIndex]).NullIfEmpty() ??
+                    attract?.BottomAttractVideoPath.NullIfEmpty() ?? //TODO This may need removed, for now it is a placeholder
                     _attractOptions.DefaultTopVideoFilename;
             }
 
@@ -284,6 +287,19 @@ public sealed class AttractService : IAttractService, IDisposable
         _dispatcher.Dispatch( new AttractSetVideosAction { AttractList = attractList });
 
         CheckAndResetAttractIndex();
+
+        //TODO look into a better solution to the problem described below:
+        //  Originally we would call SetAttractVideoPaths here, so that it can set the paths on the state
+        //  to the paths in the above attractList. However that takes some time to fully dispatch and reduce,
+        //  which means that the paths are not set to the correct values in time for the attract to start.
+        //  I originally looked into using a selector but that does not follow the flux pattern correctly, so this
+        //  is a sufficient temporary solution.
+        _dispatcher.Dispatch(new AttractUpdateVideosAction
+        {
+            TopAttractVideoPath = attractList.ElementAt(_attractState.Value.CurrentAttractIndex).TopAttractVideoPath,
+            TopperAttractVideoPath = attractList.ElementAt(_attractState.Value.CurrentAttractIndex).TopperAttractVideoPath,
+            BottomAttractVideoPath = attractList.ElementAt(_attractState.Value.CurrentAttractIndex).BottomAttractVideoPath
+        });
     }
 
     //TODO (Future Task) See Below:

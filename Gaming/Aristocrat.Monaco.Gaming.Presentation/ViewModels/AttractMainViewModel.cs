@@ -45,14 +45,11 @@ public class AttractMainViewModel : ObservableObject
             OnPropertyChanged(nameof(BottomAttractVideoPath));
         });
         store.Select(SelectBottomAttractVideoPlaying).Subscribe(_ => {
-            OnPropertyChanged(nameof(IsBottomAttractVisible));
             OnPropertyChanged(nameof(IsBottomAttractVideoPlaying));
         });
     }
 
     public string BottomAttractVideoPath { get { return _attractState.Value.BottomVideoPath ?? ""; } }
-
-    public bool IsBottomAttractVisible { get { return _attractState.Value.IsActive; } }
 
     public bool IsBottomAttractVideoPlaying { get { return _attractState.Value.IsBottomPlaying; } }
 

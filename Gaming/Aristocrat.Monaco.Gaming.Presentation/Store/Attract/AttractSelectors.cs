@@ -1,6 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.Attract;
 
+using Aristocrat.Monaco.Gaming.UI.Models;
 using Extensions.Fluxor;
+using System.Collections.Immutable;
 using static Extensions.Fluxor.Selectors;
 
 public static class AttractSelectors

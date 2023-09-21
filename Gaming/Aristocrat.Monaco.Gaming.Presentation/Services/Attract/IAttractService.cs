@@ -11,4 +11,6 @@ public interface IAttractService
     void NotifyExited();
 
     int AdvanceAttractIndex();
+
+    void RefreshAttractGameList();
 }

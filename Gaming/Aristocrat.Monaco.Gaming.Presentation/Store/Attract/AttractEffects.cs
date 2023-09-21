@@ -54,8 +54,6 @@ public partial class AttractEffects
     public async Task Startup(IDispatcher dispatcher)
     {
         await dispatcher.DispatchAsync(new AttractSetCanModeStartAction { Bank = _bank, Properties = _properties });
-
-        _attractService.SetAttractVideoPaths(_attractState.Value.CurrentAttractIndex);
     }
 
     [EffectMethod(typeof(AttractEnterAction))]
@@ -165,7 +163,7 @@ public partial class AttractEffects
     {
         await dispatcher.DispatchAsync(new AttractUpdateIndexAction { AttractIndex = 0 });
 
-        _attractService.SetAttractVideoPaths(_attractState.Value.CurrentAttractIndex);
+        _attractService.RefreshAttractGameList();
     }
 
     [EffectMethod(typeof(GameLoadedAction))]
@@ -173,7 +171,15 @@ public partial class AttractEffects
     {
         await dispatcher.DispatchAsync(new AttractUpdateIndexAction { AttractIndex = 0 });
 
-        _attractService.SetAttractVideoPaths(_attractState.Value.CurrentAttractIndex);
+        _attractService.RefreshAttractGameList();
+    }
+
+    [EffectMethod(typeof(GameListLoadedAction))]
+    public async Task GameListLoaded(IDispatcher dispatcher)
+    {
+        await dispatcher.DispatchAsync(new AttractUpdateIndexAction { AttractIndex = 0 });
+
+        _attractService.RefreshAttractGameList();
     }
 
     [EffectMethod(typeof(UserInteractedAction))]

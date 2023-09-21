@@ -10,7 +10,7 @@
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.Presentation.ViewModels" xmlns:bink="clr-namespace:ManagedBink;assembly=BinkViewerControl"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=viewModels:AttractMainViewModel, IsDesignTimeCreatable=False}"
-             d:DesignHeight="1080" d:DesignWidth="1920">
+             d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
         <!-- BOTTOM ATTRACT: Do not collapse BinkGpuControl.  You will get null BackBuffer. -->
@@ -21,10 +21,10 @@
          Filename="{Binding BottomAttractVideoPath}"
          LoopVideo="False"
          ShowFirstFrameOnLoad="True"
-         Visibility="{Binding IsBottomAttractVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
+         Visibility="{Binding IsBottomAttractVideoPlaying, Converter={StaticResource TrueVisibleFalseHidden}}"
          VideoCompleted="GameAttract_OnVideoCompleted"
-         Height="300"
-         Width="450">
+         Height="1080"
+         Width="1920">
             <bink:BinkGpuControl.Style>
                 <Style
                 TargetType="bink:BinkGpuControl">
@@ -33,14 +33,14 @@
                         Value="Stopped" />
                     <Style.Triggers>
                         <DataTrigger
-                            Binding="{Binding IsBottomAttractVideoPlaying}"
+                            Binding="{Binding IsBottomAttractVideoPlaying, NotifyOnSourceUpdated=True}"
                             Value="True">
                             <Setter
                                 Property="VideoState"
                                 Value="Playing" />
                         </DataTrigger>
                         <DataTrigger
-                            Binding="{Binding IsBottomAttractVideoPlaying}"
+                            Binding="{Binding IsBottomAttractVideoPlaying, NotifyOnSourceUpdated=True}"
                             Value="False">
                             <Setter
                                 Property="VideoState"
