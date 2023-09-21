@@ -11,15 +11,19 @@
         /// <summary>Low</summary>
         [Description("20%")]
         Scale20 = 1,
+
         /// <summary>Medium-Low</summary>
         [Description("40%")]
         Scale40 = 2,
+
         /// <summary>Medium</summary>
         [Description("60%")]
         Scale60 = 3,
+
         /// <summary>Medium-High</summary>
         [Description("80%")]
         Scale80 = 4,
+
         /// <summary>High</summary>
         [Description("100%")]
         Scale100 = 5
@@ -153,6 +157,6 @@
         /// <summary>
         ///     Gets a set of master volume levels requested per jurisdiction 
         /// </summary>
-        IEnumerable<Tuple<byte,string>> SoundLevelCollection { get; }
+        IEnumerable<Tuple<byte, string>> SoundLevelCollection { get; }
     }
 }
