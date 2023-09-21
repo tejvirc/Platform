@@ -41,7 +41,8 @@
                 logicalId,
                 name,
                 localizedName,
-                tickValue)
+                tickValue,
+                true)
             {
                 State = HardMeterState.Disabled,
                 Action = HardMeterAction.On
