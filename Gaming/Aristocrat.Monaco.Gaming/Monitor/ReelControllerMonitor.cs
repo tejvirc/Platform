@@ -119,7 +119,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
             if (ReelController is not null &&
                 ReelController.HasCapability<IReelBrightnessCapabilities>())
             {
-                    _brightnessCapability = ReelController.GetCapability<IReelBrightnessCapabilities>();
+                _brightnessCapability = ReelController.GetCapability<IReelBrightnessCapabilities>();
             }
         }
 
@@ -334,7 +334,7 @@ namespace Aristocrat.Monaco.Gaming.Monitor
         private async Task GameProcessExitedUnexpected(GameProcessExitedEvent evt, CancellationToken token)
         {
             var homeReels = !ReelsShouldTilt;
-            Logger.Debug($"Titling reels because the game process exited.  Will home immediately after: {homeReels}");
+            Logger.Debug($"Tilting reels because the game process exited.  Will home immediately after: {homeReels}");
 
             await TiltReels(true).ConfigureAwait(false);
             if (homeReels)
