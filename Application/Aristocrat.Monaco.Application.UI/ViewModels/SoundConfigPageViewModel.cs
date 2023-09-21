@@ -46,8 +46,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             TestViewModel.SetTestReporter(Inspection);
             ToggleTestModeCommand = new RelayCommand<object>(_ => InTestMode = !InTestMode);
             VolumeViewModel = new VolumeViewModel();
-            //SoundTestCommand = new ActionCommand<object>(SoundTestClicked);
-            //SoundLevelConfigurationParser(_audio.SoundLevelCollection);
         }
 
         private void LoadVolumeSettings()
