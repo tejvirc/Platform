@@ -39,9 +39,6 @@
         [JsonIgnore]
         public string LevelName => $"{ProtocolName}, Level Id: {LevelId}, Progressive Group Id: {ProgressiveGroupId}";
 
-        /// <inheritdoc />
-        public string CommonLevelName { get; init; }
-
         /// <summary>
         ///     Gets or sets the amount for the linked progressive level
         /// </summary>

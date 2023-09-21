@@ -161,7 +161,7 @@
             return linkedLevels.Select(
                 level => new simpleMeter
                 {
-                    meterName = string.Format(meterNameFormat, level.LevelId, level.CommonLevelName),
+                    meterName = string.Format(meterNameFormat, level.LevelId, level.ProgressiveGroupId),
                     meterValue = meterName switch
                     {
                         ProgressiveMeters.CurrentValueDisplayMeter => level.Amount.CentsToMillicents(),
@@ -181,17 +181,10 @@
             long progValueSequence,
             string progValueText,
             FlavorType flavorType,
-            bool initialize = false,
-            string commonLevelName = null)
+            bool initialize = false)
         {
-            if (initialize && string.IsNullOrWhiteSpace(commonLevelName))
-            {
-                throw new ArgumentNullException(
-                    nameof(commonLevelName),
-                    @"CommonLevelName required when initializing a new linked level");
-            }
 
-            var linkedLevel = CreateLinkedProgressiveLevel(progId, levelId, commonLevelName, valueInCents, progValueSequence, progValueText, flavorType);
+            var linkedLevel = CreateLinkedProgressiveLevel(progId, levelId, valueInCents, progValueSequence, progValueText, flavorType);
 
             lock (_lock)
             {
@@ -255,7 +248,6 @@
         private static LinkedProgressiveLevel CreateLinkedProgressiveLevel(
             int progId,
             int levelId,
-            string commonLevelName,
             long valueInCents,
             long progValueSequence,
             string progValueText,
@@ -271,8 +263,7 @@
                 CurrentErrorStatus = ProgressiveErrors.None,
                 ProgressiveValueSequence = progValueSequence,
                 ProgressiveValueText = progValueText,
-                FlavorType = flavorType,
-                CommonLevelName = commonLevelName
+                FlavorType = flavorType
             };
         }
 

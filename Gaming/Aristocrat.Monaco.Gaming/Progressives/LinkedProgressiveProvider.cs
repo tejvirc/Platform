@@ -176,8 +176,7 @@
                     ClaimStatus = new LinkedProgressiveClaimStatus(),
                     ProgressiveValueSequence = level.ProgressiveValueSequence,
                     ProgressiveValueText = level.ProgressiveValueText,
-                    FlavorType = level.FlavorType,
-                    CommonLevelName = level.CommonLevelName,
+                    FlavorType = level.FlavorType
                 };
 
                 _linkedProgressiveIndex.Add(level.LevelName, levelToAdd);

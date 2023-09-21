@@ -598,8 +598,7 @@
                         0,
                         string.Empty,
                         firstLevel.FlavorType,
-                        true,
-                        firstLevel.LevelName);
+                        true);
 
                     var progressiveLevelAssignment = pool.Select(
                         level => new ProgressiveLevelAssignment(

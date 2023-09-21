@@ -27,6 +27,6 @@
         /// <param name="initialize">whether to limit to creation. True means create only, no update. false will create or update as appropriate</param>
         /// <param name="commonLevelName">The common level name to create the level with. Required with initialize is true</param>
         /// <returns></returns>
-        LinkedProgressiveLevel UpdateLinkedProgressiveLevels(int progId, int levelId, long valueInCents, long progValueSequence, string progValueText, FlavorType flavorType, bool initialize = false, string commonLevelName = null);
+        LinkedProgressiveLevel UpdateLinkedProgressiveLevels(int progId, int levelId, long valueInCents, long progValueSequence, string progValueText, FlavorType flavorType, bool initialize = false);
     }
 }

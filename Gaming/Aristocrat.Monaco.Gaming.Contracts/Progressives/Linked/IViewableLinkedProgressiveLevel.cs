@@ -40,13 +40,6 @@
         string LevelName { get; }
 
         /// <summary>
-        ///     Gets the common name of the level, as might be displayed to a player
-        ///     Used in some meter reporting.
-        ///     Not changeable once created to prevent meter names changing
-        /// </summary>
-        string CommonLevelName { get; }
-
-        /// <summary>
         ///     Gets the current amount for the linked progressive level
         /// </summary>
         long Amount { get; }
