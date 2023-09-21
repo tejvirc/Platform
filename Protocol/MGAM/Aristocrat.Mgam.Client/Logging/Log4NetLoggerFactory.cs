@@ -14,20 +14,17 @@
     {
         private const string RepositoryName = "mgam";
 
-        // private const string AsyncAppenderName = "AsyncForwardingAppender";
         private const string LogFilePath = @"..\logs\Log_MGAM.log";
         private const int MaxSizeRollBackups = 100;
         private const int MaxFileSize = 20 * 1024 * 1024;
         private const int CountDirection = 1;
 
-        private static readonly object SyncLock = new object();
+        private static readonly object SyncLock = new();
         private static bool _isInitialized;
 
         private static void ConfigureLogging()
         {
             var hierarchy = (Hierarchy) LogManager.CreateRepository(RepositoryName);
-
-            //var bufferAppender = new AsyncForwardingAppender {Name = AsyncAppenderName, Fix = FixFlags.Message | FixFlags.Exception};
 
             var fileAppender = new RollingFileAppender
             {
@@ -53,11 +50,7 @@
             layout.ActivateOptions();
             fileAppender.ActivateOptions();
 
-            //((IAppenderAttachable)bufferAppender).AddAppender(fileAppender);
             hierarchy.Root.AddAppender(fileAppender);
-            // bufferAppender.ActivateOptions();
-
-            //BasicConfigurator.Configure(hierarchy, bufferAppender);
             BasicConfigurator.Configure(hierarchy);
         }
 

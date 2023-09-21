@@ -268,7 +268,6 @@ namespace Aristocrat.Monaco.Application.Authentication
 
         private void Handle(PlatformBootedEvent evt)
         {
-            Debugger.Break();
             Logger.Info("Running signature verification on PlatformBootedEvent");
             _disableManager.Disable(
                 DisableGuid,

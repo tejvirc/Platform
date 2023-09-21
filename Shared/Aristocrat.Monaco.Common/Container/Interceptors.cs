@@ -5,10 +5,6 @@
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
-
-    //TODO: Implement it
-    //using System.Runtime.Remoting.Messaging;  //It has been comment temporary
-    //using System.Runtime.Remoting.Proxies;    //It has been comment temporary
     using SimpleInjector;
 
     /// <summary>
@@ -278,7 +274,7 @@
             [DebuggerStepThrough]
             public InterceptorProxy(Type classToProxy, object obj, IInterceptor interceptor)
                 //TODO: Disabled temporary
-                //: base(classToProxy)  
+                //: base(classToProxy)
             {
                 _realInstance = obj;
                 _interceptor = interceptor;

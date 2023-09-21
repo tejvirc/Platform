@@ -67,7 +67,6 @@
 
             if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password))
             {
-                //client.Credentials = new NetworkCredential(userName, password);
                 client.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(
                         string.Format("{0}:{1}", userName, password))));
@@ -94,7 +93,7 @@
         /// <returns>A <see cref="Task" /> representing the asynchronous operation.</returns>
         private async Task UploadAsync(string destinationLocation, string transferParameters, Stream sourceStream)
         {
-            InitializeSecureSocketSettings(transferParameters);     
+            InitializeSecureSocketSettings(transferParameters);
 
             // Here we do not close sourceStream. It is a task for code that created it.
             using (var client = new HttpClient())
@@ -153,7 +152,7 @@
         private void InitializeCredentials(HttpClient client, string transferParameters, string downloadLocation = null)
         {
             string credentialsParameters;
-            
+
             if (string.IsNullOrEmpty(transferParameters))
             {
                 if (!string.IsNullOrEmpty(downloadLocation))

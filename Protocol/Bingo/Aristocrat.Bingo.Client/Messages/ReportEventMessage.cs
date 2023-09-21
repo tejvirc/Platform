@@ -30,12 +30,15 @@
         }
 
         /// <summary>
-        /// Parameterless constructor used while deseriliazing 
+        ///     Parameterless constructor used while deseriliazing
         /// </summary>
         public ReportEventMessage()
         {
         }
 
+        /// <summary>
+        ///     Gets or sets the machine serial
+        /// </summary>
         [ProtoMember(1)]
         public string MachineSerial { get; set; }
 

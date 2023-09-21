@@ -2,7 +2,6 @@
 {
     using ProtoBuf;
     using System;
-    using System.Runtime.Serialization;
 
     /// <summary>
     ///     The message for reporting transactions to the server
@@ -48,11 +47,15 @@
         }
 
         /// <summary>
-        /// Parameterless constructor used while deseriliazing 
+        ///     Parameterless constructor used while deseriliazing
         /// </summary>
         public ReportTransactionMessage()
-        { }
+        {
+        }
 
+        /// <summary>
+        ///     Gets or sets the machine serial number
+        /// </summary>
         [ProtoMember(1)]
         public string MachineSerial { get; }
 

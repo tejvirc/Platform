@@ -209,15 +209,13 @@
 
             var signature = GetSignature(connection);
 
-            using (var rsa = ImportPublicKey(smartCardKeyFile))
-            {
-                return VerifyHash(rsa.ExportParameters(false), publicKeyModulus, signature);
-            }
+            using var rsa = ImportPublicKey(smartCardKeyFile);
+            return VerifyHash(rsa.ExportParameters(false), publicKeyModulus, signature);
         }
 
         private static ushort GetModulusLength(SmartCardConnection connection)
         {
-            // Command : class:0x90, inst:0x2a,le:3 (expected length) to retrieve the lengths of Mod and Exp for Public Key 
+            // Command : class:0x90, inst:0x2a,le:3 (expected length) to retrieve the lengths of Mod and Exp for Public Key
 
             var command = new ApduCommand(0x90, 0x2a, 0x00, 0x00, null, 0x03);
 
@@ -267,8 +265,8 @@
 
         private static bool VerifyHash(RSAParameters parameters, byte[] signedData, byte[] signature)
         {
-            var rsaCsp = new RSACryptoServiceProvider();
-            var hash = SHA1.Create();
+            using var rsaCsp = new RSACryptoServiceProvider();
+            using var hash = SHA1.Create();
 
             rsaCsp.ImportParameters(parameters);
 
@@ -280,7 +278,7 @@
             var pem = File.ReadAllText(smartCardKeyFile);
             var pr = new PemReader(new StringReader(pem));
 
-            if (!(pr.ReadObject() is RsaKeyParameters parameters))
+            if (pr.ReadObject() is not RsaKeyParameters parameters)
             {
                 throw new SecurityException($"Error retrieving Public Key from {smartCardKeyFile}");
             }
@@ -295,13 +293,11 @@
 
         private static ulong GetRandom()
         {
-            using (var cryptoProvider = RandomNumberGenerator.Create())
-            {
-                var buffer = new byte[8];
-                cryptoProvider.GetBytes(buffer);
+            using var cryptoProvider = RandomNumberGenerator.Create();
+            var buffer = new byte[8];
+            cryptoProvider.GetBytes(buffer);
 
-                return BitConverter.ToUInt64(buffer, 0);
-            }
+            return BitConverter.ToUInt64(buffer, 0);
         }
 
         private static ulong GetSequenceNumber(SmartCardConnection connection)

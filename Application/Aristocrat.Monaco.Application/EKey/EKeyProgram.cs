@@ -20,7 +20,7 @@
     /// </summary>
     internal abstract class EKeyProgram
     {
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private SmartCardConnection _connection;
         private readonly IPropertiesManager _properties;
         protected abstract string[] GetAuthTokens();
@@ -30,7 +30,8 @@
         /// </summary>
         protected EKeyProgram()
             : this(ServiceManager.GetInstance().GetService<IPropertiesManager>())
-        { }
+        {
+        }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="EKeyProgram" /> class.
@@ -76,7 +77,7 @@
                 }
 
                 var verified = false;
-                
+
                 foreach (var token in GetAuthTokens())
                 {
                     var sequenceNumber = GetSequenceNumber();
@@ -87,15 +88,13 @@
 
                     var exponent = GetExponent(exponentLength);
 
-                    using (var rsa = new RSACryptoServiceProvider())
-                    {
-                        rsa.ImportParameters(new RSAParameters { Modulus = publicKeyModulus, Exponent = exponent });
+                    using var rsa = new RSACryptoServiceProvider();
+                    rsa.ImportParameters(new RSAParameters { Modulus = publicKeyModulus, Exponent = exponent });
 
-                        if (VerifyHash(rsa.ExportParameters(false), authSignatureData, authSignature))
-                        {
-                            verified = true;
-                            break;
-                        }
+                    if (VerifyHash(rsa.ExportParameters(false), authSignatureData, authSignature))
+                    {
+                        verified = true;
+                        break;
                     }
                 }
 
@@ -116,7 +115,7 @@
 
         private (ushort, byte) GetModulusAndExponentLengths()
         {
-            // Command : class:0x90, inst:0x2a,le:3 (expected length) to retrieve the lengths of Mod and Exp for Public Key 
+            // Command : class:0x90, inst:0x2a,le:3 (expected length) to retrieve the lengths of Mod and Exp for Public Key
 
             var command = new ApduCommand(0x90, 0x2a, 0x00, 0x00, null, 0x03);
 
@@ -199,7 +198,7 @@
             var command = new ApduCommand(0x90, 0x1C, 0x00, 0x00, data.ToArray());
 
             var response = _connection.Transmit(command);
-            
+
             if (response.Data == null || !response.IsStatusSuccess)
             {
                 throw new ApduCommandException("Error retrieving authorization signature data");
@@ -262,8 +261,8 @@
 
         private static bool VerifyHash(RSAParameters parameters, byte[] signedData, byte[] signature)
         {
-            var rsaCsp = new RSACryptoServiceProvider();
-            var hash = SHA1.Create();
+            using var rsaCsp = new RSACryptoServiceProvider();
+            using var hash = SHA1.Create();
 
             rsaCsp.ImportParameters(parameters);
 
