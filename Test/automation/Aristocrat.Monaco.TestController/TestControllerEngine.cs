@@ -50,7 +50,7 @@
     using Wait;
     using Aristocrat.Monaco.Gaming.Contracts.Events;
 
-    public partial class TestControllerEngine
+    public partial class TestControllerEngine : IDisposable
     {
         private const string ResponseTo = "response-to";
 
@@ -1547,6 +1547,11 @@
         private void Log(string msg)
         {
             _logger.Info(msg);
+        }
+
+        public void Dispose()
+        {
+            if (_processMonitor != null) _processMonitor.Dispose();
         }
 
         #region Hardware

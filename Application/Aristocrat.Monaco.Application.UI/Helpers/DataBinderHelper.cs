@@ -19,8 +19,9 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
         private static readonly char[] expressionPartSeparator = new char[] { '.' };
         private static readonly char[] indexExprStartChars = new char[] { '[', '(' };
         private static readonly char[] indexExprEndChars = new char[] { ']', ')' };
-
-
+        private const string DataBinder_Invalid_Indexed_Expr = "DataBinding: '{0}' is not a valid indexed expression.";
+        private const string DataBinder_No_Indexed_Accessor = "DataBinding: '{0}' does not allow indexed access.";
+        private const string DataBinder_Prop_Not_Found = "DataBinding: '{0}' does not contain a property with the name '{1}'.";
         ///  
         //
         public DataBinderHelper()
@@ -71,7 +72,6 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
         /// 
         private static object Eval(object container, string[] expressionParts)
         {
-
             object prop;
             int i;
 
@@ -82,11 +82,11 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
 
                 if (indexedExpr == false)
                 {
-                    prop = DataBinderHelper.GetPropertyValue(prop, expr);
+                    prop = GetPropertyValue(prop, expr);
                 }
                 else
                 {
-                    prop = DataBinderHelper.GetIndexedPropertyValue(prop, expr);
+                    prop = GetIndexedPropertyValue(prop, expr);
                 }
             }
 
@@ -112,9 +112,9 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
         ///  
         public static string Eval(object container, string expression, string format)
         {
-            object value = DataBinderHelper.Eval(container, expression);
+            object value = Eval(container, expression);
 
-            if ((value == null) || (value == System.DBNull.Value))
+            if ((value == null) || (value == DBNull.Value))
             {
                 return String.Empty;
             }
@@ -155,7 +155,7 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
             }
             else
             {
-                //throw new Exception(SR.GetString(SR.DataBinder_Prop_Not_Found, container.GetType().FullName, propName));
+                throw new Exception(GetString(DataBinder_Prop_Not_Found, container.GetType().FullName, propName));
             }
 
             return prop;
@@ -166,9 +166,9 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
         /// 
         public static string GetPropertyValue(object container, string propName, string format)
         {
-            object value = DataBinderHelper.GetPropertyValue(container, propName);
+            object value = GetPropertyValue(container, propName);
 
-            if ((value == null) || (value == System.DBNull.Value))
+            if ((value == null) || (value == DBNull.Value))
             {
                 return string.Empty;
             }
@@ -251,13 +251,13 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
 
             if (indexValue == null)
             {
-                //throw new ArgumentException(SR.GetString(SR.DataBinder_Invalid_Indexed_Expr, expr));
+                throw new ArgumentException(GetString(DataBinder_Invalid_Indexed_Expr, expr));
             }
 
             object collectionProp = null;
             if ((propName != null) && (propName.Length != 0))
             {
-                collectionProp = DataBinderHelper.GetPropertyValue(container, propName);
+                collectionProp = GetPropertyValue(container, propName);
             }
             else
             {
@@ -285,7 +285,7 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
                     }
                     else
                     {
-                        //throw new ArgumentException(SR.GetString(SR.DataBinder_No_Indexed_Accessor, collectionProp.GetType().FullName));
+                        throw new ArgumentException(GetString(DataBinder_No_Indexed_Accessor, collectionProp.GetType().FullName));
                     }
                 }
             }
@@ -298,9 +298,9 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
         /// 
         public static string GetIndexedPropertyValue(object container, string propName, string format)
         {
-            object value = DataBinderHelper.GetIndexedPropertyValue(container, propName);
+            object value = GetIndexedPropertyValue(container, propName);
 
-            if ((value == null) || (value == System.DBNull.Value))
+            if ((value == null) || (value == DBNull.Value))
             {
                 return String.Empty;
             }
@@ -376,6 +376,16 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
                 return true;
             }
             return false;
+        }
+
+        private static string GetString(string name, params object[] args)
+        {
+            return GetString(CultureInfo.InvariantCulture, name, args);
+        }
+
+        private static string GetString(CultureInfo culture, string name, params object[] args)
+        {
+            return string.Format(culture, name, args);
         }
     }
 }
