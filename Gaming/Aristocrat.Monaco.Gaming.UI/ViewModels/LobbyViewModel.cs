@@ -714,11 +714,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         public ICommand CashOutFromPlayerMenuPopupCommand { get; set; }
 
         /// <summary>
-        ///     Command to handle the pressing of the volume button on the Player Menu
-        /// </summary>
-        public ICommand PlayerMenuPopupVolumeCommand { get; set; }
-
-        /// <summary>
         ///     Gets the object that handles RG info logic.
         /// </summary>
         public ResponsibleGamingViewModel ResponsibleGaming { get; }
