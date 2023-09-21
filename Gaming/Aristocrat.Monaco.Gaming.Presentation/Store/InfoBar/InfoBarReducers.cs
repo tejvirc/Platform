@@ -22,4 +22,37 @@ public static class InfoBarReducers
             IsOpen = action.IsOpen,
         };
     }
+
+    [ReducerMethod()]
+    public static InfoBarState Reduce(InfoBarState state, InfoBarLeftRegionUpdateAction action)
+    {
+        return state with
+        {
+            LeftRegionText = action.Text,
+            LeftRegionTextColor = action.TextColor,
+            LeftRegionDuration = action.Duration
+        };
+    }
+
+    [ReducerMethod()]
+    public static InfoBarState Reduce(InfoBarState state, InfoBarCenterRegionUpdateAction action)
+    {
+        return state with
+        {
+            CenterRegionText = action.Text,
+            CenterRegionTextColor = action.TextColor,
+            CenterRegionDuration = action.Duration
+        };
+    }
+
+    [ReducerMethod()]
+    public static InfoBarState Reduce(InfoBarState state, InfoBarRightRegionUpdateAction action)
+    {
+        return state with
+        {
+            RightRegionText = action.Text,
+            RightRegionTextColor = action.TextColor,
+            RightRegionDuration = action.Duration
+        };
+    }
 }

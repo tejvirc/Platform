@@ -1,5 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.InfoBar;
 
+using System.Collections.Immutable;
+using Contracts.InfoBar;
 using Fluxor;
 
 public class InfoBarFeature : Feature<InfoBarState>
@@ -8,12 +10,9 @@ public class InfoBarFeature : Feature<InfoBarState>
 
     protected override InfoBarState GetInitialState()
     {
-        return new InfoBarState()
+        return new InfoBarState
         {
-            MainInfoBarOpenRequested = false,
-            VbdInfoBarOpenRequested = false,
-            MainInfoBarIsOpen = false,
-            VbdInfoBarIsOpen = false
+            MessageDataSet = ImmutableList<InfoBarMessageData>.Empty
         };
     }
 }
