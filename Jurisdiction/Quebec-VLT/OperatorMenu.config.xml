@@ -160,7 +160,6 @@ as follows:
     </AccessRuleSet>
     <AccessRuleSet Name="TestMode">
       <Rule Restriction="GameIdle" />
-      <Rule Restriction="ZeroCredits" />
     </AccessRuleSet>
     <AccessRuleSet Name="GameIdleZeroCredits">
       <Rule Restriction="GameIdle" />
