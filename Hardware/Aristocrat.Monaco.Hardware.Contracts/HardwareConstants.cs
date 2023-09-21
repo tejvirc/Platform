@@ -180,13 +180,15 @@ namespace Aristocrat.Monaco.Hardware.Contracts
         ///     Property manager key for Note Definitions
         /// </summary>
         public const string NoteDefinitions = "NoteDefinitions";
-        ///     Key used to get the preset volume level
-        /// </summary>
-        public const string VolumePreset = "VolumePreset";
 
         /// <summary>
-        ///     Key used to get the preset volume scalar
+        ///     Key used to get the preset master volume levels
         /// </summary>
-        public const string VolumeScalarPreset = "VolumeScalarPreset";
+        public const string MasterVolumeLevelPreset = "MasterVolumeLevelPreset";
+
+        /// <summary>
+        ///     Key used to get the preset player volume scalars
+        /// </summary>
+        public const string PlayerVolumeScalarPreset = "PlayerVolumeScalarPreset";
     }
 }

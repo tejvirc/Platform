@@ -236,21 +236,21 @@
         /// <inheritdoc />
         public float GetVolume(byte preset)
         {
-            var volumePresets = _properties.GetValue(HardwareConstants.VolumePreset, _volumePresets);
+            var volumePresets = _properties.GetValue(HardwareConstants.MasterVolumeLevelPreset, _volumePresets);
             return volumePresets.TryGetValue(preset, out var volume) ? volume.Item2 : 1.0f;
         }
 
         /// <inheritdoc />
         public string GetVolumeDescription(byte preset)
         {
-            var volumePresets = _properties.GetValue(HardwareConstants.VolumePreset, _volumePresets);
+            var volumePresets = _properties.GetValue(HardwareConstants.MasterVolumeLevelPreset, _volumePresets);
             return volumePresets.TryGetValue(preset, out var volume) ? volume.Item1 : throw new Exception("Invalid Volume Level");
         }
 
         /// <inheritdoc />
         public float GetVolumeScalar(VolumeScalar preset)
         {
-            var volumeScalars = _properties.GetValue(HardwareConstants.VolumeScalarPreset, _volumeScalars);
+            var volumeScalars = _properties.GetValue(HardwareConstants.PlayerVolumeScalarPreset, _volumeScalars);
             return volumeScalars.TryGetValue(preset, out var volume) ? volume : 1.0f;
         }
 
@@ -264,7 +264,7 @@
         {
             get
             {
-                var volumePresets = _properties.GetValue(HardwareConstants.VolumePreset, _volumePresets);
+                var volumePresets = _properties.GetValue(HardwareConstants.MasterVolumeLevelPreset, _volumePresets);
                 return volumePresets.Select(v => new Tuple<byte, string>(v.Key, v.Value.Item1)).ToList();
             }
         }

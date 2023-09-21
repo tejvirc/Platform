@@ -855,19 +855,19 @@
 
             if (configuration.MasterVolumeSettings != null)
             {
-                _properties.Add(HardwareConstants.VolumePreset,
+                _properties.Add(HardwareConstants.MasterVolumeLevelPreset,
                     Tuple.Create(
                         (object)LoadVolumeLevels(configuration.MasterVolumeSettings),
-                        HardwareConstants.VolumePreset,
+                        HardwareConstants.MasterVolumeLevelPreset,
                         false));
             }
 
             if (configuration.VolumeScalarSettings != null)
             {
-                _properties.Add(HardwareConstants.VolumeScalarPreset,
+                _properties.Add(HardwareConstants.PlayerVolumeScalarPreset,
                     Tuple.Create(
                         (object)LoadVolumeScalars(configuration.VolumeScalarSettings),
-                        HardwareConstants.VolumeScalarPreset,
+                        HardwareConstants.PlayerVolumeScalarPreset,
                         false));
             }
 
