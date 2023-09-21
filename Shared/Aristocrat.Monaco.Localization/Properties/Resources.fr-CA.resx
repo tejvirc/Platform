@@ -5123,4 +5123,13 @@ Consulter le manuel pour plus de détails</value>
   <data name="VoidDemoTicket" xml:space="preserve">
     <value>??VOID DEMO VOID??</value>
   </data>
+  <data name="BackupBattery1Low" xml:space="preserve">
+    <value>??Backup Battery #1 Low??</value>
+  </data>
+  <data name="BackupBattery2Low" xml:space="preserve">
+    <value>??Backup Battery #2 Low??</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>??Failed??</value>
+  </data>
 </root>
