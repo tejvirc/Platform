@@ -586,15 +586,9 @@
       <xs:enumeration value="LobbyAndGame" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="iVolumeScalar">
-    <xs:attribute name="Key" type="xs:unsignedByte " use="required" />
-    <xs:attribute name="Value" type="xs:float" use="required" />
-  </xs:complexType>
-
   <xs:complexType name="VolumeLevel">
     <xs:attribute name="Key" type="xs:unsignedByte " use="required" />
     <xs:attribute name="Description" type="xs:string" use="required" />
     <xs:attribute name="Value" type="xs:float" use="required" />
   </xs:complexType>
-
 </xs:schema>

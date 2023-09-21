@@ -14,8 +14,8 @@
 namespace Aristocrat.Monaco.Application.Contracts {
     using System.Xml.Serialization;
 #pragma warning disable CS1591
-
-
+    
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
@@ -24,10 +24,6 @@ namespace Aristocrat.Monaco.Application.Contracts {
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace="", IsNullable=false)]
     public partial class ApplicationConfiguration {
-        
-        private ApplicationConfigurationVolumeNode[] masterVolumeSettingsField;
-        
-        private ApplicationConfigurationScalar[] volumeScalarSettingsField;
         
         private string[] allowedLocalesField;
         
@@ -148,35 +144,17 @@ namespace Aristocrat.Monaco.Application.Contracts {
         private ApplicationConfigurationLargeWinInfo largeWinInfoField;
         
         private ApplicationConfigurationDisplayDisconnectNoReconfigure displayDisconnectNoReconfigureField;
-
+        
         private ApplicationConfigurationTechnicianModeLocked technicianModeLockedField;
-
+        
+        private ApplicationConfigurationVolumeNode[] masterVolumeSettingsField;
+        
+        private ApplicationConfigurationScalar[] volumeScalarSettingsField;
+        
         public ApplicationConfiguration() {
             this.barcodeTypeField = BarcodeTypeOptions.Interleave2of5;
             this.validationLengthField = ValidationLengthOptions.System;
             this.layoutTypeField = LayoutTypeOptions.ExtendedLayout;
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("VolumeNode", IsNullable=false)]
-        public ApplicationConfigurationVolumeNode[] MasterVolumeSettings {
-            get {
-                return this.masterVolumeSettingsField;
-            }
-            set {
-                this.masterVolumeSettingsField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("Scalar", IsNullable=false)]
-        public ApplicationConfigurationScalar[] VolumeScalarSettings {
-            get {
-                return this.volumeScalarSettingsField;
-            }
-            set {
-                this.volumeScalarSettingsField = value;
-            }
         }
         
         /// <remarks/>
@@ -782,17 +760,36 @@ namespace Aristocrat.Monaco.Application.Contracts {
                 this.displayDisconnectNoReconfigureField = value;
             }
         }
-
+        
         /// <remarks/>
-        public ApplicationConfigurationTechnicianModeLocked TechnicianModeLocked
-        {
-            get
-            {
+        public ApplicationConfigurationTechnicianModeLocked TechnicianModeLocked {
+            get {
                 return this.technicianModeLockedField;
             }
-            set
-            {
+            set {
                 this.technicianModeLockedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("VolumeNode", IsNullable=false)]
+        public ApplicationConfigurationVolumeNode[] MasterVolumeSettings {
+            get {
+                return this.masterVolumeSettingsField;
+            }
+            set {
+                this.masterVolumeSettingsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayItemAttribute("Scalar", IsNullable=false)]
+        public ApplicationConfigurationScalar[] VolumeScalarSettings {
+            get {
+                return this.volumeScalarSettingsField;
+            }
+            set {
+                this.volumeScalarSettingsField = value;
             }
         }
     }
@@ -803,7 +800,40 @@ namespace Aristocrat.Monaco.Application.Contracts {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    public partial class ApplicationConfigurationVolumeNode : VolumeLevel {
+    public partial class ApplicationConfigurationCurrency {
+        
+        private string idField;
+        
+        private bool configurableField;
+        
+        public ApplicationConfigurationCurrency() {
+            this.idField = "USD";
+            this.configurableField = false;
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("USD")]
+        public string Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(false)]
+        public bool Configurable {
+            get {
+                return this.configurableField;
+            }
+            set {
+                this.configurableField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -849,70 +879,6 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
             set {
                 this.valueField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    public partial class ApplicationConfigurationScalar {
-        
-        private float valueField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public float Value {
-            get {
-                return this.valueField;
-            }
-            set {
-                this.valueField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
-    public partial class ApplicationConfigurationCurrency {
-        
-        private string idField;
-        
-        private bool configurableField;
-        
-        public ApplicationConfigurationCurrency() {
-            this.idField = "USD";
-            this.configurableField = false;
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute("USD")]
-        public string Id {
-            get {
-                return this.idField;
-            }
-            set {
-                this.idField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool Configurable {
-            get {
-                return this.configurableField;
-            }
-            set {
-                this.configurableField = value;
             }
         }
     }
@@ -4027,35 +3993,61 @@ namespace Aristocrat.Monaco.Application.Contracts {
             }
         }
     }
-
+    
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class ApplicationConfigurationTechnicianModeLocked
-    {
-
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class ApplicationConfigurationTechnicianModeLocked {
+        
         private bool enabledField;
-
-        public ApplicationConfigurationTechnicianModeLocked()
-        {
+        
+        public ApplicationConfigurationTechnicianModeLocked() {
             this.enabledField = false;
         }
-
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
         [System.ComponentModel.DefaultValueAttribute(false)]
-        public bool Enabled
-        {
-            get
-            {
+        public bool Enabled {
+            get {
                 return this.enabledField;
             }
-            set
-            {
+            set {
                 this.enabledField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class ApplicationConfigurationVolumeNode : VolumeLevel {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+    public partial class ApplicationConfigurationScalar {
+        
+        private float valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public float Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
             }
         }
     }
