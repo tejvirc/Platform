@@ -1,11 +1,14 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.ViewModels;
 
 using System;
+using Aristocrat.Cabinet.Contracts;
 using Commands;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Fluxor;
 using Gaming.Contracts.InfoBar;
 using Microsoft.Extensions.Logging;
+using Store;
 using Store.InfoBar;
 using static Store.InfoBar.InfoBarSelectors;
 
@@ -22,6 +25,7 @@ public class InfoBarViewModel : ObservableObject, IActivatableViewModel
 
     private bool _mainInfoBarOpenRequested;
     private bool _isOpen;
+    public DisplayRole DisplayTarget { get; set; }
 
     //private Thickness _margin;
     //private double _barHeight;
@@ -36,6 +40,7 @@ public class InfoBarViewModel : ObservableObject, IActivatableViewModel
     private InfoBarColor _leftRegionTextColor;
     private InfoBarColor _centerRegionTextColor;
     private InfoBarColor _rightRegionTextColor;
+    public RelayCommand DisplayTargetChangedCommand { get; }
 
     public InfoBarViewModel(
         ILogger<InfoBarViewModel> logger,
@@ -46,6 +51,8 @@ public class InfoBarViewModel : ObservableObject, IActivatableViewModel
     {
         _dispatcher = dispatcher;
         _logger = logger;
+
+        DisplayTargetChangedCommand = new RelayCommand(OnDisplayTargetChanged);
 
         this.WhenActivated(
             disposables =>
@@ -83,6 +90,11 @@ public class InfoBarViewModel : ObservableObject, IActivatableViewModel
                     .Subscribe(color => RightRegionTextColor = color)
                     .DisposeWith(disposables);
             });
+    }
+
+    private void OnDisplayTargetChanged()
+    {
+        _dispatcher.Dispatch(new InfoBarDisplayTargetChangedAction(DisplayTarget));
     }
 
     /// <summary>

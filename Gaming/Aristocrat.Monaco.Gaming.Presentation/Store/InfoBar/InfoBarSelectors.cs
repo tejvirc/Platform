@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.InfoBar;
 
+using Cabinet.Contracts;
 using Extensions.Fluxor;
 using Gaming.Contracts.InfoBar;
 using static Extensions.Fluxor.Selectors;
@@ -41,4 +42,7 @@ public static class InfoBarSelectors
 
     public static readonly ISelector<InfoBarState, InfoBarColor> SelectInfoBarRightRegionTextColor = CreateSelector(
         (InfoBarState state) => state.RightRegionTextColor);
+
+    public static readonly ISelector<InfoBarState, DisplayRole> SelectInfoBarDisplayTarget = CreateSelector(
+        (InfoBarState state) => state.DisplayTarget);
 }

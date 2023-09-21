@@ -18,12 +18,15 @@ public record InfoBarClearMessageAction
     {
         OwnerId = ownerId;
         Regions = regions;
+        DisplayTarget = displayTarget;
     }
 
     /// <summary>Gets the unique ID of the message owner.</summary>
-    /// <value>The unique ID of the message owner.</value>
     public Guid OwnerId { get; }
 
     /// <summary>Gets the regions to clear</summary>
     public InfoBarRegion[] Regions { get; }
+
+    /// <summary>Gets the Display Target</summary>
+    public DisplayRole DisplayTarget { get; }
 }

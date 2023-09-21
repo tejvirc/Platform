@@ -1,25 +1,29 @@
-﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.InfoBar
+﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.InfoBar;
+
+using System;
+using System.Threading.Tasks;
+using Fluxor;
+using Microsoft.Extensions.Logging;
+using Services.InfoBar;
+
+public class InfoBarEffects
 {
-    using System.Threading.Tasks;
-    using Fluxor;
-    using Services.InfoBar;
-
-    public class InfoBarEffects
+    private readonly IState<InfoBarState> _infoBarState;
+    private readonly IInfoBarService _infoBarService;
+    private readonly ILogger<InfoBarEffects> _infoBarEffectsLogger;
+    public InfoBarEffects(IState<InfoBarState> infoBarState, IInfoBarService infoBarService, ILogger<InfoBarEffects> infoBarEffectsLogger)
     {
-        private readonly IState<InfoBarState> _infoBarState;
-        private readonly IInfoBarService _infoBarService;
+        _infoBarState = infoBarState;
+        _infoBarService = infoBarService;
+        _infoBarEffectsLogger = infoBarEffectsLogger;
+    }
 
-        public InfoBarEffects(IState<InfoBarState> infoBarState, IInfoBarService infoBarService)
+    [EffectMethod]
+    public Task Effect(InfoBarClearMessageAction action, IDispatcher dispatcher)
+    {
+        var tcs = new TaskCompletionSource<bool>();
+        try
         {
-            _infoBarState = infoBarState;
-            _infoBarService = infoBarService;
-        }
-
-        [EffectMethod]
-        public Task Effect(InfoBarClearMessageAction action, IDispatcher dispatcher)
-        {
-            var tcs = new TaskCompletionSource<bool>();
-
             foreach (var region in action.Regions)
             {
                 _infoBarService.ClearMessage(action.OwnerId, region);
@@ -29,10 +33,14 @@
                 string.IsNullOrWhiteSpace(_infoBarState.Value.CenterRegionText) &&
                 string.IsNullOrWhiteSpace(_infoBarState.Value.RightRegionText))
             {
-                dispatcher.Dispatch(new InfoBarCloseAction());
+                dispatcher.Dispatch(new InfoBarCloseAction(_infoBarState.Value.DisplayTarget));
             }
-
-            return tcs.Task;
         }
+        catch (Exception ex)
+        {
+            _infoBarEffectsLogger.LogDebug(LogLevel.Debug, $"Error clearing message owner={e.OwnerId} region={e.Regions}.", ex));
+        }
+
+        return tcs.Task;
     }
 }

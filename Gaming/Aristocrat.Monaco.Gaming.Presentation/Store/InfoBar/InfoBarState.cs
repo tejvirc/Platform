@@ -1,5 +1,6 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.InfoBar;
 using System.Collections.Immutable;
+using Cabinet.Contracts;
 using Contracts.InfoBar;
 using Gaming.Contracts.InfoBar;
 
@@ -32,4 +33,6 @@ public record InfoBarState
     public InfoBarColor RightRegionTextColor { get; init; }
 
     public ImmutableList<InfoBarMessageData> MessageDataSet { get; init; }
+
+    public DisplayRole DisplayTarget { get; init; }
 }

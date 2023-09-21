@@ -13,7 +13,10 @@ public record InfoBarCloseAction
     public InfoBarCloseAction(DisplayRole displayTarget)
     {
         IsOpen = false;
+        DisplayTarget = displayTarget;
     }
 
     public bool IsOpen { get; }
+
+    public DisplayRole DisplayTarget { get; }
 }

@@ -20,6 +20,16 @@ public static class InfoBarReducers
         return state with
         {
             IsOpen = action.IsOpen,
+            DisplayTarget = action.DisplayTarget
+        };
+    }
+
+    [ReducerMethod()]
+    public static InfoBarState Reduce(InfoBarState state, InfoBarClearMessageAction action)
+    {
+        return state with
+        {
+            DisplayTarget = action.DisplayTarget
         };
     }
 
@@ -53,6 +63,15 @@ public static class InfoBarReducers
             RightRegionText = action.Text,
             RightRegionTextColor = action.TextColor,
             RightRegionDuration = action.Duration
+        };
+    }
+
+    [ReducerMethod()]
+    public static InfoBarState Reduce(InfoBarState state, InfoBarDisplayTargetChangedAction action)
+    {
+        return state with
+        {
+            DisplayTarget = action.DisplayTarget
         };
     }
 }
