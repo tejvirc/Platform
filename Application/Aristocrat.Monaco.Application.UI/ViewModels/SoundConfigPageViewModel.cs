@@ -1,15 +1,11 @@
 namespace Aristocrat.Monaco.Application.UI.ViewModels
 {
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Windows.Input;
     using Aristocrat.Extensions.CommunityToolkit;
     using CommunityToolkit.Mvvm.Input;
     using ConfigWizard;
-    using Aristocrat.Monaco.UI.Common.Extensions;
-    using Aristocrat.Monaco.UI.Common.Markup;
     using Contracts;
     using Contracts.HardwareDiagnostics;
     using Contracts.Localization;
@@ -82,25 +78,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             SelectedVolumeLevel = PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
             OnPropertyChanged(nameof(SelectedVolumeLevel));
-            //// Load default volume level
-            //_soundLevel = PropertiesManager.GetValue(PropertyKey.DefaultVolumeLevel, ApplicationConstants.DefaultVolumeLevel);
-            //Logger.DebugFormat("Initializing default volume setting with value: {0}", _soundLevel);
-            //RaisePropertyChanged(nameof(SoundLevel));
-        }
-
-        public ObservableCollection<EnumerationExtension.EnumerationMember> SoundLevelConfigCollection
-        {
-            get
-            {
-                var soundLevelCollection = new ObservableCollection<EnumerationExtension.EnumerationMember>();
-
-                foreach (var soundLevel in _audio.SoundLevelCollection)
-                {
-                    soundLevelCollection.Add(new EnumerationExtension.EnumerationMember() { Description = soundLevel.Item2, Value = soundLevel.Item1 });
-                }
-
-                return soundLevelCollection;
-            }
         }
 
         private bool IsSystemDisabled =>

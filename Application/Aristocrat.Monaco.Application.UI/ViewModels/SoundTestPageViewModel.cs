@@ -23,7 +23,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
     using Monaco.UI.Common.Extensions;
     using CommunityToolkit.Mvvm.Input;
     using Aristocrat.Extensions.CommunityToolkit;
-    using Aristocrat.Extensions.CommunityToolkit.Markup;
 
     [CLSCompliant(false)]
     public class SoundTestPageViewModel : INotifyPropertyChanged
@@ -71,7 +70,7 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
             _disableManager = disableManager ?? throw new ArgumentNullException(nameof(disableManager));
             _propertiesManager = propertiesManager ?? throw new ArgumentNullException(nameof(propertiesManager));
-            VolumeOptions = new ();
+            VolumeOptions = new();
 
             _isAudioDisabled = !IsAudioServiceAvailable || !_audio.IsAvailable;
 
@@ -101,9 +100,9 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
 
             PlayCommandOnRearRightSpeaker = new RelayCommand<object>(PlaySoundOnRearRightSpeaker, _ => enablePlay);
 
-            foreach (VolumeLevel volumeLevel in Enum.GetValues(typeof(VolumeLevel)))
+            foreach (var volumeLevel in _audio.SoundLevelCollection)
             {
-                VolumeOptions.Add(new VolumeOption(volumeLevel));
+                VolumeOptions.Add(new VolumeOption(volumeLevel.Item1, volumeLevel.Item2));
             }
         }
 
@@ -586,21 +585,6 @@ namespace Aristocrat.Monaco.Application.UI.ViewModels
             foreach (var volumeOption in VolumeOptions)
             {
                 volumeOption.UpdateDisplay();
-			}
-		}
-
-        public ObservableCollection<EnumerationExtension.EnumerationMember> SoundLevelConfigCollection
-        {
-            get
-            {
-                var  soundLevelCollection = new ObservableCollection<EnumerationExtension.EnumerationMember>();
-
-                foreach (var soundLevel in _audio.SoundLevelCollection)
-                {
-                    soundLevelCollection.Add(new EnumerationExtension.EnumerationMember(){ Description = soundLevel.Item2, Value = soundLevel.Item1});
-                }
-
-                return soundLevelCollection;
             }
         }
     }
