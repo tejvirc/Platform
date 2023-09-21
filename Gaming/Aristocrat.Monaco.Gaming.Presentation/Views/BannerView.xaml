@@ -5,7 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:lex="http://wpflocalizeextension.codeplex.com"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:viewModels="clr-namespace:Aristocrat.Monaco.Gaming.Presentation.ViewModels"
@@ -83,18 +82,12 @@
                                           AutomationProperties.AutomationId="DropShadowEffect8_10DA6753" />
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Text" 
+                <Setter Property="Text"
                         Value="{Binding IdleText}" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid AutomationProperties.AutomationId="Grid9_10DA6753">
-        <!-- Hidden textbox used to capture jurisdiction override/localized text from resource if it exists -->
-        <TextBox HorizontalAlignment="Center" x:Name="IdleTextBoxInvisible"
-                   TextChanged="IdleTextBoxInvisible_OnTextChanged"
-                   Visibility="Collapsed"
-                   Text="{DynamicResource LobbyIdleTextDefault}"
-                   loc:Localizer.For="Player"/>
         <StackPanel RenderTransformOrigin="0.5 0.5"
                     Visibility="{Binding IsBlinkingIdleTextVisible , Converter={StaticResource TrueVisibleFalseCollapsed}}"
                     AutomationProperties.AutomationId="StackPanel10_10DA6753">
@@ -104,14 +97,14 @@
                        SizeChanged="IdleTextBlockBlinking_OnSizeChanged"
                        Style="{StaticResource IdleTextStyle}"
                        AutomationProperties.AutomationId="TextBlock11_10DA6753"
-                       loc:Localizer.For="Player"/>
+                       loc:Localizer.For="Player" />
             <StackPanel.RenderTransform>
                 <ScaleTransform AutomationProperties.AutomationId="ScaleTransform12_10DA6753" />
             </StackPanel.RenderTransform>
             <StackPanel.Style>
                 <Style TargetType="StackPanel">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding StartIdleTextBlinking}"
+                        <DataTrigger Binding="{Binding IsBlinkingIdleTextVisible}"
                                      Value="True"
                                      AutomationProperties.AutomationId="DataTrigger13_10DA6753">
                             <DataTrigger.EnterActions>
@@ -120,16 +113,16 @@
                                                  AutomationProperties.AutomationId="BeginStoryboard14_10DA6753" />
                             </DataTrigger.EnterActions>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding IsIdleTextBlinking}"
-                                     Value="True"
+                        <DataTrigger Binding="{Binding IsIdleTextPaused}"
+                                     Value="False"
                                      AutomationProperties.AutomationId="DataTrigger15_10DA6753">
                             <DataTrigger.EnterActions>
                                 <ResumeStoryboard BeginStoryboardName="PulseStoryboard"
                                                   AutomationProperties.AutomationId="ResumeStoryboard16_10DA6753" />
                             </DataTrigger.EnterActions>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding IsIdleTextBlinking}"
-                                     Value="False"
+                        <DataTrigger Binding="{Binding IsIdleTextPaused}"
+                                     Value="True"
                                      AutomationProperties.AutomationId="DataTrigger17_10DA6753">
                             <DataTrigger.EnterActions>
                                 <PauseStoryboard BeginStoryboardName="PulseStoryboard"
@@ -142,7 +135,7 @@
         </StackPanel>
         <Border x:Name="IdleTextBorder" Height="54" Width="1920"
                 ClipToBounds="True"
-                Visibility="{Binding IsScrollingIdleTextEnabled, Converter={StaticResource TrueVisibleFalseHidden}}"
+                Visibility="{Binding IsScrollingIdleTextVisible, Converter={StaticResource TrueVisibleFalseHidden}}"
                 AutomationProperties.AutomationId="Border19_10DA6753">
             <Border.Resources>
                 <Storyboard x:Key="IdleTextScrollingStoryboard"
@@ -152,6 +145,7 @@
                                      From="{Binding ActualWidth, ElementName=IdleTextCanvas}"
                                      To="{Binding ActualWidth, ElementName=IdleTextBlockScrolling, Converter={StaticResource NegatingConverter}}"
                                      Duration="00:01:00"
+                                     RepeatBehavior="Forever"
                                      AutomationProperties.AutomationId="DoubleAnimation21_10DA6753" />
                 </Storyboard>
             </Border.Resources>
@@ -203,5 +197,11 @@
                 </TextBlock>
             </Canvas>
         </Border>
+        <!-- Hidden textbox used to capture jurisdiction override/localized text from resource if it exists -->
+        <TextBox HorizontalAlignment="Center" x:Name="IdleTextBoxInvisible"
+                 TextChanged="IdleTextBoxInvisible_OnTextChanged"
+                 Visibility="Collapsed"
+                 Text="{DynamicResource LobbyIdleTextDefault}"
+                 loc:Localizer.For="Player" />
     </Grid>
 </UserControl>

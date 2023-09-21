@@ -1,54 +1,38 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.ViewModels;
 
 using System;
-using System.Globalization;
-using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Fluxor;
-using log4net;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Monaco.UI.Common;
 using MVVM.Command;
 using Options;
 using Regions;
+using Services.IdleText;
 using Store;
 using Store.Bank;
 using Store.Chooser;
 using static Store.Banner.BannerSelectors;
-using static Store.Translate.TranslateSelectors;
 
 public class BannerViewModel : ObservableObject, INavigationAware, IActivatableViewModel
 {
-    private const double MaximumBlinkingIdleTextWidth = 500;
-    private const string IdleTextFamilyName = "Segoe UI";
-    private const int IdleTextFontSize = 32;
+    private readonly IIdleTextService _idleTextService;
     private readonly IState<BankState> _bankState;
     private readonly IState<ChooserState> _chooserState;
     private readonly IDispatcher _dispatcher;
     private readonly IOptions<BannerOptions> _bannerOptions;
     private readonly IOptions<LobbyOptions> _lobbyOptions;
     private string? _idleText;
-    private bool _isIdleTextShowing = true;
     private bool _isIdleTextPaused;
     private bool _isIdleTextScrolling;
     private bool _isScrollingDisplayMode;
-    private bool _useDefaultIdleText = true;
-    private string _jurisdictionIdleText;
-
-    //#TODO: REMOVE THESE ONCE ADDRESSED PROPERLY:
-    //#TODO: Get disabled state from Lobby
-    private readonly bool IsInStateLobbyStateDisabled = false;
-
-    //#TODO: Still need IsInLobby or will that always be true here?
-    private readonly bool IsInLobby = true;
+    private string? _jurisdictionIdleText;
 
     public BannerViewModel(
         IStore store,
         IDispatcher dispatcher,
+        IIdleTextService idleTextService,
         ILogger<BannerViewModel> logger,
         IState<BankState> bankState,
         IState<ChooserState> chooserState,
@@ -58,6 +42,7 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
         _bankState = bankState;
         _chooserState = chooserState;
         _dispatcher = dispatcher;
+        _idleTextService = idleTextService;
         _bannerOptions = bannerOptions;
         _lobbyOptions = lobbyOptions;
 
@@ -65,7 +50,7 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
             disposables =>
             {
                 store
-                    .Select(IdleTextSelector)
+                    .Select(CurrentIdleTextSelector)
                     .Subscribe(OnIdleTextUpdated)
                     .DisposeWith(disposables);
                 store
@@ -76,30 +61,22 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
                     .Select(IsScrollingSelector)
                     .Subscribe(OnIdleTextScrollingUpdated)
                     .DisposeWith(disposables);
-                store
-                    .Select(SelectActiveLocale)
-                    .Subscribe(code => OnLanguageChanged(code))
-                    .DisposeWith(disposables);
             });
         IdleTextScrollingCompletedCommand = new ActionCommand<object>(OnIdleTextScrollingCompleted);
     }
 
+    /// <summary>
+    ///     Idle text to show in lobby when user is not interacting with the game and not in attract mode
+    /// </summary>
     public string? IdleText
     {
         get => _idleText;
-        set
-        {
-            if (SetProperty(ref _idleText, value))
-            {
-                //IsScrollingDisplayMode = ShouldIdleTextScroll(_idleText);
-            }
-            OnPropertyChanged(nameof(IsIdleTextScrolling));
-            OnPropertyChanged(nameof(IsBlinkingIdleTextVisible));
-            OnPropertyChanged(nameof(IsScrollingIdleTextEnabled));
-            OnPropertyChanged(nameof(IsScrollingIdleTextVisible));
-        }
+        set => SetProperty(ref _idleText, value);
     }
 
+    /// <summary>
+    ///     Gets or sets the jurisdiction override idle text, from localized resource files
+    /// </summary>
     public string JurisdictionIdleText
     {
         get => _jurisdictionIdleText;
@@ -107,11 +84,14 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
         {
             if (SetProperty(ref _jurisdictionIdleText, value))
             {
-                _dispatcher.Dispatch(new BannerUpdateIdleTextAction(IdleTextType.Jurisdiction, value));
+                _idleTextService.SetJurisdictionIdleText(value);
             }
         }
     }
 
+    /// <summary>
+    ///     Whether or not the text is too long and should scroll rather than blink
+    /// </summary>
     public bool IsScrollingDisplayMode
     {
         get => _isScrollingDisplayMode;
@@ -120,18 +100,8 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
             SetProperty(ref _isScrollingDisplayMode, value);
             OnPropertyChanged(nameof(IsIdleTextScrolling));
             OnPropertyChanged(nameof(IsBlinkingIdleTextVisible));
-            OnPropertyChanged(nameof(IsScrollingIdleTextEnabled));
             OnPropertyChanged(nameof(IsScrollingIdleTextVisible));
         }
-    }
-
-    /// <summary>
-    ///     Gets or sets a value indicating whether the idle text is currently visible or not
-    /// </summary>
-    public bool IsIdleTextShowing
-    {
-        get => _isIdleTextShowing;
-        set => SetProperty(ref _isIdleTextShowing, value);
     }
 
     /// <summary>
@@ -153,60 +123,37 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
     }
 
     /// <summary>
-    ///     Gets or sets a value indicating whether to use default (localized) idle text or text
-    ///     provided by the service
-    /// </summary>
-    public bool UseDefaultIdleText
-    {
-        get => _useDefaultIdleText;
-        set => SetProperty(ref _useDefaultIdleText, value);
-    }
-
-    /// <summary>
     ///     Gets or sets action command that idle text scrolling completed event.
     /// </summary>
     public ICommand IdleTextScrollingCompletedCommand { get; set; }
 
+    /// <summary>
+    ///     Whether or not idle text should be shown (blinking version)
+    /// </summary>
     public bool IsBlinkingIdleTextVisible => !IsScrollingDisplayMode &&
                                              (!_bannerOptions.Value.HideIdleTextOnCashIn ||
                                               _bankState.Value.HasZeroCredits()) && !_chooserState.Value.IsTabView &&
                                              !_lobbyOptions.Value.MidKnightTheme;
 
-    public bool IsScrollingIdleTextEnabled => IsScrollingDisplayMode &&
+    /// <summary>
+    ///     Whether or not idle text should be shown (scrolling version)
+    /// </summary>
+    public bool IsScrollingIdleTextVisible => IsScrollingDisplayMode &&
                                               (!_bannerOptions.Value.HideIdleTextOnCashIn ||
                                                _bankState.Value.HasZeroCredits()) && !_chooserState.Value.IsTabView &&
                                               !_lobbyOptions.Value.MidKnightTheme;
 
-    public bool IsScrollingIdleTextVisible => IsScrollingIdleTextEnabled;
-
-    public bool IsIdleTextBlinking => IsInLobby && !IsInStateLobbyStateDisabled;
-
-    public bool StartIdleTextBlinking => IsBlinkingIdleTextVisible && IsIdleTextBlinking;
-
+    /// <summary>
+    ///     Activator
+    /// </summary>
     public ViewModelActivator Activator { get; } = new();
 
+    /// <summary>
+    ///     OnNavigateTo
+    /// </summary>
+    /// <param name="context"></param>
     public void OnNavigateTo(NavigationContext context)
     {
-    }
-
-    private static bool ShouldIdleTextScroll(string? idleText)
-    {
-        if (string.IsNullOrEmpty(idleText))
-        {
-            return false;
-        }
-
-        var formattedText = new FormattedText(
-            idleText,
-            CultureInfo.CurrentCulture,
-            FlowDirection.LeftToRight,
-            new Typeface(new FontFamily(IdleTextFamilyName), FontStyles.Normal, FontWeights.Bold, FontStretches.Normal),
-            IdleTextFontSize,
-            Brushes.Black,
-            new NumberSubstitution(),
-            1);
-
-        return new Size(formattedText.Width, formattedText.Height).Width > MaximumBlinkingIdleTextWidth;
     }
 
     private void OnIdleTextUpdated(string? text)
@@ -219,11 +166,6 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
         IsIdleTextPaused = isPaused;
     }
 
-    private void OnIdleTextShowingUpdated(bool isShowing)
-    {
-        IsIdleTextShowing = isShowing;
-    }
-
     private void OnIdleTextScrollingUpdated(bool isScrolling)
     {
         IsIdleTextScrolling = isScrolling;
@@ -232,10 +174,5 @@ public class BannerViewModel : ObservableObject, INavigationAware, IActivatableV
     private void OnIdleTextScrollingCompleted(object obj)
     {
         _dispatcher.Dispatch(new BannerUpdateIsScrollingAction(false));
-    }
-
-    private void OnLanguageChanged(string code)
-    {
-        //#TODO: Handle language change to get new idle text, either here or somewhere else.
     }
 }

@@ -1,10 +1,8 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Views;
 
-using System;
 using System.Windows;
 using System.Windows.Controls;
-using Aristocrat.Monaco.Gaming.Presentation.ViewModels;
-using Localization.Properties;
+using ViewModels;
 
 /// <summary>
 ///     Interaction logic for BannerView.xaml
@@ -26,7 +24,7 @@ public partial class BannerView
 
     private void IdleTextBlockBlinking_OnSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        double w = IdleTextBlockBlinking.ActualWidth;
+        var w = IdleTextBlockBlinking.ActualWidth;
         ((BannerViewModel)DataContext).IsScrollingDisplayMode = w > MaximumBlinkingIdleTextWidth;
     }
 }

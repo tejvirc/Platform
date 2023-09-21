@@ -47,16 +47,15 @@ public class BannerEffects
     }
 
     /// <summary>
-    ///     Initialized idle text fields from static properties or resources
+    ///     Initializes default idle text fields available at startup time
     /// </summary>
     /// <param name="dispatcher"></param>
     /// <returns></returns>
     [EffectMethod(typeof(StartupAction))]
     public async Task BannerStartup(IDispatcher dispatcher)
     {
-        var defaultIdleText = _idleTextService.GetDefaultIdleText();
-        var cabinetIdleText = _idleTextService.GetCabinetIdleText();
-        await dispatcher.DispatchAsync(new BannerUpdateIdleTextAction(IdleTextType.Default, defaultIdleText));
-        await dispatcher.DispatchAsync(new BannerUpdateIdleTextAction(IdleTextType.CabinetOrHost, cabinetIdleText));
+        _idleTextService.InitializeDefaults();
+        var idleText = _idleTextService.GetCurrentIdleText();
+        await dispatcher.DispatchAsync(new BannerUpdateIdleTextAction(idleText));
     }
 }

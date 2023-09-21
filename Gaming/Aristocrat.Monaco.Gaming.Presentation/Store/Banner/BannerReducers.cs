@@ -12,15 +12,12 @@ public static class BannerReducers
     /// </summary>
     /// <param name="state"></param>
     /// <param name="action"></param>
-    /// <returns>State with updated idle text fields, depending on the source</returns>
+    /// <returns>State with updated idle text to display</returns>
     [ReducerMethod]
-    public static BannerState Reduce(BannerState state, BannerUpdateIdleTextAction action) =>
-        state with
-        {
-            IdleTextFromCabinetOrHost = (action.TextType is IdleTextType.CabinetOrHost) ? action.IdleText : state.IdleTextFromCabinetOrHost,
-            IdleTextFromJurisdiction = (action.TextType is IdleTextType.Jurisdiction) ? action.IdleText : state.IdleTextFromJurisdiction,
-            IdleTextDefault = (action.TextType is IdleTextType.Default) ? action.IdleText : state.IdleTextDefault
-        };
+    public static BannerState Reduce(BannerState state, BannerUpdateIdleTextAction action)
+    {
+        return state with { CurrentIdleText = action.IdleText };
+    }
 
     /// <summary>
     ///     Handles updates to the IsScrolling state
@@ -29,9 +26,8 @@ public static class BannerReducers
     /// <param name="action"></param>
     /// <returns>State with updated IsScrolling status</returns>
     [ReducerMethod]
-    public static BannerState Reduce(BannerState state, BannerUpdateIsScrollingAction action) =>
-        state with
-        {
-            IsScrolling = action.IsScrolling
-        };
+    public static BannerState Reduce(BannerState state, BannerUpdateIsScrollingAction action)
+    {
+        return state with { IsScrolling = action.IsScrolling };
+    }
 }
