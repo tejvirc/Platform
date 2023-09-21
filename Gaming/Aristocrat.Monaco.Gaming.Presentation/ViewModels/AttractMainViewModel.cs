@@ -52,9 +52,9 @@ public class AttractMainViewModel : ObservableObject
 
     public string BottomAttractVideoPath { get { return _attractState.Value.BottomVideoPath ?? ""; } }
 
-    public bool IsBottomAttractVisible { get { return true || _attractState.Value.IsBottomPlaying; } }
+    public bool IsBottomAttractVisible { get { return _attractState.Value.IsActive; } }
 
-    public bool IsBottomAttractVideoPlaying { get { return true || _attractState.Value.IsBottomPlaying; } }
+    public bool IsBottomAttractVideoPlaying { get { return _attractState.Value.IsBottomPlaying; } }
 
     public void OnGameAttractVideoCompleted()
     {
