@@ -282,7 +282,7 @@ namespace Aristocrat.Monaco.Accounting.UI.ViewModels
                 }
                 if (SetProperty(ref _selectedBarcodeType, value))
                 {
-                    PropertiesManager.SetProperty(ApplicationConstants.BarCodeType, value.Value);
+                    PropertiesManager.SetProperty(ApplicationConstants.BarCodeType, value?.Value);
                 }
             }
         }

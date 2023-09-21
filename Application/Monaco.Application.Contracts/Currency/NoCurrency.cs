@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Application.Contracts.Currency
 {
     using System.Globalization;
+    using Contracts.Extensions;
     using Contracts.Localization;
     using Monaco.Localization.Properties;
 
@@ -23,12 +24,15 @@
         /// Constructor
         /// </summary>
         /// <param name="id">The currency id</param>
-        /// <param name="culture">The culture</param>
-        public NoCurrency(int id, CultureInfo culture) :
-            base(NoCurrencyCode, null, culture, null)
+        public NoCurrency(int id) :
+            base(NoCurrencyCode, null, null)
         {
             Id = id;
             IsoCode = NoCurrencyCode;
+
+            // Clone an culture info to set the currency format. No Currency doesn't have any specific culture associated
+            Culture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+            ConfigureNoCurrencyCultureFormat(Id);
         }
 
         /// <inheritdoc/>
@@ -41,7 +45,10 @@
         public override string MinorUnitSymbol => string.Empty;
 
         /// <inheritdoc/>
-        public override string CurrencyName => NoCurrencyName;
+        public override string CurrencyName => string.Empty;
+
+        /// <inheritdoc/>
+        public override string CurrencyEnglishName => NoCurrencyName;
 
         /// <summary>
         /// For No Currency, always display the amount in dollar format
@@ -61,8 +68,14 @@
             const decimal defaultDescriptionAmount = 1000.00M;
             string amountText = defaultDescriptionAmount.ToString($"C{Culture.NumberFormat.CurrencyDecimalDigits}", Culture);
 
-            string displayText = $"{NoCurrency.NoCurrencyName} {amountText} {decimalText}".Trim();
+            string displayText = $"{NoCurrencyName} {amountText} {decimalText}".Trim();
             return displayText;
+        }
+
+        private void ConfigureNoCurrencyCultureFormat(int id)
+        {
+            var format = NoCurrencyOptions.Get(id);
+            Culture.ApplyNoCurrencyFormat(format);
         }
     }
 }

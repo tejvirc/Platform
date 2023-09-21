@@ -11,6 +11,7 @@
     using Hardware.Contracts.NoteAcceptor;
     using Kernel;
     using Contracts.Currency;
+    using Contracts.Extensions;
 
     using CurrencyDefaultsCurrencyInfo = Localization.CurrencyDefaultsCurrencyInfo;
 
@@ -32,8 +33,6 @@
         {
             _serviceManager = ServiceManager.GetInstance();
             _currencyCultureProvider = currencyCultureProvider ?? throw new ArgumentNullException(nameof(currencyCultureProvider));
-
-            // This param is expected to be null when note acceptor is unchecked from Hardware Configuration page
             _noteAcceptor = noteAcceptor;
 
             if (SerialNumber.EditedValue == "0")
@@ -78,6 +77,7 @@
                 if (_selectedCurrency != value)
                 {
                     _selectedCurrency = value;
+                    CurrencyExtensions.Currency = _selectedCurrency;
                     OnPropertyChanged(nameof(SelectedCurrency));
                 }
             }

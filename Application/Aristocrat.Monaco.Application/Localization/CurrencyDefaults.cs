@@ -48,6 +48,10 @@ namespace Aristocrat.Monaco.Application.Localization {
         
         private string currencyCodeField;
         
+        private string nameField;
+        
+        private string displayNameField;
+        
         private CurrencyDefaultsCurrencyInfoFormat[] formatsField;
         
         /// <remarks/>
@@ -57,6 +61,26 @@ namespace Aristocrat.Monaco.Application.Localization {
             }
             set {
                 this.currencyCodeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string DisplayName {
+            get {
+                return this.displayNameField;
+            }
+            set {
+                this.displayNameField = value;
             }
         }
         
@@ -92,13 +116,17 @@ namespace Aristocrat.Monaco.Application.Localization {
         
         private string groupSeparatorField;
         
+        private string symbolField;
+        
+        private string majorUnitsField;
+        
+        private string majorUnitsPluralField;
+        
         private string minorUnitsField;
         
         private string minorUnitsPluralField;
         
         private string minorUnitSymbolField;
-        
-        private string symbolField;
         
         private int decimalDigitsField;
         
@@ -175,6 +203,36 @@ namespace Aristocrat.Monaco.Application.Localization {
         }
         
         /// <remarks/>
+        public string Symbol {
+            get {
+                return this.symbolField;
+            }
+            set {
+                this.symbolField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string MajorUnits {
+            get {
+                return this.majorUnitsField;
+            }
+            set {
+                this.majorUnitsField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string MajorUnitsPlural {
+            get {
+                return this.majorUnitsPluralField;
+            }
+            set {
+                this.majorUnitsPluralField = value;
+            }
+        }
+        
+        /// <remarks/>
         public string MinorUnits {
             get {
                 return this.minorUnitsField;
@@ -201,16 +259,6 @@ namespace Aristocrat.Monaco.Application.Localization {
             }
             set {
                 this.minorUnitSymbolField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Symbol {
-            get {
-                return this.symbolField;
-            }
-            set {
-                this.symbolField = value;
             }
         }
         

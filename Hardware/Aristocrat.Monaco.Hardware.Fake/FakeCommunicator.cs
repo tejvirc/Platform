@@ -592,12 +592,21 @@ namespace Aristocrat.Monaco.Hardware.Fake
         {
             var currencies = CurrencyLoader.GetCurrenciesFromWindows(Logger);
 
+            // supported currencies for Fake BNA include those from Windows system and defined in Monaco, ISOCurrencyCode enum
             foreach (var currency in currencies.Keys)
             {
                 if (Enum.IsDefined(typeof(ISOCurrencyCode), currency.ToUpper()) &&
                     !SupportedCurrencies.ContainsKey(currency))
                 {
                     SupportedCurrencies[currency] = _standardDenominations;
+                }
+            }
+
+            foreach (var code in Enum.GetNames(typeof(ISOCurrencyCode)))
+            {
+                if (!SupportedCurrencies.ContainsKey(code))
+                {
+                    SupportedCurrencies[code] = _standardDenominations;
                 }
             }
         }

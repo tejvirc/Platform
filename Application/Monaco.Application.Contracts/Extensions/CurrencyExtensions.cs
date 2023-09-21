@@ -44,7 +44,7 @@
         /// <summary>
         /// The configured currency
         /// </summary>
-        public static Currency Currency { get; set; }
+        public static ICurrency Currency { get; set; }
 
         /// <summary>
         ///     Gets the currency minor Units per major.
@@ -52,14 +52,9 @@
         public static decimal CurrencyMinorUnitsPerMajorUnit { get; private set; } = 100M;
 
         /// <summary>
-        ///     Gets currency minor symbol.
-        /// </summary>
-        public static string MinorUnitSymbol { get; private set; } = string.Empty;
-
-        /// <summary>
         ///     Gets the currency culture info.
         /// </summary>
-        public static CultureInfo CurrencyCultureInfo { get; private set; } = CultureInfo.CurrentCulture;
+        public static CultureInfo CurrencyCultureInfo => Currency?.Culture ?? throw new InvalidOperationException("Currency is not set");
 
         private static decimal MillicentDivisor => MillicentsPerCent * CurrencyMinorUnitsPerMajorUnit;
 
@@ -399,8 +394,6 @@
         /// <summary>
         ///     Set culture information for the currency string.
         /// </summary>
-        /// <param name="currencyCode">currency code</param>
-        /// <param name="cultureInfo">CultureInfo.</param>
         /// <param name="minorUnits">Minor currency units.</param>
         /// <param name="minorUnitsPlural">Minor currency units plural form.</param>
         /// <param name="pluralizeMajorUnits">Flag used to set the major units plural form.</param>
@@ -408,20 +401,16 @@
         /// <param name="minorUnitSymbol">Minor Unit Symbol</param>
         /// <returns>Dollars to millicents conversion</returns>
         public static long SetCultureInfo(
-            string currencyCode,
-            CultureInfo cultureInfo,
             string minorUnits = null,
             string minorUnitsPlural = null,
             bool pluralizeMajorUnits = false,
             bool pluralizeMinorUnits = false,
             string minorUnitSymbol = null)
         {
-            CurrencyCultureInfo = cultureInfo;
             CurrencyMinorUnitsPerMajorUnit = Convert.ToDecimal(
                 Math.Pow(
-                    cultureInfo.NumberFormat.NativeDigits.Length,
-                    cultureInfo.NumberFormat.CurrencyDecimalDigits));
-            MinorUnitSymbol = minorUnitSymbol ?? string.Empty;
+                    Currency.Culture.NumberFormat.NativeDigits.Length,
+                    Currency.Culture.NumberFormat.CurrencyDecimalDigits));
 
             RegionInfo region = null;
 
@@ -505,6 +494,11 @@
         {
             region ??= !string.IsNullOrEmpty(culture.Name) ? new RegionInfo(culture.Name) : null;
 
+            if (string.IsNullOrEmpty(isoCurrencyCode) && region != null)
+            {
+                isoCurrencyCode = region.ISOCurrencySymbol;
+            }
+
             return
                 $"{region?.CurrencyEnglishName} {isoCurrencyCode} {FormattedCurrencyString(DefaultDescriptionAmount, false, culture)}".Trim();
         }
@@ -526,6 +520,19 @@
             return
                 $"{region?.CurrencyEnglishName} {isoCurrencyCode} {FormattedCurrencyStringForOperator(DefaultDescriptionAmount)}".Trim();
         }
+        /// <summary>
+        /// Gets the formatted currency description for the specified region.
+        /// </summary>
+        /// <param name="culture">The culture.</param>
+        /// <param name="currency">The currency.</param>
+        /// <returns>The formatted description, which includes the currency's English name, ISO symbol, and formatted currency value.</returns>
+        public static string GetFormattedDescription(this CultureInfo culture, ICurrency currency)
+        {
+            return
+                $"{currency.CurrencyEnglishName} {currency.IsoCode} {FormattedCurrencyString(DefaultDescriptionAmount, false, currency.Culture)}".Trim();
+        }
+
+
         /// <summary>
         /// Apply no currency format on the culture
         /// </summary>
@@ -558,7 +565,7 @@
             bool change = configuration?.Currency?.AllowFormatToChange ?? false;
             if (change)
             {
-                CurrencyCultureInfo = culture;
+                Currency.Culture = culture;
             }
         }
     }

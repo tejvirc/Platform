@@ -115,7 +115,7 @@
 
             RegionInfo region = new RegionInfo(cultureName);
             CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
-            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture, null, null, true, true, minorUnitSymbol);
+            CurrencyExtensions.SetCultureInfo(null, null, true, true, minorUnitSymbol);
 
             MoqServiceManager.CreateAndAddService<ICabinetDetectionService>(MockBehavior.Loose);
             _target = new VoucherMetersPageViewModel();

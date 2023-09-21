@@ -35,7 +35,7 @@
             {
                 // Keep the minor unit separate from the cents value to be displayed in a separate TextPath
                 DenomText = cents.ToString();
-                DenomSymbol = CurrencyExtensions.MinorUnitSymbol;
+                DenomSymbol = CurrencyExtensions.Currency.MinorUnitSymbol;
             }
         }
 

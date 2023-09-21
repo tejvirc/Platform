@@ -405,7 +405,7 @@ namespace Aristocrat.Monaco.Gaming.Tests.Tickets
 
             RegionInfo region = new RegionInfo(cultureName);
             CurrencyExtensions.Currency = new Currency(region.ISOCurrencySymbol, region, culture, minorUnitSymbol);
-            CurrencyExtensions.SetCultureInfo(region.ISOCurrencySymbol, culture);
+            CurrencyExtensions.SetCultureInfo();
 
             // Mock properties
             var serialNumber = "123";

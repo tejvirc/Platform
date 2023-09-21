@@ -1,33 +1,23 @@
 ﻿namespace Aristocrat.Monaco.Application.Contracts.Currency
 {
+    using System;
+    using System.Drawing;
     using System.Globalization;
+    using Aristocrat.Monaco.Hardware.Contracts.NoteAcceptor;
+    using System.Text.RegularExpressions;
     using Extensions;
 
     /// <summary>
     /// Currency with its format
     /// </summary>
-    public class Currency
+    public class Currency : ICurrency
     {
+        private RegionInfo _region;
+
         /// <summary>
         /// The default value of currency multiplier
         /// </summary>
         public static readonly long DefaultCurrencyMultiplier = 1M.DollarsToMillicents();
-
-        /// <summary>
-        /// The display unit type
-        /// </summary>
-        public enum DenomDisplayUnitType
-        {
-            /// <summary>
-            /// Display denom in dollar
-            /// </summary>
-            Dollar = 0,
-            /// <summary>
-            /// Display denom in cent
-            /// </summary>
-            Cent = 1
-        };
-
 
         /// <summary>
         /// Constructor
@@ -40,9 +30,9 @@
         {
             IsoCode = isoCurrencyCode;
             MinorUnitSymbol = minorUnitSymbol;
-            Description = culture.GetFormattedDescription(isoCurrencyCode, region);
 
-            Culture = culture;
+            Culture = culture?.Clone() as CultureInfo;
+            _region = region;
         }
 
         /// <summary>
@@ -53,7 +43,13 @@
         /// <summary>
         /// Description of currency
         /// </summary>
-        public string Description { get; protected set; }
+        public virtual string Description
+        {
+            get
+            {
+                return Culture.GetFormattedDescription(IsoCode, _region);
+            }
+        }
 
         /// <summary>
         /// The currency symbol
@@ -63,28 +59,47 @@
         /// <summary>
         /// Minor unit symbol
         /// </summary>
-        public virtual string MinorUnitSymbol { get; }
+        public virtual string MinorUnitSymbol { get; protected set; }
 
         /// <summary>
         /// Culture used for the currency format
         /// </summary>
-        public CultureInfo Culture { get; protected set; }
+        public virtual CultureInfo Culture { get; set; }
 
         /// <summary>
-        /// The currency's english name
+        /// The currency's name
         /// </summary>
         public virtual string CurrencyName
         {
             get
             {
-                RegionInfo region = new RegionInfo(Culture.Name);
-                var currencyNameArray = region.CurrencyEnglishName.Split(' ');
+                var currencyNameArray = CurrencyEnglishName.Split(' ');
                 if (currencyNameArray.Length > 0)
                 {
                     return currencyNameArray[currencyNameArray.Length - 1];
                 }
 
                 return IsoCode;
+            }
+            protected set
+            {
+                throw new NotSupportedException($"{nameof(CurrencyName)} can not be set in Currency.");
+            }
+        }
+
+        /// <summary>
+        /// The currency's english name
+        /// </summary>
+        public virtual string CurrencyEnglishName
+        {
+            get
+            {
+                RegionInfo region = new RegionInfo(Culture.Name);
+                return region.EnglishName;
+            }
+            protected set
+            {
+                throw new NotSupportedException($"{nameof(CurrencyEnglishName)} can not be set in Currency.");
             }
         }
 
@@ -96,9 +111,18 @@
         /// <summary>
         ///     Gets Description with minor currency symbol of the current currency.
         /// </summary>
-        public virtual string DisplayName =>
-            string.IsNullOrEmpty(MinorUnitSymbol)
+        public virtual string DisplayName
+        {
+            get
+            {
+                return string.IsNullOrEmpty(MinorUnitSymbol)
                 ? $"{Description}"
                 : $"{Description} 10{MinorUnitSymbol}";
+            }
+            protected set
+            {
+                throw new NotSupportedException($"{nameof(DisplayName)} can not be set in Currency.");
+            }
+        }
     }
 }
