@@ -61,7 +61,7 @@
                     {
                         TotalWinAmount = outcomeDescription.Patterns.Where(KeepPattern).Sum(x => x.WinAmount),
                         FacadeKey = outcomeDescription.FacadeKey.ToString(),
-                        GameTitleId = (uint)outcome.GameId,
+                        GameTitleId = (uint)outcome.GameSetId,
                         Denomination = outcomeDescription.DenominationId,
                         GameOutcomeMeta = Any.Pack(bingoSingleGameOutcome),
                         StatusMessage = string.Empty,
@@ -75,7 +75,7 @@
                         ThemeId = outcomeDescription.ThemeId,
                         GameNumber = outcomeDescription.GameIndex,
                     };
-                Logger.Debug($"Adding outcome for game index {outcomeDescription.GameIndex}; Paytable ID is {paytableId}");
+                Logger.Debug($"Adding outcome for game index {singleGameOutcome.GameNumber}; Paytable ID is {paytableId}, GameTitleId={singleGameOutcome.GameTitleId}, Denomination={singleGameOutcome.Denomination}, BetAmount={singleGameOutcome.BetAmount}, PaidAmount={singleGameOutcome.PaidAmount}");
                 singleGameOutcomes.Add(singleGameOutcome);
             }
 

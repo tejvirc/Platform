@@ -65,6 +65,7 @@
             const long startCredits = 10000;
             const long endCredits = 9850;
             const string machineSerial = "Test Serial";
+            const uint gameTitleId = 321;
 
             var startTime = DateTime.UtcNow - TimeSpan.FromSeconds(5);
             var joinTime = DateTime.UtcNow;
@@ -76,7 +77,7 @@
             log.Setup(x => x.StartDateTime).Returns(startTime);
             log.Setup(x => x.TransactionId).Returns(gameTransactionId);
 
-            var outcome = new Outcome(1, 321, 456, OutcomeReference.Direct, OutcomeType.Standard, winAmount, 0, string.Empty, 123 ,0);
+            var outcome = new Outcome(1, gameTitleId, 456, OutcomeReference.Direct, OutcomeType.Standard, winAmount, 0, string.Empty, 123 ,0);
             log.Setup(x => x.Outcomes).Returns(new List<Outcome> { outcome });
 
             var bingoCard = new BingoCard(123456) { DaubedBits = 562, IsGameEndWin = false };
@@ -89,7 +90,7 @@
                 JoinBallIndex = 40,
                 Cards = new[] { bingoCard },
                 FacadeKey = 5678,
-                GameTitleId = 123,
+                GameTitleId = gameTitleId,
                 GameEndWinClaimAccepted = false,
                 GameEndWinEligibility = 0,
                 GameSerial = 1234,
