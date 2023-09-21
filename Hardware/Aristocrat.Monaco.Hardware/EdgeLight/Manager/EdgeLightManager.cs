@@ -331,7 +331,6 @@
 
         private void SetStripColor(IStrip strip, Color color, StripPriority priority)
         {
-            Logger.Debug($"SetStripColor({strip.StripId}, {color}, {priority})");
             _renderer.SetColor(strip.StripId, color, priority);
         }
 

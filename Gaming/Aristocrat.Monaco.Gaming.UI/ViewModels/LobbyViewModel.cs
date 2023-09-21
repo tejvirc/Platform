@@ -4683,7 +4683,6 @@ namespace Aristocrat.Monaco.Gaming.UI.ViewModels
         {
             lock (_edgeLightLock)
             {
-                Logger.Debug($"Current EdgeLightState:  {_currentEdgeLightState}");
                 EdgeLightState? newState;
 
                 if (ContainsAnyState(LobbyState.CashOut) && _lobbyStateManager.CashOutState != LobbyCashOutState.Undefined)

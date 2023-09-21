@@ -4,10 +4,12 @@
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
+    using System.Reflection;
     using Contracts;
     using Contracts.EdgeLight;
     using Hardware.Contracts.EdgeLighting;
     using Kernel;
+    using log4net;
 
     /// <summary>
     ///     The Class that maintains the different edge light states/conditions. (they are not states but rather conditions, as there
@@ -16,6 +18,8 @@
     /// </summary>
     public class EdgeLightingStateManager : IEdgeLightingStateManager, IService
     {
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private const int MaxChannelBrightness = 100;
 
         private static readonly IReadOnlyList<int> NonMainCabinetStripIds = new List<int>
@@ -169,7 +173,7 @@
                 {
                     EdgeLightState.AttractMode, edgeLightController =>
                     {
-                        Color attractColor = Color.FromName(propertiesManager.GetValue(ApplicationConstants.EdgeLightingAttractModeColorOverrideSelectionKey, "Transparent"));
+                        var attractColor = Color.FromName(propertiesManager.GetValue(ApplicationConstants.EdgeLightingAttractModeColorOverrideSelectionKey, "Transparent"));
                         var rendererId = edgeLightController.AddEdgeLightRenderer(
                             new SolidColorPatternParameters
                             {
@@ -193,6 +197,7 @@
         {
             lock (_lock)
             {
+                Logger.Debug($"SetState to {state}");
                 return !_stateHandlers.TryGetValue(state, out var func)
                     ? null
                     : func.Invoke(_edgeLightingController);

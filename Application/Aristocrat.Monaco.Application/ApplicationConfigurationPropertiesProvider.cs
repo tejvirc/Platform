@@ -92,8 +92,7 @@
             var barCodeType = configuration.BarcodeType;
             var validationLength = configuration.ValidationLength;
             var layoutType = configuration.LayoutType;
-            var attractModeColorOverride = configuration.EdgeLightConfiguration?.AttractModeColor ??
-                                            Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LightingOverrideTransparent);
+            var attractModeColorOverride = configuration.EdgeLightConfiguration?.AttractModeColor;
             var bottomEdgeLightingOn = false;
             var reserveServiceEnabled = configuration.ReserveService?.Enabled ?? true;
             var reserveServiceLockupPresent = false;
@@ -127,7 +126,7 @@
                 layoutType = propertiesManager.GetValue(ApplicationConstants.LayoutType, LayoutTypeOptions.ExtendedLayout);
                 attractModeColorOverride = propertiesManager.GetValue(
                     ApplicationConstants.EdgeLightingAttractModeColorOverrideSelectionKey,
-                    Localizer.For(CultureFor.Operator).GetString(ResourceKeys.LightingOverrideTransparent));
+                    ResourceKeys.LightingOverrideTransparent);
                 bottomEdgeLightingOn = propertiesManager.GetValue(ApplicationConstants.BottomEdgeLightingOnKey, false);
                 reserveServiceEnabled = propertiesManager.GetValue(ApplicationConstants.ReserveServiceEnabled, true);
                 reserveServiceLockupPresent = propertiesManager.GetValue(

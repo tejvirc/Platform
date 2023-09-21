@@ -108,6 +108,7 @@
 
         public IEdgeLightToken AddEdgeLightRenderer(PatternParameters forParameters)
         {
+            Logger.Debug($"AddEdgeLightRenderer: {forParameters.LogString}");
             var renderer = _rendererFactory.Invoke(forParameters) ??
                            throw new ArgumentException(nameof(forParameters));
             return AddEdgeLightRenderer(renderer);

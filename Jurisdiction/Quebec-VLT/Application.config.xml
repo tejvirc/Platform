@@ -11,6 +11,7 @@ as follows:
 -->
 <ApplicationConfiguration>
   <Currency Id="CAD"/>
+  <EdgeLightConfiguration AttractModeColor="Blue" />
   <HardMeterMonitor DisableOnError="true"/>
   <DisplayTopScreen Enabled="false"/>
   <NoteAcceptorMonitor DisableOnError="Queue" LockupOnStackerFull="true" />

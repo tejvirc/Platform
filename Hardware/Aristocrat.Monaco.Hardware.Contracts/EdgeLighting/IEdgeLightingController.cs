@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Drawing;
-    
+
     /// <summary>
     /// Defines runtime edge light parameters.
     /// </summary>
@@ -131,6 +131,11 @@
         ///     Strips on which the pattern will be rendered.
         /// </summary>
         public IReadOnlyCollection<int> Strips { get; set; } = AllStrips;
+
+        /// <summary>
+        ///     Gets a string representing this Parameters object for logging
+        /// </summary>
+        public virtual string LogString => GetType().Name;
     }
 
     /// <summary>
@@ -141,6 +146,9 @@
         /// <summary>
         /// </summary>
         public Color Color { get; set; } = Color.Blue;
+
+        /// <inheritdoc/>
+        public override string LogString => $"SolidColorPatternParameters: Color={Color}";
     }
 
     /// <summary>
@@ -169,6 +177,9 @@
         /// <summary>
         /// </summary>
         public int Delay { get; set; } = 100;
+
+        /// <inheritdoc/>
+        public override string LogString => $"ChaserPatternParameters: BackgroundColor={BackgroundColor}, ForegroundColor={ForegroundColor}, Delay={Delay}";
     }
 
     /// <summary>
@@ -190,6 +201,9 @@
         /// <summary>
         /// </summary>
         public int OffTime { get; set; } = 100;
+
+        /// <inheritdoc/>
+        public override string LogString => $"BlinkPatternParameters: OnColor={OnColor}, OffColor={OffColor}, OnTime={OnTime}, OffTime={OffTime}";
     }
 
     /// <summary>
@@ -211,7 +225,7 @@
         ///     StripOnUpdateFunction takes strip id and led count and returns strip led colors for the off time of the cycle.
         /// </summary>
         public Func<int, int, Color[]> StripOnUpdateFunction { get; set; }
-        
+
         /// <summary>
         ///     StripOffUpdateFunction takes strip id and led count and returns strip led colors for the off time of the cycle.
         /// </summary>
