@@ -1,11 +1,12 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store;
 
 using System;
+using System.Threading;
 using Cabinet.Contracts;
 using Gaming.Contracts.InfoBar;
 
 /// <summary>
-///     Causes the InfoBar to become visible and display a static message
+///     Causes the InfoBar to become visible and display a message
 /// </summary>
 /// <remarks>
 ///     Supports conformity to G2S Message Protocol v3.0, Appendix E, Section 4.2
@@ -46,7 +47,7 @@ public record InfoBarDisplayMessageAction
     }
 
     /// <summary>
-    ///     Initializes a new instance of the <see cref="InfoBarDisplayMessageAction" /> class.
+    ///     Initializes a new instance of the <see cref="InfoBarDisplayMessageAction" /> record.
     /// </summary>
     /// <param name="ownerId">The owner ID.</param>
     /// <param name="message">The message to display on the InfoBar.</param>
@@ -78,4 +79,6 @@ public record InfoBarDisplayMessageAction
     public InfoBarRegion Region { get; }
 
     public DisplayRole DisplayTarget { get; }
+
+    public CancellationToken Cts { get; }
 }

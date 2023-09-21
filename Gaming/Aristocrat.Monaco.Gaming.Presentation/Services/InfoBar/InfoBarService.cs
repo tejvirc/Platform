@@ -2,6 +2,7 @@
 
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Aristocrat.Cabinet.Contracts;
 using Aristocrat.Monaco.Gaming.Contracts.InfoBar;
@@ -35,13 +36,9 @@ public class InfoBarService : IInfoBarService
         _properties = properties;
     }
 
-    public async void ClearMessage(Guid ownerId, InfoBarRegion region)
+    public async Task ClearMessage(Guid ownerId, InfoBarRegion region)
     {
-        if (RegionHasTransientMessage(ownerId, region))
-        {
-            await CancelTransientMessage(ownerId, region);
-            ClearTransientMessageTimeout(ownerId, region);
-        }
+        await CancelAndClearTransientMessage(ownerId, region);
 
         //ClearMessage
         _infoBarState.Value.MessageDataSet.RemoveAll(m => m.OwnerId == ownerId && m.Region == region);
@@ -50,6 +47,71 @@ public class InfoBarService : IInfoBarService
             _logger.Log(LogLevel.Debug, $"Removed message owner={ownerId} region={region}; total={_infoBarState.Value.MessageDataSet.Count}");
             UpdateDisplay(region);
         }
+    }
+
+    public async Task DisplayTransientMessage(
+        Guid ownerId,
+        string message,
+        InfoBarRegion region,
+        InfoBarColor textColor,
+        InfoBarColor backgroundColor,
+        TimeSpan duration,
+        CancellationToken token = default)
+    {
+        await CancelAndClearTransientMessage(ownerId, region);
+
+        var messageData = DisplayMessage(ownerId, message, region, textColor, backgroundColor, duration.TotalSeconds, token);
+
+        if (duration.Seconds > 0) //Do this for Transient Message. Skip this for static message.
+        {
+            _logger.Log(LogLevel.Debug, $"Start transient task, duration={duration}");
+            var cts = new CancellationTokenSource();
+
+            // Create a composite token source that auto cancels if either of the 2 sources are canceled
+            using (var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(token, cts.Token))
+            {
+                var timeoutTask = Task.Delay(duration, linkedCts.Token);
+
+                messageData.TransientMessageTask = timeoutTask;
+                messageData.Cts = cts;
+
+                // Asynchronously wait for timer timeout
+                await timeoutTask;
+                _logger.Log(LogLevel.Debug, "Transient task ended naturally");
+
+                // Cleanup message and timeout state after timeout completes
+                await CancelAndClearTransientMessage(ownerId, region);
+            }
+        }
+    }
+
+    private async Task CancelAndClearTransientMessage(Guid ownerId, InfoBarRegion region)
+    {
+        if (RegionHasTransientMessage(ownerId, region))
+        {
+            await CancelTransientMessage(ownerId, region);
+            ClearTransientMessage(ownerId, region);
+        }
+    }
+
+    private InfoBarMessageData DisplayMessage(Guid ownerId, string message, InfoBarRegion region, InfoBarColor textColor, InfoBarColor backgroundColor, double duration, CancellationToken token)
+    {
+        var messageData = new InfoBarMessageData
+        {
+            OwnerId = ownerId,
+            Region = region,
+            TextColor = textColor,
+            BackgroundColor = backgroundColor,
+            Text = message,
+            Duration = duration
+        };
+
+        _infoBarState.Value.MessageDataSet.Add(messageData);
+
+        UpdateDisplay(region);
+        //Logger.Debug($"Added message owner={ownerId} region={region} message={message}; total={_infoBarState.Value.MessageDataSet.Count}");
+
+        return messageData;
     }
 
     private bool RegionHasTransientMessage(Guid ownerId, InfoBarRegion region)
@@ -91,7 +153,7 @@ public class InfoBarService : IInfoBarService
         return null;
     }
 
-    private void ClearTransientMessageTimeout(Guid ownerId, InfoBarRegion region)
+    private void ClearTransientMessage(Guid ownerId, InfoBarRegion region)
     {
         var firstTransientMessage = _infoBarState.Value.MessageDataSet.First(m => m.OwnerId == ownerId && m.Region == region && m.TransientMessageTask != null);
         if (firstTransientMessage == null)

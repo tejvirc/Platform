@@ -1,6 +1,7 @@
 ﻿namespace Aristocrat.Monaco.Gaming.Presentation.Store.InfoBar;
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Fluxor;
 using Microsoft.Extensions.Logging;
@@ -38,7 +39,34 @@ public class InfoBarEffects
         }
         catch (Exception ex)
         {
-            _infoBarEffectsLogger.Log(LogLevel.Debug, $"Error clearing message owner={action.OwnerId} region={action.Regions}.", ex);
+            _infoBarEffectsLogger.LogDebug($"Error clearing message owner={action.OwnerId} region={action.Regions}.", ex);
+        }
+
+        return tcs.Task;
+    }
+
+    [EffectMethod]
+    public Task Effect(InfoBarDisplayMessageAction action, IDispatcher dispatcher)
+    {
+        var tcs = new TaskCompletionSource<bool>();
+        try
+        {
+            _infoBarService.DisplayTransientMessage(action.OwnerId, action.Message, action.Region, action.TextColor, action.BackgroundColor, action.Duration, CancellationToken.None);
+
+            if (string.IsNullOrWhiteSpace(_infoBarState.Value.LeftRegionText) &&
+                string.IsNullOrWhiteSpace(_infoBarState.Value.CenterRegionText) &&
+                string.IsNullOrWhiteSpace(_infoBarState.Value.RightRegionText))
+            {
+                dispatcher.Dispatch(new InfoBarCloseAction(_infoBarState.Value.DisplayTarget));
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            _infoBarEffectsLogger.LogDebug("Transient message was canceled early");
+        }
+        catch (Exception ex)
+        {
+            _infoBarEffectsLogger.LogDebug($"Error displaying transient message owner={action.OwnerId} region={action.Region}.", ex);
         }
 
         return tcs.Task;

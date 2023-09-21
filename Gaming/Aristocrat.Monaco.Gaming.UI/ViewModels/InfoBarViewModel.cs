@@ -9,8 +9,8 @@
     using System.Windows;
     using Cabinet.Contracts;
     using Contracts.InfoBar;
-    using log4net;
     using Kernel;
+    using log4net;
     using MVVM;
     using MVVM.ViewModel;
 
