@@ -465,6 +465,19 @@
             return tempString;
         }
 
+        protected override void UpdateWarningMessage()
+        {
+            if (!(Printer?.Initialized ?? false) || !(Printer?.CanPrint ?? false))
+            {
+                TestWarningText = Localizer.For(CultureFor.Operator)
+                    .GetString(ResourceKeys.TestModeDisabledStatusDevice);
+            }
+            else
+            {
+                base.UpdateWarningMessage();
+            }
+        }
+
         private void SetPortNames()
         {
             if (Printer != null)
