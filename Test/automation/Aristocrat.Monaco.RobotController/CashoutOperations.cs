@@ -43,6 +43,12 @@
 
         public void Execute()
         {
+            if (_robotController.Config.Active.IntervalCashOut == 0)
+            {
+                _logger.Info("CashoutOperations is Disabled!", GetType().Name);
+                return;
+            }
+
             _logger.Info("CashoutOperations Has Been Initiated!", GetType().Name);
             SubscribeToEvents();
             _actionCashoutTimer = new Timer(
@@ -106,7 +112,6 @@
                 {
                     _robotController.UnBlockOtherOperations(RobotStateAndOperations.CashoutOperation);
                     _logger.Info($"TransferOutCompletedEvent Got Triggered! Game: [{_robotController.Config.CurrentGame}]", GetType().Name);
-                    _eventBus.Publish(new GameLoadRequestEvent());
                 });
             _eventBus.Subscribe<CashOutAbortedEvent>(this,
                 _ =>
