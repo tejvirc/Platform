@@ -76,6 +76,18 @@
             }
 
             RegisterEndpoint(_endpoint.Address.Uri, _certificate, _validator);
+
+
+#if !(DEBUG)
+            // This overrides the https binding, which somewhat satisfies a request by the operator see VLT-6118 for more info
+            var metadataBehavior = _app.GetRequiredService<ServiceMetadataBehavior>();
+            if (metadataBehavior != null && Address.IsSecure())
+            {
+                metadataBehavior.HttpGetEnabled = false;
+                metadataBehavior.HttpsGetEnabled = true;
+            }
+#endif
+
             _app.Start();
         }
 
@@ -133,7 +145,6 @@
         /// <inheritdoc />
         public void Close()
         {
-            //_serviceHost.Close();
             _app.StopAsync().GetAwaiter().GetResult();
         }
 
