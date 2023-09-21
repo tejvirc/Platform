@@ -38,7 +38,7 @@ public class InfoBarEffects
         }
         catch (Exception ex)
         {
-            _infoBarEffectsLogger.LogDebug(LogLevel.Debug, $"Error clearing message owner={e.OwnerId} region={e.Regions}.", ex));
+            _infoBarEffectsLogger.Log(LogLevel.Debug, $"Error clearing message owner={action.OwnerId} region={action.Regions}.", ex);
         }
 
         return tcs.Task;
