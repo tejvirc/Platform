@@ -20,7 +20,6 @@
         private readonly X509CertificateValidator _validator;
 
         private bool _disposed;
-        //private System.ServiceModel.ICommunicationObject _serviceHost;
         private IWcfApplicationRuntime _app;
 
         /// <summary>
@@ -76,23 +75,7 @@
                 throw new EndpointNotFoundException($"The client address {nameof(Address)} has not been specified.");
             }
 
-            //var serviceHost = new System.ServiceModel.ServiceHost(_service, Address);
-            //serviceHost.Description.Endpoints.Add(_endpoint);
-
             RegisterEndpoint(_endpoint.Address.Uri, _certificate, _validator);
-
-
-#if !(DEBUG)
-            // This overrides the https binding, which somewhat satisfies a request by the operator see VLT-6118 for more info
-            //var debugBehavior = serviceHost.Description.Behaviors.Find<ServiceDebugBehavior>();
-            var debugBehavior = _app.GetRequiredService<ServiceDebugBehavior>();
-            if (debugBehavior != null && Address.IsSecure())
-            {
-                debugBehavior.HttpHelpPageEnabled = false;
-                debugBehavior.HttpsHelpPageEnabled = true;
-            }
-#endif
-
             _app.Start();
         }
 
@@ -170,13 +153,10 @@
 
             if (disposing)
             {
-                //_serviceHost?.Close();
                 _app.DisposeAsync().GetAwaiter().GetResult();
             }
 
-            //_serviceHost = null;
             _app = null;
-
             _disposed = true;
         }
     }

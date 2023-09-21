@@ -6,11 +6,8 @@
     using System.Net;
     using System.Security.Authentication.ExtendedProtection;
     using System.ServiceModel;
-    //using System.ServiceModel.Channels;
-    //using CoreWCF;
     using CoreWCF.Channels;
     using System.Xml;
-    //using System.ServiceModel;
 
     /// <summary>
     ///     Utility methods for endpoints
@@ -52,7 +49,7 @@
                     ReaderQuotas = readerQuotas
                 });
 
-            TransportBindingElement bindingElement = null;
+            TransportBindingElement bindingElement;
 
             //PLANA: Some of the following features have been deprecated in CoreWCF.
             if (address.IsSecure())
@@ -60,48 +57,34 @@
                 bindingElement = new HttpsTransportBindingElement
                 {
                     RequireClientCertificate = !bypassCertificateValidation,
-                    //AllowCookies = false,
                     AuthenticationScheme = AuthenticationSchemes.Anonymous,
-                    //BypassProxyOnLocal = false,
-                    //DecompressionEnabled = true,
                     ExtendedProtectionPolicy = new ExtendedProtectionPolicy(
                         PolicyEnforcement.Always,
                         ProtectionScenario.TransportSelected,
                         null),
-                    //HostNameComparisonMode = HostNameComparisonMode.StrongWildcard,
                     KeepAliveEnabled = true,
                     ManualAddressing = false,
                     MaxBufferPoolSize = MaxBufferPoolSize,
                     MaxBufferSize = MaxBufferSize,
                     MaxReceivedMessageSize = MaxReceivedMessageSize,
-                    //MaxPendingAccepts = 0,
-                    //ProxyAuthenticationScheme = AuthenticationSchemes.Anonymous,
-                    TransferMode = CoreWCF.TransferMode.Buffered, //TransferMode.Buffered,
-                    //UseDefaultWebProxy = true
+                    TransferMode = CoreWCF.TransferMode.Buffered
                 };
             }
             else
             {
                 bindingElement = new HttpTransportBindingElement
                 {
-                    //AllowCookies = false,
                     AuthenticationScheme = AuthenticationSchemes.Anonymous,
-                    //BypassProxyOnLocal = false,
-                    //DecompressionEnabled = true,
                     ExtendedProtectionPolicy = new ExtendedProtectionPolicy(PolicyEnforcement.Never),
-                    //HostNameComparisonMode = HostNameComparisonMode.StrongWildcard,
                     KeepAliveEnabled = true,
                     ManualAddressing = false,
                     MaxBufferPoolSize = MaxBufferPoolSize,
                     MaxBufferSize = MaxBufferSize,
                     MaxReceivedMessageSize = MaxReceivedMessageSize,
-                    //MaxPendingAccepts = 0,
-                    //ProxyAuthenticationScheme = AuthenticationSchemes.Anonymous,
-                    TransferMode = CoreWCF.TransferMode.Buffered,
-                    //UseDefaultWebProxy = true
+                    TransferMode = CoreWCF.TransferMode.Buffered
                 };
             }
-            
+
             customBinding.Elements.Add(bindingElement);
 
             return customBinding;
@@ -176,10 +159,13 @@
         public static IPEndPoint CreateIPEndPoint(string endPoint)
         {
             // Strip the protocol
-            int i = endPoint.IndexOf("://");
-            if (i >= 0) endPoint = endPoint.Substring(i + 3);
+            var i = endPoint.IndexOf("://");
+            if (i >= 0)
+            {
+                endPoint = endPoint.Substring(i + 3);
+            }
 
-            string[] ep = endPoint.Split(':');
+            var ep = endPoint.Split(':');
             if (ep.Length < 2) throw new FormatException("Invalid endpoint format");
             IPAddress ip;
 
@@ -197,15 +183,16 @@
                     throw new FormatException("Invalid IP address");
                 }
             }
-            int port;
-            if (!int.TryParse(ep[ep.Length - 1], NumberStyles.None, NumberFormatInfo.CurrentInfo, out port))
+
+            var portString = ep[ep.Length - 1];
+            if (!int.TryParse(portString, NumberStyles.None, NumberFormatInfo.CurrentInfo, out var port))
             {
-                var portString = ep[ep.Length - 1];
                 if (!int.TryParse(portString.Remove(portString.Length - 1, 1), NumberStyles.None, NumberFormatInfo.CurrentInfo, out port))
                 {
                     throw new FormatException("Invalid port");
                 }
             }
+
             return new IPEndPoint(ip, port);
         }
 
@@ -216,7 +203,7 @@
         /// <returns>The key represented as a byte array</returns>
         public static byte[] EncryptorKeyStringToArray(string key)
         {
-            string[] bytes = key.Split(',');
+            var bytes = key.Split(',');
             return bytes.Select(b => byte.Parse(b)).ToArray();
         }
     }
