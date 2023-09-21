@@ -2,19 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Reflection;
-    using System.Text;
-    using System.Threading.Tasks;
     using Aristocrat.Monaco.Application.Contracts;
-    using Aristocrat.Monaco.Gaming.Contracts.Progressives.Linked;
-    using Aristocrat.Monaco.Gaming.Contracts.Progressives;
     using Kernel;
     using log4net;
-    using Aristocrat.Monaco.G2S.Common.Events;
     using Aristocrat.G2S.Client;
     using Aristocrat.G2S.Client.Devices;
     using Aristocrat.G2S.Protocol.v21;
+    using Handlers;
 
     public class AnalyticsService : IAnalyticsService, IService
     {
@@ -24,13 +19,16 @@
         private readonly IEventBus _eventBus;
 
         private bool _disposed;
+        private readonly ICommandBuilder<IAnalyticsDevice, track> _trackCommandBuilder;
 
         public AnalyticsService(
             IG2SEgm egm,
-            IEventBus eventBus)
+            IEventBus eventBus,
+            ICommandBuilder<IAnalyticsDevice, track> trackCommandBuilder)
         {
             _egm = egm ?? throw new ArgumentNullException(nameof(egm));
             _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _trackCommandBuilder = trackCommandBuilder ?? throw new ArgumentNullException(nameof(trackCommandBuilder));
 
             SubscribeEvents();
         }
@@ -85,12 +83,12 @@
         {
             var device = _egm.GetDevice<IAnalyticsDevice>();
 
-            var command = BuildTrackCommand(evt.Action, evt.Category, evt.Traits);
+            var command = BuildTrackCommand(device, evt.Action, evt.Category, evt.Traits);
 
             device.SendTrack(command);
         }
 
-        private static track BuildTrackCommand(string action, string category, string traits)
+        private track BuildTrackCommand(IAnalyticsDevice device, string action, string category, string traits)
         {
             var command = new track
             {
@@ -98,7 +96,8 @@
                 category = category,
                 traits = traits
             };
-            //TODO: call command builder when exists
+
+            _trackCommandBuilder.Build(device, command);
             return command;
         }
     }
