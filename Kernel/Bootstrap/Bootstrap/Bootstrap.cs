@@ -177,16 +177,13 @@
             GlobalContext.Properties["AssemblyInfo.Version"] = GetVersion();
             GlobalContext.Properties["Runtime.Version"] = RuntimeInformation.FrameworkDescription;
 
-            // XmlConfigurator.Configure(loggingConfig);
-
-            ILoggerRepository loggerRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            var loggerRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(loggerRepository, loggingConfig);
         }
 
         private static int InternalStart(string[] args)
         {
             var bootstrap = new Bootstrap();
-
             return bootstrap.Start(args);
         }
 
