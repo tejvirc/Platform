@@ -68,15 +68,11 @@
         }
 
 		public bool IsConnected => StateIsConnected(_channel?.State);
-		
-        public virtual GrpcChannel CreateChannel()
+
+        public GrpcChannel CreateChannel()
         {
             var configuration = ConfigurationProvider.CreateConfiguration();
-            var credentials = configuration.Certificates.Any()
-                ? new SslCredentials(
-                    string.Join(Environment.NewLine, configuration.Certificates.Select(x => x.ConvertToPem())))
-                : ChannelCredentials.Insecure;
-            return GrpcChannel.ForAddress(configuration.Address, new GrpcChannelOptions() { Credentials = credentials });
+            return GrpcChannel.ForAddress(configuration.Address);
         }
 
         public abstract TClientApi CreateClient(CallInvoker callInvoker);

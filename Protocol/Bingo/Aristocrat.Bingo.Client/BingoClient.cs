@@ -2,7 +2,6 @@
 {
     using Configuration;
     using Grpc.Core;
-    using Grpc.Net.Client;
     using log4net;
     using Messages.Interceptor;
     using System.Reflection;
