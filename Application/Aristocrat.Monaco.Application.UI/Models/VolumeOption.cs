@@ -10,7 +10,7 @@
     [CLSCompliant(false)]
     public class VolumeOption : ObservableObject
     {
-        public VolumeOption(byte level,string description)
+        public VolumeOption(byte level, string description)
         {
             Level = level;
             Description = description;
