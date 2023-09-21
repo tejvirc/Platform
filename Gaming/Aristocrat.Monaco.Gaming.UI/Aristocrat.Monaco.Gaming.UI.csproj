@@ -80,7 +80,7 @@
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="CefSharp.BrowserSubprocess.deps.json">
+    <None Update="CefSharp.BrowserSubprocess.deps.json" CopyToPublishDirectory="Never">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
