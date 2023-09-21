@@ -266,5 +266,4 @@
     <sys:String x:Key="VBD_Helix_InsertMoney">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_InsertMoney_FR.bk2</sys:String>
     <sys:String x:Key="VBD_Marsx_ChooseGame">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_ChooseGame_FR.bk2</sys:String>
     <sys:String x:Key="VBD_Marsx_InsertMoney">../jurisdiction/Quebec-VLT/ui/Videos/French/VBD_InsertMoney_FR.bk2</sys:String>
-    <sys:String x:Key="LobbyIdleTextDefault">Drink sil vous plait vvvvvvvvvvvvvvv sssssssssss xxxxxxxxxxxxxxx yyyyyyyyyyyyyyyyyyyyy dddddddddddddddddddddddd jjjjjjjjjjjjjjjjjjjjj</sys:String>
 </ResourceDictionary>
