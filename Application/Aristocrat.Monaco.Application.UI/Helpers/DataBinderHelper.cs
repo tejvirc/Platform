@@ -15,19 +15,18 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
 
     public sealed class DataBinderHelper
     {
+        private const string InvalidIndexedExpr = "DataBinding: '{0}' is not a valid indexed expression.";
+        private const string NoIndexedAccessor = "DataBinding: '{0}' does not allow indexed access.";
+        private const string PropNotFound = "DataBinding: '{0}' does not contain a property with the name '{1}'.";
 
         private static readonly char[] expressionPartSeparator = new char[] { '.' };
         private static readonly char[] indexExprStartChars = new char[] { '[', '(' };
         private static readonly char[] indexExprEndChars = new char[] { ']', ')' };
-        private const string DataBinder_Invalid_Indexed_Expr = "DataBinding: '{0}' is not a valid indexed expression.";
-        private const string DataBinder_No_Indexed_Accessor = "DataBinding: '{0}' does not allow indexed access.";
-        private const string DataBinder_Prop_Not_Found = "DataBinding: '{0}' does not contain a property with the name '{1}'.";
-        ///  
-        //
+
+        ///
         public DataBinderHelper()
         {
         }
-
 
         /// 
         ///    Evaluates data binding expressions at runtime. While
@@ -155,7 +154,7 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
             }
             else
             {
-                throw new Exception(GetString(DataBinder_Prop_Not_Found, container.GetType().FullName, propName));
+                throw new Exception(GetString(PropNotFound, container.GetType().FullName, propName));
             }
 
             return prop;
@@ -251,7 +250,7 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
 
             if (indexValue == null)
             {
-                throw new ArgumentException(GetString(DataBinder_Invalid_Indexed_Expr, expr));
+                throw new ArgumentException(GetString(InvalidIndexedExpr, expr));
             }
 
             object collectionProp = null;
@@ -285,7 +284,7 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
                     }
                     else
                     {
-                        throw new ArgumentException(GetString(DataBinder_No_Indexed_Accessor, collectionProp.GetType().FullName));
+                        throw new ArgumentException(GetString(NoIndexedAccessor, collectionProp.GetType().FullName));
                     }
                 }
             }
@@ -380,12 +379,7 @@ namespace Aristocrat.Monaco.Application.UI.Helpers
 
         private static string GetString(string name, params object[] args)
         {
-            return GetString(CultureInfo.InvariantCulture, name, args);
-        }
-
-        private static string GetString(CultureInfo culture, string name, params object[] args)
-        {
-            return string.Format(culture, name, args);
+            return string.Format(CultureInfo.InvariantCulture, name, args);
         }
     }
 }
