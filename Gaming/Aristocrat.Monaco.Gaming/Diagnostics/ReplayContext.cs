@@ -27,7 +27,7 @@
             if(!CurrencyExtensions.CurrencyCultureInfo.Name.ToLowerInvariant().Equals(Arguments.LocaleCode.ToLowerInvariant()))
             {
                 CultureInfo.CurrentCulture = new CultureInfo(Arguments.LocaleCode);
-                CurrencyExtensions.UpdateCurrencyCulture();
+                CurrencyExtensions.UpdateCurrencyCulture(CultureInfo.CurrentCulture);
             }
 
             var parameters = new Dictionary<string, string>
