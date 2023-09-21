@@ -346,7 +346,30 @@
                     status.ReelId,
                     addValueFactory: _ =>
                     {
-                        ReelConnected?.Invoke(this, new ReelEventArgs(status.ReelId));
+                        if (status.Connected)
+                        {
+                            ReelConnected?.Invoke(this, new ReelEventArgs(status.ReelId));
+                        }
+                        else
+                        {
+                            ReelDisconnected?.Invoke(this, new ReelEventArgs(status.ReelId));
+                        }
+
+                        var newFaults = ReelFaults.None;
+
+                        foreach (var (condition, fault) in ReelFaultPredicates)
+                        {
+                            if (condition(status))
+                            {
+                                newFaults |= fault;
+                            }
+                        }
+
+                        if (newFaults != ReelFaults.None)
+                        {
+                            FaultOccurred?.Invoke(this, new ReelFaultedEventArgs(newFaults, status.ReelId));
+                        }
+
                         return status;
                     },
                     updateValueFactory: (_, currentStatus) =>

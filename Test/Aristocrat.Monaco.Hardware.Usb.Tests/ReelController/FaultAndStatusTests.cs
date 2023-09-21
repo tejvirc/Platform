@@ -52,44 +52,110 @@
         [TestMethod]
         public async Task ReelStatusConnectedTest()
         {
-            var reelId = 1;
-            var reelConnected = false;
-            var inFault = false;
-            _communicator.Setup(x => x.HomeReel(1, 1, true))
+            var connectedCalled = false;
+            var disconnectedCalled = false;
+            var faultCalled = false;
+
+            var reelStatus = new ReelStatus()
+            {
+                Connected = true,
+                ReelId = 1
+            };
+
+            _communicator
+                .Setup(x => x.HomeReel(1, 1, true))
                 .Returns(Task.FromResult(true))
-                .Raises(x => x.ReelStatusReceived += null, new ReelStatusReceivedEventArgs(new ReelStatus { Connected = true, ReelId = reelId }));
+                .Raises(x => x.ReelStatusReceived += null, () => new ReelStatusReceivedEventArgs(reelStatus));
 
             _communicator.Setup(x => x.HomeReel(2, 2, true))
                 .Returns(Task.FromResult(true))
-                .Raises(x => x.ReelStatusReceived += null, new ReelStatusReceivedEventArgs(new ReelStatus { Connected = false, IdleUnknown = true, ReelId = reelId }));
+                .Raises(x => x.ReelStatusReceived += null, () => new ReelStatusReceivedEventArgs(reelStatus));
 
             var controller = new RelmReelController();
-            controller.ReelConnected += delegate { reelConnected = true; };
-            controller.ReelDisconnected += delegate { reelConnected = false; };
-            controller.FaultOccurred += delegate { inFault = true; };
-            controller.FaultCleared += delegate { inFault = false; };
+            controller.ReelConnected += delegate { connectedCalled = true; };
+            controller.ReelDisconnected += delegate { disconnectedCalled = true; };
+            controller.FaultOccurred += delegate { faultCalled = true; };
             await controller.Initialize(_communicator.Object);
 
+            ResetFlags();
             await controller.HomeReel(1, 1);
-            Assert.IsTrue(reelConnected);
-            Assert.IsFalse(inFault);
-            Assert.AreEqual(reelId, controller.ReelStatuses.First().Value.ReelId);
-            Assert.AreEqual(reelConnected, controller.ReelStatuses.First().Value.Connected);
-            Assert.IsFalse(controller.ReelStatuses.First().Value.IdleUnknown);
+            Assert.IsTrue(connectedCalled);
+            Assert.IsFalse(disconnectedCalled);
+            Assert.IsFalse(faultCalled);
+            Assert.AreEqual(reelStatus.ReelId, controller.ReelStatuses[reelStatus.ReelId].ReelId);
+            Assert.AreEqual(reelStatus.Connected, controller.ReelStatuses[reelStatus.ReelId].Connected);
+            Assert.AreEqual(reelStatus.IdleUnknown, controller.ReelStatuses[reelStatus.ReelId].IdleUnknown);
 
+            reelStatus = new ReelStatus
+            {
+                Connected = false,
+                IdleUnknown = true,
+                ReelId = 2
+            };
+
+            ResetFlags();
             await controller.HomeReel(2, 2);
-            Assert.IsFalse(reelConnected);
-            Assert.IsTrue(inFault);
-            Assert.AreEqual(reelId, controller.ReelStatuses.First().Value.ReelId);
-            Assert.AreEqual(reelConnected, controller.ReelStatuses.First().Value.Connected);
-            Assert.IsTrue(controller.ReelStatuses.First().Value.IdleUnknown);
+            Assert.IsFalse(connectedCalled);
+            Assert.IsTrue(disconnectedCalled);
+            Assert.IsTrue(faultCalled);
+            Assert.AreEqual(reelStatus.ReelId, controller.ReelStatuses[reelStatus.ReelId].ReelId);
+            Assert.AreEqual(reelStatus.Connected, controller.ReelStatuses[reelStatus.ReelId].Connected);
+            Assert.AreEqual(reelStatus.IdleUnknown, controller.ReelStatuses[reelStatus.ReelId].IdleUnknown);
 
+            reelStatus = new ReelStatus
+            {
+                Connected = false,
+                ReelId = 1
+            };
+
+            ResetFlags();
             await controller.HomeReel(1, 1);
-            Assert.IsTrue(reelConnected);
-            Assert.IsFalse(inFault);
-            Assert.AreEqual(reelId, controller.ReelStatuses.First().Value.ReelId);
-            Assert.AreEqual(reelConnected, controller.ReelStatuses.First().Value.Connected);
-            Assert.IsFalse(controller.ReelStatuses.First().Value.IdleUnknown);
+            Assert.IsFalse(connectedCalled);
+            Assert.IsTrue(disconnectedCalled);
+            Assert.IsFalse(faultCalled);
+            Assert.AreEqual(reelStatus.ReelId, controller.ReelStatuses[reelStatus.ReelId].ReelId);
+            Assert.AreEqual(reelStatus.Connected, controller.ReelStatuses[reelStatus.ReelId].Connected);
+            Assert.AreEqual(reelStatus.IdleUnknown, controller.ReelStatuses[reelStatus.ReelId].IdleUnknown);
+
+            reelStatus = new ReelStatus
+            {
+                Connected = true,
+                ReelTampered = true,
+                ReelId = 1
+            };
+
+            ResetFlags();
+            await controller.HomeReel(1, 1);
+            Assert.IsTrue(connectedCalled);
+            Assert.IsFalse(disconnectedCalled);
+            Assert.IsTrue(faultCalled);
+            Assert.AreEqual(reelStatus.ReelId, controller.ReelStatuses[reelStatus.ReelId].ReelId);
+            Assert.AreEqual(reelStatus.Connected, controller.ReelStatuses[reelStatus.ReelId].Connected);
+            Assert.AreEqual(reelStatus.IdleUnknown, controller.ReelStatuses[reelStatus.ReelId].IdleUnknown);
+
+            reelStatus = new ReelStatus
+            {
+                Connected = true,
+                ReelTampered = false,
+                ReelId = 1
+            };
+
+            ResetFlags();
+            await controller.HomeReel(1, 1);
+            Assert.IsFalse(connectedCalled);
+            Assert.IsFalse(disconnectedCalled);
+            Assert.IsFalse(faultCalled);
+            Assert.AreEqual(reelStatus.ReelId, controller.ReelStatuses[reelStatus.ReelId].ReelId);
+            Assert.AreEqual(reelStatus.Connected, controller.ReelStatuses[reelStatus.ReelId].Connected);
+            Assert.AreEqual(reelStatus.IdleUnknown, controller.ReelStatuses[reelStatus.ReelId].IdleUnknown);
+
+
+            void ResetFlags()
+            {
+                connectedCalled = false;
+                disconnectedCalled = false;
+                faultCalled = false;
+            }
         }
 
         [TestMethod]
