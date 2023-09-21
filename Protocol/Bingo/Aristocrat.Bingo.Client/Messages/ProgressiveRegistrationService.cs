@@ -87,8 +87,8 @@
             var configurationFailed = false;
             foreach (var game in message.Games)
             {
-                if (!result.ProgressiveLevels.Select(x => x.GameTitleId == game.GameTitleId &&
-                                                          x.Denomination == game.Denomination).Any())
+                if (!result.ProgressiveLevels.Any(x => x.GameTitleId == game.GameTitleId &&
+                                                          x.Denomination == game.Denomination))
                 {
                     configurationFailed = true;
                 }
