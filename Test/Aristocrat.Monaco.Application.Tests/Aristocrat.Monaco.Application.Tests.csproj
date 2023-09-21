@@ -62,7 +62,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.0-beta0045"/>
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.0" />
     <PackageReference Include="coverlet.msbuild" Version="3.1.0" PrivateAssets="All" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />

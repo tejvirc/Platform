@@ -55,7 +55,7 @@
     <ProjectReference Include="..\Aristocrat.Monaco.G2S\Aristocrat.Monaco.G2S.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aristocrat.G2S" Version="5.0.0-beta0009" />
+    <PackageReference Include="Aristocrat.G2S" Version="5.0.0" />
     <PackageReference Include="Aristocrat.Extensions.CommunityToolkit" Version="0.1.8" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="SimpleInjector" Version="5.4.0" />

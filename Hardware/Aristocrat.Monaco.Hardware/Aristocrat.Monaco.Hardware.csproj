@@ -137,17 +137,17 @@
   <ItemGroup>
     <PackageReference Include="Aristocrat.SQLitePCLRaw.bundle_e_sqlcipher" Version="2.1.4" />
     <PackageReference Include="Aristocrat.Microsoft.Data.Sqlite.Core" Version="6.0.18" />
-    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.0-beta0045"/>
-    <PackageReference Include="Aristocrat.Fmod" Version="2.0.0-beta0004" />
+    <PackageReference Include="Aristocrat.Cabinet" Version="2.0.0" />
+    <PackageReference Include="Aristocrat.Fmod" Version="2.0.0" />
     <PackageReference Include="log4net" Version="2.0.13" />
-    <PackageReference Include="Aristocrat.SmartCard" Version="2.0.0-beta0001" />
+    <PackageReference Include="Aristocrat.SmartCard" Version="2.0.0" />
     <PackageReference Include="Portable.BouncyCastle" Version="1.8.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Stateless" Version="4.0.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Mono.Addins" Version="1.4.1" />
     <PackageReference Include="Mono.Addins.CecilReflector" Version="1.4.1" />
-    <PackageReference Include="Aristocrat.NativeInterop" Version="2.0.0-beta0001" />
+    <PackageReference Include="Aristocrat.NativeInterop" Version="2.0.0" />
     <PackageReference Include="System.IO.Ports" Version="6.0.0" />
   </ItemGroup>
 </Project>

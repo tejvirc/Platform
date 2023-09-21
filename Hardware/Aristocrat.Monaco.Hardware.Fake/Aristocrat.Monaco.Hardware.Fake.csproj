@@ -31,7 +31,7 @@
   <ItemGroup>
     <PackageReference Include="Aristocrat.Simulation.RelmReels" Version="0.1.52" />
     <PackageReference Include="Aristocrat.Extensions.CommunityToolkit" Version="0.1.8" />
-    <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="2.0.1-beta0003" />
+    <PackageReference Include="Aristocrat.Simulation.HarkeyReels" Version="2.0.0" />
     <PackageReference Include="log4net" Version="2.0.13" />
   </ItemGroup>
   <ItemGroup>
