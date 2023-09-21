@@ -45,6 +45,8 @@
         private readonly ILobbyStateManager _lobbyStateManager;
         private readonly PlayerMenuPopupViewModel _playerMenuPopup;
         private readonly IPlayerInfoDisplayManager _playerInfoDisplayManager;
+        private readonly IGameHistory _gameHistory;
+        private readonly IGamePlayState _gameState;
 
         private MessageOverlayState _messageOverlayState;
         private bool _isLockupMessageVisible;
@@ -64,7 +66,9 @@
                 ServiceManager.GetInstance().TryGetService<IContainerService>(),
                 ServiceManager.GetInstance().TryGetService<IPropertiesManager>(),
                 ServiceManager.GetInstance().TryGetService<ITransferOutHandler>(),
-                ServiceManager.GetInstance().TryGetService<ISystemDisableManager>())
+                ServiceManager.GetInstance().TryGetService<ISystemDisableManager>(),
+                ServiceManager.GetInstance().TryGetService<IGameHistory>(),
+                ServiceManager.GetInstance().TryGetService<IGamePlayState>())
         {
             _playerMenuPopup = playerMenuPopup;
             _playerInfoDisplayManager = playerInfoDisplayManager;
@@ -76,7 +80,9 @@
             IContainerService containerService,
             IPropertiesManager properties,
             ITransferOutHandler transferOutHandler,
-            ISystemDisableManager systemDisableManager)
+            ISystemDisableManager systemDisableManager,
+            IGameHistory gameHistory,
+            IGamePlayState gameState)
         {
             if (containerService == null)
             {
@@ -88,6 +94,8 @@
             _properties = properties ?? throw new ArgumentNullException(nameof(properties));
             _transferOutHandler = transferOutHandler ?? throw new ArgumentNullException(nameof(transferOutHandler));
             _systemDisableManager = systemDisableManager ?? throw new ArgumentNullException(nameof(systemDisableManager));
+            _gameHistory = gameHistory ?? throw new ArgumentNullException(nameof(gameHistory));
+            _gameState = gameState ?? throw new ArgumentNullException(nameof(gameState));
 
             ReserveOverlayViewModel = new ReserveOverlayViewModel();
 
@@ -466,9 +474,11 @@
         {
             var overlayMsg = new StringBuilder();
 
-            var messages = HardErrorMessages.ToArray();
+            var messages = !_gameState.Idle || _gameHistory.IsRecoveryNeeded
+                ? HardErrorMessages.Where(o => o.Value.Priority == DisplayableMessagePriority.Immediate).ToList()
+                : HardErrorMessages.ToList();
 
-            //Stop gap solution that will be refactored soon for unique displayablemessage guids
+            // Stop gap solution that will be refactored soon for unique displayablemessage guids
             foreach (var message in messages.GroupBy(o => o.Value.Message).Select(o => o.First()))
             {
                 overlayMsg.AppendLine(ResolveDisplayableMessageText(message.Value));
